@@ -33,7 +33,10 @@ namespace Huobi.Net
                     LogVerbosity = defaultOptions.LogVerbosity,
                     BaseAddress = defaultOptions.BaseAddress,
                     LogWriters = defaultOptions.LogWriters,
-                    Proxy = defaultOptions.Proxy
+                    Proxy = defaultOptions.Proxy,
+                    BaseAddressAuthenticated = defaultOptions.BaseAddressAuthenticated,
+                    ReconnectInterval = defaultOptions.ReconnectInterval,
+                    SocketResponseTimeout = defaultOptions.SocketResponseTimeout
                 };
 
                 if (defaultOptions.ApiCredentials != null)
@@ -68,7 +71,7 @@ namespace Huobi.Net
         #endregion
 
         #region methods
-        public void Configure(HuobiSocketClientOptions options)
+        private void Configure(HuobiSocketClientOptions options)
         {
             baseAddressAuthenticated = options.BaseAddressAuthenticated;
             socketResponseTimeout = (int)Math.Round(options.SocketResponseTimeout.TotalMilliseconds);

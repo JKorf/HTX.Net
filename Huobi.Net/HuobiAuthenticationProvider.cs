@@ -35,7 +35,7 @@ namespace Huobi.Net
                 { "Timestamp", DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm:ss") }
             };
 
-            if (method == "GET")
+            if (method == Constants.GetMethod)
                 foreach (var kvp in parameters)
                     signParameters.Add(kvp.Key, kvp.Value);
 
@@ -51,7 +51,7 @@ namespace Huobi.Net
             var signBytes = encryptor.ComputeHash(Encoding.UTF8.GetBytes(signData));
             signParameters.Add("Signature", Convert.ToBase64String(signBytes));
             
-            if (method != "GET")
+            if (method != Constants.GetMethod)
                 foreach (var kvp in parameters)
                     signParameters.Add(kvp.Key, kvp.Value);
 

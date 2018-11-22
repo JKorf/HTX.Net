@@ -102,13 +102,31 @@ namespace Huobi.Net
             SetAuthenticationProvider(new HuobiAuthenticationProvider(new ApiCredentials(apiKey, apiSecret)));
         }
 
+        /// <summary>
+        /// Synchronized version of the <see cref="GetMarketTickersAsync"/> method
+        /// </summary>
+        /// <returns></returns>
         public CallResult<HuobiTimestampResponse<List<HuobiMarketTick>>> GetMarketTickers() => GetMarketTickersAsync().Result;
+        /// <summary>
+        /// Gets the latest ticker for all markets
+        /// </summary>
+        /// <returns></returns>
         public async Task<CallResult<HuobiTimestampResponse<List<HuobiMarketTick>>>> GetMarketTickersAsync()
         {
             return GetResult(await ExecuteRequest<HuobiTimestampResponse<List<HuobiMarketTick>>>(GetUrl(MarketTickerEndpoint)));            
         }
 
+        /// <summary>
+        /// Synchronized version of the <see cref="GetMarketTickerMergedAsync"/> method
+        /// </summary>
+        /// <returns></returns>
         public CallResult<HuobiChannelResponse<HuobiMarketTickMerged>> GetMarketTickerMerged(string symbol) => GetMarketTickerMergedAsync(symbol).Result;
+
+        /// <summary>
+        /// Gets the ticker, including the best bid / best ask for a symbol
+        /// </summary>
+        /// <param name="symbol">The symbol to get the ticker for</param>
+        /// <returns></returns>
         public async Task<CallResult<HuobiChannelResponse<HuobiMarketTickMerged>>> GetMarketTickerMergedAsync(string symbol)
         {
             var parameters = new Dictionary<string, object>
@@ -119,7 +137,19 @@ namespace Huobi.Net
             return GetResult(await ExecuteRequest<HuobiChannelResponse<HuobiMarketTickMerged>>(GetUrl(MarketTickerMergedEndpoint), parameters: parameters));
         }
 
+        /// <summary>
+        /// Synchronized version of the <see cref="GetMarketKlinesAsync"/> method
+        /// </summary>
+        /// <returns></returns>
         public CallResult<HuobiChannelResponse<List<HuobiMarketData>>> GetMarketKlines(string symbol, HuobiPeriod period, int size) => GetMarketKlinesAsync(symbol, period, size).Result;
+
+        /// <summary>
+        /// Get candlestick data for a market
+        /// </summary>
+        /// <param name="symbol">The symbol to get the data for</param>
+        /// <param name="period">The period of a single candlestick</param>
+        /// <param name="size">The amount of candlesticks</param>
+        /// <returns></returns>
         public async Task<CallResult<HuobiChannelResponse<List<HuobiMarketData>>>> GetMarketKlinesAsync(string symbol, HuobiPeriod period, int size)
         {
             if (size <= 0 || size > 2000)
@@ -135,7 +165,17 @@ namespace Huobi.Net
             return GetResult(await ExecuteRequest<HuobiChannelResponse<List<HuobiMarketData>>>(GetUrl(MarketKlineEndpoint), parameters: parameters));
         }
 
+        /// <summary>
+        /// Synchronized version of the <see cref="GetMarketDepthAsync"/> method
+        /// </summary>
+        /// <returns></returns>
         public CallResult<HuobiChannelResponse<HuobiMarketDepth>> GetMarketDepth(string symbol, int mergeStep) => GetMarketDepthAsync(symbol, mergeStep).Result;
+        /// <summary>
+        /// Gets the market depth for a symbol
+        /// </summary>
+        /// <param name="symbol">The symbol to request for</param>
+        /// <param name="mergeStep">The way the results will be merged together</param>
+        /// <returns></returns>
         public async Task<CallResult<HuobiChannelResponse<HuobiMarketDepth>>> GetMarketDepthAsync(string symbol, int mergeStep)
         {
             if (mergeStep < 0 || mergeStep > 5)
@@ -150,7 +190,16 @@ namespace Huobi.Net
             return GetResult(await ExecuteRequest<HuobiChannelResponse<HuobiMarketDepth>>(GetUrl(MarketDepthEndpoint), parameters: parameters));
         }
 
+        /// <summary>
+        /// Synchronized version of the <see cref="GetMarketLastTradeAsync"/> method
+        /// </summary>
+        /// <returns></returns>
         public CallResult<HuobiChannelResponse<HuobiMarketTrade>> GetMarketLastTrade(string symbol) => GetMarketLastTradeAsync(symbol).Result;
+        /// <summary>
+        /// Gets the last trade for a market
+        /// </summary>
+        /// <param name="symbol">The symbol to request for</param>
+        /// <returns></returns>
         public async Task<CallResult<HuobiChannelResponse<HuobiMarketTrade>>> GetMarketLastTradeAsync(string symbol)
         {
             var parameters = new Dictionary<string, object>
@@ -161,22 +210,41 @@ namespace Huobi.Net
             return GetResult(await ExecuteRequest<HuobiChannelResponse<HuobiMarketTrade>>(GetUrl(MarketLastTradeEndpoint), parameters: parameters));
         }
 
+        /// <summary>
+        /// Synchronized version of the <see cref="GetMarketTradeHistoryAsync"/> method
+        /// </summary>
+        /// <returns></returns>
         public CallResult<HuobiChannelResponse<List<HuobiMarketTrade>>> GetMarketTradeHistory(string symbol, int size) => GetMarketTradeHistoryAsync(symbol, size).Result;
-        public async Task<CallResult<HuobiChannelResponse<List<HuobiMarketTrade>>>> GetMarketTradeHistoryAsync(string symbol, int size)
+        /// <summary>
+        /// Get the last x trades for a market
+        /// </summary>
+        /// <param name="symbol">The market to get trades for</param>
+        /// <param name="limit">The max number of results</param>
+        /// <returns></returns>
+        public async Task<CallResult<HuobiChannelResponse<List<HuobiMarketTrade>>>> GetMarketTradeHistoryAsync(string symbol, int limit)
         {
-            if (size <= 0 || size > 2000)
+            if (limit <= 0 || limit > 2000)
                 return new CallResult<HuobiChannelResponse<List<HuobiMarketTrade>>>(null, new ArgumentError("Size should be between 1 and 2000"));
 
             var parameters = new Dictionary<string, object>
             {
                 { "symbol", symbol },
-                { "size", size },
+                { "size", limit },
             };
 
             return GetResult(await ExecuteRequest<HuobiChannelResponse<List<HuobiMarketTrade>>>(GetUrl(MarketTradeHistoryEndpoint), parameters: parameters));
         }
 
+        /// <summary>
+        /// Synchronized version of the <see cref="GetMarketDetails24hAsync"/> method
+        /// </summary>
+        /// <returns></returns>
         public CallResult<HuobiChannelResponse<HuobiMarketData>> GetMarketDetails24h(string symbol) => GetMarketDetails24hAsync(symbol).Result;
+        /// <summary>
+        /// Gets 24h stats for a market
+        /// </summary>
+        /// <param name="symbol">The market to get the data for</param>
+        /// <returns></returns>
         public async Task<CallResult<HuobiChannelResponse<HuobiMarketData>>> GetMarketDetails24hAsync(string symbol)
         {
             var parameters = new Dictionary<string, object>
@@ -187,21 +255,45 @@ namespace Huobi.Net
             return GetResult(await ExecuteRequest<HuobiChannelResponse<HuobiMarketData>>(GetUrl(MarketDetailsEndpoint), parameters: parameters));
         }
 
+        /// <summary>
+        /// Synchronized version of the <see cref="GetSymbolsAsync"/> method
+        /// </summary>
+        /// <returns></returns>
         public CallResult<HuobiBasicResponse<List<HuobiSymbol>>> GetSymbols() => GetSymbolsAsync().Result;
+        /// <summary>
+        /// Gets a list of suported symbols
+        /// </summary>
+        /// <returns></returns>
         public async Task<CallResult<HuobiBasicResponse<List<HuobiSymbol>>>> GetSymbolsAsync()
         {
 
             return GetResult(await ExecuteRequest<HuobiBasicResponse<List<HuobiSymbol>>>(GetUrl(CommonSymbolsEndpoint, "1")));
         }
 
+        // <summary>
+        /// Synchronized version of the <see cref="GetCurrenciesAsync"/> method
+        /// </summary>
+        /// <returns></returns>
         public CallResult<HuobiBasicResponse<List<string>>> GetCurrencies() => GetCurrenciesAsync().Result;
+        /// <summary>
+        /// Gets a list of suported currencies
+        /// </summary>
+        /// <returns></returns>
         public async Task<CallResult<HuobiBasicResponse<List<string>>>> GetCurrenciesAsync()
         {
 
             return GetResult(await ExecuteRequest<HuobiBasicResponse<List<string>>>(GetUrl(CommonCurrenciesEndpoint, "1")));
         }
 
+        // <summary>
+        /// Synchronized version of the <see cref="GetServerTimeAsync"/> method
+        /// </summary>
+        /// <returns></returns>
         public CallResult<DateTime> GetServerTime() => GetServerTimeAsync().Result;
+        /// <summary>
+        /// Gets the server time
+        /// </summary>
+        /// <returns></returns>
         public async Task<CallResult<DateTime>> GetServerTimeAsync()
         {
             var result = GetResult(await ExecuteRequest<HuobiBasicResponse<string>>(GetUrl(ServerTimeEndpoint, "1")));
@@ -211,19 +303,49 @@ namespace Huobi.Net
             return new CallResult<DateTime>(time, null);
         }
 
+        // <summary>
+        /// Synchronized version of the <see cref="GetAccountsAsync"/> method
+        /// </summary>
+        /// <returns></returns>
         public CallResult<HuobiBasicResponse<List<HuobiAccount>>> GetAccounts() => GetAccountsAsync().Result;
+        /// <summary>
+        /// Gets a list of accounts associated with the apikey/secret
+        /// </summary>
+        /// <returns></returns>
         public async Task<CallResult<HuobiBasicResponse<List<HuobiAccount>>>> GetAccountsAsync()
         {
             return GetResult(await ExecuteRequest<HuobiBasicResponse<List<HuobiAccount>>>(GetUrl(GetAccountsEndpoint, "1"), signed: true));
         }
 
+        // <summary>
+        /// Synchronized version of the <see cref="GetBalancesAsync"/> method
+        /// </summary>
+        /// <returns></returns>
         public CallResult<HuobiBasicResponse<HuobiAccountBalances>> GetBalances(long accountId) => GetBalancesAsync(accountId).Result;
+        /// <summary>
+        /// Gets a list of balances for a specific account
+        /// </summary>
+        /// <param name="accountId">The id of the account to get the balances for</param>
+        /// <returns></returns>
         public async Task<CallResult<HuobiBasicResponse<HuobiAccountBalances>>> GetBalancesAsync(long accountId)
         {
             return GetResult(await ExecuteRequest<HuobiBasicResponse<HuobiAccountBalances>>(GetUrl(FillPathParameter(GetBalancesEndpoint, accountId.ToString()), "1"), signed: true));
         }
 
+        // <summary>
+        /// Synchronized version of the <see cref="PlaceOrderAsync"/> method
+        /// </summary>
+        /// <returns></returns>
         public CallResult<HuobiBasicResponse<long>> PlaceOrder(long accountId, string symbol, HuobiOrderType orderType, decimal amount, decimal? price = null) => PlaceOrderAsync(accountId, symbol, orderType, amount, price).Result;
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="accountId"></param>
+        /// <param name="symbol"></param>
+        /// <param name="orderType"></param>
+        /// <param name="amount"></param>
+        /// <param name="price"></param>
+        /// <returns></returns>
         public async Task<CallResult<HuobiBasicResponse<long>>> PlaceOrderAsync(long accountId, string symbol, HuobiOrderType orderType, decimal amount, decimal? price = null)
         {
             var parameters = new Dictionary<string, object>
