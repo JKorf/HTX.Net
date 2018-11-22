@@ -13,6 +13,5 @@ namespace Huobi.Net.Objects
         public HuobiAccountState State { get; set; }
         [JsonConverter(typeof(AccountTypeConverter))]
         public HuobiAccountType Type { get; set; }
-        public string SubType { get; set; }
     }
 }

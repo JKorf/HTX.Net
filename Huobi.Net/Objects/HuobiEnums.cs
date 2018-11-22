@@ -1,4 +1,6 @@
-﻿namespace Huobi.Net.Objects
+﻿using System;
+
+namespace Huobi.Net.Objects
 {
     public enum HuobiPeriod
     {
@@ -29,5 +31,39 @@
     {
         Spot,
         Margin
+    }
+
+    public enum HuobiBalanceType
+    {
+        Trade,
+        Frozen
+    }
+
+    public enum HuobiOrderRole
+    {
+        Maker,
+        Taker
+    }
+
+    public enum HuobiOrderType
+    {
+        LimitBuy,
+        LimitSell,
+        MarketBuy,
+        MarketSell,
+        IOCBuy,
+        IOCSell,
+        LimitMakerBuy,
+        LimitMakerSell
+    }
+
+    public enum HuobiOrderState
+    {
+        PreSubmitted,
+        Submitted,
+        PartiallyFilled,
+        PartiallyCanceled,
+        Filled,
+        Canceled
     }
 }
