@@ -98,30 +98,35 @@ namespace Huobi.Net
         protected override bool SocketReconnect(SocketSubscription socket, TimeSpan disconnectedTime)
         {
             var request = (HuobiRequest)socket.Request;
-            request.Id = NextId().ToString();
+            var id = NextId().ToString();
+            if (request is HuobiAuthenticatedRequest ar)
+                ar.Id = id;
+            else if (request is HuobiSubscribeRequest sr)
+                sr.Id = id;
 
-            if(request.Signed)
+            if (request.Signed)
             {
                 if (!Authenticate(socket.Socket).Result.Success)
                 {
-                    log.Write(LogVerbosity.Warning, $"Socket {socket.Socket.Id} authentication failed while trying to reconnect. Disconnecting");
-                    socket.Socket.Close(); // DC to try again
+                    log.Write(LogVerbosity.Warning, $"Socket {socket.Socket.Id} authentication failed while trying to reconnect");
                     return false;
                 }
             }
 
-            var resubResult = SendAndWait(socket.Socket, request, data => { return data["id"] != null && (string)data["id"] == request.Id; }, socketResponseTimeout).Result;
+            var resubResult = SendAndWait(socket.Socket, request, data => 
+            {
+                return data["id"] != null && (string)data["id"] == id || data["cid"] != null && (string)data["cid"] == id;
+            }, socketResponseTimeout).Result;
+
             if (!resubResult.Success)
             {
-                log.Write(LogVerbosity.Warning, $"Socket {socket.Socket.Id} no subscription response while trying to reconnect. Disconnecting");
-                socket.Socket.Close(); // DC to try again
+                log.Write(LogVerbosity.Warning, $"Socket {socket.Socket.Id} no subscription response while trying to reconnect");
                 return false;
             }
-            var subData = Deserialize<HuobiSubscribeResponse>(resubResult.Data);
+            var subData = Deserialize<HuobiSubscribeResponse>(resubResult.Data, false);
             if (!subData.Success)
             {
-                log.Write(LogVerbosity.Warning, $"Socket {socket.Socket.Id} failed sub response deserialization while trying to reconnect. Disconnecting");
-                socket.Socket.Close(); // DC to try again        
+                log.Write(LogVerbosity.Warning, $"Socket {socket.Socket.Id} failed sub response deserialization while trying to reconnect");
                 return false;
             }
 
@@ -357,7 +362,7 @@ namespace Huobi.Net
                 }
                 else
                 {
-                    if (operation != null && (string)operation == "sub")
+                    if ((operation != null && (string)operation == "sub") || token["subbed"] != null)
                         return;
 
                     var desResult = Deserialize<U>(data, false);

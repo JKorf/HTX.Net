@@ -10,6 +10,7 @@ namespace Huobi.Net.Objects.SocketObjects
         [JsonIgnore]
         public bool Signed { get; set; }
 
+        [JsonIgnore]
         public string Id { get; set; }
     }
 
@@ -51,7 +52,7 @@ namespace Huobi.Net.Objects.SocketObjects
         [JsonProperty("sub")]
         public string Topic { get; set; }
         [JsonProperty("id")]
-        public string Id { get; set; }
+        public new string Id { get; set; }
 
         public HuobiSubscribeRequest(string topic, bool signed = false)
         {
