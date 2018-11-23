@@ -2,18 +2,25 @@
 using CryptoExchange.Net.Converters;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Huobi.Net.Objects.SocketObjects
 {
     public class HuobiSocketUpdate<T>
     {
+        /// <summary>
+        /// The name of the data channel
+        /// </summary>
         [JsonProperty("ch")]
         public string Channel { get; set; }
+        /// <summary>
+        /// The timestamp of the update
+        /// </summary>
         [JsonProperty("ts"), JsonConverter(typeof(TimestampConverter))]
         public DateTime Timestamp { get; set; }
 
+        /// <summary>
+        /// The data of the update
+        /// </summary>
         [JsonOptionalProperty]
         public T Data { get; set; }
         [JsonOptionalProperty, JsonProperty("tick")]

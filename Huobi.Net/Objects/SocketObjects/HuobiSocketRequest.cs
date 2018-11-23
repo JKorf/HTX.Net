@@ -1,11 +1,8 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Huobi.Net.Objects.SocketObjects
 {
-    public class HuobiRequest
+    internal class HuobiRequest
     {
         [JsonIgnore]
         public bool Signed { get; set; }
@@ -14,7 +11,7 @@ namespace Huobi.Net.Objects.SocketObjects
         public string Id { get; set; }
     }
 
-    public class HuobiSocketRequest: HuobiRequest
+    internal class HuobiSocketRequest: HuobiRequest
     {
         [JsonProperty("req")]
         public string Request { get; set; }
@@ -30,7 +27,7 @@ namespace Huobi.Net.Objects.SocketObjects
         }
     }
 
-    public class HuobiAuthenticatedRequest: HuobiRequest
+    internal class HuobiAuthenticatedRequest: HuobiRequest
     {
         [JsonProperty("op")]
         public string Operation { get; set; }
@@ -47,7 +44,7 @@ namespace Huobi.Net.Objects.SocketObjects
         }
     }
 
-    public class HuobiSubscribeRequest: HuobiRequest
+    internal class HuobiSubscribeRequest: HuobiRequest
     {
         [JsonProperty("sub")]
         public string Topic { get; set; }
@@ -61,7 +58,7 @@ namespace Huobi.Net.Objects.SocketObjects
         }
     }
 
-    public class HuobiOrderListRequest: HuobiAuthenticatedRequest
+    internal class HuobiOrderListRequest: HuobiAuthenticatedRequest
     {
         [JsonProperty("symbol")]
         public string Symbol { get; set; }
@@ -88,7 +85,7 @@ namespace Huobi.Net.Objects.SocketObjects
         }
     }
 
-    public class HuobiOrderDetailsRequest : HuobiAuthenticatedRequest
+    internal class HuobiOrderDetailsRequest : HuobiAuthenticatedRequest
     {
         [JsonProperty("order-id")]
         public string OrderId { get; set; }

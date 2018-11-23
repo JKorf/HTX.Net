@@ -1,12 +1,13 @@
 ﻿using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Huobi.Net.Objects
 {
     public class HuobiAccountBalances: HuobiAccount
     {
+        /// <summary>
+        /// The list of balances
+        /// </summary>
         [JsonProperty("list")]
         public List<HuobiBalance> Data { get; set; }
     }

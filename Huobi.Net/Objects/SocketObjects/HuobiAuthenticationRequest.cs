@@ -1,11 +1,8 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Huobi.Net.Objects.SocketObjects
 {
-    public class HuobiAuthenticationRequest
+    internal class HuobiAuthenticationRequest
     {
         [JsonProperty("op")]
         public string Operation { get; set; }

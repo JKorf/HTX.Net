@@ -1,16 +1,22 @@
 ﻿using Huobi.Net.Converters;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Huobi.Net.Objects
 {
     public class HuobiAccount
     {
+        /// <summary>
+        /// The id of the account
+        /// </summary>
         public long Id { get; set; }
+        /// <summary>
+        /// The state of the account
+        /// </summary>
         [JsonConverter(typeof(AccountStateConverter))]
         public HuobiAccountState State { get; set; }
+        /// <summary>
+        /// The type of the account
+        /// </summary>
         [JsonConverter(typeof(AccountTypeConverter))]
         public HuobiAccountType Type { get; set; }
     }

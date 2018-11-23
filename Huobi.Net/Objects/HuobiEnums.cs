@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Huobi.Net.Objects
+﻿namespace Huobi.Net.Objects
 {
     public enum HuobiPeriod
     {
@@ -65,5 +63,19 @@ namespace Huobi.Net.Objects
         PartiallyCanceled,
         Filled,
         Canceled
+    }
+
+    public enum HuobiAccountEventType
+    {
+        OrderPlaced,
+        OrderMatched,
+        OrderRefunded,
+        OrderCanceled,
+        OrderFeeRefunded,
+        MarginTransfer,
+        MarginLoan,
+        MarginInterest,
+        MarginRepay,
+        Other
     }
 }

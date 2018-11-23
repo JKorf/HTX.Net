@@ -2,15 +2,13 @@
 using CryptoExchange.Net.Converters;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Huobi.Net.Objects.SocketObjects
 {
     public abstract class HuobiResponse
     {
-        public abstract bool IsSuccessfull { get; }
-        public string Id { get; set; }
+        internal abstract bool IsSuccessfull { get; }
+        internal string Id { get; set; }
         [JsonProperty("err-code")]
         public string ErrorCode { get; set; }
         [JsonProperty("err-msg")]
@@ -19,21 +17,28 @@ namespace Huobi.Net.Objects.SocketObjects
 
     public class HuobiSocketResponse<T>: HuobiResponse
     {
-        public override bool IsSuccessfull => Status == "ok";
-        public string Status { get; set; }
+        internal override bool IsSuccessfull => Status == "ok";
+        [JsonProperty("status")]
+        internal string Status { get; set; }
         
+        /// <summary>
+        /// The timestamp of the data
+        /// </summary>
         [JsonProperty("ts"), JsonConverter(typeof(TimestampConverter))]
         public DateTime Timestamp { get; set; }
 
+        /// <summary>
+        /// The data
+        /// </summary>
         [JsonOptionalProperty]
         public T Data { get; set; }
         [JsonOptionalProperty, JsonProperty("tick")]
         private T Tick { set => Data = value; get => Data; }
     }
 
-    public class HuobiSubscribeResponse: HuobiResponse
+    internal class HuobiSubscribeResponse: HuobiResponse
     {
-        public override bool IsSuccessfull => Status == "ok";
+        internal override bool IsSuccessfull => Status == "ok";
         public string Status { get; set; }
         public string Subbed { get; set; }
         [JsonConverter(typeof(TimestampConverter)), JsonProperty("ts")]
@@ -42,22 +47,29 @@ namespace Huobi.Net.Objects.SocketObjects
 
     public class HuobiSocketAuthResponse: HuobiResponse
     {
-        public override bool IsSuccessfull => ErrorCode == 0;
+        internal override bool IsSuccessfull => ErrorCode == 0;
         [JsonProperty("err-code")]
-        public new int ErrorCode { get; set; }
+        internal new int ErrorCode { get; set; }
 
         [JsonProperty("op")]
-        public string Operation { get; set; }
-        public string Topic { get; set; }
+        internal string Operation { get; set; }
+        [JsonProperty("topic")]
+        internal string Topic { get; set; }
         [JsonProperty("cid")]
-        public new string Id { get; set; }
+        internal new string Id { get; set; }
 
+        /// <summary>
+        /// The timestamp of the response
+        /// </summary>
         [JsonProperty("ts"), JsonConverter(typeof(TimestampConverter))]
         public DateTime Timestamp { get; set; }
     }
 
     public class HuobiSocketAuthDataResponse<T>: HuobiSocketAuthResponse
     {
+        /// <summary>
+        /// The data
+        /// </summary>
         [JsonOptionalProperty]
         public T Data { get; set; }
     }

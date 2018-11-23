@@ -2,13 +2,13 @@
 
 namespace Huobi.Net.Objects.SocketObjects
 {
-    public class HuobiPingRequest
+    internal class HuobiPingRequest
     {
         [JsonProperty("ping")]
         public long Ping { get; set; }
     }
 
-    public class HuobiPingResponse
+    internal class HuobiPingResponse
     {
         [JsonProperty("pong")]
         public long Pong { get; set; }
@@ -19,7 +19,7 @@ namespace Huobi.Net.Objects.SocketObjects
         }
     }
 
-    public class HuobiPingAuthResponse
+    internal class HuobiPingAuthResponse
     {
         [JsonProperty("op")]
         public string Operation { get; set; }

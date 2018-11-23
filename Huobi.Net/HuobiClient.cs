@@ -134,7 +134,7 @@ namespace Huobi.Net
                 { "symbol", symbol }
             };
 
-            return GetResult(await ExecuteRequest<HuobiChannelResponse<HuobiMarketTickMerged>>(GetUrl(MarketTickerMergedEndpoint), parameters: parameters));
+            return GetResult(await ExecuteRequest<HuobiChannelResponse<HuobiMarketTickMerged>>(GetUrl(MarketTickerMergedEndpoint), parameters: parameters, checkResult:false));
         }
 
         /// <summary>
@@ -187,7 +187,7 @@ namespace Huobi.Net
                 { "type", "step"+mergeStep },
             };
 
-            return GetResult(await ExecuteRequest<HuobiChannelResponse<HuobiMarketDepth>>(GetUrl(MarketDepthEndpoint), parameters: parameters));
+            return GetResult(await ExecuteRequest<HuobiChannelResponse<HuobiMarketDepth>>(GetUrl(MarketDepthEndpoint), parameters: parameters, checkResult: false));
         }
 
         /// <summary>
@@ -207,7 +207,7 @@ namespace Huobi.Net
                 { "symbol", symbol }
             };
 
-            return GetResult(await ExecuteRequest<HuobiChannelResponse<HuobiMarketTrade>>(GetUrl(MarketLastTradeEndpoint), parameters: parameters));
+            return GetResult(await ExecuteRequest<HuobiChannelResponse<HuobiMarketTrade>>(GetUrl(MarketLastTradeEndpoint), parameters: parameters, checkResult: false));
         }
 
         /// <summary>
@@ -252,37 +252,37 @@ namespace Huobi.Net
                 { "symbol", symbol }
             };
 
-            return GetResult(await ExecuteRequest<HuobiChannelResponse<HuobiMarketData>>(GetUrl(MarketDetailsEndpoint), parameters: parameters));
+            return GetResult(await ExecuteRequest<HuobiChannelResponse<HuobiMarketData>>(GetUrl(MarketDetailsEndpoint), parameters: parameters, checkResult: false));
         }
 
         /// <summary>
         /// Synchronized version of the <see cref="GetSymbolsAsync"/> method
         /// </summary>
         /// <returns></returns>
-        public CallResult<HuobiBasicResponse<List<HuobiSymbol>>> GetSymbols() => GetSymbolsAsync().Result;
+        public CallResult<List<HuobiSymbol>> GetSymbols() => GetSymbolsAsync().Result;
         /// <summary>
         /// Gets a list of suported symbols
         /// </summary>
         /// <returns></returns>
-        public async Task<CallResult<HuobiBasicResponse<List<HuobiSymbol>>>> GetSymbolsAsync()
+        public async Task<CallResult<List<HuobiSymbol>>> GetSymbolsAsync()
         {
-
-            return GetResult(await ExecuteRequest<HuobiBasicResponse<List<HuobiSymbol>>>(GetUrl(CommonSymbolsEndpoint, "1")));
+            var result = GetResult(await ExecuteRequest<HuobiBasicResponse<List<HuobiSymbol>>>(GetUrl(CommonSymbolsEndpoint, "1")));
+            return new CallResult<List<HuobiSymbol>>(result.Data?.Data, result.Error);
         }
 
         // <summary>
         /// Synchronized version of the <see cref="GetCurrenciesAsync"/> method
         /// </summary>
         /// <returns></returns>
-        public CallResult<HuobiBasicResponse<List<string>>> GetCurrencies() => GetCurrenciesAsync().Result;
+        public CallResult<List<string>> GetCurrencies() => GetCurrenciesAsync().Result;
         /// <summary>
         /// Gets a list of suported currencies
         /// </summary>
         /// <returns></returns>
-        public async Task<CallResult<HuobiBasicResponse<List<string>>>> GetCurrenciesAsync()
+        public async Task<CallResult<List<string>>> GetCurrenciesAsync()
         {
-
-            return GetResult(await ExecuteRequest<HuobiBasicResponse<List<string>>>(GetUrl(CommonCurrenciesEndpoint, "1")));
+            var result = GetResult(await ExecuteRequest<HuobiBasicResponse<List<string>>>(GetUrl(CommonCurrenciesEndpoint, "1")));
+            return new CallResult<List<string>>(result.Data?.Data, result.Error);
         }
 
         // <summary>
@@ -307,46 +307,48 @@ namespace Huobi.Net
         /// Synchronized version of the <see cref="GetAccountsAsync"/> method
         /// </summary>
         /// <returns></returns>
-        public CallResult<HuobiBasicResponse<List<HuobiAccount>>> GetAccounts() => GetAccountsAsync().Result;
+        public CallResult<List<HuobiAccount>> GetAccounts() => GetAccountsAsync().Result;
         /// <summary>
         /// Gets a list of accounts associated with the apikey/secret
         /// </summary>
         /// <returns></returns>
-        public async Task<CallResult<HuobiBasicResponse<List<HuobiAccount>>>> GetAccountsAsync()
+        public async Task<CallResult<List<HuobiAccount>>> GetAccountsAsync()
         {
-            return GetResult(await ExecuteRequest<HuobiBasicResponse<List<HuobiAccount>>>(GetUrl(GetAccountsEndpoint, "1"), signed: true));
+            var result = GetResult(await ExecuteRequest<HuobiBasicResponse<List<HuobiAccount>>>(GetUrl(GetAccountsEndpoint, "1"), signed: true));
+            return new CallResult<List<HuobiAccount>>(result.Data?.Data, result.Error);
         }
 
         // <summary>
         /// Synchronized version of the <see cref="GetBalancesAsync"/> method
         /// </summary>
         /// <returns></returns>
-        public CallResult<HuobiBasicResponse<HuobiAccountBalances>> GetBalances(long accountId) => GetBalancesAsync(accountId).Result;
+        public CallResult<HuobiAccountBalances> GetBalances(long accountId) => GetBalancesAsync(accountId).Result;
         /// <summary>
         /// Gets a list of balances for a specific account
         /// </summary>
         /// <param name="accountId">The id of the account to get the balances for</param>
         /// <returns></returns>
-        public async Task<CallResult<HuobiBasicResponse<HuobiAccountBalances>>> GetBalancesAsync(long accountId)
+        public async Task<CallResult<HuobiAccountBalances>> GetBalancesAsync(long accountId)
         {
-            return GetResult(await ExecuteRequest<HuobiBasicResponse<HuobiAccountBalances>>(GetUrl(FillPathParameter(GetBalancesEndpoint, accountId.ToString()), "1"), signed: true));
+            var result = GetResult(await ExecuteRequest<HuobiBasicResponse<HuobiAccountBalances>>(GetUrl(FillPathParameter(GetBalancesEndpoint, accountId.ToString()), "1"), signed: true));
+            return new CallResult<HuobiAccountBalances>(result.Data?.Data, result.Error);
         }
 
         // <summary>
         /// Synchronized version of the <see cref="PlaceOrderAsync"/> method
         /// </summary>
         /// <returns></returns>
-        public CallResult<HuobiBasicResponse<long>> PlaceOrder(long accountId, string symbol, HuobiOrderType orderType, decimal amount, decimal? price = null) => PlaceOrderAsync(accountId, symbol, orderType, amount, price).Result;
+        public CallResult<long> PlaceOrder(long accountId, string symbol, HuobiOrderType orderType, decimal amount, decimal? price = null) => PlaceOrderAsync(accountId, symbol, orderType, amount, price).Result;
         /// <summary>
-        /// 
+        /// Places an order
         /// </summary>
-        /// <param name="accountId"></param>
-        /// <param name="symbol"></param>
-        /// <param name="orderType"></param>
-        /// <param name="amount"></param>
-        /// <param name="price"></param>
+        /// <param name="accountId">The account to place the order for</param>
+        /// <param name="symbol">The symbol to place the order for</param>
+        /// <param name="orderType">The type of the order</param>
+        /// <param name="amount">The amount of the order</param>
+        /// <param name="price">The price of the order. Should be omitted for market orders</param>
         /// <returns></returns>
-        public async Task<CallResult<HuobiBasicResponse<long>>> PlaceOrderAsync(long accountId, string symbol, HuobiOrderType orderType, decimal amount, decimal? price = null)
+        public async Task<CallResult<long>> PlaceOrderAsync(long accountId, string symbol, HuobiOrderType orderType, decimal amount, decimal? price = null)
         {
             var parameters = new Dictionary<string, object>
             {
@@ -357,14 +359,27 @@ namespace Huobi.Net
             };
 
             parameters.AddOptionalParameter("price", price);
-            return GetResult(await ExecuteRequest<HuobiBasicResponse<long>>(GetUrl(PlaceOrderEndpoint, "1"), "POST", parameters, true));
+            var result = GetResult(await ExecuteRequest<HuobiBasicResponse<long>>(GetUrl(PlaceOrderEndpoint, "1"), "POST", parameters, true));
+            return new CallResult<long>(result.Data?.Data ?? 0, result.Error);
         }
 
-        public CallResult<HuobiBasicResponse<List<HuobiOrder>>> GetOpenOrders(long? accountId = null, string symbol = null, HuobiOrderSide? side = null, int? limit = null) => GetOpenOrdersAsync(accountId, symbol, side, limit).Result;
-        public async Task<CallResult<HuobiBasicResponse<List<HuobiOrder>>>> GetOpenOrdersAsync(long? accountId = null, string symbol = null, HuobiOrderSide? side = null, int? limit = null)
+        // <summary>
+        /// Synchronized version of the <see cref="GetOpenOrdersAsync"/> method
+        /// </summary>
+        /// <returns></returns>
+        public CallResult<List<HuobiOrder>> GetOpenOrders(long? accountId = null, string symbol = null, HuobiOrderSide? side = null, int? limit = null) => GetOpenOrdersAsync(accountId, symbol, side, limit).Result;
+        /// <summary>
+        /// Gets a list of open orders
+        /// </summary>
+        /// <param name="accountId">The account id for which to get the orders for</param>
+        /// <param name="symbol">The symbol for which to get the orders for</param>
+        /// <param name="side">Only get buy or sell orders</param>
+        /// <param name="limit">The max number of results</param>
+        /// <returns></returns>
+        public async Task<CallResult<List<HuobiOrder>>> GetOpenOrdersAsync(long? accountId = null, string symbol = null, HuobiOrderSide? side = null, int? limit = null)
         {
             if (accountId != null && symbol == null)
-                return new CallResult<HuobiBasicResponse<List<HuobiOrder>>>(null, new ArgumentError("Can't request open orders based on only the account id"));
+                return new CallResult<List<HuobiOrder>>(null, new ArgumentError("Can't request open orders based on only the account id"));
 
             var parameters = new Dictionary<string, object>();
             parameters.AddOptionalParameter("account-id", accountId);
@@ -372,40 +387,96 @@ namespace Huobi.Net
             parameters.AddOptionalParameter("side", side == null ? null: JsonConvert.SerializeObject(side, new OrderSideConverter(false)));
             parameters.AddOptionalParameter("size", limit);
 
-            return GetResult(await ExecuteRequest<HuobiBasicResponse<List<HuobiOrder>>>(GetUrl(OpenOrdersEndpoint, "1"), "GET", parameters, signed: true));
+            var result = GetResult(await ExecuteRequest<HuobiBasicResponse<List<HuobiOrder>>>(GetUrl(OpenOrdersEndpoint, "1"), "GET", parameters, signed: true));
+            return new CallResult<List<HuobiOrder>>(result.Data?.Data, result.Error);
         }
 
-        public CallResult<HuobiBasicResponse<long>> CancelOrder(long orderId) => CancelOrderAsync(orderId).Result;
-        public async Task<CallResult<HuobiBasicResponse<long>>> CancelOrderAsync(long orderId)
+        // <summary>
+        /// Synchronized version of the <see cref="CancelOrderAsync"/> method
+        /// </summary>
+        /// <returns></returns>
+        public CallResult<long> CancelOrder(long orderId) => CancelOrderAsync(orderId).Result;
+        /// <summary>
+        /// Cancels an open order
+        /// </summary>
+        /// <param name="orderId">The id of the order to cancel</param>
+        /// <returns></returns>
+        public async Task<CallResult<long>> CancelOrderAsync(long orderId)
         {
-            return GetResult(await ExecuteRequest<HuobiBasicResponse<long>>(GetUrl(FillPathParameter(CancelOrderEndpoint, orderId.ToString()), "1"), "POST", signed: true));
+            var result = GetResult(await ExecuteRequest<HuobiBasicResponse<long>>(GetUrl(FillPathParameter(CancelOrderEndpoint, orderId.ToString()), "1"), "POST", signed: true));
+            return new CallResult<long>(result.Data?.Data ?? 0, result.Error);
         }
 
-        public CallResult<HuobiBasicResponse<HuobiBatchCancelResult>> CancelOrders(long[] orderIds) => CancelOrdersAsync(orderIds).Result;
-        public async Task<CallResult<HuobiBasicResponse<HuobiBatchCancelResult>>> CancelOrdersAsync(long[] orderIds)
+        // <summary>
+        /// Synchronized version of the <see cref="CancelOrdersAsync"/> method
+        /// </summary>
+        /// <returns></returns>
+        public CallResult<HuobiBatchCancelResult> CancelOrders(long[] orderIds) => CancelOrdersAsync(orderIds).Result;
+        /// <summary>
+        /// Cancel multiple open orders
+        /// </summary>
+        /// <param name="orderIds">The ids of the orders to cancel</param>
+        /// <returns></returns>
+        public async Task<CallResult<HuobiBatchCancelResult>> CancelOrdersAsync(long[] orderIds)
         {
             var parameters = new Dictionary<string, object>
             {
                 { "order-ids", orderIds.Select(s => s.ToString()) }
             };
 
-            return GetResult(await ExecuteRequest<HuobiBasicResponse<HuobiBatchCancelResult>>(GetUrl(CancelOrdersEndpoint, "1"), "POST", parameters, true));
+            var result = GetResult(await ExecuteRequest<HuobiBasicResponse<HuobiBatchCancelResult>>(GetUrl(CancelOrdersEndpoint, "1"), "POST", parameters, true));
+            return new CallResult<HuobiBatchCancelResult>(result.Data?.Data, result.Error);
         }
 
-        public CallResult<HuobiBasicResponse<HuobiOrder>> GetOrderInfo(long orderId) => GetOrderInfoAsync(orderId).Result;
-        public async Task<CallResult<HuobiBasicResponse<HuobiOrder>>> GetOrderInfoAsync(long orderId)
+        // <summary>
+        /// Synchronized version of the <see cref="GetOrderInfoAsync"/> method
+        /// </summary>
+        /// <returns></returns>
+        public CallResult<HuobiOrder> GetOrderInfo(long orderId) => GetOrderInfoAsync(orderId).Result;
+        /// <summary>
+        /// Get details of an order
+        /// </summary>
+        /// <param name="orderId">The id of the order to retrieve</param>
+        /// <returns></returns>
+        public async Task<CallResult<HuobiOrder>> GetOrderInfoAsync(long orderId)
         {
-            return GetResult(await ExecuteRequest<HuobiBasicResponse<HuobiOrder>>(GetUrl(FillPathParameter(OrderInfoEndpoint, orderId.ToString()), "1"), "GET", signed: true));
+            var result = GetResult(await ExecuteRequest<HuobiBasicResponse<HuobiOrder>>(GetUrl(FillPathParameter(OrderInfoEndpoint, orderId.ToString()), "1"), "GET", signed: true));
+            return new CallResult<HuobiOrder>(result.Data?.Data, result.Error);
         }
 
-        public CallResult<HuobiBasicResponse<List<HuobiOrderTrade>>> GetOrderTrades(long orderId) => GetOrderTradesAsync(orderId).Result;
-        public async Task<CallResult<HuobiBasicResponse<List<HuobiOrderTrade>>>> GetOrderTradesAsync(long orderId)
+        // <summary>
+        /// Synchronized version of the <see cref="GetOrderTradesAsync"/> method
+        /// </summary>
+        /// <returns></returns>
+        public CallResult<List<HuobiOrderTrade>> GetOrderTrades(long orderId) => GetOrderTradesAsync(orderId).Result;
+        /// <summary>
+        /// Gets a list of trades made for a specific order
+        /// </summary>
+        /// <param name="orderId">The id of the order to get trades for</param>
+        /// <returns></returns>
+        public async Task<CallResult<List<HuobiOrderTrade>>> GetOrderTradesAsync(long orderId)
         {
-            return GetResult(await ExecuteRequest<HuobiBasicResponse<List<HuobiOrderTrade>>>(GetUrl(FillPathParameter(OrderTradesEndpoint, orderId.ToString()), "1"), "GET", signed: true));
+            var result = GetResult(await ExecuteRequest<HuobiBasicResponse<List<HuobiOrderTrade>>>(GetUrl(FillPathParameter(OrderTradesEndpoint, orderId.ToString()), "1"), "GET", signed: true));
+            return new CallResult<List<HuobiOrderTrade>>(result.Data?.Data, result.Error);
         }
 
-        public CallResult<HuobiBasicResponse<List<HuobiOrder>>> GetOrders(string symbol, HuobiOrderState[] states, HuobiOrderType[] types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, int? limit = null) => GetOrdersAsync(symbol, states, types, startTime, endTime, fromId, limit).Result;
-        public async Task<CallResult<HuobiBasicResponse<List<HuobiOrder>>>> GetOrdersAsync(string symbol, HuobiOrderState[] states, HuobiOrderType[] types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, int? limit = null)
+        // <summary>
+        /// Synchronized version of the <see cref="GetOrdersAsync"/> method
+        /// </summary>
+        /// <returns></returns>
+        public CallResult<List<HuobiOrder>> GetOrders(string symbol, HuobiOrderState[] states, HuobiOrderType[] types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, int? limit = null) => GetOrdersAsync(symbol, states, types, startTime, endTime, fromId, limit).Result;
+        /// <summary>
+        /// Gets a list of orders
+        /// </summary>
+        /// <param name="symbol">The symbol to get orders for</param>
+        /// <param name="states">The states of orders to return</param>
+        /// <param name="types">The types of orders to return</param>
+        /// <param name="startTime">Only get orders after this date</param>
+        /// <param name="endTime">Only get orders before this date</param>
+        /// <param name="fromId">Only get orders with id's higher than this</param>
+        /// <param name="limit">The max number of results</param>
+        /// <returns></returns>
+        public async Task<CallResult<List<HuobiOrder>>> GetOrdersAsync(string symbol, HuobiOrderState[] states, HuobiOrderType[] types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, int? limit = null)
         {
             var stateConverter = new OrderStateConverter(false);
             var typeConverter = new OrderTypeConverter(false);
@@ -420,11 +491,26 @@ namespace Huobi.Net
             parameters.AddOptionalParameter("from", fromId);
             parameters.AddOptionalParameter("size", limit);
 
-            return GetResult(await ExecuteRequest<HuobiBasicResponse<List<HuobiOrder>>>(GetUrl(OrdersEndpoint, "1"), "GET", parameters, signed: true));
+            var result = GetResult(await ExecuteRequest<HuobiBasicResponse<List<HuobiOrder>>>(GetUrl(OrdersEndpoint, "1"), "GET", parameters, signed: true));
+            return new CallResult<List<HuobiOrder>>(result.Data?.Data, result.Error);
         }
 
-        public CallResult<HuobiBasicResponse<List<HuobiOrderTrade>>> GetSymbolTrades(string symbol, HuobiOrderType[] types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, int? limit = null) => GetSymbolTradesAsync(symbol, types, startTime, endTime, fromId, limit).Result;
-        public async Task<CallResult<HuobiBasicResponse<List<HuobiOrderTrade>>>> GetSymbolTradesAsync(string symbol, HuobiOrderType[] types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, int? limit = null)
+        // <summary>
+        /// Synchronized version of the <see cref="GetSymbolTradesAsync"/> method
+        /// </summary>
+        /// <returns></returns>
+        public CallResult<List<HuobiOrderTrade>> GetSymbolTrades(string symbol, HuobiOrderType[] types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, int? limit = null) => GetSymbolTradesAsync(symbol, types, startTime, endTime, fromId, limit).Result;
+        /// <summary>
+        /// Gets a list of trades for a specific symbol
+        /// </summary>
+        /// <param name="symbol">The symbol to retrieve trades for</param>
+        /// <param name="types">The type of orders to return</param>
+        /// <param name="startTime">Only get orders after this date</param>
+        /// <param name="endTime">Only get orders before this date</param>
+        /// <param name="fromId">Only get orders with id's higher than this</param>
+        /// <param name="limit">The max number of results</param>
+        /// <returns></returns>
+        public async Task<CallResult<List<HuobiOrderTrade>>> GetSymbolTradesAsync(string symbol, HuobiOrderType[] types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, int? limit = null)
         {
             var stateConverter = new OrderStateConverter(false);
             var typeConverter = new OrderTypeConverter(false);
@@ -438,7 +524,8 @@ namespace Huobi.Net
             parameters.AddOptionalParameter("from", fromId);
             parameters.AddOptionalParameter("size", limit);
 
-            return GetResult(await ExecuteRequest<HuobiBasicResponse<List<HuobiOrderTrade>>>(GetUrl(SymbolTradesEndpoint, "1"), "GET", parameters, signed: true));
+            var result = GetResult(await ExecuteRequest<HuobiBasicResponse<List<HuobiOrderTrade>>>(GetUrl(SymbolTradesEndpoint, "1"), "GET", parameters, signed: true));
+            return new CallResult<List<HuobiOrderTrade>>(result.Data?.Data, result.Error);
         }
 
         protected override IRequest ConstructRequest(Uri uri, string method, Dictionary<string, object> parameters, bool signed)
@@ -483,7 +570,6 @@ namespace Huobi.Net
 
             return request;
         }
-
 
         protected override Error ParseErrorResponse(string error)
         {
