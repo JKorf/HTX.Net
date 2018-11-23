@@ -1,6 +1,5 @@
 ﻿using CryptoExchange.Net;
 using CryptoExchange.Net.Authentication;
-using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Logging;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Sockets;
@@ -14,7 +13,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace Huobi.Net
@@ -85,40 +83,20 @@ namespace Huobi.Net
             defaultOptions = options;
         }
         
-        protected override bool SocketReconnect(SocketSubscription socket, TimeSpan disconnectedTime)
+        protected override bool SocketReconnect(SocketSubscription subscription, TimeSpan disconnectedTime)
         {
-            var request = (HuobiRequest)socket.Request;
-            var id = NextId().ToString();
-            if (request is HuobiAuthenticatedRequest ar)
-                ar.Id = id;
-            else if (request is HuobiSubscribeRequest sr)
-                sr.Id = id;
-
+            var request = (HuobiRequest)subscription.Request;
             if (request.Signed)
             {
-                if (!Authenticate(socket.Socket).Result.Success)
-                {
-                    log.Write(LogVerbosity.Warning, $"Socket {socket.Socket.Id} authentication failed while trying to reconnect");
+                if (!Authenticate(subscription).Result.Success)
                     return false;
-                }
             }
 
-            var resubResult = SendAndWait(socket.Socket, request, data => 
-            {
-                return data["id"] != null && (string)data["id"] == id || data["cid"] != null && (string)data["cid"] == id;
-            }, socketResponseTimeout).Result;
+            Send(subscription.Socket, request);
 
-            if (!resubResult.Success)
-            {
-                log.Write(LogVerbosity.Warning, $"Socket {socket.Socket.Id} no subscription response while trying to reconnect");
+            var subResult = subscription.WaitForEvent("Subscription");
+            if (!subResult.Success)
                 return false;
-            }
-            var subData = Deserialize<HuobiSubscribeResponse>(resubResult.Data, false);
-            if (!subData.Success)
-            {
-                log.Write(LogVerbosity.Warning, $"Socket {socket.Socket.Id} failed sub response deserialization while trying to reconnect");
-                return false;
-            }
 
             return true;
         }
@@ -144,7 +122,7 @@ namespace Huobi.Net
         /// Synchronized version of the <see cref="SubscribeToMarketKlineUpdatesAsync"/> method
         /// </summary>
         /// <returns></returns>
-        public CallResult<SocketSubscription> SubscribeToMarketKlineUpdates(string symbol, HuobiPeriod period, Action<HuobiSocketUpdate<HuobiMarketData>> onData) => SubscribeToMarketKlineUpdatesAsync(symbol, period, onData).Result;
+        public CallResult<UpdateSubscription> SubscribeToMarketKlineUpdates(string symbol, HuobiPeriod period, Action<HuobiSocketUpdate<HuobiMarketData>> onData) => SubscribeToMarketKlineUpdatesAsync(symbol, period, onData).Result;
         /// <summary>
         /// Subscribes to candlestick updates for a symbol
         /// </summary>
@@ -152,10 +130,10 @@ namespace Huobi.Net
         /// <param name="period">The period of a single candlestick</param>
         /// <param name="onData">The handler for updates</param>
         /// <returns></returns>
-        public async Task<CallResult<SocketSubscription>> SubscribeToMarketKlineUpdatesAsync(string symbol, HuobiPeriod period, Action<HuobiSocketUpdate<HuobiMarketData>> onData)
+        public async Task<CallResult<UpdateSubscription>> SubscribeToMarketKlineUpdatesAsync(string symbol, HuobiPeriod period, Action<HuobiSocketUpdate<HuobiMarketData>> onData)
         {
             var request = new HuobiSubscribeRequest($"market.{symbol}.kline.{JsonConvert.SerializeObject(period, new PeriodConverter(false))}");
-            return await Subscribe<HuobiSubscribeResponse, HuobiSocketUpdate<HuobiMarketData>>(request, onData);
+            return await Subscribe(request, onData);
         }
 
         // <summary>
@@ -182,7 +160,7 @@ namespace Huobi.Net
         /// Synchronized version of the <see cref="SubscribeToDepthUpdatesAsync"/> method
         /// </summary>
         /// <returns></returns>
-        public CallResult<SocketSubscription> SubscribeToMarketDepthUpdates(string symbol, int mergeStep, Action<HuobiSocketUpdate<HuobiMarketDepth>> onData) => SubscribeToDepthUpdatesAsync(symbol, mergeStep, onData).Result;
+        public CallResult<UpdateSubscription> SubscribeToMarketDepthUpdates(string symbol, int mergeStep, Action<HuobiSocketUpdate<HuobiMarketDepth>> onData) => SubscribeToDepthUpdatesAsync(symbol, mergeStep, onData).Result;
         /// <summary>
         /// Subscribes to orderbook updates for a symbol
         /// </summary>
@@ -190,13 +168,13 @@ namespace Huobi.Net
         /// <param name="mergeStep">The way the results will be merged together</param>
         /// <param name="onData">The handler for updates</param>
         /// <returns></returns>
-        public async Task<CallResult<SocketSubscription>> SubscribeToDepthUpdatesAsync(string symbol, int mergeStep, Action<HuobiSocketUpdate<HuobiMarketDepth>> onData)
+        public async Task<CallResult<UpdateSubscription>> SubscribeToDepthUpdatesAsync(string symbol, int mergeStep, Action<HuobiSocketUpdate<HuobiMarketDepth>> onData)
         {
             if (mergeStep < 0 || mergeStep > 5)
-                return new CallResult<SocketSubscription>(null, new ArgumentError("Merge step should be between 0 and 5"));
+                return new CallResult<UpdateSubscription>(null, new ArgumentError("Merge step should be between 0 and 5"));
 
             var request = new HuobiSubscribeRequest($"market.{symbol}.depth.step{mergeStep}");
-            return await Subscribe<HuobiSubscribeResponse, HuobiSocketUpdate<HuobiMarketDepth>>(request, onData);
+            return await Subscribe(request, onData);
         }
 
         // <summary>
@@ -219,17 +197,17 @@ namespace Huobi.Net
         /// Synchronized version of the <see cref="SubscribeToMarketTradeUpdatesAsync"/> method
         /// </summary>
         /// <returns></returns>
-        public CallResult<SocketSubscription> SubscribeToMarketTradeUpdates(string symbol, Action<HuobiSocketUpdate<HuobiMarketTrade>> onData) => SubscribeToMarketTradeUpdatesAsync(symbol, onData).Result;
+        public CallResult<UpdateSubscription> SubscribeToMarketTradeUpdates(string symbol, Action<HuobiSocketUpdate<HuobiMarketTrade>> onData) => SubscribeToMarketTradeUpdatesAsync(symbol, onData).Result;
         /// <summary>
         /// Subscribes to trade updates for a symbol
         /// </summary>
         /// <param name="symbol">The symbol to subscribe to</param>
         /// <param name="onData">The handler for updates</param>
         /// <returns></returns>
-        public async Task<CallResult<SocketSubscription>> SubscribeToMarketTradeUpdatesAsync(string symbol, Action<HuobiSocketUpdate<HuobiMarketTrade>> onData)
+        public async Task<CallResult<UpdateSubscription>> SubscribeToMarketTradeUpdatesAsync(string symbol, Action<HuobiSocketUpdate<HuobiMarketTrade>> onData)
         {
             var request = new HuobiSubscribeRequest($"market.{symbol}.trade.detail");
-            return await Subscribe<HuobiSubscribeResponse, HuobiSocketUpdate<HuobiMarketTrade>>(request, onData);
+            return await Subscribe(request, onData);
         }
 
         // <summary>
@@ -252,33 +230,33 @@ namespace Huobi.Net
         /// Synchronized version of the <see cref="SubscribeToMarketDetailUpdatesAsync"/> method
         /// </summary>
         /// <returns></returns>
-        public CallResult<SocketSubscription> SubscribeToMarketDetailUpdates(string symbol, Action<HuobiSocketUpdate<HuobiMarketData>> onData) => SubscribeToMarketDetailUpdatesAsync(symbol, onData).Result;
+        public CallResult<UpdateSubscription> SubscribeToMarketDetailUpdates(string symbol, Action<HuobiSocketUpdate<HuobiMarketData>> onData) => SubscribeToMarketDetailUpdatesAsync(symbol, onData).Result;
         /// <summary>
         /// Subscribes to market detail updates for a symbol
         /// </summary>
         /// <param name="symbol">The symbol to subscribe to</param>
         /// <param name="onData">The handler for updates</param>
         /// <returns></returns>
-        public async Task<CallResult<SocketSubscription>> SubscribeToMarketDetailUpdatesAsync(string symbol, Action<HuobiSocketUpdate<HuobiMarketData>> onData)
+        public async Task<CallResult<UpdateSubscription>> SubscribeToMarketDetailUpdatesAsync(string symbol, Action<HuobiSocketUpdate<HuobiMarketData>> onData)
         {
             var request = new HuobiSubscribeRequest($"market.{symbol}.detail");
-            return await Subscribe<HuobiSubscribeResponse, HuobiSocketUpdate<HuobiMarketData>>(request, onData);
+            return await Subscribe(request, onData);
         }
 
         // <summary>
         /// Synchronized version of the <see cref="SubscribeToMarketTickerUpdatesAsync"/> method
         /// </summary>
         /// <returns></returns>
-        public CallResult<SocketSubscription> SubscribeToMarketTickerUpdates(Action<HuobiSocketUpdate<List<HuobiMarketTick>>> onData) => SubscribeToMarketTickerUpdatesAsync(onData).Result;
+        public CallResult<UpdateSubscription> SubscribeToMarketTickerUpdates(Action<HuobiSocketUpdate<List<HuobiMarketTick>>> onData) => SubscribeToMarketTickerUpdatesAsync(onData).Result;
         /// <summary>
         /// Subscribes to updates for all market tickers
         /// </summary>
         /// <param name="onData">The handler for updates</param>
         /// <returns></returns>
-        public async Task<CallResult<SocketSubscription>> SubscribeToMarketTickerUpdatesAsync(Action<HuobiSocketUpdate<List<HuobiMarketTick>>> onData)
+        public async Task<CallResult<UpdateSubscription>> SubscribeToMarketTickerUpdatesAsync(Action<HuobiSocketUpdate<List<HuobiMarketTick>>> onData)
         {
             var request = new HuobiSubscribeRequest($"market.tickers");
-            return await Subscribe<HuobiSubscribeResponse, HuobiSocketUpdate<List<HuobiMarketTick>>>(request, onData);
+            return await Subscribe(request, onData);
         }
 
         // <summary>
@@ -300,16 +278,16 @@ namespace Huobi.Net
         /// Synchronized version of the <see cref="SubscribeToAccountUpdatesAsync"/> method
         /// </summary>
         /// <returns></returns>
-        public CallResult<SocketSubscription> SubscribeToAccountUpdates(Action<HuobiSocketAuthDataResponse<HuobiAccountEvent>> onData) => SubscribeToAccountUpdatesAsync(onData).Result;
+        public CallResult<UpdateSubscription> SubscribeToAccountUpdates(Action<HuobiSocketAuthDataResponse<HuobiAccountEvent>> onData) => SubscribeToAccountUpdatesAsync(onData).Result;
         /// <summary>
         /// Subscribe to account/wallet updates
         /// </summary>
         /// <param name="onData">The handler for updates</param>
         /// <returns></returns>
-        public async Task<CallResult<SocketSubscription>> SubscribeToAccountUpdatesAsync(Action<HuobiSocketAuthDataResponse<HuobiAccountEvent>> onData)
+        public async Task<CallResult<UpdateSubscription>> SubscribeToAccountUpdatesAsync(Action<HuobiSocketAuthDataResponse<HuobiAccountEvent>> onData)
         {
             var request = new HuobiAuthenticatedRequest("sub", "accounts");
-            return await Subscribe<HuobiSocketAuthResponse, HuobiSocketAuthDataResponse<HuobiAccountEvent>>(request, onData);
+            return await Subscribe(request, onData);
         }
 
         // <summary>
@@ -352,32 +330,32 @@ namespace Huobi.Net
         /// Synchronized version of the <see cref="SubscribeToOrderUpdatesAsync"/> method
         /// </summary>
         /// <returns></returns>
-        public CallResult<SocketSubscription> SubscribeToOrderUpdates(Action<HuobiSocketAuthDataResponse<HuobiOrder>> onData) => SubscribeToOrderUpdatesAsync(onData).Result;
+        public CallResult<UpdateSubscription> SubscribeToOrderUpdates(Action<HuobiSocketAuthDataResponse<HuobiOrder>> onData) => SubscribeToOrderUpdatesAsync(onData).Result;
         /// <summary>
         /// Subscribe to updates when any order changes
         /// </summary>
         /// <param name="onData">The handler for updates</param>
         /// <returns></returns>
-        public async Task<CallResult<SocketSubscription>> SubscribeToOrderUpdatesAsync(Action<HuobiSocketAuthDataResponse<HuobiOrder>> onData)
+        public async Task<CallResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(Action<HuobiSocketAuthDataResponse<HuobiOrder>> onData)
         {
             var request = new HuobiAuthenticatedRequest("sub", $"orders.*");
-            return await Subscribe<HuobiSocketAuthResponse, HuobiSocketAuthDataResponse<HuobiOrder>>(request, onData);
+            return await Subscribe(request, onData);
         }
 
         // <summary>
         /// Synchronized version of the <see cref="SubscribeToOrderUpdatesAsync"/> method
         /// </summary>
         /// <returns></returns>
-        public CallResult<SocketSubscription> SubscribeToOrderUpdates(string symbol, Action<HuobiSocketAuthDataResponse<HuobiOrder>> onData) => SubscribeToOrderUpdatesAsync(symbol, onData).Result;
+        public CallResult<UpdateSubscription> SubscribeToOrderUpdates(string symbol, Action<HuobiSocketAuthDataResponse<HuobiOrder>> onData) => SubscribeToOrderUpdatesAsync(symbol, onData).Result;
         /// <summary>
         /// Subscribe to updates when a order for a symbol changes
         /// </summary>
         /// <param name="onData">The handler for updates</param>
         /// <returns></returns>
-        public async Task<CallResult<SocketSubscription>> SubscribeToOrderUpdatesAsync(string symbol, Action<HuobiSocketAuthDataResponse<HuobiOrder>> onData)
+        public async Task<CallResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(string symbol, Action<HuobiSocketAuthDataResponse<HuobiOrder>> onData)
         {
             var request = new HuobiAuthenticatedRequest("sub", $"orders.{symbol}");
-            return await Subscribe<HuobiSocketAuthResponse, HuobiSocketAuthDataResponse<HuobiOrder>>(request, onData);
+            return await Subscribe(request, onData);
         }
 
         // <summary>
@@ -395,9 +373,162 @@ namespace Huobi.Net
             return await Query<HuobiSocketAuthDataResponse<HuobiOrder>>(new HuobiOrderDetailsRequest(orderId.ToString()));
         }
 
-
-        public async Task<CallResult<bool>> Authenticate(IWebsocket socket)
+        private async Task<CallResult<T>> Query<T>(HuobiRequest request) where T: HuobiResponse
         {
+            CallResult<T> result = null;
+            var connectResult = await CreateAndConnectSocket<T>(request.Signed, false, data => result = new CallResult<T>(data, null));
+            if (!connectResult.Success)
+                return new CallResult<T>(null, connectResult.Error);
+
+            var subscription = connectResult.Data;
+            Send(subscription.Socket, request);
+
+            var dataResult = subscription.WaitForEvent("Data");
+            var closeTask = subscription.Close();
+
+            if (!dataResult.Success)            
+                return new CallResult<T>(null, dataResult.Error);
+
+            if (!result.Data.IsSuccessfull)
+                return new CallResult<T>(null, new ServerError($"{result.Data.ErrorCode}: {result.Data.ErrorMessage}"));
+
+            return result;
+        }
+        
+        private async Task<CallResult<UpdateSubscription>> Subscribe<U>(HuobiRequest request, Action<U> onData) where U: class
+        {
+            var connectResult = await CreateAndConnectSocket(request.Signed, true, onData);
+            if (!connectResult.Success)
+                return new CallResult<UpdateSubscription>(null, connectResult.Error);
+
+            var subscription = connectResult.Data;
+            Send(subscription.Socket, request);
+
+            var subResult = subscription.WaitForEvent("Subscription");
+            if (!subResult.Success)
+            {
+                await subscription.Close();
+                return new CallResult<UpdateSubscription>(null, subResult.Error);
+            }
+
+            subscription.Request = request;
+            subscription.Socket.ShouldReconnect = true;
+            return new CallResult<UpdateSubscription>(new UpdateSubscription(subscription), null);
+        }
+
+        private void DataHandler<T>(SocketSubscription subscription, JToken data, Action<T> handler) where T : class
+        {
+            var v1Data = (data["data"] != null || data["tick"] != null) && (data["rep"] != null || data["ch"] != null);
+            var v2Data = (string)data["op"] == "notify" || (string)data["op"] == "req";
+
+            if (!v1Data && !v2Data)
+                return;
+
+            var desResult = Deserialize<T>(data, false);
+            if (!desResult.Success)
+            {
+                log.Write(LogVerbosity.Warning, $"Failed to deserialize data: {desResult.Error}. Data: {data}");
+                return;
+            }
+
+            handler(desResult.Data);
+            subscription.SetEvent("Data", true, null);
+        }
+
+        private void PingHandler(SocketSubscription subscription, JToken data)
+        {
+            bool v1Ping = data["ping"] != null;
+            bool v2Ping = (string)data["op"] == "ping";
+
+            if (v1Ping)
+                Send(subscription.Socket, new HuobiPingResponse((long)data["ping"]));
+            else if (v2Ping)
+                Send(subscription.Socket, new HuobiPingAuthResponse((long)data["ts"]));
+        }
+
+        private void AuthenticationHandler(SocketSubscription subscription, JToken data)
+        {
+            if ((string)data["op"] != "auth")
+                return;
+
+            var authResponse = Deserialize<HuobiSocketAuthDataResponse<object>>(data, false);
+            if (!authResponse.Success)
+            {
+                log.Write(LogVerbosity.Warning, $"Authorization failed: " + authResponse.Error);
+                subscription.SetEvent("Authentication", false, authResponse.Error);
+                return;
+            }
+
+            log.Write(LogVerbosity.Debug, $"Authorization completed");
+            subscription.SetEvent("Authentication", true, null);
+        }
+
+        private void SubscriptionHandler(SocketSubscription subscription, JToken data)
+        {
+            var v1Sub = data["subbed"] != null;
+            var v2Sub = (string)data["op"] == "sub";
+
+            if (!v1Sub && !v2Sub)
+                return;
+
+            if (v1Sub)
+            {
+                var subResponse = Deserialize<HuobiSubscribeResponse>(data, false);
+                if (!subResponse.Success)
+                {
+                    log.Write(LogVerbosity.Warning, $"Subscription failed: " + subResponse.Error);
+                    subscription.SetEvent("Subscription", false, subResponse.Error);
+                    return;
+                }
+            }
+            else if (v2Sub)
+            {
+                var subResponse = Deserialize<HuobiSocketAuthResponse>(data, false);
+                if (!subResponse.Success)
+                {
+                    log.Write(LogVerbosity.Warning, $"Subscription failed: " + subResponse.Error);
+                    subscription.SetEvent("Subscription", false, subResponse.Error);
+                    return;
+                }
+            }
+
+            log.Write(LogVerbosity.Debug, $"Subscription completed");
+            subscription.SetEvent("Subscription", true, null);
+        }
+
+        private async Task<CallResult<SocketSubscription>> CreateAndConnectSocket<T>(bool authenticate, bool sub, Action<T> onMessage) where T: class
+        {
+            var socket = CreateSocket(authenticate ? baseAddressAuthenticated: baseAddress);
+            var subscription = new SocketSubscription(socket);
+            subscription.DataHandlers.Add(PingHandler);
+            subscription.DataHandlers.Add(AuthenticationHandler);
+            subscription.DataHandlers.Add(SubscriptionHandler);
+            subscription.DataHandlers.Add((subs, data) => DataHandler(subs, data, onMessage));
+
+            if (authenticate)
+                subscription.AddEvent("Authentication");
+
+            if (sub)
+                subscription.AddEvent("Subscription");
+            else
+                subscription.AddEvent("Data");
+            
+            var connectResult = await ConnectSocket(subscription);
+            if (!connectResult.Success)
+                return new CallResult<SocketSubscription>(null, connectResult.Error);
+
+            if(authenticate)
+            {
+                var authResult = await Authenticate(subscription);
+                if (!authResult.Success)
+                    return new CallResult<SocketSubscription>(null, authResult.Error);
+            }
+
+            return new CallResult<SocketSubscription>(subscription, null);
+        }
+
+        private async Task<CallResult<bool>> Authenticate(SocketSubscription subscription)
+        {            
             var authParams = authProvider.AddAuthenticationToParameters(baseAddressAuthenticated, Constants.GetMethod, new Dictionary<string, object>(), true);
             var authObjects = new HuobiAuthenticationRequest()
             {
@@ -408,180 +539,18 @@ namespace Huobi.Net
                 Timestamp = (string)authParams["Timestamp"],
                 Signature = (string)authParams["Signature"],
             };
-            var result = await SendAndWait(socket, authObjects, data => { return data["op"] != null && (string)data["op"] == "auth"; }, socketResponseTimeout);
-            if (!result.Success)
-                return new CallResult<bool>(false, result.Error);
+            Send(subscription.Socket, authObjects);
 
-            var desResult = Deserialize<HuobiSocketAuthDataResponse<object>>(result.Data, false);
-            if (!desResult.Success)
-                return new CallResult<bool>(false, desResult.Error);
-
-            if (desResult.Data.ErrorCode != 0)
-                return new CallResult<bool>(false, new ServerError(desResult.Data.ErrorCode, desResult.Data.ErrorMessage));
+            var authResult = subscription.WaitForEvent("Authentication");
+            if (!authResult.Success)
+            {
+                await subscription.Close();
+                return new CallResult<bool>(false, authResult.Error);
+            }
 
             return new CallResult<bool>(true, null);
         }
         
-        private async Task<CallResult<T>> Query<T>(HuobiRequest request) where T: HuobiResponse
-        {
-            var id = NextId().ToString();
-            var result = new CallResult<T>(null, new ServerError("No response from server"));
-            var subWait = new ManualResetEvent(false);
-            Action<string> handler = new Action<string>(data =>
-            {
-                var token = JToken.Parse(data);
-                var operation = token["op"];
-                if (operation != null && ((string)operation == "auth" || (string)operation == "ping"))
-                    return;
-
-                if (token["ping"] != null)
-                    return;
-
-                log.Write(LogVerbosity.Debug, $"Socket received data: " + data);
-                if (!result.Success)
-                {
-                    var desResult = Deserialize<T>(data, false);
-                    if (!desResult.Success)
-                    {
-                        result = new CallResult<T>(null, desResult.Error);
-                        return;
-                    }
-
-                    if (desResult.Data.IsSuccessfull)
-                        result = new CallResult<T>(desResult.Data, null);
-                    else
-                        result = new CallResult<T>(null, new ServerError($"{desResult.Data.ErrorCode}: {desResult.Data.ErrorMessage}"));
-
-                    subWait.Set();
-                }
-            });
-
-            var connectResult = await CreateAndConnectSocket(request.Signed, handler);
-            if (!connectResult.Success)
-                return new CallResult<T>(null, connectResult.Error);
-
-            request.Id = id;
-            Send(connectResult.Data.Socket, request);
-            subWait.WaitOne(socketResponseTimeout);
-           
-            connectResult.Data.Socket.ShouldReconnect = false;
-            var closeTask = connectResult.Data.Socket.Close(); // Dont await, let it close in the background
-            
-            return result;
-        }
-        
-
-        private async Task<CallResult<SocketSubscription>> Subscribe<T, U>(HuobiRequest request, Action<U> onData) where T: HuobiResponse where U: class
-        {
-            var id = NextId().ToString();
-            CallResult<bool> subConfirmation = new CallResult<bool>(false, new ServerError("No response from server"));
-            var subWait = new ManualResetEvent(false);
-            Action<string> handler = new Action<string>(data =>
-            {
-                var token = JToken.Parse(data);
-                var operation = token["op"];
-                if (operation != null && ((string)operation == "auth" || (string)operation == "ping"))
-                    return;
-
-                if (token["ping"] != null)
-                    return;
-
-                log.Write(LogVerbosity.Debug, $"Socket received data: " + data);
-                if (!subConfirmation.Success)
-                {
-                    var desResult = Deserialize<T>(data, false);
-                    if (!desResult.Success)
-                    {
-                        subConfirmation = new CallResult<bool>(false, desResult.Error);
-                        return;
-                    }
-
-                    if (desResult.Data.IsSuccessfull)                    
-                        subConfirmation = new CallResult<bool>(true, null);                    
-                    else                    
-                        subConfirmation = new CallResult<bool>(false, new ServerError($"{desResult.Data.ErrorCode}: {desResult.Data.ErrorMessage}"));
-                    
-                    subWait.Set();
-                }
-                else
-                {
-                    if ((operation != null && (string)operation == "sub") || token["subbed"] != null)
-                        return;
-
-                    var desResult = Deserialize<U>(data, false);
-                    if (!desResult.Success)
-                        return;
-
-                    onData(desResult.Data);
-                }
-            });
-
-            var connectResult = await CreateAndConnectSocket(request.Signed, handler);
-            if (!connectResult.Success)
-                return new CallResult<SocketSubscription>(null, connectResult.Error);
-
-            request.Id = id;
-            Send(connectResult.Data.Socket, request);
-            subWait.WaitOne(socketResponseTimeout);
-
-            if (!subConfirmation.Success)
-            {
-                connectResult.Data.Socket.ShouldReconnect = false;
-                await connectResult.Data.Socket.Close();
-                connectResult.Data.Socket.Dispose();
-                return new CallResult<SocketSubscription>(null, subConfirmation.Error);
-            }
-
-            connectResult.Data.Request = request;
-            return new CallResult<SocketSubscription>(connectResult.Data, null);
-        }
-
-        private async Task<CallResult<SocketSubscription>> CreateAndConnectSocket(bool authenticate, Action<string> onMessage)
-        {
-            var socket = CreateSocket(authenticate ? baseAddressAuthenticated: baseAddress);
-            socket.OnMessage += onMessage;
-
-            var connectResult = ConnectSocket(socket);
-            if (!connectResult.Success)
-                return new CallResult<SocketSubscription>(null, connectResult.Error);
-
-            if (authenticate)
-            {
-                var authResult = await Authenticate(socket);
-                if (!authResult.Success)
-                {
-                    connectResult.Data.Socket.ShouldReconnect = false;
-                    await connectResult.Data.Socket.Close();
-                    connectResult.Data.Socket.Dispose();
-                    return new CallResult<SocketSubscription>(null, authResult.Error);
-                }
-            }
-
-            return new CallResult<SocketSubscription>(connectResult.Data, null);
-        }
-
-        protected override IWebsocket CreateSocket(string address)
-        {
-            var result = base.CreateSocket(address);
-
-            result.OnMessage += data =>
-            {
-                var token = JToken.Parse(data);
-                if (token["ping"] != null)
-                {
-                    log.Write(LogVerbosity.Debug, $"Socket {result.Id} received ping request: " + data);
-                    Send(result, new HuobiPingResponse((long)token["ping"]));
-                }
-                if(token["op"] != null && (string)token["op"] == "ping")
-                {
-                    log.Write(LogVerbosity.Debug, $"Socket {result.Id} received ping request: " + data);
-                    Send(result, new HuobiPingAuthResponse((long)token["ts"]));
-                }
-            };
-
-            return result;
-        }
-
         private string DecompressData(byte[] byteData)
         {
             using (var decompressedStream = new MemoryStream())
