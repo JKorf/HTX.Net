@@ -365,7 +365,7 @@ namespace Huobi.Net
             var subscription = connectResult.Data;
             Send(subscription.Socket, request);
 
-            var dataResult = subscription.WaitForEvent("Data", socketResponseTimeout);
+            var dataResult = await subscription.WaitForEvent("Data", socketResponseTimeout);
             var closeTask = subscription.Close();
 
             if (!dataResult.Success)            
@@ -386,7 +386,7 @@ namespace Huobi.Net
             var subscription = connectResult.Data;
             Send(subscription.Socket, request);
 
-            var subResult = subscription.WaitForEvent("Subscription", socketResponseTimeout);
+            var subResult = await subscription.WaitForEvent("Subscription", socketResponseTimeout);
             if (!subResult.Success)
             {
                 await subscription.Close();
@@ -557,7 +557,7 @@ namespace Huobi.Net
             };
             Send(subscription.Socket, authObjects);
 
-            var authResult = subscription.WaitForEvent("Authentication", socketResponseTimeout);
+            var authResult = await subscription.WaitForEvent("Authentication", socketResponseTimeout);
             if (!authResult.Success)
             {
                 await subscription.Close();
@@ -578,7 +578,7 @@ namespace Huobi.Net
 
             Send(subscription.Socket, request);
 
-            var subResult = subscription.WaitForEvent("Subscription", socketResponseTimeout);
+            var subResult = subscription.WaitForEvent("Subscription", socketResponseTimeout).Result;
             if (!subResult.Success)
                 return false;
 

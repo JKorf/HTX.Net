@@ -1,12 +1,10 @@
-﻿using Newtonsoft.Json;
+﻿using CryptoExchange.Net.Sockets;
+using Newtonsoft.Json;
 
 namespace Huobi.Net.Objects.SocketObjects
 {
-    internal class HuobiRequest
+    internal class HuobiRequest: SocketRequest
     {
-        [JsonIgnore]
-        public bool Signed { get; set; }
-
         [JsonIgnore]
         public string Id { get; set; }
     }
