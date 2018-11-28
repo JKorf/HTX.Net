@@ -17,26 +17,7 @@ namespace Huobi.Net
     {
         #region fields
         private static HuobiClientOptions defaultOptions = new HuobiClientOptions();
-        private static HuobiClientOptions DefaultOptions
-        {
-            get
-            {
-                var result = new HuobiClientOptions()
-                {
-                    LogVerbosity = defaultOptions.LogVerbosity,
-                    BaseAddress = defaultOptions.BaseAddress,
-                    LogWriters = defaultOptions.LogWriters,
-                    Proxy = defaultOptions.Proxy,
-                    RateLimiters = defaultOptions.RateLimiters,
-                    RateLimitingBehaviour = defaultOptions.RateLimitingBehaviour
-                };
-
-                if (defaultOptions.ApiCredentials != null)
-                    result.ApiCredentials = new ApiCredentials(defaultOptions.ApiCredentials.Key.GetString(), defaultOptions.ApiCredentials.Secret.GetString());
-
-                return result;
-            }
-        }
+        private static HuobiClientOptions DefaultOptions => defaultOptions.Copy<HuobiClientOptions>();
 
 
         private const string MarketTickerEndpoint = "market/tickers";

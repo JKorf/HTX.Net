@@ -27,5 +27,13 @@ namespace Huobi.Net
         {
             BaseAddress = "wss://api.huobi.pro/ws";
         }
+
+        public HuobiSocketClientOptions Copy()
+        {
+            var copy = Copy<HuobiSocketClientOptions>();
+            copy.BaseAddressAuthenticated = BaseAddressAuthenticated;
+            copy.SocketResponseTimeout = SocketResponseTimeout;
+            return copy;
+        }
     }
 }

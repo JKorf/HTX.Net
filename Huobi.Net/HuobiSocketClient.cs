@@ -398,109 +398,118 @@ namespace Huobi.Net
             return new CallResult<UpdateSubscription>(new UpdateSubscription(subscription), null);
         }
 
-        private void DataHandlerV1<T>(SocketSubscription subscription, JToken data, Action<T> handler) where T : class
+        private bool DataHandlerV1<T>(SocketSubscription subscription, JToken data, Action<T> handler) where T : class
         {
             var v1Data = (data["data"] != null || data["tick"] != null) && (data["rep"] != null || data["ch"] != null);
 
             if (!v1Data)
-                return;
+                return false;
 
             var desResult = Deserialize<T>(data, false);
             if (!desResult.Success)
             {
                 log.Write(LogVerbosity.Warning, $"Failed to deserialize data: {desResult.Error}. Data: {data}");
-                return;
+                return false;
             }
 
             handler(desResult.Data);
             subscription.SetEvent("Data", true, null);
+            return true;
         }
 
-        private void DataHandlerV2<T>(SocketSubscription subscription, JToken data, Action<T> handler) where T : class
+        private bool DataHandlerV2<T>(SocketSubscription subscription, JToken data, Action<T> handler) where T : class
         {
             var v2Data = (string)data["op"] == "notify" || (string)data["op"] == "req";
 
             if (!v2Data)
-                return;
+                return false;
 
             var desResult = Deserialize<T>(data, false);
             if (!desResult.Success)
             {
                 log.Write(LogVerbosity.Warning, $"Failed to deserialize data: {desResult.Error}. Data: {data}");
-                return;
+                return false;
             }
 
             handler(desResult.Data);
             subscription.SetEvent("Data", true, null);
+            return true;
         }
 
-        private void PingHandlerV1(SocketSubscription subscription, JToken data)
+        private bool PingHandlerV1(SocketSubscription subscription, JToken data)
         {
             bool v1Ping = data["ping"] != null;
 
             if (v1Ping)
                 Send(subscription.Socket, new HuobiPingResponse((long)data["ping"]));
+
+            return v1Ping;
         }
 
-        private void PingHandlerV2(SocketSubscription subscription, JToken data)
+        private bool PingHandlerV2(SocketSubscription subscription, JToken data)
         {
             bool v2Ping = (string)data["op"] == "ping";
 
             if (v2Ping)
                 Send(subscription.Socket, new HuobiPingAuthResponse((long)data["ts"]));
+
+            return v2Ping;
         }
 
-        private void AuthenticationHandler(SocketSubscription subscription, JToken data)
+        private bool AuthenticationHandler(SocketSubscription subscription, JToken data)
         {
             if ((string)data["op"] != "auth")
-                return;
+                return false;
 
             var authResponse = Deserialize<HuobiSocketAuthDataResponse<object>>(data, false);
             if (!authResponse.Success)
             {
                 log.Write(LogVerbosity.Warning, $"Authorization failed: " + authResponse.Error);
                 subscription.SetEvent("Authentication", false, authResponse.Error);
-                return;
+                return true;
             }
 
             log.Write(LogVerbosity.Debug, $"Authorization completed");
             subscription.SetEvent("Authentication", true, null);
+            return true;
         }
 
-        private void SubscriptionHandlerV1(SocketSubscription subscription, JToken data)
+        private bool SubscriptionHandlerV1(SocketSubscription subscription, JToken data)
         {
-            var v1Sub = data["subbed"] != null;            
-            if (v1Sub)
+            var v1Sub = data["subbed"] != null;
+            if (!v1Sub)
+                return false;
+            
+            var subResponse = Deserialize<HuobiSubscribeResponse>(data, false);
+            if (!subResponse.Success)
             {
-                var subResponse = Deserialize<HuobiSubscribeResponse>(data, false);
-                if (!subResponse.Success)
-                {
-                    log.Write(LogVerbosity.Warning, $"Subscription failed: " + subResponse.Error);
-                    subscription.SetEvent("Subscription", false, subResponse.Error);
-                    return;
-                }
+                log.Write(LogVerbosity.Warning, $"Subscription failed: " + subResponse.Error);
+                subscription.SetEvent("Subscription", false, subResponse.Error);
+                return true;
+            }
 
-                log.Write(LogVerbosity.Debug, $"Subscription completed");
-                subscription.SetEvent("Subscription", true, null);
-            }            
+            log.Write(LogVerbosity.Debug, $"Subscription completed");
+            subscription.SetEvent("Subscription", true, null);
+            return false;
         }
 
-        private void SubscriptionHandlerV2(SocketSubscription subscription, JToken data)
+        private bool SubscriptionHandlerV2(SocketSubscription subscription, JToken data)
         {
             var v2Sub = (string)data["op"] == "sub";
-            if (v2Sub)
+            if (!v2Sub)
+                return false;
+            
+            var subResponse = Deserialize<HuobiSocketAuthResponse>(data, false);
+            if (!subResponse.Success)
             {
-                var subResponse = Deserialize<HuobiSocketAuthResponse>(data, false);
-                if (!subResponse.Success)
-                {
-                    log.Write(LogVerbosity.Warning, $"Subscription failed: " + subResponse.Error);
-                    subscription.SetEvent("Subscription", false, subResponse.Error);
-                    return;
-                }
-
-                log.Write(LogVerbosity.Debug, $"Subscription completed");
-                subscription.SetEvent("Subscription", true, null);
+                log.Write(LogVerbosity.Warning, $"Subscription failed: " + subResponse.Error);
+                subscription.SetEvent("Subscription", false, subResponse.Error);
+                return true;
             }
+
+            log.Write(LogVerbosity.Debug, $"Subscription completed");
+            subscription.SetEvent("Subscription", true, null);
+            return true;            
         }
 
         private async Task<CallResult<SocketSubscription>> CreateAndConnectSocket<T>(bool authenticate, bool sub, Action<T> onMessage) where T: class
@@ -510,18 +519,18 @@ namespace Huobi.Net
 
             if (authenticate)
             {
-                subscription.DataHandlers.Add(AuthenticationHandler);
-                subscription.DataHandlers.Add(SubscriptionHandlerV2);
-                subscription.DataHandlers.Add(PingHandlerV2);
-                subscription.DataHandlers.Add((subs, data) => DataHandlerV2(subs, data, onMessage));
+                subscription.MessageHandlers.Add((subs, data) => DataHandlerV2(subs, data, onMessage));
+                subscription.MessageHandlers.Add(PingHandlerV2);
+                subscription.MessageHandlers.Add(SubscriptionHandlerV2);
+                subscription.MessageHandlers.Add(AuthenticationHandler);
 
                 subscription.AddEvent("Authentication");
             }
             else
             {
-                subscription.DataHandlers.Add(SubscriptionHandlerV1);
-                subscription.DataHandlers.Add(PingHandlerV1);
-                subscription.DataHandlers.Add((subs, data) => DataHandlerV1(subs, data, onMessage));
+                subscription.MessageHandlers.Add((subs, data) => DataHandlerV1(subs, data, onMessage));
+                subscription.MessageHandlers.Add(PingHandlerV1);
+                subscription.MessageHandlers.Add(SubscriptionHandlerV1);
             }
 
             if (sub)
