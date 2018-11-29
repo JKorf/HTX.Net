@@ -21,27 +21,7 @@ namespace Huobi.Net
     {
         #region fields
         private static HuobiSocketClientOptions defaultOptions = new HuobiSocketClientOptions();
-        private static HuobiSocketClientOptions DefaultOptions
-        {
-            get
-            {
-                var result = new HuobiSocketClientOptions()
-                {
-                    LogVerbosity = defaultOptions.LogVerbosity,
-                    BaseAddress = defaultOptions.BaseAddress,
-                    LogWriters = defaultOptions.LogWriters,
-                    Proxy = defaultOptions.Proxy,
-                    BaseAddressAuthenticated = defaultOptions.BaseAddressAuthenticated,
-                    ReconnectInterval = defaultOptions.ReconnectInterval,
-                    SocketResponseTimeout = defaultOptions.SocketResponseTimeout
-                };
-
-                if (defaultOptions.ApiCredentials != null)
-                    result.ApiCredentials = new ApiCredentials(defaultOptions.ApiCredentials.Key.GetString(), defaultOptions.ApiCredentials.Secret.GetString());
-
-                return result;
-            }
-        }
+        private static HuobiSocketClientOptions DefaultOptions => defaultOptions.Copy();
 
         private string baseAddressAuthenticated;
         private int socketResponseTimeout;
@@ -358,15 +338,29 @@ namespace Huobi.Net
         private async Task<CallResult<T>> Query<T>(HuobiRequest request) where T: HuobiResponse
         {
             CallResult<T> result = null;
-            var connectResult = await CreateAndConnectSocket<T>(request.Signed, false, data => result = new CallResult<T>(data, null));
-            if (!connectResult.Success)
-                return new CallResult<T>(null, connectResult.Error);
+            var subscription = GetBackgroundSocket(request.Signed);
+            if (subscription == null)
+            {
+                // We dont have a background socket to query, create a new one
+                var connectResult = await CreateAndConnectSocket<T>(request.Signed, false, data => result = new CallResult<T>(data, null));
+                if (!connectResult.Success)
+                    return new CallResult<T>(null, connectResult.Error);
 
-            var subscription = connectResult.Data;
+                subscription = connectResult.Data;
+                subscription.Type = request.Signed ? SocketType.BackgroundAuthenticated : SocketType.Background;
+            }
+            else
+            {
+                // Use earlier created backgruond socket to query without having to connect again
+                subscription.Events.Single(s => s.Name == DataEvent).Reset();
+                if(request.Signed)
+                    subscription.MessageHandlers[DataHandlerName] = (subs, data) => DataHandlerV2<T>(subs, data, rdata => result = new CallResult<T>(rdata, null));
+                else
+                    subscription.MessageHandlers[DataHandlerName] = (subs, data) => DataHandlerV1<T>(subs, data, rdata => result = new CallResult<T>(rdata, null));
+            }
+
             Send(subscription.Socket, request);
-
-            var dataResult = await subscription.WaitForEvent("Data", socketResponseTimeout);
-            var closeTask = subscription.Close();
+            var dataResult = await subscription.WaitForEvent(DataEvent, socketResponseTimeout);
 
             if (!dataResult.Success)            
                 return new CallResult<T>(null, dataResult.Error);
@@ -386,7 +380,7 @@ namespace Huobi.Net
             var subscription = connectResult.Data;
             Send(subscription.Socket, request);
 
-            var subResult = await subscription.WaitForEvent("Subscription", socketResponseTimeout);
+            var subResult = await subscription.WaitForEvent(SubscriptionEvent, socketResponseTimeout);
             if (!subResult.Success)
             {
                 await subscription.Close();
@@ -413,7 +407,7 @@ namespace Huobi.Net
             }
 
             handler(desResult.Data);
-            subscription.SetEvent("Data", true, null);
+            subscription.SetEvent(DataEvent, true, null);
             return true;
         }
 
@@ -432,7 +426,7 @@ namespace Huobi.Net
             }
 
             handler(desResult.Data);
-            subscription.SetEvent("Data", true, null);
+            subscription.SetEvent(DataEvent, true, null);
             return true;
         }
 
@@ -465,12 +459,12 @@ namespace Huobi.Net
             if (!authResponse.Success)
             {
                 log.Write(LogVerbosity.Warning, $"Authorization failed: " + authResponse.Error);
-                subscription.SetEvent("Authentication", false, authResponse.Error);
+                subscription.SetEvent(AuthenticationEvent, false, authResponse.Error);
                 return true;
             }
 
             log.Write(LogVerbosity.Debug, $"Authorization completed");
-            subscription.SetEvent("Authentication", true, null);
+            subscription.SetEvent(AuthenticationEvent, true, null);
             return true;
         }
 
@@ -484,12 +478,12 @@ namespace Huobi.Net
             if (!subResponse.Success)
             {
                 log.Write(LogVerbosity.Warning, $"Subscription failed: " + subResponse.Error);
-                subscription.SetEvent("Subscription", false, subResponse.Error);
+                subscription.SetEvent(SubscriptionEvent, false, subResponse.Error);
                 return true;
             }
 
             log.Write(LogVerbosity.Debug, $"Subscription completed");
-            subscription.SetEvent("Subscription", true, null);
+            subscription.SetEvent(SubscriptionEvent, true, null);
             return false;
         }
 
@@ -503,12 +497,12 @@ namespace Huobi.Net
             if (!subResponse.Success)
             {
                 log.Write(LogVerbosity.Warning, $"Subscription failed: " + subResponse.Error);
-                subscription.SetEvent("Subscription", false, subResponse.Error);
+                subscription.SetEvent(SubscriptionEvent, false, subResponse.Error);
                 return true;
             }
 
             log.Write(LogVerbosity.Debug, $"Subscription completed");
-            subscription.SetEvent("Subscription", true, null);
+            subscription.SetEvent(SubscriptionEvent, true, null);
             return true;            
         }
 
@@ -519,24 +513,21 @@ namespace Huobi.Net
 
             if (authenticate)
             {
-                subscription.MessageHandlers.Add((subs, data) => DataHandlerV2(subs, data, onMessage));
-                subscription.MessageHandlers.Add(PingHandlerV2);
-                subscription.MessageHandlers.Add(SubscriptionHandlerV2);
-                subscription.MessageHandlers.Add(AuthenticationHandler);
+                subscription.MessageHandlers.Add(DataHandlerName, (subs, data) => DataHandlerV2(subs, data, onMessage));
+                subscription.MessageHandlers.Add(PingHandlerName, PingHandlerV2);
+                subscription.MessageHandlers.Add(SubscriptionHandlerName, SubscriptionHandlerV2);
+                subscription.MessageHandlers.Add(AuthenticationHandlerName, AuthenticationHandler);
 
-                subscription.AddEvent("Authentication");
+                subscription.AddEvent(AuthenticationEvent);
             }
             else
             {
-                subscription.MessageHandlers.Add((subs, data) => DataHandlerV1(subs, data, onMessage));
-                subscription.MessageHandlers.Add(PingHandlerV1);
-                subscription.MessageHandlers.Add(SubscriptionHandlerV1);
+                subscription.MessageHandlers.Add(DataHandlerName, (subs, data) => DataHandlerV1(subs, data, onMessage));
+                subscription.MessageHandlers.Add(PingHandlerName, PingHandlerV1);
+                subscription.MessageHandlers.Add(SubscriptionHandlerName, SubscriptionHandlerV1);
             }
 
-            if (sub)
-                subscription.AddEvent("Subscription");
-            else
-                subscription.AddEvent("Data");
+            subscription.AddEvent(sub ? SubscriptionEvent: DataEvent);
             
             var connectResult = await ConnectSocket(subscription);
             if (!connectResult.Success)
@@ -566,7 +557,7 @@ namespace Huobi.Net
             };
             Send(subscription.Socket, authObjects);
 
-            var authResult = await subscription.WaitForEvent("Authentication", socketResponseTimeout);
+            var authResult = await subscription.WaitForEvent(AuthenticationEvent, socketResponseTimeout);
             if (!authResult.Success)
             {
                 await subscription.Close();
@@ -587,7 +578,7 @@ namespace Huobi.Net
 
             Send(subscription.Socket, request);
 
-            var subResult = subscription.WaitForEvent("Subscription", socketResponseTimeout).Result;
+            var subResult = subscription.WaitForEvent(SubscriptionEvent, socketResponseTimeout).Result;
             if (!subResult.Success)
                 return false;
 
