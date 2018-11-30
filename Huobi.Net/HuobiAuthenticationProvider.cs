@@ -13,11 +13,9 @@ namespace Huobi.Net
     public class HuobiAuthenticationProvider : AuthenticationProvider
     {
         private readonly HMACSHA256 encryptor;
-        private readonly object locker;
 
         public HuobiAuthenticationProvider(ApiCredentials credentials) : base(credentials)
         {
-            locker = new object();
             encryptor = new HMACSHA256(Encoding.ASCII.GetBytes(credentials.Secret.GetString()));
         }
 

@@ -1,9 +1,9 @@
 ﻿using CryptoExchange.Net;
-using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Logging;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Sockets;
 using Huobi.Net.Converters;
+using Huobi.Net.Interfaces;
 using Huobi.Net.Objects;
 using Huobi.Net.Objects.SocketObjects;
 using Newtonsoft.Json;
@@ -17,7 +17,7 @@ using System.Threading.Tasks;
 
 namespace Huobi.Net
 {
-    public class HuobiSocketClient : SocketClient
+    public class HuobiSocketClient : SocketClient, IHuobiSocketClient
     {
         #region fields
         private static HuobiSocketClientOptions defaultOptions = new HuobiSocketClientOptions();
@@ -63,9 +63,11 @@ namespace Huobi.Net
             defaultOptions = options;
         }
 
-        // <summary>
-        /// Synchronized version of the <see cref="QueryMarketKlinesAsync"/> method
+        /// <summary>
+        /// Gets candlestick data for a symbol
         /// </summary>
+        /// <param name="symbol">The symbol to get the data for</param>
+        /// <param name="period">The period of a single candlestick</param>
         /// <returns></returns>
         public CallResult<HuobiSocketResponse<List<HuobiMarketData>>> QueryMarketKlines(string symbol, HuobiPeriod period) => QueryMarketKlinesAsync(symbol, period).Result;
         /// <summary>
@@ -80,9 +82,12 @@ namespace Huobi.Net
             return await Query<HuobiSocketResponse<List<HuobiMarketData>>>(request);
         }
 
-        // <summary>
-        /// Synchronized version of the <see cref="SubscribeToMarketKlineUpdatesAsync"/> method
+        /// <summary>
+        /// Subscribes to candlestick updates for a symbol
         /// </summary>
+        /// <param name="symbol">The symbol to subscribe to</param>
+        /// <param name="period">The period of a single candlestick</param>
+        /// <param name="onData">The handler for updates</param>
         /// <returns></returns>
         public CallResult<UpdateSubscription> SubscribeToMarketKlineUpdates(string symbol, HuobiPeriod period, Action<HuobiSocketUpdate<HuobiMarketData>> onData) => SubscribeToMarketKlineUpdatesAsync(symbol, period, onData).Result;
         /// <summary>
@@ -98,13 +103,15 @@ namespace Huobi.Net
             return await Subscribe(request, onData);
         }
 
-        // <summary>
-        /// Synchronized version of the <see cref="QueryMarketDepthAsync"/> method
+        /// <summary>
+        /// Gets the current order book for a symbol
         /// </summary>
+        /// <param name="symbol">The symbol to get the data for</param>
+        /// <param name="mergeStep">The way the results will be merged together</param>
         /// <returns></returns>
         public CallResult<HuobiSocketResponse<HuobiMarketDepth>> QueryMarketDepth(string symbol, int mergeStep) => QueryMarketDepthAsync(symbol, mergeStep).Result;
         /// <summary>
-        /// Gets the current orderbook for a symbol
+        /// Gets the current order book for a symbol
         /// </summary>
         /// <param name="symbol">The symbol to get the data for</param>
         /// <param name="mergeStep">The way the results will be merged together</param>
@@ -118,13 +125,16 @@ namespace Huobi.Net
             return await Query<HuobiSocketResponse<HuobiMarketDepth>>(request);            
         }
 
-        // <summary>
-        /// Synchronized version of the <see cref="SubscribeToDepthUpdatesAsync"/> method
+        /// <summary>
+        /// Subscribes to order book updates for a symbol
         /// </summary>
+        /// <param name="symbol">The symbol to subscribe to</param>
+        /// <param name="mergeStep">The way the results will be merged together</param>
+        /// <param name="onData">The handler for updates</param>
         /// <returns></returns>
         public CallResult<UpdateSubscription> SubscribeToMarketDepthUpdates(string symbol, int mergeStep, Action<HuobiSocketUpdate<HuobiMarketDepth>> onData) => SubscribeToDepthUpdatesAsync(symbol, mergeStep, onData).Result;
         /// <summary>
-        /// Subscribes to orderbook updates for a symbol
+        /// Subscribes to order book updates for a symbol
         /// </summary>
         /// <param name="symbol">The symbol to subscribe to</param>
         /// <param name="mergeStep">The way the results will be merged together</param>
@@ -139,9 +149,10 @@ namespace Huobi.Net
             return await Subscribe(request, onData);
         }
 
-        // <summary>
-        /// Synchronized version of the <see cref="QueryMarketTradesAsync"/> method
+        /// <summary>
+        /// Gets a list of trades for a symbol
         /// </summary>
+        /// <param name="symbol">The symbol to get trades for</param>
         /// <returns></returns>
         public CallResult<HuobiSocketResponse<List<HuobiMarketTradeDetails>>> QueryMarketTrades(string symbol) => QueryMarketTradesAsync(symbol).Result;
         /// <summary>
@@ -155,9 +166,11 @@ namespace Huobi.Net
             return await Query<HuobiSocketResponse<List<HuobiMarketTradeDetails>>>(request);
         }
 
-        // <summary>
-        /// Synchronized version of the <see cref="SubscribeToMarketTradeUpdatesAsync"/> method
+        /// <summary>
+        /// Subscribes to trade updates for a symbol
         /// </summary>
+        /// <param name="symbol">The symbol to subscribe to</param>
+        /// <param name="onData">The handler for updates</param>
         /// <returns></returns>
         public CallResult<UpdateSubscription> SubscribeToMarketTradeUpdates(string symbol, Action<HuobiSocketUpdate<HuobiMarketTrade>> onData) => SubscribeToMarketTradeUpdatesAsync(symbol, onData).Result;
         /// <summary>
@@ -172,9 +185,10 @@ namespace Huobi.Net
             return await Subscribe(request, onData);
         }
 
-        // <summary>
-        /// Synchronized version of the <see cref="QueryMarketDetailsAsync"/> method
+        /// <summary>
+        /// Gets details for a market
         /// </summary>
+        /// <param name="symbol">The symbol to get data for</param>
         /// <returns></returns>
         public CallResult<HuobiSocketResponse<HuobiMarketData>> QueryMarketDetails(string symbol) => QueryMarketDetailsAsync(symbol).Result;
         /// <summary>
@@ -188,9 +202,11 @@ namespace Huobi.Net
             return await Query<HuobiSocketResponse<HuobiMarketData>>(request);
         }
 
-        // <summary>
-        /// Synchronized version of the <see cref="SubscribeToMarketDetailUpdatesAsync"/> method
+        /// <summary>
+        /// Subscribes to market detail updates for a symbol
         /// </summary>
+        /// <param name="symbol">The symbol to subscribe to</param>
+        /// <param name="onData">The handler for updates</param>
         /// <returns></returns>
         public CallResult<UpdateSubscription> SubscribeToMarketDetailUpdates(string symbol, Action<HuobiSocketUpdate<HuobiMarketData>> onData) => SubscribeToMarketDetailUpdatesAsync(symbol, onData).Result;
         /// <summary>
@@ -205,9 +221,10 @@ namespace Huobi.Net
             return await Subscribe(request, onData);
         }
 
-        // <summary>
-        /// Synchronized version of the <see cref="SubscribeToMarketTickerUpdatesAsync"/> method
+        /// <summary>
+        /// Subscribes to updates for all market tickers
         /// </summary>
+        /// <param name="onData">The handler for updates</param>
         /// <returns></returns>
         public CallResult<UpdateSubscription> SubscribeToMarketTickerUpdates(Action<HuobiSocketUpdate<List<HuobiMarketTick>>> onData) => SubscribeToMarketTickerUpdatesAsync(onData).Result;
         /// <summary>
@@ -221,8 +238,8 @@ namespace Huobi.Net
             return await Subscribe(request, onData);
         }
 
-        // <summary>
-        /// Synchronized version of the <see cref="QueryAccountsAsync"/> method
+        /// <summary>
+        /// Gets a list of accounts associated with the apikey/secret
         /// </summary>
         /// <returns></returns>
         public CallResult<HuobiSocketAuthDataResponse<List<HuobiAccountBalances>>> QueryAccounts() => QueryAccountsAsync().Result;
@@ -236,9 +253,10 @@ namespace Huobi.Net
             return await Query<HuobiSocketAuthDataResponse<List<HuobiAccountBalances>>>(request);
         }
 
-        // <summary>
-        /// Synchronized version of the <see cref="SubscribeToAccountUpdatesAsync"/> method
+        /// <summary>
+        /// Subscribe to account/wallet updates
         /// </summary>
+        /// <param name="onData">The handler for updates</param>
         /// <returns></returns>
         public CallResult<UpdateSubscription> SubscribeToAccountUpdates(Action<HuobiSocketAuthDataResponse<HuobiAccountEvent>> onData) => SubscribeToAccountUpdatesAsync(onData).Result;
         /// <summary>
@@ -252,9 +270,17 @@ namespace Huobi.Net
             return await Subscribe(request, onData);
         }
 
-        // <summary>
-        /// Synchronized version of the <see cref="QueryAccountsAsync"/> method
+        /// <summary>
+        /// Gets a list of orders
         /// </summary>
+        /// <param name="accountId">The account id to get orders for</param>
+        /// <param name="symbol">The symbol to get orders for</param>
+        /// <param name="states">The states of orders to return</param>
+        /// <param name="types">The types of orders to return</param>
+        /// <param name="startTime">Only get orders after this date</param>
+        /// <param name="endTime">Only get orders before this date</param>
+        /// <param name="fromId">Only get orders with id's higher than this</param>
+        /// <param name="limit">The max number of results</param>
         /// <returns></returns>
         public CallResult<HuobiSocketAuthDataResponse<List<HuobiOrder>>> QueryOrders(long accountId, string symbol, HuobiOrderState[] states, HuobiOrderType[] types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, int? limit = null) => QueryOrdersAsync(accountId, symbol, states, types, startTime, endTime, fromId, limit).Result;
         /// <summary>
@@ -288,9 +314,10 @@ namespace Huobi.Net
             return await Query<HuobiSocketAuthDataResponse<List<HuobiOrder>>>(request);
         }
 
-        // <summary>
-        /// Synchronized version of the <see cref="SubscribeToOrderUpdatesAsync"/> method
+        /// <summary>
+        /// Subscribe to updates when any order changes
         /// </summary>
+        /// <param name="onData">The handler for updates</param>
         /// <returns></returns>
         public CallResult<UpdateSubscription> SubscribeToOrderUpdates(Action<HuobiSocketAuthDataResponse<HuobiOrder>> onData) => SubscribeToOrderUpdatesAsync(onData).Result;
         /// <summary>
@@ -304,14 +331,17 @@ namespace Huobi.Net
             return await Subscribe(request, onData);
         }
 
-        // <summary>
-        /// Synchronized version of the <see cref="SubscribeToOrderUpdatesAsync"/> method
-        /// </summary>
+        /// <summary>
+        /// Subscribe to updates when a order for a symbol changes
+        /// </summary> 
+        /// <param name="symbol">The symbol to subscribe to</param>
+        /// <param name="onData">The handler for updates</param>
         /// <returns></returns>
         public CallResult<UpdateSubscription> SubscribeToOrderUpdates(string symbol, Action<HuobiSocketAuthDataResponse<HuobiOrder>> onData) => SubscribeToOrderUpdatesAsync(symbol, onData).Result;
         /// <summary>
         /// Subscribe to updates when a order for a symbol changes
         /// </summary>
+        /// <param name="symbol">The symbol to subscribe to</param>
         /// <param name="onData">The handler for updates</param>
         /// <returns></returns>
         public async Task<CallResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(string symbol, Action<HuobiSocketAuthDataResponse<HuobiOrder>> onData)
@@ -320,9 +350,10 @@ namespace Huobi.Net
             return await Subscribe(request, onData);
         }
 
-        // <summary>
-        /// Synchronized version of the <see cref="QueryOrderDetailsAsync"/> method
+        /// <summary>
+        /// Gets data for a specific order
         /// </summary>
+        /// <param name="orderId">The id of the order to retrieve</param>
         /// <returns></returns>
         public CallResult<HuobiSocketAuthDataResponse<HuobiOrder>> QueryOrderDetails(long orderId) => QueryOrderDetailsAsync(orderId).Result;
         /// <summary>
@@ -341,7 +372,7 @@ namespace Huobi.Net
             var subscription = GetBackgroundSocket(request.Signed);
             if (subscription == null)
             {
-                // We dont have a background socket to query, create a new one
+                // We don't have a background socket to query, create a new one
                 var connectResult = await CreateAndConnectSocket<T>(request.Signed, false, data => result = new CallResult<T>(data, null));
                 if (!connectResult.Success)
                     return new CallResult<T>(null, connectResult.Error);
@@ -351,7 +382,7 @@ namespace Huobi.Net
             }
             else
             {
-                // Use earlier created backgruond socket to query without having to connect again
+                // Use earlier created background socket to query without having to connect again
                 subscription.Events.Single(s => s.Name == DataEvent).Reset();
                 if(request.Signed)
                     subscription.MessageHandlers[DataHandlerName] = (subs, data) => DataHandlerV2<T>(subs, data, rdata => result = new CallResult<T>(rdata, null));
@@ -371,7 +402,7 @@ namespace Huobi.Net
             return result;
         }
         
-        private async Task<CallResult<UpdateSubscription>> Subscribe<U>(HuobiRequest request, Action<U> onData) where U: class
+        private async Task<CallResult<UpdateSubscription>> Subscribe<T>(HuobiRequest request, Action<T> onData) where T: class
         {
             var connectResult = await CreateAndConnectSocket(request.Signed, true, onData);
             if (!connectResult.Success)
@@ -407,7 +438,7 @@ namespace Huobi.Net
             }
 
             handler(desResult.Data);
-            subscription.SetEvent(DataEvent, true, null);
+            subscription.SetEventByName(DataEvent, true, null);
             return true;
         }
 
@@ -426,13 +457,13 @@ namespace Huobi.Net
             }
 
             handler(desResult.Data);
-            subscription.SetEvent(DataEvent, true, null);
+            subscription.SetEventByName(DataEvent, true, null);
             return true;
         }
 
         private bool PingHandlerV1(SocketSubscription subscription, JToken data)
         {
-            bool v1Ping = data["ping"] != null;
+            var v1Ping = data["ping"] != null;
 
             if (v1Ping)
                 Send(subscription.Socket, new HuobiPingResponse((long)data["ping"]));
@@ -442,7 +473,7 @@ namespace Huobi.Net
 
         private bool PingHandlerV2(SocketSubscription subscription, JToken data)
         {
-            bool v2Ping = (string)data["op"] == "ping";
+            var v2Ping = (string)data["op"] == "ping";
 
             if (v2Ping)
                 Send(subscription.Socket, new HuobiPingAuthResponse((long)data["ts"]));
@@ -458,13 +489,13 @@ namespace Huobi.Net
             var authResponse = Deserialize<HuobiSocketAuthDataResponse<object>>(data, false);
             if (!authResponse.Success)
             {
-                log.Write(LogVerbosity.Warning, $"Authorization failed: " + authResponse.Error);
-                subscription.SetEvent(AuthenticationEvent, false, authResponse.Error);
+                log.Write(LogVerbosity.Warning, "Authorization failed: " + authResponse.Error);
+                subscription.SetEventByName(AuthenticationEvent, false, authResponse.Error);
                 return true;
             }
 
-            log.Write(LogVerbosity.Debug, $"Authorization completed");
-            subscription.SetEvent(AuthenticationEvent, true, null);
+            log.Write(LogVerbosity.Debug, "Authorization completed");
+            subscription.SetEventByName(AuthenticationEvent, true, null);
             return true;
         }
 
@@ -477,13 +508,13 @@ namespace Huobi.Net
             var subResponse = Deserialize<HuobiSubscribeResponse>(data, false);
             if (!subResponse.Success)
             {
-                log.Write(LogVerbosity.Warning, $"Subscription failed: " + subResponse.Error);
-                subscription.SetEvent(SubscriptionEvent, false, subResponse.Error);
+                log.Write(LogVerbosity.Warning, "Subscription failed: " + subResponse.Error);
+                subscription.SetEventByName(SubscriptionEvent, false, subResponse.Error);
                 return true;
             }
 
-            log.Write(LogVerbosity.Debug, $"Subscription completed");
-            subscription.SetEvent(SubscriptionEvent, true, null);
+            log.Write(LogVerbosity.Debug, "Subscription completed");
+            subscription.SetEventByName(SubscriptionEvent, true, null);
             return false;
         }
 
@@ -496,13 +527,13 @@ namespace Huobi.Net
             var subResponse = Deserialize<HuobiSocketAuthResponse>(data, false);
             if (!subResponse.Success)
             {
-                log.Write(LogVerbosity.Warning, $"Subscription failed: " + subResponse.Error);
-                subscription.SetEvent(SubscriptionEvent, false, subResponse.Error);
+                log.Write(LogVerbosity.Warning, "Subscription failed: " + subResponse.Error);
+                subscription.SetEventByName(SubscriptionEvent, false, subResponse.Error);
                 return true;
             }
 
-            log.Write(LogVerbosity.Debug, $"Subscription completed");
-            subscription.SetEvent(SubscriptionEvent, true, null);
+            log.Write(LogVerbosity.Debug, "Subscription completed");
+            subscription.SetEventByName(SubscriptionEvent, true, null);
             return true;            
         }
 
