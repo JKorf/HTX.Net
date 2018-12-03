@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
 
 namespace Huobi.Net
 {
@@ -589,33 +590,31 @@ namespace Huobi.Net
             return request;
         }
 
-        protected override Error ParseErrorResponse(string error)
+        protected override bool IsErrorResponse(JToken data)
         {
-            var des = Deserialize<HuobiTimestampResponse<object>>(error);
-            if (!des.Success)
-                return new UnknownError("Failed to deserialize error: " + des.Error.Message);
+            return data["status"] != null && (string)data["status"] != "ok";
+        }
 
-            return new ServerError($"{des.Data.ErrorCode}: {des.Data.ErrorMessage}");
+        protected override Error ParseErrorResponse(JToken error)
+        {
+            if(error["err-code"] == null || error["err-msg"]==null)
+                return new ServerError(error.ToString());
+
+            return new ServerError($"{(string)error["err-code"]}, {(string)error["err-msg"]}");
         }
 
 
         private static CallResult<T> GetResult<T>(CallResult<T> result) where T: HuobiApiResponse
         {
-            if (result.Error != null || result.Data == null)
-                return new CallResult<T>(null, result.Error);
-
-            if (result.Data.Status == "ok")
-                return new CallResult<T>(result.Data, null);
-
-            return new CallResult<T>(null, new ServerError($"{result.Data.ErrorCode}: {result.Data.ErrorMessage}"));
+            return new CallResult<T>(result.Success ? result.Data: null, result.Error);
         }        
 
         protected Uri GetUrl(string endpoint, string version=null)
         {
             if(version == null)
-                return new Uri($"{baseAddress}/{endpoint}");
+                return new Uri($"{BaseAddress}/{endpoint}");
             else
-                return new Uri($"{baseAddress}/v{version}/{endpoint}");
+                return new Uri($"{BaseAddress}/v{version}/{endpoint}");
         }
         #endregion
     }

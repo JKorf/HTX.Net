@@ -539,7 +539,7 @@ namespace Huobi.Net
 
         private async Task<CallResult<SocketSubscription>> CreateAndConnectSocket<T>(bool authenticate, bool sub, Action<T> onMessage) where T: class
         {
-            var socket = CreateSocket(authenticate ? baseAddressAuthenticated: baseAddress);
+            var socket = CreateSocket(authenticate ? baseAddressAuthenticated: BaseAddress);
             var subscription = new SocketSubscription(socket);
 
             if (authenticate)
