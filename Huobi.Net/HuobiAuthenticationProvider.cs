@@ -29,9 +29,11 @@ namespace Huobi.Net
             {
                 { "AccessKeyId", Credentials.Key.GetString() },
                 { "SignatureMethod", "HmacSHA256" },
-                { "SignatureVersion", 2 },
-                { "Timestamp", DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm:ss") }
+                { "SignatureVersion", 2 }
             };
+            
+            if(!parameters.ContainsKey("Timestamp") || method != Constants.GetMethod)
+                signParameters.Add("Timestamp", DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm:ss"));
 
             if (method == Constants.GetMethod)
                 foreach (var kvp in parameters)

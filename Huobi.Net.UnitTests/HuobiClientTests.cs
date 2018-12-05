@@ -4,6 +4,8 @@ using Newtonsoft.Json;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using CryptoExchange.Net.Authentication;
+using CryptoExchange.Net.Objects;
 
 namespace Huobi.Net.UnitTests
 {
@@ -331,9 +333,233 @@ namespace Huobi.Net.UnitTests
             Assert.IsTrue(123 == result.Data);
         }
 
+        [TestCase]
+        public void GetOpenOrders_Should_RespondWithOpenOrders()
+        {
+            // arrange
+            var expected = new List<HuobiOrder>()
+            {
+                new HuobiOrder()
+                {
+                    Amount = 0.1m,
+                    Type = HuobiOrderType.LimitBuy,
+                    Id = 123,
+                    Price = 0.2m,
+                    Symbol = "BTCETH",
+                    State = HuobiOrderState.Submitted,
+                    AccountId = 1234,
+                    CreatedAt = new DateTime(2018, 1, 1),
+                    Source = "API"
+                }
+            };
+
+            var client = TestHelpers.CreateAuthResponseClient(SerializeExpected(expected, true));
+
+            // act
+            var result = client.GetOpenOrders();
+
+            // assert
+            Assert.AreEqual(true, result.Success);
+            Assert.IsTrue(TestHelpers.AreEqual(expected[0], result.Data[0]));
+        }
+
+        [TestCase]
+        public void CancelOrder_Should_RespondWithCanceledOrderId()
+        {
+            // arrange
+            var client = TestHelpers.CreateAuthResponseClient(SerializeExpected(123, true));
+
+            // act
+            var result = client.CancelOrder(123);
+
+            // assert
+            Assert.AreEqual(true, result.Success);
+            Assert.IsTrue(123 == result.Data);
+        }
+
+        [TestCase]
+        public void CancelOrders_Should_RespondWithCancelResults()
+        {
+            // arrange
+            var expected = new HuobiBatchCancelResult()
+            {
+                Successful = new long[] {123},
+                Failed = new []
+                {
+                    new HuobiFailedCancelResult()
+                    {
+                        ErrorCode = "123",
+                        ErrorMessage = "Fail",
+                        OrderId = 1234
+                    }
+                }
+            };
+
+            var client = TestHelpers.CreateAuthResponseClient(SerializeExpected(expected, true));
+
+            // act
+            var result = client.CancelOrders(new long[] {123, 1234});
+
+            // assert
+            Assert.AreEqual(true, result.Success);
+            Assert.IsTrue(expected.Successful[0] == result.Data.Successful[0]);
+            Assert.IsTrue(TestHelpers.AreEqual(expected.Failed[0], result.Data.Failed[0]));
+        }
+
+        [TestCase]
+        public void GetOrderInfo_Should_RespondWithOrderInfo()
+        {
+            // arrange
+            var expected = new HuobiOrder()
+            {
+                Amount = 0.1m,
+                Type = HuobiOrderType.LimitBuy,
+                Id = 123,
+                Price = 0.2m,
+                Symbol = "BTCETH",
+                State = HuobiOrderState.Submitted,
+                AccountId = 1234,
+                CreatedAt = new DateTime(2018, 1, 1),
+                Source = "API"
+            };
+
+            var client = TestHelpers.CreateAuthResponseClient(SerializeExpected(expected, true));
+
+            // act
+            var result = client.GetOrderInfo(123);
+
+            // assert
+            Assert.AreEqual(true, result.Success);
+            Assert.IsTrue(TestHelpers.AreEqual(expected, result.Data));
+        }
+
+        [TestCase]
+        public void GetOrderTrades_Should_RespondWithOrderTrades()
+        {
+            // arrange
+            var expected = new List<HuobiOrderTrade>
+            {
+                new HuobiOrderTrade()
+                {
+                    Id = 123,
+                    Price = 0.1m,
+                    Symbol = "BTCETH",
+                    Source = "API",
+                    OrderId = 1234,
+                    CreatedAt = new DateTime(2018, 1, 1),
+                    OrderType = HuobiOrderType.LimitSell,
+                    FilledAmount = 0.2m,
+                    FilledFees = 0.3m,
+                    MatchId = 125
+                }
+            };
+
+            var client = TestHelpers.CreateAuthResponseClient(SerializeExpected(expected, true));
+
+            // act
+            var result = client.GetOrderTrades(123);
+
+            // assert
+            Assert.AreEqual(true, result.Success);
+            Assert.IsTrue(TestHelpers.AreEqual(expected[0], result.Data[0]));
+        }
+
+        [TestCase]
+        public void GetOrders_Should_RespondWithOrders()
+        {
+            // arrange
+            var expected = new List<HuobiOrder>()
+            {
+                new HuobiOrder()
+                {
+                    Amount = 0.1m,
+                    Type = HuobiOrderType.LimitBuy,
+                    Id = 123,
+                    Price = 0.2m,
+                    Symbol = "BTCETH",
+                    State = HuobiOrderState.Submitted,
+                    AccountId = 1234,
+                    CreatedAt = new DateTime(2018, 1, 1),
+                    Source = "API"
+                }
+            };
+
+            var client = TestHelpers.CreateAuthResponseClient(SerializeExpected(expected, true));
+
+            // act
+            var result = client.GetOrders("BTCETH", new [] { HuobiOrderState.Submitted });
+
+            // assert
+            Assert.AreEqual(true, result.Success);
+            Assert.IsTrue(TestHelpers.AreEqual(expected[0], result.Data[0]));
+        }
+
+        [TestCase]
+        public void GetSymbolTrades_Should_RespondWithSymbolTrades()
+        {
+            // arrange
+            var expected = new List<HuobiOrderTrade>()
+            {
+                new HuobiOrderTrade()
+                {
+                    Id = 123,
+                    Price = 0.1m,
+                    Symbol = "BTCETH",
+                    Source = "API",
+                    OrderId = 1234,
+                    CreatedAt = new DateTime(2018, 1, 1),
+                    OrderType = HuobiOrderType.LimitSell,
+                    FilledAmount = 0.2m,
+                    FilledFees = 0.3m,
+                    MatchId = 125
+                }
+            };
+
+            var client = TestHelpers.CreateAuthResponseClient(SerializeExpected(expected, true));
+
+            // act
+            var result = client.GetSymbolTrades("BTCETH", new[] { HuobiOrderType.LimitBuy });
+
+            // assert
+            Assert.AreEqual(true, result.Success);
+            Assert.IsTrue(TestHelpers.AreEqual(expected[0], result.Data[0]));
+        }
+
+        [Test]
+        public void SigningString_Should_GiveCorrectSignResult()
+        {
+            // arrange
+            var authProvider = new HuobiAuthenticationProvider(new ApiCredentials("TestKey", "TestSecret"));
+
+            // act
+            var parameters = authProvider.AddAuthenticationToParameters("http://api.test.com/somepath/test", Constants.GetMethod, new Dictionary<string, object>()
+            {
+                { "Timestamp", new DateTime(2018, 1, 1).ToString("yyyy-MM-ddTHH:mm:ss") }
+            }, true);
+
+            // assert
+            Assert.AreEqual(parameters["Signature"], "5/vfYFw3cHwp20QWtv6DzTHDxBpHzNSU6Rv3p7Up/TI=");
+        }
+
+        [TestCase]
+        public void ReceivingErrorResponse_Should_FailCall()
+        {
+            // arrange
+            var client = TestHelpers.CreateAuthResponseClient($"{{\"status\": \"error\", \"err-code\": \"Error!\", \"err-msg\": \"ErrorMessage\"}}");
+
+            // act
+            var result = client.GetCurrencies();
+
+            // assert
+            Assert.IsFalse(result.Success);
+            Assert.IsTrue(result.Error.Message.Contains("Error!"));
+            Assert.IsTrue(result.Error.Message.Contains("ErrorMessage"));
+        }
+
+
         public string SerializeExpected<T>(T data, bool tick)
         {
-            return $"{{\"status:\": \"ok\", {(tick ? "tick": "data")}: {JsonConvert.SerializeObject(data)}}}";
+            return $"{{\"status\": \"ok\", {(tick ? "tick": "data")}: {JsonConvert.SerializeObject(data)}}}";
         }
     }
 }
