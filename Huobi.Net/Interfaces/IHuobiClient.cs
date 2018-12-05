@@ -173,14 +173,14 @@ namespace Huobi.Net.Interfaces
         /// </summary>
         /// <param name="accountId">The id of the account to get the balances for</param>
         /// <returns></returns>
-        CallResult<HuobiAccountBalances> GetBalances(long accountId);
+        CallResult<List<HuobiBalance>> GetBalances(long accountId);
 
         /// <summary>
         /// Gets a list of balances for a specific account
         /// </summary>
         /// <param name="accountId">The id of the account to get the balances for</param>
         /// <returns></returns>
-        Task<CallResult<HuobiAccountBalances>> GetBalancesAsync(long accountId);
+        Task<CallResult<List<HuobiBalance>>> GetBalancesAsync(long accountId);
 
         /// <summary>
         /// Places an order

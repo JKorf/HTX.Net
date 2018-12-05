@@ -1,0 +1,8 @@
+language: csharp
+mono: none
+solution: Huobi.Net.sln
+dotnet: 2.0.0
+dist: trusty
+script:
+ - dotnet build Huobi.Net/Huobi.Net.csproj --framework "netstandard2.0"
+ - dotnet test Huobi.Net.UnitTests/Huobi.Net.UnitTests.csproj

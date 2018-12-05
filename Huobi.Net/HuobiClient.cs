@@ -316,16 +316,19 @@ namespace Huobi.Net
         /// </summary>
         /// <param name="accountId">The id of the account to get the balances for</param>
         /// <returns></returns>
-        public CallResult<HuobiAccountBalances> GetBalances(long accountId) => GetBalancesAsync(accountId).Result;
+        public CallResult<List<HuobiBalance>> GetBalances(long accountId) => GetBalancesAsync(accountId).Result;
         /// <summary>
         /// Gets a list of balances for a specific account
         /// </summary>
         /// <param name="accountId">The id of the account to get the balances for</param>
         /// <returns></returns>
-        public async Task<CallResult<HuobiAccountBalances>> GetBalancesAsync(long accountId)
+        public async Task<CallResult<List<HuobiBalance>>> GetBalancesAsync(long accountId)
         {
             var result = GetResult(await ExecuteRequest<HuobiBasicResponse<HuobiAccountBalances>>(GetUrl(FillPathParameter(GetBalancesEndpoint, accountId.ToString()), "1"), signed: true));
-            return new CallResult<HuobiAccountBalances>(result.Data?.Data, result.Error);
+            if (!result.Success)
+                return new CallResult<List<HuobiBalance>>(null, result.Error);
+            
+            return new CallResult<List<HuobiBalance>>(result.Data.Data.Data, result.Error);
         }
 
         /// <summary>
@@ -602,8 +605,7 @@ namespace Huobi.Net
 
             return new ServerError($"{(string)error["err-code"]}, {(string)error["err-msg"]}");
         }
-
-
+        
         private static CallResult<T> GetResult<T>(CallResult<T> result) where T: HuobiApiResponse
         {
             return new CallResult<T>(result.Success ? result.Data: null, result.Error);
