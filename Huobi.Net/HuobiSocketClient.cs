@@ -266,7 +266,7 @@ namespace Huobi.Net
         /// <returns></returns>
         public async Task<CallResult<UpdateSubscription>> SubscribeToAccountUpdatesAsync(Action<HuobiSocketAuthDataResponse<HuobiAccountEvent>> onData)
         {
-            var request = new HuobiAuthenticatedRequest("sub", "accounts");
+            var request = new HuobiAuthenticatedRequest("sub", "accounts1");
             return await Subscribe(request, onData).ConfigureAwait(false);
         }
 
@@ -490,6 +490,12 @@ namespace Huobi.Net
                 subscription.SetEventByName(AuthenticationEvent, false, authResponse.Error);
                 return true;
             }
+            if (!authResponse.Data.IsSuccessful)
+            {
+                log.Write(LogVerbosity.Warning, "Authorization failed: " + authResponse.Data.ErrorMessage);
+                subscription.SetEventByName(AuthenticationEvent, false, new ServerError(authResponse.Data.ErrorCode, authResponse.Data.ErrorMessage));
+                return true;
+            }
 
             log.Write(LogVerbosity.Debug, "Authorization completed");
             subscription.SetEventByName(AuthenticationEvent, true, null);
@@ -499,19 +505,29 @@ namespace Huobi.Net
         private bool SubscriptionHandlerV1(SocketSubscription subscription, JToken data)
         {
             var v1Sub = data["subbed"] != null;
-            if (!v1Sub)
-                return false;
-            
-            var subResponse = Deserialize<HuobiSubscribeResponse>(data, false);
-            if (!subResponse.Success)
+            var v1Error = data["status"] != null && (string)data["status"] == "error";
+            if (v1Sub || v1Error)
             {
-                log.Write(LogVerbosity.Warning, "Subscription failed: " + subResponse.Error);
-                subscription.SetEventByName(SubscriptionEvent, false, subResponse.Error);
+                var subResponse = Deserialize<HuobiSubscribeResponse>(data, false);
+                if (!subResponse.Success)
+                {
+                    log.Write(LogVerbosity.Warning, "Subscription failed: " + subResponse.Error);
+                    subscription.SetEventByName(SubscriptionEvent, false, subResponse.Error);
+                    return true;
+                }
+
+                if (!subResponse.Data.IsSuccessful)
+                {
+                    log.Write(LogVerbosity.Warning, "Subscription failed: " + subResponse.Data.ErrorMessage);
+                    subscription.SetEventByName(SubscriptionEvent, false, new ServerError($"{subResponse.Data.ErrorCode}, {subResponse.Data.ErrorMessage}"));
+                    return true;
+                }
+
+                log.Write(LogVerbosity.Debug, "Subscription completed");
+                subscription.SetEventByName(SubscriptionEvent, true, null);
                 return true;
             }
 
-            log.Write(LogVerbosity.Debug, "Subscription completed");
-            subscription.SetEventByName(SubscriptionEvent, true, null);
             return false;
         }
 
@@ -526,6 +542,13 @@ namespace Huobi.Net
             {
                 log.Write(LogVerbosity.Warning, "Subscription failed: " + subResponse.Error);
                 subscription.SetEventByName(SubscriptionEvent, false, subResponse.Error);
+                return true;
+            }
+
+            if (!subResponse.Data.IsSuccessful)
+            {
+                log.Write(LogVerbosity.Warning, "Subscription failed: " + subResponse.Data.ErrorMessage);
+                subscription.SetEventByName(SubscriptionEvent, false, new ServerError(subResponse.Data.ErrorCode, subResponse.Data.ErrorMessage));
                 return true;
             }
 
@@ -573,6 +596,9 @@ namespace Huobi.Net
 
         private async Task<CallResult<bool>> Authenticate(SocketSubscription subscription)
         {            
+            if(authProvider == null)
+                return new CallResult<bool>(false, new NoApiCredentialsError());
+
             var authParams = authProvider.AddAuthenticationToParameters(baseAddressAuthenticated, Constants.GetMethod, new Dictionary<string, object>(), true);
             var authObjects = new HuobiAuthenticationRequest
             {

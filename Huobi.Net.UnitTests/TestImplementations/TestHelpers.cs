@@ -62,7 +62,16 @@ namespace Huobi.Net.UnitTests.TestImplementations
         public static IHuobiSocketClient CreateSocketClient(IWebsocket socket, HuobiSocketClientOptions options = null)
         {
             IHuobiSocketClient client;
-            client = options != null ? new HuobiSocketClient(options) : new HuobiSocketClient();
+            client = options != null ? new HuobiSocketClient(options) : new HuobiSocketClient(new HuobiSocketClientOptions() { LogVerbosity = LogVerbosity.Debug, ApiCredentials = new ApiCredentials("Test", "Test") });
+            client.SocketFactory = Mock.Of<IWebsocketFactory>();
+            Mock.Get(client.SocketFactory).Setup(f => f.CreateWebsocket(It.IsAny<Log>(), It.IsAny<string>())).Returns(socket);
+            return client;
+        }
+
+        public static IHuobiSocketClient CreateAuthenticatedSocketClient(IWebsocket socket, HuobiSocketClientOptions options = null)
+        {
+            IHuobiSocketClient client;
+            client = options != null ? new HuobiSocketClient(options) : new HuobiSocketClient(new HuobiSocketClientOptions(){ LogVerbosity = LogVerbosity.Debug, ApiCredentials = new ApiCredentials("Test", "Test")});
             client.SocketFactory = Mock.Of<IWebsocketFactory>();
             Mock.Get(client.SocketFactory).Setup(f => f.CreateWebsocket(It.IsAny<Log>(), It.IsAny<string>())).Returns(socket);
             return client;
