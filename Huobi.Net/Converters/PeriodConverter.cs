@@ -19,7 +19,7 @@ namespace Huobi.Net.Converters
             { HuobiPeriod.OneDay, "1day" },
             { HuobiPeriod.OneWeek, "1week" },
             { HuobiPeriod.OneMonth, "1mon" },
-            { HuobiPeriod.OneYear, "1year" },
+            { HuobiPeriod.OneYear, "1year" }
         };
     }
 }

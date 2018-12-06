@@ -7,7 +7,7 @@ namespace Huobi.Net.Objects.SocketObjects
 {
     public abstract class HuobiResponse
     {
-        internal abstract bool IsSuccessfull { get; }
+        internal abstract bool IsSuccessful { get; }
         internal string Id { get; set; }
         [JsonProperty("err-code")]
         public string ErrorCode { get; set; }
@@ -17,7 +17,7 @@ namespace Huobi.Net.Objects.SocketObjects
 
     public class HuobiSocketResponse<T>: HuobiResponse
     {
-        internal override bool IsSuccessfull => Status == "ok";
+        internal override bool IsSuccessful => Status == "ok";
         [JsonProperty("status")]
         internal string Status { get; set; }
         
@@ -38,7 +38,7 @@ namespace Huobi.Net.Objects.SocketObjects
 
     internal class HuobiSubscribeResponse: HuobiResponse
     {
-        internal override bool IsSuccessfull => Status == "ok";
+        internal override bool IsSuccessful => Status == "ok";
         public string Status { get; set; }
         public string Subbed { get; set; }
         [JsonConverter(typeof(TimestampConverter)), JsonProperty("ts")]
@@ -47,7 +47,7 @@ namespace Huobi.Net.Objects.SocketObjects
 
     public class HuobiSocketAuthResponse: HuobiResponse
     {
-        internal override bool IsSuccessfull => ErrorCode == 0;
+        internal override bool IsSuccessful => ErrorCode == 0;
         [JsonProperty("err-code")]
         internal new int ErrorCode { get; set; }
 

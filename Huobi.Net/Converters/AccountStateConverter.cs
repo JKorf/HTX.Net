@@ -12,7 +12,7 @@ namespace Huobi.Net.Converters
         protected override Dictionary<HuobiAccountState, string> Mapping => new Dictionary<HuobiAccountState, string>
         {
             { HuobiAccountState.Locked, "lock" },
-            { HuobiAccountState.Working, "working" },
+            { HuobiAccountState.Working, "working" }
         };
     }
 }

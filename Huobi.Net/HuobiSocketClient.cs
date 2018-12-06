@@ -79,7 +79,7 @@ namespace Huobi.Net
         public async Task<CallResult<HuobiSocketResponse<List<HuobiMarketData>>>> QueryMarketKlinesAsync(string symbol, HuobiPeriod period)
         {
             var request = new HuobiSocketRequest($"market.{symbol}.kline.{JsonConvert.SerializeObject(period, new PeriodConverter(false))}");
-            return await Query<HuobiSocketResponse<List<HuobiMarketData>>>(request);
+            return await Query<HuobiSocketResponse<List<HuobiMarketData>>>(request).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -100,7 +100,7 @@ namespace Huobi.Net
         public async Task<CallResult<UpdateSubscription>> SubscribeToMarketKlineUpdatesAsync(string symbol, HuobiPeriod period, Action<HuobiSocketUpdate<HuobiMarketData>> onData)
         {
             var request = new HuobiSubscribeRequest($"market.{symbol}.kline.{JsonConvert.SerializeObject(period, new PeriodConverter(false))}");
-            return await Subscribe(request, onData);
+            return await Subscribe(request, onData).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -122,7 +122,7 @@ namespace Huobi.Net
                 return new CallResult<HuobiSocketResponse<HuobiMarketDepth>>(null, new ArgumentError("Merge step should be between 0 and 5"));
 
             var request = new HuobiSocketRequest($"market.{symbol}.depth.step{mergeStep}");
-            return await Query<HuobiSocketResponse<HuobiMarketDepth>>(request);            
+            return await Query<HuobiSocketResponse<HuobiMarketDepth>>(request).ConfigureAwait(false);            
         }
 
         /// <summary>
@@ -132,7 +132,7 @@ namespace Huobi.Net
         /// <param name="mergeStep">The way the results will be merged together</param>
         /// <param name="onData">The handler for updates</param>
         /// <returns></returns>
-        public CallResult<UpdateSubscription> SubscribeToMarketDepthUpdates(string symbol, int mergeStep, Action<HuobiSocketUpdate<HuobiMarketDepth>> onData) => SubscribeToDepthUpdatesAsync(symbol, mergeStep, onData).Result;
+        public CallResult<UpdateSubscription> SubscribeToMarketDepthUpdates(string symbol, int mergeStep, Action<HuobiSocketUpdate<HuobiMarketDepth>> onData) => SubscribeToMarketDepthUpdatesAsync(symbol, mergeStep, onData).Result;
         /// <summary>
         /// Subscribes to order book updates for a symbol
         /// </summary>
@@ -140,13 +140,13 @@ namespace Huobi.Net
         /// <param name="mergeStep">The way the results will be merged together</param>
         /// <param name="onData">The handler for updates</param>
         /// <returns></returns>
-        public async Task<CallResult<UpdateSubscription>> SubscribeToDepthUpdatesAsync(string symbol, int mergeStep, Action<HuobiSocketUpdate<HuobiMarketDepth>> onData)
+        public async Task<CallResult<UpdateSubscription>> SubscribeToMarketDepthUpdatesAsync(string symbol, int mergeStep, Action<HuobiSocketUpdate<HuobiMarketDepth>> onData)
         {
             if (mergeStep < 0 || mergeStep > 5)
                 return new CallResult<UpdateSubscription>(null, new ArgumentError("Merge step should be between 0 and 5"));
 
             var request = new HuobiSubscribeRequest($"market.{symbol}.depth.step{mergeStep}");
-            return await Subscribe(request, onData);
+            return await Subscribe(request, onData).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -163,7 +163,7 @@ namespace Huobi.Net
         public async Task<CallResult<HuobiSocketResponse<List<HuobiMarketTradeDetails>>>> QueryMarketTradesAsync(string symbol)
         {
             var request = new HuobiSocketRequest($"market.{symbol}.trade.detail");
-            return await Query<HuobiSocketResponse<List<HuobiMarketTradeDetails>>>(request);
+            return await Query<HuobiSocketResponse<List<HuobiMarketTradeDetails>>>(request).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -182,7 +182,7 @@ namespace Huobi.Net
         public async Task<CallResult<UpdateSubscription>> SubscribeToMarketTradeUpdatesAsync(string symbol, Action<HuobiSocketUpdate<HuobiMarketTrade>> onData)
         {
             var request = new HuobiSubscribeRequest($"market.{symbol}.trade.detail");
-            return await Subscribe(request, onData);
+            return await Subscribe(request, onData).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -199,7 +199,7 @@ namespace Huobi.Net
         public async Task<CallResult<HuobiSocketResponse<HuobiMarketData>>> QueryMarketDetailsAsync(string symbol)
         {
             var request = new HuobiSocketRequest($"market.{symbol}.detail");
-            return await Query<HuobiSocketResponse<HuobiMarketData>>(request);
+            return await Query<HuobiSocketResponse<HuobiMarketData>>(request).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -218,7 +218,7 @@ namespace Huobi.Net
         public async Task<CallResult<UpdateSubscription>> SubscribeToMarketDetailUpdatesAsync(string symbol, Action<HuobiSocketUpdate<HuobiMarketData>> onData)
         {
             var request = new HuobiSubscribeRequest($"market.{symbol}.detail");
-            return await Subscribe(request, onData);
+            return await Subscribe(request, onData).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -234,8 +234,8 @@ namespace Huobi.Net
         /// <returns></returns>
         public async Task<CallResult<UpdateSubscription>> SubscribeToMarketTickerUpdatesAsync(Action<HuobiSocketUpdate<List<HuobiMarketTick>>> onData)
         {
-            var request = new HuobiSubscribeRequest($"market.tickers");
-            return await Subscribe(request, onData);
+            var request = new HuobiSubscribeRequest("market.tickers");
+            return await Subscribe(request, onData).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -249,8 +249,8 @@ namespace Huobi.Net
         /// <returns></returns>
         public async Task<CallResult<HuobiSocketAuthDataResponse<List<HuobiAccountBalances>>>> QueryAccountsAsync()
         {
-            var request = new HuobiAuthenticatedRequest("req", $"accounts.list");
-            return await Query<HuobiSocketAuthDataResponse<List<HuobiAccountBalances>>>(request);
+            var request = new HuobiAuthenticatedRequest("req", "accounts.list");
+            return await Query<HuobiSocketAuthDataResponse<List<HuobiAccountBalances>>>(request).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -267,7 +267,7 @@ namespace Huobi.Net
         public async Task<CallResult<UpdateSubscription>> SubscribeToAccountUpdatesAsync(Action<HuobiSocketAuthDataResponse<HuobiAccountEvent>> onData)
         {
             var request = new HuobiAuthenticatedRequest("sub", "accounts");
-            return await Subscribe(request, onData);
+            return await Subscribe(request, onData).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -311,7 +311,7 @@ namespace Huobi.Net
             request.FromId = fromId?.ToString();
             request.Limit = limit?.ToString();
 
-            return await Query<HuobiSocketAuthDataResponse<List<HuobiOrder>>>(request);
+            return await Query<HuobiSocketAuthDataResponse<List<HuobiOrder>>>(request).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -327,8 +327,8 @@ namespace Huobi.Net
         /// <returns></returns>
         public async Task<CallResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(Action<HuobiSocketAuthDataResponse<HuobiOrder>> onData)
         {
-            var request = new HuobiAuthenticatedRequest("sub", $"orders.*");
-            return await Subscribe(request, onData);
+            var request = new HuobiAuthenticatedRequest("sub", "orders.*");
+            return await Subscribe(request, onData).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -347,7 +347,7 @@ namespace Huobi.Net
         public async Task<CallResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(string symbol, Action<HuobiSocketAuthDataResponse<HuobiOrder>> onData)
         {
             var request = new HuobiAuthenticatedRequest("sub", $"orders.{symbol}");
-            return await Subscribe(request, onData);
+            return await Subscribe(request, onData).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -363,7 +363,7 @@ namespace Huobi.Net
         /// <returns></returns>
         public async Task<CallResult<HuobiSocketAuthDataResponse<HuobiOrder>>> QueryOrderDetailsAsync(long orderId)
         {
-            return await Query<HuobiSocketAuthDataResponse<HuobiOrder>>(new HuobiOrderDetailsRequest(orderId.ToString()));
+            return await Query<HuobiSocketAuthDataResponse<HuobiOrder>>(new HuobiOrderDetailsRequest(orderId.ToString())).ConfigureAwait(false);
         }
 
         private async Task<CallResult<T>> Query<T>(HuobiRequest request) where T: HuobiResponse
@@ -373,7 +373,7 @@ namespace Huobi.Net
             if (subscription == null)
             {
                 // We don't have a background socket to query, create a new one
-                var connectResult = await CreateAndConnectSocket<T>(request.Signed, false, data => result = new CallResult<T>(data, null));
+                var connectResult = await CreateAndConnectSocket<T>(request.Signed, false, data => result = new CallResult<T>(data, null)).ConfigureAwait(false);
                 if (!connectResult.Success)
                     return new CallResult<T>(null, connectResult.Error);
 
@@ -391,30 +391,27 @@ namespace Huobi.Net
             }
 
             Send(subscription.Socket, request);
-            var dataResult = await subscription.WaitForEvent(DataEvent, socketResponseTimeout);
+            var dataResult = await subscription.WaitForEvent(DataEvent, socketResponseTimeout).ConfigureAwait(false);
 
             if (!dataResult.Success)            
                 return new CallResult<T>(null, dataResult.Error);
 
-            if (!result.Data.IsSuccessfull)
-                return new CallResult<T>(null, new ServerError($"{result.Data.ErrorCode}: {result.Data.ErrorMessage}"));
-
-            return result;
+            return !result.Data.IsSuccessful ? new CallResult<T>(null, new ServerError($"{result.Data.ErrorCode}: {result.Data.ErrorMessage}")) : result;
         }
         
         private async Task<CallResult<UpdateSubscription>> Subscribe<T>(HuobiRequest request, Action<T> onData) where T: class
         {
-            var connectResult = await CreateAndConnectSocket(request.Signed, true, onData);
+            var connectResult = await CreateAndConnectSocket(request.Signed, true, onData).ConfigureAwait(false);
             if (!connectResult.Success)
                 return new CallResult<UpdateSubscription>(null, connectResult.Error);
 
             var subscription = connectResult.Data;
             Send(subscription.Socket, request);
 
-            var subResult = await subscription.WaitForEvent(SubscriptionEvent, socketResponseTimeout);
+            var subResult = await subscription.WaitForEvent(SubscriptionEvent, socketResponseTimeout).ConfigureAwait(false);
             if (!subResult.Success)
             {
-                await subscription.Close();
+                await subscription.Close().ConfigureAwait(false);
                 return new CallResult<UpdateSubscription>(null, subResult.Error);
             }
 
@@ -560,13 +557,13 @@ namespace Huobi.Net
 
             subscription.AddEvent(sub ? SubscriptionEvent: DataEvent);
             
-            var connectResult = await ConnectSocket(subscription);
+            var connectResult = await ConnectSocket(subscription).ConfigureAwait(false);
             if (!connectResult.Success)
                 return new CallResult<SocketSubscription>(null, connectResult.Error);
 
             if(authenticate)
             {
-                var authResult = await Authenticate(subscription);
+                var authResult = await Authenticate(subscription).ConfigureAwait(false);
                 if (!authResult.Success)
                     return new CallResult<SocketSubscription>(null, authResult.Error);
             }
@@ -577,21 +574,21 @@ namespace Huobi.Net
         private async Task<CallResult<bool>> Authenticate(SocketSubscription subscription)
         {            
             var authParams = authProvider.AddAuthenticationToParameters(baseAddressAuthenticated, Constants.GetMethod, new Dictionary<string, object>(), true);
-            var authObjects = new HuobiAuthenticationRequest()
+            var authObjects = new HuobiAuthenticationRequest
             {
                 AccessKeyId = authProvider.Credentials.Key.GetString(),
                 Operation = "auth",
                 SignatureMethod = (string)authParams["SignatureMethod"],
                 SignatureVersion = authParams["SignatureVersion"].ToString(),
                 Timestamp = (string)authParams["Timestamp"],
-                Signature = (string)authParams["Signature"],
+                Signature = (string)authParams["Signature"]
             };
             Send(subscription.Socket, authObjects);
 
-            var authResult = await subscription.WaitForEvent(AuthenticationEvent, socketResponseTimeout);
+            var authResult = await subscription.WaitForEvent(AuthenticationEvent, socketResponseTimeout).ConfigureAwait(false);
             if (!authResult.Success)
             {
-                await subscription.Close();
+                await subscription.Close().ConfigureAwait(false);
                 return new CallResult<bool>(false, authResult.Error);
             }
 
@@ -609,14 +606,10 @@ namespace Huobi.Net
 
             Send(subscription.Socket, request);
 
-            var subResult = subscription.WaitForEvent(SubscriptionEvent, socketResponseTimeout).Result;
-            if (!subResult.Success)
-                return false;
-
-            return true;
+            return subscription.WaitForEvent(SubscriptionEvent, socketResponseTimeout).Result.Success;
         }
 
-        private string DecompressData(byte[] byteData)
+        private static string DecompressData(byte[] byteData)
         {
             using (var decompressedStream = new MemoryStream())
             using (var compressedStream = new MemoryStream(byteData))

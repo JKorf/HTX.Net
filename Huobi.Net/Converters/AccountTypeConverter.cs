@@ -12,7 +12,7 @@ namespace Huobi.Net.Converters
         protected override Dictionary<HuobiAccountType, string> Mapping => new Dictionary<HuobiAccountType, string>
         {
             { HuobiAccountType.Margin, "margin" },
-            { HuobiAccountType.Spot, "spot" },
+            { HuobiAccountType.Spot, "spot" }
         };
     }
 }

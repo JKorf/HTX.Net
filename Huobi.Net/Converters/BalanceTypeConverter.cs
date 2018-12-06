@@ -12,7 +12,7 @@ namespace Huobi.Net.Converters
         protected override Dictionary<HuobiBalanceType, string> Mapping => new Dictionary<HuobiBalanceType, string>
         {
             { HuobiBalanceType.Frozen, "frozen" },
-            { HuobiBalanceType.Trade, "trade" },
+            { HuobiBalanceType.Trade, "trade" }
         };
     }
 }

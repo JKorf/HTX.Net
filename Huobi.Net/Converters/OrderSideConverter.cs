@@ -12,7 +12,7 @@ namespace Huobi.Net.Converters
         protected override Dictionary<HuobiOrderSide, string> Mapping => new Dictionary<HuobiOrderSide, string>
         {
             { HuobiOrderSide.Buy, "buy" },
-            { HuobiOrderSide.Sell, "sell" },
+            { HuobiOrderSide.Sell, "sell" }
         };
     }
 }

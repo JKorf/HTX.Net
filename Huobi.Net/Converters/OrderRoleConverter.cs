@@ -12,7 +12,7 @@ namespace Huobi.Net.Converters
         protected override Dictionary<HuobiOrderRole, string> Mapping => new Dictionary<HuobiOrderRole, string>
         {
             { HuobiOrderRole.Maker, "maker" },
-            { HuobiOrderRole.Taker, "taker" },
+            { HuobiOrderRole.Taker, "taker" }
         };
     }
 }

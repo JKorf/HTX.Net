@@ -16,7 +16,7 @@ namespace Huobi.Net.Converters
             { HuobiOrderState.PartiallyFilled, "partial-filled" },
             { HuobiOrderState.PartiallyCanceled, "partial-canceled" },
             { HuobiOrderState.Filled, "filled" },
-            { HuobiOrderState.Canceled, "canceled" },
+            { HuobiOrderState.Canceled, "canceled" }
         };
     }
 }

@@ -61,7 +61,6 @@ namespace Huobi.Net
         /// </summary>
         public HuobiClient(HuobiClientOptions options) : base(options, options.ApiCredentials == null ? null : new HuobiAuthenticationProvider(options.ApiCredentials))
         {
-            Configure(options);
         }
         #endregion
 
@@ -96,7 +95,7 @@ namespace Huobi.Net
         /// <returns></returns>
         public async Task<CallResult<HuobiTimestampResponse<List<HuobiMarketTick>>>> GetMarketTickersAsync()
         {
-            return GetResult(await ExecuteRequest<HuobiTimestampResponse<List<HuobiMarketTick>>>(GetUrl(MarketTickerEndpoint)));            
+            return GetResult(await ExecuteRequest<HuobiTimestampResponse<List<HuobiMarketTick>>>(GetUrl(MarketTickerEndpoint)).ConfigureAwait(false));            
         }
 
         /// <summary>
@@ -118,7 +117,7 @@ namespace Huobi.Net
                 { "symbol", symbol }
             };
 
-            return GetResult(await ExecuteRequest<HuobiChannelResponse<HuobiMarketTickMerged>>(GetUrl(MarketTickerMergedEndpoint), parameters: parameters, checkResult:false));
+            return GetResult(await ExecuteRequest<HuobiChannelResponse<HuobiMarketTickMerged>>(GetUrl(MarketTickerMergedEndpoint), parameters: parameters, checkResult:false).ConfigureAwait(false));
         }
 
         /// <summary>
@@ -146,10 +145,10 @@ namespace Huobi.Net
             {
                 { "symbol", symbol },
                 { "period", JsonConvert.SerializeObject(period, new PeriodConverter(false)) },
-                { "size", size },
+                { "size", size }
             };
 
-            return GetResult(await ExecuteRequest<HuobiChannelResponse<List<HuobiMarketData>>>(GetUrl(MarketKlineEndpoint), parameters: parameters));
+            return GetResult(await ExecuteRequest<HuobiChannelResponse<List<HuobiMarketData>>>(GetUrl(MarketKlineEndpoint), parameters: parameters).ConfigureAwait(false));
         }
 
         /// <summary>
@@ -173,10 +172,10 @@ namespace Huobi.Net
             var parameters = new Dictionary<string, object>
             {
                 { "symbol", symbol },
-                { "type", "step"+mergeStep },
+                { "type", "step"+mergeStep }
             };
 
-            return GetResult(await ExecuteRequest<HuobiChannelResponse<HuobiMarketDepth>>(GetUrl(MarketDepthEndpoint), parameters: parameters, checkResult: false));
+            return GetResult(await ExecuteRequest<HuobiChannelResponse<HuobiMarketDepth>>(GetUrl(MarketDepthEndpoint), parameters: parameters, checkResult: false).ConfigureAwait(false));
         }
 
         /// <summary>
@@ -197,7 +196,7 @@ namespace Huobi.Net
                 { "symbol", symbol }
             };
 
-            return GetResult(await ExecuteRequest<HuobiChannelResponse<HuobiMarketTrade>>(GetUrl(MarketLastTradeEndpoint), parameters: parameters, checkResult: false));
+            return GetResult(await ExecuteRequest<HuobiChannelResponse<HuobiMarketTrade>>(GetUrl(MarketLastTradeEndpoint), parameters: parameters, checkResult: false).ConfigureAwait(false));
         }
 
         /// <summary>
@@ -221,10 +220,10 @@ namespace Huobi.Net
             var parameters = new Dictionary<string, object>
             {
                 { "symbol", symbol },
-                { "size", limit },
+                { "size", limit }
             };
 
-            return GetResult(await ExecuteRequest<HuobiChannelResponse<List<HuobiMarketTrade>>>(GetUrl(MarketTradeHistoryEndpoint), parameters: parameters));
+            return GetResult(await ExecuteRequest<HuobiChannelResponse<List<HuobiMarketTrade>>>(GetUrl(MarketTradeHistoryEndpoint), parameters: parameters).ConfigureAwait(false));
         }
 
         /// <summary>
@@ -245,7 +244,7 @@ namespace Huobi.Net
                 { "symbol", symbol }
             };
 
-            return GetResult(await ExecuteRequest<HuobiChannelResponse<HuobiMarketData>>(GetUrl(MarketDetailsEndpoint), parameters: parameters, checkResult: false));
+            return GetResult(await ExecuteRequest<HuobiChannelResponse<HuobiMarketData>>(GetUrl(MarketDetailsEndpoint), parameters: parameters, checkResult: false).ConfigureAwait(false));
         }
 
         /// <summary>
@@ -274,7 +273,7 @@ namespace Huobi.Net
         /// <returns></returns>
         public async Task<CallResult<List<string>>> GetCurrenciesAsync()
         {
-            var result = GetResult(await ExecuteRequest<HuobiBasicResponse<List<string>>>(GetUrl(CommonCurrenciesEndpoint, "1")));
+            var result = GetResult(await ExecuteRequest<HuobiBasicResponse<List<string>>>(GetUrl(CommonCurrenciesEndpoint, "1")).ConfigureAwait(false));
             return new CallResult<List<string>>(result.Data?.Data, result.Error);
         }
 
@@ -289,7 +288,7 @@ namespace Huobi.Net
         /// <returns></returns>
         public async Task<CallResult<DateTime>> GetServerTimeAsync()
         {
-            var result = GetResult(await ExecuteRequest<HuobiBasicResponse<string>>(GetUrl(ServerTimeEndpoint, "1")));
+            var result = GetResult(await ExecuteRequest<HuobiBasicResponse<string>>(GetUrl(ServerTimeEndpoint, "1")).ConfigureAwait(false));
             if (!result.Success)
                 return new CallResult<DateTime>(default(DateTime), result.Error);
             var time = (DateTime)JsonConvert.DeserializeObject(result.Data.Data, typeof(DateTime), new TimestampConverter());
@@ -307,7 +306,7 @@ namespace Huobi.Net
         /// <returns></returns>
         public async Task<CallResult<List<HuobiAccount>>> GetAccountsAsync()
         {
-            var result = GetResult(await ExecuteRequest<HuobiBasicResponse<List<HuobiAccount>>>(GetUrl(GetAccountsEndpoint, "1"), signed: true));
+            var result = GetResult(await ExecuteRequest<HuobiBasicResponse<List<HuobiAccount>>>(GetUrl(GetAccountsEndpoint, "1"), signed: true).ConfigureAwait(false));
             return new CallResult<List<HuobiAccount>>(result.Data?.Data, result.Error);
         }
 
@@ -324,7 +323,7 @@ namespace Huobi.Net
         /// <returns></returns>
         public async Task<CallResult<List<HuobiBalance>>> GetBalancesAsync(long accountId)
         {
-            var result = GetResult(await ExecuteRequest<HuobiBasicResponse<HuobiAccountBalances>>(GetUrl(FillPathParameter(GetBalancesEndpoint, accountId.ToString()), "1"), signed: true));
+            var result = GetResult(await ExecuteRequest<HuobiBasicResponse<HuobiAccountBalances>>(GetUrl(FillPathParameter(GetBalancesEndpoint, accountId.ToString()), "1"), signed: true).ConfigureAwait(false));
             if (!result.Success)
                 return new CallResult<List<HuobiBalance>>(null, result.Error);
             
@@ -361,7 +360,7 @@ namespace Huobi.Net
             };
 
             parameters.AddOptionalParameter("price", price);
-            var result = GetResult(await ExecuteRequest<HuobiBasicResponse<long>>(GetUrl(PlaceOrderEndpoint, "1"), "POST", parameters, true));
+            var result = GetResult(await ExecuteRequest<HuobiBasicResponse<long>>(GetUrl(PlaceOrderEndpoint, "1"), "POST", parameters, true).ConfigureAwait(false));
             return new CallResult<long>(result.Data?.Data ?? 0, result.Error);
         }
 
@@ -393,7 +392,7 @@ namespace Huobi.Net
             parameters.AddOptionalParameter("side", side == null ? null: JsonConvert.SerializeObject(side, new OrderSideConverter(false)));
             parameters.AddOptionalParameter("size", limit);
 
-            var result = GetResult(await ExecuteRequest<HuobiBasicResponse<List<HuobiOrder>>>(GetUrl(OpenOrdersEndpoint, "1"), "GET", parameters, signed: true));
+            var result = GetResult(await ExecuteRequest<HuobiBasicResponse<List<HuobiOrder>>>(GetUrl(OpenOrdersEndpoint, "1"), "GET", parameters, true).ConfigureAwait(false));
             return new CallResult<List<HuobiOrder>>(result.Data?.Data, result.Error);
         }
 
@@ -410,7 +409,7 @@ namespace Huobi.Net
         /// <returns></returns>
         public async Task<CallResult<long>> CancelOrderAsync(long orderId)
         {
-            var result = GetResult(await ExecuteRequest<HuobiBasicResponse<long>>(GetUrl(FillPathParameter(CancelOrderEndpoint, orderId.ToString()), "1"), "POST", signed: true));
+            var result = GetResult(await ExecuteRequest<HuobiBasicResponse<long>>(GetUrl(FillPathParameter(CancelOrderEndpoint, orderId.ToString()), "1"), "POST", signed: true).ConfigureAwait(false));
             return new CallResult<long>(result.Data?.Data ?? 0, result.Error);
         }
 
@@ -432,7 +431,7 @@ namespace Huobi.Net
                 { "order-ids", orderIds.Select(s => s.ToString()) }
             };
 
-            var result = GetResult(await ExecuteRequest<HuobiBasicResponse<HuobiBatchCancelResult>>(GetUrl(CancelOrdersEndpoint, "1"), "POST", parameters, true));
+            var result = GetResult(await ExecuteRequest<HuobiBasicResponse<HuobiBatchCancelResult>>(GetUrl(CancelOrdersEndpoint, "1"), "POST", parameters, true).ConfigureAwait(false));
             return new CallResult<HuobiBatchCancelResult>(result.Data?.Data, result.Error);
         }
 
@@ -449,7 +448,7 @@ namespace Huobi.Net
         /// <returns></returns>
         public async Task<CallResult<HuobiOrder>> GetOrderInfoAsync(long orderId)
         {
-            var result = GetResult(await ExecuteRequest<HuobiBasicResponse<HuobiOrder>>(GetUrl(FillPathParameter(OrderInfoEndpoint, orderId.ToString()), "1"), "GET", signed: true));
+            var result = GetResult(await ExecuteRequest<HuobiBasicResponse<HuobiOrder>>(GetUrl(FillPathParameter(OrderInfoEndpoint, orderId.ToString()), "1"), "GET", signed: true).ConfigureAwait(false));
             return new CallResult<HuobiOrder>(result.Data?.Data, result.Error);
         }
 
@@ -466,7 +465,7 @@ namespace Huobi.Net
         /// <returns></returns>
         public async Task<CallResult<List<HuobiOrderTrade>>> GetOrderTradesAsync(long orderId)
         {
-            var result = GetResult(await ExecuteRequest<HuobiBasicResponse<List<HuobiOrderTrade>>>(GetUrl(FillPathParameter(OrderTradesEndpoint, orderId.ToString()), "1"), "GET", signed: true));
+            var result = GetResult(await ExecuteRequest<HuobiBasicResponse<List<HuobiOrderTrade>>>(GetUrl(FillPathParameter(OrderTradesEndpoint, orderId.ToString()), "1"), "GET", signed: true).ConfigureAwait(false));
             return new CallResult<List<HuobiOrderTrade>>(result.Data?.Data, result.Error);
         }
 
@@ -497,7 +496,7 @@ namespace Huobi.Net
         {
             var stateConverter = new OrderStateConverter(false);
             var typeConverter = new OrderTypeConverter(false);
-            var parameters = new Dictionary<string, object>()
+            var parameters = new Dictionary<string, object>
             {
                 { "symbol", symbol },
                 { "states", string.Join(",", states.Select(s => JsonConvert.SerializeObject(s, stateConverter))) }
@@ -508,7 +507,7 @@ namespace Huobi.Net
             parameters.AddOptionalParameter("from", fromId);
             parameters.AddOptionalParameter("size", limit);
 
-            var result = GetResult(await ExecuteRequest<HuobiBasicResponse<List<HuobiOrder>>>(GetUrl(OrdersEndpoint, "1"), "GET", parameters, signed: true));
+            var result = GetResult(await ExecuteRequest<HuobiBasicResponse<List<HuobiOrder>>>(GetUrl(OrdersEndpoint, "1"), "GET", parameters, true).ConfigureAwait(false));
             return new CallResult<List<HuobiOrder>>(result.Data?.Data, result.Error);
         }
 
@@ -536,7 +535,7 @@ namespace Huobi.Net
         public async Task<CallResult<List<HuobiOrderTrade>>> GetSymbolTradesAsync(string symbol, HuobiOrderType[] types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, int? limit = null)
         {
             var typeConverter = new OrderTypeConverter(false);
-            var parameters = new Dictionary<string, object>()
+            var parameters = new Dictionary<string, object>
             {
                 { "symbol", symbol }
             };
@@ -546,7 +545,7 @@ namespace Huobi.Net
             parameters.AddOptionalParameter("from", fromId);
             parameters.AddOptionalParameter("size", limit);
 
-            var result = GetResult(await ExecuteRequest<HuobiBasicResponse<List<HuobiOrderTrade>>>(GetUrl(SymbolTradesEndpoint, "1"), "GET", parameters, signed: true));
+            var result = GetResult(await ExecuteRequest<HuobiBasicResponse<List<HuobiOrderTrade>>>(GetUrl(SymbolTradesEndpoint, "1"), "GET", parameters, true).ConfigureAwait(false));
             return new CallResult<List<HuobiOrderTrade>>(result.Data?.Data, result.Error);
         }
 
@@ -559,7 +558,7 @@ namespace Huobi.Net
             if (authProvider != null)
                 parameters = authProvider.AddAuthenticationToParameters(uriString, method, parameters, signed);
 
-            if ((method == Constants.GetMethod || method == Constants.DeleteMethod || (postParametersPosition == PostParameters.InUri)) && parameters?.Any() == true)
+            if ((method == Constants.GetMethod || method == Constants.DeleteMethod || postParametersPosition == PostParameters.InUri) && parameters?.Any() == true)
                 uriString += "?" + parameters.CreateParamString(true);
 
             if (method == Constants.PostMethod && signed)
@@ -613,10 +612,7 @@ namespace Huobi.Net
 
         protected Uri GetUrl(string endpoint, string version=null)
         {
-            if(version == null)
-                return new Uri($"{BaseAddress}/{endpoint}");
-            else
-                return new Uri($"{BaseAddress}/v{version}/{endpoint}");
+            return version == null ? new Uri($"{BaseAddress}/{endpoint}") : new Uri($"{BaseAddress}/v{version}/{endpoint}");
         }
         #endregion
     }

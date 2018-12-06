@@ -25,7 +25,7 @@ namespace Huobi.Net
                 return parameters;
 
             var uriObj = new Uri(uri);
-            Dictionary<string, object> signParameters = new Dictionary<string, object>
+            var signParameters = new Dictionary<string, object>
             {
                 { "AccessKeyId", Credentials.Key.GetString() },
                 { "SignatureMethod", "HmacSHA256" },
@@ -44,7 +44,7 @@ namespace Huobi.Net
             var paramString = signParameters.CreateParamString(true);
             signParameters = signParameters.OrderBy(kv => kv.Key).ToDictionary(k => k.Key, k => k.Value);
 
-            string signData = method + "\n";
+            var signData = method + "\n";
             signData += uriObj.Host + "\n";
             signData += uriObj.AbsolutePath + "\n";
             signData += paramString;

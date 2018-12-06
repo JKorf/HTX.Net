@@ -18,7 +18,7 @@ namespace Huobi.Net.Converters
             { HuobiOrderType.IOCBuy, "buy-ioc" },
             { HuobiOrderType.IOCSell, "sell-ioc" },
             { HuobiOrderType.LimitMakerBuy, "buy-limit-maker" },
-            { HuobiOrderType.LimitMakerSell, "sell-limit-maker" },
+            { HuobiOrderType.LimitMakerSell, "sell-limit-maker" }
         };
     }
 }

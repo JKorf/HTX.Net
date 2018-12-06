@@ -20,7 +20,7 @@ namespace Huobi.Net.Converters
             { HuobiAccountEventType.MarginLoan, "margin.loan" },
             { HuobiAccountEventType.MarginRepay, "margin.repay" },
             { HuobiAccountEventType.MarginTransfer, "margin.transfer" },
-            { HuobiAccountEventType.Other, "other" },
+            { HuobiAccountEventType.Other, "other" }
         };
     }
 }
