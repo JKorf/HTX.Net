@@ -349,6 +349,7 @@ namespace Huobi.Net.UnitTests
             // act
             var subTask = client.QueryAccountsAsync();
             socket.InvokeMessage("{\"op\": \"auth\"}");
+            Thread.Sleep(10);
             socket.InvokeMessage(SerializeExpectedQuery(expected));
             var subResult = subTask.Result;
 
@@ -387,6 +388,7 @@ namespace Huobi.Net.UnitTests
             // act
             var subTask = client.QueryOrderDetailsAsync(123);
             socket.InvokeMessage("{\"op\": \"auth\"}");
+            Thread.Sleep(10);
             socket.InvokeMessage(SerializeExpectedQuery(expected));
             var subResult = subTask.Result;
 
