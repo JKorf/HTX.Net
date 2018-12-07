@@ -1,4 +1,5 @@
-﻿using Huobi.Net.Converters;
+﻿using System;
+using Huobi.Net.Converters;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 
@@ -6,6 +7,10 @@ namespace Huobi.Net.Objects.SocketObjects
 {
     public class HuobiAccountEvent
     {
+        /// <summary>
+        /// The timestamp of the event
+        /// </summary>
+        public DateTime Timestamp { get; set; }
         /// <summary>
         /// The event type that triggered the update
         /// </summary>

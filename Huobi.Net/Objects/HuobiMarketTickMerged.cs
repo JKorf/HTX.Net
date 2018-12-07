@@ -1,12 +1,17 @@
-﻿using CryptoExchange.Net.Converters;
+﻿using System;
+using CryptoExchange.Net.Converters;
 using Newtonsoft.Json;
 
 namespace Huobi.Net.Objects
 {
     public class HuobiMarketTickMerged: HuobiMarketData
     {
+        /// <summary>
+        /// The id of the tick
+        /// </summary>
+        public long Id { get; set; }
         public long Version { get; set; }
-        
+
         /// <summary>
         /// The current best bid for the market
         /// </summary>
@@ -17,6 +22,9 @@ namespace Huobi.Net.Objects
         /// </summary>
         [JsonProperty("ask")]
         public HuobiOrderBookEntry BestAsk { get; set; }
+
+        [JsonIgnore]
+        public DateTime Timestamp { get; set; }
     }
 
     [JsonConverter(typeof(ArrayConverter))]

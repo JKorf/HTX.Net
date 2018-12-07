@@ -74,7 +74,7 @@ namespace Huobi.Net.UnitTests
             socket.CanConnect = true;
             var client = TestHelpers.CreateSocketClient(socket);
 
-            HuobiSocketUpdate<HuobiMarketDepth> result = null;
+            HuobiMarketDepth result = null;
             var subTask = client.SubscribeToMarketDepthUpdatesAsync("test", 1, test => result = test);
             socket.InvokeMessage("{\"subbed\": \"test\", \"status\": \"ok\"}");
             var subResult = subTask.Result;
@@ -96,8 +96,8 @@ namespace Huobi.Net.UnitTests
 
             // assert
             Assert.IsTrue(subResult.Success);
-            Assert.IsTrue(TestHelpers.AreEqual(expected.Asks[0], result.Data.Asks[0]));
-            Assert.IsTrue(TestHelpers.AreEqual(expected.Bids[0], result.Data.Bids[0]));
+            Assert.IsTrue(TestHelpers.AreEqual(expected.Asks[0], result.Asks[0]));
+            Assert.IsTrue(TestHelpers.AreEqual(expected.Bids[0], result.Bids[0]));
         }
 
         [Test]
@@ -108,14 +108,13 @@ namespace Huobi.Net.UnitTests
             socket.CanConnect = true;
             var client = TestHelpers.CreateSocketClient(socket);
 
-            HuobiSocketUpdate<HuobiMarketData> result = null;
+            HuobiMarketData result = null;
             var subTask = client.SubscribeToMarketDetailUpdatesAsync("test", test => result = test);
             socket.InvokeMessage("{\"subbed\": \"test\", \"status\": \"ok\"}");
             var subResult = subTask.Result;
 
             var expected = new HuobiMarketData()
             {
-                Id = 123,
                 Amount = 0.1m,
                 Close = 0.2m,
                 Low = 0.3m,
@@ -130,7 +129,7 @@ namespace Huobi.Net.UnitTests
 
             // assert
             Assert.IsTrue(subResult.Success);
-            Assert.IsTrue(TestHelpers.AreEqual(expected, result.Data));
+            Assert.IsTrue(TestHelpers.AreEqual(expected, result));
         }
 
         [Test]
@@ -141,14 +140,13 @@ namespace Huobi.Net.UnitTests
             socket.CanConnect = true;
             var client = TestHelpers.CreateSocketClient(socket);
 
-            HuobiSocketUpdate<HuobiMarketData> result = null;
+            HuobiMarketData result = null;
             var subTask = client.SubscribeToMarketKlineUpdatesAsync("test", HuobiPeriod.FiveMinutes, test => result = test);
             socket.InvokeMessage("{\"subbed\": \"test\", \"status\": \"ok\"}");
             var subResult = subTask.Result;
 
             var expected = new HuobiMarketData()
             {
-                Id = 123,
                 Amount = 0.1m,
                 Close = 0.2m,
                 Low = 0.3m,
@@ -163,7 +161,7 @@ namespace Huobi.Net.UnitTests
 
             // assert
             Assert.IsTrue(subResult.Success);
-            Assert.IsTrue(TestHelpers.AreEqual(expected, result.Data));
+            Assert.IsTrue(TestHelpers.AreEqual(expected, result));
         }
 
         [Test]
@@ -174,7 +172,7 @@ namespace Huobi.Net.UnitTests
             socket.CanConnect = true;
             var client = TestHelpers.CreateSocketClient(socket);
 
-            HuobiSocketUpdate<List<HuobiMarketTick>> result = null;
+            HuobiMarketTicks result = null;
             var subTask = client.SubscribeToMarketTickerUpdatesAsync(test => result = test);
             socket.InvokeMessage("{\"subbed\": \"test\", \"status\": \"ok\"}");
             var subResult = subTask.Result;
@@ -183,7 +181,6 @@ namespace Huobi.Net.UnitTests
             {
                 new HuobiMarketTick()
                 {
-                    Id = 123,
                     Amount = 0.1m,
                     Close = 0.2m,
                     Low = 0.3m,
@@ -199,7 +196,7 @@ namespace Huobi.Net.UnitTests
 
             // assert
             Assert.IsTrue(subResult.Success);
-            Assert.IsTrue(TestHelpers.AreEqual(expected[0], result.Data[0]));
+            Assert.IsTrue(TestHelpers.AreEqual(expected[0], result.Ticks[0]));
         }
 
         [Test]
@@ -210,7 +207,7 @@ namespace Huobi.Net.UnitTests
             socket.CanConnect = true;
             var client = TestHelpers.CreateSocketClient(socket);
 
-            HuobiSocketUpdate<HuobiMarketTrade> result = null;
+            HuobiMarketTrade result = null;
             var subTask = client.SubscribeToMarketTradeUpdatesAsync("ethusdt", test => result = test);
             socket.InvokeMessage("{\"subbed\": \"test\", \"status\": \"ok\"}");
             var subResult = subTask.Result;
@@ -238,8 +235,8 @@ namespace Huobi.Net.UnitTests
 
             // assert
             Assert.IsTrue(subResult.Success);
-            Assert.IsTrue(TestHelpers.AreEqual(expected, result.Data, "Details"));
-            Assert.IsTrue(TestHelpers.AreEqual(expected.Details[0], result.Data.Details[0]));
+            Assert.IsTrue(TestHelpers.AreEqual(expected, result, "Details"));
+            Assert.IsTrue(TestHelpers.AreEqual(expected.Details[0], result.Details[0]));
         }
 
         [Test]
@@ -250,7 +247,7 @@ namespace Huobi.Net.UnitTests
             socket.CanConnect = true;
             var client = TestHelpers.CreateAuthenticatedSocketClient(socket);
 
-            HuobiSocketAuthDataResponse<HuobiAccountEvent> result = null;
+            HuobiAccountEvent result = null;
             var subTask = client.SubscribeToAccountUpdatesAsync(test => result = test);
             socket.InvokeMessage("{\"op\": \"auth\"}");
             Thread.Sleep(10);
@@ -277,8 +274,8 @@ namespace Huobi.Net.UnitTests
 
             // assert
             Assert.IsTrue(subResult.Success);
-            Assert.IsTrue(TestHelpers.AreEqual(expected, result.Data, "BalanceChanges"));
-            Assert.IsTrue(TestHelpers.AreEqual(expected.BalanceChanges[0], result.Data.BalanceChanges[0]));
+            Assert.IsTrue(TestHelpers.AreEqual(expected, result, "BalanceChanges"));
+            Assert.IsTrue(TestHelpers.AreEqual(expected.BalanceChanges[0], result.BalanceChanges[0]));
         }
 
         [Test]
@@ -289,7 +286,7 @@ namespace Huobi.Net.UnitTests
             socket.CanConnect = true;
             var client = TestHelpers.CreateAuthenticatedSocketClient(socket);
 
-            HuobiSocketAuthDataResponse<HuobiOrder> result = null;
+            HuobiOrder result = null;
             var subTask = client.SubscribeToOrderUpdatesAsync(test => result = test);
             socket.InvokeMessage("{\"op\": \"auth\"}");
             Thread.Sleep(10);
@@ -319,7 +316,7 @@ namespace Huobi.Net.UnitTests
 
             // assert
             Assert.IsTrue(subResult.Success);
-            Assert.IsTrue(TestHelpers.AreEqual(expected, result.Data));
+            Assert.IsTrue(TestHelpers.AreEqual(expected, result));
         }
 
         [Test]
@@ -357,8 +354,8 @@ namespace Huobi.Net.UnitTests
 
             // assert
             Assert.IsTrue(subResult.Success);
-            Assert.IsTrue(TestHelpers.AreEqual(expected[0], subResult.Data.Data[0], "Data"));
-            Assert.IsTrue(TestHelpers.AreEqual(expected[0].Data[0], subResult.Data.Data[0].Data[0]));
+            Assert.IsTrue(TestHelpers.AreEqual(expected[0], subResult.Data[0], "Data"));
+            Assert.IsTrue(TestHelpers.AreEqual(expected[0].Data[0], subResult.Data[0].Data[0]));
         }
 
         [Test]
@@ -395,7 +392,7 @@ namespace Huobi.Net.UnitTests
 
             // assert
             Assert.IsTrue(subResult.Success);
-            Assert.IsTrue(TestHelpers.AreEqual(expected, subResult.Data.Data));
+            Assert.IsTrue(TestHelpers.AreEqual(expected, subResult.Data));
         }
 
         [Test]
@@ -436,7 +433,7 @@ namespace Huobi.Net.UnitTests
 
             // assert
             Assert.IsTrue(subResult.Success);
-            Assert.IsTrue(TestHelpers.AreEqual(expected[0], subResult.Data.Data[0]));
+            Assert.IsTrue(TestHelpers.AreEqual(expected[0], subResult.Data[0]));
         }
 
         [Test]

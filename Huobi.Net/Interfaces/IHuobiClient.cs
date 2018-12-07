@@ -21,27 +21,27 @@ namespace Huobi.Net.Interfaces
         /// Gets the latest ticker for all markets
         /// </summary>
         /// <returns></returns>
-        CallResult<HuobiTimestampResponse<List<HuobiMarketTick>>> GetMarketTickers();
+        CallResult<HuobiMarketTicks> GetMarketTickers();
 
         /// <summary>
         /// Gets the latest ticker for all markets
         /// </summary>
         /// <returns></returns>
-        Task<CallResult<HuobiTimestampResponse<List<HuobiMarketTick>>>> GetMarketTickersAsync();
+        Task<CallResult<HuobiMarketTicks>> GetMarketTickersAsync();
 
         /// <summary>
         /// Gets the ticker, including the best bid / best ask for a symbol
         /// </summary>
         /// <param name="symbol">The symbol to get the ticker for</param>
         /// <returns></returns>
-        CallResult<HuobiChannelResponse<HuobiMarketTickMerged>> GetMarketTickerMerged(string symbol);
+        CallResult<HuobiMarketTickMerged> GetMarketTickerMerged(string symbol);
 
         /// <summary>
         /// Gets the ticker, including the best bid / best ask for a symbol
         /// </summary>
         /// <param name="symbol">The symbol to get the ticker for</param>
         /// <returns></returns>
-        Task<CallResult<HuobiChannelResponse<HuobiMarketTickMerged>>> GetMarketTickerMergedAsync(string symbol);
+        Task<CallResult<HuobiMarketTickMerged>> GetMarketTickerMergedAsync(string symbol);
 
         /// <summary>
         /// Get candlestick data for a market
@@ -50,7 +50,7 @@ namespace Huobi.Net.Interfaces
         /// <param name="period">The period of a single candlestick</param>
         /// <param name="size">The amount of candlesticks</param>
         /// <returns></returns>
-        CallResult<HuobiChannelResponse<List<HuobiMarketData>>> GetMarketKlines(string symbol, HuobiPeriod period, int size);
+        CallResult<List<HuobiMarketKline>> GetMarketKlines(string symbol, HuobiPeriod period, int size);
 
         /// <summary>
         /// Get candlestick data for a market
@@ -59,7 +59,7 @@ namespace Huobi.Net.Interfaces
         /// <param name="period">The period of a single candlestick</param>
         /// <param name="size">The amount of candlesticks</param>
         /// <returns></returns>
-        Task<CallResult<HuobiChannelResponse<List<HuobiMarketData>>>> GetMarketKlinesAsync(string symbol, HuobiPeriod period, int size);
+        Task<CallResult<List<HuobiMarketKline>>> GetMarketKlinesAsync(string symbol, HuobiPeriod period, int size);
 
         /// <summary>
         /// Gets the market depth for a symbol
@@ -67,7 +67,7 @@ namespace Huobi.Net.Interfaces
         /// <param name="symbol">The symbol to request for</param>
         /// <param name="mergeStep">The way the results will be merged together</param>
         /// <returns></returns>
-        CallResult<HuobiChannelResponse<HuobiMarketDepth>> GetMarketDepth(string symbol, int mergeStep);
+        CallResult<HuobiMarketDepth> GetMarketDepth(string symbol, int mergeStep);
 
         /// <summary>
         /// Gets the market depth for a symbol
@@ -75,21 +75,21 @@ namespace Huobi.Net.Interfaces
         /// <param name="symbol">The symbol to request for</param>
         /// <param name="mergeStep">The way the results will be merged together</param>
         /// <returns></returns>
-        Task<CallResult<HuobiChannelResponse<HuobiMarketDepth>>> GetMarketDepthAsync(string symbol, int mergeStep);
+        Task<CallResult<HuobiMarketDepth>> GetMarketDepthAsync(string symbol, int mergeStep);
 
         /// <summary>
         /// Gets the last trade for a market
         /// </summary>
         /// <param name="symbol">The symbol to request for</param>
         /// <returns></returns>
-        CallResult<HuobiChannelResponse<HuobiMarketTrade>> GetMarketLastTrade(string symbol);
+        CallResult<HuobiMarketTrade> GetMarketLastTrade(string symbol);
 
         /// <summary>
         /// Gets the last trade for a market
         /// </summary>
         /// <param name="symbol">The symbol to request for</param>
         /// <returns></returns>
-        Task<CallResult<HuobiChannelResponse<HuobiMarketTrade>>> GetMarketLastTradeAsync(string symbol);
+        Task<CallResult<HuobiMarketTrade>> GetMarketLastTradeAsync(string symbol);
 
         /// <summary>
         /// Get the last x trades for a market
@@ -97,7 +97,7 @@ namespace Huobi.Net.Interfaces
         /// <param name="symbol">The market to get trades for</param>
         /// <param name="limit">The max number of results</param>
         /// <returns></returns>
-        CallResult<HuobiChannelResponse<List<HuobiMarketTrade>>> GetMarketTradeHistory(string symbol, int limit);
+        CallResult<List<HuobiMarketTrade>> GetMarketTradeHistory(string symbol, int limit);
 
         /// <summary>
         /// Get the last x trades for a market
@@ -105,21 +105,21 @@ namespace Huobi.Net.Interfaces
         /// <param name="symbol">The market to get trades for</param>
         /// <param name="limit">The max number of results</param>
         /// <returns></returns>
-        Task<CallResult<HuobiChannelResponse<List<HuobiMarketTrade>>>> GetMarketTradeHistoryAsync(string symbol, int limit);
+        Task<CallResult<List<HuobiMarketTrade>>> GetMarketTradeHistoryAsync(string symbol, int limit);
 
         /// <summary>
         /// Gets 24h stats for a market
         /// </summary>
         /// <param name="symbol">The market to get the data for</param>
         /// <returns></returns>
-        CallResult<HuobiChannelResponse<HuobiMarketData>> GetMarketDetails24H(string symbol);
+        CallResult<HuobiMarketDetails> GetMarketDetails24H(string symbol);
 
         /// <summary>
         /// Gets 24h stats for a market
         /// </summary>
         /// <param name="symbol">The market to get the data for</param>
         /// <returns></returns>
-        Task<CallResult<HuobiChannelResponse<HuobiMarketData>>> GetMarketDetails24HAsync(string symbol);
+        Task<CallResult<HuobiMarketDetails>> GetMarketDetails24HAsync(string symbol);
 
         /// <summary>
         /// Gets a list of supported symbols
@@ -335,6 +335,10 @@ namespace Huobi.Net.Interfaces
         /// The factory for creating requests. Used for unit testing
         /// </summary>
         IRequestFactory RequestFactory { get; set; }
+
+        RateLimitingBehaviour RateLimitBehaviour { get; }
+        IEnumerable<IRateLimiter> RateLimiters { get; }
+        string BaseAddress { get; }
 
         /// <summary>
         /// Adds a rate limiter to the client. There are 2 choices, the <see cref="RateLimiterTotal"/> and the <see cref="RateLimiterPerEndpoint"/>.

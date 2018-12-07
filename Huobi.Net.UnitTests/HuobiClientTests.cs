@@ -21,7 +21,6 @@ namespace Huobi.Net.UnitTests
                 new HuobiMarketTick
                 {
                     Close = 0.1m,
-                    Id = 12345,
                     Low = 0.2m,
                     Symbol = "BTCETH",
                     Amount = 0.3m,
@@ -39,7 +38,7 @@ namespace Huobi.Net.UnitTests
 
             // assert
             Assert.AreEqual(true, result.Success);
-            Assert.IsTrue(TestHelpers.AreEqual(expected[0], result.Data.Data[0]));
+            Assert.IsTrue(TestHelpers.AreEqual(expected[0], result.Data.Ticks[0]));
         }
 
         [TestCase]
@@ -68,7 +67,7 @@ namespace Huobi.Net.UnitTests
 
             // assert
             Assert.AreEqual(true, result.Success);
-            Assert.IsTrue(TestHelpers.AreEqual(expected, result.Data.Data));
+            Assert.IsTrue(TestHelpers.AreEqual(expected, result.Data));
         }
 
         [TestCase]
@@ -80,7 +79,6 @@ namespace Huobi.Net.UnitTests
                 new HuobiMarketData
                 {
                     Close = 0.1m,
-                    Id = 12345,
                     Low = 0.2m,
                     Amount = 0.3m,
                     Open = 0.4m,
@@ -97,7 +95,7 @@ namespace Huobi.Net.UnitTests
 
             // assert
             Assert.AreEqual(true, result.Success);
-            Assert.IsTrue(TestHelpers.AreEqual(expected[0], result.Data.Data[0]));
+            Assert.IsTrue(TestHelpers.AreEqual(expected[0], result.Data[0]));
         }
 
         [TestCase]
@@ -123,8 +121,8 @@ namespace Huobi.Net.UnitTests
 
             // assert
             Assert.AreEqual(true, result.Success);
-            Assert.IsTrue(TestHelpers.AreEqual(expected.Asks[0], result.Data.Data.Asks[0]));
-            Assert.IsTrue(TestHelpers.AreEqual(expected.Bids[0], result.Data.Data.Bids[0]));
+            Assert.IsTrue(TestHelpers.AreEqual(expected.Asks[0], result.Data.Asks[0]));
+            Assert.IsTrue(TestHelpers.AreEqual(expected.Bids[0], result.Data.Bids[0]));
         }
 
         [TestCase]
@@ -155,8 +153,8 @@ namespace Huobi.Net.UnitTests
 
             // assert
             Assert.AreEqual(true, result.Success);
-            Assert.IsTrue(TestHelpers.AreEqual(expected, result.Data.Data, "Details"));
-            Assert.IsTrue(TestHelpers.AreEqual(expected.Details[0], result.Data.Data.Details[0]));
+            Assert.IsTrue(TestHelpers.AreEqual(expected, result.Data, "Details"));
+            Assert.IsTrue(TestHelpers.AreEqual(expected.Details[0], result.Data.Details[0]));
         }
 
         [TestCase]
@@ -190,8 +188,8 @@ namespace Huobi.Net.UnitTests
 
             // assert
             Assert.AreEqual(true, result.Success);
-            Assert.IsTrue(TestHelpers.AreEqual(expected[0], result.Data.Data[0], "Details"));
-            Assert.IsTrue(TestHelpers.AreEqual(expected[0].Details[0], result.Data.Data[0].Details[0]));
+            Assert.IsTrue(TestHelpers.AreEqual(expected[0], result.Data[0], "Details"));
+            Assert.IsTrue(TestHelpers.AreEqual(expected[0].Details[0], result.Data[0].Details[0]));
         }
 
         [TestCase]
@@ -201,7 +199,6 @@ namespace Huobi.Net.UnitTests
             var expected = new HuobiMarketData
             {
                 Close = 0.1m,
-                Id = 12345,
                 Low = 0.2m,
                 Amount = 0.3m,
                 Open = 0.4m,
@@ -217,7 +214,7 @@ namespace Huobi.Net.UnitTests
 
             // assert
             Assert.AreEqual(true, result.Success);
-            Assert.IsTrue(TestHelpers.AreEqual(expected, result.Data.Data, "Details"));
+            Assert.IsTrue(TestHelpers.AreEqual(expected, result.Data, "Details"));
         }
 
         [TestCase]

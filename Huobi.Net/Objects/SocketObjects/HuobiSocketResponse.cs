@@ -5,7 +5,7 @@ using System;
 
 namespace Huobi.Net.Objects.SocketObjects
 {
-    public abstract class HuobiResponse
+    internal abstract class HuobiResponse
     {
         internal abstract bool IsSuccessful { get; }
         internal string Id { get; set; }
@@ -15,7 +15,7 @@ namespace Huobi.Net.Objects.SocketObjects
         public string ErrorMessage { get; set; }
     }
 
-    public class HuobiSocketResponse<T>: HuobiResponse
+    internal class HuobiSocketResponse<T>: HuobiResponse
     {
         internal override bool IsSuccessful => Status == "ok";
         [JsonProperty("status")]
@@ -45,7 +45,7 @@ namespace Huobi.Net.Objects.SocketObjects
         public DateTime Timestamp { get; set; }
     }
 
-    public class HuobiSocketAuthResponse: HuobiResponse
+    internal class HuobiSocketAuthResponse: HuobiResponse
     {
         internal override bool IsSuccessful => ErrorCode == 0;
         [JsonProperty("err-code")]
@@ -65,7 +65,7 @@ namespace Huobi.Net.Objects.SocketObjects
         public DateTime Timestamp { get; set; }
     }
 
-    public class HuobiSocketAuthDataResponse<T>: HuobiSocketAuthResponse
+    internal class HuobiSocketAuthDataResponse<T>: HuobiSocketAuthResponse
     {
         /// <summary>
         /// The data

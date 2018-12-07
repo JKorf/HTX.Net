@@ -1,10 +1,11 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using CryptoExchange.Net.Converters;
+using Newtonsoft.Json;
 
 namespace Huobi.Net.Objects
 {
     public class HuobiMarketData
     {
-        public long Id { get; set; }
         /// <summary>
         /// The highest price
         /// </summary>
@@ -35,5 +36,35 @@ namespace Huobi.Net.Objects
         /// </summary>
         [JsonProperty("count")]
         public int TradeCount { get; set; }
+    }
+
+    public class HuobiMarketKline : HuobiMarketData
+    {
+        /// <summary>
+        /// The start time of the kline
+        /// </summary>
+        [JsonConverter(typeof(TimestampSecondsConverter))]
+        public DateTime Id { get; set; }
+    }
+
+    public class HuobiMarketDetails : HuobiMarketData
+    {
+        /// <summary>
+        /// The id of the details
+        /// </summary>
+        public long Id { get; set; }
+
+        /// <summary>
+        /// The timestamp of the data
+        /// </summary>
+        public DateTime Timestamp { get; set; }
+    }
+
+    public class HuobiMarketTick : HuobiMarketData
+    {
+        /// <summary>
+        /// The symbol
+        /// </summary>
+        public string Symbol { get; set; }
     }
 }

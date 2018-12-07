@@ -5,7 +5,7 @@ using System;
 
 namespace Huobi.Net.Objects.SocketObjects
 {
-    public class HuobiSocketUpdate<T>
+    internal class HuobiSocketUpdate<T>
     {
         /// <summary>
         /// The name of the data channel

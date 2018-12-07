@@ -5,7 +5,7 @@ using System;
 
 namespace Huobi.Net.Objects
 {
-    public abstract class HuobiApiResponse
+    internal abstract class HuobiApiResponse
     {
         [JsonOptionalProperty, JsonProperty("status")]
         internal string Status { get; set; }
@@ -17,7 +17,7 @@ namespace Huobi.Net.Objects
         internal string ErrorCode { get; set; }
     }
 
-    public class HuobiBasicResponse<T> : HuobiApiResponse
+    internal class HuobiBasicResponse<T> : HuobiApiResponse
     {
         [JsonOptionalProperty]
         public T Data { get; set; }
@@ -25,13 +25,13 @@ namespace Huobi.Net.Objects
         private T Tick { set => Data = value; get => Data; }
     }
 
-    public class HuobiTimestampResponse<T>: HuobiBasicResponse<T>
+    internal class HuobiTimestampResponse<T>: HuobiBasicResponse<T>
     {
         [JsonProperty("ts"), JsonConverter(typeof(TimestampConverter))]
         public DateTime Timestamp { get; set; }
     }
 
-    public class HuobiChannelResponse<T> : HuobiTimestampResponse<T>
+    internal class HuobiChannelResponse<T> : HuobiTimestampResponse<T>
     {
         [JsonProperty("ch")]
         public string Channel { get; set; }
