@@ -16,7 +16,6 @@ using Newtonsoft.Json.Linq;
 namespace Huobi.Net
 {
     public class HuobiClient: RestClient, IHuobiClient
-//, IHuobiClient
     {
         #region fields
         private static HuobiClientOptions defaultOptions = new HuobiClientOptions();
