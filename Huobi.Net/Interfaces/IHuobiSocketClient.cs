@@ -212,14 +212,14 @@ namespace Huobi.Net.Interfaces
         /// </summary>
         /// <param name="onData">The handler for updates</param>
         /// <returns></returns>
-        CallResult<UpdateSubscription> SubscribeToOrderUpdates(Action<HuobiOrder> onData);
+        CallResult<UpdateSubscription> SubscribeToOrderUpdates(Action<HuobiOrderUpdate> onData);
 
         /// <summary>
         /// Subscribe to updates when any order changes
         /// </summary>
         /// <param name="onData">The handler for updates</param>
         /// <returns></returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(Action<HuobiOrder> onData);
+        Task<CallResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(Action<HuobiOrderUpdate> onData);
 
         /// <summary>
         /// Subscribe to updates when a order for a symbol changes
@@ -227,7 +227,7 @@ namespace Huobi.Net.Interfaces
         /// <param name="symbol">The symbol to subscribe to</param>
         /// <param name="onData">The handler for updates</param>
         /// <returns></returns>
-        CallResult<UpdateSubscription> SubscribeToOrderUpdates(string symbol, Action<HuobiOrder> onData);
+        CallResult<UpdateSubscription> SubscribeToOrderUpdates(string symbol, Action<HuobiOrderUpdate> onData);
 
         /// <summary>
         /// Subscribe to updates when a order for a symbol changes
@@ -235,7 +235,7 @@ namespace Huobi.Net.Interfaces
         /// <param name="symbol">The symbol to subscribe to</param>
         /// <param name="onData">The handler for updates</param>
         /// <returns></returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(string symbol, Action<HuobiOrder> onData);
+        Task<CallResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(string symbol, Action<HuobiOrderUpdate> onData);
 
         /// <summary>
         /// Gets data for a specific order

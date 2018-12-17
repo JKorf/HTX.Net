@@ -358,16 +358,16 @@ namespace Huobi.Net
         /// </summary>
         /// <param name="onData">The handler for updates</param>
         /// <returns></returns>
-        public CallResult<UpdateSubscription> SubscribeToOrderUpdates(Action<HuobiOrder> onData) => SubscribeToOrderUpdatesAsync(onData).Result;
+        public CallResult<UpdateSubscription> SubscribeToOrderUpdates(Action<HuobiOrderUpdate> onData) => SubscribeToOrderUpdatesAsync(onData).Result;
         /// <summary>
         /// Subscribe to updates when any order changes
         /// </summary>
         /// <param name="onData">The handler for updates</param>
         /// <returns></returns>
-        public async Task<CallResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(Action<HuobiOrder> onData)
+        public async Task<CallResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(Action<HuobiOrderUpdate> onData)
         {
             var request = new HuobiAuthenticatedRequest("sub", "orders.*");
-            var internalHandler = new Action<HuobiSocketAuthDataResponse<HuobiOrder>>(data => onData(data.Data));
+            var internalHandler = new Action<HuobiSocketAuthDataResponse<HuobiOrderUpdate>>(data => onData(data.Data));
             return await Subscribe(request, internalHandler).ConfigureAwait(false);
         }
 
@@ -377,17 +377,17 @@ namespace Huobi.Net
         /// <param name="symbol">The symbol to subscribe to</param>
         /// <param name="onData">The handler for updates</param>
         /// <returns></returns>
-        public CallResult<UpdateSubscription> SubscribeToOrderUpdates(string symbol, Action<HuobiOrder> onData) => SubscribeToOrderUpdatesAsync(symbol, onData).Result;
+        public CallResult<UpdateSubscription> SubscribeToOrderUpdates(string symbol, Action<HuobiOrderUpdate> onData) => SubscribeToOrderUpdatesAsync(symbol, onData).Result;
         /// <summary>
         /// Subscribe to updates when a order for a symbol changes
         /// </summary>
         /// <param name="symbol">The symbol to subscribe to</param>
         /// <param name="onData">The handler for updates</param>
         /// <returns></returns>
-        public async Task<CallResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(string symbol, Action<HuobiOrder> onData)
+        public async Task<CallResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(string symbol, Action<HuobiOrderUpdate> onData)
         {
             var request = new HuobiAuthenticatedRequest("sub", $"orders.{symbol}");
-            var internalHandler = new Action<HuobiSocketAuthDataResponse<HuobiOrder>>(data => onData(data.Data));
+            var internalHandler = new Action<HuobiSocketAuthDataResponse<HuobiOrderUpdate>>(data => onData(data.Data));
             return await Subscribe(request, internalHandler).ConfigureAwait(false);
         }
 
