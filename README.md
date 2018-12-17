@@ -176,5 +176,9 @@ client.SubscribeToMarketTradeUpdates("ethusdt", (data) =>
 ```
 
 ## Release notes
+* Version 0.0.2 - 17 dec 2018
+	* Fix for reconnecting sometimes throwing an error
+	* Fix for order update fields
+
 * Version 0.0.1 - 07 dec 2018
 	* Initial release

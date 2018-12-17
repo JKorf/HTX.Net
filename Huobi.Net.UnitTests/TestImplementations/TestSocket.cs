@@ -44,6 +44,11 @@ namespace Huobi.Net.UnitTests.TestImplementations
                 throw new Exception("Socket not connected");
         }
 
+        public void Reset()
+        {
+            
+        }
+
         public Task Close()
         {
             Connected = false;

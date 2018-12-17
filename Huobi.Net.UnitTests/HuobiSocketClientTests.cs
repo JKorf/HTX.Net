@@ -286,14 +286,14 @@ namespace Huobi.Net.UnitTests
             socket.CanConnect = true;
             var client = TestHelpers.CreateAuthenticatedSocketClient(socket);
 
-            HuobiOrder result = null;
+            HuobiOrderUpdate result = null;
             var subTask = client.SubscribeToOrderUpdatesAsync(test => result = test);
             socket.InvokeMessage("{\"op\": \"auth\"}");
             Thread.Sleep(10);
             socket.InvokeMessage("{\"op\": \"sub\"}");
             var subResult = subTask.Result;
 
-            var expected = new HuobiOrder()
+            var expected = new HuobiOrderUpdate()
             {
                 Id = 123,
                 Amount = 0.1m,
@@ -306,9 +306,7 @@ namespace Huobi.Net.UnitTests
                 FilledAmount = 0.3m,
                 CreatedAt = new DateTime(2018, 1, 1),
                 FilledFees = 0.4m,
-                CanceledAt = new DateTime(2018,1,2),
                 FilledCashAmount = 0.5m,
-                FinishedAt = new DateTime(2018,1,3)
             };
 
             // act
