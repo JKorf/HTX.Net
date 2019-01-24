@@ -6,7 +6,7 @@ using System;
 
 namespace Huobi.Net.Objects
 {
-    public class HuobiOrder
+    public class HuobiOpenOrder
     {
         /// <summary>
         /// The id of the order
@@ -72,16 +72,16 @@ namespace Huobi.Net.Objects
         /// <summary>
         /// The amount of the order that is filled
         /// </summary>
-        [JsonProperty("field-amount")]
+        [JsonProperty("filled-amount")]
         public decimal FilledAmount { get; set; }
 
-        [JsonProperty("field-cash-amount")]
+        [JsonProperty("filled-cash-amount")]
         public decimal FilledCashAmount { get; set; }
 
         /// <summary>
         /// The amount of fees paid for the filled amount
         /// </summary>
-        [JsonProperty("field-fees")]
+        [JsonProperty("filled-fees")]
         public decimal FilledFees { get; set; }
     }
 }
