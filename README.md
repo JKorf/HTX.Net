@@ -35,6 +35,10 @@ And other API wrappers based on CryptoExchange.Net:
 <br />
 <a href="https://github.com/Zaliro/Switcheo.Net">Switcheo</a>
 </td>
+	<td><a href="https://github.com/ridicoulous/LiquidQuoine.Net"><img src="https://github.com/ridicoulous/LiquidQuoine.Net/blob/master/Resources/icon.png?raw=true"></a>
+<br />
+<a href="https://github.com/ridicoulous/LiquidQuoine.Net">Liquid</a>
+</td>
 </tr>
 </table>
 
@@ -176,6 +180,9 @@ client.SubscribeToMarketTradeUpdates("ethusdt", (data) =>
 ```
 
 ## Release notes
+* Version 0.0.3 - 01 feb 2019
+	* Updated CryptoExchange.Net
+
 * Version 0.0.2 - 17 dec 2018
 	* Fix for reconnecting sometimes throwing an error
 	* Fix for order update fields
