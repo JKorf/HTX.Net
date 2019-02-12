@@ -213,7 +213,7 @@ namespace Huobi.Net.Interfaces
         /// <param name="side">Only get buy or sell orders</param>
         /// <param name="limit">The max number of results</param>
         /// <returns></returns>
-        CallResult<List<HuobiOrder>> GetOpenOrders(long? accountId = null, string symbol = null, HuobiOrderSide? side = null, int? limit = null);
+        CallResult<List<HuobiOpenOrder>> GetOpenOrders(long? accountId = null, string symbol = null, HuobiOrderSide? side = null, int? limit = null);
 
         /// <summary>
         /// Gets a list of open orders
@@ -223,7 +223,7 @@ namespace Huobi.Net.Interfaces
         /// <param name="side">Only get buy or sell orders</param>
         /// <param name="limit">The max number of results</param>
         /// <returns></returns>
-        Task<CallResult<List<HuobiOrder>>> GetOpenOrdersAsync(long? accountId = null, string symbol = null, HuobiOrderSide? side = null, int? limit = null);
+        Task<CallResult<List<HuobiOpenOrder>>> GetOpenOrdersAsync(long? accountId = null, string symbol = null, HuobiOrderSide? side = null, int? limit = null);
 
         /// <summary>
         /// Cancels an open order

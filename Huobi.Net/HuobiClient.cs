@@ -397,7 +397,7 @@ namespace Huobi.Net
         /// <param name="side">Only get buy or sell orders</param>
         /// <param name="limit">The max number of results</param>
         /// <returns></returns>
-        public CallResult<List<HuobiOrder>> GetOpenOrders(long? accountId = null, string symbol = null, HuobiOrderSide? side = null, int? limit = null) => GetOpenOrdersAsync(accountId, symbol, side, limit).Result;
+        public CallResult<List<HuobiOpenOrder>> GetOpenOrders(long? accountId = null, string symbol = null, HuobiOrderSide? side = null, int? limit = null) => GetOpenOrdersAsync(accountId, symbol, side, limit).Result;
         /// <summary>
         /// Gets a list of open orders
         /// </summary>
@@ -406,10 +406,10 @@ namespace Huobi.Net
         /// <param name="side">Only get buy or sell orders</param>
         /// <param name="limit">The max number of results</param>
         /// <returns></returns>
-        public async Task<CallResult<List<HuobiOrder>>> GetOpenOrdersAsync(long? accountId = null, string symbol = null, HuobiOrderSide? side = null, int? limit = null)
+        public async Task<CallResult<List<HuobiOpenOrder>>> GetOpenOrdersAsync(long? accountId = null, string symbol = null, HuobiOrderSide? side = null, int? limit = null)
         {
             if (accountId != null && symbol == null)
-                return new CallResult<List<HuobiOrder>>(null, new ArgumentError("Can't request open orders based on only the account id"));
+                return new CallResult<List<HuobiOpenOrder>>(null, new ArgumentError("Can't request open orders based on only the account id"));
 
             var parameters = new Dictionary<string, object>();
             parameters.AddOptionalParameter("account-id", accountId);
@@ -417,8 +417,8 @@ namespace Huobi.Net
             parameters.AddOptionalParameter("side", side == null ? null: JsonConvert.SerializeObject(side, new OrderSideConverter(false)));
             parameters.AddOptionalParameter("size", limit);
 
-            var result = await ExecuteRequest<HuobiBasicResponse<List<HuobiOrder>>>(GetUrl(OpenOrdersEndpoint, "1"), "GET", parameters, true).ConfigureAwait(false);
-            return new CallResult<List<HuobiOrder>>(result.Data?.Data, result.Error);
+            var result = await ExecuteRequest<HuobiBasicResponse<List<HuobiOpenOrder>>>(GetUrl(OpenOrdersEndpoint, "1"), "GET", parameters, true).ConfigureAwait(false);
+            return new CallResult<List<HuobiOpenOrder>>(result.Data?.Data, result.Error);
         }
 
         /// <summary>

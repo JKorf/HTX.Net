@@ -55,8 +55,8 @@ namespace Huobi.Net.UnitTests
                 High = 0.5m,
                 Volume = 0.6m,
                 TradeCount = 123,
-                BestAsk = new HuobiOrderBookEntry(){ Amount = 0.7m, Price = 0.8m},
-                BestBid = new HuobiOrderBookEntry(){ Amount = 0.9m, Price = 1.0m },
+                BestAsk = new HuobiOrderBookEntry() { Amount = 0.7m, Price = 0.8m },
+                BestBid = new HuobiOrderBookEntry() { Amount = 0.9m, Price = 1.0m },
                 Version = 1
             };
 
@@ -103,7 +103,7 @@ namespace Huobi.Net.UnitTests
         {
             // arrange
             var expected = new HuobiMarketDepth()
-            { 
+            {
                 Asks = new List<HuobiOrderBookEntry>()
                 {
                     new HuobiOrderBookEntry(){ Amount = 0.1m, Price = 0.2m}
@@ -334,9 +334,9 @@ namespace Huobi.Net.UnitTests
         public void GetOpenOrders_Should_RespondWithOpenOrders()
         {
             // arrange
-            var expected = new List<HuobiOrder>()
+            var expected = new List<HuobiOpenOrder>()
             {
-                new HuobiOrder()
+                new HuobiOpenOrder()
                 {
                     Amount = 0.1m,
                     Type = HuobiOrderType.LimitBuy,
@@ -346,7 +346,11 @@ namespace Huobi.Net.UnitTests
                     State = HuobiOrderState.Submitted,
                     AccountId = 1234,
                     CreatedAt = new DateTime(2018, 1, 1),
-                    Source = "API"
+                    FinishedAt = new DateTime(2019, 1, 1),
+                    Source = "API",
+                    FilledAmount = 1.1m,
+                    FilledFees = 1.2m,
+                    FilledCashAmount = 1.3m
                 }
             };
 
@@ -380,8 +384,8 @@ namespace Huobi.Net.UnitTests
             // arrange
             var expected = new HuobiBatchCancelResult()
             {
-                Successful = new long[] {123},
-                Failed = new []
+                Successful = new long[] { 123 },
+                Failed = new[]
                 {
                     new HuobiFailedCancelResult()
                     {
@@ -395,7 +399,7 @@ namespace Huobi.Net.UnitTests
             var client = TestHelpers.CreateAuthResponseClient(SerializeExpected(expected, true));
 
             // act
-            var result = client.CancelOrders(new long[] {123, 1234});
+            var result = client.CancelOrders(new long[] { 123, 1234 });
 
             // assert
             Assert.AreEqual(true, result.Success);
@@ -417,7 +421,10 @@ namespace Huobi.Net.UnitTests
                 State = HuobiOrderState.Submitted,
                 AccountId = 1234,
                 CreatedAt = new DateTime(2018, 1, 1),
-                Source = "API"
+                Source = "API",
+                FilledAmount = 1.1m,
+                FilledCashAmount = 1.2m,
+                FilledFees = 1.3m
             };
 
             var client = TestHelpers.CreateAuthResponseClient(SerializeExpected(expected, true));
@@ -477,14 +484,17 @@ namespace Huobi.Net.UnitTests
                     State = HuobiOrderState.Submitted,
                     AccountId = 1234,
                     CreatedAt = new DateTime(2018, 1, 1),
-                    Source = "API"
+                    Source = "API",
+                    FilledAmount = 1.1m,
+                    FilledCashAmount = 1.2m,
+                    FilledFees = 1.3m
                 }
             };
 
             var client = TestHelpers.CreateAuthResponseClient(SerializeExpected(expected, true));
 
             // act
-            var result = client.GetOrders("BTCETH", new [] { HuobiOrderState.Submitted });
+            var result = client.GetOrders("BTCETH", new[] { HuobiOrderState.Submitted });
 
             // assert
             Assert.AreEqual(true, result.Success);
@@ -556,7 +566,7 @@ namespace Huobi.Net.UnitTests
 
         public string SerializeExpected<T>(T data, bool tick)
         {
-            return $"{{\"status\": \"ok\", {(tick ? "tick": "data")}: {JsonConvert.SerializeObject(data)}}}";
+            return $"{{\"status\": \"ok\", {(tick ? "tick" : "data")}: {JsonConvert.SerializeObject(data)}}}";
         }
     }
 }
