@@ -180,6 +180,9 @@ client.SubscribeToMarketTradeUpdates("ethusdt", (data) =>
 ```
 
 ## Release notes
+* Version 0.0.4 - 12 feb 2019
+	* Fixed order json mapping
+	
 * Version 0.0.3 - 01 feb 2019
 	* Updated CryptoExchange.Net
 
