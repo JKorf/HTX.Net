@@ -180,6 +180,9 @@ client.SubscribeToMarketTradeUpdates("ethusdt", (data) =>
 ```
 
 ## Release notes
+* Version 0.0.5 - 15 feb 2019
+	* Fixed sync issue while placing order concurrently
+
 * Version 0.0.4 - 12 feb 2019
 	* Fixed order json mapping
 	

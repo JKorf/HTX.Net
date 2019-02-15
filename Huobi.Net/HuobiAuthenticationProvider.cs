@@ -13,6 +13,7 @@ namespace Huobi.Net
     public class HuobiAuthenticationProvider : AuthenticationProvider
     {
         private readonly HMACSHA256 encryptor;
+        private readonly object encryptLock = new object();
 
         public HuobiAuthenticationProvider(ApiCredentials credentials) : base(credentials)
         {
@@ -48,7 +49,9 @@ namespace Huobi.Net
             signData += uriObj.Host + "\n";
             signData += uriObj.AbsolutePath + "\n";
             signData += paramString;
-            var signBytes = encryptor.ComputeHash(Encoding.UTF8.GetBytes(signData));
+            byte[] signBytes;
+            lock(encryptLock)
+                signBytes = encryptor.ComputeHash(Encoding.UTF8.GetBytes(signData));
             signParameters.Add("Signature", Convert.ToBase64String(signBytes));
             
             if (method != Constants.GetMethod)
