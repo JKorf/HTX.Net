@@ -37,6 +37,9 @@ namespace Huobi.Net
         private const string GetAccountsEndpoint = "account/accounts";
         private const string GetBalancesEndpoint = "account/accounts/{}/balance";
 
+        private const string GetSubAccountBalancesEndpoint = "account/accounts/{}";
+        private const string TransferWithSubAccountEndpoint = "subuser/transfer";
+
         private const string PlaceOrderEndpoint = "order/orders/place";
         private const string OpenOrdersEndpoint = "order/openOrders";
         private const string OrdersEndpoint = "order/orders";
@@ -353,6 +356,57 @@ namespace Huobi.Net
                 return new CallResult<List<HuobiBalance>>(null, result.Error);
             
             return new CallResult<List<HuobiBalance>>(result.Data.Data.Data, result.Error);
+        }
+
+        /// <summary>
+        /// Gets a list of balances for a specific sub account
+        /// </summary>
+        /// <param name="subAccountId">The id of the sub account to get the balances for</param>
+        /// <returns></returns>
+        public CallResult<List<HuobiBalance>> GetSubAccountBalances(long subAccountId) => GetSubAccountBalancesAsync(subAccountId).Result;
+        /// <summary>
+        /// Gets a list of balances for a specific sub account
+        /// </summary>
+        /// <param name="subAccountId">The id of the sub account to get the balances for</param>
+        /// <returns></returns>
+        public async Task<CallResult<List<HuobiBalance>>> GetSubAccountBalancesAsync(long subAccountId)
+        {
+            var result = await ExecuteRequest<HuobiBasicResponse<List<HuobiAccountBalances>>>(GetUrl(FillPathParameter(GetSubAccountBalancesEndpoint, subAccountId.ToString()), "1"), signed: true).ConfigureAwait(false);
+            if (!result.Success)
+                return new CallResult<List<HuobiBalance>>(null, result.Error);
+
+            return new CallResult<List<HuobiBalance>>(result.Data.Data[0].Data, result.Error);
+        }
+
+        /// <summary>
+        /// Transfer asset between parent and sub account
+        /// </summary>
+        /// <param name="subAccountId">The target sub account id to transfer to or from</param>
+        /// <param name="currency">The crypto currency to transfer</param>
+        /// <param name="amount">The amount of asset to transfer</param>
+        /// <param name="transferType">The type of transfer</param>
+        /// <returns>Unique transfer id</returns>
+        public CallResult<long> TransferWithSubAccount(long subAccountId, string currency, decimal amount, HuobiTransferType transferType) => TransferWithSubAccountAsync(subAccountId, currency, amount, transferType).Result;
+        /// <summary>
+        /// Transfer asset between parent and sub account
+        /// </summary>
+        /// <param name="subAccountId">The target sub account id to transfer to or from</param>
+        /// <param name="currency">The crypto currency to transfer</param>
+        /// <param name="amount">The amount of asset to transfer</param>
+        /// <param name="transferType">The type of transfer</param>
+        /// <returns>Unique transfer id</returns>
+        public async Task<CallResult<long>> TransferWithSubAccountAsync(long subAccountId, string currency, decimal amount, HuobiTransferType transferType)
+        {
+            var parameters = new Dictionary<string, object>
+            {
+                { "sub-uid", subAccountId },
+                { "currency", currency },
+                { "amount", amount },
+                { "type", JsonConvert.SerializeObject(transferType, new TransferTypeConverter(false)) }
+            };
+
+            var result = await ExecuteRequest<HuobiBasicResponse<long>>(GetUrl(TransferWithSubAccountEndpoint, "1"), "POST", parameters, true).ConfigureAwait(false);
+            return new CallResult<long>(result.Data?.Data ?? 0, result.Error);
         }
 
         /// <summary>

@@ -184,6 +184,40 @@ namespace Huobi.Net.Interfaces
         Task<CallResult<List<HuobiBalance>>> GetBalancesAsync(long accountId);
 
         /// <summary>
+        /// Gets a list of balances for a specific sub account
+        /// </summary>
+        /// <param name="subAccountId">The id of the sub account to get the balances for</param>
+        /// <returns></returns>
+        CallResult<List<HuobiBalance>> GetSubAccountBalances(long subAccountId);
+
+        /// <summary>
+        /// Gets a list of balances for a specific sub account
+        /// </summary>
+        /// <param name="subAccountId">The id of the sub account to get the balances for</param>
+        /// <returns></returns>
+        Task<CallResult<List<HuobiBalance>>> GetSubAccountBalancesAsync(long subAccountId);
+
+        /// <summary>
+        /// Transfer asset between parent and sub account
+        /// </summary>
+        /// <param name="subAccountId">The target sub account id to transfer to or from</param>
+        /// <param name="currency">The crypto currency to transfer</param>
+        /// <param name="amount">The amount of asset to transfer</param>
+        /// <param name="transferType">The type of transfer</param>
+        /// <returns>Unique transfer id</returns>
+        CallResult<long> TransferWithSubAccount(long subAccountId, string currency, decimal amount, HuobiTransferType transferType);
+
+        /// <summary>
+        /// Transfer asset between parent and sub account
+        /// </summary>
+        /// <param name="subAccountId">The target sub account id to transfer to or from</param>
+        /// <param name="currency">The crypto currency to transfer</param>
+        /// <param name="amount">The amount of asset to transfer</param>
+        /// <param name="transferType">The type of transfer</param>
+        /// <returns>Unique transfer id</returns>
+        Task<CallResult<long>> TransferWithSubAccountAsync(long subAccountId, string currency, decimal amount, HuobiTransferType transferType);
+
+        /// <summary>
         /// Places an order
         /// </summary>
         /// <param name="accountId">The account to place the order for</param>
