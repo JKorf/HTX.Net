@@ -28,7 +28,9 @@
     public enum HuobiAccountType
     {
         Spot,
-        Margin
+        Margin,
+        Otc,
+        Point
     }
 
     public enum HuobiBalanceType
