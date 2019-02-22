@@ -278,14 +278,14 @@ namespace Huobi.Net.Interfaces
         /// </summary>
         /// <param name="orderIds">The ids of the orders to cancel</param>
         /// <returns></returns>
-        CallResult<HuobiBatchCancelResult> CancelOrders(long[] orderIds);
+        CallResult<HuobiBatchCancelResult> CancelOrders(IEnumerable<long> orderIds);
 
         /// <summary>
         /// Cancel multiple open orders
         /// </summary>
         /// <param name="orderIds">The ids of the orders to cancel</param>
         /// <returns></returns>
-        Task<CallResult<HuobiBatchCancelResult>> CancelOrdersAsync(long[] orderIds);
+        Task<CallResult<HuobiBatchCancelResult>> CancelOrdersAsync(IEnumerable<long> orderIds);
 
         /// <summary>
         /// Get details of an order
@@ -326,7 +326,7 @@ namespace Huobi.Net.Interfaces
         /// <param name="fromId">Only get orders with id's higher than this</param>
         /// <param name="limit">The max number of results</param>
         /// <returns></returns>
-        CallResult<List<HuobiOrder>> GetOrders(string symbol, HuobiOrderState[] states, HuobiOrderType[] types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, int? limit = null);
+        CallResult<List<HuobiOrder>> GetOrders(string symbol, IEnumerable<HuobiOrderState> states, IEnumerable<HuobiOrderType> types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, int? limit = null);
 
         /// <summary>
         /// Gets a list of orders
@@ -339,7 +339,7 @@ namespace Huobi.Net.Interfaces
         /// <param name="fromId">Only get orders with id's higher than this</param>
         /// <param name="limit">The max number of results</param>
         /// <returns></returns>
-        Task<CallResult<List<HuobiOrder>>> GetOrdersAsync(string symbol, HuobiOrderState[] states, HuobiOrderType[] types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, int? limit = null);
+        Task<CallResult<List<HuobiOrder>>> GetOrdersAsync(string symbol, IEnumerable<HuobiOrderState> states, IEnumerable<HuobiOrderType> types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, int? limit = null);
 
         /// <summary>
         /// Gets a list of trades for a specific symbol
@@ -351,7 +351,7 @@ namespace Huobi.Net.Interfaces
         /// <param name="fromId">Only get orders with id's higher than this</param>
         /// <param name="limit">The max number of results</param>
         /// <returns></returns>
-        CallResult<List<HuobiOrderTrade>> GetSymbolTrades(string symbol, HuobiOrderType[] types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, int? limit = null);
+        CallResult<List<HuobiOrderTrade>> GetSymbolTrades(string symbol, IEnumerable<HuobiOrderType> types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, int? limit = null);
 
         /// <summary>
         /// Gets a list of trades for a specific symbol
@@ -363,7 +363,7 @@ namespace Huobi.Net.Interfaces
         /// <param name="fromId">Only get orders with id's higher than this</param>
         /// <param name="limit">The max number of results</param>
         /// <returns></returns>
-        Task<CallResult<List<HuobiOrderTrade>>> GetSymbolTradesAsync(string symbol, HuobiOrderType[] types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, int? limit = null);
+        Task<CallResult<List<HuobiOrderTrade>>> GetSymbolTradesAsync(string symbol, IEnumerable<HuobiOrderType> types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, int? limit = null);
 
         /// <summary>
         /// The factory for creating requests. Used for unit testing
