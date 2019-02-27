@@ -28,7 +28,9 @@
     public enum HuobiAccountType
     {
         Spot,
-        Margin
+        Margin,
+        Otc,
+        Point
     }
 
     public enum HuobiBalanceType
@@ -77,5 +79,13 @@
         MarginInterest,
         MarginRepay,
         Other
+    }
+
+    public enum HuobiTransferType
+    {
+        FromSubAccount,
+        ToSubAccount,
+        PointFromSubAccount,
+        PointToSubAccount
     }
 }

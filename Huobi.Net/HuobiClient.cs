@@ -37,6 +37,9 @@ namespace Huobi.Net
         private const string GetAccountsEndpoint = "account/accounts";
         private const string GetBalancesEndpoint = "account/accounts/{}/balance";
 
+        private const string GetSubAccountBalancesEndpoint = "account/accounts/{}";
+        private const string TransferWithSubAccountEndpoint = "subuser/transfer";
+
         private const string PlaceOrderEndpoint = "order/orders/place";
         private const string OpenOrdersEndpoint = "order/openOrders";
         private const string OrdersEndpoint = "order/orders";
@@ -356,6 +359,57 @@ namespace Huobi.Net
         }
 
         /// <summary>
+        /// Gets a list of balances for a specific sub account
+        /// </summary>
+        /// <param name="subAccountId">The id of the sub account to get the balances for</param>
+        /// <returns></returns>
+        public WebCallResult<List<HuobiBalance>> GetSubAccountBalances(long subAccountId) => GetSubAccountBalancesAsync(subAccountId).Result;
+        /// <summary>
+        /// Gets a list of balances for a specific sub account
+        /// </summary>
+        /// <param name="subAccountId">The id of the sub account to get the balances for</param>
+        /// <returns></returns>
+        public async Task<WebCallResult<List<HuobiBalance>>> GetSubAccountBalancesAsync(long subAccountId)
+        {
+            var result = await ExecuteRequest<HuobiBasicResponse<List<HuobiAccountBalances>>>(GetUrl(FillPathParameter(GetSubAccountBalancesEndpoint, subAccountId.ToString()), "1"), signed: true).ConfigureAwait(false);
+            if (!result.Success)
+                return new WebCallResult<List<HuobiBalance>>(result.ResponseStatusCode, null, result.Error);
+
+            return new WebCallResult<List<HuobiBalance>>(result.ResponseStatusCode, result.Data.Data[0].Data, result.Error);
+        }
+
+        /// <summary>
+        /// Transfer asset between parent and sub account
+        /// </summary>
+        /// <param name="subAccountId">The target sub account id to transfer to or from</param>
+        /// <param name="currency">The crypto currency to transfer</param>
+        /// <param name="amount">The amount of asset to transfer</param>
+        /// <param name="transferType">The type of transfer</param>
+        /// <returns>Unique transfer id</returns>
+        public WebCallResult<long> TransferWithSubAccount(long subAccountId, string currency, decimal amount, HuobiTransferType transferType) => TransferWithSubAccountAsync(subAccountId, currency, amount, transferType).Result;
+        /// <summary>
+        /// Transfer asset between parent and sub account
+        /// </summary>
+        /// <param name="subAccountId">The target sub account id to transfer to or from</param>
+        /// <param name="currency">The crypto currency to transfer</param>
+        /// <param name="amount">The amount of asset to transfer</param>
+        /// <param name="transferType">The type of transfer</param>
+        /// <returns>Unique transfer id</returns>
+        public async Task<WebCallResult<long>> TransferWithSubAccountAsync(long subAccountId, string currency, decimal amount, HuobiTransferType transferType)
+        {
+            var parameters = new Dictionary<string, object>
+            {
+                { "sub-uid", subAccountId },
+                { "currency", currency },
+                { "amount", amount },
+                { "type", JsonConvert.SerializeObject(transferType, new TransferTypeConverter(false)) }
+            };
+
+            var result = await ExecuteRequest<HuobiBasicResponse<long>>(GetUrl(TransferWithSubAccountEndpoint, "1"), "POST", parameters, true).ConfigureAwait(false);
+            return new WebCallResult<long>(result.ResponseStatusCode, result.Data?.Data ?? 0, result.Error);
+        }
+
+        /// <summary>
         /// Places an order
         /// </summary>
         /// <param name="accountId">The account to place the order for</param>
@@ -443,13 +497,13 @@ namespace Huobi.Net
         /// </summary>
         /// <param name="orderIds">The ids of the orders to cancel</param>
         /// <returns></returns>
-        public WebCallResult<HuobiBatchCancelResult> CancelOrders(long[] orderIds) => CancelOrdersAsync(orderIds).Result;
+        public WebCallResult<HuobiBatchCancelResult> CancelOrders(IEnumerable<long> orderIds) => CancelOrdersAsync(orderIds).Result;
         /// <summary>
         /// Cancel multiple open orders
         /// </summary>
         /// <param name="orderIds">The ids of the orders to cancel</param>
         /// <returns></returns>
-        public async Task<WebCallResult<HuobiBatchCancelResult>> CancelOrdersAsync(long[] orderIds)
+        public async Task<WebCallResult<HuobiBatchCancelResult>> CancelOrdersAsync(IEnumerable<long> orderIds)
         {
             var parameters = new Dictionary<string, object>
             {
@@ -505,7 +559,7 @@ namespace Huobi.Net
         /// <param name="fromId">Only get orders with id's higher than this</param>
         /// <param name="limit">The max number of results</param>
         /// <returns></returns>
-        public WebCallResult<List<HuobiOrder>> GetOrders(string symbol, HuobiOrderState[] states, HuobiOrderType[] types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, int? limit = null) => GetOrdersAsync(symbol, states, types, startTime, endTime, fromId, limit).Result;
+        public WebCallResult<List<HuobiOrder>> GetOrders(string symbol, IEnumerable<HuobiOrderState> states, IEnumerable<HuobiOrderType> types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, int? limit = null) => GetOrdersAsync(symbol, states, types, startTime, endTime, fromId, limit).Result;
         /// <summary>
         /// Gets a list of orders
         /// </summary>
@@ -517,7 +571,7 @@ namespace Huobi.Net
         /// <param name="fromId">Only get orders with id's higher than this</param>
         /// <param name="limit">The max number of results</param>
         /// <returns></returns>
-        public async Task<WebCallResult<List<HuobiOrder>>> GetOrdersAsync(string symbol, HuobiOrderState[] states, HuobiOrderType[] types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, int? limit = null)
+        public async Task<WebCallResult<List<HuobiOrder>>> GetOrdersAsync(string symbol, IEnumerable<HuobiOrderState> states, IEnumerable<HuobiOrderType> types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, int? limit = null)
         {
             var stateConverter = new OrderStateConverter(false);
             var typeConverter = new OrderTypeConverter(false);
@@ -546,7 +600,7 @@ namespace Huobi.Net
         /// <param name="fromId">Only get orders with id's higher than this</param>
         /// <param name="limit">The max number of results</param>
         /// <returns></returns>
-        public WebCallResult<List<HuobiOrderTrade>> GetSymbolTrades(string symbol, HuobiOrderType[] types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, int? limit = null) => GetSymbolTradesAsync(symbol, types, startTime, endTime, fromId, limit).Result;
+        public WebCallResult<List<HuobiOrderTrade>> GetSymbolTrades(string symbol, IEnumerable<HuobiOrderType> types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, int? limit = null) => GetSymbolTradesAsync(symbol, types, startTime, endTime, fromId, limit).Result;
         /// <summary>
         /// Gets a list of trades for a specific symbol
         /// </summary>
@@ -557,7 +611,7 @@ namespace Huobi.Net
         /// <param name="fromId">Only get orders with id's higher than this</param>
         /// <param name="limit">The max number of results</param>
         /// <returns></returns>
-        public async Task<WebCallResult<List<HuobiOrderTrade>>> GetSymbolTradesAsync(string symbol, HuobiOrderType[] types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, int? limit = null)
+        public async Task<WebCallResult<List<HuobiOrderTrade>>> GetSymbolTradesAsync(string symbol, IEnumerable<HuobiOrderType> types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, int? limit = null)
         {
             var typeConverter = new OrderTypeConverter(false);
             var parameters = new Dictionary<string, object>
