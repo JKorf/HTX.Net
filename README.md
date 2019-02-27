@@ -180,6 +180,11 @@ client.SubscribeToMarketTradeUpdates("ethusdt", (data) =>
 ```
 
 ## Release notes
+* Version 1.0.0 - 27 feb 2019
+	* Sub account support added
+	* Fixed account type json mapping
+	* Update CryptoExchange.Net
+
 * Version 0.0.5 - 15 feb 2019
 	* Fixed sync issue while placing order concurrently
 

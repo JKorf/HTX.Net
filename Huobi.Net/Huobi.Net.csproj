@@ -7,7 +7,7 @@
   <PropertyGroup>
     <PackageId>Huobi.Net</PackageId>
 	<Authors>JKorf</Authors>
-    <PackageVersion>0.0.5</PackageVersion>
+    <PackageVersion>1.0.0</PackageVersion>
 	<Description>Huobi.Net is a .Net wrapper for the Huobi API. It includes all features the API provides, REST API and Websocket, using clear and readable objects including but not limited to Reading market info, Placing and managing orders and Reading balances and funds</Description>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageTags>Huobi Huobi.Net C# .Net CryptoCurrency Exchange API wrapper</PackageTags>
@@ -16,12 +16,12 @@
 	<PackageIconUrl>https://raw.githubusercontent.com/JKorf/Huobi.Net/master/Resources/icon.png</PackageIconUrl>
 	<NeutralLanguage>en</NeutralLanguage>
 	<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-	<PackageReleaseNotes>0.0.5 - Fixed sync issue while placing order concurrently
+	<PackageReleaseNotes>1.0.0 - Sub account support, update CryptoExchange.Net
 	</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="CryptoExchange.Net" Version="2.0.9" />
+    <PackageReference Include="CryptoExchange.Net" Version="2.0.11" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
   </ItemGroup>
 

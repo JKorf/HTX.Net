@@ -21,27 +21,27 @@ namespace Huobi.Net.Interfaces
         /// Gets the latest ticker for all markets
         /// </summary>
         /// <returns></returns>
-        CallResult<HuobiMarketTicks> GetMarketTickers();
+        WebCallResult<HuobiMarketTicks> GetMarketTickers();
 
         /// <summary>
         /// Gets the latest ticker for all markets
         /// </summary>
         /// <returns></returns>
-        Task<CallResult<HuobiMarketTicks>> GetMarketTickersAsync();
+        Task<WebCallResult<HuobiMarketTicks>> GetMarketTickersAsync();
 
         /// <summary>
         /// Gets the ticker, including the best bid / best ask for a symbol
         /// </summary>
         /// <param name="symbol">The symbol to get the ticker for</param>
         /// <returns></returns>
-        CallResult<HuobiMarketTickMerged> GetMarketTickerMerged(string symbol);
+        WebCallResult<HuobiMarketTickMerged> GetMarketTickerMerged(string symbol);
 
         /// <summary>
         /// Gets the ticker, including the best bid / best ask for a symbol
         /// </summary>
         /// <param name="symbol">The symbol to get the ticker for</param>
         /// <returns></returns>
-        Task<CallResult<HuobiMarketTickMerged>> GetMarketTickerMergedAsync(string symbol);
+        Task<WebCallResult<HuobiMarketTickMerged>> GetMarketTickerMergedAsync(string symbol);
 
         /// <summary>
         /// Get candlestick data for a market
@@ -50,7 +50,7 @@ namespace Huobi.Net.Interfaces
         /// <param name="period">The period of a single candlestick</param>
         /// <param name="size">The amount of candlesticks</param>
         /// <returns></returns>
-        CallResult<List<HuobiMarketKline>> GetMarketKlines(string symbol, HuobiPeriod period, int size);
+        WebCallResult<List<HuobiMarketKline>> GetMarketKlines(string symbol, HuobiPeriod period, int size);
 
         /// <summary>
         /// Get candlestick data for a market
@@ -59,7 +59,7 @@ namespace Huobi.Net.Interfaces
         /// <param name="period">The period of a single candlestick</param>
         /// <param name="size">The amount of candlesticks</param>
         /// <returns></returns>
-        Task<CallResult<List<HuobiMarketKline>>> GetMarketKlinesAsync(string symbol, HuobiPeriod period, int size);
+        Task<WebCallResult<List<HuobiMarketKline>>> GetMarketKlinesAsync(string symbol, HuobiPeriod period, int size);
 
         /// <summary>
         /// Gets the market depth for a symbol
@@ -67,7 +67,7 @@ namespace Huobi.Net.Interfaces
         /// <param name="symbol">The symbol to request for</param>
         /// <param name="mergeStep">The way the results will be merged together</param>
         /// <returns></returns>
-        CallResult<HuobiMarketDepth> GetMarketDepth(string symbol, int mergeStep);
+        WebCallResult<HuobiMarketDepth> GetMarketDepth(string symbol, int mergeStep);
 
         /// <summary>
         /// Gets the market depth for a symbol
@@ -75,21 +75,21 @@ namespace Huobi.Net.Interfaces
         /// <param name="symbol">The symbol to request for</param>
         /// <param name="mergeStep">The way the results will be merged together</param>
         /// <returns></returns>
-        Task<CallResult<HuobiMarketDepth>> GetMarketDepthAsync(string symbol, int mergeStep);
+        Task<WebCallResult<HuobiMarketDepth>> GetMarketDepthAsync(string symbol, int mergeStep);
 
         /// <summary>
         /// Gets the last trade for a market
         /// </summary>
         /// <param name="symbol">The symbol to request for</param>
         /// <returns></returns>
-        CallResult<HuobiMarketTrade> GetMarketLastTrade(string symbol);
+        WebCallResult<HuobiMarketTrade> GetMarketLastTrade(string symbol);
 
         /// <summary>
         /// Gets the last trade for a market
         /// </summary>
         /// <param name="symbol">The symbol to request for</param>
         /// <returns></returns>
-        Task<CallResult<HuobiMarketTrade>> GetMarketLastTradeAsync(string symbol);
+        Task<WebCallResult<HuobiMarketTrade>> GetMarketLastTradeAsync(string symbol);
 
         /// <summary>
         /// Get the last x trades for a market
@@ -97,7 +97,7 @@ namespace Huobi.Net.Interfaces
         /// <param name="symbol">The market to get trades for</param>
         /// <param name="limit">The max number of results</param>
         /// <returns></returns>
-        CallResult<List<HuobiMarketTrade>> GetMarketTradeHistory(string symbol, int limit);
+        WebCallResult<List<HuobiMarketTrade>> GetMarketTradeHistory(string symbol, int limit);
 
         /// <summary>
         /// Get the last x trades for a market
@@ -105,83 +105,83 @@ namespace Huobi.Net.Interfaces
         /// <param name="symbol">The market to get trades for</param>
         /// <param name="limit">The max number of results</param>
         /// <returns></returns>
-        Task<CallResult<List<HuobiMarketTrade>>> GetMarketTradeHistoryAsync(string symbol, int limit);
+        Task<WebCallResult<List<HuobiMarketTrade>>> GetMarketTradeHistoryAsync(string symbol, int limit);
 
         /// <summary>
         /// Gets 24h stats for a market
         /// </summary>
         /// <param name="symbol">The market to get the data for</param>
         /// <returns></returns>
-        CallResult<HuobiMarketDetails> GetMarketDetails24H(string symbol);
+        WebCallResult<HuobiMarketDetails> GetMarketDetails24H(string symbol);
 
         /// <summary>
         /// Gets 24h stats for a market
         /// </summary>
         /// <param name="symbol">The market to get the data for</param>
         /// <returns></returns>
-        Task<CallResult<HuobiMarketDetails>> GetMarketDetails24HAsync(string symbol);
+        Task<WebCallResult<HuobiMarketDetails>> GetMarketDetails24HAsync(string symbol);
 
         /// <summary>
         /// Gets a list of supported symbols
         /// </summary>
         /// <returns></returns>
-        CallResult<List<HuobiSymbol>> GetSymbols();
+        WebCallResult<List<HuobiSymbol>> GetSymbols();
 
         /// <summary>
         /// Gets a list of supported symbols
         /// </summary>
         /// <returns></returns>
-        Task<CallResult<List<HuobiSymbol>>> GetSymbolsAsync();
+        Task<WebCallResult<List<HuobiSymbol>>> GetSymbolsAsync();
 
         /// <summary>
         /// Gets a list of supported currencies
         /// </summary>
         /// <returns></returns>
-        CallResult<List<string>> GetCurrencies();
+        WebCallResult<List<string>> GetCurrencies();
 
         /// <summary>
         /// Gets a list of supported currencies
         /// </summary>
         /// <returns></returns>
-        Task<CallResult<List<string>>> GetCurrenciesAsync();
+        Task<WebCallResult<List<string>>> GetCurrenciesAsync();
 
         /// <summary>
         /// Gets the server time
         /// </summary>
         /// <returns></returns>
-        CallResult<DateTime> GetServerTime();
+        WebCallResult<DateTime> GetServerTime();
 
         /// <summary>
         /// Gets the server time
         /// </summary>
         /// <returns></returns>
-        Task<CallResult<DateTime>> GetServerTimeAsync();
+        Task<WebCallResult<DateTime>> GetServerTimeAsync();
 
         /// <summary>
         /// Gets a list of accounts associated with the apikey/secret
         /// </summary>
         /// <returns></returns>
-        CallResult<List<HuobiAccount>> GetAccounts();
+        WebCallResult<List<HuobiAccount>> GetAccounts();
 
         /// <summary>
         /// Gets a list of accounts associated with the apikey/secret
         /// </summary>
         /// <returns></returns>
-        Task<CallResult<List<HuobiAccount>>> GetAccountsAsync();
+        Task<WebCallResult<List<HuobiAccount>>> GetAccountsAsync();
 
         /// <summary>
         /// Gets a list of balances for a specific account
         /// </summary>
         /// <param name="accountId">The id of the account to get the balances for</param>
         /// <returns></returns>
-        CallResult<List<HuobiBalance>> GetBalances(long accountId);
+        WebCallResult<List<HuobiBalance>> GetBalances(long accountId);
 
         /// <summary>
         /// Gets a list of balances for a specific account
         /// </summary>
         /// <param name="accountId">The id of the account to get the balances for</param>
         /// <returns></returns>
-        Task<CallResult<List<HuobiBalance>>> GetBalancesAsync(long accountId);
+        Task<WebCallResult<List<HuobiBalance>>> GetBalancesAsync(long accountId);
 
         /// <summary>
         /// Places an order
@@ -192,7 +192,7 @@ namespace Huobi.Net.Interfaces
         /// <param name="amount">The amount of the order</param>
         /// <param name="price">The price of the order. Should be omitted for market orders</param>
         /// <returns></returns>
-        CallResult<long> PlaceOrder(long accountId, string symbol, HuobiOrderType orderType, decimal amount, decimal? price = null);
+        WebCallResult<long> PlaceOrder(long accountId, string symbol, HuobiOrderType orderType, decimal amount, decimal? price = null);
 
         /// <summary>
         /// Places an order
@@ -203,7 +203,7 @@ namespace Huobi.Net.Interfaces
         /// <param name="amount">The amount of the order</param>
         /// <param name="price">The price of the order. Should be omitted for market orders</param>
         /// <returns></returns>
-        Task<CallResult<long>> PlaceOrderAsync(long accountId, string symbol, HuobiOrderType orderType, decimal amount, decimal? price = null);
+        Task<WebCallResult<long>> PlaceOrderAsync(long accountId, string symbol, HuobiOrderType orderType, decimal amount, decimal? price = null);
 
         /// <summary>
         /// Gets a list of open orders
@@ -213,7 +213,7 @@ namespace Huobi.Net.Interfaces
         /// <param name="side">Only get buy or sell orders</param>
         /// <param name="limit">The max number of results</param>
         /// <returns></returns>
-        CallResult<List<HuobiOpenOrder>> GetOpenOrders(long? accountId = null, string symbol = null, HuobiOrderSide? side = null, int? limit = null);
+        WebCallResult<List<HuobiOpenOrder>> GetOpenOrders(long? accountId = null, string symbol = null, HuobiOrderSide? side = null, int? limit = null);
 
         /// <summary>
         /// Gets a list of open orders
@@ -223,63 +223,63 @@ namespace Huobi.Net.Interfaces
         /// <param name="side">Only get buy or sell orders</param>
         /// <param name="limit">The max number of results</param>
         /// <returns></returns>
-        Task<CallResult<List<HuobiOpenOrder>>> GetOpenOrdersAsync(long? accountId = null, string symbol = null, HuobiOrderSide? side = null, int? limit = null);
+        Task<WebCallResult<List<HuobiOpenOrder>>> GetOpenOrdersAsync(long? accountId = null, string symbol = null, HuobiOrderSide? side = null, int? limit = null);
 
         /// <summary>
         /// Cancels an open order
         /// </summary>
         /// <param name="orderId">The id of the order to cancel</param>
         /// <returns></returns>
-        CallResult<long> CancelOrder(long orderId);
+        WebCallResult<long> CancelOrder(long orderId);
 
         /// <summary>
         /// Cancels an open order
         /// </summary>
         /// <param name="orderId">The id of the order to cancel</param>
         /// <returns></returns>
-        Task<CallResult<long>> CancelOrderAsync(long orderId);
+        Task<WebCallResult<long>> CancelOrderAsync(long orderId);
 
         /// <summary>
         /// Cancel multiple open orders
         /// </summary>
         /// <param name="orderIds">The ids of the orders to cancel</param>
         /// <returns></returns>
-        CallResult<HuobiBatchCancelResult> CancelOrders(long[] orderIds);
+        WebCallResult<HuobiBatchCancelResult> CancelOrders(long[] orderIds);
 
         /// <summary>
         /// Cancel multiple open orders
         /// </summary>
         /// <param name="orderIds">The ids of the orders to cancel</param>
         /// <returns></returns>
-        Task<CallResult<HuobiBatchCancelResult>> CancelOrdersAsync(long[] orderIds);
+        Task<WebCallResult<HuobiBatchCancelResult>> CancelOrdersAsync(long[] orderIds);
 
         /// <summary>
         /// Get details of an order
         /// </summary>
         /// <param name="orderId">The id of the order to retrieve</param>
         /// <returns></returns>
-        CallResult<HuobiOrder> GetOrderInfo(long orderId);
+        WebCallResult<HuobiOrder> GetOrderInfo(long orderId);
 
         /// <summary>
         /// Get details of an order
         /// </summary>
         /// <param name="orderId">The id of the order to retrieve</param>
         /// <returns></returns>
-        Task<CallResult<HuobiOrder>> GetOrderInfoAsync(long orderId);
+        Task<WebCallResult<HuobiOrder>> GetOrderInfoAsync(long orderId);
 
         /// <summary>
         /// Gets a list of trades made for a specific order
         /// </summary>
         /// <param name="orderId">The id of the order to get trades for</param>
         /// <returns></returns>
-        CallResult<List<HuobiOrderTrade>> GetOrderTrades(long orderId);
+        WebCallResult<List<HuobiOrderTrade>> GetOrderTrades(long orderId);
 
         /// <summary>
         /// Gets a list of trades made for a specific order
         /// </summary>
         /// <param name="orderId">The id of the order to get trades for</param>
         /// <returns></returns>
-        Task<CallResult<List<HuobiOrderTrade>>> GetOrderTradesAsync(long orderId);
+        Task<WebCallResult<List<HuobiOrderTrade>>> GetOrderTradesAsync(long orderId);
 
         /// <summary>
         /// Gets a list of orders
@@ -292,7 +292,7 @@ namespace Huobi.Net.Interfaces
         /// <param name="fromId">Only get orders with id's higher than this</param>
         /// <param name="limit">The max number of results</param>
         /// <returns></returns>
-        CallResult<List<HuobiOrder>> GetOrders(string symbol, HuobiOrderState[] states, HuobiOrderType[] types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, int? limit = null);
+        WebCallResult<List<HuobiOrder>> GetOrders(string symbol, HuobiOrderState[] states, HuobiOrderType[] types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, int? limit = null);
 
         /// <summary>
         /// Gets a list of orders
@@ -305,7 +305,7 @@ namespace Huobi.Net.Interfaces
         /// <param name="fromId">Only get orders with id's higher than this</param>
         /// <param name="limit">The max number of results</param>
         /// <returns></returns>
-        Task<CallResult<List<HuobiOrder>>> GetOrdersAsync(string symbol, HuobiOrderState[] states, HuobiOrderType[] types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, int? limit = null);
+        Task<WebCallResult<List<HuobiOrder>>> GetOrdersAsync(string symbol, HuobiOrderState[] states, HuobiOrderType[] types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, int? limit = null);
 
         /// <summary>
         /// Gets a list of trades for a specific symbol
@@ -317,7 +317,7 @@ namespace Huobi.Net.Interfaces
         /// <param name="fromId">Only get orders with id's higher than this</param>
         /// <param name="limit">The max number of results</param>
         /// <returns></returns>
-        CallResult<List<HuobiOrderTrade>> GetSymbolTrades(string symbol, HuobiOrderType[] types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, int? limit = null);
+        WebCallResult<List<HuobiOrderTrade>> GetSymbolTrades(string symbol, HuobiOrderType[] types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, int? limit = null);
 
         /// <summary>
         /// Gets a list of trades for a specific symbol
@@ -329,7 +329,7 @@ namespace Huobi.Net.Interfaces
         /// <param name="fromId">Only get orders with id's higher than this</param>
         /// <param name="limit">The max number of results</param>
         /// <returns></returns>
-        Task<CallResult<List<HuobiOrderTrade>>> GetSymbolTradesAsync(string symbol, HuobiOrderType[] types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, int? limit = null);
+        Task<WebCallResult<List<HuobiOrderTrade>>> GetSymbolTradesAsync(string symbol, HuobiOrderType[] types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, int? limit = null);
 
         /// <summary>
         /// The factory for creating requests. Used for unit testing
@@ -338,6 +338,7 @@ namespace Huobi.Net.Interfaces
 
         RateLimitingBehaviour RateLimitBehaviour { get; }
         IEnumerable<IRateLimiter> RateLimiters { get; }
+        int TotalRequestsMade { get; }
         string BaseAddress { get; }
 
         /// <summary>
