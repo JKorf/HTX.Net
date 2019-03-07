@@ -9,14 +9,14 @@ namespace Huobi.Net.Converters
         public OrderStateConverter() : this(true) { }
         public OrderStateConverter(bool quotes) : base(quotes) { }
 
-        protected override Dictionary<HuobiOrderState, string> Mapping => new Dictionary<HuobiOrderState, string>
+        protected override List<KeyValuePair<HuobiOrderState, string>> Mapping => new List<KeyValuePair<HuobiOrderState, string>>
         {
-            { HuobiOrderState.PreSubmitted, "pre-submitted" },
-            { HuobiOrderState.Submitted, "submitted" },
-            { HuobiOrderState.PartiallyFilled, "partial-filled" },
-            { HuobiOrderState.PartiallyCanceled, "partial-canceled" },
-            { HuobiOrderState.Filled, "filled" },
-            { HuobiOrderState.Canceled, "canceled" }
+            new KeyValuePair<HuobiOrderState, string>(HuobiOrderState.PreSubmitted, "pre-submitted"),
+            new KeyValuePair<HuobiOrderState, string>(HuobiOrderState.Submitted, "submitted"),
+            new KeyValuePair<HuobiOrderState, string>(HuobiOrderState.PartiallyFilled, "partial-filled"),
+            new KeyValuePair<HuobiOrderState, string>(HuobiOrderState.PartiallyCanceled, "partial-canceled"),
+            new KeyValuePair<HuobiOrderState, string>(HuobiOrderState.Filled, "filled"),
+            new KeyValuePair<HuobiOrderState, string>(HuobiOrderState.Canceled, "canceled")
         };
     }
 }

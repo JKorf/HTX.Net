@@ -9,16 +9,16 @@ namespace Huobi.Net.Converters
         public OrderTypeConverter() : this(true) { }
         public OrderTypeConverter(bool quotes) : base(quotes) { }
 
-        protected override Dictionary<HuobiOrderType, string> Mapping => new Dictionary<HuobiOrderType, string>
+        protected override List<KeyValuePair<HuobiOrderType, string>> Mapping => new List<KeyValuePair<HuobiOrderType, string>>
         {
-            { HuobiOrderType.LimitBuy, "buy-limit" },
-            { HuobiOrderType.LimitSell, "sell-limit" },
-            { HuobiOrderType.MarketBuy, "buy-market" },
-            { HuobiOrderType.MarketSell, "sell-market" },
-            { HuobiOrderType.IOCBuy, "buy-ioc" },
-            { HuobiOrderType.IOCSell, "sell-ioc" },
-            { HuobiOrderType.LimitMakerBuy, "buy-limit-maker" },
-            { HuobiOrderType.LimitMakerSell, "sell-limit-maker" }
+            new KeyValuePair<HuobiOrderType, string>(HuobiOrderType.LimitBuy, "buy-limit"),
+            new KeyValuePair<HuobiOrderType, string>(HuobiOrderType.LimitSell, "sell-limit"),
+            new KeyValuePair<HuobiOrderType, string>(HuobiOrderType.MarketBuy, "buy-market"),
+            new KeyValuePair<HuobiOrderType, string>(HuobiOrderType.MarketSell, "sell-market"),
+            new KeyValuePair<HuobiOrderType, string>(HuobiOrderType.IOCBuy, "buy-ioc"),
+            new KeyValuePair<HuobiOrderType, string>(HuobiOrderType.IOCSell, "sell-ioc"),
+            new KeyValuePair<HuobiOrderType, string>(HuobiOrderType.LimitMakerBuy, "buy-limit-maker"),
+            new KeyValuePair<HuobiOrderType, string>(HuobiOrderType.LimitMakerSell, "sell-limit-maker")
         };
     }
 }

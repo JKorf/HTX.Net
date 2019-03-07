@@ -9,10 +9,10 @@ namespace Huobi.Net.Converters
         public OrderSideConverter() : this(true) { }
         public OrderSideConverter(bool quotes) : base(quotes) { }
 
-        protected override Dictionary<HuobiOrderSide, string> Mapping => new Dictionary<HuobiOrderSide, string>
+        protected override List<KeyValuePair<HuobiOrderSide, string>> Mapping => new List<KeyValuePair<HuobiOrderSide, string>>
         {
-            { HuobiOrderSide.Buy, "buy" },
-            { HuobiOrderSide.Sell, "sell" }
+            new KeyValuePair<HuobiOrderSide, string>(HuobiOrderSide.Buy, "buy"),
+            new KeyValuePair<HuobiOrderSide, string>(HuobiOrderSide.Sell, "sell")
         };
     }
 }

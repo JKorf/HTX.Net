@@ -9,10 +9,10 @@ namespace Huobi.Net.Converters
         public AccountStateConverter() : this(true) { }
         public AccountStateConverter(bool quotes) : base(quotes) { }
 
-        protected override Dictionary<HuobiAccountState, string> Mapping => new Dictionary<HuobiAccountState, string>
+        protected override List<KeyValuePair<HuobiAccountState, string>> Mapping => new List<KeyValuePair<HuobiAccountState, string>>
         {
-            { HuobiAccountState.Locked, "lock" },
-            { HuobiAccountState.Working, "working" }
+            new KeyValuePair<HuobiAccountState, string>(HuobiAccountState.Locked, "lock"),
+            new KeyValuePair<HuobiAccountState, string>(HuobiAccountState.Working, "working")
         };
     }
 }

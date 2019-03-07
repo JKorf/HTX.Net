@@ -9,12 +9,12 @@ namespace Huobi.Net.Converters
         public TransferTypeConverter() : this(true) { }
         public TransferTypeConverter(bool useQuotes) : base(useQuotes) { }
 
-        protected override Dictionary<HuobiTransferType, string> Mapping => new Dictionary<HuobiTransferType, string>
+        protected override List<KeyValuePair<HuobiTransferType, string>> Mapping => new List<KeyValuePair<HuobiTransferType, string>>
         {
-            { HuobiTransferType.FromSubAccount, "master-transfer-in" },
-            { HuobiTransferType.ToSubAccount, "master-transfer-out" },
-            { HuobiTransferType.PointFromSubAccount, "master-point-transfer-in" },
-            { HuobiTransferType.PointToSubAccount, "master-point-transfer-out" },
+            new KeyValuePair<HuobiTransferType, string>(HuobiTransferType.FromSubAccount, "master-transfer-in"),
+            new KeyValuePair<HuobiTransferType, string>(HuobiTransferType.ToSubAccount, "master-transfer-out"),
+            new KeyValuePair<HuobiTransferType, string>(HuobiTransferType.PointFromSubAccount, "master-point-transfer-in"),
+            new KeyValuePair<HuobiTransferType, string>(HuobiTransferType.PointToSubAccount, "master-point-transfer-out")
         };
     }
 }

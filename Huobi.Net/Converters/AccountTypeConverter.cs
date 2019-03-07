@@ -9,12 +9,12 @@ namespace Huobi.Net.Converters
         public AccountTypeConverter() : this(true) { }
         public AccountTypeConverter(bool quotes) : base(quotes) { }
 
-        protected override Dictionary<HuobiAccountType, string> Mapping => new Dictionary<HuobiAccountType, string>
+        protected override List<KeyValuePair<HuobiAccountType, string>> Mapping => new List<KeyValuePair<HuobiAccountType, string>>
         {
-            { HuobiAccountType.Margin, "margin" },
-            { HuobiAccountType.Spot, "spot" },
-            { HuobiAccountType.Otc, "otc" },
-            { HuobiAccountType.Point, "point" }
+            new KeyValuePair<HuobiAccountType, string>(HuobiAccountType.Margin, "margin"),
+            new KeyValuePair<HuobiAccountType, string>(HuobiAccountType.Spot, "spot"),
+            new KeyValuePair<HuobiAccountType, string>(HuobiAccountType.Otc, "otc"),
+            new KeyValuePair<HuobiAccountType, string>(HuobiAccountType.Point, "point")
         };
     }
 }
