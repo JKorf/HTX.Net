@@ -180,6 +180,9 @@ client.SubscribeToMarketTradeUpdates("ethusdt", (data) =>
 ```
 
 ## Release notes
+* Version 1.0.2 - 18 mar 2019
+	* Fixed amount parameter in PlaceOrder when precision = 0
+
 * Version 1.0.1 - 07 mar 2019
 	* Updated CryptoExchange.Net
 

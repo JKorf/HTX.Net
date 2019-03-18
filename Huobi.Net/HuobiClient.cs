@@ -9,6 +9,7 @@ using Huobi.Net.Objects;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
@@ -437,6 +438,11 @@ namespace Huobi.Net
                 { "symbol", symbol },
                 { "type", JsonConvert.SerializeObject(orderType, new OrderTypeConverter(false)) }
             };
+
+            // If precision of the symbol = 1 (eg has to use whole amounts, 1,2,3 etc) Huobi doesn't except the .0 postfix (1.0) for amount
+            // Issue at the Huobi side
+            if (amount % 1 == 0)
+                parameters["amount"] = amount.ToString(CultureInfo.InvariantCulture);
 
             parameters.AddOptionalParameter("price", price);
             var result = await ExecuteRequest<HuobiBasicResponse<long>>(GetUrl(PlaceOrderEndpoint, "1"), "POST", parameters, true).ConfigureAwait(false);
