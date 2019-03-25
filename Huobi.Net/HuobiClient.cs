@@ -287,7 +287,7 @@ namespace Huobi.Net
         /// <returns></returns>
         public async Task<WebCallResult<List<HuobiSymbol>>> GetSymbolsAsync()
         {
-            var result = await ExecuteRequest<HuobiBasicResponse<List<HuobiSymbol>>>(GetUrl(CommonSymbolsEndpoint, "1"));
+            var result = await ExecuteRequest<HuobiBasicResponse<List<HuobiSymbol>>>(GetUrl(CommonSymbolsEndpoint, "1")).ConfigureAwait(false);
             return new WebCallResult<List<HuobiSymbol>>(result.ResponseStatusCode, result.Data?.Data, result.Error);
         }
 
