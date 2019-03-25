@@ -180,6 +180,10 @@ client.SubscribeToMarketTradeUpdates("ethusdt", (data) =>
 ```
 
 ## Release notes
+* Version 1.0.3 - 25 mar 2019
+	* Added missing ConfigureAwait(false)
+	* Made decimals nullable for new markets in market data
+
 * Version 1.0.2 - 18 mar 2019
 	* Fixed amount parameter in PlaceOrder when precision = 0
 
