@@ -8,7 +8,7 @@ namespace Huobi.Net.Objects.SocketObjects
     internal abstract class HuobiResponse
     {
         internal abstract bool IsSuccessful { get; }
-        internal string Id { get; set; }
+        public string Id { get; set; }
         [JsonProperty("err-code")]
         public string ErrorCode { get; set; }
         [JsonProperty("err-msg")]
@@ -56,7 +56,7 @@ namespace Huobi.Net.Objects.SocketObjects
         [JsonProperty("topic")]
         internal string Topic { get; set; }
         [JsonProperty("cid")]
-        internal new string Id { get; set; }
+        public new string Id { get; set; }
 
         /// <summary>
         /// The timestamp of the response

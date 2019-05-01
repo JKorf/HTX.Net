@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading;
+using CryptoExchange.Net;
 using Huobi.Net.Objects;
 using Huobi.Net.Objects.SocketObjects;
 using Huobi.Net.UnitTests.TestImplementations;
@@ -23,7 +24,7 @@ namespace Huobi.Net.UnitTests
 
             // act
             var subTask = client.SubscribeToMarketDepthUpdatesAsync("test", 1, test => { });
-            socket.InvokeMessage("{\"subbed\": \"test\", \"status\": \"ok\"}");
+            socket.InvokeMessage($"{{\"subbed\": \"test\", \"id\":\"{BaseClient.LastId}\", \"status\": \"ok\"}}");
             var subResult = subTask.Result;
 
             // assert
@@ -59,7 +60,7 @@ namespace Huobi.Net.UnitTests
 
             // act
             var subTask = client.SubscribeToMarketDepthUpdatesAsync("test", 1, test => { });
-            socket.InvokeMessage("{\"status\": \"error\", \"err-code\": \"Fail\", \"err-msg\": \"failed\"}");
+            socket.InvokeMessage($"{{\"status\": \"error\", \"id\": \"{BaseClient.LastId}\", \"err-code\": \"Fail\", \"err-msg\": \"failed\"}}");
             var subResult = subTask.Result;
 
             // assert
@@ -76,7 +77,7 @@ namespace Huobi.Net.UnitTests
 
             HuobiMarketDepth result = null;
             var subTask = client.SubscribeToMarketDepthUpdatesAsync("test", 1, test => result = test);
-            socket.InvokeMessage("{\"subbed\": \"test\", \"status\": \"ok\"}");
+            socket.InvokeMessage($"{{\"subbed\": \"test\", \"status\": \"ok\", \"id\": \"{BaseClient.LastId}\"}}");
             var subResult = subTask.Result;
 
             var expected =  new HuobiMarketDepth()
@@ -92,7 +93,7 @@ namespace Huobi.Net.UnitTests
             };
 
             // act
-            socket.InvokeMessage(SerializeExpected(expected));
+            socket.InvokeMessage(SerializeExpected("market.test.depth.step1", expected));
 
             // assert
             Assert.IsTrue(subResult.Success);
@@ -110,7 +111,7 @@ namespace Huobi.Net.UnitTests
 
             HuobiMarketData result = null;
             var subTask = client.SubscribeToMarketDetailUpdatesAsync("test", test => result = test);
-            socket.InvokeMessage("{\"subbed\": \"test\", \"status\": \"ok\"}");
+            socket.InvokeMessage($"{{\"subbed\": \"test\", \"id\": \"{BaseClient.LastId}\", \"status\": \"ok\"}}");
             var subResult = subTask.Result;
 
             var expected = new HuobiMarketData()
@@ -125,7 +126,7 @@ namespace Huobi.Net.UnitTests
             };
 
             // act
-            socket.InvokeMessage(SerializeExpected(expected));
+            socket.InvokeMessage(SerializeExpected("market.test.detail", expected));
 
             // assert
             Assert.IsTrue(subResult.Success);
@@ -142,7 +143,7 @@ namespace Huobi.Net.UnitTests
 
             HuobiMarketData result = null;
             var subTask = client.SubscribeToMarketKlineUpdatesAsync("test", HuobiPeriod.FiveMinutes, test => result = test);
-            socket.InvokeMessage("{\"subbed\": \"test\", \"status\": \"ok\"}");
+            socket.InvokeMessage($"{{\"subbed\": \"test\", \"id\": \"{BaseClient.LastId}\", \"status\": \"ok\"}}");
             var subResult = subTask.Result;
 
             var expected = new HuobiMarketData()
@@ -157,7 +158,7 @@ namespace Huobi.Net.UnitTests
             };
 
             // act
-            socket.InvokeMessage(SerializeExpected(expected));
+            socket.InvokeMessage(SerializeExpected("market.test.kline.5min", expected));
 
             // assert
             Assert.IsTrue(subResult.Success);
@@ -174,7 +175,7 @@ namespace Huobi.Net.UnitTests
 
             HuobiMarketTicks result = null;
             var subTask = client.SubscribeToMarketTickerUpdatesAsync(test => result = test);
-            socket.InvokeMessage("{\"subbed\": \"test\", \"status\": \"ok\"}");
+            socket.InvokeMessage($"{{\"subbed\": \"test\", \"id\": \"{BaseClient.LastId}\", \"status\": \"ok\"}}");
             var subResult = subTask.Result;
 
             var expected = new List<HuobiMarketTick>
@@ -192,7 +193,7 @@ namespace Huobi.Net.UnitTests
             };
 
             // act
-            socket.InvokeMessage(SerializeExpected(expected));
+            socket.InvokeMessage(SerializeExpected("market.tickers", expected));
 
             // assert
             Assert.IsTrue(subResult.Success);
@@ -209,7 +210,7 @@ namespace Huobi.Net.UnitTests
 
             HuobiMarketTrade result = null;
             var subTask = client.SubscribeToMarketTradeUpdatesAsync("ethusdt", test => result = test);
-            socket.InvokeMessage("{\"subbed\": \"test\", \"status\": \"ok\"}");
+            socket.InvokeMessage($"{{\"subbed\": \"test\", \"id\": \"{BaseClient.LastId}\", \"status\": \"ok\"}}");
             var subResult = subTask.Result;
 
             var expected = 
@@ -231,7 +232,7 @@ namespace Huobi.Net.UnitTests
             };
 
             // act
-            socket.InvokeMessage(SerializeExpected(expected));
+            socket.InvokeMessage(SerializeExpected("market.ethusdt.trade.detail", expected));
 
             // assert
             Assert.IsTrue(subResult.Success);
@@ -251,7 +252,7 @@ namespace Huobi.Net.UnitTests
             var subTask = client.SubscribeToAccountUpdatesAsync(test => result = test);
             socket.InvokeMessage("{\"op\": \"auth\"}");
             Thread.Sleep(10);
-            socket.InvokeMessage("{\"op\": \"sub\"}");
+            socket.InvokeMessage($"{{\"op\": \"sub\", \"cid\": \"{BaseClient.LastId}\"}}");
             var subResult = subTask.Result;
 
             var expected = new HuobiAccountEvent()
@@ -270,7 +271,7 @@ namespace Huobi.Net.UnitTests
             };
 
             // act
-            socket.InvokeMessage(SerializeExpectedAuth(expected));
+            socket.InvokeMessage(SerializeExpectedAuth("accounts", expected));
 
             // assert
             Assert.IsTrue(subResult.Success);
@@ -290,7 +291,7 @@ namespace Huobi.Net.UnitTests
             var subTask = client.SubscribeToOrderUpdatesAsync(test => result = test);
             socket.InvokeMessage("{\"op\": \"auth\"}");
             Thread.Sleep(10);
-            socket.InvokeMessage("{\"op\": \"sub\"}");
+            socket.InvokeMessage($"{{\"op\": \"sub\", \"cid\": \"{BaseClient.LastId}\"}}");
             var subResult = subTask.Result;
 
             var expected = new HuobiOrderUpdate()
@@ -310,7 +311,7 @@ namespace Huobi.Net.UnitTests
             };
 
             // act
-            socket.InvokeMessage(SerializeExpectedAuth(expected));
+            socket.InvokeMessage(SerializeExpectedAuth("orders.*", expected));
 
             // assert
             Assert.IsTrue(subResult.Success);
@@ -448,7 +449,7 @@ namespace Huobi.Net.UnitTests
             var subTask = client.SubscribeToAccountUpdatesAsync(test => { });
             socket.InvokeMessage("{\"op\": \"auth\"}");
             Thread.Sleep(10);
-            socket.InvokeMessage("{\"op\": \"sub\"}");
+            socket.InvokeMessage($"{{\"op\": \"sub\", \"cid\": \"{BaseClient.LastId}\"}}");
             var subResult = subTask.Result;
 
             // assert
@@ -484,7 +485,7 @@ namespace Huobi.Net.UnitTests
             var subTask = client.SubscribeToAccountUpdatesAsync(test => { });
             socket.InvokeMessage("{\"op\": \"auth\"}");
             Thread.Sleep(10);
-            socket.InvokeMessage("{\"op\": \"sub\", \"status\": \"error\", \"err-code\": 1, \"err-msg\": \"failed\"}");
+            socket.InvokeMessage($"{{\"op\": \"sub\", \"cid\": \"{BaseClient.LastId}\", \"status\": \"error\", \"err-code\": 1, \"err-msg\": \"failed\"}}");
             var subResult = subTask.Result;
 
             // assert
@@ -510,19 +511,19 @@ namespace Huobi.Net.UnitTests
             Assert.IsFalse(subResult.Success);
         }
 
-        public string SerializeExpected<T>(T data)
+        public string SerializeExpected<T>(string channel, T data)
         {
-            return $"{{\"ch\": \"channel\", \"data\": {JsonConvert.SerializeObject(data)}}}";
+            return $"{{\"ch\": \"{channel}\", \"data\": {JsonConvert.SerializeObject(data)}}}";
         }
 
-        public string SerializeExpectedAuth<T>(T data)
+        public string SerializeExpectedAuth<T>(string topic, T data)
         {
-            return $"{{\"op\": \"notify\", \"data\": {JsonConvert.SerializeObject(data)}}}";
+            return $"{{\"op\": \"notify\", \"topic\": \"{topic}\", \"data\": {JsonConvert.SerializeObject(data)}}}";
         }
 
         public string SerializeExpectedQuery<T>(T data)
         {
-            return $"{{\"op\": \"req\", \"data\": {JsonConvert.SerializeObject(data)}}}";
+            return $"{{\"op\": \"req\", \"cid\": \"{BaseClient.LastId}\", \"data\": {JsonConvert.SerializeObject(data)}}}";
         }
     }
 }

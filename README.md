@@ -180,6 +180,13 @@ client.SubscribeToMarketTradeUpdates("ethusdt", (data) =>
 ```
 
 ## Release notes
+* Version 1.0.4 - 01 may 2019
+	* Updated to latest CryptoExchange.Net
+		* Adds response header to REST call result
+		* Added rate limiter per API key
+		* Unified socket client workings
+	* Fixed authentication for russian API
+
 * Version 1.0.3 - 25 mar 2019
 	* Added missing ConfigureAwait(false)
 	* Made decimals nullable for new markets in market data

@@ -18,21 +18,16 @@ namespace Huobi.Net
         /// </summary>
         public string BaseAddressAuthenticated { get; set; } = "wss://api.huobi.pro/ws/v1";
 
-        /// <summary>
-        /// The timeout for socket responses
-        /// </summary>
-        public TimeSpan SocketResponseTimeout { get; set; } = TimeSpan.FromSeconds(5);
-
         public HuobiSocketClientOptions()
         {
             BaseAddress = "wss://api.huobi.pro/ws";
+            SocketSubscriptionsCombineTarget = 10;
         }
 
         public HuobiSocketClientOptions Copy()
         {
             var copy = Copy<HuobiSocketClientOptions>();
             copy.BaseAddressAuthenticated = BaseAddressAuthenticated;
-            copy.SocketResponseTimeout = SocketResponseTimeout;
             return copy;
         }
     }

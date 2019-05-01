@@ -45,9 +45,14 @@ namespace Huobi.Net
             var paramString = signParameters.CreateParamString(true);
             signParameters = signParameters.OrderBy(kv => kv.Key).ToDictionary(k => k.Key, k => k.Value);
 
+            var absolutePath = uriObj.AbsolutePath;
+            if (absolutePath.StartsWith("/api"))
+                // Russian api has /api prefix which shouldn't be part of the signature
+                absolutePath = absolutePath.Substring(4);
+
             var signData = method + "\n";
             signData += uriObj.Host + "\n";
-            signData += uriObj.AbsolutePath + "\n";
+            signData += absolutePath + "\n";
             signData += paramString;
             byte[] signBytes;
             lock(encryptLock)

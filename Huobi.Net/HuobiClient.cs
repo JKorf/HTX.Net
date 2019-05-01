@@ -101,9 +101,9 @@ namespace Huobi.Net
         {
             var result = await ExecuteRequest<HuobiTimestampResponse<List<HuobiMarketTick>>>(GetUrl(MarketTickerEndpoint)).ConfigureAwait(false);     
             if(!result.Success)
-                return new WebCallResult<HuobiMarketTicks>(result.ResponseStatusCode, null, result.Error);
+                return WebCallResult<HuobiMarketTicks>.CreateErrorResult(result.ResponseStatusCode, result.ResponseHeaders, result.Error);
 
-            return new WebCallResult<HuobiMarketTicks>(result.ResponseStatusCode, new HuobiMarketTicks(){ Ticks = result.Data.Data, Timestamp = result.Data.Timestamp}, null);
+            return new WebCallResult<HuobiMarketTicks>(result.ResponseStatusCode, result.ResponseHeaders, new HuobiMarketTicks(){ Ticks = result.Data.Data, Timestamp = result.Data.Timestamp}, null);
         }
 
         /// <summary>
@@ -127,10 +127,10 @@ namespace Huobi.Net
 
             var result = await ExecuteRequest<HuobiChannelResponse<HuobiMarketTickMerged>>(GetUrl(MarketTickerMergedEndpoint), parameters: parameters, checkResult:false).ConfigureAwait(false);
             if (!result.Success)
-                return new WebCallResult<HuobiMarketTickMerged>(result.ResponseStatusCode, null, result.Error);
+                return WebCallResult<HuobiMarketTickMerged>.CreateErrorResult(result.ResponseStatusCode, result.ResponseHeaders, result.Error);
 
             result.Data.Data.Timestamp = result.Data.Timestamp;
-            return new WebCallResult<HuobiMarketTickMerged>(result.ResponseStatusCode, result.Data.Data, null);
+            return new WebCallResult<HuobiMarketTickMerged>(result.ResponseStatusCode, result.ResponseHeaders, result.Data.Data, null);
         }
 
         /// <summary>
@@ -152,7 +152,7 @@ namespace Huobi.Net
         public async Task<WebCallResult<List<HuobiMarketKline>>> GetMarketKlinesAsync(string symbol, HuobiPeriod period, int size)
         {
             if (size <= 0 || size > 2000)
-                return new WebCallResult<List<HuobiMarketKline>>(null, null, new ArgumentError("Size should be between 1 and 2000"));
+                return WebCallResult<List<HuobiMarketKline>>.CreateErrorResult(new ArgumentError("Size should be between 1 and 2000"));
 
             var parameters = new Dictionary<string, object>
             {
@@ -163,9 +163,9 @@ namespace Huobi.Net
 
             var result = await ExecuteRequest<HuobiChannelResponse<List<HuobiMarketKline>>>(GetUrl(MarketKlineEndpoint), parameters: parameters).ConfigureAwait(false);
             if (!result.Success)
-                return new WebCallResult<List<HuobiMarketKline>>(result.ResponseStatusCode, null, result.Error);
+                return WebCallResult<List<HuobiMarketKline>>.CreateErrorResult(result.ResponseStatusCode, result.ResponseHeaders, result.Error);
 
-            return new WebCallResult<List<HuobiMarketKline>>(result.ResponseStatusCode, result.Data.Data, null);
+            return new WebCallResult<List<HuobiMarketKline>>(result.ResponseStatusCode, result.ResponseHeaders, result.Data.Data, null);
         }
 
         /// <summary>
@@ -184,7 +184,7 @@ namespace Huobi.Net
         public async Task<WebCallResult<HuobiMarketDepth>> GetMarketDepthAsync(string symbol, int mergeStep)
         {
             if (mergeStep < 0 || mergeStep > 5)
-                return new WebCallResult<HuobiMarketDepth>(null, null, new ArgumentError("MergeStep should be between 0 and 5"));
+                return WebCallResult<HuobiMarketDepth>.CreateErrorResult(new ArgumentError("MergeStep should be between 0 and 5"));
 
             var parameters = new Dictionary<string, object>
             {
@@ -194,10 +194,10 @@ namespace Huobi.Net
 
             var result = await ExecuteRequest<HuobiChannelResponse<HuobiMarketDepth>>(GetUrl(MarketDepthEndpoint), parameters: parameters, checkResult: false).ConfigureAwait(false);
             if (!result.Success)
-                return new WebCallResult<HuobiMarketDepth>(result.ResponseStatusCode, null, result.Error);
+                return WebCallResult<HuobiMarketDepth>.CreateErrorResult(result.ResponseStatusCode, result.ResponseHeaders, result.Error);
 
             result.Data.Data.Timestamp = result.Data.Timestamp;
-            return new WebCallResult<HuobiMarketDepth>(result.ResponseStatusCode, result.Data.Data, null);
+            return new WebCallResult<HuobiMarketDepth>(result.ResponseStatusCode, result.ResponseHeaders, result.Data.Data, null);
         }
 
         /// <summary>
@@ -219,7 +219,7 @@ namespace Huobi.Net
             };
 
             var result = await ExecuteRequest<HuobiChannelResponse<HuobiMarketTrade>>(GetUrl(MarketLastTradeEndpoint), parameters: parameters, checkResult: false).ConfigureAwait(false);
-            return new WebCallResult<HuobiMarketTrade>(result.ResponseStatusCode, result.Data?.Data, result.Error);
+            return new WebCallResult<HuobiMarketTrade>(result.ResponseStatusCode, result.ResponseHeaders, result.Data?.Data, result.Error);
         }
 
         /// <summary>
@@ -238,7 +238,7 @@ namespace Huobi.Net
         public async Task<WebCallResult<List<HuobiMarketTrade>>> GetMarketTradeHistoryAsync(string symbol, int limit)
         {
             if (limit <= 0 || limit > 2000)
-                return new WebCallResult<List<HuobiMarketTrade>>(null, null, new ArgumentError("Size should be between 1 and 2000"));
+                return WebCallResult<List<HuobiMarketTrade>>.CreateErrorResult(new ArgumentError("Size should be between 1 and 2000"));
 
             var parameters = new Dictionary<string, object>
             {
@@ -247,7 +247,7 @@ namespace Huobi.Net
             };
 
             var result = await ExecuteRequest<HuobiChannelResponse<List<HuobiMarketTrade>>>(GetUrl(MarketTradeHistoryEndpoint), parameters: parameters).ConfigureAwait(false);
-            return new WebCallResult<List<HuobiMarketTrade>>(result.ResponseStatusCode, result.Data?.Data, result.Error);
+            return new WebCallResult<List<HuobiMarketTrade>>(result.ResponseStatusCode, result.ResponseHeaders, result.Data?.Data, result.Error);
         }
 
         /// <summary>
@@ -270,10 +270,10 @@ namespace Huobi.Net
 
             var result = await ExecuteRequest<HuobiChannelResponse<HuobiMarketDetails>>(GetUrl(MarketDetailsEndpoint), parameters: parameters, checkResult: false).ConfigureAwait(false);
             if(!result.Success)
-                return new WebCallResult<HuobiMarketDetails>(result.ResponseStatusCode, null, result.Error);
+                return WebCallResult<HuobiMarketDetails>.CreateErrorResult(result.ResponseStatusCode, result.ResponseHeaders, result.Error);
 
             result.Data.Data.Timestamp = result.Data.Timestamp;
-            return new WebCallResult<HuobiMarketDetails>(result.ResponseStatusCode, result.Data.Data, null);
+            return new WebCallResult<HuobiMarketDetails>(result.ResponseStatusCode, result.ResponseHeaders, result.Data.Data, null);
         }
 
         /// <summary>
@@ -288,7 +288,7 @@ namespace Huobi.Net
         public async Task<WebCallResult<List<HuobiSymbol>>> GetSymbolsAsync()
         {
             var result = await ExecuteRequest<HuobiBasicResponse<List<HuobiSymbol>>>(GetUrl(CommonSymbolsEndpoint, "1")).ConfigureAwait(false);
-            return new WebCallResult<List<HuobiSymbol>>(result.ResponseStatusCode, result.Data?.Data, result.Error);
+            return new WebCallResult<List<HuobiSymbol>>(result.ResponseStatusCode, result.ResponseHeaders, result.Data?.Data, result.Error);
         }
 
         /// <summary>
@@ -303,7 +303,7 @@ namespace Huobi.Net
         public async Task<WebCallResult<List<string>>> GetCurrenciesAsync()
         {
             var result = await ExecuteRequest<HuobiBasicResponse<List<string>>>(GetUrl(CommonCurrenciesEndpoint, "1")).ConfigureAwait(false);
-            return new WebCallResult<List<string>>(result.ResponseStatusCode, result.Data?.Data, result.Error);
+            return new WebCallResult<List<string>>(result.ResponseStatusCode, result.ResponseHeaders, result.Data?.Data, result.Error);
         }
 
         /// <summary>
@@ -319,9 +319,9 @@ namespace Huobi.Net
         {
             var result = await ExecuteRequest<HuobiBasicResponse<string>>(GetUrl(ServerTimeEndpoint, "1")).ConfigureAwait(false);
             if (!result.Success)
-                return new WebCallResult<DateTime>(result.ResponseStatusCode, default(DateTime), result.Error);
+                return WebCallResult<DateTime>.CreateErrorResult(result.ResponseStatusCode, result.ResponseHeaders, result.Error);
             var time = (DateTime)JsonConvert.DeserializeObject(result.Data.Data, typeof(DateTime), new TimestampConverter());
-            return new WebCallResult<DateTime>(result.ResponseStatusCode, time, null);
+            return new WebCallResult<DateTime>(result.ResponseStatusCode, result.ResponseHeaders, time, null);
         }
 
         /// <summary>
@@ -336,7 +336,7 @@ namespace Huobi.Net
         public async Task<WebCallResult<List<HuobiAccount>>> GetAccountsAsync()
         {
             var result = await ExecuteRequest<HuobiBasicResponse<List<HuobiAccount>>>(GetUrl(GetAccountsEndpoint, "1"), signed: true).ConfigureAwait(false);
-            return new WebCallResult<List<HuobiAccount>>(result.ResponseStatusCode, result.Data?.Data, result.Error);
+            return new WebCallResult<List<HuobiAccount>>(result.ResponseStatusCode, result.ResponseHeaders, result.Data?.Data, result.Error);
         }
 
         /// <summary>
@@ -354,9 +354,9 @@ namespace Huobi.Net
         {
             var result = await ExecuteRequest<HuobiBasicResponse<HuobiAccountBalances>>(GetUrl(FillPathParameter(GetBalancesEndpoint, accountId.ToString()), "1"), signed: true).ConfigureAwait(false);
             if (!result.Success)
-                return new WebCallResult<List<HuobiBalance>>(result.ResponseStatusCode, null, result.Error);
+                return WebCallResult<List<HuobiBalance>>.CreateErrorResult(result.ResponseStatusCode, result.ResponseHeaders, result.Error);
             
-            return new WebCallResult<List<HuobiBalance>>(result.ResponseStatusCode, result.Data.Data.Data, result.Error);
+            return new WebCallResult<List<HuobiBalance>>(result.ResponseStatusCode, result.ResponseHeaders, result.Data.Data.Data, result.Error);
         }
 
         /// <summary>
@@ -374,9 +374,9 @@ namespace Huobi.Net
         {
             var result = await ExecuteRequest<HuobiBasicResponse<List<HuobiAccountBalances>>>(GetUrl(FillPathParameter(GetSubAccountBalancesEndpoint, subAccountId.ToString()), "1"), signed: true).ConfigureAwait(false);
             if (!result.Success)
-                return new WebCallResult<List<HuobiBalance>>(result.ResponseStatusCode, null, result.Error);
+                return WebCallResult<List<HuobiBalance>>.CreateErrorResult(result.ResponseStatusCode, result.ResponseHeaders, result.Error);
 
-            return new WebCallResult<List<HuobiBalance>>(result.ResponseStatusCode, result.Data.Data[0].Data, result.Error);
+            return new WebCallResult<List<HuobiBalance>>(result.ResponseStatusCode, result.ResponseHeaders, result.Data.Data[0].Data, result.Error);
         }
 
         /// <summary>
@@ -407,7 +407,7 @@ namespace Huobi.Net
             };
 
             var result = await ExecuteRequest<HuobiBasicResponse<long>>(GetUrl(TransferWithSubAccountEndpoint, "1"), "POST", parameters, true).ConfigureAwait(false);
-            return new WebCallResult<long>(result.ResponseStatusCode, result.Data?.Data ?? 0, result.Error);
+            return new WebCallResult<long>(result.ResponseStatusCode, result.ResponseHeaders, result.Data?.Data ?? 0, result.Error);
         }
 
         /// <summary>
@@ -446,7 +446,7 @@ namespace Huobi.Net
 
             parameters.AddOptionalParameter("price", price);
             var result = await ExecuteRequest<HuobiBasicResponse<long>>(GetUrl(PlaceOrderEndpoint, "1"), "POST", parameters, true).ConfigureAwait(false);
-            return new WebCallResult<long>(result.ResponseStatusCode, result.Data?.Data ?? 0, result.Error);
+            return new WebCallResult<long>(result.ResponseStatusCode, result.ResponseHeaders, result.Data?.Data ?? 0, result.Error);
         }
 
         /// <summary>
@@ -469,7 +469,7 @@ namespace Huobi.Net
         public async Task<WebCallResult<List<HuobiOpenOrder>>> GetOpenOrdersAsync(long? accountId = null, string symbol = null, HuobiOrderSide? side = null, int? limit = null)
         {
             if (accountId != null && symbol == null)
-                return new WebCallResult<List<HuobiOpenOrder>>(null, null, new ArgumentError("Can't request open orders based on only the account id"));
+                return WebCallResult<List<HuobiOpenOrder>>.CreateErrorResult(new ArgumentError("Can't request open orders based on only the account id"));
 
             var parameters = new Dictionary<string, object>();
             parameters.AddOptionalParameter("account-id", accountId);
@@ -478,7 +478,7 @@ namespace Huobi.Net
             parameters.AddOptionalParameter("size", limit);
 
             var result = await ExecuteRequest<HuobiBasicResponse<List<HuobiOpenOrder>>>(GetUrl(OpenOrdersEndpoint, "1"), "GET", parameters, true).ConfigureAwait(false);
-            return new WebCallResult<List<HuobiOpenOrder>>(result.ResponseStatusCode, result.Data?.Data, result.Error);
+            return new WebCallResult<List<HuobiOpenOrder>>(result.ResponseStatusCode, result.ResponseHeaders, result.Data?.Data, result.Error);
         }
 
         /// <summary>
@@ -495,7 +495,7 @@ namespace Huobi.Net
         public async Task<WebCallResult<long>> CancelOrderAsync(long orderId)
         {
             var result = await ExecuteRequest<HuobiBasicResponse<long>>(GetUrl(FillPathParameter(CancelOrderEndpoint, orderId.ToString()), "1"), "POST", signed: true).ConfigureAwait(false);
-            return new WebCallResult<long>(result.ResponseStatusCode, result.Data?.Data ?? 0, result.Error);
+            return new WebCallResult<long>(result.ResponseStatusCode, result.ResponseHeaders, result.Data?.Data ?? 0, result.Error);
         }
 
         /// <summary>
@@ -517,7 +517,7 @@ namespace Huobi.Net
             };
 
             var result = await ExecuteRequest<HuobiBasicResponse<HuobiBatchCancelResult>>(GetUrl(CancelOrdersEndpoint, "1"), "POST", parameters, true).ConfigureAwait(false);
-            return new WebCallResult<HuobiBatchCancelResult>(result.ResponseStatusCode, result.Data?.Data, result.Error);
+            return new WebCallResult<HuobiBatchCancelResult>(result.ResponseStatusCode, result.ResponseHeaders, result.Data?.Data, result.Error);
         }
 
         /// <summary>
@@ -534,7 +534,7 @@ namespace Huobi.Net
         public async Task<WebCallResult<HuobiOrder>> GetOrderInfoAsync(long orderId)
         {
             var result = await ExecuteRequest<HuobiBasicResponse<HuobiOrder>>(GetUrl(FillPathParameter(OrderInfoEndpoint, orderId.ToString()), "1"), "GET", signed: true).ConfigureAwait(false);
-            return new WebCallResult<HuobiOrder>(result.ResponseStatusCode, result.Data?.Data, result.Error);
+            return new WebCallResult<HuobiOrder>(result.ResponseStatusCode, result.ResponseHeaders, result.Data?.Data, result.Error);
         }
 
         /// <summary>
@@ -551,7 +551,7 @@ namespace Huobi.Net
         public async Task<WebCallResult<List<HuobiOrderTrade>>> GetOrderTradesAsync(long orderId)
         {
             var result = await ExecuteRequest<HuobiBasicResponse<List<HuobiOrderTrade>>>(GetUrl(FillPathParameter(OrderTradesEndpoint, orderId.ToString()), "1"), "GET", signed: true).ConfigureAwait(false);
-            return new WebCallResult<List<HuobiOrderTrade>>(result.ResponseStatusCode, result.Data?.Data, result.Error);
+            return new WebCallResult<List<HuobiOrderTrade>>(result.ResponseStatusCode, result.ResponseHeaders, result.Data?.Data, result.Error);
         }
 
         /// <summary>
@@ -593,7 +593,7 @@ namespace Huobi.Net
             parameters.AddOptionalParameter("size", limit);
 
             var result = await ExecuteRequest<HuobiBasicResponse<List<HuobiOrder>>>(GetUrl(OrdersEndpoint, "1"), "GET", parameters, true).ConfigureAwait(false);
-            return new WebCallResult<List<HuobiOrder>>(result.ResponseStatusCode, result.Data?.Data, result.Error);
+            return new WebCallResult<List<HuobiOrder>>(result.ResponseStatusCode, result.ResponseHeaders, result.Data?.Data, result.Error);
         }
 
         /// <summary>
@@ -631,7 +631,7 @@ namespace Huobi.Net
             parameters.AddOptionalParameter("size", limit);
 
             var result = await ExecuteRequest<HuobiBasicResponse<List<HuobiOrderTrade>>>(GetUrl(SymbolTradesEndpoint, "1"), "GET", parameters, true).ConfigureAwait(false);
-            return new WebCallResult<List<HuobiOrderTrade>>(result.ResponseStatusCode, result.Data?.Data, result.Error);
+            return new WebCallResult<List<HuobiOrderTrade>>(result.ResponseStatusCode, result.ResponseHeaders, result.Data?.Data, result.Error);
         }
 
         protected override IRequest ConstructRequest(Uri uri, string method, Dictionary<string, object> parameters, bool signed)

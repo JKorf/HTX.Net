@@ -21,7 +21,8 @@ namespace Huobi.Net.UnitTests.TestImplementations
 
         public int Id { get; }
         public bool ShouldReconnect { get; set; }
-        public Func<byte[], string> DataInterpreter { get; set; }
+        public Func<string, string> DataInterpreterString { get; set; }
+        public Func<byte[], string> DataInterpreterBytes { get; set; }
         public DateTime? DisconnectTime { get; set; }
         public string Url { get; }
         public WebSocketState SocketState { get; }

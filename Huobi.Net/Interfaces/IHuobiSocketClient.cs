@@ -9,7 +9,7 @@ using Huobi.Net.Objects.SocketObjects;
 
 namespace Huobi.Net.Interfaces
 {
-    public interface IHuobiSocketClient
+    public interface IHuobiSocketClient: ISocketClient
     {
         /// <summary>
         /// Gets candlestick data for a symbol
@@ -250,28 +250,5 @@ namespace Huobi.Net.Interfaces
         /// <param name="orderId">The id of the order to retrieve</param>
         /// <returns></returns>
         Task<CallResult<HuobiOrder>> QueryOrderDetailsAsync(long orderId);
-
-        /// <summary>
-        /// The factory for creating sockets. Used for unit testing
-        /// </summary>
-        IWebsocketFactory SocketFactory { get; set; }
-
-        TimeSpan ReconnectInterval { get; }
-        string BaseAddress { get; }
-
-        /// <summary>
-        /// Unsubscribe from a stream
-        /// </summary>
-        /// <param name="subscription">The subscription to unsubscribe</param>
-        /// <returns></returns>
-        Task Unsubscribe(UpdateSubscription subscription);
-
-        /// <summary>
-        /// Unsubscribe all subscriptions
-        /// </summary>
-        /// <returns></returns>
-        Task UnsubscribeAll();
-
-        void Dispose();
     }
 }
