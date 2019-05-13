@@ -4,9 +4,10 @@
     {
         OneMinute,
         FiveMinutes,
-        FiveteenMinutes,
+        FifteenMinutes,
         ThirtyMinutes,
         OneHour,
+        FourHours,
         OneDay,
         OneWeek,
         OneMonth,
