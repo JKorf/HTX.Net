@@ -20,7 +20,7 @@ namespace Huobi.Net
     {
         #region fields
         private static HuobiClientOptions defaultOptions = new HuobiClientOptions();
-        private static HuobiClientOptions DefaultOptions => defaultOptions.Copy<HuobiClientOptions>();
+        private static HuobiClientOptions DefaultOptions => defaultOptions.Copy();
 
 
         private const string MarketTickerEndpoint = "market/tickers";
@@ -50,6 +50,10 @@ namespace Huobi.Net
         private const string OrderTradesEndpoint = "order/orders/{}/matchresults";
         private const string SymbolTradesEndpoint = "order/matchresults";
 
+        /// <summary>
+        /// Whether public requests should be signed if ApiCredentials are provided. Needed for accurate rate limiting.
+        /// </summary>
+        public bool SignPublicRequests { get; private set; }
         #endregion
 
         #region constructor/destructor
@@ -63,8 +67,9 @@ namespace Huobi.Net
         /// <summary>
         /// Create a new instance of the HuobiClient with the provided options
         /// </summary>
-        public HuobiClient(HuobiClientOptions options) : base(options, options.ApiCredentials == null ? null : new HuobiAuthenticationProvider(options.ApiCredentials))
+        public HuobiClient(HuobiClientOptions options) : base(options, options.ApiCredentials == null ? null : new HuobiAuthenticationProvider(options.ApiCredentials, options.SignPublicRequests))
         {
+            Configure(options);
         }
         #endregion
 
@@ -85,7 +90,7 @@ namespace Huobi.Net
         /// <param name="apiSecret">The api secret</param>
         public void SetApiCredentials(string apiKey, string apiSecret)
         {
-            SetAuthenticationProvider(new HuobiAuthenticationProvider(new ApiCredentials(apiKey, apiSecret)));
+            SetAuthenticationProvider(new HuobiAuthenticationProvider(new ApiCredentials(apiKey, apiSecret), SignPublicRequests));
         }
 
         /// <summary>
@@ -693,6 +698,11 @@ namespace Huobi.Net
         protected Uri GetUrl(string endpoint, string version=null)
         {
             return version == null ? new Uri($"{BaseAddress}/{endpoint}") : new Uri($"{BaseAddress}/v{version}/{endpoint}");
+        }
+
+        private void Configure(HuobiClientOptions options)
+        {
+            SignPublicRequests = options.SignPublicRequests;
         }
         #endregion
     }

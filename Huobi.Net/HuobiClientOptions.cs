@@ -5,9 +5,21 @@ namespace Huobi.Net
 {
     public class HuobiClientOptions: ClientOptions
     {
+        /// <summary>
+        /// Whether public requests should be signed if ApiCredentials are provided. Needed for accurate rate limiting.
+        /// </summary>
+        public bool SignPublicRequests { get; set; } = false;
+
         public HuobiClientOptions()
         {
             BaseAddress = "https://api.huobi.pro";
+        }
+
+        public HuobiClientOptions Copy()
+        {
+            var copy = Copy<HuobiClientOptions>();
+            copy.SignPublicRequests = SignPublicRequests;
+            return copy;
         }
     }
 
