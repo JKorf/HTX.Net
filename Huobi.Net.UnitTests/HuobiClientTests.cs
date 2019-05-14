@@ -536,7 +536,7 @@ namespace Huobi.Net.UnitTests
         public void SigningString_Should_GiveCorrectSignResult()
         {
             // arrange
-            var authProvider = new HuobiAuthenticationProvider(new ApiCredentials("TestKey", "TestSecret"));
+            var authProvider = new HuobiAuthenticationProvider(new ApiCredentials("TestKey", "TestSecret"), false);
 
             // act
             var parameters = authProvider.AddAuthenticationToParameters("http://api.test.com/somepath/test", Constants.GetMethod, new Dictionary<string, object>()
