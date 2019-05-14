@@ -184,6 +184,12 @@ client.SubscribeToMarketTradeUpdates("ethusdt", (data) =>
 ```
 
 ## Release notes
+* Version 1.1.0 - 14 may 2019
+	* Added 4 hour kline to enum
+	* Added option to sign public requests to fix rate limiting issues
+	* Added an order book implementation for easily keeping an updated order book
+	* Added additional constructor to ApiCredentials to be able to read from file
+
 * Version 1.0.4 - 01 may 2019
 	* Updated to latest CryptoExchange.Net
 		* Adds response header to REST call result
