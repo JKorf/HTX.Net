@@ -80,6 +80,11 @@ Huobi.Net provides two clients to interact with the Huobi API. The `HuobiClient`
 Examples can be found in the Examples folder.
 
 ## Release notes
+* Version 1.1.1 - 17 may 2019
+	* Added filter direction parameter to order/trade get methods
+	* Added limit parameter to book depth
+	* Added merge step parameter to order book implementation
+
 * Version 1.1.0 - 14 may 2019
 	* Added 4 hour kline to enum
 	* Added option to sign public requests to fix rate limiting issues
