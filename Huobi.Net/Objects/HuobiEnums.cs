@@ -14,6 +14,12 @@
         OneYear
     }
 
+    public enum HuobiFilterDirection
+    {
+        Next,
+        Previous
+    }
+
     public enum HuobiOrderSide
     {
         Buy,
