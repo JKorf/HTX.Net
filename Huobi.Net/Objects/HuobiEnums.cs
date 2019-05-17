@@ -61,7 +61,9 @@
         IOCBuy,
         IOCSell,
         LimitMakerBuy,
-        LimitMakerSell
+        LimitMakerSell,
+        StopLimitBuy,
+        StopLimitSell
     }
 
     public enum HuobiOrderState
@@ -71,7 +73,8 @@
         PartiallyFilled,
         PartiallyCanceled,
         Filled,
-        Canceled
+        Canceled,
+        Created
     }
 
     public enum HuobiAccountEventType
