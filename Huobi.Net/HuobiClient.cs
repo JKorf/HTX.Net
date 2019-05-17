@@ -442,6 +442,9 @@ namespace Huobi.Net
         /// <returns></returns>
         public async Task<WebCallResult<long>> PlaceOrderAsync(long accountId, string symbol, HuobiOrderType orderType, decimal amount, decimal? price = null)
         {
+            if(orderType == HuobiOrderType.StopLimitBuy || orderType == HuobiOrderType.StopLimitSell)
+                return WebCallResult<long>.CreateErrorResult(new ArgumentError("Stop limit orders not supported by API"));
+
             var parameters = new Dictionary<string, object>
             {
                 { "account-id", accountId },
