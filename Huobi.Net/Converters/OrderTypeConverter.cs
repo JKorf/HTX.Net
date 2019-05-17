@@ -18,7 +18,9 @@ namespace Huobi.Net.Converters
             new KeyValuePair<HuobiOrderType, string>(HuobiOrderType.IOCBuy, "buy-ioc"),
             new KeyValuePair<HuobiOrderType, string>(HuobiOrderType.IOCSell, "sell-ioc"),
             new KeyValuePair<HuobiOrderType, string>(HuobiOrderType.LimitMakerBuy, "buy-limit-maker"),
-            new KeyValuePair<HuobiOrderType, string>(HuobiOrderType.LimitMakerSell, "sell-limit-maker")
+            new KeyValuePair<HuobiOrderType, string>(HuobiOrderType.LimitMakerSell, "sell-limit-maker"),
+            new KeyValuePair<HuobiOrderType, string>(HuobiOrderType.StopLimitBuy, "buy-stop-limit"),
+            new KeyValuePair<HuobiOrderType, string>(HuobiOrderType.StopLimitSell, "sell-stop-limit")
         };
     }
 }
