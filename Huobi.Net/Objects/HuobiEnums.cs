@@ -4,13 +4,20 @@
     {
         OneMinute,
         FiveMinutes,
-        FiveteenMinutes,
+        FifteenMinutes,
         ThirtyMinutes,
         OneHour,
+        FourHours,
         OneDay,
         OneWeek,
         OneMonth,
         OneYear
+    }
+
+    public enum HuobiFilterDirection
+    {
+        Next,
+        Previous
     }
 
     public enum HuobiOrderSide
@@ -54,7 +61,9 @@
         IOCBuy,
         IOCSell,
         LimitMakerBuy,
-        LimitMakerSell
+        LimitMakerSell,
+        StopLimitBuy,
+        StopLimitSell
     }
 
     public enum HuobiOrderState
@@ -64,7 +73,8 @@
         PartiallyFilled,
         PartiallyCanceled,
         Filled,
-        Canceled
+        Canceled,
+        Created
     }
 
     public enum HuobiAccountEventType

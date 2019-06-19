@@ -20,7 +20,7 @@ namespace Huobi.Net
     {
         #region fields
         private static HuobiClientOptions defaultOptions = new HuobiClientOptions();
-        private static HuobiClientOptions DefaultOptions => defaultOptions.Copy<HuobiClientOptions>();
+        private static HuobiClientOptions DefaultOptions => defaultOptions.Copy();
 
 
         private const string MarketTickerEndpoint = "market/tickers";
@@ -50,6 +50,10 @@ namespace Huobi.Net
         private const string OrderTradesEndpoint = "order/orders/{}/matchresults";
         private const string SymbolTradesEndpoint = "order/matchresults";
 
+        /// <summary>
+        /// Whether public requests should be signed if ApiCredentials are provided. Needed for accurate rate limiting.
+        /// </summary>
+        public bool SignPublicRequests { get; private set; }
         #endregion
 
         #region constructor/destructor
@@ -63,8 +67,9 @@ namespace Huobi.Net
         /// <summary>
         /// Create a new instance of the HuobiClient with the provided options
         /// </summary>
-        public HuobiClient(HuobiClientOptions options) : base(options, options.ApiCredentials == null ? null : new HuobiAuthenticationProvider(options.ApiCredentials))
+        public HuobiClient(HuobiClientOptions options) : base(options, options.ApiCredentials == null ? null : new HuobiAuthenticationProvider(options.ApiCredentials, options.SignPublicRequests))
         {
+            Configure(options);
         }
         #endregion
 
@@ -85,7 +90,7 @@ namespace Huobi.Net
         /// <param name="apiSecret">The api secret</param>
         public void SetApiCredentials(string apiKey, string apiSecret)
         {
-            SetAuthenticationProvider(new HuobiAuthenticationProvider(new ApiCredentials(apiKey, apiSecret)));
+            SetAuthenticationProvider(new HuobiAuthenticationProvider(new ApiCredentials(apiKey, apiSecret), SignPublicRequests));
         }
 
         /// <summary>
@@ -173,24 +178,30 @@ namespace Huobi.Net
         /// </summary>
         /// <param name="symbol">The symbol to request for</param>
         /// <param name="mergeStep">The way the results will be merged together</param>
+        /// <param name="limit">The depth of the book</param>
         /// <returns></returns>
-        public WebCallResult<HuobiMarketDepth> GetMarketDepth(string symbol, int mergeStep) => GetMarketDepthAsync(symbol, mergeStep).Result;
+        public WebCallResult<HuobiMarketDepth> GetMarketDepth(string symbol, int mergeStep, int? limit = null) => GetMarketDepthAsync(symbol, mergeStep, limit).Result;
         /// <summary>
         /// Gets the market depth for a symbol
         /// </summary>
         /// <param name="symbol">The symbol to request for</param>
         /// <param name="mergeStep">The way the results will be merged together</param>
+        /// <param name="limit">The depth of the book</param>
         /// <returns></returns>
-        public async Task<WebCallResult<HuobiMarketDepth>> GetMarketDepthAsync(string symbol, int mergeStep)
+        public async Task<WebCallResult<HuobiMarketDepth>> GetMarketDepthAsync(string symbol, int mergeStep, int? limit = null)
         {
             if (mergeStep < 0 || mergeStep > 5)
                 return WebCallResult<HuobiMarketDepth>.CreateErrorResult(new ArgumentError("MergeStep should be between 0 and 5"));
+
+            if (limit.HasValue && limit != 5 && limit != 10 && limit != 20)
+                return WebCallResult<HuobiMarketDepth>.CreateErrorResult(new ArgumentError("Limit should be one of: 5, 10, 20"));
 
             var parameters = new Dictionary<string, object>
             {
                 { "symbol", symbol },
                 { "type", "step"+mergeStep }
             };
+            parameters.AddOptionalParameter("depth", limit);
 
             var result = await ExecuteRequest<HuobiChannelResponse<HuobiMarketDepth>>(GetUrl(MarketDepthEndpoint), parameters: parameters, checkResult: false).ConfigureAwait(false);
             if (!result.Success)
@@ -431,6 +442,9 @@ namespace Huobi.Net
         /// <returns></returns>
         public async Task<WebCallResult<long>> PlaceOrderAsync(long accountId, string symbol, HuobiOrderType orderType, decimal amount, decimal? price = null)
         {
+            if(orderType == HuobiOrderType.StopLimitBuy || orderType == HuobiOrderType.StopLimitSell)
+                return WebCallResult<long>.CreateErrorResult(new ArgumentError("Stop limit orders not supported by API"));
+
             var parameters = new Dictionary<string, object>
             {
                 { "account-id", accountId },
@@ -562,10 +576,11 @@ namespace Huobi.Net
         /// <param name="types">The types of orders to return</param>
         /// <param name="startTime">Only get orders after this date</param>
         /// <param name="endTime">Only get orders before this date</param>
-        /// <param name="fromId">Only get orders with id's higher than this</param>
+        /// <param name="fromId">Only get orders with before or after this. Used together with the direction parameter</param>
+        /// <param name="direction">Direction of the results to return when using the fromId parameter</param>
         /// <param name="limit">The max number of results</param>
         /// <returns></returns>
-        public WebCallResult<List<HuobiOrder>> GetOrders(string symbol, IEnumerable<HuobiOrderState> states, IEnumerable<HuobiOrderType> types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, int? limit = null) => GetOrdersAsync(symbol, states, types, startTime, endTime, fromId, limit).Result;
+        public WebCallResult<List<HuobiOrder>> GetOrders(string symbol, IEnumerable<HuobiOrderState> states, IEnumerable<HuobiOrderType> types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, HuobiFilterDirection? direction = null, int? limit = null) => GetOrdersAsync(symbol, states, types, startTime, endTime, fromId, direction, limit).Result;
         /// <summary>
         /// Gets a list of orders
         /// </summary>
@@ -574,10 +589,11 @@ namespace Huobi.Net
         /// <param name="types">The types of orders to return</param>
         /// <param name="startTime">Only get orders after this date</param>
         /// <param name="endTime">Only get orders before this date</param>
-        /// <param name="fromId">Only get orders with id's higher than this</param>
+        /// <param name="fromId">Only get orders with before or after this. Used together with the direction parameter</param>
+        /// <param name="direction">Direction of the results to return when using the fromId parameter</param>
         /// <param name="limit">The max number of results</param>
         /// <returns></returns>
-        public async Task<WebCallResult<List<HuobiOrder>>> GetOrdersAsync(string symbol, IEnumerable<HuobiOrderState> states, IEnumerable<HuobiOrderType> types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, int? limit = null)
+        public async Task<WebCallResult<List<HuobiOrder>>> GetOrdersAsync(string symbol, IEnumerable<HuobiOrderState> states, IEnumerable<HuobiOrderType> types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, HuobiFilterDirection? direction = null, int? limit = null)
         {
             var stateConverter = new OrderStateConverter(false);
             var typeConverter = new OrderTypeConverter(false);
@@ -590,6 +606,7 @@ namespace Huobi.Net
             parameters.AddOptionalParameter("end-date", endTime?.ToString("yyyy-MM-dd"));
             parameters.AddOptionalParameter("types", types == null ? null : string.Join(",", types.Select(s => JsonConvert.SerializeObject(s, typeConverter))));
             parameters.AddOptionalParameter("from", fromId);
+            parameters.AddOptionalParameter("direct", direction == null ? null : JsonConvert.SerializeObject(direction, new FilterDirectionConverter(false)));
             parameters.AddOptionalParameter("size", limit);
 
             var result = await ExecuteRequest<HuobiBasicResponse<List<HuobiOrder>>>(GetUrl(OrdersEndpoint, "1"), "GET", parameters, true).ConfigureAwait(false);
@@ -603,10 +620,11 @@ namespace Huobi.Net
         /// <param name="types">The type of orders to return</param>
         /// <param name="startTime">Only get orders after this date</param>
         /// <param name="endTime">Only get orders before this date</param>
-        /// <param name="fromId">Only get orders with id's higher than this</param>
+        /// <param name="fromId">Only get orders with before or after this. Used together with the direction parameter</param>
+        /// <param name="direction">Direction of the results to return when using the fromId parameter</param>
         /// <param name="limit">The max number of results</param>
         /// <returns></returns>
-        public WebCallResult<List<HuobiOrderTrade>> GetSymbolTrades(string symbol, IEnumerable<HuobiOrderType> types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, int? limit = null) => GetSymbolTradesAsync(symbol, types, startTime, endTime, fromId, limit).Result;
+        public WebCallResult<List<HuobiOrderTrade>> GetSymbolTrades(string symbol, IEnumerable<HuobiOrderType> types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, HuobiFilterDirection? direction = null, int? limit = null) => GetSymbolTradesAsync(symbol, types, startTime, endTime, fromId, direction, limit).Result;
         /// <summary>
         /// Gets a list of trades for a specific symbol
         /// </summary>
@@ -614,10 +632,11 @@ namespace Huobi.Net
         /// <param name="types">The type of orders to return</param>
         /// <param name="startTime">Only get orders after this date</param>
         /// <param name="endTime">Only get orders before this date</param>
-        /// <param name="fromId">Only get orders with id's higher than this</param>
+        /// <param name="fromId">Only get orders with before or after this. Used together with the direction parameter</param>
+        /// <param name="direction">Direction of the results to return when using the fromId parameter</param>
         /// <param name="limit">The max number of results</param>
         /// <returns></returns>
-        public async Task<WebCallResult<List<HuobiOrderTrade>>> GetSymbolTradesAsync(string symbol, IEnumerable<HuobiOrderType> types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, int? limit = null)
+        public async Task<WebCallResult<List<HuobiOrderTrade>>> GetSymbolTradesAsync(string symbol, IEnumerable<HuobiOrderType> types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, HuobiFilterDirection? direction = null, int? limit = null)
         {
             var typeConverter = new OrderTypeConverter(false);
             var parameters = new Dictionary<string, object>
@@ -628,6 +647,7 @@ namespace Huobi.Net
             parameters.AddOptionalParameter("end-date", endTime?.ToString("yyyy-MM-dd"));
             parameters.AddOptionalParameter("types", types == null ? null : string.Join(",", types.Select(s => JsonConvert.SerializeObject(s, typeConverter))));
             parameters.AddOptionalParameter("from", fromId);
+            parameters.AddOptionalParameter("direct", direction == null ? null : JsonConvert.SerializeObject(direction, new FilterDirectionConverter(false)));
             parameters.AddOptionalParameter("size", limit);
 
             var result = await ExecuteRequest<HuobiBasicResponse<List<HuobiOrderTrade>>>(GetUrl(SymbolTradesEndpoint, "1"), "GET", parameters, true).ConfigureAwait(false);
@@ -693,6 +713,11 @@ namespace Huobi.Net
         protected Uri GetUrl(string endpoint, string version=null)
         {
             return version == null ? new Uri($"{BaseAddress}/{endpoint}") : new Uri($"{BaseAddress}/v{version}/{endpoint}");
+        }
+
+        private void Configure(HuobiClientOptions options)
+        {
+            SignPublicRequests = options.SignPublicRequests;
         }
         #endregion
     }

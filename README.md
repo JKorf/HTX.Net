@@ -6,8 +6,10 @@ A .Net wrapper for the Huobi API as described on [Huobi](https://github.com/huob
 
 **If you think something is broken, something is missing or have any questions, please open an [Issue](https://github.com/JKorf/Huobi.Net/issues)**
 
----
-Also check out my other exchange API wrappers:
+## CryptoExchange.Net
+Implementation is build upon the CryptoExchange.Net library, make sure to also check out the documentation on that: [docs](https://github.com/JKorf/CryptoExchange.Net)
+
+Other CryptoExchange.Net implementations:
 <table>
 <tr>
 <td><a href="https://github.com/JKorf/Bittrex.Net"><img src="https://github.com/JKorf/Bittrex.Net/blob/master/Resources/icon.png?raw=true"></a>
@@ -26,9 +28,12 @@ Also check out my other exchange API wrappers:
 <br />
 <a href="https://github.com/JKorf/CoinEx.Net">CoinEx</a>
 </td>
+<td><a href="https://github.com/JKorf/Kucoin.Net"><img src="https://github.com/JKorf/Kucoin.Net/blob/master/Resources/icon.png?raw=true"></a>
+<br />
+<a href="https://github.com/JKorf/Kucoin.Net">Kucoin</a>
+</td>
 </table>
-
-And other API wrappers based on CryptoExchange.Net:
+Implementations from third parties:
 <table>
 <tr>
 <td><a href="https://github.com/Zaliro/Switcheo.Net"><img src="https://github.com/Zaliro/Switcheo.Net/blob/master/Resources/switcheo-coin.png?raw=true"></a>
@@ -71,115 +76,24 @@ After installing it's time to actually use it. To get started you have to add th
 
 Huobi.Net provides two clients to interact with the Huobi API. The `HuobiClient` provides all rest API calls. The  `HuobiSocketClient`  provides functions to interact with the websocket provided by the Huobi API. Both clients are disposable and as such can be used in a `using` statement.
 
-Most API methods are available in two flavors, sync and async:
-````C#
-public void NonAsyncMethod()
-{
-    using(var client = new HuobiClient())
-    {
-        var result = client.GetMarketList();
-    }
-}
-
-public async Task AsyncMethod()
-{
-    using(var client = new HuobiClient())
-    {
-        var result2 = await client.GetMarketListAsync();
-    }
-}
-````
-
 ## Examples
 Examples can be found in the Examples folder.
 
-
-## Response handling
-All API requests will respond with an CallResult object. This object contains whether the call was successful, the data returned from the call and an error if the call wasn't successful. As such, one should always check the Success flag when processing a response.
-For example:
-```C#
-using(var client = new HuobiClient())
-{
-	var result = client.GetMarketTickers();
-	if (result.Success)
-		Console.WriteLine($"# markets: {result.Data.Ticks.Length}");
-	else
-		Console.WriteLine($"Error: {result.Error.Message}");
-}
-```
-## Options & Authentication
-The default behavior of the clients can be changed by providing options to the constructor, or using the `SetDefaultOptions` before creating a new client. Api credentials can be provided in the options.
-
-## Websockets
-The Huobi.Net socket client provides several socket endpoint to which can be subscribed and follow this function structure
-
-```C#
-var client = new HuobiSocketClient();
-
-var subscribeResult = client.SubscribeToMarketTradeUpdates("ethusdt", data =>
-{
-	// handle data
-});
-```
-
-**Handling socket events**
-
-Subscribing to a socket stream returns a UpdateSubscription object. This object can be used to be notified when a socket is disconnected or reconnected:
-````C#
-var subscriptionResult = client.SubscribeToMarketTradeUpdates("ethusdt", data =>
-{
-	Console.WriteLine("Received trades update");
-});
-
-if(subscriptionResult.Success){
-	sub.Data.Disconnected += () =>
-	{
-		Console.WriteLine("Socket disconnected");
-	};
-
-	sub.Data.Reconnected += (e) =>
-	{
-		Console.WriteLine("Socket reconnected after " + e);
-	};
-}
-````
-
-**Unsubscribing from socket endpoints:**
-
-Sockets streams can be unsubscribed by using the `client.Unsubscribe` method in combination with the stream subscription received from subscribing:
-```C#
-var client = new HuobiSocketClient();
-
-var successTrades = client.SubscribeToMarketTradeUpdates("ethusdt", (data) =>
-{
-	// handle data
-});
-
-client.Unsubscribe(successTrades.Data);
-```
-
-Additionaly, all sockets can be closed with the `UnsubscribeAll` method. Beware that when a client is disposed the sockets are automatically disposed. This means that if the code is no longer in the using statement the eventhandler won't fire anymore. To prevent this from happening make sure the code doesn't leave the using statement or don't use the socket client in a using statement:
-```C#
-// Doesn't leave the using block
-using(var client = new HuobiSocketClient())
-{
-	var successTrades = client.SubscribeToMarketTradeUpdates("ethusdt", (data) =>
-	{
-		// handle data
-	});
-
-	Console.ReadLine();
-}
-
-// Without using block
-var client = new HuobiSocketClient();
-client.SubscribeToMarketTradeUpdates("ethusdt", (data) =>
-{
-	// handle data
-});
-```
-
 ## Release notes
+* Version 1.1.2 - 17 may 2019
+	* Fix for deserializing stop-orders created on the website
+
+* Version 1.1.1 - 17 may 2019
+	* Added filter direction parameter to order/trade get methods
+	* Added limit parameter to book depth
+	* Added merge step parameter to order book implementation
+
+* Version 1.1.0 - 14 may 2019
+	* Added 4 hour kline to enum
+	* Added option to sign public requests to fix rate limiting issues
+	* Added an order book implementation for easily keeping an updated order book
+	* Added additional constructor to ApiCredentials to be able to read from file
+
 * Version 1.0.4 - 01 may 2019
 	* Updated to latest CryptoExchange.Net
 		* Adds response header to REST call result

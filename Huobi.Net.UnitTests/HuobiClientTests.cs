@@ -55,8 +55,8 @@ namespace Huobi.Net.UnitTests
                 High = 0.5m,
                 Volume = 0.6m,
                 TradeCount = 123,
-                BestAsk = new HuobiOrderBookEntry() { Amount = 0.7m, Price = 0.8m },
-                BestBid = new HuobiOrderBookEntry() { Amount = 0.9m, Price = 1.0m },
+                BestAsk = new HuobiOrderBookEntry() { Quantity = 0.7m, Price = 0.8m },
+                BestBid = new HuobiOrderBookEntry() { Quantity = 0.9m, Price = 1.0m },
                 Version = 1
             };
 
@@ -106,11 +106,11 @@ namespace Huobi.Net.UnitTests
             {
                 Asks = new List<HuobiOrderBookEntry>()
                 {
-                    new HuobiOrderBookEntry(){ Amount = 0.1m, Price = 0.2m}
+                    new HuobiOrderBookEntry(){ Quantity = 0.1m, Price = 0.2m}
                 },
                 Bids = new List<HuobiOrderBookEntry>()
                 {
-                    new HuobiOrderBookEntry(){ Amount = 0.3m, Price = 0.4m}
+                    new HuobiOrderBookEntry(){ Quantity = 0.3m, Price = 0.4m}
                 }
             };
 
@@ -536,7 +536,7 @@ namespace Huobi.Net.UnitTests
         public void SigningString_Should_GiveCorrectSignResult()
         {
             // arrange
-            var authProvider = new HuobiAuthenticationProvider(new ApiCredentials("TestKey", "TestSecret"));
+            var authProvider = new HuobiAuthenticationProvider(new ApiCredentials("TestKey", "TestSecret"), false);
 
             // act
             var parameters = authProvider.AddAuthenticationToParameters("http://api.test.com/somepath/test", Constants.GetMethod, new Dictionary<string, object>()

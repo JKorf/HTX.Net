@@ -1,5 +1,6 @@
 ﻿using System;
 using CryptoExchange.Net.Converters;
+using CryptoExchange.Net.OrderBook;
 using Newtonsoft.Json;
 
 namespace Huobi.Net.Objects
@@ -28,7 +29,7 @@ namespace Huobi.Net.Objects
     }
 
     [JsonConverter(typeof(ArrayConverter))]
-    public class HuobiOrderBookEntry
+    public class HuobiOrderBookEntry: ISymbolOrderBookEntry
     {
         /// <summary>
         /// The price for this entry
@@ -36,10 +37,10 @@ namespace Huobi.Net.Objects
         [ArrayProperty(0)]
         public decimal Price { get; set; }
         /// <summary>
-        /// The amount for this entry
+        /// The quantity for this entry
         /// </summary>
         [ArrayProperty(1)]
-        public decimal Amount { get; set; }
+        public decimal Quantity { get; set; }
 
     }
 }

@@ -14,15 +14,17 @@ namespace Huobi.Net
     {
         private readonly HMACSHA256 encryptor;
         private readonly object encryptLock = new object();
+        private readonly bool signPublicRequests;
 
-        public HuobiAuthenticationProvider(ApiCredentials credentials) : base(credentials)
+        public HuobiAuthenticationProvider(ApiCredentials credentials, bool signPublicRequests) : base(credentials)
         {
+            this.signPublicRequests = signPublicRequests;
             encryptor = new HMACSHA256(Encoding.ASCII.GetBytes(credentials.Secret.GetString()));
         }
 
         public override Dictionary<string, object> AddAuthenticationToParameters(string uri, string method, Dictionary<string, object> parameters, bool signed)
         {
-            if (!signed)
+            if (!signed && !signPublicRequests)
                 return parameters;
 
             var uriObj = new Uri(uri);

@@ -84,11 +84,11 @@ namespace Huobi.Net.UnitTests
             {
                 Asks = new List<HuobiOrderBookEntry>()
                 {
-                    new HuobiOrderBookEntry() {Amount = 0.1m, Price = 0.2m}
+                    new HuobiOrderBookEntry() {Quantity = 0.1m, Price = 0.2m}
                 },
                 Bids = new List<HuobiOrderBookEntry>()
                 {
-                    new HuobiOrderBookEntry() {Amount = 0.3m, Price = 0.4m}
+                    new HuobiOrderBookEntry() {Quantity = 0.3m, Price = 0.4m}
                 }
             };
 
