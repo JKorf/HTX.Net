@@ -30,5 +30,27 @@ namespace Huobi.Net.Objects
         public int AmountPrecision { get; set; }
         [JsonProperty("symbol-partition")]
         public string SymbolPartition { get; set; }
+        [JsonProperty("state")]
+        public string State { get; set; }
+        /// <summary>
+        /// Minimum value of the amount
+        /// </summary>
+        [JsonProperty("min-order-amt")]
+        public decimal MinOrderAmount { get; set; }
+        /// <summary>
+        /// Maximum value of the amount
+        /// </summary>
+        [JsonProperty("max-order-amt")]
+        public decimal MaxOrderAmount { get; set; }
+        /// <summary>
+        /// Minimum value of the order amount in quote currency
+        /// </summary>
+        [JsonProperty("min-order-value")]
+        public decimal MinOrderValue { get; set; }
+        /// <summary>
+        /// The precision of the order amount in quote currency
+        /// </summary>
+        [JsonProperty("value-precision")]
+        public int ValuePrecision { get; set; }
     }
 }
