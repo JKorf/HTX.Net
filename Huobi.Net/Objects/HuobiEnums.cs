@@ -98,4 +98,11 @@
         PointFromSubAccount,
         PointToSubAccount
     }
+
+    public enum HuobiSymbolState
+    {
+        Online,
+        Offline,
+        Suspended
+    }
 }
