@@ -43,7 +43,9 @@
     public enum HuobiBalanceType
     {
         Trade,
-        Frozen
+        Frozen,
+        Loan,
+        Interest
     }
 
     public enum HuobiOrderRole
