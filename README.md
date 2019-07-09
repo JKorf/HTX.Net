@@ -80,6 +80,9 @@ Huobi.Net provides two clients to interact with the Huobi API. The `HuobiClient`
 Examples can be found in the Examples folder.
 
 ## Release notes
+* Version 1.1.5 - 09 jul 2019
+	* Updated HuobiSymbolOrderBook
+
 * Version 1.1.4 - 27 jun 2019
 	* Added Loan and Interest to HuobiBalanceTypes enum, fixing deserialization issue
 
