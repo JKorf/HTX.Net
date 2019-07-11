@@ -12,7 +12,9 @@ namespace Huobi.Net.Converters
         protected override List<KeyValuePair<HuobiBalanceType, string>> Mapping => new List<KeyValuePair<HuobiBalanceType, string>>
         {
             new KeyValuePair<HuobiBalanceType, string>(HuobiBalanceType.Frozen, "frozen"),
-            new KeyValuePair<HuobiBalanceType, string>(HuobiBalanceType.Trade, "trade")
+            new KeyValuePair<HuobiBalanceType, string>(HuobiBalanceType.Trade, "trade"),
+            new KeyValuePair<HuobiBalanceType, string>(HuobiBalanceType.Loan, "loan"),
+            new KeyValuePair<HuobiBalanceType, string>(HuobiBalanceType.Interest, "interest"),
         };
     }
 }

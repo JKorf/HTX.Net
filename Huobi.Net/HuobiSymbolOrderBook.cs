@@ -1,22 +1,26 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Huobi.Net.Objects;
-using CryptoExchange.Net.Logging;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.OrderBook;
 using CryptoExchange.Net.Sockets;
+using Huobi.Net.Interfaces;
 
 namespace Huobi.Net
 {
     public class HuobiSymbolOrderBook : SymbolOrderBook
     {
-        private readonly HuobiSocketClient socketClient;
-        private int mergeStep = 0;
+        private readonly IHuobiSocketClient socketClient;
+        private readonly int mergeStep;
 
-        public HuobiSymbolOrderBook(string symbol, int mergeStep = 0, LogVerbosity logVerbosity = LogVerbosity.Info, IEnumerable<TextWriter> logWriters = null) : base("Huobi", symbol, false, logVerbosity, logWriters)
+        /// <summary>
+        /// Create a new order book instance
+        /// </summary>
+        /// <param name="symbol">The symbol the order book is for</param>
+        /// <param name="options">The options for the order book</param>
+        public HuobiSymbolOrderBook(string symbol, HuobiOrderBookOptions options = null) : base(symbol, options ?? new HuobiOrderBookOptions())
         {
-            socketClient = new HuobiSocketClient();
+            mergeStep = options?.MergeStep ?? 0;
+            socketClient = options?.SocketClient ?? new HuobiSocketClient();
         }
 
         protected override async Task<CallResult<UpdateSubscription>> DoStart()
