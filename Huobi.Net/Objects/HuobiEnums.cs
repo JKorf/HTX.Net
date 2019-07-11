@@ -105,6 +105,7 @@
     {
         Online,
         Offline,
-        Suspended
+        Suspended,
+        PreOnline
     }
 }

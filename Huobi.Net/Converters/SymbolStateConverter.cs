@@ -13,7 +13,8 @@ namespace Huobi.Net.Converters
         {
             new KeyValuePair<HuobiSymbolState, string>(HuobiSymbolState.Online, "online"),
             new KeyValuePair<HuobiSymbolState, string>(HuobiSymbolState.Offline, "offline"),
-            new KeyValuePair<HuobiSymbolState, string>(HuobiSymbolState.Suspended, "suspend")
+            new KeyValuePair<HuobiSymbolState, string>(HuobiSymbolState.Suspended, "suspend"),
+            new KeyValuePair<HuobiSymbolState, string>(HuobiSymbolState.PreOnline, "pre-online")
         };
     }
 }
