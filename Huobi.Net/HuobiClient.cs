@@ -669,11 +669,8 @@ namespace Huobi.Net
         /// Gets a list of history orders
         /// </summary>
         /// <param name="symbol">The symbol to get orders for</param>
-        /// <param name="states">The states of orders to return</param>
-        /// <param name="types">The types of orders to return</param>
         /// <param name="startTime">Only get orders after this date</param>
         /// <param name="endTime">Only get orders before this date</param>
-        /// <param name="fromId">Only get orders with before or after this. Used together with the direction parameter</param>
         /// <param name="direction">Direction of the results to return when using the fromId parameter</param>
         /// <param name="limit">The max number of results</param>
         /// <returns></returns>
