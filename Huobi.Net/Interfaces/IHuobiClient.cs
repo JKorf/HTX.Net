@@ -328,7 +328,7 @@ namespace Huobi.Net.Interfaces
         /// <param name="direction">Direction of the results to return when using the fromId parameter</param>
         /// <param name="limit">The max number of results</param>
         /// <returns></returns>
-        WebCallResult<List<HuobiOrder>> GetOrders(string symbol, IEnumerable<HuobiOrderState> states, IEnumerable<HuobiOrderType> types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, HuobiFilterDirection? direction = null, int? limit = null);
+        WebCallResult<List<HuobiOrder>> GetOrders(IEnumerable<HuobiOrderState> states, string symbol = null, IEnumerable<HuobiOrderType> types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, HuobiFilterDirection? direction = null, int? limit = null);
 
         /// <summary>
         /// Gets a list of orders
@@ -342,7 +342,7 @@ namespace Huobi.Net.Interfaces
         /// <param name="direction">Direction of the results to return when using the fromId parameter</param>
         /// <param name="limit">The max number of results</param>
         /// <returns></returns>
-        Task<WebCallResult<List<HuobiOrder>>> GetOrdersAsync(string symbol, IEnumerable<HuobiOrderState> states, IEnumerable<HuobiOrderType> types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, HuobiFilterDirection? direction = null, int? limit = null);
+        Task<WebCallResult<List<HuobiOrder>>> GetOrdersAsync(IEnumerable<HuobiOrderState> states, string symbol = null, IEnumerable<HuobiOrderType> types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, HuobiFilterDirection? direction = null, int? limit = null);
 
         /// <summary>
         /// Gets a list of trades for a specific symbol
@@ -355,7 +355,7 @@ namespace Huobi.Net.Interfaces
         /// <param name="direction">Direction of the results to return when using the fromId parameter</param>
         /// <param name="limit">The max number of results</param>
         /// <returns></returns>
-        WebCallResult<List<HuobiOrderTrade>> GetSymbolTrades(string symbol, IEnumerable<HuobiOrderType> types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, HuobiFilterDirection? direction = null, int? limit = null);
+        WebCallResult<List<HuobiOrderTrade>> GetSymbolTrades(IEnumerable<HuobiOrderState> states = null, string symbol = null, IEnumerable<HuobiOrderType> types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, HuobiFilterDirection? direction = null, int? limit = null);
 
         /// <summary>
         /// Gets a list of trades for a specific symbol
@@ -368,6 +368,28 @@ namespace Huobi.Net.Interfaces
         /// <param name="direction">Direction of the results to return when using the fromId parameter</param>
         /// <param name="limit">The max number of results</param>
         /// <returns></returns>
-        Task<WebCallResult<List<HuobiOrderTrade>>> GetSymbolTradesAsync(string symbol, IEnumerable<HuobiOrderType> types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, HuobiFilterDirection? direction = null, int? limit = null);
+        Task<WebCallResult<List<HuobiOrderTrade>>> GetSymbolTradesAsync(IEnumerable<HuobiOrderState> states = null, string symbol = null, IEnumerable<HuobiOrderType> types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, HuobiFilterDirection? direction = null, int? limit = null);
+
+        /// <summary>
+        /// Gets a list of historical orders
+        /// </summary>
+        /// <param name="symbol">The symbol to get orders for</param>
+        /// <param name="startTime">Only get orders after this date</param>
+        /// <param name="endTime">Only get orders before this date</param>
+        /// <param name="direction">Direction of the results to return when using the fromId parameter</param>
+        /// <param name="limit">The max number of results</param>
+        /// <returns></returns>
+        WebCallResult<List<HuobiOrder>> GetHistoryOrders(string symbol = null, DateTime? startTime = null, DateTime? endTime = null, HuobiFilterDirection? direction = null, int? limit = null);
+
+        /// <summary>
+        /// Gets a list of historical orders
+        /// </summary>
+        /// <param name="symbol">The symbol to get orders for</param>
+        /// <param name="startTime">Only get orders after this date</param>
+        /// <param name="endTime">Only get orders before this date</param>
+        /// <param name="direction">Direction of the results to return when using the fromId parameter</param>
+        /// <param name="limit">The max number of results</param>
+        /// <returns></returns>
+        Task<WebCallResult<List<HuobiOrder>>> GetHistoryOrdersAsync(string symbol = null, DateTime? startTime = null, DateTime? endTime = null, HuobiFilterDirection? direction = null, int? limit = null);
     }
 }

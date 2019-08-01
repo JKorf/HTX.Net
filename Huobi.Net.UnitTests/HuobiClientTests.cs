@@ -494,7 +494,7 @@ namespace Huobi.Net.UnitTests
             var client = TestHelpers.CreateAuthResponseClient(SerializeExpected(expected, true));
 
             // act
-            var result = client.GetOrders("BTCETH", new[] { HuobiOrderState.Submitted });
+            var result = client.GetOrders(new[] { HuobiOrderState.Submitted }, "BTCETH");
 
             // assert
             Assert.AreEqual(true, result.Success);
@@ -525,7 +525,7 @@ namespace Huobi.Net.UnitTests
             var client = TestHelpers.CreateAuthResponseClient(SerializeExpected(expected, true));
 
             // act
-            var result = client.GetSymbolTrades("BTCETH", new[] { HuobiOrderType.LimitBuy });
+            var result = client.GetSymbolTrades(symbol: "BTCETH", types: new[] { HuobiOrderType.LimitBuy });
 
             // assert
             Assert.AreEqual(true, result.Success);
