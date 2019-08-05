@@ -1,0 +1,1886 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Huobi.Net</name>
+    </assembly>
+    <members>
+        <member name="P:Huobi.Net.HuobiClient.SignPublicRequests">
+            <summary>
+            Whether public requests should be signed if ApiCredentials are provided. Needed for accurate rate limiting.
+            </summary>
+        </member>
+        <member name="M:Huobi.Net.HuobiClient.#ctor">
+            <summary>
+            Create a new instance of HuobiClient using the default options
+            </summary>
+        </member>
+        <member name="M:Huobi.Net.HuobiClient.#ctor(Huobi.Net.HuobiClientOptions)">
+            <summary>
+            Create a new instance of the HuobiClient with the provided options
+            </summary>
+        </member>
+        <member name="M:Huobi.Net.HuobiClient.SetDefaultOptions(Huobi.Net.HuobiClientOptions)">
+            <summary>
+            Sets the default options to use for new clients
+            </summary>
+            <param name="options">The options to use for new clients</param>
+        </member>
+        <member name="M:Huobi.Net.HuobiClient.SetApiCredentials(System.String,System.String)">
+            <summary>
+            Set the API key and secret
+            </summary>
+            <param name="apiKey">The api key</param>
+            <param name="apiSecret">The api secret</param>
+        </member>
+        <member name="M:Huobi.Net.HuobiClient.GetMarketTickers">
+            <summary>
+            Gets the latest ticker for all markets
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiClient.GetMarketTickersAsync">
+            <summary>
+            Gets the latest ticker for all markets
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiClient.GetMarketTickerMerged(System.String)">
+            <summary>
+            Gets the ticker, including the best bid / best ask for a symbol
+            </summary>
+            <param name="symbol">The symbol to get the ticker for</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiClient.GetMarketTickerMergedAsync(System.String)">
+            <summary>
+            Gets the ticker, including the best bid / best ask for a symbol
+            </summary>
+            <param name="symbol">The symbol to get the ticker for</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiClient.GetMarketKlines(System.String,Huobi.Net.Objects.HuobiPeriod,System.Int32)">
+            <summary>
+            Get candlestick data for a market
+            </summary>
+            <param name="symbol">The symbol to get the data for</param>
+            <param name="period">The period of a single candlestick</param>
+            <param name="size">The amount of candlesticks</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiClient.GetMarketKlinesAsync(System.String,Huobi.Net.Objects.HuobiPeriod,System.Int32)">
+            <summary>
+            Get candlestick data for a market
+            </summary>
+            <param name="symbol">The symbol to get the data for</param>
+            <param name="period">The period of a single candlestick</param>
+            <param name="size">The amount of candlesticks</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiClient.GetMarketDepth(System.String,System.Int32,System.Nullable{System.Int32})">
+            <summary>
+            Gets the market depth for a symbol
+            </summary>
+            <param name="symbol">The symbol to request for</param>
+            <param name="mergeStep">The way the results will be merged together</param>
+            <param name="limit">The depth of the book</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiClient.GetMarketDepthAsync(System.String,System.Int32,System.Nullable{System.Int32})">
+            <summary>
+            Gets the market depth for a symbol
+            </summary>
+            <param name="symbol">The symbol to request for</param>
+            <param name="mergeStep">The way the results will be merged together</param>
+            <param name="limit">The depth of the book</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiClient.GetMarketLastTrade(System.String)">
+            <summary>
+            Gets the last trade for a market
+            </summary>
+            <param name="symbol">The symbol to request for</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiClient.GetMarketLastTradeAsync(System.String)">
+            <summary>
+            Gets the last trade for a market
+            </summary>
+            <param name="symbol">The symbol to request for</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiClient.GetMarketTradeHistory(System.String,System.Int32)">
+            <summary>
+            Get the last x trades for a market
+            </summary>
+            <param name="symbol">The market to get trades for</param>
+            <param name="limit">The max number of results</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiClient.GetMarketTradeHistoryAsync(System.String,System.Int32)">
+            <summary>
+            Get the last x trades for a market
+            </summary>
+            <param name="symbol">The market to get trades for</param>
+            <param name="limit">The max number of results</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiClient.GetMarketDetails24H(System.String)">
+            <summary>
+            Gets 24h stats for a market
+            </summary>
+            <param name="symbol">The market to get the data for</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiClient.GetMarketDetails24HAsync(System.String)">
+            <summary>
+            Gets 24h stats for a market
+            </summary>
+            <param name="symbol">The market to get the data for</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiClient.GetSymbols">
+            <summary>
+            Gets a list of supported symbols
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiClient.GetSymbolsAsync">
+            <summary>
+            Gets a list of supported symbols
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiClient.GetCurrencies">
+            <summary>
+            Gets a list of supported currencies
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiClient.GetCurrenciesAsync">
+            <summary>
+            Gets a list of supported currencies
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiClient.GetServerTime">
+            <summary>
+            Gets the server time
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiClient.GetServerTimeAsync">
+            <summary>
+            Gets the server time
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiClient.GetAccounts">
+            <summary>
+            Gets a list of accounts associated with the apikey/secret
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiClient.GetAccountsAsync">
+            <summary>
+            Gets a list of accounts associated with the apikey/secret
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiClient.GetBalances(System.Int64)">
+            <summary>
+            Gets a list of balances for a specific account
+            </summary>
+            <param name="accountId">The id of the account to get the balances for</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiClient.GetBalancesAsync(System.Int64)">
+            <summary>
+            Gets a list of balances for a specific account
+            </summary>
+            <param name="accountId">The id of the account to get the balances for</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiClient.GetSubAccountBalances(System.Int64)">
+            <summary>
+            Gets a list of balances for a specific sub account
+            </summary>
+            <param name="subAccountId">The id of the sub account to get the balances for</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiClient.GetSubAccountBalancesAsync(System.Int64)">
+            <summary>
+            Gets a list of balances for a specific sub account
+            </summary>
+            <param name="subAccountId">The id of the sub account to get the balances for</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiClient.TransferWithSubAccount(System.Int64,System.String,System.Decimal,Huobi.Net.Objects.HuobiTransferType)">
+            <summary>
+            Transfer asset between parent and sub account
+            </summary>
+            <param name="subAccountId">The target sub account id to transfer to or from</param>
+            <param name="currency">The crypto currency to transfer</param>
+            <param name="amount">The amount of asset to transfer</param>
+            <param name="transferType">The type of transfer</param>
+            <returns>Unique transfer id</returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiClient.TransferWithSubAccountAsync(System.Int64,System.String,System.Decimal,Huobi.Net.Objects.HuobiTransferType)">
+            <summary>
+            Transfer asset between parent and sub account
+            </summary>
+            <param name="subAccountId">The target sub account id to transfer to or from</param>
+            <param name="currency">The crypto currency to transfer</param>
+            <param name="amount">The amount of asset to transfer</param>
+            <param name="transferType">The type of transfer</param>
+            <returns>Unique transfer id</returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiClient.PlaceOrder(System.Int64,System.String,Huobi.Net.Objects.HuobiOrderType,System.Decimal,System.Nullable{System.Decimal})">
+            <summary>
+            Places an order
+            </summary>
+            <param name="accountId">The account to place the order for</param>
+            <param name="symbol">The symbol to place the order for</param>
+            <param name="orderType">The type of the order</param>
+            <param name="amount">The amount of the order</param>
+            <param name="price">The price of the order. Should be omitted for market orders</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiClient.PlaceOrderAsync(System.Int64,System.String,Huobi.Net.Objects.HuobiOrderType,System.Decimal,System.Nullable{System.Decimal})">
+            <summary>
+            Places an order
+            </summary>
+            <param name="accountId">The account to place the order for</param>
+            <param name="symbol">The symbol to place the order for</param>
+            <param name="orderType">The type of the order</param>
+            <param name="amount">The amount of the order</param>
+            <param name="price">The price of the order. Should be omitted for market orders</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiClient.GetOpenOrders(System.Nullable{System.Int64},System.String,System.Nullable{Huobi.Net.Objects.HuobiOrderSide},System.Nullable{System.Int32})">
+            <summary>
+            Gets a list of open orders
+            </summary>
+            <param name="accountId">The account id for which to get the orders for</param>
+            <param name="symbol">The symbol for which to get the orders for</param>
+            <param name="side">Only get buy or sell orders</param>
+            <param name="limit">The max number of results</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiClient.GetOpenOrdersAsync(System.Nullable{System.Int64},System.String,System.Nullable{Huobi.Net.Objects.HuobiOrderSide},System.Nullable{System.Int32})">
+            <summary>
+            Gets a list of open orders
+            </summary>
+            <param name="accountId">The account id for which to get the orders for</param>
+            <param name="symbol">The symbol for which to get the orders for</param>
+            <param name="side">Only get buy or sell orders</param>
+            <param name="limit">The max number of results</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiClient.CancelOrder(System.Int64)">
+            <summary>
+            Cancels an open order
+            </summary>
+            <param name="orderId">The id of the order to cancel</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiClient.CancelOrderAsync(System.Int64)">
+            <summary>
+            Cancels an open order
+            </summary>
+            <param name="orderId">The id of the order to cancel</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiClient.CancelOrders(System.Collections.Generic.IEnumerable{System.Int64})">
+            <summary>
+            Cancel multiple open orders
+            </summary>
+            <param name="orderIds">The ids of the orders to cancel</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiClient.CancelOrdersAsync(System.Collections.Generic.IEnumerable{System.Int64})">
+            <summary>
+            Cancel multiple open orders
+            </summary>
+            <param name="orderIds">The ids of the orders to cancel</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiClient.GetOrderInfo(System.Int64)">
+            <summary>
+            Get details of an order
+            </summary>
+            <param name="orderId">The id of the order to retrieve</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiClient.GetOrderInfoAsync(System.Int64)">
+            <summary>
+            Get details of an order
+            </summary>
+            <param name="orderId">The id of the order to retrieve</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiClient.GetOrderTrades(System.Int64)">
+            <summary>
+            Gets a list of trades made for a specific order
+            </summary>
+            <param name="orderId">The id of the order to get trades for</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiClient.GetOrderTradesAsync(System.Int64)">
+            <summary>
+            Gets a list of trades made for a specific order
+            </summary>
+            <param name="orderId">The id of the order to get trades for</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiClient.GetOrders(System.Collections.Generic.IEnumerable{Huobi.Net.Objects.HuobiOrderState},System.String,System.Collections.Generic.IEnumerable{Huobi.Net.Objects.HuobiOrderType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int64},System.Nullable{Huobi.Net.Objects.HuobiFilterDirection},System.Nullable{System.Int32})">
+            <summary>
+            Gets a list of orders
+            </summary>
+            <param name="symbol">The symbol to get orders for</param>
+            <param name="states">The states of orders to return</param>
+            <param name="types">The types of orders to return</param>
+            <param name="startTime">Only get orders after this date</param>
+            <param name="endTime">Only get orders before this date</param>
+            <param name="fromId">Only get orders with before or after this. Used together with the direction parameter</param>
+            <param name="direction">Direction of the results to return when using the fromId parameter</param>
+            <param name="limit">The max number of results</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiClient.GetOrdersAsync(System.Collections.Generic.IEnumerable{Huobi.Net.Objects.HuobiOrderState},System.String,System.Collections.Generic.IEnumerable{Huobi.Net.Objects.HuobiOrderType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int64},System.Nullable{Huobi.Net.Objects.HuobiFilterDirection},System.Nullable{System.Int32})">
+            <summary>
+            Gets a list of orders
+            </summary>
+            <param name="symbol">The symbol to get orders for</param>
+            <param name="states">The states of orders to return</param>
+            <param name="types">The types of orders to return</param>
+            <param name="startTime">Only get orders after this date</param>
+            <param name="endTime">Only get orders before this date</param>
+            <param name="fromId">Only get orders with before or after this. Used together with the direction parameter</param>
+            <param name="direction">Direction of the results to return when using the fromId parameter</param>
+            <param name="limit">The max number of results</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiClient.GetSymbolTrades(System.Collections.Generic.IEnumerable{Huobi.Net.Objects.HuobiOrderState},System.String,System.Collections.Generic.IEnumerable{Huobi.Net.Objects.HuobiOrderType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int64},System.Nullable{Huobi.Net.Objects.HuobiFilterDirection},System.Nullable{System.Int32})">
+            <summary>
+            Gets a list of trades for a specific symbol
+            </summary>
+            <param name="symbol">The symbol to retrieve trades for</param>
+            <param name="types">The type of orders to return</param>
+            <param name="startTime">Only get orders after this date</param>
+            <param name="endTime">Only get orders before this date</param>
+            <param name="fromId">Only get orders with before or after this. Used together with the direction parameter</param>
+            <param name="direction">Direction of the results to return when using the fromId parameter</param>
+            <param name="limit">The max number of results</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiClient.GetSymbolTradesAsync(System.Collections.Generic.IEnumerable{Huobi.Net.Objects.HuobiOrderState},System.String,System.Collections.Generic.IEnumerable{Huobi.Net.Objects.HuobiOrderType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int64},System.Nullable{Huobi.Net.Objects.HuobiFilterDirection},System.Nullable{System.Int32})">
+            <summary>
+            Gets a list of trades for a specific symbol
+            </summary>
+            <param name="symbol">The symbol to retrieve trades for</param>
+            <param name="types">The type of orders to return</param>
+            <param name="startTime">Only get orders after this date</param>
+            <param name="endTime">Only get orders before this date</param>
+            <param name="fromId">Only get orders with before or after this. Used together with the direction parameter</param>
+            <param name="direction">Direction of the results to return when using the fromId parameter</param>
+            <param name="limit">The max number of results</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiClient.GetHistoryOrders(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Huobi.Net.Objects.HuobiFilterDirection},System.Nullable{System.Int32})">
+            <summary>
+            Gets a list of history orders
+            </summary>
+            <param name="symbol">The symbol to get orders for</param>
+            <param name="startTime">Only get orders after this date</param>
+            <param name="endTime">Only get orders before this date</param>
+            <param name="direction">Direction of the results to return when using the fromId parameter</param>
+            <param name="limit">The max number of results</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiClient.GetHistoryOrdersAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Huobi.Net.Objects.HuobiFilterDirection},System.Nullable{System.Int32})">
+            <summary>
+            Gets a list of history orders
+            </summary>
+            <param name="symbol">The symbol to get orders for</param>
+            <param name="startTime">Only get orders after this date</param>
+            <param name="endTime">Only get orders before this date</param>
+            <param name="direction">Direction of the results to return when using the fromId parameter</param>
+            <param name="limit">The max number of results</param>
+            <returns></returns>
+        </member>
+        <member name="P:Huobi.Net.HuobiClientOptions.SignPublicRequests">
+            <summary>
+            Whether public requests should be signed if ApiCredentials are provided. Needed for accurate rate limiting.
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.HuobiSocketClientOptions.BaseAddressAuthenticated">
+            <summary>
+            The base address for the authenticated websocket
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.HuobiOrderBookOptions.MergeStep">
+            <summary>
+            The way the entries are merged. 0 is no merge, 2 means to combine the entries on 2 decimal places
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.HuobiOrderBookOptions.SocketClient">
+            <summary>
+            The client to use for the socket connection. When using the same client for multiple order books the connection can be shared.
+            </summary>
+        </member>
+        <member name="M:Huobi.Net.HuobiOrderBookOptions.#ctor(System.Nullable{System.Int32},Huobi.Net.Interfaces.IHuobiSocketClient)">
+            <summary>
+            
+            </summary>
+            <param name="mergeStep">The way the entries are merged. 0 is no merge, 2 means to combine the entries on 2 decimal places</param>
+            <param name="socketClient">The client to use for the socket connection. When using the same client for multiple order books the connection can be shared.</param>
+        </member>
+        <member name="M:Huobi.Net.HuobiSocketClient.#ctor">
+            <summary>
+            Create a new instance of HuobiSocketClient with default options
+            </summary>
+        </member>
+        <member name="M:Huobi.Net.HuobiSocketClient.#ctor(Huobi.Net.HuobiSocketClientOptions)">
+            <summary>
+            Create a new instance of HuobiSocketClient using provided options
+            </summary>
+            <param name="options">The options to use for this client</param>
+        </member>
+        <member name="M:Huobi.Net.HuobiSocketClient.SetDefaultOptions(Huobi.Net.HuobiSocketClientOptions)">
+            <summary>
+            Set the default options to be used when creating new socket clients
+            </summary>
+            <param name="options">The options to use for new clients</param>
+        </member>
+        <member name="M:Huobi.Net.HuobiSocketClient.QueryMarketKlines(System.String,Huobi.Net.Objects.HuobiPeriod)">
+            <summary>
+            Gets candlestick data for a symbol
+            </summary>
+            <param name="symbol">The symbol to get the data for</param>
+            <param name="period">The period of a single candlestick</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiSocketClient.QueryMarketKlinesAsync(System.String,Huobi.Net.Objects.HuobiPeriod)">
+            <summary>
+            Gets candlestick data for a symbol
+            </summary>
+            <param name="symbol">The symbol to get the data for</param>
+            <param name="period">The period of a single candlestick</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiSocketClient.SubscribeToMarketKlineUpdates(System.String,Huobi.Net.Objects.HuobiPeriod,System.Action{Huobi.Net.Objects.HuobiMarketKline})">
+            <summary>
+            Subscribes to candlestick updates for a symbol
+            </summary>
+            <param name="symbol">The symbol to subscribe to</param>
+            <param name="period">The period of a single candlestick</param>
+            <param name="onData">The handler for updates</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiSocketClient.SubscribeToMarketKlineUpdatesAsync(System.String,Huobi.Net.Objects.HuobiPeriod,System.Action{Huobi.Net.Objects.HuobiMarketKline})">
+            <summary>
+            Subscribes to candlestick updates for a symbol
+            </summary>
+            <param name="symbol">The symbol to subscribe to</param>
+            <param name="period">The period of a single candlestick</param>
+            <param name="onData">The handler for updates</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiSocketClient.QueryMarketDepth(System.String,System.Int32)">
+            <summary>
+            Gets the current order book for a symbol
+            </summary>
+            <param name="symbol">The symbol to get the data for</param>
+            <param name="mergeStep">The way the results will be merged together</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiSocketClient.QueryMarketDepthAsync(System.String,System.Int32)">
+            <summary>
+            Gets the current order book for a symbol
+            </summary>
+            <param name="symbol">The symbol to get the data for</param>
+            <param name="mergeStep">The way the results will be merged together</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiSocketClient.SubscribeToMarketDepthUpdates(System.String,System.Int32,System.Action{Huobi.Net.Objects.HuobiMarketDepth})">
+            <summary>
+            Subscribes to order book updates for a symbol
+            </summary>
+            <param name="symbol">The symbol to subscribe to</param>
+            <param name="mergeStep">The way the results will be merged together</param>
+            <param name="onData">The handler for updates</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiSocketClient.SubscribeToMarketDepthUpdatesAsync(System.String,System.Int32,System.Action{Huobi.Net.Objects.HuobiMarketDepth})">
+            <summary>
+            Subscribes to order book updates for a symbol
+            </summary>
+            <param name="symbol">The symbol to subscribe to</param>
+            <param name="mergeStep">The way the results will be merged together</param>
+            <param name="onData">The handler for updates</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiSocketClient.QueryMarketTrades(System.String)">
+            <summary>
+            Gets a list of trades for a symbol
+            </summary>
+            <param name="symbol">The symbol to get trades for</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiSocketClient.QueryMarketTradesAsync(System.String)">
+            <summary>
+            Gets a list of trades for a symbol
+            </summary>
+            <param name="symbol">The symbol to get trades for</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiSocketClient.SubscribeToMarketTradeUpdates(System.String,System.Action{Huobi.Net.Objects.HuobiMarketTrade})">
+            <summary>
+            Subscribes to trade updates for a symbol
+            </summary>
+            <param name="symbol">The symbol to subscribe to</param>
+            <param name="onData">The handler for updates</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiSocketClient.SubscribeToMarketTradeUpdatesAsync(System.String,System.Action{Huobi.Net.Objects.HuobiMarketTrade})">
+            <summary>
+            Subscribes to trade updates for a symbol
+            </summary>
+            <param name="symbol">The symbol to subscribe to</param>
+            <param name="onData">The handler for updates</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiSocketClient.QueryMarketDetails(System.String)">
+            <summary>
+            Gets details for a market
+            </summary>
+            <param name="symbol">The symbol to get data for</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiSocketClient.QueryMarketDetailsAsync(System.String)">
+            <summary>
+            Gets details for a market
+            </summary>
+            <param name="symbol">The symbol to get data for</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiSocketClient.SubscribeToMarketDetailUpdates(System.String,System.Action{Huobi.Net.Objects.HuobiMarketDetails})">
+            <summary>
+            Subscribes to market detail updates for a symbol
+            </summary>
+            <param name="symbol">The symbol to subscribe to</param>
+            <param name="onData">The handler for updates</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiSocketClient.SubscribeToMarketDetailUpdatesAsync(System.String,System.Action{Huobi.Net.Objects.HuobiMarketDetails})">
+            <summary>
+            Subscribes to market detail updates for a symbol
+            </summary>
+            <param name="symbol">The symbol to subscribe to</param>
+            <param name="onData">The handler for updates</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiSocketClient.SubscribeToMarketTickerUpdates(System.Action{Huobi.Net.Objects.HuobiMarketTicks})">
+            <summary>
+            Subscribes to updates for all market tickers
+            </summary>
+            <param name="onData">The handler for updates</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiSocketClient.SubscribeToMarketTickerUpdatesAsync(System.Action{Huobi.Net.Objects.HuobiMarketTicks})">
+            <summary>
+            Subscribes to updates for all market tickers
+            </summary>
+            <param name="onData">The handler for updates</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiSocketClient.QueryAccounts">
+            <summary>
+            Gets a list of accounts associated with the apikey/secret
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiSocketClient.QueryAccountsAsync">
+            <summary>
+            Gets a list of accounts associated with the apikey/secret
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiSocketClient.SubscribeToAccountUpdates(System.Action{Huobi.Net.Objects.SocketObjects.HuobiAccountEvent})">
+            <summary>
+            Subscribe to account/wallet updates
+            </summary>
+            <param name="onData">The handler for updates</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiSocketClient.SubscribeToAccountUpdatesAsync(System.Action{Huobi.Net.Objects.SocketObjects.HuobiAccountEvent})">
+            <summary>
+            Subscribe to account/wallet updates
+            </summary>
+            <param name="onData">The handler for updates</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiSocketClient.QueryOrders(System.Int64,System.String,Huobi.Net.Objects.HuobiOrderState[],Huobi.Net.Objects.HuobiOrderType[],System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int64},System.Nullable{System.Int32})">
+            <summary>
+            Gets a list of orders
+            </summary>
+            <param name="accountId">The account id to get orders for</param>
+            <param name="symbol">The symbol to get orders for</param>
+            <param name="states">The states of orders to return</param>
+            <param name="types">The types of orders to return</param>
+            <param name="startTime">Only get orders after this date</param>
+            <param name="endTime">Only get orders before this date</param>
+            <param name="fromId">Only get orders with id's higher than this</param>
+            <param name="limit">The max number of results</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiSocketClient.QueryOrdersAsync(System.Int64,System.String,Huobi.Net.Objects.HuobiOrderState[],Huobi.Net.Objects.HuobiOrderType[],System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int64},System.Nullable{System.Int32})">
+            <summary>
+            Gets a list of orders
+            </summary>
+            <param name="accountId">The account id to get orders for</param>
+            <param name="symbol">The symbol to get orders for</param>
+            <param name="states">The states of orders to return</param>
+            <param name="types">The types of orders to return</param>
+            <param name="startTime">Only get orders after this date</param>
+            <param name="endTime">Only get orders before this date</param>
+            <param name="fromId">Only get orders with id's higher than this</param>
+            <param name="limit">The max number of results</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiSocketClient.SubscribeToOrderUpdates(System.Action{Huobi.Net.Objects.HuobiOrderUpdate})">
+            <summary>
+            Subscribe to updates when any order changes
+            </summary>
+            <param name="onData">The handler for updates</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiSocketClient.SubscribeToOrderUpdatesAsync(System.Action{Huobi.Net.Objects.HuobiOrderUpdate})">
+            <summary>
+            Subscribe to updates when any order changes
+            </summary>
+            <param name="onData">The handler for updates</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiSocketClient.SubscribeToOrderUpdates(System.String,System.Action{Huobi.Net.Objects.HuobiOrderUpdate})">
+            <summary>
+            Subscribe to updates when a order for a symbol changes
+            </summary> 
+            <param name="symbol">The symbol to subscribe to</param>
+            <param name="onData">The handler for updates</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiSocketClient.SubscribeToOrderUpdatesAsync(System.String,System.Action{Huobi.Net.Objects.HuobiOrderUpdate})">
+            <summary>
+            Subscribe to updates when a order for a symbol changes
+            </summary>
+            <param name="symbol">The symbol to subscribe to</param>
+            <param name="onData">The handler for updates</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiSocketClient.QueryOrderDetails(System.Int64)">
+            <summary>
+            Gets data for a specific order
+            </summary>
+            <param name="orderId">The id of the order to retrieve</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiSocketClient.QueryOrderDetailsAsync(System.Int64)">
+            <summary>
+            Gets data for a specific order
+            </summary>
+            <param name="orderId">The id of the order to retrieve</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiSymbolOrderBook.#ctor(System.String,Huobi.Net.HuobiOrderBookOptions)">
+            <summary>
+            Create a new order book instance
+            </summary>
+            <param name="symbol">The symbol the order book is for</param>
+            <param name="options">The options for the order book</param>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.SetApiCredentials(System.String,System.String)">
+            <summary>
+            Set the API key and secret
+            </summary>
+            <param name="apiKey">The api key</param>
+            <param name="apiSecret">The api secret</param>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetMarketTickers">
+            <summary>
+            Gets the latest ticker for all markets
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetMarketTickersAsync">
+            <summary>
+            Gets the latest ticker for all markets
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetMarketTickerMerged(System.String)">
+            <summary>
+            Gets the ticker, including the best bid / best ask for a symbol
+            </summary>
+            <param name="symbol">The symbol to get the ticker for</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetMarketTickerMergedAsync(System.String)">
+            <summary>
+            Gets the ticker, including the best bid / best ask for a symbol
+            </summary>
+            <param name="symbol">The symbol to get the ticker for</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetMarketKlines(System.String,Huobi.Net.Objects.HuobiPeriod,System.Int32)">
+            <summary>
+            Get candlestick data for a market
+            </summary>
+            <param name="symbol">The symbol to get the data for</param>
+            <param name="period">The period of a single candlestick</param>
+            <param name="size">The amount of candlesticks</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetMarketKlinesAsync(System.String,Huobi.Net.Objects.HuobiPeriod,System.Int32)">
+            <summary>
+            Get candlestick data for a market
+            </summary>
+            <param name="symbol">The symbol to get the data for</param>
+            <param name="period">The period of a single candlestick</param>
+            <param name="size">The amount of candlesticks</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetMarketDepth(System.String,System.Int32,System.Nullable{System.Int32})">
+            <summary>
+            Gets the market depth for a symbol
+            </summary>
+            <param name="symbol">The symbol to request for</param>
+            <param name="mergeStep">The way the results will be merged together</param>
+            <param name="limit">The depth of the book</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetMarketDepthAsync(System.String,System.Int32,System.Nullable{System.Int32})">
+            <summary>
+            Gets the market depth for a symbol
+            </summary>
+            <param name="symbol">The symbol to request for</param>
+            <param name="mergeStep">The way the results will be merged together</param>
+            <param name="limit">The depth of the book</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetMarketLastTrade(System.String)">
+            <summary>
+            Gets the last trade for a market
+            </summary>
+            <param name="symbol">The symbol to request for</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetMarketLastTradeAsync(System.String)">
+            <summary>
+            Gets the last trade for a market
+            </summary>
+            <param name="symbol">The symbol to request for</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetMarketTradeHistory(System.String,System.Int32)">
+            <summary>
+            Get the last x trades for a market
+            </summary>
+            <param name="symbol">The market to get trades for</param>
+            <param name="limit">The max number of results</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetMarketTradeHistoryAsync(System.String,System.Int32)">
+            <summary>
+            Get the last x trades for a market
+            </summary>
+            <param name="symbol">The market to get trades for</param>
+            <param name="limit">The max number of results</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetMarketDetails24H(System.String)">
+            <summary>
+            Gets 24h stats for a market
+            </summary>
+            <param name="symbol">The market to get the data for</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetMarketDetails24HAsync(System.String)">
+            <summary>
+            Gets 24h stats for a market
+            </summary>
+            <param name="symbol">The market to get the data for</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetSymbols">
+            <summary>
+            Gets a list of supported symbols
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetSymbolsAsync">
+            <summary>
+            Gets a list of supported symbols
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetCurrencies">
+            <summary>
+            Gets a list of supported currencies
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetCurrenciesAsync">
+            <summary>
+            Gets a list of supported currencies
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetServerTime">
+            <summary>
+            Gets the server time
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetServerTimeAsync">
+            <summary>
+            Gets the server time
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetAccounts">
+            <summary>
+            Gets a list of accounts associated with the apikey/secret
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetAccountsAsync">
+            <summary>
+            Gets a list of accounts associated with the apikey/secret
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetBalances(System.Int64)">
+            <summary>
+            Gets a list of balances for a specific account
+            </summary>
+            <param name="accountId">The id of the account to get the balances for</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetBalancesAsync(System.Int64)">
+            <summary>
+            Gets a list of balances for a specific account
+            </summary>
+            <param name="accountId">The id of the account to get the balances for</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetSubAccountBalances(System.Int64)">
+            <summary>
+            Gets a list of balances for a specific sub account
+            </summary>
+            <param name="subAccountId">The id of the sub account to get the balances for</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetSubAccountBalancesAsync(System.Int64)">
+            <summary>
+            Gets a list of balances for a specific sub account
+            </summary>
+            <param name="subAccountId">The id of the sub account to get the balances for</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.TransferWithSubAccount(System.Int64,System.String,System.Decimal,Huobi.Net.Objects.HuobiTransferType)">
+            <summary>
+            Transfer asset between parent and sub account
+            </summary>
+            <param name="subAccountId">The target sub account id to transfer to or from</param>
+            <param name="currency">The crypto currency to transfer</param>
+            <param name="amount">The amount of asset to transfer</param>
+            <param name="transferType">The type of transfer</param>
+            <returns>Unique transfer id</returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.TransferWithSubAccountAsync(System.Int64,System.String,System.Decimal,Huobi.Net.Objects.HuobiTransferType)">
+            <summary>
+            Transfer asset between parent and sub account
+            </summary>
+            <param name="subAccountId">The target sub account id to transfer to or from</param>
+            <param name="currency">The crypto currency to transfer</param>
+            <param name="amount">The amount of asset to transfer</param>
+            <param name="transferType">The type of transfer</param>
+            <returns>Unique transfer id</returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.PlaceOrder(System.Int64,System.String,Huobi.Net.Objects.HuobiOrderType,System.Decimal,System.Nullable{System.Decimal})">
+            <summary>
+            Places an order
+            </summary>
+            <param name="accountId">The account to place the order for</param>
+            <param name="symbol">The symbol to place the order for</param>
+            <param name="orderType">The type of the order</param>
+            <param name="amount">The amount of the order</param>
+            <param name="price">The price of the order. Should be omitted for market orders</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.PlaceOrderAsync(System.Int64,System.String,Huobi.Net.Objects.HuobiOrderType,System.Decimal,System.Nullable{System.Decimal})">
+            <summary>
+            Places an order
+            </summary>
+            <param name="accountId">The account to place the order for</param>
+            <param name="symbol">The symbol to place the order for</param>
+            <param name="orderType">The type of the order</param>
+            <param name="amount">The amount of the order</param>
+            <param name="price">The price of the order. Should be omitted for market orders</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetOpenOrders(System.Nullable{System.Int64},System.String,System.Nullable{Huobi.Net.Objects.HuobiOrderSide},System.Nullable{System.Int32})">
+            <summary>
+            Gets a list of open orders
+            </summary>
+            <param name="accountId">The account id for which to get the orders for</param>
+            <param name="symbol">The symbol for which to get the orders for</param>
+            <param name="side">Only get buy or sell orders</param>
+            <param name="limit">The max number of results</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetOpenOrdersAsync(System.Nullable{System.Int64},System.String,System.Nullable{Huobi.Net.Objects.HuobiOrderSide},System.Nullable{System.Int32})">
+            <summary>
+            Gets a list of open orders
+            </summary>
+            <param name="accountId">The account id for which to get the orders for</param>
+            <param name="symbol">The symbol for which to get the orders for</param>
+            <param name="side">Only get buy or sell orders</param>
+            <param name="limit">The max number of results</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.CancelOrder(System.Int64)">
+            <summary>
+            Cancels an open order
+            </summary>
+            <param name="orderId">The id of the order to cancel</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.CancelOrderAsync(System.Int64)">
+            <summary>
+            Cancels an open order
+            </summary>
+            <param name="orderId">The id of the order to cancel</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.CancelOrders(System.Collections.Generic.IEnumerable{System.Int64})">
+            <summary>
+            Cancel multiple open orders
+            </summary>
+            <param name="orderIds">The ids of the orders to cancel</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.CancelOrdersAsync(System.Collections.Generic.IEnumerable{System.Int64})">
+            <summary>
+            Cancel multiple open orders
+            </summary>
+            <param name="orderIds">The ids of the orders to cancel</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetOrderInfo(System.Int64)">
+            <summary>
+            Get details of an order
+            </summary>
+            <param name="orderId">The id of the order to retrieve</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetOrderInfoAsync(System.Int64)">
+            <summary>
+            Get details of an order
+            </summary>
+            <param name="orderId">The id of the order to retrieve</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetOrderTrades(System.Int64)">
+            <summary>
+            Gets a list of trades made for a specific order
+            </summary>
+            <param name="orderId">The id of the order to get trades for</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetOrderTradesAsync(System.Int64)">
+            <summary>
+            Gets a list of trades made for a specific order
+            </summary>
+            <param name="orderId">The id of the order to get trades for</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetOrders(System.Collections.Generic.IEnumerable{Huobi.Net.Objects.HuobiOrderState},System.String,System.Collections.Generic.IEnumerable{Huobi.Net.Objects.HuobiOrderType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int64},System.Nullable{Huobi.Net.Objects.HuobiFilterDirection},System.Nullable{System.Int32})">
+            <summary>
+            Gets a list of orders
+            </summary>
+            <param name="symbol">The symbol to get orders for</param>
+            <param name="states">The states of orders to return</param>
+            <param name="types">The types of orders to return</param>
+            <param name="startTime">Only get orders after this date</param>
+            <param name="endTime">Only get orders before this date</param>
+            <param name="fromId">Only get orders with before or after this. Used together with the direction parameter</param>
+            <param name="direction">Direction of the results to return when using the fromId parameter</param>
+            <param name="limit">The max number of results</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetOrdersAsync(System.Collections.Generic.IEnumerable{Huobi.Net.Objects.HuobiOrderState},System.String,System.Collections.Generic.IEnumerable{Huobi.Net.Objects.HuobiOrderType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int64},System.Nullable{Huobi.Net.Objects.HuobiFilterDirection},System.Nullable{System.Int32})">
+            <summary>
+            Gets a list of orders
+            </summary>
+            <param name="symbol">The symbol to get orders for</param>
+            <param name="states">The states of orders to return</param>
+            <param name="types">The types of orders to return</param>
+            <param name="startTime">Only get orders after this date</param>
+            <param name="endTime">Only get orders before this date</param>
+            <param name="fromId">Only get orders with before or after this. Used together with the direction parameter</param>
+            <param name="direction">Direction of the results to return when using the fromId parameter</param>
+            <param name="limit">The max number of results</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetSymbolTrades(System.Collections.Generic.IEnumerable{Huobi.Net.Objects.HuobiOrderState},System.String,System.Collections.Generic.IEnumerable{Huobi.Net.Objects.HuobiOrderType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int64},System.Nullable{Huobi.Net.Objects.HuobiFilterDirection},System.Nullable{System.Int32})">
+            <summary>
+            Gets a list of trades for a specific symbol
+            </summary>
+            <param name="symbol">The symbol to retrieve trades for</param>
+            <param name="types">The type of orders to return</param>
+            <param name="startTime">Only get orders after this date</param>
+            <param name="endTime">Only get orders before this date</param>
+            <param name="fromId">Only get orders with before or after this. Used together with the direction parameter</param>
+            <param name="direction">Direction of the results to return when using the fromId parameter</param>
+            <param name="limit">The max number of results</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetSymbolTradesAsync(System.Collections.Generic.IEnumerable{Huobi.Net.Objects.HuobiOrderState},System.String,System.Collections.Generic.IEnumerable{Huobi.Net.Objects.HuobiOrderType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int64},System.Nullable{Huobi.Net.Objects.HuobiFilterDirection},System.Nullable{System.Int32})">
+            <summary>
+            Gets a list of trades for a specific symbol
+            </summary>
+            <param name="symbol">The symbol to retrieve trades for</param>
+            <param name="types">The type of orders to return</param>
+            <param name="startTime">Only get orders after this date</param>
+            <param name="endTime">Only get orders before this date</param>
+            <param name="fromId">Only get orders with before or after this. Used together with the direction parameter</param>
+            <param name="direction">Direction of the results to return when using the fromId parameter</param>
+            <param name="limit">The max number of results</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetHistoryOrders(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Huobi.Net.Objects.HuobiFilterDirection},System.Nullable{System.Int32})">
+            <summary>
+            Gets a list of historical orders
+            </summary>
+            <param name="symbol">The symbol to get orders for</param>
+            <param name="startTime">Only get orders after this date</param>
+            <param name="endTime">Only get orders before this date</param>
+            <param name="direction">Direction of the results to return when using the fromId parameter</param>
+            <param name="limit">The max number of results</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetHistoryOrdersAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Huobi.Net.Objects.HuobiFilterDirection},System.Nullable{System.Int32})">
+            <summary>
+            Gets a list of historical orders
+            </summary>
+            <param name="symbol">The symbol to get orders for</param>
+            <param name="startTime">Only get orders after this date</param>
+            <param name="endTime">Only get orders before this date</param>
+            <param name="direction">Direction of the results to return when using the fromId parameter</param>
+            <param name="limit">The max number of results</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.QueryMarketKlines(System.String,Huobi.Net.Objects.HuobiPeriod)">
+            <summary>
+            Gets candlestick data for a symbol
+            </summary>
+            <param name="symbol">The symbol to get the data for</param>
+            <param name="period">The period of a single candlestick</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.QueryMarketKlinesAsync(System.String,Huobi.Net.Objects.HuobiPeriod)">
+            <summary>
+            Gets candlestick data for a symbol
+            </summary>
+            <param name="symbol">The symbol to get the data for</param>
+            <param name="period">The period of a single candlestick</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.SubscribeToMarketKlineUpdates(System.String,Huobi.Net.Objects.HuobiPeriod,System.Action{Huobi.Net.Objects.HuobiMarketKline})">
+            <summary>
+            Subscribes to candlestick updates for a symbol
+            </summary>
+            <param name="symbol">The symbol to subscribe to</param>
+            <param name="period">The period of a single candlestick</param>
+            <param name="onData">The handler for updates</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.SubscribeToMarketKlineUpdatesAsync(System.String,Huobi.Net.Objects.HuobiPeriod,System.Action{Huobi.Net.Objects.HuobiMarketKline})">
+            <summary>
+            Subscribes to candlestick updates for a symbol
+            </summary>
+            <param name="symbol">The symbol to subscribe to</param>
+            <param name="period">The period of a single candlestick</param>
+            <param name="onData">The handler for updates</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.QueryMarketDepth(System.String,System.Int32)">
+            <summary>
+            Gets the current order book for a symbol
+            </summary>
+            <param name="symbol">The symbol to get the data for</param>
+            <param name="mergeStep">The way the results will be merged together</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.QueryMarketDepthAsync(System.String,System.Int32)">
+            <summary>
+            Gets the current order book for a symbol
+            </summary>
+            <param name="symbol">The symbol to get the data for</param>
+            <param name="mergeStep">The way the results will be merged together</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.SubscribeToMarketDepthUpdates(System.String,System.Int32,System.Action{Huobi.Net.Objects.HuobiMarketDepth})">
+            <summary>
+            Subscribes to order book updates for a symbol
+            </summary>
+            <param name="symbol">The symbol to subscribe to</param>
+            <param name="mergeStep">The way the results will be merged together</param>
+            <param name="onData">The handler for updates</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.SubscribeToMarketDepthUpdatesAsync(System.String,System.Int32,System.Action{Huobi.Net.Objects.HuobiMarketDepth})">
+            <summary>
+            Subscribes to order book updates for a symbol
+            </summary>
+            <param name="symbol">The symbol to subscribe to</param>
+            <param name="mergeStep">The way the results will be merged together</param>
+            <param name="onData">The handler for updates</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.QueryMarketTrades(System.String)">
+            <summary>
+            Gets a list of trades for a symbol
+            </summary>
+            <param name="symbol">The symbol to get trades for</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.QueryMarketTradesAsync(System.String)">
+            <summary>
+            Gets a list of trades for a symbol
+            </summary>
+            <param name="symbol">The symbol to get trades for</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.SubscribeToMarketTradeUpdates(System.String,System.Action{Huobi.Net.Objects.HuobiMarketTrade})">
+            <summary>
+            Subscribes to trade updates for a symbol
+            </summary>
+            <param name="symbol">The symbol to subscribe to</param>
+            <param name="onData">The handler for updates</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.SubscribeToMarketTradeUpdatesAsync(System.String,System.Action{Huobi.Net.Objects.HuobiMarketTrade})">
+            <summary>
+            Subscribes to trade updates for a symbol
+            </summary>
+            <param name="symbol">The symbol to subscribe to</param>
+            <param name="onData">The handler for updates</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.QueryMarketDetails(System.String)">
+            <summary>
+            Gets details for a market
+            </summary>
+            <param name="symbol">The symbol to get data for</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.QueryMarketDetailsAsync(System.String)">
+            <summary>
+            Gets details for a market
+            </summary>
+            <param name="symbol">The symbol to get data for</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.SubscribeToMarketDetailUpdates(System.String,System.Action{Huobi.Net.Objects.HuobiMarketDetails})">
+            <summary>
+            Subscribes to market detail updates for a symbol
+            </summary>
+            <param name="symbol">The symbol to subscribe to</param>
+            <param name="onData">The handler for updates</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.SubscribeToMarketDetailUpdatesAsync(System.String,System.Action{Huobi.Net.Objects.HuobiMarketDetails})">
+            <summary>
+            Subscribes to market detail updates for a symbol
+            </summary>
+            <param name="symbol">The symbol to subscribe to</param>
+            <param name="onData">The handler for updates</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.SubscribeToMarketTickerUpdates(System.Action{Huobi.Net.Objects.HuobiMarketTicks})">
+            <summary>
+            Subscribes to updates for all market tickers
+            </summary>
+            <param name="onData">The handler for updates</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.SubscribeToMarketTickerUpdatesAsync(System.Action{Huobi.Net.Objects.HuobiMarketTicks})">
+            <summary>
+            Subscribes to updates for all market tickers
+            </summary>
+            <param name="onData">The handler for updates</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.QueryAccounts">
+            <summary>
+            Gets a list of accounts associated with the apikey/secret
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.QueryAccountsAsync">
+            <summary>
+            Gets a list of accounts associated with the apikey/secret
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.SubscribeToAccountUpdates(System.Action{Huobi.Net.Objects.SocketObjects.HuobiAccountEvent})">
+            <summary>
+            Subscribe to account/wallet updates
+            </summary>
+            <param name="onData">The handler for updates</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.SubscribeToAccountUpdatesAsync(System.Action{Huobi.Net.Objects.SocketObjects.HuobiAccountEvent})">
+            <summary>
+            Subscribe to account/wallet updates
+            </summary>
+            <param name="onData">The handler for updates</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.QueryOrders(System.Int64,System.String,Huobi.Net.Objects.HuobiOrderState[],Huobi.Net.Objects.HuobiOrderType[],System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int64},System.Nullable{System.Int32})">
+            <summary>
+            Gets a list of orders
+            </summary>
+            <param name="accountId">The account id to get orders for</param>
+            <param name="symbol">The symbol to get orders for</param>
+            <param name="states">The states of orders to return</param>
+            <param name="types">The types of orders to return</param>
+            <param name="startTime">Only get orders after this date</param>
+            <param name="endTime">Only get orders before this date</param>
+            <param name="fromId">Only get orders with id's higher than this</param>
+            <param name="limit">The max number of results</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.QueryOrdersAsync(System.Int64,System.String,Huobi.Net.Objects.HuobiOrderState[],Huobi.Net.Objects.HuobiOrderType[],System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int64},System.Nullable{System.Int32})">
+            <summary>
+            Gets a list of orders
+            </summary>
+            <param name="accountId">The account id to get orders for</param>
+            <param name="symbol">The symbol to get orders for</param>
+            <param name="states">The states of orders to return</param>
+            <param name="types">The types of orders to return</param>
+            <param name="startTime">Only get orders after this date</param>
+            <param name="endTime">Only get orders before this date</param>
+            <param name="fromId">Only get orders with id's higher than this</param>
+            <param name="limit">The max number of results</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.SubscribeToOrderUpdates(System.Action{Huobi.Net.Objects.HuobiOrderUpdate})">
+            <summary>
+            Subscribe to updates when any order changes
+            </summary>
+            <param name="onData">The handler for updates</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.SubscribeToOrderUpdatesAsync(System.Action{Huobi.Net.Objects.HuobiOrderUpdate})">
+            <summary>
+            Subscribe to updates when any order changes
+            </summary>
+            <param name="onData">The handler for updates</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.SubscribeToOrderUpdates(System.String,System.Action{Huobi.Net.Objects.HuobiOrderUpdate})">
+            <summary>
+            Subscribe to updates when a order for a symbol changes
+            </summary> 
+            <param name="symbol">The symbol to subscribe to</param>
+            <param name="onData">The handler for updates</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.SubscribeToOrderUpdatesAsync(System.String,System.Action{Huobi.Net.Objects.HuobiOrderUpdate})">
+            <summary>
+            Subscribe to updates when a order for a symbol changes
+            </summary>
+            <param name="symbol">The symbol to subscribe to</param>
+            <param name="onData">The handler for updates</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.QueryOrderDetails(System.Int64)">
+            <summary>
+            Gets data for a specific order
+            </summary>
+            <param name="orderId">The id of the order to retrieve</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.QueryOrderDetailsAsync(System.Int64)">
+            <summary>
+            Gets data for a specific order
+            </summary>
+            <param name="orderId">The id of the order to retrieve</param>
+            <returns></returns>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiAccount.Id">
+            <summary>
+            The id of the account
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiAccount.State">
+            <summary>
+            The state of the account
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiAccount.Type">
+            <summary>
+            The type of the account
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiAccountBalances.Data">
+            <summary>
+            The list of balances
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiBalance.Currency">
+            <summary>
+            The currency
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiBalance.Type">
+            <summary>
+            The type of the balance
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiBalance.Balance">
+            <summary>
+            The amount
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiBatchCancelResult.Successful">
+            <summary>
+            Orders that were successfully canceled
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiBatchCancelResult.Failed">
+            <summary>
+            Orders that failed to cancel
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiFailedCancelResult.ErrorCode">
+            <summary>
+            The error code
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiFailedCancelResult.ErrorMessage">
+            <summary>
+            The error message
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiFailedCancelResult.OrderId">
+            <summary>
+            The id of the failed order
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiMarketData.High">
+            <summary>
+            The highest price
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiMarketData.Low">
+            <summary>
+            The lowest price
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiMarketData.Open">
+            <summary>
+            The price at the opening
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiMarketData.Close">
+            <summary>
+            The last price
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiMarketData.Amount">
+            <summary>
+            The amount of the symbol trades
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiMarketData.Volume">
+            <summary>
+            The volume of the symbol trades (amount * price)
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiMarketData.TradeCount">
+            <summary>
+            The number of trades
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiMarketKline.Id">
+            <summary>
+            The start time of the kline
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiMarketDetails.Id">
+            <summary>
+            The id of the details
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiMarketDetails.Timestamp">
+            <summary>
+            The timestamp of the data
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiMarketTick.Symbol">
+            <summary>
+            The symbol
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiMarketDepth.Bids">
+            <summary>
+            List of bids
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiMarketDepth.Asks">
+            <summary>
+            List of asks
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiMarketTickMerged.Id">
+            <summary>
+            The id of the tick
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiMarketTickMerged.BestBid">
+            <summary>
+            The current best bid for the market
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiMarketTickMerged.BestAsk">
+            <summary>
+            The current best ask for the market
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiOrderBookEntry.Price">
+            <summary>
+            The price for this entry
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiOrderBookEntry.Quantity">
+            <summary>
+            The quantity for this entry
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiMarketTicks.Timestamp">
+            <summary>
+            The timestamp of the data
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiMarketTicks.Ticks">
+            <summary>
+            List of ticks for markets
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiMarketTrade.Id">
+            <summary>
+            The id of the trade
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiMarketTrade.Timestamp">
+            <summary>
+            The timestamp of the trade
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiMarketTrade.Details">
+            <summary>
+            The details of the trade
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiMarketTradeDetails.Id">
+            <summary>
+            The id of the trade
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiMarketTradeDetails.Price">
+            <summary>
+            The price of the trade
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiMarketTradeDetails.Amount">
+            <summary>
+            The amount of the trade
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiMarketTradeDetails.Side">
+            <summary>
+            The side of the trade
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiMarketTradeDetails.Timestamp">
+            <summary>
+            The timestamp of the trade
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiOpenOrder.Id">
+            <summary>
+            The id of the order
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiOpenOrder.Symbol">
+            <summary>
+            The symbol of the order
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiOpenOrder.AccountId">
+            <summary>
+            The id of the account that placed the order
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiOpenOrder.Amount">
+            <summary>
+            The amount of the order
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiOpenOrder.Price">
+            <summary>
+            The price of the order
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiOpenOrder.CreatedAt">
+            <summary>
+            The time the order was created
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiOpenOrder.CanceledAt">
+            <summary>
+            The time the order was canceled
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiOpenOrder.FinishedAt">
+            <summary>
+            The time the order was finished
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiOpenOrder.Type">
+            <summary>
+            The type of the order
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiOpenOrder.Source">
+            <summary>
+            The source of the order
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiOpenOrder.State">
+            <summary>
+            The state of the order
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiOpenOrder.FilledAmount">
+            <summary>
+            The amount of the order that is filled
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiOpenOrder.FilledFees">
+            <summary>
+            The amount of fees paid for the filled amount
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiOrder.Id">
+            <summary>
+            The id of the order
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiOrder.Symbol">
+            <summary>
+            The symbol of the order
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiOrder.AccountId">
+            <summary>
+            The id of the account that placed the order
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiOrder.Amount">
+            <summary>
+            The amount of the order
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiOrder.Price">
+            <summary>
+            The price of the order
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiOrder.CreatedAt">
+            <summary>
+            The time the order was created
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiOrder.CanceledAt">
+            <summary>
+            The time the order was canceled
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiOrder.FinishedAt">
+            <summary>
+            The time the order was finished
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiOrder.Type">
+            <summary>
+            The type of the order
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiOrder.Source">
+            <summary>
+            The source of the order
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiOrder.State">
+            <summary>
+            The state of the order
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiOrder.FilledAmount">
+            <summary>
+            The amount of the order that is filled
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiOrder.FilledFees">
+            <summary>
+            The amount of fees paid for the filled amount
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiOrderTrade.Id">
+            <summary>
+            The id of the trade
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiOrderTrade.Symbol">
+            <summary>
+            The symbol of the trade
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiOrderTrade.CreatedAt">
+            <summary>
+            Time the trade was made
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiOrderTrade.FilledAmount">
+            <summary>
+            The amount that was filled in this trade
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiOrderTrade.FilledFees">
+            <summary>
+            The fee paid for this trade
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiOrderTrade.MatchId">
+            <summary>
+            The id of the trade
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiOrderTrade.OrderId">
+            <summary>
+            The id of the order
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiOrderTrade.Price">
+            <summary>
+            The price of the trade
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiOrderTrade.Source">
+            <summary>
+            The source of the trade
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiOrderTrade.OrderType">
+            <summary>
+            The type of the order
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiOrderUpdate.Id">
+            <summary>
+            The id of the order
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiOrderUpdate.Symbol">
+            <summary>
+            The symbol of the order
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiOrderUpdate.AccountId">
+            <summary>
+            The id of the account that placed the order
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiOrderUpdate.Amount">
+            <summary>
+            The amount of the order
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiOrderUpdate.Price">
+            <summary>
+            The price of the order
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiOrderUpdate.CreatedAt">
+            <summary>
+            The time the order was created
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiOrderUpdate.Type">
+            <summary>
+            The type of the order
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiOrderUpdate.Source">
+            <summary>
+            The source of the order
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiOrderUpdate.State">
+            <summary>
+            The state of the order
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiOrderUpdate.Role">
+            <summary>
+            The role of the order
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiOrderUpdate.FilledAmount">
+            <summary>
+            The amount of the order that is filled
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiOrderUpdate.FilledFees">
+            <summary>
+            The amount of fees paid for the filled amount
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiSymbol.Symbol">
+            <summary>
+            The symbol name
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiSymbol.BaseCurrency">
+            <summary>
+            The base currency
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiSymbol.QuoteCurrency">
+            <summary>
+            The quote currency
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiSymbol.PricePrecision">
+            <summary>
+            The precision of the price in decimal numbers
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiSymbol.AmountPrecision">
+            <summary>
+            The precision of the amount in decimal numbers
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiSymbol.State">
+            <summary>
+            The state of the symbol
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiSymbol.MinOrderAmount">
+            <summary>
+            Minimum value of the amount
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiSymbol.MaxOrderAmount">
+            <summary>
+            Maximum value of the amount
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiSymbol.MinOrderValue">
+            <summary>
+            Minimum value of the order amount in quote currency
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiSymbol.ValuePrecision">
+            <summary>
+            The precision of the order amount in quote currency
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.SocketObjects.HuobiAccountEvent.Timestamp">
+            <summary>
+            The timestamp of the event
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.SocketObjects.HuobiAccountEvent.Event">
+            <summary>
+            The event type that triggered the update
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.SocketObjects.HuobiAccountEvent.BalanceChanges">
+            <summary>
+            List of changes
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.SocketObjects.HuobiBalanceChange.AccountId">
+            <summary>
+            The id of the account
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.SocketObjects.HuobiBalanceChange.Currency">
+            <summary>
+            The currency that changed
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.SocketObjects.HuobiBalanceChange.Type">
+            <summary>
+            The type of the balance that changed
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.SocketObjects.HuobiBalanceChange.Balance">
+            <summary>
+            The new amount
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.SocketObjects.HuobiSocketResponse`1.Timestamp">
+            <summary>
+            The timestamp of the data
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.SocketObjects.HuobiSocketResponse`1.Data">
+            <summary>
+            The data
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.SocketObjects.HuobiSocketAuthResponse.Timestamp">
+            <summary>
+            The timestamp of the response
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.SocketObjects.HuobiSocketAuthDataResponse`1.Data">
+            <summary>
+            The data
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.SocketObjects.HuobiSocketUpdate`1.Channel">
+            <summary>
+            The name of the data channel
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.SocketObjects.HuobiSocketUpdate`1.Timestamp">
+            <summary>
+            The timestamp of the update
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.SocketObjects.HuobiSocketUpdate`1.Data">
+            <summary>
+            The data of the update
+            </summary>
+        </member>
+    </members>
+</doc>
