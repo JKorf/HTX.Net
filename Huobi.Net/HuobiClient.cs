@@ -697,13 +697,13 @@ namespace Huobi.Net
                 parameters = authProvider.AddAuthenticationToParameters(uriString, method, parameters, signed);
 
             if ((method == Constants.GetMethod || method == Constants.DeleteMethod || postParametersPosition == PostParameters.InUri) && parameters?.Any() == true)
-                uriString += "?" + parameters.CreateParamString(true);
+                uriString += "?" + parameters.CreateParamString(true, ArrayParametersSerialization.MultipleValues);
 
             if (method == Constants.PostMethod && signed)
             {
                 var uriParamNames = new[] { "AccessKeyId", "SignatureMethod", "SignatureVersion", "Timestamp", "Signature" };
                 var uriParams = parameters.Where(p => uriParamNames.Contains(p.Key)).ToDictionary(k => k.Key, k => k.Value);
-                uriString += "?" + uriParams.CreateParamString(true);
+                uriString += "?" + uriParams.CreateParamString(true, ArrayParametersSerialization.MultipleValues);
                 parameters = parameters.Where(p => !uriParamNames.Contains(p.Key)).ToDictionary(k => k.Key, k => k.Value);
             }
 

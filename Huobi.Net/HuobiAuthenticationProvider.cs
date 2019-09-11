@@ -44,7 +44,7 @@ namespace Huobi.Net
 
             signParameters = signParameters.OrderBy(kv => Encoding.UTF8.GetBytes(WebUtility.UrlEncode(kv.Key)), new ByteOrderComparer()).ToDictionary(k => k.Key, k => k.Value);
             
-            var paramString = signParameters.CreateParamString(true);
+            var paramString = signParameters.CreateParamString(true, ArrayParametersSerialization.MultipleValues);
             signParameters = signParameters.OrderBy(kv => kv.Key).ToDictionary(k => k.Key, k => k.Value);
 
             var absolutePath = uriObj.AbsolutePath;
