@@ -78,6 +78,7 @@ namespace Huobi.Net
         /// <returns></returns>
         public async Task<CallResult<IEnumerable<HuobiMarketKline>>> QueryMarketKlinesAsync(string symbol, HuobiPeriod period)
         {
+            symbol.ValidateHuobiSymbol();
             var request = new HuobiSocketRequest(NextId().ToString(), $"market.{symbol}.kline.{JsonConvert.SerializeObject(period, new PeriodConverter(false))}");
             var result = await Query<HuobiSocketResponse<IEnumerable<HuobiMarketKline>>>(request, false).ConfigureAwait(false);
             return new CallResult<IEnumerable<HuobiMarketKline>>(result.Data?.Data, result.Error);
@@ -100,6 +101,7 @@ namespace Huobi.Net
         /// <returns></returns>
         public async Task<CallResult<UpdateSubscription>> SubscribeToMarketKlineUpdatesAsync(string symbol, HuobiPeriod period, Action<HuobiMarketKline> onData)
         {
+            symbol.ValidateHuobiSymbol();
             var request = new HuobiSubscribeRequest(NextId().ToString(), $"market.{symbol}.kline.{JsonConvert.SerializeObject(period, new PeriodConverter(false))}");
             var internalHandler = new Action<HuobiSocketUpdate<HuobiMarketKline>>(data => onData(data.Data));
             return await Subscribe(request, null, false, internalHandler).ConfigureAwait(false);
@@ -120,6 +122,7 @@ namespace Huobi.Net
         /// <returns></returns>
         public async Task<CallResult<HuobiMarketDepth>> QueryMarketDepthAsync(string symbol, int mergeStep)
         {
+            symbol.ValidateHuobiSymbol();
             if (mergeStep < 0 || mergeStep > 5)
                 return new CallResult<HuobiMarketDepth>(null, new ArgumentError("Merge step should be between 0 and 5"));
 
@@ -149,6 +152,7 @@ namespace Huobi.Net
         /// <returns></returns>
         public async Task<CallResult<UpdateSubscription>> SubscribeToMarketDepthUpdatesAsync(string symbol, int mergeStep, Action<HuobiMarketDepth> onData)
         {
+            symbol.ValidateHuobiSymbol();
             if (mergeStep < 0 || mergeStep > 5)
                 return new CallResult<UpdateSubscription>(null, new ArgumentError("Merge step should be between 0 and 5"));
 
@@ -175,6 +179,7 @@ namespace Huobi.Net
         /// <returns></returns>
         public async Task<CallResult<IEnumerable<HuobiMarketTradeDetails>>> QueryMarketTradesAsync(string symbol)
         {
+            symbol.ValidateHuobiSymbol();
             var request = new HuobiSocketRequest(NextId().ToString(), $"market.{symbol}.trade.detail");
             var result = await Query<HuobiSocketResponse<IEnumerable<HuobiMarketTradeDetails>>>(request, false).ConfigureAwait(false);
             return new CallResult<IEnumerable<HuobiMarketTradeDetails>>(result.Data?.Data, result.Error);
@@ -195,6 +200,7 @@ namespace Huobi.Net
         /// <returns></returns>
         public async Task<CallResult<UpdateSubscription>> SubscribeToMarketTradeUpdatesAsync(string symbol, Action<HuobiMarketTrade> onData)
         {
+            symbol.ValidateHuobiSymbol();
             var request = new HuobiSubscribeRequest(NextId().ToString(), $"market.{symbol}.trade.detail");
             var internalHandler = new Action<HuobiSocketUpdate<HuobiMarketTrade>>(data => onData(data.Data));
             return await Subscribe(request, null, false, internalHandler).ConfigureAwait(false);
@@ -213,6 +219,7 @@ namespace Huobi.Net
         /// <returns></returns>
         public async Task<CallResult<HuobiMarketDetails>> QueryMarketDetailsAsync(string symbol)
         {
+            symbol.ValidateHuobiSymbol();
             var request = new HuobiSocketRequest(NextId().ToString(), $"market.{symbol}.detail");
             var result = await Query<HuobiSocketResponse<HuobiMarketDetails>>(request, false).ConfigureAwait(false);
             if (!result)
@@ -237,6 +244,7 @@ namespace Huobi.Net
         /// <returns></returns>
         public async Task<CallResult<UpdateSubscription>> SubscribeToMarketDetailUpdatesAsync(string symbol, Action<HuobiMarketDetails> onData)
         {
+            symbol.ValidateHuobiSymbol();
             var request = new HuobiSubscribeRequest(NextId().ToString(), $"market.{symbol}.detail");
             var internalHandler = new Action<HuobiSocketUpdate<HuobiMarketDetails>>(data =>
             {
@@ -333,6 +341,7 @@ namespace Huobi.Net
         /// <returns></returns>
         public async Task<CallResult<IEnumerable<HuobiOrder>>> QueryOrdersAsync(long accountId, string symbol, IEnumerable<HuobiOrderState> states, IEnumerable<HuobiOrderType>? types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, int? limit = null)
         {
+            symbol.ValidateHuobiSymbol();
             var stateConverter = new OrderStateConverter(false);
             var stateString = string.Join(",", states.Select(s => JsonConvert.SerializeObject(s, stateConverter)));
 
@@ -384,6 +393,7 @@ namespace Huobi.Net
         /// <returns></returns>
         public async Task<CallResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(string symbol, Action<HuobiOrderUpdate> onData)
         {
+            symbol.ValidateHuobiSymbol();
             var request = new HuobiAuthenticatedRequest(NextId().ToString(), "sub", $"orders.{symbol}");
             var internalHandler = new Action<HuobiSocketAuthDataResponse<HuobiOrderUpdate>>(data => onData(data.Data));
             return await Subscribe(request, null, true, internalHandler).ConfigureAwait(false);

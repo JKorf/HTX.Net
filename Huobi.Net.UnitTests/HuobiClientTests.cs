@@ -565,10 +565,40 @@ namespace Huobi.Net.UnitTests
             Assert.IsTrue(result.Error.ToString().Contains("ErrorMessage"));
         }
 
+        [TestCase]
+        public void ReceivingHttpErrorResponse_Should_FailCall()
+        {
+            // arrange
+            var client = TestHelpers.CreateAuthResponseClient($"Error message", System.Net.HttpStatusCode.BadRequest);
+
+            // act
+            var result = client.GetCurrencies();
+
+            // assert
+            Assert.IsFalse(result.Success);
+            Assert.IsTrue(result.Error.ToString().Contains("Error message"));
+        }
+
 
         public string SerializeExpected<T>(T data, bool tick)
         {
             return $"{{\"status\": \"ok\", {(tick ? "tick" : "data")}: {JsonConvert.SerializeObject(data)}}}";
+        }
+
+        [TestCase("BTCUSDT", true)]
+        [TestCase("NANOUSDT", true)]
+        [TestCase("NANOBTC", true)]
+        [TestCase("ETHBTC", true)]
+        [TestCase("BEETC", false)]
+        [TestCase("NANOUSDTD", false)]
+        [TestCase("BTC-USDT", false)]
+        [TestCase("BTC-USD", false)]
+        public void CheckValidHuobiSymbol(string symbol, bool isValid)
+        {
+            if (isValid)
+                Assert.DoesNotThrow(() => symbol.ValidateHuobiSymbol());
+            else
+                Assert.Throws(typeof(ArgumentException), () => symbol.ValidateHuobiSymbol());
         }
     }
 }
