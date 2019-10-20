@@ -3,6 +3,9 @@ using Newtonsoft.Json;
 
 namespace Huobi.Net.Objects
 {
+    /// <summary>
+    /// Huobi account info
+    /// </summary>
     public class HuobiAccount
     {
         /// <summary>

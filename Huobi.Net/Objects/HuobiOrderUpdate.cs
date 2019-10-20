@@ -6,6 +6,9 @@ using Newtonsoft.Json;
 
 namespace Huobi.Net.Objects
 {
+    /// <summary>
+    /// Order update
+    /// </summary>
     public class HuobiOrderUpdate
     {
         /// <summary>
@@ -17,7 +20,7 @@ namespace Huobi.Net.Objects
         /// <summary>
         /// The symbol of the order
         /// </summary>
-        public string Symbol { get; set; }
+        public string Symbol { get; set; } = "";
         /// <summary>
         /// The id of the account that placed the order
         /// </summary>
@@ -52,7 +55,7 @@ namespace Huobi.Net.Objects
         /// The source of the order
         /// </summary>
         [JsonProperty("order-source"), JsonOptionalProperty]
-        public string Source { get; set; }
+        public string Source { get; set; } = "";
 
         /// <summary>
         /// The state of the order
@@ -72,8 +75,14 @@ namespace Huobi.Net.Objects
         [JsonProperty("filled-amount"), JsonOptionalProperty]
         public decimal FilledAmount { get; set; }
 
+        /// <summary>
+        /// Unfilled amount
+        /// </summary>
         [JsonProperty("unfilled-amount"), JsonOptionalProperty]
         public decimal UnfilledAmount { get; set; }
+        /// <summary>
+        /// Filled cash amount
+        /// </summary>
         [JsonProperty("filled-cash-amount"), JsonOptionalProperty]
         public decimal FilledCashAmount { get; set; }
 

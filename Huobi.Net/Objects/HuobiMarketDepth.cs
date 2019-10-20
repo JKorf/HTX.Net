@@ -4,17 +4,23 @@ using Newtonsoft.Json;
 
 namespace Huobi.Net.Objects
 {
+    /// <summary>
+    /// Market depth info
+    /// </summary>
     public class HuobiMarketDepth
     {
+        /// <summary>
+        /// Timestamp
+        /// </summary>
         [JsonIgnore]
         public DateTime Timestamp { get; set; }
         /// <summary>
         /// List of bids
         /// </summary>
-        public List<HuobiOrderBookEntry> Bids { get; set; }
+        public IEnumerable<HuobiOrderBookEntry> Bids { get; set; } = new List<HuobiOrderBookEntry>();
         /// <summary>
         /// List of asks
         /// </summary>
-        public List<HuobiOrderBookEntry> Asks { get; set; }
+        public IEnumerable<HuobiOrderBookEntry> Asks { get; set; } = new List<HuobiOrderBookEntry>();
     }
 }

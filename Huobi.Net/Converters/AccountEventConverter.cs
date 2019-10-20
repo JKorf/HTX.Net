@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Huobi.Net.Converters
 {
-    public class AccountEventConverter : BaseConverter<HuobiAccountEventType>
+    internal class AccountEventConverter : BaseConverter<HuobiAccountEventType>
     {
         public AccountEventConverter() : this(true) { }
         public AccountEventConverter(bool quotes) : base(quotes) { }

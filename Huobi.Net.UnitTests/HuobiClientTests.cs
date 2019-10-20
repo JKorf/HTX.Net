@@ -4,6 +4,8 @@ using Newtonsoft.Json;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http;
 using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Objects;
 
@@ -38,7 +40,7 @@ namespace Huobi.Net.UnitTests
 
             // assert
             Assert.AreEqual(true, result.Success);
-            Assert.IsTrue(TestHelpers.AreEqual(expected[0], result.Data.Ticks[0]));
+            Assert.IsTrue(TestHelpers.AreEqual(expected[0], result.Data.Ticks.ToList()[0]));
         }
 
         [TestCase]
@@ -95,7 +97,7 @@ namespace Huobi.Net.UnitTests
 
             // assert
             Assert.AreEqual(true, result.Success);
-            Assert.IsTrue(TestHelpers.AreEqual(expected[0], result.Data[0]));
+            Assert.IsTrue(TestHelpers.AreEqual(expected[0], result.Data.ToList()[0]));
         }
 
         [TestCase]
@@ -121,8 +123,8 @@ namespace Huobi.Net.UnitTests
 
             // assert
             Assert.AreEqual(true, result.Success);
-            Assert.IsTrue(TestHelpers.AreEqual(expected.Asks[0], result.Data.Asks[0]));
-            Assert.IsTrue(TestHelpers.AreEqual(expected.Bids[0], result.Data.Bids[0]));
+            Assert.IsTrue(TestHelpers.AreEqual(expected.Asks.ToList()[0], result.Data.Asks.ToList()[0]));
+            Assert.IsTrue(TestHelpers.AreEqual(expected.Bids.ToList()[0], result.Data.Bids.ToList()[0]));
         }
 
         [TestCase]
@@ -154,7 +156,7 @@ namespace Huobi.Net.UnitTests
             // assert
             Assert.AreEqual(true, result.Success);
             Assert.IsTrue(TestHelpers.AreEqual(expected, result.Data, "Details"));
-            Assert.IsTrue(TestHelpers.AreEqual(expected.Details[0], result.Data.Details[0]));
+            Assert.IsTrue(TestHelpers.AreEqual(expected.Details.ToList()[0], result.Data.Details.ToList()[0]));
         }
 
         [TestCase]
@@ -188,8 +190,8 @@ namespace Huobi.Net.UnitTests
 
             // assert
             Assert.AreEqual(true, result.Success);
-            Assert.IsTrue(TestHelpers.AreEqual(expected[0], result.Data[0], "Details"));
-            Assert.IsTrue(TestHelpers.AreEqual(expected[0].Details[0], result.Data[0].Details[0]));
+            Assert.IsTrue(TestHelpers.AreEqual(expected[0], result.Data.ToList()[0], "Details"));
+            Assert.IsTrue(TestHelpers.AreEqual(expected[0].Details.ToList()[0], result.Data.ToList()[0].Details.ToList()[0]));
         }
 
         [TestCase]
@@ -241,7 +243,7 @@ namespace Huobi.Net.UnitTests
 
             // assert
             Assert.AreEqual(true, result.Success);
-            Assert.IsTrue(TestHelpers.AreEqual(expected[0], result.Data[0]));
+            Assert.IsTrue(TestHelpers.AreEqual(expected[0], result.Data.ToList()[0]));
         }
 
         [TestCase]
@@ -261,8 +263,8 @@ namespace Huobi.Net.UnitTests
 
             // assert
             Assert.AreEqual(true, result.Success);
-            Assert.IsTrue(expected[0] == result.Data[0]);
-            Assert.IsTrue(expected[1] == result.Data[1]);
+            Assert.IsTrue(expected[0] == result.Data.ToList()[0]);
+            Assert.IsTrue(expected[1] == result.Data.ToList()[1]);
         }
 
         [TestCase]
@@ -286,7 +288,7 @@ namespace Huobi.Net.UnitTests
 
             // assert
             Assert.AreEqual(true, result.Success);
-            Assert.IsTrue(TestHelpers.AreEqual(expected[0], result.Data[0]));
+            Assert.IsTrue(TestHelpers.AreEqual(expected[0], result.Data.ToList()[0]));
         }
 
         [TestCase]
@@ -313,7 +315,7 @@ namespace Huobi.Net.UnitTests
 
             // assert
             Assert.AreEqual(true, result.Success);
-            Assert.IsTrue(TestHelpers.AreEqual(expected.Data[0], result.Data[0]));
+            Assert.IsTrue(TestHelpers.AreEqual(expected.Data.ToList()[0], result.Data.ToList()[0]));
         }
 
         [TestCase]
@@ -361,7 +363,7 @@ namespace Huobi.Net.UnitTests
 
             // assert
             Assert.AreEqual(true, result.Success);
-            Assert.IsTrue(TestHelpers.AreEqual(expected[0], result.Data[0]));
+            Assert.IsTrue(TestHelpers.AreEqual(expected[0], result.Data.ToList()[0]));
         }
 
         [TestCase]
@@ -403,8 +405,8 @@ namespace Huobi.Net.UnitTests
 
             // assert
             Assert.AreEqual(true, result.Success);
-            Assert.IsTrue(expected.Successful[0] == result.Data.Successful[0]);
-            Assert.IsTrue(TestHelpers.AreEqual(expected.Failed[0], result.Data.Failed[0]));
+            Assert.IsTrue(expected.Successful.ToList()[0] == result.Data.Successful.ToList()[0]);
+            Assert.IsTrue(TestHelpers.AreEqual(expected.Failed.ToList()[0], result.Data.Failed.ToList()[0]));
         }
 
         [TestCase]
@@ -465,7 +467,7 @@ namespace Huobi.Net.UnitTests
 
             // assert
             Assert.AreEqual(true, result.Success);
-            Assert.IsTrue(TestHelpers.AreEqual(expected[0], result.Data[0]));
+            Assert.IsTrue(TestHelpers.AreEqual(expected[0], result.Data.ToList()[0]));
         }
 
         [TestCase]
@@ -498,7 +500,7 @@ namespace Huobi.Net.UnitTests
 
             // assert
             Assert.AreEqual(true, result.Success);
-            Assert.IsTrue(TestHelpers.AreEqual(expected[0], result.Data[0]));
+            Assert.IsTrue(TestHelpers.AreEqual(expected[0], result.Data.ToList()[0]));
         }
 
         [TestCase]
@@ -529,7 +531,7 @@ namespace Huobi.Net.UnitTests
 
             // assert
             Assert.AreEqual(true, result.Success);
-            Assert.IsTrue(TestHelpers.AreEqual(expected[0], result.Data[0]));
+            Assert.IsTrue(TestHelpers.AreEqual(expected[0], result.Data.ToList()[0]));
         }
 
         [Test]
@@ -539,7 +541,7 @@ namespace Huobi.Net.UnitTests
             var authProvider = new HuobiAuthenticationProvider(new ApiCredentials("TestKey", "TestSecret"), false);
 
             // act
-            var parameters = authProvider.AddAuthenticationToParameters("http://api.test.com/somepath/test", Constants.GetMethod, new Dictionary<string, object>()
+            var parameters = authProvider.AddAuthenticationToParameters("http://api.test.com/somepath/test", HttpMethod.Get, new Dictionary<string, object>()
             {
                 { "Timestamp", new DateTime(2018, 1, 1).ToString("yyyy-MM-ddTHH:mm:ss") }
             }, true);
@@ -559,8 +561,8 @@ namespace Huobi.Net.UnitTests
 
             // assert
             Assert.IsFalse(result.Success);
-            Assert.IsTrue(result.Error.Message.Contains("Error!"));
-            Assert.IsTrue(result.Error.Message.Contains("ErrorMessage"));
+            Assert.IsTrue(result.Error.ToString().Contains("Error!"));
+            Assert.IsTrue(result.Error.ToString().Contains("ErrorMessage"));
         }
 
 

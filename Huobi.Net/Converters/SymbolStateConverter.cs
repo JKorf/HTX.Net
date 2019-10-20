@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Huobi.Net.Converters
 {
-    public class SymbolStateConverter : BaseConverter<HuobiSymbolState>
+    internal class SymbolStateConverter : BaseConverter<HuobiSymbolState>
     {
         public SymbolStateConverter() : this(true) { }
         public SymbolStateConverter(bool quotes) : base(quotes) { }

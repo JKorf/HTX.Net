@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading;
 using CryptoExchange.Net;
@@ -97,8 +98,8 @@ namespace Huobi.Net.UnitTests
 
             // assert
             Assert.IsTrue(subResult.Success);
-            Assert.IsTrue(TestHelpers.AreEqual(expected.Asks[0], result.Asks[0]));
-            Assert.IsTrue(TestHelpers.AreEqual(expected.Bids[0], result.Bids[0]));
+            Assert.IsTrue(TestHelpers.AreEqual(expected.Asks.ToList()[0], result.Asks.ToList()[0]));
+            Assert.IsTrue(TestHelpers.AreEqual(expected.Bids.ToList()[0], result.Bids.ToList()[0]));
         }
 
         [Test]
@@ -197,7 +198,7 @@ namespace Huobi.Net.UnitTests
 
             // assert
             Assert.IsTrue(subResult.Success);
-            Assert.IsTrue(TestHelpers.AreEqual(expected[0], result.Ticks[0]));
+            Assert.IsTrue(TestHelpers.AreEqual(expected[0], result.Ticks.ToList()[0]));
         }
 
         [Test]
@@ -237,7 +238,7 @@ namespace Huobi.Net.UnitTests
             // assert
             Assert.IsTrue(subResult.Success);
             Assert.IsTrue(TestHelpers.AreEqual(expected, result, "Details"));
-            Assert.IsTrue(TestHelpers.AreEqual(expected.Details[0], result.Details[0]));
+            Assert.IsTrue(TestHelpers.AreEqual(expected.Details.ToList()[0], result.Details.ToList()[0]));
         }
 
         [Test]
@@ -276,7 +277,7 @@ namespace Huobi.Net.UnitTests
             // assert
             Assert.IsTrue(subResult.Success);
             Assert.IsTrue(TestHelpers.AreEqual(expected, result, "BalanceChanges"));
-            Assert.IsTrue(TestHelpers.AreEqual(expected.BalanceChanges[0], result.BalanceChanges[0]));
+            Assert.IsTrue(TestHelpers.AreEqual(expected.BalanceChanges.ToList()[0], result.BalanceChanges.ToList()[0]));
         }
 
         [Test]
@@ -354,8 +355,8 @@ namespace Huobi.Net.UnitTests
 
             // assert
             Assert.IsTrue(subResult.Success);
-            Assert.IsTrue(TestHelpers.AreEqual(expected[0], subResult.Data[0], "Data"));
-            Assert.IsTrue(TestHelpers.AreEqual(expected[0].Data[0], subResult.Data[0].Data[0]));
+            Assert.IsTrue(TestHelpers.AreEqual(expected[0], subResult.Data.ToList()[0], "Data"));
+            Assert.IsTrue(TestHelpers.AreEqual(expected[0].Data.ToList()[0], subResult.Data.ToList()[0].Data.ToList()[0]));
         }
 
         [Test]
@@ -434,7 +435,7 @@ namespace Huobi.Net.UnitTests
 
             // assert
             Assert.IsTrue(subResult.Success);
-            Assert.IsTrue(TestHelpers.AreEqual(expected[0], subResult.Data[0]));
+            Assert.IsTrue(TestHelpers.AreEqual(expected[0], subResult.Data.ToList()[0]));
         }
 
         [Test]

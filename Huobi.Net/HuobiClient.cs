@@ -11,11 +11,16 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 
 namespace Huobi.Net
 {
+    /// <summary>
+    /// Client for the Huobi REST API
+    /// </summary>
     public class HuobiClient: RestClient, IHuobiClient
     {
         #region fields
@@ -54,7 +59,7 @@ namespace Huobi.Net
         /// <summary>
         /// Whether public requests should be signed if ApiCredentials are provided. Needed for accurate rate limiting.
         /// </summary>
-        public bool SignPublicRequests { get; private set; }
+        public bool SignPublicRequests { get; }
         #endregion
 
         #region constructor/destructor
@@ -70,7 +75,7 @@ namespace Huobi.Net
         /// </summary>
         public HuobiClient(HuobiClientOptions options) : base(options, options.ApiCredentials == null ? null : new HuobiAuthenticationProvider(options.ApiCredentials, options.SignPublicRequests))
         {
-            Configure(options);
+            SignPublicRequests = options.SignPublicRequests;
         }
         #endregion
 
@@ -98,45 +103,48 @@ namespace Huobi.Net
         /// Gets the latest ticker for all markets
         /// </summary>
         /// <returns></returns>
-        public WebCallResult<HuobiMarketTicks> GetMarketTickers() => GetMarketTickersAsync().Result;
+        public WebCallResult<HuobiMarketTicks> GetMarketTickers(CancellationToken ct = default) => GetMarketTickersAsync(ct).Result;
         /// <summary>
         /// Gets the latest ticker for all markets
         /// </summary>
+        /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        public async Task<WebCallResult<HuobiMarketTicks>> GetMarketTickersAsync()
+        public async Task<WebCallResult<HuobiMarketTicks>> GetMarketTickersAsync(CancellationToken ct = default)
         {
-            var result = await ExecuteRequest<HuobiTimestampResponse<List<HuobiMarketTick>>>(GetUrl(MarketTickerEndpoint)).ConfigureAwait(false);     
-            if(!result.Success)
-                return WebCallResult<HuobiMarketTicks>.CreateErrorResult(result.ResponseStatusCode, result.ResponseHeaders, result.Error);
-
-            return new WebCallResult<HuobiMarketTicks>(result.ResponseStatusCode, result.ResponseHeaders, new HuobiMarketTicks(){ Ticks = result.Data.Data, Timestamp = result.Data.Timestamp}, null);
+            var result = await SendHuobiTimestampRequest<IEnumerable<HuobiMarketTick>>(GetUrl(MarketTickerEndpoint), HttpMethod.Get, ct).ConfigureAwait(false);     
+            if(!result)
+                return WebCallResult<HuobiMarketTicks>.CreateErrorResult(result.ResponseStatusCode, result.ResponseHeaders, result.Error!);
+            
+            return new WebCallResult<HuobiMarketTicks>(result.ResponseStatusCode, result.ResponseHeaders, new HuobiMarketTicks(){ Ticks = result.Data.Item1, Timestamp = result.Data.Item2}, null);
         }
 
         /// <summary>
         /// Gets the ticker, including the best bid / best ask for a symbol
         /// </summary>
         /// <param name="symbol">The symbol to get the ticker for</param>
+        /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        public WebCallResult<HuobiMarketTickMerged> GetMarketTickerMerged(string symbol) => GetMarketTickerMergedAsync(symbol).Result;
+        public WebCallResult<HuobiMarketTickMerged> GetMarketTickerMerged(string symbol, CancellationToken ct = default) => GetMarketTickerMergedAsync(symbol, ct).Result;
 
         /// <summary>
         /// Gets the ticker, including the best bid / best ask for a symbol
         /// </summary>
         /// <param name="symbol">The symbol to get the ticker for</param>
+        /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        public async Task<WebCallResult<HuobiMarketTickMerged>> GetMarketTickerMergedAsync(string symbol)
+        public async Task<WebCallResult<HuobiMarketTickMerged>> GetMarketTickerMergedAsync(string symbol, CancellationToken ct = default)
         {
             var parameters = new Dictionary<string, object>
             {
                 { "symbol", symbol }
             };
 
-            var result = await ExecuteRequest<HuobiChannelResponse<HuobiMarketTickMerged>>(GetUrl(MarketTickerMergedEndpoint), parameters: parameters, checkResult:false).ConfigureAwait(false);
-            if (!result.Success)
-                return WebCallResult<HuobiMarketTickMerged>.CreateErrorResult(result.ResponseStatusCode, result.ResponseHeaders, result.Error);
+            var result = await SendHuobiTimestampRequest<HuobiMarketTickMerged>(GetUrl(MarketTickerMergedEndpoint), HttpMethod.Get, ct, parameters, checkResult:false).ConfigureAwait(false);
+            if (!result)
+                return WebCallResult<HuobiMarketTickMerged>.CreateErrorResult(result.ResponseStatusCode, result.ResponseHeaders, result.Error!);
 
-            result.Data.Data.Timestamp = result.Data.Timestamp;
-            return new WebCallResult<HuobiMarketTickMerged>(result.ResponseStatusCode, result.ResponseHeaders, result.Data.Data, null);
+            result.Data.Item1.Timestamp = result.Data.Item2;
+            return new WebCallResult<HuobiMarketTickMerged>(result.ResponseStatusCode, result.ResponseHeaders, result.Data.Item1, null);
         }
 
         /// <summary>
@@ -145,8 +153,9 @@ namespace Huobi.Net
         /// <param name="symbol">The symbol to get the data for</param>
         /// <param name="period">The period of a single candlestick</param>
         /// <param name="size">The amount of candlesticks</param>
+        /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        public WebCallResult<List<HuobiMarketKline>> GetMarketKlines(string symbol, HuobiPeriod period, int size) => GetMarketKlinesAsync(symbol, period, size).Result;
+        public WebCallResult<IEnumerable<HuobiMarketKline>> GetMarketKlines(string symbol, HuobiPeriod period, int size, CancellationToken ct = default) => GetMarketKlinesAsync(symbol, period, size, ct).Result;
 
         /// <summary>
         /// Get candlestick data for a market
@@ -154,11 +163,12 @@ namespace Huobi.Net
         /// <param name="symbol">The symbol to get the data for</param>
         /// <param name="period">The period of a single candlestick</param>
         /// <param name="size">The amount of candlesticks</param>
+        /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        public async Task<WebCallResult<List<HuobiMarketKline>>> GetMarketKlinesAsync(string symbol, HuobiPeriod period, int size)
+        public async Task<WebCallResult<IEnumerable<HuobiMarketKline>>> GetMarketKlinesAsync(string symbol, HuobiPeriod period, int size, CancellationToken ct = default)
         {
             if (size <= 0 || size > 2000)
-                return WebCallResult<List<HuobiMarketKline>>.CreateErrorResult(new ArgumentError("Size should be between 1 and 2000"));
+                return WebCallResult<IEnumerable<HuobiMarketKline>>.CreateErrorResult(new ArgumentError("Size should be between 1 and 2000"));
 
             var parameters = new Dictionary<string, object>
             {
@@ -167,11 +177,11 @@ namespace Huobi.Net
                 { "size", size }
             };
 
-            var result = await ExecuteRequest<HuobiChannelResponse<List<HuobiMarketKline>>>(GetUrl(MarketKlineEndpoint), parameters: parameters).ConfigureAwait(false);
-            if (!result.Success)
-                return WebCallResult<List<HuobiMarketKline>>.CreateErrorResult(result.ResponseStatusCode, result.ResponseHeaders, result.Error);
+            var result = await SendHuobiRequest<IEnumerable<HuobiMarketKline>>(GetUrl(MarketKlineEndpoint), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
+            if (!result)
+                return WebCallResult<IEnumerable<HuobiMarketKline>>.CreateErrorResult(result.ResponseStatusCode, result.ResponseHeaders, result.Error!);
 
-            return new WebCallResult<List<HuobiMarketKline>>(result.ResponseStatusCode, result.ResponseHeaders, result.Data.Data, null);
+            return new WebCallResult<IEnumerable<HuobiMarketKline>>(result.ResponseStatusCode, result.ResponseHeaders, result.Data, null);
         }
 
         /// <summary>
@@ -180,16 +190,18 @@ namespace Huobi.Net
         /// <param name="symbol">The symbol to request for</param>
         /// <param name="mergeStep">The way the results will be merged together</param>
         /// <param name="limit">The depth of the book</param>
+        /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        public WebCallResult<HuobiMarketDepth> GetMarketDepth(string symbol, int mergeStep, int? limit = null) => GetMarketDepthAsync(symbol, mergeStep, limit).Result;
+        public WebCallResult<HuobiMarketDepth> GetMarketDepth(string symbol, int mergeStep, int? limit = null, CancellationToken ct = default) => GetMarketDepthAsync(symbol, mergeStep, limit, ct).Result;
         /// <summary>
         /// Gets the market depth for a symbol
         /// </summary>
         /// <param name="symbol">The symbol to request for</param>
         /// <param name="mergeStep">The way the results will be merged together</param>
         /// <param name="limit">The depth of the book</param>
+        /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        public async Task<WebCallResult<HuobiMarketDepth>> GetMarketDepthAsync(string symbol, int mergeStep, int? limit = null)
+        public async Task<WebCallResult<HuobiMarketDepth>> GetMarketDepthAsync(string symbol, int mergeStep, int? limit = null, CancellationToken ct = default)
         {
             if (mergeStep < 0 || mergeStep > 5)
                 return WebCallResult<HuobiMarketDepth>.CreateErrorResult(new ArgumentError("MergeStep should be between 0 and 5"));
@@ -204,34 +216,35 @@ namespace Huobi.Net
             };
             parameters.AddOptionalParameter("depth", limit);
 
-            var result = await ExecuteRequest<HuobiChannelResponse<HuobiMarketDepth>>(GetUrl(MarketDepthEndpoint), parameters: parameters, checkResult: false).ConfigureAwait(false);
-            if (!result.Success)
-                return WebCallResult<HuobiMarketDepth>.CreateErrorResult(result.ResponseStatusCode, result.ResponseHeaders, result.Error);
+            var result = await SendHuobiTimestampRequest<HuobiMarketDepth>(GetUrl(MarketDepthEndpoint), HttpMethod.Get, ct, parameters, checkResult: false).ConfigureAwait(false);
+            if (!result)
+                return WebCallResult<HuobiMarketDepth>.CreateErrorResult(result.ResponseStatusCode, result.ResponseHeaders, result.Error!);
 
-            result.Data.Data.Timestamp = result.Data.Timestamp;
-            return new WebCallResult<HuobiMarketDepth>(result.ResponseStatusCode, result.ResponseHeaders, result.Data.Data, null);
+            result.Data.Item1.Timestamp = result.Data.Item2;
+            return new WebCallResult<HuobiMarketDepth>(result.ResponseStatusCode, result.ResponseHeaders, result.Data.Item1, null);
         }
 
         /// <summary>
         /// Gets the last trade for a market
         /// </summary>
         /// <param name="symbol">The symbol to request for</param>
+        /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        public WebCallResult<HuobiMarketTrade> GetMarketLastTrade(string symbol) => GetMarketLastTradeAsync(symbol).Result;
+        public WebCallResult<HuobiMarketTrade> GetMarketLastTrade(string symbol, CancellationToken ct = default) => GetMarketLastTradeAsync(symbol, ct).Result;
         /// <summary>
         /// Gets the last trade for a market
         /// </summary>
         /// <param name="symbol">The symbol to request for</param>
+        /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        public async Task<WebCallResult<HuobiMarketTrade>> GetMarketLastTradeAsync(string symbol)
+        public async Task<WebCallResult<HuobiMarketTrade>> GetMarketLastTradeAsync(string symbol, CancellationToken ct = default)
         {
             var parameters = new Dictionary<string, object>
             {
                 { "symbol", symbol }
             };
 
-            var result = await ExecuteRequest<HuobiChannelResponse<HuobiMarketTrade>>(GetUrl(MarketLastTradeEndpoint), parameters: parameters, checkResult: false).ConfigureAwait(false);
-            return new WebCallResult<HuobiMarketTrade>(result.ResponseStatusCode, result.ResponseHeaders, result.Data?.Data, result.Error);
+            return await SendHuobiRequest<HuobiMarketTrade>(GetUrl(MarketLastTradeEndpoint), HttpMethod.Get, ct, parameters, checkResult: false).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -239,18 +252,20 @@ namespace Huobi.Net
         /// </summary>
         /// <param name="symbol">The market to get trades for</param>
         /// <param name="limit">The max number of results</param>
+        /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        public WebCallResult<List<HuobiMarketTrade>> GetMarketTradeHistory(string symbol, int limit) => GetMarketTradeHistoryAsync(symbol, limit).Result;
+        public WebCallResult<IEnumerable<HuobiMarketTrade>> GetMarketTradeHistory(string symbol, int limit, CancellationToken ct = default) => GetMarketTradeHistoryAsync(symbol, limit, ct).Result;
         /// <summary>
         /// Get the last x trades for a market
         /// </summary>
         /// <param name="symbol">The market to get trades for</param>
         /// <param name="limit">The max number of results</param>
+        /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        public async Task<WebCallResult<List<HuobiMarketTrade>>> GetMarketTradeHistoryAsync(string symbol, int limit)
+        public async Task<WebCallResult<IEnumerable<HuobiMarketTrade>>> GetMarketTradeHistoryAsync(string symbol, int limit, CancellationToken ct = default)
         {
             if (limit <= 0 || limit > 2000)
-                return WebCallResult<List<HuobiMarketTrade>>.CreateErrorResult(new ArgumentError("Size should be between 1 and 2000"));
+                return WebCallResult<IEnumerable<HuobiMarketTrade>>.CreateErrorResult(new ArgumentError("Size should be between 1 and 2000"));
 
             var parameters = new Dictionary<string, object>
             {
@@ -258,137 +273,147 @@ namespace Huobi.Net
                 { "size", limit }
             };
 
-            var result = await ExecuteRequest<HuobiChannelResponse<List<HuobiMarketTrade>>>(GetUrl(MarketTradeHistoryEndpoint), parameters: parameters).ConfigureAwait(false);
-            return new WebCallResult<List<HuobiMarketTrade>>(result.ResponseStatusCode, result.ResponseHeaders, result.Data?.Data, result.Error);
+            return await SendHuobiRequest<IEnumerable<HuobiMarketTrade>>(GetUrl(MarketTradeHistoryEndpoint), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
         }
 
         /// <summary>
         /// Gets 24h stats for a market
         /// </summary>
         /// <param name="symbol">The market to get the data for</param>
+        /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        public WebCallResult<HuobiMarketDetails> GetMarketDetails24H(string symbol) => GetMarketDetails24HAsync(symbol).Result;
+        public WebCallResult<HuobiMarketDetails> GetMarketDetails24H(string symbol, CancellationToken ct = default) => GetMarketDetails24HAsync(symbol, ct).Result;
         /// <summary>
         /// Gets 24h stats for a market
         /// </summary>
         /// <param name="symbol">The market to get the data for</param>
+        /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        public async Task<WebCallResult<HuobiMarketDetails>> GetMarketDetails24HAsync(string symbol)
+        public async Task<WebCallResult<HuobiMarketDetails>> GetMarketDetails24HAsync(string symbol, CancellationToken ct = default)
         {
             var parameters = new Dictionary<string, object>
             {
                 { "symbol", symbol }
             };
 
-            var result = await ExecuteRequest<HuobiChannelResponse<HuobiMarketDetails>>(GetUrl(MarketDetailsEndpoint), parameters: parameters, checkResult: false).ConfigureAwait(false);
-            if(!result.Success)
-                return WebCallResult<HuobiMarketDetails>.CreateErrorResult(result.ResponseStatusCode, result.ResponseHeaders, result.Error);
+            var result = await SendHuobiTimestampRequest<HuobiMarketDetails>(GetUrl(MarketDetailsEndpoint), HttpMethod.Get, ct, parameters, checkResult: false).ConfigureAwait(false);
+            if(!result)
+                return WebCallResult<HuobiMarketDetails>.CreateErrorResult(result.ResponseStatusCode, result.ResponseHeaders, result.Error!);
 
-            result.Data.Data.Timestamp = result.Data.Timestamp;
-            return new WebCallResult<HuobiMarketDetails>(result.ResponseStatusCode, result.ResponseHeaders, result.Data.Data, null);
+            result.Data.Item1.Timestamp = result.Data.Item2;
+            return new WebCallResult<HuobiMarketDetails>(result.ResponseStatusCode, result.ResponseHeaders, result.Data.Item1, null);
         }
 
         /// <summary>
         /// Gets a list of supported symbols
         /// </summary>
+        /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        public WebCallResult<List<HuobiSymbol>> GetSymbols() => GetSymbolsAsync().Result;
+        public WebCallResult<IEnumerable<HuobiSymbol>> GetSymbols(CancellationToken ct = default) => GetSymbolsAsync(ct).Result;
         /// <summary>
         /// Gets a list of supported symbols
         /// </summary>
+        /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        public async Task<WebCallResult<List<HuobiSymbol>>> GetSymbolsAsync()
+        public async Task<WebCallResult<IEnumerable<HuobiSymbol>>> GetSymbolsAsync(CancellationToken ct = default)
         {
-            var result = await ExecuteRequest<HuobiBasicResponse<List<HuobiSymbol>>>(GetUrl(CommonSymbolsEndpoint, "1")).ConfigureAwait(false);
-            return new WebCallResult<List<HuobiSymbol>>(result.ResponseStatusCode, result.ResponseHeaders, result.Data?.Data, result.Error);
+            return await SendHuobiRequest<IEnumerable<HuobiSymbol>>(GetUrl(CommonSymbolsEndpoint, "1"), HttpMethod.Get, ct).ConfigureAwait(false);
         }
 
         /// <summary>
         /// Gets a list of supported currencies
         /// </summary>
+        /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        public WebCallResult<List<string>> GetCurrencies() => GetCurrenciesAsync().Result;
+        public WebCallResult<IEnumerable<string>> GetCurrencies(CancellationToken ct = default) => GetCurrenciesAsync(ct).Result;
         /// <summary>
         /// Gets a list of supported currencies
         /// </summary>
+        /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        public async Task<WebCallResult<List<string>>> GetCurrenciesAsync()
+        public async Task<WebCallResult<IEnumerable<string>>> GetCurrenciesAsync(CancellationToken ct = default)
         {
-            var result = await ExecuteRequest<HuobiBasicResponse<List<string>>>(GetUrl(CommonCurrenciesEndpoint, "1")).ConfigureAwait(false);
-            return new WebCallResult<List<string>>(result.ResponseStatusCode, result.ResponseHeaders, result.Data?.Data, result.Error);
+            return await SendHuobiRequest<IEnumerable<string>>(GetUrl(CommonCurrenciesEndpoint, "1"), HttpMethod.Get, ct).ConfigureAwait(false);
         }
 
         /// <summary>
         /// Gets the server time
         /// </summary>
+        /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        public WebCallResult<DateTime> GetServerTime() => GetServerTimeAsync().Result;
+        public WebCallResult<DateTime> GetServerTime(CancellationToken ct = default) => GetServerTimeAsync(ct).Result;
         /// <summary>
         /// Gets the server time
         /// </summary>
+        /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        public async Task<WebCallResult<DateTime>> GetServerTimeAsync()
+        public async Task<WebCallResult<DateTime>> GetServerTimeAsync(CancellationToken ct = default)
         {
-            var result = await ExecuteRequest<HuobiBasicResponse<string>>(GetUrl(ServerTimeEndpoint, "1")).ConfigureAwait(false);
-            if (!result.Success)
-                return WebCallResult<DateTime>.CreateErrorResult(result.ResponseStatusCode, result.ResponseHeaders, result.Error);
-            var time = (DateTime)JsonConvert.DeserializeObject(result.Data.Data, typeof(DateTime), new TimestampConverter());
+            var result = await SendHuobiRequest<string>(GetUrl(ServerTimeEndpoint, "1"), HttpMethod.Get, ct).ConfigureAwait(false);
+            if (!result)
+                return WebCallResult<DateTime>.CreateErrorResult(result.ResponseStatusCode, result.ResponseHeaders, result.Error!);
+            var time = (DateTime)JsonConvert.DeserializeObject(result.Data, typeof(DateTime), new TimestampConverter());
             return new WebCallResult<DateTime>(result.ResponseStatusCode, result.ResponseHeaders, time, null);
         }
 
         /// <summary>
         /// Gets a list of accounts associated with the apikey/secret
         /// </summary>
+        /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        public WebCallResult<List<HuobiAccount>> GetAccounts() => GetAccountsAsync().Result;
+        public WebCallResult<IEnumerable<HuobiAccountBalances>> GetAccounts(CancellationToken ct = default) => GetAccountsAsync(ct).Result;
         /// <summary>
         /// Gets a list of accounts associated with the apikey/secret
         /// </summary>
+        /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        public async Task<WebCallResult<List<HuobiAccount>>> GetAccountsAsync()
+        public async Task<WebCallResult<IEnumerable<HuobiAccountBalances>>> GetAccountsAsync(CancellationToken ct = default)
         {
-            var result = await ExecuteRequest<HuobiBasicResponse<List<HuobiAccount>>>(GetUrl(GetAccountsEndpoint, "1"), signed: true).ConfigureAwait(false);
-            return new WebCallResult<List<HuobiAccount>>(result.ResponseStatusCode, result.ResponseHeaders, result.Data?.Data, result.Error);
+            return await SendHuobiRequest<IEnumerable<HuobiAccountBalances>>(GetUrl(GetAccountsEndpoint, "1"), HttpMethod.Get, ct, signed: true).ConfigureAwait(false);
         }
 
         /// <summary>
         /// Gets a list of balances for a specific account
         /// </summary>
         /// <param name="accountId">The id of the account to get the balances for</param>
+        /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        public WebCallResult<List<HuobiBalance>> GetBalances(long accountId) => GetBalancesAsync(accountId).Result;
+        public WebCallResult<IEnumerable<HuobiBalance>> GetBalances(long accountId, CancellationToken ct = default) => GetBalancesAsync(accountId, ct).Result;
         /// <summary>
         /// Gets a list of balances for a specific account
         /// </summary>
         /// <param name="accountId">The id of the account to get the balances for</param>
+        /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        public async Task<WebCallResult<List<HuobiBalance>>> GetBalancesAsync(long accountId)
+        public async Task<WebCallResult<IEnumerable<HuobiBalance>>> GetBalancesAsync(long accountId, CancellationToken ct = default)
         {
-            var result = await ExecuteRequest<HuobiBasicResponse<HuobiAccountBalances>>(GetUrl(FillPathParameter(GetBalancesEndpoint, accountId.ToString()), "1"), signed: true).ConfigureAwait(false);
-            if (!result.Success)
-                return WebCallResult<List<HuobiBalance>>.CreateErrorResult(result.ResponseStatusCode, result.ResponseHeaders, result.Error);
+            var result = await SendHuobiRequest<HuobiAccountBalances>(GetUrl(FillPathParameter(GetBalancesEndpoint, accountId.ToString()), "1"), HttpMethod.Get, ct, signed: true).ConfigureAwait(false);
+            if (!result)
+                return WebCallResult<IEnumerable<HuobiBalance>>.CreateErrorResult(result.ResponseStatusCode, result.ResponseHeaders, result.Error!);
             
-            return new WebCallResult<List<HuobiBalance>>(result.ResponseStatusCode, result.ResponseHeaders, result.Data.Data.Data, result.Error);
+            return new WebCallResult<IEnumerable<HuobiBalance>>(result.ResponseStatusCode, result.ResponseHeaders, result.Data.Data, result.Error);
         }
 
         /// <summary>
         /// Gets a list of balances for a specific sub account
         /// </summary>
         /// <param name="subAccountId">The id of the sub account to get the balances for</param>
+        /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        public WebCallResult<List<HuobiBalance>> GetSubAccountBalances(long subAccountId) => GetSubAccountBalancesAsync(subAccountId).Result;
+        public WebCallResult<IEnumerable<HuobiBalance>> GetSubAccountBalances(long subAccountId, CancellationToken ct = default) => GetSubAccountBalancesAsync(subAccountId, ct).Result;
         /// <summary>
         /// Gets a list of balances for a specific sub account
         /// </summary>
         /// <param name="subAccountId">The id of the sub account to get the balances for</param>
+        /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        public async Task<WebCallResult<List<HuobiBalance>>> GetSubAccountBalancesAsync(long subAccountId)
+        public async Task<WebCallResult<IEnumerable<HuobiBalance>>> GetSubAccountBalancesAsync(long subAccountId, CancellationToken ct = default)
         {
-            var result = await ExecuteRequest<HuobiBasicResponse<List<HuobiAccountBalances>>>(GetUrl(FillPathParameter(GetSubAccountBalancesEndpoint, subAccountId.ToString()), "1"), signed: true).ConfigureAwait(false);
-            if (!result.Success)
-                return WebCallResult<List<HuobiBalance>>.CreateErrorResult(result.ResponseStatusCode, result.ResponseHeaders, result.Error);
+            var result = await SendHuobiRequest<IEnumerable<HuobiAccountBalances>>(GetUrl(FillPathParameter(GetSubAccountBalancesEndpoint, subAccountId.ToString()), "1"), HttpMethod.Get, ct, signed: true).ConfigureAwait(false);
+            if (!result)
+                return WebCallResult<IEnumerable<HuobiBalance>>.CreateErrorResult(result.ResponseStatusCode, result.ResponseHeaders, result.Error!);
 
-            return new WebCallResult<List<HuobiBalance>>(result.ResponseStatusCode, result.ResponseHeaders, result.Data.Data[0].Data, result.Error);
+            return new WebCallResult<IEnumerable<HuobiBalance>>(result.ResponseStatusCode, result.ResponseHeaders, result.Data.First().Data, result.Error);
         }
 
         /// <summary>
@@ -398,8 +423,10 @@ namespace Huobi.Net
         /// <param name="currency">The crypto currency to transfer</param>
         /// <param name="amount">The amount of asset to transfer</param>
         /// <param name="transferType">The type of transfer</param>
+        /// <param name="ct">Cancellation token</param>
         /// <returns>Unique transfer id</returns>
-        public WebCallResult<long> TransferWithSubAccount(long subAccountId, string currency, decimal amount, HuobiTransferType transferType) => TransferWithSubAccountAsync(subAccountId, currency, amount, transferType).Result;
+        public WebCallResult<long> TransferWithSubAccount(long subAccountId, string currency, decimal amount, HuobiTransferType transferType, CancellationToken ct = default) => 
+            TransferWithSubAccountAsync(subAccountId, currency, amount, transferType, ct).Result;
         /// <summary>
         /// Transfer asset between parent and sub account
         /// </summary>
@@ -407,8 +434,9 @@ namespace Huobi.Net
         /// <param name="currency">The crypto currency to transfer</param>
         /// <param name="amount">The amount of asset to transfer</param>
         /// <param name="transferType">The type of transfer</param>
+        /// <param name="ct">Cancellation token</param>
         /// <returns>Unique transfer id</returns>
-        public async Task<WebCallResult<long>> TransferWithSubAccountAsync(long subAccountId, string currency, decimal amount, HuobiTransferType transferType)
+        public async Task<WebCallResult<long>> TransferWithSubAccountAsync(long subAccountId, string currency, decimal amount, HuobiTransferType transferType, CancellationToken ct = default)
         {
             var parameters = new Dictionary<string, object>
             {
@@ -418,8 +446,7 @@ namespace Huobi.Net
                 { "type", JsonConvert.SerializeObject(transferType, new TransferTypeConverter(false)) }
             };
 
-            var result = await ExecuteRequest<HuobiBasicResponse<long>>(GetUrl(TransferWithSubAccountEndpoint, "1"), "POST", parameters, true).ConfigureAwait(false);
-            return new WebCallResult<long>(result.ResponseStatusCode, result.ResponseHeaders, result.Data?.Data ?? 0, result.Error);
+            return await SendHuobiRequest<long>(GetUrl(TransferWithSubAccountEndpoint, "1"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -430,8 +457,10 @@ namespace Huobi.Net
         /// <param name="orderType">The type of the order</param>
         /// <param name="amount">The amount of the order</param>
         /// <param name="price">The price of the order. Should be omitted for market orders</param>
+        /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        public WebCallResult<long> PlaceOrder(long accountId, string symbol, HuobiOrderType orderType, decimal amount, decimal? price = null) => PlaceOrderAsync(accountId, symbol, orderType, amount, price).Result;
+        public WebCallResult<long> PlaceOrder(long accountId, string symbol, HuobiOrderType orderType, decimal amount, decimal? price = null, CancellationToken ct = default) =>
+            PlaceOrderAsync(accountId, symbol, orderType, amount, price, ct).Result;
         /// <summary>
         /// Places an order
         /// </summary>
@@ -440,8 +469,9 @@ namespace Huobi.Net
         /// <param name="orderType">The type of the order</param>
         /// <param name="amount">The amount of the order</param>
         /// <param name="price">The price of the order. Should be omitted for market orders</param>
+        /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        public async Task<WebCallResult<long>> PlaceOrderAsync(long accountId, string symbol, HuobiOrderType orderType, decimal amount, decimal? price = null)
+        public async Task<WebCallResult<long>> PlaceOrderAsync(long accountId, string symbol, HuobiOrderType orderType, decimal amount, decimal? price = null, CancellationToken ct = default)
         {
             if(orderType == HuobiOrderType.StopLimitBuy || orderType == HuobiOrderType.StopLimitSell)
                 return WebCallResult<long>.CreateErrorResult(new ArgumentError("Stop limit orders not supported by API"));
@@ -460,8 +490,7 @@ namespace Huobi.Net
                 parameters["amount"] = amount.ToString(CultureInfo.InvariantCulture);
 
             parameters.AddOptionalParameter("price", price);
-            var result = await ExecuteRequest<HuobiBasicResponse<long>>(GetUrl(PlaceOrderEndpoint, "1"), "POST", parameters, true).ConfigureAwait(false);
-            return new WebCallResult<long>(result.ResponseStatusCode, result.ResponseHeaders, result.Data?.Data ?? 0, result.Error);
+            return await SendHuobiRequest<long>(GetUrl(PlaceOrderEndpoint, "1"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -471,8 +500,10 @@ namespace Huobi.Net
         /// <param name="symbol">The symbol for which to get the orders for</param>
         /// <param name="side">Only get buy or sell orders</param>
         /// <param name="limit">The max number of results</param>
+        /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        public WebCallResult<List<HuobiOpenOrder>> GetOpenOrders(long? accountId = null, string symbol = null, HuobiOrderSide? side = null, int? limit = null) => GetOpenOrdersAsync(accountId, symbol, side, limit).Result;
+        public WebCallResult<IEnumerable<HuobiOpenOrder>> GetOpenOrders(long? accountId = null, string? symbol = null, HuobiOrderSide? side = null, int? limit = null, CancellationToken ct = default) => 
+            GetOpenOrdersAsync(accountId, symbol, side, limit, ct).Result;
         /// <summary>
         /// Gets a list of open orders
         /// </summary>
@@ -480,11 +511,12 @@ namespace Huobi.Net
         /// <param name="symbol">The symbol for which to get the orders for</param>
         /// <param name="side">Only get buy or sell orders</param>
         /// <param name="limit">The max number of results</param>
+        /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        public async Task<WebCallResult<List<HuobiOpenOrder>>> GetOpenOrdersAsync(long? accountId = null, string symbol = null, HuobiOrderSide? side = null, int? limit = null)
+        public async Task<WebCallResult<IEnumerable<HuobiOpenOrder>>> GetOpenOrdersAsync(long? accountId = null, string? symbol = null, HuobiOrderSide? side = null, int? limit = null, CancellationToken ct = default)
         {
             if (accountId != null && symbol == null)
-                return WebCallResult<List<HuobiOpenOrder>>.CreateErrorResult(new ArgumentError("Can't request open orders based on only the account id"));
+                return WebCallResult<IEnumerable<HuobiOpenOrder>>.CreateErrorResult(new ArgumentError("Can't request open orders based on only the account id"));
 
             var parameters = new Dictionary<string, object>();
             parameters.AddOptionalParameter("account-id", accountId);
@@ -492,81 +524,84 @@ namespace Huobi.Net
             parameters.AddOptionalParameter("side", side == null ? null: JsonConvert.SerializeObject(side, new OrderSideConverter(false)));
             parameters.AddOptionalParameter("size", limit);
 
-            var result = await ExecuteRequest<HuobiBasicResponse<List<HuobiOpenOrder>>>(GetUrl(OpenOrdersEndpoint, "1"), "GET", parameters, true).ConfigureAwait(false);
-            return new WebCallResult<List<HuobiOpenOrder>>(result.ResponseStatusCode, result.ResponseHeaders, result.Data?.Data, result.Error);
+            return await SendHuobiRequest<IEnumerable<HuobiOpenOrder>>(GetUrl(OpenOrdersEndpoint, "1"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
         }
 
         /// <summary>
         /// Cancels an open order
         /// </summary>
         /// <param name="orderId">The id of the order to cancel</param>
+        /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        public WebCallResult<long> CancelOrder(long orderId) => CancelOrderAsync(orderId).Result;
+        public WebCallResult<long> CancelOrder(long orderId, CancellationToken ct = default) => CancelOrderAsync(orderId, ct).Result;
         /// <summary>
         /// Cancels an open order
         /// </summary>
         /// <param name="orderId">The id of the order to cancel</param>
+        /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        public async Task<WebCallResult<long>> CancelOrderAsync(long orderId)
+        public async Task<WebCallResult<long>> CancelOrderAsync(long orderId, CancellationToken ct = default)
         {
-            var result = await ExecuteRequest<HuobiBasicResponse<long>>(GetUrl(FillPathParameter(CancelOrderEndpoint, orderId.ToString()), "1"), "POST", signed: true).ConfigureAwait(false);
-            return new WebCallResult<long>(result.ResponseStatusCode, result.ResponseHeaders, result.Data?.Data ?? 0, result.Error);
+            return await SendHuobiRequest<long>(GetUrl(FillPathParameter(CancelOrderEndpoint, orderId.ToString()), "1"), HttpMethod.Post, ct, signed: true).ConfigureAwait(false);
         }
 
         /// <summary>
         /// Cancel multiple open orders
         /// </summary>
         /// <param name="orderIds">The ids of the orders to cancel</param>
+        /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        public WebCallResult<HuobiBatchCancelResult> CancelOrders(IEnumerable<long> orderIds) => CancelOrdersAsync(orderIds).Result;
+        public WebCallResult<HuobiBatchCancelResult> CancelOrders(IEnumerable<long> orderIds, CancellationToken ct = default) => CancelOrdersAsync(orderIds, ct).Result;
         /// <summary>
         /// Cancel multiple open orders
         /// </summary>
         /// <param name="orderIds">The ids of the orders to cancel</param>
+        /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        public async Task<WebCallResult<HuobiBatchCancelResult>> CancelOrdersAsync(IEnumerable<long> orderIds)
+        public async Task<WebCallResult<HuobiBatchCancelResult>> CancelOrdersAsync(IEnumerable<long> orderIds, CancellationToken ct = default)
         {
             var parameters = new Dictionary<string, object>
             {
                 { "order-ids", orderIds.Select(s => s.ToString()) }
             };
 
-            var result = await ExecuteRequest<HuobiBasicResponse<HuobiBatchCancelResult>>(GetUrl(CancelOrdersEndpoint, "1"), "POST", parameters, true).ConfigureAwait(false);
-            return new WebCallResult<HuobiBatchCancelResult>(result.ResponseStatusCode, result.ResponseHeaders, result.Data?.Data, result.Error);
+            return await SendHuobiRequest<HuobiBatchCancelResult>(GetUrl(CancelOrdersEndpoint, "1"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
         }
 
         /// <summary>
         /// Get details of an order
         /// </summary>
         /// <param name="orderId">The id of the order to retrieve</param>
+        /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        public WebCallResult<HuobiOrder> GetOrderInfo(long orderId) => GetOrderInfoAsync(orderId).Result;
+        public WebCallResult<HuobiOrder> GetOrderInfo(long orderId, CancellationToken ct = default) => GetOrderInfoAsync(orderId, ct).Result;
         /// <summary>
         /// Get details of an order
         /// </summary>
         /// <param name="orderId">The id of the order to retrieve</param>
+        /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        public async Task<WebCallResult<HuobiOrder>> GetOrderInfoAsync(long orderId)
+        public async Task<WebCallResult<HuobiOrder>> GetOrderInfoAsync(long orderId, CancellationToken ct = default)
         {
-            var result = await ExecuteRequest<HuobiBasicResponse<HuobiOrder>>(GetUrl(FillPathParameter(OrderInfoEndpoint, orderId.ToString()), "1"), "GET", signed: true).ConfigureAwait(false);
-            return new WebCallResult<HuobiOrder>(result.ResponseStatusCode, result.ResponseHeaders, result.Data?.Data, result.Error);
+            return await SendHuobiRequest<HuobiOrder>(GetUrl(FillPathParameter(OrderInfoEndpoint, orderId.ToString()), "1"), HttpMethod.Get, ct, signed: true).ConfigureAwait(false);
         }
 
         /// <summary>
         /// Gets a list of trades made for a specific order
         /// </summary>
         /// <param name="orderId">The id of the order to get trades for</param>
+        /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        public WebCallResult<List<HuobiOrderTrade>> GetOrderTrades(long orderId) => GetOrderTradesAsync(orderId).Result;
+        public WebCallResult<IEnumerable<HuobiOrderTrade>> GetOrderTrades(long orderId, CancellationToken ct = default) => GetOrderTradesAsync(orderId, ct).Result;
         /// <summary>
         /// Gets a list of trades made for a specific order
         /// </summary>
         /// <param name="orderId">The id of the order to get trades for</param>
+        /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        public async Task<WebCallResult<List<HuobiOrderTrade>>> GetOrderTradesAsync(long orderId)
+        public async Task<WebCallResult<IEnumerable<HuobiOrderTrade>>> GetOrderTradesAsync(long orderId, CancellationToken ct = default)
         {
-            var result = await ExecuteRequest<HuobiBasicResponse<List<HuobiOrderTrade>>>(GetUrl(FillPathParameter(OrderTradesEndpoint, orderId.ToString()), "1"), "GET", signed: true).ConfigureAwait(false);
-            return new WebCallResult<List<HuobiOrderTrade>>(result.ResponseStatusCode, result.ResponseHeaders, result.Data?.Data, result.Error);
+            return await SendHuobiRequest<IEnumerable<HuobiOrderTrade>>(GetUrl(FillPathParameter(OrderTradesEndpoint, orderId.ToString()), "1"), HttpMethod.Get, ct, signed: true).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -580,8 +615,10 @@ namespace Huobi.Net
         /// <param name="fromId">Only get orders with before or after this. Used together with the direction parameter</param>
         /// <param name="direction">Direction of the results to return when using the fromId parameter</param>
         /// <param name="limit">The max number of results</param>
+        /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        public WebCallResult<List<HuobiOrder>> GetOrders(IEnumerable<HuobiOrderState> states, string symbol = null, IEnumerable<HuobiOrderType> types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, HuobiFilterDirection? direction = null, int? limit = null) => GetOrdersAsync(states, symbol, types, startTime, endTime, fromId, direction, limit).Result;
+        public WebCallResult<IEnumerable<HuobiOrder>> GetOrders(IEnumerable<HuobiOrderState> states, string? symbol = null, IEnumerable<HuobiOrderType>? types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, HuobiFilterDirection? direction = null, int? limit = null, CancellationToken ct = default) => 
+            GetOrdersAsync(states, symbol, types, startTime, endTime, fromId, direction, limit, ct).Result;
         /// <summary>
         /// Gets a list of orders
         /// </summary>
@@ -593,8 +630,9 @@ namespace Huobi.Net
         /// <param name="fromId">Only get orders with before or after this. Used together with the direction parameter</param>
         /// <param name="direction">Direction of the results to return when using the fromId parameter</param>
         /// <param name="limit">The max number of results</param>
+        /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        public async Task<WebCallResult<List<HuobiOrder>>> GetOrdersAsync(IEnumerable<HuobiOrderState> states, string symbol = null, IEnumerable<HuobiOrderType> types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, HuobiFilterDirection? direction = null, int? limit = null)
+        public async Task<WebCallResult<IEnumerable<HuobiOrder>>> GetOrdersAsync(IEnumerable<HuobiOrderState> states, string? symbol = null, IEnumerable<HuobiOrderType>? types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, HuobiFilterDirection? direction = null, int? limit = null, CancellationToken ct = default)
         {
             var stateConverter = new OrderStateConverter(false);
             var typeConverter = new OrderTypeConverter(false);
@@ -610,13 +648,13 @@ namespace Huobi.Net
             parameters.AddOptionalParameter("direct", direction == null ? null : JsonConvert.SerializeObject(direction, new FilterDirectionConverter(false)));
             parameters.AddOptionalParameter("size", limit);
 
-            var result = await ExecuteRequest<HuobiBasicResponse<List<HuobiOrder>>>(GetUrl(OrdersEndpoint, "1"), "GET", parameters, true).ConfigureAwait(false);
-            return new WebCallResult<List<HuobiOrder>>(result.ResponseStatusCode, result.ResponseHeaders, result.Data?.Data, result.Error);
+            return await SendHuobiRequest<IEnumerable<HuobiOrder>>(GetUrl(OrdersEndpoint, "1"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
         }
 
         /// <summary>
         /// Gets a list of trades for a specific symbol
         /// </summary>
+        /// <param name="states">Only return trades with specific states</param>
         /// <param name="symbol">The symbol to retrieve trades for</param>
         /// <param name="types">The type of orders to return</param>
         /// <param name="startTime">Only get orders after this date</param>
@@ -624,11 +662,15 @@ namespace Huobi.Net
         /// <param name="fromId">Only get orders with before or after this. Used together with the direction parameter</param>
         /// <param name="direction">Direction of the results to return when using the fromId parameter</param>
         /// <param name="limit">The max number of results</param>
+        /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        public WebCallResult<List<HuobiOrderTrade>> GetSymbolTrades(IEnumerable<HuobiOrderState> states = null, string symbol = null, IEnumerable<HuobiOrderType> types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, HuobiFilterDirection? direction = null, int? limit = null) => GetSymbolTradesAsync(states, symbol, types, startTime, endTime, fromId, direction, limit).Result;
+        public WebCallResult<IEnumerable<HuobiOrderTrade>> GetSymbolTrades(IEnumerable<HuobiOrderState>? states = null, string? symbol = null, IEnumerable<HuobiOrderType>? types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, HuobiFilterDirection? direction = null, int? limit = null, CancellationToken ct = default) =>
+            GetSymbolTradesAsync(states, symbol, types, startTime, endTime, fromId, direction, limit, ct).Result;
+
         /// <summary>
         /// Gets a list of trades for a specific symbol
         /// </summary>
+        /// <param name="states">Only return trades with specific states</param>
         /// <param name="symbol">The symbol to retrieve trades for</param>
         /// <param name="types">The type of orders to return</param>
         /// <param name="startTime">Only get orders after this date</param>
@@ -636,8 +678,9 @@ namespace Huobi.Net
         /// <param name="fromId">Only get orders with before or after this. Used together with the direction parameter</param>
         /// <param name="direction">Direction of the results to return when using the fromId parameter</param>
         /// <param name="limit">The max number of results</param>
+        /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        public async Task<WebCallResult<List<HuobiOrderTrade>>> GetSymbolTradesAsync(IEnumerable<HuobiOrderState> states = null, string symbol = null, IEnumerable<HuobiOrderType> types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, HuobiFilterDirection? direction = null, int? limit = null)
+        public async Task<WebCallResult<IEnumerable<HuobiOrderTrade>>> GetSymbolTradesAsync(IEnumerable<HuobiOrderState>? states = null, string? symbol = null, IEnumerable<HuobiOrderType>? types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, HuobiFilterDirection? direction = null, int? limit = null, CancellationToken ct = default)
         {
             var stateConverter = new OrderStateConverter(false);
             var typeConverter = new OrderTypeConverter(false);
@@ -651,8 +694,7 @@ namespace Huobi.Net
             parameters.AddOptionalParameter("direct", direction == null ? null : JsonConvert.SerializeObject(direction, new FilterDirectionConverter(false)));
             parameters.AddOptionalParameter("size", limit);
 
-            var result = await ExecuteRequest<HuobiBasicResponse<List<HuobiOrderTrade>>>(GetUrl(SymbolTradesEndpoint, "1"), "GET", parameters, true).ConfigureAwait(false);
-            return new WebCallResult<List<HuobiOrderTrade>>(result.ResponseStatusCode, result.ResponseHeaders, result.Data?.Data, result.Error);
+            return await SendHuobiRequest<IEnumerable<HuobiOrderTrade>>(GetUrl(SymbolTradesEndpoint, "1"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -663,8 +705,11 @@ namespace Huobi.Net
         /// <param name="endTime">Only get orders before this date</param>
         /// <param name="direction">Direction of the results to return when using the fromId parameter</param>
         /// <param name="limit">The max number of results</param>
+        /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        public WebCallResult<List<HuobiOrder>> GetHistoryOrders(string symbol = null, DateTime? startTime = null, DateTime? endTime = null, HuobiFilterDirection? direction = null, int? limit = null) => GetHistoryOrdersAsync(symbol, startTime, endTime, direction, limit).Result;
+        public WebCallResult<IEnumerable<HuobiOrder>> GetHistoryOrders(string? symbol = null, DateTime? startTime = null, DateTime? endTime = null, HuobiFilterDirection? direction = null, int? limit = null, CancellationToken ct = default) => 
+            GetHistoryOrdersAsync(symbol, startTime, endTime, direction, limit, ct).Result;
+
         /// <summary>
         /// Gets a list of history orders
         /// </summary>
@@ -673,8 +718,9 @@ namespace Huobi.Net
         /// <param name="endTime">Only get orders before this date</param>
         /// <param name="direction">Direction of the results to return when using the fromId parameter</param>
         /// <param name="limit">The max number of results</param>
+        /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        public async Task<WebCallResult<List<HuobiOrder>>> GetHistoryOrdersAsync(string symbol = null, DateTime? startTime = null, DateTime? endTime = null, HuobiFilterDirection? direction = null, int? limit = null)
+        public async Task<WebCallResult<IEnumerable<HuobiOrder>>> GetHistoryOrdersAsync(string? symbol = null, DateTime? startTime = null, DateTime? endTime = null, HuobiFilterDirection? direction = null, int? limit = null, CancellationToken ct = default)
         {
             var parameters = new Dictionary<string, object>();
             parameters.AddOptionalParameter("symbol", symbol);
@@ -683,11 +729,35 @@ namespace Huobi.Net
             parameters.AddOptionalParameter("direct", direction == null ? null : JsonConvert.SerializeObject(direction, new FilterDirectionConverter(false)));
             parameters.AddOptionalParameter("size", limit);
 
-            var result = await ExecuteRequest<HuobiBasicResponse<List<HuobiOrder>>>(GetUrl(HistoryOrdersEndpoint, "1"), "GET", parameters, true).ConfigureAwait(false);
-            return new WebCallResult<List<HuobiOrder>>(result.ResponseStatusCode, result.ResponseHeaders, result.Data?.Data, result.Error);
+            return await SendHuobiRequest<IEnumerable<HuobiOrder>>(GetUrl(HistoryOrdersEndpoint, "1"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
         }
 
-        protected override IRequest ConstructRequest(Uri uri, string method, Dictionary<string, object> parameters, bool signed)
+        private async Task<WebCallResult<(T, DateTime)>> SendHuobiTimestampRequest<T>(Uri uri, HttpMethod method, CancellationToken cancellationToken, Dictionary<string, object>? parameters = null, bool signed = false, bool checkResult = true) 
+        {
+            var result = await SendRequest<HuobiBasicResponse<T>>(uri, method, cancellationToken, parameters, signed, checkResult).ConfigureAwait(false);
+            if (!result || result.Data == null)
+                return new WebCallResult<(T, DateTime)>(result.ResponseStatusCode, result.ResponseHeaders, default, result.Error);
+
+            if (result.Data.ErrorCode != null)
+                return new WebCallResult<(T, DateTime)>(result.ResponseStatusCode, result.ResponseHeaders, default, new ServerError($"{result.Data.ErrorCode}-{result.Data.ErrorMessage}"));
+
+            return new WebCallResult<(T, DateTime)>(result.ResponseStatusCode, result.ResponseHeaders, (result.Data.Data, result.Data.Timestamp), null);
+        }
+
+        private async Task<WebCallResult<T>> SendHuobiRequest<T>(Uri uri, HttpMethod method,CancellationToken cancellationToken, Dictionary<string, object>? parameters = null, bool signed = false, bool checkResult = true)
+        {
+            var result = await SendRequest<HuobiBasicResponse<T>>(uri, method, cancellationToken, parameters, signed, checkResult).ConfigureAwait(false);
+            if (!result || result.Data == null)
+                return new WebCallResult<T>(result.ResponseStatusCode, result.ResponseHeaders, default, result.Error);
+
+            if (result.Data.ErrorCode != null)
+                return new WebCallResult<T>(result.ResponseStatusCode, result.ResponseHeaders, default, new ServerError(result.Data.ErrorCode, result.Data.ErrorMessage));
+            
+            return new WebCallResult<T>(result.ResponseStatusCode, result.ResponseHeaders, result.Data.Data, null);
+        }
+
+        /// <inheritdoc />
+        protected override IRequest ConstructRequest(Uri uri, HttpMethod method, Dictionary<string, object>? parameters, bool signed)
         {
             if (parameters == null)
                 parameters = new Dictionary<string, object>();
@@ -696,10 +766,10 @@ namespace Huobi.Net
             if (authProvider != null)
                 parameters = authProvider.AddAuthenticationToParameters(uriString, method, parameters, signed);
 
-            if ((method == Constants.GetMethod || method == Constants.DeleteMethod || postParametersPosition == PostParameters.InUri) && parameters?.Any() == true)
-                uriString += "?" + parameters.CreateParamString(true, ArrayParametersSerialization.MultipleValues);
+            if ((method == HttpMethod.Get || method == HttpMethod.Delete || postParametersPosition == PostParameters.InUri) && parameters?.Any() == true)
+                uriString += "?" + parameters.CreateParamString(true, arraySerialization);
 
-            if (method == Constants.PostMethod && signed)
+            if (method == HttpMethod.Post && signed)
             {
                 var uriParamNames = new[] { "AccessKeyId", "SignatureMethod", "SignatureVersion", "Timestamp", "Signature" };
                 var uriParams = parameters.Where(p => uriParamNames.Contains(p.Key)).ToDictionary(k => k.Key, k => k.Value);
@@ -707,34 +777,29 @@ namespace Huobi.Net
                 parameters = parameters.Where(p => !uriParamNames.Contains(p.Key)).ToDictionary(k => k.Key, k => k.Value);
             }
 
-            var request = RequestFactory.Create(uriString);
-            request.ContentType = requestBodyFormat == RequestBodyFormat.Json ? Constants.JsonContentHeader : Constants.FormContentHeader;
+            var contentType = requestBodyFormat == RequestBodyFormat.Json ? Constants.JsonContentHeader : Constants.FormContentHeader;
+            var request = RequestFactory.Create(method, uriString);
             request.Accept = Constants.JsonContentHeader;
-            request.Method = method;
 
             var headers = new Dictionary<string, string>();
             if (authProvider != null)
-                headers = authProvider.AddAuthenticationToHeaders(uriString, method, parameters, signed);
+                headers = authProvider.AddAuthenticationToHeaders(uriString, method, parameters!, signed);
 
             foreach (var header in headers)
-                request.Headers.Add(header.Key, header.Value);
+                request.AddHeader(header.Key, header.Value);
 
-            if ((method == Constants.PostMethod || method == Constants.PutMethod) && postParametersPosition != PostParameters.InUri)
+            if ((method == HttpMethod.Post || method == HttpMethod.Put) && postParametersPosition != PostParameters.InUri)
             {
                 if (parameters?.Any() == true)
-                    WriteParamBody(request, parameters);
+                    WriteParamBody(request, parameters, contentType);
                 else
-                    WriteParamBody(request, "{}");
+                    request.SetContent("{}", contentType);
             }
 
             return request;
         }
-
-        protected override bool IsErrorResponse(JToken data)
-        {
-            return data["status"] != null && (string)data["status"] != "ok";
-        }
-
+        
+        /// <inheritdoc />
         protected override Error ParseErrorResponse(JToken error)
         {
             if(error["err-code"] == null || error["err-msg"]==null)
@@ -743,14 +808,15 @@ namespace Huobi.Net
             return new ServerError($"{(string)error["err-code"]}, {(string)error["err-msg"]}");
         }
 
-        protected Uri GetUrl(string endpoint, string version=null)
+        /// <summary>
+        /// Construct url
+        /// </summary>
+        /// <param name="endpoint"></param>
+        /// <param name="version"></param>
+        /// <returns></returns>
+        protected Uri GetUrl(string endpoint, string? version = null)
         {
             return version == null ? new Uri($"{BaseAddress}/{endpoint}") : new Uri($"{BaseAddress}/v{version}/{endpoint}");
-        }
-
-        private void Configure(HuobiClientOptions options)
-        {
-            SignPublicRequests = options.SignPublicRequests;
         }
 
         private static long ToUnixTimestamp(DateTime time)

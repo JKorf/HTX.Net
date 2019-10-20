@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Huobi.Net.Converters
 {
-    public class FilterDirectionConverter : BaseConverter<HuobiFilterDirection>
+    internal class FilterDirectionConverter : BaseConverter<HuobiFilterDirection>
     {
         public FilterDirectionConverter() : this(true) { }
         public FilterDirectionConverter(bool quotes) : base(quotes) { }

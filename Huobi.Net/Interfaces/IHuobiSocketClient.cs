@@ -9,6 +9,9 @@ using Huobi.Net.Objects.SocketObjects;
 
 namespace Huobi.Net.Interfaces
 {
+    /// <summary>
+    /// Interface for the Huobi socket client
+    /// </summary>
     public interface IHuobiSocketClient: ISocketClient
     {
         /// <summary>
@@ -17,7 +20,7 @@ namespace Huobi.Net.Interfaces
         /// <param name="symbol">The symbol to get the data for</param>
         /// <param name="period">The period of a single candlestick</param>
         /// <returns></returns>
-        CallResult<List<HuobiMarketKline>> QueryMarketKlines(string symbol, HuobiPeriod period);
+        CallResult<IEnumerable<HuobiMarketKline>> QueryMarketKlines(string symbol, HuobiPeriod period);
 
         /// <summary>
         /// Gets candlestick data for a symbol
@@ -25,7 +28,7 @@ namespace Huobi.Net.Interfaces
         /// <param name="symbol">The symbol to get the data for</param>
         /// <param name="period">The period of a single candlestick</param>
         /// <returns></returns>
-        Task<CallResult<List<HuobiMarketKline>>> QueryMarketKlinesAsync(string symbol, HuobiPeriod period);
+        Task<CallResult<IEnumerable<HuobiMarketKline>>> QueryMarketKlinesAsync(string symbol, HuobiPeriod period);
 
         /// <summary>
         /// Subscribes to candlestick updates for a symbol
@@ -84,14 +87,14 @@ namespace Huobi.Net.Interfaces
         /// </summary>
         /// <param name="symbol">The symbol to get trades for</param>
         /// <returns></returns>
-        CallResult<List<HuobiMarketTradeDetails>> QueryMarketTrades(string symbol);
+        CallResult<IEnumerable<HuobiMarketTradeDetails>> QueryMarketTrades(string symbol);
 
         /// <summary>
         /// Gets a list of trades for a symbol
         /// </summary>
         /// <param name="symbol">The symbol to get trades for</param>
         /// <returns></returns>
-        Task<CallResult<List<HuobiMarketTradeDetails>>> QueryMarketTradesAsync(string symbol);
+        Task<CallResult<IEnumerable<HuobiMarketTradeDetails>>> QueryMarketTradesAsync(string symbol);
 
         /// <summary>
         /// Subscribes to trade updates for a symbol
@@ -157,13 +160,13 @@ namespace Huobi.Net.Interfaces
         /// Gets a list of accounts associated with the apikey/secret
         /// </summary>
         /// <returns></returns>
-        CallResult<List<HuobiAccountBalances>> QueryAccounts();
+        CallResult<IEnumerable<HuobiAccountBalances>> QueryAccounts();
 
         /// <summary>
         /// Gets a list of accounts associated with the apikey/secret
         /// </summary>
         /// <returns></returns>
-        Task<CallResult<List<HuobiAccountBalances>>> QueryAccountsAsync();
+        Task<CallResult<IEnumerable<HuobiAccountBalances>>> QueryAccountsAsync();
 
         /// <summary>
         /// Subscribe to account/wallet updates
@@ -191,7 +194,7 @@ namespace Huobi.Net.Interfaces
         /// <param name="fromId">Only get orders with id's higher than this</param>
         /// <param name="limit">The max number of results</param>
         /// <returns></returns>
-        CallResult<List<HuobiOrder>> QueryOrders(long accountId, string symbol, HuobiOrderState[] states, HuobiOrderType[] types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, int? limit = null);
+        CallResult<IEnumerable<HuobiOrder>> QueryOrders(long accountId, string symbol, IEnumerable<HuobiOrderState> states, IEnumerable<HuobiOrderType>? types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, int? limit = null);
 
         /// <summary>
         /// Gets a list of orders
@@ -205,7 +208,7 @@ namespace Huobi.Net.Interfaces
         /// <param name="fromId">Only get orders with id's higher than this</param>
         /// <param name="limit">The max number of results</param>
         /// <returns></returns>
-        Task<CallResult<List<HuobiOrder>>> QueryOrdersAsync(long accountId, string symbol, HuobiOrderState[] states, HuobiOrderType[] types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, int? limit = null);
+        Task<CallResult<IEnumerable<HuobiOrder>>> QueryOrdersAsync(long accountId, string symbol, IEnumerable<HuobiOrderState> states, IEnumerable<HuobiOrderType>? types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, int? limit = null);
 
         /// <summary>
         /// Subscribe to updates when any order changes

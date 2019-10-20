@@ -4,7 +4,7 @@ using Huobi.Net.Objects;
 
 namespace Huobi.Net.Converters
 {
-    public class TransferTypeConverter : BaseConverter<HuobiTransferType>
+    internal class TransferTypeConverter : BaseConverter<HuobiTransferType>
     {
         public TransferTypeConverter() : this(true) { }
         public TransferTypeConverter(bool useQuotes) : base(useQuotes) { }

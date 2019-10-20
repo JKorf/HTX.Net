@@ -13,17 +13,21 @@ using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace Huobi.Net
 {
+    /// <summary>
+    /// Client for the Huobi socket API
+    /// </summary>
     public class HuobiSocketClient : SocketClient, IHuobiSocketClient
     {
         #region fields
         private static HuobiSocketClientOptions defaultOptions = new HuobiSocketClientOptions();
         private static HuobiSocketClientOptions DefaultOptions => defaultOptions.Copy();
 
-        private string baseAddressAuthenticated;
+        private readonly string baseAddressAuthenticated;
         #endregion
 
         #region ctor
@@ -40,7 +44,7 @@ namespace Huobi.Net
         /// <param name="options">The options to use for this client</param>
         public HuobiSocketClient(HuobiSocketClientOptions options) : base(options, options.ApiCredentials == null ? null : new HuobiAuthenticationProvider(options.ApiCredentials, false))
         {
-            Configure(options);
+            baseAddressAuthenticated = options.BaseAddressAuthenticated;
 
             SetDataInterpreter(DecompressData, null);
             AddGenericHandler("PingV1", PingHandlerV1);
@@ -49,10 +53,6 @@ namespace Huobi.Net
         #endregion
 
         #region methods
-        private void Configure(HuobiSocketClientOptions options)
-        {
-            baseAddressAuthenticated = options.BaseAddressAuthenticated;
-        }
 
         /// <summary>
         /// Set the default options to be used when creating new socket clients
@@ -69,18 +69,18 @@ namespace Huobi.Net
         /// <param name="symbol">The symbol to get the data for</param>
         /// <param name="period">The period of a single candlestick</param>
         /// <returns></returns>
-        public CallResult<List<HuobiMarketKline>> QueryMarketKlines(string symbol, HuobiPeriod period) => QueryMarketKlinesAsync(symbol, period).Result;
+        public CallResult<IEnumerable<HuobiMarketKline>> QueryMarketKlines(string symbol, HuobiPeriod period) => QueryMarketKlinesAsync(symbol, period).Result;
         /// <summary>
         /// Gets candlestick data for a symbol
         /// </summary>
         /// <param name="symbol">The symbol to get the data for</param>
         /// <param name="period">The period of a single candlestick</param>
         /// <returns></returns>
-        public async Task<CallResult<List<HuobiMarketKline>>> QueryMarketKlinesAsync(string symbol, HuobiPeriod period)
+        public async Task<CallResult<IEnumerable<HuobiMarketKline>>> QueryMarketKlinesAsync(string symbol, HuobiPeriod period)
         {
             var request = new HuobiSocketRequest(NextId().ToString(), $"market.{symbol}.kline.{JsonConvert.SerializeObject(period, new PeriodConverter(false))}");
-            var result = await Query<HuobiSocketResponse<List<HuobiMarketKline>>>(request, false).ConfigureAwait(false);
-            return new CallResult<List<HuobiMarketKline>>(result.Data?.Data, result.Error);
+            var result = await Query<HuobiSocketResponse<IEnumerable<HuobiMarketKline>>>(request, false).ConfigureAwait(false);
+            return new CallResult<IEnumerable<HuobiMarketKline>>(result.Data?.Data, result.Error);
         }
 
         /// <summary>
@@ -125,7 +125,7 @@ namespace Huobi.Net
 
             var request = new HuobiSocketRequest(NextId().ToString(), $"market.{symbol}.depth.step{mergeStep}");
             var result = await Query<HuobiSocketResponse<HuobiMarketDepth>>(request, false).ConfigureAwait(false);
-            if (!result.Success)
+            if (!result)
                 return new CallResult<HuobiMarketDepth>(null, result.Error);
 
             result.Data.Data.Timestamp = result.Data.Timestamp;
@@ -167,17 +167,17 @@ namespace Huobi.Net
         /// </summary>
         /// <param name="symbol">The symbol to get trades for</param>
         /// <returns></returns>
-        public CallResult<List<HuobiMarketTradeDetails>> QueryMarketTrades(string symbol) => QueryMarketTradesAsync(symbol).Result;
+        public CallResult<IEnumerable<HuobiMarketTradeDetails>> QueryMarketTrades(string symbol) => QueryMarketTradesAsync(symbol).Result;
         /// <summary>
         /// Gets a list of trades for a symbol
         /// </summary>
         /// <param name="symbol">The symbol to get trades for</param>
         /// <returns></returns>
-        public async Task<CallResult<List<HuobiMarketTradeDetails>>> QueryMarketTradesAsync(string symbol)
+        public async Task<CallResult<IEnumerable<HuobiMarketTradeDetails>>> QueryMarketTradesAsync(string symbol)
         {
             var request = new HuobiSocketRequest(NextId().ToString(), $"market.{symbol}.trade.detail");
-            var result = await Query<HuobiSocketResponse<List<HuobiMarketTradeDetails>>>(request, false).ConfigureAwait(false);
-            return new CallResult<List<HuobiMarketTradeDetails>>(result.Data?.Data, result.Error);
+            var result = await Query<HuobiSocketResponse<IEnumerable<HuobiMarketTradeDetails>>>(request, false).ConfigureAwait(false);
+            return new CallResult<IEnumerable<HuobiMarketTradeDetails>>(result.Data?.Data, result.Error);
         }
 
         /// <summary>
@@ -215,7 +215,7 @@ namespace Huobi.Net
         {
             var request = new HuobiSocketRequest(NextId().ToString(), $"market.{symbol}.detail");
             var result = await Query<HuobiSocketResponse<HuobiMarketDetails>>(request, false).ConfigureAwait(false);
-            if (!result.Success)
+            if (!result)
                 return new CallResult<HuobiMarketDetails>(null, result.Error);
 
             result.Data.Data.Timestamp = result.Data.Timestamp;
@@ -260,7 +260,7 @@ namespace Huobi.Net
         public async Task<CallResult<UpdateSubscription>> SubscribeToMarketTickerUpdatesAsync(Action<HuobiMarketTicks> onData)
         {
             var request = new HuobiSubscribeRequest(NextId().ToString(), "market.tickers");
-            var internalHandler = new Action<HuobiSocketUpdate<List<HuobiMarketTick>>>(data =>
+            var internalHandler = new Action<HuobiSocketUpdate<IEnumerable<HuobiMarketTick>>>(data =>
             {
                 var result = new HuobiMarketTicks {Timestamp = data.Timestamp, Ticks = data.Data};
                 onData(result);
@@ -272,16 +272,16 @@ namespace Huobi.Net
         /// Gets a list of accounts associated with the apikey/secret
         /// </summary>
         /// <returns></returns>
-        public CallResult<List<HuobiAccountBalances>> QueryAccounts() => QueryAccountsAsync().Result;
+        public CallResult<IEnumerable<HuobiAccountBalances>> QueryAccounts() => QueryAccountsAsync().Result;
         /// <summary>
         /// Gets a list of accounts associated with the apikey/secret
         /// </summary>
         /// <returns></returns>
-        public async Task<CallResult<List<HuobiAccountBalances>>> QueryAccountsAsync()
+        public async Task<CallResult<IEnumerable<HuobiAccountBalances>>> QueryAccountsAsync()
         {
             var request = new HuobiAuthenticatedRequest(NextId().ToString(), "req", "accounts.list");
-            var result = await Query<HuobiSocketAuthDataResponse<List<HuobiAccountBalances>>>(request, true).ConfigureAwait(false);
-            return new CallResult<List<HuobiAccountBalances>>(result.Data?.Data, result.Error);
+            var result = await Query<HuobiSocketAuthDataResponse<IEnumerable<HuobiAccountBalances>>>(request, true).ConfigureAwait(false);
+            return new CallResult<IEnumerable<HuobiAccountBalances>>(result.Data?.Data, result.Error);
         }
 
         /// <summary>
@@ -318,7 +318,7 @@ namespace Huobi.Net
         /// <param name="fromId">Only get orders with id's higher than this</param>
         /// <param name="limit">The max number of results</param>
         /// <returns></returns>
-        public CallResult<List<HuobiOrder>> QueryOrders(long accountId, string symbol, HuobiOrderState[] states, HuobiOrderType[] types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, int? limit = null) => QueryOrdersAsync(accountId, symbol, states, types, startTime, endTime, fromId, limit).Result;
+        public CallResult<IEnumerable<HuobiOrder>> QueryOrders(long accountId, string symbol, IEnumerable<HuobiOrderState> states, IEnumerable<HuobiOrderType>? types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, int? limit = null) => QueryOrdersAsync(accountId, symbol, states, types, startTime, endTime, fromId, limit).Result;
         /// <summary>
         /// Gets a list of orders
         /// </summary>
@@ -331,7 +331,7 @@ namespace Huobi.Net
         /// <param name="fromId">Only get orders with id's higher than this</param>
         /// <param name="limit">The max number of results</param>
         /// <returns></returns>
-        public async Task<CallResult<List<HuobiOrder>>> QueryOrdersAsync(long accountId, string symbol, HuobiOrderState[] states, HuobiOrderType[] types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, int? limit = null)
+        public async Task<CallResult<IEnumerable<HuobiOrder>>> QueryOrdersAsync(long accountId, string symbol, IEnumerable<HuobiOrderState> states, IEnumerable<HuobiOrderType>? types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, int? limit = null)
         {
             var stateConverter = new OrderStateConverter(false);
             var stateString = string.Join(",", states.Select(s => JsonConvert.SerializeObject(s, stateConverter)));
@@ -347,8 +347,8 @@ namespace Huobi.Net
             request.FromId = fromId?.ToString();
             request.Limit = limit?.ToString();
 
-            var result = await Query<HuobiSocketAuthDataResponse<List<HuobiOrder>>>(request, true).ConfigureAwait(false);
-            return new CallResult<List<HuobiOrder>>(result.Data?.Data, result.Error);
+            var result = await Query<HuobiSocketAuthDataResponse<IEnumerable<HuobiOrder>>>(request, true).ConfigureAwait(false);
+            return new CallResult<IEnumerable<HuobiOrder>>(result.Data?.Data, result.Error);
         }
 
         /// <summary>
@@ -423,6 +423,7 @@ namespace Huobi.Net
                 connection.Send(new HuobiPingAuthResponse((long)data["ts"]));
         }
         
+        /// <inheritdoc />
         protected override SocketConnection GetWebsocket(string address, bool authenticated)
         {
             address = authenticated ? baseAddressAuthenticated : BaseAddress;
@@ -441,34 +442,31 @@ namespace Huobi.Net
             var socket = CreateSocket(address);
             var socketWrapper = new SocketConnection(this, socket);
             foreach (var kvp in genericHandlers)
-                socketWrapper.AddHandler(kvp.Key, false, kvp.Value);
+                socketWrapper.AddHandler(SocketSubscription.CreateForIdentifier(kvp.Key, false, kvp.Value));
             return socketWrapper;
         }
 
         private static string DecompressData(byte[] byteData)
         {
-            using (var decompressedStream = new MemoryStream())
-            using (var compressedStream = new MemoryStream(byteData))
-            using (var deflateStream = new GZipStream(compressedStream, CompressionMode.Decompress))
-            {
-                deflateStream.CopyTo(decompressedStream);
-                decompressedStream.Position = 0;
+            using var decompressedStream = new MemoryStream();
+            using var compressedStream = new MemoryStream(byteData);
+            using var deflateStream = new GZipStream(compressedStream, CompressionMode.Decompress);
+            deflateStream.CopyTo(decompressedStream);
+            decompressedStream.Position = 0;
 
-                using (var streamReader = new StreamReader(decompressedStream))
-                {
-                    return streamReader.ReadToEnd();
-                }
-            }
+            using var streamReader = new StreamReader(decompressedStream);
+            return streamReader.ReadToEnd();
         }
         #endregion
         #endregion
 
+        /// <inheritdoc />
         protected override bool HandleQueryResponse<T>(SocketConnection s, object request, JToken data, out CallResult<T> callResult)
         {
-            callResult = new CallResult<T>(default(T), null);
+            callResult = new CallResult<T>(default, null);
             var v1Data = (data["data"] != null || data["tick"] != null) && data["rep"] != null;
             var v1Error = data["status"] != null && (string)data["status"] == "error";
-            bool isV1QueryResponse = v1Data || v1Error;
+            var isV1QueryResponse = v1Data || v1Error;
             if (isV1QueryResponse)
             {
                 var hRequest = (HuobiSocketRequest) request;
@@ -476,10 +474,10 @@ namespace Huobi.Net
                     return false;
 
                 var desResult = Deserialize<T>(data, false);
-                if (!desResult.Success)
+                if (!desResult)
                 {
                     log.Write(LogVerbosity.Warning, $"Failed to deserialize data: {desResult.Error}. Data: {data}");
-                    callResult = new CallResult<T>(default(T), desResult.Error);
+                    callResult = new CallResult<T>(default, desResult.Error);
                     return true;
                 }
 
@@ -494,7 +492,7 @@ namespace Huobi.Net
                     return false;
 
                 var desResult = Deserialize<T>(data, false);
-                if (!desResult.Success)
+                if (!desResult)
                 {
                     log.Write(LogVerbosity.Warning, $"Failed to deserialize data: {desResult.Error}. Data: {data}");
                     return false;
@@ -507,7 +505,8 @@ namespace Huobi.Net
             return true;
         }
 
-        protected override bool HandleSubscriptionResponse(SocketConnection s, SocketSubscription subscription, object request, JToken message, out CallResult<object> callResult)
+        /// <inheritdoc />
+        protected override bool HandleSubscriptionResponse(SocketConnection s, SocketSubscription subscription, object request, JToken message, out CallResult<object>? callResult)
         {
             callResult = null;
             var isError = message["status"] != null && (string)message["status"] == "error";
@@ -516,7 +515,7 @@ namespace Huobi.Net
                 if (request is HuobiSubscribeRequest hRequest)
                 {
                     var subResponse = Deserialize<HuobiSubscribeResponse>(message, false);
-                    if (!subResponse.Success)
+                    if (!subResponse)
                     {
                         log.Write(LogVerbosity.Warning, "Subscription failed: " + subResponse.Error);
                         return false;
@@ -534,7 +533,7 @@ namespace Huobi.Net
                 if (request is HuobiAuthenticatedRequest haRequest)
                 {
                     var subResponse = Deserialize<HuobiSocketAuthResponse>(message, false);
-                    if (!subResponse.Success)
+                    if (!subResponse)
                     {
                         log.Write(LogVerbosity.Warning, "Subscription failed: " + subResponse.Error);
                         callResult = new CallResult<object>(null, subResponse.Error);
@@ -555,7 +554,7 @@ namespace Huobi.Net
             if (v1Sub)
             {
                 var subResponse = Deserialize<HuobiSubscribeResponse>(message, false);
-                if (!subResponse.Success)
+                if (!subResponse)
                 {
                     log.Write(LogVerbosity.Warning, "Subscription failed: " + subResponse.Error);
                     return false;
@@ -581,7 +580,7 @@ namespace Huobi.Net
             if (v2Sub)
             {
                 var subResponse = Deserialize<HuobiSocketAuthResponse>(message, false);
-                if (!subResponse.Success)
+                if (!subResponse)
                 {
                     log.Write(LogVerbosity.Warning, "Subscription failed: " + subResponse.Error);
                     callResult = new CallResult<object>(null, subResponse.Error);
@@ -595,7 +594,7 @@ namespace Huobi.Net
                 if (!subResponse.Data.IsSuccessful)
                 {
                     log.Write(LogVerbosity.Warning, "Subscription failed: " + subResponse.Data.ErrorMessage);
-                    callResult = new CallResult<object>(null, new ServerError(subResponse.Data.ErrorCode, subResponse.Data.ErrorMessage));
+                    callResult = new CallResult<object>(null, new ServerError(subResponse.Data.ErrorCode, subResponse.Data.ErrorMessage ?? "-"));
                     return true;
                 }
 
@@ -607,6 +606,7 @@ namespace Huobi.Net
             return false;
         }
 
+        /// <inheritdoc />
         protected override bool MessageMatchesHandler(JToken message, object request)
         {
             if (request is HuobiSubscribeRequest hRequest)
@@ -619,6 +619,7 @@ namespace Huobi.Net
             return false;
         }
 
+        /// <inheritdoc />
         protected override bool MessageMatchesHandler(JToken message, string identifier)
         {
             if (message.Type != JTokenType.Object)
@@ -633,30 +634,28 @@ namespace Huobi.Net
             return false;
         }
 
+        /// <inheritdoc />
         protected override async Task<CallResult<bool>> AuthenticateSocket(SocketConnection s)
         {
             if (authProvider == null)
                 return new CallResult<bool>(false, new NoApiCredentialsError());
 
-            var authParams = authProvider.AddAuthenticationToParameters(baseAddressAuthenticated, Constants.GetMethod, new Dictionary<string, object>(), true);
-            var authObjects = new HuobiAuthenticationRequest
-            {
-                AccessKeyId = authProvider.Credentials.Key.GetString(),
-                Operation = "auth",
-                SignatureMethod = (string)authParams["SignatureMethod"],
-                SignatureVersion = authParams["SignatureVersion"].ToString(),
-                Timestamp = (string)authParams["Timestamp"],
-                Signature = (string)authParams["Signature"]
-            };
+            var authParams = authProvider.AddAuthenticationToParameters(baseAddressAuthenticated, HttpMethod.Get, new Dictionary<string, object>(), true);
+            var authObjects = new HuobiAuthenticationRequest(authProvider.Credentials.Key!.GetString(),
+                "auth",
+                (string)authParams["SignatureMethod"],
+                authParams["SignatureVersion"].ToString(),
+                (string)authParams["Timestamp"],
+                (string)authParams["Signature"]);
 
-            CallResult<bool> result = new CallResult<bool>(false, new ServerError("No response from server"));
+            var result = new CallResult<bool>(false, new ServerError("No response from server"));
             await s.SendAndWait(authObjects, ResponseTimeout, data =>
             {
                 if ((string)data["op"] != "auth")
                     return false;
 
                 var authResponse = Deserialize<HuobiSocketAuthDataResponse<object>>(data, false);
-                if (!authResponse.Success)
+                if (!authResponse)
                 {
                     log.Write(LogVerbosity.Warning, "Authorization failed: " + authResponse.Error);
                     result = new CallResult<bool>(false, authResponse.Error);
@@ -665,7 +664,7 @@ namespace Huobi.Net
                 if (!authResponse.Data.IsSuccessful)
                 {
                     log.Write(LogVerbosity.Warning, "Authorization failed: " + authResponse.Data.ErrorMessage);
-                    result = new CallResult<bool>(false, new ServerError(authResponse.Data.ErrorCode, authResponse.Data.ErrorMessage));
+                    result = new CallResult<bool>(false, new ServerError(authResponse.Data.ErrorCode, authResponse.Data.ErrorMessage ?? "-"));
                     return true;
                 }
 
@@ -677,12 +676,13 @@ namespace Huobi.Net
             return result;
         }
 
+        /// <inheritdoc />
         protected override async Task<bool> Unsubscribe(SocketConnection connection, SocketSubscription s)
         {
-            string topic = "";
-            object unsub = null;
-            string unsubId = null;
-            string idField = "id";
+            string topic;
+            object? unsub = null;
+            string? unsubId = null;
+            var idField = "id";
             if (s.Request is HuobiSubscribeRequest hRequest)
             {
                 topic = hRequest.Topic;

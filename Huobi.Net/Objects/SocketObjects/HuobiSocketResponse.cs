@@ -8,18 +8,17 @@ namespace Huobi.Net.Objects.SocketObjects
     internal abstract class HuobiResponse
     {
         internal abstract bool IsSuccessful { get; }
-        public string Id { get; set; }
+        public string? Id { get; set; }
         [JsonProperty("err-code")]
-        public string ErrorCode { get; set; }
+        public string? ErrorCode { get; set; }
         [JsonProperty("err-msg")]
-        public string ErrorMessage { get; set; }
+        public string? ErrorMessage { get; set; }
     }
 
     internal class HuobiSocketResponse<T>: HuobiResponse
     {
         internal override bool IsSuccessful => Status == "ok";
-        [JsonProperty("status")]
-        internal string Status { get; set; }
+        [JsonProperty("status")] internal string Status { get; set; } = "";
         
         /// <summary>
         /// The timestamp of the data
@@ -31,7 +30,7 @@ namespace Huobi.Net.Objects.SocketObjects
         /// The data
         /// </summary>
         [JsonOptionalProperty]
-        public T Data { get; set; }
+        public T Data { get; set; } = default!;
         [JsonOptionalProperty, JsonProperty("tick")]
         private T Tick { set => Data = value; get => Data; }
     }
@@ -39,8 +38,8 @@ namespace Huobi.Net.Objects.SocketObjects
     internal class HuobiSubscribeResponse: HuobiResponse
     {
         internal override bool IsSuccessful => Status == "ok";
-        public string Status { get; set; }
-        public string Subbed { get; set; }
+        public string Status { get; set; } = "";
+        public string Subbed { get; set; } = "";
         [JsonConverter(typeof(TimestampConverter)), JsonProperty("ts")]
         public DateTime Timestamp { get; set; }
     }
@@ -52,11 +51,11 @@ namespace Huobi.Net.Objects.SocketObjects
         internal new int ErrorCode { get; set; }
 
         [JsonProperty("op")]
-        internal string Operation { get; set; }
+        internal string Operation { get; set; } = "";
         [JsonProperty("topic")]
-        internal string Topic { get; set; }
+        internal string Topic { get; set; } = "";
         [JsonProperty("cid")]
-        public new string Id { get; set; }
+        public new string Id { get; set; } = "";
 
         /// <summary>
         /// The timestamp of the response
@@ -71,6 +70,6 @@ namespace Huobi.Net.Objects.SocketObjects
         /// The data
         /// </summary>
         [JsonOptionalProperty]
-        public T Data { get; set; }
+        public T Data { get; set; } = default!;
     }
 }

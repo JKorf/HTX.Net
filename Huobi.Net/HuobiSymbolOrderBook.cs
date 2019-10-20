@@ -7,6 +7,9 @@ using Huobi.Net.Interfaces;
 
 namespace Huobi.Net
 {
+    /// <summary>
+    /// Huobi order book implementation
+    /// </summary>
     public class HuobiSymbolOrderBook : SymbolOrderBook
     {
         private readonly IHuobiSocketClient socketClient;
@@ -17,12 +20,13 @@ namespace Huobi.Net
         /// </summary>
         /// <param name="symbol">The symbol the order book is for</param>
         /// <param name="options">The options for the order book</param>
-        public HuobiSymbolOrderBook(string symbol, HuobiOrderBookOptions options = null) : base(symbol, options ?? new HuobiOrderBookOptions())
+        public HuobiSymbolOrderBook(string symbol, HuobiOrderBookOptions? options = null) : base(symbol, options ?? new HuobiOrderBookOptions())
         {
             mergeStep = options?.MergeStep ?? 0;
             socketClient = options?.SocketClient ?? new HuobiSocketClient();
         }
 
+        /// <inheritdoc />
         protected override async Task<CallResult<UpdateSubscription>> DoStart()
         {
             return await socketClient.SubscribeToMarketDepthUpdatesAsync(Symbol, mergeStep, HandleUpdate).ConfigureAwait(false);
@@ -33,11 +37,13 @@ namespace Huobi.Net
             SetInitialOrderBook(data.Timestamp.Ticks, data.Asks, data.Bids);
         }
 
+        /// <inheritdoc />
         protected override Task<CallResult<bool>> DoResync()
         {
             return Task.FromResult(new CallResult<bool>(true, null));
         }
 
+        /// <inheritdoc />
         public override void Dispose()
         {
             processBuffer.Clear();

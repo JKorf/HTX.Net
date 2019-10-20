@@ -1,33 +1,45 @@
 ﻿using System;
 using CryptoExchange.Net.Converters;
-using CryptoExchange.Net.OrderBook;
+using CryptoExchange.Net.Interfaces;
 using Newtonsoft.Json;
 
 namespace Huobi.Net.Objects
 {
+    /// <summary>
+    /// Market tick info
+    /// </summary>
     public class HuobiMarketTickMerged: HuobiMarketData
     {
+        /// <summary>
+        /// Timestamp of the data
+        /// </summary>
+        public DateTime Timestamp { get; set; }
         /// <summary>
         /// The id of the tick
         /// </summary>
         public long Id { get; set; }
+
+        /// <summary>
+        /// Version
+        /// </summary>
         public long Version { get; set; }
 
         /// <summary>
         /// The current best bid for the market
         /// </summary>
         [JsonProperty("bid")]
-        public HuobiOrderBookEntry BestBid { get; set; }
+        public HuobiOrderBookEntry BestBid { get; set; } = default!;
+
         /// <summary>
         /// The current best ask for the market
         /// </summary>
         [JsonProperty("ask")]
-        public HuobiOrderBookEntry BestAsk { get; set; }
-
-        [JsonIgnore]
-        public DateTime Timestamp { get; set; }
+        public HuobiOrderBookEntry BestAsk { get; set; } = default!;
     }
 
+    /// <summary>
+    /// Order book entry
+    /// </summary>
     [JsonConverter(typeof(ArrayConverter))]
     public class HuobiOrderBookEntry: ISymbolOrderBookEntry
     {

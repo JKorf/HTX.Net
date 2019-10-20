@@ -2,7 +2,7 @@
 
 namespace Huobi.Net.Objects.SocketObjects
 {
-    public class HuobiUnsubscribeRequest
+    internal class HuobiUnsubscribeRequest
     {
         [JsonProperty("unsub")]
         public string Topic { get; set; }
@@ -17,7 +17,7 @@ namespace Huobi.Net.Objects.SocketObjects
         }
     }
 
-    public class HuobiAuthUnsubscribeRequest
+    internal class HuobiAuthUnsubscribeRequest
     {
         [JsonProperty("op")]
         public string Operation { get; set; }

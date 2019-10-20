@@ -4,6 +4,9 @@ using Newtonsoft.Json;
 
 namespace Huobi.Net.Objects
 {
+    /// <summary>
+    /// Market data
+    /// </summary>
     public class HuobiMarketData
     {
         /// <summary>
@@ -38,6 +41,9 @@ namespace Huobi.Net.Objects
         public int? TradeCount { get; set; }
     }
 
+    /// <summary>
+    /// Market kline data
+    /// </summary>
     public class HuobiMarketKline : HuobiMarketData
     {
         /// <summary>
@@ -47,6 +53,9 @@ namespace Huobi.Net.Objects
         public DateTime Id { get; set; }
     }
 
+    /// <summary>
+    /// Market details
+    /// </summary>
     public class HuobiMarketDetails : HuobiMarketData
     {
         /// <summary>
@@ -55,16 +64,19 @@ namespace Huobi.Net.Objects
         public long Id { get; set; }
 
         /// <summary>
-        /// The timestamp of the data
+        /// Timestamp of the data
         /// </summary>
         public DateTime Timestamp { get; set; }
     }
 
+    /// <summary>
+    /// Market tick
+    /// </summary>
     public class HuobiMarketTick : HuobiMarketData
     {
         /// <summary>
         /// The symbol
         /// </summary>
-        public string Symbol { get; set; }
+        public string Symbol { get; set; } = "";
     }
 }
