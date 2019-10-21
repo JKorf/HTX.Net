@@ -24,7 +24,7 @@ namespace Huobi.Net.UnitTests
             var client = TestHelpers.CreateSocketClient(socket);
 
             // act
-            var subTask = client.SubscribeToMarketDepthUpdatesAsync("test", 1, test => { });
+            var subTask = client.SubscribeToMarketDepthUpdatesAsync("ETHBTC", 1, test => { });
             socket.InvokeMessage($"{{\"subbed\": \"test\", \"id\":\"{BaseClient.LastId}\", \"status\": \"ok\"}}");
             var subResult = subTask.Result;
 
@@ -44,7 +44,7 @@ namespace Huobi.Net.UnitTests
             });
 
             // act
-            var subTask = client.SubscribeToMarketDepthUpdatesAsync("test", 1, test => { });
+            var subTask = client.SubscribeToMarketDepthUpdatesAsync("ETHBTC", 1, test => { });
             var subResult = subTask.Result;
 
             // assert
@@ -60,7 +60,7 @@ namespace Huobi.Net.UnitTests
             var client = TestHelpers.CreateSocketClient(socket);
 
             // act
-            var subTask = client.SubscribeToMarketDepthUpdatesAsync("test", 1, test => { });
+            var subTask = client.SubscribeToMarketDepthUpdatesAsync("ETHBTC", 1, test => { });
             socket.InvokeMessage($"{{\"status\": \"error\", \"id\": \"{BaseClient.LastId}\", \"err-code\": \"Fail\", \"err-msg\": \"failed\"}}");
             var subResult = subTask.Result;
 
@@ -77,8 +77,8 @@ namespace Huobi.Net.UnitTests
             var client = TestHelpers.CreateSocketClient(socket);
 
             HuobiMarketDepth result = null;
-            var subTask = client.SubscribeToMarketDepthUpdatesAsync("test", 1, test => result = test);
-            socket.InvokeMessage($"{{\"subbed\": \"test\", \"status\": \"ok\", \"id\": \"{BaseClient.LastId}\"}}");
+            var subTask = client.SubscribeToMarketDepthUpdatesAsync("ETHBTC", 1, test => result = test);
+            socket.InvokeMessage($"{{\"subbed\": \"ethbtc\", \"status\": \"ok\", \"id\": \"{BaseClient.LastId}\"}}");
             var subResult = subTask.Result;
 
             var expected =  new HuobiMarketDepth()
@@ -94,7 +94,7 @@ namespace Huobi.Net.UnitTests
             };
 
             // act
-            socket.InvokeMessage(SerializeExpected("market.test.depth.step1", expected));
+            socket.InvokeMessage(SerializeExpected("market.ethbtc.depth.step1", expected));
 
             // assert
             Assert.IsTrue(subResult.Success);
@@ -111,8 +111,8 @@ namespace Huobi.Net.UnitTests
             var client = TestHelpers.CreateSocketClient(socket);
 
             HuobiMarketData result = null;
-            var subTask = client.SubscribeToMarketDetailUpdatesAsync("test", test => result = test);
-            socket.InvokeMessage($"{{\"subbed\": \"test\", \"id\": \"{BaseClient.LastId}\", \"status\": \"ok\"}}");
+            var subTask = client.SubscribeToMarketDetailUpdatesAsync("ETHBTC", test => result = test);
+            socket.InvokeMessage($"{{\"subbed\": \"ethbtc\", \"id\": \"{BaseClient.LastId}\", \"status\": \"ok\"}}");
             var subResult = subTask.Result;
 
             var expected = new HuobiMarketData()
@@ -127,7 +127,7 @@ namespace Huobi.Net.UnitTests
             };
 
             // act
-            socket.InvokeMessage(SerializeExpected("market.test.detail", expected));
+            socket.InvokeMessage(SerializeExpected("market.ethbtc.detail", expected));
 
             // assert
             Assert.IsTrue(subResult.Success);
@@ -143,8 +143,8 @@ namespace Huobi.Net.UnitTests
             var client = TestHelpers.CreateSocketClient(socket);
 
             HuobiMarketData result = null;
-            var subTask = client.SubscribeToMarketKlineUpdatesAsync("test", HuobiPeriod.FiveMinutes, test => result = test);
-            socket.InvokeMessage($"{{\"subbed\": \"test\", \"id\": \"{BaseClient.LastId}\", \"status\": \"ok\"}}");
+            var subTask = client.SubscribeToMarketKlineUpdatesAsync("ETHBTC", HuobiPeriod.FiveMinutes, test => result = test);
+            socket.InvokeMessage($"{{\"subbed\": \"ethbtc\", \"id\": \"{BaseClient.LastId}\", \"status\": \"ok\"}}");
             var subResult = subTask.Result;
 
             var expected = new HuobiMarketData()
@@ -159,7 +159,7 @@ namespace Huobi.Net.UnitTests
             };
 
             // act
-            socket.InvokeMessage(SerializeExpected("market.test.kline.5min", expected));
+            socket.InvokeMessage(SerializeExpected("market.ethbtc.kline.5min", expected));
 
             // assert
             Assert.IsTrue(subResult.Success);

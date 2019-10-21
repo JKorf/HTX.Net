@@ -134,7 +134,7 @@ namespace Huobi.Net
         /// <returns></returns>
         public async Task<WebCallResult<HuobiMarketTickMerged>> GetMarketTickerMergedAsync(string symbol, CancellationToken ct = default)
         {
-            symbol.ValidateHuobiSymbol();
+            symbol = symbol.ValidateHuobiSymbol();
             var parameters = new Dictionary<string, object>
             {
                 { "symbol", symbol }
@@ -168,9 +168,8 @@ namespace Huobi.Net
         /// <returns></returns>
         public async Task<WebCallResult<IEnumerable<HuobiMarketKline>>> GetMarketKlinesAsync(string symbol, HuobiPeriod period, int size, CancellationToken ct = default)
         {
-            symbol.ValidateHuobiSymbol();
-            if (size <= 0 || size > 2000)
-                return WebCallResult<IEnumerable<HuobiMarketKline>>.CreateErrorResult(new ArgumentError("Size should be between 1 and 2000"));
+            symbol = symbol.ValidateHuobiSymbol();
+            size.ValidateIntBetween(nameof(size), 0, 2000);
 
             var parameters = new Dictionary<string, object>
             {
@@ -205,12 +204,9 @@ namespace Huobi.Net
         /// <returns></returns>
         public async Task<WebCallResult<HuobiMarketDepth>> GetMarketDepthAsync(string symbol, int mergeStep, int? limit = null, CancellationToken ct = default)
         {
-            symbol.ValidateHuobiSymbol();
-            if (mergeStep < 0 || mergeStep > 5)
-                return WebCallResult<HuobiMarketDepth>.CreateErrorResult(new ArgumentError("MergeStep should be between 0 and 5"));
-
-            if (limit.HasValue && limit != 5 && limit != 10 && limit != 20)
-                return WebCallResult<HuobiMarketDepth>.CreateErrorResult(new ArgumentError("Limit should be one of: 5, 10, 20"));
+            symbol = symbol.ValidateHuobiSymbol();
+            mergeStep.ValidateIntBetween(nameof(mergeStep), 0, 2000);
+            limit?.ValidateIntValues(nameof(limit), 5, 10, 20);
 
             var parameters = new Dictionary<string, object>
             {
@@ -242,7 +238,7 @@ namespace Huobi.Net
         /// <returns></returns>
         public async Task<WebCallResult<HuobiMarketTrade>> GetMarketLastTradeAsync(string symbol, CancellationToken ct = default)
         {
-            symbol.ValidateHuobiSymbol();
+            symbol = symbol.ValidateHuobiSymbol();
             var parameters = new Dictionary<string, object>
             {
                 { "symbol", symbol }
@@ -268,9 +264,8 @@ namespace Huobi.Net
         /// <returns></returns>
         public async Task<WebCallResult<IEnumerable<HuobiMarketTrade>>> GetMarketTradeHistoryAsync(string symbol, int limit, CancellationToken ct = default)
         {
-            symbol.ValidateHuobiSymbol();
-            if (limit <= 0 || limit > 2000)
-                return WebCallResult<IEnumerable<HuobiMarketTrade>>.CreateErrorResult(new ArgumentError("Size should be between 1 and 2000"));
+            symbol = symbol.ValidateHuobiSymbol();
+            limit.ValidateIntBetween(nameof(limit), 0, 2000);
 
             var parameters = new Dictionary<string, object>
             {
@@ -296,7 +291,7 @@ namespace Huobi.Net
         /// <returns></returns>
         public async Task<WebCallResult<HuobiMarketDetails>> GetMarketDetails24HAsync(string symbol, CancellationToken ct = default)
         {
-            symbol.ValidateHuobiSymbol();
+            symbol = symbol.ValidateHuobiSymbol();
             var parameters = new Dictionary<string, object>
             {
                 { "symbol", symbol }
@@ -479,9 +474,9 @@ namespace Huobi.Net
         /// <returns></returns>
         public async Task<WebCallResult<long>> PlaceOrderAsync(long accountId, string symbol, HuobiOrderType orderType, decimal amount, decimal? price = null, CancellationToken ct = default)
         {
-            symbol.ValidateHuobiSymbol();
-            if(orderType == HuobiOrderType.StopLimitBuy || orderType == HuobiOrderType.StopLimitSell)
-                return WebCallResult<long>.CreateErrorResult(new ArgumentError("Stop limit orders not supported by API"));
+            symbol = symbol.ValidateHuobiSymbol();
+            if (orderType == HuobiOrderType.StopLimitBuy || orderType == HuobiOrderType.StopLimitSell)
+                throw new ArgumentException("Stop limit orders not supported by API");
 
             var parameters = new Dictionary<string, object>
             {
@@ -522,9 +517,9 @@ namespace Huobi.Net
         /// <returns></returns>
         public async Task<WebCallResult<IEnumerable<HuobiOpenOrder>>> GetOpenOrdersAsync(long? accountId = null, string? symbol = null, HuobiOrderSide? side = null, int? limit = null, CancellationToken ct = default)
         {
-            symbol?.ValidateHuobiSymbol();
+            symbol = symbol?.ValidateHuobiSymbol();
             if (accountId != null && symbol == null)
-                return WebCallResult<IEnumerable<HuobiOpenOrder>>.CreateErrorResult(new ArgumentError("Can't request open orders based on only the account id"));
+                throw new ArgumentException("Can't request open orders based on only the account id");
 
             var parameters = new Dictionary<string, object>();
             parameters.AddOptionalParameter("account-id", accountId);
@@ -642,7 +637,7 @@ namespace Huobi.Net
         /// <returns></returns>
         public async Task<WebCallResult<IEnumerable<HuobiOrder>>> GetOrdersAsync(IEnumerable<HuobiOrderState> states, string? symbol = null, IEnumerable<HuobiOrderType>? types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, HuobiFilterDirection? direction = null, int? limit = null, CancellationToken ct = default)
         {
-            symbol?.ValidateHuobiSymbol();
+            symbol = symbol?.ValidateHuobiSymbol();
             var stateConverter = new OrderStateConverter(false);
             var typeConverter = new OrderTypeConverter(false);
             var parameters = new Dictionary<string, object>
@@ -691,7 +686,7 @@ namespace Huobi.Net
         /// <returns></returns>
         public async Task<WebCallResult<IEnumerable<HuobiOrderTrade>>> GetSymbolTradesAsync(IEnumerable<HuobiOrderState>? states = null, string? symbol = null, IEnumerable<HuobiOrderType>? types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, HuobiFilterDirection? direction = null, int? limit = null, CancellationToken ct = default)
         {
-            symbol?.ValidateHuobiSymbol();
+            symbol = symbol?.ValidateHuobiSymbol();
             var stateConverter = new OrderStateConverter(false);
             var typeConverter = new OrderTypeConverter(false);
             var parameters = new Dictionary<string, object>();
@@ -732,7 +727,7 @@ namespace Huobi.Net
         /// <returns></returns>
         public async Task<WebCallResult<IEnumerable<HuobiOrder>>> GetHistoryOrdersAsync(string? symbol = null, DateTime? startTime = null, DateTime? endTime = null, HuobiFilterDirection? direction = null, int? limit = null, CancellationToken ct = default)
         {
-            symbol?.ValidateHuobiSymbol();
+            symbol = symbol?.ValidateHuobiSymbol();
             var parameters = new Dictionary<string, object>();
             parameters.AddOptionalParameter("symbol", symbol);
             parameters.AddOptionalParameter("start-time", startTime == null ? null : ToUnixTimestamp(startTime.Value).ToString());
