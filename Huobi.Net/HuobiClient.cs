@@ -439,6 +439,7 @@ namespace Huobi.Net
         /// <returns>Unique transfer id</returns>
         public async Task<WebCallResult<long>> TransferWithSubAccountAsync(long subAccountId, string currency, decimal amount, HuobiTransferType transferType, CancellationToken ct = default)
         {
+            currency.ValidateNotNull(nameof(currency));
             var parameters = new Dictionary<string, object>
             {
                 { "sub-uid", subAccountId },
@@ -563,6 +564,7 @@ namespace Huobi.Net
         /// <returns></returns>
         public async Task<WebCallResult<HuobiBatchCancelResult>> CancelOrdersAsync(IEnumerable<long> orderIds, CancellationToken ct = default)
         {
+            orderIds.ValidateNotNull(nameof(orderIds));
             var parameters = new Dictionary<string, object>
             {
                 { "order-ids", orderIds.Select(s => s.ToString()) }
