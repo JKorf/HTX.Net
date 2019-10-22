@@ -5,9 +5,9 @@ using Newtonsoft.Json;
 namespace Huobi.Net.Objects
 {
     /// <summary>
-    /// Market depth info
+    /// Order book
     /// </summary>
-    public class HuobiMarketDepth
+    public class HuobiOrderBook
     {
         /// <summary>
         /// Timestamp

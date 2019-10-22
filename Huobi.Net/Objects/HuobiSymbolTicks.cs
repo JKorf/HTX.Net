@@ -4,18 +4,18 @@ using System.Collections.Generic;
 namespace Huobi.Net.Objects
 {
     /// <summary>
-    /// Market ticks
+    /// Symbol ticks
     /// </summary>
-    public class HuobiMarketTicks
+    public class HuobiSymbolTicks
     {
         /// <summary>
         /// Timestamp of the data
         /// </summary>
         public DateTime Timestamp { get; set; }
         /// <summary>
-        /// List of ticks for markets
+        /// List of ticks for symbols
         /// </summary>
-        public IEnumerable<HuobiMarketTick> Ticks { get; set; } = new List<HuobiMarketTick>();
+        public IEnumerable<HuobiSymbolTick> Ticks { get; set; } = new List<HuobiSymbolTick>();
     }
     
 }

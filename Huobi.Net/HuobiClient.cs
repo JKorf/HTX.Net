@@ -100,22 +100,22 @@ namespace Huobi.Net
         }
 
         /// <summary>
-        /// Gets the latest ticker for all markets
+        /// Gets the latest ticker for all symbols
         /// </summary>
         /// <returns></returns>
-        public WebCallResult<HuobiMarketTicks> GetMarketTickers(CancellationToken ct = default) => GetMarketTickersAsync(ct).Result;
+        public WebCallResult<HuobiSymbolTicks> GetTickers(CancellationToken ct = default) => GetTickersAsync(ct).Result;
         /// <summary>
-        /// Gets the latest ticker for all markets
+        /// Gets the latest ticker for all symbols
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        public async Task<WebCallResult<HuobiMarketTicks>> GetMarketTickersAsync(CancellationToken ct = default)
+        public async Task<WebCallResult<HuobiSymbolTicks>> GetTickersAsync(CancellationToken ct = default)
         {
             var result = await SendHuobiTimestampRequest<IEnumerable<HuobiMarketTick>>(GetUrl(MarketTickerEndpoint), HttpMethod.Get, ct).ConfigureAwait(false);     
             if(!result)
-                return WebCallResult<HuobiMarketTicks>.CreateErrorResult(result.ResponseStatusCode, result.ResponseHeaders, result.Error!);
+                return WebCallResult<HuobiSymbolTicks>.CreateErrorResult(result.ResponseStatusCode, result.ResponseHeaders, result.Error!);
             
-            return new WebCallResult<HuobiMarketTicks>(result.ResponseStatusCode, result.ResponseHeaders, new HuobiMarketTicks(){ Ticks = result.Data.Item1, Timestamp = result.Data.Item2}, null);
+            return new WebCallResult<HuobiSymbolTicks>(result.ResponseStatusCode, result.ResponseHeaders, new HuobiSymbolTicks(){ Ticks = result.Data.Item1, Timestamp = result.Data.Item2}, null);
         }
 
         /// <summary>
@@ -124,7 +124,7 @@ namespace Huobi.Net
         /// <param name="symbol">The symbol to get the ticker for</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        public WebCallResult<HuobiMarketTickMerged> GetMarketTickerMerged(string symbol, CancellationToken ct = default) => GetMarketTickerMergedAsync(symbol, ct).Result;
+        public WebCallResult<HuobiMarketTickMerged> GetMergedTickers(string symbol, CancellationToken ct = default) => GetMergedTickersAsync(symbol, ct).Result;
 
         /// <summary>
         /// Gets the ticker, including the best bid / best ask for a symbol
@@ -132,7 +132,7 @@ namespace Huobi.Net
         /// <param name="symbol">The symbol to get the ticker for</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        public async Task<WebCallResult<HuobiMarketTickMerged>> GetMarketTickerMergedAsync(string symbol, CancellationToken ct = default)
+        public async Task<WebCallResult<HuobiMarketTickMerged>> GetMergedTickersAsync(string symbol, CancellationToken ct = default)
         {
             symbol = symbol.ValidateHuobiSymbol();
             var parameters = new Dictionary<string, object>
@@ -149,24 +149,24 @@ namespace Huobi.Net
         }
 
         /// <summary>
-        /// Get candlestick data for a market
+        /// Get candlestick data for a symbol
         /// </summary>
         /// <param name="symbol">The symbol to get the data for</param>
         /// <param name="period">The period of a single candlestick</param>
         /// <param name="size">The amount of candlesticks</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        public WebCallResult<IEnumerable<HuobiMarketKline>> GetMarketKlines(string symbol, HuobiPeriod period, int size, CancellationToken ct = default) => GetMarketKlinesAsync(symbol, period, size, ct).Result;
+        public WebCallResult<IEnumerable<HuobiMarketKline>> GetKlines(string symbol, HuobiPeriod period, int size, CancellationToken ct = default) => GetKlinesAsync(symbol, period, size, ct).Result;
 
         /// <summary>
-        /// Get candlestick data for a market
+        /// Get candlestick data for a symbol
         /// </summary>
         /// <param name="symbol">The symbol to get the data for</param>
         /// <param name="period">The period of a single candlestick</param>
         /// <param name="size">The amount of candlesticks</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        public async Task<WebCallResult<IEnumerable<HuobiMarketKline>>> GetMarketKlinesAsync(string symbol, HuobiPeriod period, int size, CancellationToken ct = default)
+        public async Task<WebCallResult<IEnumerable<HuobiMarketKline>>> GetKlinesAsync(string symbol, HuobiPeriod period, int size, CancellationToken ct = default)
         {
             symbol = symbol.ValidateHuobiSymbol();
             size.ValidateIntBetween(nameof(size), 0, 2000);
@@ -186,23 +186,23 @@ namespace Huobi.Net
         }
 
         /// <summary>
-        /// Gets the market depth for a symbol
+        /// Gets the order book for a symbol
         /// </summary>
         /// <param name="symbol">The symbol to request for</param>
         /// <param name="mergeStep">The way the results will be merged together</param>
         /// <param name="limit">The depth of the book</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        public WebCallResult<HuobiMarketDepth> GetMarketDepth(string symbol, int mergeStep, int? limit = null, CancellationToken ct = default) => GetMarketDepthAsync(symbol, mergeStep, limit, ct).Result;
+        public WebCallResult<HuobiMarketDepth> GetOrderBook(string symbol, int mergeStep, int? limit = null, CancellationToken ct = default) => GetOrderBookAsync(symbol, mergeStep, limit, ct).Result;
         /// <summary>
-        /// Gets the market depth for a symbol
+        /// Gets the order book for a symbol
         /// </summary>
         /// <param name="symbol">The symbol to request for</param>
         /// <param name="mergeStep">The way the results will be merged together</param>
         /// <param name="limit">The depth of the book</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        public async Task<WebCallResult<HuobiMarketDepth>> GetMarketDepthAsync(string symbol, int mergeStep, int? limit = null, CancellationToken ct = default)
+        public async Task<WebCallResult<HuobiMarketDepth>> GetOrderBookAsync(string symbol, int mergeStep, int? limit = null, CancellationToken ct = default)
         {
             symbol = symbol.ValidateHuobiSymbol();
             mergeStep.ValidateIntBetween(nameof(mergeStep), 0, 2000);
@@ -224,19 +224,19 @@ namespace Huobi.Net
         }
 
         /// <summary>
-        /// Gets the last trade for a market
+        /// Gets the last trade for a symbol
         /// </summary>
         /// <param name="symbol">The symbol to request for</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        public WebCallResult<HuobiMarketTrade> GetMarketLastTrade(string symbol, CancellationToken ct = default) => GetMarketLastTradeAsync(symbol, ct).Result;
+        public WebCallResult<HuobiSymbolTrade> GetLastTrade(string symbol, CancellationToken ct = default) => GetLastTradeAsync(symbol, ct).Result;
         /// <summary>
-        /// Gets the last trade for a market
+        /// Gets the last trade for a symbol
         /// </summary>
         /// <param name="symbol">The symbol to request for</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        public async Task<WebCallResult<HuobiMarketTrade>> GetMarketLastTradeAsync(string symbol, CancellationToken ct = default)
+        public async Task<WebCallResult<HuobiSymbolTrade>> GetLastTradeAsync(string symbol, CancellationToken ct = default)
         {
             symbol = symbol.ValidateHuobiSymbol();
             var parameters = new Dictionary<string, object>
@@ -244,25 +244,25 @@ namespace Huobi.Net
                 { "symbol", symbol }
             };
 
-            return await SendHuobiRequest<HuobiMarketTrade>(GetUrl(MarketLastTradeEndpoint), HttpMethod.Get, ct, parameters, checkResult: false).ConfigureAwait(false);
+            return await SendHuobiRequest<HuobiSymbolTrade>(GetUrl(MarketLastTradeEndpoint), HttpMethod.Get, ct, parameters, checkResult: false).ConfigureAwait(false);
         }
 
         /// <summary>
-        /// Get the last x trades for a market
+        /// Get the last x trades for a symbol
         /// </summary>
-        /// <param name="symbol">The market to get trades for</param>
+        /// <param name="symbol">The symbol to get trades for</param>
         /// <param name="limit">The max number of results</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        public WebCallResult<IEnumerable<HuobiMarketTrade>> GetMarketTradeHistory(string symbol, int limit, CancellationToken ct = default) => GetMarketTradeHistoryAsync(symbol, limit, ct).Result;
+        public WebCallResult<IEnumerable<HuobiSymbolTrade>> GetTradeHistory(string symbol, int limit, CancellationToken ct = default) => GetTradeHistoryAsync(symbol, limit, ct).Result;
         /// <summary>
-        /// Get the last x trades for a market
+        /// Get the last x trades for a symbol
         /// </summary>
-        /// <param name="symbol">The market to get trades for</param>
+        /// <param name="symbol">The symbol to get trades for</param>
         /// <param name="limit">The max number of results</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        public async Task<WebCallResult<IEnumerable<HuobiMarketTrade>>> GetMarketTradeHistoryAsync(string symbol, int limit, CancellationToken ct = default)
+        public async Task<WebCallResult<IEnumerable<HuobiSymbolTrade>>> GetTradeHistoryAsync(string symbol, int limit, CancellationToken ct = default)
         {
             symbol = symbol.ValidateHuobiSymbol();
             limit.ValidateIntBetween(nameof(limit), 0, 2000);
@@ -273,23 +273,23 @@ namespace Huobi.Net
                 { "size", limit }
             };
 
-            return await SendHuobiRequest<IEnumerable<HuobiMarketTrade>>(GetUrl(MarketTradeHistoryEndpoint), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
+            return await SendHuobiRequest<IEnumerable<HuobiSymbolTrade>>(GetUrl(MarketTradeHistoryEndpoint), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
         }
 
         /// <summary>
-        /// Gets 24h stats for a market
+        /// Gets 24h stats for a symbol
         /// </summary>
-        /// <param name="symbol">The market to get the data for</param>
+        /// <param name="symbol">The symbol to get the data for</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        public WebCallResult<HuobiMarketDetails> GetMarketDetails24H(string symbol, CancellationToken ct = default) => GetMarketDetails24HAsync(symbol, ct).Result;
+        public WebCallResult<HuobiMarketDetails> GetSymbolDetails24H(string symbol, CancellationToken ct = default) => GetSymbolDetails24HAsync(symbol, ct).Result;
         /// <summary>
-        /// Gets 24h stats for a market
+        /// Gets 24h stats for a symbol
         /// </summary>
-        /// <param name="symbol">The market to get the data for</param>
+        /// <param name="symbol">The symbol to get the data for</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        public async Task<WebCallResult<HuobiMarketDetails>> GetMarketDetails24HAsync(string symbol, CancellationToken ct = default)
+        public async Task<WebCallResult<HuobiMarketDetails>> GetSymbolDetails24HAsync(string symbol, CancellationToken ct = default)
         {
             symbol = symbol.ValidateHuobiSymbol();
             var parameters = new Dictionary<string, object>

@@ -29,18 +29,23 @@ namespace Huobi.Net
         /// <inheritdoc />
         protected override async Task<CallResult<UpdateSubscription>> DoStart()
         {
-            return await socketClient.SubscribeToMarketDepthUpdatesAsync(Symbol, mergeStep, HandleUpdate).ConfigureAwait(false);
+            var subResult = await socketClient.SubscribeToMarketDepthUpdatesAsync(Symbol, mergeStep, HandleUpdate).ConfigureAwait(false);
+            if (!subResult)
+                return subResult;
+
+            var setResult = await WaitForSetOrderBook(10000).ConfigureAwait(false);
+            return setResult ? subResult : new CallResult<UpdateSubscription>(null, setResult.Error);
         }
 
         private void HandleUpdate(HuobiMarketDepth data)
         {
-            SetInitialOrderBook(data.Timestamp.Ticks, data.Asks, data.Bids);
+            SetInitialOrderBook(data.Timestamp.Ticks, data.Bids, data.Asks);
         }
 
         /// <inheritdoc />
-        protected override Task<CallResult<bool>> DoResync()
+        protected override async Task<CallResult<bool>> DoResync()
         {
-            return Task.FromResult(new CallResult<bool>(true, null));
+            return await WaitForSetOrderBook(10000).ConfigureAwait(false);
         }
 
         /// <inheritdoc />

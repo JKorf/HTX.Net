@@ -5,9 +5,9 @@ using Newtonsoft.Json;
 namespace Huobi.Net.Objects
 {
     /// <summary>
-    /// Market data
+    /// Symbol data
     /// </summary>
-    public class HuobiMarketData
+    public class HuobiSymbolData
     {
         /// <summary>
         /// The highest price
@@ -42,9 +42,9 @@ namespace Huobi.Net.Objects
     }
 
     /// <summary>
-    /// Market kline data
+    /// Symbol kline data
     /// </summary>
-    public class HuobiMarketKline : HuobiMarketData
+    public class HuobiSymbolKline : HuobiSymbolData
     {
         /// <summary>
         /// The start time of the kline
@@ -54,9 +54,9 @@ namespace Huobi.Net.Objects
     }
 
     /// <summary>
-    /// Market details
+    /// Symbol details
     /// </summary>
-    public class HuobiMarketDetails : HuobiMarketData
+    public class HuobiSymbolDetails : HuobiSymbolData
     {
         /// <summary>
         /// The id of the details
@@ -70,9 +70,9 @@ namespace Huobi.Net.Objects
     }
 
     /// <summary>
-    /// Market tick
+    /// Symbol tick
     /// </summary>
-    public class HuobiMarketTick : HuobiMarketData
+    public class HuobiSymbolTick : HuobiSymbolData
     {
         /// <summary>
         /// The symbol

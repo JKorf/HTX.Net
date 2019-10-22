@@ -6,9 +6,9 @@ using Newtonsoft.Json;
 namespace Huobi.Net.Objects
 {
     /// <summary>
-    /// Market tick info
+    /// Symbol tick info
     /// </summary>
-    public class HuobiMarketTickMerged: HuobiMarketData
+    public class HuobiSymbolTickMerged: HuobiSymbolData
     {
         /// <summary>
         /// Timestamp of the data
@@ -25,13 +25,13 @@ namespace Huobi.Net.Objects
         public long Version { get; set; }
 
         /// <summary>
-        /// The current best bid for the market
+        /// The current best bid for the symbol
         /// </summary>
         [JsonProperty("bid")]
         public HuobiOrderBookEntry BestBid { get; set; } = default!;
 
         /// <summary>
-        /// The current best ask for the market
+        /// The current best ask for the symbol
         /// </summary>
         [JsonProperty("ask")]
         public HuobiOrderBookEntry BestAsk { get; set; } = default!;
