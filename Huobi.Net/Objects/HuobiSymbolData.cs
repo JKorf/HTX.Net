@@ -44,7 +44,7 @@ namespace Huobi.Net.Objects
     /// <summary>
     /// Symbol kline data
     /// </summary>
-    public class HuobiSymbolKline : HuobiSymbolData
+    public class HuobiKline : HuobiSymbolData
     {
         /// <summary>
         /// The start time of the kline

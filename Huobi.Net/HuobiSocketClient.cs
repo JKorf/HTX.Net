@@ -3,7 +3,6 @@ using CryptoExchange.Net.Logging;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Sockets;
 using Huobi.Net.Converters;
-using Huobi.Net.Interfaces;
 using Huobi.Net.Objects;
 using Huobi.Net.Objects.SocketObjects;
 using Newtonsoft.Json;
@@ -15,6 +14,7 @@ using System.IO.Compression;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Huobi.Net.Interfaces;
 
 namespace Huobi.Net
 {
@@ -69,19 +69,19 @@ namespace Huobi.Net
         /// <param name="symbol">The symbol to get the data for</param>
         /// <param name="period">The period of a single candlestick</param>
         /// <returns></returns>
-        public CallResult<IEnumerable<HuobiSymbolKline>> GetKlines(string symbol, HuobiPeriod period) => GetKlinesAsync(symbol, period).Result;
+        public CallResult<IEnumerable<HuobiKline>> GetKlines(string symbol, HuobiPeriod period) => GetKlinesAsync(symbol, period).Result;
         /// <summary>
         /// Gets candlestick data for a symbol
         /// </summary>
         /// <param name="symbol">The symbol to get the data for</param>
         /// <param name="period">The period of a single candlestick</param>
         /// <returns></returns>
-        public async Task<CallResult<IEnumerable<HuobiSymbolKline>>> GetKlinesAsync(string symbol, HuobiPeriod period)
+        public async Task<CallResult<IEnumerable<HuobiKline>>> GetKlinesAsync(string symbol, HuobiPeriod period)
         {
             symbol = symbol.ValidateHuobiSymbol();
             var request = new HuobiSocketRequest(NextId().ToString(), $"market.{symbol}.kline.{JsonConvert.SerializeObject(period, new PeriodConverter(false))}");
-            var result = await Query<HuobiSocketResponse<IEnumerable<HuobiSymbolKline>>>(request, false).ConfigureAwait(false);
-            return new CallResult<IEnumerable<HuobiSymbolKline>>(result.Data?.Data, result.Error);
+            var result = await Query<HuobiSocketResponse<IEnumerable<HuobiKline>>>(request, false).ConfigureAwait(false);
+            return new CallResult<IEnumerable<HuobiKline>>(result.Data?.Data, result.Error);
         }
 
         /// <summary>
@@ -91,7 +91,7 @@ namespace Huobi.Net
         /// <param name="period">The period of a single candlestick</param>
         /// <param name="onData">The handler for updates</param>
         /// <returns></returns>
-        public CallResult<UpdateSubscription> SubscribeToKlineUpdates(string symbol, HuobiPeriod period, Action<HuobiSymbolKline> onData) => SubscribeToKlineUpdatesAsync(symbol, period, onData).Result;
+        public CallResult<UpdateSubscription> SubscribeToKlineUpdates(string symbol, HuobiPeriod period, Action<HuobiKline> onData) => SubscribeToKlineUpdatesAsync(symbol, period, onData).Result;
         /// <summary>
         /// Subscribes to candlestick updates for a symbol
         /// </summary>
@@ -99,11 +99,11 @@ namespace Huobi.Net
         /// <param name="period">The period of a single candlestick</param>
         /// <param name="onData">The handler for updates</param>
         /// <returns></returns>
-        public async Task<CallResult<UpdateSubscription>> SubscribeToKlineUpdatesAsync(string symbol, HuobiPeriod period, Action<HuobiSymbolKline> onData)
+        public async Task<CallResult<UpdateSubscription>> SubscribeToKlineUpdatesAsync(string symbol, HuobiPeriod period, Action<HuobiKline> onData)
         {
             symbol = symbol.ValidateHuobiSymbol();
             var request = new HuobiSubscribeRequest(NextId().ToString(), $"market.{symbol}.kline.{JsonConvert.SerializeObject(period, new PeriodConverter(false))}");
-            var internalHandler = new Action<HuobiSocketUpdate<HuobiSymbolKline>>(data => onData(data.Data));
+            var internalHandler = new Action<HuobiSocketUpdate<HuobiKline>>(data => onData(data.Data));
             return await Subscribe(request, null, false, internalHandler).ConfigureAwait(false);
         }
 

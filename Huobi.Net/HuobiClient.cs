@@ -4,7 +4,6 @@ using CryptoExchange.Net.Converters;
 using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Objects;
 using Huobi.Net.Converters;
-using Huobi.Net.Interfaces;
 using Huobi.Net.Objects;
 using Newtonsoft.Json;
 using System;
@@ -14,6 +13,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using Huobi.Net.Interfaces;
 using Newtonsoft.Json.Linq;
 
 namespace Huobi.Net
@@ -111,7 +111,7 @@ namespace Huobi.Net
         /// <returns></returns>
         public async Task<WebCallResult<HuobiSymbolTicks>> GetTickersAsync(CancellationToken ct = default)
         {
-            var result = await SendHuobiTimestampRequest<IEnumerable<HuobiMarketTick>>(GetUrl(MarketTickerEndpoint), HttpMethod.Get, ct).ConfigureAwait(false);     
+            var result = await SendHuobiTimestampRequest<IEnumerable<HuobiSymbolTick>>(GetUrl(MarketTickerEndpoint), HttpMethod.Get, ct).ConfigureAwait(false);     
             if(!result)
                 return WebCallResult<HuobiSymbolTicks>.CreateErrorResult(result.ResponseStatusCode, result.ResponseHeaders, result.Error!);
             
@@ -124,7 +124,7 @@ namespace Huobi.Net
         /// <param name="symbol">The symbol to get the ticker for</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        public WebCallResult<HuobiMarketTickMerged> GetMergedTickers(string symbol, CancellationToken ct = default) => GetMergedTickersAsync(symbol, ct).Result;
+        public WebCallResult<HuobiSymbolTickMerged> GetMergedTickers(string symbol, CancellationToken ct = default) => GetMergedTickersAsync(symbol, ct).Result;
 
         /// <summary>
         /// Gets the ticker, including the best bid / best ask for a symbol
@@ -132,7 +132,7 @@ namespace Huobi.Net
         /// <param name="symbol">The symbol to get the ticker for</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        public async Task<WebCallResult<HuobiMarketTickMerged>> GetMergedTickersAsync(string symbol, CancellationToken ct = default)
+        public async Task<WebCallResult<HuobiSymbolTickMerged>> GetMergedTickersAsync(string symbol, CancellationToken ct = default)
         {
             symbol = symbol.ValidateHuobiSymbol();
             var parameters = new Dictionary<string, object>
@@ -140,12 +140,12 @@ namespace Huobi.Net
                 { "symbol", symbol }
             };
 
-            var result = await SendHuobiTimestampRequest<HuobiMarketTickMerged>(GetUrl(MarketTickerMergedEndpoint), HttpMethod.Get, ct, parameters, checkResult:false).ConfigureAwait(false);
+            var result = await SendHuobiTimestampRequest<HuobiSymbolTickMerged>(GetUrl(MarketTickerMergedEndpoint), HttpMethod.Get, ct, parameters, checkResult:false).ConfigureAwait(false);
             if (!result)
-                return WebCallResult<HuobiMarketTickMerged>.CreateErrorResult(result.ResponseStatusCode, result.ResponseHeaders, result.Error!);
+                return WebCallResult<HuobiSymbolTickMerged>.CreateErrorResult(result.ResponseStatusCode, result.ResponseHeaders, result.Error!);
 
             result.Data.Item1.Timestamp = result.Data.Item2;
-            return new WebCallResult<HuobiMarketTickMerged>(result.ResponseStatusCode, result.ResponseHeaders, result.Data.Item1, null);
+            return new WebCallResult<HuobiSymbolTickMerged>(result.ResponseStatusCode, result.ResponseHeaders, result.Data.Item1, null);
         }
 
         /// <summary>
@@ -156,7 +156,7 @@ namespace Huobi.Net
         /// <param name="size">The amount of candlesticks</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        public WebCallResult<IEnumerable<HuobiMarketKline>> GetKlines(string symbol, HuobiPeriod period, int size, CancellationToken ct = default) => GetKlinesAsync(symbol, period, size, ct).Result;
+        public WebCallResult<IEnumerable<HuobiKline>> GetKlines(string symbol, HuobiPeriod period, int size, CancellationToken ct = default) => GetKlinesAsync(symbol, period, size, ct).Result;
 
         /// <summary>
         /// Get candlestick data for a symbol
@@ -166,7 +166,7 @@ namespace Huobi.Net
         /// <param name="size">The amount of candlesticks</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        public async Task<WebCallResult<IEnumerable<HuobiMarketKline>>> GetKlinesAsync(string symbol, HuobiPeriod period, int size, CancellationToken ct = default)
+        public async Task<WebCallResult<IEnumerable<HuobiKline>>> GetKlinesAsync(string symbol, HuobiPeriod period, int size, CancellationToken ct = default)
         {
             symbol = symbol.ValidateHuobiSymbol();
             size.ValidateIntBetween(nameof(size), 0, 2000);
@@ -178,11 +178,7 @@ namespace Huobi.Net
                 { "size", size }
             };
 
-            var result = await SendHuobiRequest<IEnumerable<HuobiMarketKline>>(GetUrl(MarketKlineEndpoint), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
-            if (!result)
-                return WebCallResult<IEnumerable<HuobiMarketKline>>.CreateErrorResult(result.ResponseStatusCode, result.ResponseHeaders, result.Error!);
-
-            return new WebCallResult<IEnumerable<HuobiMarketKline>>(result.ResponseStatusCode, result.ResponseHeaders, result.Data, null);
+            return await SendHuobiRequest<IEnumerable<HuobiKline>>(GetUrl(MarketKlineEndpoint), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -193,7 +189,7 @@ namespace Huobi.Net
         /// <param name="limit">The depth of the book</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        public WebCallResult<HuobiMarketDepth> GetOrderBook(string symbol, int mergeStep, int? limit = null, CancellationToken ct = default) => GetOrderBookAsync(symbol, mergeStep, limit, ct).Result;
+        public WebCallResult<HuobiOrderBook> GetOrderBook(string symbol, int mergeStep, int? limit = null, CancellationToken ct = default) => GetOrderBookAsync(symbol, mergeStep, limit, ct).Result;
         /// <summary>
         /// Gets the order book for a symbol
         /// </summary>
@@ -202,7 +198,7 @@ namespace Huobi.Net
         /// <param name="limit">The depth of the book</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        public async Task<WebCallResult<HuobiMarketDepth>> GetOrderBookAsync(string symbol, int mergeStep, int? limit = null, CancellationToken ct = default)
+        public async Task<WebCallResult<HuobiOrderBook>> GetOrderBookAsync(string symbol, int mergeStep, int? limit = null, CancellationToken ct = default)
         {
             symbol = symbol.ValidateHuobiSymbol();
             mergeStep.ValidateIntBetween(nameof(mergeStep), 0, 2000);
@@ -215,12 +211,12 @@ namespace Huobi.Net
             };
             parameters.AddOptionalParameter("depth", limit);
 
-            var result = await SendHuobiTimestampRequest<HuobiMarketDepth>(GetUrl(MarketDepthEndpoint), HttpMethod.Get, ct, parameters, checkResult: false).ConfigureAwait(false);
+            var result = await SendHuobiTimestampRequest<HuobiOrderBook>(GetUrl(MarketDepthEndpoint), HttpMethod.Get, ct, parameters, checkResult: false).ConfigureAwait(false);
             if (!result)
-                return WebCallResult<HuobiMarketDepth>.CreateErrorResult(result.ResponseStatusCode, result.ResponseHeaders, result.Error!);
+                return WebCallResult<HuobiOrderBook>.CreateErrorResult(result.ResponseStatusCode, result.ResponseHeaders, result.Error!);
 
             result.Data.Item1.Timestamp = result.Data.Item2;
-            return new WebCallResult<HuobiMarketDepth>(result.ResponseStatusCode, result.ResponseHeaders, result.Data.Item1, null);
+            return new WebCallResult<HuobiOrderBook>(result.ResponseStatusCode, result.ResponseHeaders, result.Data.Item1, null);
         }
 
         /// <summary>
@@ -282,14 +278,14 @@ namespace Huobi.Net
         /// <param name="symbol">The symbol to get the data for</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        public WebCallResult<HuobiMarketDetails> GetSymbolDetails24H(string symbol, CancellationToken ct = default) => GetSymbolDetails24HAsync(symbol, ct).Result;
+        public WebCallResult<HuobiSymbolDetails> GetSymbolDetails24H(string symbol, CancellationToken ct = default) => GetSymbolDetails24HAsync(symbol, ct).Result;
         /// <summary>
         /// Gets 24h stats for a symbol
         /// </summary>
         /// <param name="symbol">The symbol to get the data for</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        public async Task<WebCallResult<HuobiMarketDetails>> GetSymbolDetails24HAsync(string symbol, CancellationToken ct = default)
+        public async Task<WebCallResult<HuobiSymbolDetails>> GetSymbolDetails24HAsync(string symbol, CancellationToken ct = default)
         {
             symbol = symbol.ValidateHuobiSymbol();
             var parameters = new Dictionary<string, object>
@@ -297,12 +293,12 @@ namespace Huobi.Net
                 { "symbol", symbol }
             };
 
-            var result = await SendHuobiTimestampRequest<HuobiMarketDetails>(GetUrl(MarketDetailsEndpoint), HttpMethod.Get, ct, parameters, checkResult: false).ConfigureAwait(false);
+            var result = await SendHuobiTimestampRequest<HuobiSymbolDetails>(GetUrl(MarketDetailsEndpoint), HttpMethod.Get, ct, parameters, checkResult: false).ConfigureAwait(false);
             if(!result)
-                return WebCallResult<HuobiMarketDetails>.CreateErrorResult(result.ResponseStatusCode, result.ResponseHeaders, result.Error!);
+                return WebCallResult<HuobiSymbolDetails>.CreateErrorResult(result.ResponseStatusCode, result.ResponseHeaders, result.Error!);
 
             result.Data.Item1.Timestamp = result.Data.Item2;
-            return new WebCallResult<HuobiMarketDetails>(result.ResponseStatusCode, result.ResponseHeaders, result.Data.Item1, null);
+            return new WebCallResult<HuobiSymbolDetails>(result.ResponseStatusCode, result.ResponseHeaders, result.Data.Item1, null);
         }
 
         /// <summary>

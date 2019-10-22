@@ -18,9 +18,9 @@ namespace Huobi.Net.UnitTests
         public void GetMarketTickers_Should_RespondWithMarketTickers()
         {
             // arrange
-            var expected = new List<HuobiMarketTick>
+            var expected = new List<HuobiSymbolTick>
             {
-                new HuobiMarketTick
+                new HuobiSymbolTick
                 {
                     Close = 0.1m,
                     Low = 0.2m,
@@ -36,7 +36,7 @@ namespace Huobi.Net.UnitTests
             var client = TestHelpers.CreateResponseClient(SerializeExpected(expected, true));
 
             // act
-            var result = client.GetMarketTickers();
+            var result = client.GetTickers();
 
             // assert
             Assert.AreEqual(true, result.Success);
@@ -47,7 +47,7 @@ namespace Huobi.Net.UnitTests
         public void GetMarketTickerMerged_Should_RespondWithMergedTick()
         {
             // arrange
-            var expected = new HuobiMarketTickMerged
+            var expected = new HuobiSymbolTickMerged()
             {
                 Close = 0.1m,
                 Id = 12345,
@@ -65,7 +65,7 @@ namespace Huobi.Net.UnitTests
             var client = TestHelpers.CreateResponseClient(SerializeExpected(expected, true));
 
             // act
-            var result = client.GetMarketTickerMerged("BTCETH");
+            var result = client.GetMergedTickers("BTCETH");
 
             // assert
             Assert.AreEqual(true, result.Success);
@@ -76,9 +76,9 @@ namespace Huobi.Net.UnitTests
         public void GetMarketKlines_Should_RespondWithKlines()
         {
             // arrange
-            var expected = new List<HuobiMarketData>
+            var expected = new List<HuobiSymbolData>
             {
-                new HuobiMarketData
+                new HuobiSymbolData
                 {
                     Close = 0.1m,
                     Low = 0.2m,
@@ -93,7 +93,7 @@ namespace Huobi.Net.UnitTests
             var client = TestHelpers.CreateResponseClient(SerializeExpected(expected, true));
 
             // act
-            var result = client.GetMarketKlines("BTCETH", HuobiPeriod.FiveMinutes, 10);
+            var result = client.GetKlines("BTCETH", HuobiPeriod.FiveMinutes, 10);
 
             // assert
             Assert.AreEqual(true, result.Success);
@@ -104,7 +104,7 @@ namespace Huobi.Net.UnitTests
         public void GetMarketDepth_Should_RespondWithDepth()
         {
             // arrange
-            var expected = new HuobiMarketDepth()
+            var expected = new HuobiOrderBook()
             {
                 Asks = new List<HuobiOrderBookEntry>()
                 {
@@ -119,7 +119,7 @@ namespace Huobi.Net.UnitTests
             var client = TestHelpers.CreateResponseClient(SerializeExpected(expected, true));
 
             // act
-            var result = client.GetMarketDepth("BTCETH", 1);
+            var result = client.GetOrderBook("BTCETH", 1);
 
             // assert
             Assert.AreEqual(true, result.Success);
@@ -131,13 +131,13 @@ namespace Huobi.Net.UnitTests
         public void GetMarketLastTrade_Should_RespondWithLastTrade()
         {
             // arrange
-            var expected = new HuobiMarketTrade()
+            var expected = new HuobiSymbolTrade()
             {
                 Id = 123,
                 Timestamp = new DateTime(2018, 1, 1),
-                Details = new List<HuobiMarketTradeDetails>()
+                Details = new List<HuobiSymbolTradeDetails>()
                 {
-                    new HuobiMarketTradeDetails()
+                    new HuobiSymbolTradeDetails()
                     {
                         Amount = 0.1m,
                         Id = "12334232",
@@ -151,7 +151,7 @@ namespace Huobi.Net.UnitTests
             var client = TestHelpers.CreateResponseClient(SerializeExpected(expected, true));
 
             // act
-            var result = client.GetMarketLastTrade("BTCETH");
+            var result = client.GetLastTrade("BTCETH");
 
             // assert
             Assert.AreEqual(true, result.Success);
@@ -163,15 +163,15 @@ namespace Huobi.Net.UnitTests
         public void GetMarketTradeHistory_Should_RespondWithTradeHistory()
         {
             // arrange
-            var expected = new List<HuobiMarketTrade>
+            var expected = new List<HuobiSymbolTrade>
             {
-                new HuobiMarketTrade()
+                new HuobiSymbolTrade()
                 {
                     Id = 123,
                     Timestamp = new DateTime(2018, 1, 1),
-                    Details = new List<HuobiMarketTradeDetails>()
+                    Details = new List<HuobiSymbolTradeDetails>()
                     {
-                        new HuobiMarketTradeDetails()
+                        new HuobiSymbolTradeDetails()
                         {
                             Amount = 0.1m,
                             Id = "12334232",
@@ -186,7 +186,7 @@ namespace Huobi.Net.UnitTests
             var client = TestHelpers.CreateResponseClient(SerializeExpected(expected, true));
 
             // act
-            var result = client.GetMarketTradeHistory("BTCETH", 1);
+            var result = client.GetTradeHistory("BTCETH", 1);
 
             // assert
             Assert.AreEqual(true, result.Success);
@@ -198,7 +198,7 @@ namespace Huobi.Net.UnitTests
         public void GetMarketDetails24H_Should_RespondWithDetails24H()
         {
             // arrange
-            var expected = new HuobiMarketData
+            var expected = new HuobiSymbolData
             {
                 Close = 0.1m,
                 Low = 0.2m,
@@ -212,7 +212,7 @@ namespace Huobi.Net.UnitTests
             var client = TestHelpers.CreateResponseClient(SerializeExpected(expected, true));
 
             // act
-            var result = client.GetMarketDetails24H("BTCETH");
+            var result = client.GetSymbolDetails24H("BTCETH");
 
             // assert
             Assert.AreEqual(true, result.Success);

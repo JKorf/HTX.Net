@@ -24,7 +24,7 @@ namespace Huobi.Net.UnitTests
             var client = TestHelpers.CreateSocketClient(socket);
 
             // act
-            var subTask = client.SubscribeToMarketDepthUpdatesAsync("ETHBTC", 1, test => { });
+            var subTask = client.SubscribeToOrderBookUpdatesAsync("ETHBTC", 1, test => { });
             socket.InvokeMessage($"{{\"subbed\": \"test\", \"id\":\"{BaseClient.LastId}\", \"status\": \"ok\"}}");
             var subResult = subTask.Result;
 
@@ -44,7 +44,7 @@ namespace Huobi.Net.UnitTests
             });
 
             // act
-            var subTask = client.SubscribeToMarketDepthUpdatesAsync("ETHBTC", 1, test => { });
+            var subTask = client.SubscribeToOrderBookUpdatesAsync("ETHBTC", 1, test => { });
             var subResult = subTask.Result;
 
             // assert
@@ -60,7 +60,7 @@ namespace Huobi.Net.UnitTests
             var client = TestHelpers.CreateSocketClient(socket);
 
             // act
-            var subTask = client.SubscribeToMarketDepthUpdatesAsync("ETHBTC", 1, test => { });
+            var subTask = client.SubscribeToOrderBookUpdatesAsync("ETHBTC", 1, test => { });
             socket.InvokeMessage($"{{\"status\": \"error\", \"id\": \"{BaseClient.LastId}\", \"err-code\": \"Fail\", \"err-msg\": \"failed\"}}");
             var subResult = subTask.Result;
 
@@ -76,12 +76,12 @@ namespace Huobi.Net.UnitTests
             socket.CanConnect = true;
             var client = TestHelpers.CreateSocketClient(socket);
 
-            HuobiMarketDepth result = null;
-            var subTask = client.SubscribeToMarketDepthUpdatesAsync("ETHBTC", 1, test => result = test);
+            HuobiOrderBook result = null;
+            var subTask = client.SubscribeToOrderBookUpdatesAsync("ETHBTC", 1, test => result = test);
             socket.InvokeMessage($"{{\"subbed\": \"ethbtc\", \"status\": \"ok\", \"id\": \"{BaseClient.LastId}\"}}");
             var subResult = subTask.Result;
 
-            var expected =  new HuobiMarketDepth()
+            var expected =  new HuobiOrderBook()
             {
                 Asks = new List<HuobiOrderBookEntry>()
                 {
@@ -110,12 +110,12 @@ namespace Huobi.Net.UnitTests
             socket.CanConnect = true;
             var client = TestHelpers.CreateSocketClient(socket);
 
-            HuobiMarketData result = null;
-            var subTask = client.SubscribeToMarketDetailUpdatesAsync("ETHBTC", test => result = test);
+            HuobiSymbolData result = null;
+            var subTask = client.SubscribeToSymbolDetailUpdatesAsync("ETHBTC", test => result = test);
             socket.InvokeMessage($"{{\"subbed\": \"ethbtc\", \"id\": \"{BaseClient.LastId}\", \"status\": \"ok\"}}");
             var subResult = subTask.Result;
 
-            var expected = new HuobiMarketData()
+            var expected = new HuobiSymbolData()
             {
                 Amount = 0.1m,
                 Close = 0.2m,
@@ -142,12 +142,12 @@ namespace Huobi.Net.UnitTests
             socket.CanConnect = true;
             var client = TestHelpers.CreateSocketClient(socket);
 
-            HuobiMarketData result = null;
-            var subTask = client.SubscribeToMarketKlineUpdatesAsync("ETHBTC", HuobiPeriod.FiveMinutes, test => result = test);
+            HuobiSymbolData result = null;
+            var subTask = client.SubscribeToKlineUpdatesAsync("ETHBTC", HuobiPeriod.FiveMinutes, test => result = test);
             socket.InvokeMessage($"{{\"subbed\": \"ethbtc\", \"id\": \"{BaseClient.LastId}\", \"status\": \"ok\"}}");
             var subResult = subTask.Result;
 
-            var expected = new HuobiMarketData()
+            var expected = new HuobiSymbolData()
             {
                 Amount = 0.1m,
                 Close = 0.2m,
@@ -174,14 +174,14 @@ namespace Huobi.Net.UnitTests
             socket.CanConnect = true;
             var client = TestHelpers.CreateSocketClient(socket);
 
-            HuobiMarketTicks result = null;
-            var subTask = client.SubscribeToMarketTickerUpdatesAsync(test => result = test);
+            HuobiSymbolTicks result = null;
+            var subTask = client.SubscribeToSymbolTickerUpdatesAsync((test => result = test));
             socket.InvokeMessage($"{{\"subbed\": \"test\", \"id\": \"{BaseClient.LastId}\", \"status\": \"ok\"}}");
             var subResult = subTask.Result;
 
-            var expected = new List<HuobiMarketTick>
+            var expected = new List<HuobiSymbolTick>
             {
-                new HuobiMarketTick()
+                new HuobiSymbolTick()
                 {
                     Amount = 0.1m,
                     Close = 0.2m,
@@ -209,19 +209,19 @@ namespace Huobi.Net.UnitTests
             socket.CanConnect = true;
             var client = TestHelpers.CreateSocketClient(socket);
 
-            HuobiMarketTrade result = null;
-            var subTask = client.SubscribeToMarketTradeUpdatesAsync("ethusdt", test => result = test);
+            HuobiSymbolTrade result = null;
+            var subTask = client.SubscribeToTradeUpdatesAsync("ethusdt", test => result = test);
             socket.InvokeMessage($"{{\"subbed\": \"test\", \"id\": \"{BaseClient.LastId}\", \"status\": \"ok\"}}");
             var subResult = subTask.Result;
 
             var expected = 
-                new HuobiMarketTrade()
+                new HuobiSymbolTrade()
                 {
                     Id = 123,
                     Timestamp = new DateTime(2018, 1, 1),
-                    Details = new List<HuobiMarketTradeDetails>()
+                    Details = new List<HuobiSymbolTradeDetails>()
                     {
-                        new HuobiMarketTradeDetails()
+                        new HuobiSymbolTradeDetails()
                         {
                             Id = "123",
                             Amount = 0.1m,
@@ -347,7 +347,7 @@ namespace Huobi.Net.UnitTests
             };
 
             // act
-            var subTask = client.QueryAccountsAsync();
+            var subTask = client.GetAccountsAsync();
             socket.InvokeMessage("{\"op\": \"auth\"}");
             Thread.Sleep(10);
             socket.InvokeMessage(SerializeExpectedQuery(expected));
@@ -386,7 +386,7 @@ namespace Huobi.Net.UnitTests
             };
 
             // act
-            var subTask = client.QueryOrderDetailsAsync(123);
+            var subTask = client.GetOrderDetailsAsync(123);
             socket.InvokeMessage("{\"op\": \"auth\"}");
             Thread.Sleep(10);
             socket.InvokeMessage(SerializeExpectedQuery(expected));
@@ -427,7 +427,7 @@ namespace Huobi.Net.UnitTests
             };
 
             // act
-            var subTask = client.QueryOrdersAsync(123, "ethusdt", new [] { HuobiOrderState.Canceled });
+            var subTask = client.GetOrdersAsync(123, "ethusdt", new [] { HuobiOrderState.Canceled });
             socket.InvokeMessage("{\"op\": \"auth\"}");
             Thread.Sleep(10);
             socket.InvokeMessage(SerializeExpectedQuery(expected));
