@@ -5,6 +5,9 @@ using System.Collections.Generic;
 
 namespace Huobi.Net.Objects.SocketObjects
 {
+    /// <summary>
+    /// Account event
+    /// </summary>
     public class HuobiAccountEvent
     {
         /// <summary>
@@ -20,9 +23,12 @@ namespace Huobi.Net.Objects.SocketObjects
         /// List of changes
         /// </summary>
         [JsonProperty("list")]
-        public List<HuobiBalanceChange> BalanceChanges { get; set; }
+        public IEnumerable<HuobiBalanceChange> BalanceChanges { get; set; } = new List<HuobiBalanceChange>();
     }
 
+    /// <summary>
+    /// Balance change
+    /// </summary>
     public class HuobiBalanceChange
     {
         /// <summary>
@@ -33,7 +39,7 @@ namespace Huobi.Net.Objects.SocketObjects
         /// <summary>
         /// The currency that changed
         /// </summary>
-        public string Currency { get; set; }
+        public string Currency { get; set; } = "";
         /// <summary>
         /// The type of the balance that changed
         /// </summary>

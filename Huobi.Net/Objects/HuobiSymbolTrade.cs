@@ -6,7 +6,10 @@ using System.Collections.Generic;
 
 namespace Huobi.Net.Objects
 {
-    public class HuobiMarketTrade
+    /// <summary>
+    /// Symbol trade
+    /// </summary>
+    public class HuobiSymbolTrade
     {
         /// <summary>
         /// The id of the trade
@@ -21,15 +24,18 @@ namespace Huobi.Net.Objects
         /// The details of the trade
         /// </summary>
         [JsonProperty("data")]
-        public List<HuobiMarketTradeDetails> Details { get; set; }
+        public IEnumerable<HuobiSymbolTradeDetails> Details { get; set; } = new List<HuobiSymbolTradeDetails>();
     }
 
-    public class HuobiMarketTradeDetails
+    /// <summary>
+    /// Symbol trade details
+    /// </summary>
+    public class HuobiSymbolTradeDetails
     {
         /// <summary>
         /// The id of the trade
         /// </summary>
-        public string Id { get; set; }
+        public string Id { get; set; } = "";
         /// <summary>
         /// The price of the trade
         /// </summary>

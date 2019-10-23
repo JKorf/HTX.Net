@@ -1,32 +1,39 @@
-﻿using Newtonsoft.Json;
+﻿using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace Huobi.Net.Objects
 {
+    /// <summary>
+    /// Result of a batch cancel
+    /// </summary>
     public class HuobiBatchCancelResult
     {
         /// <summary>
         /// Orders that were successfully canceled
         /// </summary>
         [JsonProperty("success")]
-        public long[] Successful { get; set; }
+        public IEnumerable<long> Successful { get; set; } = new List<long>();
         /// <summary>
         /// Orders that failed to cancel
         /// </summary>
-        public HuobiFailedCancelResult[] Failed { get; set; }
+        public IEnumerable<HuobiFailedCancelResult> Failed { get; set; } = new List<HuobiFailedCancelResult>();
     }
 
+    /// <summary>
+    /// Cancel result
+    /// </summary>
     public class HuobiFailedCancelResult
     {
         /// <summary>
         /// The error code
         /// </summary>
         [JsonProperty("err-code")]
-        public string ErrorCode { get; set; }
+        public string? ErrorCode { get; set; }
         /// <summary>
         /// The error message
         /// </summary>
         [JsonProperty("err-msg")]
-        public string ErrorMessage { get; set; }
+        public string? ErrorMessage { get; set; }
         /// <summary>
         /// The id of the failed order
         /// </summary>

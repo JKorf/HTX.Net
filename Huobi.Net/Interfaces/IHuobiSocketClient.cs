@@ -9,6 +9,9 @@ using Huobi.Net.Objects.SocketObjects;
 
 namespace Huobi.Net.Interfaces
 {
+    /// <summary>
+    /// Interface for the Huobi socket client
+    /// </summary>
     public interface IHuobiSocketClient: ISocketClient
     {
         /// <summary>
@@ -17,7 +20,7 @@ namespace Huobi.Net.Interfaces
         /// <param name="symbol">The symbol to get the data for</param>
         /// <param name="period">The period of a single candlestick</param>
         /// <returns></returns>
-        CallResult<List<HuobiMarketKline>> QueryMarketKlines(string symbol, HuobiPeriod period);
+        CallResult<IEnumerable<HuobiKline>> GetKlines(string symbol, HuobiPeriod period);
 
         /// <summary>
         /// Gets candlestick data for a symbol
@@ -25,7 +28,7 @@ namespace Huobi.Net.Interfaces
         /// <param name="symbol">The symbol to get the data for</param>
         /// <param name="period">The period of a single candlestick</param>
         /// <returns></returns>
-        Task<CallResult<List<HuobiMarketKline>>> QueryMarketKlinesAsync(string symbol, HuobiPeriod period);
+        Task<CallResult<IEnumerable<HuobiKline>>> GetKlinesAsync(string symbol, HuobiPeriod period);
 
         /// <summary>
         /// Subscribes to candlestick updates for a symbol
@@ -34,7 +37,7 @@ namespace Huobi.Net.Interfaces
         /// <param name="period">The period of a single candlestick</param>
         /// <param name="onData">The handler for updates</param>
         /// <returns></returns>
-        CallResult<UpdateSubscription> SubscribeToMarketKlineUpdates(string symbol, HuobiPeriod period, Action<HuobiMarketKline> onData);
+        CallResult<UpdateSubscription> SubscribeToKlineUpdates(string symbol, HuobiPeriod period, Action<HuobiKline> onData);
 
         /// <summary>
         /// Subscribes to candlestick updates for a symbol
@@ -43,7 +46,7 @@ namespace Huobi.Net.Interfaces
         /// <param name="period">The period of a single candlestick</param>
         /// <param name="onData">The handler for updates</param>
         /// <returns></returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToMarketKlineUpdatesAsync(string symbol, HuobiPeriod period, Action<HuobiMarketKline> onData);
+        Task<CallResult<UpdateSubscription>> SubscribeToKlineUpdatesAsync(string symbol, HuobiPeriod period, Action<HuobiKline> onData);
 
         /// <summary>
         /// Gets the current order book for a symbol
@@ -51,7 +54,7 @@ namespace Huobi.Net.Interfaces
         /// <param name="symbol">The symbol to get the data for</param>
         /// <param name="mergeStep">The way the results will be merged together</param>
         /// <returns></returns>
-        CallResult<HuobiMarketDepth> QueryMarketDepth(string symbol, int mergeStep);
+        CallResult<HuobiOrderBook> GetOrderBook(string symbol, int mergeStep);
 
         /// <summary>
         /// Gets the current order book for a symbol
@@ -59,7 +62,7 @@ namespace Huobi.Net.Interfaces
         /// <param name="symbol">The symbol to get the data for</param>
         /// <param name="mergeStep">The way the results will be merged together</param>
         /// <returns></returns>
-        Task<CallResult<HuobiMarketDepth>> QueryMarketDepthAsync(string symbol, int mergeStep);
+        Task<CallResult<HuobiOrderBook>> GetOrderBookAsync(string symbol, int mergeStep);
 
         /// <summary>
         /// Subscribes to order book updates for a symbol
@@ -68,7 +71,7 @@ namespace Huobi.Net.Interfaces
         /// <param name="mergeStep">The way the results will be merged together</param>
         /// <param name="onData">The handler for updates</param>
         /// <returns></returns>
-        CallResult<UpdateSubscription> SubscribeToMarketDepthUpdates(string symbol, int mergeStep, Action<HuobiMarketDepth> onData);
+        CallResult<UpdateSubscription> SubscribeToOrderBookUpdates(string symbol, int mergeStep, Action<HuobiOrderBook> onData);
 
         /// <summary>
         /// Subscribes to order book updates for a symbol
@@ -77,21 +80,21 @@ namespace Huobi.Net.Interfaces
         /// <param name="mergeStep">The way the results will be merged together</param>
         /// <param name="onData">The handler for updates</param>
         /// <returns></returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToMarketDepthUpdatesAsync(string symbol, int mergeStep, Action<HuobiMarketDepth> onData);
+        Task<CallResult<UpdateSubscription>> SubscribeToOrderBookUpdatesAsync(string symbol, int mergeStep, Action<HuobiOrderBook> onData);
 
         /// <summary>
         /// Gets a list of trades for a symbol
         /// </summary>
         /// <param name="symbol">The symbol to get trades for</param>
         /// <returns></returns>
-        CallResult<List<HuobiMarketTradeDetails>> QueryMarketTrades(string symbol);
+        CallResult<IEnumerable<HuobiSymbolTradeDetails>> GetTrades(string symbol);
 
         /// <summary>
         /// Gets a list of trades for a symbol
         /// </summary>
         /// <param name="symbol">The symbol to get trades for</param>
         /// <returns></returns>
-        Task<CallResult<List<HuobiMarketTradeDetails>>> QueryMarketTradesAsync(string symbol);
+        Task<CallResult<IEnumerable<HuobiSymbolTradeDetails>>> GetTradesAsync(string symbol);
 
         /// <summary>
         /// Subscribes to trade updates for a symbol
@@ -99,7 +102,7 @@ namespace Huobi.Net.Interfaces
         /// <param name="symbol">The symbol to subscribe to</param>
         /// <param name="onData">The handler for updates</param>
         /// <returns></returns>
-        CallResult<UpdateSubscription> SubscribeToMarketTradeUpdates(string symbol, Action<HuobiMarketTrade> onData);
+        CallResult<UpdateSubscription> SubscribeToTradeUpdates(string symbol, Action<HuobiSymbolTrade> onData);
 
         /// <summary>
         /// Subscribes to trade updates for a symbol
@@ -107,63 +110,63 @@ namespace Huobi.Net.Interfaces
         /// <param name="symbol">The symbol to subscribe to</param>
         /// <param name="onData">The handler for updates</param>
         /// <returns></returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToMarketTradeUpdatesAsync(string symbol, Action<HuobiMarketTrade> onData);
+        Task<CallResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(string symbol, Action<HuobiSymbolTrade> onData);
 
         /// <summary>
-        /// Gets details for a market
+        /// Gets details for a symbol
         /// </summary>
         /// <param name="symbol">The symbol to get data for</param>
         /// <returns></returns>
-        CallResult<HuobiMarketDetails> QueryMarketDetails(string symbol);
+        CallResult<HuobiSymbolDetails> GetSymbolDetails(string symbol);
 
         /// <summary>
-        /// Gets details for a market
+        /// Gets details for a symbol
         /// </summary>
         /// <param name="symbol">The symbol to get data for</param>
         /// <returns></returns>
-        Task<CallResult<HuobiMarketDetails>> QueryMarketDetailsAsync(string symbol);
+        Task<CallResult<HuobiSymbolDetails>> GetSymbolDetailsAsync(string symbol);
 
         /// <summary>
-        /// Subscribes to market detail updates for a symbol
+        /// Subscribes to symbol detail updates for a symbol
         /// </summary>
         /// <param name="symbol">The symbol to subscribe to</param>
         /// <param name="onData">The handler for updates</param>
         /// <returns></returns>
-        CallResult<UpdateSubscription> SubscribeToMarketDetailUpdates(string symbol, Action<HuobiMarketDetails> onData);
+        CallResult<UpdateSubscription> SubscribeToSymbolDetailUpdates(string symbol, Action<HuobiSymbolDetails> onData);
 
         /// <summary>
-        /// Subscribes to market detail updates for a symbol
+        /// Subscribes to symbol detail updates for a symbol
         /// </summary>
         /// <param name="symbol">The symbol to subscribe to</param>
         /// <param name="onData">The handler for updates</param>
         /// <returns></returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToMarketDetailUpdatesAsync(string symbol, Action<HuobiMarketDetails> onData);
+        Task<CallResult<UpdateSubscription>> SubscribeToSymbolDetailUpdatesAsync(string symbol, Action<HuobiSymbolDetails> onData);
 
         /// <summary>
-        /// Subscribes to updates for all market tickers
+        /// Subscribes to updates for all tickers
         /// </summary>
         /// <param name="onData">The handler for updates</param>
         /// <returns></returns>
-        CallResult<UpdateSubscription> SubscribeToMarketTickerUpdates(Action<HuobiMarketTicks> onData);
+        CallResult<UpdateSubscription> SubscribeToTickerUpdates(Action<HuobiSymbolTicks> onData);
 
         /// <summary>
-        /// Subscribes to updates for all market tickers
+        /// Subscribes to updates for all tickers
         /// </summary>
         /// <param name="onData">The handler for updates</param>
         /// <returns></returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToMarketTickerUpdatesAsync(Action<HuobiMarketTicks> onData);
+        Task<CallResult<UpdateSubscription>> SubscribeToSymbolTickerUpdatesAsync(Action<HuobiSymbolTicks> onData);
 
         /// <summary>
         /// Gets a list of accounts associated with the apikey/secret
         /// </summary>
         /// <returns></returns>
-        CallResult<List<HuobiAccountBalances>> QueryAccounts();
+        CallResult<IEnumerable<HuobiAccountBalances>> GetAccounts();
 
         /// <summary>
         /// Gets a list of accounts associated with the apikey/secret
         /// </summary>
         /// <returns></returns>
-        Task<CallResult<List<HuobiAccountBalances>>> QueryAccountsAsync();
+        Task<CallResult<IEnumerable<HuobiAccountBalances>>> GetAccountsAsync();
 
         /// <summary>
         /// Subscribe to account/wallet updates
@@ -191,7 +194,7 @@ namespace Huobi.Net.Interfaces
         /// <param name="fromId">Only get orders with id's higher than this</param>
         /// <param name="limit">The max number of results</param>
         /// <returns></returns>
-        CallResult<List<HuobiOrder>> QueryOrders(long accountId, string symbol, HuobiOrderState[] states, HuobiOrderType[] types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, int? limit = null);
+        CallResult<IEnumerable<HuobiOrder>> GetOrders(long accountId, string symbol, IEnumerable<HuobiOrderState> states, IEnumerable<HuobiOrderType>? types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, int? limit = null);
 
         /// <summary>
         /// Gets a list of orders
@@ -205,7 +208,7 @@ namespace Huobi.Net.Interfaces
         /// <param name="fromId">Only get orders with id's higher than this</param>
         /// <param name="limit">The max number of results</param>
         /// <returns></returns>
-        Task<CallResult<List<HuobiOrder>>> QueryOrdersAsync(long accountId, string symbol, HuobiOrderState[] states, HuobiOrderType[] types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, int? limit = null);
+        Task<CallResult<IEnumerable<HuobiOrder>>> GetOrdersAsync(long accountId, string symbol, IEnumerable<HuobiOrderState> states, IEnumerable<HuobiOrderType>? types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, int? limit = null);
 
         /// <summary>
         /// Subscribe to updates when any order changes
@@ -242,13 +245,13 @@ namespace Huobi.Net.Interfaces
         /// </summary>
         /// <param name="orderId">The id of the order to retrieve</param>
         /// <returns></returns>
-        CallResult<HuobiOrder> QueryOrderDetails(long orderId);
+        CallResult<HuobiOrder> GetOrderDetails(long orderId);
 
         /// <summary>
         /// Gets data for a specific order
         /// </summary>
         /// <param name="orderId">The id of the order to retrieve</param>
         /// <returns></returns>
-        Task<CallResult<HuobiOrder>> QueryOrderDetailsAsync(long orderId);
+        Task<CallResult<HuobiOrder>> GetOrderDetailsAsync(long orderId);
     }
 }

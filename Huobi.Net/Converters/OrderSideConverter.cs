@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Huobi.Net.Converters
 {
-    public class OrderSideConverter : BaseConverter<HuobiOrderSide>
+    internal class OrderSideConverter : BaseConverter<HuobiOrderSide>
     {
         public OrderSideConverter() : this(true) { }
         public OrderSideConverter(bool quotes) : base(quotes) { }

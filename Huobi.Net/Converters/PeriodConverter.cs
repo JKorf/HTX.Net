@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Huobi.Net.Converters
 {
-    public class PeriodConverter : BaseConverter<HuobiPeriod>
+    internal class PeriodConverter : BaseConverter<HuobiPeriod>
     {
         public PeriodConverter() : this(true) { }
         public PeriodConverter(bool quotes) : base(quotes) { }

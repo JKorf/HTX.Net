@@ -1,4 +1,4 @@
-# ![Icon](https://github.com/JKorf/Huobi.Net/blob/master/Resources/icon.png?raw=true) Huobi.Net 
+# ![Icon](https://github.com/JKorf/Huobi.Net/blob/master/Huobi.Net/Icon/icon.png?raw=true) Huobi.Net 
 
 ![Build status](https://travis-ci.org/JKorf/Huobi.Net.svg?branch=master)
 
@@ -84,6 +84,15 @@ Huobi.Net provides two clients to interact with the Huobi API. The `HuobiClient`
 Examples can be found in the Examples folder.
 
 ## Release notes
+* Version 2.0.0 - 23 Oct 2019
+	* See CryptoExchange.Net 3.0 release notes
+	* Added input validation
+	* Added CancellationToken support to all requests
+	* Now using IEnumerable<> for collections
+	* Renamed Market -> Symbol
+	* Renamed MarketDepth -> OrderBook
+	* Renamed QueryXXX -> GetXXX
+
 * Version 1.1.9 - 11 Sep 2019
     * Updated CryptoExchange.Net
 

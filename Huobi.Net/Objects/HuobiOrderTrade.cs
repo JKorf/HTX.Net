@@ -5,6 +5,9 @@ using System;
 
 namespace Huobi.Net.Objects
 {
+    /// <summary>
+    /// Trade info
+    /// </summary>
     public class HuobiOrderTrade
     {
         /// <summary>
@@ -14,7 +17,7 @@ namespace Huobi.Net.Objects
         /// <summary>
         /// The symbol of the trade
         /// </summary>
-        public string Symbol { get; set; }
+        public string Symbol { get; set; } = "";
         /// <summary>
         /// Time the trade was made
         /// </summary>
@@ -47,7 +50,7 @@ namespace Huobi.Net.Objects
         /// <summary>
         /// The source of the trade
         /// </summary>
-        public string Source { get; set; }
+        public string Source { get; set; } = "";
         /// <summary>
         /// The type of the order
         /// </summary>

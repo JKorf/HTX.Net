@@ -4,8 +4,9 @@ using Newtonsoft.Json;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http;
 using CryptoExchange.Net.Authentication;
-using CryptoExchange.Net.Objects;
 
 namespace Huobi.Net.UnitTests
 {
@@ -16,9 +17,9 @@ namespace Huobi.Net.UnitTests
         public void GetMarketTickers_Should_RespondWithMarketTickers()
         {
             // arrange
-            var expected = new List<HuobiMarketTick>
+            var expected = new List<HuobiSymbolTick>
             {
-                new HuobiMarketTick
+                new HuobiSymbolTick
                 {
                     Close = 0.1m,
                     Low = 0.2m,
@@ -34,18 +35,18 @@ namespace Huobi.Net.UnitTests
             var client = TestHelpers.CreateResponseClient(SerializeExpected(expected, true));
 
             // act
-            var result = client.GetMarketTickers();
+            var result = client.GetTickers();
 
             // assert
             Assert.AreEqual(true, result.Success);
-            Assert.IsTrue(TestHelpers.AreEqual(expected[0], result.Data.Ticks[0]));
+            Assert.IsTrue(TestHelpers.AreEqual(expected[0], result.Data.Ticks.ToList()[0]));
         }
 
         [TestCase]
         public void GetMarketTickerMerged_Should_RespondWithMergedTick()
         {
             // arrange
-            var expected = new HuobiMarketTickMerged
+            var expected = new HuobiSymbolTickMerged()
             {
                 Close = 0.1m,
                 Id = 12345,
@@ -63,7 +64,7 @@ namespace Huobi.Net.UnitTests
             var client = TestHelpers.CreateResponseClient(SerializeExpected(expected, true));
 
             // act
-            var result = client.GetMarketTickerMerged("BTCETH");
+            var result = client.GetMergedTickers("BTCETH");
 
             // assert
             Assert.AreEqual(true, result.Success);
@@ -74,9 +75,9 @@ namespace Huobi.Net.UnitTests
         public void GetMarketKlines_Should_RespondWithKlines()
         {
             // arrange
-            var expected = new List<HuobiMarketData>
+            var expected = new List<HuobiSymbolData>
             {
-                new HuobiMarketData
+                new HuobiSymbolData
                 {
                     Close = 0.1m,
                     Low = 0.2m,
@@ -91,18 +92,18 @@ namespace Huobi.Net.UnitTests
             var client = TestHelpers.CreateResponseClient(SerializeExpected(expected, true));
 
             // act
-            var result = client.GetMarketKlines("BTCETH", HuobiPeriod.FiveMinutes, 10);
+            var result = client.GetKlines("BTCETH", HuobiPeriod.FiveMinutes, 10);
 
             // assert
             Assert.AreEqual(true, result.Success);
-            Assert.IsTrue(TestHelpers.AreEqual(expected[0], result.Data[0]));
+            Assert.IsTrue(TestHelpers.AreEqual(expected[0], result.Data.ToList()[0]));
         }
 
         [TestCase]
         public void GetMarketDepth_Should_RespondWithDepth()
         {
             // arrange
-            var expected = new HuobiMarketDepth()
+            var expected = new HuobiOrderBook()
             {
                 Asks = new List<HuobiOrderBookEntry>()
                 {
@@ -117,25 +118,25 @@ namespace Huobi.Net.UnitTests
             var client = TestHelpers.CreateResponseClient(SerializeExpected(expected, true));
 
             // act
-            var result = client.GetMarketDepth("BTCETH", 1);
+            var result = client.GetOrderBook("BTCETH", 1);
 
             // assert
             Assert.AreEqual(true, result.Success);
-            Assert.IsTrue(TestHelpers.AreEqual(expected.Asks[0], result.Data.Asks[0]));
-            Assert.IsTrue(TestHelpers.AreEqual(expected.Bids[0], result.Data.Bids[0]));
+            Assert.IsTrue(TestHelpers.AreEqual(expected.Asks.ToList()[0], result.Data.Asks.ToList()[0]));
+            Assert.IsTrue(TestHelpers.AreEqual(expected.Bids.ToList()[0], result.Data.Bids.ToList()[0]));
         }
 
         [TestCase]
         public void GetMarketLastTrade_Should_RespondWithLastTrade()
         {
             // arrange
-            var expected = new HuobiMarketTrade()
+            var expected = new HuobiSymbolTrade()
             {
                 Id = 123,
                 Timestamp = new DateTime(2018, 1, 1),
-                Details = new List<HuobiMarketTradeDetails>()
+                Details = new List<HuobiSymbolTradeDetails>()
                 {
-                    new HuobiMarketTradeDetails()
+                    new HuobiSymbolTradeDetails()
                     {
                         Amount = 0.1m,
                         Id = "12334232",
@@ -149,27 +150,27 @@ namespace Huobi.Net.UnitTests
             var client = TestHelpers.CreateResponseClient(SerializeExpected(expected, true));
 
             // act
-            var result = client.GetMarketLastTrade("BTCETH");
+            var result = client.GetLastTrade("BTCETH");
 
             // assert
             Assert.AreEqual(true, result.Success);
             Assert.IsTrue(TestHelpers.AreEqual(expected, result.Data, "Details"));
-            Assert.IsTrue(TestHelpers.AreEqual(expected.Details[0], result.Data.Details[0]));
+            Assert.IsTrue(TestHelpers.AreEqual(expected.Details.ToList()[0], result.Data.Details.ToList()[0]));
         }
 
         [TestCase]
         public void GetMarketTradeHistory_Should_RespondWithTradeHistory()
         {
             // arrange
-            var expected = new List<HuobiMarketTrade>
+            var expected = new List<HuobiSymbolTrade>
             {
-                new HuobiMarketTrade()
+                new HuobiSymbolTrade()
                 {
                     Id = 123,
                     Timestamp = new DateTime(2018, 1, 1),
-                    Details = new List<HuobiMarketTradeDetails>()
+                    Details = new List<HuobiSymbolTradeDetails>()
                     {
-                        new HuobiMarketTradeDetails()
+                        new HuobiSymbolTradeDetails()
                         {
                             Amount = 0.1m,
                             Id = "12334232",
@@ -184,19 +185,19 @@ namespace Huobi.Net.UnitTests
             var client = TestHelpers.CreateResponseClient(SerializeExpected(expected, true));
 
             // act
-            var result = client.GetMarketTradeHistory("BTCETH", 1);
+            var result = client.GetTradeHistory("BTCETH", 1);
 
             // assert
             Assert.AreEqual(true, result.Success);
-            Assert.IsTrue(TestHelpers.AreEqual(expected[0], result.Data[0], "Details"));
-            Assert.IsTrue(TestHelpers.AreEqual(expected[0].Details[0], result.Data[0].Details[0]));
+            Assert.IsTrue(TestHelpers.AreEqual(expected[0], result.Data.ToList()[0], "Details"));
+            Assert.IsTrue(TestHelpers.AreEqual(expected[0].Details.ToList()[0], result.Data.ToList()[0].Details.ToList()[0]));
         }
 
         [TestCase]
         public void GetMarketDetails24H_Should_RespondWithDetails24H()
         {
             // arrange
-            var expected = new HuobiMarketData
+            var expected = new HuobiSymbolData
             {
                 Close = 0.1m,
                 Low = 0.2m,
@@ -210,7 +211,7 @@ namespace Huobi.Net.UnitTests
             var client = TestHelpers.CreateResponseClient(SerializeExpected(expected, true));
 
             // act
-            var result = client.GetMarketDetails24H("BTCETH");
+            var result = client.GetSymbolDetails24H("BTCETH");
 
             // assert
             Assert.AreEqual(true, result.Success);
@@ -241,7 +242,7 @@ namespace Huobi.Net.UnitTests
 
             // assert
             Assert.AreEqual(true, result.Success);
-            Assert.IsTrue(TestHelpers.AreEqual(expected[0], result.Data[0]));
+            Assert.IsTrue(TestHelpers.AreEqual(expected[0], result.Data.ToList()[0]));
         }
 
         [TestCase]
@@ -261,8 +262,8 @@ namespace Huobi.Net.UnitTests
 
             // assert
             Assert.AreEqual(true, result.Success);
-            Assert.IsTrue(expected[0] == result.Data[0]);
-            Assert.IsTrue(expected[1] == result.Data[1]);
+            Assert.IsTrue(expected[0] == result.Data.ToList()[0]);
+            Assert.IsTrue(expected[1] == result.Data.ToList()[1]);
         }
 
         [TestCase]
@@ -286,7 +287,7 @@ namespace Huobi.Net.UnitTests
 
             // assert
             Assert.AreEqual(true, result.Success);
-            Assert.IsTrue(TestHelpers.AreEqual(expected[0], result.Data[0]));
+            Assert.IsTrue(TestHelpers.AreEqual(expected[0], result.Data.ToList()[0]));
         }
 
         [TestCase]
@@ -313,7 +314,7 @@ namespace Huobi.Net.UnitTests
 
             // assert
             Assert.AreEqual(true, result.Success);
-            Assert.IsTrue(TestHelpers.AreEqual(expected.Data[0], result.Data[0]));
+            Assert.IsTrue(TestHelpers.AreEqual(expected.Data.ToList()[0], result.Data.ToList()[0]));
         }
 
         [TestCase]
@@ -361,7 +362,7 @@ namespace Huobi.Net.UnitTests
 
             // assert
             Assert.AreEqual(true, result.Success);
-            Assert.IsTrue(TestHelpers.AreEqual(expected[0], result.Data[0]));
+            Assert.IsTrue(TestHelpers.AreEqual(expected[0], result.Data.ToList()[0]));
         }
 
         [TestCase]
@@ -403,8 +404,8 @@ namespace Huobi.Net.UnitTests
 
             // assert
             Assert.AreEqual(true, result.Success);
-            Assert.IsTrue(expected.Successful[0] == result.Data.Successful[0]);
-            Assert.IsTrue(TestHelpers.AreEqual(expected.Failed[0], result.Data.Failed[0]));
+            Assert.IsTrue(expected.Successful.ToList()[0] == result.Data.Successful.ToList()[0]);
+            Assert.IsTrue(TestHelpers.AreEqual(expected.Failed.ToList()[0], result.Data.Failed.ToList()[0]));
         }
 
         [TestCase]
@@ -465,7 +466,7 @@ namespace Huobi.Net.UnitTests
 
             // assert
             Assert.AreEqual(true, result.Success);
-            Assert.IsTrue(TestHelpers.AreEqual(expected[0], result.Data[0]));
+            Assert.IsTrue(TestHelpers.AreEqual(expected[0], result.Data.ToList()[0]));
         }
 
         [TestCase]
@@ -498,7 +499,7 @@ namespace Huobi.Net.UnitTests
 
             // assert
             Assert.AreEqual(true, result.Success);
-            Assert.IsTrue(TestHelpers.AreEqual(expected[0], result.Data[0]));
+            Assert.IsTrue(TestHelpers.AreEqual(expected[0], result.Data.ToList()[0]));
         }
 
         [TestCase]
@@ -529,7 +530,7 @@ namespace Huobi.Net.UnitTests
 
             // assert
             Assert.AreEqual(true, result.Success);
-            Assert.IsTrue(TestHelpers.AreEqual(expected[0], result.Data[0]));
+            Assert.IsTrue(TestHelpers.AreEqual(expected[0], result.Data.ToList()[0]));
         }
 
         [Test]
@@ -539,7 +540,7 @@ namespace Huobi.Net.UnitTests
             var authProvider = new HuobiAuthenticationProvider(new ApiCredentials("TestKey", "TestSecret"), false);
 
             // act
-            var parameters = authProvider.AddAuthenticationToParameters("http://api.test.com/somepath/test", Constants.GetMethod, new Dictionary<string, object>()
+            var parameters = authProvider.AddAuthenticationToParameters("http://api.test.com/somepath/test", HttpMethod.Get, new Dictionary<string, object>()
             {
                 { "Timestamp", new DateTime(2018, 1, 1).ToString("yyyy-MM-ddTHH:mm:ss") }
             }, true);
@@ -552,21 +553,51 @@ namespace Huobi.Net.UnitTests
         public void ReceivingErrorResponse_Should_FailCall()
         {
             // arrange
-            var client = TestHelpers.CreateAuthResponseClient($"{{\"status\": \"error\", \"err-code\": \"Error!\", \"err-msg\": \"ErrorMessage\"}}");
+            var client = TestHelpers.CreateAuthResponseClient("{{\"status\": \"error\", \"err-code\": \"Error!\", \"err-msg\": \"ErrorMessage\"}}");
 
             // act
             var result = client.GetCurrencies();
 
             // assert
             Assert.IsFalse(result.Success);
-            Assert.IsTrue(result.Error.Message.Contains("Error!"));
-            Assert.IsTrue(result.Error.Message.Contains("ErrorMessage"));
+            Assert.IsTrue(result.Error.ToString().Contains("Error!"));
+            Assert.IsTrue(result.Error.ToString().Contains("ErrorMessage"));
+        }
+
+        [TestCase]
+        public void ReceivingHttpErrorResponse_Should_FailCall()
+        {
+            // arrange
+            var client = TestHelpers.CreateAuthResponseClient("Error message", System.Net.HttpStatusCode.BadRequest);
+
+            // act
+            var result = client.GetCurrencies();
+
+            // assert
+            Assert.IsFalse(result.Success);
+            Assert.IsTrue(result.Error.ToString().Contains("Error message"));
         }
 
 
         public string SerializeExpected<T>(T data, bool tick)
         {
             return $"{{\"status\": \"ok\", {(tick ? "tick" : "data")}: {JsonConvert.SerializeObject(data)}}}";
+        }
+
+        [TestCase("BTCUSDT", true)]
+        [TestCase("NANOUSDT", true)]
+        [TestCase("NANOBTC", true)]
+        [TestCase("ETHBTC", true)]
+        [TestCase("BEETC", false)]
+        [TestCase("NANOUSDTD", false)]
+        [TestCase("BTC-USDT", false)]
+        [TestCase("BTC-USD", false)]
+        public void CheckValidHuobiSymbol(string symbol, bool isValid)
+        {
+            if (isValid)
+                Assert.DoesNotThrow(() => symbol.ValidateHuobiSymbol());
+            else
+                Assert.Throws(typeof(ArgumentException), () => symbol.ValidateHuobiSymbol());
         }
     }
 }

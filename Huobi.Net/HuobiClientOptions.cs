@@ -1,9 +1,11 @@
 ﻿using CryptoExchange.Net.Objects;
-using System;
 using Huobi.Net.Interfaces;
 
 namespace Huobi.Net
 {
+    /// <summary>
+    /// Client options
+    /// </summary>
     public class HuobiClientOptions: RestClientOptions
     {
         /// <summary>
@@ -11,11 +13,17 @@ namespace Huobi.Net
         /// </summary>
         public bool SignPublicRequests { get; set; } = false;
 
-        public HuobiClientOptions()
+        /// <summary>
+        /// ctor
+        /// </summary>
+        public HuobiClientOptions(): base("https://api.huobi.pro")
         {
-            BaseAddress = "https://api.huobi.pro";
         }
 
+        /// <summary>
+        /// Copy
+        /// </summary>
+        /// <returns></returns>
         public HuobiClientOptions Copy()
         {
             var copy = Copy<HuobiClientOptions>();
@@ -24,6 +32,9 @@ namespace Huobi.Net
         }
     }
 
+    /// <summary>
+    /// Socket client options
+    /// </summary>
     public class HuobiSocketClientOptions : SocketClientOptions
     {
         /// <summary>
@@ -31,12 +42,18 @@ namespace Huobi.Net
         /// </summary>
         public string BaseAddressAuthenticated { get; set; } = "wss://api.huobi.pro/ws/v1";
 
-        public HuobiSocketClientOptions()
+        /// <summary>
+        /// ctor
+        /// </summary>
+        public HuobiSocketClientOptions(): base("wss://api.huobi.pro/ws")
         {
-            BaseAddress = "wss://api.huobi.pro/ws";
             SocketSubscriptionsCombineTarget = 10;
         }
 
+        /// <summary>
+        /// Copy
+        /// </summary>
+        /// <returns></returns>
         public HuobiSocketClientOptions Copy()
         {
             var copy = Copy<HuobiSocketClientOptions>();
@@ -45,6 +62,9 @@ namespace Huobi.Net
         }
     }
 
+    /// <summary>
+    /// Order book options
+    /// </summary>
     public class HuobiOrderBookOptions : OrderBookOptions
     {
         /// <summary>
@@ -55,14 +75,14 @@ namespace Huobi.Net
         /// <summary>
         /// The client to use for the socket connection. When using the same client for multiple order books the connection can be shared.
         /// </summary>
-        public IHuobiSocketClient SocketClient { get; set; }
+        public IHuobiSocketClient? SocketClient { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="mergeStep">The way the entries are merged. 0 is no merge, 2 means to combine the entries on 2 decimal places</param>
         /// <param name="socketClient">The client to use for the socket connection. When using the same client for multiple order books the connection can be shared.</param>
-        public HuobiOrderBookOptions(int? mergeStep = null, IHuobiSocketClient socketClient = null) : base("Huobi", false)
+        public HuobiOrderBookOptions(int? mergeStep = null, IHuobiSocketClient? socketClient = null) : base("Huobi", false)
         {
             SocketClient = socketClient;
             MergeStep = mergeStep;

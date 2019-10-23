@@ -11,5 +11,15 @@ namespace Huobi.Net.Objects.SocketObjects
         public string SignatureVersion { get; set; }
         public string Timestamp { get; set; }
         public string Signature { get; set; }
+
+        public HuobiAuthenticationRequest(string operation ,string accessKeyId, string signatureMethod, string signatureVersion, string timestamp, string signature)
+        {
+            Operation = operation;
+            AccessKeyId = accessKeyId;
+            SignatureMethod = signatureMethod;
+            SignatureVersion = signatureVersion;
+            Timestamp = timestamp;
+            Signature = signature;
+        }
     }
 }

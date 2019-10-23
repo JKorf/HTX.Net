@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Huobi.Net.Converters
 {
-    public class AccountTypeConverter : BaseConverter<HuobiAccountType>
+    internal class AccountTypeConverter : BaseConverter<HuobiAccountType>
     {
         public AccountTypeConverter() : this(true) { }
         public AccountTypeConverter(bool quotes) : base(quotes) { }

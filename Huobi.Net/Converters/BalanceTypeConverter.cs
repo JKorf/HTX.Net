@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Huobi.Net.Converters
 {
-    public class BalanceTypeConverter : BaseConverter<HuobiBalanceType>
+    internal class BalanceTypeConverter : BaseConverter<HuobiBalanceType>
     {
         public BalanceTypeConverter() : this(true) { }
         public BalanceTypeConverter(bool quotes) : base(quotes) { }

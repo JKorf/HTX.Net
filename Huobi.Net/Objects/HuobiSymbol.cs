@@ -3,22 +3,25 @@ using Newtonsoft.Json;
 
 namespace Huobi.Net.Objects
 {
+    /// <summary>
+    /// Symbol data
+    /// </summary>
     public class HuobiSymbol
     {
         /// <summary>
         /// The symbol name
         /// </summary>
-        public string Symbol { get; set; }
+        public string Symbol { get; set; } = "";
         /// <summary>
         /// The base currency
         /// </summary>
         [JsonProperty("base-currency")]
-        public string BaseCurrency { get; set; }
+        public string BaseCurrency { get; set; } = "";
         /// <summary>
         /// The quote currency
         /// </summary>
         [JsonProperty("quote-currency")]
-        public string QuoteCurrency { get; set; }
+        public string QuoteCurrency { get; set; } = "";
         /// <summary>
         /// The precision of the price in decimal numbers
         /// </summary>
@@ -29,8 +32,11 @@ namespace Huobi.Net.Objects
         /// </summary>
         [JsonProperty("amount-precision")]
         public int AmountPrecision { get; set; }
+        /// <summary>
+        /// Partition
+        /// </summary>
         [JsonProperty("symbol-partition")]
-        public string SymbolPartition { get; set; }
+        public string SymbolPartition { get; set; } = "";
         /// <summary>
         /// The state of the symbol
         /// </summary>

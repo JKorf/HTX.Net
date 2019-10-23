@@ -11,7 +11,7 @@ namespace Huobi.Net.Objects.SocketObjects
         /// The name of the data channel
         /// </summary>
         [JsonProperty("ch")]
-        public string Channel { get; set; }
+        public string Channel { get; set; } = "";
         /// <summary>
         /// The timestamp of the update
         /// </summary>
@@ -22,7 +22,7 @@ namespace Huobi.Net.Objects.SocketObjects
         /// The data of the update
         /// </summary>
         [JsonOptionalProperty]
-        public T Data { get; set; }
+        public T Data { get; set; } = default!;
         [JsonOptionalProperty, JsonProperty("tick")]
         private T Tick { set => Data = value; get => Data; }
     }

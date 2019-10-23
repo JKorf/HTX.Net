@@ -3,12 +3,15 @@ using Newtonsoft.Json;
 
 namespace Huobi.Net.Objects
 {
+    /// <summary>
+    /// Balance data
+    /// </summary>
     public class HuobiBalance
     {
         /// <summary>
         /// The currency
         /// </summary>
-        public string Currency { get; set; }
+        public string Currency { get; set; } = "";
         /// <summary>
         /// The type of the balance
         /// </summary>

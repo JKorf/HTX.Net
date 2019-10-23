@@ -7,6 +7,9 @@ using Huobi.Net.Interfaces;
 
 namespace Huobi.Net
 {
+    /// <summary>
+    /// Huobi order book implementation
+    /// </summary>
     public class HuobiSymbolOrderBook : SymbolOrderBook
     {
         private readonly IHuobiSocketClient socketClient;
@@ -17,27 +20,35 @@ namespace Huobi.Net
         /// </summary>
         /// <param name="symbol">The symbol the order book is for</param>
         /// <param name="options">The options for the order book</param>
-        public HuobiSymbolOrderBook(string symbol, HuobiOrderBookOptions options = null) : base(symbol, options ?? new HuobiOrderBookOptions())
+        public HuobiSymbolOrderBook(string symbol, HuobiOrderBookOptions? options = null) : base(symbol, options ?? new HuobiOrderBookOptions())
         {
             mergeStep = options?.MergeStep ?? 0;
             socketClient = options?.SocketClient ?? new HuobiSocketClient();
         }
 
+        /// <inheritdoc />
         protected override async Task<CallResult<UpdateSubscription>> DoStart()
         {
-            return await socketClient.SubscribeToMarketDepthUpdatesAsync(Symbol, mergeStep, HandleUpdate).ConfigureAwait(false);
+            var subResult = await socketClient.SubscribeToOrderBookUpdatesAsync(Symbol, mergeStep, HandleUpdate).ConfigureAwait(false);
+            if (!subResult)
+                return subResult;
+
+            var setResult = await WaitForSetOrderBook(10000).ConfigureAwait(false);
+            return setResult ? subResult : new CallResult<UpdateSubscription>(null, setResult.Error);
         }
 
-        private void HandleUpdate(HuobiMarketDepth data)
+        private void HandleUpdate(HuobiOrderBook data)
         {
-            SetInitialOrderBook(data.Timestamp.Ticks, data.Asks, data.Bids);
+            SetInitialOrderBook(data.Timestamp.Ticks, data.Bids, data.Asks);
         }
 
-        protected override Task<CallResult<bool>> DoResync()
+        /// <inheritdoc />
+        protected override async Task<CallResult<bool>> DoResync()
         {
-            return Task.FromResult(new CallResult<bool>(true, null));
+            return await WaitForSetOrderBook(10000).ConfigureAwait(false);
         }
 
+        /// <inheritdoc />
         public override void Dispose()
         {
             processBuffer.Clear();
