@@ -12,7 +12,6 @@ using CryptoExchange.Net;
 using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Logging;
-using CryptoExchange.Net.Requests;
 using Huobi.Net.Interfaces;
 using Moq;
 using Newtonsoft.Json;

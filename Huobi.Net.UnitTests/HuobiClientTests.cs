@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using CryptoExchange.Net.Authentication;
-using CryptoExchange.Net.Objects;
 
 namespace Huobi.Net.UnitTests
 {
@@ -554,7 +553,7 @@ namespace Huobi.Net.UnitTests
         public void ReceivingErrorResponse_Should_FailCall()
         {
             // arrange
-            var client = TestHelpers.CreateAuthResponseClient($"{{\"status\": \"error\", \"err-code\": \"Error!\", \"err-msg\": \"ErrorMessage\"}}");
+            var client = TestHelpers.CreateAuthResponseClient("{{\"status\": \"error\", \"err-code\": \"Error!\", \"err-msg\": \"ErrorMessage\"}}");
 
             // act
             var result = client.GetCurrencies();
@@ -569,7 +568,7 @@ namespace Huobi.Net.UnitTests
         public void ReceivingHttpErrorResponse_Should_FailCall()
         {
             // arrange
-            var client = TestHelpers.CreateAuthResponseClient($"Error message", System.Net.HttpStatusCode.BadRequest);
+            var client = TestHelpers.CreateAuthResponseClient("Error message", System.Net.HttpStatusCode.BadRequest);
 
             // act
             var result = client.GetCurrencies();
