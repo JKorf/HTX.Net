@@ -85,6 +85,9 @@ Huobi.Net provides two clients to interact with the Huobi API. The `HuobiClient`
 Examples can be found in the Examples folder.
 
 ## Release notes
+* Version 2.0.1 - 23 Oct 2019
+	* Fixed validation length symbols
+
 * Version 2.0.0 - 23 Oct 2019
 	* See CryptoExchange.Net 3.0 release notes
 	* Added input validation
