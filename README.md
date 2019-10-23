@@ -86,6 +86,9 @@ Examples can be found in the Examples folder.
 
 ## Release notes
 * Version 2.0.1 - 23 Oct 2019
+	* Fixed validation length symbols again
+	
+* Version 2.0.1 - 23 Oct 2019
 	* Fixed validation length symbols
 
 * Version 2.0.0 - 23 Oct 2019
