@@ -421,13 +421,13 @@ namespace Huobi.Net
         /// <returns></returns>
         public async Task<WebCallResult<IEnumerable<HuobiAccountHistory>>> GetAccountHistoryAsync(long accountId, string? currency = null, IEnumerable<HuobiTransactionType>? transactionTypes = null, DateTime? startTime = null, DateTime? endTime = null, HuobiSortingType? sort = null, int? size = null, CancellationToken ct = default)
         {
-	        size?.ValidateIntBetween(nameof(size), 1, 500);
+            size?.ValidateIntBetween(nameof(size), 1, 500);
 
             var transactionTypeConverter = new TransactionTypeConverter(false);
-	        var parameters = new Dictionary<string, object>
-	        {
-		        { "account-id", accountId }
-	        };
+            var parameters = new Dictionary<string, object>
+            {
+                { "account-id", accountId }
+            };
             parameters.AddOptionalParameter("currency", currency);
             parameters.AddOptionalParameter("transact-types", transactionTypes == null ? null : string.Join(",", transactionTypes.Select(s => JsonConvert.SerializeObject(s, transactionTypeConverter))));
             parameters.AddOptionalParameter("start-time", ToUnixTimestamp(startTime));
