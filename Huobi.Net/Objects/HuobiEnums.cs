@@ -327,4 +327,74 @@
         /// </summary>
         Suspended
     }
+
+    /// <summary>
+    /// Transaction type
+    /// </summary>
+    public enum HuobiTransactionType
+    {
+        /// <summary>
+        /// Trade
+        /// </summary>
+        Trade,
+        /// <summary>
+        /// ETF
+        /// </summary>
+        Etf,
+        /// <summary>
+        /// Transaction fee
+        /// </summary>
+        TransactionFee,
+        /// <summary>
+        /// Deduction
+        /// </summary>
+        Deduction,
+        /// <summary>
+        /// Transfer between accounts
+        /// </summary>
+        Transfer,
+        /// <summary>
+        /// Credit
+        /// </summary>
+        Credit,
+        /// <summary>
+        /// Liquidation
+        /// </summary>
+        Liquidation,
+        /// <summary>
+        /// Interest
+        /// </summary>
+        Interest,
+        /// <summary>
+        /// Deposit or withdraw
+        /// </summary>
+        DepositWithdraw,
+        /// <summary>
+        /// Withdraw fee
+        /// </summary>
+        WithdrawFee,
+        /// <summary>
+        /// Exchange
+        /// </summary>
+        Exchange,
+        /// <summary>
+        /// Other types
+        /// </summary>
+        Other
+    }
+
+    /// <summary>
+    /// Sorting order
+    /// </summary>
+    public enum HuobiSortingType
+    {
+        /// <summary>
+        /// Ascending
+        /// </summary>
+        Ascending,
+        /// <summary>
+        /// Descending
+        /// </summary>
+        Descending
+    }
 }

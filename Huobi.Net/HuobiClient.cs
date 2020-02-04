@@ -42,6 +42,7 @@ namespace Huobi.Net
 
         private const string GetAccountsEndpoint = "account/accounts";
         private const string GetBalancesEndpoint = "account/accounts/{}/balance";
+        private const string GetAccountHistoryEndpoint = "account/history";
 
         private const string GetSubAccountBalancesEndpoint = "account/accounts/{}";
         private const string TransferWithSubAccountEndpoint = "subuser/transfer";
@@ -389,6 +390,52 @@ namespace Huobi.Net
                 return WebCallResult<IEnumerable<HuobiBalance>>.CreateErrorResult(result.ResponseStatusCode, result.ResponseHeaders, result.Error!);
             
             return new WebCallResult<IEnumerable<HuobiBalance>>(result.ResponseStatusCode, result.ResponseHeaders, result.Data.Data, result.Error);
+        }
+
+        /// <summary>
+        /// Gets a list of amount changes of specified user's account
+        /// </summary>
+        /// <param name="accountId">The id of the account to get the balances for</param>
+        /// <param name="currency">Currency name</param>
+        /// <param name="transactionTypes">Amount change types</param>
+        /// <param name="startTime">Far point of time of the query window. The maximum size of the query window is 1 hour. The query window can be shifted within 30 days</param>
+        /// <param name="endTime">Near point of time of the query window. The maximum size of the query window is 1 hour. The query window can be shifted within 30 days</param>
+        /// <param name="sort">Sorting order (Ascending by default)</param>
+        /// <param name="size">Maximum number of items in each response (from 1 to 500, default is 100)</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        public WebCallResult<IEnumerable<HuobiAccountHistory>> GetAccountHistory(long accountId, string? currency = null, IEnumerable<HuobiTransactionType>? transactionTypes = null, DateTime? startTime = null, DateTime? endTime = null, HuobiSortingType? sort = null, int? size = null, CancellationToken ct = default)
+            => GetAccountHistoryAsync(accountId, currency, transactionTypes, startTime, endTime, sort, size, ct).Result;
+        
+        /// <summary>
+        /// Gets a list of amount changes of specified user's account
+        /// </summary>
+        /// <param name="accountId">The id of the account to get the balances for</param>
+        /// <param name="currency">Currency name</param>
+        /// <param name="transactionTypes">Amount change types</param>
+        /// <param name="startTime">Far point of time of the query window. The maximum size of the query window is 1 hour. The query window can be shifted within 30 days</param>
+        /// <param name="endTime">Near point of time of the query window. The maximum size of the query window is 1 hour. The query window can be shifted within 30 days</param>
+        /// <param name="sort">Sorting order (Ascending by default)</param>
+        /// <param name="size">Maximum number of items in each response (from 1 to 500, default is 100)</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        public async Task<WebCallResult<IEnumerable<HuobiAccountHistory>>> GetAccountHistoryAsync(long accountId, string? currency = null, IEnumerable<HuobiTransactionType>? transactionTypes = null, DateTime? startTime = null, DateTime? endTime = null, HuobiSortingType? sort = null, int? size = null, CancellationToken ct = default)
+        {
+	        size?.ValidateIntBetween(nameof(size), 1, 500);
+
+            var transactionTypeConverter = new TransactionTypeConverter(false);
+	        var parameters = new Dictionary<string, object>
+	        {
+		        { "account-id", accountId }
+	        };
+            parameters.AddOptionalParameter("currency", currency);
+            parameters.AddOptionalParameter("transact-types", transactionTypes == null ? null : string.Join(",", transactionTypes.Select(s => JsonConvert.SerializeObject(s, transactionTypeConverter))));
+            parameters.AddOptionalParameter("start-time", ToUnixTimestamp(startTime));
+            parameters.AddOptionalParameter("end-time", ToUnixTimestamp(endTime));
+            parameters.AddOptionalParameter("sort", sort == null ? null: JsonConvert.SerializeObject(sort, new SortingTypeConverter(false)));
+            parameters.AddOptionalParameter("size", size);
+
+            return await SendHuobiRequest<IEnumerable<HuobiAccountHistory>>(GetUrl(GetAccountHistoryEndpoint, "1"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -823,9 +870,11 @@ namespace Huobi.Net
             return version == null ? new Uri($"{BaseAddress}/{endpoint}") : new Uri($"{BaseAddress}/v{version}/{endpoint}");
         }
 
-        private static long ToUnixTimestamp(DateTime time)
+        private static long? ToUnixTimestamp(DateTime? time)
         {
-            return (long)(time - new DateTime(1970, 1, 1)).TotalMilliseconds;
+            if (time == null)
+                return null;
+            return (long)(time.Value - new DateTime(1970, 1, 1)).TotalMilliseconds;
         }
 
         #endregion
