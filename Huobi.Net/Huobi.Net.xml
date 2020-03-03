@@ -228,6 +228,34 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
+        <member name="M:Huobi.Net.HuobiClient.GetAccountHistory(System.Int64,System.String,System.Collections.Generic.IEnumerable{Huobi.Net.Objects.HuobiTransactionType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Huobi.Net.Objects.HuobiSortingType},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            Gets a list of amount changes of specified user's account
+            </summary>
+            <param name="accountId">The id of the account to get the balances for</param>
+            <param name="currency">Currency name</param>
+            <param name="transactionTypes">Amount change types</param>
+            <param name="startTime">Far point of time of the query window. The maximum size of the query window is 1 hour. The query window can be shifted within 30 days</param>
+            <param name="endTime">Near point of time of the query window. The maximum size of the query window is 1 hour. The query window can be shifted within 30 days</param>
+            <param name="sort">Sorting order (Ascending by default)</param>
+            <param name="size">Maximum number of items in each response (from 1 to 500, default is 100)</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiClient.GetAccountHistoryAsync(System.Int64,System.String,System.Collections.Generic.IEnumerable{Huobi.Net.Objects.HuobiTransactionType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Huobi.Net.Objects.HuobiSortingType},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            Gets a list of amount changes of specified user's account
+            </summary>
+            <param name="accountId">The id of the account to get the balances for</param>
+            <param name="currency">Currency name</param>
+            <param name="transactionTypes">Amount change types</param>
+            <param name="startTime">Far point of time of the query window. The maximum size of the query window is 1 hour. The query window can be shifted within 30 days</param>
+            <param name="endTime">Near point of time of the query window. The maximum size of the query window is 1 hour. The query window can be shifted within 30 days</param>
+            <param name="sort">Sorting order (Ascending by default)</param>
+            <param name="size">Maximum number of items in each response (from 1 to 500, default is 100)</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
         <member name="M:Huobi.Net.HuobiClient.GetSubAccountBalances(System.Int64,System.Threading.CancellationToken)">
             <summary>
             Gets a list of balances for a specific sub account
@@ -1056,6 +1084,34 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetAccountHistory(System.Int64,System.String,System.Collections.Generic.IEnumerable{Huobi.Net.Objects.HuobiTransactionType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Huobi.Net.Objects.HuobiSortingType},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            Gets a list of amount changes of specified user's account
+            </summary>
+            <param name="accountId">The id of the account to get the balances for</param>
+            <param name="currency">Currency name</param>
+            <param name="transactionTypes">Amount change types</param>
+            <param name="startTime">Far point of time of the query window. The maximum size of the query window is 1 hour. The query window can be shifted within 30 days</param>
+            <param name="endTime">Near point of time of the query window. The maximum size of the query window is 1 hour. The query window can be shifted within 30 days</param>
+            <param name="sort">Sorting order (Ascending by default)</param>
+            <param name="size">Maximum number of items in each response (from 1 to 500, default is 100)</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetAccountHistoryAsync(System.Int64,System.String,System.Collections.Generic.IEnumerable{Huobi.Net.Objects.HuobiTransactionType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Huobi.Net.Objects.HuobiSortingType},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            Gets a list of amount changes of specified user's account
+            </summary>
+            <param name="accountId">The id of the account to get the balances for</param>
+            <param name="currency">Currency name</param>
+            <param name="transactionTypes">Amount change types</param>
+            <param name="startTime">Far point of time of the query window. The maximum size of the query window is 1 hour. The query window can be shifted within 30 days</param>
+            <param name="endTime">Near point of time of the query window. The maximum size of the query window is 1 hour. The query window can be shifted within 30 days</param>
+            <param name="sort">Sorting order (Ascending by default)</param>
+            <param name="size">Maximum number of items in each response (from 1 to 500, default is 100)</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
         <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetSubAccountBalances(System.Int64,System.Threading.CancellationToken)">
             <summary>
             Gets a list of balances for a specific sub account
@@ -1563,6 +1619,51 @@
             The list of balances
             </summary>
         </member>
+        <member name="T:Huobi.Net.Objects.HuobiAccountHistory">
+            <summary>
+            Account history data
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiAccountHistory.AccountId">
+            <summary>
+            Account ID
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiAccountHistory.Currency">
+            <summary>
+            Currency
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiAccountHistory.Amount">
+            <summary>
+            Amount change (positive value if income, negative value if outcome)	
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiAccountHistory.Type">
+            <summary>
+            Amount change types
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiAccountHistory.AvailableBalance">
+            <summary>
+            Available balance
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiAccountHistory.AccountBalance">
+            <summary>
+            Account balance
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiAccountHistory.Time">
+            <summary>
+            Transaction time (database time)
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiAccountHistory.RecordId">
+            <summary>
+            Unique record ID in the database
+            </summary>
+        </member>
         <member name="T:Huobi.Net.Objects.HuobiBalance">
             <summary>
             Balance data
@@ -1981,6 +2082,86 @@
         <member name="F:Huobi.Net.Objects.HuobiSymbolState.Suspended">
             <summary>
             Suspended
+            </summary>
+        </member>
+        <member name="T:Huobi.Net.Objects.HuobiTransactionType">
+            <summary>
+            Transaction type
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Objects.HuobiTransactionType.Trade">
+            <summary>
+            Trade
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Objects.HuobiTransactionType.Etf">
+            <summary>
+            ETF
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Objects.HuobiTransactionType.TransactionFee">
+            <summary>
+            Transaction fee
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Objects.HuobiTransactionType.Deduction">
+            <summary>
+            Deduction
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Objects.HuobiTransactionType.Transfer">
+            <summary>
+            Transfer between accounts
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Objects.HuobiTransactionType.Credit">
+            <summary>
+            Credit
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Objects.HuobiTransactionType.Liquidation">
+            <summary>
+            Liquidation
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Objects.HuobiTransactionType.Interest">
+            <summary>
+            Interest
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Objects.HuobiTransactionType.DepositWithdraw">
+            <summary>
+            Deposit or withdraw
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Objects.HuobiTransactionType.WithdrawFee">
+            <summary>
+            Withdraw fee
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Objects.HuobiTransactionType.Exchange">
+            <summary>
+            Exchange
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Objects.HuobiTransactionType.Other">
+            <summary>
+            Other types
+            </summary>
+        </member>
+        <member name="T:Huobi.Net.Objects.HuobiSortingType">
+            <summary>
+            Sorting order
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Objects.HuobiSortingType.Ascending">
+            <summary>
+            Ascending
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Objects.HuobiSortingType.Descending">
+            <summary>
+            Descending
             </summary>
         </member>
         <member name="T:Huobi.Net.Objects.HuobiOpenOrder">
