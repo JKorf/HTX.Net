@@ -18,6 +18,11 @@ namespace Huobi.Net.Objects
         public long Id { get; set; }
 
         /// <summary>
+        /// The order id as specified by the client
+        /// </summary>
+        public string ClientOrderId { get; set; } = "";
+
+        /// <summary>
         /// The symbol of the order
         /// </summary>
         public string Symbol { get; set; } = "";
