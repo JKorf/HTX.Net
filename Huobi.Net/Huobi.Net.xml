@@ -294,7 +294,7 @@
             <param name="ct">Cancellation token</param>
             <returns>Unique transfer id</returns>
         </member>
-        <member name="M:Huobi.Net.HuobiClient.PlaceOrder(System.Int64,System.String,Huobi.Net.Objects.HuobiOrderType,System.Decimal,System.Nullable{System.Decimal},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.HuobiClient.PlaceOrder(System.Int64,System.String,Huobi.Net.Objects.HuobiOrderType,System.Decimal,System.Nullable{System.Decimal},System.String,System.Threading.CancellationToken)">
             <summary>
             Places an order
             </summary>
@@ -303,10 +303,11 @@
             <param name="orderType">The type of the order</param>
             <param name="amount">The amount of the order</param>
             <param name="price">The price of the order. Should be omitted for market orders</param>
+            <param name="clientOrderId">The clientOrderId the order should get</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.HuobiClient.PlaceOrderAsync(System.Int64,System.String,Huobi.Net.Objects.HuobiOrderType,System.Decimal,System.Nullable{System.Decimal},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.HuobiClient.PlaceOrderAsync(System.Int64,System.String,Huobi.Net.Objects.HuobiOrderType,System.Decimal,System.Nullable{System.Decimal},System.String,System.Threading.CancellationToken)">
             <summary>
             Places an order
             </summary>
@@ -315,6 +316,7 @@
             <param name="orderType">The type of the order</param>
             <param name="amount">The amount of the order</param>
             <param name="price">The price of the order. Should be omitted for market orders</param>
+            <param name="clientOrderId">The clientOrderId the order should get</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -356,19 +358,37 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.HuobiClient.CancelOrders(System.Collections.Generic.IEnumerable{System.Int64},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.HuobiClient.CancelOrderByClientOrderId(System.String,System.Threading.CancellationToken)">
             <summary>
-            Cancel multiple open orders
+            Cancels an open order
             </summary>
-            <param name="orderIds">The ids of the orders to cancel</param>
+            <param name="clientOrderId">The client id of the order to cancel</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.HuobiClient.CancelOrdersAsync(System.Collections.Generic.IEnumerable{System.Int64},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.HuobiClient.CancelOrderByClientOrderIdAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Cancels an open order
+            </summary>
+            <param name="clientOrderId">The client id of the order to cancel</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiClient.CancelOrders(System.Collections.Generic.IEnumerable{System.Int64},System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
             <summary>
             Cancel multiple open orders
             </summary>
             <param name="orderIds">The ids of the orders to cancel</param>
+            <param name="clientOrderIds">The client ids of the orders to cancel</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiClient.CancelOrdersAsync(System.Collections.Generic.IEnumerable{System.Int64},System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
+            <summary>
+            Cancel multiple open orders
+            </summary>
+            <param name="orderIds">The ids of the orders to cancel</param>
+            <param name="clientOrderIds">The client ids of the orders to cancel</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -385,6 +405,22 @@
             Get details of an order
             </summary>
             <param name="orderId">The id of the order to retrieve</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiClient.GetOrderInfoByClientOrderId(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Get details of an order by client order id
+            </summary>
+            <param name="clientOrderId">The client id of the order to retrieve</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiClient.GetOrderInfoByClientOrderIdAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Get details of an order by client order id
+            </summary>
+            <param name="clientOrderId">The client id of the order to retrieve</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -1150,7 +1186,7 @@
             <param name="ct">Cancellation token</param>
             <returns>Unique transfer id</returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiClient.PlaceOrder(System.Int64,System.String,Huobi.Net.Objects.HuobiOrderType,System.Decimal,System.Nullable{System.Decimal},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.PlaceOrder(System.Int64,System.String,Huobi.Net.Objects.HuobiOrderType,System.Decimal,System.Nullable{System.Decimal},System.String,System.Threading.CancellationToken)">
             <summary>
             Places an order
             </summary>
@@ -1159,10 +1195,11 @@
             <param name="orderType">The type of the order</param>
             <param name="amount">The amount of the order</param>
             <param name="price">The price of the order. Should be omitted for market orders</param>
+            <param name="clientOrderId">The clientOrderId the order should get</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiClient.PlaceOrderAsync(System.Int64,System.String,Huobi.Net.Objects.HuobiOrderType,System.Decimal,System.Nullable{System.Decimal},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.PlaceOrderAsync(System.Int64,System.String,Huobi.Net.Objects.HuobiOrderType,System.Decimal,System.Nullable{System.Decimal},System.String,System.Threading.CancellationToken)">
             <summary>
             Places an order
             </summary>
@@ -1171,6 +1208,7 @@
             <param name="orderType">The type of the order</param>
             <param name="amount">The amount of the order</param>
             <param name="price">The price of the order. Should be omitted for market orders</param>
+            <param name="clientOrderId">The clientOrderId the order should get</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -1212,19 +1250,37 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiClient.CancelOrders(System.Collections.Generic.IEnumerable{System.Int64},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.CancelOrderByClientOrderId(System.String,System.Threading.CancellationToken)">
             <summary>
-            Cancel multiple open orders
+            Cancels an open order
             </summary>
-            <param name="orderIds">The ids of the orders to cancel</param>
+            <param name="clientOrderId">The client id of the order to cancel</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiClient.CancelOrdersAsync(System.Collections.Generic.IEnumerable{System.Int64},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.CancelOrderByClientOrderIdAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Cancels an open order
+            </summary>
+            <param name="clientOrderId">The client id of the order to cancel</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.CancelOrders(System.Collections.Generic.IEnumerable{System.Int64},System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
             <summary>
             Cancel multiple open orders
             </summary>
             <param name="orderIds">The ids of the orders to cancel</param>
+            <param name="clientOrderIds">The client ids of the orders to cancel</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.CancelOrdersAsync(System.Collections.Generic.IEnumerable{System.Int64},System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
+            <summary>
+            Cancel multiple open orders
+            </summary>
+            <param name="orderIds">The ids of the orders to cancel</param>
+            <param name="clientOrderIds">The client ids of the orders to cancel</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -1241,6 +1297,22 @@
             Get details of an order
             </summary>
             <param name="orderId">The id of the order to retrieve</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetOrderInfoByClientOrderId(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Get details of an order
+            </summary>
+            <param name="clientOrderId">The client id of the order to retrieve</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetOrderInfoByClientOrderIdAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Get details of an order
+            </summary>
+            <param name="clientOrderId">The client id of the order to retrieve</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -2174,6 +2246,11 @@
             The id of the order
             </summary>
         </member>
+        <member name="P:Huobi.Net.Objects.HuobiOpenOrder.ClientOrderId">
+            <summary>
+            The order id as specified by the client
+            </summary>
+        </member>
         <member name="P:Huobi.Net.Objects.HuobiOpenOrder.Symbol">
             <summary>
             The symbol of the order
@@ -2247,6 +2324,11 @@
         <member name="P:Huobi.Net.Objects.HuobiOrder.Id">
             <summary>
             The id of the order
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiOrder.ClientOrderId">
+            <summary>
+            The order id as specified by the client
             </summary>
         </member>
         <member name="P:Huobi.Net.Objects.HuobiOrder.Symbol">
