@@ -14,7 +14,7 @@ namespace Huobi.Net
             if (string.IsNullOrEmpty(symbolString))
                 throw new ArgumentException("Symbol is not provided");
             symbolString = symbolString.ToLower();
-            if (!Regex.IsMatch(symbolString, "^(([a-z]|[0-9]){4,9})$"))
+            if (!Regex.IsMatch(symbolString, "^(([a-z]|[0-9]){4,})$"))
                 throw new ArgumentException($"{symbolString} is not a valid Huobi symbol. Should be [QuoteCurrency][BaseCurrency], e.g. ETHBTC");
             return symbolString;
         }
