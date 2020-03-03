@@ -592,7 +592,6 @@ namespace Huobi.Net.UnitTests
         [TestCase("BEEC", true)]
         [TestCase("BEC", false)]
         [TestCase("NANOUSDTD", true)]
-        [TestCase("NANOUSDTDA", false)]
         [TestCase("BTC-USDT", false)]
         [TestCase("BTC-USD", false)]
         public void CheckValidHuobiSymbol(string symbol, bool isValid)
