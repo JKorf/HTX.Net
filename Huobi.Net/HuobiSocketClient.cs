@@ -648,7 +648,7 @@ namespace Huobi.Net
             if (authProvider == null)
                 return new CallResult<bool>(false, new NoApiCredentialsError());
 
-            var authParams = authProvider.AddAuthenticationToParameters(baseAddressAuthenticated, HttpMethod.Get, new Dictionary<string, object>(), true);
+            var authParams = authProvider.AddAuthenticationToParameters(baseAddressAuthenticated, HttpMethod.Get, new Dictionary<string, object>(), true, PostParameters.InBody, ArrayParametersSerialization.MultipleValues);
             var authObjects = new HuobiAuthenticationRequest("auth", 
                 authProvider.Credentials.Key!.GetString(),
                 (string)authParams["SignatureMethod"],
