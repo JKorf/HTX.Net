@@ -82,7 +82,7 @@ namespace Huobi.Net
         /// </summary>
         /// <param name="mergeStep">The way the entries are merged. 0 is no merge, 2 means to combine the entries on 2 decimal places</param>
         /// <param name="socketClient">The client to use for the socket connection. When using the same client for multiple order books the connection can be shared.</param>
-        public HuobiOrderBookOptions(int? mergeStep = null, IHuobiSocketClient? socketClient = null) : base("Huobi", false)
+        public HuobiOrderBookOptions(int? mergeStep = null, IHuobiSocketClient? socketClient = null) : base("Huobi", false, false)
         {
             SocketClient = socketClient;
             MergeStep = mergeStep;
