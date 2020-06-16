@@ -543,7 +543,7 @@ namespace Huobi.Net.UnitTests
             var parameters = authProvider.AddAuthenticationToParameters("http://api.test.com/somepath/test", HttpMethod.Get, new Dictionary<string, object>()
             {
                 { "Timestamp", new DateTime(2018, 1, 1).ToString("yyyy-MM-ddTHH:mm:ss") }
-            }, true);
+            }, true, CryptoExchange.Net.Objects.PostParameters.InBody, CryptoExchange.Net.Objects.ArrayParametersSerialization.MultipleValues);
 
             // assert
             Assert.AreEqual(parameters["Signature"], "5/vfYFw3cHwp20QWtv6DzTHDxBpHzNSU6Rv3p7Up/TI=");
