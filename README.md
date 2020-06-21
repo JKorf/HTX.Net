@@ -89,6 +89,9 @@ Huobi.Net provides two clients to interact with the Huobi API. The `HuobiClient`
 Examples can be found in the Examples folder.
 
 ## Release notes
+* Version 2.0.8 - 21 Jun 2020
+    * Updated CryptoExchange
+
 * Version 2.0.7 - 16 Jun 2020
     * Updated CryptoExchange.Net
 
