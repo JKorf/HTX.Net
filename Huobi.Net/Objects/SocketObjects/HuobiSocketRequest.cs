@@ -1,12 +1,11 @@
-﻿using CryptoExchange.Net.Sockets;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace Huobi.Net.Objects.SocketObjects
 {
-    internal class HuobiRequest: SocketRequest
+    internal class HuobiRequest
     {
         [JsonIgnore]
-        public string Id { get; set; }
+        public string? Id { get; set; }
     }
 
     internal class HuobiSocketRequest: HuobiRequest
@@ -18,10 +17,10 @@ namespace Huobi.Net.Objects.SocketObjects
         public new string Id { get; set; }
 
 
-        public HuobiSocketRequest(string topic)
+        public HuobiSocketRequest(string id, string topic)
         {
+            Id = id;
             Request = topic;
-            Signed = false;
         }
     }
 
@@ -34,11 +33,11 @@ namespace Huobi.Net.Objects.SocketObjects
         [JsonProperty("cid")]
         public new string Id { get; set; }
 
-        public HuobiAuthenticatedRequest(string operation, string topic)
+        public HuobiAuthenticatedRequest(string id, string operation, string topic)
         {
+            Id = id;
             Operation = operation;
             Topic = topic;
-            Signed = true;
         }
     }
 
@@ -49,10 +48,10 @@ namespace Huobi.Net.Objects.SocketObjects
         [JsonProperty("id")]
         public new string Id { get; set; }
 
-        public HuobiSubscribeRequest(string topic, bool signed = false)
+        public HuobiSubscribeRequest(string id, string topic)
         {
+            Id = id;
             Topic = topic;
-            Signed = signed;
         }
     }
 
@@ -65,17 +64,17 @@ namespace Huobi.Net.Objects.SocketObjects
         [JsonProperty("states")]
         public string States { get; set; }
         [JsonProperty("types")]
-        public string Types { get; set; }
+        public string? Types { get; set; }
         [JsonProperty("start-date")]
-        public string StartTime { get; set; }
+        public string? StartTime { get; set; }
         [JsonProperty("end-date")]
-        public string EndTime { get; set; }
+        public string? EndTime { get; set; }
         [JsonProperty("from")]
-        public string FromId { get; set; }
+        public string? FromId { get; set; }
         [JsonProperty("size")]
-        public string Limit { get; set; }
+        public string? Limit { get; set; }
 
-        public HuobiOrderListRequest(long accountId, string symbol, string states): base("req", "orders.list")
+        public HuobiOrderListRequest(string id, long accountId, string symbol, string states): base(id, "req", "orders.list")
         {
             AccountId = accountId;
             Symbol = symbol;
@@ -88,7 +87,7 @@ namespace Huobi.Net.Objects.SocketObjects
         [JsonProperty("order-id")]
         public string OrderId { get; set; }
 
-        public HuobiOrderDetailsRequest(string orderId): base("req", "orders.detail")
+        public HuobiOrderDetailsRequest(string id, string orderId): base(id, "req", "orders.detail")
         {
             OrderId = orderId;
         }

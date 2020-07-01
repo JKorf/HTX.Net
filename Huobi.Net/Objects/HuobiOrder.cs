@@ -6,6 +6,9 @@ using System;
 
 namespace Huobi.Net.Objects
 {
+    /// <summary>
+    /// Order info
+    /// </summary>
     public class HuobiOrder
     {
         /// <summary>
@@ -15,9 +18,14 @@ namespace Huobi.Net.Objects
         public long Id { get; set; }
 
         /// <summary>
+        /// The order id as specified by the client
+        /// </summary>
+        public string ClientOrderId { get; set; } = "";
+
+        /// <summary>
         /// The symbol of the order
         /// </summary>
-        public string Symbol { get; set; }
+        public string Symbol { get; set; } = "";
         /// <summary>
         /// The id of the account that placed the order
         /// </summary>
@@ -61,7 +69,7 @@ namespace Huobi.Net.Objects
         /// The source of the order
         /// </summary>
         [JsonProperty("source"), JsonOptionalProperty]
-        public string Source { get; set; }
+        public string Source { get; set; } = "";
 
         /// <summary>
         /// The state of the order
@@ -72,16 +80,19 @@ namespace Huobi.Net.Objects
         /// <summary>
         /// The amount of the order that is filled
         /// </summary>
-        [JsonProperty("filled-amount")]
+        [JsonProperty("field-amount")]
         public decimal FilledAmount { get; set; }
 
-        [JsonProperty("filled-cash-amount")]
+        /// <summary>
+        /// Filled cash amount
+        /// </summary>
+        [JsonProperty("field-cash-amount")]
         public decimal FilledCashAmount { get; set; }
 
         /// <summary>
         /// The amount of fees paid for the filled amount
         /// </summary>
-        [JsonProperty("filled-fees")]
+        [JsonProperty("field-fees")]
         public decimal FilledFees { get; set; }
     }
 }

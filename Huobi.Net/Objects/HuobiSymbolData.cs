@@ -4,41 +4,47 @@ using Newtonsoft.Json;
 
 namespace Huobi.Net.Objects
 {
-    public class HuobiMarketData
+    /// <summary>
+    /// Symbol data
+    /// </summary>
+    public class HuobiSymbolData
     {
         /// <summary>
         /// The highest price
         /// </summary>
-        public decimal High { get; set; }
+        public decimal? High { get; set; }
         /// <summary>
         /// The lowest price
         /// </summary>
-        public decimal Low { get; set; }
+        public decimal? Low { get; set; }
         /// <summary>
         /// The price at the opening
         /// </summary>
-        public decimal Open { get; set; }
+        public decimal? Open { get; set; }
         /// <summary>
         /// The last price
         /// </summary>
-        public decimal Close { get; set; }
+        public decimal? Close { get; set; }
         /// <summary>
         /// The amount of the symbol trades
         /// </summary>
-        public decimal Amount { get; set; }
+        public decimal? Amount { get; set; }
         /// <summary>
         /// The volume of the symbol trades (amount * price)
         /// </summary>
         [JsonProperty("vol")]
-        public decimal Volume { get; set; }
+        public decimal? Volume { get; set; }
         /// <summary>
         /// The number of trades
         /// </summary>
         [JsonProperty("count")]
-        public int TradeCount { get; set; }
+        public int? TradeCount { get; set; }
     }
 
-    public class HuobiMarketKline : HuobiMarketData
+    /// <summary>
+    /// Symbol kline data
+    /// </summary>
+    public class HuobiKline : HuobiSymbolData
     {
         /// <summary>
         /// The start time of the kline
@@ -47,7 +53,10 @@ namespace Huobi.Net.Objects
         public DateTime Id { get; set; }
     }
 
-    public class HuobiMarketDetails : HuobiMarketData
+    /// <summary>
+    /// Symbol details
+    /// </summary>
+    public class HuobiSymbolDetails : HuobiSymbolData
     {
         /// <summary>
         /// The id of the details
@@ -55,16 +64,19 @@ namespace Huobi.Net.Objects
         public long Id { get; set; }
 
         /// <summary>
-        /// The timestamp of the data
+        /// Timestamp of the data
         /// </summary>
         public DateTime Timestamp { get; set; }
     }
 
-    public class HuobiMarketTick : HuobiMarketData
+    /// <summary>
+    /// Symbol tick
+    /// </summary>
+    public class HuobiSymbolTick : HuobiSymbolData
     {
         /// <summary>
         /// The symbol
         /// </summary>
-        public string Symbol { get; set; }
+        public string Symbol { get; set; } = "";
     }
 }

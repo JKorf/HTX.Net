@@ -1,21 +1,26 @@
-﻿using System;
-using CryptoExchange.Net.Attributes;
+﻿using CryptoExchange.Net.Attributes;
 using CryptoExchange.Net.Converters;
 using Huobi.Net.Converters;
 using Newtonsoft.Json;
+using System;
 
 namespace Huobi.Net.Objects
 {
     /// <summary>
-    /// Order update
+    /// Open order
     /// </summary>
-    public class HuobiOrderUpdate
+    public class HuobiOpenOrder
     {
         /// <summary>
         /// The id of the order
         /// </summary>
-        [JsonProperty("order-id")]
+        [JsonProperty("id")]
         public long Id { get; set; }
+
+        /// <summary>
+        /// The order id as specified by the client
+        /// </summary>
+        public string ClientOrderId { get; set; } = "";
 
         /// <summary>
         /// The symbol of the order
@@ -29,67 +34,65 @@ namespace Huobi.Net.Objects
         /// <summary>
         /// The amount of the order
         /// </summary>
-        [JsonProperty("order-amount")]
+        [JsonProperty("amount")]
         public decimal Amount { get; set; }
 
         /// <summary>
         /// The price of the order
         /// </summary>
-        [JsonProperty("order-price")]
+        [JsonProperty("price")]
         public decimal Price { get; set; }
-
+        
         /// <summary>
         /// The time the order was created
         /// </summary>
         [JsonProperty("created-at"), JsonConverter(typeof(TimestampConverter))]
         public DateTime CreatedAt { get; set; }
-        
+        /// <summary>
+        /// The time the order was canceled
+        /// </summary>
+        [JsonProperty("canceled-at"), JsonConverter(typeof(TimestampConverter))]
+        public DateTime CanceledAt { get; set; }
+        /// <summary>
+        /// The time the order was finished
+        /// </summary>
+        [JsonProperty("finished-at"), JsonConverter(typeof(TimestampConverter))]
+        public DateTime FinishedAt { get; set; }
+
         /// <summary>
         /// The type of the order
         /// </summary>
-        [JsonProperty("order-type"), JsonConverter(typeof(OrderTypeConverter))]
+        [JsonProperty("type"), JsonConverter(typeof(OrderTypeConverter))]
         public HuobiOrderType Type { get; set; }
-
 
         /// <summary>
         /// The source of the order
         /// </summary>
-        [JsonProperty("order-source"), JsonOptionalProperty]
+        [JsonProperty("source"), JsonOptionalProperty]
         public string Source { get; set; } = "";
 
         /// <summary>
         /// The state of the order
         /// </summary>
-        [JsonProperty("order-state"), JsonConverter(typeof(OrderStateConverter))]
+        [JsonProperty("state"), JsonConverter(typeof(OrderStateConverter))]
         public HuobiOrderState State { get; set; }
-
-        /// <summary>
-        /// The role of the order
-        /// </summary>
-        [JsonProperty("role"), JsonConverter(typeof(OrderRoleConverter))]
-        public HuobiOrderRole Role { get; set; }
 
         /// <summary>
         /// The amount of the order that is filled
         /// </summary>
-        [JsonProperty("filled-amount"), JsonOptionalProperty]
+        [JsonProperty("filled-amount")]
         public decimal FilledAmount { get; set; }
 
         /// <summary>
-        /// Unfilled amount
-        /// </summary>
-        [JsonProperty("unfilled-amount"), JsonOptionalProperty]
-        public decimal UnfilledAmount { get; set; }
-        /// <summary>
         /// Filled cash amount
         /// </summary>
-        [JsonProperty("filled-cash-amount"), JsonOptionalProperty]
+        [JsonProperty("filled-cash-amount")]
         public decimal FilledCashAmount { get; set; }
 
         /// <summary>
         /// The amount of fees paid for the filled amount
         /// </summary>
-        [JsonProperty("filled-fees"), JsonOptionalProperty]
+        [JsonProperty("filled-fees")]
         public decimal FilledFees { get; set; }
     }
 }

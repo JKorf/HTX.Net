@@ -4,15 +4,15 @@ using System.Collections.Generic;
 
 namespace Huobi.Net.Converters
 {
-    public class OrderRoleConverter : BaseConverter<HuobiOrderRole>
+    internal class OrderRoleConverter : BaseConverter<HuobiOrderRole>
     {
         public OrderRoleConverter() : this(true) { }
         public OrderRoleConverter(bool quotes) : base(quotes) { }
 
-        protected override Dictionary<HuobiOrderRole, string> Mapping => new Dictionary<HuobiOrderRole, string>
+        protected override List<KeyValuePair<HuobiOrderRole, string>> Mapping => new List<KeyValuePair<HuobiOrderRole, string>>
         {
-            { HuobiOrderRole.Maker, "maker" },
-            { HuobiOrderRole.Taker, "taker" }
+            new KeyValuePair<HuobiOrderRole, string>(HuobiOrderRole.Maker, "maker"),
+            new KeyValuePair<HuobiOrderRole, string>(HuobiOrderRole.Taker, "taker")
         };
     }
 }
