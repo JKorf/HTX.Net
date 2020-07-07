@@ -78,5 +78,22 @@ namespace Huobi.Net.Objects
         /// The symbol
         /// </summary>
         public string Symbol { get; set; } = "";
+
+        /// <summary>
+        /// Size of the best bid
+        /// </summary>
+        public decimal BidSize { get; set; }
+        /// <summary>
+        /// Size of the best ask
+        /// </summary>
+        public decimal AskSize { get; set; }
+        /// <summary>
+        /// Best bid price
+        /// </summary>
+        public decimal Bid { get; set; }
+        /// <summary>
+        /// Best ask price
+        /// </summary>
+        public decimal Ask { get; set; }
     }
 }

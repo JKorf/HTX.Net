@@ -2681,6 +2681,26 @@
             The symbol
             </summary>
         </member>
+        <member name="P:Huobi.Net.Objects.HuobiSymbolTick.BidSize">
+            <summary>
+            Size of the best bid
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiSymbolTick.AskSize">
+            <summary>
+            Size of the best ask
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiSymbolTick.Bid">
+            <summary>
+            Best bid price
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiSymbolTick.Ask">
+            <summary>
+            Best ask price
+            </summary>
+        </member>
         <member name="T:Huobi.Net.Objects.HuobiSymbolTickMerged">
             <summary>
             Symbol tick info
