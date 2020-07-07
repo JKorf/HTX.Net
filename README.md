@@ -53,6 +53,11 @@ Implementations from third parties:
 <br />
 <a href="https://github.com/burakoner/OKEx.Net">OKEx</a>
 </td>
+	</td>
+	<td><a href="https://github.com/ridicoulous/Bitmex.Net"><img src="https://github.com/ridicoulous/Bitmex.Net/blob/master/Bitmex.Net/Icon/icon.png"></a>
+<br />
+<a href="https://github.com/ridicoulous/Bitmex.Net">Bitmex</a>
+</td>
 </tr>
 </table>
 
@@ -66,7 +71,8 @@ Donations are greatly appreciated and a motivation to keep improving.
 
 
 ## Installation
-![Nuget version](https://img.shields.io/nuget/v/Huobi.net.svg)  ![Nuget downloads](https://img.shields.io/nuget/dt/Huobi.Net.svg)
+[![Nuget](https://img.shields.io/nuget/v/Huobi.Net)](https://www.nuget.org/packages/Huobi.Net/)
+[![Nuget](https://img.shields.io/nuget/dt/Huobi.Net)](https://www.nuget.org/packages/Huobi.Net/)
 Available on [Nuget](https://www.nuget.org/packages/Huobi.Net/).
 ```
 pm> Install-Package Huobi.Net
