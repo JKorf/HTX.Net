@@ -7,7 +7,7 @@
   <PropertyGroup>
     <PackageId>Huobi.Net</PackageId>
     <Authors>JKorf</Authors>
-    <PackageVersion>2.0.8</PackageVersion>
+    <PackageVersion>2.0.9</PackageVersion>
     <Description>Huobi.Net is a .Net wrapper for the Huobi API. It includes all features the API provides, REST API and Websocket, using clear and readable objects including but not limited to Reading market info, Placing and managing orders and Reading balances and funds</Description>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageTags>Huobi Huobi.Net C# .Net CryptoCurrency Exchange API wrapper</PackageTags>
@@ -16,7 +16,7 @@
     <PackageIcon>icon.png</PackageIcon>
     <NeutralLanguage>en</NeutralLanguage>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageReleaseNotes>2.0.8 - Updated CryptoExchange</PackageReleaseNotes>
+    <PackageReleaseNotes>2.0.9 - Fixed error parsing, Updated ticker model</PackageReleaseNotes>
   </PropertyGroup>
   <PropertyGroup>
     <DocumentationFile>Huobi.Net.xml</DocumentationFile>
