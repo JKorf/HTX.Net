@@ -79,6 +79,7 @@ namespace Huobi.Net
         public HuobiClient(HuobiClientOptions options) : base(options, options.ApiCredentials == null ? null : new HuobiAuthenticationProvider(options.ApiCredentials, options.SignPublicRequests))
         {
             SignPublicRequests = options.SignPublicRequests;
+            manualParseError = true;
         }
         #endregion
 
@@ -905,7 +906,15 @@ namespace Huobi.Net
 
             return request;
         }
-        
+
+        protected override Task<ServerError?> TryParseError(JToken data)
+        {
+            if (data["err-code"] == null && data["err-msg"] == null)
+                return Task.FromResult<ServerError?>(null);
+
+            return Task.FromResult<ServerError?>(new ServerError($"{(string)data["err-code"]}, {(string)data["err-msg"]}"));
+        }
+
         /// <inheritdoc />
         protected override Error ParseErrorResponse(JToken error)
         {
