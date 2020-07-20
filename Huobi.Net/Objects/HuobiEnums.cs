@@ -366,9 +366,13 @@
         /// </summary>
         Interest,
         /// <summary>
-        /// Deposit or withdraw
+        /// Deposit
         /// </summary>
-        DepositWithdraw,
+        Deposit,
+        /// <summary>
+        /// Withdraw
+        /// </summary>
+        Withdraw,
         /// <summary>
         /// Withdraw fee
         /// </summary>
@@ -380,7 +384,11 @@
         /// <summary>
         /// Other types
         /// </summary>
-        Other
+        Other,
+        /// <summary>
+        /// Rebate
+        /// </summary>
+        Rebate
     }
 
     /// <summary>

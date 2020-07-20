@@ -2201,9 +2201,14 @@
             Interest
             </summary>
         </member>
-        <member name="F:Huobi.Net.Objects.HuobiTransactionType.DepositWithdraw">
+        <member name="F:Huobi.Net.Objects.HuobiTransactionType.Deposit">
             <summary>
-            Deposit or withdraw
+            Deposit
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Objects.HuobiTransactionType.Withdraw">
+            <summary>
+            Withdraw
             </summary>
         </member>
         <member name="F:Huobi.Net.Objects.HuobiTransactionType.WithdrawFee">
@@ -2219,6 +2224,11 @@
         <member name="F:Huobi.Net.Objects.HuobiTransactionType.Other">
             <summary>
             Other types
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Objects.HuobiTransactionType.Rebate">
+            <summary>
+            Rebate
             </summary>
         </member>
         <member name="T:Huobi.Net.Objects.HuobiSortingType">
