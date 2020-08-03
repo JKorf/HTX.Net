@@ -1823,6 +1823,46 @@
             The id of the failed order
             </summary>
         </member>
+        <member name="T:Huobi.Net.Objects.HuobiBestOffer">
+            <summary>
+            Info on a symbol's best offer
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiBestOffer.Symbol">
+            <summary>
+            Symbol
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiBestOffer.QuoteTime">
+            <summary>
+            Time of the data
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiBestOffer.Bid">
+            <summary>
+            Best bid price
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiBestOffer.BidSize">
+            <summary>
+            Size of the best bid
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiBestOffer.Ask">
+            <summary>
+            Best ask price
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiBestOffer.AskSize">
+            <summary>
+            Size of the best ask
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiBestOffer.Sequence">
+            <summary>
+            Sequence number
+            </summary>
+        </member>
         <member name="T:Huobi.Net.Objects.HuobiPeriod">
             <summary>
             Interval for klines
