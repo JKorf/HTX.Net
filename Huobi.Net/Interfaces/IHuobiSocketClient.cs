@@ -157,6 +157,23 @@ namespace Huobi.Net.Interfaces
         Task<CallResult<UpdateSubscription>> SubscribeToSymbolTickerUpdatesAsync(Action<HuobiSymbolTicks> onData);
 
         /// <summary>
+        /// Subscribe to changes of a symbol's best ask/bid
+        /// </summary>
+        /// <param name="symbol">Symbol to subscribe to</param>
+        /// <param name="onData">Data handler</param>
+        /// <returns></returns>
+        CallResult<UpdateSubscription> SubscribeToBestOfferUpdates(string symbol, Action<HuobiBestOffer> onData);
+
+        /// <summary>
+        /// Subscribe to changes of a symbol's best ask/bid
+        /// </summary>
+        /// <param name="symbol">Symbol to subscribe to</param>
+        /// <param name="onData">Data handler</param>
+        /// <returns></returns>
+        Task<CallResult<UpdateSubscription>> SubscribeToBestOfferUpdatesAsync(string symbol,
+            Action<HuobiBestOffer> onData);
+
+        /// <summary>
         /// Gets a list of accounts associated with the apikey/secret
         /// </summary>
         /// <returns></returns>

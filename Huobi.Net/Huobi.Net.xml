@@ -772,6 +772,22 @@
             <param name="onData">The handler for updates</param>
             <returns></returns>
         </member>
+        <member name="M:Huobi.Net.HuobiSocketClient.SubscribeToBestOfferUpdates(System.String,System.Action{Huobi.Net.Objects.HuobiBestOffer})">
+            <summary>
+            Subscribe to changes of a symbol's best ask/bid
+            </summary>
+            <param name="symbol">Symbol to subscribe to</param>
+            <param name="onData">Data handler</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiSocketClient.SubscribeToBestOfferUpdatesAsync(System.String,System.Action{Huobi.Net.Objects.HuobiBestOffer})">
+            <summary>
+            Subscribe to changes of a symbol's best ask/bid
+            </summary>
+            <param name="symbol">Symbol to subscribe to</param>
+            <param name="onData">Data handler</param>
+            <returns></returns>
+        </member>
         <member name="M:Huobi.Net.HuobiSocketClient.GetAccounts">
             <summary>
             Gets a list of accounts associated with the apikey/secret
@@ -1561,6 +1577,22 @@
             Subscribes to updates for all tickers
             </summary>
             <param name="onData">The handler for updates</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.SubscribeToBestOfferUpdates(System.String,System.Action{Huobi.Net.Objects.HuobiBestOffer})">
+            <summary>
+            Subscribe to changes of a symbol's best ask/bid
+            </summary>
+            <param name="symbol">Symbol to subscribe to</param>
+            <param name="onData">Data handler</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.SubscribeToBestOfferUpdatesAsync(System.String,System.Action{Huobi.Net.Objects.HuobiBestOffer})">
+            <summary>
+            Subscribe to changes of a symbol's best ask/bid
+            </summary>
+            <param name="symbol">Symbol to subscribe to</param>
+            <param name="onData">Data handler</param>
             <returns></returns>
         </member>
         <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.GetAccounts">
