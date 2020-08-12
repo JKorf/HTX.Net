@@ -907,6 +907,7 @@ namespace Huobi.Net
             return request;
         }
 
+        /// <inheritdoc />
         protected override Task<ServerError?> TryParseError(JToken data)
         {
             if (data["err-code"] == null && data["err-msg"] == null)
