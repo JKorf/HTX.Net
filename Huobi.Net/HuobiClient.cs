@@ -865,7 +865,7 @@ namespace Huobi.Net
 
         /// <inheritdoc />
         protected override IRequest ConstructRequest(Uri uri, HttpMethod method, Dictionary<string, object>? parameters, bool signed, 
-            PostParameters postParameterPosition, ArrayParametersSerialization arraySerialization)
+            PostParameters postParameterPosition, ArrayParametersSerialization arraySerialization, int requestId)
         {
             if (parameters == null)
                 parameters = new Dictionary<string, object>();
@@ -886,7 +886,7 @@ namespace Huobi.Net
             }
 
             var contentType = requestBodyFormat == RequestBodyFormat.Json ? Constants.JsonContentHeader : Constants.FormContentHeader;
-            var request = RequestFactory.Create(method, uriString);
+            var request = RequestFactory.Create(method, uriString, requestId);
             request.Accept = Constants.JsonContentHeader;
 
             var headers = new Dictionary<string, string>();

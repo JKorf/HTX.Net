@@ -524,7 +524,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.HuobiClient.ConstructRequest(System.Uri,System.Net.Http.HttpMethod,System.Collections.Generic.Dictionary{System.String,System.Object},System.Boolean,CryptoExchange.Net.Objects.PostParameters,CryptoExchange.Net.Objects.ArrayParametersSerialization)">
+        <member name="M:Huobi.Net.HuobiClient.ConstructRequest(System.Uri,System.Net.Http.HttpMethod,System.Collections.Generic.Dictionary{System.String,System.Object},System.Boolean,CryptoExchange.Net.Objects.PostParameters,CryptoExchange.Net.Objects.ArrayParametersSerialization,System.Int32)">
             <inheritdoc />
         </member>
         <member name="M:Huobi.Net.HuobiClient.TryParseError(Newtonsoft.Json.Linq.JToken)">
@@ -553,8 +553,21 @@
         </member>
         <member name="M:Huobi.Net.HuobiClientOptions.#ctor">
             <summary>
-            ctor
+            Create new client options
             </summary>
+        </member>
+        <member name="M:Huobi.Net.HuobiClientOptions.#ctor(System.Net.Http.HttpClient)">
+            <summary>
+            Create new client options
+            </summary>
+            <param name="client">HttpClient to use for requests from this client</param>
+        </member>
+        <member name="M:Huobi.Net.HuobiClientOptions.#ctor(System.Net.Http.HttpClient,System.String)">
+            <summary>
+            Create new client options
+            </summary>
+            <param name="apiAddress">Custom API address to use</param>
+            <param name="client">HttpClient to use for requests from this client</param>
         </member>
         <member name="M:Huobi.Net.HuobiClientOptions.Copy">
             <summary>

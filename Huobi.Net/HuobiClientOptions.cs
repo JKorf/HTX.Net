@@ -1,4 +1,5 @@
-﻿using CryptoExchange.Net.Objects;
+﻿using System.Net.Http;
+using CryptoExchange.Net.Objects;
 using Huobi.Net.Interfaces;
 
 namespace Huobi.Net
@@ -14,10 +15,28 @@ namespace Huobi.Net
         public bool SignPublicRequests { get; set; } = false;
 
         /// <summary>
-        /// ctor
+        /// Create new client options
         /// </summary>
-        public HuobiClientOptions(): base("https://api.huobi.pro")
+        public HuobiClientOptions() : this(null, "https://api.huobi.pro")
         {
+        }
+
+        /// <summary>
+        /// Create new client options
+        /// </summary>
+        /// <param name="client">HttpClient to use for requests from this client</param>
+        public HuobiClientOptions(HttpClient client) : this(client, "https://api.huobi.pro")
+        {
+        }
+
+        /// <summary>
+        /// Create new client options
+        /// </summary>
+        /// <param name="apiAddress">Custom API address to use</param>
+        /// <param name="client">HttpClient to use for requests from this client</param>
+        public HuobiClientOptions(HttpClient? client, string apiAddress) : base(apiAddress)
+        {
+            HttpClient = client;
         }
 
         /// <summary>
