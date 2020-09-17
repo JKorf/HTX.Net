@@ -2699,9 +2699,39 @@
             Maximum value of the amount
             </summary>
         </member>
+        <member name="P:Huobi.Net.Objects.HuobiSymbol.MinLimitOrderAmount">
+            <summary>
+            Minimum order amount of limit order in base currency
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiSymbol.MaxLimitOrderAmount">
+            <summary>
+            Max order amount of limit order in base currency
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiSymbol.MinMarketSellOrderAmount">
+            <summary>
+            Minimum order amount of sell-market order in base currency
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiSymbol.MaxMarketSellOrderAmount">
+            <summary>
+            Max order amount of sell-market order in base currency
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiSymbol.MaxMarketBuyOrderValue">
+            <summary>
+            Max order value of buy-market order in quote currency
+            </summary>
+        </member>
         <member name="P:Huobi.Net.Objects.HuobiSymbol.MinOrderValue">
             <summary>
             Minimum value of the order amount in quote currency
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiSymbol.MaxOrderValue">
+            <summary>
+            Max order value of limit order and buy-market order in usdt
             </summary>
         </member>
         <member name="P:Huobi.Net.Objects.HuobiSymbol.ValuePrecision">
