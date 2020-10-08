@@ -933,7 +933,7 @@ namespace Huobi.Net
         /// <returns></returns>
         protected Uri GetUrl(string endpoint, string? version = null)
         {
-            return version == null ? new Uri($"{BaseAddress}/{endpoint}") : new Uri($"{BaseAddress}/v{version}/{endpoint}");
+            return version == null ? new Uri($"{BaseAddress}{endpoint}") : new Uri($"{BaseAddress}v{version}/{endpoint}");
         }
 
         private static long? ToUnixTimestamp(DateTime? time)
