@@ -4,6 +4,76 @@
         <name>Huobi.Net</name>
     </assembly>
     <members>
+        <member name="T:Huobi.Net.Enums.CurrencyStatus">
+            <summary>
+            Status
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.CurrencyStatus.Allowed">
+            <summary>
+            Allowed
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.CurrencyStatus.Prohibited">
+            <summary>
+            Prohibited
+            </summary>
+        </member>
+        <member name="T:Huobi.Net.Enums.FeeType">
+            <summary>
+            Fee type
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.FeeType.Fixed">
+            <summary>
+            Fixed
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.FeeType.Circulated">
+            <summary>
+            Circulated
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.FeeType.Ratio">
+            <summary>
+            Ratio
+            </summary>
+        </member>
+        <member name="T:Huobi.Net.Enums.InstrumentStatus">
+            <summary>
+            Status of an instrument
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.InstrumentStatus.Normal">
+            <summary>
+            Normal
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.InstrumentStatus.Delisted">
+            <summary>
+            Delisted
+            </summary>
+        </member>
+        <member name="T:Huobi.Net.Enums.MarketStatus">
+            <summary>
+            Status of the market
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.MarketStatus.Normal">
+            <summary>
+            Operating normally
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.MarketStatus.Halted">
+            <summary>
+            Trading halted
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.MarketStatus.CancelOnly">
+            <summary>
+            Only cancellation is possible
+            </summary>
+        </member>
         <member name="T:Huobi.Net.HuobiClient">
             <summary>
             Client for the Huobi REST API
@@ -50,7 +120,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.HuobiClient.GetMergedTickers(System.String,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.HuobiClient.GetMergedTicker(System.String,System.Threading.CancellationToken)">
             <summary>
             Gets the ticker, including the best bid / best ask for a symbol
             </summary>
@@ -58,7 +128,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.HuobiClient.GetMergedTickersAsync(System.String,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.HuobiClient.GetMergedTickerAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Gets the ticker, including the best bid / best ask for a symbol
             </summary>
@@ -156,6 +226,36 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
+        <member name="M:Huobi.Net.HuobiClient.GetNav(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Gets real time NAV for ETP
+            </summary>
+            <param name="symbol">The symbol to get the data for</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiClient.GetNavAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Gets real time NAV for ETP
+            </summary>
+            <param name="symbol">The symbol to get the data for</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiClient.GetMarketStatus(System.Threading.CancellationToken)">
+            <summary>
+            Gets the current market status
+            </summary>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiClient.GetMarketStatusAsync(System.Threading.CancellationToken)">
+            <summary>
+            Gets the current market status
+            </summary>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
         <member name="M:Huobi.Net.HuobiClient.GetSymbols(System.Threading.CancellationToken)">
             <summary>
             Gets a list of supported symbols
@@ -181,6 +281,22 @@
             <summary>
             Gets a list of supported currencies
             </summary>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiClient.GetCurrenciesAndChains(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Gets a list of supported currencies and chains
+            </summary>
+            <param name="currency">Filter by currency</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiClient.GetCurrenciesAndChainsAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Gets a list of supported currencies and chains
+            </summary>
+            <param name="currency">Filter by currency</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -228,6 +344,56 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
+        <member name="M:Huobi.Net.HuobiClient.GetAssetValuation(Huobi.Net.Objects.HuobiAccountType,System.String,System.Nullable{System.Int64},System.Threading.CancellationToken)">
+            <summary>
+            Gets the valuation of all assets
+            </summary>
+            <param name="accountType">Type of account to valuate</param>
+            <param name="valuationCurrency">The currency to get the value in</param>
+            <param name="subUserId">The id of the sub user</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiClient.GetAssetValuationAsync(Huobi.Net.Objects.HuobiAccountType,System.String,System.Nullable{System.Int64},System.Threading.CancellationToken)">
+            <summary>
+            Gets the valuation of all assets
+            </summary>
+            <param name="accountType">Type of account to valuate</param>
+            <param name="valuationCurrency">The currency to get the value in</param>
+            <param name="subUserId">The id of the sub user</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiClient.TransferAsset(System.Int64,Huobi.Net.Objects.HuobiAccountType,System.Int64,System.Int64,Huobi.Net.Objects.HuobiAccountType,System.Int64,System.String,System.Decimal,System.Threading.CancellationToken)">
+            <summary>
+            Transfer assets between accounts
+            </summary>
+            <param name="fromUserId">From user id</param>
+            <param name="fromAccountType">From account type</param>
+            <param name="fromAccountId">From account id</param>
+            <param name="toUserId">To user id</param>
+            <param name="toAccountType">To account type</param>
+            <param name="toAccountId">To account id</param>
+            <param name="currency">Currency to transfer</param>
+            <param name="amount">Amount to transfer</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiClient.TransferAssetAsync(System.Int64,Huobi.Net.Objects.HuobiAccountType,System.Int64,System.Int64,Huobi.Net.Objects.HuobiAccountType,System.Int64,System.String,System.Decimal,System.Threading.CancellationToken)">
+            <summary>
+            Transfer assets between accounts
+            </summary>
+            <param name="fromUserId">From user id</param>
+            <param name="fromAccountType">From account type</param>
+            <param name="fromAccountId">From account id</param>
+            <param name="toUserId">To user id</param>
+            <param name="toAccountType">To account type</param>
+            <param name="toAccountId">To account id</param>
+            <param name="currency">Currency to transfer</param>
+            <param name="amount">Amount to transfer</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
         <member name="M:Huobi.Net.HuobiClient.GetAccountHistory(System.Int64,System.String,System.Collections.Generic.IEnumerable{Huobi.Net.Objects.HuobiTransactionType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Huobi.Net.Objects.HuobiSortingType},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Gets a list of amount changes of specified user's account
@@ -251,6 +417,34 @@
             <param name="transactionTypes">Amount change types</param>
             <param name="startTime">Far point of time of the query window. The maximum size of the query window is 1 hour. The query window can be shifted within 30 days</param>
             <param name="endTime">Near point of time of the query window. The maximum size of the query window is 1 hour. The query window can be shifted within 30 days</param>
+            <param name="sort">Sorting order (Ascending by default)</param>
+            <param name="size">Maximum number of items in each response (from 1 to 500, default is 100)</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiClient.GetAccountLedger(System.Int64,System.String,System.Collections.Generic.IEnumerable{Huobi.Net.Objects.HuobiTransactionType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Huobi.Net.Objects.HuobiSortingType},System.Nullable{System.Int32},System.Nullable{System.Int64},System.Threading.CancellationToken)">
+            <summary>
+            This endpoint returns the amount changes of specified user's account.
+            </summary>
+            <param name="accountId">The id of the account to get the ledger for</param>
+            <param name="currency">Currency name</param>
+            <param name="transactionTypes">Amount change types</param>
+            <param name="startTime">Far point of time of the query window. The maximum size of the query window is 10 days. The query window can be shifted within 30 days</param>
+            <param name="endTime">Near point of time of the query window. The maximum size of the query window is 10 days. The query window can be shifted within 30 days</param>
+            <param name="sort">Sorting order (Ascending by default)</param>
+            <param name="size">Maximum number of items in each response (from 1 to 500, default is 100)</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiClient.GetAccountLedgerAsync(System.Int64,System.String,System.Collections.Generic.IEnumerable{Huobi.Net.Objects.HuobiTransactionType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Huobi.Net.Objects.HuobiSortingType},System.Nullable{System.Int32},System.Nullable{System.Int64},System.Threading.CancellationToken)">
+            <summary>
+            This endpoint returns the amount changes of specified user's account.
+            </summary>
+            <param name="accountId">The id of the account to get the ledger for</param>
+            <param name="currency">Currency name</param>
+            <param name="transactionTypes">Amount change types</param>
+            <param name="startTime">Far point of time of the query window. The maximum size of the query window is 10 days. The query window can be shifted within 30 days</param>
+            <param name="endTime">Near point of time of the query window. The maximum size of the query window is 10 days. The query window can be shifted within 30 days</param>
             <param name="sort">Sorting order (Ascending by default)</param>
             <param name="size">Maximum number of items in each response (from 1 to 500, default is 100)</param>
             <param name="ct">Cancellation token</param>
@@ -979,7 +1173,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetMergedTickers(System.String,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetMergedTicker(System.String,System.Threading.CancellationToken)">
             <summary>
             Gets the ticker, including the best bid / best ask for a symbol
             </summary>
@@ -987,7 +1181,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetMergedTickersAsync(System.String,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetMergedTickerAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Gets the ticker, including the best bid / best ask for a symbol
             </summary>
@@ -1789,6 +1983,21 @@
             Unique record ID in the database
             </summary>
         </member>
+        <member name="T:Huobi.Net.Objects.HuobiAccountValuation">
+            <summary>
+            Account valuation
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiAccountValuation.Balance">
+            <summary>
+            The balance
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiAccountValuation.Timestamp">
+            <summary>
+            Timestamp of the data
+            </summary>
+        </member>
         <member name="T:Huobi.Net.Objects.HuobiBalance">
             <summary>
             Balance data
@@ -1882,6 +2091,126 @@
         <member name="P:Huobi.Net.Objects.HuobiBestOffer.Sequence">
             <summary>
             Sequence number
+            </summary>
+        </member>
+        <member name="T:Huobi.Net.Objects.HuobiCurrencyInfo">
+            <summary>
+            Info on a currency
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiCurrencyInfo.Currency">
+            <summary>
+            Currency
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiCurrencyInfo.Status">
+            <summary>
+            Status of the currency
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiCurrencyInfo.Chains">
+            <summary>
+            Chains
+            </summary>
+        </member>
+        <member name="T:Huobi.Net.Objects.HuobiChain">
+            <summary>
+            Info on a currency chain
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiChain.Chain">
+            <summary>
+            Chain
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiChain.DisplayName">
+            <summary>
+            Display name
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiChain.BaseChain">
+            <summary>
+            Base chain
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiChain.BaseChainProtocol">
+            <summary>
+            Protocol of the base chain
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiChain.IsDynamic">
+            <summary>
+            Is dynamic fee type or not (only applicable to withdrawFeeType = fixed)
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiChain.DepositStatus">
+            <summary>
+            Deposit status
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiChain.MaxTransactFeeWithdraw">
+            <summary>
+            Maximum withdraw fee in each request (only applicable to withdrawFeeType = circulated or ratio)	
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiChain.MaxWithdrawAmount">
+            <summary>
+            Max withdraw amount per request
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiChain.MinDepositAmount">
+            <summary>
+            Min deposit amount per request
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiChain.MinWithdrawAmount">
+            <summary>
+            Min withdraw amount per request
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiChain.MinTransactFeeWithdraw">
+            <summary>
+            Minimal withdraw fee in each request (only applicable to withdrawFeeType = circulated or ratio)
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiChain.NumberOfConfirmations">
+            <summary>
+            Number of confirmations required for deposit
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiChain.NumberOfFastConfirmations">
+            <summary>
+            Number of confirmations required for quick success (trading allowed but withdrawal disallowed)
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiChain.WithdrawFeeType">
+            <summary>
+            Type of withdraw fee
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiChain.WithdrawPrecision">
+            <summary>
+            Precision of withdrawing
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiChain.WithdrawQuotaPerDay">
+            <summary>
+            Withdraw quota per day
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiChain.WithdrawQuotaPerYear">
+            <summary>
+            Withdraw quota per year
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiChain.WithdrawQuotaTotal">
+            <summary>
+            Withdraw quota in total
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiChain.WithdrawStatus">
+            <summary>
+            Withdraw status
             </summary>
         </member>
         <member name="T:Huobi.Net.Objects.HuobiPeriod">
@@ -2337,6 +2666,136 @@
         <member name="F:Huobi.Net.Objects.HuobiSortingType.Descending">
             <summary>
             Descending
+            </summary>
+        </member>
+        <member name="T:Huobi.Net.Objects.HuobiLedgerEntry">
+            <summary>
+            Ledger entry
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiLedgerEntry.AccountId">
+            <summary>
+            Account id
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiLedgerEntry.Currency">
+            <summary>
+            Currency
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiLedgerEntry.TransactionAmount">
+            <summary>
+            Amount of the transaction
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiLedgerEntry.TransactionType">
+            <summary>
+            Type of transaction
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiLedgerEntry.TransferType">
+            <summary>
+            Type of transfer
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiLedgerEntry.TransactionId">
+            <summary>
+            Transaction id
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiLedgerEntry.TransactionTime">
+            <summary>
+            Transaction time
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiLedgerEntry.Transferer">
+            <summary>
+            Transferer
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiLedgerEntry.Transferee">
+            <summary>
+            Transferee
+            </summary>
+        </member>
+        <member name="T:Huobi.Net.Objects.HuobiMarketStatus">
+            <summary>
+            Status of the market
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiMarketStatus.Status">
+            <summary>
+            The status
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiMarketStatus.HaltStartTime">
+            <summary>
+            Start time of when market halted
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiMarketStatus.HaltEndTime">
+            <summary>
+            Estimated end time of the halt
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiMarketStatus.HaltReason">
+            <summary>
+            Reason for halting
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiMarketStatus.AffectedSymbols">
+            <summary>
+            Affected symbols, comma separated or 'all' if all symbols are affected
+            </summary>
+        </member>
+        <member name="T:Huobi.Net.Objects.HuobiNav">
+            <summary>
+            NAV info for ETP
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiNav.Symbol">
+            <summary>
+            The symbol
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiNav.Nav">
+            <summary>
+            Latest Nav
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiNav.NavTime">
+            <summary>
+            Update time
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiNav.Outstanding">
+            <summary>
+            Outstanding shares
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiNav.Basket">
+            <summary>
+            Baskets
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiNav.ActualLeverage">
+            <summary>
+            Actual leverage ratio
+            </summary>
+        </member>
+        <member name="T:Huobi.Net.Objects.HuobiBasket">
+            <summary>
+            Basket
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiBasket.Currency">
+            <summary>
+            Currency
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiBasket.Amount">
+            <summary>
+            Amount
             </summary>
         </member>
         <member name="T:Huobi.Net.Objects.HuobiOpenOrder">
@@ -2942,6 +3401,21 @@
         <member name="P:Huobi.Net.Objects.HuobiSymbolTradeDetails.Timestamp">
             <summary>
             The timestamp of the trade
+            </summary>
+        </member>
+        <member name="T:Huobi.Net.Objects.HuobiTransactionResult">
+            <summary>
+            Transaction result
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiTransactionResult.TransactionId">
+            <summary>
+            Id
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiTransactionResult.TransactionTime">
+            <summary>
+            Time
             </summary>
         </member>
         <member name="T:Huobi.Net.Objects.SocketObjects.HuobiAccountEvent">

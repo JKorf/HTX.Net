@@ -44,7 +44,7 @@ namespace Huobi.Net.Interfaces
         /// <param name="symbol">The symbol to get the ticker for</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        WebCallResult<HuobiSymbolTickMerged> GetMergedTickers(string symbol, CancellationToken ct = default);
+        WebCallResult<HuobiSymbolTickMerged> GetMergedTicker(string symbol, CancellationToken ct = default);
 
         /// <summary>
         /// Gets the ticker, including the best bid / best ask for a symbol
@@ -52,7 +52,7 @@ namespace Huobi.Net.Interfaces
         /// <param name="symbol">The symbol to get the ticker for</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<HuobiSymbolTickMerged>> GetMergedTickersAsync(string symbol, CancellationToken ct = default);
+        Task<WebCallResult<HuobiSymbolTickMerged>> GetMergedTickerAsync(string symbol, CancellationToken ct = default);
 
         /// <summary>
         /// Get candlestick data for a symbol
