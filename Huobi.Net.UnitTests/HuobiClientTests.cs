@@ -64,7 +64,7 @@ namespace Huobi.Net.UnitTests
             var client = TestHelpers.CreateResponseClient(SerializeExpected(expected, true));
 
             // act
-            var result = client.GetMergedTickers("BTCETH");
+            var result = client.GetMergedTicker("BTCETH");
 
             // assert
             Assert.AreEqual(true, result.Success);

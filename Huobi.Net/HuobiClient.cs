@@ -598,6 +598,7 @@ namespace Huobi.Net
         /// <param name="endTime">Near point of time of the query window. The maximum size of the query window is 10 days. The query window can be shifted within 30 days</param>
         /// <param name="sort">Sorting order (Ascending by default)</param>
         /// <param name="size">Maximum number of items in each response (from 1 to 500, default is 100)</param>
+        /// <param name="fromId">Only get orders with ID before or after this. Used together with the direction parameter</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         public WebCallResult<IEnumerable<HuobiLedgerEntry>> GetAccountLedger(long accountId, string? currency = null, IEnumerable<HuobiTransactionType>? transactionTypes = null, DateTime? startTime = null, DateTime? endTime = null, HuobiSortingType? sort = null, int? size = null, long? fromId = null, CancellationToken ct = default)
@@ -613,6 +614,7 @@ namespace Huobi.Net
         /// <param name="endTime">Near point of time of the query window. The maximum size of the query window is 10 days. The query window can be shifted within 30 days</param>
         /// <param name="sort">Sorting order (Ascending by default)</param>
         /// <param name="size">Maximum number of items in each response (from 1 to 500, default is 100)</param>
+        /// <param name="fromId">Only get orders with ID before or after this. Used together with the direction parameter</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         public async Task<WebCallResult<IEnumerable<HuobiLedgerEntry>>> GetAccountLedgerAsync(long accountId, string? currency = null, IEnumerable<HuobiTransactionType>? transactionTypes = null, DateTime? startTime = null, DateTime? endTime = null, HuobiSortingType? sort = null, int? size = null, long? fromId = null, CancellationToken ct = default)
@@ -910,7 +912,7 @@ namespace Huobi.Net
         /// <param name="types">The types of orders to return</param>
         /// <param name="startTime">Only get orders after this date</param>
         /// <param name="endTime">Only get orders before this date</param>
-        /// <param name="fromId">Only get orders with before or after this. Used together with the direction parameter</param>
+        /// <param name="fromId">Only get orders with ID before or after this. Used together with the direction parameter</param>
         /// <param name="direction">Direction of the results to return when using the fromId parameter</param>
         /// <param name="limit">The max number of results</param>
         /// <param name="ct">Cancellation token</param>
@@ -925,7 +927,7 @@ namespace Huobi.Net
         /// <param name="types">The types of orders to return</param>
         /// <param name="startTime">Only get orders after this date</param>
         /// <param name="endTime">Only get orders before this date</param>
-        /// <param name="fromId">Only get orders with before or after this. Used together with the direction parameter</param>
+        /// <param name="fromId">Only get orders with ID before or after this. Used together with the direction parameter</param>
         /// <param name="direction">Direction of the results to return when using the fromId parameter</param>
         /// <param name="limit">The max number of results</param>
         /// <param name="ct">Cancellation token</param>
@@ -958,7 +960,7 @@ namespace Huobi.Net
         /// <param name="types">The type of orders to return</param>
         /// <param name="startTime">Only get orders after this date</param>
         /// <param name="endTime">Only get orders before this date</param>
-        /// <param name="fromId">Only get orders with before or after this. Used together with the direction parameter</param>
+        /// <param name="fromId">Only get orders with ID before or after this. Used together with the direction parameter</param>
         /// <param name="direction">Direction of the results to return when using the fromId parameter</param>
         /// <param name="limit">The max number of results</param>
         /// <param name="ct">Cancellation token</param>
@@ -974,7 +976,7 @@ namespace Huobi.Net
         /// <param name="types">The type of orders to return</param>
         /// <param name="startTime">Only get orders after this date</param>
         /// <param name="endTime">Only get orders before this date</param>
-        /// <param name="fromId">Only get orders with before or after this. Used together with the direction parameter</param>
+        /// <param name="fromId">Only get orders with ID before or after this. Used together with the direction parameter</param>
         /// <param name="direction">Direction of the results to return when using the fromId parameter</param>
         /// <param name="limit">The max number of results</param>
         /// <param name="ct">Cancellation token</param>
@@ -1003,7 +1005,7 @@ namespace Huobi.Net
         /// <param name="symbol">The symbol to get orders for</param>
         /// <param name="startTime">Only get orders after this date</param>
         /// <param name="endTime">Only get orders before this date</param>
-        /// <param name="direction">Direction of the results to return when using the fromId parameter</param>
+        /// <param name="direction">Direction of the results to return</param>
         /// <param name="limit">The max number of results</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -1016,7 +1018,7 @@ namespace Huobi.Net
         /// <param name="symbol">The symbol to get orders for</param>
         /// <param name="startTime">Only get orders after this date</param>
         /// <param name="endTime">Only get orders before this date</param>
-        /// <param name="direction">Direction of the results to return when using the fromId parameter</param>
+        /// <param name="direction">Direction of the results to return</param>
         /// <param name="limit">The max number of results</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
