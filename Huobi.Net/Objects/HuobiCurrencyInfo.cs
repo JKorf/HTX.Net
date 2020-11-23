@@ -75,6 +75,10 @@ namespace Huobi.Net.Objects
         [JsonProperty("MinWithdrawAmt")]
         public decimal MinWithdrawAmount { get; set; }
         /// <summary>
+        /// Withdraw fee in each request (only applicable to withdrawFeeType = fixed)
+        /// </summary>
+        public decimal TransactFeeWithdraw { get; set; }
+        /// <summary>
         /// Minimal withdraw fee in each request (only applicable to withdrawFeeType = circulated or ratio)
         /// </summary>
         public decimal MinTransactFeeWithdraw { get; set; }
