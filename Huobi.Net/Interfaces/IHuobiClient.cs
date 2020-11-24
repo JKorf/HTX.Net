@@ -381,6 +381,26 @@ namespace Huobi.Net.Interfaces
         Task<WebCallResult<HuobiBatchCancelResult>> CancelOrdersAsync(IEnumerable<long>? orderIds = null, IEnumerable<string>? clientOrderIds = null, CancellationToken ct = default);
 
         /// <summary>
+        /// Cancel multiple open orders
+        /// </summary>
+        /// <param name="accountId">The account id used for this cancel</param>
+        /// <param name="symbols">The trading symbol list (maximum 10 symbols, default value all symbols)</param>
+        /// <param name="side">Filter on the direction of the trade</param>
+        /// <param name="limit">The number of orders to cancel [1, 100]</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        public WebCallResult<HuobiByCriteriaCancelResult> CancelOrdersByCriteria(long? accountId = null, IEnumerable<string>? symbols = null, HuobiOrderSide? side = null, int? limit = null, CancellationToken ct = default);
+        /// <summary>
+        /// Cancel multiple open orders
+        /// </summary>
+        /// <param name="accountId">The account id used for this cancel</param>
+        /// <param name="symbols">The trading symbol list (maximum 10 symbols, default value all symbols)</param>
+        /// <param name="side">Filter on the direction of the trade</param>
+        /// <param name="limit">The number of orders to cancel [1, 100]</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        public Task<WebCallResult<HuobiByCriteriaCancelResult>> CancelOrdersByCriteriaAsync(long? accountId = null, IEnumerable<string>? symbols = null, HuobiOrderSide? side = null, int? limit = null, CancellationToken ct = default);
+        /// <summary>
         /// Get details of an order
         /// </summary>
         /// <param name="orderId">The id of the order to retrieve</param>
