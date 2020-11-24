@@ -2234,6 +2234,11 @@
             Min withdraw amount per request
             </summary>
         </member>
+        <member name="P:Huobi.Net.Objects.HuobiChain.TransactFeeWithdraw">
+            <summary>
+            Withdraw fee in each request (only applicable to withdrawFeeType = fixed)
+            </summary>
+        </member>
         <member name="P:Huobi.Net.Objects.HuobiChain.MinTransactFeeWithdraw">
             <summary>
             Minimal withdraw fee in each request (only applicable to withdrawFeeType = circulated or ratio)

@@ -404,7 +404,7 @@ namespace Huobi.Net
         {
             var parameters = new Dictionary<string, object>();
             parameters.AddOptionalParameter("currency", currency);
-            return await SendHuobiV2Request<IEnumerable<HuobiCurrencyInfo>>(GetUrl(CommonCurrenciesAndChainsEndpoint, "2"), HttpMethod.Get, ct).ConfigureAwait(false);
+            return await SendHuobiV2Request<IEnumerable<HuobiCurrencyInfo>>(GetUrl(CommonCurrenciesAndChainsEndpoint, "2"), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
         }
 
         /// <summary>
