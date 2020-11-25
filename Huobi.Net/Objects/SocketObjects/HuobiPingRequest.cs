@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace Huobi.Net.Objects.SocketObjects
 {
@@ -21,15 +22,18 @@ namespace Huobi.Net.Objects.SocketObjects
 
     internal class HuobiPingAuthResponse
     {
-        [JsonProperty("op")]
-        public string Operation { get; set; }
-        [JsonProperty("ts")]
-        public long Timestamp { get; set; }
+        [JsonProperty("action")]
+        public string Action { get; set; }
+        [JsonProperty("data")]
+        public Dictionary<string, object> Data { get; set; }
 
         public HuobiPingAuthResponse(long id)
         {
-            Operation = "pong";
-            Timestamp = id;
+            Action = "pong";
+            Data = new Dictionary<string, object>()
+            {
+                { "ts", id}
+            };
         }
     }
 }

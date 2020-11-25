@@ -6,6 +6,8 @@ using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Sockets;
 using Huobi.Net.Objects;
 using Huobi.Net.Objects.SocketObjects;
+using Huobi.Net.Objects.SocketObjects.V2;
+using HuobiOrderUpdate = Huobi.Net.Objects.HuobiOrderUpdate;
 
 namespace Huobi.Net.Interfaces
 {
@@ -174,101 +176,72 @@ namespace Huobi.Net.Interfaces
             Action<HuobiBestOffer> onData);
 
         /// <summary>
-        /// Gets a list of accounts associated with the apikey/secret
+        /// Subscribe to updates of orders
         /// </summary>
+        /// <param name="symbol">Subscribe on a specific symbol</param>
+        /// <param name="onOrderSubmitted">Event handler for the order submitted event</param>
+        /// <param name="onOrderMatched">Event handler for the order matched event</param>
+        /// <param name="onOrderCancellation">Event handler for the order cancelled event</param>
+        /// <param name="onConditionalOrderTriggerFailure">Event handler for the conditional order trigger failed event</param>
+        /// <param name="onConditionalOrderCancelled">Event handler for the condition order cancelled event</param>
         /// <returns></returns>
-        CallResult<IEnumerable<HuobiAccountBalances>> GetAccounts();
+        CallResult<UpdateSubscription> SubscribeToOrderUpdates(
+            string? symbol = null,
+            Action<HuobiSubmittedOrderUpdate>? onOrderSubmitted = null,
+            Action<HuobiMatchedOrderUpdate>? onOrderMatched = null,
+            Action<HuobiCancelledOrderUpdate>? onOrderCancellation = null,
+            Action<HuobiTriggerFailureOrderUpdate>? onConditionalOrderTriggerFailure = null,
+            Action<Objects.SocketObjects.V2.HuobiOrderUpdate>? onConditionalOrderCancelled = null);
 
         /// <summary>
-        /// Gets a list of accounts associated with the apikey/secret
+        /// Subscribe to updates of orders
         /// </summary>
+        /// <param name="symbol">Subscribe on a specific symbol</param>
+        /// <param name="onOrderSubmitted">Event handler for the order submitted event</param>
+        /// <param name="onOrderMatched">Event handler for the order matched event</param>
+        /// <param name="onOrderCancellation">Event handler for the order cancelled event</param>
+        /// <param name="onConditionalOrderTriggerFailure">Event handler for the conditional order trigger failed event</param>
+        /// <param name="onConditionalOrderCancelled">Event handler for the condition order cancelled event</param>
         /// <returns></returns>
-        Task<CallResult<IEnumerable<HuobiAccountBalances>>> GetAccountsAsync();
+        Task<CallResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(
+            string? symbol = null,
+            Action<HuobiSubmittedOrderUpdate>? onOrderSubmitted = null,
+            Action<HuobiMatchedOrderUpdate>? onOrderMatched = null,
+            Action<HuobiCancelledOrderUpdate>? onOrderCancellation = null,
+            Action<HuobiTriggerFailureOrderUpdate>? onConditionalOrderTriggerFailure = null,
+            Action<Objects.SocketObjects.V2.HuobiOrderUpdate>? onConditionalOrderCancelled = null);
 
         /// <summary>
-        /// Subscribe to account/wallet updates
+        /// Subscribe to updates of account balances
         /// </summary>
-        /// <param name="onData">The handler for updates</param>
         /// <returns></returns>
-        CallResult<UpdateSubscription> SubscribeToAccountUpdates(Action<HuobiAccountEvent> onData);
+        CallResult<UpdateSubscription> SubscribeToAccountUpdates(Action<HuobiAccountUpdate> onAccountUpdate);
 
         /// <summary>
-        /// Subscribe to account/wallet updates
+        /// Subscribe to updates of account balances
         /// </summary>
-        /// <param name="onData">The handler for updates</param>
         /// <returns></returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToAccountUpdatesAsync(Action<HuobiAccountEvent> onData);
+        Task<CallResult<UpdateSubscription>> SubscribeToAccountUpdatesAsync(Action<HuobiAccountUpdate> onAccountUpdate);
 
         /// <summary>
-        /// Gets a list of orders
+        /// Subscribe to detailed order matched/cancelled updates
         /// </summary>
-        /// <param name="accountId">The account id to get orders for</param>
-        /// <param name="symbol">The symbol to get orders for</param>
-        /// <param name="states">The states of orders to return</param>
-        /// <param name="types">The types of orders to return</param>
-        /// <param name="startTime">Only get orders after this date</param>
-        /// <param name="endTime">Only get orders before this date</param>
-        /// <param name="fromId">Only get orders with id's higher than this</param>
-        /// <param name="limit">The max number of results</param>
+        /// <param name="symbol">Subscribe to a specific symbol</param>
+        /// <param name="onOrderMatch">Event handler for the order matched event</param>
+        /// <param name="onOrderCancel">Event handler for the order cancelled event</param>
         /// <returns></returns>
-        CallResult<IEnumerable<HuobiOrder>> GetOrders(long accountId, string symbol, IEnumerable<HuobiOrderState> states, IEnumerable<HuobiOrderType>? types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, int? limit = null);
+        CallResult<UpdateSubscription> SubscribeToOrderDetailsUpdates(string? symbol = null,
+            Action<HuobiTradeUpdate>? onOrderMatch = null, Action<HuobiOrderCancellationUpdate>? onOrderCancel = null);
 
         /// <summary>
-        /// Gets a list of orders
+        /// Subscribe to detailed order matched/cancelled updates
         /// </summary>
-        /// <param name="accountId">The account id to get orders for</param>
-        /// <param name="symbol">The symbol to get orders for</param>
-        /// <param name="states">The states of orders to return</param>
-        /// <param name="types">The types of orders to return</param>
-        /// <param name="startTime">Only get orders after this date</param>
-        /// <param name="endTime">Only get orders before this date</param>
-        /// <param name="fromId">Only get orders with id's higher than this</param>
-        /// <param name="limit">The max number of results</param>
+        /// <param name="symbol">Subscribe to a specific symbol</param>
+        /// <param name="onOrderMatch">Event handler for the order matched event</param>
+        /// <param name="onOrderCancel">Event handler for the order cancelled event</param>
         /// <returns></returns>
-        Task<CallResult<IEnumerable<HuobiOrder>>> GetOrdersAsync(long accountId, string symbol, IEnumerable<HuobiOrderState> states, IEnumerable<HuobiOrderType>? types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, int? limit = null);
+        Task<CallResult<UpdateSubscription>> SubscribeToOrderDetailsUpdatesAsync(string? symbol = null,
+            Action<HuobiTradeUpdate>? onOrderMatch = null, Action<HuobiOrderCancellationUpdate>? onOrderCancel = null);
 
-        /// <summary>
-        /// Subscribe to updates when any order changes
-        /// </summary>
-        /// <param name="onData">The handler for updates</param>
-        /// <returns></returns>
-        CallResult<UpdateSubscription> SubscribeToOrderUpdates(Action<HuobiOrderUpdate> onData);
-
-        /// <summary>
-        /// Subscribe to updates when any order changes
-        /// </summary>
-        /// <param name="onData">The handler for updates</param>
-        /// <returns></returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(Action<HuobiOrderUpdate> onData);
-
-        /// <summary>
-        /// Subscribe to updates when a order for a symbol changes
-        /// </summary> 
-        /// <param name="symbol">The symbol to subscribe to</param>
-        /// <param name="onData">The handler for updates</param>
-        /// <returns></returns>
-        CallResult<UpdateSubscription> SubscribeToOrderUpdates(string symbol, Action<HuobiOrderUpdate> onData);
-
-        /// <summary>
-        /// Subscribe to updates when a order for a symbol changes
-        /// </summary>
-        /// <param name="symbol">The symbol to subscribe to</param>
-        /// <param name="onData">The handler for updates</param>
-        /// <returns></returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(string symbol, Action<HuobiOrderUpdate> onData);
-
-        /// <summary>
-        /// Gets data for a specific order
-        /// </summary>
-        /// <param name="orderId">The id of the order to retrieve</param>
-        /// <returns></returns>
-        CallResult<HuobiOrder> GetOrderDetails(long orderId);
-
-        /// <summary>
-        /// Gets data for a specific order
-        /// </summary>
-        /// <param name="orderId">The id of the order to retrieve</param>
-        /// <returns></returns>
-        Task<CallResult<HuobiOrder>> GetOrderDetailsAsync(long orderId);
     }
 }

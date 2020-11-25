@@ -24,20 +24,17 @@ namespace Huobi.Net.Objects.SocketObjects
         }
     }
 
-    internal class HuobiAuthenticatedRequest: HuobiRequest
+    internal class HuobiAuthenticatedSubscribeRequest
     {
-        [JsonProperty("op")]
-        public string Operation { get; set; }
-        [JsonProperty("topic")]
-        public string Topic { get; set; }
-        [JsonProperty("cid")]
-        public new string Id { get; set; }
+        [JsonProperty("action")]
+        public string Action { get; set; }
+        [JsonProperty("ch")]
+        public string Channel { get; set; }
 
-        public HuobiAuthenticatedRequest(string id, string operation, string topic)
+        public HuobiAuthenticatedSubscribeRequest(string channel, string action = "sub")
         {
-            Id = id;
-            Operation = operation;
-            Topic = topic;
+            Action = action;
+            Channel = channel;
         }
     }
 
@@ -52,44 +49,6 @@ namespace Huobi.Net.Objects.SocketObjects
         {
             Id = id;
             Topic = topic;
-        }
-    }
-
-    internal class HuobiOrderListRequest: HuobiAuthenticatedRequest
-    {
-        [JsonProperty("symbol")]
-        public string Symbol { get; set; }
-        [JsonProperty("account-id")]
-        public long AccountId { get; set; }
-        [JsonProperty("states")]
-        public string States { get; set; }
-        [JsonProperty("types")]
-        public string? Types { get; set; }
-        [JsonProperty("start-date")]
-        public string? StartTime { get; set; }
-        [JsonProperty("end-date")]
-        public string? EndTime { get; set; }
-        [JsonProperty("from")]
-        public string? FromId { get; set; }
-        [JsonProperty("size")]
-        public string? Limit { get; set; }
-
-        public HuobiOrderListRequest(string id, long accountId, string symbol, string states): base(id, "req", "orders.list")
-        {
-            AccountId = accountId;
-            Symbol = symbol;
-            States = states;
-        }
-    }
-
-    internal class HuobiOrderDetailsRequest : HuobiAuthenticatedRequest
-    {
-        [JsonProperty("order-id")]
-        public string OrderId { get; set; }
-
-        public HuobiOrderDetailsRequest(string id, string orderId): base(id, "req", "orders.detail")
-        {
-            OrderId = orderId;
         }
     }
 }

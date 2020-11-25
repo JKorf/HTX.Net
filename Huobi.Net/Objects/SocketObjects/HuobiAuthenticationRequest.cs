@@ -2,24 +2,28 @@
 
 namespace Huobi.Net.Objects.SocketObjects
 {
-    internal class HuobiAuthenticationRequest
+    internal class HuobiAuthenticationRequest: HuobiAuthenticatedSubscribeRequest
     {
-        [JsonProperty("op")]
-        public string Operation { get; set; }
-        public string AccessKeyId { get; set; }
-        public string SignatureMethod { get; set; }
-        public string SignatureVersion { get; set; }
-        public string Timestamp { get; set; }
-        public string Signature { get; set; }
+        [JsonProperty("params")] public HuobiAuthParams Parameters { get; set; }
 
-        public HuobiAuthenticationRequest(string operation ,string accessKeyId, string signatureMethod, string signatureVersion, string timestamp, string signature)
+        public HuobiAuthenticationRequest(string accessKey, string timestamp, string signature): base("auth", "req")
         {
-            Operation = operation;
-            AccessKeyId = accessKeyId;
-            SignatureMethod = signatureMethod;
-            SignatureVersion = signatureVersion;
-            Timestamp = timestamp;
-            Signature = signature;
+            Parameters = new HuobiAuthParams()
+            {
+                AccessKey = accessKey,
+                Timestamp = timestamp,
+                Signature = signature
+            };
         }
+    }
+
+    internal class HuobiAuthParams
+    {
+        [JsonProperty("authType")] public string AuthType { get; set; } = "api";
+        [JsonProperty("accessKey")] public string AccessKey { get; set; } = "";
+        [JsonProperty("signatureMethod")] public string SignatureMethod { get; set; } = "HmacSHA256";
+        [JsonProperty("signatureVersion")] public string SignatureVersion { get; set; } = "2.1";
+        [JsonProperty("timestamp")] public string Timestamp { get; set; } = "";
+        [JsonProperty("signature")] public string Signature { get; set; } = "";
     }
 }

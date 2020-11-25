@@ -59,7 +59,7 @@ namespace Huobi.Net
         /// <summary>
         /// The base address for the authenticated websocket
         /// </summary>
-        public string BaseAddressAuthenticated { get; set; } = "wss://api.huobi.pro/ws/v1";
+        public string BaseAddressAuthenticated { get; set; } = "wss://api.huobi.pro/ws/v2";
 
         /// <summary>
         /// ctor

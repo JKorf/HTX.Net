@@ -32,19 +32,34 @@ namespace Huobi.Net
             if (!signed && !signPublicRequests)
                 return parameters;
 
+            return SignRequest(uri, method, parameters, 
+                "AccessKeyId", "SignatureMethod", "SignatureVersion", "Timestamp", "Signature", 2);
+        }
+
+        internal Dictionary<string, object> SignRequest(
+            string uri, 
+            HttpMethod method, 
+            Dictionary<string, object> parameters,
+            string accessKeyName, 
+            string methodName,
+            string versionName,
+            string timestampName,
+            string signatureName,
+            double signatureVersion)
+        {
             if (Credentials.Key == null)
                 throw new ArgumentException("ApiKey/secret not provided");
 
             var uriObj = new Uri(uri);
             var signParameters = new Dictionary<string, object>
             {
-                { "AccessKeyId", Credentials.Key.GetString() },
-                { "SignatureMethod", "HmacSHA256" },
-                { "SignatureVersion", 2 }
+                { accessKeyName, Credentials.Key.GetString() },
+                { methodName, "HmacSHA256" },
+                { versionName, signatureVersion }
             };
-            
-            if(!parameters.ContainsKey("Timestamp") || method != HttpMethod.Get)
-                signParameters.Add("Timestamp", DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm:ss"));
+
+            if (!parameters.ContainsKey(timestampName) || method != HttpMethod.Get)
+                signParameters.Add(timestampName, DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm:ss"));
 
             if (method == HttpMethod.Get)
             {
@@ -53,8 +68,10 @@ namespace Huobi.Net
             }
 
             signParameters = signParameters.OrderBy(kv => Encoding.UTF8.GetBytes(WebUtility.UrlEncode(kv.Key)), new ByteOrderComparer()).ToDictionary(k => k.Key, k => k.Value);
-            
+
             var paramString = signParameters.CreateParamString(true, ArrayParametersSerialization.MultipleValues);
+            paramString = paramString.Replace("%2C", ".");
+            
             signParameters = signParameters.OrderBy(kv => kv.Key).ToDictionary(k => k.Key, k => k.Value);
 
             var absolutePath = uriObj.AbsolutePath;
@@ -67,9 +84,9 @@ namespace Huobi.Net
             signData += absolutePath + "\n";
             signData += paramString;
             byte[] signBytes;
-            lock(encryptLock)
+            lock (encryptLock)
                 signBytes = encryptor.ComputeHash(Encoding.UTF8.GetBytes(signData));
-            signParameters.Add("Signature", Convert.ToBase64String(signBytes));
+            signParameters.Add(signatureName, Convert.ToBase64String(signBytes));
 
             if (method != HttpMethod.Get)
             {

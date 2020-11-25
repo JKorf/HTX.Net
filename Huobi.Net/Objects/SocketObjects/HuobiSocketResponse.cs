@@ -44,32 +44,14 @@ namespace Huobi.Net.Objects.SocketObjects
         public DateTime Timestamp { get; set; }
     }
 
-    internal class HuobiSocketAuthResponse: HuobiResponse
+    internal class HuobiAuthSubscribeResponse
     {
-        internal override bool IsSuccessful => ErrorCode == 0;
-        [JsonProperty("err-code")]
-        internal new int ErrorCode { get; set; }
-
-        [JsonProperty("op")]
-        internal string Operation { get; set; } = "";
-        [JsonProperty("topic")]
-        internal string Topic { get; set; } = "";
-        [JsonProperty("cid")]
-        public new string Id { get; set; } = "";
-
-        /// <summary>
-        /// The timestamp of the response
-        /// </summary>
-        [JsonProperty("ts"), JsonConverter(typeof(TimestampConverter))]
-        public DateTime Timestamp { get; set; }
+        internal bool IsSuccessful => Code == 200;
+        public int Code { get; set; }
+        public string Message { get; set; }
+        [JsonProperty("ch")]
+        public string Channel { get; set; } = "";
+        public string Action { get; set; } = "";
     }
-
-    internal class HuobiSocketAuthDataResponse<T>: HuobiSocketAuthResponse
-    {
-        /// <summary>
-        /// The data
-        /// </summary>
-        [JsonOptionalProperty]
-        public T Data { get; set; } = default!;
-    }
+    
 }

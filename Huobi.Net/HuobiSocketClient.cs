@@ -16,6 +16,8 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Huobi.Net.Interfaces;
 using System.Globalization;
+using Huobi.Net.Objects.SocketObjects.V2;
+using HuobiOrderUpdate = Huobi.Net.Objects.SocketObjects.V2.HuobiOrderUpdate;
 
 namespace Huobi.Net
 {
@@ -302,146 +304,136 @@ namespace Huobi.Net
         }
 
         /// <summary>
-        /// Gets a list of accounts associated with the apikey/secret
+        /// Subscribe to updates of orders
         /// </summary>
+        /// <param name="symbol">Subscribe on a specific symbol</param>
+        /// <param name="onOrderSubmitted">Event handler for the order submitted event</param>
+        /// <param name="onOrderMatched">Event handler for the order matched event</param>
+        /// <param name="onOrderCancellation">Event handler for the order cancelled event</param>
+        /// <param name="onConditionalOrderTriggerFailure">Event handler for the conditional order trigger failed event</param>
+        /// <param name="onConditionalOrderCancelled">Event handler for the condition order cancelled event</param>
         /// <returns></returns>
-        public CallResult<IEnumerable<HuobiAccountBalances>> GetAccounts() => GetAccountsAsync().Result;
-        /// <summary>
-        /// Gets a list of accounts associated with the apikey/secret
-        /// </summary>
-        /// <returns></returns>
-        public async Task<CallResult<IEnumerable<HuobiAccountBalances>>> GetAccountsAsync()
-        {
-            var request = new HuobiAuthenticatedRequest(NextId().ToString(CultureInfo.InvariantCulture), "req", "accounts.list");
-            var result = await Query<HuobiSocketAuthDataResponse<IEnumerable<HuobiAccountBalances>>>(request, true).ConfigureAwait(false);
-            return new CallResult<IEnumerable<HuobiAccountBalances>>(result.Data?.Data, result.Error);
-        }
+        public CallResult<UpdateSubscription> SubscribeToOrderUpdates(
+            string? symbol = null,
+            Action<HuobiSubmittedOrderUpdate>? onOrderSubmitted = null,
+            Action<HuobiMatchedOrderUpdate>? onOrderMatched = null,
+            Action<HuobiCancelledOrderUpdate>? onOrderCancellation = null,
+            Action<HuobiTriggerFailureOrderUpdate>? onConditionalOrderTriggerFailure = null,
+            Action<HuobiOrderUpdate>? onConditionalOrderCancelled = null) => SubscribeToOrderUpdatesAsync(symbol, onOrderSubmitted, onOrderMatched, onOrderCancellation, onConditionalOrderTriggerFailure, onConditionalOrderCancelled).Result;
 
         /// <summary>
-        /// Subscribe to account/wallet updates
+        /// Subscribe to updates of orders
         /// </summary>
-        /// <param name="onData">The handler for updates</param>
+        /// <param name="symbol">Subscribe on a specific symbol</param>
+        /// <param name="onOrderSubmitted">Event handler for the order submitted event</param>
+        /// <param name="onOrderMatched">Event handler for the order matched event</param>
+        /// <param name="onOrderCancellation">Event handler for the order cancelled event</param>
+        /// <param name="onConditionalOrderTriggerFailure">Event handler for the conditional order trigger failed event</param>
+        /// <param name="onConditionalOrderCancelled">Event handler for the condition order cancelled event</param>
         /// <returns></returns>
-        public CallResult<UpdateSubscription> SubscribeToAccountUpdates(Action<HuobiAccountEvent> onData) => SubscribeToAccountUpdatesAsync(onData).Result;
-        /// <summary>
-        /// Subscribe to account/wallet updates
-        /// </summary>
-        /// <param name="onData">The handler for updates</param>
-        /// <returns></returns>
-        public async Task<CallResult<UpdateSubscription>> SubscribeToAccountUpdatesAsync(Action<HuobiAccountEvent> onData)
+        public async Task<CallResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(
+            string? symbol = null,
+            Action<HuobiSubmittedOrderUpdate>? onOrderSubmitted = null,
+            Action<HuobiMatchedOrderUpdate>? onOrderMatched = null,
+            Action<HuobiCancelledOrderUpdate>? onOrderCancellation = null,
+            Action<HuobiTriggerFailureOrderUpdate>? onConditionalOrderTriggerFailure = null,
+            Action<HuobiOrderUpdate>? onConditionalOrderCancelled = null)
         {
-            var request = new HuobiAuthenticatedRequest(NextId().ToString(CultureInfo.InvariantCulture), "sub", "accounts");
-            var internalHandler = new Action<HuobiSocketAuthDataResponse<HuobiAccountEvent>>(data =>
+            symbol = symbol?.ValidateHuobiSymbol();
+            var request = new HuobiAuthenticatedSubscribeRequest( $"orders#{symbol ?? "*"}");
+            var internalHandler = new Action<JToken>(data =>
             {
-                data.Data.Timestamp = data.Timestamp;
-                onData(data.Data);
+                var eventType = (string) data["data"]["eventType"];
+                if (eventType == "trigger")
+                    DeserializeAndInvoke(data, onConditionalOrderTriggerFailure);
+
+                else if (eventType == "deletion")
+                    DeserializeAndInvoke(data, onConditionalOrderCancelled);
+
+                else if (eventType == "creation")
+                    DeserializeAndInvoke(data, onOrderSubmitted);
+
+                else if (eventType == "trade")
+                    DeserializeAndInvoke(data, onOrderMatched);
+
+                else if (eventType == "cancellation")
+                    DeserializeAndInvoke(data, onOrderCancellation);
+                else
+                {
+                    log.Write(LogVerbosity.Warning, "Unknown order event type: " + eventType);
+                }
+            });
+            return await Subscribe(request, null, true, internalHandler).ConfigureAwait(false);
+        }
+
+
+        /// <summary>
+        /// Subscribe to updates of account balances
+        /// </summary>
+        /// <returns></returns>
+        public CallResult<UpdateSubscription> SubscribeToAccountUpdates(Action<HuobiAccountUpdate> onAccountUpdate) => SubscribeToAccountUpdatesAsync(onAccountUpdate).Result;
+
+        /// <summary>
+        /// Subscribe to updates of account balances
+        /// </summary>
+        /// <returns></returns>
+        public async Task<CallResult<UpdateSubscription>> SubscribeToAccountUpdatesAsync(Action<HuobiAccountUpdate> onAccountUpdate)
+        {
+            var request = new HuobiAuthenticatedSubscribeRequest("accounts.update#1");
+            var internalHandler = new Action<JToken>(data =>
+            {
+                DeserializeAndInvoke(data, onAccountUpdate);
             });
             return await Subscribe(request, null, true, internalHandler).ConfigureAwait(false);
         }
 
         /// <summary>
-        /// Gets a list of orders
+        /// Subscribe to detailed order matched/cancelled updates
         /// </summary>
-        /// <param name="accountId">The account id to get orders for</param>
-        /// <param name="symbol">The symbol to get orders for</param>
-        /// <param name="states">The states of orders to return</param>
-        /// <param name="types">The types of orders to return</param>
-        /// <param name="startTime">Only get orders after this date</param>
-        /// <param name="endTime">Only get orders before this date</param>
-        /// <param name="fromId">Only get orders with id's higher than this</param>
-        /// <param name="limit">The max number of results</param>
+        /// <param name="symbol">Subscribe to a specific symbol</param>
+        /// <param name="onOrderMatch">Event handler for the order matched event</param>
+        /// <param name="onOrderCancel">Event handler for the order cancelled event</param>
         /// <returns></returns>
-        public CallResult<IEnumerable<HuobiOrder>> GetOrders(long accountId, string symbol, IEnumerable<HuobiOrderState> states, IEnumerable<HuobiOrderType>? types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, int? limit = null) => GetOrdersAsync(accountId, symbol, states, types, startTime, endTime, fromId, limit).Result;
-        /// <summary>
-        /// Gets a list of orders
-        /// </summary>
-        /// <param name="accountId">The account id to get orders for</param>
-        /// <param name="symbol">The symbol to get orders for</param>
-        /// <param name="states">The states of orders to return</param>
-        /// <param name="types">The types of orders to return</param>
-        /// <param name="startTime">Only get orders after this date</param>
-        /// <param name="endTime">Only get orders before this date</param>
-        /// <param name="fromId">Only get orders with id's higher than this</param>
-        /// <param name="limit">The max number of results</param>
-        /// <returns></returns>
-        public async Task<CallResult<IEnumerable<HuobiOrder>>> GetOrdersAsync(long accountId, string symbol, IEnumerable<HuobiOrderState> states, IEnumerable<HuobiOrderType>? types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, int? limit = null)
-        {
-            symbol = symbol.ValidateHuobiSymbol();
-            var stateConverter = new OrderStateConverter(false);
-            var stateString = string.Join(",", states.Select(s => JsonConvert.SerializeObject(s, stateConverter)));
+        public CallResult<UpdateSubscription> SubscribeToOrderDetailsUpdates(string? symbol = null, Action<HuobiTradeUpdate>? onOrderMatch = null, Action<HuobiOrderCancellationUpdate>? onOrderCancel = null) => SubscribeToOrderDetailsUpdatesAsync(symbol, onOrderMatch, onOrderCancel).Result;
 
-            var request = new HuobiOrderListRequest(NextId().ToString(CultureInfo.InvariantCulture), accountId, symbol, stateString);
-            if (types != null)
+        /// <summary>
+        /// Subscribe to detailed order matched/cancelled updates
+        /// </summary>
+        /// <param name="symbol">Subscribe to a specific symbol</param>
+        /// <param name="onOrderMatch">Event handler for the order matched event</param>
+        /// <param name="onOrderCancel">Event handler for the order cancelled event</param>
+        /// <returns></returns>
+        public async Task<CallResult<UpdateSubscription>> SubscribeToOrderDetailsUpdatesAsync(string? symbol = null, Action<HuobiTradeUpdate>? onOrderMatch = null, Action<HuobiOrderCancellationUpdate>? onOrderCancel = null)
+        {
+            var request = new HuobiAuthenticatedSubscribeRequest($"trade.clearing#{symbol ?? "*"}#1");
+            var internalHandler = new Action<JToken>(data =>
             {
-                var typeConverter = new OrderTypeConverter(false);
-                request.Types = string.Join(",", types.Select(s => JsonConvert.SerializeObject(s, typeConverter)));
-            }
-            request.StartTime = startTime?.ToString("yyyy-MM-dd");
-            request.EndTime = endTime?.ToString("yyyy-MM-dd");
-            request.FromId = fromId?.ToString(CultureInfo.InvariantCulture);
-            request.Limit = limit?.ToString(CultureInfo.InvariantCulture);
-
-            var result = await Query<HuobiSocketAuthDataResponse<IEnumerable<HuobiOrder>>>(request, true).ConfigureAwait(false);
-            return new CallResult<IEnumerable<HuobiOrder>>(result.Data?.Data, result.Error);
-        }
-
-        /// <summary>
-        /// Subscribe to updates when any order changes
-        /// </summary>
-        /// <param name="onData">The handler for updates</param>
-        /// <returns></returns>
-        public CallResult<UpdateSubscription> SubscribeToOrderUpdates(Action<HuobiOrderUpdate> onData) => SubscribeToOrderUpdatesAsync(onData).Result;
-        /// <summary>
-        /// Subscribe to updates when any order changes
-        /// </summary>
-        /// <param name="onData">The handler for updates</param>
-        /// <returns></returns>
-        public async Task<CallResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(Action<HuobiOrderUpdate> onData)
-        {
-            var request = new HuobiAuthenticatedRequest(NextId().ToString(CultureInfo.InvariantCulture), "sub", "orders.*");
-            var internalHandler = new Action<HuobiSocketAuthDataResponse<HuobiOrderUpdate>>(data => onData(data.Data));
+                var eventType = (string)data["data"]["eventType"];
+                if (eventType == "trade")
+                    DeserializeAndInvoke(data, onOrderMatch);
+                else if(eventType == "cancellation")
+                    DeserializeAndInvoke(data, onOrderCancel);
+                else
+                {
+                    log.Write(LogVerbosity.Warning, "Unknown order details event type: " + eventType);
+                }
+            });
             return await Subscribe(request, null, true, internalHandler).ConfigureAwait(false);
-        }
-
-        /// <summary>
-        /// Subscribe to updates when a order for a symbol changes
-        /// </summary> 
-        /// <param name="symbol">The symbol to subscribe to</param>
-        /// <param name="onData">The handler for updates</param>
-        /// <returns></returns>
-        public CallResult<UpdateSubscription> SubscribeToOrderUpdates(string symbol, Action<HuobiOrderUpdate> onData) => SubscribeToOrderUpdatesAsync(symbol, onData).Result;
-        /// <summary>
-        /// Subscribe to updates when a order for a symbol changes
-        /// </summary>
-        /// <param name="symbol">The symbol to subscribe to</param>
-        /// <param name="onData">The handler for updates</param>
-        /// <returns></returns>
-        public async Task<CallResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(string symbol, Action<HuobiOrderUpdate> onData)
-        {
-            symbol = symbol.ValidateHuobiSymbol();
-            var request = new HuobiAuthenticatedRequest(NextId().ToString(CultureInfo.InvariantCulture), "sub", $"orders.{symbol}");
-            var internalHandler = new Action<HuobiSocketAuthDataResponse<HuobiOrderUpdate>>(data => onData(data.Data));
-            return await Subscribe(request, null, true, internalHandler).ConfigureAwait(false);
-        }
-
-        /// <summary>
-        /// Gets data for a specific order
-        /// </summary>
-        /// <param name="orderId">The id of the order to retrieve</param>
-        /// <returns></returns>
-        public CallResult<HuobiOrder> GetOrderDetails(long orderId) => GetOrderDetailsAsync(orderId).Result;
-        /// <summary>
-        /// Gets data for a specific order
-        /// </summary>
-        /// <param name="orderId">The id of the order to retrieve</param>
-        /// <returns></returns>
-        public async Task<CallResult<HuobiOrder>> GetOrderDetailsAsync(long orderId)
-        {
-            var result = await Query<HuobiSocketAuthDataResponse<HuobiOrder>>(new HuobiOrderDetailsRequest(NextId().ToString(CultureInfo.InvariantCulture), orderId.ToString()), true).ConfigureAwait(false);
-            return new CallResult<HuobiOrder>(result.Data?.Data, result.Error);
         }
 
         #region private
+
+        private void DeserializeAndInvoke<T>(JToken data, Action<T>? action)
+        {
+            var obj = Deserialize<T>(data["data"], true);
+            if (!obj)
+            {
+                log.Write(LogVerbosity.Error, $"Failed to deserialize {typeof(T).Name}: " + obj.Error);
+                return;
+            }
+            action?.Invoke(obj.Data);
+        }
+
         private void PingHandlerV1(SocketConnection connection, JToken data)
         {
             var v1Ping = data["ping"] != null;
@@ -452,10 +444,10 @@ namespace Huobi.Net
 
         private void PingHandlerV2(SocketConnection connection, JToken data)
         {
-            var v2Ping = (string)data["op"] == "ping";
+            var v2Ping = (string)data["action"] == "ping";
 
             if (v2Ping)
-                connection.Send(new HuobiPingAuthResponse((long)data["ts"]));
+                connection.Send(new HuobiPingAuthResponse((long)data["data"]["ts"]));
         }
         
         /// <inheritdoc />
@@ -519,11 +511,11 @@ namespace Huobi.Net
                 callResult = new CallResult<T>(desResult.Data, null);
             }
             
-            var isV2Response = (string)data["op"] == "req";
+            var isV2Response = (string)data["action"] == "req";
             if (isV2Response)
             {
-                var hRequest = (HuobiAuthenticatedRequest)request;
-                if ((string)data["cid"] != hRequest.Id)
+                var hRequest = (HuobiAuthenticatedSubscribeRequest)request;
+                if ((string)data["ch"] != hRequest.Channel)
                     return false;
 
                 var desResult = Deserialize<T>(data, false);
@@ -565,9 +557,9 @@ namespace Huobi.Net
                     return true;
                 }
 
-                if (request is HuobiAuthenticatedRequest haRequest)
+                if (request is HuobiAuthenticatedSubscribeRequest haRequest)
                 {
-                    var subResponse = Deserialize<HuobiSocketAuthResponse>(message, false);
+                    var subResponse = Deserialize<HuobiAuthSubscribeResponse>(message, false);
                     if (!subResponse)
                     {
                         log.Write(LogVerbosity.Warning, "Subscription failed: " + subResponse.Error);
@@ -575,12 +567,12 @@ namespace Huobi.Net
                         return false;
                     }
 
-                    var id = subResponse.Data.Id;
-                    if (id != haRequest.Id)
+                    var id = subResponse.Data.Channel;
+                    if (id != haRequest.Channel)
                         return false; // Not for this request
 
-                    log.Write(LogVerbosity.Warning, "Subscription failed: " + subResponse.Data.ErrorMessage);
-                    callResult = new CallResult<object>(null, new ServerError($"{subResponse.Data.ErrorCode}, {subResponse.Data.ErrorMessage}"));
+                    log.Write(LogVerbosity.Warning, "Subscription failed: " + subResponse.Data.Code);
+                    callResult = new CallResult<object>(null, new ServerError(subResponse.Data.Code, "Failed to subscribe"));
                     return true;
                 }
             }
@@ -611,10 +603,10 @@ namespace Huobi.Net
                 return true;
             }
 
-            var v2Sub = (string)message["op"] == "sub";
+            var v2Sub = (string)message["action"] == "sub";
             if (v2Sub)
             {
-                var subResponse = Deserialize<HuobiSocketAuthResponse>(message, false);
+                var subResponse = Deserialize<HuobiAuthSubscribeResponse>(message, false);
                 if (!subResponse)
                 {
                     log.Write(LogVerbosity.Warning, "Subscription failed: " + subResponse.Error);
@@ -622,14 +614,14 @@ namespace Huobi.Net
                     return false;
                 }
 
-                var hRequest = (HuobiAuthenticatedRequest)request;
-                if (subResponse.Data.Id != hRequest.Id)
+                var hRequest = (HuobiAuthenticatedSubscribeRequest)request;
+                if (subResponse.Data.Channel != hRequest.Channel)
                     return false;
 
                 if (!subResponse.Data.IsSuccessful)
                 {
-                    log.Write(LogVerbosity.Warning, "Subscription failed: " + subResponse.Data.ErrorMessage);
-                    callResult = new CallResult<object>(null, new ServerError(subResponse.Data.ErrorCode, subResponse.Data.ErrorMessage ?? "-"));
+                    log.Write(LogVerbosity.Warning, "Subscription failed: " + subResponse.Data.Message);
+                    callResult = new CallResult<object>(null, new ServerError(subResponse.Data.Code, subResponse.Data.Message));
                     return true;
                 }
 
@@ -647,10 +639,9 @@ namespace Huobi.Net
             if (request is HuobiSubscribeRequest hRequest)
                 return hRequest.Topic == (string) message["ch"];
             
-            if (request is HuobiAuthenticatedRequest haRequest)
-                return haRequest.Topic == (string) message["topic"];
+            if (request is HuobiAuthenticatedSubscribeRequest haRequest)
+                return haRequest.Channel == (string) message["ch"];
             
-
             return false;
         }
 
@@ -663,7 +654,7 @@ namespace Huobi.Net
             if (identifier == "PingV1" && message["ping"] != null)
                 return true;
 
-            if (identifier == "PingV2" && (string)message["op"] == "ping")
+            if (identifier == "PingV2" && (string)message["action"] == "ping")
                 return true;
 
             return false;
@@ -675,21 +666,27 @@ namespace Huobi.Net
             if (authProvider == null)
                 return new CallResult<bool>(false, new NoApiCredentialsError());
 
-            var authParams = authProvider.AddAuthenticationToParameters(baseAddressAuthenticated, HttpMethod.Get, new Dictionary<string, object>(), true, PostParameters.InBody, ArrayParametersSerialization.MultipleValues);
-            var authObjects = new HuobiAuthenticationRequest("auth", 
-                authProvider.Credentials.Key!.GetString(),
-                (string)authParams["SignatureMethod"],
-                authParams["SignatureVersion"].ToString(),
-                (string)authParams["Timestamp"],
-                (string)authParams["Signature"]);
+            var authParams = ((HuobiAuthenticationProvider)authProvider).SignRequest(
+                baseAddressAuthenticated,
+                HttpMethod.Get, 
+                new Dictionary<string, object>(), 
+                "accessKey",
+                "signatureMethod",
+                "signatureVersion",
+                "timestamp",
+                "signature",
+                2.1);
+            var authObjects = new HuobiAuthenticationRequest(authProvider.Credentials.Key!.GetString(),
+                (string)authParams["timestamp"],
+                (string)authParams["signature"]);
 
             var result = new CallResult<bool>(false, new ServerError("No response from server"));
             await s.SendAndWait(authObjects, ResponseTimeout, data =>
             {
-                if ((string)data["op"] != "auth")
+                if ((string)data["ch"] != "auth")
                     return false;
 
-                var authResponse = Deserialize<HuobiSocketAuthDataResponse<object>>(data, false);
+                var authResponse = Deserialize<HuobiAuthSubscribeResponse>(data, false);
                 if (!authResponse)
                 {
                     log.Write(LogVerbosity.Warning, "Authorization failed: " + authResponse.Error);
@@ -698,8 +695,8 @@ namespace Huobi.Net
                 }
                 if (!authResponse.Data.IsSuccessful)
                 {
-                    log.Write(LogVerbosity.Warning, "Authorization failed: " + authResponse.Data.ErrorMessage);
-                    result = new CallResult<bool>(false, new ServerError(authResponse.Data.ErrorCode, authResponse.Data.ErrorMessage ?? "-"));
+                    log.Write(LogVerbosity.Warning, "Authorization failed: " + authResponse.Data.Message);
+                    result = new CallResult<bool>(false, new ServerError(authResponse.Data.Code, authResponse.Data.Message));
                     return true;
                 }
 
@@ -714,41 +711,54 @@ namespace Huobi.Net
         /// <inheritdoc />
         protected override async Task<bool> Unsubscribe(SocketConnection connection, SocketSubscription s)
         {
-            string topic;
-            object? unsub = null;
-            string? unsubId = null;
-            var idField = "id";
+            var result = false;
             if (s.Request is HuobiSubscribeRequest hRequest)
             {
-                topic = hRequest.Topic;
-                unsubId = NextId().ToString();
-                unsub = new HuobiUnsubscribeRequest(unsubId, topic);
-            }
+                var unsubId = NextId().ToString();
+                var unsub = new HuobiUnsubscribeRequest(unsubId, hRequest.Topic);
 
-            if (s.Request is HuobiAuthenticatedRequest haRequest)
-            {
-                topic = haRequest.Topic;
-                unsubId = NextId().ToString();
-                unsub = new HuobiAuthUnsubscribeRequest(unsubId, topic);
-                idField = "cid";
-            }
-
-            var result = false;
-            await connection.SendAndWait(unsub, ResponseTimeout, data =>
-            {
-                if (data.Type != JTokenType.Object)
-                    return false;
-
-                var id = (string)data[idField];
-                if (id == unsubId)
+                await connection.SendAndWait(unsub, ResponseTimeout, data =>
                 {
-                    result = (string)data["status"] == "ok";
-                    return true;
-                }
+                    if (data.Type != JTokenType.Object)
+                        return false;
 
-                return false;
-            });
-            return result;
+                    var id = (string)data["id"];
+                    if (id == unsubId)
+                    {
+                        result = (string)data["status"] == "ok";
+                        return true;
+                    }
+
+                    return false;
+                });
+                return result;
+            }
+
+            if (s.Request is HuobiAuthenticatedSubscribeRequest haRequest)
+            {
+                var unsub = new Dictionary<string, object>()
+                {
+                    { "action", "unsub" },
+                    { "ch", haRequest.Channel },
+                };
+
+                await connection.SendAndWait(unsub, ResponseTimeout, data =>
+                {
+                    if (data.Type != JTokenType.Object)
+                        return false;
+
+                    if ((string)data["action"] == "unsub" && (string)data["ch"] == haRequest.Channel)
+                    {
+                        result = (int)data["code"] == 200;
+                        return true;
+                    }
+
+                    return false;
+                });
+                return result;
+            }
+
+            throw new InvalidOperationException("Unknown request type");
         }
     }
 }

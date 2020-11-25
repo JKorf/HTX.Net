@@ -1005,102 +1005,58 @@
             <param name="onData">Data handler</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.HuobiSocketClient.GetAccounts">
+        <member name="M:Huobi.Net.HuobiSocketClient.SubscribeToOrderUpdates(System.String,System.Action{Huobi.Net.Objects.SocketObjects.V2.HuobiSubmittedOrderUpdate},System.Action{Huobi.Net.Objects.SocketObjects.V2.HuobiMatchedOrderUpdate},System.Action{Huobi.Net.Objects.SocketObjects.V2.HuobiCancelledOrderUpdate},System.Action{Huobi.Net.Objects.SocketObjects.V2.HuobiTriggerFailureOrderUpdate},System.Action{Huobi.Net.Objects.SocketObjects.V2.HuobiOrderUpdate})">
             <summary>
-            Gets a list of accounts associated with the apikey/secret
+            Subscribe to updates of orders
+            </summary>
+            <param name="symbol">Subscribe on a specific symbol</param>
+            <param name="onOrderSubmitted">Event handler for the order submitted event</param>
+            <param name="onOrderMatched">Event handler for the order matched event</param>
+            <param name="onOrderCancellation">Event handler for the order cancelled event</param>
+            <param name="onConditionalOrderTriggerFailure">Event handler for the conditional order trigger failed event</param>
+            <param name="onConditionalOrderCancelled">Event handler for the condition order cancelled event</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiSocketClient.SubscribeToOrderUpdatesAsync(System.String,System.Action{Huobi.Net.Objects.SocketObjects.V2.HuobiSubmittedOrderUpdate},System.Action{Huobi.Net.Objects.SocketObjects.V2.HuobiMatchedOrderUpdate},System.Action{Huobi.Net.Objects.SocketObjects.V2.HuobiCancelledOrderUpdate},System.Action{Huobi.Net.Objects.SocketObjects.V2.HuobiTriggerFailureOrderUpdate},System.Action{Huobi.Net.Objects.SocketObjects.V2.HuobiOrderUpdate})">
+            <summary>
+            Subscribe to updates of orders
+            </summary>
+            <param name="symbol">Subscribe on a specific symbol</param>
+            <param name="onOrderSubmitted">Event handler for the order submitted event</param>
+            <param name="onOrderMatched">Event handler for the order matched event</param>
+            <param name="onOrderCancellation">Event handler for the order cancelled event</param>
+            <param name="onConditionalOrderTriggerFailure">Event handler for the conditional order trigger failed event</param>
+            <param name="onConditionalOrderCancelled">Event handler for the condition order cancelled event</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiSocketClient.SubscribeToAccountUpdates(System.Action{Huobi.Net.Objects.SocketObjects.V2.HuobiAccountUpdate})">
+            <summary>
+            Subscribe to updates of account balances
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.HuobiSocketClient.GetAccountsAsync">
+        <member name="M:Huobi.Net.HuobiSocketClient.SubscribeToAccountUpdatesAsync(System.Action{Huobi.Net.Objects.SocketObjects.V2.HuobiAccountUpdate})">
             <summary>
-            Gets a list of accounts associated with the apikey/secret
+            Subscribe to updates of account balances
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.HuobiSocketClient.SubscribeToAccountUpdates(System.Action{Huobi.Net.Objects.SocketObjects.HuobiAccountEvent})">
+        <member name="M:Huobi.Net.HuobiSocketClient.SubscribeToOrderDetailsUpdates(System.String,System.Action{Huobi.Net.Objects.SocketObjects.V2.HuobiTradeUpdate},System.Action{Huobi.Net.Objects.SocketObjects.V2.HuobiOrderCancellationUpdate})">
             <summary>
-            Subscribe to account/wallet updates
+            Subscribe to detailed order matched/cancelled updates
             </summary>
-            <param name="onData">The handler for updates</param>
+            <param name="symbol">Subscribe to a specific symbol</param>
+            <param name="onOrderMatch">Event handler for the order matched event</param>
+            <param name="onOrderCancel">Event handler for the order cancelled event</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.HuobiSocketClient.SubscribeToAccountUpdatesAsync(System.Action{Huobi.Net.Objects.SocketObjects.HuobiAccountEvent})">
+        <member name="M:Huobi.Net.HuobiSocketClient.SubscribeToOrderDetailsUpdatesAsync(System.String,System.Action{Huobi.Net.Objects.SocketObjects.V2.HuobiTradeUpdate},System.Action{Huobi.Net.Objects.SocketObjects.V2.HuobiOrderCancellationUpdate})">
             <summary>
-            Subscribe to account/wallet updates
+            Subscribe to detailed order matched/cancelled updates
             </summary>
-            <param name="onData">The handler for updates</param>
-            <returns></returns>
-        </member>
-        <member name="M:Huobi.Net.HuobiSocketClient.GetOrders(System.Int64,System.String,System.Collections.Generic.IEnumerable{Huobi.Net.Objects.HuobiOrderState},System.Collections.Generic.IEnumerable{Huobi.Net.Objects.HuobiOrderType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int64},System.Nullable{System.Int32})">
-            <summary>
-            Gets a list of orders
-            </summary>
-            <param name="accountId">The account id to get orders for</param>
-            <param name="symbol">The symbol to get orders for</param>
-            <param name="states">The states of orders to return</param>
-            <param name="types">The types of orders to return</param>
-            <param name="startTime">Only get orders after this date</param>
-            <param name="endTime">Only get orders before this date</param>
-            <param name="fromId">Only get orders with id's higher than this</param>
-            <param name="limit">The max number of results</param>
-            <returns></returns>
-        </member>
-        <member name="M:Huobi.Net.HuobiSocketClient.GetOrdersAsync(System.Int64,System.String,System.Collections.Generic.IEnumerable{Huobi.Net.Objects.HuobiOrderState},System.Collections.Generic.IEnumerable{Huobi.Net.Objects.HuobiOrderType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int64},System.Nullable{System.Int32})">
-            <summary>
-            Gets a list of orders
-            </summary>
-            <param name="accountId">The account id to get orders for</param>
-            <param name="symbol">The symbol to get orders for</param>
-            <param name="states">The states of orders to return</param>
-            <param name="types">The types of orders to return</param>
-            <param name="startTime">Only get orders after this date</param>
-            <param name="endTime">Only get orders before this date</param>
-            <param name="fromId">Only get orders with id's higher than this</param>
-            <param name="limit">The max number of results</param>
-            <returns></returns>
-        </member>
-        <member name="M:Huobi.Net.HuobiSocketClient.SubscribeToOrderUpdates(System.Action{Huobi.Net.Objects.HuobiOrderUpdate})">
-            <summary>
-            Subscribe to updates when any order changes
-            </summary>
-            <param name="onData">The handler for updates</param>
-            <returns></returns>
-        </member>
-        <member name="M:Huobi.Net.HuobiSocketClient.SubscribeToOrderUpdatesAsync(System.Action{Huobi.Net.Objects.HuobiOrderUpdate})">
-            <summary>
-            Subscribe to updates when any order changes
-            </summary>
-            <param name="onData">The handler for updates</param>
-            <returns></returns>
-        </member>
-        <member name="M:Huobi.Net.HuobiSocketClient.SubscribeToOrderUpdates(System.String,System.Action{Huobi.Net.Objects.HuobiOrderUpdate})">
-            <summary>
-            Subscribe to updates when a order for a symbol changes
-            </summary> 
-            <param name="symbol">The symbol to subscribe to</param>
-            <param name="onData">The handler for updates</param>
-            <returns></returns>
-        </member>
-        <member name="M:Huobi.Net.HuobiSocketClient.SubscribeToOrderUpdatesAsync(System.String,System.Action{Huobi.Net.Objects.HuobiOrderUpdate})">
-            <summary>
-            Subscribe to updates when a order for a symbol changes
-            </summary>
-            <param name="symbol">The symbol to subscribe to</param>
-            <param name="onData">The handler for updates</param>
-            <returns></returns>
-        </member>
-        <member name="M:Huobi.Net.HuobiSocketClient.GetOrderDetails(System.Int64)">
-            <summary>
-            Gets data for a specific order
-            </summary>
-            <param name="orderId">The id of the order to retrieve</param>
-            <returns></returns>
-        </member>
-        <member name="M:Huobi.Net.HuobiSocketClient.GetOrderDetailsAsync(System.Int64)">
-            <summary>
-            Gets data for a specific order
-            </summary>
-            <param name="orderId">The id of the order to retrieve</param>
+            <param name="symbol">Subscribe to a specific symbol</param>
+            <param name="onOrderMatch">Event handler for the order matched event</param>
+            <param name="onOrderCancel">Event handler for the order cancelled event</param>
             <returns></returns>
         </member>
         <member name="M:Huobi.Net.HuobiSocketClient.GetWebsocket(System.String,System.Boolean)">
@@ -1812,102 +1768,58 @@
             <param name="onData">Data handler</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.GetAccounts">
+        <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.SubscribeToOrderUpdates(System.String,System.Action{Huobi.Net.Objects.SocketObjects.V2.HuobiSubmittedOrderUpdate},System.Action{Huobi.Net.Objects.SocketObjects.V2.HuobiMatchedOrderUpdate},System.Action{Huobi.Net.Objects.SocketObjects.V2.HuobiCancelledOrderUpdate},System.Action{Huobi.Net.Objects.SocketObjects.V2.HuobiTriggerFailureOrderUpdate},System.Action{Huobi.Net.Objects.SocketObjects.V2.HuobiOrderUpdate})">
             <summary>
-            Gets a list of accounts associated with the apikey/secret
+            Subscribe to updates of orders
+            </summary>
+            <param name="symbol">Subscribe on a specific symbol</param>
+            <param name="onOrderSubmitted">Event handler for the order submitted event</param>
+            <param name="onOrderMatched">Event handler for the order matched event</param>
+            <param name="onOrderCancellation">Event handler for the order cancelled event</param>
+            <param name="onConditionalOrderTriggerFailure">Event handler for the conditional order trigger failed event</param>
+            <param name="onConditionalOrderCancelled">Event handler for the condition order cancelled event</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.SubscribeToOrderUpdatesAsync(System.String,System.Action{Huobi.Net.Objects.SocketObjects.V2.HuobiSubmittedOrderUpdate},System.Action{Huobi.Net.Objects.SocketObjects.V2.HuobiMatchedOrderUpdate},System.Action{Huobi.Net.Objects.SocketObjects.V2.HuobiCancelledOrderUpdate},System.Action{Huobi.Net.Objects.SocketObjects.V2.HuobiTriggerFailureOrderUpdate},System.Action{Huobi.Net.Objects.SocketObjects.V2.HuobiOrderUpdate})">
+            <summary>
+            Subscribe to updates of orders
+            </summary>
+            <param name="symbol">Subscribe on a specific symbol</param>
+            <param name="onOrderSubmitted">Event handler for the order submitted event</param>
+            <param name="onOrderMatched">Event handler for the order matched event</param>
+            <param name="onOrderCancellation">Event handler for the order cancelled event</param>
+            <param name="onConditionalOrderTriggerFailure">Event handler for the conditional order trigger failed event</param>
+            <param name="onConditionalOrderCancelled">Event handler for the condition order cancelled event</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.SubscribeToAccountUpdates(System.Action{Huobi.Net.Objects.SocketObjects.V2.HuobiAccountUpdate})">
+            <summary>
+            Subscribe to updates of account balances
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.GetAccountsAsync">
+        <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.SubscribeToAccountUpdatesAsync(System.Action{Huobi.Net.Objects.SocketObjects.V2.HuobiAccountUpdate})">
             <summary>
-            Gets a list of accounts associated with the apikey/secret
+            Subscribe to updates of account balances
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.SubscribeToAccountUpdates(System.Action{Huobi.Net.Objects.SocketObjects.HuobiAccountEvent})">
+        <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.SubscribeToOrderDetailsUpdates(System.String,System.Action{Huobi.Net.Objects.SocketObjects.V2.HuobiTradeUpdate},System.Action{Huobi.Net.Objects.SocketObjects.V2.HuobiOrderCancellationUpdate})">
             <summary>
-            Subscribe to account/wallet updates
+            Subscribe to detailed order matched/cancelled updates
             </summary>
-            <param name="onData">The handler for updates</param>
+            <param name="symbol">Subscribe to a specific symbol</param>
+            <param name="onOrderMatch">Event handler for the order matched event</param>
+            <param name="onOrderCancel">Event handler for the order cancelled event</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.SubscribeToAccountUpdatesAsync(System.Action{Huobi.Net.Objects.SocketObjects.HuobiAccountEvent})">
+        <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.SubscribeToOrderDetailsUpdatesAsync(System.String,System.Action{Huobi.Net.Objects.SocketObjects.V2.HuobiTradeUpdate},System.Action{Huobi.Net.Objects.SocketObjects.V2.HuobiOrderCancellationUpdate})">
             <summary>
-            Subscribe to account/wallet updates
+            Subscribe to detailed order matched/cancelled updates
             </summary>
-            <param name="onData">The handler for updates</param>
-            <returns></returns>
-        </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.GetOrders(System.Int64,System.String,System.Collections.Generic.IEnumerable{Huobi.Net.Objects.HuobiOrderState},System.Collections.Generic.IEnumerable{Huobi.Net.Objects.HuobiOrderType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int64},System.Nullable{System.Int32})">
-            <summary>
-            Gets a list of orders
-            </summary>
-            <param name="accountId">The account id to get orders for</param>
-            <param name="symbol">The symbol to get orders for</param>
-            <param name="states">The states of orders to return</param>
-            <param name="types">The types of orders to return</param>
-            <param name="startTime">Only get orders after this date</param>
-            <param name="endTime">Only get orders before this date</param>
-            <param name="fromId">Only get orders with id's higher than this</param>
-            <param name="limit">The max number of results</param>
-            <returns></returns>
-        </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.GetOrdersAsync(System.Int64,System.String,System.Collections.Generic.IEnumerable{Huobi.Net.Objects.HuobiOrderState},System.Collections.Generic.IEnumerable{Huobi.Net.Objects.HuobiOrderType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int64},System.Nullable{System.Int32})">
-            <summary>
-            Gets a list of orders
-            </summary>
-            <param name="accountId">The account id to get orders for</param>
-            <param name="symbol">The symbol to get orders for</param>
-            <param name="states">The states of orders to return</param>
-            <param name="types">The types of orders to return</param>
-            <param name="startTime">Only get orders after this date</param>
-            <param name="endTime">Only get orders before this date</param>
-            <param name="fromId">Only get orders with id's higher than this</param>
-            <param name="limit">The max number of results</param>
-            <returns></returns>
-        </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.SubscribeToOrderUpdates(System.Action{Huobi.Net.Objects.HuobiOrderUpdate})">
-            <summary>
-            Subscribe to updates when any order changes
-            </summary>
-            <param name="onData">The handler for updates</param>
-            <returns></returns>
-        </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.SubscribeToOrderUpdatesAsync(System.Action{Huobi.Net.Objects.HuobiOrderUpdate})">
-            <summary>
-            Subscribe to updates when any order changes
-            </summary>
-            <param name="onData">The handler for updates</param>
-            <returns></returns>
-        </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.SubscribeToOrderUpdates(System.String,System.Action{Huobi.Net.Objects.HuobiOrderUpdate})">
-            <summary>
-            Subscribe to updates when a order for a symbol changes
-            </summary> 
-            <param name="symbol">The symbol to subscribe to</param>
-            <param name="onData">The handler for updates</param>
-            <returns></returns>
-        </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.SubscribeToOrderUpdatesAsync(System.String,System.Action{Huobi.Net.Objects.HuobiOrderUpdate})">
-            <summary>
-            Subscribe to updates when a order for a symbol changes
-            </summary>
-            <param name="symbol">The symbol to subscribe to</param>
-            <param name="onData">The handler for updates</param>
-            <returns></returns>
-        </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.GetOrderDetails(System.Int64)">
-            <summary>
-            Gets data for a specific order
-            </summary>
-            <param name="orderId">The id of the order to retrieve</param>
-            <returns></returns>
-        </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.GetOrderDetailsAsync(System.Int64)">
-            <summary>
-            Gets data for a specific order
-            </summary>
-            <param name="orderId">The id of the order to retrieve</param>
+            <param name="symbol">Subscribe to a specific symbol</param>
+            <param name="onOrderMatch">Event handler for the order matched event</param>
+            <param name="onOrderCancel">Event handler for the order cancelled event</param>
             <returns></returns>
         </member>
         <member name="T:Huobi.Net.Objects.HuobiAccount">
@@ -2475,6 +2387,11 @@
             Created
             </summary>
         </member>
+        <member name="F:Huobi.Net.Objects.HuobiOrderState.Rejected">
+            <summary>
+            Rejected
+            </summary>
+        </member>
         <member name="T:Huobi.Net.Objects.HuobiAccountEventType">
             <summary>
             Event type
@@ -2528,6 +2445,16 @@
         <member name="F:Huobi.Net.Objects.HuobiAccountEventType.Other">
             <summary>
             Other event
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Objects.HuobiAccountEventType.Deposit">
+            <summary>
+            Deposit event
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Objects.HuobiAccountEventType.Withdraw">
+            <summary>
+            Withdraw event
             </summary>
         </member>
         <member name="T:Huobi.Net.Objects.HuobiTransferType">
@@ -3420,67 +3347,12 @@
             Time
             </summary>
         </member>
-        <member name="T:Huobi.Net.Objects.SocketObjects.HuobiAccountEvent">
-            <summary>
-            Account event
-            </summary>
-        </member>
-        <member name="P:Huobi.Net.Objects.SocketObjects.HuobiAccountEvent.Timestamp">
-            <summary>
-            The timestamp of the event
-            </summary>
-        </member>
-        <member name="P:Huobi.Net.Objects.SocketObjects.HuobiAccountEvent.Event">
-            <summary>
-            The event type that triggered the update
-            </summary>
-        </member>
-        <member name="P:Huobi.Net.Objects.SocketObjects.HuobiAccountEvent.BalanceChanges">
-            <summary>
-            List of changes
-            </summary>
-        </member>
-        <member name="T:Huobi.Net.Objects.SocketObjects.HuobiBalanceChange">
-            <summary>
-            Balance change
-            </summary>
-        </member>
-        <member name="P:Huobi.Net.Objects.SocketObjects.HuobiBalanceChange.AccountId">
-            <summary>
-            The id of the account
-            </summary>
-        </member>
-        <member name="P:Huobi.Net.Objects.SocketObjects.HuobiBalanceChange.Currency">
-            <summary>
-            The currency that changed
-            </summary>
-        </member>
-        <member name="P:Huobi.Net.Objects.SocketObjects.HuobiBalanceChange.Type">
-            <summary>
-            The type of the balance that changed
-            </summary>
-        </member>
-        <member name="P:Huobi.Net.Objects.SocketObjects.HuobiBalanceChange.Balance">
-            <summary>
-            The new amount
-            </summary>
-        </member>
         <member name="P:Huobi.Net.Objects.SocketObjects.HuobiSocketResponse`1.Timestamp">
             <summary>
             The timestamp of the data
             </summary>
         </member>
         <member name="P:Huobi.Net.Objects.SocketObjects.HuobiSocketResponse`1.Data">
-            <summary>
-            The data
-            </summary>
-        </member>
-        <member name="P:Huobi.Net.Objects.SocketObjects.HuobiSocketAuthResponse.Timestamp">
-            <summary>
-            The timestamp of the response
-            </summary>
-        </member>
-        <member name="P:Huobi.Net.Objects.SocketObjects.HuobiSocketAuthDataResponse`1.Data">
             <summary>
             The data
             </summary>
@@ -3498,6 +3370,446 @@
         <member name="P:Huobi.Net.Objects.SocketObjects.HuobiSocketUpdate`1.Data">
             <summary>
             The data of the update
+            </summary>
+        </member>
+        <member name="T:Huobi.Net.Objects.SocketObjects.V2.HuobiAccountUpdate">
+            <summary>
+            Account update
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiAccountUpdate.Currency">
+            <summary>
+            Currency
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiAccountUpdate.AccountId">
+            <summary>
+            Account id
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiAccountUpdate.Balance">
+            <summary>
+            Total balance
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiAccountUpdate.Available">
+            <summary>
+            Available balance
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiAccountUpdate.ChangeType">
+            <summary>
+            Type of change
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiAccountUpdate.AccountType">
+            <summary>
+            Account type
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiAccountUpdate.ChangeTime">
+            <summary>
+            Change time
+            </summary>
+        </member>
+        <member name="T:Huobi.Net.Objects.SocketObjects.V2.HuobiOrderCancellationUpdate">
+            <summary>
+            Cancellation details
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiOrderCancellationUpdate.EventType">
+            <summary>
+            Event type
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiOrderCancellationUpdate.Symbol">
+            <summary>
+            The symbol
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiOrderCancellationUpdate.OrderId">
+            <summary>
+            Order id
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiOrderCancellationUpdate.Side">
+            <summary>
+            Order side
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiOrderCancellationUpdate.Type">
+            <summary>
+            Order type
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiOrderCancellationUpdate.AccountId">
+            <summary>
+            Account id
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiOrderCancellationUpdate.OrderSource">
+            <summary>
+            Order source
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiOrderCancellationUpdate.OrderPrice">
+            <summary>
+            Order price
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiOrderCancellationUpdate.OrderSize">
+            <summary>
+            Order size
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiOrderCancellationUpdate.ClientOrderId">
+            <summary>
+            Client order id
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiOrderCancellationUpdate.StopPrice">
+            <summary>
+            Stop price
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiOrderCancellationUpdate.Operator">
+            <summary>
+            Operator
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiOrderCancellationUpdate.OrderCreateTime">
+            <summary>
+            Order creation time
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiOrderCancellationUpdate.OrderStatus">
+            <summary>
+            Order status
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiOrderCancellationUpdate.RemainingAmount">
+            <summary>
+            Remaining amount
+            </summary>
+        </member>
+        <member name="T:Huobi.Net.Objects.SocketObjects.V2.HuobiOrderUpdate">
+            <summary>
+            Order update
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiOrderUpdate.EventType">
+            <summary>
+            Event type
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiOrderUpdate.Symbol">
+            <summary>
+            The symbol
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiOrderUpdate.ClientOrderId">
+            <summary>
+            Client order id
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiOrderUpdate.Status">
+            <summary>
+            Order status
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiOrderUpdate.LastActTime">
+            <summary>
+            Timestamp
+            </summary>
+        </member>
+        <member name="T:Huobi.Net.Objects.SocketObjects.V2.HuobiSubmittedOrderUpdate">
+            <summary>
+            Submitted order update
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiSubmittedOrderUpdate.AccountId">
+            <summary>
+            Account id
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiSubmittedOrderUpdate.OrderId">
+            <summary>
+            Order id
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiSubmittedOrderUpdate.Price">
+            <summary>
+            Price of the order
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiSubmittedOrderUpdate.Size">
+            <summary>
+            Size of the order
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiSubmittedOrderUpdate.Value">
+            <summary>
+            Value of the order
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiSubmittedOrderUpdate.Type">
+            <summary>
+            Type of the order
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiSubmittedOrderUpdate.CreateTime">
+            <summary>
+            Creation time
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiSubmittedOrderUpdate.OrderSource">
+            <summary>
+            Order source
+            </summary>
+        </member>
+        <member name="T:Huobi.Net.Objects.SocketObjects.V2.HuobiMatchedOrderUpdate">
+            <summary>
+            Matched order update
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiMatchedOrderUpdate.TradePrice">
+            <summary>
+            Trade price
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiMatchedOrderUpdate.TradeVolume">
+            <summary>
+            Trade volume
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiMatchedOrderUpdate.OrderId">
+            <summary>
+            Order id
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiMatchedOrderUpdate.Type">
+            <summary>
+            Order type
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiMatchedOrderUpdate.TradeId">
+            <summary>
+            Trade id
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiMatchedOrderUpdate.TradeTime">
+            <summary>
+            Timestamp of trade
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiMatchedOrderUpdate.IsTaker">
+            <summary>
+            Is the taker
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiMatchedOrderUpdate.RemainingAmount">
+            <summary>
+            Remaining amount
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiMatchedOrderUpdate.ExecutedAmount">
+            <summary>
+            Executed amount
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiMatchedOrderUpdate.Price">
+            <summary>
+            Price of the order
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiMatchedOrderUpdate.Size">
+            <summary>
+            Size of the order
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiMatchedOrderUpdate.OrderSource">
+            <summary>
+            Order source
+            </summary>
+        </member>
+        <member name="T:Huobi.Net.Objects.SocketObjects.V2.HuobiCancelledOrderUpdate">
+            <summary>
+            Cancelled order update
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiCancelledOrderUpdate.OrderId">
+            <summary>
+            Order id
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiCancelledOrderUpdate.Type">
+            <summary>
+            Order type
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiCancelledOrderUpdate.RemainingAmount">
+            <summary>
+            Remaining amount
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiCancelledOrderUpdate.ExecutedAmount">
+            <summary>
+            Executed amount
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiCancelledOrderUpdate.Price">
+            <summary>
+            Price of the order
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiCancelledOrderUpdate.Size">
+            <summary>
+            Size of the order
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiCancelledOrderUpdate.OrderSource">
+            <summary>
+            Order source
+            </summary>
+        </member>
+        <member name="T:Huobi.Net.Objects.SocketObjects.V2.HuobiTriggerFailureOrderUpdate">
+            <summary>
+            Info on a failed trigger for a conditional order
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiTriggerFailureOrderUpdate.Side">
+            <summary>
+            Side of the order
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiTriggerFailureOrderUpdate.ErrorCode">
+            <summary>
+            The error code
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiTriggerFailureOrderUpdate.ErrorMessage">
+            <summary>
+            The error message
+            </summary>
+        </member>
+        <member name="T:Huobi.Net.Objects.SocketObjects.V2.HuobiTradeUpdate">
+            <summary>
+            Trade update
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiTradeUpdate.EventType">
+            <summary>
+            Event type
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiTradeUpdate.Symbol">
+            <summary>
+            The symbol
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiTradeUpdate.OrderId">
+            <summary>
+            Order id
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiTradeUpdate.TradePrice">
+            <summary>
+            Price of this trade
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiTradeUpdate.TradeVolume">
+            <summary>
+            Volume of this trade
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiTradeUpdate.Side">
+            <summary>
+            Order side
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiTradeUpdate.Type">
+            <summary>
+            Order type
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiTradeUpdate.IsTaker">
+            <summary>
+            Is the taker
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiTradeUpdate.TradeId">
+            <summary>
+            Trade id
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiTradeUpdate.TradeTime">
+            <summary>
+            Time of trade
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiTradeUpdate.TransactionFee">
+            <summary>
+            Transaction fee
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiTradeUpdate.FeeCurrency">
+            <summary>
+            Currency of the fee
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiTradeUpdate.FeeDeduct">
+            <summary>
+            Fee deduction amount
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiTradeUpdate.FeeDeductType">
+            <summary>
+            Fee deduction type
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiTradeUpdate.AccountId">
+            <summary>
+            Account id
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiTradeUpdate.OrderSource">
+            <summary>
+            Order source
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiTradeUpdate.OrderPrice">
+            <summary>
+            Order price
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiTradeUpdate.OrderSize">
+            <summary>
+            Order size
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiTradeUpdate.ClientOrderId">
+            <summary>
+            Client order id
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiTradeUpdate.StopPrice">
+            <summary>
+            Stop price
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiTradeUpdate.Operator">
+            <summary>
+            Operator
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiTradeUpdate.OrderCreateTime">
+            <summary>
+            Order creation time
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiTradeUpdate.OrderStatus">
+            <summary>
+            Order status
             </summary>
         </member>
     </members>

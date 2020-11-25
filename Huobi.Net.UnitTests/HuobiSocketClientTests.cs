@@ -5,9 +5,11 @@ using System.Threading;
 using CryptoExchange.Net;
 using Huobi.Net.Objects;
 using Huobi.Net.Objects.SocketObjects;
+using Huobi.Net.Objects.SocketObjects.V2;
 using Huobi.Net.UnitTests.TestImplementations;
 using Newtonsoft.Json;
 using NUnit.Framework;
+using HuobiOrderUpdate = Huobi.Net.Objects.HuobiOrderUpdate;
 
 namespace Huobi.Net.UnitTests
 {
@@ -248,195 +250,32 @@ namespace Huobi.Net.UnitTests
             socket.CanConnect = true;
             var client = TestHelpers.CreateAuthenticatedSocketClient(socket);
 
-            HuobiAccountEvent result = null;
+            HuobiAccountUpdate result = null;
             var subTask = client.SubscribeToAccountUpdatesAsync(test => result = test);
-            socket.InvokeMessage("{\"op\": \"auth\"}");
+            socket.InvokeMessage("{\"ch\": \"auth\", \"code\": 200, \"action\": \"req\"}");
             Thread.Sleep(10);
-            socket.InvokeMessage($"{{\"op\": \"sub\", \"cid\": \"{BaseClient.LastId}\"}}");
+            socket.InvokeMessage($"{{\"action\": \"sub\", \"code\": 200, \"ch\": \"accounts.update#1\"}}");
             var subResult = subTask.Result;
 
-            var expected = new HuobiAccountEvent()
+            var expected = new HuobiAccountUpdate()
             {
-                Event = HuobiAccountEventType.Other,
-                BalanceChanges = new List<HuobiBalanceChange>()
-                {
-                    new HuobiBalanceChange()
-                    {
-                        Type = HuobiBalanceType.Frozen,
-                        AccountId = 123,
-                        Currency = "eth",
-                        Balance = 0.1m
-                    }
-                }
+                AccountId = 123,
+                AccountType = HuobiBalanceType.Frozen,
+                Available = 456,
+                Balance = 789,
+                ChangeTime = new DateTime(2020, 11, 25),
+                ChangeType = HuobiAccountEventType.Deposit,
+                Currency = "usdt"
             };
 
             // act
-            socket.InvokeMessage(SerializeExpectedAuth("accounts", expected));
-
-            // assert
-            Assert.IsTrue(subResult.Success);
-            Assert.IsTrue(TestHelpers.AreEqual(expected, result, "BalanceChanges"));
-            Assert.IsTrue(TestHelpers.AreEqual(expected.BalanceChanges.ToList()[0], result.BalanceChanges.ToList()[0]));
-        }
-
-        [Test]
-        public void SubscribeToOrderUpdates_Should_TriggerWithOrderUpdate()
-        {
-            // arrange
-            var socket = new TestSocket();
-            socket.CanConnect = true;
-            var client = TestHelpers.CreateAuthenticatedSocketClient(socket);
-
-            HuobiOrderUpdate result = null;
-            var subTask = client.SubscribeToOrderUpdatesAsync(test => result = test);
-            socket.InvokeMessage("{\"op\": \"auth\"}");
-            Thread.Sleep(10);
-            socket.InvokeMessage($"{{\"op\": \"sub\", \"cid\": \"{BaseClient.LastId}\"}}");
-            var subResult = subTask.Result;
-
-            var expected = new HuobiOrderUpdate()
-            {
-                Id = 123,
-                Amount = 0.1m,
-                Type = HuobiOrderType.IOCBuy,
-                Price = 0.2m,
-                Symbol = "ethusdt",
-                State = HuobiOrderState.Canceled,
-                Source = "API",
-                AccountId = 1543,
-                FilledAmount = 0.3m,
-                CreatedAt = new DateTime(2018, 1, 1),
-                FilledFees = 0.4m,
-                FilledCashAmount = 0.5m,
-            };
-
-            // act
-            socket.InvokeMessage(SerializeExpectedAuth("orders.*", expected));
+            socket.InvokeMessage(SerializeExpectedAuth("accounts.update#1", expected));
 
             // assert
             Assert.IsTrue(subResult.Success);
             Assert.IsTrue(TestHelpers.AreEqual(expected, result));
         }
-
-        [Test]
-        public void QueryingAccountInfo_Should_ReturnAccountInfo()
-        {
-            // arrange
-            var socket = new TestSocket();
-            socket.CanConnect = true;
-            var client = TestHelpers.CreateAuthenticatedSocketClient(socket);
-
-            var expected = new List<HuobiAccountBalances>()
-            {
-                new HuobiAccountBalances()
-                {
-                    Id = 123,
-                    State = HuobiAccountState.Locked,
-                    Type = HuobiAccountType.Margin,
-                    Data = new List<HuobiBalance>()
-                    {
-                        new HuobiBalance()
-                        {
-                            Type = HuobiBalanceType.Frozen,
-                            Balance = 0.1m,
-                            Currency = "eth"
-                        }
-                    }
-                }
-            };
-
-            // act
-            var subTask = client.GetAccountsAsync();
-            socket.InvokeMessage("{\"op\": \"auth\"}");
-            Thread.Sleep(10);
-            socket.InvokeMessage(SerializeExpectedQuery(expected));
-            var subResult = subTask.Result;
-
-            // assert
-            Assert.IsTrue(subResult.Success);
-            Assert.IsTrue(TestHelpers.AreEqual(expected[0], subResult.Data.ToList()[0], "Data"));
-            Assert.IsTrue(TestHelpers.AreEqual(expected[0].Data.ToList()[0], subResult.Data.ToList()[0].Data.ToList()[0]));
-        }
-
-        [Test]
-        public void QueryingOrderDetails_Should_ReturnOrderDetails()
-        {
-            // arrange
-            var socket = new TestSocket();
-            socket.CanConnect = true;
-            var client = TestHelpers.CreateAuthenticatedSocketClient(socket);
-
-            var expected = new HuobiOrder()
-            {
-                Id = 123,
-                Amount = 0.1m,
-                Type = HuobiOrderType.IOCBuy,
-                Price = 0.2m,
-                Symbol = "ethusdt",
-                State = HuobiOrderState.Canceled,
-                Source = "API",
-                AccountId = 1543,
-                FilledAmount = 0.3m,
-                CreatedAt = new DateTime(2018, 1, 1),
-                FilledFees = 0.4m,
-                CanceledAt = new DateTime(2018, 1, 2),
-                FilledCashAmount = 0.5m,
-                FinishedAt = new DateTime(2018, 1, 3)
-            };
-
-            // act
-            var subTask = client.GetOrderDetailsAsync(123);
-            socket.InvokeMessage("{\"op\": \"auth\"}");
-            Thread.Sleep(10);
-            socket.InvokeMessage(SerializeExpectedQuery(expected));
-            var subResult = subTask.Result;
-
-            // assert
-            Assert.IsTrue(subResult.Success);
-            Assert.IsTrue(TestHelpers.AreEqual(expected, subResult.Data));
-        }
-
-        [Test]
-        public void QueryingOrders_Should_ReturnOrders()
-        {
-            // arrange
-            var socket = new TestSocket();
-            socket.CanConnect = true;
-            var client = TestHelpers.CreateAuthenticatedSocketClient(socket);
-
-            var expected = new List<HuobiOrder>
-            {
-                new HuobiOrder()
-                {
-                    Id = 123,
-                    Amount = 0.1m,
-                    Type = HuobiOrderType.IOCBuy,
-                    Price = 0.2m,
-                    Symbol = "ethusdt",
-                    State = HuobiOrderState.Canceled,
-                    Source = "API",
-                    AccountId = 1543,
-                    FilledAmount = 0.3m,
-                    CreatedAt = new DateTime(2018, 1, 1),
-                    FilledFees = 0.4m,
-                    CanceledAt = new DateTime(2018, 1, 2),
-                    FilledCashAmount = 0.5m,
-                    FinishedAt = new DateTime(2018, 1, 3)
-                }
-            };
-
-            // act
-            var subTask = client.GetOrdersAsync(123, "ethusdt", new [] { HuobiOrderState.Canceled });
-            socket.InvokeMessage("{\"op\": \"auth\"}");
-            Thread.Sleep(10);
-            socket.InvokeMessage(SerializeExpectedQuery(expected));
-            var subResult = subTask.Result;
-
-            // assert
-            Assert.IsTrue(subResult.Success);
-            Assert.IsTrue(TestHelpers.AreEqual(expected[0], subResult.Data.ToList()[0]));
-        }
-
+        
         [Test]
         public void SubscribeV2_Should_SucceedIfSubbedResponse()
         {
@@ -447,9 +286,9 @@ namespace Huobi.Net.UnitTests
 
             // act
             var subTask = client.SubscribeToAccountUpdatesAsync(test => { });
-            socket.InvokeMessage("{\"op\": \"auth\"}");
+            socket.InvokeMessage("{\"action\": \"req\", \"code\": 200, \"ch\": \"auth\"}");
             Thread.Sleep(10);
-            socket.InvokeMessage($"{{\"op\": \"sub\", \"cid\": \"{BaseClient.LastId}\"}}");
+            socket.InvokeMessage("{\"action\": \"sub\", \"code\": 200, \"ch\": \"accounts.update#1\"}");
             var subResult = subTask.Result;
 
             // assert
@@ -466,7 +305,7 @@ namespace Huobi.Net.UnitTests
 
             // act
             var subTask = client.SubscribeToAccountUpdatesAsync(test => { });
-            socket.InvokeMessage("{ \"op\": \"auth\", \"status\": \"error\", \"err-code\": 1, \"err-msg\": \"failed\"}");
+            socket.InvokeMessage("{ \"action\": \"req\", \"ch\": \"auth\", \"code\": 400}");
             var subResult = subTask.Result;
 
             // assert
@@ -516,14 +355,9 @@ namespace Huobi.Net.UnitTests
             return $"{{\"ch\": \"{channel}\", \"data\": {JsonConvert.SerializeObject(data)}}}";
         }
 
-        public string SerializeExpectedAuth<T>(string topic, T data)
+        public string SerializeExpectedAuth<T>(string channel, T data)
         {
-            return $"{{\"op\": \"notify\", \"topic\": \"{topic}\", \"data\": {JsonConvert.SerializeObject(data)}}}";
-        }
-
-        public string SerializeExpectedQuery<T>(T data)
-        {
-            return $"{{\"op\": \"req\", \"cid\": \"{BaseClient.LastId}\", \"data\": {JsonConvert.SerializeObject(data)}}}";
+            return $"{{\"action\": \"push\", \"ch\": \"{channel}\", \"code\": 200, \"data\": {JsonConvert.SerializeObject(data)}}}";
         }
     }
 }

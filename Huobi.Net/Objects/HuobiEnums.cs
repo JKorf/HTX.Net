@@ -232,7 +232,11 @@
         /// <summary>
         /// Created
         /// </summary>
-        Created
+        Created,
+        /// <summary>
+        /// Rejected
+        /// </summary>
+        Rejected
     }
 
     /// <summary>
@@ -279,7 +283,15 @@
         /// <summary>
         /// Other event
         /// </summary>
-        Other
+        Other,
+        /// <summary>
+        /// Deposit event
+        /// </summary>
+        Deposit,
+        /// <summary>
+        /// Withdraw event
+        /// </summary>
+        Withdraw
     }
 
     /// <summary>

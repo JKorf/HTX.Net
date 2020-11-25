@@ -20,7 +20,9 @@ namespace Huobi.Net.Converters
             new KeyValuePair<HuobiAccountEventType, string>(HuobiAccountEventType.MarginLoan, "margin.loan"),
             new KeyValuePair<HuobiAccountEventType, string>(HuobiAccountEventType.MarginRepay, "margin.repay"),
             new KeyValuePair<HuobiAccountEventType, string>(HuobiAccountEventType.MarginTransfer, "margin.transfer"),
-            new KeyValuePair<HuobiAccountEventType, string>(HuobiAccountEventType.Other, "other")
+            new KeyValuePair<HuobiAccountEventType, string>(HuobiAccountEventType.Other, "other"),
+            new KeyValuePair<HuobiAccountEventType, string>(HuobiAccountEventType.Deposit, "deposit"),
+            new KeyValuePair<HuobiAccountEventType, string>(HuobiAccountEventType.Withdraw, "withdraw")
         };
     }
 }

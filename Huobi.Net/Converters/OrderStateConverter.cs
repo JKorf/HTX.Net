@@ -17,6 +17,7 @@ namespace Huobi.Net.Converters
             new KeyValuePair<HuobiOrderState, string>(HuobiOrderState.PartiallyCanceled, "partial-canceled"),
             new KeyValuePair<HuobiOrderState, string>(HuobiOrderState.Filled, "filled"),
             new KeyValuePair<HuobiOrderState, string>(HuobiOrderState.Canceled, "canceled"),
+            new KeyValuePair<HuobiOrderState, string>(HuobiOrderState.Rejected, "rejected"),
             new KeyValuePair<HuobiOrderState, string>(HuobiOrderState.Created, "created")
         };
     }
