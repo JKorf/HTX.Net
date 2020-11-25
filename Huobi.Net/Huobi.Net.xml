@@ -1259,6 +1259,36 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetNav(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Gets real time NAV for ETP
+            </summary>
+            <param name="symbol">The symbol to get the data for</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetNavAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Gets real time NAV for ETP
+            </summary>
+            <param name="symbol">The symbol to get the data for</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetMarketStatus(System.Threading.CancellationToken)">
+            <summary>
+            Gets the current market status
+            </summary>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetMarketStatusAsync(System.Threading.CancellationToken)">
+            <summary>
+            Gets the current market status
+            </summary>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
         <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetSymbols(System.Threading.CancellationToken)">
             <summary>
             Gets a list of supported symbols
@@ -1284,6 +1314,22 @@
             <summary>
             Gets a list of supported currencies
             </summary>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetCurrenciesAndChains(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Gets a list of supported currencies and chains
+            </summary>
+            <param name="currency">Filter by currency</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetCurrenciesAndChainsAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Gets a list of supported currencies and chains
+            </summary>
+            <param name="currency">Filter by currency</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -1331,6 +1377,56 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetAssetValuation(Huobi.Net.Objects.HuobiAccountType,System.String,System.Nullable{System.Int64},System.Threading.CancellationToken)">
+            <summary>
+            Gets the valuation of all assets
+            </summary>
+            <param name="accountType">Type of account to valuate</param>
+            <param name="valuationCurrency">The currency to get the value in</param>
+            <param name="subUserId">The id of the sub user</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetAssetValuationAsync(Huobi.Net.Objects.HuobiAccountType,System.String,System.Nullable{System.Int64},System.Threading.CancellationToken)">
+            <summary>
+            Gets the valuation of all assets
+            </summary>
+            <param name="accountType">Type of account to valuate</param>
+            <param name="valuationCurrency">The currency to get the value in</param>
+            <param name="subUserId">The id of the sub user</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.TransferAsset(System.Int64,Huobi.Net.Objects.HuobiAccountType,System.Int64,System.Int64,Huobi.Net.Objects.HuobiAccountType,System.Int64,System.String,System.Decimal,System.Threading.CancellationToken)">
+            <summary>
+            Transfer assets between accounts
+            </summary>
+            <param name="fromUserId">From user id</param>
+            <param name="fromAccountType">From account type</param>
+            <param name="fromAccountId">From account id</param>
+            <param name="toUserId">To user id</param>
+            <param name="toAccountType">To account type</param>
+            <param name="toAccountId">To account id</param>
+            <param name="currency">Currency to transfer</param>
+            <param name="amount">Amount to transfer</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.TransferAssetAsync(System.Int64,Huobi.Net.Objects.HuobiAccountType,System.Int64,System.Int64,Huobi.Net.Objects.HuobiAccountType,System.Int64,System.String,System.Decimal,System.Threading.CancellationToken)">
+            <summary>
+            Transfer assets between accounts
+            </summary>
+            <param name="fromUserId">From user id</param>
+            <param name="fromAccountType">From account type</param>
+            <param name="fromAccountId">From account id</param>
+            <param name="toUserId">To user id</param>
+            <param name="toAccountType">To account type</param>
+            <param name="toAccountId">To account id</param>
+            <param name="currency">Currency to transfer</param>
+            <param name="amount">Amount to transfer</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
         <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetAccountHistory(System.Int64,System.String,System.Collections.Generic.IEnumerable{Huobi.Net.Objects.HuobiTransactionType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Huobi.Net.Objects.HuobiSortingType},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Gets a list of amount changes of specified user's account
@@ -1356,6 +1452,36 @@
             <param name="endTime">Near point of time of the query window. The maximum size of the query window is 1 hour. The query window can be shifted within 30 days</param>
             <param name="sort">Sorting order (Ascending by default)</param>
             <param name="size">Maximum number of items in each response (from 1 to 500, default is 100)</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetAccountLedger(System.Int64,System.String,System.Collections.Generic.IEnumerable{Huobi.Net.Objects.HuobiTransactionType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Huobi.Net.Objects.HuobiSortingType},System.Nullable{System.Int32},System.Nullable{System.Int64},System.Threading.CancellationToken)">
+            <summary>
+            This endpoint returns the amount changes of specified user's account.
+            </summary>
+            <param name="accountId">The id of the account to get the ledger for</param>
+            <param name="currency">Currency name</param>
+            <param name="transactionTypes">Amount change types</param>
+            <param name="startTime">Far point of time of the query window. The maximum size of the query window is 10 days. The query window can be shifted within 30 days</param>
+            <param name="endTime">Near point of time of the query window. The maximum size of the query window is 10 days. The query window can be shifted within 30 days</param>
+            <param name="sort">Sorting order (Ascending by default)</param>
+            <param name="size">Maximum number of items in each response (from 1 to 500, default is 100)</param>
+            <param name="fromId">Only get orders with ID before or after this. Used together with the direction parameter</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetAccountLedgerAsync(System.Int64,System.String,System.Collections.Generic.IEnumerable{Huobi.Net.Objects.HuobiTransactionType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Huobi.Net.Objects.HuobiSortingType},System.Nullable{System.Int32},System.Nullable{System.Int64},System.Threading.CancellationToken)">
+            <summary>
+            This endpoint returns the amount changes of specified user's account.
+            </summary>
+            <param name="accountId">The id of the account to get the ledger for</param>
+            <param name="currency">Currency name</param>
+            <param name="transactionTypes">Amount change types</param>
+            <param name="startTime">Far point of time of the query window. The maximum size of the query window is 10 days. The query window can be shifted within 30 days</param>
+            <param name="endTime">Near point of time of the query window. The maximum size of the query window is 10 days. The query window can be shifted within 30 days</param>
+            <param name="sort">Sorting order (Ascending by default)</param>
+            <param name="size">Maximum number of items in each response (from 1 to 500, default is 100)</param>
+            <param name="fromId">Only get orders with ID before or after this. Used together with the direction parameter</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -1535,7 +1661,7 @@
         </member>
         <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetOrderInfoByClientOrderId(System.String,System.Threading.CancellationToken)">
             <summary>
-            Get details of an order
+            Get details of an order by client order id
             </summary>
             <param name="clientOrderId">The client id of the order to retrieve</param>
             <param name="ct">Cancellation token</param>
@@ -1543,7 +1669,7 @@
         </member>
         <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetOrderInfoByClientOrderIdAsync(System.String,System.Threading.CancellationToken)">
             <summary>
-            Get details of an order
+            Get details of an order by client order id
             </summary>
             <param name="clientOrderId">The client id of the order to retrieve</param>
             <param name="ct">Cancellation token</param>
@@ -1574,7 +1700,7 @@
             <param name="types">The types of orders to return</param>
             <param name="startTime">Only get orders after this date</param>
             <param name="endTime">Only get orders before this date</param>
-            <param name="fromId">Only get orders with before or after this. Used together with the direction parameter</param>
+            <param name="fromId">Only get orders with ID before or after this. Used together with the direction parameter</param>
             <param name="direction">Direction of the results to return when using the fromId parameter</param>
             <param name="limit">The max number of results</param>
             <param name="ct">Cancellation token</param>
@@ -1589,7 +1715,7 @@
             <param name="types">The types of orders to return</param>
             <param name="startTime">Only get orders after this date</param>
             <param name="endTime">Only get orders before this date</param>
-            <param name="fromId">Only get orders with before or after this. Used together with the direction parameter</param>
+            <param name="fromId">Only get orders with ID before or after this. Used together with the direction parameter</param>
             <param name="direction">Direction of the results to return when using the fromId parameter</param>
             <param name="limit">The max number of results</param>
             <param name="ct">Cancellation token</param>
@@ -1604,7 +1730,7 @@
             <param name="types">The type of orders to return</param>
             <param name="startTime">Only get orders after this date</param>
             <param name="endTime">Only get orders before this date</param>
-            <param name="fromId">Only get orders with before or after this. Used together with the direction parameter</param>
+            <param name="fromId">Only get orders with ID before or after this. Used together with the direction parameter</param>
             <param name="direction">Direction of the results to return when using the fromId parameter</param>
             <param name="limit">The max number of results</param>
             <param name="ct">Cancellation token</param>
@@ -1619,7 +1745,7 @@
             <param name="types">The type of orders to return</param>
             <param name="startTime">Only get orders after this date</param>
             <param name="endTime">Only get orders before this date</param>
-            <param name="fromId">Only get orders with before or after this. Used together with the direction parameter</param>
+            <param name="fromId">Only get orders with ID before or after this. Used together with the direction parameter</param>
             <param name="direction">Direction of the results to return when using the fromId parameter</param>
             <param name="limit">The max number of results</param>
             <param name="ct">Cancellation token</param>
@@ -1632,7 +1758,7 @@
             <param name="symbol">The symbol to get orders for</param>
             <param name="startTime">Only get orders after this date</param>
             <param name="endTime">Only get orders before this date</param>
-            <param name="direction">Direction of the results to return when using the fromId parameter</param>
+            <param name="direction">Direction of the results to return</param>
             <param name="limit">The max number of results</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -1644,7 +1770,7 @@
             <param name="symbol">The symbol to get orders for</param>
             <param name="startTime">Only get orders after this date</param>
             <param name="endTime">Only get orders before this date</param>
-            <param name="direction">Direction of the results to return when using the fromId parameter</param>
+            <param name="direction">Direction of the results to return</param>
             <param name="limit">The max number of results</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
