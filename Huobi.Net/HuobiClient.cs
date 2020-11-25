@@ -57,6 +57,7 @@ namespace Huobi.Net
         private const string OrdersEndpoint = "order/orders";
         private const string CancelOrderEndpoint = "order/orders/{}/submitcancel";
         private const string CancelOrderByClientOrderIdEndpoint = "order/orders/submitCancelClientOrder";
+        private const string CancelOrdersByCriteriaEndpoint = "order/orders/batchCancelOpenOrders";
         private const string CancelOrdersEndpoint = "order/orders/batchcancel";
         private const string OrderInfoEndpoint = "order/orders/{}";
         private const string ClientOrderInfoEndpoint = "order/orders/getClientOrder";
@@ -403,7 +404,7 @@ namespace Huobi.Net
         {
             var parameters = new Dictionary<string, object>();
             parameters.AddOptionalParameter("currency", currency);
-            return await SendHuobiV2Request<IEnumerable<HuobiCurrencyInfo>>(GetUrl(CommonCurrenciesAndChainsEndpoint, "2"), HttpMethod.Get, ct).ConfigureAwait(false);
+            return await SendHuobiV2Request<IEnumerable<HuobiCurrencyInfo>>(GetUrl(CommonCurrenciesAndChainsEndpoint, "2"), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -843,6 +844,36 @@ namespace Huobi.Net
             parameters.AddOptionalParameter("client-order-ids", clientOrderIds?.Select(s => s.ToString(CultureInfo.InvariantCulture)));
 
             return await SendHuobiRequest<HuobiBatchCancelResult>(GetUrl(CancelOrdersEndpoint, "1"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Cancel multiple open orders
+        /// </summary>
+        /// <param name="accountId">The account id used for this cancel</param>
+        /// <param name="symbols">The trading symbol list (maximum 10 symbols, default value all symbols)</param>
+        /// <param name="side">Filter on the direction of the trade</param>
+        /// <param name="limit">The number of orders to cancel [1, 100]</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        public WebCallResult<HuobiByCriteriaCancelResult> CancelOrdersByCriteria(long? accountId = null, IEnumerable<string>? symbols = null, HuobiOrderSide? side = null, int? limit = null, CancellationToken ct = default) => CancelOrdersByCriteriaAsync(accountId, symbols, side, limit, ct).Result;
+        /// <summary>
+        /// Cancel multiple open orders
+        /// </summary>
+        /// <param name="accountId">The account id used for this cancel</param>
+        /// <param name="symbols">The trading symbol list (maximum 10 symbols, default value all symbols)</param>
+        /// <param name="side">Filter on the direction of the trade</param>
+        /// <param name="limit">The number of orders to cancel [1, 100]</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        public async Task<WebCallResult<HuobiByCriteriaCancelResult>> CancelOrdersByCriteriaAsync(long? accountId = null, IEnumerable<string>? symbols = null, HuobiOrderSide? side = null, int? limit = null, CancellationToken ct = default)
+        {
+            var parameters = new Dictionary<string, object>();
+            parameters.AddOptionalParameter("account-id", accountId?.ToString(CultureInfo.InvariantCulture));
+            parameters.AddOptionalParameter("symbol", symbols == null ? null : string.Join(",", symbols));
+            parameters.AddOptionalParameter("side", side == null ? null : JsonConvert.SerializeObject(side, new OrderSideConverter(false)));
+            parameters.AddOptionalParameter("size", limit);
+
+            return await SendHuobiRequest<HuobiByCriteriaCancelResult>(GetUrl(CancelOrdersByCriteriaEndpoint, "1"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
         }
 
         /// <summary>

@@ -588,6 +588,28 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
+        <member name="M:Huobi.Net.HuobiClient.CancelOrdersByCriteria(System.Nullable{System.Int64},System.Collections.Generic.IEnumerable{System.String},System.Nullable{Huobi.Net.Objects.HuobiOrderSide},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            Cancel multiple open orders
+            </summary>
+            <param name="accountId">The account id used for this cancel</param>
+            <param name="symbols">The trading symbol list (maximum 10 symbols, default value all symbols)</param>
+            <param name="side">Filter on the direction of the trade</param>
+            <param name="limit">The number of orders to cancel [1, 100]</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiClient.CancelOrdersByCriteriaAsync(System.Nullable{System.Int64},System.Collections.Generic.IEnumerable{System.String},System.Nullable{Huobi.Net.Objects.HuobiOrderSide},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            Cancel multiple open orders
+            </summary>
+            <param name="accountId">The account id used for this cancel</param>
+            <param name="symbols">The trading symbol list (maximum 10 symbols, default value all symbols)</param>
+            <param name="side">Filter on the direction of the trade</param>
+            <param name="limit">The number of orders to cancel [1, 100]</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
         <member name="M:Huobi.Net.HuobiClient.GetOrderInfo(System.Int64,System.Threading.CancellationToken)">
             <summary>
             Get details of an order
@@ -1473,6 +1495,28 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.CancelOrdersByCriteria(System.Nullable{System.Int64},System.Collections.Generic.IEnumerable{System.String},System.Nullable{Huobi.Net.Objects.HuobiOrderSide},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            Cancel multiple open orders
+            </summary>
+            <param name="accountId">The account id used for this cancel</param>
+            <param name="symbols">The trading symbol list (maximum 10 symbols, default value all symbols)</param>
+            <param name="side">Filter on the direction of the trade</param>
+            <param name="limit">The number of orders to cancel [1, 100]</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.CancelOrdersByCriteriaAsync(System.Nullable{System.Int64},System.Collections.Generic.IEnumerable{System.String},System.Nullable{Huobi.Net.Objects.HuobiOrderSide},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            Cancel multiple open orders
+            </summary>
+            <param name="accountId">The account id used for this cancel</param>
+            <param name="symbols">The trading symbol list (maximum 10 symbols, default value all symbols)</param>
+            <param name="side">Filter on the direction of the trade</param>
+            <param name="limit">The number of orders to cancel [1, 100]</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
         <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetOrderInfo(System.Int64,System.Threading.CancellationToken)">
             <summary>
             Get details of an order
@@ -2007,6 +2051,26 @@
             Sequence number
             </summary>
         </member>
+        <member name="T:Huobi.Net.Objects.HuobiByCriteriaCancelResult">
+            <summary>
+            Result of Cancel Orders by Criteria
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiByCriteriaCancelResult.Successful">
+            <summary>
+            The number of cancel request sent successfully
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiByCriteriaCancelResult.Failed">
+            <summary>
+            The number of cancel request failed
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiByCriteriaCancelResult.NextId">
+            <summary>
+            the next order id that can be cancelled
+            </summary>
+        </member>
         <member name="T:Huobi.Net.Objects.HuobiCurrencyInfo">
             <summary>
             Info on a currency
@@ -2080,6 +2144,11 @@
         <member name="P:Huobi.Net.Objects.HuobiChain.MinWithdrawAmount">
             <summary>
             Min withdraw amount per request
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiChain.TransactFeeWithdraw">
+            <summary>
+            Withdraw fee in each request (only applicable to withdrawFeeType = fixed)
             </summary>
         </member>
         <member name="P:Huobi.Net.Objects.HuobiChain.MinTransactFeeWithdraw">
