@@ -145,6 +145,36 @@ namespace Huobi.Net.Interfaces
         Task<WebCallResult<HuobiSymbolDetails>> GetSymbolDetails24HAsync(string symbol, CancellationToken ct = default);
 
         /// <summary>
+        /// Gets real time NAV for ETP
+        /// </summary>
+        /// <param name="symbol">The symbol to get the data for</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        WebCallResult<HuobiNav> GetNav(string symbol, CancellationToken ct = default);
+
+        /// <summary>
+        /// Gets real time NAV for ETP
+        /// </summary>
+        /// <param name="symbol">The symbol to get the data for</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult<HuobiNav>> GetNavAsync(string symbol, CancellationToken ct = default);
+
+        /// <summary>
+        /// Gets the current market status
+        /// </summary>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        WebCallResult<HuobiMarketStatus> GetMarketStatus(CancellationToken ct = default);
+
+        /// <summary>
+        /// Gets the current market status
+        /// </summary>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult<HuobiMarketStatus>> GetMarketStatusAsync(CancellationToken ct = default);
+
+        /// <summary>
         /// Gets a list of supported symbols
         /// </summary>
         /// <param name="ct">Cancellation token</param>
@@ -171,6 +201,22 @@ namespace Huobi.Net.Interfaces
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<IEnumerable<string>>> GetCurrenciesAsync(CancellationToken ct = default);
+
+        /// <summary>
+        /// Gets a list of supported currencies and chains
+        /// </summary>
+        /// <param name="currency">Filter by currency</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        WebCallResult<IEnumerable<HuobiCurrencyInfo>> GetCurrenciesAndChains(string? currency = null, CancellationToken ct = default);
+
+        /// <summary>
+        /// Gets a list of supported currencies and chains
+        /// </summary>
+        /// <param name="currency">Filter by currency</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult<IEnumerable<HuobiCurrencyInfo>>> GetCurrenciesAndChainsAsync(string? currency = null, CancellationToken ct = default);
 
         /// <summary>
         /// Gets the server time
@@ -217,6 +263,58 @@ namespace Huobi.Net.Interfaces
         Task<WebCallResult<IEnumerable<HuobiBalance>>> GetBalancesAsync(long accountId, CancellationToken ct = default);
 
         /// <summary>
+        /// Gets the valuation of all assets
+        /// </summary>
+        /// <param name="accountType">Type of account to valuate</param>
+        /// <param name="valuationCurrency">The currency to get the value in</param>
+        /// <param name="subUserId">The id of the sub user</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        WebCallResult<HuobiAccountValuation> GetAssetValuation(HuobiAccountType accountType, string? valuationCurrency = null, long? subUserId = null, CancellationToken ct = default);
+
+        /// <summary>
+        /// Gets the valuation of all assets
+        /// </summary>
+        /// <param name="accountType">Type of account to valuate</param>
+        /// <param name="valuationCurrency">The currency to get the value in</param>
+        /// <param name="subUserId">The id of the sub user</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult<HuobiAccountValuation>> GetAssetValuationAsync(HuobiAccountType accountType, string? valuationCurrency = null, long? subUserId = null, CancellationToken ct = default);
+
+        /// <summary>
+        /// Transfer assets between accounts
+        /// </summary>
+        /// <param name="fromUserId">From user id</param>
+        /// <param name="fromAccountType">From account type</param>
+        /// <param name="fromAccountId">From account id</param>
+        /// <param name="toUserId">To user id</param>
+        /// <param name="toAccountType">To account type</param>
+        /// <param name="toAccountId">To account id</param>
+        /// <param name="currency">Currency to transfer</param>
+        /// <param name="amount">Amount to transfer</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        WebCallResult<HuobiTransactionResult> TransferAsset(long fromUserId, HuobiAccountType fromAccountType, long fromAccountId,
+            long toUserId, HuobiAccountType toAccountType, long toAccountId, string currency, decimal amount, CancellationToken ct = default);
+
+        /// <summary>
+        /// Transfer assets between accounts
+        /// </summary>
+        /// <param name="fromUserId">From user id</param>
+        /// <param name="fromAccountType">From account type</param>
+        /// <param name="fromAccountId">From account id</param>
+        /// <param name="toUserId">To user id</param>
+        /// <param name="toAccountType">To account type</param>
+        /// <param name="toAccountId">To account id</param>
+        /// <param name="currency">Currency to transfer</param>
+        /// <param name="amount">Amount to transfer</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult<HuobiTransactionResult>> TransferAssetAsync(long fromUserId, HuobiAccountType fromAccountType, long fromAccountId,
+            long toUserId, HuobiAccountType toAccountType, long toAccountId, string currency, decimal amount, CancellationToken ct = default);
+
+        /// <summary>
         /// Gets a list of amount changes of specified user's account
         /// </summary>
         /// <param name="accountId">The id of the account to get the balances for</param>
@@ -229,7 +327,7 @@ namespace Huobi.Net.Interfaces
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         WebCallResult<IEnumerable<HuobiAccountHistory>> GetAccountHistory(long accountId, string? currency = null, IEnumerable<HuobiTransactionType>? transactionTypes = null, DateTime? startTime = null, DateTime? endTime = null, HuobiSortingType? sort = null, int? size = null, CancellationToken ct = default);
-        
+
         /// <summary>
         /// Gets a list of amount changes of specified user's account
         /// </summary>
@@ -243,7 +341,37 @@ namespace Huobi.Net.Interfaces
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<IEnumerable<HuobiAccountHistory>>> GetAccountHistoryAsync(long accountId, string? currency = null, IEnumerable<HuobiTransactionType>? transactionTypes = null, DateTime? startTime = null, DateTime? endTime = null, HuobiSortingType? sort = null, int? size = null, CancellationToken ct = default);
-        
+
+        /// <summary>
+        /// This endpoint returns the amount changes of specified user's account.
+        /// </summary>
+        /// <param name="accountId">The id of the account to get the ledger for</param>
+        /// <param name="currency">Currency name</param>
+        /// <param name="transactionTypes">Amount change types</param>
+        /// <param name="startTime">Far point of time of the query window. The maximum size of the query window is 10 days. The query window can be shifted within 30 days</param>
+        /// <param name="endTime">Near point of time of the query window. The maximum size of the query window is 10 days. The query window can be shifted within 30 days</param>
+        /// <param name="sort">Sorting order (Ascending by default)</param>
+        /// <param name="size">Maximum number of items in each response (from 1 to 500, default is 100)</param>
+        /// <param name="fromId">Only get orders with ID before or after this. Used together with the direction parameter</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        WebCallResult<IEnumerable<HuobiLedgerEntry>> GetAccountLedger(long accountId, string? currency = null, IEnumerable<HuobiTransactionType>? transactionTypes = null, DateTime? startTime = null, DateTime? endTime = null, HuobiSortingType? sort = null, int? size = null, long? fromId = null, CancellationToken ct = default);
+
+        /// <summary>
+        /// This endpoint returns the amount changes of specified user's account.
+        /// </summary>
+        /// <param name="accountId">The id of the account to get the ledger for</param>
+        /// <param name="currency">Currency name</param>
+        /// <param name="transactionTypes">Amount change types</param>
+        /// <param name="startTime">Far point of time of the query window. The maximum size of the query window is 10 days. The query window can be shifted within 30 days</param>
+        /// <param name="endTime">Near point of time of the query window. The maximum size of the query window is 10 days. The query window can be shifted within 30 days</param>
+        /// <param name="sort">Sorting order (Ascending by default)</param>
+        /// <param name="size">Maximum number of items in each response (from 1 to 500, default is 100)</param>
+        /// <param name="fromId">Only get orders with ID before or after this. Used together with the direction parameter</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult<IEnumerable<HuobiLedgerEntry>>> GetAccountLedgerAsync(long accountId, string? currency = null, IEnumerable<HuobiTransactionType>? transactionTypes = null, DateTime? startTime = null, DateTime? endTime = null, HuobiSortingType? sort = null, int? size = null, long? fromId = null, CancellationToken ct = default);
+
         /// <summary>
         /// Gets a list of balances for a specific sub account
         /// </summary>
@@ -389,7 +517,8 @@ namespace Huobi.Net.Interfaces
         /// <param name="limit">The number of orders to cancel [1, 100]</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        public WebCallResult<HuobiByCriteriaCancelResult> CancelOrdersByCriteria(long? accountId = null, IEnumerable<string>? symbols = null, HuobiOrderSide? side = null, int? limit = null, CancellationToken ct = default);
+        WebCallResult<HuobiByCriteriaCancelResult> CancelOrdersByCriteria(long? accountId = null, IEnumerable<string>? symbols = null, HuobiOrderSide? side = null, int? limit = null, CancellationToken ct = default);
+
         /// <summary>
         /// Cancel multiple open orders
         /// </summary>
@@ -399,7 +528,8 @@ namespace Huobi.Net.Interfaces
         /// <param name="limit">The number of orders to cancel [1, 100]</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        public Task<WebCallResult<HuobiByCriteriaCancelResult>> CancelOrdersByCriteriaAsync(long? accountId = null, IEnumerable<string>? symbols = null, HuobiOrderSide? side = null, int? limit = null, CancellationToken ct = default);
+        Task<WebCallResult<HuobiByCriteriaCancelResult>> CancelOrdersByCriteriaAsync(long? accountId = null, IEnumerable<string>? symbols = null, HuobiOrderSide? side = null, int? limit = null, CancellationToken ct = default);
+
         /// <summary>
         /// Get details of an order
         /// </summary>
@@ -417,7 +547,7 @@ namespace Huobi.Net.Interfaces
         Task<WebCallResult<HuobiOrder>> GetOrderInfoAsync(long orderId, CancellationToken ct = default);
 
         /// <summary>
-        /// Get details of an order
+        /// Get details of an order by client order id
         /// </summary>
         /// <param name="clientOrderId">The client id of the order to retrieve</param>
         /// <param name="ct">Cancellation token</param>
@@ -425,7 +555,7 @@ namespace Huobi.Net.Interfaces
         WebCallResult<HuobiOrder> GetOrderInfoByClientOrderId(string clientOrderId, CancellationToken ct = default);
 
         /// <summary>
-        /// Get details of an order
+        /// Get details of an order by client order id
         /// </summary>
         /// <param name="clientOrderId">The client id of the order to retrieve</param>
         /// <param name="ct">Cancellation token</param>
@@ -456,7 +586,7 @@ namespace Huobi.Net.Interfaces
         /// <param name="types">The types of orders to return</param>
         /// <param name="startTime">Only get orders after this date</param>
         /// <param name="endTime">Only get orders before this date</param>
-        /// <param name="fromId">Only get orders with before or after this. Used together with the direction parameter</param>
+        /// <param name="fromId">Only get orders with ID before or after this. Used together with the direction parameter</param>
         /// <param name="direction">Direction of the results to return when using the fromId parameter</param>
         /// <param name="limit">The max number of results</param>
         /// <param name="ct">Cancellation token</param>
@@ -471,7 +601,7 @@ namespace Huobi.Net.Interfaces
         /// <param name="types">The types of orders to return</param>
         /// <param name="startTime">Only get orders after this date</param>
         /// <param name="endTime">Only get orders before this date</param>
-        /// <param name="fromId">Only get orders with before or after this. Used together with the direction parameter</param>
+        /// <param name="fromId">Only get orders with ID before or after this. Used together with the direction parameter</param>
         /// <param name="direction">Direction of the results to return when using the fromId parameter</param>
         /// <param name="limit">The max number of results</param>
         /// <param name="ct">Cancellation token</param>
@@ -486,7 +616,7 @@ namespace Huobi.Net.Interfaces
         /// <param name="types">The type of orders to return</param>
         /// <param name="startTime">Only get orders after this date</param>
         /// <param name="endTime">Only get orders before this date</param>
-        /// <param name="fromId">Only get orders with before or after this. Used together with the direction parameter</param>
+        /// <param name="fromId">Only get orders with ID before or after this. Used together with the direction parameter</param>
         /// <param name="direction">Direction of the results to return when using the fromId parameter</param>
         /// <param name="limit">The max number of results</param>
         /// <param name="ct">Cancellation token</param>
@@ -501,7 +631,7 @@ namespace Huobi.Net.Interfaces
         /// <param name="types">The type of orders to return</param>
         /// <param name="startTime">Only get orders after this date</param>
         /// <param name="endTime">Only get orders before this date</param>
-        /// <param name="fromId">Only get orders with before or after this. Used together with the direction parameter</param>
+        /// <param name="fromId">Only get orders with ID before or after this. Used together with the direction parameter</param>
         /// <param name="direction">Direction of the results to return when using the fromId parameter</param>
         /// <param name="limit">The max number of results</param>
         /// <param name="ct">Cancellation token</param>
@@ -514,7 +644,7 @@ namespace Huobi.Net.Interfaces
         /// <param name="symbol">The symbol to get orders for</param>
         /// <param name="startTime">Only get orders after this date</param>
         /// <param name="endTime">Only get orders before this date</param>
-        /// <param name="direction">Direction of the results to return when using the fromId parameter</param>
+        /// <param name="direction">Direction of the results to return</param>
         /// <param name="limit">The max number of results</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -526,7 +656,7 @@ namespace Huobi.Net.Interfaces
         /// <param name="symbol">The symbol to get orders for</param>
         /// <param name="startTime">Only get orders after this date</param>
         /// <param name="endTime">Only get orders before this date</param>
-        /// <param name="direction">Direction of the results to return when using the fromId parameter</param>
+        /// <param name="direction">Direction of the results to return</param>
         /// <param name="limit">The max number of results</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
