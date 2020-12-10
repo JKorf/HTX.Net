@@ -3232,6 +3232,16 @@
             The amount of fees paid for the filled amount
             </summary>
         </member>
+        <member name="T:Huobi.Net.Objects.HuobiPlacedOrder">
+            <summary>
+            Placed order
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiPlacedOrder.Id">
+            <summary>
+            The id
+            </summary>
+        </member>
         <member name="T:Huobi.Net.Objects.HuobiSymbol">
             <summary>
             Symbol data

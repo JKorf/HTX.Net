@@ -3,13 +3,15 @@ using Huobi.Net.Converters;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using CryptoExchange.Net.ExchangeInterfaces;
 
 namespace Huobi.Net.Objects
 {
     /// <summary>
     /// Symbol trade
     /// </summary>
-    public class HuobiSymbolTrade
+    public class HuobiSymbolTrade: ICommonRecentTrade
     {
         /// <summary>
         /// The id of the trade
@@ -25,6 +27,10 @@ namespace Huobi.Net.Objects
         /// </summary>
         [JsonProperty("data")]
         public IEnumerable<HuobiSymbolTradeDetails> Details { get; set; } = new List<HuobiSymbolTradeDetails>();
+
+        decimal ICommonRecentTrade.CommonPrice => Details.First().Price;
+        decimal ICommonRecentTrade.CommonQuantity => Details.First().Amount;
+        DateTime ICommonRecentTrade.CommonTradeTime => Details.First().Timestamp;
     }
 
     /// <summary>

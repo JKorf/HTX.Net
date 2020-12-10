@@ -71,7 +71,7 @@ namespace Huobi.Net
 
             var paramString = signParameters.CreateParamString(true, ArrayParametersSerialization.MultipleValues);
             paramString = paramString.Replace("%2C", ".");
-            
+
             signParameters = signParameters.OrderBy(kv => kv.Key).ToDictionary(k => k.Key, k => k.Value);
 
             var absolutePath = uriObj.AbsolutePath;

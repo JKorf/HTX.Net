@@ -1,4 +1,5 @@
 ﻿using System;
+using CryptoExchange.Net.ExchangeInterfaces;
 using Huobi.Net.Converters;
 using Newtonsoft.Json;
 
@@ -7,7 +8,7 @@ namespace Huobi.Net.Objects
     /// <summary>
     /// Symbol data
     /// </summary>
-    public class HuobiSymbol
+    public class HuobiSymbol: ICommonSymbol
     {
         /// <summary>
         /// The symbol name
@@ -95,5 +96,8 @@ namespace Huobi.Net.Objects
         /// </summary>
         [JsonProperty("value-precision")]
         public int ValuePrecision { get; set; }
+
+        string ICommonSymbol.CommonName => Symbol;
+        decimal ICommonSymbol.CommonMinimumTradeSize => MinLimitOrderAmount;
     }
 }

@@ -13,6 +13,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using CryptoExchange.Net.ExchangeInterfaces;
 using Huobi.Net.Interfaces;
 using Newtonsoft.Json.Linq;
 
@@ -21,7 +22,7 @@ namespace Huobi.Net
     /// <summary>
     /// Client for the Huobi REST API
     /// </summary>
-    public class HuobiClient: RestClient, IHuobiClient
+    public class HuobiClient: RestClient, IHuobiClient, IExchangeClient
     {
         #region fields
         private static HuobiClientOptions defaultOptions = new HuobiClientOptions();
@@ -82,7 +83,7 @@ namespace Huobi.Net
         /// <summary>
         /// Create a new instance of the HuobiClient with the provided options
         /// </summary>
-        public HuobiClient(HuobiClientOptions options) : base(options, options.ApiCredentials == null ? null : new HuobiAuthenticationProvider(options.ApiCredentials, options.SignPublicRequests))
+        public HuobiClient(HuobiClientOptions options) : base("Huobi", options, options.ApiCredentials == null ? null : new HuobiAuthenticationProvider(options.ApiCredentials, options.SignPublicRequests))
         {
             SignPublicRequests = options.SignPublicRequests;
             manualParseError = true;
@@ -1152,7 +1153,7 @@ namespace Huobi.Net
             if (data["err-code"] == null && data["err-msg"] == null)
                 return Task.FromResult<ServerError?>(null);
 
-            return Task.FromResult<ServerError?>(new ServerError($"{(string)data["err-code"]}, {(string)data["err-msg"]}"));
+            return Task.FromResult<ServerError?>(new ServerError($"{(string)data["err-code"]!}, {(string)data["err-msg"]!}"));
         }
 
         /// <inheritdoc />
@@ -1161,7 +1162,7 @@ namespace Huobi.Net
             if(error["err-code"] == null || error["err-msg"]==null)
                 return new ServerError(error.ToString());
 
-            return new ServerError($"{(string)error["err-code"]}, {(string)error["err-msg"]}");
+            return new ServerError($"{(string)error["err-code"]!}, {(string)error["err-msg"]!}");
         }
 
         /// <summary>
@@ -1182,6 +1183,126 @@ namespace Huobi.Net
             return (long)(time.Value - new DateTime(1970, 1, 1)).TotalMilliseconds;
         }
 
+        #endregion
+
+        #region common interface
+
+        public string GetSymbolName(string baseAsset, string quoteAsset) => (baseAsset + quoteAsset).ToLowerInvariant();
+
+        async Task<WebCallResult<IEnumerable<ICommonSymbol>>> IExchangeClient.GetSymbolsAsync()
+        {
+            var symbols = await GetSymbolsAsync();
+            return WebCallResult<IEnumerable<ICommonSymbol>>.CreateFrom(symbols);
+        }
+
+        async Task<WebCallResult<IEnumerable<ICommonTicker>>> IExchangeClient.GetTickersAsync()
+        {
+            var tickers = await GetTickersAsync();
+            return new WebCallResult<IEnumerable<ICommonTicker>>(tickers.ResponseStatusCode, tickers.ResponseHeaders, 
+                tickers.Data?.Ticks.Select(t => (ICommonTicker)t), tickers.Error);
+        }
+
+        async Task<WebCallResult<IEnumerable<ICommonKline>>> IExchangeClient.GetKlinesAsync(string symbol, TimeSpan timespan)
+        {
+            var klines = await GetKlinesAsync(symbol, GetKlineIntervalFromTimespan(timespan), 500);
+            return WebCallResult<IEnumerable<ICommonKline>>.CreateFrom(klines);
+        }
+
+        async Task<WebCallResult<ICommonOrderBook>> IExchangeClient.GetOrderBookAsync(string symbol)
+        {
+            var book = await GetOrderBookAsync(symbol, 0);
+            return WebCallResult<ICommonOrderBook>.CreateFrom(book);
+        }
+
+        async Task<WebCallResult<IEnumerable<ICommonRecentTrade>>> IExchangeClient.GetRecentTradesAsync(string symbol)
+        {
+            var trades = await GetTradeHistoryAsync(symbol, 100);
+            return WebCallResult<IEnumerable<ICommonRecentTrade>>.CreateFrom(trades);
+        }
+
+        async Task<WebCallResult<ICommonOrderId>> IExchangeClient.PlaceOrderAsync(string symbol, IExchangeClient.OrderSide side, IExchangeClient.OrderType type, decimal quantity, decimal? price = null, string? accountId = null)
+        {
+            if (accountId == null)
+                return WebCallResult<ICommonOrderId>.CreateErrorResult(new ArgumentError(
+                    $"Huobi needs the {nameof(accountId)} parameter for the method {nameof(IExchangeClient.PlaceOrderAsync)}"));
+
+            var huobiType = GetOrderType(type, side);
+            var result = await PlaceOrderAsync(long.Parse(accountId), symbol, huobiType, quantity, price);
+            if (!result)
+                return WebCallResult<ICommonOrderId>.CreateErrorResult(result.ResponseStatusCode,
+                    result.ResponseHeaders, result.Error!);
+            return new WebCallResult<ICommonOrderId>(result.ResponseStatusCode, result.ResponseHeaders, new HuobiPlacedOrder()
+            {
+                Id = result.Data
+            }, null);
+        }
+
+        async Task<WebCallResult<ICommonOrder>> IExchangeClient.GetOrderAsync(string orderId, string? symbol)
+        {
+            var order = await GetOrderInfoAsync(long.Parse(orderId));
+            return WebCallResult<ICommonOrder>.CreateFrom(order);
+        }
+        
+        async Task<WebCallResult<IEnumerable<ICommonTrade>>> IExchangeClient.GetTradesAsync(string orderId, string? symbol = null)
+        {
+            var result = await GetOrderTradesAsync(long.Parse(orderId));
+            return WebCallResult<IEnumerable<ICommonTrade>>.CreateFrom(result);
+        }
+        
+        async Task<WebCallResult<IEnumerable<ICommonOrder>>> IExchangeClient.GetOpenOrdersAsync(string? symbol)
+        {
+            var orders = await GetOpenOrdersAsync(symbol: symbol);
+            return WebCallResult<IEnumerable<ICommonOrder>>.CreateFrom(orders);
+        }
+
+        async Task<WebCallResult<IEnumerable<ICommonOrder>>> IExchangeClient.GetClosedOrdersAsync(string? symbol)
+        {
+            var result = await GetOrdersAsync(
+                states:new []
+                {
+                    HuobiOrderState.Filled
+                }, symbol);
+            return WebCallResult<IEnumerable<ICommonOrder>>.CreateFrom(result);
+        }
+
+        async Task<WebCallResult<ICommonOrderId>> IExchangeClient.CancelOrderAsync(string orderId, string? symbol)
+        {
+            var result = await CancelOrderAsync(long.Parse(orderId));
+            return new WebCallResult<ICommonOrderId>(result.ResponseStatusCode, result.ResponseHeaders,
+                result ? new HuobiOrder() {Id = result.Data}: null, result.Error);
+        }
+
+        private static HuobiOrderType GetOrderType(IExchangeClient.OrderType type, IExchangeClient.OrderSide side)
+        {
+            if (side == IExchangeClient.OrderSide.Sell)
+            {
+                if (type == IExchangeClient.OrderType.Limit)
+                    return HuobiOrderType.LimitSell;
+                return HuobiOrderType.MarketSell;
+            }
+            else
+            {
+                if (type == IExchangeClient.OrderType.Limit)
+                    return HuobiOrderType.LimitBuy;
+                return HuobiOrderType.MarketBuy;
+            }
+        }
+
+        private static HuobiPeriod GetKlineIntervalFromTimespan(TimeSpan timeSpan)
+        {
+            if (timeSpan == TimeSpan.FromMinutes(1)) return HuobiPeriod.OneMinute;
+            if (timeSpan == TimeSpan.FromMinutes(5)) return HuobiPeriod.FiveMinutes;
+            if (timeSpan == TimeSpan.FromMinutes(15)) return HuobiPeriod.FiveMinutes;
+            if (timeSpan == TimeSpan.FromMinutes(30)) return HuobiPeriod.ThirtyMinutes;
+            if (timeSpan == TimeSpan.FromHours(1)) return HuobiPeriod.OneHour;
+            if (timeSpan == TimeSpan.FromHours(4)) return HuobiPeriod.FourHours;
+            if (timeSpan == TimeSpan.FromDays(1)) return HuobiPeriod.OneDay;
+            if (timeSpan == TimeSpan.FromDays(7)) return HuobiPeriod.OneWeek;
+            if (timeSpan == TimeSpan.FromDays(30) || timeSpan == TimeSpan.FromDays(31)) return HuobiPeriod.OneMonth;
+            if (timeSpan == TimeSpan.FromDays(365)) return HuobiPeriod.OneYear;
+
+            throw new ArgumentException("Unsupported timespan for Huobi Klines, check supported intervals using Huobi.Net.Objects.HuobiPeriod");
+        }
         #endregion
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using CryptoExchange.Net.Converters;
+using CryptoExchange.Net.ExchangeInterfaces;
 using Newtonsoft.Json;
 
 namespace Huobi.Net.Objects
@@ -44,13 +45,18 @@ namespace Huobi.Net.Objects
     /// <summary>
     /// Symbol kline data
     /// </summary>
-    public class HuobiKline : HuobiSymbolData
+    public class HuobiKline : HuobiSymbolData, ICommonKline
     {
         /// <summary>
         /// The start time of the kline
         /// </summary>
         [JsonConverter(typeof(TimestampSecondsConverter))]
         public DateTime Id { get; set; }
+
+        decimal ICommonKline.CommonHigh => High ?? 0;
+        decimal ICommonKline.CommonLow => Low ?? 0;
+        decimal ICommonKline.CommonOpen => Open ?? 0;
+        decimal ICommonKline.CommonClose => Close ?? 0;
     }
 
     /// <summary>
@@ -72,7 +78,7 @@ namespace Huobi.Net.Objects
     /// <summary>
     /// Symbol tick
     /// </summary>
-    public class HuobiSymbolTick : HuobiSymbolData
+    public class HuobiSymbolTick : HuobiSymbolData, ICommonTicker
     {
         /// <summary>
         /// The symbol
@@ -95,5 +101,10 @@ namespace Huobi.Net.Objects
         /// Best ask price
         /// </summary>
         public decimal Ask { get; set; }
+
+        string ICommonTicker.CommonSymbol => Symbol;
+        decimal ICommonTicker.CommonHigh => High ?? 0;
+        decimal ICommonTicker.CommonLow => Low ?? 0;
+        decimal ICommonTicker.CommonVolume => Volume ?? 0;
     }
 }

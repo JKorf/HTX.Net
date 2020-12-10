@@ -45,7 +45,7 @@ namespace Huobi.Net
         /// Create a new instance of HuobiSocketClient using provided options
         /// </summary>
         /// <param name="options">The options to use for this client</param>
-        public HuobiSocketClient(HuobiSocketClientOptions options) : base(options, options.ApiCredentials == null ? null : new HuobiAuthenticationProvider(options.ApiCredentials, false))
+        public HuobiSocketClient(HuobiSocketClientOptions options) : base("Huobi", options, options.ApiCredentials == null ? null : new HuobiAuthenticationProvider(options.ApiCredentials, false))
         {
             baseAddressAuthenticated = options.BaseAddressAuthenticated;
 

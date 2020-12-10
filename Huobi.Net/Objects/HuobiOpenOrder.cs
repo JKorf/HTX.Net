@@ -3,13 +3,15 @@ using CryptoExchange.Net.Converters;
 using Huobi.Net.Converters;
 using Newtonsoft.Json;
 using System;
+using System.Globalization;
+using CryptoExchange.Net.ExchangeInterfaces;
 
 namespace Huobi.Net.Objects
 {
     /// <summary>
     /// Open order
     /// </summary>
-    public class HuobiOpenOrder
+    public class HuobiOpenOrder: ICommonOrder
     {
         /// <summary>
         /// The id of the order
@@ -94,5 +96,35 @@ namespace Huobi.Net.Objects
         /// </summary>
         [JsonProperty("filled-fees")]
         public decimal FilledFees { get; set; }
+
+        string ICommonOrderId.CommonId => Id.ToString(CultureInfo.InvariantCulture);
+        string ICommonOrder.CommonSymbol => Symbol;
+        decimal ICommonOrder.CommonPrice => Price;
+        decimal ICommonOrder.CommonQuantity => Amount;
+        string ICommonOrder.CommonStatus => State.ToString();
+
+        bool ICommonOrder.IsActive =>
+            State == HuobiOrderState.Created ||
+            State == HuobiOrderState.PreSubmitted ||
+            State == HuobiOrderState.Submitted ||
+            State == HuobiOrderState.PartiallyFilled;
+
+        IExchangeClient.OrderSide ICommonOrder.CommonSide => Type.ToString().ToLowerInvariant().Contains("buy")
+            ? IExchangeClient.OrderSide.Buy
+            : IExchangeClient.OrderSide.Sell;
+
+        IExchangeClient.OrderType ICommonOrder.CommonType
+        {
+            get
+            {
+                if (Type == HuobiOrderType.LimitBuy
+                    || Type == HuobiOrderType.LimitSell)
+                    return IExchangeClient.OrderType.Limit;
+                if (Type == HuobiOrderType.MarketBuy
+                    || Type == HuobiOrderType.MarketSell)
+                    return IExchangeClient.OrderType.Market;
+                return IExchangeClient.OrderType.Other;
+            }
+        }
     }
 }

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using CryptoExchange.Net.ExchangeInterfaces;
+using CryptoExchange.Net.Interfaces;
 using Newtonsoft.Json;
 
 namespace Huobi.Net.Objects
@@ -7,7 +9,7 @@ namespace Huobi.Net.Objects
     /// <summary>
     /// Order book
     /// </summary>
-    public class HuobiOrderBook
+    public class HuobiOrderBook: ICommonOrderBook
     {
         /// <summary>
         /// Timestamp
@@ -22,5 +24,8 @@ namespace Huobi.Net.Objects
         /// List of asks
         /// </summary>
         public IEnumerable<HuobiOrderBookEntry> Asks { get; set; } = new List<HuobiOrderBookEntry>();
+
+        IEnumerable<ISymbolOrderBookEntry> ICommonOrderBook.CommonBids => Bids;
+        IEnumerable<ISymbolOrderBookEntry> ICommonOrderBook.CommonAsks => Asks;
     }
 }

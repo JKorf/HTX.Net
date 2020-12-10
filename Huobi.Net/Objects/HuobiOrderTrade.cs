@@ -2,13 +2,14 @@
 using Huobi.Net.Converters;
 using Newtonsoft.Json;
 using System;
+using CryptoExchange.Net.ExchangeInterfaces;
 
 namespace Huobi.Net.Objects
 {
     /// <summary>
     /// Trade info
     /// </summary>
-    public class HuobiOrderTrade
+    public class HuobiOrderTrade: ICommonRecentTrade, ICommonTrade
     {
         /// <summary>
         /// The id of the trade
@@ -56,5 +57,15 @@ namespace Huobi.Net.Objects
         /// </summary>
         [JsonProperty("type"), JsonConverter(typeof(OrderTypeConverter))]
         public HuobiOrderType OrderType { get; set; }
+
+
+        string ICommonTrade.CommonId => Id.ToString();
+        decimal ICommonTrade.CommonPrice => Price;
+        decimal ICommonTrade.CommonQuantity => FilledAmount;
+        decimal ICommonTrade.CommonFee => FilledFees;
+        string? ICommonTrade.CommonFeeAsset => null;
+        decimal ICommonRecentTrade.CommonPrice => Price;
+        decimal ICommonRecentTrade.CommonQuantity => FilledAmount;
+        DateTime ICommonRecentTrade.CommonTradeTime => CreatedAt;
     }
 }
