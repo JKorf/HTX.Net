@@ -1195,16 +1195,26 @@ namespace Huobi.Net
             return WebCallResult<IEnumerable<ICommonSymbol>>.CreateFrom(symbols);
         }
 
+        async Task<WebCallResult<ICommonTicker>> IExchangeClient.GetTickerAsync(string symbol)
+        {
+            var tickers = await GetTickersAsync();
+            return new WebCallResult<ICommonTicker>(tickers.ResponseStatusCode, tickers.ResponseHeaders,
+                tickers.Data?.Ticks.Where(w => w.Symbol == symbol).Select(t => (ICommonTicker)t).FirstOrDefault(), tickers.Error);
+        }
+
         async Task<WebCallResult<IEnumerable<ICommonTicker>>> IExchangeClient.GetTickersAsync()
         {
             var tickers = await GetTickersAsync();
             return new WebCallResult<IEnumerable<ICommonTicker>>(tickers.ResponseStatusCode, tickers.ResponseHeaders, 
                 tickers.Data?.Ticks.Select(t => (ICommonTicker)t), tickers.Error);
         }
-
-        async Task<WebCallResult<IEnumerable<ICommonKline>>> IExchangeClient.GetKlinesAsync(string symbol, TimeSpan timespan)
+        
+        async Task<WebCallResult<IEnumerable<ICommonKline>>> IExchangeClient.GetKlinesAsync(string symbol, TimeSpan timespan, DateTime? startTime = null, DateTime? endTime = null, int? limit = null)
         {
-            var klines = await GetKlinesAsync(symbol, GetKlineIntervalFromTimespan(timespan), 500);
+            if (startTime != null || endTime != null)
+                return WebCallResult<IEnumerable<ICommonKline>>.CreateErrorResult(new ArgumentError($"Huobi does not support the {nameof(startTime)}/{nameof(endTime)} parameters for the method {nameof(IExchangeClient.GetKlinesAsync)}"));
+
+            var klines = await GetKlinesAsync(symbol, GetKlineIntervalFromTimespan(timespan), limit ?? 500);
             return WebCallResult<IEnumerable<ICommonKline>>.CreateFrom(klines);
         }
 
@@ -1270,6 +1280,39 @@ namespace Huobi.Net
             var result = await CancelOrderAsync(long.Parse(orderId));
             return new WebCallResult<ICommonOrderId>(result.ResponseStatusCode, result.ResponseHeaders,
                 result ? new HuobiOrder() {Id = result.Data}: null, result.Error);
+        }
+
+        async Task<WebCallResult<IEnumerable<ICommonBalance>>> IExchangeClient.GetBalancesAsync(string? accountId = null)
+        {
+            if(accountId == null)
+                return WebCallResult<IEnumerable<ICommonBalance>>.CreateErrorResult(new ArgumentError(
+                    $"Huobi needs the {nameof(accountId)} parameter for the method {nameof(IExchangeClient.GetBalancesAsync)}"));
+
+            var balances = await GetBalancesAsync(long.Parse(accountId));
+            if (!balances)
+                return WebCallResult<IEnumerable<ICommonBalance>>.CreateErrorResult(balances.ResponseStatusCode,
+                    balances.ResponseHeaders, balances.Error);
+
+            var result = new List<HuobiBalanceWrapper>();
+            foreach (var balance in balances.Data)
+            {
+                if (balance.Type == HuobiBalanceType.Interest || balance.Type == HuobiBalanceType.Loan)
+                    continue;
+
+                var existing = result.SingleOrDefault(b => b.Asset == balance.Currency);
+                if (existing == null)
+                {
+                    existing = new HuobiBalanceWrapper(){ Asset = balance.Currency };
+                    result.Add(existing);
+                }
+
+                if (balance.Type == HuobiBalanceType.Frozen)
+                    existing.Frozen = balance.Balance;
+                else
+                    existing.Trade = balance.Balance;
+            }
+
+            return new WebCallResult<IEnumerable<ICommonBalance>>(balances.ResponseStatusCode, balances.ResponseHeaders, result, balances.Error);
         }
 
         private static HuobiOrderType GetOrderType(IExchangeClient.OrderType type, IExchangeClient.OrderSide side)

@@ -2102,6 +2102,26 @@
             The amount
             </summary>
         </member>
+        <member name="T:Huobi.Net.Objects.HuobiBalanceWrapper">
+            <summary>
+            Balance info
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiBalanceWrapper.Asset">
+            <summary>
+            Asset
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiBalanceWrapper.Frozen">
+            <summary>
+            Frozen
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiBalanceWrapper.Trade">
+            <summary>
+            Trade
+            </summary>
+        </member>
         <member name="T:Huobi.Net.Objects.HuobiBatchCancelResult">
             <summary>
             Result of a batch cancel
