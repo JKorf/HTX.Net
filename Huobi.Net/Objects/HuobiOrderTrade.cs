@@ -20,22 +20,32 @@ namespace Huobi.Net.Objects
         /// </summary>
         public string Symbol { get; set; } = "";
         /// <summary>
-        /// Time the trade was made
+        /// The timestamp in milliseconds when this record is created
         /// </summary>
         [JsonProperty("created-at"), JsonConverter(typeof(TimestampConverter))]
         public DateTime CreatedAt { get; set; }
         /// <summary>
-        /// The amount that was filled in this trade
+        /// The amount which has been filled
         /// </summary>
         [JsonProperty("filled-amount")]
         public decimal FilledAmount { get; set; }
         /// <summary>
-        /// The fee paid for this trade
+        /// Transaction fee (positive value). If maker rebate applicable, revert maker rebate value per trade (negative value).
         /// </summary>
         [JsonProperty("filled-fees")]
         public decimal FilledFees { get; set; }
         /// <summary>
+        /// Deduction amount (unit: in ht or hbpoint).
+        /// </summary>
+        [JsonProperty("filled-points")]
+        public decimal FilledPoints { get; set; }
+        /// <summary>
         /// The id of the trade
+        /// </summary>
+        [JsonProperty("trade-id")]
+        public long TradeId { get; set; }
+        /// <summary>
+        /// The id of the match
         /// </summary>
         [JsonProperty("match-id")]
         public long MatchId { get; set; }
@@ -45,11 +55,11 @@ namespace Huobi.Net.Objects
         [JsonProperty("order-id")]
         public long OrderId { get; set; }
         /// <summary>
-        /// The price of the trade
+        /// The limit price of limit order
         /// </summary>
         public decimal Price { get; set; }
         /// <summary>
-        /// The source of the trade
+        /// The source where the order was triggered, possible values: sys, web, api, app
         /// </summary>
         public string Source { get; set; } = "";
         /// <summary>
@@ -57,6 +67,26 @@ namespace Huobi.Net.Objects
         /// </summary>
         [JsonProperty("type"), JsonConverter(typeof(OrderTypeConverter))]
         public HuobiOrderType OrderType { get; set; }
+        /// <summary>
+        /// The role in the transaction: taker or maker
+        /// </summary>
+        [JsonProperty("role"), JsonConverter(typeof(OrderRoleConverter))]
+        public HuobiOrderRole Role { get; set; }
+        /// <summary>
+        /// Currency of transaction fee or transaction fee rebate (transaction fee of buy order is based on base currency, transaction fee of sell order is based on quote currency; transaction fee rebate of buy order is based on quote currency, transaction fee rebate of sell order is based on base currency)
+        /// </summary>
+        [JsonProperty("fee-currency")]
+        public string FeeCurrency { get; set; } = "";
+        /// <summary>
+        /// Deduction type: ht or hbpoint.
+        /// </summary>
+        [JsonProperty("fee-deduct-currency")]
+        public string FeeDeductCurrency { get; set; } = "";
+        /// <summary>
+        /// Fee deduction status.
+        /// </summary>
+        [JsonProperty("fee-deduct-state"), JsonConverter(typeof(FeeDeductStateConverter))]
+        public HuobiFeeDeductState FeeDeductState { get; set; }
 
 
         string ICommonTrade.CommonId => Id.ToString();
