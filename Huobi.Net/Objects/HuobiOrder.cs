@@ -22,6 +22,7 @@ namespace Huobi.Net.Objects
         /// <summary>
         /// The order id as specified by the client
         /// </summary>
+        [JsonProperty("client-order-id")]
         public string ClientOrderId { get; set; } = "";
 
         /// <summary>
