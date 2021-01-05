@@ -149,14 +149,14 @@ namespace Huobi.Net.Interfaces
         /// </summary>
         /// <param name="onData">The handler for updates</param>
         /// <returns></returns>
-        CallResult<UpdateSubscription> SubscribeToTickerUpdates(Action<HuobiSymbolTicks> onData);
+        CallResult<UpdateSubscription> SubscribeToTickerUpdates(Action<HuobiSymbolDatas> onData);
 
         /// <summary>
         /// Subscribes to updates for all tickers
         /// </summary>
         /// <param name="onData">The handler for updates</param>
         /// <returns></returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToSymbolTickerUpdatesAsync(Action<HuobiSymbolTicks> onData);
+        Task<CallResult<UpdateSubscription>> SubscribeToSymbolTickerUpdatesAsync(Action<HuobiSymbolDatas> onData);
 
         /// <summary>
         /// Subscribe to changes of a symbol's best ask/bid

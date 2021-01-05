@@ -175,7 +175,7 @@ namespace Huobi.Net.UnitTests
             socket.CanConnect = true;
             var client = TestHelpers.CreateSocketClient(socket);
 
-            HuobiSymbolTicks result = null;
+            HuobiSymbolDatas result = null;
             var subTask = client.SubscribeToSymbolTickerUpdatesAsync((test => result = test));
             socket.InvokeMessage($"{{\"subbed\": \"test\", \"id\": \"{BaseClient.LastId}\", \"status\": \"ok\"}}");
             var subResult = subTask.Result;

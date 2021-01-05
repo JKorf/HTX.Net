@@ -997,14 +997,14 @@
             <param name="onData">The handler for updates</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.HuobiSocketClient.SubscribeToTickerUpdates(System.Action{Huobi.Net.Objects.HuobiSymbolTicks})">
+        <member name="M:Huobi.Net.HuobiSocketClient.SubscribeToTickerUpdates(System.Action{Huobi.Net.Objects.HuobiSymbolDatas})">
             <summary>
             Subscribes to updates for all tickers
             </summary>
             <param name="onData">The handler for updates</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.HuobiSocketClient.SubscribeToSymbolTickerUpdatesAsync(System.Action{Huobi.Net.Objects.HuobiSymbolTicks})">
+        <member name="M:Huobi.Net.HuobiSocketClient.SubscribeToSymbolTickerUpdatesAsync(System.Action{Huobi.Net.Objects.HuobiSymbolDatas})">
             <summary>
             Subscribes to updates for all tickers
             </summary>
@@ -1908,14 +1908,14 @@
             <param name="onData">The handler for updates</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.SubscribeToTickerUpdates(System.Action{Huobi.Net.Objects.HuobiSymbolTicks})">
+        <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.SubscribeToTickerUpdates(System.Action{Huobi.Net.Objects.HuobiSymbolDatas})">
             <summary>
             Subscribes to updates for all tickers
             </summary>
             <param name="onData">The handler for updates</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.SubscribeToSymbolTickerUpdatesAsync(System.Action{Huobi.Net.Objects.HuobiSymbolTicks})">
+        <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.SubscribeToSymbolTickerUpdatesAsync(System.Action{Huobi.Net.Objects.HuobiSymbolDatas})">
             <summary>
             Subscribes to updates for all tickers
             </summary>
@@ -3490,6 +3490,21 @@
         <member name="P:Huobi.Net.Objects.HuobiOrderBookEntry.Quantity">
             <summary>
             The quantity for this entry
+            </summary>
+        </member>
+        <member name="T:Huobi.Net.Objects.HuobiSymbolDatas">
+            <summary>
+            Symbol ticks
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiSymbolDatas.Timestamp">
+            <summary>
+            Timestamp of the data
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiSymbolDatas.Ticks">
+            <summary>
+            List of ticks for symbols
             </summary>
         </member>
         <member name="T:Huobi.Net.Objects.HuobiSymbolTicks">

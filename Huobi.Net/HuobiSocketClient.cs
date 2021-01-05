@@ -260,18 +260,18 @@ namespace Huobi.Net
         /// </summary>
         /// <param name="onData">The handler for updates</param>
         /// <returns></returns>
-        public CallResult<UpdateSubscription> SubscribeToTickerUpdates(Action<HuobiSymbolTicks> onData) => SubscribeToSymbolTickerUpdatesAsync(onData).Result;
+        public CallResult<UpdateSubscription> SubscribeToTickerUpdates(Action<HuobiSymbolDatas> onData) => SubscribeToSymbolTickerUpdatesAsync(onData).Result;
         /// <summary>
         /// Subscribes to updates for all tickers
         /// </summary>
         /// <param name="onData">The handler for updates</param>
         /// <returns></returns>
-        public async Task<CallResult<UpdateSubscription>> SubscribeToSymbolTickerUpdatesAsync(Action<HuobiSymbolTicks> onData)
+        public async Task<CallResult<UpdateSubscription>> SubscribeToSymbolTickerUpdatesAsync(Action<HuobiSymbolDatas> onData)
         {
             var request = new HuobiSubscribeRequest(NextId().ToString(CultureInfo.InvariantCulture), "market.tickers");
-            var internalHandler = new Action<HuobiSocketUpdate<IEnumerable<HuobiSymbolTick>>>(data =>
+            var internalHandler = new Action<HuobiSocketUpdate<IEnumerable<HuobiSymbolData>>>(data =>
             {
-                var result = new HuobiSymbolTicks {Timestamp = data.Timestamp, Ticks = data.Data};
+                var result = new HuobiSymbolDatas { Timestamp = data.Timestamp, Ticks = data.Data};
                 onData(result);
             });
             return await Subscribe(request, null, false, internalHandler).ConfigureAwait(false);

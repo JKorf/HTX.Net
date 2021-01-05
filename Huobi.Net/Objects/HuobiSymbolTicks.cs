@@ -6,6 +6,21 @@ namespace Huobi.Net.Objects
     /// <summary>
     /// Symbol ticks
     /// </summary>
+    public class HuobiSymbolDatas
+    {
+        /// <summary>
+        /// Timestamp of the data
+        /// </summary>
+        public DateTime Timestamp { get; set; }
+        /// <summary>
+        /// List of ticks for symbols
+        /// </summary>
+        public IEnumerable<HuobiSymbolData> Ticks { get; set; } = new List<HuobiSymbolData>();
+    }
+
+    /// <summary>
+    /// Symbol ticks
+    /// </summary>
     public class HuobiSymbolTicks
     {
         /// <summary>
@@ -17,5 +32,4 @@ namespace Huobi.Net.Objects
         /// </summary>
         public IEnumerable<HuobiSymbolTick> Ticks { get; set; } = new List<HuobiSymbolTick>();
     }
-    
 }
