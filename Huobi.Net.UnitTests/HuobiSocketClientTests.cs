@@ -180,9 +180,9 @@ namespace Huobi.Net.UnitTests
             socket.InvokeMessage($"{{\"subbed\": \"test\", \"id\": \"{BaseClient.LastId}\", \"status\": \"ok\"}}");
             var subResult = subTask.Result;
 
-            var expected = new List<HuobiSymbolTick>
+            var expected = new List<HuobiSymbolData>
             {
-                new HuobiSymbolTick()
+                new HuobiSymbolData()
                 {
                     Amount = 0.1m,
                     Close = 0.2m,
