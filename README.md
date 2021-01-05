@@ -114,6 +114,14 @@ Huobi.Net provides two clients to interact with the Huobi API. The `HuobiClient`
 Examples can be found in the Examples folder.
 
 ## Release notes
+* Version 2.3.0 - 05 jan 2021
+    * Added GetDepositAddress endpoint
+    * Added Withdraw endpoint
+    * Fix ClientOrderId deserialization on order
+    * Added NextTime property for pagination on GetHistoryOrders
+    * Updated HuobiOrderTrade model
+    * Fixed ticker models
+
 * Version 2.2.0 - 21 dec 2020
     * Update CryptoExchange.Net
     * Updated to latest IExchangeClient
