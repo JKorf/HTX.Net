@@ -269,7 +269,7 @@ namespace Huobi.Net
         public async Task<CallResult<UpdateSubscription>> SubscribeToSymbolTickerUpdatesAsync(Action<HuobiSymbolDatas> onData)
         {
             var request = new HuobiSubscribeRequest(NextId().ToString(CultureInfo.InvariantCulture), "market.tickers");
-            var internalHandler = new Action<HuobiSocketUpdate<IEnumerable<HuobiSymbolData>>>(data =>
+            var internalHandler = new Action<HuobiSocketUpdate<IEnumerable<HuobiSymbolTicker>>>(data =>
             {
                 var result = new HuobiSymbolDatas { Timestamp = data.Timestamp, Ticks = data.Data};
                 onData(result);

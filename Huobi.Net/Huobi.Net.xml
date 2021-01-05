@@ -3504,6 +3504,16 @@
             The number of trades
             </summary>
         </member>
+        <member name="T:Huobi.Net.Objects.HuobiSymbolTicker">
+            <summary>
+            Ticker data
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiSymbolTicker.Symbol">
+            <summary>
+            The symbol
+            </summary>
+        </member>
         <member name="T:Huobi.Net.Objects.HuobiKline">
             <summary>
             Symbol kline data

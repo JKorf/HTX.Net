@@ -15,7 +15,7 @@ namespace Huobi.Net.Objects
         /// <summary>
         /// List of ticks for symbols
         /// </summary>
-        public IEnumerable<HuobiSymbolData> Ticks { get; set; } = new List<HuobiSymbolData>();
+        public IEnumerable<HuobiSymbolTicker> Ticks { get; set; } = new List<HuobiSymbolTicker>();
     }
 
     /// <summary>
