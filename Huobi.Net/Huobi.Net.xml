@@ -746,7 +746,7 @@
             <summary>
             Parent user and sub user could query deposit address of corresponding chain, for a specific crypto currency (except IOTA).
             </summary>
-            <param name="symbol">Crypto currency</param>
+            <param name="currency">Crypto currency</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>

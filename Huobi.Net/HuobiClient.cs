@@ -1078,17 +1078,16 @@ namespace Huobi.Net
         /// <summary>
         /// Parent user and sub user could query deposit address of corresponding chain, for a specific crypto currency (except IOTA).
         /// </summary>
-        /// <param name="symbol">Crypto currency</param>
+        /// <param name="currency">Crypto currency</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        public async Task<WebCallResult<IEnumerable<HuobiDepositAddress>>> GetDepositAddressesAsync(string symbol, CancellationToken ct = default)
+        public async Task<WebCallResult<IEnumerable<HuobiDepositAddress>>> GetDepositAddressesAsync(string currency, CancellationToken ct = default)
         {
-            symbol = symbol.ValidateHuobiSymbol();
-            var parameters = new Dictionary<string, object>() { { "symbol", symbol } };
+            var parameters = new Dictionary<string, object>() { { "currency", currency } };
             return await SendHuobiV2Request<IEnumerable<HuobiDepositAddress>>(GetUrl(QueryDepositAddressEndpoint, "2"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
         }
         ///<inheritdoc cref="GetDepositAddressesAsync"/>
-        public WebCallResult<IEnumerable<HuobiDepositAddress>> GetDepositAddresses(string symbol, CancellationToken ct = default) => GetDepositAddressesAsync(symbol, ct).Result;
+        public WebCallResult<IEnumerable<HuobiDepositAddress>> GetDepositAddresses(string currency, CancellationToken ct = default) => GetDepositAddressesAsync(currency, ct).Result;
 
 
         /// <summary>
