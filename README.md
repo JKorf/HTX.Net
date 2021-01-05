@@ -114,6 +114,9 @@ Huobi.Net provides two clients to interact with the Huobi API. The `HuobiClient`
 Examples can be found in the Examples folder.
 
 ## Release notes
+* Version 2.3.1 - 05 jan 2021
+    * Fixed missing symbol property on socket ticker
+
 * Version 2.3.0 - 05 jan 2021
     * Added GetDepositAddress endpoint
     * Added Withdraw endpoint
