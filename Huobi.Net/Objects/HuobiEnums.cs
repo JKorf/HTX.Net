@@ -417,4 +417,19 @@
         /// </summary>
         Descending
     }
+    /// <summary>
+    /// Fee deduction status.
+    /// </summary>
+    public enum HuobiFeeDeductState
+	{
+        /// <summary>
+        /// In deduction
+        /// </summary>
+        Ongoing,
+        /// <summary>
+        /// Deduction completed
+        /// </summary>
+        Done,
+
+    }
 }

@@ -742,6 +742,33 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
+        <member name="M:Huobi.Net.HuobiClient.GetDepositAddressesAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Parent user and sub user could query deposit address of corresponding chain, for a specific crypto currency (except IOTA).
+            </summary>
+            <param name="symbol">Crypto currency</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiClient.GetDepositAddresses(System.String,System.Threading.CancellationToken)">
+            <inheritdoc cref="M:Huobi.Net.HuobiClient.GetDepositAddressesAsync(System.String,System.Threading.CancellationToken)"/>
+        </member>
+        <member name="M:Huobi.Net.HuobiClient.PlaceWithdrawAsync(System.String,System.String,System.Decimal,System.Decimal,System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Parent user creates a withdraw request from spot account to an external address (exists in your withdraw address list), which doesn't require two-factor-authentication.
+            </summary>
+            <param name="address">The desination address of this withdraw</param>
+            <param name="currency">Crypto currency</param>
+            <param name="amount">The amount of currency to withdraw</param>
+            <param name="fee">The fee to pay with this withdraw</param>
+            <param name="chain">Set as "usdt" to withdraw USDT to OMNI, set as "trc20usdt" to withdraw USDT to TRX</param>
+            <param name="addressTag">A tag specified for this address</param>
+            <param name="ct"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiClient.PlaceWithdraw(System.String,System.String,System.Decimal,System.Decimal,System.String,System.String,System.Threading.CancellationToken)">
+            <inheritdoc cref="M:Huobi.Net.HuobiClient.PlaceWithdrawAsync(System.String,System.String,System.Decimal,System.Decimal,System.String,System.String,System.Threading.CancellationToken)"/>
+        </member>
         <member name="M:Huobi.Net.HuobiClient.ConstructRequest(System.Uri,System.Net.Http.HttpMethod,System.Collections.Generic.Dictionary{System.String,System.Object},System.Boolean,CryptoExchange.Net.Objects.PostParameters,CryptoExchange.Net.Objects.ArrayParametersSerialization,System.Int32)">
             <inheritdoc />
         </member>
@@ -2342,6 +2369,31 @@
             Withdraw status
             </summary>
         </member>
+        <member name="T:Huobi.Net.Objects.HuobiDepositAddress">
+            <summary>
+            Deposit address info
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiDepositAddress.Currency">
+            <summary>
+            Crypto currency
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiDepositAddress.Address">
+            <summary>
+            Deposit address
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiDepositAddress.AddressTag">
+            <summary>
+            Deposit address tag
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiDepositAddress.Chain">
+            <summary>
+            Block chain name
+            </summary>
+        </member>
         <member name="T:Huobi.Net.Objects.HuobiPeriod">
             <summary>
             Interval for klines
@@ -2812,6 +2864,21 @@
             Descending
             </summary>
         </member>
+        <member name="T:Huobi.Net.Objects.HuobiFeeDeductState">
+            <summary>
+            Fee deduction status.
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Objects.HuobiFeeDeductState.Ongoing">
+            <summary>
+            In deduction
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Objects.HuobiFeeDeductState.Done">
+            <summary>
+            Deduction completed
+            </summary>
+        </member>
         <member name="T:Huobi.Net.Objects.HuobiLedgerEntry">
             <summary>
             Ledger entry
@@ -3122,6 +3189,21 @@
             List of asks
             </summary>
         </member>
+        <member name="T:Huobi.Net.Objects.HuobiOrders">
+            <summary>
+            Orders info
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiOrders.NextTime">
+            <summary>
+            Timestamp for pagination
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiOrders.Orders">
+            <summary>
+            List of ticks for symbols
+            </summary>
+        </member>
         <member name="T:Huobi.Net.Objects.HuobiOrderTrade">
             <summary>
             Trade info
@@ -3139,22 +3221,32 @@
         </member>
         <member name="P:Huobi.Net.Objects.HuobiOrderTrade.CreatedAt">
             <summary>
-            Time the trade was made
+            The timestamp in milliseconds when this record is created
             </summary>
         </member>
         <member name="P:Huobi.Net.Objects.HuobiOrderTrade.FilledAmount">
             <summary>
-            The amount that was filled in this trade
+            The amount which has been filled
             </summary>
         </member>
         <member name="P:Huobi.Net.Objects.HuobiOrderTrade.FilledFees">
             <summary>
-            The fee paid for this trade
+            Transaction fee (positive value). If maker rebate applicable, revert maker rebate value per trade (negative value).
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiOrderTrade.FilledPoints">
+            <summary>
+            Deduction amount (unit: in ht or hbpoint).
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiOrderTrade.TradeId">
+            <summary>
+            The id of the trade
             </summary>
         </member>
         <member name="P:Huobi.Net.Objects.HuobiOrderTrade.MatchId">
             <summary>
-            The id of the trade
+            The id of the match
             </summary>
         </member>
         <member name="P:Huobi.Net.Objects.HuobiOrderTrade.OrderId">
@@ -3164,17 +3256,37 @@
         </member>
         <member name="P:Huobi.Net.Objects.HuobiOrderTrade.Price">
             <summary>
-            The price of the trade
+            The limit price of limit order
             </summary>
         </member>
         <member name="P:Huobi.Net.Objects.HuobiOrderTrade.Source">
             <summary>
-            The source of the trade
+            The source where the order was triggered, possible values: sys, web, api, app
             </summary>
         </member>
         <member name="P:Huobi.Net.Objects.HuobiOrderTrade.OrderType">
             <summary>
             The type of the order
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiOrderTrade.Role">
+            <summary>
+            The role in the transaction: taker or maker
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiOrderTrade.FeeCurrency">
+            <summary>
+            Currency of transaction fee or transaction fee rebate (transaction fee of buy order is based on base currency, transaction fee of sell order is based on quote currency; transaction fee rebate of buy order is based on quote currency, transaction fee rebate of sell order is based on base currency)
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiOrderTrade.FeeDeductCurrency">
+            <summary>
+            Deduction type: ht or hbpoint.
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiOrderTrade.FeeDeductState">
+            <summary>
+            Fee deduction status.
             </summary>
         </member>
         <member name="T:Huobi.Net.Objects.HuobiOrderUpdate">

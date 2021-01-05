@@ -66,6 +66,9 @@ namespace Huobi.Net
         private const string SymbolTradesEndpoint = "order/matchresults";
         private const string HistoryOrdersEndpoint = "order/history";
 
+        private const string QueryDepositAddressEndpoint = "account/deposit/address";
+        private const string PlaceWithdrawEndpoint = "dw/withdraw/api/create";
+
         /// <summary>
         /// Whether public requests should be signed if ApiCredentials are provided. Needed for accurate rate limiting.
         /// </summary>
@@ -1041,7 +1044,7 @@ namespace Huobi.Net
         /// <param name="limit">The max number of results</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        public WebCallResult<IEnumerable<HuobiOrder>> GetHistoryOrders(string? symbol = null, DateTime? startTime = null, DateTime? endTime = null, HuobiFilterDirection? direction = null, int? limit = null, CancellationToken ct = default) => 
+        public WebCallResult<HuobiOrders> GetHistoryOrders(string? symbol = null, DateTime? startTime = null, DateTime? endTime = null, HuobiFilterDirection? direction = null, int? limit = null, CancellationToken ct = default) => 
             GetHistoryOrdersAsync(symbol, startTime, endTime, direction, limit, ct).Result;
 
         /// <summary>
@@ -1054,7 +1057,7 @@ namespace Huobi.Net
         /// <param name="limit">The max number of results</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        public async Task<WebCallResult<IEnumerable<HuobiOrder>>> GetHistoryOrdersAsync(string? symbol = null, DateTime? startTime = null, DateTime? endTime = null, HuobiFilterDirection? direction = null, int? limit = null, CancellationToken ct = default)
+        public async Task<WebCallResult<HuobiOrders>> GetHistoryOrdersAsync(string? symbol = null, DateTime? startTime = null, DateTime? endTime = null, HuobiFilterDirection? direction = null, int? limit = null, CancellationToken ct = default)
         {
             symbol = symbol?.ValidateHuobiSymbol();
             var parameters = new Dictionary<string, object>();
@@ -1064,8 +1067,58 @@ namespace Huobi.Net
             parameters.AddOptionalParameter("direct", direction == null ? null : JsonConvert.SerializeObject(direction, new FilterDirectionConverter(false)));
             parameters.AddOptionalParameter("size", limit);
 
-            return await SendHuobiRequest<IEnumerable<HuobiOrder>>(GetUrl(HistoryOrdersEndpoint, "1"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+            var result = await SendHuobiTimestampRequest<IEnumerable<HuobiOrder>>(GetUrl(HistoryOrdersEndpoint, "1"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+            if (!result)
+                return WebCallResult<HuobiOrders>.CreateErrorResult(result.ResponseStatusCode, result.ResponseHeaders, result.Error!);
+
+            return new WebCallResult<HuobiOrders>(result.ResponseStatusCode, result.ResponseHeaders, new HuobiOrders () { Orders = result.Data.Item1, NextTime = result.Data.Item2 }, null);
         }
+
+
+        /// <summary>
+        /// Parent user and sub user could query deposit address of corresponding chain, for a specific crypto currency (except IOTA).
+        /// </summary>
+        /// <param name="symbol">Crypto currency</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        public async Task<WebCallResult<IEnumerable<HuobiDepositAddress>>> GetDepositAddressesAsync(string symbol, CancellationToken ct = default)
+        {
+            symbol = symbol.ValidateHuobiSymbol();
+            var parameters = new Dictionary<string, object>() { { "symbol", symbol } };
+            return await SendHuobiV2Request<IEnumerable<HuobiDepositAddress>>(GetUrl(QueryDepositAddressEndpoint, "2"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+        }
+        ///<inheritdoc cref="GetDepositAddressesAsync"/>
+        public WebCallResult<IEnumerable<HuobiDepositAddress>> GetDepositAddresses(string symbol, CancellationToken ct = default) => GetDepositAddressesAsync(symbol, ct).Result;
+
+
+        /// <summary>
+        /// Parent user creates a withdraw request from spot account to an external address (exists in your withdraw address list), which doesn't require two-factor-authentication.
+        /// </summary>
+        /// <param name="address">The desination address of this withdraw</param>
+        /// <param name="currency">Crypto currency</param>
+        /// <param name="amount">The amount of currency to withdraw</param>
+        /// <param name="fee">The fee to pay with this withdraw</param>
+        /// <param name="chain">Set as "usdt" to withdraw USDT to OMNI, set as "trc20usdt" to withdraw USDT to TRX</param>
+        /// <param name="addressTag">A tag specified for this address</param>
+        /// <param name="ct"></param>
+        /// <returns></returns>
+        public async Task<WebCallResult<long>> PlaceWithdrawAsync(string address, string currency, decimal amount, decimal fee, string? chain = null, string? addressTag = null, CancellationToken ct = default)
+        {
+            var parameters = new Dictionary<string, object>
+            {
+                { "address", address },
+                { "currency", currency },
+                { "amount", amount },
+                { "fee", fee },
+            };
+
+            parameters.AddOptionalParameter("chain", chain);
+            parameters.AddOptionalParameter("addr-tag", addressTag);
+            return await SendHuobiRequest<long>(GetUrl(PlaceWithdrawEndpoint, "1"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
+        }
+        ///<inheritdoc cref="PlaceWithdrawAsync"/>
+        public WebCallResult<long> PlaceWithdraw(string address, string currency, decimal amount, decimal fee, string? chain = null, string? addressTag = null, CancellationToken ct = default) => PlaceWithdrawAsync(address, currency, amount, fee, chain, addressTag, ct).Result;
+
 
         private async Task<WebCallResult<T>> SendHuobiV2Request<T>(Uri uri, HttpMethod method, CancellationToken cancellationToken, Dictionary<string, object>? parameters = null, bool signed = false, bool checkResult = true)
         {
