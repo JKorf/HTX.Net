@@ -45,16 +45,11 @@ Implementations from third parties:
 <br />
 <a href="https://github.com/Zaliro/Switcheo.Net">Switcheo</a>
 </td>
-	<td><a href="https://github.com/ridicoulous/LiquidQuoine.Net"><img src="https://github.com/ridicoulous/LiquidQuoine.Net/blob/master/Resources/icon.png?raw=true"></a>
+<td><a href="https://github.com/ridicoulous/LiquidQuoine.Net"><img src="https://github.com/ridicoulous/LiquidQuoine.Net/blob/master/Resources/icon.png?raw=true"></a>
 <br />
 <a href="https://github.com/ridicoulous/LiquidQuoine.Net">Liquid</a>
 </td>
-<td><a href="https://github.com/burakoner/OKEx.Net"><img src="https://raw.githubusercontent.com/burakoner/OKEx.Net/master/Okex.Net/Icon/icon.png"></a>
-<br />
-<a href="https://github.com/burakoner/OKEx.Net">OKEx</a>
-</td>
-	</td>
-	<td><a href="https://github.com/ridicoulous/Bitmex.Net"><img src="https://github.com/ridicoulous/Bitmex.Net/blob/master/Bitmex.Net/Icon/icon.png"></a>
+<td><a href="https://github.com/ridicoulous/Bitmex.Net"><img src="https://github.com/ridicoulous/Bitmex.Net/blob/master/Bitmex.Net/Icon/icon.png"></a>
 <br />
 <a href="https://github.com/ridicoulous/Bitmex.Net">Bitmex</a>
 </td>
@@ -65,6 +60,22 @@ Implementations from third parties:
 <td><a href="https://github.com/EricGarnier/LiveCoin.Net"><img src="https://github.com/EricGarnier/LiveCoin.Net/blob/master/LiveCoin.Net/Icon/icon.png?raw=true"></a>
 <br />
 <a href="https://github.com/EricGarnier/LiveCoin.Net">LiveCoin</a>
+</td>
+<td><a href="https://github.com/burakoner/OKEx.Net"><img src="https://github.com/burakoner/OKEx.Net/blob/master/Okex.Net/Icon/icon.png?raw=true"></a>
+<br />
+<a href="https://github.com/burakoner/OKEx.Net">OKEx</a>
+</td>
+<td><a href="https://github.com/burakoner/Chiliz.Net"><img src="https://github.com/burakoner/Chiliz.Net/blob/master/Chiliz.Net/Icon/icon.png?raw=true"></a>
+<br />
+<a href="https://github.com/burakoner/Chiliz.Net">Chiliz</a>
+</td>
+<td><a href="https://github.com/burakoner/BtcTurk.Net"><img src="https://github.com/burakoner/BtcTurk.Net/blob/master/BtcTurk.Net/Icon/icon.png?raw=true"></a>
+<br />
+<a href="https://github.com/burakoner/BtcTurk.Net">BtcTurk</a>
+</td>
+<td><a href="https://github.com/burakoner/Thodex.Net"><img src="https://github.com/burakoner/Thodex.Net/blob/main/Thodex.Net/Icon/icon.png?raw=true"></a>
+<br />
+<a href="https://github.com/burakoner/Thodex.Net">Thodex</a>
 </td>
 </tr>
 </table>
@@ -103,6 +114,17 @@ Huobi.Net provides two clients to interact with the Huobi API. The `HuobiClient`
 Examples can be found in the Examples folder.
 
 ## Release notes
+* Version 2.3.1 - 05 jan 2021
+    * Fixed missing symbol property on socket ticker
+
+* Version 2.3.0 - 05 jan 2021
+    * Added GetDepositAddress endpoint
+    * Added Withdraw endpoint
+    * Fix ClientOrderId deserialization on order
+    * Added NextTime property for pagination on GetHistoryOrders
+    * Updated HuobiOrderTrade model
+    * Fixed ticker models
+
 * Version 2.2.0 - 21 dec 2020
     * Update CryptoExchange.Net
     * Updated to latest IExchangeClient

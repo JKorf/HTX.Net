@@ -43,6 +43,17 @@ namespace Huobi.Net.Objects
     }
 
     /// <summary>
+    /// Ticker data
+    /// </summary>
+    public class HuobiSymbolTicker : HuobiSymbolData
+    {
+        /// <summary>
+        /// The symbol
+        /// </summary>
+        public string Symbol { get; set; } = "";
+    }
+
+    /// <summary>
     /// Symbol kline data
     /// </summary>
     public class HuobiKline : HuobiSymbolData, ICommonKline

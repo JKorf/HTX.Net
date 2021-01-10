@@ -175,14 +175,14 @@ namespace Huobi.Net.UnitTests
             socket.CanConnect = true;
             var client = TestHelpers.CreateSocketClient(socket);
 
-            HuobiSymbolTicks result = null;
+            HuobiSymbolDatas result = null;
             var subTask = client.SubscribeToSymbolTickerUpdatesAsync((test => result = test));
             socket.InvokeMessage($"{{\"subbed\": \"test\", \"id\": \"{BaseClient.LastId}\", \"status\": \"ok\"}}");
             var subResult = subTask.Result;
 
-            var expected = new List<HuobiSymbolTick>
+            var expected = new List<HuobiSymbolData>
             {
-                new HuobiSymbolTick()
+                new HuobiSymbolData()
                 {
                     Amount = 0.1m,
                     Close = 0.2m,
