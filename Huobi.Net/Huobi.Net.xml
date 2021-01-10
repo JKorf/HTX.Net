@@ -74,6 +74,111 @@
             Only cancellation is possible
             </summary>
         </member>
+        <member name="T:Huobi.Net.Enums.WithdrawDepositState">
+            <summary>
+            The state of a transfer 
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.WithdrawDepositState.Verifying">
+            <summary>
+            Awaiting verification
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.WithdrawDepositState.Failed">
+            <summary>
+            Verification failed
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.WithdrawDepositState.Submitted">
+            <summary>
+            Withdraw request submitted successfully
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.WithdrawDepositState.Reexamine">
+            <summary>
+            Under examination for withdraw validation
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.WithdrawDepositState.Canceled">
+            <summary>
+            Withdraw canceled by user
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.WithdrawDepositState.Pass">
+            <summary>
+            Withdraw validation passed
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.WithdrawDepositState.Reject">
+            <summary>
+            Withdraw validation rejected
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.WithdrawDepositState.PreTransfer">
+            <summary>
+            Withdraw is about to be released
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.WithdrawDepositState.WalletTransfer">
+            <summary>
+            On-chain transfer initiated
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.WithdrawDepositState.WalletReject">
+            <summary>
+            Transfer rejected by chain
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.WithdrawDepositState.Confirmed">
+            <summary>
+            On-chain transfer completed with one confirmation for withdraw or for at least one block for deposit
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.WithdrawDepositState.ConfirmError">
+            <summary>
+            On-chain transfer faied to get confirmation
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.WithdrawDepositState.Repealed">
+            <summary>
+            Withdraw terminated by system
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.WithdrawDepositState.Unknown">
+            <summary>
+            On-chain transfer has not been received
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.WithdrawDepositState.Confirming">
+            <summary>
+            On-chain transfer waits for first confirmation
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.WithdrawDepositState.Safe">
+            <summary>
+            Multiple on-chain confirmation happened
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.WithdrawDepositState.Orphan">
+            <summary>
+            Confirmed but currently in an orphan branch
+            </summary>
+        </member>
+        <member name="T:Huobi.Net.Enums.WithdrawDepositType">
+            <summary>
+            Define transfer type
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.WithdrawDepositType.Deposit">
+            <summary>
+            Deposit
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.WithdrawDepositType.Withdraw">
+            <summary>
+            Withdraw
+            </summary>
+        </member>
         <member name="T:Huobi.Net.HuobiClient">
             <summary>
             Client for the Huobi REST API
@@ -768,6 +873,21 @@
         </member>
         <member name="M:Huobi.Net.HuobiClient.PlaceWithdraw(System.String,System.String,System.Decimal,System.Decimal,System.String,System.String,System.Threading.CancellationToken)">
             <inheritdoc cref="M:Huobi.Net.HuobiClient.PlaceWithdrawAsync(System.String,System.String,System.Decimal,System.Decimal,System.String,System.String,System.Threading.CancellationToken)"/>
+        </member>
+        <member name="M:Huobi.Net.HuobiClient.GetWithdrawDepositAsync(Huobi.Net.Enums.WithdrawDepositType,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{Huobi.Net.Objects.HuobiFilterDirection},System.Threading.CancellationToken)">
+            <summary>
+            Parent user and sub user searche for all existed withdraws and deposits and return their latest status.
+            </summary>
+            <param name="type">Define transfer type to search</param>
+            <param name="currency">The crypto currency to withdraw</param>
+            <param name="from">The transfer id to begin search</param>
+            <param name="size">The number of items to return</param>
+            <param name="direction">the order of response</param>
+            <param name="ct"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiClient.GetWithdrawDeposit(Huobi.Net.Enums.WithdrawDepositType,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{Huobi.Net.Objects.HuobiFilterDirection},System.Threading.CancellationToken)">
+            <inheritdoc cref="M:Huobi.Net.HuobiClient.GetWithdrawDepositAsync(Huobi.Net.Enums.WithdrawDepositType,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{Huobi.Net.Objects.HuobiFilterDirection},System.Threading.CancellationToken)"/>
         </member>
         <member name="M:Huobi.Net.HuobiClient.ConstructRequest(System.Uri,System.Net.Http.HttpMethod,System.Collections.Generic.Dictionary{System.String,System.Object},System.Boolean,CryptoExchange.Net.Objects.PostParameters,CryptoExchange.Net.Objects.ArrayParametersSerialization,System.Int32)">
             <inheritdoc />
@@ -4147,6 +4267,81 @@
         <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiTradeUpdate.OrderStatus">
             <summary>
             Order status
+            </summary>
+        </member>
+        <member name="T:Huobi.Net.Objects.WithdrawDeposit">
+            <summary>
+            Withdraw or Deposit
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.WithdrawDeposit.Id">
+            <summary>
+            Transfer id
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.WithdrawDeposit.Type">
+            <summary>
+            Define transfer type to search, possible values: [deposit, withdraw]
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.WithdrawDeposit.Currency">
+            <summary>
+            The crypto currency to withdraw
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.WithdrawDeposit.TxHash">
+            <summary>
+            The on-chain transaction hash
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.WithdrawDeposit.Chain">
+            <summary>
+            Block chain name
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.WithdrawDeposit.Amount">
+            <summary>
+            The number of crypto asset transfered in its minimum unit
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.WithdrawDeposit.Address">
+            <summary>
+            The deposit or withdraw target address
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.WithdrawDeposit.AddressTag">
+            <summary>
+            The user defined address tag
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.WithdrawDeposit.Fee">
+            <summary>
+            Withdraw fee
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.WithdrawDeposit.State">
+            <summary>
+            The state of this transfer
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.WithdrawDeposit.ErrorCode">
+            <summary>
+            Error code for withdrawal failure, only returned when the type is "withdraw" and the state is "reject", "wallet-reject" and "failed".
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.WithdrawDeposit.ErrorMessage">
+            <summary>
+            Error description of withdrawal failure, only returned when the type is "withdraw" and the state is "reject", "wallet-reject" and "failed".
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.WithdrawDeposit.CreatedAt">
+            <summary>
+            The timestamp in milliseconds for the transfer creation
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.WithdrawDeposit.UpdatedAt">
+            <summary>
+            The timestamp in milliseconds for the transfer's latest update
             </summary>
         </member>
     </members>
