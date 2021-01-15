@@ -197,7 +197,23 @@
         /// <summary>
         /// Stop limit sell
         /// </summary>
-        StopLimitSell
+        StopLimitSell,
+        /// <summary>
+        /// Fill or kill limit buy
+        /// </summary>
+        FillOrKillLimitBuy,
+        /// <summary>
+        /// Fill or kill limit sell
+        /// </summary>
+        FillOrKillLimitSell,
+        /// <summary>
+        /// Fill or kill stop limit buy
+        /// </summary>
+        FillOrKillStopLimitBuy,
+        /// <summary>
+        /// Fill or kill stop limit sell
+        /// </summary>
+        FillOrKillStopLimitSell,
     }
 
     /// <summary>
