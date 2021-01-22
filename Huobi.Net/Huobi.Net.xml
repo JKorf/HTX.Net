@@ -177,6 +177,44 @@
         <member name="F:Huobi.Net.Enums.WithdrawDepositType.Withdraw">
             <summary>
             Withdraw
+        <member name="T:Huobi.Net.Enums.Operator">
+            <summary>
+            Stop price operator
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.Operator.GreaterThanOrEqual">
+            <summary>
+            Greater than or equal to stop price
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.Operator.LesserThanOrEqual">
+            <summary>
+            Less than or equal to stop price
+            </summary>
+        </member>
+        <member name="T:Huobi.Net.Enums.SourceType">
+            <summary>
+            Source
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.SourceType.Spot">
+            <summary>
+            Spot api
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.SourceType.IsolatedMargin">
+            <summary>
+            Isolate margin api
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.SourceType.CrossMargin">
+            <summary>
+            Cross margin api
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.SourceType.C2CMargin">
+            <summary>
+            c2c margin api
             </summary>
         </member>
         <member name="T:Huobi.Net.HuobiClient">
@@ -595,7 +633,7 @@
             <param name="ct">Cancellation token</param>
             <returns>Unique transfer id</returns>
         </member>
-        <member name="M:Huobi.Net.HuobiClient.PlaceOrder(System.Int64,System.String,Huobi.Net.Objects.HuobiOrderType,System.Decimal,System.Nullable{System.Decimal},System.String,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.HuobiClient.PlaceOrder(System.Int64,System.String,Huobi.Net.Objects.HuobiOrderType,System.Decimal,System.Nullable{System.Decimal},System.String,System.Nullable{Huobi.Net.Enums.SourceType},System.Nullable{System.Decimal},System.Nullable{Huobi.Net.Enums.Operator},System.Threading.CancellationToken)">
             <summary>
             Places an order
             </summary>
@@ -605,10 +643,13 @@
             <param name="amount">The amount of the order</param>
             <param name="price">The price of the order. Should be omitted for market orders</param>
             <param name="clientOrderId">The clientOrderId the order should get</param>
+            <param name="source">Source. defaults to SpotAPI</param>
+            <param name="stopPrice">Stop price</param>
+            <param name="stopOperator">Operator of the stop price</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.HuobiClient.PlaceOrderAsync(System.Int64,System.String,Huobi.Net.Objects.HuobiOrderType,System.Decimal,System.Nullable{System.Decimal},System.String,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.HuobiClient.PlaceOrderAsync(System.Int64,System.String,Huobi.Net.Objects.HuobiOrderType,System.Decimal,System.Nullable{System.Decimal},System.String,System.Nullable{Huobi.Net.Enums.SourceType},System.Nullable{System.Decimal},System.Nullable{Huobi.Net.Enums.Operator},System.Threading.CancellationToken)">
             <summary>
             Places an order
             </summary>
@@ -618,6 +659,9 @@
             <param name="amount">The amount of the order</param>
             <param name="price">The price of the order. Should be omitted for market orders</param>
             <param name="clientOrderId">The clientOrderId the order should get</param>
+            <param name="source">Source. defaults to SpotAPI</param>
+            <param name="stopPrice">Stop price</param>
+            <param name="stopOperator">Operator of the stop price</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -1670,7 +1714,7 @@
             <param name="ct">Cancellation token</param>
             <returns>Unique transfer id</returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiClient.PlaceOrder(System.Int64,System.String,Huobi.Net.Objects.HuobiOrderType,System.Decimal,System.Nullable{System.Decimal},System.String,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.PlaceOrder(System.Int64,System.String,Huobi.Net.Objects.HuobiOrderType,System.Decimal,System.Nullable{System.Decimal},System.String,System.Nullable{Huobi.Net.Enums.SourceType},System.Nullable{System.Decimal},System.Nullable{Huobi.Net.Enums.Operator},System.Threading.CancellationToken)">
             <summary>
             Places an order
             </summary>
@@ -1680,10 +1724,13 @@
             <param name="amount">The amount of the order</param>
             <param name="price">The price of the order. Should be omitted for market orders</param>
             <param name="clientOrderId">The clientOrderId the order should get</param>
+            <param name="source">Source. defaults to SpotAPI</param>
+            <param name="stopPrice">Stop price</param>
+            <param name="stopOperator">Operator of the stop price</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiClient.PlaceOrderAsync(System.Int64,System.String,Huobi.Net.Objects.HuobiOrderType,System.Decimal,System.Nullable{System.Decimal},System.String,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.PlaceOrderAsync(System.Int64,System.String,Huobi.Net.Objects.HuobiOrderType,System.Decimal,System.Nullable{System.Decimal},System.String,System.Nullable{Huobi.Net.Enums.SourceType},System.Nullable{System.Decimal},System.Nullable{Huobi.Net.Enums.Operator},System.Threading.CancellationToken)">
             <summary>
             Places an order
             </summary>
@@ -1693,6 +1740,9 @@
             <param name="amount">The amount of the order</param>
             <param name="price">The price of the order. Should be omitted for market orders</param>
             <param name="clientOrderId">The clientOrderId the order should get</param>
+            <param name="source">Source. defaults to SpotAPI</param>
+            <param name="stopPrice">Stop price</param>
+            <param name="stopOperator">Operator of the stop price</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -2732,6 +2782,26 @@
         <member name="F:Huobi.Net.Objects.HuobiOrderType.StopLimitSell">
             <summary>
             Stop limit sell
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Objects.HuobiOrderType.FillOrKillLimitBuy">
+            <summary>
+            Fill or kill limit buy
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Objects.HuobiOrderType.FillOrKillLimitSell">
+            <summary>
+            Fill or kill limit sell
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Objects.HuobiOrderType.FillOrKillStopLimitBuy">
+            <summary>
+            Fill or kill stop limit buy
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Objects.HuobiOrderType.FillOrKillStopLimitSell">
+            <summary>
+            Fill or kill stop limit sell
             </summary>
         </member>
         <member name="T:Huobi.Net.Objects.HuobiOrderState">

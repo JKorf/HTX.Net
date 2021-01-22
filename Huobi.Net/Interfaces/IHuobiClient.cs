@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Objects;
+using Huobi.Net.Enums;
 using Huobi.Net.Objects;
 
 namespace Huobi.Net.Interfaces
@@ -419,9 +420,12 @@ namespace Huobi.Net.Interfaces
         /// <param name="amount">The amount of the order</param>
         /// <param name="price">The price of the order. Should be omitted for market orders</param>
         /// <param name="clientOrderId">The clientOrderId the order should get</param>
+        /// <param name="source">Source. defaults to SpotAPI</param>
+        /// <param name="stopPrice">Stop price</param>
+        /// <param name="stopOperator">Operator of the stop price</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        WebCallResult<long> PlaceOrder(long accountId, string symbol, HuobiOrderType orderType, decimal amount, decimal? price = null, string? clientOrderId = null, CancellationToken ct = default);
+        WebCallResult<long> PlaceOrder(long accountId, string symbol, HuobiOrderType orderType, decimal amount, decimal? price = null, string? clientOrderId = null, SourceType? source = null, decimal? stopPrice = null, Operator? stopOperator = null, CancellationToken ct = default);
 
         /// <summary>
         /// Places an order
@@ -432,9 +436,12 @@ namespace Huobi.Net.Interfaces
         /// <param name="amount">The amount of the order</param>
         /// <param name="price">The price of the order. Should be omitted for market orders</param>
         /// <param name="clientOrderId">The clientOrderId the order should get</param>
+        /// <param name="source">Source. defaults to SpotAPI</param>
+        /// <param name="stopPrice">Stop price</param>
+        /// <param name="stopOperator">Operator of the stop price</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<long>> PlaceOrderAsync(long accountId, string symbol, HuobiOrderType orderType, decimal amount, decimal? price = null, string? clientOrderId = null, CancellationToken ct = default);
+        Task<WebCallResult<long>> PlaceOrderAsync(long accountId, string symbol, HuobiOrderType orderType, decimal amount, decimal? price = null, string? clientOrderId = null, SourceType? source = null, decimal? stopPrice = null, Operator? stopOperator = null, CancellationToken ct = default);
 
         /// <summary>
         /// Gets a list of open orders

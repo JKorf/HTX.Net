@@ -14,6 +14,7 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using CryptoExchange.Net.ExchangeInterfaces;
+using Huobi.Net.Enums;
 using Huobi.Net.Interfaces;
 using Newtonsoft.Json.Linq;
 using Huobi.Net.Enums;
@@ -709,10 +710,13 @@ namespace Huobi.Net
         /// <param name="amount">The amount of the order</param>
         /// <param name="price">The price of the order. Should be omitted for market orders</param>
         /// <param name="clientOrderId">The clientOrderId the order should get</param>
+        /// <param name="source">Source. defaults to SpotAPI</param>
+        /// <param name="stopPrice">Stop price</param>
+        /// <param name="stopOperator">Operator of the stop price</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        public WebCallResult<long> PlaceOrder(long accountId, string symbol, HuobiOrderType orderType, decimal amount, decimal? price = null, string? clientOrderId = null, CancellationToken ct = default) =>
-            PlaceOrderAsync(accountId, symbol, orderType, amount, price, clientOrderId, ct).Result;
+        public WebCallResult<long> PlaceOrder(long accountId, string symbol, HuobiOrderType orderType, decimal amount, decimal? price = null, string? clientOrderId = null, SourceType? source = null, decimal? stopPrice = null, Operator? stopOperator = null, CancellationToken ct = default) =>
+            PlaceOrderAsync(accountId, symbol, orderType, amount, price, clientOrderId, source, stopPrice, stopOperator, ct).Result;
         /// <summary>
         /// Places an order
         /// </summary>
@@ -722,9 +726,12 @@ namespace Huobi.Net
         /// <param name="amount">The amount of the order</param>
         /// <param name="price">The price of the order. Should be omitted for market orders</param>
         /// <param name="clientOrderId">The clientOrderId the order should get</param>
+        /// <param name="source">Source. defaults to SpotAPI</param>
+        /// <param name="stopPrice">Stop price</param>
+        /// <param name="stopOperator">Operator of the stop price</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        public async Task<WebCallResult<long>> PlaceOrderAsync(long accountId, string symbol, HuobiOrderType orderType, decimal amount, decimal? price = null, string? clientOrderId = null, CancellationToken ct = default)
+        public async Task<WebCallResult<long>> PlaceOrderAsync(long accountId, string symbol, HuobiOrderType orderType, decimal amount, decimal? price = null, string? clientOrderId = null, SourceType? source = null, decimal? stopPrice = null, Operator? stopOperator = null, CancellationToken ct = default)
         {
             symbol = symbol.ValidateHuobiSymbol();
             if (orderType == HuobiOrderType.StopLimitBuy || orderType == HuobiOrderType.StopLimitSell)
@@ -739,6 +746,9 @@ namespace Huobi.Net
             };
 
             parameters.AddOptionalParameter("client-order-id", clientOrderId);
+            parameters.AddOptionalParameter("source", source == null? null: JsonConvert.SerializeObject(source, new SourceTypeConverter(false)));
+            parameters.AddOptionalParameter("stop-price", stopPrice);
+            parameters.AddOptionalParameter("operator", stopOperator == null ? null : JsonConvert.SerializeObject(stopOperator, new OperatorConverter(false)));
 
             // If precision of the symbol = 1 (eg has to use whole amounts, 1,2,3 etc) Huobi doesn't except the .0 postfix (1.0) for amount
             // Issue at the Huobi side

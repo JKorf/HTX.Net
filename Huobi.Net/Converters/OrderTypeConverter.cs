@@ -20,7 +20,12 @@ namespace Huobi.Net.Converters
             new KeyValuePair<HuobiOrderType, string>(HuobiOrderType.LimitMakerBuy, "buy-limit-maker"),
             new KeyValuePair<HuobiOrderType, string>(HuobiOrderType.LimitMakerSell, "sell-limit-maker"),
             new KeyValuePair<HuobiOrderType, string>(HuobiOrderType.StopLimitBuy, "buy-stop-limit"),
-            new KeyValuePair<HuobiOrderType, string>(HuobiOrderType.StopLimitSell, "sell-stop-limit")
+            new KeyValuePair<HuobiOrderType, string>(HuobiOrderType.StopLimitSell, "sell-stop-limit"),
+
+            new KeyValuePair<HuobiOrderType, string>(HuobiOrderType.FillOrKillLimitBuy, "buy-limit-fok"),
+            new KeyValuePair<HuobiOrderType, string>(HuobiOrderType.FillOrKillLimitSell, "sell-limit-fok"),
+            new KeyValuePair<HuobiOrderType, string>(HuobiOrderType.FillOrKillStopLimitBuy, "buy-stop-limit-fok"),
+            new KeyValuePair<HuobiOrderType, string>(HuobiOrderType.FillOrKillStopLimitSell, "sell-stop-limit-fok")
         };
     }
 }
