@@ -114,6 +114,11 @@ Huobi.Net provides two clients to interact with the Huobi API. The `HuobiClient`
 Examples can be found in the Examples folder.
 
 ## Release notes
+* Version 2.4.0 - 22 jan 2021
+    * Added GetWithdrawDeposit endpoint
+    * Fixed ClientOrderId parsing
+    * Updated for ICommonKline
+
 * Version 2.3.3 - 15 jan 2021
     * Updated PlaceOrder paramters
 
