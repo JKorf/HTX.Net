@@ -68,6 +68,8 @@ namespace Huobi.Net.Objects
         decimal ICommonKline.CommonLow => Low ?? 0;
         decimal ICommonKline.CommonOpen => Open ?? 0;
         decimal ICommonKline.CommonClose => Close ?? 0;
+        DateTime ICommonKline.CommonOpenTime => Id;
+        decimal ICommonKline.CommonVolume => Volume ?? 0;
     }
 
     /// <summary>

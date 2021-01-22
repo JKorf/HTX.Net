@@ -74,6 +74,46 @@
             Only cancellation is possible
             </summary>
         </member>
+        <member name="T:Huobi.Net.Enums.Operator">
+            <summary>
+            Stop price operator
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.Operator.GreaterThanOrEqual">
+            <summary>
+            Greater than or equal to stop price
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.Operator.LesserThanOrEqual">
+            <summary>
+            Less than or equal to stop price
+            </summary>
+        </member>
+        <member name="T:Huobi.Net.Enums.SourceType">
+            <summary>
+            Source
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.SourceType.Spot">
+            <summary>
+            Spot api
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.SourceType.IsolatedMargin">
+            <summary>
+            Isolate margin api
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.SourceType.CrossMargin">
+            <summary>
+            Cross margin api
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.SourceType.C2CMargin">
+            <summary>
+            c2c margin api
+            </summary>
+        </member>
         <member name="T:Huobi.Net.Enums.WithdrawDepositState">
             <summary>
             The state of a transfer 
@@ -177,44 +217,6 @@
         <member name="F:Huobi.Net.Enums.WithdrawDepositType.Withdraw">
             <summary>
             Withdraw
-        <member name="T:Huobi.Net.Enums.Operator">
-            <summary>
-            Stop price operator
-            </summary>
-        </member>
-        <member name="F:Huobi.Net.Enums.Operator.GreaterThanOrEqual">
-            <summary>
-            Greater than or equal to stop price
-            </summary>
-        </member>
-        <member name="F:Huobi.Net.Enums.Operator.LesserThanOrEqual">
-            <summary>
-            Less than or equal to stop price
-            </summary>
-        </member>
-        <member name="T:Huobi.Net.Enums.SourceType">
-            <summary>
-            Source
-            </summary>
-        </member>
-        <member name="F:Huobi.Net.Enums.SourceType.Spot">
-            <summary>
-            Spot api
-            </summary>
-        </member>
-        <member name="F:Huobi.Net.Enums.SourceType.IsolatedMargin">
-            <summary>
-            Isolate margin api
-            </summary>
-        </member>
-        <member name="F:Huobi.Net.Enums.SourceType.CrossMargin">
-            <summary>
-            Cross margin api
-            </summary>
-        </member>
-        <member name="F:Huobi.Net.Enums.SourceType.C2CMargin">
-            <summary>
-            c2c margin api
             </summary>
         </member>
         <member name="T:Huobi.Net.HuobiClient">
