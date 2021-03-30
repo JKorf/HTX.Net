@@ -12,7 +12,7 @@ namespace Huobi.Net.Interfaces
     /// <summary>
     /// Interface for the Huobi client
     /// </summary>
-    public interface IHuobiClient: IRestClient
+    public interface IHuobiClient : IRestClient
     {
         /// <summary>
         /// Whether public requests should be signed if ApiCredentials are provided. Needed for accurate rate limiting.
@@ -668,6 +668,48 @@ namespace Huobi.Net.Interfaces
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<HuobiOrders>> GetHistoryOrdersAsync(string? symbol = null, DateTime? startTime = null, DateTime? endTime = null, HuobiFilterDirection? direction = null, int? limit = null, CancellationToken ct = default);
+
+        /// <summary>
+        /// Parent user and sub user could query deposit address of corresponding chain, for a specific crypto currency (except IOTA).
+        /// </summary>
+        /// <param name="currency">Crypto currency</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult<IEnumerable<HuobiDepositAddress>>> GetDepositAddressesAsync(string currency, CancellationToken ct = default);
+
+        ///<inheritdoc cref="GetDepositAddressesAsync"/>
+        WebCallResult<IEnumerable<HuobiDepositAddress>> GetDepositAddresses(string currency, CancellationToken ct = default);
+
+        /// <summary>
+        /// Parent user creates a withdraw request from spot account to an external address (exists in your withdraw address list), which doesn't require two-factor-authentication.
+        /// </summary>
+        /// <param name="address">The desination address of this withdraw</param>
+        /// <param name="currency">Crypto currency</param>
+        /// <param name="amount">The amount of currency to withdraw</param>
+        /// <param name="fee">The fee to pay with this withdraw</param>
+        /// <param name="chain">Set as "usdt" to withdraw USDT to OMNI, set as "trc20usdt" to withdraw USDT to TRX</param>
+        /// <param name="addressTag">A tag specified for this address</param>
+        /// <param name="ct"></param>
+        /// <returns></returns>
+        Task<WebCallResult<long>> PlaceWithdrawAsync(string address, string currency, decimal amount, decimal fee, string? chain = null, string? addressTag = null, CancellationToken ct = default);
+
+        ///<inheritdoc cref="PlaceWithdrawAsync"/>
+        WebCallResult<long> PlaceWithdraw(string address, string currency, decimal amount, decimal fee, string? chain = null, string? addressTag = null, CancellationToken ct = default);
+
+        /// <summary>
+        /// Parent user and sub user searche for all existed withdraws and deposits and return their latest status.
+        /// </summary>
+        /// <param name="type">Define transfer type to search</param>
+        /// <param name="currency">The crypto currency to withdraw</param>
+        /// <param name="from">The transfer id to begin search</param>
+        /// <param name="size">The number of items to return</param>
+        /// <param name="direction">the order of response</param>
+        /// <param name="ct"></param>
+        /// <returns></returns>
+        Task<WebCallResult<IEnumerable<WithdrawDeposit>>> GetWithdrawDepositAsync(WithdrawDepositType type, string? currency = null, int? from = null, int? size = null, HuobiFilterDirection? direction = null, CancellationToken ct = default);
+
+        ///<inheritdoc cref="GetWithdrawDepositAsync"/>
+        WebCallResult<IEnumerable<WithdrawDeposit>> GetWithdrawDeposit(WithdrawDepositType type, string? currency = null, int? from = null, int? size = null, HuobiFilterDirection? direction = null, CancellationToken ct = default);
 
     }
 }
