@@ -1974,6 +1974,48 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetDepositAddressesAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Parent user and sub user could query deposit address of corresponding chain, for a specific crypto currency (except IOTA).
+            </summary>
+            <param name="currency">Crypto currency</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetDepositAddresses(System.String,System.Threading.CancellationToken)">
+            <inheritdoc cref="M:Huobi.Net.Interfaces.IHuobiClient.GetDepositAddressesAsync(System.String,System.Threading.CancellationToken)"/>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.PlaceWithdrawAsync(System.String,System.String,System.Decimal,System.Decimal,System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Parent user creates a withdraw request from spot account to an external address (exists in your withdraw address list), which doesn't require two-factor-authentication.
+            </summary>
+            <param name="address">The desination address of this withdraw</param>
+            <param name="currency">Crypto currency</param>
+            <param name="amount">The amount of currency to withdraw</param>
+            <param name="fee">The fee to pay with this withdraw</param>
+            <param name="chain">Set as "usdt" to withdraw USDT to OMNI, set as "trc20usdt" to withdraw USDT to TRX</param>
+            <param name="addressTag">A tag specified for this address</param>
+            <param name="ct"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.PlaceWithdraw(System.String,System.String,System.Decimal,System.Decimal,System.String,System.String,System.Threading.CancellationToken)">
+            <inheritdoc cref="M:Huobi.Net.Interfaces.IHuobiClient.PlaceWithdrawAsync(System.String,System.String,System.Decimal,System.Decimal,System.String,System.String,System.Threading.CancellationToken)"/>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetWithdrawDepositAsync(Huobi.Net.Enums.WithdrawDepositType,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{Huobi.Net.Objects.HuobiFilterDirection},System.Threading.CancellationToken)">
+            <summary>
+            Parent user and sub user searche for all existed withdraws and deposits and return their latest status.
+            </summary>
+            <param name="type">Define transfer type to search</param>
+            <param name="currency">The crypto currency to withdraw</param>
+            <param name="from">The transfer id to begin search</param>
+            <param name="size">The number of items to return</param>
+            <param name="direction">the order of response</param>
+            <param name="ct"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetWithdrawDeposit(Huobi.Net.Enums.WithdrawDepositType,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{Huobi.Net.Objects.HuobiFilterDirection},System.Threading.CancellationToken)">
+            <inheritdoc cref="M:Huobi.Net.Interfaces.IHuobiClient.GetWithdrawDepositAsync(Huobi.Net.Enums.WithdrawDepositType,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{Huobi.Net.Objects.HuobiFilterDirection},System.Threading.CancellationToken)"/>
+        </member>
         <member name="T:Huobi.Net.Interfaces.IHuobiSocketClient">
             <summary>
             Interface for the Huobi socket client
