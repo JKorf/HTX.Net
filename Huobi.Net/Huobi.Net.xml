@@ -1274,7 +1274,7 @@
             <param name="onOrderCancel">Event handler for the order cancelled event</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.HuobiSocketClient.GetWebsocket(System.String,System.Boolean)">
+        <member name="M:Huobi.Net.HuobiSocketClient.GetSocketConnection(System.String,System.Boolean)">
             <inheritdoc />
         </member>
         <member name="M:Huobi.Net.HuobiSocketClient.HandleQueryResponse``1(CryptoExchange.Net.Sockets.SocketConnection,System.Object,Newtonsoft.Json.Linq.JToken,CryptoExchange.Net.Objects.CallResult{``0}@)">
