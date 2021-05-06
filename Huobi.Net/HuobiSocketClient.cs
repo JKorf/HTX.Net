@@ -703,7 +703,7 @@ namespace Huobi.Net
                 log.Write(LogVerbosity.Debug, "Authorization completed");
                 result = new CallResult<bool>(true, null);
                 return true;
-            });
+            }).ConfigureAwait(false);
 
             return result;
         }
@@ -730,7 +730,7 @@ namespace Huobi.Net
                     }
 
                     return false;
-                });
+                }).ConfigureAwait(false);
                 return result;
             }
 
@@ -754,7 +754,7 @@ namespace Huobi.Net
                     }
 
                     return false;
-                });
+                }).ConfigureAwait(false);
                 return result;
             }
 
