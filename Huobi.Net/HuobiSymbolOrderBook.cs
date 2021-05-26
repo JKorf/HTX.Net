@@ -37,9 +37,9 @@ namespace Huobi.Net
             return setResult ? subResult : new CallResult<UpdateSubscription>(null, setResult.Error);
         }
 
-        private void HandleUpdate(HuobiOrderBook data)
+        private void HandleUpdate(DataEvent<HuobiOrderBook> data)
         {
-            SetInitialOrderBook(data.Timestamp.Ticks, data.Bids, data.Asks);
+            SetInitialOrderBook(data.Data.Timestamp.Ticks, data.Data.Bids, data.Data.Asks);
         }
 
         /// <inheritdoc />
