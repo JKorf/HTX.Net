@@ -9,7 +9,7 @@ namespace Huobi.Net.Objects
     /// <summary>
     /// Trade info
     /// </summary>
-    public class HuobiOrderTrade: ICommonRecentTrade, ICommonTrade
+    public class HuobiOrderTrade : ICommonRecentTrade, ICommonTrade
     {
         /// <summary>
         /// The id of the trade
@@ -94,6 +94,7 @@ namespace Huobi.Net.Objects
         decimal ICommonTrade.CommonQuantity => FilledAmount;
         decimal ICommonTrade.CommonFee => FilledFees;
         string? ICommonTrade.CommonFeeAsset => null;
+        DateTime ICommonTrade.CommonTradeTime => CreatedAt;
         decimal ICommonRecentTrade.CommonPrice => Price;
         decimal ICommonRecentTrade.CommonQuantity => FilledAmount;
         DateTime ICommonRecentTrade.CommonTradeTime => CreatedAt;

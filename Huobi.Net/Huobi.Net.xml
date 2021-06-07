@@ -229,6 +229,16 @@
             Whether public requests should be signed if ApiCredentials are provided. Needed for accurate rate limiting.
             </summary>
         </member>
+        <member name="E:Huobi.Net.HuobiClient.OnOrderPlaced">
+            <summary>
+            Event triggered when an order is placed via this client
+            </summary>
+        </member>
+        <member name="E:Huobi.Net.HuobiClient.OnOrderCanceled">
+            <summary>
+            Event triggered when an order is cancelled via this client
+            </summary>
+        </member>
         <member name="M:Huobi.Net.HuobiClient.#ctor">
             <summary>
             Create a new instance of HuobiClient using the default options

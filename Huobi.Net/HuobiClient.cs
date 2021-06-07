@@ -29,7 +29,6 @@ namespace Huobi.Net
         private static HuobiClientOptions defaultOptions = new HuobiClientOptions();
         private static HuobiClientOptions DefaultOptions => defaultOptions.Copy();
 
-
         private const string MarketTickerEndpoint = "market/tickers";
         private const string MarketTickerMergedEndpoint = "market/detail/merged";
         private const string MarketKlineEndpoint = "market/history/kline";
@@ -76,6 +75,15 @@ namespace Huobi.Net
         /// </summary>
         public bool SignPublicRequests { get; }
         #endregion
+
+        /// <summary>
+        /// Event triggered when an order is placed via this client
+        /// </summary>
+        public event Action<ICommonOrderId> OnOrderPlaced;
+        /// <summary>
+        /// Event triggered when an order is cancelled via this client
+        /// </summary>
+        public event Action<ICommonOrderId> OnOrderCanceled;
 
         #region constructor/destructor
         /// <summary>
@@ -560,7 +568,10 @@ namespace Huobi.Net
                 parameters["amount"] = amount.ToString(CultureInfo.InvariantCulture);
 
             parameters.AddOptionalParameter("price", price);
-            return await SendHuobiRequest<long>(GetUrl(PlaceOrderEndpoint, "1"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
+            var result = await SendHuobiRequest<long>(GetUrl(PlaceOrderEndpoint, "1"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
+            if (result)
+                OnOrderPlaced?.Invoke(new HuobiOrder { Id = result.Data });
+            return result;
         }
 
         /// <summary>
@@ -595,7 +606,10 @@ namespace Huobi.Net
         /// <returns></returns>
         public async Task<WebCallResult<long>> CancelOrderAsync(long orderId, CancellationToken ct = default)
         {
-            return await SendHuobiRequest<long>(GetUrl(FillPathParameter(CancelOrderEndpoint, orderId.ToString(CultureInfo.InvariantCulture)), "1"), HttpMethod.Post, ct, signed: true).ConfigureAwait(false);
+            var result = await SendHuobiRequest<long>(GetUrl(FillPathParameter(CancelOrderEndpoint, orderId.ToString(CultureInfo.InvariantCulture)), "1"), HttpMethod.Post, ct, signed: true).ConfigureAwait(false);
+            if (result)
+                OnOrderCanceled?.Invoke(new HuobiOrder { Id = result.Data });
+            return result;
         }
 
         /// <summary>

@@ -102,7 +102,11 @@ namespace Huobi.Net.Objects
         string ICommonOrder.CommonSymbol => Symbol;
         decimal ICommonOrder.CommonPrice => Price;
         decimal ICommonOrder.CommonQuantity => Amount;
-        string ICommonOrder.CommonStatus => State.ToString();
+        DateTime ICommonOrder.CommonOrderTime => CreatedAt;
+        IExchangeClient.OrderStatus ICommonOrder.CommonStatus =>
+            State == HuobiOrderState.Created || State == HuobiOrderState.PartiallyFilled || State == HuobiOrderState.PreSubmitted || State == HuobiOrderState.Submitted ? IExchangeClient.OrderStatus.Active :
+            State == HuobiOrderState.Filled ? IExchangeClient.OrderStatus.Filled :
+            IExchangeClient.OrderStatus.Canceled;
         bool ICommonOrder.IsActive =>
             State == HuobiOrderState.Created ||
             State == HuobiOrderState.PreSubmitted ||
