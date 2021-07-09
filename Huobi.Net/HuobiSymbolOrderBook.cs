@@ -27,13 +27,13 @@ namespace Huobi.Net
         }
 
         /// <inheritdoc />
-        protected override async Task<CallResult<UpdateSubscription>> DoStart()
+        protected override async Task<CallResult<UpdateSubscription>> DoStartAsync()
         {
             var subResult = await socketClient.SubscribeToOrderBookUpdatesAsync(Symbol, mergeStep, HandleUpdate).ConfigureAwait(false);
             if (!subResult)
                 return subResult;
 
-            var setResult = await WaitForSetOrderBook(10000).ConfigureAwait(false);
+            var setResult = await WaitForSetOrderBookAsync(10000).ConfigureAwait(false);
             return setResult ? subResult : new CallResult<UpdateSubscription>(null, setResult.Error);
         }
 
@@ -43,9 +43,9 @@ namespace Huobi.Net
         }
 
         /// <inheritdoc />
-        protected override async Task<CallResult<bool>> DoResync()
+        protected override async Task<CallResult<bool>> DoResyncAsync()
         {
-            return await WaitForSetOrderBook(10000).ConfigureAwait(false);
+            return await WaitForSetOrderBookAsync(10000).ConfigureAwait(false);
         }
 
         /// <inheritdoc />

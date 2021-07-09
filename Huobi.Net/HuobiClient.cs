@@ -861,7 +861,7 @@ namespace Huobi.Net
         
         private async Task<WebCallResult<T>> SendHuobiV2Request<T>(Uri uri, HttpMethod method, CancellationToken cancellationToken, Dictionary<string, object>? parameters = null, bool signed = false, bool checkResult = true)
         {
-            var result = await SendRequest<HuobiApiResponseV2<T>>(uri, method, cancellationToken, parameters, signed, checkResult).ConfigureAwait(false);
+            var result = await SendRequestAsync<HuobiApiResponseV2<T>>(uri, method, cancellationToken, parameters, signed, checkResult).ConfigureAwait(false);
             if (!result || result.Data == null)
                 return new WebCallResult<T>(result.ResponseStatusCode, result.ResponseHeaders, default, result.Error);
 
@@ -873,7 +873,7 @@ namespace Huobi.Net
 
         private async Task<WebCallResult<(T, DateTime)>> SendHuobiTimestampRequest<T>(Uri uri, HttpMethod method, CancellationToken cancellationToken, Dictionary<string, object>? parameters = null, bool signed = false, bool checkResult = true)
         {
-            var result = await SendRequest<HuobiBasicResponse<T>>(uri, method, cancellationToken, parameters, signed, checkResult).ConfigureAwait(false);
+            var result = await SendRequestAsync<HuobiBasicResponse<T>>(uri, method, cancellationToken, parameters, signed, checkResult).ConfigureAwait(false);
             if (!result || result.Data == null)
                 return new WebCallResult<(T, DateTime)>(result.ResponseStatusCode, result.ResponseHeaders, default, result.Error);
 
@@ -885,7 +885,7 @@ namespace Huobi.Net
 
         private async Task<WebCallResult<T>> SendHuobiRequest<T>(Uri uri, HttpMethod method, CancellationToken cancellationToken, Dictionary<string, object>? parameters = null, bool signed = false, bool checkResult = true)
         {
-            var result = await SendRequest<HuobiBasicResponse<T>>(uri, method, cancellationToken, parameters, signed, checkResult).ConfigureAwait(false);
+            var result = await SendRequestAsync<HuobiBasicResponse<T>>(uri, method, cancellationToken, parameters, signed, checkResult).ConfigureAwait(false);
             if (!result || result.Data == null)
                 return new WebCallResult<T>(result.ResponseStatusCode, result.ResponseHeaders, default, result.Error);
 
@@ -940,7 +940,7 @@ namespace Huobi.Net
         }
 
         /// <inheritdoc />
-        protected override Task<ServerError?> TryParseError(JToken data)
+        protected override Task<ServerError?> TryParseErrorAsync(JToken data)
         {
             if (data["err-code"] == null && data["err-msg"] == null)
                 return Task.FromResult<ServerError?>(null);

@@ -619,7 +619,7 @@
         <member name="M:Huobi.Net.HuobiClient.ConstructRequest(System.Uri,System.Net.Http.HttpMethod,System.Collections.Generic.Dictionary{System.String,System.Object},System.Boolean,CryptoExchange.Net.Objects.PostParameters,CryptoExchange.Net.Objects.ArrayParametersSerialization,System.Int32)">
             <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.HuobiClient.TryParseError(Newtonsoft.Json.Linq.JToken)">
+        <member name="M:Huobi.Net.HuobiClient.TryParseErrorAsync(Newtonsoft.Json.Linq.JToken)">
             <inheritdoc />
         </member>
         <member name="M:Huobi.Net.HuobiClient.ParseErrorResponse(Newtonsoft.Json.Linq.JToken)">
@@ -864,10 +864,10 @@
         <member name="M:Huobi.Net.HuobiSocketClient.MessageMatchesHandler(Newtonsoft.Json.Linq.JToken,System.String)">
             <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.HuobiSocketClient.AuthenticateSocket(CryptoExchange.Net.Sockets.SocketConnection)">
+        <member name="M:Huobi.Net.HuobiSocketClient.AuthenticateSocketAsync(CryptoExchange.Net.Sockets.SocketConnection)">
             <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.HuobiSocketClient.Unsubscribe(CryptoExchange.Net.Sockets.SocketConnection,CryptoExchange.Net.Sockets.SocketSubscription)">
+        <member name="M:Huobi.Net.HuobiSocketClient.UnsubscribeAsync(CryptoExchange.Net.Sockets.SocketConnection,CryptoExchange.Net.Sockets.SocketSubscription)">
             <inheritdoc />
         </member>
         <member name="T:Huobi.Net.HuobiSymbolOrderBook">
@@ -882,10 +882,10 @@
             <param name="symbol">The symbol the order book is for</param>
             <param name="options">The options for the order book</param>
         </member>
-        <member name="M:Huobi.Net.HuobiSymbolOrderBook.DoStart">
+        <member name="M:Huobi.Net.HuobiSymbolOrderBook.DoStartAsync">
             <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.HuobiSymbolOrderBook.DoResync">
+        <member name="M:Huobi.Net.HuobiSymbolOrderBook.DoResyncAsync">
             <inheritdoc />
         </member>
         <member name="M:Huobi.Net.HuobiSymbolOrderBook.Dispose">
