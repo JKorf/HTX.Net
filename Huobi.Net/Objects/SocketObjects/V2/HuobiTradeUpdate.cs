@@ -14,12 +14,12 @@ namespace Huobi.Net.Objects.SocketObjects.V2
         /// <summary>
         /// Event type
         /// </summary>
-        public string EventType { get; set; } = "";
+        public string EventType { get; set; } = string.Empty;
 
         /// <summary>
         /// The symbol
         /// </summary>
-        public string Symbol { get; set; } = "";
+        public string Symbol { get; set; } = string.Empty;
         /// <summary>
         /// Order id
         /// </summary>
@@ -65,7 +65,7 @@ namespace Huobi.Net.Objects.SocketObjects.V2
         /// <summary>
         /// Currency of the fee
         /// </summary>
-        public string FeeCurrency { get; set; } = "";
+        public string FeeCurrency { get; set; } = string.Empty;
         /// <summary>
         /// Fee deduction amount
         /// </summary>
@@ -74,7 +74,7 @@ namespace Huobi.Net.Objects.SocketObjects.V2
         /// <summary>
         /// Fee deduction type
         /// </summary>
-        public string FeeDeductType { get; set; } = "";
+        public string FeeDeductType { get; set; } = string.Empty;
         /// <summary>
         /// Account id
         /// </summary>
@@ -84,7 +84,7 @@ namespace Huobi.Net.Objects.SocketObjects.V2
         /// Order source
         /// </summary>
         [JsonProperty("source")]
-        public string OrderSource { get; set; } = "";
+        public string OrderSource { get; set; } = string.Empty;
         /// <summary>
         /// Order price
         /// </summary>

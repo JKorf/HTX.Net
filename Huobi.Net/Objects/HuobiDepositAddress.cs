@@ -1,12 +1,4 @@
-﻿using CryptoExchange.Net.Attributes;
-using CryptoExchange.Net.Converters;
-using Huobi.Net.Converters;
-using Newtonsoft.Json;
-using System;
-using System.Globalization;
-using CryptoExchange.Net.ExchangeInterfaces;
-
-namespace Huobi.Net.Objects
+﻿namespace Huobi.Net.Objects
 {
     /// <summary>
     /// Deposit address info
@@ -16,18 +8,18 @@ namespace Huobi.Net.Objects
         /// <summary>
         /// Crypto currency
         /// </summary>
-        public string Currency { get; set; } = "";
+        public string Currency { get; set; } = string.Empty;
         /// <summary>
         /// Deposit address
         /// </summary>
-        public string Address { get; set; } = "";
+        public string Address { get; set; } = string.Empty;
         /// <summary>
         /// Deposit address tag
         /// </summary>
-        public string AddressTag { get; set; } = "";
+        public string AddressTag { get; set; } = string.Empty;
         /// <summary>
         /// Block chain name
         /// </summary>
-        public string Chain { get; set; } = "";
+        public string Chain { get; set; } = string.Empty;
     }
 }

@@ -50,7 +50,7 @@ namespace Huobi.Net.Objects
         /// <summary>
         /// The symbol
         /// </summary>
-        public string Symbol { get; set; } = "";
+        public string Symbol { get; set; } = string.Empty;
     }
 
     /// <summary>
@@ -96,7 +96,7 @@ namespace Huobi.Net.Objects
         /// <summary>
         /// The symbol
         /// </summary>
-        public string Symbol { get; set; } = "";
+        public string Symbol { get; set; } = string.Empty;
 
         /// <summary>
         /// Size of the best bid

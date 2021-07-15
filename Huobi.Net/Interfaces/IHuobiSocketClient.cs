@@ -5,9 +5,7 @@ using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Sockets;
 using Huobi.Net.Objects;
-using Huobi.Net.Objects.SocketObjects;
 using Huobi.Net.Objects.SocketObjects.V2;
-using HuobiOrderUpdate = Huobi.Net.Objects.HuobiOrderUpdate;
 
 namespace Huobi.Net.Interfaces
 {

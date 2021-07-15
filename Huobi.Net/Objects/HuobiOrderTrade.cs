@@ -18,7 +18,7 @@ namespace Huobi.Net.Objects
         /// <summary>
         /// The symbol of the trade
         /// </summary>
-        public string Symbol { get; set; } = "";
+        public string Symbol { get; set; } = string.Empty;
         /// <summary>
         /// The timestamp in milliseconds when this record is created
         /// </summary>
@@ -61,7 +61,7 @@ namespace Huobi.Net.Objects
         /// <summary>
         /// The source where the order was triggered, possible values: sys, web, api, app
         /// </summary>
-        public string Source { get; set; } = "";
+        public string Source { get; set; } = string.Empty;
         /// <summary>
         /// The type of the order
         /// </summary>
@@ -76,12 +76,12 @@ namespace Huobi.Net.Objects
         /// Currency of transaction fee or transaction fee rebate (transaction fee of buy order is based on base currency, transaction fee of sell order is based on quote currency; transaction fee rebate of buy order is based on quote currency, transaction fee rebate of sell order is based on base currency)
         /// </summary>
         [JsonProperty("fee-currency")]
-        public string FeeCurrency { get; set; } = "";
+        public string FeeCurrency { get; set; } = string.Empty;
         /// <summary>
         /// Deduction type: ht or hbpoint.
         /// </summary>
         [JsonProperty("fee-deduct-currency")]
-        public string FeeDeductCurrency { get; set; } = "";
+        public string FeeDeductCurrency { get; set; } = string.Empty;
         /// <summary>
         /// Fee deduction status.
         /// </summary>

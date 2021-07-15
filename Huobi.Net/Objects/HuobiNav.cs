@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using CryptoExchange.Net.Converters;
 using Newtonsoft.Json;
 
@@ -14,7 +13,7 @@ namespace Huobi.Net.Objects
         /// <summary>
         /// The symbol
         /// </summary>
-        public string Symbol { get; set; } = "";
+        public string Symbol { get; set; } = string.Empty;
         /// <summary>
         /// Latest Nav
         /// </summary>
@@ -31,7 +30,7 @@ namespace Huobi.Net.Objects
         /// <summary>
         /// Baskets
         /// </summary>
-        public IEnumerable<HuobiBasket> Basket { get; set; } = new HuobiBasket[0];
+        public IEnumerable<HuobiBasket> Basket { get; set; } = Array.Empty<HuobiBasket>();
         /// <summary>
         /// Actual leverage ratio
         /// </summary>
@@ -46,7 +45,7 @@ namespace Huobi.Net.Objects
         /// <summary>
         /// Currency
         /// </summary>
-        public string Currency { get; set; } = "";
+        public string Currency { get; set; } = string.Empty;
         /// <summary>
         /// Amount
         /// </summary>

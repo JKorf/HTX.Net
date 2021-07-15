@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Huobi.Net.Objects
 {
-	/// <summary>
-	/// Orders info
-	/// </summary>
-	public class HuobiOrders
+    /// <summary>
+    /// Orders info
+    /// </summary>
+    public class HuobiOrders
 	{
         /// <summary>
         /// Timestamp for pagination
@@ -16,6 +15,6 @@ namespace Huobi.Net.Objects
         /// <summary>
         /// List of ticks for symbols
         /// </summary>
-        public IEnumerable<HuobiOrder> Orders { get; set; } = new List<HuobiOrder>();
+        public IEnumerable<HuobiOrder> Orders { get; set; } = Array.Empty<HuobiOrder>();
     }
 }

@@ -633,6 +633,14 @@
             <param name="version"></param>
             <returns></returns>
         </member>
+        <member name="M:Huobi.Net.HuobiClient.GetSymbolName(System.String,System.String)">
+            <summary>
+            Get the name of a symbol for Huobi based on the base and quote asset
+            </summary>
+            <param name="baseAsset"></param>
+            <param name="quoteAsset"></param>
+            <returns></returns>
+        </member>
         <member name="T:Huobi.Net.HuobiClientOptions">
             <summary>
             Client options

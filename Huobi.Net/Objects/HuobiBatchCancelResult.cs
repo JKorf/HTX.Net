@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace Huobi.Net.Objects
@@ -12,11 +13,11 @@ namespace Huobi.Net.Objects
         /// Orders that were successfully canceled
         /// </summary>
         [JsonProperty("success")]
-        public IEnumerable<long> Successful { get; set; } = new List<long>();
+        public IEnumerable<long> Successful { get; set; } = Array.Empty<long>();
         /// <summary>
         /// Orders that failed to cancel
         /// </summary>
-        public IEnumerable<HuobiFailedCancelResult> Failed { get; set; } = new List<HuobiFailedCancelResult>();
+        public IEnumerable<HuobiFailedCancelResult> Failed { get; set; } = Array.Empty<HuobiFailedCancelResult>();
     }
 
     /// <summary>

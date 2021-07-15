@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Huobi.Net.Enums
+﻿namespace Huobi.Net.Enums
 {
-	/// <summary>
-	/// The state of a transfer 
-	/// </summary>
-	public enum WithdrawDepositState
+    /// <summary>
+    /// The state of a transfer 
+    /// </summary>
+    public enum WithdrawDepositState
 	{
 		/// <summary>
 		/// Awaiting verification

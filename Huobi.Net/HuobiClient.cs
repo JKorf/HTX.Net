@@ -79,11 +79,11 @@ namespace Huobi.Net
         /// <summary>
         /// Event triggered when an order is placed via this client
         /// </summary>
-        public event Action<ICommonOrderId> OnOrderPlaced;
+        public event Action<ICommonOrderId>? OnOrderPlaced;
         /// <summary>
         /// Event triggered when an order is cancelled via this client
         /// </summary>
-        public event Action<ICommonOrderId> OnOrderCanceled;
+        public event Action<ICommonOrderId>? OnOrderCanceled;
 
         #region constructor/destructor
         /// <summary>
@@ -345,7 +345,7 @@ namespace Huobi.Net
             var result = await SendHuobiRequest<string>(GetUrl(ServerTimeEndpoint, "1"), HttpMethod.Get, ct).ConfigureAwait(false);
             if (!result)
                 return WebCallResult<DateTime>.CreateErrorResult(result.ResponseStatusCode, result.ResponseHeaders, result.Error!);
-            var time = (DateTime)JsonConvert.DeserializeObject(result.Data, typeof(DateTime), new TimestampConverter());
+            var time = (DateTime)JsonConvert.DeserializeObject(result.Data, typeof(DateTime), new TimestampConverter())!;
             return result.As(time);
         }
 
@@ -978,7 +978,12 @@ namespace Huobi.Net
         #endregion
 
         #region common interface
-
+        /// <summary>
+        /// Get the name of a symbol for Huobi based on the base and quote asset
+        /// </summary>
+        /// <param name="baseAsset"></param>
+        /// <param name="quoteAsset"></param>
+        /// <returns></returns>
         public string GetSymbolName(string baseAsset, string quoteAsset) => (baseAsset + quoteAsset).ToLowerInvariant();
 
         async Task<WebCallResult<IEnumerable<ICommonSymbol>>> IExchangeClient.GetSymbolsAsync()

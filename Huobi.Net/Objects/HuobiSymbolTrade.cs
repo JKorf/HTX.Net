@@ -26,7 +26,7 @@ namespace Huobi.Net.Objects
         /// The details of the trade
         /// </summary>
         [JsonProperty("data")]
-        public IEnumerable<HuobiSymbolTradeDetails> Details { get; set; } = new List<HuobiSymbolTradeDetails>();
+        public IEnumerable<HuobiSymbolTradeDetails> Details { get; set; } = Array.Empty<HuobiSymbolTradeDetails>();
 
         decimal ICommonRecentTrade.CommonPrice => Details.First().Price;
         decimal ICommonRecentTrade.CommonQuantity => Details.First().Amount;
@@ -41,7 +41,7 @@ namespace Huobi.Net.Objects
         /// <summary>
         /// The id of the trade
         /// </summary>
-        public string Id { get; set; } = "";
+        public string Id { get; set; } = string.Empty;
         /// <summary>
         /// The price of the trade
         /// </summary>

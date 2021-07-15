@@ -22,12 +22,12 @@ namespace Huobi.Net.Objects
         /// <summary>
         /// The order id as specified by the client
         /// </summary>
-        public string ClientOrderId { get; set; } = "";
+        public string ClientOrderId { get; set; } = string.Empty;
 
         /// <summary>
         /// The symbol of the order
         /// </summary>
-        public string Symbol { get; set; } = "";
+        public string Symbol { get; set; } = string.Empty;
         /// <summary>
         /// The id of the account that placed the order
         /// </summary>
@@ -71,7 +71,7 @@ namespace Huobi.Net.Objects
         /// The source of the order
         /// </summary>
         [JsonProperty("source"), JsonOptionalProperty]
-        public string Source { get; set; } = "";
+        public string Source { get; set; } = string.Empty;
 
         /// <summary>
         /// The state of the order

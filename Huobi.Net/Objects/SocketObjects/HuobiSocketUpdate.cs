@@ -11,7 +11,7 @@ namespace Huobi.Net.Objects.SocketObjects
         /// The name of the data channel
         /// </summary>
         [JsonProperty("ch")]
-        public string Channel { get; set; } = "";
+        public string Channel { get; set; } = string.Empty;
         /// <summary>
         /// The timestamp of the update
         /// </summary>

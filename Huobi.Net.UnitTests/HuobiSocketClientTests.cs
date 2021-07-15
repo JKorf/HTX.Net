@@ -4,12 +4,10 @@ using System.Linq;
 using System.Threading;
 using CryptoExchange.Net;
 using Huobi.Net.Objects;
-using Huobi.Net.Objects.SocketObjects;
 using Huobi.Net.Objects.SocketObjects.V2;
 using Huobi.Net.UnitTests.TestImplementations;
 using Newtonsoft.Json;
 using NUnit.Framework;
-using HuobiOrderUpdate = Huobi.Net.Objects.HuobiOrderUpdate;
 
 namespace Huobi.Net.UnitTests
 {

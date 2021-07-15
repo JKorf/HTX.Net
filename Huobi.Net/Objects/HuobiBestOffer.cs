@@ -12,7 +12,7 @@ namespace Huobi.Net.Objects
         /// <summary>
         /// Symbol
         /// </summary>
-        public string Symbol { get; set; } = "";
+        public string Symbol { get; set; } = string.Empty;
         /// <summary>
         /// Time of the data
         /// </summary>
