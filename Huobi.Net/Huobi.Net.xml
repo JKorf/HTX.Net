@@ -517,7 +517,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.HuobiClient.GetOrderInfoAsync(System.Int64,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.HuobiClient.GetOrderAsync(System.Int64,System.Threading.CancellationToken)">
             <summary>
             Get details of an order
             </summary>
@@ -525,7 +525,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.HuobiClient.GetOrderInfoByClientOrderIdAsync(System.String,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.HuobiClient.GetOrderByClientOrderIdAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get details of an order by client order id
             </summary>
@@ -556,7 +556,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.HuobiClient.GetSymbolTradesAsync(System.Collections.Generic.IEnumerable{Huobi.Net.Objects.HuobiOrderState},System.String,System.Collections.Generic.IEnumerable{Huobi.Net.Objects.HuobiOrderType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int64},System.Nullable{Huobi.Net.Objects.HuobiFilterDirection},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.HuobiClient.GetUserTradesAsync(System.Collections.Generic.IEnumerable{Huobi.Net.Objects.HuobiOrderState},System.String,System.Collections.Generic.IEnumerable{Huobi.Net.Objects.HuobiOrderType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int64},System.Nullable{Huobi.Net.Objects.HuobiFilterDirection},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Gets a list of trades for a specific symbol
             </summary>
@@ -591,7 +591,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.HuobiClient.PlaceWithdrawAsync(System.String,System.String,System.Decimal,System.Decimal,System.String,System.String,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.HuobiClient.WithdrawAsync(System.String,System.String,System.Decimal,System.Decimal,System.String,System.String,System.Threading.CancellationToken)">
             <summary>
             Parent user creates a withdraw request from spot account to an external address (exists in your withdraw address list), which doesn't require two-factor-authentication.
             </summary>
@@ -785,7 +785,7 @@
             <param name="onData">The handler for updates</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.HuobiSocketClient.GetTradesAsync(System.String)">
+        <member name="M:Huobi.Net.HuobiSocketClient.GetTradeHistoryAsync(System.String)">
             <summary>
             Gets a list of trades for a symbol
             </summary>
@@ -1171,7 +1171,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetOrderInfoAsync(System.Int64,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetOrderAsync(System.Int64,System.Threading.CancellationToken)">
             <summary>
             Get details of an order
             </summary>
@@ -1179,7 +1179,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetOrderInfoByClientOrderIdAsync(System.String,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetOrderByClientOrderIdAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get details of an order by client order id
             </summary>
@@ -1210,7 +1210,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetSymbolTradesAsync(System.Collections.Generic.IEnumerable{Huobi.Net.Objects.HuobiOrderState},System.String,System.Collections.Generic.IEnumerable{Huobi.Net.Objects.HuobiOrderType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int64},System.Nullable{Huobi.Net.Objects.HuobiFilterDirection},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetUserTradesAsync(System.Collections.Generic.IEnumerable{Huobi.Net.Objects.HuobiOrderState},System.String,System.Collections.Generic.IEnumerable{Huobi.Net.Objects.HuobiOrderType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int64},System.Nullable{Huobi.Net.Objects.HuobiFilterDirection},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Gets a list of trades for a specific symbol
             </summary>
@@ -1245,7 +1245,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiClient.PlaceWithdrawAsync(System.String,System.String,System.Decimal,System.Decimal,System.String,System.String,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.WithdrawAsync(System.String,System.String,System.Decimal,System.Decimal,System.String,System.String,System.Threading.CancellationToken)">
             <summary>
             Parent user creates a withdraw request from spot account to an external address (exists in your withdraw address list), which doesn't require two-factor-authentication.
             </summary>
@@ -1309,7 +1309,7 @@
             <param name="onData">The handler for updates</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.GetTradesAsync(System.String)">
+        <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.GetTradeHistoryAsync(System.String)">
             <summary>
             Gets a list of trades for a symbol
             </summary>

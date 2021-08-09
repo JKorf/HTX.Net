@@ -527,7 +527,7 @@ namespace Huobi.Net.UnitTests
             var client = TestHelpers.CreateAuthResponseClient(SerializeExpected(expected, true));
 
             // act
-            var result = await client.GetSymbolTradesAsync(symbol: "BTCETH", types: new[] { HuobiOrderType.LimitBuy });
+            var result = await client.GetUserTradesAsync(symbol: "BTCETH", types: new[] { HuobiOrderType.LimitBuy });
 
             // assert
             Assert.AreEqual(true, result.Success);
