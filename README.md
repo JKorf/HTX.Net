@@ -94,6 +94,13 @@ For the basic client options see also the CryptoExchange.Net [docs](https://gith
 |`BaseAddressAuthenticated`|The base address for authenticated subscriptions|`wss://api.huobi.pro/ws/v2`
 
 ## Release notes
+* Version 3.0.0-beta3 - 09 Aug 2021
+    * Renamed GetOrderInfoAsync to GetOrderAsync
+    * Renamed GetOrderInfoByClientOrderIdAsync to GetOrderByClientOrderIdAsync
+    * Renamed GetSymbolTradesAsync to GetUserTradeHistoryAsync
+    * Renamed PlaceWithdrawAsync to WithdrawAsync
+    * Renamed GetTradesAsync to GetTradeHistoryAsync
+
 * Version 3.0.0-beta2 - 26 Jul 2021
     * Updated CryptoExchange.Net
 
