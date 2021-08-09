@@ -432,7 +432,7 @@ namespace Huobi.Net.UnitTests
             var client = TestHelpers.CreateAuthResponseClient(SerializeExpected(expected, true));
 
             // act
-            var result = await client.GetOrderInfoAsync(123);
+            var result = await client.GetOrderAsync(123);
 
             // assert
             Assert.AreEqual(true, result.Success);

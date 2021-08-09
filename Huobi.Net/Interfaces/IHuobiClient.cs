@@ -288,7 +288,7 @@ namespace Huobi.Net.Interfaces
         /// <param name="orderId">The id of the order to retrieve</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<HuobiOrder>> GetOrderInfoAsync(long orderId, CancellationToken ct = default);
+        Task<WebCallResult<HuobiOrder>> GetOrderAsync(long orderId, CancellationToken ct = default);
 
         /// <summary>
         /// Get details of an order by client order id
@@ -296,7 +296,7 @@ namespace Huobi.Net.Interfaces
         /// <param name="clientOrderId">The client id of the order to retrieve</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<HuobiOrder>> GetOrderInfoByClientOrderIdAsync(string clientOrderId, CancellationToken ct = default);
+        Task<WebCallResult<HuobiOrder>> GetOrderByClientOrderIdAsync(string clientOrderId, CancellationToken ct = default);
 
         /// <summary>
         /// Gets a list of trades made for a specific order
@@ -334,7 +334,7 @@ namespace Huobi.Net.Interfaces
         /// <param name="limit">The max number of results</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<HuobiOrderTrade>>> GetSymbolTradesAsync(IEnumerable<HuobiOrderState>? states = null, string? symbol = null, IEnumerable<HuobiOrderType>? types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, HuobiFilterDirection? direction = null, int? limit = null, CancellationToken ct = default);
+        Task<WebCallResult<IEnumerable<HuobiOrderTrade>>> GetUserTradeHistoryAsync(IEnumerable<HuobiOrderState>? states = null, string? symbol = null, IEnumerable<HuobiOrderType>? types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, HuobiFilterDirection? direction = null, int? limit = null, CancellationToken ct = default);
 
         /// <summary>
         /// Gets a list of history orders
@@ -367,7 +367,7 @@ namespace Huobi.Net.Interfaces
         /// <param name="addressTag">A tag specified for this address</param>
         /// <param name="ct"></param>
         /// <returns></returns>
-        Task<WebCallResult<long>> PlaceWithdrawAsync(string address, string currency, decimal amount, decimal fee, string? chain = null, string? addressTag = null, CancellationToken ct = default);
+        Task<WebCallResult<long>> WithdrawAsync(string address, string currency, decimal amount, decimal fee, string? chain = null, string? addressTag = null, CancellationToken ct = default);
 
         /// <summary>
         /// Parent user and sub user searche for all existed withdraws and deposits and return their latest status.

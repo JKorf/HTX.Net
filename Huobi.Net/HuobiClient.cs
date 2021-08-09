@@ -673,7 +673,7 @@ namespace Huobi.Net
         /// <param name="orderId">The id of the order to retrieve</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        public async Task<WebCallResult<HuobiOrder>> GetOrderInfoAsync(long orderId, CancellationToken ct = default)
+        public async Task<WebCallResult<HuobiOrder>> GetOrderAsync(long orderId, CancellationToken ct = default)
         {
             return await SendHuobiRequest<HuobiOrder>(GetUrl(FillPathParameter(OrderInfoEndpoint, orderId.ToString(CultureInfo.InvariantCulture)), "1"), HttpMethod.Get, ct, signed: true).ConfigureAwait(false);
         }
@@ -684,7 +684,7 @@ namespace Huobi.Net
         /// <param name="clientOrderId">The client id of the order to retrieve</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        public async Task<WebCallResult<HuobiOrder>> GetOrderInfoByClientOrderIdAsync(string clientOrderId, CancellationToken ct = default)
+        public async Task<WebCallResult<HuobiOrder>> GetOrderByClientOrderIdAsync(string clientOrderId, CancellationToken ct = default)
         {
             var parameters = new Dictionary<string, object>
             {
@@ -751,7 +751,7 @@ namespace Huobi.Net
         /// <param name="limit">The max number of results</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        public async Task<WebCallResult<IEnumerable<HuobiOrderTrade>>> GetSymbolTradesAsync(IEnumerable<HuobiOrderState>? states = null, string? symbol = null, IEnumerable<HuobiOrderType>? types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, HuobiFilterDirection? direction = null, int? limit = null, CancellationToken ct = default)
+        public async Task<WebCallResult<IEnumerable<HuobiOrderTrade>>> GetUserTradeHistoryAsync(IEnumerable<HuobiOrderState>? states = null, string? symbol = null, IEnumerable<HuobiOrderType>? types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, HuobiFilterDirection? direction = null, int? limit = null, CancellationToken ct = default)
         {
             symbol = symbol?.ValidateHuobiSymbol();
             var stateConverter = new OrderStateConverter(false);
@@ -820,7 +820,7 @@ namespace Huobi.Net
         /// <param name="addressTag">A tag specified for this address</param>
         /// <param name="ct"></param>
         /// <returns></returns>
-        public async Task<WebCallResult<long>> PlaceWithdrawAsync(string address, string currency, decimal amount, decimal fee, string? chain = null, string? addressTag = null, CancellationToken ct = default)
+        public async Task<WebCallResult<long>> WithdrawAsync(string address, string currency, decimal amount, decimal fee, string? chain = null, string? addressTag = null, CancellationToken ct = default)
         {
             var parameters = new Dictionary<string, object>
             {
@@ -1044,7 +1044,7 @@ namespace Huobi.Net
 
         async Task<WebCallResult<ICommonOrder>> IExchangeClient.GetOrderAsync(string orderId, string? symbol)
         {
-            var order = await GetOrderInfoAsync(long.Parse(orderId)).ConfigureAwait(false);
+            var order = await GetOrderAsync(long.Parse(orderId)).ConfigureAwait(false);
             return order.As<ICommonOrder>(order.Data);
         }
 

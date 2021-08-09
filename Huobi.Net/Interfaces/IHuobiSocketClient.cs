@@ -53,7 +53,7 @@ namespace Huobi.Net.Interfaces
         /// </summary>
         /// <param name="symbol">The symbol to get trades for</param>
         /// <returns></returns>
-        Task<CallResult<IEnumerable<HuobiSymbolTradeDetails>>> GetTradesAsync(string symbol);
+        Task<CallResult<IEnumerable<HuobiSymbolTradeDetails>>> GetTradeHistoryAsync(string symbol);
 
         /// <summary>
         /// Subscribes to trade updates for a symbol
