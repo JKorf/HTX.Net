@@ -26,7 +26,7 @@ namespace Huobi.Net.Objects
         [JsonProperty("ts"), JsonConverter(typeof(TimestampConverter))]
         public DateTime Timestamp { get; set; }
         [JsonProperty("ch")]
-        public string Channel { get; set; } = "";
+        public string Channel { get; set; } = string.Empty;
         [JsonProperty("next-time"), JsonConverter(typeof(TimestampConverter))]
         private DateTime NextTime { get => Timestamp; set => Timestamp = value; }
     }

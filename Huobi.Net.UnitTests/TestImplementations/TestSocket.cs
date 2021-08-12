@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Security.Authentication;
+using System.Text;
 using System.Threading.Tasks;
 using CryptoExchange.Net.Interfaces;
+using CryptoExchange.Net.Objects;
 using Newtonsoft.Json;
-using WebSocket4Net;
 
 namespace Huobi.Net.UnitTests.TestImplementations
 {
@@ -23,7 +24,6 @@ namespace Huobi.Net.UnitTests.TestImplementations
         public Func<byte[], string> DataInterpreterBytes { get; set; }
         public DateTime? DisconnectTime { get; set; }
         public string Url { get; }
-        public WebSocketState SocketState { get; }
         public bool IsClosed => !Connected;
         public bool IsOpen => Connected;
         public bool PingConnection { get; set; }
@@ -32,8 +32,9 @@ namespace Huobi.Net.UnitTests.TestImplementations
         public TimeSpan Timeout { get; set; }
         public string Origin { get; set; }
         public bool Reconnecting { get; set; }
+        public Encoding Encoding { get; set; }
 
-        public Task<bool> Connect()
+        public Task<bool> ConnectAsync()
         {
             Connected = CanConnect;
             return Task.FromResult(CanConnect);
@@ -50,13 +51,13 @@ namespace Huobi.Net.UnitTests.TestImplementations
             
         }
 
-        public Task Close()
+        public Task CloseAsync()
         {
             Connected = false;
             return Task.FromResult(0);
         }
 
-        public void SetProxy(string host, int port)
+        public void SetProxy(ApiProxy proxy)
         {
             throw new NotImplementedException();
         }

@@ -18,7 +18,7 @@ namespace Huobi.Net.Objects.SocketObjects
     internal class HuobiSocketResponse<T>: HuobiResponse
     {
         internal override bool IsSuccessful => Status == "ok";
-        [JsonProperty("status")] internal string Status { get; set; } = "";
+        [JsonProperty("status")] internal string Status { get; set; } = string.Empty;
         
         /// <summary>
         /// The timestamp of the data
@@ -38,8 +38,8 @@ namespace Huobi.Net.Objects.SocketObjects
     internal class HuobiSubscribeResponse: HuobiResponse
     {
         internal override bool IsSuccessful => Status == "ok";
-        public string Status { get; set; } = "";
-        public string Subbed { get; set; } = "";
+        public string Status { get; set; } = string.Empty;
+        public string Subbed { get; set; } = string.Empty;
         [JsonConverter(typeof(TimestampConverter)), JsonProperty("ts")]
         public DateTime Timestamp { get; set; }
     }
@@ -48,10 +48,10 @@ namespace Huobi.Net.Objects.SocketObjects
     {
         internal bool IsSuccessful => Code == 200;
         public int Code { get; set; }
-        public string Message { get; set; }
+        public string Message { get; set; } = string.Empty;
         [JsonProperty("ch")]
-        public string Channel { get; set; } = "";
-        public string Action { get; set; } = "";
+        public string Channel { get; set; } = string.Empty;
+        public string Action { get; set; } = string.Empty;
     }
     
 }

@@ -19,7 +19,7 @@ namespace Huobi.Net.Objects
         /// <summary>
         /// Currency
         /// </summary>
-        public string Currency { get; set; } = "";
+        public string Currency { get; set; } = string.Empty;
 		
         /// <summary>
         /// Amount change (positive value if income, negative value if outcome)	
@@ -55,6 +55,6 @@ namespace Huobi.Net.Objects
         /// Unique record ID in the database
         /// </summary>
         [JsonProperty("record-id")]
-        public string RecordId { get; set; } = "";
+        public string RecordId { get; set; } = string.Empty;
     }
 }

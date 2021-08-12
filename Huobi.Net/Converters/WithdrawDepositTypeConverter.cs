@@ -1,6 +1,5 @@
 ﻿using CryptoExchange.Net.Converters;
 using Huobi.Net.Enums;
-using Huobi.Net.Objects;
 using System.Collections.Generic;
 
 namespace Huobi.Net.Converters

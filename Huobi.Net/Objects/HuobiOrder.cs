@@ -23,12 +23,12 @@ namespace Huobi.Net.Objects
         /// The order id as specified by the client
         /// </summary>
         [JsonProperty("client-order-id")]
-        public string ClientOrderId { get; set; } = "";
+        public string ClientOrderId { get; set; } = string.Empty;
 
         /// <summary>
         /// The symbol of the order
         /// </summary>
-        public string Symbol { get; set; } = "";
+        public string Symbol { get; set; } = string.Empty;
         /// <summary>
         /// The id of the account that placed the order
         /// </summary>
@@ -72,7 +72,7 @@ namespace Huobi.Net.Objects
         /// The source of the order
         /// </summary>
         [JsonProperty("source"), JsonOptionalProperty]
-        public string Source { get; set; } = "";
+        public string Source { get; set; } = string.Empty;
 
         /// <summary>
         /// The state of the order
@@ -102,7 +102,11 @@ namespace Huobi.Net.Objects
         string ICommonOrder.CommonSymbol => Symbol;
         decimal ICommonOrder.CommonPrice => Price;
         decimal ICommonOrder.CommonQuantity => Amount;
-        string ICommonOrder.CommonStatus => State.ToString();
+        DateTime ICommonOrder.CommonOrderTime => CreatedAt;
+        IExchangeClient.OrderStatus ICommonOrder.CommonStatus =>
+            State == HuobiOrderState.Created || State == HuobiOrderState.PartiallyFilled || State == HuobiOrderState.PreSubmitted || State == HuobiOrderState.Submitted ? IExchangeClient.OrderStatus.Active :
+            State == HuobiOrderState.Filled ? IExchangeClient.OrderStatus.Filled :
+            IExchangeClient.OrderStatus.Canceled;
         bool ICommonOrder.IsActive =>
             State == HuobiOrderState.Created ||
             State == HuobiOrderState.PreSubmitted ||

@@ -19,11 +19,11 @@ namespace Huobi.Net.Objects
         /// <summary>
         /// List of bids
         /// </summary>
-        public IEnumerable<HuobiOrderBookEntry> Bids { get; set; } = new List<HuobiOrderBookEntry>();
+        public IEnumerable<HuobiOrderBookEntry> Bids { get; set; } = Array.Empty<HuobiOrderBookEntry>();
         /// <summary>
         /// List of asks
         /// </summary>
-        public IEnumerable<HuobiOrderBookEntry> Asks { get; set; } = new List<HuobiOrderBookEntry>();
+        public IEnumerable<HuobiOrderBookEntry> Asks { get; set; } = Array.Empty<HuobiOrderBookEntry>();
 
         IEnumerable<ISymbolOrderBookEntry> ICommonOrderBook.CommonBids => Bids;
         IEnumerable<ISymbolOrderBookEntry> ICommonOrderBook.CommonAsks => Asks;

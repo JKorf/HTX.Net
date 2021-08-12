@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using CryptoExchange.Net.Authentication;
+using System.Threading.Tasks;
 
 namespace Huobi.Net.UnitTests
 {
@@ -14,7 +15,7 @@ namespace Huobi.Net.UnitTests
     public class HuobiClientTests
     {
         [TestCase]
-        public void GetMarketTickers_Should_RespondWithMarketTickers()
+        public async Task GetMarketTickers_Should_RespondWithMarketTickers()
         {
             // arrange
             var expected = new List<HuobiSymbolTick>
@@ -35,7 +36,7 @@ namespace Huobi.Net.UnitTests
             var client = TestHelpers.CreateResponseClient(SerializeExpected(expected, true));
 
             // act
-            var result = client.GetTickers();
+            var result = await client.GetTickersAsync();
 
             // assert
             Assert.AreEqual(true, result.Success);
@@ -43,7 +44,7 @@ namespace Huobi.Net.UnitTests
         }
 
         [TestCase]
-        public void GetMarketTickerMerged_Should_RespondWithMergedTick()
+        public async Task GetMarketTickerMerged_Should_RespondWithMergedTick()
         {
             // arrange
             var expected = new HuobiSymbolTickMerged()
@@ -64,7 +65,7 @@ namespace Huobi.Net.UnitTests
             var client = TestHelpers.CreateResponseClient(SerializeExpected(expected, true));
 
             // act
-            var result = client.GetMergedTicker("BTCETH");
+            var result = await client.GetMergedTickerAsync("BTCETH");
 
             // assert
             Assert.AreEqual(true, result.Success);
@@ -72,7 +73,7 @@ namespace Huobi.Net.UnitTests
         }
 
         [TestCase]
-        public void GetMarketKlines_Should_RespondWithKlines()
+        public async Task GetMarketKlines_Should_RespondWithKlines()
         {
             // arrange
             var expected = new List<HuobiSymbolData>
@@ -92,7 +93,7 @@ namespace Huobi.Net.UnitTests
             var client = TestHelpers.CreateResponseClient(SerializeExpected(expected, true));
 
             // act
-            var result = client.GetKlines("BTCETH", HuobiPeriod.FiveMinutes, 10);
+            var result = await client.GetKlinesAsync("BTCETH", HuobiPeriod.FiveMinutes, 10);
 
             // assert
             Assert.AreEqual(true, result.Success);
@@ -100,7 +101,7 @@ namespace Huobi.Net.UnitTests
         }
 
         [TestCase]
-        public void GetMarketDepth_Should_RespondWithDepth()
+        public async Task GetMarketDepth_Should_RespondWithDepth()
         {
             // arrange
             var expected = new HuobiOrderBook()
@@ -118,7 +119,7 @@ namespace Huobi.Net.UnitTests
             var client = TestHelpers.CreateResponseClient(SerializeExpected(expected, true));
 
             // act
-            var result = client.GetOrderBook("BTCETH", 1);
+            var result = await client.GetOrderBookAsync("BTCETH", 1);
 
             // assert
             Assert.AreEqual(true, result.Success);
@@ -127,7 +128,7 @@ namespace Huobi.Net.UnitTests
         }
 
         [TestCase]
-        public void GetMarketLastTrade_Should_RespondWithLastTrade()
+        public async Task GetMarketLastTrade_Should_RespondWithLastTrade()
         {
             // arrange
             var expected = new HuobiSymbolTrade()
@@ -150,7 +151,7 @@ namespace Huobi.Net.UnitTests
             var client = TestHelpers.CreateResponseClient(SerializeExpected(expected, true));
 
             // act
-            var result = client.GetLastTrade("BTCETH");
+            var result = await client.GetLastTradeAsync("BTCETH");
 
             // assert
             Assert.AreEqual(true, result.Success);
@@ -159,7 +160,7 @@ namespace Huobi.Net.UnitTests
         }
 
         [TestCase]
-        public void GetMarketTradeHistory_Should_RespondWithTradeHistory()
+        public async Task GetMarketTradeHistory_Should_RespondWithTradeHistory()
         {
             // arrange
             var expected = new List<HuobiSymbolTrade>
@@ -185,7 +186,7 @@ namespace Huobi.Net.UnitTests
             var client = TestHelpers.CreateResponseClient(SerializeExpected(expected, true));
 
             // act
-            var result = client.GetTradeHistory("BTCETH", 1);
+            var result = await client.GetTradeHistoryAsync("BTCETH", 1);
 
             // assert
             Assert.AreEqual(true, result.Success);
@@ -194,7 +195,7 @@ namespace Huobi.Net.UnitTests
         }
 
         [TestCase]
-        public void GetMarketDetails24H_Should_RespondWithDetails24H()
+        public async Task GetMarketDetails24H_Should_RespondWithDetails24H()
         {
             // arrange
             var expected = new HuobiSymbolData
@@ -211,7 +212,7 @@ namespace Huobi.Net.UnitTests
             var client = TestHelpers.CreateResponseClient(SerializeExpected(expected, true));
 
             // act
-            var result = client.GetSymbolDetails24H("BTCETH");
+            var result = await client.GetSymbolDetails24HAsync("BTCETH");
 
             // assert
             Assert.AreEqual(true, result.Success);
@@ -219,7 +220,7 @@ namespace Huobi.Net.UnitTests
         }
 
         [TestCase]
-        public void GetSymbols_Should_RespondWithSymbolList()
+        public async Task GetSymbols_Should_RespondWithSymbolList()
         {
             // arrange
             var expected = new List<HuobiSymbol>
@@ -238,7 +239,7 @@ namespace Huobi.Net.UnitTests
             var client = TestHelpers.CreateResponseClient(SerializeExpected(expected, true));
 
             // act
-            var result = client.GetSymbols();
+            var result = await client.GetSymbolsAsync();
 
             // assert
             Assert.AreEqual(true, result.Success);
@@ -246,7 +247,7 @@ namespace Huobi.Net.UnitTests
         }
 
         [TestCase]
-        public void GetCurrencies_Should_RespondWithCurrenciesList()
+        public async Task GetCurrencies_Should_RespondWithCurrenciesList()
         {
             // arrange
             var expected = new List<string>
@@ -258,7 +259,7 @@ namespace Huobi.Net.UnitTests
             var client = TestHelpers.CreateResponseClient(SerializeExpected(expected, true));
 
             // act
-            var result = client.GetCurrencies();
+            var result = await client.GetCurrenciesAsync();
 
             // assert
             Assert.AreEqual(true, result.Success);
@@ -267,7 +268,7 @@ namespace Huobi.Net.UnitTests
         }
 
         [TestCase]
-        public void GetAccounts_Should_RespondWithAccountsList()
+        public async Task GetAccounts_Should_RespondWithAccountsList()
         {
             // arrange
             var expected = new List<HuobiAccount>
@@ -283,7 +284,7 @@ namespace Huobi.Net.UnitTests
             var client = TestHelpers.CreateAuthResponseClient(SerializeExpected(expected, true));
 
             // act
-            var result = client.GetAccounts();
+            var result = await client.GetAccountsAsync();
 
             // assert
             Assert.AreEqual(true, result.Success);
@@ -291,7 +292,7 @@ namespace Huobi.Net.UnitTests
         }
 
         [TestCase]
-        public void GetAccountBalances_Should_RespondWithAccountBalanceList()
+        public async Task GetAccountBalances_Should_RespondWithAccountBalanceList()
         {
             // arrange
             var expected = new HuobiAccountBalances()
@@ -310,7 +311,7 @@ namespace Huobi.Net.UnitTests
             var client = TestHelpers.CreateAuthResponseClient(SerializeExpected(expected, true));
 
             // act
-            var result = client.GetBalances(123);
+            var result = await client.GetBalancesAsync(123);
 
             // assert
             Assert.AreEqual(true, result.Success);
@@ -318,13 +319,13 @@ namespace Huobi.Net.UnitTests
         }
 
         [TestCase]
-        public void PlaceOrder_Should_RespondWithPlacedOrderId()
+        public async Task PlaceOrder_Should_RespondWithPlacedOrderId()
         {
             // arrange
             var client = TestHelpers.CreateAuthResponseClient(SerializeExpected(123, true));
 
             // act
-            var result = client.PlaceOrder(123, "BTCETH", HuobiOrderType.LimitBuy, 1, 2);
+            var result = await client.PlaceOrderAsync(123, "BTCETH", HuobiOrderType.LimitBuy, 1, 2);
 
             // assert
             Assert.AreEqual(true, result.Success);
@@ -332,7 +333,7 @@ namespace Huobi.Net.UnitTests
         }
 
         [TestCase]
-        public void GetOpenOrders_Should_RespondWithOpenOrders()
+        public async Task GetOpenOrders_Should_RespondWithOpenOrders()
         {
             // arrange
             var expected = new List<HuobiOpenOrder>()
@@ -358,7 +359,7 @@ namespace Huobi.Net.UnitTests
             var client = TestHelpers.CreateAuthResponseClient(SerializeExpected(expected, true));
 
             // act
-            var result = client.GetOpenOrders();
+            var result = await client.GetOpenOrdersAsync();
 
             // assert
             Assert.AreEqual(true, result.Success);
@@ -366,13 +367,13 @@ namespace Huobi.Net.UnitTests
         }
 
         [TestCase]
-        public void CancelOrder_Should_RespondWithCanceledOrderId()
+        public async Task CancelOrder_Should_RespondWithCanceledOrderId()
         {
             // arrange
             var client = TestHelpers.CreateAuthResponseClient(SerializeExpected(123, true));
 
             // act
-            var result = client.CancelOrder(123);
+            var result = await client.CancelOrderAsync(123);
 
             // assert
             Assert.AreEqual(true, result.Success);
@@ -380,7 +381,7 @@ namespace Huobi.Net.UnitTests
         }
 
         [TestCase]
-        public void CancelOrders_Should_RespondWithCancelResults()
+        public async Task CancelOrders_Should_RespondWithCancelResults()
         {
             // arrange
             var expected = new HuobiBatchCancelResult()
@@ -400,7 +401,7 @@ namespace Huobi.Net.UnitTests
             var client = TestHelpers.CreateAuthResponseClient(SerializeExpected(expected, true));
 
             // act
-            var result = client.CancelOrders(new long[] { 123, 1234 });
+            var result = await client.CancelOrdersAsync(new long[] { 123, 1234 });
 
             // assert
             Assert.AreEqual(true, result.Success);
@@ -409,7 +410,7 @@ namespace Huobi.Net.UnitTests
         }
 
         [TestCase]
-        public void GetOrderInfo_Should_RespondWithOrderInfo()
+        public async Task GetOrderInfo_Should_RespondWithOrderInfo()
         {
             // arrange
             var expected = new HuobiOrder()
@@ -431,7 +432,7 @@ namespace Huobi.Net.UnitTests
             var client = TestHelpers.CreateAuthResponseClient(SerializeExpected(expected, true));
 
             // act
-            var result = client.GetOrderInfo(123);
+            var result = await client.GetOrderAsync(123);
 
             // assert
             Assert.AreEqual(true, result.Success);
@@ -439,7 +440,7 @@ namespace Huobi.Net.UnitTests
         }
 
         [TestCase]
-        public void GetOrderTrades_Should_RespondWithOrderTrades()
+        public async Task GetOrderTrades_Should_RespondWithOrderTrades()
         {
             // arrange
             var expected = new List<HuobiOrderTrade>
@@ -462,7 +463,7 @@ namespace Huobi.Net.UnitTests
             var client = TestHelpers.CreateAuthResponseClient(SerializeExpected(expected, true));
 
             // act
-            var result = client.GetOrderTrades(123);
+            var result = await client.GetOrderTradesAsync(123);
 
             // assert
             Assert.AreEqual(true, result.Success);
@@ -470,7 +471,7 @@ namespace Huobi.Net.UnitTests
         }
 
         [TestCase]
-        public void GetOrders_Should_RespondWithOrders()
+        public async Task GetOrders_Should_RespondWithOrders()
         {
             // arrange
             var expected = new List<HuobiOrder>()
@@ -495,7 +496,7 @@ namespace Huobi.Net.UnitTests
             var client = TestHelpers.CreateAuthResponseClient(SerializeExpected(expected, true));
 
             // act
-            var result = client.GetOrders(new[] { HuobiOrderState.Submitted }, "BTCETH");
+            var result = await client.GetOrdersAsync(new[] { HuobiOrderState.Submitted }, "BTCETH");
 
             // assert
             Assert.AreEqual(true, result.Success);
@@ -503,7 +504,7 @@ namespace Huobi.Net.UnitTests
         }
 
         [TestCase]
-        public void GetSymbolTrades_Should_RespondWithSymbolTrades()
+        public async Task GetSymbolTrades_Should_RespondWithSymbolTrades()
         {
             // arrange
             var expected = new List<HuobiOrderTrade>()
@@ -526,7 +527,7 @@ namespace Huobi.Net.UnitTests
             var client = TestHelpers.CreateAuthResponseClient(SerializeExpected(expected, true));
 
             // act
-            var result = client.GetSymbolTrades(symbol: "BTCETH", types: new[] { HuobiOrderType.LimitBuy });
+            var result = await client.GetUserTradesAsync(symbol: "BTCETH", types: new[] { HuobiOrderType.LimitBuy });
 
             // assert
             Assert.AreEqual(true, result.Success);
@@ -534,7 +535,7 @@ namespace Huobi.Net.UnitTests
         }
 
         [Test]
-        public void SigningString_Should_GiveCorrectSignResult()
+        public async Task SigningString_Should_GiveCorrectSignResult()
         {
             // arrange
             var authProvider = new HuobiAuthenticationProvider(new ApiCredentials("TestKey", "TestSecret"), false);
@@ -550,13 +551,13 @@ namespace Huobi.Net.UnitTests
         }
 
         [TestCase]
-        public void ReceivingErrorResponse_Should_FailCall()
+        public async Task ReceivingErrorResponse_Should_FailCall()
         {
             // arrange
             var client = TestHelpers.CreateAuthResponseClient("{{\"status\": \"error\", \"err-code\": \"Error!\", \"err-msg\": \"ErrorMessage\"}}");
 
             // act
-            var result = client.GetCurrencies();
+            var result = await client.GetCurrenciesAsync();
 
             // assert
             Assert.IsFalse(result.Success);
@@ -565,13 +566,13 @@ namespace Huobi.Net.UnitTests
         }
 
         [TestCase]
-        public void ReceivingHttpErrorResponse_Should_FailCall()
+        public async Task ReceivingHttpErrorResponse_Should_FailCall()
         {
             // arrange
             var client = TestHelpers.CreateAuthResponseClient("Error message", System.Net.HttpStatusCode.BadRequest);
 
             // act
-            var result = client.GetCurrencies();
+            var result = await client.GetCurrenciesAsync();
 
             // assert
             Assert.IsFalse(result.Success);
@@ -594,7 +595,7 @@ namespace Huobi.Net.UnitTests
         [TestCase("NANOUSDTD", true)]
         [TestCase("BTC-USDT", false)]
         [TestCase("BTC-USD", false)]
-        public void CheckValidHuobiSymbol(string symbol, bool isValid)
+        public async Task CheckValidHuobiSymbol(string symbol, bool isValid)
         {
             if (isValid)
                 Assert.DoesNotThrow(() => symbol.ValidateHuobiSymbol());

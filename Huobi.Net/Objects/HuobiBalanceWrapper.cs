@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using CryptoExchange.Net.ExchangeInterfaces;
+﻿using CryptoExchange.Net.ExchangeInterfaces;
 
 namespace Huobi.Net.Objects
 {
@@ -13,7 +10,7 @@ namespace Huobi.Net.Objects
         /// <summary>
         /// Asset
         /// </summary>
-        public string Asset { get; set; }
+        public string Asset { get; set; } = string.Empty;
         /// <summary>
         /// Frozen
         /// </summary>

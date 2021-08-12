@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using CryptoExchange.Net.Attributes;
 using CryptoExchange.Net.Converters;
 using Huobi.Net.Converters;
@@ -16,12 +14,12 @@ namespace Huobi.Net.Objects.SocketObjects.V2
         /// <summary>
         /// Event type
         /// </summary>
-        public string EventType { get; set; } = "";
+        public string EventType { get; set; } = string.Empty;
 
         /// <summary>
         /// The symbol
         /// </summary>
-        public string Symbol { get; set; } = "";
+        public string Symbol { get; set; } = string.Empty;
         /// <summary>
         /// Client order id
         /// </summary>
@@ -83,7 +81,7 @@ namespace Huobi.Net.Objects.SocketObjects.V2
         /// <summary>
         /// Order source
         /// </summary>
-        public string OrderSource { get; set; } = "";
+        public string OrderSource { get; set; } = string.Empty;
     }
 
     /// <summary>
@@ -145,7 +143,7 @@ namespace Huobi.Net.Objects.SocketObjects.V2
         /// <summary>
         /// Order source
         /// </summary>
-        public string OrderSource { get; set; } = "";
+        public string OrderSource { get; set; } = string.Empty;
     }
 
     /// <summary>
@@ -185,7 +183,7 @@ namespace Huobi.Net.Objects.SocketObjects.V2
         /// <summary>
         /// Order source
         /// </summary>
-        public string OrderSource { get; set; } = "";
+        public string OrderSource { get; set; } = string.Empty;
     }
 
     /// <summary>
@@ -208,6 +206,6 @@ namespace Huobi.Net.Objects.SocketObjects.V2
         /// The error message
         /// </summary>
         [JsonProperty("errMessage")]
-        public string ErrorMessage { get; set; } = "";
+        public string ErrorMessage { get; set; } = string.Empty;
     }
 }

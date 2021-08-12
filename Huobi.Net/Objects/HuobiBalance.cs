@@ -11,7 +11,7 @@ namespace Huobi.Net.Objects
         /// <summary>
         /// The currency
         /// </summary>
-        public string Currency { get; set; } = "";
+        public string Currency { get; set; } = string.Empty;
         /// <summary>
         /// The type of the balance
         /// </summary>

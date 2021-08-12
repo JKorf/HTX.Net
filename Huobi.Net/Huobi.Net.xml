@@ -229,6 +229,16 @@
             Whether public requests should be signed if ApiCredentials are provided. Needed for accurate rate limiting.
             </summary>
         </member>
+        <member name="E:Huobi.Net.HuobiClient.OnOrderPlaced">
+            <summary>
+            Event triggered when an order is placed via this client
+            </summary>
+        </member>
+        <member name="E:Huobi.Net.HuobiClient.OnOrderCanceled">
+            <summary>
+            Event triggered when an order is cancelled via this client
+            </summary>
+        </member>
         <member name="M:Huobi.Net.HuobiClient.#ctor">
             <summary>
             Create a new instance of HuobiClient using the default options
@@ -252,24 +262,10 @@
             <param name="apiKey">The api key</param>
             <param name="apiSecret">The api secret</param>
         </member>
-        <member name="M:Huobi.Net.HuobiClient.GetTickers(System.Threading.CancellationToken)">
-            <summary>
-            Gets the latest ticker for all symbols
-            </summary>
-            <returns></returns>
-        </member>
         <member name="M:Huobi.Net.HuobiClient.GetTickersAsync(System.Threading.CancellationToken)">
             <summary>
             Gets the latest ticker for all symbols
             </summary>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
-        </member>
-        <member name="M:Huobi.Net.HuobiClient.GetMergedTicker(System.String,System.Threading.CancellationToken)">
-            <summary>
-            Gets the ticker, including the best bid / best ask for a symbol
-            </summary>
-            <param name="symbol">The symbol to get the ticker for</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -278,16 +274,6 @@
             Gets the ticker, including the best bid / best ask for a symbol
             </summary>
             <param name="symbol">The symbol to get the ticker for</param>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
-        </member>
-        <member name="M:Huobi.Net.HuobiClient.GetKlines(System.String,Huobi.Net.Objects.HuobiPeriod,System.Int32,System.Threading.CancellationToken)">
-            <summary>
-            Get candlestick data for a symbol
-            </summary>
-            <param name="symbol">The symbol to get the data for</param>
-            <param name="period">The period of a single candlestick</param>
-            <param name="size">The amount of candlesticks</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -301,16 +287,6 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.HuobiClient.GetOrderBook(System.String,System.Int32,System.Nullable{System.Int32},System.Threading.CancellationToken)">
-            <summary>
-            Gets the order book for a symbol
-            </summary>
-            <param name="symbol">The symbol to request for</param>
-            <param name="mergeStep">The way the results will be merged together</param>
-            <param name="limit">The depth of the book</param>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
-        </member>
         <member name="M:Huobi.Net.HuobiClient.GetOrderBookAsync(System.String,System.Int32,System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Gets the order book for a symbol
@@ -321,28 +297,11 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.HuobiClient.GetLastTrade(System.String,System.Threading.CancellationToken)">
-            <summary>
-            Gets the last trade for a symbol
-            </summary>
-            <param name="symbol">The symbol to request for</param>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
-        </member>
         <member name="M:Huobi.Net.HuobiClient.GetLastTradeAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Gets the last trade for a symbol
             </summary>
             <param name="symbol">The symbol to request for</param>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
-        </member>
-        <member name="M:Huobi.Net.HuobiClient.GetTradeHistory(System.String,System.Int32,System.Threading.CancellationToken)">
-            <summary>
-            Get the last x trades for a symbol
-            </summary>
-            <param name="symbol">The symbol to get trades for</param>
-            <param name="limit">The max number of results</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -355,25 +314,9 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.HuobiClient.GetSymbolDetails24H(System.String,System.Threading.CancellationToken)">
-            <summary>
-            Gets 24h stats for a symbol
-            </summary>
-            <param name="symbol">The symbol to get the data for</param>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
-        </member>
         <member name="M:Huobi.Net.HuobiClient.GetSymbolDetails24HAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Gets 24h stats for a symbol
-            </summary>
-            <param name="symbol">The symbol to get the data for</param>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
-        </member>
-        <member name="M:Huobi.Net.HuobiClient.GetNav(System.String,System.Threading.CancellationToken)">
-            <summary>
-            Gets real time NAV for ETP
             </summary>
             <param name="symbol">The symbol to get the data for</param>
             <param name="ct">Cancellation token</param>
@@ -387,23 +330,9 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.HuobiClient.GetMarketStatus(System.Threading.CancellationToken)">
-            <summary>
-            Gets the current market status
-            </summary>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
-        </member>
         <member name="M:Huobi.Net.HuobiClient.GetMarketStatusAsync(System.Threading.CancellationToken)">
             <summary>
             Gets the current market status
-            </summary>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
-        </member>
-        <member name="M:Huobi.Net.HuobiClient.GetSymbols(System.Threading.CancellationToken)">
-            <summary>
-            Gets a list of supported symbols
             </summary>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -415,25 +344,10 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.HuobiClient.GetCurrencies(System.Threading.CancellationToken)">
-            <summary>
-            Gets a list of supported currencies
-            </summary>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
-        </member>
         <member name="M:Huobi.Net.HuobiClient.GetCurrenciesAsync(System.Threading.CancellationToken)">
             <summary>
             Gets a list of supported currencies
             </summary>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
-        </member>
-        <member name="M:Huobi.Net.HuobiClient.GetCurrenciesAndChains(System.String,System.Threading.CancellationToken)">
-            <summary>
-            Gets a list of supported currencies and chains
-            </summary>
-            <param name="currency">Filter by currency</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -445,23 +359,9 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.HuobiClient.GetServerTime(System.Threading.CancellationToken)">
-            <summary>
-            Gets the server time
-            </summary>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
-        </member>
         <member name="M:Huobi.Net.HuobiClient.GetServerTimeAsync(System.Threading.CancellationToken)">
             <summary>
             Gets the server time
-            </summary>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
-        </member>
-        <member name="M:Huobi.Net.HuobiClient.GetAccounts(System.Threading.CancellationToken)">
-            <summary>
-            Gets a list of accounts associated with the apikey/secret
             </summary>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -473,29 +373,11 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.HuobiClient.GetBalances(System.Int64,System.Threading.CancellationToken)">
-            <summary>
-            Gets a list of balances for a specific account
-            </summary>
-            <param name="accountId">The id of the account to get the balances for</param>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
-        </member>
         <member name="M:Huobi.Net.HuobiClient.GetBalancesAsync(System.Int64,System.Threading.CancellationToken)">
             <summary>
             Gets a list of balances for a specific account
             </summary>
             <param name="accountId">The id of the account to get the balances for</param>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
-        </member>
-        <member name="M:Huobi.Net.HuobiClient.GetAssetValuation(Huobi.Net.Objects.HuobiAccountType,System.String,System.Nullable{System.Int64},System.Threading.CancellationToken)">
-            <summary>
-            Gets the valuation of all assets
-            </summary>
-            <param name="accountType">Type of account to valuate</param>
-            <param name="valuationCurrency">The currency to get the value in</param>
-            <param name="subUserId">The id of the sub user</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -506,21 +388,6 @@
             <param name="accountType">Type of account to valuate</param>
             <param name="valuationCurrency">The currency to get the value in</param>
             <param name="subUserId">The id of the sub user</param>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
-        </member>
-        <member name="M:Huobi.Net.HuobiClient.TransferAsset(System.Int64,Huobi.Net.Objects.HuobiAccountType,System.Int64,System.Int64,Huobi.Net.Objects.HuobiAccountType,System.Int64,System.String,System.Decimal,System.Threading.CancellationToken)">
-            <summary>
-            Transfer assets between accounts
-            </summary>
-            <param name="fromUserId">From user id</param>
-            <param name="fromAccountType">From account type</param>
-            <param name="fromAccountId">From account id</param>
-            <param name="toUserId">To user id</param>
-            <param name="toAccountType">To account type</param>
-            <param name="toAccountId">To account id</param>
-            <param name="currency">Currency to transfer</param>
-            <param name="amount">Amount to transfer</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -539,20 +406,6 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.HuobiClient.GetAccountHistory(System.Int64,System.String,System.Collections.Generic.IEnumerable{Huobi.Net.Objects.HuobiTransactionType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Huobi.Net.Objects.HuobiSortingType},System.Nullable{System.Int32},System.Threading.CancellationToken)">
-            <summary>
-            Gets a list of amount changes of specified user's account
-            </summary>
-            <param name="accountId">The id of the account to get the balances for</param>
-            <param name="currency">Currency name</param>
-            <param name="transactionTypes">Amount change types</param>
-            <param name="startTime">Far point of time of the query window. The maximum size of the query window is 1 hour. The query window can be shifted within 30 days</param>
-            <param name="endTime">Near point of time of the query window. The maximum size of the query window is 1 hour. The query window can be shifted within 30 days</param>
-            <param name="sort">Sorting order (Ascending by default)</param>
-            <param name="size">Maximum number of items in each response (from 1 to 500, default is 100)</param>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
-        </member>
         <member name="M:Huobi.Net.HuobiClient.GetAccountHistoryAsync(System.Int64,System.String,System.Collections.Generic.IEnumerable{Huobi.Net.Objects.HuobiTransactionType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Huobi.Net.Objects.HuobiSortingType},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Gets a list of amount changes of specified user's account
@@ -564,21 +417,6 @@
             <param name="endTime">Near point of time of the query window. The maximum size of the query window is 1 hour. The query window can be shifted within 30 days</param>
             <param name="sort">Sorting order (Ascending by default)</param>
             <param name="size">Maximum number of items in each response (from 1 to 500, default is 100)</param>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
-        </member>
-        <member name="M:Huobi.Net.HuobiClient.GetAccountLedger(System.Int64,System.String,System.Collections.Generic.IEnumerable{Huobi.Net.Objects.HuobiTransactionType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Huobi.Net.Objects.HuobiSortingType},System.Nullable{System.Int32},System.Nullable{System.Int64},System.Threading.CancellationToken)">
-            <summary>
-            This endpoint returns the amount changes of specified user's account.
-            </summary>
-            <param name="accountId">The id of the account to get the ledger for</param>
-            <param name="currency">Currency name</param>
-            <param name="transactionTypes">Amount change types</param>
-            <param name="startTime">Far point of time of the query window. The maximum size of the query window is 10 days. The query window can be shifted within 30 days</param>
-            <param name="endTime">Near point of time of the query window. The maximum size of the query window is 10 days. The query window can be shifted within 30 days</param>
-            <param name="sort">Sorting order (Ascending by default)</param>
-            <param name="size">Maximum number of items in each response (from 1 to 500, default is 100)</param>
-            <param name="fromId">Only get orders with ID before or after this. Used together with the direction parameter</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -597,14 +435,6 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.HuobiClient.GetSubAccountBalances(System.Int64,System.Threading.CancellationToken)">
-            <summary>
-            Gets a list of balances for a specific sub account
-            </summary>
-            <param name="subAccountId">The id of the sub account to get the balances for</param>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
-        </member>
         <member name="M:Huobi.Net.HuobiClient.GetSubAccountBalancesAsync(System.Int64,System.Threading.CancellationToken)">
             <summary>
             Gets a list of balances for a specific sub account
@@ -612,17 +442,6 @@
             <param name="subAccountId">The id of the sub account to get the balances for</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
-        </member>
-        <member name="M:Huobi.Net.HuobiClient.TransferWithSubAccount(System.Int64,System.String,System.Decimal,Huobi.Net.Objects.HuobiTransferType,System.Threading.CancellationToken)">
-            <summary>
-            Transfer asset between parent and sub account
-            </summary>
-            <param name="subAccountId">The target sub account id to transfer to or from</param>
-            <param name="currency">The crypto currency to transfer</param>
-            <param name="amount">The amount of asset to transfer</param>
-            <param name="transferType">The type of transfer</param>
-            <param name="ct">Cancellation token</param>
-            <returns>Unique transfer id</returns>
         </member>
         <member name="M:Huobi.Net.HuobiClient.TransferWithSubAccountAsync(System.Int64,System.String,System.Decimal,Huobi.Net.Objects.HuobiTransferType,System.Threading.CancellationToken)">
             <summary>
@@ -634,22 +453,6 @@
             <param name="transferType">The type of transfer</param>
             <param name="ct">Cancellation token</param>
             <returns>Unique transfer id</returns>
-        </member>
-        <member name="M:Huobi.Net.HuobiClient.PlaceOrder(System.Int64,System.String,Huobi.Net.Objects.HuobiOrderType,System.Decimal,System.Nullable{System.Decimal},System.String,System.Nullable{Huobi.Net.Enums.SourceType},System.Nullable{System.Decimal},System.Nullable{Huobi.Net.Enums.Operator},System.Threading.CancellationToken)">
-            <summary>
-            Places an order
-            </summary>
-            <param name="accountId">The account to place the order for</param>
-            <param name="symbol">The symbol to place the order for</param>
-            <param name="orderType">The type of the order</param>
-            <param name="amount">The amount of the order</param>
-            <param name="price">The price of the order. Should be omitted for market orders</param>
-            <param name="clientOrderId">The clientOrderId the order should get</param>
-            <param name="source">Source. defaults to SpotAPI</param>
-            <param name="stopPrice">Stop price</param>
-            <param name="stopOperator">Operator of the stop price</param>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
         </member>
         <member name="M:Huobi.Net.HuobiClient.PlaceOrderAsync(System.Int64,System.String,Huobi.Net.Objects.HuobiOrderType,System.Decimal,System.Nullable{System.Decimal},System.String,System.Nullable{Huobi.Net.Enums.SourceType},System.Nullable{System.Decimal},System.Nullable{Huobi.Net.Enums.Operator},System.Threading.CancellationToken)">
             <summary>
@@ -667,17 +470,6 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.HuobiClient.GetOpenOrders(System.Nullable{System.Int64},System.String,System.Nullable{Huobi.Net.Objects.HuobiOrderSide},System.Nullable{System.Int32},System.Threading.CancellationToken)">
-            <summary>
-            Gets a list of open orders
-            </summary>
-            <param name="accountId">The account id for which to get the orders for</param>
-            <param name="symbol">The symbol for which to get the orders for</param>
-            <param name="side">Only get buy or sell orders</param>
-            <param name="limit">The max number of results</param>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
-        </member>
         <member name="M:Huobi.Net.HuobiClient.GetOpenOrdersAsync(System.Nullable{System.Int64},System.String,System.Nullable{Huobi.Net.Objects.HuobiOrderSide},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Gets a list of open orders
@@ -689,27 +481,11 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.HuobiClient.CancelOrder(System.Int64,System.Threading.CancellationToken)">
-            <summary>
-            Cancels an open order
-            </summary>
-            <param name="orderId">The id of the order to cancel</param>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
-        </member>
         <member name="M:Huobi.Net.HuobiClient.CancelOrderAsync(System.Int64,System.Threading.CancellationToken)">
             <summary>
             Cancels an open order
             </summary>
             <param name="orderId">The id of the order to cancel</param>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
-        </member>
-        <member name="M:Huobi.Net.HuobiClient.CancelOrderByClientOrderId(System.String,System.Threading.CancellationToken)">
-            <summary>
-            Cancels an open order
-            </summary>
-            <param name="clientOrderId">The client id of the order to cancel</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -721,32 +497,12 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.HuobiClient.CancelOrders(System.Collections.Generic.IEnumerable{System.Int64},System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
-            <summary>
-            Cancel multiple open orders
-            </summary>
-            <param name="orderIds">The ids of the orders to cancel</param>
-            <param name="clientOrderIds">The client ids of the orders to cancel</param>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
-        </member>
         <member name="M:Huobi.Net.HuobiClient.CancelOrdersAsync(System.Collections.Generic.IEnumerable{System.Int64},System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
             <summary>
             Cancel multiple open orders
             </summary>
             <param name="orderIds">The ids of the orders to cancel</param>
             <param name="clientOrderIds">The client ids of the orders to cancel</param>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
-        </member>
-        <member name="M:Huobi.Net.HuobiClient.CancelOrdersByCriteria(System.Nullable{System.Int64},System.Collections.Generic.IEnumerable{System.String},System.Nullable{Huobi.Net.Objects.HuobiOrderSide},System.Nullable{System.Int32},System.Threading.CancellationToken)">
-            <summary>
-            Cancel multiple open orders
-            </summary>
-            <param name="accountId">The account id used for this cancel</param>
-            <param name="symbols">The trading symbol list (maximum 10 symbols, default value all symbols)</param>
-            <param name="side">Filter on the direction of the trade</param>
-            <param name="limit">The number of orders to cancel [1, 100]</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -761,7 +517,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.HuobiClient.GetOrderInfo(System.Int64,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.HuobiClient.GetOrderAsync(System.Int64,System.Threading.CancellationToken)">
             <summary>
             Get details of an order
             </summary>
@@ -769,35 +525,11 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.HuobiClient.GetOrderInfoAsync(System.Int64,System.Threading.CancellationToken)">
-            <summary>
-            Get details of an order
-            </summary>
-            <param name="orderId">The id of the order to retrieve</param>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
-        </member>
-        <member name="M:Huobi.Net.HuobiClient.GetOrderInfoByClientOrderId(System.String,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.HuobiClient.GetOrderByClientOrderIdAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get details of an order by client order id
             </summary>
             <param name="clientOrderId">The client id of the order to retrieve</param>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
-        </member>
-        <member name="M:Huobi.Net.HuobiClient.GetOrderInfoByClientOrderIdAsync(System.String,System.Threading.CancellationToken)">
-            <summary>
-            Get details of an order by client order id
-            </summary>
-            <param name="clientOrderId">The client id of the order to retrieve</param>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
-        </member>
-        <member name="M:Huobi.Net.HuobiClient.GetOrderTrades(System.Int64,System.Threading.CancellationToken)">
-            <summary>
-            Gets a list of trades made for a specific order
-            </summary>
-            <param name="orderId">The id of the order to get trades for</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -806,21 +538,6 @@
             Gets a list of trades made for a specific order
             </summary>
             <param name="orderId">The id of the order to get trades for</param>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
-        </member>
-        <member name="M:Huobi.Net.HuobiClient.GetOrders(System.Collections.Generic.IEnumerable{Huobi.Net.Objects.HuobiOrderState},System.String,System.Collections.Generic.IEnumerable{Huobi.Net.Objects.HuobiOrderType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int64},System.Nullable{Huobi.Net.Objects.HuobiFilterDirection},System.Nullable{System.Int32},System.Threading.CancellationToken)">
-            <summary>
-            Gets a list of orders
-            </summary>
-            <param name="symbol">The symbol to get orders for</param>
-            <param name="states">The states of orders to return</param>
-            <param name="types">The types of orders to return</param>
-            <param name="startTime">Only get orders after this date</param>
-            <param name="endTime">Only get orders before this date</param>
-            <param name="fromId">Only get orders with ID before or after this. Used together with the direction parameter</param>
-            <param name="direction">Direction of the results to return when using the fromId parameter</param>
-            <param name="limit">The max number of results</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -839,7 +556,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.HuobiClient.GetSymbolTrades(System.Collections.Generic.IEnumerable{Huobi.Net.Objects.HuobiOrderState},System.String,System.Collections.Generic.IEnumerable{Huobi.Net.Objects.HuobiOrderType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int64},System.Nullable{Huobi.Net.Objects.HuobiFilterDirection},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.HuobiClient.GetUserTradesAsync(System.Collections.Generic.IEnumerable{Huobi.Net.Objects.HuobiOrderState},System.String,System.Collections.Generic.IEnumerable{Huobi.Net.Objects.HuobiOrderType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int64},System.Nullable{Huobi.Net.Objects.HuobiFilterDirection},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Gets a list of trades for a specific symbol
             </summary>
@@ -850,33 +567,6 @@
             <param name="endTime">Only get orders before this date</param>
             <param name="fromId">Only get orders with ID before or after this. Used together with the direction parameter</param>
             <param name="direction">Direction of the results to return when using the fromId parameter</param>
-            <param name="limit">The max number of results</param>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
-        </member>
-        <member name="M:Huobi.Net.HuobiClient.GetSymbolTradesAsync(System.Collections.Generic.IEnumerable{Huobi.Net.Objects.HuobiOrderState},System.String,System.Collections.Generic.IEnumerable{Huobi.Net.Objects.HuobiOrderType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int64},System.Nullable{Huobi.Net.Objects.HuobiFilterDirection},System.Nullable{System.Int32},System.Threading.CancellationToken)">
-            <summary>
-            Gets a list of trades for a specific symbol
-            </summary>
-            <param name="states">Only return trades with specific states</param>
-            <param name="symbol">The symbol to retrieve trades for</param>
-            <param name="types">The type of orders to return</param>
-            <param name="startTime">Only get orders after this date</param>
-            <param name="endTime">Only get orders before this date</param>
-            <param name="fromId">Only get orders with ID before or after this. Used together with the direction parameter</param>
-            <param name="direction">Direction of the results to return when using the fromId parameter</param>
-            <param name="limit">The max number of results</param>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
-        </member>
-        <member name="M:Huobi.Net.HuobiClient.GetHistoryOrders(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Huobi.Net.Objects.HuobiFilterDirection},System.Nullable{System.Int32},System.Threading.CancellationToken)">
-            <summary>
-            Gets a list of history orders
-            </summary>
-            <param name="symbol">The symbol to get orders for</param>
-            <param name="startTime">Only get orders after this date</param>
-            <param name="endTime">Only get orders before this date</param>
-            <param name="direction">Direction of the results to return</param>
             <param name="limit">The max number of results</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -901,10 +591,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.HuobiClient.GetDepositAddresses(System.String,System.Threading.CancellationToken)">
-            <inheritdoc cref="M:Huobi.Net.HuobiClient.GetDepositAddressesAsync(System.String,System.Threading.CancellationToken)"/>
-        </member>
-        <member name="M:Huobi.Net.HuobiClient.PlaceWithdrawAsync(System.String,System.String,System.Decimal,System.Decimal,System.String,System.String,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.HuobiClient.WithdrawAsync(System.String,System.String,System.Decimal,System.Decimal,System.String,System.String,System.Threading.CancellationToken)">
             <summary>
             Parent user creates a withdraw request from spot account to an external address (exists in your withdraw address list), which doesn't require two-factor-authentication.
             </summary>
@@ -916,9 +603,6 @@
             <param name="addressTag">A tag specified for this address</param>
             <param name="ct"></param>
             <returns></returns>
-        </member>
-        <member name="M:Huobi.Net.HuobiClient.PlaceWithdraw(System.String,System.String,System.Decimal,System.Decimal,System.String,System.String,System.Threading.CancellationToken)">
-            <inheritdoc cref="M:Huobi.Net.HuobiClient.PlaceWithdrawAsync(System.String,System.String,System.Decimal,System.Decimal,System.String,System.String,System.Threading.CancellationToken)"/>
         </member>
         <member name="M:Huobi.Net.HuobiClient.GetWithdrawDepositAsync(Huobi.Net.Enums.WithdrawDepositType,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{Huobi.Net.Objects.HuobiFilterDirection},System.Threading.CancellationToken)">
             <summary>
@@ -932,13 +616,10 @@
             <param name="ct"></param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.HuobiClient.GetWithdrawDeposit(Huobi.Net.Enums.WithdrawDepositType,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{Huobi.Net.Objects.HuobiFilterDirection},System.Threading.CancellationToken)">
-            <inheritdoc cref="M:Huobi.Net.HuobiClient.GetWithdrawDepositAsync(Huobi.Net.Enums.WithdrawDepositType,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{Huobi.Net.Objects.HuobiFilterDirection},System.Threading.CancellationToken)"/>
-        </member>
         <member name="M:Huobi.Net.HuobiClient.ConstructRequest(System.Uri,System.Net.Http.HttpMethod,System.Collections.Generic.Dictionary{System.String,System.Object},System.Boolean,CryptoExchange.Net.Objects.PostParameters,CryptoExchange.Net.Objects.ArrayParametersSerialization,System.Int32)">
             <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.HuobiClient.TryParseError(Newtonsoft.Json.Linq.JToken)">
+        <member name="M:Huobi.Net.HuobiClient.TryParseErrorAsync(Newtonsoft.Json.Linq.JToken)">
             <inheritdoc />
         </member>
         <member name="M:Huobi.Net.HuobiClient.ParseErrorResponse(Newtonsoft.Json.Linq.JToken)">
@@ -950,6 +631,14 @@
             </summary>
             <param name="endpoint"></param>
             <param name="version"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiClient.GetSymbolName(System.String,System.String)">
+            <summary>
+            Get the name of a symbol for Huobi based on the base and quote asset
+            </summary>
+            <param name="baseAsset"></param>
+            <param name="quoteAsset"></param>
             <returns></returns>
         </member>
         <member name="T:Huobi.Net.HuobiClientOptions">
@@ -1062,14 +751,6 @@
             </summary>
             <param name="options">The options to use for new clients</param>
         </member>
-        <member name="M:Huobi.Net.HuobiSocketClient.GetKlines(System.String,Huobi.Net.Objects.HuobiPeriod)">
-            <summary>
-            Gets candlestick data for a symbol
-            </summary>
-            <param name="symbol">The symbol to get the data for</param>
-            <param name="period">The period of a single candlestick</param>
-            <returns></returns>
-        </member>
         <member name="M:Huobi.Net.HuobiSocketClient.GetKlinesAsync(System.String,Huobi.Net.Objects.HuobiPeriod)">
             <summary>
             Gets candlestick data for a symbol
@@ -1078,30 +759,13 @@
             <param name="period">The period of a single candlestick</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.HuobiSocketClient.SubscribeToKlineUpdates(System.String,Huobi.Net.Objects.HuobiPeriod,System.Action{Huobi.Net.Objects.HuobiKline})">
+        <member name="M:Huobi.Net.HuobiSocketClient.SubscribeToKlineUpdatesAsync(System.String,Huobi.Net.Objects.HuobiPeriod,System.Action{CryptoExchange.Net.Sockets.DataEvent{Huobi.Net.Objects.HuobiKline}})">
             <summary>
             Subscribes to candlestick updates for a symbol
             </summary>
             <param name="symbol">The symbol to subscribe to</param>
             <param name="period">The period of a single candlestick</param>
             <param name="onData">The handler for updates</param>
-            <returns></returns>
-        </member>
-        <member name="M:Huobi.Net.HuobiSocketClient.SubscribeToKlineUpdatesAsync(System.String,Huobi.Net.Objects.HuobiPeriod,System.Action{Huobi.Net.Objects.HuobiKline})">
-            <summary>
-            Subscribes to candlestick updates for a symbol
-            </summary>
-            <param name="symbol">The symbol to subscribe to</param>
-            <param name="period">The period of a single candlestick</param>
-            <param name="onData">The handler for updates</param>
-            <returns></returns>
-        </member>
-        <member name="M:Huobi.Net.HuobiSocketClient.GetOrderBook(System.String,System.Int32)">
-            <summary>
-            Gets the current order book for a symbol
-            </summary>
-            <param name="symbol">The symbol to get the data for</param>
-            <param name="mergeStep">The way the results will be merged together</param>
             <returns></returns>
         </member>
         <member name="M:Huobi.Net.HuobiSocketClient.GetOrderBookAsync(System.String,System.Int32)">
@@ -1112,7 +776,7 @@
             <param name="mergeStep">The way the results will be merged together</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.HuobiSocketClient.SubscribeToOrderBookUpdates(System.String,System.Int32,System.Action{Huobi.Net.Objects.HuobiOrderBook})">
+        <member name="M:Huobi.Net.HuobiSocketClient.SubscribeToOrderBookUpdatesAsync(System.String,System.Int32,System.Action{CryptoExchange.Net.Sockets.DataEvent{Huobi.Net.Objects.HuobiOrderBook}})">
             <summary>
             Subscribes to order book updates for a symbol
             </summary>
@@ -1121,50 +785,19 @@
             <param name="onData">The handler for updates</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.HuobiSocketClient.SubscribeToOrderBookUpdatesAsync(System.String,System.Int32,System.Action{Huobi.Net.Objects.HuobiOrderBook})">
-            <summary>
-            Subscribes to order book updates for a symbol
-            </summary>
-            <param name="symbol">The symbol to subscribe to</param>
-            <param name="mergeStep">The way the results will be merged together</param>
-            <param name="onData">The handler for updates</param>
-            <returns></returns>
-        </member>
-        <member name="M:Huobi.Net.HuobiSocketClient.GetTrades(System.String)">
+        <member name="M:Huobi.Net.HuobiSocketClient.GetTradeHistoryAsync(System.String)">
             <summary>
             Gets a list of trades for a symbol
             </summary>
             <param name="symbol">The symbol to get trades for</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.HuobiSocketClient.GetTradesAsync(System.String)">
-            <summary>
-            Gets a list of trades for a symbol
-            </summary>
-            <param name="symbol">The symbol to get trades for</param>
-            <returns></returns>
-        </member>
-        <member name="M:Huobi.Net.HuobiSocketClient.SubscribeToTradeUpdates(System.String,System.Action{Huobi.Net.Objects.HuobiSymbolTrade})">
+        <member name="M:Huobi.Net.HuobiSocketClient.SubscribeToTradeUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Huobi.Net.Objects.HuobiSymbolTrade}})">
             <summary>
             Subscribes to trade updates for a symbol
             </summary>
             <param name="symbol">The symbol to subscribe to</param>
             <param name="onData">The handler for updates</param>
-            <returns></returns>
-        </member>
-        <member name="M:Huobi.Net.HuobiSocketClient.SubscribeToTradeUpdatesAsync(System.String,System.Action{Huobi.Net.Objects.HuobiSymbolTrade})">
-            <summary>
-            Subscribes to trade updates for a symbol
-            </summary>
-            <param name="symbol">The symbol to subscribe to</param>
-            <param name="onData">The handler for updates</param>
-            <returns></returns>
-        </member>
-        <member name="M:Huobi.Net.HuobiSocketClient.GetSymbolDetails(System.String)">
-            <summary>
-            Gets details for a symbol
-            </summary>
-            <param name="symbol">The symbol to get data for</param>
             <returns></returns>
         </member>
         <member name="M:Huobi.Net.HuobiSocketClient.GetSymbolDetailsAsync(System.String)">
@@ -1174,7 +807,7 @@
             <param name="symbol">The symbol to get data for</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.HuobiSocketClient.SubscribeToSymbolDetailUpdates(System.String,System.Action{Huobi.Net.Objects.HuobiSymbolDetails})">
+        <member name="M:Huobi.Net.HuobiSocketClient.SubscribeToSymbolDetailUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Huobi.Net.Objects.HuobiSymbolDetails}})">
             <summary>
             Subscribes to symbol detail updates for a symbol
             </summary>
@@ -1182,29 +815,14 @@
             <param name="onData">The handler for updates</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.HuobiSocketClient.SubscribeToSymbolDetailUpdatesAsync(System.String,System.Action{Huobi.Net.Objects.HuobiSymbolDetails})">
-            <summary>
-            Subscribes to symbol detail updates for a symbol
-            </summary>
-            <param name="symbol">The symbol to subscribe to</param>
-            <param name="onData">The handler for updates</param>
-            <returns></returns>
-        </member>
-        <member name="M:Huobi.Net.HuobiSocketClient.SubscribeToTickerUpdates(System.Action{Huobi.Net.Objects.HuobiSymbolDatas})">
+        <member name="M:Huobi.Net.HuobiSocketClient.SubscribeToSymbolTickerUpdatesAsync(System.Action{CryptoExchange.Net.Sockets.DataEvent{Huobi.Net.Objects.HuobiSymbolDatas}})">
             <summary>
             Subscribes to updates for all tickers
             </summary>
             <param name="onData">The handler for updates</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.HuobiSocketClient.SubscribeToSymbolTickerUpdatesAsync(System.Action{Huobi.Net.Objects.HuobiSymbolDatas})">
-            <summary>
-            Subscribes to updates for all tickers
-            </summary>
-            <param name="onData">The handler for updates</param>
-            <returns></returns>
-        </member>
-        <member name="M:Huobi.Net.HuobiSocketClient.SubscribeToBestOfferUpdates(System.String,System.Action{Huobi.Net.Objects.HuobiBestOffer})">
+        <member name="M:Huobi.Net.HuobiSocketClient.SubscribeToBestOfferUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Huobi.Net.Objects.HuobiBestOffer}})">
             <summary>
             Subscribe to changes of a symbol's best ask/bid
             </summary>
@@ -1212,15 +830,7 @@
             <param name="onData">Data handler</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.HuobiSocketClient.SubscribeToBestOfferUpdatesAsync(System.String,System.Action{Huobi.Net.Objects.HuobiBestOffer})">
-            <summary>
-            Subscribe to changes of a symbol's best ask/bid
-            </summary>
-            <param name="symbol">Symbol to subscribe to</param>
-            <param name="onData">Data handler</param>
-            <returns></returns>
-        </member>
-        <member name="M:Huobi.Net.HuobiSocketClient.SubscribeToOrderUpdates(System.String,System.Action{Huobi.Net.Objects.SocketObjects.V2.HuobiSubmittedOrderUpdate},System.Action{Huobi.Net.Objects.SocketObjects.V2.HuobiMatchedOrderUpdate},System.Action{Huobi.Net.Objects.SocketObjects.V2.HuobiCancelledOrderUpdate},System.Action{Huobi.Net.Objects.SocketObjects.V2.HuobiTriggerFailureOrderUpdate},System.Action{Huobi.Net.Objects.SocketObjects.V2.HuobiOrderUpdate})">
+        <member name="M:Huobi.Net.HuobiSocketClient.SubscribeToOrderUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Huobi.Net.Objects.SocketObjects.V2.HuobiSubmittedOrderUpdate}},System.Action{CryptoExchange.Net.Sockets.DataEvent{Huobi.Net.Objects.SocketObjects.V2.HuobiMatchedOrderUpdate}},System.Action{CryptoExchange.Net.Sockets.DataEvent{Huobi.Net.Objects.SocketObjects.V2.HuobiCancelledOrderUpdate}},System.Action{CryptoExchange.Net.Sockets.DataEvent{Huobi.Net.Objects.SocketObjects.V2.HuobiTriggerFailureOrderUpdate}},System.Action{CryptoExchange.Net.Sockets.DataEvent{Huobi.Net.Objects.SocketObjects.V2.HuobiOrderUpdate}})">
             <summary>
             Subscribe to updates of orders
             </summary>
@@ -1232,31 +842,13 @@
             <param name="onConditionalOrderCancelled">Event handler for the condition order cancelled event</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.HuobiSocketClient.SubscribeToOrderUpdatesAsync(System.String,System.Action{Huobi.Net.Objects.SocketObjects.V2.HuobiSubmittedOrderUpdate},System.Action{Huobi.Net.Objects.SocketObjects.V2.HuobiMatchedOrderUpdate},System.Action{Huobi.Net.Objects.SocketObjects.V2.HuobiCancelledOrderUpdate},System.Action{Huobi.Net.Objects.SocketObjects.V2.HuobiTriggerFailureOrderUpdate},System.Action{Huobi.Net.Objects.SocketObjects.V2.HuobiOrderUpdate})">
-            <summary>
-            Subscribe to updates of orders
-            </summary>
-            <param name="symbol">Subscribe on a specific symbol</param>
-            <param name="onOrderSubmitted">Event handler for the order submitted event</param>
-            <param name="onOrderMatched">Event handler for the order matched event</param>
-            <param name="onOrderCancellation">Event handler for the order cancelled event</param>
-            <param name="onConditionalOrderTriggerFailure">Event handler for the conditional order trigger failed event</param>
-            <param name="onConditionalOrderCancelled">Event handler for the condition order cancelled event</param>
-            <returns></returns>
-        </member>
-        <member name="M:Huobi.Net.HuobiSocketClient.SubscribeToAccountUpdates(System.Action{Huobi.Net.Objects.SocketObjects.V2.HuobiAccountUpdate})">
+        <member name="M:Huobi.Net.HuobiSocketClient.SubscribeToAccountUpdatesAsync(System.Action{CryptoExchange.Net.Sockets.DataEvent{Huobi.Net.Objects.SocketObjects.V2.HuobiAccountUpdate}})">
             <summary>
             Subscribe to updates of account balances
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.HuobiSocketClient.SubscribeToAccountUpdatesAsync(System.Action{Huobi.Net.Objects.SocketObjects.V2.HuobiAccountUpdate})">
-            <summary>
-            Subscribe to updates of account balances
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Huobi.Net.HuobiSocketClient.SubscribeToOrderDetailsUpdates(System.String,System.Action{Huobi.Net.Objects.SocketObjects.V2.HuobiTradeUpdate},System.Action{Huobi.Net.Objects.SocketObjects.V2.HuobiOrderCancellationUpdate})">
+        <member name="M:Huobi.Net.HuobiSocketClient.SubscribeToOrderDetailsUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Huobi.Net.Objects.SocketObjects.V2.HuobiTradeUpdate}},System.Action{CryptoExchange.Net.Sockets.DataEvent{Huobi.Net.Objects.SocketObjects.V2.HuobiOrderCancellationUpdate}})">
             <summary>
             Subscribe to detailed order matched/cancelled updates
             </summary>
@@ -1265,16 +857,7 @@
             <param name="onOrderCancel">Event handler for the order cancelled event</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.HuobiSocketClient.SubscribeToOrderDetailsUpdatesAsync(System.String,System.Action{Huobi.Net.Objects.SocketObjects.V2.HuobiTradeUpdate},System.Action{Huobi.Net.Objects.SocketObjects.V2.HuobiOrderCancellationUpdate})">
-            <summary>
-            Subscribe to detailed order matched/cancelled updates
-            </summary>
-            <param name="symbol">Subscribe to a specific symbol</param>
-            <param name="onOrderMatch">Event handler for the order matched event</param>
-            <param name="onOrderCancel">Event handler for the order cancelled event</param>
-            <returns></returns>
-        </member>
-        <member name="M:Huobi.Net.HuobiSocketClient.GetWebsocket(System.String,System.Boolean)">
+        <member name="M:Huobi.Net.HuobiSocketClient.GetSocketConnection(System.String,System.Boolean)">
             <inheritdoc />
         </member>
         <member name="M:Huobi.Net.HuobiSocketClient.HandleQueryResponse``1(CryptoExchange.Net.Sockets.SocketConnection,System.Object,Newtonsoft.Json.Linq.JToken,CryptoExchange.Net.Objects.CallResult{``0}@)">
@@ -1289,10 +872,10 @@
         <member name="M:Huobi.Net.HuobiSocketClient.MessageMatchesHandler(Newtonsoft.Json.Linq.JToken,System.String)">
             <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.HuobiSocketClient.AuthenticateSocket(CryptoExchange.Net.Sockets.SocketConnection)">
+        <member name="M:Huobi.Net.HuobiSocketClient.AuthenticateSocketAsync(CryptoExchange.Net.Sockets.SocketConnection)">
             <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.HuobiSocketClient.Unsubscribe(CryptoExchange.Net.Sockets.SocketConnection,CryptoExchange.Net.Sockets.SocketSubscription)">
+        <member name="M:Huobi.Net.HuobiSocketClient.UnsubscribeAsync(CryptoExchange.Net.Sockets.SocketConnection,CryptoExchange.Net.Sockets.SocketSubscription)">
             <inheritdoc />
         </member>
         <member name="T:Huobi.Net.HuobiSymbolOrderBook">
@@ -1307,10 +890,10 @@
             <param name="symbol">The symbol the order book is for</param>
             <param name="options">The options for the order book</param>
         </member>
-        <member name="M:Huobi.Net.HuobiSymbolOrderBook.DoStart">
+        <member name="M:Huobi.Net.HuobiSymbolOrderBook.DoStartAsync">
             <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.HuobiSymbolOrderBook.DoResync">
+        <member name="M:Huobi.Net.HuobiSymbolOrderBook.DoResyncAsync">
             <inheritdoc />
         </member>
         <member name="M:Huobi.Net.HuobiSymbolOrderBook.Dispose">
@@ -1333,24 +916,10 @@
             <param name="apiKey">The api key</param>
             <param name="apiSecret">The api secret</param>
         </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetTickers(System.Threading.CancellationToken)">
-            <summary>
-            Gets the latest ticker for all symbols
-            </summary>
-            <returns></returns>
-        </member>
         <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetTickersAsync(System.Threading.CancellationToken)">
             <summary>
             Gets the latest ticker for all symbols
             </summary>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
-        </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetMergedTicker(System.String,System.Threading.CancellationToken)">
-            <summary>
-            Gets the ticker, including the best bid / best ask for a symbol
-            </summary>
-            <param name="symbol">The symbol to get the ticker for</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -1359,16 +928,6 @@
             Gets the ticker, including the best bid / best ask for a symbol
             </summary>
             <param name="symbol">The symbol to get the ticker for</param>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
-        </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetKlines(System.String,Huobi.Net.Objects.HuobiPeriod,System.Int32,System.Threading.CancellationToken)">
-            <summary>
-            Get candlestick data for a symbol
-            </summary>
-            <param name="symbol">The symbol to get the data for</param>
-            <param name="period">The period of a single candlestick</param>
-            <param name="size">The amount of candlesticks</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -1382,16 +941,6 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetOrderBook(System.String,System.Int32,System.Nullable{System.Int32},System.Threading.CancellationToken)">
-            <summary>
-            Gets the order book for a symbol
-            </summary>
-            <param name="symbol">The symbol to request for</param>
-            <param name="mergeStep">The way the results will be merged together</param>
-            <param name="limit">The depth of the book</param>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
-        </member>
         <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetOrderBookAsync(System.String,System.Int32,System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Gets the order book for a symbol
@@ -1402,28 +951,11 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetLastTrade(System.String,System.Threading.CancellationToken)">
-            <summary>
-            Gets the last trade for a symbol
-            </summary>
-            <param name="symbol">The symbol to request for</param>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
-        </member>
         <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetLastTradeAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Gets the last trade for a symbol
             </summary>
             <param name="symbol">The symbol to request for</param>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
-        </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetTradeHistory(System.String,System.Int32,System.Threading.CancellationToken)">
-            <summary>
-            Get the last x trades for a symbol
-            </summary>
-            <param name="symbol">The symbol to get trades for</param>
-            <param name="limit">The max number of results</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -1436,25 +968,9 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetSymbolDetails24H(System.String,System.Threading.CancellationToken)">
-            <summary>
-            Gets 24h stats for a symbol
-            </summary>
-            <param name="symbol">The symbol to get the data for</param>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
-        </member>
         <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetSymbolDetails24HAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Gets 24h stats for a symbol
-            </summary>
-            <param name="symbol">The symbol to get the data for</param>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
-        </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetNav(System.String,System.Threading.CancellationToken)">
-            <summary>
-            Gets real time NAV for ETP
             </summary>
             <param name="symbol">The symbol to get the data for</param>
             <param name="ct">Cancellation token</param>
@@ -1468,23 +984,9 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetMarketStatus(System.Threading.CancellationToken)">
-            <summary>
-            Gets the current market status
-            </summary>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
-        </member>
         <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetMarketStatusAsync(System.Threading.CancellationToken)">
             <summary>
             Gets the current market status
-            </summary>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
-        </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetSymbols(System.Threading.CancellationToken)">
-            <summary>
-            Gets a list of supported symbols
             </summary>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -1496,25 +998,10 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetCurrencies(System.Threading.CancellationToken)">
-            <summary>
-            Gets a list of supported currencies
-            </summary>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
-        </member>
         <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetCurrenciesAsync(System.Threading.CancellationToken)">
             <summary>
             Gets a list of supported currencies
             </summary>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
-        </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetCurrenciesAndChains(System.String,System.Threading.CancellationToken)">
-            <summary>
-            Gets a list of supported currencies and chains
-            </summary>
-            <param name="currency">Filter by currency</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -1526,23 +1013,9 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetServerTime(System.Threading.CancellationToken)">
-            <summary>
-            Gets the server time
-            </summary>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
-        </member>
         <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetServerTimeAsync(System.Threading.CancellationToken)">
             <summary>
             Gets the server time
-            </summary>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
-        </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetAccounts(System.Threading.CancellationToken)">
-            <summary>
-            Gets a list of accounts associated with the apikey/secret
             </summary>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -1554,29 +1027,11 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetBalances(System.Int64,System.Threading.CancellationToken)">
-            <summary>
-            Gets a list of balances for a specific account
-            </summary>
-            <param name="accountId">The id of the account to get the balances for</param>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
-        </member>
         <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetBalancesAsync(System.Int64,System.Threading.CancellationToken)">
             <summary>
             Gets a list of balances for a specific account
             </summary>
             <param name="accountId">The id of the account to get the balances for</param>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
-        </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetAssetValuation(Huobi.Net.Objects.HuobiAccountType,System.String,System.Nullable{System.Int64},System.Threading.CancellationToken)">
-            <summary>
-            Gets the valuation of all assets
-            </summary>
-            <param name="accountType">Type of account to valuate</param>
-            <param name="valuationCurrency">The currency to get the value in</param>
-            <param name="subUserId">The id of the sub user</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -1587,21 +1042,6 @@
             <param name="accountType">Type of account to valuate</param>
             <param name="valuationCurrency">The currency to get the value in</param>
             <param name="subUserId">The id of the sub user</param>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
-        </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiClient.TransferAsset(System.Int64,Huobi.Net.Objects.HuobiAccountType,System.Int64,System.Int64,Huobi.Net.Objects.HuobiAccountType,System.Int64,System.String,System.Decimal,System.Threading.CancellationToken)">
-            <summary>
-            Transfer assets between accounts
-            </summary>
-            <param name="fromUserId">From user id</param>
-            <param name="fromAccountType">From account type</param>
-            <param name="fromAccountId">From account id</param>
-            <param name="toUserId">To user id</param>
-            <param name="toAccountType">To account type</param>
-            <param name="toAccountId">To account id</param>
-            <param name="currency">Currency to transfer</param>
-            <param name="amount">Amount to transfer</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -1620,20 +1060,6 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetAccountHistory(System.Int64,System.String,System.Collections.Generic.IEnumerable{Huobi.Net.Objects.HuobiTransactionType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Huobi.Net.Objects.HuobiSortingType},System.Nullable{System.Int32},System.Threading.CancellationToken)">
-            <summary>
-            Gets a list of amount changes of specified user's account
-            </summary>
-            <param name="accountId">The id of the account to get the balances for</param>
-            <param name="currency">Currency name</param>
-            <param name="transactionTypes">Amount change types</param>
-            <param name="startTime">Far point of time of the query window. The maximum size of the query window is 1 hour. The query window can be shifted within 30 days</param>
-            <param name="endTime">Near point of time of the query window. The maximum size of the query window is 1 hour. The query window can be shifted within 30 days</param>
-            <param name="sort">Sorting order (Ascending by default)</param>
-            <param name="size">Maximum number of items in each response (from 1 to 500, default is 100)</param>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
-        </member>
         <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetAccountHistoryAsync(System.Int64,System.String,System.Collections.Generic.IEnumerable{Huobi.Net.Objects.HuobiTransactionType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Huobi.Net.Objects.HuobiSortingType},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Gets a list of amount changes of specified user's account
@@ -1645,21 +1071,6 @@
             <param name="endTime">Near point of time of the query window. The maximum size of the query window is 1 hour. The query window can be shifted within 30 days</param>
             <param name="sort">Sorting order (Ascending by default)</param>
             <param name="size">Maximum number of items in each response (from 1 to 500, default is 100)</param>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
-        </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetAccountLedger(System.Int64,System.String,System.Collections.Generic.IEnumerable{Huobi.Net.Objects.HuobiTransactionType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Huobi.Net.Objects.HuobiSortingType},System.Nullable{System.Int32},System.Nullable{System.Int64},System.Threading.CancellationToken)">
-            <summary>
-            This endpoint returns the amount changes of specified user's account.
-            </summary>
-            <param name="accountId">The id of the account to get the ledger for</param>
-            <param name="currency">Currency name</param>
-            <param name="transactionTypes">Amount change types</param>
-            <param name="startTime">Far point of time of the query window. The maximum size of the query window is 10 days. The query window can be shifted within 30 days</param>
-            <param name="endTime">Near point of time of the query window. The maximum size of the query window is 10 days. The query window can be shifted within 30 days</param>
-            <param name="sort">Sorting order (Ascending by default)</param>
-            <param name="size">Maximum number of items in each response (from 1 to 500, default is 100)</param>
-            <param name="fromId">Only get orders with ID before or after this. Used together with the direction parameter</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -1678,14 +1089,6 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetSubAccountBalances(System.Int64,System.Threading.CancellationToken)">
-            <summary>
-            Gets a list of balances for a specific sub account
-            </summary>
-            <param name="subAccountId">The id of the sub account to get the balances for</param>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
-        </member>
         <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetSubAccountBalancesAsync(System.Int64,System.Threading.CancellationToken)">
             <summary>
             Gets a list of balances for a specific sub account
@@ -1693,17 +1096,6 @@
             <param name="subAccountId">The id of the sub account to get the balances for</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
-        </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiClient.TransferWithSubAccount(System.Int64,System.String,System.Decimal,Huobi.Net.Objects.HuobiTransferType,System.Threading.CancellationToken)">
-            <summary>
-            Transfer asset between parent and sub account
-            </summary>
-            <param name="subAccountId">The target sub account id to transfer to or from</param>
-            <param name="currency">The crypto currency to transfer</param>
-            <param name="amount">The amount of asset to transfer</param>
-            <param name="transferType">The type of transfer</param>
-            <param name="ct">Cancellation token</param>
-            <returns>Unique transfer id</returns>
         </member>
         <member name="M:Huobi.Net.Interfaces.IHuobiClient.TransferWithSubAccountAsync(System.Int64,System.String,System.Decimal,Huobi.Net.Objects.HuobiTransferType,System.Threading.CancellationToken)">
             <summary>
@@ -1715,22 +1107,6 @@
             <param name="transferType">The type of transfer</param>
             <param name="ct">Cancellation token</param>
             <returns>Unique transfer id</returns>
-        </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiClient.PlaceOrder(System.Int64,System.String,Huobi.Net.Objects.HuobiOrderType,System.Decimal,System.Nullable{System.Decimal},System.String,System.Nullable{Huobi.Net.Enums.SourceType},System.Nullable{System.Decimal},System.Nullable{Huobi.Net.Enums.Operator},System.Threading.CancellationToken)">
-            <summary>
-            Places an order
-            </summary>
-            <param name="accountId">The account to place the order for</param>
-            <param name="symbol">The symbol to place the order for</param>
-            <param name="orderType">The type of the order</param>
-            <param name="amount">The amount of the order</param>
-            <param name="price">The price of the order. Should be omitted for market orders</param>
-            <param name="clientOrderId">The clientOrderId the order should get</param>
-            <param name="source">Source. defaults to SpotAPI</param>
-            <param name="stopPrice">Stop price</param>
-            <param name="stopOperator">Operator of the stop price</param>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
         </member>
         <member name="M:Huobi.Net.Interfaces.IHuobiClient.PlaceOrderAsync(System.Int64,System.String,Huobi.Net.Objects.HuobiOrderType,System.Decimal,System.Nullable{System.Decimal},System.String,System.Nullable{Huobi.Net.Enums.SourceType},System.Nullable{System.Decimal},System.Nullable{Huobi.Net.Enums.Operator},System.Threading.CancellationToken)">
             <summary>
@@ -1748,17 +1124,6 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetOpenOrders(System.Nullable{System.Int64},System.String,System.Nullable{Huobi.Net.Objects.HuobiOrderSide},System.Nullable{System.Int32},System.Threading.CancellationToken)">
-            <summary>
-            Gets a list of open orders
-            </summary>
-            <param name="accountId">The account id for which to get the orders for</param>
-            <param name="symbol">The symbol for which to get the orders for</param>
-            <param name="side">Only get buy or sell orders</param>
-            <param name="limit">The max number of results</param>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
-        </member>
         <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetOpenOrdersAsync(System.Nullable{System.Int64},System.String,System.Nullable{Huobi.Net.Objects.HuobiOrderSide},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Gets a list of open orders
@@ -1770,27 +1135,11 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiClient.CancelOrder(System.Int64,System.Threading.CancellationToken)">
-            <summary>
-            Cancels an open order
-            </summary>
-            <param name="orderId">The id of the order to cancel</param>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
-        </member>
         <member name="M:Huobi.Net.Interfaces.IHuobiClient.CancelOrderAsync(System.Int64,System.Threading.CancellationToken)">
             <summary>
             Cancels an open order
             </summary>
             <param name="orderId">The id of the order to cancel</param>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
-        </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiClient.CancelOrderByClientOrderId(System.String,System.Threading.CancellationToken)">
-            <summary>
-            Cancels an open order
-            </summary>
-            <param name="clientOrderId">The client id of the order to cancel</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -1802,32 +1151,12 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiClient.CancelOrders(System.Collections.Generic.IEnumerable{System.Int64},System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
-            <summary>
-            Cancel multiple open orders
-            </summary>
-            <param name="orderIds">The ids of the orders to cancel</param>
-            <param name="clientOrderIds">The client ids of the orders to cancel</param>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
-        </member>
         <member name="M:Huobi.Net.Interfaces.IHuobiClient.CancelOrdersAsync(System.Collections.Generic.IEnumerable{System.Int64},System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
             <summary>
             Cancel multiple open orders
             </summary>
             <param name="orderIds">The ids of the orders to cancel</param>
             <param name="clientOrderIds">The client ids of the orders to cancel</param>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
-        </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiClient.CancelOrdersByCriteria(System.Nullable{System.Int64},System.Collections.Generic.IEnumerable{System.String},System.Nullable{Huobi.Net.Objects.HuobiOrderSide},System.Nullable{System.Int32},System.Threading.CancellationToken)">
-            <summary>
-            Cancel multiple open orders
-            </summary>
-            <param name="accountId">The account id used for this cancel</param>
-            <param name="symbols">The trading symbol list (maximum 10 symbols, default value all symbols)</param>
-            <param name="side">Filter on the direction of the trade</param>
-            <param name="limit">The number of orders to cancel [1, 100]</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -1842,7 +1171,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetOrderInfo(System.Int64,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetOrderAsync(System.Int64,System.Threading.CancellationToken)">
             <summary>
             Get details of an order
             </summary>
@@ -1850,35 +1179,11 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetOrderInfoAsync(System.Int64,System.Threading.CancellationToken)">
-            <summary>
-            Get details of an order
-            </summary>
-            <param name="orderId">The id of the order to retrieve</param>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
-        </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetOrderInfoByClientOrderId(System.String,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetOrderByClientOrderIdAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get details of an order by client order id
             </summary>
             <param name="clientOrderId">The client id of the order to retrieve</param>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
-        </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetOrderInfoByClientOrderIdAsync(System.String,System.Threading.CancellationToken)">
-            <summary>
-            Get details of an order by client order id
-            </summary>
-            <param name="clientOrderId">The client id of the order to retrieve</param>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
-        </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetOrderTrades(System.Int64,System.Threading.CancellationToken)">
-            <summary>
-            Gets a list of trades made for a specific order
-            </summary>
-            <param name="orderId">The id of the order to get trades for</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -1887,21 +1192,6 @@
             Gets a list of trades made for a specific order
             </summary>
             <param name="orderId">The id of the order to get trades for</param>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
-        </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetOrders(System.Collections.Generic.IEnumerable{Huobi.Net.Objects.HuobiOrderState},System.String,System.Collections.Generic.IEnumerable{Huobi.Net.Objects.HuobiOrderType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int64},System.Nullable{Huobi.Net.Objects.HuobiFilterDirection},System.Nullable{System.Int32},System.Threading.CancellationToken)">
-            <summary>
-            Gets a list of orders
-            </summary>
-            <param name="symbol">The symbol to get orders for</param>
-            <param name="states">The states of orders to return</param>
-            <param name="types">The types of orders to return</param>
-            <param name="startTime">Only get orders after this date</param>
-            <param name="endTime">Only get orders before this date</param>
-            <param name="fromId">Only get orders with ID before or after this. Used together with the direction parameter</param>
-            <param name="direction">Direction of the results to return when using the fromId parameter</param>
-            <param name="limit">The max number of results</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -1920,7 +1210,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetSymbolTrades(System.Collections.Generic.IEnumerable{Huobi.Net.Objects.HuobiOrderState},System.String,System.Collections.Generic.IEnumerable{Huobi.Net.Objects.HuobiOrderType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int64},System.Nullable{Huobi.Net.Objects.HuobiFilterDirection},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetUserTradesAsync(System.Collections.Generic.IEnumerable{Huobi.Net.Objects.HuobiOrderState},System.String,System.Collections.Generic.IEnumerable{Huobi.Net.Objects.HuobiOrderType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int64},System.Nullable{Huobi.Net.Objects.HuobiFilterDirection},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Gets a list of trades for a specific symbol
             </summary>
@@ -1931,33 +1221,6 @@
             <param name="endTime">Only get orders before this date</param>
             <param name="fromId">Only get orders with ID before or after this. Used together with the direction parameter</param>
             <param name="direction">Direction of the results to return when using the fromId parameter</param>
-            <param name="limit">The max number of results</param>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
-        </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetSymbolTradesAsync(System.Collections.Generic.IEnumerable{Huobi.Net.Objects.HuobiOrderState},System.String,System.Collections.Generic.IEnumerable{Huobi.Net.Objects.HuobiOrderType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int64},System.Nullable{Huobi.Net.Objects.HuobiFilterDirection},System.Nullable{System.Int32},System.Threading.CancellationToken)">
-            <summary>
-            Gets a list of trades for a specific symbol
-            </summary>
-            <param name="states">Only return trades with specific states</param>
-            <param name="symbol">The symbol to retrieve trades for</param>
-            <param name="types">The type of orders to return</param>
-            <param name="startTime">Only get orders after this date</param>
-            <param name="endTime">Only get orders before this date</param>
-            <param name="fromId">Only get orders with ID before or after this. Used together with the direction parameter</param>
-            <param name="direction">Direction of the results to return when using the fromId parameter</param>
-            <param name="limit">The max number of results</param>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
-        </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetHistoryOrders(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Huobi.Net.Objects.HuobiFilterDirection},System.Nullable{System.Int32},System.Threading.CancellationToken)">
-            <summary>
-            Gets a list of history orders
-            </summary>
-            <param name="symbol">The symbol to get orders for</param>
-            <param name="startTime">Only get orders after this date</param>
-            <param name="endTime">Only get orders before this date</param>
-            <param name="direction">Direction of the results to return</param>
             <param name="limit">The max number of results</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -1982,10 +1245,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetDepositAddresses(System.String,System.Threading.CancellationToken)">
-            <inheritdoc cref="M:Huobi.Net.Interfaces.IHuobiClient.GetDepositAddressesAsync(System.String,System.Threading.CancellationToken)"/>
-        </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiClient.PlaceWithdrawAsync(System.String,System.String,System.Decimal,System.Decimal,System.String,System.String,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.WithdrawAsync(System.String,System.String,System.Decimal,System.Decimal,System.String,System.String,System.Threading.CancellationToken)">
             <summary>
             Parent user creates a withdraw request from spot account to an external address (exists in your withdraw address list), which doesn't require two-factor-authentication.
             </summary>
@@ -1997,9 +1257,6 @@
             <param name="addressTag">A tag specified for this address</param>
             <param name="ct"></param>
             <returns></returns>
-        </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiClient.PlaceWithdraw(System.String,System.String,System.Decimal,System.Decimal,System.String,System.String,System.Threading.CancellationToken)">
-            <inheritdoc cref="M:Huobi.Net.Interfaces.IHuobiClient.PlaceWithdrawAsync(System.String,System.String,System.Decimal,System.Decimal,System.String,System.String,System.Threading.CancellationToken)"/>
         </member>
         <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetWithdrawDepositAsync(Huobi.Net.Enums.WithdrawDepositType,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{Huobi.Net.Objects.HuobiFilterDirection},System.Threading.CancellationToken)">
             <summary>
@@ -2013,21 +1270,10 @@
             <param name="ct"></param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetWithdrawDeposit(Huobi.Net.Enums.WithdrawDepositType,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{Huobi.Net.Objects.HuobiFilterDirection},System.Threading.CancellationToken)">
-            <inheritdoc cref="M:Huobi.Net.Interfaces.IHuobiClient.GetWithdrawDepositAsync(Huobi.Net.Enums.WithdrawDepositType,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{Huobi.Net.Objects.HuobiFilterDirection},System.Threading.CancellationToken)"/>
-        </member>
         <member name="T:Huobi.Net.Interfaces.IHuobiSocketClient">
             <summary>
             Interface for the Huobi socket client
             </summary>
-        </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.GetKlines(System.String,Huobi.Net.Objects.HuobiPeriod)">
-            <summary>
-            Gets candlestick data for a symbol
-            </summary>
-            <param name="symbol">The symbol to get the data for</param>
-            <param name="period">The period of a single candlestick</param>
-            <returns></returns>
         </member>
         <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.GetKlinesAsync(System.String,Huobi.Net.Objects.HuobiPeriod)">
             <summary>
@@ -2037,30 +1283,13 @@
             <param name="period">The period of a single candlestick</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.SubscribeToKlineUpdates(System.String,Huobi.Net.Objects.HuobiPeriod,System.Action{Huobi.Net.Objects.HuobiKline})">
+        <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.SubscribeToKlineUpdatesAsync(System.String,Huobi.Net.Objects.HuobiPeriod,System.Action{CryptoExchange.Net.Sockets.DataEvent{Huobi.Net.Objects.HuobiKline}})">
             <summary>
             Subscribes to candlestick updates for a symbol
             </summary>
             <param name="symbol">The symbol to subscribe to</param>
             <param name="period">The period of a single candlestick</param>
             <param name="onData">The handler for updates</param>
-            <returns></returns>
-        </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.SubscribeToKlineUpdatesAsync(System.String,Huobi.Net.Objects.HuobiPeriod,System.Action{Huobi.Net.Objects.HuobiKline})">
-            <summary>
-            Subscribes to candlestick updates for a symbol
-            </summary>
-            <param name="symbol">The symbol to subscribe to</param>
-            <param name="period">The period of a single candlestick</param>
-            <param name="onData">The handler for updates</param>
-            <returns></returns>
-        </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.GetOrderBook(System.String,System.Int32)">
-            <summary>
-            Gets the current order book for a symbol
-            </summary>
-            <param name="symbol">The symbol to get the data for</param>
-            <param name="mergeStep">The way the results will be merged together</param>
             <returns></returns>
         </member>
         <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.GetOrderBookAsync(System.String,System.Int32)">
@@ -2071,7 +1300,7 @@
             <param name="mergeStep">The way the results will be merged together</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.SubscribeToOrderBookUpdates(System.String,System.Int32,System.Action{Huobi.Net.Objects.HuobiOrderBook})">
+        <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.SubscribeToOrderBookUpdatesAsync(System.String,System.Int32,System.Action{CryptoExchange.Net.Sockets.DataEvent{Huobi.Net.Objects.HuobiOrderBook}})">
             <summary>
             Subscribes to order book updates for a symbol
             </summary>
@@ -2080,50 +1309,19 @@
             <param name="onData">The handler for updates</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.SubscribeToOrderBookUpdatesAsync(System.String,System.Int32,System.Action{Huobi.Net.Objects.HuobiOrderBook})">
-            <summary>
-            Subscribes to order book updates for a symbol
-            </summary>
-            <param name="symbol">The symbol to subscribe to</param>
-            <param name="mergeStep">The way the results will be merged together</param>
-            <param name="onData">The handler for updates</param>
-            <returns></returns>
-        </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.GetTrades(System.String)">
+        <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.GetTradeHistoryAsync(System.String)">
             <summary>
             Gets a list of trades for a symbol
             </summary>
             <param name="symbol">The symbol to get trades for</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.GetTradesAsync(System.String)">
-            <summary>
-            Gets a list of trades for a symbol
-            </summary>
-            <param name="symbol">The symbol to get trades for</param>
-            <returns></returns>
-        </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.SubscribeToTradeUpdates(System.String,System.Action{Huobi.Net.Objects.HuobiSymbolTrade})">
+        <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.SubscribeToTradeUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Huobi.Net.Objects.HuobiSymbolTrade}})">
             <summary>
             Subscribes to trade updates for a symbol
             </summary>
             <param name="symbol">The symbol to subscribe to</param>
             <param name="onData">The handler for updates</param>
-            <returns></returns>
-        </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.SubscribeToTradeUpdatesAsync(System.String,System.Action{Huobi.Net.Objects.HuobiSymbolTrade})">
-            <summary>
-            Subscribes to trade updates for a symbol
-            </summary>
-            <param name="symbol">The symbol to subscribe to</param>
-            <param name="onData">The handler for updates</param>
-            <returns></returns>
-        </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.GetSymbolDetails(System.String)">
-            <summary>
-            Gets details for a symbol
-            </summary>
-            <param name="symbol">The symbol to get data for</param>
             <returns></returns>
         </member>
         <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.GetSymbolDetailsAsync(System.String)">
@@ -2133,7 +1331,7 @@
             <param name="symbol">The symbol to get data for</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.SubscribeToSymbolDetailUpdates(System.String,System.Action{Huobi.Net.Objects.HuobiSymbolDetails})">
+        <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.SubscribeToSymbolDetailUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Huobi.Net.Objects.HuobiSymbolDetails}})">
             <summary>
             Subscribes to symbol detail updates for a symbol
             </summary>
@@ -2141,29 +1339,14 @@
             <param name="onData">The handler for updates</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.SubscribeToSymbolDetailUpdatesAsync(System.String,System.Action{Huobi.Net.Objects.HuobiSymbolDetails})">
-            <summary>
-            Subscribes to symbol detail updates for a symbol
-            </summary>
-            <param name="symbol">The symbol to subscribe to</param>
-            <param name="onData">The handler for updates</param>
-            <returns></returns>
-        </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.SubscribeToTickerUpdates(System.Action{Huobi.Net.Objects.HuobiSymbolDatas})">
+        <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.SubscribeToSymbolTickerUpdatesAsync(System.Action{CryptoExchange.Net.Sockets.DataEvent{Huobi.Net.Objects.HuobiSymbolDatas}})">
             <summary>
             Subscribes to updates for all tickers
             </summary>
             <param name="onData">The handler for updates</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.SubscribeToSymbolTickerUpdatesAsync(System.Action{Huobi.Net.Objects.HuobiSymbolDatas})">
-            <summary>
-            Subscribes to updates for all tickers
-            </summary>
-            <param name="onData">The handler for updates</param>
-            <returns></returns>
-        </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.SubscribeToBestOfferUpdates(System.String,System.Action{Huobi.Net.Objects.HuobiBestOffer})">
+        <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.SubscribeToBestOfferUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Huobi.Net.Objects.HuobiBestOffer}})">
             <summary>
             Subscribe to changes of a symbol's best ask/bid
             </summary>
@@ -2171,15 +1354,7 @@
             <param name="onData">Data handler</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.SubscribeToBestOfferUpdatesAsync(System.String,System.Action{Huobi.Net.Objects.HuobiBestOffer})">
-            <summary>
-            Subscribe to changes of a symbol's best ask/bid
-            </summary>
-            <param name="symbol">Symbol to subscribe to</param>
-            <param name="onData">Data handler</param>
-            <returns></returns>
-        </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.SubscribeToOrderUpdates(System.String,System.Action{Huobi.Net.Objects.SocketObjects.V2.HuobiSubmittedOrderUpdate},System.Action{Huobi.Net.Objects.SocketObjects.V2.HuobiMatchedOrderUpdate},System.Action{Huobi.Net.Objects.SocketObjects.V2.HuobiCancelledOrderUpdate},System.Action{Huobi.Net.Objects.SocketObjects.V2.HuobiTriggerFailureOrderUpdate},System.Action{Huobi.Net.Objects.SocketObjects.V2.HuobiOrderUpdate})">
+        <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.SubscribeToOrderUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Huobi.Net.Objects.SocketObjects.V2.HuobiSubmittedOrderUpdate}},System.Action{CryptoExchange.Net.Sockets.DataEvent{Huobi.Net.Objects.SocketObjects.V2.HuobiMatchedOrderUpdate}},System.Action{CryptoExchange.Net.Sockets.DataEvent{Huobi.Net.Objects.SocketObjects.V2.HuobiCancelledOrderUpdate}},System.Action{CryptoExchange.Net.Sockets.DataEvent{Huobi.Net.Objects.SocketObjects.V2.HuobiTriggerFailureOrderUpdate}},System.Action{CryptoExchange.Net.Sockets.DataEvent{Huobi.Net.Objects.SocketObjects.V2.HuobiOrderUpdate}})">
             <summary>
             Subscribe to updates of orders
             </summary>
@@ -2191,40 +1366,13 @@
             <param name="onConditionalOrderCancelled">Event handler for the condition order cancelled event</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.SubscribeToOrderUpdatesAsync(System.String,System.Action{Huobi.Net.Objects.SocketObjects.V2.HuobiSubmittedOrderUpdate},System.Action{Huobi.Net.Objects.SocketObjects.V2.HuobiMatchedOrderUpdate},System.Action{Huobi.Net.Objects.SocketObjects.V2.HuobiCancelledOrderUpdate},System.Action{Huobi.Net.Objects.SocketObjects.V2.HuobiTriggerFailureOrderUpdate},System.Action{Huobi.Net.Objects.SocketObjects.V2.HuobiOrderUpdate})">
-            <summary>
-            Subscribe to updates of orders
-            </summary>
-            <param name="symbol">Subscribe on a specific symbol</param>
-            <param name="onOrderSubmitted">Event handler for the order submitted event</param>
-            <param name="onOrderMatched">Event handler for the order matched event</param>
-            <param name="onOrderCancellation">Event handler for the order cancelled event</param>
-            <param name="onConditionalOrderTriggerFailure">Event handler for the conditional order trigger failed event</param>
-            <param name="onConditionalOrderCancelled">Event handler for the condition order cancelled event</param>
-            <returns></returns>
-        </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.SubscribeToAccountUpdates(System.Action{Huobi.Net.Objects.SocketObjects.V2.HuobiAccountUpdate})">
+        <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.SubscribeToAccountUpdatesAsync(System.Action{CryptoExchange.Net.Sockets.DataEvent{Huobi.Net.Objects.SocketObjects.V2.HuobiAccountUpdate}})">
             <summary>
             Subscribe to updates of account balances
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.SubscribeToAccountUpdatesAsync(System.Action{Huobi.Net.Objects.SocketObjects.V2.HuobiAccountUpdate})">
-            <summary>
-            Subscribe to updates of account balances
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.SubscribeToOrderDetailsUpdates(System.String,System.Action{Huobi.Net.Objects.SocketObjects.V2.HuobiTradeUpdate},System.Action{Huobi.Net.Objects.SocketObjects.V2.HuobiOrderCancellationUpdate})">
-            <summary>
-            Subscribe to detailed order matched/cancelled updates
-            </summary>
-            <param name="symbol">Subscribe to a specific symbol</param>
-            <param name="onOrderMatch">Event handler for the order matched event</param>
-            <param name="onOrderCancel">Event handler for the order cancelled event</param>
-            <returns></returns>
-        </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.SubscribeToOrderDetailsUpdatesAsync(System.String,System.Action{Huobi.Net.Objects.SocketObjects.V2.HuobiTradeUpdate},System.Action{Huobi.Net.Objects.SocketObjects.V2.HuobiOrderCancellationUpdate})">
+        <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.SubscribeToOrderDetailsUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Huobi.Net.Objects.SocketObjects.V2.HuobiTradeUpdate}},System.Action{CryptoExchange.Net.Sockets.DataEvent{Huobi.Net.Objects.SocketObjects.V2.HuobiOrderCancellationUpdate}})">
             <summary>
             Subscribe to detailed order matched/cancelled updates
             </summary>
@@ -3953,17 +3101,17 @@
             The data
             </summary>
         </member>
-        <member name="P:Huobi.Net.Objects.SocketObjects.HuobiSocketUpdate`1.Channel">
+        <member name="P:Huobi.Net.Objects.SocketObjects.HuobiDataEvent`1.Channel">
             <summary>
             The name of the data channel
             </summary>
         </member>
-        <member name="P:Huobi.Net.Objects.SocketObjects.HuobiSocketUpdate`1.Timestamp">
+        <member name="P:Huobi.Net.Objects.SocketObjects.HuobiDataEvent`1.Timestamp">
             <summary>
             The timestamp of the update
             </summary>
         </member>
-        <member name="P:Huobi.Net.Objects.SocketObjects.HuobiSocketUpdate`1.Data">
+        <member name="P:Huobi.Net.Objects.SocketObjects.HuobiDataEvent`1.Data">
             <summary>
             The data of the update
             </summary>

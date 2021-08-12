@@ -15,7 +15,7 @@ namespace Huobi.Net.Objects
         /// <summary>
         /// List of ticks for symbols
         /// </summary>
-        public IEnumerable<HuobiSymbolTicker> Ticks { get; set; } = new List<HuobiSymbolTicker>();
+        public IEnumerable<HuobiSymbolTicker> Ticks { get; set; } = Array.Empty<HuobiSymbolTicker>();
     }
 
     /// <summary>
@@ -30,6 +30,6 @@ namespace Huobi.Net.Objects
         /// <summary>
         /// List of ticks for symbols
         /// </summary>
-        public IEnumerable<HuobiSymbolTick> Ticks { get; set; } = new List<HuobiSymbolTick>();
+        public IEnumerable<HuobiSymbolTick> Ticks { get; set; } = Array.Empty<HuobiSymbolTick>();
     }
 }

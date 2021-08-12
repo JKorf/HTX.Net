@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 
 namespace Huobi.Net.Objects
@@ -12,6 +13,6 @@ namespace Huobi.Net.Objects
         /// The list of balances
         /// </summary>
         [JsonProperty("list")]
-        public IEnumerable<HuobiBalance> Data { get; set; } = new List<HuobiBalance>();
+        public IEnumerable<HuobiBalance> Data { get; set; } = Array.Empty<HuobiBalance>();
     }
 }

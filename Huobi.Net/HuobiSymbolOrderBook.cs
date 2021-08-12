@@ -27,25 +27,25 @@ namespace Huobi.Net
         }
 
         /// <inheritdoc />
-        protected override async Task<CallResult<UpdateSubscription>> DoStart()
+        protected override async Task<CallResult<UpdateSubscription>> DoStartAsync()
         {
             var subResult = await socketClient.SubscribeToOrderBookUpdatesAsync(Symbol, mergeStep, HandleUpdate).ConfigureAwait(false);
             if (!subResult)
                 return subResult;
 
-            var setResult = await WaitForSetOrderBook(10000).ConfigureAwait(false);
+            var setResult = await WaitForSetOrderBookAsync(10000).ConfigureAwait(false);
             return setResult ? subResult : new CallResult<UpdateSubscription>(null, setResult.Error);
         }
 
-        private void HandleUpdate(HuobiOrderBook data)
+        private void HandleUpdate(DataEvent<HuobiOrderBook> data)
         {
-            SetInitialOrderBook(data.Timestamp.Ticks, data.Bids, data.Asks);
+            SetInitialOrderBook(data.Data.Timestamp.Ticks, data.Data.Bids, data.Data.Asks);
         }
 
         /// <inheritdoc />
-        protected override async Task<CallResult<bool>> DoResync()
+        protected override async Task<CallResult<bool>> DoResyncAsync()
         {
-            return await WaitForSetOrderBook(10000).ConfigureAwait(false);
+            return await WaitForSetOrderBookAsync(10000).ConfigureAwait(false);
         }
 
         /// <inheritdoc />

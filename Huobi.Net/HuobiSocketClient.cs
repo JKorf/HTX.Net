@@ -1,5 +1,4 @@
 ﻿using CryptoExchange.Net;
-using CryptoExchange.Net.Logging;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Sockets;
 using Huobi.Net.Converters;
@@ -18,6 +17,7 @@ using Huobi.Net.Interfaces;
 using System.Globalization;
 using Huobi.Net.Objects.SocketObjects.V2;
 using HuobiOrderUpdate = Huobi.Net.Objects.SocketObjects.V2.HuobiOrderUpdate;
+using Microsoft.Extensions.Logging;
 
 namespace Huobi.Net
 {
@@ -72,18 +72,11 @@ namespace Huobi.Net
         /// <param name="symbol">The symbol to get the data for</param>
         /// <param name="period">The period of a single candlestick</param>
         /// <returns></returns>
-        public CallResult<IEnumerable<HuobiKline>> GetKlines(string symbol, HuobiPeriod period) => GetKlinesAsync(symbol, period).Result;
-        /// <summary>
-        /// Gets candlestick data for a symbol
-        /// </summary>
-        /// <param name="symbol">The symbol to get the data for</param>
-        /// <param name="period">The period of a single candlestick</param>
-        /// <returns></returns>
         public async Task<CallResult<IEnumerable<HuobiKline>>> GetKlinesAsync(string symbol, HuobiPeriod period)
         {
             symbol = symbol.ValidateHuobiSymbol();
             var request = new HuobiSocketRequest(NextId().ToString(CultureInfo.InvariantCulture), $"market.{symbol}.kline.{JsonConvert.SerializeObject(period, new PeriodConverter(false))}");
-            var result = await Query<HuobiSocketResponse<IEnumerable<HuobiKline>>>(request, false).ConfigureAwait(false);
+            var result = await QueryAsync<HuobiSocketResponse<IEnumerable<HuobiKline>>>(request, false).ConfigureAwait(false);
             return new CallResult<IEnumerable<HuobiKline>>(result.Data?.Data, result.Error);
         }
 
@@ -94,29 +87,14 @@ namespace Huobi.Net
         /// <param name="period">The period of a single candlestick</param>
         /// <param name="onData">The handler for updates</param>
         /// <returns></returns>
-        public CallResult<UpdateSubscription> SubscribeToKlineUpdates(string symbol, HuobiPeriod period, Action<HuobiKline> onData) => SubscribeToKlineUpdatesAsync(symbol, period, onData).Result;
-        /// <summary>
-        /// Subscribes to candlestick updates for a symbol
-        /// </summary>
-        /// <param name="symbol">The symbol to subscribe to</param>
-        /// <param name="period">The period of a single candlestick</param>
-        /// <param name="onData">The handler for updates</param>
-        /// <returns></returns>
-        public async Task<CallResult<UpdateSubscription>> SubscribeToKlineUpdatesAsync(string symbol, HuobiPeriod period, Action<HuobiKline> onData)
+        public async Task<CallResult<UpdateSubscription>> SubscribeToKlineUpdatesAsync(string symbol, HuobiPeriod period, Action<DataEvent<HuobiKline>> onData)
         {
             symbol = symbol.ValidateHuobiSymbol();
             var request = new HuobiSubscribeRequest(NextId().ToString(CultureInfo.InvariantCulture), $"market.{symbol}.kline.{JsonConvert.SerializeObject(period, new PeriodConverter(false))}");
-            var internalHandler = new Action<HuobiSocketUpdate<HuobiKline>>(data => onData(data.Data));
-            return await Subscribe(request, null, false, internalHandler).ConfigureAwait(false);
+            var internalHandler = new Action<DataEvent<HuobiDataEvent<HuobiKline>>>(data => onData(data.As(data.Data.Data, symbol)));
+            return await SubscribeAsync(request, null, false, internalHandler).ConfigureAwait(false);
         }
 
-        /// <summary>
-        /// Gets the current order book for a symbol
-        /// </summary>
-        /// <param name="symbol">The symbol to get the data for</param>
-        /// <param name="mergeStep">The way the results will be merged together</param>
-        /// <returns></returns>
-        public CallResult<HuobiOrderBook> GetOrderBook(string symbol, int mergeStep) => GetOrderBookAsync(symbol, mergeStep).Result;
         /// <summary>
         /// Gets the current order book for a symbol
         /// </summary>
@@ -129,7 +107,7 @@ namespace Huobi.Net
             mergeStep.ValidateIntBetween(nameof(mergeStep), 0, 5);
 
             var request = new HuobiSocketRequest(NextId().ToString(CultureInfo.InvariantCulture), $"market.{symbol}.depth.step{mergeStep}");
-            var result = await Query<HuobiSocketResponse<HuobiOrderBook>>(request, false).ConfigureAwait(false);
+            var result = await QueryAsync<HuobiSocketResponse<HuobiOrderBook>>(request, false).ConfigureAwait(false);
             if (!result)
                 return new CallResult<HuobiOrderBook>(null, result.Error);
 
@@ -144,27 +122,19 @@ namespace Huobi.Net
         /// <param name="mergeStep">The way the results will be merged together</param>
         /// <param name="onData">The handler for updates</param>
         /// <returns></returns>
-        public CallResult<UpdateSubscription> SubscribeToOrderBookUpdates(string symbol, int mergeStep, Action<HuobiOrderBook> onData) => SubscribeToOrderBookUpdatesAsync(symbol, mergeStep, onData).Result;
-        /// <summary>
-        /// Subscribes to order book updates for a symbol
-        /// </summary>
-        /// <param name="symbol">The symbol to subscribe to</param>
-        /// <param name="mergeStep">The way the results will be merged together</param>
-        /// <param name="onData">The handler for updates</param>
-        /// <returns></returns>
-        public async Task<CallResult<UpdateSubscription>> SubscribeToOrderBookUpdatesAsync(string symbol, int mergeStep, Action<HuobiOrderBook> onData)
+        public async Task<CallResult<UpdateSubscription>> SubscribeToOrderBookUpdatesAsync(string symbol, int mergeStep, Action<DataEvent<HuobiOrderBook>> onData)
         {
             symbol = symbol.ValidateHuobiSymbol();
             mergeStep.ValidateIntBetween(nameof(mergeStep), 0, 5);
 
-            var internalHandler = new Action<HuobiSocketUpdate<HuobiOrderBook>>(data =>
+            var internalHandler = new Action<DataEvent<HuobiDataEvent<HuobiOrderBook>>>(data =>
             {
                 data.Data.Timestamp = data.Timestamp;
-                onData(data.Data);
+                onData(data.As(data.Data.Data, symbol));
             });
 
             var request = new HuobiSubscribeRequest(NextId().ToString(CultureInfo.InvariantCulture), $"market.{symbol}.depth.step{mergeStep}");
-            return await Subscribe(request, null, false, internalHandler).ConfigureAwait(false);
+            return await SubscribeAsync(request, null, false, internalHandler).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -172,17 +142,11 @@ namespace Huobi.Net
         /// </summary>
         /// <param name="symbol">The symbol to get trades for</param>
         /// <returns></returns>
-        public CallResult<IEnumerable<HuobiSymbolTradeDetails>> GetTrades(string symbol) => GetTradesAsync(symbol).Result;
-        /// <summary>
-        /// Gets a list of trades for a symbol
-        /// </summary>
-        /// <param name="symbol">The symbol to get trades for</param>
-        /// <returns></returns>
-        public async Task<CallResult<IEnumerable<HuobiSymbolTradeDetails>>> GetTradesAsync(string symbol)
+        public async Task<CallResult<IEnumerable<HuobiSymbolTradeDetails>>> GetTradeHistoryAsync(string symbol)
         {
             symbol = symbol.ValidateHuobiSymbol();
             var request = new HuobiSocketRequest(NextId().ToString(CultureInfo.InvariantCulture), $"market.{symbol}.trade.detail");
-            var result = await Query<HuobiSocketResponse<IEnumerable<HuobiSymbolTradeDetails>>>(request, false).ConfigureAwait(false);
+            var result = await QueryAsync<HuobiSocketResponse<IEnumerable<HuobiSymbolTradeDetails>>>(request, false).ConfigureAwait(false);
             return new CallResult<IEnumerable<HuobiSymbolTradeDetails>>(result.Data?.Data, result.Error);
         }
 
@@ -192,27 +156,14 @@ namespace Huobi.Net
         /// <param name="symbol">The symbol to subscribe to</param>
         /// <param name="onData">The handler for updates</param>
         /// <returns></returns>
-        public CallResult<UpdateSubscription> SubscribeToTradeUpdates(string symbol, Action<HuobiSymbolTrade> onData) => SubscribeToTradeUpdatesAsync(symbol, onData).Result;
-        /// <summary>
-        /// Subscribes to trade updates for a symbol
-        /// </summary>
-        /// <param name="symbol">The symbol to subscribe to</param>
-        /// <param name="onData">The handler for updates</param>
-        /// <returns></returns>
-        public async Task<CallResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(string symbol, Action<HuobiSymbolTrade> onData)
+        public async Task<CallResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(string symbol, Action<DataEvent<HuobiSymbolTrade>> onData)
         {
             symbol = symbol.ValidateHuobiSymbol();
             var request = new HuobiSubscribeRequest(NextId().ToString(CultureInfo.InvariantCulture), $"market.{symbol}.trade.detail");
-            var internalHandler = new Action<HuobiSocketUpdate<HuobiSymbolTrade>>(data => onData(data.Data));
-            return await Subscribe(request, null, false, internalHandler).ConfigureAwait(false);
+            var internalHandler = new Action<DataEvent<HuobiDataEvent<HuobiSymbolTrade>>>(data => onData(data.As(data.Data.Data, symbol)));
+            return await SubscribeAsync(request, null, false, internalHandler).ConfigureAwait(false);
         }
 
-        /// <summary>
-        /// Gets details for a symbol
-        /// </summary>
-        /// <param name="symbol">The symbol to get data for</param>
-        /// <returns></returns>
-        public CallResult<HuobiSymbolDetails> GetSymbolDetails(string symbol) => GetSymbolDetailsAsync(symbol).Result;
         /// <summary>
         /// Gets details for a symbol
         /// </summary>
@@ -222,7 +173,7 @@ namespace Huobi.Net
         {
             symbol = symbol.ValidateHuobiSymbol();
             var request = new HuobiSocketRequest(NextId().ToString(CultureInfo.InvariantCulture), $"market.{symbol}.detail");
-            var result = await Query<HuobiSocketResponse<HuobiSymbolDetails>>(request, false).ConfigureAwait(false);
+            var result = await QueryAsync<HuobiSocketResponse<HuobiSymbolDetails>>(request, false).ConfigureAwait(false);
             if (!result)
                 return new CallResult<HuobiSymbolDetails>(null, result.Error);
 
@@ -236,23 +187,16 @@ namespace Huobi.Net
         /// <param name="symbol">The symbol to subscribe to</param>
         /// <param name="onData">The handler for updates</param>
         /// <returns></returns>
-        public CallResult<UpdateSubscription> SubscribeToSymbolDetailUpdates(string symbol, Action<HuobiSymbolDetails> onData) => SubscribeToSymbolDetailUpdatesAsync(symbol, onData).Result;
-        /// <summary>
-        /// Subscribes to symbol detail updates for a symbol
-        /// </summary>
-        /// <param name="symbol">The symbol to subscribe to</param>
-        /// <param name="onData">The handler for updates</param>
-        /// <returns></returns>
-        public async Task<CallResult<UpdateSubscription>> SubscribeToSymbolDetailUpdatesAsync(string symbol, Action<HuobiSymbolDetails> onData)
+        public async Task<CallResult<UpdateSubscription>> SubscribeToSymbolDetailUpdatesAsync(string symbol, Action<DataEvent<HuobiSymbolDetails>> onData)
         {
             symbol = symbol.ValidateHuobiSymbol();
             var request = new HuobiSubscribeRequest(NextId().ToString(CultureInfo.InvariantCulture), $"market.{symbol}.detail");
-            var internalHandler = new Action<HuobiSocketUpdate<HuobiSymbolDetails>>(data =>
+            var internalHandler = new Action<DataEvent<HuobiDataEvent<HuobiSymbolDetails>>>(data =>
             {
                 data.Data.Timestamp = data.Timestamp;
-                onData(data.Data);
+                onData(data.As(data.Data.Data, symbol));
             });
-            return await Subscribe(request, null, false, internalHandler).ConfigureAwait(false);
+            return await SubscribeAsync(request, null, false, internalHandler).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -260,21 +204,15 @@ namespace Huobi.Net
         /// </summary>
         /// <param name="onData">The handler for updates</param>
         /// <returns></returns>
-        public CallResult<UpdateSubscription> SubscribeToTickerUpdates(Action<HuobiSymbolDatas> onData) => SubscribeToSymbolTickerUpdatesAsync(onData).Result;
-        /// <summary>
-        /// Subscribes to updates for all tickers
-        /// </summary>
-        /// <param name="onData">The handler for updates</param>
-        /// <returns></returns>
-        public async Task<CallResult<UpdateSubscription>> SubscribeToSymbolTickerUpdatesAsync(Action<HuobiSymbolDatas> onData)
+        public async Task<CallResult<UpdateSubscription>> SubscribeToSymbolTickerUpdatesAsync(Action<DataEvent<HuobiSymbolDatas>> onData)
         {
             var request = new HuobiSubscribeRequest(NextId().ToString(CultureInfo.InvariantCulture), "market.tickers");
-            var internalHandler = new Action<HuobiSocketUpdate<IEnumerable<HuobiSymbolTicker>>>(data =>
+            var internalHandler = new Action<DataEvent<HuobiDataEvent<IEnumerable<HuobiSymbolTicker>>>>(data =>
             {
-                var result = new HuobiSymbolDatas { Timestamp = data.Timestamp, Ticks = data.Data};
-                onData(result);
+                var result = new HuobiSymbolDatas { Timestamp = data.Timestamp, Ticks = data.Data.Data};
+                onData(data.As(result));
             });
-            return await Subscribe(request, null, false, internalHandler).ConfigureAwait(false);
+            return await SubscribeAsync(request, null, false, internalHandler).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -283,44 +221,16 @@ namespace Huobi.Net
         /// <param name="symbol">Symbol to subscribe to</param>
         /// <param name="onData">Data handler</param>
         /// <returns></returns>
-        public CallResult<UpdateSubscription>
-            SubscribeToBestOfferUpdates(string symbol, Action<HuobiBestOffer> onData) =>
-            SubscribeToBestOfferUpdatesAsync(symbol, onData).Result;
-
-        /// <summary>
-        /// Subscribe to changes of a symbol's best ask/bid
-        /// </summary>
-        /// <param name="symbol">Symbol to subscribe to</param>
-        /// <param name="onData">Data handler</param>
-        /// <returns></returns>
-        public async Task<CallResult<UpdateSubscription>> SubscribeToBestOfferUpdatesAsync(string symbol, Action<HuobiBestOffer> onData)
+        public async Task<CallResult<UpdateSubscription>> SubscribeToBestOfferUpdatesAsync(string symbol, Action<DataEvent<HuobiBestOffer>> onData)
         {
             var request = new HuobiSubscribeRequest(NextId().ToString(CultureInfo.InvariantCulture), $"market.{symbol}.bbo");
-            var internalHandler = new Action<HuobiSocketUpdate<HuobiBestOffer>>(data =>
+            var internalHandler = new Action<DataEvent<HuobiDataEvent<HuobiBestOffer>>>(data =>
             {
-                onData(data.Data);
+                onData(data.As(data.Data.Data, symbol));
             });
-            return await Subscribe(request, null, false, internalHandler).ConfigureAwait(false);
+            return await SubscribeAsync(request, null, false, internalHandler).ConfigureAwait(false);
         }
-
-        /// <summary>
-        /// Subscribe to updates of orders
-        /// </summary>
-        /// <param name="symbol">Subscribe on a specific symbol</param>
-        /// <param name="onOrderSubmitted">Event handler for the order submitted event</param>
-        /// <param name="onOrderMatched">Event handler for the order matched event</param>
-        /// <param name="onOrderCancellation">Event handler for the order cancelled event</param>
-        /// <param name="onConditionalOrderTriggerFailure">Event handler for the conditional order trigger failed event</param>
-        /// <param name="onConditionalOrderCancelled">Event handler for the condition order cancelled event</param>
-        /// <returns></returns>
-        public CallResult<UpdateSubscription> SubscribeToOrderUpdates(
-            string? symbol = null,
-            Action<HuobiSubmittedOrderUpdate>? onOrderSubmitted = null,
-            Action<HuobiMatchedOrderUpdate>? onOrderMatched = null,
-            Action<HuobiCancelledOrderUpdate>? onOrderCancellation = null,
-            Action<HuobiTriggerFailureOrderUpdate>? onConditionalOrderTriggerFailure = null,
-            Action<HuobiOrderUpdate>? onConditionalOrderCancelled = null) => SubscribeToOrderUpdatesAsync(symbol, onOrderSubmitted, onOrderMatched, onOrderCancellation, onConditionalOrderTriggerFailure, onConditionalOrderCancelled).Result;
-
+       
         /// <summary>
         /// Subscribe to updates of orders
         /// </summary>
@@ -333,58 +243,52 @@ namespace Huobi.Net
         /// <returns></returns>
         public async Task<CallResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(
             string? symbol = null,
-            Action<HuobiSubmittedOrderUpdate>? onOrderSubmitted = null,
-            Action<HuobiMatchedOrderUpdate>? onOrderMatched = null,
-            Action<HuobiCancelledOrderUpdate>? onOrderCancellation = null,
-            Action<HuobiTriggerFailureOrderUpdate>? onConditionalOrderTriggerFailure = null,
-            Action<HuobiOrderUpdate>? onConditionalOrderCancelled = null)
+            Action<DataEvent<HuobiSubmittedOrderUpdate>>? onOrderSubmitted = null,
+            Action<DataEvent<HuobiMatchedOrderUpdate>>? onOrderMatched = null,
+            Action<DataEvent<HuobiCancelledOrderUpdate>>? onOrderCancellation = null,
+            Action<DataEvent<HuobiTriggerFailureOrderUpdate>>? onConditionalOrderTriggerFailure = null,
+            Action<DataEvent<HuobiOrderUpdate>>? onConditionalOrderCancelled = null)
         {
             symbol = symbol?.ValidateHuobiSymbol();
             var request = new HuobiAuthenticatedSubscribeRequest( $"orders#{symbol ?? "*"}");
-            var internalHandler = new Action<JToken>(data =>
+            var internalHandler = new Action<DataEvent<JToken>>(data =>
             {
-                var eventType = (string) data["data"]["eventType"];
+                var eventType = (string) data.Data["data"]["eventType"];
+                var symbol = (string) data.Data["data"]["symbol"];
                 if (eventType == "trigger")
-                    DeserializeAndInvoke(data, onConditionalOrderTriggerFailure);
+                    DeserializeAndInvoke(data, onConditionalOrderTriggerFailure, symbol);
 
                 else if (eventType == "deletion")
-                    DeserializeAndInvoke(data, onConditionalOrderCancelled);
+                    DeserializeAndInvoke(data, onConditionalOrderCancelled, symbol);
 
                 else if (eventType == "creation")
-                    DeserializeAndInvoke(data, onOrderSubmitted);
+                    DeserializeAndInvoke(data, onOrderSubmitted, symbol);
 
                 else if (eventType == "trade")
-                    DeserializeAndInvoke(data, onOrderMatched);
+                    DeserializeAndInvoke(data, onOrderMatched, symbol);
 
                 else if (eventType == "cancellation")
-                    DeserializeAndInvoke(data, onOrderCancellation);
+                    DeserializeAndInvoke(data, onOrderCancellation, symbol);
                 else
                 {
-                    log.Write(LogVerbosity.Warning, "Unknown order event type: " + eventType);
+                    log.Write(LogLevel.Warning, "Unknown order event type: " + eventType);
                 }
             });
-            return await Subscribe(request, null, true, internalHandler).ConfigureAwait(false);
+            return await SubscribeAsync(request, null, true, internalHandler).ConfigureAwait(false);
         }
 
-
         /// <summary>
         /// Subscribe to updates of account balances
         /// </summary>
         /// <returns></returns>
-        public CallResult<UpdateSubscription> SubscribeToAccountUpdates(Action<HuobiAccountUpdate> onAccountUpdate) => SubscribeToAccountUpdatesAsync(onAccountUpdate).Result;
-
-        /// <summary>
-        /// Subscribe to updates of account balances
-        /// </summary>
-        /// <returns></returns>
-        public async Task<CallResult<UpdateSubscription>> SubscribeToAccountUpdatesAsync(Action<HuobiAccountUpdate> onAccountUpdate)
+        public async Task<CallResult<UpdateSubscription>> SubscribeToAccountUpdatesAsync(Action<DataEvent<HuobiAccountUpdate>> onAccountUpdate)
         {
             var request = new HuobiAuthenticatedSubscribeRequest("accounts.update#1");
-            var internalHandler = new Action<JToken>(data =>
+            var internalHandler = new Action<DataEvent<JToken>>(data =>
             {
                 DeserializeAndInvoke(data, onAccountUpdate);
             });
-            return await Subscribe(request, null, true, internalHandler).ConfigureAwait(false);
+            return await SubscribeAsync(request, null, true, internalHandler).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -394,71 +298,63 @@ namespace Huobi.Net
         /// <param name="onOrderMatch">Event handler for the order matched event</param>
         /// <param name="onOrderCancel">Event handler for the order cancelled event</param>
         /// <returns></returns>
-        public CallResult<UpdateSubscription> SubscribeToOrderDetailsUpdates(string? symbol = null, Action<HuobiTradeUpdate>? onOrderMatch = null, Action<HuobiOrderCancellationUpdate>? onOrderCancel = null) => SubscribeToOrderDetailsUpdatesAsync(symbol, onOrderMatch, onOrderCancel).Result;
-
-        /// <summary>
-        /// Subscribe to detailed order matched/cancelled updates
-        /// </summary>
-        /// <param name="symbol">Subscribe to a specific symbol</param>
-        /// <param name="onOrderMatch">Event handler for the order matched event</param>
-        /// <param name="onOrderCancel">Event handler for the order cancelled event</param>
-        /// <returns></returns>
-        public async Task<CallResult<UpdateSubscription>> SubscribeToOrderDetailsUpdatesAsync(string? symbol = null, Action<HuobiTradeUpdate>? onOrderMatch = null, Action<HuobiOrderCancellationUpdate>? onOrderCancel = null)
+        public async Task<CallResult<UpdateSubscription>> SubscribeToOrderDetailsUpdatesAsync(string? symbol = null, Action<DataEvent<HuobiTradeUpdate>>? onOrderMatch = null, Action<DataEvent<HuobiOrderCancellationUpdate>>? onOrderCancel = null)
         {
             var request = new HuobiAuthenticatedSubscribeRequest($"trade.clearing#{symbol ?? "*"}#1");
-            var internalHandler = new Action<JToken>(data =>
+            var internalHandler = new Action<DataEvent<JToken>>(data =>
             {
-                var eventType = (string)data["data"]["eventType"];
+                var eventType = (string)data.Data["data"]["eventType"];
+                var symbol = (string)data.Data["data"]["symbol"];
                 if (eventType == "trade")
-                    DeserializeAndInvoke(data, onOrderMatch);
+                    DeserializeAndInvoke(data, onOrderMatch, symbol);
                 else if(eventType == "cancellation")
-                    DeserializeAndInvoke(data, onOrderCancel);
+                    DeserializeAndInvoke(data, onOrderCancel, symbol);
                 else
                 {
-                    log.Write(LogVerbosity.Warning, "Unknown order details event type: " + eventType);
+                    log.Write(LogLevel.Warning, "Unknown order details event type: " + eventType);
                 }
             });
-            return await Subscribe(request, null, true, internalHandler).ConfigureAwait(false);
+            return await SubscribeAsync(request, null, true, internalHandler).ConfigureAwait(false);
         }
 
         #region private
 
-        private void DeserializeAndInvoke<T>(JToken data, Action<T>? action)
+        private void DeserializeAndInvoke<T>(DataEvent<JToken> data, Action<DataEvent<T>>? action, string? symbol = null)
         {
-            var obj = Deserialize<T>(data["data"], true);
+            var obj = Deserialize<T>(data.Data["data"], true);
             if (!obj)
             {
-                log.Write(LogVerbosity.Error, $"Failed to deserialize {typeof(T).Name}: " + obj.Error);
+                log.Write(LogLevel.Error, $"Failed to deserialize {typeof(T).Name}: " + obj.Error);
                 return;
             }
-            action?.Invoke(obj.Data);
+            action?.Invoke(data.As(obj.Data, symbol));
         }
 
-        private void PingHandlerV1(SocketConnection connection, JToken data)
+        private void PingHandlerV1(MessageEvent messageEvent)
         {
-            var v1Ping = data["ping"] != null;
+            var v1Ping = messageEvent.JsonData["ping"] != null;
 
             if (v1Ping)
-                connection.Send(new HuobiPingResponse((long)data["ping"]));
+                messageEvent.Connection.Send(new HuobiPingResponse((long)messageEvent.JsonData["ping"]));
         }
 
-        private void PingHandlerV2(SocketConnection connection, JToken data)
+        private void PingHandlerV2(MessageEvent messageEvent)
         {
-            var v2Ping = (string)data["action"] == "ping";
+            var v2Ping = (string)messageEvent.JsonData["action"] == "ping";
 
             if (v2Ping)
-                connection.Send(new HuobiPingAuthResponse((long)data["data"]["ts"]));
+                messageEvent.Connection.Send(new HuobiPingAuthResponse((long)messageEvent.JsonData["data"]["ts"]));
         }
         
         /// <inheritdoc />
-        protected override SocketConnection GetWebsocket(string address, bool authenticated)
+        protected override SocketConnection GetSocketConnection(string address, bool authenticated)
         {
             address = authenticated ? baseAddressAuthenticated : BaseAddress;
-            var socketResult = sockets.Where(s => s.Value.Socket.Url.TrimEnd('/') == address.TrimEnd('/') && (s.Value.Authenticated == authenticated || !authenticated) && s.Value.Connected).OrderBy(s => s.Value.HandlerCount).FirstOrDefault();
+            var socketResult = sockets.Where(s => s.Value.Socket.Url.TrimEnd('/') == address.TrimEnd('/') && (s.Value.Authenticated == authenticated || !authenticated) && s.Value.Connected).OrderBy(s => s.Value.SubscriptionCount).FirstOrDefault();
             var result = socketResult.Equals(default(KeyValuePair<int, SocketConnection>)) ? null : socketResult.Value;
             if (result != null)
             {
-                if (result.HandlerCount < SocketCombineTarget || (sockets.Count >= MaxSocketConnections && sockets.All(s => s.Value.HandlerCount >= SocketCombineTarget)))
+                if (result.SubscriptionCount < SocketCombineTarget || (sockets.Count >= MaxSocketConnections && sockets.All(s => s.Value.SubscriptionCount >= SocketCombineTarget)))
                 {
                     // Use existing socket if it has less than target connections OR it has the least connections and we can't make new
                     return result;
@@ -469,7 +365,7 @@ namespace Huobi.Net
             var socket = CreateSocket(address);
             var socketWrapper = new SocketConnection(this, socket);
             foreach (var kvp in genericHandlers)
-                socketWrapper.AddHandler(SocketSubscription.CreateForIdentifier(kvp.Key, false, kvp.Value));
+                socketWrapper.AddSubscription(SocketSubscription.CreateForIdentifier(kvp.Key, false, kvp.Value));
             return socketWrapper;
         }
 
@@ -503,7 +399,7 @@ namespace Huobi.Net
                 var desResult = Deserialize<T>(data, false);
                 if (!desResult)
                 {
-                    log.Write(LogVerbosity.Warning, $"Failed to deserialize data: {desResult.Error}. Data: {data}");
+                    log.Write(LogLevel.Warning, $"Failed to deserialize data: {desResult.Error}. Data: {data}");
                     callResult = new CallResult<T>(default, desResult.Error);
                     return true;
                 }
@@ -521,7 +417,7 @@ namespace Huobi.Net
                 var desResult = Deserialize<T>(data, false);
                 if (!desResult)
                 {
-                    log.Write(LogVerbosity.Warning, $"Failed to deserialize data: {desResult.Error}. Data: {data}");
+                    log.Write(LogLevel.Warning, $"Failed to deserialize data: {desResult.Error}. Data: {data}");
                     return false;
                 }
 
@@ -544,7 +440,7 @@ namespace Huobi.Net
                     var subResponse = Deserialize<HuobiSubscribeResponse>(message, false);
                     if (!subResponse)
                     {
-                        log.Write(LogVerbosity.Warning, "Subscription failed: " + subResponse.Error);
+                        log.Write(LogLevel.Warning, "Subscription failed: " + subResponse.Error);
                         return false;
                     }
 
@@ -552,7 +448,7 @@ namespace Huobi.Net
                     if (id != hRequest.Id)
                         return false; // Not for this request
 
-                    log.Write(LogVerbosity.Warning, "Subscription failed: " + subResponse.Data.ErrorMessage);
+                    log.Write(LogLevel.Warning, "Subscription failed: " + subResponse.Data.ErrorMessage);
                     callResult = new CallResult<object>(null, new ServerError($"{subResponse.Data.ErrorCode}, {subResponse.Data.ErrorMessage}"));
                     return true;
                 }
@@ -562,7 +458,7 @@ namespace Huobi.Net
                     var subResponse = Deserialize<HuobiAuthSubscribeResponse>(message, false);
                     if (!subResponse)
                     {
-                        log.Write(LogVerbosity.Warning, "Subscription failed: " + subResponse.Error);
+                        log.Write(LogLevel.Warning, "Subscription failed: " + subResponse.Error);
                         callResult = new CallResult<object>(null, subResponse.Error);
                         return false;
                     }
@@ -571,7 +467,7 @@ namespace Huobi.Net
                     if (id != haRequest.Channel)
                         return false; // Not for this request
 
-                    log.Write(LogVerbosity.Warning, "Subscription failed: " + subResponse.Data.Code);
+                    log.Write(LogLevel.Warning, "Subscription failed: " + subResponse.Data.Code);
                     callResult = new CallResult<object>(null, new ServerError(subResponse.Data.Code, "Failed to subscribe"));
                     return true;
                 }
@@ -583,7 +479,7 @@ namespace Huobi.Net
                 var subResponse = Deserialize<HuobiSubscribeResponse>(message, false);
                 if (!subResponse)
                 {
-                    log.Write(LogVerbosity.Warning, "Subscription failed: " + subResponse.Error);
+                    log.Write(LogLevel.Warning, "Subscription failed: " + subResponse.Error);
                     return false;
                 }
 
@@ -593,12 +489,12 @@ namespace Huobi.Net
 
                 if (!subResponse.Data.IsSuccessful)
                 {
-                    log.Write(LogVerbosity.Warning, "Subscription failed: " + subResponse.Data.ErrorMessage);
+                    log.Write(LogLevel.Warning, "Subscription failed: " + subResponse.Data.ErrorMessage);
                     callResult = new CallResult<object>(null, new ServerError($"{subResponse.Data.ErrorCode}, {subResponse.Data.ErrorMessage}"));
                     return true;
                 }
 
-                log.Write(LogVerbosity.Debug, "Subscription completed");
+                log.Write(LogLevel.Debug, "Subscription completed");
                 callResult = new CallResult<object>(subResponse.Data, null);
                 return true;
             }
@@ -609,7 +505,7 @@ namespace Huobi.Net
                 var subResponse = Deserialize<HuobiAuthSubscribeResponse>(message, false);
                 if (!subResponse)
                 {
-                    log.Write(LogVerbosity.Warning, "Subscription failed: " + subResponse.Error);
+                    log.Write(LogLevel.Warning, "Subscription failed: " + subResponse.Error);
                     callResult = new CallResult<object>(null, subResponse.Error);
                     return false;
                 }
@@ -620,12 +516,12 @@ namespace Huobi.Net
 
                 if (!subResponse.Data.IsSuccessful)
                 {
-                    log.Write(LogVerbosity.Warning, "Subscription failed: " + subResponse.Data.Message);
+                    log.Write(LogLevel.Warning, "Subscription failed: " + subResponse.Data.Message);
                     callResult = new CallResult<object>(null, new ServerError(subResponse.Data.Code, subResponse.Data.Message));
                     return true;
                 }
 
-                log.Write(LogVerbosity.Debug, "Subscription completed");
+                log.Write(LogLevel.Debug, "Subscription completed");
                 callResult = new CallResult<object>(subResponse.Data, null);
                 return true;
             }
@@ -661,7 +557,7 @@ namespace Huobi.Net
         }
 
         /// <inheritdoc />
-        protected override async Task<CallResult<bool>> AuthenticateSocket(SocketConnection s)
+        protected override async Task<CallResult<bool>> AuthenticateSocketAsync(SocketConnection s)
         {
             if (authProvider == null)
                 return new CallResult<bool>(false, new NoApiCredentialsError());
@@ -681,7 +577,7 @@ namespace Huobi.Net
                 (string)authParams["signature"]);
 
             var result = new CallResult<bool>(false, new ServerError("No response from server"));
-            await s.SendAndWait(authObjects, ResponseTimeout, data =>
+            await s.SendAndWaitAsync(authObjects, ResponseTimeout, data =>
             {
                 if ((string)data["ch"] != "auth")
                     return false;
@@ -689,27 +585,27 @@ namespace Huobi.Net
                 var authResponse = Deserialize<HuobiAuthSubscribeResponse>(data, false);
                 if (!authResponse)
                 {
-                    log.Write(LogVerbosity.Warning, "Authorization failed: " + authResponse.Error);
+                    log.Write(LogLevel.Warning, "Authorization failed: " + authResponse.Error);
                     result = new CallResult<bool>(false, authResponse.Error);
                     return true;
                 }
                 if (!authResponse.Data.IsSuccessful)
                 {
-                    log.Write(LogVerbosity.Warning, "Authorization failed: " + authResponse.Data.Message);
+                    log.Write(LogLevel.Warning, "Authorization failed: " + authResponse.Data.Message);
                     result = new CallResult<bool>(false, new ServerError(authResponse.Data.Code, authResponse.Data.Message));
                     return true;
                 }
 
-                log.Write(LogVerbosity.Debug, "Authorization completed");
+                log.Write(LogLevel.Debug, "Authorization completed");
                 result = new CallResult<bool>(true, null);
                 return true;
-            });
+            }).ConfigureAwait(false);
 
             return result;
         }
 
         /// <inheritdoc />
-        protected override async Task<bool> Unsubscribe(SocketConnection connection, SocketSubscription s)
+        protected override async Task<bool> UnsubscribeAsync(SocketConnection connection, SocketSubscription s)
         {
             var result = false;
             if (s.Request is HuobiSubscribeRequest hRequest)
@@ -717,7 +613,7 @@ namespace Huobi.Net
                 var unsubId = NextId().ToString();
                 var unsub = new HuobiUnsubscribeRequest(unsubId, hRequest.Topic);
 
-                await connection.SendAndWait(unsub, ResponseTimeout, data =>
+                await connection.SendAndWaitAsync(unsub, ResponseTimeout, data =>
                 {
                     if (data.Type != JTokenType.Object)
                         return false;
@@ -730,7 +626,7 @@ namespace Huobi.Net
                     }
 
                     return false;
-                });
+                }).ConfigureAwait(false);
                 return result;
             }
 
@@ -742,7 +638,7 @@ namespace Huobi.Net
                     { "ch", haRequest.Channel },
                 };
 
-                await connection.SendAndWait(unsub, ResponseTimeout, data =>
+                await connection.SendAndWaitAsync(unsub, ResponseTimeout, data =>
                 {
                     if (data.Type != JTokenType.Object)
                         return false;
@@ -754,7 +650,7 @@ namespace Huobi.Net
                     }
 
                     return false;
-                });
+                }).ConfigureAwait(false);
                 return result;
             }
 

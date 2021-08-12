@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using CryptoExchange.Net.Converters;
 using Huobi.Net.Converters;
 using Huobi.Net.Enums;
@@ -8,10 +6,10 @@ using Newtonsoft.Json;
 
 namespace Huobi.Net.Objects
 {
-	/// <summary>
-	/// Withdraw or Deposit
-	/// </summary>
-	public class WithdrawDeposit
+    /// <summary>
+    /// Withdraw or Deposit
+    /// </summary>
+    public class WithdrawDeposit
 	{
 		/// <summary>
 		/// Transfer id

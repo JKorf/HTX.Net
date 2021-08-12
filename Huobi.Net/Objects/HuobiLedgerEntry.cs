@@ -1,7 +1,5 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using CryptoExchange.Net.Converters;
 
 namespace Huobi.Net.Objects
@@ -19,7 +17,7 @@ namespace Huobi.Net.Objects
         /// <summary>
         /// Currency
         /// </summary>
-        public string Currency { get; set; } = "";
+        public string Currency { get; set; } = string.Empty;
         /// <summary>
         /// Amount of the transaction
         /// </summary>
@@ -33,7 +31,7 @@ namespace Huobi.Net.Objects
         /// <summary>
         /// Type of transfer
         /// </summary>
-        public string TransferType { get; set; } = "";
+        public string TransferType { get; set; } = string.Empty;
         /// <summary>
         /// Transaction id
         /// </summary>

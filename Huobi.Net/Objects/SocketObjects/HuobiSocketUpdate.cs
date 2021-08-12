@@ -5,13 +5,13 @@ using System;
 
 namespace Huobi.Net.Objects.SocketObjects
 {
-    internal class HuobiSocketUpdate<T>
+    internal class HuobiDataEvent<T>
     {
         /// <summary>
         /// The name of the data channel
         /// </summary>
         [JsonProperty("ch")]
-        public string Channel { get; set; } = "";
+        public string Channel { get; set; } = string.Empty;
         /// <summary>
         /// The timestamp of the update
         /// </summary>

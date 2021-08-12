@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using Huobi.Net.Enums;
 using Newtonsoft.Json;
 
@@ -14,7 +13,7 @@ namespace Huobi.Net.Objects
         /// <summary>
         /// Currency
         /// </summary>
-        public string Currency { get; set; } = "";
+        public string Currency { get; set; } = string.Empty;
         /// <summary>
         /// Status of the currency
         /// </summary>
@@ -23,7 +22,7 @@ namespace Huobi.Net.Objects
         /// <summary>
         /// Chains
         /// </summary>
-        public IEnumerable<HuobiChain> Chains { get; set; } = new HuobiChain[0];
+        public IEnumerable<HuobiChain> Chains { get; set; } = Array.Empty<HuobiChain>();
     }
 
     /// <summary>
@@ -34,19 +33,19 @@ namespace Huobi.Net.Objects
         /// <summary>
         /// Chain
         /// </summary>
-        public string Chain { get; set; } = "";
+        public string Chain { get; set; } = string.Empty;
         /// <summary>
         /// Display name
         /// </summary>
-        public string DisplayName { get; set; } = "";
+        public string DisplayName { get; set; } = string.Empty;
         /// <summary>
         /// Base chain
         /// </summary>
-        public string BaseChain { get; set; } = "";
+        public string BaseChain { get; set; } = string.Empty;
         /// <summary>
         /// Protocol of the base chain
         /// </summary>
-        public string BaseChainProtocol { get; set; } = "";
+        public string BaseChainProtocol { get; set; } = string.Empty;
         /// <summary>
         /// Is dynamic fee type or not (only applicable to withdrawFeeType = fixed)
         /// </summary>
