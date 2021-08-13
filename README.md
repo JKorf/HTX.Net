@@ -88,6 +88,7 @@ For the basic client options see also the CryptoExchange.Net [docs](https://gith
 | Property | Description | Default |
 | ----------- | ----------- | ---------|
 |`SignPublicRequests`|Whether or not public requests should be signed with the API credentials if provided. Needed for accurate rate limiting behavior|`false`
+
 **HuobiSocketClientOptions**  
 | Property | Description | Default |
 | ----------- | ----------- | ---------|
