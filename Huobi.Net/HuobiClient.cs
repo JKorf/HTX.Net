@@ -1129,7 +1129,7 @@ namespace Huobi.Net
         {
             if (timeSpan == TimeSpan.FromMinutes(1)) return HuobiPeriod.OneMinute;
             if (timeSpan == TimeSpan.FromMinutes(5)) return HuobiPeriod.FiveMinutes;
-            if (timeSpan == TimeSpan.FromMinutes(15)) return HuobiPeriod.FiveMinutes;
+            if (timeSpan == TimeSpan.FromMinutes(15)) return HuobiPeriod.FifteenMinutes;
             if (timeSpan == TimeSpan.FromMinutes(30)) return HuobiPeriod.ThirtyMinutes;
             if (timeSpan == TimeSpan.FromHours(1)) return HuobiPeriod.OneHour;
             if (timeSpan == TimeSpan.FromHours(4)) return HuobiPeriod.FourHours;
