@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Linq;
+using System.Threading.Tasks;
 using Huobi.Net.Objects;
 
 namespace Huobi.Net.ConsoleClient
 {
     class Program
     {
-        static async void Main(string[] args)
+        static async Task Main(string[] args)
         {
             // REST client
             using (var client = new HuobiClient())
