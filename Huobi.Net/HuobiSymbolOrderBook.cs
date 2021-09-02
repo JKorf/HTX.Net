@@ -14,6 +14,7 @@ namespace Huobi.Net
     {
         private readonly IHuobiSocketClient socketClient;
         private readonly int mergeStep;
+        private bool _socketOwner;
 
         /// <summary>
         /// Create a new order book instance
@@ -24,6 +25,7 @@ namespace Huobi.Net
         {
             mergeStep = options?.MergeStep ?? 0;
             socketClient = options?.SocketClient ?? new HuobiSocketClient();
+            _socketOwner = options?.SocketClient == null;
         }
 
         /// <inheritdoc />
@@ -55,7 +57,8 @@ namespace Huobi.Net
             asks.Clear();
             bids.Clear();
 
-            socketClient?.Dispose();
+            if(_socketOwner)
+                socketClient?.Dispose();
         }
     }
 }
