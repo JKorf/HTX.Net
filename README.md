@@ -95,6 +95,9 @@ For the basic client options see also the CryptoExchange.Net [docs](https://gith
 |`BaseAddressAuthenticated`|The base address for authenticated subscriptions|`wss://api.huobi.pro/ws/v2`
 
 ## Release notes
+* Version 3.0.5 - 15 Sep 2021
+    * Updated CryptoExchange.Net
+
 * Version 3.0.4 - 02 Sep 2021
     * Fix for disposing order book closing socket even if there are other connections
 
