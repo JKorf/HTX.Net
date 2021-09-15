@@ -34,7 +34,7 @@ namespace Huobi.Net.UnitTests.TestImplementations
         public bool Reconnecting { get; set; }
         public Encoding Encoding { get; set; }
         public int? RatelimitPerSecond { get; set; }
-
+        public string LastSendMessage { get; set; }
         public Task<bool> ConnectAsync()
         {
             Connected = CanConnect;
@@ -45,6 +45,7 @@ namespace Huobi.Net.UnitTests.TestImplementations
         {
             if(!Connected)
                 throw new Exception("Socket not connected");
+            LastSendMessage = data;
         }
 
         public void Reset()

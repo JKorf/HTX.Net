@@ -897,16 +897,17 @@ namespace Huobi.Net
 
         /// <inheritdoc />
         protected override IRequest ConstructRequest(Uri uri, HttpMethod method, Dictionary<string, object>? parameters, bool signed,
-            PostParameters postParameterPosition, ArrayParametersSerialization arraySerialization, int requestId)
+            HttpMethodParameterPosition parameterPosition, ArrayParametersSerialization arraySerialization, int requestId,
+            Dictionary<string, string>? additionalHeaders)
         {
             if (parameters == null)
                 parameters = new Dictionary<string, object>();
 
             var uriString = uri.ToString();
             if (authProvider != null)
-                parameters = authProvider.AddAuthenticationToParameters(uriString, method, parameters, signed, postParameterPosition, arraySerialization);
+                parameters = authProvider.AddAuthenticationToParameters(uriString, method, parameters, signed, parameterPosition, arraySerialization);
 
-            if ((method == HttpMethod.Get || method == HttpMethod.Delete || postParametersPosition == PostParameters.InUri) && parameters?.Any() == true)
+            if (parameterPosition == HttpMethodParameterPosition.InUri && parameters?.Any() == true)
                 uriString += "?" + parameters.CreateParamString(true, arraySerialization);
 
             if (method == HttpMethod.Post && signed)
@@ -923,12 +924,26 @@ namespace Huobi.Net
 
             var headers = new Dictionary<string, string>();
             if (authProvider != null)
-                headers = authProvider.AddAuthenticationToHeaders(uriString, method, parameters!, signed, postParameterPosition, arraySerialization);
+                headers = authProvider.AddAuthenticationToHeaders(uriString, method, parameters!, signed, parameterPosition, arraySerialization);
 
             foreach (var header in headers)
                 request.AddHeader(header.Key, header.Value);
 
-            if ((method == HttpMethod.Post || method == HttpMethod.Put) && postParametersPosition != PostParameters.InUri)
+            if (additionalHeaders != null)
+            {
+                foreach (var header in additionalHeaders)
+                    request.AddHeader(header.Key, header.Value);
+            }
+
+            if (StandardRequestHeaders != null)
+            {
+                foreach (var header in StandardRequestHeaders)
+                    // Only add it if it isn't overwritten
+                    if (additionalHeaders?.ContainsKey(header.Key) != true)
+                        request.AddHeader(header.Key, header.Value);
+            }
+
+            if (parameterPosition == HttpMethodParameterPosition.InBody)
             {
                 if (parameters?.Any() == true)
                     WriteParamBody(request, parameters, contentType);

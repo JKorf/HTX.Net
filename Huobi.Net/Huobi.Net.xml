@@ -616,7 +616,7 @@
             <param name="ct"></param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.HuobiClient.ConstructRequest(System.Uri,System.Net.Http.HttpMethod,System.Collections.Generic.Dictionary{System.String,System.Object},System.Boolean,CryptoExchange.Net.Objects.PostParameters,CryptoExchange.Net.Objects.ArrayParametersSerialization,System.Int32)">
+        <member name="M:Huobi.Net.HuobiClient.ConstructRequest(System.Uri,System.Net.Http.HttpMethod,System.Collections.Generic.Dictionary{System.String,System.Object},System.Boolean,CryptoExchange.Net.Objects.HttpMethodParameterPosition,CryptoExchange.Net.Objects.ArrayParametersSerialization,System.Int32,System.Collections.Generic.Dictionary{System.String,System.String})">
             <inheritdoc />
         </member>
         <member name="M:Huobi.Net.HuobiClient.TryParseErrorAsync(Newtonsoft.Json.Linq.JToken)">
