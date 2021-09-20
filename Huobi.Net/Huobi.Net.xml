@@ -745,6 +745,13 @@
             </summary>
             <param name="options">The options to use for this client</param>
         </member>
+        <member name="M:Huobi.Net.HuobiSocketClient.SetApiCredentials(System.String,System.String)">
+            <summary>
+            Set the API key and secret
+            </summary>
+            <param name="apiKey">The api key</param>
+            <param name="apiSecret">The api secret</param>
+        </member>
         <member name="M:Huobi.Net.HuobiSocketClient.SetDefaultOptions(Huobi.Net.HuobiSocketClientOptions)">
             <summary>
             Set the default options to be used when creating new socket clients
@@ -1274,6 +1281,13 @@
             <summary>
             Interface for the Huobi socket client
             </summary>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.SetApiCredentials(System.String,System.String)">
+            <summary>
+            Set the API key and secret
+            </summary>
+            <param name="apiKey">The api key</param>
+            <param name="apiSecret">The api secret</param>
         </member>
         <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.GetKlinesAsync(System.String,Huobi.Net.Objects.HuobiPeriod)">
             <summary>

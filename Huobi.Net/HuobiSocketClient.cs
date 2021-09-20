@@ -18,6 +18,7 @@ using System.Globalization;
 using Huobi.Net.Objects.SocketObjects.V2;
 using HuobiOrderUpdate = Huobi.Net.Objects.SocketObjects.V2.HuobiOrderUpdate;
 using Microsoft.Extensions.Logging;
+using CryptoExchange.Net.Authentication;
 
 namespace Huobi.Net
 {
@@ -56,6 +57,15 @@ namespace Huobi.Net
         #endregion
 
         #region methods
+        /// <summary>
+        /// Set the API key and secret
+        /// </summary>
+        /// <param name="apiKey">The api key</param>
+        /// <param name="apiSecret">The api secret</param>
+        public void SetApiCredentials(string apiKey, string apiSecret)
+        {
+            SetAuthenticationProvider(new HuobiAuthenticationProvider(new ApiCredentials(apiKey, apiSecret), false));
+        }
 
         /// <summary>
         /// Set the default options to be used when creating new socket clients
