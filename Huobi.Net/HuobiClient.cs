@@ -1001,6 +1001,7 @@ namespace Huobi.Net
         /// <returns></returns>
         public string GetSymbolName(string baseAsset, string quoteAsset) => (baseAsset + quoteAsset).ToLowerInvariant();
 
+#pragma warning disable 1066
         async Task<WebCallResult<IEnumerable<ICommonSymbol>>> IExchangeClient.GetSymbolsAsync()
         {
             var symbols = await GetSymbolsAsync().ConfigureAwait(false);
@@ -1123,6 +1124,7 @@ namespace Huobi.Net
 
             return balances.As<IEnumerable<ICommonBalance>>(result);
         }
+#pragma warning restore 1066
 
         private static HuobiOrderType GetOrderType(IExchangeClient.OrderType type, IExchangeClient.OrderSide side)
         {

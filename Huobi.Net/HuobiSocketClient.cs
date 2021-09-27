@@ -263,8 +263,14 @@ namespace Huobi.Net
             var request = new HuobiAuthenticatedSubscribeRequest( $"orders#{symbol ?? "*"}");
             var internalHandler = new Action<DataEvent<JToken>>(data =>
             {
-                var eventType = (string) data.Data["data"]["eventType"];
-                var symbol = (string) data.Data["data"]["symbol"];
+                if (data.Data["data"] == null || data.Data["eventType"] == null)
+                {
+                    log.Write(LogLevel.Warning, "Invalid order update data: " + data);
+                    return;
+                }
+
+                var eventType = data.Data["data"]!["eventType"]?.ToString();
+                var symbol = data.Data["data"]!["symbol"]?.ToString();
                 if (eventType == "trigger")
                     DeserializeAndInvoke(data, onConditionalOrderTriggerFailure, symbol);
 
@@ -313,8 +319,14 @@ namespace Huobi.Net
             var request = new HuobiAuthenticatedSubscribeRequest($"trade.clearing#{symbol ?? "*"}#1");
             var internalHandler = new Action<DataEvent<JToken>>(data =>
             {
-                var eventType = (string)data.Data["data"]["eventType"];
-                var symbol = (string)data.Data["data"]["symbol"];
+                if(data.Data["data"] == null || data.Data["eventType"] == null)
+                {
+                    log.Write(LogLevel.Warning, "Invalid order update data: " + data);
+                    return;
+                }
+
+                var eventType = data.Data["data"]!["eventType"]?.ToString();
+                var symbol = data.Data["data"]!["symbol"]?.ToString();
                 if (eventType == "trade")
                     DeserializeAndInvoke(data, onOrderMatch, symbol);
                 else if(eventType == "cancellation")
@@ -331,7 +343,7 @@ namespace Huobi.Net
 
         private void DeserializeAndInvoke<T>(DataEvent<JToken> data, Action<DataEvent<T>>? action, string? symbol = null)
         {
-            var obj = Deserialize<T>(data.Data["data"], true);
+            var obj = Deserialize<T>(data.Data["data"]!, true);
             if (!obj)
             {
                 log.Write(LogLevel.Error, $"Failed to deserialize {typeof(T).Name}: " + obj.Error);
@@ -345,15 +357,15 @@ namespace Huobi.Net
             var v1Ping = messageEvent.JsonData["ping"] != null;
 
             if (v1Ping)
-                messageEvent.Connection.Send(new HuobiPingResponse((long)messageEvent.JsonData["ping"]));
+                messageEvent.Connection.Send(new HuobiPingResponse(messageEvent.JsonData["ping"]!.Value<long>()));
         }
 
         private void PingHandlerV2(MessageEvent messageEvent)
         {
-            var v2Ping = (string)messageEvent.JsonData["action"] == "ping";
+            var v2Ping = messageEvent.JsonData["action"]?.ToString() == "ping";
 
             if (v2Ping)
-                messageEvent.Connection.Send(new HuobiPingAuthResponse((long)messageEvent.JsonData["data"]["ts"]));
+                messageEvent.Connection.Send(new HuobiPingAuthResponse(messageEvent.JsonData["data"]!["ts"]!.Value<long>()));
         }
         
         /// <inheritdoc />
@@ -398,12 +410,16 @@ namespace Huobi.Net
         {
             callResult = new CallResult<T>(default, null);
             var v1Data = (data["data"] != null || data["tick"] != null) && data["rep"] != null;
-            var v1Error = data["status"] != null && (string)data["status"] == "error";
+            var v1Error = data["status"] != null && data["status"]!.ToString() == "error";
             var isV1QueryResponse = v1Data || v1Error;
             if (isV1QueryResponse)
             {
                 var hRequest = (HuobiSocketRequest) request;
-                if ((string) data["id"] != hRequest.Id)
+                var id = data["id"];
+                if (id == null)
+                    return false;
+
+                if (id.ToString() != hRequest.Id)
                     return false;
 
                 var desResult = Deserialize<T>(data, false);
@@ -416,12 +432,14 @@ namespace Huobi.Net
 
                 callResult = new CallResult<T>(desResult.Data, null);
             }
-            
-            var isV2Response = (string)data["action"] == "req";
+
+            var action = data["action"]?.ToString();
+            var isV2Response = action == "req";
             if (isV2Response)
             {
                 var hRequest = (HuobiAuthenticatedSubscribeRequest)request;
-                if ((string)data["ch"] != hRequest.Channel)
+                var channel = data["ch"]?.ToString();
+                if (channel != hRequest.Channel)
                     return false;
 
                 var desResult = Deserialize<T>(data, false);
@@ -442,7 +460,8 @@ namespace Huobi.Net
         protected override bool HandleSubscriptionResponse(SocketConnection s, SocketSubscription subscription, object request, JToken message, out CallResult<object>? callResult)
         {
             callResult = null;
-            var isError = message["status"] != null && (string)message["status"] == "error";
+            var status = message["status"]?.ToString();
+            var isError = status == "error";
             if (isError)
             {
                 if (request is HuobiSubscribeRequest hRequest)
@@ -509,7 +528,8 @@ namespace Huobi.Net
                 return true;
             }
 
-            var v2Sub = (string)message["action"] == "sub";
+            var action = message["action"]?.ToString();
+            var v2Sub = action == "sub";
             if (v2Sub)
             {
                 var subResponse = Deserialize<HuobiAuthSubscribeResponse>(message, false);
@@ -543,10 +563,10 @@ namespace Huobi.Net
         protected override bool MessageMatchesHandler(JToken message, object request)
         {
             if (request is HuobiSubscribeRequest hRequest)
-                return hRequest.Topic == (string) message["ch"];
+                return hRequest.Topic == message["ch"]?.ToString();
             
             if (request is HuobiAuthenticatedSubscribeRequest haRequest)
-                return haRequest.Channel == (string) message["ch"];
+                return haRequest.Channel == message["ch"]?.ToString();
             
             return false;
         }
@@ -560,7 +580,7 @@ namespace Huobi.Net
             if (identifier == "PingV1" && message["ping"] != null)
                 return true;
 
-            if (identifier == "PingV2" && (string)message["action"] == "ping")
+            if (identifier == "PingV2" && message["action"]?.ToString() == "ping")
                 return true;
 
             return false;
@@ -589,7 +609,7 @@ namespace Huobi.Net
             var result = new CallResult<bool>(false, new ServerError("No response from server"));
             await s.SendAndWaitAsync(authObjects, ResponseTimeout, data =>
             {
-                if ((string)data["ch"] != "auth")
+                if (data["ch"]?.ToString() != "auth")
                     return false;
 
                 var authResponse = Deserialize<HuobiAuthSubscribeResponse>(data, false);
@@ -628,10 +648,10 @@ namespace Huobi.Net
                     if (data.Type != JTokenType.Object)
                         return false;
 
-                    var id = (string)data["id"];
+                    var id = data["id"]?.ToString();
                     if (id == unsubId)
                     {
-                        result = (string)data["status"] == "ok";
+                        result = data["status"]?.ToString() == "ok";
                         return true;
                     }
 
@@ -653,9 +673,9 @@ namespace Huobi.Net
                     if (data.Type != JTokenType.Object)
                         return false;
 
-                    if ((string)data["action"] == "unsub" && (string)data["ch"] == haRequest.Channel)
+                    if (data["action"]?.ToString() == "unsub" && data["ch"]?.ToString() == haRequest.Channel)
                     {
-                        result = (int)data["code"] == 200;
+                        result = data["code"]?.Value<int>() == 200;
                         return true;
                     }
 
