@@ -28,7 +28,7 @@ namespace Huobi.Net.Objects
         /// The amount which has been filled
         /// </summary>
         [JsonProperty("filled-amount")]
-        public decimal FilledAmount { get; set; }
+        public decimal FilledQuantity { get; set; }
         /// <summary>
         /// Transaction fee (positive value). If maker rebate applicable, revert maker rebate value per trade (negative value).
         /// </summary>
@@ -91,12 +91,12 @@ namespace Huobi.Net.Objects
 
         string ICommonTrade.CommonId => Id.ToString();
         decimal ICommonTrade.CommonPrice => Price;
-        decimal ICommonTrade.CommonQuantity => FilledAmount;
+        decimal ICommonTrade.CommonQuantity => FilledQuantity;
         decimal ICommonTrade.CommonFee => FilledFees;
         string? ICommonTrade.CommonFeeAsset => null;
         DateTime ICommonTrade.CommonTradeTime => CreatedAt;
         decimal ICommonRecentTrade.CommonPrice => Price;
-        decimal ICommonRecentTrade.CommonQuantity => FilledAmount;
+        decimal ICommonRecentTrade.CommonQuantity => FilledQuantity;
         DateTime ICommonRecentTrade.CommonTradeTime => CreatedAt;
     }
 }

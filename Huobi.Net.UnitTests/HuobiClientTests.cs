@@ -25,7 +25,7 @@ namespace Huobi.Net.UnitTests
                     Close = 0.1m,
                     Low = 0.2m,
                     Symbol = "BTCETH",
-                    Amount = 0.3m,
+                    Quantity = 0.3m,
                     Open = 0.4m,
                     High = 0.5m,
                     Volume = 0.6m,
@@ -52,7 +52,7 @@ namespace Huobi.Net.UnitTests
                 Close = 0.1m,
                 Id = 12345,
                 Low = 0.2m,
-                Amount = 0.3m,
+                Quantity = 0.3m,
                 Open = 0.4m,
                 High = 0.5m,
                 Volume = 0.6m,
@@ -82,7 +82,7 @@ namespace Huobi.Net.UnitTests
                 {
                     Close = 0.1m,
                     Low = 0.2m,
-                    Amount = 0.3m,
+                    Quantity = 0.3m,
                     Open = 0.4m,
                     High = 0.5m,
                     Volume = 0.6m,
@@ -139,7 +139,7 @@ namespace Huobi.Net.UnitTests
                 {
                     new HuobiSymbolTradeDetails()
                     {
-                        Amount = 0.1m,
+                        Quantity = 0.1m,
                         Id = "12334232",
                         Price = 0.2m,
                         Timestamp = new DateTime(2018, 1, 1),
@@ -173,7 +173,7 @@ namespace Huobi.Net.UnitTests
                     {
                         new HuobiSymbolTradeDetails()
                         {
-                            Amount = 0.1m,
+                            Quantity = 0.1m,
                             Id = "12334232",
                             Price = 0.2m,
                             Timestamp = new DateTime(2018, 1, 1),
@@ -202,7 +202,7 @@ namespace Huobi.Net.UnitTests
             {
                 Close = 0.1m,
                 Low = 0.2m,
-                Amount = 0.3m,
+                Quantity = 0.3m,
                 Open = 0.4m,
                 High = 0.5m,
                 Volume = 0.6m,
@@ -228,7 +228,7 @@ namespace Huobi.Net.UnitTests
                 new HuobiSymbol()
                 {
                     Symbol = "BTCETH",
-                    AmountPrecision = 8,
+                    QuantityPrecision = 8,
                     BaseCurrency = "BTC",
                     PricePrecision = 8,
                     QuoteCurrency = "ETH",
@@ -340,7 +340,7 @@ namespace Huobi.Net.UnitTests
             {
                 new HuobiOpenOrder()
                 {
-                    Amount = 0.1m,
+                    Quantity = 0.1m,
                     Type = HuobiOrderType.LimitBuy,
                     Id = 123,
                     Price = 0.2m,
@@ -350,9 +350,9 @@ namespace Huobi.Net.UnitTests
                     CreatedAt = new DateTime(2018, 1, 1),
                     FinishedAt = new DateTime(2019, 1, 1),
                     Source = "API",
-                    FilledAmount = 1.1m,
+                    FilledQuantity = 1.1m,
                     FilledFees = 1.2m,
-                    FilledCashAmount = 1.3m
+                    FilledCashQuantity = 1.3m
                 }
             };
 
@@ -415,7 +415,7 @@ namespace Huobi.Net.UnitTests
             // arrange
             var expected = new HuobiOrder()
             {
-                Amount = 0.1m,
+                Quantity = 0.1m,
                 Type = HuobiOrderType.LimitBuy,
                 Id = 123,
                 Price = 0.2m,
@@ -424,8 +424,8 @@ namespace Huobi.Net.UnitTests
                 AccountId = 1234,
                 CreatedAt = new DateTime(2018, 1, 1),
                 Source = "API",
-                FilledAmount = 1.1m,
-                FilledCashAmount = 1.2m,
+                FilledQuantity = 1.1m,
+                FilledCashQuantity = 1.2m,
                 FilledFees = 1.3m
             };
 
@@ -454,7 +454,7 @@ namespace Huobi.Net.UnitTests
                     OrderId = 1234,
                     CreatedAt = new DateTime(2018, 1, 1),
                     OrderType = HuobiOrderType.LimitSell,
-                    FilledAmount = 0.2m,
+                    FilledQuantity = 0.2m,
                     FilledFees = 0.3m,
                     MatchId = 125
                 }
@@ -478,7 +478,7 @@ namespace Huobi.Net.UnitTests
             {
                 new HuobiOrder()
                 {
-                    Amount = 0.1m,
+                    Quantity = 0.1m,
                     Type = HuobiOrderType.LimitBuy,
                     Id = 123,
                     Price = 0.2m,
@@ -487,8 +487,8 @@ namespace Huobi.Net.UnitTests
                     AccountId = 1234,
                     CreatedAt = new DateTime(2018, 1, 1),
                     Source = "API",
-                    FilledAmount = 1.1m,
-                    FilledCashAmount = 1.2m,
+                    FilledQuantity = 1.1m,
+                    FilledCashQuantity = 1.2m,
                     FilledFees = 1.3m
                 }
             };
@@ -518,7 +518,7 @@ namespace Huobi.Net.UnitTests
                     OrderId = 1234,
                     CreatedAt = new DateTime(2018, 1, 1),
                     OrderType = HuobiOrderType.LimitSell,
-                    FilledAmount = 0.2m,
+                    FilledQuantity = 0.2m,
                     FilledFees = 0.3m,
                     MatchId = 125
                 }

@@ -29,7 +29,7 @@ namespace Huobi.Net.Objects
         public IEnumerable<HuobiSymbolTradeDetails> Details { get; set; } = Array.Empty<HuobiSymbolTradeDetails>();
 
         decimal ICommonRecentTrade.CommonPrice => Details.First().Price;
-        decimal ICommonRecentTrade.CommonQuantity => Details.First().Amount;
+        decimal ICommonRecentTrade.CommonQuantity => Details.First().Quantity;
         DateTime ICommonRecentTrade.CommonTradeTime => Details.First().Timestamp;
     }
 
@@ -49,7 +49,8 @@ namespace Huobi.Net.Objects
         /// <summary>
         /// The amount of the trade
         /// </summary>
-        public decimal Amount { get; set; }
+        [JsonProperty("amount")]
+        public decimal Quantity { get; set; }
         /// <summary>
         /// The side of the trade
         /// </summary>

@@ -62,17 +62,17 @@ namespace Huobi.Net.Objects
         /// Max withdraw amount per request
         /// </summary>
         [JsonProperty("MaxWithdrawAmt")]
-        public decimal MaxWithdrawAmount { get; set; }
+        public decimal MaxWithdrawQuantity { get; set; }
         /// <summary>
         /// Min deposit amount per request
         /// </summary>
         [JsonProperty("MinDepositAmt")]
-        public decimal MinDepositAmount { get; set; }
+        public decimal MinDepositQuantity { get; set; }
         /// <summary>
         /// Min withdraw amount per request
         /// </summary>
         [JsonProperty("MinWithdrawAmt")]
-        public decimal MinWithdrawAmount { get; set; }
+        public decimal MinWithdrawQuantity { get; set; }
         /// <summary>
         /// Withdraw fee in each request (only applicable to withdrawFeeType = fixed)
         /// </summary>

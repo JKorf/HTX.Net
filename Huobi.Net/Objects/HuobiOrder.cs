@@ -38,7 +38,7 @@ namespace Huobi.Net.Objects
         /// The amount of the order
         /// </summary>
         [JsonProperty("amount")]
-        public decimal Amount { get; set; }
+        public decimal Quantity { get; set; }
 
         /// <summary>
         /// The price of the order
@@ -84,13 +84,13 @@ namespace Huobi.Net.Objects
         /// The amount of the order that is filled
         /// </summary>
         [JsonProperty("field-amount")]
-        public decimal FilledAmount { get; set; }
+        public decimal FilledQuantity { get; set; }
 
         /// <summary>
         /// Filled cash amount
         /// </summary>
         [JsonProperty("field-cash-amount")]
-        public decimal FilledCashAmount { get; set; }
+        public decimal FilledCashQuantity { get; set; }
 
         /// <summary>
         /// The amount of fees paid for the filled amount
@@ -101,7 +101,7 @@ namespace Huobi.Net.Objects
         string ICommonOrderId.CommonId => Id.ToString(CultureInfo.InvariantCulture);
         string ICommonOrder.CommonSymbol => Symbol;
         decimal ICommonOrder.CommonPrice => Price;
-        decimal ICommonOrder.CommonQuantity => Amount;
+        decimal ICommonOrder.CommonQuantity => Quantity;
         DateTime ICommonOrder.CommonOrderTime => CreatedAt;
         IExchangeClient.OrderStatus ICommonOrder.CommonStatus =>
             State == HuobiOrderState.Created || State == HuobiOrderState.PartiallyFilled || State == HuobiOrderState.PreSubmitted || State == HuobiOrderState.Submitted ? IExchangeClient.OrderStatus.Active :

@@ -25,7 +25,7 @@ namespace Huobi.Net.Objects
         /// Amount change (positive value if income, negative value if outcome)	
         /// </summary>
         [JsonProperty("transact-amt")]
-        public decimal Amount { get; set; }
+        public decimal Quantity { get; set; }
 
         /// <summary>
         /// Amount change types

@@ -30,7 +30,7 @@ namespace Huobi.Net.Objects
         /// The amount of the order
         /// </summary>
         [JsonProperty("order-amount")]
-        public decimal Amount { get; set; }
+        public decimal Quantity { get; set; }
 
         /// <summary>
         /// The price of the order
@@ -73,18 +73,18 @@ namespace Huobi.Net.Objects
         /// The amount of the order that is filled
         /// </summary>
         [JsonProperty("filled-amount"), JsonOptionalProperty]
-        public decimal FilledAmount { get; set; }
+        public decimal FilledQuantity { get; set; }
 
         /// <summary>
         /// Unfilled amount
         /// </summary>
         [JsonProperty("unfilled-amount"), JsonOptionalProperty]
-        public decimal UnfilledAmount { get; set; }
+        public decimal UnfilledQuantity { get; set; }
         /// <summary>
         /// Filled cash amount
         /// </summary>
         [JsonProperty("filled-cash-amount"), JsonOptionalProperty]
-        public decimal FilledCashAmount { get; set; }
+        public decimal FilledCashQuantity { get; set; }
 
         /// <summary>
         /// The amount of fees paid for the filled amount

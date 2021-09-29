@@ -82,6 +82,6 @@ namespace Huobi.Net.Objects.SocketObjects.V2
         /// Remaining amount
         /// </summary>
         [JsonProperty("remainAmt")]
-        public decimal RemainingAmount { get; set; }
+        public decimal RemainingQuantity { get; set; }
     }
 }

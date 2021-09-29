@@ -36,7 +36,8 @@ namespace Huobi.Net.Objects
 		/// <summary>
 		/// The number of crypto asset transfered in its minimum unit
 		/// </summary>
-		public decimal Amount { get; set; }
+		[JsonProperty("amount")]
+		public decimal Quantity { get; set; }
 		/// <summary>
 		/// The deposit or withdraw target address
 		/// </summary>

@@ -124,12 +124,12 @@ namespace Huobi.Net.Objects.SocketObjects.V2
         /// Remaining amount
         /// </summary>
         [JsonProperty("remainAmt")]
-        public decimal RemainingAmount { get; set; }
+        public decimal RemainingQuantity { get; set; }
         /// <summary>
         /// Executed amount
         /// </summary>
         [JsonProperty("execAmt")]
-        public decimal ExecutedAmount { get; set; }
+        public decimal ExecutedQuantity { get; set; }
         /// <summary>
         /// Price of the order
         /// </summary>
@@ -164,12 +164,12 @@ namespace Huobi.Net.Objects.SocketObjects.V2
         /// Remaining amount
         /// </summary>
         [JsonProperty("remainAmt")]
-        public decimal RemainingAmount { get; set; }
+        public decimal RemainingQuantity { get; set; }
         /// <summary>
         /// Executed amount
         /// </summary>
         [JsonProperty("execAmt")]
-        public decimal ExecutedAmount { get; set; }
+        public decimal ExecutedQuantity { get; set; }
         /// <summary>
         /// Price of the order
         /// </summary>

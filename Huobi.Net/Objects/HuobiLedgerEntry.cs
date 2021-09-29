@@ -22,7 +22,7 @@ namespace Huobi.Net.Objects
         /// Amount of the transaction
         /// </summary>
         [JsonProperty("transactAmt")]
-        public decimal TransactionAmount { get; set; }
+        public decimal TransactionQuantity { get; set; }
         /// <summary>
         /// Type of transaction
         /// </summary>

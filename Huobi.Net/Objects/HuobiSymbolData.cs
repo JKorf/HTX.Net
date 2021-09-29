@@ -29,7 +29,8 @@ namespace Huobi.Net.Objects
         /// <summary>
         /// The amount of the symbol trades
         /// </summary>
-        public decimal? Amount { get; set; }
+        [JsonProperty("amount")]
+        public decimal? Quantity { get; set; }
         /// <summary>
         /// The volume of the symbol trades (amount * price)
         /// </summary>

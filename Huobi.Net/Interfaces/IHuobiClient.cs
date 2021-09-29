@@ -154,7 +154,7 @@ namespace Huobi.Net.Interfaces
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<HuobiAccountValuation>> GetAssetValuationAsync(HuobiAccountType accountType, string? valuationCurrency = null, long? subUserId = null, CancellationToken ct = default);
-               
+
         /// <summary>
         /// Transfer assets between accounts
         /// </summary>
@@ -165,11 +165,11 @@ namespace Huobi.Net.Interfaces
         /// <param name="toAccountType">To account type</param>
         /// <param name="toAccountId">To account id</param>
         /// <param name="currency">Currency to transfer</param>
-        /// <param name="amount">Amount to transfer</param>
+        /// <param name="quantity">Amount to transfer</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<HuobiTransactionResult>> TransferAssetAsync(long fromUserId, HuobiAccountType fromAccountType, long fromAccountId,
-            long toUserId, HuobiAccountType toAccountType, long toAccountId, string currency, decimal amount, CancellationToken ct = default);
+            long toUserId, HuobiAccountType toAccountType, long toAccountId, string currency, decimal quantity, CancellationToken ct = default);
                 
         /// <summary>
         /// Gets a list of amount changes of specified user's account
@@ -213,11 +213,11 @@ namespace Huobi.Net.Interfaces
         /// </summary>
         /// <param name="subAccountId">The target sub account id to transfer to or from</param>
         /// <param name="currency">The crypto currency to transfer</param>
-        /// <param name="amount">The amount of asset to transfer</param>
+        /// <param name="quantity">The amount of asset to transfer</param>
         /// <param name="transferType">The type of transfer</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>Unique transfer id</returns>
-        Task<WebCallResult<long>> TransferWithSubAccountAsync(long subAccountId, string currency, decimal amount, HuobiTransferType transferType, CancellationToken ct = default);
+        Task<WebCallResult<long>> TransferWithSubAccountAsync(long subAccountId, string currency, decimal quantity, HuobiTransferType transferType, CancellationToken ct = default);
 
         /// <summary>
         /// Places an order
@@ -225,7 +225,7 @@ namespace Huobi.Net.Interfaces
         /// <param name="accountId">The account to place the order for</param>
         /// <param name="symbol">The symbol to place the order for</param>
         /// <param name="orderType">The type of the order</param>
-        /// <param name="amount">The amount of the order</param>
+        /// <param name="quantity">The amount of the order</param>
         /// <param name="price">The price of the order. Should be omitted for market orders</param>
         /// <param name="clientOrderId">The clientOrderId the order should get</param>
         /// <param name="source">Source. defaults to SpotAPI</param>
@@ -233,7 +233,7 @@ namespace Huobi.Net.Interfaces
         /// <param name="stopOperator">Operator of the stop price</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<long>> PlaceOrderAsync(long accountId, string symbol, HuobiOrderType orderType, decimal amount, decimal? price = null, string? clientOrderId = null, SourceType? source = null, decimal? stopPrice = null, Operator? stopOperator = null, CancellationToken ct = default);
+        Task<WebCallResult<long>> PlaceOrderAsync(long accountId, string symbol, HuobiOrderType orderType, decimal quantity, decimal? price = null, string? clientOrderId = null, SourceType? source = null, decimal? stopPrice = null, Operator? stopOperator = null, CancellationToken ct = default);
 
         /// <summary>
         /// Gets a list of open orders
@@ -361,13 +361,13 @@ namespace Huobi.Net.Interfaces
         /// </summary>
         /// <param name="address">The desination address of this withdraw</param>
         /// <param name="currency">Crypto currency</param>
-        /// <param name="amount">The amount of currency to withdraw</param>
+        /// <param name="quantity">The amount of currency to withdraw</param>
         /// <param name="fee">The fee to pay with this withdraw</param>
         /// <param name="chain">Set as "usdt" to withdraw USDT to OMNI, set as "trc20usdt" to withdraw USDT to TRX</param>
         /// <param name="addressTag">A tag specified for this address</param>
         /// <param name="ct"></param>
         /// <returns></returns>
-        Task<WebCallResult<long>> WithdrawAsync(string address, string currency, decimal amount, decimal fee, string? chain = null, string? addressTag = null, CancellationToken ct = default);
+        Task<WebCallResult<long>> WithdrawAsync(string address, string currency, decimal quantity, decimal fee, string? chain = null, string? addressTag = null, CancellationToken ct = default);
 
         /// <summary>
         /// Parent user and sub user searche for all existed withdraws and deposits and return their latest status.

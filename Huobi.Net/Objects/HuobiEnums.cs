@@ -106,13 +106,25 @@
         /// </summary>
         Margin,
         /// <summary>
+        /// Super margin account
+        /// </summary>
+        SuperMargin,
+        /// <summary>
         /// Otc account
         /// </summary>
         Otc,
         /// <summary>
         /// Point account
         /// </summary>
-        Point
+        Point,
+        /// <summary>
+        /// Investment account
+        /// </summary>
+        Investment,
+        /// <summary>
+        /// Borrow account
+        /// </summary>
+        Borrow
     }
 
     /// <summary>

@@ -33,7 +33,7 @@ namespace Huobi.Net.Objects
         /// The precision of the amount in decimal numbers
         /// </summary>
         [JsonProperty("amount-precision")]
-        public int AmountPrecision { get; set; }
+        public int QuantityPrecision { get; set; }
         /// <summary>
         /// Partition
         /// </summary>
@@ -49,33 +49,33 @@ namespace Huobi.Net.Objects
         /// </summary>
         [Obsolete]
         [JsonProperty("min-order-amt")]
-        public decimal MinOrderAmount { get; set; }
+        public decimal MinOrderQuantity { get; set; }
         /// <summary>
         /// Maximum value of the amount
         /// </summary>
         [Obsolete]
         [JsonProperty("max-order-amt")]
-        public decimal MaxOrderAmount { get; set; }
+        public decimal MaxOrderQuantity { get; set; }
         /// <summary>
         /// Minimum order amount of limit order in base currency
         /// </summary>
         [JsonProperty("limit-order-min-order-amt")]
-        public decimal MinLimitOrderAmount { get; set; }
+        public decimal MinLimitOrderQuantity { get; set; }
         /// <summary>
         /// Max order amount of limit order in base currency
         /// </summary>
         [JsonProperty("limit-order-max-order-amt")]
-        public decimal MaxLimitOrderAmount { get; set; }
+        public decimal MaxLimitOrderQuantity { get; set; }
         /// <summary>
         /// Minimum order amount of sell-market order in base currency
         /// </summary>
         [JsonProperty("sell-market-min-order-amt")]
-        public decimal MinMarketSellOrderAmount { get; set; }
+        public decimal MinMarketSellOrderQuantity { get; set; }
         /// <summary>
         /// Max order amount of sell-market order in base currency
         /// </summary>
         [JsonProperty("sell-market-max-order-amt")]
-        public decimal MaxMarketSellOrderAmount { get; set; }
+        public decimal MaxMarketSellOrderQuantity { get; set; }
         /// <summary>
         /// Max order value of buy-market order in quote currency
         /// </summary>
@@ -98,6 +98,6 @@ namespace Huobi.Net.Objects
         public int ValuePrecision { get; set; }
 
         string ICommonSymbol.CommonName => Symbol;
-        decimal ICommonSymbol.CommonMinimumTradeSize => MinLimitOrderAmount;
+        decimal ICommonSymbol.CommonMinimumTradeSize => MinLimitOrderQuantity;
     }
 }

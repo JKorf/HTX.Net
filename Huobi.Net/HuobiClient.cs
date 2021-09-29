@@ -404,11 +404,11 @@ namespace Huobi.Net
         /// <param name="toAccountType">To account type</param>
         /// <param name="toAccountId">To account id</param>
         /// <param name="currency">Currency to transfer</param>
-        /// <param name="amount">Amount to transfer</param>
+        /// <param name="quantity">Amount to transfer</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         public async Task<WebCallResult<HuobiTransactionResult>> TransferAssetAsync(long fromUserId, HuobiAccountType fromAccountType, long fromAccountId,
-            long toUserId, HuobiAccountType toAccountType, long toAccountId, string currency, decimal amount, CancellationToken ct = default)
+            long toUserId, HuobiAccountType toAccountType, long toAccountId, string currency, decimal quantity, CancellationToken ct = default)
         {
             var parameters = new Dictionary<string, object>()
             {
@@ -421,7 +421,7 @@ namespace Huobi.Net
                 { "to-account-type", JsonConvert.SerializeObject(toAccountType, new AccountTypeConverter(false))},
 
                 { "currency", currency },
-                { "amount", amount.ToString(CultureInfo.InvariantCulture) },
+                { "amount", quantity.ToString(CultureInfo.InvariantCulture) },
             };
 
             return await SendHuobiRequest<HuobiTransactionResult>(GetUrl(TransferAssetValuationEndpoint, "1"), HttpMethod.Post, ct, parameters, signed: true).ConfigureAwait(false);
@@ -511,18 +511,18 @@ namespace Huobi.Net
         /// </summary>
         /// <param name="subAccountId">The target sub account id to transfer to or from</param>
         /// <param name="currency">The crypto currency to transfer</param>
-        /// <param name="amount">The amount of asset to transfer</param>
+        /// <param name="quantity">The amount of asset to transfer</param>
         /// <param name="transferType">The type of transfer</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>Unique transfer id</returns>
-        public async Task<WebCallResult<long>> TransferWithSubAccountAsync(long subAccountId, string currency, decimal amount, HuobiTransferType transferType, CancellationToken ct = default)
+        public async Task<WebCallResult<long>> TransferWithSubAccountAsync(long subAccountId, string currency, decimal quantity, HuobiTransferType transferType, CancellationToken ct = default)
         {
             currency.ValidateNotNull(nameof(currency));
             var parameters = new Dictionary<string, object>
             {
                 { "sub-uid", subAccountId },
                 { "currency", currency },
-                { "amount", amount },
+                { "amount", quantity },
                 { "type", JsonConvert.SerializeObject(transferType, new TransferTypeConverter(false)) }
             };
 
@@ -535,7 +535,7 @@ namespace Huobi.Net
         /// <param name="accountId">The account to place the order for</param>
         /// <param name="symbol">The symbol to place the order for</param>
         /// <param name="orderType">The type of the order</param>
-        /// <param name="amount">The amount of the order</param>
+        /// <param name="quantity">The amount of the order</param>
         /// <param name="price">The price of the order. Should be omitted for market orders</param>
         /// <param name="clientOrderId">The clientOrderId the order should get</param>
         /// <param name="source">Source. defaults to SpotAPI</param>
@@ -543,7 +543,7 @@ namespace Huobi.Net
         /// <param name="stopOperator">Operator of the stop price</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        public async Task<WebCallResult<long>> PlaceOrderAsync(long accountId, string symbol, HuobiOrderType orderType, decimal amount, decimal? price = null, string? clientOrderId = null, SourceType? source = null, decimal? stopPrice = null, Operator? stopOperator = null, CancellationToken ct = default)
+        public async Task<WebCallResult<long>> PlaceOrderAsync(long accountId, string symbol, HuobiOrderType orderType, decimal quantity, decimal? price = null, string? clientOrderId = null, SourceType? source = null, decimal? stopPrice = null, Operator? stopOperator = null, CancellationToken ct = default)
         {
             symbol = symbol.ValidateHuobiSymbol();
             if (orderType == HuobiOrderType.StopLimitBuy || orderType == HuobiOrderType.StopLimitSell)
@@ -552,7 +552,7 @@ namespace Huobi.Net
             var parameters = new Dictionary<string, object>
             {
                 { "account-id", accountId },
-                { "amount", amount },
+                { "amount", quantity },
                 { "symbol", symbol },
                 { "type", JsonConvert.SerializeObject(orderType, new OrderTypeConverter(false)) }
             };
@@ -564,8 +564,8 @@ namespace Huobi.Net
 
             // If precision of the symbol = 1 (eg has to use whole amounts, 1,2,3 etc) Huobi doesn't except the .0 postfix (1.0) for amount
             // Issue at the Huobi side
-            if (amount % 1 == 0)
-                parameters["amount"] = amount.ToString(CultureInfo.InvariantCulture);
+            if (quantity % 1 == 0)
+                parameters["amount"] = quantity.ToString(CultureInfo.InvariantCulture);
 
             parameters.AddOptionalParameter("price", price);
             var result = await SendHuobiRequest<long>(GetUrl(PlaceOrderEndpoint, "1"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
@@ -814,19 +814,19 @@ namespace Huobi.Net
         /// </summary>
         /// <param name="address">The desination address of this withdraw</param>
         /// <param name="currency">Crypto currency</param>
-        /// <param name="amount">The amount of currency to withdraw</param>
+        /// <param name="quantity">The amount of currency to withdraw</param>
         /// <param name="fee">The fee to pay with this withdraw</param>
         /// <param name="chain">Set as "usdt" to withdraw USDT to OMNI, set as "trc20usdt" to withdraw USDT to TRX</param>
         /// <param name="addressTag">A tag specified for this address</param>
         /// <param name="ct"></param>
         /// <returns></returns>
-        public async Task<WebCallResult<long>> WithdrawAsync(string address, string currency, decimal amount, decimal fee, string? chain = null, string? addressTag = null, CancellationToken ct = default)
+        public async Task<WebCallResult<long>> WithdrawAsync(string address, string currency, decimal quantity, decimal fee, string? chain = null, string? addressTag = null, CancellationToken ct = default)
         {
             var parameters = new Dictionary<string, object>
             {
                 { "address", address },
                 { "currency", currency },
-                { "amount", amount },
+                { "amount", quantity },
                 { "fee", fee },
             };
 

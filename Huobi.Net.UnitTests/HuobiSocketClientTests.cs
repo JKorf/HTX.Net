@@ -24,7 +24,7 @@ namespace Huobi.Net.UnitTests
             var client = TestHelpers.CreateSocketClient(socket);
 
             // act
-            var subTask = client.SubscribeToOrderBookUpdatesAsync("ETHBTC", 1, test => { });
+            var subTask = client.SubscribeToPartialOrderBookUpdates1SecondAsync("ETHBTC", 1, test => { });
             var id = JToken.Parse(socket.LastSendMessage)["id"];
             socket.InvokeMessage($"{{\"subbed\": \"test\", \"id\":\"{id}\", \"status\": \"ok\"}}");
             var subResult = subTask.Result;
@@ -45,7 +45,7 @@ namespace Huobi.Net.UnitTests
             });
 
             // act
-            var subTask = client.SubscribeToOrderBookUpdatesAsync("ETHBTC", 1, test => { });
+            var subTask = client.SubscribeToPartialOrderBookUpdates1SecondAsync("ETHBTC", 1, test => { });
             var subResult = subTask.Result;
 
             // assert
@@ -61,7 +61,7 @@ namespace Huobi.Net.UnitTests
             var client = TestHelpers.CreateSocketClient(socket);
 
             // act
-            var subTask = client.SubscribeToOrderBookUpdatesAsync("ETHBTC", 1, test => { });
+            var subTask = client.SubscribeToPartialOrderBookUpdates1SecondAsync("ETHBTC", 1, test => { });
             var id = JToken.Parse(socket.LastSendMessage)["id"];
             socket.InvokeMessage($"{{\"status\": \"error\", \"id\": \"{id}\", \"err-code\": \"Fail\", \"err-msg\": \"failed\"}}");
             var subResult = subTask.Result;
@@ -79,7 +79,7 @@ namespace Huobi.Net.UnitTests
             var client = TestHelpers.CreateSocketClient(socket);
 
             HuobiOrderBook result = null;
-            var subTask = client.SubscribeToOrderBookUpdatesAsync("ETHBTC", 1, test => result = test.Data);
+            var subTask = client.SubscribeToPartialOrderBookUpdates1SecondAsync("ETHBTC", 1, test => result = test.Data);
             var id = JToken.Parse(socket.LastSendMessage)["id"];
             socket.InvokeMessage($"{{\"subbed\": \"ethbtc\", \"status\": \"ok\", \"id\": \"{id}\"}}");
             var subResult = subTask.Result;
@@ -121,7 +121,7 @@ namespace Huobi.Net.UnitTests
 
             var expected = new HuobiSymbolData()
             {
-                Amount = 0.1m,
+                Quantity = 0.1m,
                 Close = 0.2m,
                 Low = 0.3m,
                 High = 0.4m,
@@ -154,7 +154,7 @@ namespace Huobi.Net.UnitTests
 
             var expected = new HuobiSymbolData()
             {
-                Amount = 0.1m,
+                Quantity = 0.1m,
                 Close = 0.2m,
                 Low = 0.3m,
                 High = 0.4m,
@@ -189,7 +189,7 @@ namespace Huobi.Net.UnitTests
             {
                 new HuobiSymbolData()
                 {
-                    Amount = 0.1m,
+                    Quantity = 0.1m,
                     Close = 0.2m,
                     Low = 0.3m,
                     High = 0.4m,
@@ -231,7 +231,7 @@ namespace Huobi.Net.UnitTests
                         new HuobiSymbolTradeDetails()
                         {
                             Id = "123",
-                            Amount = 0.1m,
+                            Quantity = 0.1m,
                             Price = 0.2m,
                             Timestamp = new DateTime(2018,2,1),
                             Side = HuobiOrderSide.Buy
