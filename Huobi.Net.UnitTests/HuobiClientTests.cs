@@ -535,7 +535,7 @@ namespace Huobi.Net.UnitTests
         }
 
         [Test]
-        public async Task SigningString_Should_GiveCorrectSignResult()
+        public void SigningString_Should_GiveCorrectSignResult()
         {
             // arrange
             var authProvider = new HuobiAuthenticationProvider(new ApiCredentials("TestKey", "TestSecret"), false);
@@ -595,7 +595,7 @@ namespace Huobi.Net.UnitTests
         [TestCase("NANOUSDTD", true)]
         [TestCase("BTC-USDT", false)]
         [TestCase("BTC-USD", false)]
-        public async Task CheckValidHuobiSymbol(string symbol, bool isValid)
+        public void CheckValidHuobiSymbol(string symbol, bool isValid)
         {
             if (isValid)
                 Assert.DoesNotThrow(() => symbol.ValidateHuobiSymbol());

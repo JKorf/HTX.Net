@@ -88,5 +88,10 @@ namespace Huobi.Net.UnitTests.TestImplementations
         {
             OnMessage?.Invoke(JsonConvert.SerializeObject(data));
         }
+
+        public void InvokeError(Exception error)
+        {
+            OnError?.Invoke(error);
+        }
     }
 }
