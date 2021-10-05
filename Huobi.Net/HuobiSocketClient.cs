@@ -131,7 +131,7 @@ namespace Huobi.Net
         /// Gets the current order book for a symbol
         /// </summary>
         /// <param name="symbol">The symbol to get the data for</param>
-        /// <param name="levels">The amount of rows. 5, 20, 150 or 400</param>
+        /// <param name="levels">The amount of rows. 5, 20, 150 or 400. Level 5 and 20 are currently only supported for the following symbols: btcusdt, ethusdt, xrpusdt, eosusdt, ltcusdt, etcusdt, adausdt, dashusdt, bsvusdt.</param>
         /// <returns></returns>
         public async Task<CallResult<HuobiIncementalOrderBook>> GetOrderBookAsync(string symbol, int levels)
         {

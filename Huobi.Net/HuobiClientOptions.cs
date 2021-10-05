@@ -136,7 +136,7 @@ namespace Huobi.Net
         public int? MergeStep { get; set; }
 
         /// <summary>
-        /// The amount of entries to maintain. Either 5, 20 or 150
+        /// The amount of entries to maintain. Either 5, 20 or 150. Level 5 and 20 are currently only supported for the following symbols: btcusdt, ethusdt, xrpusdt, eosusdt, ltcusdt, etcusdt, adausdt, dashusdt, bsvusdt.
         /// </summary>
         public int? Levels { get; set; }
 
