@@ -3064,7 +3064,7 @@
         </member>
         <member name="P:Huobi.Net.HuobiOrderBookOptions.Levels">
             <summary>
-            The amount of entries to maintain. Either 5, 20 or 150
+            The amount of entries to maintain. Either 5, 20 or 150. Level 5 and 20 are currently only supported for the following symbols: btcusdt, ethusdt, xrpusdt, eosusdt, ltcusdt, etcusdt, adausdt, dashusdt, bsvusdt.
             </summary>
         </member>
         <member name="P:Huobi.Net.HuobiOrderBookOptions.SocketClient">
@@ -3150,7 +3150,7 @@
             Gets the current order book for a symbol
             </summary>
             <param name="symbol">The symbol to get the data for</param>
-            <param name="levels">The amount of rows. 5, 20, 150 or 400</param>
+            <param name="levels">The amount of rows. 5, 20, 150 or 400. Level 5 and 20 are currently only supported for the following symbols: btcusdt, ethusdt, xrpusdt, eosusdt, ltcusdt, etcusdt, adausdt, dashusdt, bsvusdt.</param>
             <returns></returns>
         </member>
         <member name="M:Huobi.Net.HuobiSocketClient.SubscribeToPartialOrderBookUpdates1SecondAsync(System.String,System.Int32,System.Action{CryptoExchange.Net.Sockets.DataEvent{Huobi.Net.Objects.HuobiOrderBook}})">

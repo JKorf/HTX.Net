@@ -47,7 +47,11 @@ namespace Huobi.Net
                 if (!subResult)
                     return subResult;
 
+                Status = OrderBookStatus.Syncing;
                 var setResult = await WaitForSetOrderBookAsync(10000).ConfigureAwait(false);
+                if (!setResult)
+                    await subResult.Data.CloseAsync().ConfigureAwait(false);
+
                 return setResult ? subResult : new CallResult<UpdateSubscription>(null, setResult.Error);
             }
             else
