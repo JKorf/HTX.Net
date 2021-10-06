@@ -143,6 +143,14 @@ namespace Huobi.Net
             if (!result)
                 return new CallResult<HuobiIncementalOrderBook>(null, result.Error);
 
+            if (result.Data.Data == null)
+            {
+                var info = $"No data received when requesting order book. " +
+                    $"Levels 5/20 are only supported for a subset of symbols, see https://huobiapi.github.io/docs/spot/v1/en/#market-by-price-incremental-update. Use 150 level instead.";
+                log.Write(LogLevel.Debug, info);
+                return new CallResult<HuobiIncementalOrderBook>(null, new ServerError(info));
+            }
+
             return new CallResult<HuobiIncementalOrderBook>(result.Data.Data, null);
         }
 
