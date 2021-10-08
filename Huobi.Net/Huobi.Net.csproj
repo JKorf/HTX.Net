@@ -7,9 +7,9 @@
   <PropertyGroup>
     <PackageId>Huobi.Net</PackageId>
     <Authors>JKorf</Authors>
-    <PackageVersion>3.2.2</PackageVersion>
-    <AssemblyVersion>3.2.2</AssemblyVersion>
-    <FileVersion>3.2.2</FileVersion>
+    <PackageVersion>3.2.3</PackageVersion>
+    <AssemblyVersion>3.2.3</AssemblyVersion>
+    <FileVersion>3.2.3</FileVersion>
     <Description>Huobi.Net is a .Net wrapper for the Huobi API. It includes all features the API provides, REST API and Websocket, using clear and readable objects including but not limited to Reading market info, Placing and managing orders and Reading balances and funds</Description>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageTags>Huobi Huobi.Net C# .Net CryptoCurrency Exchange API wrapper</PackageTags>
@@ -20,7 +20,7 @@
     <PackageIcon>icon.png</PackageIcon>
     <NeutralLanguage>en</NeutralLanguage>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageReleaseNotes>3.2.2 - Updated CryptoExchange.Net, fixing socket issue when calling from .Net Framework, Fixed issue in HuobiSymbolOrderBook syncing</PackageReleaseNotes>
+    <PackageReleaseNotes>3.2.3 - Updated CryptoExchange.Net to fix some socket issues</PackageReleaseNotes>
   </PropertyGroup>
   <PropertyGroup>
     <DocumentationFile>Huobi.Net.xml</DocumentationFile>
@@ -50,6 +50,6 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="CryptoExchange.Net" Version="4.2.7" />
+    <PackageReference Include="CryptoExchange.Net" Version="4.2.8" />
   </ItemGroup>
 </Project>
