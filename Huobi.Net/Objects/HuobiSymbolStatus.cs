@@ -6,9 +6,9 @@ using Newtonsoft.Json;
 namespace Huobi.Net.Objects
 {
     /// <summary>
-    /// Status of the market
+    /// Status of the symbol
     /// </summary>
-    public class HuobiMarketStatus
+    public class HuobiSymbolStatus
     {
         /// <summary>
         /// The status

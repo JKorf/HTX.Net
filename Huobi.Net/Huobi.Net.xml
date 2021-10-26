@@ -4,6 +4,151 @@
         <name>Huobi.Net</name>
     </assembly>
     <members>
+        <member name="T:Huobi.Net.Enums.AccountEventType">
+            <summary>
+            Event type
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.AccountEventType.OrderPlaced">
+            <summary>
+            Order placed event
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.AccountEventType.OrderMatched">
+            <summary>
+            Order matched event
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.AccountEventType.OrderRefunded">
+            <summary>
+            Order refunded event
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.AccountEventType.OrderCanceled">
+            <summary>
+            Order canceled event
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.AccountEventType.OrderFeeRefunded">
+            <summary>
+            Order fee refunded event
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.AccountEventType.MarginTransfer">
+            <summary>
+            Margin transfer event
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.AccountEventType.MarginLoan">
+            <summary>
+            Margin loan event
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.AccountEventType.MarginInterest">
+            <summary>
+            Margin interest event
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.AccountEventType.MarginRepay">
+            <summary>
+            Margin repay event
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.AccountEventType.Other">
+            <summary>
+            Other event
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.AccountEventType.Deposit">
+            <summary>
+            Deposit event
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.AccountEventType.Withdraw">
+            <summary>
+            Withdraw event
+            </summary>
+        </member>
+        <member name="T:Huobi.Net.Enums.AccountState">
+            <summary>
+            Account state
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.AccountState.Working">
+            <summary>
+            Working
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.AccountState.Locked">
+            <summary>
+            Locked
+            </summary>
+        </member>
+        <member name="T:Huobi.Net.Enums.AccountType">
+            <summary>
+            Account type
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.AccountType.Spot">
+            <summary>
+            Spot account
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.AccountType.Margin">
+            <summary>
+            Margin account
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.AccountType.SuperMargin">
+            <summary>
+            Super margin account
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.AccountType.Otc">
+            <summary>
+            Otc account
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.AccountType.Point">
+            <summary>
+            Point account
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.AccountType.Investment">
+            <summary>
+            Investment account
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.AccountType.Borrow">
+            <summary>
+            Borrow account
+            </summary>
+        </member>
+        <member name="T:Huobi.Net.Enums.BalanceType">
+            <summary>
+            Balance type
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.BalanceType.Trade">
+            <summary>
+            Trade balance
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.BalanceType.Frozen">
+            <summary>
+            Frozen balance
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.BalanceType.Loan">
+            <summary>
+            Loan balance
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.BalanceType.Interest">
+            <summary>
+            Interest balance
+            </summary>
+        </member>
         <member name="T:Huobi.Net.Enums.CurrencyStatus">
             <summary>
             Status
@@ -17,6 +162,21 @@
         <member name="F:Huobi.Net.Enums.CurrencyStatus.Prohibited">
             <summary>
             Prohibited
+            </summary>
+        </member>
+        <member name="T:Huobi.Net.Enums.FeeDeductState">
+            <summary>
+            Fee deduction status.
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.FeeDeductState.Ongoing">
+            <summary>
+            In deduction
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.FeeDeductState.Done">
+            <summary>
+            Deduction completed
             </summary>
         </member>
         <member name="T:Huobi.Net.Enums.FeeType">
@@ -39,6 +199,21 @@
             Ratio
             </summary>
         </member>
+        <member name="T:Huobi.Net.Enums.FilterDirection">
+            <summary>
+            Filter direction
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.FilterDirection.Next">
+            <summary>
+            Get results after
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.FilterDirection.Previous">
+            <summary>
+            Get results before
+            </summary>
+        </member>
         <member name="T:Huobi.Net.Enums.InstrumentStatus">
             <summary>
             Status of an instrument
@@ -52,6 +227,61 @@
         <member name="F:Huobi.Net.Enums.InstrumentStatus.Delisted">
             <summary>
             Delisted
+            </summary>
+        </member>
+        <member name="T:Huobi.Net.Enums.KlineInterval">
+            <summary>
+            Interval for klines
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.KlineInterval.OneMinute">
+            <summary>
+            1m
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.KlineInterval.FiveMinutes">
+            <summary>
+            5m
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.KlineInterval.FifteenMinutes">
+            <summary>
+            15m
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.KlineInterval.ThirtyMinutes">
+            <summary>
+            30m
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.KlineInterval.OneHour">
+            <summary>
+            1h
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.KlineInterval.FourHours">
+            <summary>
+            4h
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.KlineInterval.OneDay">
+            <summary>
+            1d
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.KlineInterval.OneWeek">
+            <summary>
+            1w
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.KlineInterval.OneMonth">
+            <summary>
+            1m
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.KlineInterval.OneYear">
+            <summary>
+            1y
             </summary>
         </member>
         <member name="T:Huobi.Net.Enums.MarketStatus">
@@ -71,7 +301,7 @@
         </member>
         <member name="F:Huobi.Net.Enums.MarketStatus.CancelOnly">
             <summary>
-            Only cancellation is possible
+            Only cancelation is possible
             </summary>
         </member>
         <member name="T:Huobi.Net.Enums.Operator">
@@ -87,6 +317,171 @@
         <member name="F:Huobi.Net.Enums.Operator.LesserThanOrEqual">
             <summary>
             Less than or equal to stop price
+            </summary>
+        </member>
+        <member name="T:Huobi.Net.Enums.OrderRole">
+            <summary>
+            Order role
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.OrderRole.Maker">
+            <summary>
+            Maker of an order book entry
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.OrderRole.Taker">
+            <summary>
+            Taker of an order book entry
+            </summary>
+        </member>
+        <member name="T:Huobi.Net.Enums.OrderSide">
+            <summary>
+            Order side
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.OrderSide.Buy">
+            <summary>
+            Buy
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.OrderSide.Sell">
+            <summary>
+            Sell
+            </summary>
+        </member>
+        <member name="T:Huobi.Net.Enums.OrderState">
+            <summary>
+            Order state
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.OrderState.PreSubmitted">
+            <summary>
+            Pre-submitted
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.OrderState.Submitted">
+            <summary>
+            Submitted, nothing filled yet
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.OrderState.PartiallyFilled">
+            <summary>
+            Partially filled
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.OrderState.PartiallyCanceled">
+            <summary>
+            Partially filled, then canceled
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.OrderState.Filled">
+            <summary>
+            Filled completely
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.OrderState.Canceled">
+            <summary>
+            Canceled without fill
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.OrderState.Created">
+            <summary>
+            Created
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.OrderState.Rejected">
+            <summary>
+            Rejected
+            </summary>
+        </member>
+        <member name="T:Huobi.Net.Enums.OrderType">
+            <summary>
+            Order type
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.OrderType.LimitBuy">
+            <summary>
+            Limit buy
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.OrderType.LimitSell">
+            <summary>
+            Limit sell
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.OrderType.MarketBuy">
+            <summary>
+            Market buy
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.OrderType.MarketSell">
+            <summary>
+            Market sell
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.OrderType.IOCBuy">
+            <summary>
+            Immediate or cancel guy
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.OrderType.IOCSell">
+            <summary>
+            Immediate or cancel sell
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.OrderType.LimitMakerBuy">
+            <summary>
+            Limit maker buy
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.OrderType.LimitMakerSell">
+            <summary>
+            Limit maker sell
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.OrderType.StopLimitBuy">
+            <summary>
+            Stop limit buy
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.OrderType.StopLimitSell">
+            <summary>
+            Stop limit sell
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.OrderType.FillOrKillLimitBuy">
+            <summary>
+            Fill or kill limit buy
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.OrderType.FillOrKillLimitSell">
+            <summary>
+            Fill or kill limit sell
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.OrderType.FillOrKillStopLimitBuy">
+            <summary>
+            Fill or kill stop limit buy
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.OrderType.FillOrKillStopLimitSell">
+            <summary>
+            Fill or kill stop limit sell
+            </summary>
+        </member>
+        <member name="T:Huobi.Net.Enums.SortingType">
+            <summary>
+            Sorting order
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.SortingType.Ascending">
+            <summary>
+            Ascending
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.SortingType.Descending">
+            <summary>
+            Descending
             </summary>
         </member>
         <member name="T:Huobi.Net.Enums.SourceType">
@@ -112,6 +507,131 @@
         <member name="F:Huobi.Net.Enums.SourceType.C2CMargin">
             <summary>
             c2c margin api
+            </summary>
+        </member>
+        <member name="T:Huobi.Net.Enums.SymbolState">
+            <summary>
+            Symbol state
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.SymbolState.PreOnline">
+            <summary>
+            Not yet online
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.SymbolState.Online">
+            <summary>
+            Online
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.SymbolState.Offline">
+            <summary>
+            Offline
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.SymbolState.Suspended">
+            <summary>
+            Suspended
+            </summary>
+        </member>
+        <member name="T:Huobi.Net.Enums.TransactionType">
+            <summary>
+            Transaction type
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.TransactionType.Trade">
+            <summary>
+            Trade
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.TransactionType.Etf">
+            <summary>
+            ETF
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.TransactionType.TransactionFee">
+            <summary>
+            Transaction fee
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.TransactionType.Deduction">
+            <summary>
+            Deduction
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.TransactionType.Transfer">
+            <summary>
+            Transfer between accounts
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.TransactionType.Credit">
+            <summary>
+            Credit
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.TransactionType.Liquidation">
+            <summary>
+            Liquidation
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.TransactionType.Interest">
+            <summary>
+            Interest
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.TransactionType.Deposit">
+            <summary>
+            Deposit
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.TransactionType.Withdraw">
+            <summary>
+            Withdraw
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.TransactionType.WithdrawFee">
+            <summary>
+            Withdraw fee
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.TransactionType.Exchange">
+            <summary>
+            Exchange
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.TransactionType.Other">
+            <summary>
+            Other types
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.TransactionType.Rebate">
+            <summary>
+            Rebate
+            </summary>
+        </member>
+        <member name="T:Huobi.Net.Enums.TransferType">
+            <summary>
+            Transfer type
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.TransferType.FromSubAccount">
+            <summary>
+            From sub account
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.TransferType.ToSubAccount">
+            <summary>
+            To sub account
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.TransferType.PointFromSubAccount">
+            <summary>
+            Point from sub account
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.TransferType.PointToSubAccount">
+            <summary>
+            Point to sub account
             </summary>
         </member>
         <member name="T:Huobi.Net.Enums.WithdrawDepositState">
@@ -269,6 +789,11 @@
             The type of the account
             </summary>
         </member>
+        <member name="P:Huobi.Net.Objects.HuobiAccount.SubType">
+            <summary>
+            Sub state
+            </summary>
+        </member>
         <member name="T:Huobi.Net.Objects.HuobiAccountBalances">
             <summary>
             Account and balance info
@@ -289,32 +814,32 @@
             Account ID
             </summary>
         </member>
-        <member name="P:Huobi.Net.Objects.HuobiAccountHistory.Currency">
+        <member name="P:Huobi.Net.Objects.HuobiAccountHistory.Asset">
             <summary>
-            Currency
+            Asset
             </summary>
         </member>
         <member name="P:Huobi.Net.Objects.HuobiAccountHistory.Quantity">
             <summary>
-            Amount change (positive value if income, negative value if outcome)	
+            Quantity change (positive value if income, negative value if outcome)	
             </summary>
         </member>
         <member name="P:Huobi.Net.Objects.HuobiAccountHistory.Type">
             <summary>
-            Amount change types
+            Blance change types
             </summary>
         </member>
-        <member name="P:Huobi.Net.Objects.HuobiAccountHistory.AvailableBalance">
+        <member name="P:Huobi.Net.Objects.HuobiAccountHistory.Available">
             <summary>
             Available balance
             </summary>
         </member>
-        <member name="P:Huobi.Net.Objects.HuobiAccountHistory.AccountBalance">
+        <member name="P:Huobi.Net.Objects.HuobiAccountHistory.Total">
             <summary>
             Account balance
             </summary>
         </member>
-        <member name="P:Huobi.Net.Objects.HuobiAccountHistory.Time">
+        <member name="P:Huobi.Net.Objects.HuobiAccountHistory.Timestamp">
             <summary>
             Transaction time (database time)
             </summary>
@@ -339,14 +864,144 @@
             Timestamp of the data
             </summary>
         </member>
+        <member name="T:Huobi.Net.Objects.HuobiAssetInfo">
+            <summary>
+            Info on an asset
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiAssetInfo.Asset">
+            <summary>
+            Asset
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiAssetInfo.Status">
+            <summary>
+            Status of the asset
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiAssetInfo.Networks">
+            <summary>
+            Networks
+            </summary>
+        </member>
+        <member name="T:Huobi.Net.Objects.HuobiChain">
+            <summary>
+            Info on an asset network
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiChain.Chain">
+            <summary>
+            Chain
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiChain.DisplayName">
+            <summary>
+            Display name
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiChain.BaseChain">
+            <summary>
+            Base chain
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiChain.BaseChainProtocol">
+            <summary>
+            Protocol of the base chain
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiChain.IsDynamic">
+            <summary>
+            Is dynamic fee type or not (only applicable to withdrawFeeType = fixed)
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiChain.DepositStatus">
+            <summary>
+            Deposit status
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiChain.MaxTransactFeeWithdraw">
+            <summary>
+            Maximum withdraw fee in each request (only applicable to withdrawFeeType = circulated or ratio)	
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiChain.MaxWithdrawQuantity">
+            <summary>
+            Max withdraw quantity per request
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiChain.MinDepositQuantity">
+            <summary>
+            Min deposit quantity per request
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiChain.MinWithdrawQuantity">
+            <summary>
+            Min withdraw quantity per request
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiChain.TransactFeeWithdraw">
+            <summary>
+            Withdraw fee in each request (only applicable to withdrawFeeType = fixed)
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiChain.TransactFeeRateWithdraw">
+            <summary>
+            Withdraw fee in each request (only applicable to withdrawFeeType = ratio)
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiChain.MinTransactFeeWithdraw">
+            <summary>
+            Minimal withdraw fee in each request (only applicable to withdrawFeeType = circulated or ratio)
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiChain.NumberOfConfirmations">
+            <summary>
+            Number of confirmations required for deposit
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiChain.NumberOfFastConfirmations">
+            <summary>
+            Number of confirmations required for quick success (trading allowed but withdrawal disallowed)
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiChain.WithdrawFeeType">
+            <summary>
+            Type of withdraw fee
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiChain.WithdrawPrecision">
+            <summary>
+            Precision of withdrawing
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiChain.WithdrawQuotaPerDay">
+            <summary>
+            Withdraw quota per day
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiChain.WithdrawQuotaPerYear">
+            <summary>
+            Withdraw quota per year
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiChain.WithdrawQuotaTotal">
+            <summary>
+            Withdraw quota in total
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiChain.WithdrawStatus">
+            <summary>
+            Withdraw status
+            </summary>
+        </member>
         <member name="T:Huobi.Net.Objects.HuobiBalance">
             <summary>
             Balance data
             </summary>
         </member>
-        <member name="P:Huobi.Net.Objects.HuobiBalance.Currency">
+        <member name="P:Huobi.Net.Objects.HuobiBalance.Asset">
             <summary>
-            The currency
+            The asset
             </summary>
         </member>
         <member name="P:Huobi.Net.Objects.HuobiBalance.Type">
@@ -356,7 +1011,12 @@
         </member>
         <member name="P:Huobi.Net.Objects.HuobiBalance.Balance">
             <summary>
-            The amount
+            The balance
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiBalance.SequenceNumber">
+            <summary>
+            Sequence number of the update
             </summary>
         </member>
         <member name="T:Huobi.Net.Objects.HuobiBalanceWrapper">
@@ -414,6 +1074,16 @@
             The id of the failed order
             </summary>
         </member>
+        <member name="P:Huobi.Net.Objects.HuobiFailedCancelResult.OrderState">
+            <summary>
+            The state of the order
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiFailedCancelResult.ClientOrderId">
+            <summary>
+            The id of the failed order
+            </summary>
+        </member>
         <member name="T:Huobi.Net.Objects.HuobiBestOffer">
             <summary>
             Info on a symbol's best offer
@@ -429,24 +1099,24 @@
             Time of the data
             </summary>
         </member>
-        <member name="P:Huobi.Net.Objects.HuobiBestOffer.Bid">
+        <member name="P:Huobi.Net.Objects.HuobiBestOffer.BestBidPrice">
             <summary>
             Best bid price
             </summary>
         </member>
-        <member name="P:Huobi.Net.Objects.HuobiBestOffer.BidSize">
+        <member name="P:Huobi.Net.Objects.HuobiBestOffer.BestBidQuantity">
             <summary>
-            Size of the best bid
+            Quantity of the best bid
             </summary>
         </member>
-        <member name="P:Huobi.Net.Objects.HuobiBestOffer.Ask">
+        <member name="P:Huobi.Net.Objects.HuobiBestOffer.BestAskPrice">
             <summary>
             Best ask price
             </summary>
         </member>
-        <member name="P:Huobi.Net.Objects.HuobiBestOffer.AskSize">
+        <member name="P:Huobi.Net.Objects.HuobiBestOffer.BestAskQuantity">
             <summary>
-            Size of the best ask
+            Quantity of the best ask
             </summary>
         </member>
         <member name="P:Huobi.Net.Objects.HuobiBestOffer.Sequence">
@@ -471,132 +1141,7 @@
         </member>
         <member name="P:Huobi.Net.Objects.HuobiByCriteriaCancelResult.NextId">
             <summary>
-            the next order id that can be cancelled
-            </summary>
-        </member>
-        <member name="T:Huobi.Net.Objects.HuobiCurrencyInfo">
-            <summary>
-            Info on a currency
-            </summary>
-        </member>
-        <member name="P:Huobi.Net.Objects.HuobiCurrencyInfo.Currency">
-            <summary>
-            Currency
-            </summary>
-        </member>
-        <member name="P:Huobi.Net.Objects.HuobiCurrencyInfo.Status">
-            <summary>
-            Status of the currency
-            </summary>
-        </member>
-        <member name="P:Huobi.Net.Objects.HuobiCurrencyInfo.Chains">
-            <summary>
-            Chains
-            </summary>
-        </member>
-        <member name="T:Huobi.Net.Objects.HuobiChain">
-            <summary>
-            Info on a currency chain
-            </summary>
-        </member>
-        <member name="P:Huobi.Net.Objects.HuobiChain.Chain">
-            <summary>
-            Chain
-            </summary>
-        </member>
-        <member name="P:Huobi.Net.Objects.HuobiChain.DisplayName">
-            <summary>
-            Display name
-            </summary>
-        </member>
-        <member name="P:Huobi.Net.Objects.HuobiChain.BaseChain">
-            <summary>
-            Base chain
-            </summary>
-        </member>
-        <member name="P:Huobi.Net.Objects.HuobiChain.BaseChainProtocol">
-            <summary>
-            Protocol of the base chain
-            </summary>
-        </member>
-        <member name="P:Huobi.Net.Objects.HuobiChain.IsDynamic">
-            <summary>
-            Is dynamic fee type or not (only applicable to withdrawFeeType = fixed)
-            </summary>
-        </member>
-        <member name="P:Huobi.Net.Objects.HuobiChain.DepositStatus">
-            <summary>
-            Deposit status
-            </summary>
-        </member>
-        <member name="P:Huobi.Net.Objects.HuobiChain.MaxTransactFeeWithdraw">
-            <summary>
-            Maximum withdraw fee in each request (only applicable to withdrawFeeType = circulated or ratio)	
-            </summary>
-        </member>
-        <member name="P:Huobi.Net.Objects.HuobiChain.MaxWithdrawQuantity">
-            <summary>
-            Max withdraw amount per request
-            </summary>
-        </member>
-        <member name="P:Huobi.Net.Objects.HuobiChain.MinDepositQuantity">
-            <summary>
-            Min deposit amount per request
-            </summary>
-        </member>
-        <member name="P:Huobi.Net.Objects.HuobiChain.MinWithdrawQuantity">
-            <summary>
-            Min withdraw amount per request
-            </summary>
-        </member>
-        <member name="P:Huobi.Net.Objects.HuobiChain.TransactFeeWithdraw">
-            <summary>
-            Withdraw fee in each request (only applicable to withdrawFeeType = fixed)
-            </summary>
-        </member>
-        <member name="P:Huobi.Net.Objects.HuobiChain.MinTransactFeeWithdraw">
-            <summary>
-            Minimal withdraw fee in each request (only applicable to withdrawFeeType = circulated or ratio)
-            </summary>
-        </member>
-        <member name="P:Huobi.Net.Objects.HuobiChain.NumberOfConfirmations">
-            <summary>
-            Number of confirmations required for deposit
-            </summary>
-        </member>
-        <member name="P:Huobi.Net.Objects.HuobiChain.NumberOfFastConfirmations">
-            <summary>
-            Number of confirmations required for quick success (trading allowed but withdrawal disallowed)
-            </summary>
-        </member>
-        <member name="P:Huobi.Net.Objects.HuobiChain.WithdrawFeeType">
-            <summary>
-            Type of withdraw fee
-            </summary>
-        </member>
-        <member name="P:Huobi.Net.Objects.HuobiChain.WithdrawPrecision">
-            <summary>
-            Precision of withdrawing
-            </summary>
-        </member>
-        <member name="P:Huobi.Net.Objects.HuobiChain.WithdrawQuotaPerDay">
-            <summary>
-            Withdraw quota per day
-            </summary>
-        </member>
-        <member name="P:Huobi.Net.Objects.HuobiChain.WithdrawQuotaPerYear">
-            <summary>
-            Withdraw quota per year
-            </summary>
-        </member>
-        <member name="P:Huobi.Net.Objects.HuobiChain.WithdrawQuotaTotal">
-            <summary>
-            Withdraw quota in total
-            </summary>
-        </member>
-        <member name="P:Huobi.Net.Objects.HuobiChain.WithdrawStatus">
-            <summary>
-            Withdraw status
+            the next order id that can be canceled
             </summary>
         </member>
         <member name="T:Huobi.Net.Objects.HuobiDepositAddress">
@@ -604,9 +1149,14 @@
             Deposit address info
             </summary>
         </member>
-        <member name="P:Huobi.Net.Objects.HuobiDepositAddress.Currency">
+        <member name="P:Huobi.Net.Objects.HuobiDepositAddress.UserId">
             <summary>
-            Crypto currency
+            User id
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiDepositAddress.Asset">
+            <summary>
+            Asset
             </summary>
         </member>
         <member name="P:Huobi.Net.Objects.HuobiDepositAddress.Address">
@@ -619,529 +1169,9 @@
             Deposit address tag
             </summary>
         </member>
-        <member name="P:Huobi.Net.Objects.HuobiDepositAddress.Chain">
+        <member name="P:Huobi.Net.Objects.HuobiDepositAddress.Network">
             <summary>
             Block chain name
-            </summary>
-        </member>
-        <member name="T:Huobi.Net.Objects.HuobiPeriod">
-            <summary>
-            Interval for klines
-            </summary>
-        </member>
-        <member name="F:Huobi.Net.Objects.HuobiPeriod.OneMinute">
-            <summary>
-            1m
-            </summary>
-        </member>
-        <member name="F:Huobi.Net.Objects.HuobiPeriod.FiveMinutes">
-            <summary>
-            5m
-            </summary>
-        </member>
-        <member name="F:Huobi.Net.Objects.HuobiPeriod.FifteenMinutes">
-            <summary>
-            15m
-            </summary>
-        </member>
-        <member name="F:Huobi.Net.Objects.HuobiPeriod.ThirtyMinutes">
-            <summary>
-            30m
-            </summary>
-        </member>
-        <member name="F:Huobi.Net.Objects.HuobiPeriod.OneHour">
-            <summary>
-            1h
-            </summary>
-        </member>
-        <member name="F:Huobi.Net.Objects.HuobiPeriod.FourHours">
-            <summary>
-            4h
-            </summary>
-        </member>
-        <member name="F:Huobi.Net.Objects.HuobiPeriod.OneDay">
-            <summary>
-            1d
-            </summary>
-        </member>
-        <member name="F:Huobi.Net.Objects.HuobiPeriod.OneWeek">
-            <summary>
-            1w
-            </summary>
-        </member>
-        <member name="F:Huobi.Net.Objects.HuobiPeriod.OneMonth">
-            <summary>
-            1m
-            </summary>
-        </member>
-        <member name="F:Huobi.Net.Objects.HuobiPeriod.OneYear">
-            <summary>
-            1y
-            </summary>
-        </member>
-        <member name="T:Huobi.Net.Objects.HuobiFilterDirection">
-            <summary>
-            Filter direction
-            </summary>
-        </member>
-        <member name="F:Huobi.Net.Objects.HuobiFilterDirection.Next">
-            <summary>
-            Get results after
-            </summary>
-        </member>
-        <member name="F:Huobi.Net.Objects.HuobiFilterDirection.Previous">
-            <summary>
-            Get results before
-            </summary>
-        </member>
-        <member name="T:Huobi.Net.Objects.HuobiOrderSide">
-            <summary>
-            Order side
-            </summary>
-        </member>
-        <member name="F:Huobi.Net.Objects.HuobiOrderSide.Buy">
-            <summary>
-            Buy
-            </summary>
-        </member>
-        <member name="F:Huobi.Net.Objects.HuobiOrderSide.Sell">
-            <summary>
-            Sell
-            </summary>
-        </member>
-        <member name="T:Huobi.Net.Objects.HuobiAccountState">
-            <summary>
-            Account state
-            </summary>
-        </member>
-        <member name="F:Huobi.Net.Objects.HuobiAccountState.Working">
-            <summary>
-            Working
-            </summary>
-        </member>
-        <member name="F:Huobi.Net.Objects.HuobiAccountState.Locked">
-            <summary>
-            Locked
-            </summary>
-        </member>
-        <member name="T:Huobi.Net.Objects.HuobiAccountType">
-            <summary>
-            Account type
-            </summary>
-        </member>
-        <member name="F:Huobi.Net.Objects.HuobiAccountType.Spot">
-            <summary>
-            Spot account
-            </summary>
-        </member>
-        <member name="F:Huobi.Net.Objects.HuobiAccountType.Margin">
-            <summary>
-            Margin account
-            </summary>
-        </member>
-        <member name="F:Huobi.Net.Objects.HuobiAccountType.SuperMargin">
-            <summary>
-            Super margin account
-            </summary>
-        </member>
-        <member name="F:Huobi.Net.Objects.HuobiAccountType.Otc">
-            <summary>
-            Otc account
-            </summary>
-        </member>
-        <member name="F:Huobi.Net.Objects.HuobiAccountType.Point">
-            <summary>
-            Point account
-            </summary>
-        </member>
-        <member name="F:Huobi.Net.Objects.HuobiAccountType.Investment">
-            <summary>
-            Investment account
-            </summary>
-        </member>
-        <member name="F:Huobi.Net.Objects.HuobiAccountType.Borrow">
-            <summary>
-            Borrow account
-            </summary>
-        </member>
-        <member name="T:Huobi.Net.Objects.HuobiBalanceType">
-            <summary>
-            Balance type
-            </summary>
-        </member>
-        <member name="F:Huobi.Net.Objects.HuobiBalanceType.Trade">
-            <summary>
-            Trade balance
-            </summary>
-        </member>
-        <member name="F:Huobi.Net.Objects.HuobiBalanceType.Frozen">
-            <summary>
-            Frozen balance
-            </summary>
-        </member>
-        <member name="F:Huobi.Net.Objects.HuobiBalanceType.Loan">
-            <summary>
-            Loan balance
-            </summary>
-        </member>
-        <member name="F:Huobi.Net.Objects.HuobiBalanceType.Interest">
-            <summary>
-            Interest balance
-            </summary>
-        </member>
-        <member name="T:Huobi.Net.Objects.HuobiOrderRole">
-            <summary>
-            Order role
-            </summary>
-        </member>
-        <member name="F:Huobi.Net.Objects.HuobiOrderRole.Maker">
-            <summary>
-            Maker of an order book entry
-            </summary>
-        </member>
-        <member name="F:Huobi.Net.Objects.HuobiOrderRole.Taker">
-            <summary>
-            Taker of an order book entry
-            </summary>
-        </member>
-        <member name="T:Huobi.Net.Objects.HuobiOrderType">
-            <summary>
-            Order type
-            </summary>
-        </member>
-        <member name="F:Huobi.Net.Objects.HuobiOrderType.LimitBuy">
-            <summary>
-            Limit buy
-            </summary>
-        </member>
-        <member name="F:Huobi.Net.Objects.HuobiOrderType.LimitSell">
-            <summary>
-            Limit sell
-            </summary>
-        </member>
-        <member name="F:Huobi.Net.Objects.HuobiOrderType.MarketBuy">
-            <summary>
-            Market buy
-            </summary>
-        </member>
-        <member name="F:Huobi.Net.Objects.HuobiOrderType.MarketSell">
-            <summary>
-            Market sell
-            </summary>
-        </member>
-        <member name="F:Huobi.Net.Objects.HuobiOrderType.IOCBuy">
-            <summary>
-            Immediate or cancel guy
-            </summary>
-        </member>
-        <member name="F:Huobi.Net.Objects.HuobiOrderType.IOCSell">
-            <summary>
-            Immediate or cancel sell
-            </summary>
-        </member>
-        <member name="F:Huobi.Net.Objects.HuobiOrderType.LimitMakerBuy">
-            <summary>
-            Limit maker buy
-            </summary>
-        </member>
-        <member name="F:Huobi.Net.Objects.HuobiOrderType.LimitMakerSell">
-            <summary>
-            Limit maker sell
-            </summary>
-        </member>
-        <member name="F:Huobi.Net.Objects.HuobiOrderType.StopLimitBuy">
-            <summary>
-            Stop limit buy
-            </summary>
-        </member>
-        <member name="F:Huobi.Net.Objects.HuobiOrderType.StopLimitSell">
-            <summary>
-            Stop limit sell
-            </summary>
-        </member>
-        <member name="F:Huobi.Net.Objects.HuobiOrderType.FillOrKillLimitBuy">
-            <summary>
-            Fill or kill limit buy
-            </summary>
-        </member>
-        <member name="F:Huobi.Net.Objects.HuobiOrderType.FillOrKillLimitSell">
-            <summary>
-            Fill or kill limit sell
-            </summary>
-        </member>
-        <member name="F:Huobi.Net.Objects.HuobiOrderType.FillOrKillStopLimitBuy">
-            <summary>
-            Fill or kill stop limit buy
-            </summary>
-        </member>
-        <member name="F:Huobi.Net.Objects.HuobiOrderType.FillOrKillStopLimitSell">
-            <summary>
-            Fill or kill stop limit sell
-            </summary>
-        </member>
-        <member name="T:Huobi.Net.Objects.HuobiOrderState">
-            <summary>
-            Order state
-            </summary>
-        </member>
-        <member name="F:Huobi.Net.Objects.HuobiOrderState.PreSubmitted">
-            <summary>
-            Pre-submitted
-            </summary>
-        </member>
-        <member name="F:Huobi.Net.Objects.HuobiOrderState.Submitted">
-            <summary>
-            Submitted, nothing filled yet
-            </summary>
-        </member>
-        <member name="F:Huobi.Net.Objects.HuobiOrderState.PartiallyFilled">
-            <summary>
-            Partially filled
-            </summary>
-        </member>
-        <member name="F:Huobi.Net.Objects.HuobiOrderState.PartiallyCanceled">
-            <summary>
-            Partially filled, then cancelled
-            </summary>
-        </member>
-        <member name="F:Huobi.Net.Objects.HuobiOrderState.Filled">
-            <summary>
-            Filled completely
-            </summary>
-        </member>
-        <member name="F:Huobi.Net.Objects.HuobiOrderState.Canceled">
-            <summary>
-            Cancelled without fill
-            </summary>
-        </member>
-        <member name="F:Huobi.Net.Objects.HuobiOrderState.Created">
-            <summary>
-            Created
-            </summary>
-        </member>
-        <member name="F:Huobi.Net.Objects.HuobiOrderState.Rejected">
-            <summary>
-            Rejected
-            </summary>
-        </member>
-        <member name="T:Huobi.Net.Objects.HuobiAccountEventType">
-            <summary>
-            Event type
-            </summary>
-        </member>
-        <member name="F:Huobi.Net.Objects.HuobiAccountEventType.OrderPlaced">
-            <summary>
-            Order placed event
-            </summary>
-        </member>
-        <member name="F:Huobi.Net.Objects.HuobiAccountEventType.OrderMatched">
-            <summary>
-            Order matched event
-            </summary>
-        </member>
-        <member name="F:Huobi.Net.Objects.HuobiAccountEventType.OrderRefunded">
-            <summary>
-            Order refunded event
-            </summary>
-        </member>
-        <member name="F:Huobi.Net.Objects.HuobiAccountEventType.OrderCanceled">
-            <summary>
-            Order cancelled event
-            </summary>
-        </member>
-        <member name="F:Huobi.Net.Objects.HuobiAccountEventType.OrderFeeRefunded">
-            <summary>
-            Order fee refunded event
-            </summary>
-        </member>
-        <member name="F:Huobi.Net.Objects.HuobiAccountEventType.MarginTransfer">
-            <summary>
-            Margin transfer event
-            </summary>
-        </member>
-        <member name="F:Huobi.Net.Objects.HuobiAccountEventType.MarginLoan">
-            <summary>
-            Margin loan event
-            </summary>
-        </member>
-        <member name="F:Huobi.Net.Objects.HuobiAccountEventType.MarginInterest">
-            <summary>
-            Margin interest event
-            </summary>
-        </member>
-        <member name="F:Huobi.Net.Objects.HuobiAccountEventType.MarginRepay">
-            <summary>
-            Margin repay event
-            </summary>
-        </member>
-        <member name="F:Huobi.Net.Objects.HuobiAccountEventType.Other">
-            <summary>
-            Other event
-            </summary>
-        </member>
-        <member name="F:Huobi.Net.Objects.HuobiAccountEventType.Deposit">
-            <summary>
-            Deposit event
-            </summary>
-        </member>
-        <member name="F:Huobi.Net.Objects.HuobiAccountEventType.Withdraw">
-            <summary>
-            Withdraw event
-            </summary>
-        </member>
-        <member name="T:Huobi.Net.Objects.HuobiTransferType">
-            <summary>
-            Transfer type
-            </summary>
-        </member>
-        <member name="F:Huobi.Net.Objects.HuobiTransferType.FromSubAccount">
-            <summary>
-            From sub account
-            </summary>
-        </member>
-        <member name="F:Huobi.Net.Objects.HuobiTransferType.ToSubAccount">
-            <summary>
-            To sub account
-            </summary>
-        </member>
-        <member name="F:Huobi.Net.Objects.HuobiTransferType.PointFromSubAccount">
-            <summary>
-            Point from sub account
-            </summary>
-        </member>
-        <member name="F:Huobi.Net.Objects.HuobiTransferType.PointToSubAccount">
-            <summary>
-            Point to sub account
-            </summary>
-        </member>
-        <member name="T:Huobi.Net.Objects.HuobiSymbolState">
-            <summary>
-            Symbol state
-            </summary>
-        </member>
-        <member name="F:Huobi.Net.Objects.HuobiSymbolState.PreOnline">
-            <summary>
-            Not yet online
-            </summary>
-        </member>
-        <member name="F:Huobi.Net.Objects.HuobiSymbolState.Online">
-            <summary>
-            Online
-            </summary>
-        </member>
-        <member name="F:Huobi.Net.Objects.HuobiSymbolState.Offline">
-            <summary>
-            Offline
-            </summary>
-        </member>
-        <member name="F:Huobi.Net.Objects.HuobiSymbolState.Suspended">
-            <summary>
-            Suspended
-            </summary>
-        </member>
-        <member name="T:Huobi.Net.Objects.HuobiTransactionType">
-            <summary>
-            Transaction type
-            </summary>
-        </member>
-        <member name="F:Huobi.Net.Objects.HuobiTransactionType.Trade">
-            <summary>
-            Trade
-            </summary>
-        </member>
-        <member name="F:Huobi.Net.Objects.HuobiTransactionType.Etf">
-            <summary>
-            ETF
-            </summary>
-        </member>
-        <member name="F:Huobi.Net.Objects.HuobiTransactionType.TransactionFee">
-            <summary>
-            Transaction fee
-            </summary>
-        </member>
-        <member name="F:Huobi.Net.Objects.HuobiTransactionType.Deduction">
-            <summary>
-            Deduction
-            </summary>
-        </member>
-        <member name="F:Huobi.Net.Objects.HuobiTransactionType.Transfer">
-            <summary>
-            Transfer between accounts
-            </summary>
-        </member>
-        <member name="F:Huobi.Net.Objects.HuobiTransactionType.Credit">
-            <summary>
-            Credit
-            </summary>
-        </member>
-        <member name="F:Huobi.Net.Objects.HuobiTransactionType.Liquidation">
-            <summary>
-            Liquidation
-            </summary>
-        </member>
-        <member name="F:Huobi.Net.Objects.HuobiTransactionType.Interest">
-            <summary>
-            Interest
-            </summary>
-        </member>
-        <member name="F:Huobi.Net.Objects.HuobiTransactionType.Deposit">
-            <summary>
-            Deposit
-            </summary>
-        </member>
-        <member name="F:Huobi.Net.Objects.HuobiTransactionType.Withdraw">
-            <summary>
-            Withdraw
-            </summary>
-        </member>
-        <member name="F:Huobi.Net.Objects.HuobiTransactionType.WithdrawFee">
-            <summary>
-            Withdraw fee
-            </summary>
-        </member>
-        <member name="F:Huobi.Net.Objects.HuobiTransactionType.Exchange">
-            <summary>
-            Exchange
-            </summary>
-        </member>
-        <member name="F:Huobi.Net.Objects.HuobiTransactionType.Other">
-            <summary>
-            Other types
-            </summary>
-        </member>
-        <member name="F:Huobi.Net.Objects.HuobiTransactionType.Rebate">
-            <summary>
-            Rebate
-            </summary>
-        </member>
-        <member name="T:Huobi.Net.Objects.HuobiSortingType">
-            <summary>
-            Sorting order
-            </summary>
-        </member>
-        <member name="F:Huobi.Net.Objects.HuobiSortingType.Ascending">
-            <summary>
-            Ascending
-            </summary>
-        </member>
-        <member name="F:Huobi.Net.Objects.HuobiSortingType.Descending">
-            <summary>
-            Descending
-            </summary>
-        </member>
-        <member name="T:Huobi.Net.Objects.HuobiFeeDeductState">
-            <summary>
-            Fee deduction status.
-            </summary>
-        </member>
-        <member name="F:Huobi.Net.Objects.HuobiFeeDeductState.Ongoing">
-            <summary>
-            In deduction
-            </summary>
-        </member>
-        <member name="F:Huobi.Net.Objects.HuobiFeeDeductState.Done">
-            <summary>
-            Deduction completed
             </summary>
         </member>
         <member name="T:Huobi.Net.Objects.HuobiLedgerEntry">
@@ -1154,14 +1184,14 @@
             Account id
             </summary>
         </member>
-        <member name="P:Huobi.Net.Objects.HuobiLedgerEntry.Currency">
+        <member name="P:Huobi.Net.Objects.HuobiLedgerEntry.Asset">
             <summary>
-            Currency
+            Asset
             </summary>
         </member>
         <member name="P:Huobi.Net.Objects.HuobiLedgerEntry.TransactionQuantity">
             <summary>
-            Amount of the transaction
+            Quantity of the transaction
             </summary>
         </member>
         <member name="P:Huobi.Net.Objects.HuobiLedgerEntry.TransactionType">
@@ -1192,36 +1222,6 @@
         <member name="P:Huobi.Net.Objects.HuobiLedgerEntry.Transferee">
             <summary>
             Transferee
-            </summary>
-        </member>
-        <member name="T:Huobi.Net.Objects.HuobiMarketStatus">
-            <summary>
-            Status of the market
-            </summary>
-        </member>
-        <member name="P:Huobi.Net.Objects.HuobiMarketStatus.Status">
-            <summary>
-            The status
-            </summary>
-        </member>
-        <member name="P:Huobi.Net.Objects.HuobiMarketStatus.HaltStartTime">
-            <summary>
-            Start time of when market halted
-            </summary>
-        </member>
-        <member name="P:Huobi.Net.Objects.HuobiMarketStatus.HaltEndTime">
-            <summary>
-            Estimated end time of the halt
-            </summary>
-        </member>
-        <member name="P:Huobi.Net.Objects.HuobiMarketStatus.HaltReason">
-            <summary>
-            Reason for halting
-            </summary>
-        </member>
-        <member name="P:Huobi.Net.Objects.HuobiMarketStatus.AffectedSymbols">
-            <summary>
-            Affected symbols, comma separated or 'all' if all symbols are affected
             </summary>
         </member>
         <member name="T:Huobi.Net.Objects.HuobiNav">
@@ -1264,9 +1264,9 @@
             Basket
             </summary>
         </member>
-        <member name="P:Huobi.Net.Objects.HuobiBasket.Currency">
+        <member name="P:Huobi.Net.Objects.HuobiBasket.Asset">
             <summary>
-            Currency
+            Asset
             </summary>
         </member>
         <member name="P:Huobi.Net.Objects.HuobiBasket.Amount">
@@ -1301,7 +1301,7 @@
         </member>
         <member name="P:Huobi.Net.Objects.HuobiOpenOrder.Quantity">
             <summary>
-            The amount of the order
+            The quantity of the order
             </summary>
         </member>
         <member name="P:Huobi.Net.Objects.HuobiOpenOrder.Price">
@@ -1309,19 +1309,19 @@
             The price of the order
             </summary>
         </member>
-        <member name="P:Huobi.Net.Objects.HuobiOpenOrder.CreatedAt">
+        <member name="P:Huobi.Net.Objects.HuobiOpenOrder.CreateTime">
             <summary>
             The time the order was created
             </summary>
         </member>
-        <member name="P:Huobi.Net.Objects.HuobiOpenOrder.CanceledAt">
+        <member name="P:Huobi.Net.Objects.HuobiOpenOrder.CancelTime">
             <summary>
             The time the order was canceled
             </summary>
         </member>
-        <member name="P:Huobi.Net.Objects.HuobiOpenOrder.FinishedAt">
+        <member name="P:Huobi.Net.Objects.HuobiOpenOrder.CompleteTime">
             <summary>
-            The time the order was finished
+            The time the order was completed
             </summary>
         </member>
         <member name="P:Huobi.Net.Objects.HuobiOpenOrder.Type">
@@ -1339,19 +1339,19 @@
             The state of the order
             </summary>
         </member>
-        <member name="P:Huobi.Net.Objects.HuobiOpenOrder.FilledQuantity">
+        <member name="P:Huobi.Net.Objects.HuobiOpenOrder.QuantityFilled">
             <summary>
-            The amount of the order that is filled
+            The quantity of the order that is filled
             </summary>
         </member>
-        <member name="P:Huobi.Net.Objects.HuobiOpenOrder.FilledCashQuantity">
+        <member name="P:Huobi.Net.Objects.HuobiOpenOrder.QuoteQuantityFilled">
             <summary>
-            Filled cash amount
+            Filled cash quantity
             </summary>
         </member>
-        <member name="P:Huobi.Net.Objects.HuobiOpenOrder.FilledFees">
+        <member name="P:Huobi.Net.Objects.HuobiOpenOrder.Fee">
             <summary>
-            The amount of fees paid for the filled amount
+            The quantity of fees paid for the filled quantity
             </summary>
         </member>
         <member name="T:Huobi.Net.Objects.HuobiOrder">
@@ -1381,7 +1381,7 @@
         </member>
         <member name="P:Huobi.Net.Objects.HuobiOrder.Quantity">
             <summary>
-            The amount of the order
+            The quantity of the order
             </summary>
         </member>
         <member name="P:Huobi.Net.Objects.HuobiOrder.Price">
@@ -1389,17 +1389,17 @@
             The price of the order
             </summary>
         </member>
-        <member name="P:Huobi.Net.Objects.HuobiOrder.CreatedAt">
+        <member name="P:Huobi.Net.Objects.HuobiOrder.CreateTime">
             <summary>
             The time the order was created
             </summary>
         </member>
-        <member name="P:Huobi.Net.Objects.HuobiOrder.CanceledAt">
+        <member name="P:Huobi.Net.Objects.HuobiOrder.CancelTime">
             <summary>
             The time the order was canceled
             </summary>
         </member>
-        <member name="P:Huobi.Net.Objects.HuobiOrder.FinishedAt">
+        <member name="P:Huobi.Net.Objects.HuobiOrder.CompleteTime">
             <summary>
             The time the order was finished
             </summary>
@@ -1419,19 +1419,19 @@
             The state of the order
             </summary>
         </member>
-        <member name="P:Huobi.Net.Objects.HuobiOrder.FilledQuantity">
+        <member name="P:Huobi.Net.Objects.HuobiOrder.QuantityFilled">
             <summary>
-            The amount of the order that is filled
+            The quantity of the order that is filled
             </summary>
         </member>
-        <member name="P:Huobi.Net.Objects.HuobiOrder.FilledCashQuantity">
+        <member name="P:Huobi.Net.Objects.HuobiOrder.QuoteQuantityFilled">
             <summary>
-            Filled cash amount
+            Filled cash quantity
             </summary>
         </member>
-        <member name="P:Huobi.Net.Objects.HuobiOrder.FilledFees">
+        <member name="P:Huobi.Net.Objects.HuobiOrder.Fee">
             <summary>
-            The amount of fees paid for the filled amount
+            The quantity of fees paid for the filled quantity
             </summary>
         </member>
         <member name="T:Huobi.Net.Objects.HuobiOrderBook">
@@ -1442,6 +1442,11 @@
         <member name="P:Huobi.Net.Objects.HuobiOrderBook.Timestamp">
             <summary>
             Timestamp
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiOrderBook.Version">
+            <summary>
+            Version
             </summary>
         </member>
         <member name="P:Huobi.Net.Objects.HuobiOrderBook.Bids">
@@ -1509,17 +1514,17 @@
             The symbol of the trade
             </summary>
         </member>
-        <member name="P:Huobi.Net.Objects.HuobiOrderTrade.CreatedAt">
+        <member name="P:Huobi.Net.Objects.HuobiOrderTrade.Timestamp">
             <summary>
             The timestamp in milliseconds when this record is created
             </summary>
         </member>
-        <member name="P:Huobi.Net.Objects.HuobiOrderTrade.FilledQuantity">
+        <member name="P:Huobi.Net.Objects.HuobiOrderTrade.Quantity">
             <summary>
-            The amount which has been filled
+            The quantity which has been filled
             </summary>
         </member>
-        <member name="P:Huobi.Net.Objects.HuobiOrderTrade.FilledFees">
+        <member name="P:Huobi.Net.Objects.HuobiOrderTrade.Fee">
             <summary>
             Transaction fee (positive value). If maker rebate applicable, revert maker rebate value per trade (negative value).
             </summary>
@@ -1564,12 +1569,12 @@
             The role in the transaction: taker or maker
             </summary>
         </member>
-        <member name="P:Huobi.Net.Objects.HuobiOrderTrade.FeeCurrency">
+        <member name="P:Huobi.Net.Objects.HuobiOrderTrade.FeeAsset">
             <summary>
-            Currency of transaction fee or transaction fee rebate (transaction fee of buy order is based on base currency, transaction fee of sell order is based on quote currency; transaction fee rebate of buy order is based on quote currency, transaction fee rebate of sell order is based on base currency)
+            Asset of transaction fee or transaction fee rebate (transaction fee of buy order is based on base asset, transaction fee of sell order is based on quote asset; transaction fee rebate of buy order is based on quote asset, transaction fee rebate of sell order is based on base asset)
             </summary>
         </member>
-        <member name="P:Huobi.Net.Objects.HuobiOrderTrade.FeeDeductCurrency">
+        <member name="P:Huobi.Net.Objects.HuobiOrderTrade.FeeDeductAsset">
             <summary>
             Deduction type: ht or hbpoint.
             </summary>
@@ -1601,7 +1606,7 @@
         </member>
         <member name="P:Huobi.Net.Objects.HuobiOrderUpdate.Quantity">
             <summary>
-            The amount of the order
+            The quantity of the order
             </summary>
         </member>
         <member name="P:Huobi.Net.Objects.HuobiOrderUpdate.Price">
@@ -1609,7 +1614,7 @@
             The price of the order
             </summary>
         </member>
-        <member name="P:Huobi.Net.Objects.HuobiOrderUpdate.CreatedAt">
+        <member name="P:Huobi.Net.Objects.HuobiOrderUpdate.CreateTime">
             <summary>
             The time the order was created
             </summary>
@@ -1634,24 +1639,24 @@
             The role of the order
             </summary>
         </member>
-        <member name="P:Huobi.Net.Objects.HuobiOrderUpdate.FilledQuantity">
+        <member name="P:Huobi.Net.Objects.HuobiOrderUpdate.QuantityFilled">
             <summary>
-            The amount of the order that is filled
+            The quantity of the order that is filled
             </summary>
         </member>
-        <member name="P:Huobi.Net.Objects.HuobiOrderUpdate.UnfilledQuantity">
+        <member name="P:Huobi.Net.Objects.HuobiOrderUpdate.QuantityRemaining">
             <summary>
-            Unfilled amount
+            Unfilled quantity
             </summary>
         </member>
-        <member name="P:Huobi.Net.Objects.HuobiOrderUpdate.FilledCashQuantity">
+        <member name="P:Huobi.Net.Objects.HuobiOrderUpdate.QuoteQuantityFilled">
             <summary>
-            Filled cash amount
+            Filled cash quantity
             </summary>
         </member>
-        <member name="P:Huobi.Net.Objects.HuobiOrderUpdate.FilledFees">
+        <member name="P:Huobi.Net.Objects.HuobiOrderUpdate.Fee">
             <summary>
-            The amount of fees paid for the filled amount
+            The quantity of fees paid for the filled quantity
             </summary>
         </member>
         <member name="T:Huobi.Net.Objects.HuobiPlacedOrder">
@@ -1669,19 +1674,19 @@
             Symbol data
             </summary>
         </member>
-        <member name="P:Huobi.Net.Objects.HuobiSymbol.Symbol">
+        <member name="P:Huobi.Net.Objects.HuobiSymbol.Name">
             <summary>
             The symbol name
             </summary>
         </member>
-        <member name="P:Huobi.Net.Objects.HuobiSymbol.BaseCurrency">
+        <member name="P:Huobi.Net.Objects.HuobiSymbol.BaseAsset">
             <summary>
-            The base currency
+            The base asset
             </summary>
         </member>
-        <member name="P:Huobi.Net.Objects.HuobiSymbol.QuoteCurrency">
+        <member name="P:Huobi.Net.Objects.HuobiSymbol.QuoteAsset">
             <summary>
-            The quote currency
+            The quote asset
             </summary>
         </member>
         <member name="P:Huobi.Net.Objects.HuobiSymbol.PricePrecision">
@@ -1691,7 +1696,7 @@
         </member>
         <member name="P:Huobi.Net.Objects.HuobiSymbol.QuantityPrecision">
             <summary>
-            The precision of the amount in decimal numbers
+            The precision of the quantity in decimal numbers
             </summary>
         </member>
         <member name="P:Huobi.Net.Objects.HuobiSymbol.SymbolPartition">
@@ -1706,42 +1711,52 @@
         </member>
         <member name="P:Huobi.Net.Objects.HuobiSymbol.MinOrderQuantity">
             <summary>
-            Minimum value of the amount
+            Minimum value of the quantity
             </summary>
         </member>
         <member name="P:Huobi.Net.Objects.HuobiSymbol.MaxOrderQuantity">
             <summary>
-            Maximum value of the amount
+            Maximum value of the quantity
             </summary>
         </member>
         <member name="P:Huobi.Net.Objects.HuobiSymbol.MinLimitOrderQuantity">
             <summary>
-            Minimum order amount of limit order in base currency
+            Minimum order quantity of limit order in base asset
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiSymbol.MaxLimitOrderBuyQuantity">
+            <summary>
+            Max buy order quantity of limit order in base asset
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiSymbol.MaxLimitOrderSellQuantity">
+            <summary>
+            Max sell order quantity of limit order in base asset
             </summary>
         </member>
         <member name="P:Huobi.Net.Objects.HuobiSymbol.MaxLimitOrderQuantity">
             <summary>
-            Max order amount of limit order in base currency
+            Max order quantity of limit order in base asset
             </summary>
         </member>
         <member name="P:Huobi.Net.Objects.HuobiSymbol.MinMarketSellOrderQuantity">
             <summary>
-            Minimum order amount of sell-market order in base currency
+            Minimum order quantity of sell-market order in base asset
             </summary>
         </member>
         <member name="P:Huobi.Net.Objects.HuobiSymbol.MaxMarketSellOrderQuantity">
             <summary>
-            Max order amount of sell-market order in base currency
+            Max order quantity of sell-market order in base asset
             </summary>
         </member>
         <member name="P:Huobi.Net.Objects.HuobiSymbol.MaxMarketBuyOrderValue">
             <summary>
-            Max order value of buy-market order in quote currency
+            Max order value of buy-market order in quote asset
             </summary>
         </member>
         <member name="P:Huobi.Net.Objects.HuobiSymbol.MinOrderValue">
             <summary>
-            Minimum value of the order amount in quote currency
+            Minimum value of the order quantity in quote asset
             </summary>
         </member>
         <member name="P:Huobi.Net.Objects.HuobiSymbol.MaxOrderValue">
@@ -1751,7 +1766,12 @@
         </member>
         <member name="P:Huobi.Net.Objects.HuobiSymbol.ValuePrecision">
             <summary>
-            The precision of the order amount in quote currency
+            The precision of the order quantity in quote asset
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiSymbol.ApiTrading">
+            <summary>
+            Api trading status, enabled or disabled
             </summary>
         </member>
         <member name="T:Huobi.Net.Objects.HuobiSymbolData">
@@ -1759,39 +1779,44 @@
             Symbol data
             </summary>
         </member>
-        <member name="P:Huobi.Net.Objects.HuobiSymbolData.High">
+        <member name="P:Huobi.Net.Objects.HuobiSymbolData.HighPrice">
             <summary>
             The highest price
             </summary>
         </member>
-        <member name="P:Huobi.Net.Objects.HuobiSymbolData.Low">
+        <member name="P:Huobi.Net.Objects.HuobiSymbolData.LowPrice">
             <summary>
             The lowest price
             </summary>
         </member>
-        <member name="P:Huobi.Net.Objects.HuobiSymbolData.Open">
+        <member name="P:Huobi.Net.Objects.HuobiSymbolData.OpenPrice">
             <summary>
             The price at the opening
             </summary>
         </member>
-        <member name="P:Huobi.Net.Objects.HuobiSymbolData.Close">
+        <member name="P:Huobi.Net.Objects.HuobiSymbolData.ClosePrice">
             <summary>
             The last price
             </summary>
         </member>
-        <member name="P:Huobi.Net.Objects.HuobiSymbolData.Quantity">
-            <summary>
-            The amount of the symbol trades
-            </summary>
-        </member>
         <member name="P:Huobi.Net.Objects.HuobiSymbolData.Volume">
             <summary>
-            The volume of the symbol trades (amount * price)
+            The volume in base asset
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiSymbolData.QuoteVolume">
+            <summary>
+            The volume in quote asset (quantity * price)
             </summary>
         </member>
         <member name="P:Huobi.Net.Objects.HuobiSymbolData.TradeCount">
             <summary>
             The number of trades
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiSymbolData.Version">
+            <summary>
+            Version
             </summary>
         </member>
         <member name="T:Huobi.Net.Objects.HuobiSymbolTicker">
@@ -1839,24 +1864,54 @@
             The symbol
             </summary>
         </member>
-        <member name="P:Huobi.Net.Objects.HuobiSymbolTick.BidSize">
+        <member name="P:Huobi.Net.Objects.HuobiSymbolTick.BestBidQuantity">
             <summary>
-            Size of the best bid
+            Quantity of the best bid
             </summary>
         </member>
-        <member name="P:Huobi.Net.Objects.HuobiSymbolTick.AskSize">
+        <member name="P:Huobi.Net.Objects.HuobiSymbolTick.BestAskQuantity">
             <summary>
-            Size of the best ask
+            Quantity of the best ask
             </summary>
         </member>
-        <member name="P:Huobi.Net.Objects.HuobiSymbolTick.Bid">
+        <member name="P:Huobi.Net.Objects.HuobiSymbolTick.BestBidPrice">
             <summary>
             Best bid price
             </summary>
         </member>
-        <member name="P:Huobi.Net.Objects.HuobiSymbolTick.Ask">
+        <member name="P:Huobi.Net.Objects.HuobiSymbolTick.BestAskPrice">
             <summary>
             Best ask price
+            </summary>
+        </member>
+        <member name="T:Huobi.Net.Objects.HuobiSymbolStatus">
+            <summary>
+            Status of the symbol
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiSymbolStatus.Status">
+            <summary>
+            The status
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiSymbolStatus.HaltStartTime">
+            <summary>
+            Start time of when market halted
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiSymbolStatus.HaltEndTime">
+            <summary>
+            Estimated end time of the halt
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiSymbolStatus.HaltReason">
+            <summary>
+            Reason for halting
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiSymbolStatus.AffectedSymbols">
+            <summary>
+            Affected symbols, comma separated or 'all' if all symbols are affected
             </summary>
         </member>
         <member name="T:Huobi.Net.Objects.HuobiSymbolTickMerged">
@@ -1872,11 +1927,6 @@
         <member name="P:Huobi.Net.Objects.HuobiSymbolTickMerged.Id">
             <summary>
             The id of the tick
-            </summary>
-        </member>
-        <member name="P:Huobi.Net.Objects.HuobiSymbolTickMerged.Version">
-            <summary>
-            Version
             </summary>
         </member>
         <member name="P:Huobi.Net.Objects.HuobiSymbolTickMerged.BestBid">
@@ -1961,6 +2011,11 @@
         </member>
         <member name="P:Huobi.Net.Objects.HuobiSymbolTradeDetails.Id">
             <summary>
+            The id of the update
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiSymbolTradeDetails.TradeId">
+            <summary>
             The id of the trade
             </summary>
         </member>
@@ -1971,7 +2026,7 @@
         </member>
         <member name="P:Huobi.Net.Objects.HuobiSymbolTradeDetails.Quantity">
             <summary>
-            The amount of the trade
+            The quantity of the trade
             </summary>
         </member>
         <member name="P:Huobi.Net.Objects.HuobiSymbolTradeDetails.Side">
@@ -2029,9 +2084,9 @@
             Account update
             </summary>
         </member>
-        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiAccountUpdate.Currency">
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiAccountUpdate.Asset">
             <summary>
-            Currency
+            Asset
             </summary>
         </member>
         <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiAccountUpdate.AccountId">
@@ -2069,84 +2124,84 @@
             Update sequence number
             </summary>
         </member>
-        <member name="T:Huobi.Net.Objects.SocketObjects.V2.HuobiOrderCancellationUpdate">
+        <member name="T:Huobi.Net.Objects.SocketObjects.V2.HuobiOrderCancelationUpdate">
             <summary>
-            Cancellation details
+            Cancelation details
             </summary>
         </member>
-        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiOrderCancellationUpdate.EventType">
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiOrderCancelationUpdate.EventType">
             <summary>
             Event type
             </summary>
         </member>
-        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiOrderCancellationUpdate.Symbol">
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiOrderCancelationUpdate.Symbol">
             <summary>
             The symbol
             </summary>
         </member>
-        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiOrderCancellationUpdate.OrderId">
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiOrderCancelationUpdate.OrderId">
             <summary>
             Order id
             </summary>
         </member>
-        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiOrderCancellationUpdate.Side">
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiOrderCancelationUpdate.Side">
             <summary>
             Order side
             </summary>
         </member>
-        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiOrderCancellationUpdate.Type">
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiOrderCancelationUpdate.Type">
             <summary>
             Order type
             </summary>
         </member>
-        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiOrderCancellationUpdate.AccountId">
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiOrderCancelationUpdate.AccountId">
             <summary>
             Account id
             </summary>
         </member>
-        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiOrderCancellationUpdate.OrderSource">
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiOrderCancelationUpdate.OrderSource">
             <summary>
             Order source
             </summary>
         </member>
-        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiOrderCancellationUpdate.OrderPrice">
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiOrderCancelationUpdate.OrderPrice">
             <summary>
             Order price
             </summary>
         </member>
-        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiOrderCancellationUpdate.OrderSize">
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiOrderCancelationUpdate.OrderQuantity">
             <summary>
-            Order size
+            Order quantity
             </summary>
         </member>
-        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiOrderCancellationUpdate.ClientOrderId">
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiOrderCancelationUpdate.ClientOrderId">
             <summary>
             Client order id
             </summary>
         </member>
-        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiOrderCancellationUpdate.StopPrice">
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiOrderCancelationUpdate.StopPrice">
             <summary>
             Stop price
             </summary>
         </member>
-        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiOrderCancellationUpdate.Operator">
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiOrderCancelationUpdate.Operator">
             <summary>
             Operator
             </summary>
         </member>
-        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiOrderCancellationUpdate.OrderCreateTime">
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiOrderCancelationUpdate.OrderCreateTime">
             <summary>
             Order creation time
             </summary>
         </member>
-        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiOrderCancellationUpdate.OrderStatus">
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiOrderCancelationUpdate.OrderStatus">
             <summary>
             Order status
             </summary>
         </member>
-        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiOrderCancellationUpdate.RemainingQuantity">
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiOrderCancelationUpdate.QuantityRemaining">
             <summary>
-            Remaining amount
+            Remaining quantity
             </summary>
         </member>
         <member name="T:Huobi.Net.Objects.SocketObjects.V2.HuobiOrderUpdate">
@@ -2174,7 +2229,7 @@
             Order status
             </summary>
         </member>
-        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiOrderUpdate.LastActTime">
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiOrderUpdate.UpdateTime">
             <summary>
             Timestamp
             </summary>
@@ -2199,12 +2254,12 @@
             Price of the order
             </summary>
         </member>
-        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiSubmittedOrderUpdate.Size">
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiSubmittedOrderUpdate.Quantity">
             <summary>
-            Size of the order
+            Quantity of the order
             </summary>
         </member>
-        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiSubmittedOrderUpdate.Value">
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiSubmittedOrderUpdate.QuoteQuantity">
             <summary>
             Value of the order
             </summary>
@@ -2234,7 +2289,7 @@
             Trade price
             </summary>
         </member>
-        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiMatchedOrderUpdate.TradeVolume">
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiMatchedOrderUpdate.TradeQuantity">
             <summary>
             Trade volume
             </summary>
@@ -2264,14 +2319,14 @@
             Is the taker
             </summary>
         </member>
-        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiMatchedOrderUpdate.RemainingQuantity">
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiMatchedOrderUpdate.QuantityRemaining">
             <summary>
-            Remaining amount
+            Remaining quantity
             </summary>
         </member>
-        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiMatchedOrderUpdate.ExecutedQuantity">
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiMatchedOrderUpdate.QuantityFilled">
             <summary>
-            Executed amount
+            Executed quantity
             </summary>
         </member>
         <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiMatchedOrderUpdate.Price">
@@ -2279,9 +2334,9 @@
             Price of the order
             </summary>
         </member>
-        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiMatchedOrderUpdate.Size">
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiMatchedOrderUpdate.Quantity">
             <summary>
-            Size of the order
+            Quantity of the order
             </summary>
         </member>
         <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiMatchedOrderUpdate.OrderSource">
@@ -2289,42 +2344,42 @@
             Order source
             </summary>
         </member>
-        <member name="T:Huobi.Net.Objects.SocketObjects.V2.HuobiCancelledOrderUpdate">
+        <member name="T:Huobi.Net.Objects.SocketObjects.V2.HuobiCanceledOrderUpdate">
             <summary>
-            Cancelled order update
+            Canceled order update
             </summary>
         </member>
-        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiCancelledOrderUpdate.OrderId">
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiCanceledOrderUpdate.OrderId">
             <summary>
             Order id
             </summary>
         </member>
-        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiCancelledOrderUpdate.Type">
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiCanceledOrderUpdate.Type">
             <summary>
             Order type
             </summary>
         </member>
-        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiCancelledOrderUpdate.RemainingQuantity">
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiCanceledOrderUpdate.QuantityRemaining">
             <summary>
-            Remaining amount
+            Remaining quantity
             </summary>
         </member>
-        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiCancelledOrderUpdate.ExecutedQuantity">
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiCanceledOrderUpdate.QuantityFilled">
             <summary>
-            Executed amount
+            Executed quantity
             </summary>
         </member>
-        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiCancelledOrderUpdate.Price">
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiCanceledOrderUpdate.Price">
             <summary>
             Price of the order
             </summary>
         </member>
-        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiCancelledOrderUpdate.Size">
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiCanceledOrderUpdate.Quantity">
             <summary>
-            Size of the order
+            Quantity of the order
             </summary>
         </member>
-        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiCancelledOrderUpdate.OrderSource">
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiCanceledOrderUpdate.OrderSource">
             <summary>
             Order source
             </summary>
@@ -2369,12 +2424,12 @@
             Order id
             </summary>
         </member>
-        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiTradeUpdate.TradePrice">
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiTradeUpdate.Price">
             <summary>
             Price of this trade
             </summary>
         </member>
-        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiTradeUpdate.TradeVolume">
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiTradeUpdate.Quantity">
             <summary>
             Volume of this trade
             </summary>
@@ -2394,12 +2449,12 @@
             Is the taker
             </summary>
         </member>
-        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiTradeUpdate.TradeId">
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiTradeUpdate.Id">
             <summary>
             Trade id
             </summary>
         </member>
-        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiTradeUpdate.TradeTime">
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiTradeUpdate.Timestamp">
             <summary>
             Time of trade
             </summary>
@@ -2409,14 +2464,14 @@
             Transaction fee
             </summary>
         </member>
-        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiTradeUpdate.FeeCurrency">
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiTradeUpdate.FeeAsset">
             <summary>
-            Currency of the fee
+            Asset of the fee
             </summary>
         </member>
         <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiTradeUpdate.FeeDeduct">
             <summary>
-            Fee deduction amount
+            Fee deduction quantity
             </summary>
         </member>
         <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiTradeUpdate.FeeDeductType">
@@ -2439,9 +2494,9 @@
             Order price
             </summary>
         </member>
-        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiTradeUpdate.OrderSize">
+        <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiTradeUpdate.OrderQuantity">
             <summary>
-            Order size
+            Order quantity
             </summary>
         </member>
         <member name="P:Huobi.Net.Objects.SocketObjects.V2.HuobiTradeUpdate.ClientOrderId">
@@ -2484,17 +2539,22 @@
             Define transfer type to search, possible values: [deposit, withdraw]
             </summary>
         </member>
-        <member name="P:Huobi.Net.Objects.WithdrawDeposit.Currency">
+        <member name="P:Huobi.Net.Objects.WithdrawDeposit.SubType">
             <summary>
-            The crypto currency to withdraw
+            Sub type
             </summary>
         </member>
-        <member name="P:Huobi.Net.Objects.WithdrawDeposit.TxHash">
+        <member name="P:Huobi.Net.Objects.WithdrawDeposit.Asset">
+            <summary>
+            The crypto asset to withdraw
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.WithdrawDeposit.TransactionHash">
             <summary>
             The on-chain transaction hash
             </summary>
         </member>
-        <member name="P:Huobi.Net.Objects.WithdrawDeposit.Chain">
+        <member name="P:Huobi.Net.Objects.WithdrawDeposit.Network">
             <summary>
             Block chain name
             </summary>
@@ -2512,6 +2572,11 @@
         <member name="P:Huobi.Net.Objects.WithdrawDeposit.AddressTag">
             <summary>
             The user defined address tag
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.WithdrawDeposit.FromAddressTag">
+            <summary>
+            The address tag of the address its from
             </summary>
         </member>
         <member name="P:Huobi.Net.Objects.WithdrawDeposit.Fee">
@@ -2534,12 +2599,12 @@
             Error description of withdrawal failure, only returned when the type is "withdraw" and the state is "reject", "wallet-reject" and "failed".
             </summary>
         </member>
-        <member name="P:Huobi.Net.Objects.WithdrawDeposit.CreatedAt">
+        <member name="P:Huobi.Net.Objects.WithdrawDeposit.CreateTime">
             <summary>
             The timestamp in milliseconds for the transfer creation
             </summary>
         </member>
-        <member name="P:Huobi.Net.Objects.WithdrawDeposit.UpdatedAt">
+        <member name="P:Huobi.Net.Objects.WithdrawDeposit.UpdateTime">
             <summary>
             The timestamp in milliseconds for the transfer's latest update
             </summary>
@@ -2561,7 +2626,7 @@
         </member>
         <member name="E:Huobi.Net.HuobiClient.OnOrderCanceled">
             <summary>
-            Event triggered when an order is cancelled via this client
+            Event triggered when an order is canceled via this client
             </summary>
         </member>
         <member name="M:Huobi.Net.HuobiClient.#ctor">
@@ -2588,358 +2653,112 @@
             <param name="apiSecret">The api secret</param>
         </member>
         <member name="M:Huobi.Net.HuobiClient.GetTickersAsync(System.Threading.CancellationToken)">
-            <summary>
-            Gets the latest ticker for all symbols
-            </summary>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
+            <inheritdoc />
         </member>
         <member name="M:Huobi.Net.HuobiClient.GetMergedTickerAsync(System.String,System.Threading.CancellationToken)">
-            <summary>
-            Gets the ticker, including the best bid / best ask for a symbol
-            </summary>
-            <param name="symbol">The symbol to get the ticker for</param>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
+            <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.HuobiClient.GetKlinesAsync(System.String,Huobi.Net.Objects.HuobiPeriod,System.Int32,System.Threading.CancellationToken)">
-            <summary>
-            Get candlestick data for a symbol
-            </summary>
-            <param name="symbol">The symbol to get the data for</param>
-            <param name="period">The period of a single candlestick</param>
-            <param name="size">The amount of candlesticks</param>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
+        <member name="M:Huobi.Net.HuobiClient.GetKlinesAsync(System.String,Huobi.Net.Enums.KlineInterval,System.Int32,System.Threading.CancellationToken)">
+            <inheritdoc />
         </member>
         <member name="M:Huobi.Net.HuobiClient.GetOrderBookAsync(System.String,System.Int32,System.Nullable{System.Int32},System.Threading.CancellationToken)">
-            <summary>
-            Gets the order book for a symbol
-            </summary>
-            <param name="symbol">The symbol to request for</param>
-            <param name="mergeStep">The way the results will be merged together</param>
-            <param name="limit">The depth of the book</param>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
+            <inheritdoc />
         </member>
         <member name="M:Huobi.Net.HuobiClient.GetLastTradeAsync(System.String,System.Threading.CancellationToken)">
-            <summary>
-            Gets the last trade for a symbol
-            </summary>
-            <param name="symbol">The symbol to request for</param>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
+            <inheritdoc />
         </member>
         <member name="M:Huobi.Net.HuobiClient.GetTradeHistoryAsync(System.String,System.Int32,System.Threading.CancellationToken)">
-            <summary>
-            Get the last x trades for a symbol
-            </summary>
-            <param name="symbol">The symbol to get trades for</param>
-            <param name="limit">The max number of results</param>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
+            <inheritdoc />
         </member>
         <member name="M:Huobi.Net.HuobiClient.GetSymbolDetails24HAsync(System.String,System.Threading.CancellationToken)">
-            <summary>
-            Gets 24h stats for a symbol
-            </summary>
-            <param name="symbol">The symbol to get the data for</param>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
+            <inheritdoc />
         </member>
         <member name="M:Huobi.Net.HuobiClient.GetNavAsync(System.String,System.Threading.CancellationToken)">
-            <summary>
-            Gets real time NAV for ETP
-            </summary>
-            <param name="symbol">The symbol to get the data for</param>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
+            <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.HuobiClient.GetMarketStatusAsync(System.Threading.CancellationToken)">
-            <summary>
-            Gets the current market status
-            </summary>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
+        <member name="M:Huobi.Net.HuobiClient.GetSymbolStatusAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
         </member>
         <member name="M:Huobi.Net.HuobiClient.GetSymbolsAsync(System.Threading.CancellationToken)">
-            <summary>
-            Gets a list of supported symbols
-            </summary>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
+            <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.HuobiClient.GetCurrenciesAsync(System.Threading.CancellationToken)">
-            <summary>
-            Gets a list of supported currencies
-            </summary>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
+        <member name="M:Huobi.Net.HuobiClient.GetAssetsAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.HuobiClient.GetCurrenciesAndChainsAsync(System.String,System.Threading.CancellationToken)">
-            <summary>
-            Gets a list of supported currencies and chains
-            </summary>
-            <param name="currency">Filter by currency</param>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
+        <member name="M:Huobi.Net.HuobiClient.GetAssetDetailsAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
         </member>
         <member name="M:Huobi.Net.HuobiClient.GetServerTimeAsync(System.Threading.CancellationToken)">
-            <summary>
-            Gets the server time
-            </summary>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
+            <inheritdoc />
         </member>
         <member name="M:Huobi.Net.HuobiClient.GetAccountsAsync(System.Threading.CancellationToken)">
-            <summary>
-            Gets a list of accounts associated with the apikey/secret
-            </summary>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
+            <inheritdoc />
         </member>
         <member name="M:Huobi.Net.HuobiClient.GetBalancesAsync(System.Int64,System.Threading.CancellationToken)">
-            <summary>
-            Gets a list of balances for a specific account
-            </summary>
-            <param name="accountId">The id of the account to get the balances for</param>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
+            <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.HuobiClient.GetAssetValuationAsync(Huobi.Net.Objects.HuobiAccountType,System.String,System.Nullable{System.Int64},System.Threading.CancellationToken)">
-            <summary>
-            Gets the valuation of all assets
-            </summary>
-            <param name="accountType">Type of account to valuate</param>
-            <param name="valuationCurrency">The currency to get the value in</param>
-            <param name="subUserId">The id of the sub user</param>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
+        <member name="M:Huobi.Net.HuobiClient.GetAssetValuationAsync(Huobi.Net.Enums.AccountType,System.String,System.Nullable{System.Int64},System.Threading.CancellationToken)">
+            <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.HuobiClient.TransferAssetAsync(System.Int64,Huobi.Net.Objects.HuobiAccountType,System.Int64,System.Int64,Huobi.Net.Objects.HuobiAccountType,System.Int64,System.String,System.Decimal,System.Threading.CancellationToken)">
-            <summary>
-            Transfer assets between accounts
-            </summary>
-            <param name="fromUserId">From user id</param>
-            <param name="fromAccountType">From account type</param>
-            <param name="fromAccountId">From account id</param>
-            <param name="toUserId">To user id</param>
-            <param name="toAccountType">To account type</param>
-            <param name="toAccountId">To account id</param>
-            <param name="currency">Currency to transfer</param>
-            <param name="quantity">Amount to transfer</param>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
+        <member name="M:Huobi.Net.HuobiClient.TransferAssetAsync(System.Int64,Huobi.Net.Enums.AccountType,System.Int64,System.Int64,Huobi.Net.Enums.AccountType,System.Int64,System.String,System.Decimal,System.Threading.CancellationToken)">
+            <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.HuobiClient.GetAccountHistoryAsync(System.Int64,System.String,System.Collections.Generic.IEnumerable{Huobi.Net.Objects.HuobiTransactionType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Huobi.Net.Objects.HuobiSortingType},System.Nullable{System.Int32},System.Threading.CancellationToken)">
-            <summary>
-            Gets a list of amount changes of specified user's account
-            </summary>
-            <param name="accountId">The id of the account to get the balances for</param>
-            <param name="currency">Currency name</param>
-            <param name="transactionTypes">Amount change types</param>
-            <param name="startTime">Far point of time of the query window. The maximum size of the query window is 1 hour. The query window can be shifted within 30 days</param>
-            <param name="endTime">Near point of time of the query window. The maximum size of the query window is 1 hour. The query window can be shifted within 30 days</param>
-            <param name="sort">Sorting order (Ascending by default)</param>
-            <param name="size">Maximum number of items in each response (from 1 to 500, default is 100)</param>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
+        <member name="M:Huobi.Net.HuobiClient.GetAccountHistoryAsync(System.Int64,System.String,System.Collections.Generic.IEnumerable{Huobi.Net.Enums.TransactionType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Huobi.Net.Enums.SortingType},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.HuobiClient.GetAccountLedgerAsync(System.Int64,System.String,System.Collections.Generic.IEnumerable{Huobi.Net.Objects.HuobiTransactionType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Huobi.Net.Objects.HuobiSortingType},System.Nullable{System.Int32},System.Nullable{System.Int64},System.Threading.CancellationToken)">
-            <summary>
-            This endpoint returns the amount changes of specified user's account.
-            </summary>
-            <param name="accountId">The id of the account to get the ledger for</param>
-            <param name="currency">Currency name</param>
-            <param name="transactionTypes">Amount change types</param>
-            <param name="startTime">Far point of time of the query window. The maximum size of the query window is 10 days. The query window can be shifted within 30 days</param>
-            <param name="endTime">Near point of time of the query window. The maximum size of the query window is 10 days. The query window can be shifted within 30 days</param>
-            <param name="sort">Sorting order (Ascending by default)</param>
-            <param name="size">Maximum number of items in each response (from 1 to 500, default is 100)</param>
-            <param name="fromId">Only get orders with ID before or after this. Used together with the direction parameter</param>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
+        <member name="M:Huobi.Net.HuobiClient.GetAccountLedgerAsync(System.Int64,System.String,System.Collections.Generic.IEnumerable{Huobi.Net.Enums.TransactionType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Huobi.Net.Enums.SortingType},System.Nullable{System.Int32},System.Nullable{System.Int64},System.Threading.CancellationToken)">
+            <inheritdoc />
         </member>
         <member name="M:Huobi.Net.HuobiClient.GetSubAccountBalancesAsync(System.Int64,System.Threading.CancellationToken)">
-            <summary>
-            Gets a list of balances for a specific sub account
-            </summary>
-            <param name="subAccountId">The id of the sub account to get the balances for</param>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
+            <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.HuobiClient.TransferWithSubAccountAsync(System.Int64,System.String,System.Decimal,Huobi.Net.Objects.HuobiTransferType,System.Threading.CancellationToken)">
-            <summary>
-            Transfer asset between parent and sub account
-            </summary>
-            <param name="subAccountId">The target sub account id to transfer to or from</param>
-            <param name="currency">The crypto currency to transfer</param>
-            <param name="quantity">The amount of asset to transfer</param>
-            <param name="transferType">The type of transfer</param>
-            <param name="ct">Cancellation token</param>
-            <returns>Unique transfer id</returns>
+        <member name="M:Huobi.Net.HuobiClient.TransferWithSubAccountAsync(System.Int64,System.String,System.Decimal,Huobi.Net.Enums.TransferType,System.Threading.CancellationToken)">
+            <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.HuobiClient.PlaceOrderAsync(System.Int64,System.String,Huobi.Net.Objects.HuobiOrderType,System.Decimal,System.Nullable{System.Decimal},System.String,System.Nullable{Huobi.Net.Enums.SourceType},System.Nullable{System.Decimal},System.Nullable{Huobi.Net.Enums.Operator},System.Threading.CancellationToken)">
-            <summary>
-            Places an order
-            </summary>
-            <param name="accountId">The account to place the order for</param>
-            <param name="symbol">The symbol to place the order for</param>
-            <param name="orderType">The type of the order</param>
-            <param name="quantity">The amount of the order</param>
-            <param name="price">The price of the order. Should be omitted for market orders</param>
-            <param name="clientOrderId">The clientOrderId the order should get</param>
-            <param name="source">Source. defaults to SpotAPI</param>
-            <param name="stopPrice">Stop price</param>
-            <param name="stopOperator">Operator of the stop price</param>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
+        <member name="M:Huobi.Net.HuobiClient.PlaceOrderAsync(System.Int64,System.String,Huobi.Net.Enums.OrderType,System.Decimal,System.Nullable{System.Decimal},System.String,System.Nullable{Huobi.Net.Enums.SourceType},System.Nullable{System.Decimal},System.Nullable{Huobi.Net.Enums.Operator},System.Threading.CancellationToken)">
+            <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.HuobiClient.GetOpenOrdersAsync(System.Nullable{System.Int64},System.String,System.Nullable{Huobi.Net.Objects.HuobiOrderSide},System.Nullable{System.Int32},System.Threading.CancellationToken)">
-            <summary>
-            Gets a list of open orders
-            </summary>
-            <param name="accountId">The account id for which to get the orders for</param>
-            <param name="symbol">The symbol for which to get the orders for</param>
-            <param name="side">Only get buy or sell orders</param>
-            <param name="limit">The max number of results</param>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
+        <member name="M:Huobi.Net.HuobiClient.GetOpenOrdersAsync(System.Nullable{System.Int64},System.String,System.Nullable{Huobi.Net.Enums.OrderSide},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <inheritdoc />
         </member>
         <member name="M:Huobi.Net.HuobiClient.CancelOrderAsync(System.Int64,System.Threading.CancellationToken)">
-            <summary>
-            Cancels an open order
-            </summary>
-            <param name="orderId">The id of the order to cancel</param>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
+            <inheritdoc />
         </member>
         <member name="M:Huobi.Net.HuobiClient.CancelOrderByClientOrderIdAsync(System.String,System.Threading.CancellationToken)">
-            <summary>
-            Cancels an open order
-            </summary>
-            <param name="clientOrderId">The client id of the order to cancel</param>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
+            <inheritdoc />
         </member>
         <member name="M:Huobi.Net.HuobiClient.CancelOrdersAsync(System.Collections.Generic.IEnumerable{System.Int64},System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
-            <summary>
-            Cancel multiple open orders
-            </summary>
-            <param name="orderIds">The ids of the orders to cancel</param>
-            <param name="clientOrderIds">The client ids of the orders to cancel</param>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
+            <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.HuobiClient.CancelOrdersByCriteriaAsync(System.Nullable{System.Int64},System.Collections.Generic.IEnumerable{System.String},System.Nullable{Huobi.Net.Objects.HuobiOrderSide},System.Nullable{System.Int32},System.Threading.CancellationToken)">
-            <summary>
-            Cancel multiple open orders
-            </summary>
-            <param name="accountId">The account id used for this cancel</param>
-            <param name="symbols">The trading symbol list (maximum 10 symbols, default value all symbols)</param>
-            <param name="side">Filter on the direction of the trade</param>
-            <param name="limit">The number of orders to cancel [1, 100]</param>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
+        <member name="M:Huobi.Net.HuobiClient.CancelOrdersByCriteriaAsync(System.Nullable{System.Int64},System.Collections.Generic.IEnumerable{System.String},System.Nullable{Huobi.Net.Enums.OrderSide},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <inheritdoc />
         </member>
         <member name="M:Huobi.Net.HuobiClient.GetOrderAsync(System.Int64,System.Threading.CancellationToken)">
-            <summary>
-            Get details of an order
-            </summary>
-            <param name="orderId">The id of the order to retrieve</param>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
+            <inheritdoc />
         </member>
         <member name="M:Huobi.Net.HuobiClient.GetOrderByClientOrderIdAsync(System.String,System.Threading.CancellationToken)">
-            <summary>
-            Get details of an order by client order id
-            </summary>
-            <param name="clientOrderId">The client id of the order to retrieve</param>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
+            <inheritdoc />
         </member>
         <member name="M:Huobi.Net.HuobiClient.GetOrderTradesAsync(System.Int64,System.Threading.CancellationToken)">
-            <summary>
-            Gets a list of trades made for a specific order
-            </summary>
-            <param name="orderId">The id of the order to get trades for</param>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
+            <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.HuobiClient.GetOrdersAsync(System.Collections.Generic.IEnumerable{Huobi.Net.Objects.HuobiOrderState},System.String,System.Collections.Generic.IEnumerable{Huobi.Net.Objects.HuobiOrderType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int64},System.Nullable{Huobi.Net.Objects.HuobiFilterDirection},System.Nullable{System.Int32},System.Threading.CancellationToken)">
-            <summary>
-            Gets a list of orders
-            </summary>
-            <param name="symbol">The symbol to get orders for</param>
-            <param name="states">The states of orders to return</param>
-            <param name="types">The types of orders to return</param>
-            <param name="startTime">Only get orders after this date</param>
-            <param name="endTime">Only get orders before this date</param>
-            <param name="fromId">Only get orders with ID before or after this. Used together with the direction parameter</param>
-            <param name="direction">Direction of the results to return when using the fromId parameter</param>
-            <param name="limit">The max number of results</param>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
+        <member name="M:Huobi.Net.HuobiClient.GetOrdersAsync(System.Collections.Generic.IEnumerable{Huobi.Net.Enums.OrderState},System.String,System.Collections.Generic.IEnumerable{Huobi.Net.Enums.OrderType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int64},System.Nullable{Huobi.Net.Enums.FilterDirection},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.HuobiClient.GetUserTradesAsync(System.Collections.Generic.IEnumerable{Huobi.Net.Objects.HuobiOrderState},System.String,System.Collections.Generic.IEnumerable{Huobi.Net.Objects.HuobiOrderType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int64},System.Nullable{Huobi.Net.Objects.HuobiFilterDirection},System.Nullable{System.Int32},System.Threading.CancellationToken)">
-            <summary>
-            Gets a list of trades for a specific symbol
-            </summary>
-            <param name="states">Only return trades with specific states</param>
-            <param name="symbol">The symbol to retrieve trades for</param>
-            <param name="types">The type of orders to return</param>
-            <param name="startTime">Only get orders after this date</param>
-            <param name="endTime">Only get orders before this date</param>
-            <param name="fromId">Only get orders with ID before or after this. Used together with the direction parameter</param>
-            <param name="direction">Direction of the results to return when using the fromId parameter</param>
-            <param name="limit">The max number of results</param>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
+        <member name="M:Huobi.Net.HuobiClient.GetUserTradesAsync(System.Collections.Generic.IEnumerable{Huobi.Net.Enums.OrderState},System.String,System.Collections.Generic.IEnumerable{Huobi.Net.Enums.OrderType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int64},System.Nullable{Huobi.Net.Enums.FilterDirection},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.HuobiClient.GetHistoryOrdersAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Huobi.Net.Objects.HuobiFilterDirection},System.Nullable{System.Int32},System.Threading.CancellationToken)">
-            <summary>
-            Gets a list of history orders
-            </summary>
-            <param name="symbol">The symbol to get orders for</param>
-            <param name="startTime">Only get orders after this date</param>
-            <param name="endTime">Only get orders before this date</param>
-            <param name="direction">Direction of the results to return</param>
-            <param name="limit">The max number of results</param>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
+        <member name="M:Huobi.Net.HuobiClient.GetHistoryOrdersAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Huobi.Net.Enums.FilterDirection},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <inheritdoc />
         </member>
         <member name="M:Huobi.Net.HuobiClient.GetDepositAddressesAsync(System.String,System.Threading.CancellationToken)">
-            <summary>
-            Parent user and sub user could query deposit address of corresponding chain, for a specific crypto currency (except IOTA).
-            </summary>
-            <param name="currency">Crypto currency</param>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
+            <inheritdoc />
         </member>
         <member name="M:Huobi.Net.HuobiClient.WithdrawAsync(System.String,System.String,System.Decimal,System.Decimal,System.String,System.String,System.Threading.CancellationToken)">
-            <summary>
-            Parent user creates a withdraw request from spot account to an external address (exists in your withdraw address list), which doesn't require two-factor-authentication.
-            </summary>
-            <param name="address">The desination address of this withdraw</param>
-            <param name="currency">Crypto currency</param>
-            <param name="quantity">The amount of currency to withdraw</param>
-            <param name="fee">The fee to pay with this withdraw</param>
-            <param name="chain">Set as "usdt" to withdraw USDT to OMNI, set as "trc20usdt" to withdraw USDT to TRX</param>
-            <param name="addressTag">A tag specified for this address</param>
-            <param name="ct"></param>
-            <returns></returns>
+            <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.HuobiClient.GetWithdrawDepositAsync(Huobi.Net.Enums.WithdrawDepositType,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{Huobi.Net.Objects.HuobiFilterDirection},System.Threading.CancellationToken)">
-            <summary>
-            Parent user and sub user searche for all existed withdraws and deposits and return their latest status.
-            </summary>
-            <param name="type">Define transfer type to search</param>
-            <param name="currency">The crypto currency to withdraw</param>
-            <param name="from">The transfer id to begin search</param>
-            <param name="size">The number of items to return</param>
-            <param name="direction">the order of response</param>
-            <param name="ct"></param>
-            <returns></returns>
+        <member name="M:Huobi.Net.HuobiClient.GetWithdrawDepositAsync(Huobi.Net.Enums.WithdrawDepositType,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{Huobi.Net.Enums.FilterDirection},System.Threading.CancellationToken)">
+            <inheritdoc />
         </member>
         <member name="M:Huobi.Net.HuobiClient.ConstructRequest(System.Uri,System.Net.Http.HttpMethod,System.Collections.Generic.Dictionary{System.String,System.Object},System.Boolean,CryptoExchange.Net.Objects.HttpMethodParameterPosition,CryptoExchange.Net.Objects.ArrayParametersSerialization,System.Int32,System.Collections.Generic.Dictionary{System.String,System.String})">
             <inheritdoc />
@@ -3120,145 +2939,56 @@
             </summary>
             <param name="options">The options to use for new clients</param>
         </member>
-        <member name="M:Huobi.Net.HuobiSocketClient.GetKlinesAsync(System.String,Huobi.Net.Objects.HuobiPeriod)">
-            <summary>
-            Gets candlestick data for a symbol
-            </summary>
-            <param name="symbol">The symbol to get the data for</param>
-            <param name="period">The period of a single candlestick</param>
-            <returns></returns>
+        <member name="M:Huobi.Net.HuobiSocketClient.GetKlinesAsync(System.String,Huobi.Net.Enums.KlineInterval)">
+            <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.HuobiSocketClient.SubscribeToKlineUpdatesAsync(System.String,Huobi.Net.Objects.HuobiPeriod,System.Action{CryptoExchange.Net.Sockets.DataEvent{Huobi.Net.Objects.HuobiKline}})">
-            <summary>
-            Subscribes to candlestick updates for a symbol
-            </summary>
-            <param name="symbol">The symbol to subscribe to</param>
-            <param name="period">The period of a single candlestick</param>
-            <param name="onData">The handler for updates</param>
-            <returns></returns>
+        <member name="M:Huobi.Net.HuobiSocketClient.SubscribeToKlineUpdatesAsync(System.String,Huobi.Net.Enums.KlineInterval,System.Action{CryptoExchange.Net.Sockets.DataEvent{Huobi.Net.Objects.HuobiKline}})">
+            <inheritdoc />
         </member>
         <member name="M:Huobi.Net.HuobiSocketClient.GetOrderBookWithMergeStepAsync(System.String,System.Int32)">
-            <summary>
-            Gets the current order book for a symbol
-            </summary>
-            <param name="symbol">The symbol to get the data for</param>
-            <param name="mergeStep">The way the results will be merged together</param>
-            <returns></returns>
+            <inheritdoc />
         </member>
         <member name="M:Huobi.Net.HuobiSocketClient.GetOrderBookAsync(System.String,System.Int32)">
-            <summary>
-            Gets the current order book for a symbol
-            </summary>
-            <param name="symbol">The symbol to get the data for</param>
-            <param name="levels">The amount of rows. 5, 20, 150 or 400. Level 5 and 20 are currently only supported for the following symbols: btcusdt, ethusdt, xrpusdt, eosusdt, ltcusdt, etcusdt, adausdt, dashusdt, bsvusdt.</param>
-            <returns></returns>
+            <inheritdoc />
         </member>
         <member name="M:Huobi.Net.HuobiSocketClient.SubscribeToPartialOrderBookUpdates1SecondAsync(System.String,System.Int32,System.Action{CryptoExchange.Net.Sockets.DataEvent{Huobi.Net.Objects.HuobiOrderBook}})">
-            <summary>
-            Subscribes to updates for the top 150 entries in the order book. Updates push the full 150 rows each second
-            </summary>
-            <param name="symbol">The symbol to subscribe to</param>
-            <param name="mergeStep">The way the results will be merged together</param>
-            <param name="onData">The handler for updates</param>
-            <returns></returns>
+            <inheritdoc />
         </member>
         <member name="M:Huobi.Net.HuobiSocketClient.SubscribeToPartialOrderBookUpdates100MilisecondAsync(System.String,System.Int32,System.Action{CryptoExchange.Net.Sockets.DataEvent{Huobi.Net.Objects.HuobiOrderBook}})">
-            <summary>
-            Subscribes to updates for the top levels entries in the order book. Updates push the full x amount of rows each 100ms
-            </summary>
-            <param name="symbol">The symbol to subscribe to</param>
-            <param name="levels">The number of price levels. 5, 10 or 20</param>
-            <param name="onData">The handler for updates</param>
-            <returns></returns>
+            <inheritdoc />
         </member>
         <member name="M:Huobi.Net.HuobiSocketClient.SubscribeToOrderBookChangeUpdatesAsync(System.String,System.Int32,System.Action{CryptoExchange.Net.Sockets.DataEvent{Huobi.Net.Objects.HuobiIncementalOrderBook}})">
-            <summary>
-            Subscribes to order book updates for a symbol, 
-            </summary>
-            <param name="symbol">The symbol to subscribe to</param>
-            <param name="levels">The number of price levels. 5, 20, 150 or 400</param>
-            <param name="onData">The handler for updates</param>
-            <returns></returns>
+            <inheritdoc />
         </member>
         <member name="M:Huobi.Net.HuobiSocketClient.GetTradeHistoryAsync(System.String)">
-            <summary>
-            Gets a list of trades for a symbol
-            </summary>
-            <param name="symbol">The symbol to get trades for</param>
-            <returns></returns>
+            <inheritdoc />
         </member>
         <member name="M:Huobi.Net.HuobiSocketClient.SubscribeToTradeUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Huobi.Net.Objects.HuobiSymbolTrade}})">
-            <summary>
-            Subscribes to trade updates for a symbol
-            </summary>
-            <param name="symbol">The symbol to subscribe to</param>
-            <param name="onData">The handler for updates</param>
-            <returns></returns>
+            <inheritdoc />
         </member>
         <member name="M:Huobi.Net.HuobiSocketClient.GetSymbolDetailsAsync(System.String)">
-            <summary>
-            Gets details for a symbol
-            </summary>
-            <param name="symbol">The symbol to get data for</param>
-            <returns></returns>
+            <inheritdoc />
         </member>
         <member name="M:Huobi.Net.HuobiSocketClient.SubscribeToSymbolDetailUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Huobi.Net.Objects.HuobiSymbolDetails}})">
-            <summary>
-            Subscribes to symbol detail updates for a symbol
-            </summary>
-            <param name="symbol">The symbol to subscribe to</param>
-            <param name="onData">The handler for updates</param>
-            <returns></returns>
+            <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.HuobiSocketClient.SubscribeToSymbolTickerUpdatesAsync(System.Action{CryptoExchange.Net.Sockets.DataEvent{Huobi.Net.Objects.HuobiSymbolDatas}})">
-            <summary>
-            Subscribes to updates for all tickers
-            </summary>
-            <param name="onData">The handler for updates</param>
-            <returns></returns>
+        <member name="M:Huobi.Net.HuobiSocketClient.SubscribeToTickerUpdatesAsync(System.Action{CryptoExchange.Net.Sockets.DataEvent{Huobi.Net.Objects.HuobiSymbolDatas}})">
+            <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.HuobiSocketClient.SubscribeToSymbolTickerUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Huobi.Net.Objects.HuobiSymbolTick}})">
-            <summary>
-            Subscribes to updates for a symbol
-            </summary>
-            <param name="symbol">The symbol to subscribe</param>
-            <param name="onData">The handler for updates</param>
-            <returns></returns>
+        <member name="M:Huobi.Net.HuobiSocketClient.SubscribeToTickerUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Huobi.Net.Objects.HuobiSymbolTick}})">
+            <inheritdoc />
         </member>
         <member name="M:Huobi.Net.HuobiSocketClient.SubscribeToBestOfferUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Huobi.Net.Objects.HuobiBestOffer}})">
-            <summary>
-            Subscribe to changes of a symbol's best ask/bid
-            </summary>
-            <param name="symbol">Symbol to subscribe to</param>
-            <param name="onData">Data handler</param>
-            <returns></returns>
+            <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.HuobiSocketClient.SubscribeToOrderUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Huobi.Net.Objects.SocketObjects.V2.HuobiSubmittedOrderUpdate}},System.Action{CryptoExchange.Net.Sockets.DataEvent{Huobi.Net.Objects.SocketObjects.V2.HuobiMatchedOrderUpdate}},System.Action{CryptoExchange.Net.Sockets.DataEvent{Huobi.Net.Objects.SocketObjects.V2.HuobiCancelledOrderUpdate}},System.Action{CryptoExchange.Net.Sockets.DataEvent{Huobi.Net.Objects.SocketObjects.V2.HuobiTriggerFailureOrderUpdate}},System.Action{CryptoExchange.Net.Sockets.DataEvent{Huobi.Net.Objects.SocketObjects.V2.HuobiOrderUpdate}})">
-            <summary>
-            Subscribe to updates of orders
-            </summary>
-            <param name="symbol">Subscribe on a specific symbol</param>
-            <param name="onOrderSubmitted">Event handler for the order submitted event</param>
-            <param name="onOrderMatched">Event handler for the order matched event</param>
-            <param name="onOrderCancellation">Event handler for the order cancelled event</param>
-            <param name="onConditionalOrderTriggerFailure">Event handler for the conditional order trigger failed event</param>
-            <param name="onConditionalOrderCancelled">Event handler for the condition order cancelled event</param>
-            <returns></returns>
+        <member name="M:Huobi.Net.HuobiSocketClient.SubscribeToOrderUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Huobi.Net.Objects.SocketObjects.V2.HuobiSubmittedOrderUpdate}},System.Action{CryptoExchange.Net.Sockets.DataEvent{Huobi.Net.Objects.SocketObjects.V2.HuobiMatchedOrderUpdate}},System.Action{CryptoExchange.Net.Sockets.DataEvent{Huobi.Net.Objects.SocketObjects.V2.HuobiCanceledOrderUpdate}},System.Action{CryptoExchange.Net.Sockets.DataEvent{Huobi.Net.Objects.SocketObjects.V2.HuobiTriggerFailureOrderUpdate}},System.Action{CryptoExchange.Net.Sockets.DataEvent{Huobi.Net.Objects.SocketObjects.V2.HuobiOrderUpdate}})">
+            <inheritdoc />
         </member>
         <member name="M:Huobi.Net.HuobiSocketClient.SubscribeToAccountUpdatesAsync(System.Action{CryptoExchange.Net.Sockets.DataEvent{Huobi.Net.Objects.SocketObjects.V2.HuobiAccountUpdate}})">
-            <summary>
-            Subscribe to updates of account balances
-            </summary>
-            <returns></returns>
+            <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.HuobiSocketClient.SubscribeToOrderDetailsUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Huobi.Net.Objects.SocketObjects.V2.HuobiTradeUpdate}},System.Action{CryptoExchange.Net.Sockets.DataEvent{Huobi.Net.Objects.SocketObjects.V2.HuobiOrderCancellationUpdate}})">
-            <summary>
-            Subscribe to detailed order matched/cancelled updates
-            </summary>
-            <param name="symbol">Subscribe to a specific symbol</param>
-            <param name="onOrderMatch">Event handler for the order matched event</param>
-            <param name="onOrderCancel">Event handler for the order cancelled event</param>
-            <returns></returns>
+        <member name="M:Huobi.Net.HuobiSocketClient.SubscribeToOrderDetailsUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Huobi.Net.Objects.SocketObjects.V2.HuobiTradeUpdate}},System.Action{CryptoExchange.Net.Sockets.DataEvent{Huobi.Net.Objects.SocketObjects.V2.HuobiOrderCancelationUpdate}})">
+            <inheritdoc />
         </member>
         <member name="M:Huobi.Net.HuobiSocketClient.GetSocketConnection(System.String,System.Boolean)">
             <inheritdoc />
@@ -3334,7 +3064,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetKlinesAsync(System.String,Huobi.Net.Objects.HuobiPeriod,System.Int32,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetKlinesAsync(System.String,Huobi.Net.Enums.KlineInterval,System.Int32,System.Threading.CancellationToken)">
             <summary>
             Get candlestick data for a symbol
             </summary>
@@ -3387,7 +3117,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetMarketStatusAsync(System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetSymbolStatusAsync(System.Threading.CancellationToken)">
             <summary>
             Gets the current market status
             </summary>
@@ -3401,18 +3131,18 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetCurrenciesAsync(System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetAssetsAsync(System.Threading.CancellationToken)">
             <summary>
             Gets a list of supported currencies
             </summary>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetCurrenciesAndChainsAsync(System.String,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetAssetDetailsAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Gets a list of supported currencies and chains
             </summary>
-            <param name="currency">Filter by currency</param>
+            <param name="asset">Filter by asset</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -3438,7 +3168,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetAssetValuationAsync(Huobi.Net.Objects.HuobiAccountType,System.String,System.Nullable{System.Int64},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetAssetValuationAsync(Huobi.Net.Enums.AccountType,System.String,System.Nullable{System.Int64},System.Threading.CancellationToken)">
             <summary>
             Gets the valuation of all assets
             </summary>
@@ -3448,7 +3178,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiClient.TransferAssetAsync(System.Int64,Huobi.Net.Objects.HuobiAccountType,System.Int64,System.Int64,Huobi.Net.Objects.HuobiAccountType,System.Int64,System.String,System.Decimal,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.TransferAssetAsync(System.Int64,Huobi.Net.Enums.AccountType,System.Int64,System.Int64,Huobi.Net.Enums.AccountType,System.Int64,System.String,System.Decimal,System.Threading.CancellationToken)">
             <summary>
             Transfer assets between accounts
             </summary>
@@ -3458,18 +3188,18 @@
             <param name="toUserId">To user id</param>
             <param name="toAccountType">To account type</param>
             <param name="toAccountId">To account id</param>
-            <param name="currency">Currency to transfer</param>
+            <param name="asset">Asset to transfer</param>
             <param name="quantity">Amount to transfer</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetAccountHistoryAsync(System.Int64,System.String,System.Collections.Generic.IEnumerable{Huobi.Net.Objects.HuobiTransactionType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Huobi.Net.Objects.HuobiSortingType},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetAccountHistoryAsync(System.Int64,System.String,System.Collections.Generic.IEnumerable{Huobi.Net.Enums.TransactionType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Huobi.Net.Enums.SortingType},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
-            Gets a list of amount changes of specified user's account
+            Gets a list of balance changes of specified user's account
             </summary>
             <param name="accountId">The id of the account to get the balances for</param>
-            <param name="currency">Currency name</param>
-            <param name="transactionTypes">Amount change types</param>
+            <param name="asset">Asset name</param>
+            <param name="transactionTypes">Blance change types</param>
             <param name="startTime">Far point of time of the query window. The maximum size of the query window is 1 hour. The query window can be shifted within 30 days</param>
             <param name="endTime">Near point of time of the query window. The maximum size of the query window is 1 hour. The query window can be shifted within 30 days</param>
             <param name="sort">Sorting order (Ascending by default)</param>
@@ -3477,13 +3207,13 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetAccountLedgerAsync(System.Int64,System.String,System.Collections.Generic.IEnumerable{Huobi.Net.Objects.HuobiTransactionType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Huobi.Net.Objects.HuobiSortingType},System.Nullable{System.Int32},System.Nullable{System.Int64},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetAccountLedgerAsync(System.Int64,System.String,System.Collections.Generic.IEnumerable{Huobi.Net.Enums.TransactionType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Huobi.Net.Enums.SortingType},System.Nullable{System.Int32},System.Nullable{System.Int64},System.Threading.CancellationToken)">
             <summary>
-            This endpoint returns the amount changes of specified user's account.
+            This endpoint returns the balance changes of specified user's account.
             </summary>
             <param name="accountId">The id of the account to get the ledger for</param>
-            <param name="currency">Currency name</param>
-            <param name="transactionTypes">Amount change types</param>
+            <param name="asset">Asset name</param>
+            <param name="transactionTypes">Blanace change types</param>
             <param name="startTime">Far point of time of the query window. The maximum size of the query window is 10 days. The query window can be shifted within 30 days</param>
             <param name="endTime">Near point of time of the query window. The maximum size of the query window is 10 days. The query window can be shifted within 30 days</param>
             <param name="sort">Sorting order (Ascending by default)</param>
@@ -3500,25 +3230,25 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiClient.TransferWithSubAccountAsync(System.Int64,System.String,System.Decimal,Huobi.Net.Objects.HuobiTransferType,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.TransferWithSubAccountAsync(System.Int64,System.String,System.Decimal,Huobi.Net.Enums.TransferType,System.Threading.CancellationToken)">
             <summary>
             Transfer asset between parent and sub account
             </summary>
             <param name="subAccountId">The target sub account id to transfer to or from</param>
-            <param name="currency">The crypto currency to transfer</param>
-            <param name="quantity">The amount of asset to transfer</param>
+            <param name="asset">The asset to transfer</param>
+            <param name="quantity">The quantity of asset to transfer</param>
             <param name="transferType">The type of transfer</param>
             <param name="ct">Cancellation token</param>
             <returns>Unique transfer id</returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiClient.PlaceOrderAsync(System.Int64,System.String,Huobi.Net.Objects.HuobiOrderType,System.Decimal,System.Nullable{System.Decimal},System.String,System.Nullable{Huobi.Net.Enums.SourceType},System.Nullable{System.Decimal},System.Nullable{Huobi.Net.Enums.Operator},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.PlaceOrderAsync(System.Int64,System.String,Huobi.Net.Enums.OrderType,System.Decimal,System.Nullable{System.Decimal},System.String,System.Nullable{Huobi.Net.Enums.SourceType},System.Nullable{System.Decimal},System.Nullable{Huobi.Net.Enums.Operator},System.Threading.CancellationToken)">
             <summary>
             Places an order
             </summary>
             <param name="accountId">The account to place the order for</param>
             <param name="symbol">The symbol to place the order for</param>
             <param name="orderType">The type of the order</param>
-            <param name="quantity">The amount of the order</param>
+            <param name="quantity">The quantity of the order</param>
             <param name="price">The price of the order. Should be omitted for market orders</param>
             <param name="clientOrderId">The clientOrderId the order should get</param>
             <param name="source">Source. defaults to SpotAPI</param>
@@ -3527,7 +3257,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetOpenOrdersAsync(System.Nullable{System.Int64},System.String,System.Nullable{Huobi.Net.Objects.HuobiOrderSide},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetOpenOrdersAsync(System.Nullable{System.Int64},System.String,System.Nullable{Huobi.Net.Enums.OrderSide},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Gets a list of open orders
             </summary>
@@ -3563,7 +3293,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiClient.CancelOrdersByCriteriaAsync(System.Nullable{System.Int64},System.Collections.Generic.IEnumerable{System.String},System.Nullable{Huobi.Net.Objects.HuobiOrderSide},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.CancelOrdersByCriteriaAsync(System.Nullable{System.Int64},System.Collections.Generic.IEnumerable{System.String},System.Nullable{Huobi.Net.Enums.OrderSide},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Cancel multiple open orders
             </summary>
@@ -3598,7 +3328,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetOrdersAsync(System.Collections.Generic.IEnumerable{Huobi.Net.Objects.HuobiOrderState},System.String,System.Collections.Generic.IEnumerable{Huobi.Net.Objects.HuobiOrderType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int64},System.Nullable{Huobi.Net.Objects.HuobiFilterDirection},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetOrdersAsync(System.Collections.Generic.IEnumerable{Huobi.Net.Enums.OrderState},System.String,System.Collections.Generic.IEnumerable{Huobi.Net.Enums.OrderType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int64},System.Nullable{Huobi.Net.Enums.FilterDirection},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Gets a list of orders
             </summary>
@@ -3613,7 +3343,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetUserTradesAsync(System.Collections.Generic.IEnumerable{Huobi.Net.Objects.HuobiOrderState},System.String,System.Collections.Generic.IEnumerable{Huobi.Net.Objects.HuobiOrderType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int64},System.Nullable{Huobi.Net.Objects.HuobiFilterDirection},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetUserTradesAsync(System.Collections.Generic.IEnumerable{Huobi.Net.Enums.OrderState},System.String,System.Collections.Generic.IEnumerable{Huobi.Net.Enums.OrderType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int64},System.Nullable{Huobi.Net.Enums.FilterDirection},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Gets a list of trades for a specific symbol
             </summary>
@@ -3628,7 +3358,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetHistoryOrdersAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Huobi.Net.Objects.HuobiFilterDirection},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetHistoryOrdersAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Huobi.Net.Enums.FilterDirection},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Gets a list of history orders
             </summary>
@@ -3644,7 +3374,7 @@
             <summary>
             Parent user and sub user could query deposit address of corresponding chain, for a specific crypto currency (except IOTA).
             </summary>
-            <param name="currency">Crypto currency</param>
+            <param name="asset">Asset</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -3653,20 +3383,20 @@
             Parent user creates a withdraw request from spot account to an external address (exists in your withdraw address list), which doesn't require two-factor-authentication.
             </summary>
             <param name="address">The desination address of this withdraw</param>
-            <param name="currency">Crypto currency</param>
-            <param name="quantity">The amount of currency to withdraw</param>
+            <param name="asset">Asset</param>
+            <param name="quantity">The quantity of asset to withdraw</param>
             <param name="fee">The fee to pay with this withdraw</param>
-            <param name="chain">Set as "usdt" to withdraw USDT to OMNI, set as "trc20usdt" to withdraw USDT to TRX</param>
+            <param name="network">Set as "usdt" to withdraw USDT to OMNI, set as "trc20usdt" to withdraw USDT to TRX</param>
             <param name="addressTag">A tag specified for this address</param>
             <param name="ct"></param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetWithdrawDepositAsync(Huobi.Net.Enums.WithdrawDepositType,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{Huobi.Net.Objects.HuobiFilterDirection},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetWithdrawDepositAsync(Huobi.Net.Enums.WithdrawDepositType,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{Huobi.Net.Enums.FilterDirection},System.Threading.CancellationToken)">
             <summary>
             Parent user and sub user searche for all existed withdraws and deposits and return their latest status.
             </summary>
             <param name="type">Define transfer type to search</param>
-            <param name="currency">The crypto currency to withdraw</param>
+            <param name="asset">The asset to withdraw</param>
             <param name="from">The transfer id to begin search</param>
             <param name="size">The number of items to return</param>
             <param name="direction">the order of response</param>
@@ -3685,7 +3415,7 @@
             <param name="apiKey">The api key</param>
             <param name="apiSecret">The api secret</param>
         </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.GetKlinesAsync(System.String,Huobi.Net.Objects.HuobiPeriod)">
+        <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.GetKlinesAsync(System.String,Huobi.Net.Enums.KlineInterval)">
             <summary>
             Gets candlestick data for a symbol
             </summary>
@@ -3693,7 +3423,7 @@
             <param name="period">The period of a single candlestick</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.SubscribeToKlineUpdatesAsync(System.String,Huobi.Net.Objects.HuobiPeriod,System.Action{CryptoExchange.Net.Sockets.DataEvent{Huobi.Net.Objects.HuobiKline}})">
+        <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.SubscribeToKlineUpdatesAsync(System.String,Huobi.Net.Enums.KlineInterval,System.Action{CryptoExchange.Net.Sockets.DataEvent{Huobi.Net.Objects.HuobiKline}})">
             <summary>
             Subscribes to candlestick updates for a symbol
             </summary>
@@ -3775,7 +3505,7 @@
             <param name="onData">The handler for updates</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.SubscribeToSymbolTickerUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Huobi.Net.Objects.HuobiSymbolTick}})">
+        <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.SubscribeToTickerUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Huobi.Net.Objects.HuobiSymbolTick}})">
             <summary>
             Subscribes to updates for a symbol
             </summary>
@@ -3783,7 +3513,7 @@
             <param name="onData">The handler for updates</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.SubscribeToSymbolTickerUpdatesAsync(System.Action{CryptoExchange.Net.Sockets.DataEvent{Huobi.Net.Objects.HuobiSymbolDatas}})">
+        <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.SubscribeToTickerUpdatesAsync(System.Action{CryptoExchange.Net.Sockets.DataEvent{Huobi.Net.Objects.HuobiSymbolDatas}})">
             <summary>
             Subscribes to updates for all tickers
             </summary>
@@ -3798,16 +3528,16 @@
             <param name="onData">Data handler</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.SubscribeToOrderUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Huobi.Net.Objects.SocketObjects.V2.HuobiSubmittedOrderUpdate}},System.Action{CryptoExchange.Net.Sockets.DataEvent{Huobi.Net.Objects.SocketObjects.V2.HuobiMatchedOrderUpdate}},System.Action{CryptoExchange.Net.Sockets.DataEvent{Huobi.Net.Objects.SocketObjects.V2.HuobiCancelledOrderUpdate}},System.Action{CryptoExchange.Net.Sockets.DataEvent{Huobi.Net.Objects.SocketObjects.V2.HuobiTriggerFailureOrderUpdate}},System.Action{CryptoExchange.Net.Sockets.DataEvent{Huobi.Net.Objects.SocketObjects.V2.HuobiOrderUpdate}})">
+        <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.SubscribeToOrderUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Huobi.Net.Objects.SocketObjects.V2.HuobiSubmittedOrderUpdate}},System.Action{CryptoExchange.Net.Sockets.DataEvent{Huobi.Net.Objects.SocketObjects.V2.HuobiMatchedOrderUpdate}},System.Action{CryptoExchange.Net.Sockets.DataEvent{Huobi.Net.Objects.SocketObjects.V2.HuobiCanceledOrderUpdate}},System.Action{CryptoExchange.Net.Sockets.DataEvent{Huobi.Net.Objects.SocketObjects.V2.HuobiTriggerFailureOrderUpdate}},System.Action{CryptoExchange.Net.Sockets.DataEvent{Huobi.Net.Objects.SocketObjects.V2.HuobiOrderUpdate}})">
             <summary>
             Subscribe to updates of orders
             </summary>
             <param name="symbol">Subscribe on a specific symbol</param>
             <param name="onOrderSubmitted">Event handler for the order submitted event</param>
             <param name="onOrderMatched">Event handler for the order matched event</param>
-            <param name="onOrderCancellation">Event handler for the order cancelled event</param>
+            <param name="onOrderCancelation">Event handler for the order cancelled event</param>
             <param name="onConditionalOrderTriggerFailure">Event handler for the conditional order trigger failed event</param>
-            <param name="onConditionalOrderCancelled">Event handler for the condition order cancelled event</param>
+            <param name="onConditionalOrderCanceled">Event handler for the condition order canceled event</param>
             <returns></returns>
         </member>
         <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.SubscribeToAccountUpdatesAsync(System.Action{CryptoExchange.Net.Sockets.DataEvent{Huobi.Net.Objects.SocketObjects.V2.HuobiAccountUpdate}})">
@@ -3816,13 +3546,13 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.SubscribeToOrderDetailsUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Huobi.Net.Objects.SocketObjects.V2.HuobiTradeUpdate}},System.Action{CryptoExchange.Net.Sockets.DataEvent{Huobi.Net.Objects.SocketObjects.V2.HuobiOrderCancellationUpdate}})">
+        <member name="M:Huobi.Net.Interfaces.IHuobiSocketClient.SubscribeToOrderDetailsUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Huobi.Net.Objects.SocketObjects.V2.HuobiTradeUpdate}},System.Action{CryptoExchange.Net.Sockets.DataEvent{Huobi.Net.Objects.SocketObjects.V2.HuobiOrderCancelationUpdate}})">
             <summary>
-            Subscribe to detailed order matched/cancelled updates
+            Subscribe to detailed order matched/canceled updates
             </summary>
             <param name="symbol">Subscribe to a specific symbol</param>
             <param name="onOrderMatch">Event handler for the order matched event</param>
-            <param name="onOrderCancel">Event handler for the order cancelled event</param>
+            <param name="onOrderCancel">Event handler for the order canceled event</param>
             <returns></returns>
         </member>
     </members>

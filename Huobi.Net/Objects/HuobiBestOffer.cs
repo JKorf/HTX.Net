@@ -21,19 +21,23 @@ namespace Huobi.Net.Objects
         /// <summary>
         /// Best bid price
         /// </summary>
-        public decimal Bid { get; set; }
+        [JsonProperty("bid")]
+        public decimal BestBidPrice { get; set; }
         /// <summary>
-        /// Size of the best bid
+        /// Quantity of the best bid
         /// </summary>
-        public decimal BidSize { get; set; }
+        [JsonProperty("bidSize")]
+        public decimal BestBidQuantity { get; set; }
         /// <summary>
         /// Best ask price
         /// </summary>
-        public decimal Ask { get; set; }
+        [JsonProperty("ask")]
+        public decimal BestAskPrice { get; set; }
         /// <summary>
-        /// Size of the best ask
+        /// Quantity of the best ask
         /// </summary>
-        public decimal AskSize { get; set; }
+        [JsonProperty("askSize")]
+        public decimal BestAskQuantity { get; set; }
         /// <summary>
         /// Sequence number
         /// </summary>

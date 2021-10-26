@@ -1,4 +1,5 @@
 ﻿using Huobi.Net.Converters;
+using Huobi.Net.Enums;
 using Newtonsoft.Json;
 
 namespace Huobi.Net.Objects
@@ -9,17 +10,23 @@ namespace Huobi.Net.Objects
     public class HuobiBalance
     {
         /// <summary>
-        /// The currency
+        /// The asset
         /// </summary>
-        public string Currency { get; set; } = string.Empty;
+        [JsonProperty("currency")]
+        public string Asset { get; set; } = string.Empty;
         /// <summary>
         /// The type of the balance
         /// </summary>
         [JsonConverter(typeof(BalanceTypeConverter))]
-        public HuobiBalanceType Type { get; set; }
+        public BalanceType Type { get; set; }
         /// <summary>
-        /// The amount
+        /// The balance
         /// </summary>
         public decimal Balance { get; set; }
+        /// <summary>
+        /// Sequence number of the update
+        /// </summary>
+        [JsonProperty("seq-num")]
+        public string SequenceNumber { get; set; } = string.Empty;
     }
 }

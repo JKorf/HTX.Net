@@ -19,6 +19,7 @@ using Huobi.Net.Objects.SocketObjects.V2;
 using HuobiOrderUpdate = Huobi.Net.Objects.SocketObjects.V2.HuobiOrderUpdate;
 using Microsoft.Extensions.Logging;
 using CryptoExchange.Net.Authentication;
+using Huobi.Net.Enums;
 
 namespace Huobi.Net
 {
@@ -78,13 +79,8 @@ namespace Huobi.Net
             defaultOptions = options;
         }
 
-        /// <summary>
-        /// Gets candlestick data for a symbol
-        /// </summary>
-        /// <param name="symbol">The symbol to get the data for</param>
-        /// <param name="period">The period of a single candlestick</param>
-        /// <returns></returns>
-        public async Task<CallResult<IEnumerable<HuobiKline>>> GetKlinesAsync(string symbol, HuobiPeriod period)
+        /// <inheritdoc />
+        public async Task<CallResult<IEnumerable<HuobiKline>>> GetKlinesAsync(string symbol, KlineInterval period)
         {
             symbol = symbol.ValidateHuobiSymbol();
             var request = new HuobiSocketRequest(NextId().ToString(CultureInfo.InvariantCulture), $"market.{symbol}.kline.{JsonConvert.SerializeObject(period, new PeriodConverter(false))}");
@@ -92,14 +88,8 @@ namespace Huobi.Net
             return new CallResult<IEnumerable<HuobiKline>>(result.Data?.Data, result.Error);
         }
 
-        /// <summary>
-        /// Subscribes to candlestick updates for a symbol
-        /// </summary>
-        /// <param name="symbol">The symbol to subscribe to</param>
-        /// <param name="period">The period of a single candlestick</param>
-        /// <param name="onData">The handler for updates</param>
-        /// <returns></returns>
-        public async Task<CallResult<UpdateSubscription>> SubscribeToKlineUpdatesAsync(string symbol, HuobiPeriod period, Action<DataEvent<HuobiKline>> onData)
+        /// <inheritdoc />
+        public async Task<CallResult<UpdateSubscription>> SubscribeToKlineUpdatesAsync(string symbol, KlineInterval period, Action<DataEvent<HuobiKline>> onData)
         {
             symbol = symbol.ValidateHuobiSymbol();
             var request = new HuobiSubscribeRequest(NextId().ToString(CultureInfo.InvariantCulture), $"market.{symbol}.kline.{JsonConvert.SerializeObject(period, new PeriodConverter(false))}");
@@ -107,12 +97,7 @@ namespace Huobi.Net
             return await SubscribeAsync(request, null, false, internalHandler).ConfigureAwait(false);
         }
 
-        /// <summary>
-        /// Gets the current order book for a symbol
-        /// </summary>
-        /// <param name="symbol">The symbol to get the data for</param>
-        /// <param name="mergeStep">The way the results will be merged together</param>
-        /// <returns></returns>
+        /// <inheritdoc />
         public async Task<CallResult<HuobiOrderBook>> GetOrderBookWithMergeStepAsync(string symbol, int mergeStep)
         {
             symbol = symbol.ValidateHuobiSymbol();
@@ -127,12 +112,7 @@ namespace Huobi.Net
             return new CallResult<HuobiOrderBook>(result.Data.Data, null);
         }
 
-        /// <summary>
-        /// Gets the current order book for a symbol
-        /// </summary>
-        /// <param name="symbol">The symbol to get the data for</param>
-        /// <param name="levels">The amount of rows. 5, 20, 150 or 400. Level 5 and 20 are currently only supported for the following symbols: btcusdt, ethusdt, xrpusdt, eosusdt, ltcusdt, etcusdt, adausdt, dashusdt, bsvusdt.</param>
-        /// <returns></returns>
+        /// <inheritdoc />
         public async Task<CallResult<HuobiIncementalOrderBook>> GetOrderBookAsync(string symbol, int levels)
         {
             symbol = symbol.ValidateHuobiSymbol();
@@ -154,13 +134,7 @@ namespace Huobi.Net
             return new CallResult<HuobiIncementalOrderBook>(result.Data.Data, null);
         }
 
-        /// <summary>
-        /// Subscribes to updates for the top 150 entries in the order book. Updates push the full 150 rows each second
-        /// </summary>
-        /// <param name="symbol">The symbol to subscribe to</param>
-        /// <param name="mergeStep">The way the results will be merged together</param>
-        /// <param name="onData">The handler for updates</param>
-        /// <returns></returns>
+        /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToPartialOrderBookUpdates1SecondAsync(string symbol, int mergeStep, Action<DataEvent<HuobiOrderBook>> onData)
         {
             symbol = symbol.ValidateHuobiSymbol();
@@ -176,13 +150,7 @@ namespace Huobi.Net
             return await SubscribeAsync(request, null, false, internalHandler).ConfigureAwait(false);
         }
 
-        /// <summary>
-        /// Subscribes to updates for the top levels entries in the order book. Updates push the full x amount of rows each 100ms
-        /// </summary>
-        /// <param name="symbol">The symbol to subscribe to</param>
-        /// <param name="levels">The number of price levels. 5, 10 or 20</param>
-        /// <param name="onData">The handler for updates</param>
-        /// <returns></returns>
+        /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToPartialOrderBookUpdates100MilisecondAsync(string symbol, int levels, Action<DataEvent<HuobiOrderBook>> onData)
         {
             symbol = symbol.ValidateHuobiSymbol();
@@ -198,13 +166,7 @@ namespace Huobi.Net
             return await SubscribeAsync(baseAddressMbp, request, null, false, internalHandler).ConfigureAwait(false);
         }
 
-        /// <summary>
-        /// Subscribes to order book updates for a symbol, 
-        /// </summary>
-        /// <param name="symbol">The symbol to subscribe to</param>
-        /// <param name="levels">The number of price levels. 5, 20, 150 or 400</param>
-        /// <param name="onData">The handler for updates</param>
-        /// <returns></returns>
+        /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToOrderBookChangeUpdatesAsync(string symbol, int levels, Action<DataEvent<HuobiIncementalOrderBook>> onData)
         {
             symbol = symbol.ValidateHuobiSymbol();
@@ -220,11 +182,7 @@ namespace Huobi.Net
             return await SubscribeAsync(baseAddressMbp, request, null, false, internalHandler).ConfigureAwait(false);
         }
 
-        /// <summary>
-        /// Gets a list of trades for a symbol
-        /// </summary>
-        /// <param name="symbol">The symbol to get trades for</param>
-        /// <returns></returns>
+        /// <inheritdoc />
         public async Task<CallResult<IEnumerable<HuobiSymbolTradeDetails>>> GetTradeHistoryAsync(string symbol)
         {
             symbol = symbol.ValidateHuobiSymbol();
@@ -233,12 +191,7 @@ namespace Huobi.Net
             return new CallResult<IEnumerable<HuobiSymbolTradeDetails>>(result.Data?.Data, result.Error);
         }
 
-        /// <summary>
-        /// Subscribes to trade updates for a symbol
-        /// </summary>
-        /// <param name="symbol">The symbol to subscribe to</param>
-        /// <param name="onData">The handler for updates</param>
-        /// <returns></returns>
+        /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(string symbol, Action<DataEvent<HuobiSymbolTrade>> onData)
         {
             symbol = symbol.ValidateHuobiSymbol();
@@ -247,11 +200,7 @@ namespace Huobi.Net
             return await SubscribeAsync(request, null, false, internalHandler).ConfigureAwait(false);
         }
 
-        /// <summary>
-        /// Gets details for a symbol
-        /// </summary>
-        /// <param name="symbol">The symbol to get data for</param>
-        /// <returns></returns>
+        /// <inheritdoc />
         public async Task<CallResult<HuobiSymbolDetails>> GetSymbolDetailsAsync(string symbol)
         {
             symbol = symbol.ValidateHuobiSymbol();
@@ -264,12 +213,7 @@ namespace Huobi.Net
             return new CallResult<HuobiSymbolDetails>(result.Data.Data, null);
         }
 
-        /// <summary>
-        /// Subscribes to symbol detail updates for a symbol
-        /// </summary>
-        /// <param name="symbol">The symbol to subscribe to</param>
-        /// <param name="onData">The handler for updates</param>
-        /// <returns></returns>
+        /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToSymbolDetailUpdatesAsync(string symbol, Action<DataEvent<HuobiSymbolDetails>> onData)
         {
             symbol = symbol.ValidateHuobiSymbol();
@@ -282,12 +226,8 @@ namespace Huobi.Net
             return await SubscribeAsync(request, null, false, internalHandler).ConfigureAwait(false);
         }
 
-        /// <summary>
-        /// Subscribes to updates for all tickers
-        /// </summary>
-        /// <param name="onData">The handler for updates</param>
-        /// <returns></returns>
-        public async Task<CallResult<UpdateSubscription>> SubscribeToSymbolTickerUpdatesAsync(Action<DataEvent<HuobiSymbolDatas>> onData)
+        /// <inheritdoc />
+        public async Task<CallResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(Action<DataEvent<HuobiSymbolDatas>> onData)
         {
             var request = new HuobiSubscribeRequest(NextId().ToString(CultureInfo.InvariantCulture), "market.tickers");
             var internalHandler = new Action<DataEvent<HuobiDataEvent<IEnumerable<HuobiSymbolTicker>>>>(data =>
@@ -298,13 +238,8 @@ namespace Huobi.Net
             return await SubscribeAsync(request, null, false, internalHandler).ConfigureAwait(false);
         }
 
-        /// <summary>
-        /// Subscribes to updates for a symbol
-        /// </summary>
-        /// <param name="symbol">The symbol to subscribe</param>
-        /// <param name="onData">The handler for updates</param>
-        /// <returns></returns>
-        public async Task<CallResult<UpdateSubscription>> SubscribeToSymbolTickerUpdatesAsync(string symbol, Action<DataEvent<HuobiSymbolTick>> onData)
+        /// <inheritdoc />
+        public async Task<CallResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(string symbol, Action<DataEvent<HuobiSymbolTick>> onData)
         {
             var request = new HuobiSubscribeRequest(NextId().ToString(CultureInfo.InvariantCulture), $"market.{symbol}.ticker");
             var internalHandler = new Action<DataEvent<HuobiDataEvent<HuobiSymbolTick>>>(data =>
@@ -314,12 +249,7 @@ namespace Huobi.Net
             return await SubscribeAsync(request, null, false, internalHandler).ConfigureAwait(false);
         }
 
-        /// <summary>
-        /// Subscribe to changes of a symbol's best ask/bid
-        /// </summary>
-        /// <param name="symbol">Symbol to subscribe to</param>
-        /// <param name="onData">Data handler</param>
-        /// <returns></returns>
+        /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToBestOfferUpdatesAsync(string symbol, Action<DataEvent<HuobiBestOffer>> onData)
         {
             var request = new HuobiSubscribeRequest(NextId().ToString(CultureInfo.InvariantCulture), $"market.{symbol}.bbo");
@@ -329,24 +259,15 @@ namespace Huobi.Net
             });
             return await SubscribeAsync(request, null, false, internalHandler).ConfigureAwait(false);
         }
-       
-        /// <summary>
-        /// Subscribe to updates of orders
-        /// </summary>
-        /// <param name="symbol">Subscribe on a specific symbol</param>
-        /// <param name="onOrderSubmitted">Event handler for the order submitted event</param>
-        /// <param name="onOrderMatched">Event handler for the order matched event</param>
-        /// <param name="onOrderCancellation">Event handler for the order cancelled event</param>
-        /// <param name="onConditionalOrderTriggerFailure">Event handler for the conditional order trigger failed event</param>
-        /// <param name="onConditionalOrderCancelled">Event handler for the condition order cancelled event</param>
-        /// <returns></returns>
+
+        /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(
             string? symbol = null,
             Action<DataEvent<HuobiSubmittedOrderUpdate>>? onOrderSubmitted = null,
             Action<DataEvent<HuobiMatchedOrderUpdate>>? onOrderMatched = null,
-            Action<DataEvent<HuobiCancelledOrderUpdate>>? onOrderCancellation = null,
+            Action<DataEvent<HuobiCanceledOrderUpdate>>? onOrderCancelation = null,
             Action<DataEvent<HuobiTriggerFailureOrderUpdate>>? onConditionalOrderTriggerFailure = null,
-            Action<DataEvent<HuobiOrderUpdate>>? onConditionalOrderCancelled = null)
+            Action<DataEvent<HuobiOrderUpdate>>? onConditionalOrderCanceled = null)
         {
             symbol = symbol?.ValidateHuobiSymbol();
             var request = new HuobiAuthenticatedSubscribeRequest( $"orders#{symbol ?? "*"}");
@@ -364,7 +285,7 @@ namespace Huobi.Net
                     DeserializeAndInvoke(data, onConditionalOrderTriggerFailure, symbol);
 
                 else if (eventType == "deletion")
-                    DeserializeAndInvoke(data, onConditionalOrderCancelled, symbol);
+                    DeserializeAndInvoke(data, onConditionalOrderCanceled, symbol);
 
                 else if (eventType == "creation")
                     DeserializeAndInvoke(data, onOrderSubmitted, symbol);
@@ -373,7 +294,7 @@ namespace Huobi.Net
                     DeserializeAndInvoke(data, onOrderMatched, symbol);
 
                 else if (eventType == "cancellation")
-                    DeserializeAndInvoke(data, onOrderCancellation, symbol);
+                    DeserializeAndInvoke(data, onOrderCancelation, symbol);
                 else
                 {
                     log.Write(LogLevel.Warning, "Unknown order event type: " + eventType);
@@ -382,10 +303,7 @@ namespace Huobi.Net
             return await SubscribeAsync(request, null, true, internalHandler).ConfigureAwait(false);
         }
 
-        /// <summary>
-        /// Subscribe to updates of account balances
-        /// </summary>
-        /// <returns></returns>
+        /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToAccountUpdatesAsync(Action<DataEvent<HuobiAccountUpdate>> onAccountUpdate)
         {
             var request = new HuobiAuthenticatedSubscribeRequest("accounts.update#1");
@@ -396,14 +314,8 @@ namespace Huobi.Net
             return await SubscribeAsync(request, null, true, internalHandler).ConfigureAwait(false);
         }
 
-        /// <summary>
-        /// Subscribe to detailed order matched/cancelled updates
-        /// </summary>
-        /// <param name="symbol">Subscribe to a specific symbol</param>
-        /// <param name="onOrderMatch">Event handler for the order matched event</param>
-        /// <param name="onOrderCancel">Event handler for the order cancelled event</param>
-        /// <returns></returns>
-        public async Task<CallResult<UpdateSubscription>> SubscribeToOrderDetailsUpdatesAsync(string? symbol = null, Action<DataEvent<HuobiTradeUpdate>>? onOrderMatch = null, Action<DataEvent<HuobiOrderCancellationUpdate>>? onOrderCancel = null)
+        /// <inheritdoc />
+        public async Task<CallResult<UpdateSubscription>> SubscribeToOrderDetailsUpdatesAsync(string? symbol = null, Action<DataEvent<HuobiTradeUpdate>>? onOrderMatch = null, Action<DataEvent<HuobiOrderCancelationUpdate>>? onOrderCancel = null)
         {
             var request = new HuobiAuthenticatedSubscribeRequest($"trade.clearing#{symbol ?? "*"}#1");
             var internalHandler = new Action<DataEvent<JToken>>(data =>

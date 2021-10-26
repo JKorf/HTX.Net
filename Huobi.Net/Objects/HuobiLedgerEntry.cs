@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using CryptoExchange.Net.Converters;
+using Huobi.Net.Enums;
 
 namespace Huobi.Net.Objects
 {
@@ -15,18 +16,20 @@ namespace Huobi.Net.Objects
         public long AccountId { get; set; }
 
         /// <summary>
-        /// Currency
+        /// Asset
         /// </summary>
-        public string Currency { get; set; } = string.Empty;
+        [JsonProperty("currency")]
+        public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// Amount of the transaction
+        /// Quantity of the transaction
         /// </summary>
         [JsonProperty("transactAmt")]
         public decimal TransactionQuantity { get; set; }
         /// <summary>
         /// Type of transaction
         /// </summary>
-        public HuobiTransactionType TransactionType { get; set; }
+        [JsonProperty("transactType")]
+        public TransactionType TransactionType { get; set; }
 
         /// <summary>
         /// Type of transfer
@@ -35,11 +38,13 @@ namespace Huobi.Net.Objects
         /// <summary>
         /// Transaction id
         /// </summary>
+        [JsonProperty("transactId")]
         public long TransactionId { get; set; }
         /// <summary>
         /// Transaction time
         /// </summary>
         [JsonConverter(typeof(TimestampConverter))]
+        [JsonProperty("transactTime")]
         public DateTime TransactionTime { get; set; }
         /// <summary>
         /// Transferer

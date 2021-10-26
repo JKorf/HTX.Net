@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using System;
 using System.Globalization;
 using CryptoExchange.Net.ExchangeInterfaces;
+using Huobi.Net.Enums;
 
 namespace Huobi.Net.Objects
 {
@@ -35,7 +36,7 @@ namespace Huobi.Net.Objects
         [JsonProperty("account-id")]
         public long AccountId { get; set; }
         /// <summary>
-        /// The amount of the order
+        /// The quantity of the order
         /// </summary>
         [JsonProperty("amount")]
         public decimal Quantity { get; set; }
@@ -50,23 +51,23 @@ namespace Huobi.Net.Objects
         /// The time the order was created
         /// </summary>
         [JsonProperty("created-at"), JsonConverter(typeof(TimestampConverter))]
-        public DateTime CreatedAt { get; set; }
+        public DateTime CreateTime { get; set; }
         /// <summary>
         /// The time the order was canceled
         /// </summary>
         [JsonProperty("canceled-at"), JsonConverter(typeof(TimestampConverter))]
-        public DateTime CanceledAt { get; set; }
+        public DateTime CancelTime { get; set; }
         /// <summary>
         /// The time the order was finished
         /// </summary>
         [JsonProperty("finished-at"), JsonConverter(typeof(TimestampConverter))]
-        public DateTime FinishedAt { get; set; }
+        public DateTime CompleteTime { get; set; }
 
         /// <summary>
         /// The type of the order
         /// </summary>
         [JsonProperty("type"), JsonConverter(typeof(OrderTypeConverter))]
-        public HuobiOrderType Type { get; set; }
+        public OrderType Type { get; set; }
 
         /// <summary>
         /// The source of the order
@@ -78,40 +79,40 @@ namespace Huobi.Net.Objects
         /// The state of the order
         /// </summary>
         [JsonProperty("state"), JsonConverter(typeof(OrderStateConverter))]
-        public HuobiOrderState State { get; set; }
+        public OrderState State { get; set; }
 
         /// <summary>
-        /// The amount of the order that is filled
+        /// The quantity of the order that is filled
         /// </summary>
         [JsonProperty("field-amount")]
-        public decimal FilledQuantity { get; set; }
+        public decimal QuantityFilled { get; set; }
 
         /// <summary>
-        /// Filled cash amount
+        /// Filled cash quantity
         /// </summary>
         [JsonProperty("field-cash-amount")]
-        public decimal FilledCashQuantity { get; set; }
+        public decimal QuoteQuantityFilled { get; set; }
 
         /// <summary>
-        /// The amount of fees paid for the filled amount
+        /// The quantity of fees paid for the filled quantity
         /// </summary>
         [JsonProperty("field-fees")]
-        public decimal FilledFees { get; set; }
+        public decimal Fee { get; set; }
 
         string ICommonOrderId.CommonId => Id.ToString(CultureInfo.InvariantCulture);
         string ICommonOrder.CommonSymbol => Symbol;
         decimal ICommonOrder.CommonPrice => Price;
         decimal ICommonOrder.CommonQuantity => Quantity;
-        DateTime ICommonOrder.CommonOrderTime => CreatedAt;
+        DateTime ICommonOrder.CommonOrderTime => CreateTime;
         IExchangeClient.OrderStatus ICommonOrder.CommonStatus =>
-            State == HuobiOrderState.Created || State == HuobiOrderState.PartiallyFilled || State == HuobiOrderState.PreSubmitted || State == HuobiOrderState.Submitted ? IExchangeClient.OrderStatus.Active :
-            State == HuobiOrderState.Filled ? IExchangeClient.OrderStatus.Filled :
+            State == OrderState.Created || State == OrderState.PartiallyFilled || State == OrderState.PreSubmitted || State == OrderState.Submitted ? IExchangeClient.OrderStatus.Active :
+            State == OrderState.Filled ? IExchangeClient.OrderStatus.Filled :
             IExchangeClient.OrderStatus.Canceled;
         bool ICommonOrder.IsActive =>
-            State == HuobiOrderState.Created ||
-            State == HuobiOrderState.PreSubmitted ||
-            State == HuobiOrderState.Submitted ||
-            State == HuobiOrderState.PartiallyFilled;
+            State == OrderState.Created ||
+            State == OrderState.PreSubmitted ||
+            State == OrderState.Submitted ||
+            State == OrderState.PartiallyFilled;
 
         IExchangeClient.OrderSide ICommonOrder.CommonSide => Type.ToString().ToLowerInvariant().Contains("buy")
             ? IExchangeClient.OrderSide.Buy
@@ -121,11 +122,11 @@ namespace Huobi.Net.Objects
         {
             get
             {
-                if (Type == HuobiOrderType.LimitBuy
-                    || Type == HuobiOrderType.LimitSell)
+                if (Type == OrderType.LimitBuy
+                    || Type == OrderType.LimitSell)
                     return IExchangeClient.OrderType.Limit;
-                if (Type == HuobiOrderType.MarketBuy
-                    || Type == HuobiOrderType.MarketSell)
+                if (Type == OrderType.MarketBuy
+                    || Type == OrderType.MarketSell)
                     return IExchangeClient.OrderType.Market;
                 return IExchangeClient.OrderType.Other;
             }

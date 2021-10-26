@@ -43,9 +43,10 @@ namespace Huobi.Net.Objects
     public class HuobiBasket
     {
         /// <summary>
-        /// Currency
+        /// Asset
         /// </summary>
-        public string Currency { get; set; } = string.Empty;
+        [JsonProperty("currency")]
+        public string Asset { get; set; } = string.Empty;
         /// <summary>
         /// Amount
         /// </summary>

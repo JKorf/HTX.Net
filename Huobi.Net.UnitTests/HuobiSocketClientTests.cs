@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using CryptoExchange.Net;
+using Huobi.Net.Enums;
 using Huobi.Net.Objects;
 using Huobi.Net.Objects.SocketObjects.V2;
 using Huobi.Net.UnitTests.TestImplementations;
@@ -121,12 +122,12 @@ namespace Huobi.Net.UnitTests
 
             var expected = new HuobiSymbolData()
             {
-                Quantity = 0.1m,
-                Close = 0.2m,
-                Low = 0.3m,
-                High = 0.4m,
+                QuoteVolume = 0.1m,
+                ClosePrice = 0.2m,
+                LowPrice = 0.3m,
+                HighPrice = 0.4m,
                 Volume = 0.5m,
-                Open = 0.6m,
+                OpenPrice = 0.6m,
                 TradeCount = 12
             };
 
@@ -147,19 +148,19 @@ namespace Huobi.Net.UnitTests
             var client = TestHelpers.CreateSocketClient(socket);
 
             HuobiSymbolData result = null;
-            var subTask = client.SubscribeToKlineUpdatesAsync("ETHBTC", HuobiPeriod.FiveMinutes, test => result = test.Data);
+            var subTask = client.SubscribeToKlineUpdatesAsync("ETHBTC", KlineInterval.FiveMinutes, test => result = test.Data);
             var id = JToken.Parse(socket.LastSendMessage)["id"];
             socket.InvokeMessage($"{{\"subbed\": \"ethbtc\", \"id\": \"{id}\", \"status\": \"ok\"}}");
             var subResult = subTask.Result;
 
             var expected = new HuobiSymbolData()
             {
-                Quantity = 0.1m,
-                Close = 0.2m,
-                Low = 0.3m,
-                High = 0.4m,
+                QuoteVolume = 0.1m,
+                ClosePrice = 0.2m,
+                LowPrice = 0.3m,
+                HighPrice = 0.4m,
                 Volume = 0.5m,
-                Open = 0.6m,
+                OpenPrice = 0.6m,
                 TradeCount = 12
             };
 
@@ -180,7 +181,7 @@ namespace Huobi.Net.UnitTests
             var client = TestHelpers.CreateSocketClient(socket);
 
             HuobiSymbolDatas result = null;
-            var subTask = client.SubscribeToSymbolTickerUpdatesAsync((test => result = test.Data));
+            var subTask = client.SubscribeToTickerUpdatesAsync((test => result = test.Data));
             var id = JToken.Parse(socket.LastSendMessage)["id"];
             socket.InvokeMessage($"{{\"subbed\": \"test\", \"id\": \"{id}\", \"status\": \"ok\"}}");
             var subResult = subTask.Result;
@@ -189,12 +190,12 @@ namespace Huobi.Net.UnitTests
             {
                 new HuobiSymbolData()
                 {
-                    Quantity = 0.1m,
-                    Close = 0.2m,
-                    Low = 0.3m,
-                    High = 0.4m,
+                    QuoteVolume = 0.1m,
+                    ClosePrice = 0.2m,
+                    LowPrice = 0.3m,
+                    HighPrice = 0.4m,
                     Volume = 0.5m,
-                    Open = 0.6m,
+                    OpenPrice = 0.6m,
                     TradeCount = 12
                 }
             };
@@ -234,7 +235,7 @@ namespace Huobi.Net.UnitTests
                             Quantity = 0.1m,
                             Price = 0.2m,
                             Timestamp = new DateTime(2018,2,1),
-                            Side = HuobiOrderSide.Buy
+                            Side = OrderSide.Buy
                         }
                     }
             };
@@ -266,12 +267,12 @@ namespace Huobi.Net.UnitTests
             var expected = new HuobiAccountUpdate()
             {
                 AccountId = 123,
-                AccountType = HuobiBalanceType.Frozen,
+                AccountType = BalanceType.Frozen,
                 Available = 456,
                 Balance = 789,
                 ChangeTime = new DateTime(2020, 11, 25),
-                ChangeType = HuobiAccountEventType.Deposit,
-                Currency = "usdt"
+                ChangeType = AccountEventType.Deposit,
+                Asset = "usdt"
             };
 
             // act

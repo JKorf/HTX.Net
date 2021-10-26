@@ -8,6 +8,7 @@ using System.Linq;
 using System.Net.Http;
 using CryptoExchange.Net.Authentication;
 using System.Threading.Tasks;
+using Huobi.Net.Enums;
 
 namespace Huobi.Net.UnitTests
 {
@@ -22,12 +23,12 @@ namespace Huobi.Net.UnitTests
             {
                 new HuobiSymbolTick
                 {
-                    Close = 0.1m,
-                    Low = 0.2m,
+                    ClosePrice = 0.1m,
+                    LowPrice = 0.2m,
                     Symbol = "BTCETH",
-                    Quantity = 0.3m,
-                    Open = 0.4m,
-                    High = 0.5m,
+                    QuoteVolume = 0.3m,
+                    OpenPrice = 0.4m,
+                    HighPrice = 0.5m,
                     Volume = 0.6m,
                     TradeCount = 123
                 }
@@ -49,12 +50,12 @@ namespace Huobi.Net.UnitTests
             // arrange
             var expected = new HuobiSymbolTickMerged()
             {
-                Close = 0.1m,
+                ClosePrice = 0.1m,
                 Id = 12345,
-                Low = 0.2m,
-                Quantity = 0.3m,
-                Open = 0.4m,
-                High = 0.5m,
+                LowPrice = 0.2m,
+                QuoteVolume = 0.3m,
+                OpenPrice = 0.4m,
+                HighPrice = 0.5m,
                 Volume = 0.6m,
                 TradeCount = 123,
                 BestAsk = new HuobiOrderBookEntry() { Quantity = 0.7m, Price = 0.8m },
@@ -80,11 +81,11 @@ namespace Huobi.Net.UnitTests
             {
                 new HuobiSymbolData
                 {
-                    Close = 0.1m,
-                    Low = 0.2m,
-                    Quantity = 0.3m,
-                    Open = 0.4m,
-                    High = 0.5m,
+                    ClosePrice = 0.1m,
+                    LowPrice = 0.2m,
+                    QuoteVolume = 0.3m,
+                    OpenPrice = 0.4m,
+                    HighPrice = 0.5m,
                     Volume = 0.6m,
                     TradeCount = 123
                 }
@@ -93,7 +94,7 @@ namespace Huobi.Net.UnitTests
             var client = TestHelpers.CreateResponseClient(SerializeExpected(expected, true));
 
             // act
-            var result = await client.GetKlinesAsync("BTCETH", HuobiPeriod.FiveMinutes, 10);
+            var result = await client.GetKlinesAsync("BTCETH", KlineInterval.FiveMinutes, 10);
 
             // assert
             Assert.AreEqual(true, result.Success);
@@ -143,7 +144,7 @@ namespace Huobi.Net.UnitTests
                         Id = "12334232",
                         Price = 0.2m,
                         Timestamp = new DateTime(2018, 1, 1),
-                        Side = HuobiOrderSide.Buy
+                        Side = OrderSide.Buy
                     }
                 }
             };
@@ -177,7 +178,7 @@ namespace Huobi.Net.UnitTests
                             Id = "12334232",
                             Price = 0.2m,
                             Timestamp = new DateTime(2018, 1, 1),
-                            Side = HuobiOrderSide.Buy
+                            Side = OrderSide.Buy
                         }
                     }
                 }
@@ -200,11 +201,11 @@ namespace Huobi.Net.UnitTests
             // arrange
             var expected = new HuobiSymbolData
             {
-                Close = 0.1m,
-                Low = 0.2m,
-                Quantity = 0.3m,
-                Open = 0.4m,
-                High = 0.5m,
+                ClosePrice = 0.1m,
+                LowPrice = 0.2m,
+                QuoteVolume = 0.3m,
+                OpenPrice = 0.4m,
+                HighPrice = 0.5m,
                 Volume = 0.6m,
                 TradeCount = 123
             };
@@ -227,11 +228,11 @@ namespace Huobi.Net.UnitTests
             {
                 new HuobiSymbol()
                 {
-                    Symbol = "BTCETH",
+                    Name = "BTCETH",
                     QuantityPrecision = 8,
-                    BaseCurrency = "BTC",
+                    BaseAsset = "BTC",
                     PricePrecision = 8,
-                    QuoteCurrency = "ETH",
+                    QuoteAsset = "ETH",
                     SymbolPartition = "INOVATION"
                 }
             };
@@ -259,7 +260,7 @@ namespace Huobi.Net.UnitTests
             var client = TestHelpers.CreateResponseClient(SerializeExpected(expected, true));
 
             // act
-            var result = await client.GetCurrenciesAsync();
+            var result = await client.GetAssetsAsync();
 
             // assert
             Assert.AreEqual(true, result.Success);
@@ -276,8 +277,8 @@ namespace Huobi.Net.UnitTests
                 new HuobiAccount()
                 {
                     Id = 123,
-                    Type = HuobiAccountType.Margin,
-                    State = HuobiAccountState.Working
+                    Type = AccountType.Margin,
+                    State = AccountState.Working
                 }
             };
 
@@ -301,9 +302,9 @@ namespace Huobi.Net.UnitTests
                 {
                     new HuobiBalance()
                     {
-                        Type = HuobiBalanceType.Frozen,
+                        Type = BalanceType.Frozen,
                         Balance = 0.1m,
-                        Currency = "ETH"
+                        Asset = "ETH"
                     }
                 }
             };
@@ -325,7 +326,7 @@ namespace Huobi.Net.UnitTests
             var client = TestHelpers.CreateAuthResponseClient(SerializeExpected(123, true));
 
             // act
-            var result = await client.PlaceOrderAsync(123, "BTCETH", HuobiOrderType.LimitBuy, 1, 2);
+            var result = await client.PlaceOrderAsync(123, "BTCETH", OrderType.LimitBuy, 1, 2);
 
             // assert
             Assert.AreEqual(true, result.Success);
@@ -341,18 +342,18 @@ namespace Huobi.Net.UnitTests
                 new HuobiOpenOrder()
                 {
                     Quantity = 0.1m,
-                    Type = HuobiOrderType.LimitBuy,
+                    Type = OrderType.LimitBuy,
                     Id = 123,
                     Price = 0.2m,
                     Symbol = "BTCETH",
-                    State = HuobiOrderState.Submitted,
+                    State = OrderState.Submitted,
                     AccountId = 1234,
-                    CreatedAt = new DateTime(2018, 1, 1),
-                    FinishedAt = new DateTime(2019, 1, 1),
+                    CreateTime = new DateTime(2018, 1, 1),
+                    CompleteTime = new DateTime(2019, 1, 1),
                     Source = "API",
-                    FilledQuantity = 1.1m,
-                    FilledFees = 1.2m,
-                    FilledCashQuantity = 1.3m
+                    QuantityFilled = 1.1m,
+                    Fee = 1.2m,
+                    QuoteQuantityFilled = 1.3m
                 }
             };
 
@@ -416,17 +417,17 @@ namespace Huobi.Net.UnitTests
             var expected = new HuobiOrder()
             {
                 Quantity = 0.1m,
-                Type = HuobiOrderType.LimitBuy,
+                Type = OrderType.LimitBuy,
                 Id = 123,
                 Price = 0.2m,
                 Symbol = "BTCETH",
-                State = HuobiOrderState.Submitted,
+                State = OrderState.Submitted,
                 AccountId = 1234,
-                CreatedAt = new DateTime(2018, 1, 1),
+                CreateTime = new DateTime(2018, 1, 1),
                 Source = "API",
-                FilledQuantity = 1.1m,
-                FilledCashQuantity = 1.2m,
-                FilledFees = 1.3m
+                QuantityFilled = 1.1m,
+                QuoteQuantityFilled = 1.2m,
+                Fee = 1.3m
             };
 
             var client = TestHelpers.CreateAuthResponseClient(SerializeExpected(expected, true));
@@ -452,10 +453,10 @@ namespace Huobi.Net.UnitTests
                     Symbol = "BTCETH",
                     Source = "API",
                     OrderId = 1234,
-                    CreatedAt = new DateTime(2018, 1, 1),
-                    OrderType = HuobiOrderType.LimitSell,
-                    FilledQuantity = 0.2m,
-                    FilledFees = 0.3m,
+                    Timestamp = new DateTime(2018, 1, 1),
+                    OrderType = OrderType.LimitSell,
+                    Quantity = 0.2m,
+                    Fee = 0.3m,
                     MatchId = 125
                 }
             };
@@ -479,24 +480,24 @@ namespace Huobi.Net.UnitTests
                 new HuobiOrder()
                 {
                     Quantity = 0.1m,
-                    Type = HuobiOrderType.LimitBuy,
+                    Type = OrderType.LimitBuy,
                     Id = 123,
                     Price = 0.2m,
                     Symbol = "BTCETH",
-                    State = HuobiOrderState.Submitted,
+                    State = OrderState.Submitted,
                     AccountId = 1234,
-                    CreatedAt = new DateTime(2018, 1, 1),
+                    CreateTime = new DateTime(2018, 1, 1),
                     Source = "API",
-                    FilledQuantity = 1.1m,
-                    FilledCashQuantity = 1.2m,
-                    FilledFees = 1.3m
+                    QuantityFilled = 1.1m,
+                    QuoteQuantityFilled = 1.2m,
+                    Fee = 1.3m
                 }
             };
 
             var client = TestHelpers.CreateAuthResponseClient(SerializeExpected(expected, true));
 
             // act
-            var result = await client.GetOrdersAsync(new[] { HuobiOrderState.Submitted }, "BTCETH");
+            var result = await client.GetOrdersAsync(new[] { OrderState.Submitted }, "BTCETH");
 
             // assert
             Assert.AreEqual(true, result.Success);
@@ -516,10 +517,10 @@ namespace Huobi.Net.UnitTests
                     Symbol = "BTCETH",
                     Source = "API",
                     OrderId = 1234,
-                    CreatedAt = new DateTime(2018, 1, 1),
-                    OrderType = HuobiOrderType.LimitSell,
-                    FilledQuantity = 0.2m,
-                    FilledFees = 0.3m,
+                    Timestamp = new DateTime(2018, 1, 1),
+                    OrderType = OrderType.LimitSell,
+                    Quantity = 0.2m,
+                    Fee = 0.3m,
                     MatchId = 125
                 }
             };
@@ -527,7 +528,7 @@ namespace Huobi.Net.UnitTests
             var client = TestHelpers.CreateAuthResponseClient(SerializeExpected(expected, true));
 
             // act
-            var result = await client.GetUserTradesAsync(symbol: "BTCETH", types: new[] { HuobiOrderType.LimitBuy });
+            var result = await client.GetUserTradesAsync(symbol: "BTCETH", types: new[] { OrderType.LimitBuy });
 
             // assert
             Assert.AreEqual(true, result.Success);
@@ -557,7 +558,7 @@ namespace Huobi.Net.UnitTests
             var client = TestHelpers.CreateAuthResponseClient("{{\"status\": \"error\", \"err-code\": \"Error!\", \"err-msg\": \"ErrorMessage\"}}");
 
             // act
-            var result = await client.GetCurrenciesAsync();
+            var result = await client.GetAssetsAsync();
 
             // assert
             Assert.IsFalse(result.Success);
@@ -572,7 +573,7 @@ namespace Huobi.Net.UnitTests
             var client = TestHelpers.CreateAuthResponseClient("Error message", System.Net.HttpStatusCode.BadRequest);
 
             // act
-            var result = await client.GetCurrenciesAsync();
+            var result = await client.GetAssetsAsync();
 
             // assert
             Assert.IsFalse(result.Success);

@@ -1,0 +1,13 @@
+{
+    "status": "ok",
+    "data": [
+        "usdt",
+        "btc",
+        "bch",
+        "eth",
+        "xrp",
+        "ltc",
+        "ht",
+        "ada"
+    ]
+}

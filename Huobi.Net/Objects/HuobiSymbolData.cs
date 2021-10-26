@@ -13,34 +13,42 @@ namespace Huobi.Net.Objects
         /// <summary>
         /// The highest price
         /// </summary>
-        public decimal? High { get; set; }
+        [JsonProperty("high")]
+        public decimal? HighPrice { get; set; }
         /// <summary>
         /// The lowest price
         /// </summary>
-        public decimal? Low { get; set; }
+        [JsonProperty("low")]
+        public decimal? LowPrice { get; set; }
         /// <summary>
         /// The price at the opening
         /// </summary>
-        public decimal? Open { get; set; }
+        [JsonProperty("open")]
+        public decimal? OpenPrice { get; set; }
         /// <summary>
         /// The last price
         /// </summary>
-        public decimal? Close { get; set; }
+        [JsonProperty("close")]
+        public decimal? ClosePrice { get; set; }
         /// <summary>
-        /// The amount of the symbol trades
+        /// The volume in base asset
         /// </summary>
         [JsonProperty("amount")]
-        public decimal? Quantity { get; set; }
+        public decimal? Volume { get; set; }
         /// <summary>
-        /// The volume of the symbol trades (amount * price)
+        /// The volume in quote asset (quantity * price)
         /// </summary>
         [JsonProperty("vol")]
-        public decimal? Volume { get; set; }
+        public decimal? QuoteVolume { get; set; }
         /// <summary>
         /// The number of trades
         /// </summary>
         [JsonProperty("count")]
         public int? TradeCount { get; set; }
+        /// <summary>
+        /// Version
+        /// </summary>
+        public long? Version { get; set; }
     }
 
     /// <summary>
@@ -65,10 +73,10 @@ namespace Huobi.Net.Objects
         [JsonConverter(typeof(TimestampSecondsConverter))]
         public DateTime Id { get; set; }
 
-        decimal ICommonKline.CommonHigh => High ?? 0;
-        decimal ICommonKline.CommonLow => Low ?? 0;
-        decimal ICommonKline.CommonOpen => Open ?? 0;
-        decimal ICommonKline.CommonClose => Close ?? 0;
+        decimal ICommonKline.CommonHighPrice => HighPrice ?? 0;
+        decimal ICommonKline.CommonLowPrice => LowPrice ?? 0;
+        decimal ICommonKline.CommonOpenPrice => OpenPrice ?? 0;
+        decimal ICommonKline.CommonClosePrice => ClosePrice ?? 0;
         DateTime ICommonKline.CommonOpenTime => Id;
         decimal ICommonKline.CommonVolume => Volume ?? 0;
     }
@@ -100,25 +108,29 @@ namespace Huobi.Net.Objects
         public string Symbol { get; set; } = string.Empty;
 
         /// <summary>
-        /// Size of the best bid
+        /// Quantity of the best bid
         /// </summary>
-        public decimal BidSize { get; set; }
+        [JsonProperty("bidSize")]
+        public decimal BestBidQuantity { get; set; }
         /// <summary>
-        /// Size of the best ask
+        /// Quantity of the best ask
         /// </summary>
-        public decimal AskSize { get; set; }
+        [JsonProperty("askSize")]
+        public decimal BestAskQuantity { get; set; }
         /// <summary>
         /// Best bid price
         /// </summary>
-        public decimal Bid { get; set; }
+        [JsonProperty("bid")]
+        public decimal BestBidPrice { get; set; }
         /// <summary>
         /// Best ask price
         /// </summary>
-        public decimal Ask { get; set; }
+        [JsonProperty("ask")]
+        public decimal BestAskPrice { get; set; }
 
         string ICommonTicker.CommonSymbol => Symbol;
-        decimal ICommonTicker.CommonHigh => High ?? 0;
-        decimal ICommonTicker.CommonLow => Low ?? 0;
+        decimal ICommonTicker.CommonHighPrice => HighPrice ?? 0;
+        decimal ICommonTicker.CommonLowPrice => LowPrice ?? 0;
         decimal ICommonTicker.CommonVolume => Volume ?? 0;
     }
 }

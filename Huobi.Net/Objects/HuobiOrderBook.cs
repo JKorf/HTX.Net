@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using CryptoExchange.Net.Converters;
 using CryptoExchange.Net.ExchangeInterfaces;
 using CryptoExchange.Net.Interfaces;
 using Newtonsoft.Json;
@@ -14,8 +15,12 @@ namespace Huobi.Net.Objects
         /// <summary>
         /// Timestamp
         /// </summary>
-        [JsonIgnore]
+        [JsonProperty("ts"), JsonConverter(typeof(TimestampConverter))]
         public DateTime Timestamp { get; set; }
+        /// <summary>
+        /// Version
+        /// </summary>
+        public long Version { get; set; }
         /// <summary>
         /// List of bids
         /// </summary>

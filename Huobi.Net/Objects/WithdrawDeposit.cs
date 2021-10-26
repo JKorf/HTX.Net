@@ -21,18 +21,25 @@ namespace Huobi.Net.Objects
 		[JsonProperty("type"), JsonConverter(typeof(WithdrawDepositTypeConverter))]
 		public WithdrawDepositType Type { get; set; }
 		/// <summary>
-		/// The crypto currency to withdraw
+		/// Sub type
 		/// </summary>
-		public string? Currency { get; set; }
+		[JsonProperty("sub-type")]
+		public string SubType { get; set; } = string.Empty;
+		/// <summary>
+		/// The crypto asset to withdraw
+		/// </summary>
+        [JsonProperty("currency")]
+		public string? Asset { get; set; }
 		/// <summary>
 		/// The on-chain transaction hash
 		/// </summary>
 		[JsonProperty("tx-hash")]
-		public string? TxHash { get; set; }
+		public string? TransactionHash { get; set; }
 		/// <summary>
 		/// Block chain name
 		/// </summary>
-		public string? Chain { get; set; }
+        [JsonProperty("chain")]
+		public string? Network { get; set; }
 		/// <summary>
 		/// The number of crypto asset transfered in its minimum unit
 		/// </summary>
@@ -45,7 +52,13 @@ namespace Huobi.Net.Objects
 		/// <summary>
 		/// The user defined address tag
 		/// </summary>
+		[JsonProperty("address-tag")]
 		public string? AddressTag { get; set; }
+		/// <summary>
+		/// The address tag of the address its from
+		/// </summary>
+		[JsonProperty("from-addr-tag")]
+		public string? FromAddressTag { get; set; }
 		/// <summary>
 		/// Withdraw fee
 		/// </summary>
@@ -69,11 +82,11 @@ namespace Huobi.Net.Objects
 		/// The timestamp in milliseconds for the transfer creation
 		/// </summary>
 		[JsonProperty("created-at"), JsonConverter(typeof(TimestampConverter))]
-		public DateTime CreatedAt { get; set; }
+		public DateTime CreateTime { get; set; }
 		/// <summary>
 		/// The timestamp in milliseconds for the transfer's latest update
 		/// </summary>
 		[JsonProperty("updated-at"), JsonConverter(typeof(TimestampConverter))]
-		public DateTime UpdatedAt { get; set; }
+		public DateTime UpdateTime { get; set; }
 	}
 }

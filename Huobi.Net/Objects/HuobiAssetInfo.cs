@@ -6,27 +6,29 @@ using Newtonsoft.Json;
 namespace Huobi.Net.Objects
 {
     /// <summary>
-    /// Info on a currency
+    /// Info on an asset
     /// </summary>
-    public class HuobiCurrencyInfo
+    public class HuobiAssetInfo
     {
         /// <summary>
-        /// Currency
+        /// Asset
         /// </summary>
-        public string Currency { get; set; } = string.Empty;
+        [JsonProperty("currency")]
+        public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// Status of the currency
+        /// Status of the asset
         /// </summary>
         [JsonProperty("instStatus")]
         public InstrumentStatus Status { get; set; }
         /// <summary>
-        /// Chains
+        /// Networks
         /// </summary>
-        public IEnumerable<HuobiChain> Chains { get; set; } = Array.Empty<HuobiChain>();
+        [JsonProperty("chains")]
+        public IEnumerable<HuobiChain> Networks { get; set; } = Array.Empty<HuobiChain>();
     }
 
     /// <summary>
-    /// Info on a currency chain
+    /// Info on an asset network
     /// </summary>
     public class HuobiChain
     {
@@ -59,24 +61,28 @@ namespace Huobi.Net.Objects
         /// </summary>
         public decimal MaxTransactFeeWithdraw { get; set; }
         /// <summary>
-        /// Max withdraw amount per request
+        /// Max withdraw quantity per request
         /// </summary>
-        [JsonProperty("MaxWithdrawAmt")]
+        [JsonProperty("maxWithdrawAmt")]
         public decimal MaxWithdrawQuantity { get; set; }
         /// <summary>
-        /// Min deposit amount per request
+        /// Min deposit quantity per request
         /// </summary>
-        [JsonProperty("MinDepositAmt")]
+        [JsonProperty("minDepositAmt")]
         public decimal MinDepositQuantity { get; set; }
         /// <summary>
-        /// Min withdraw amount per request
+        /// Min withdraw quantity per request
         /// </summary>
-        [JsonProperty("MinWithdrawAmt")]
+        [JsonProperty("minWithdrawAmt")]
         public decimal MinWithdrawQuantity { get; set; }
         /// <summary>
         /// Withdraw fee in each request (only applicable to withdrawFeeType = fixed)
         /// </summary>
         public decimal TransactFeeWithdraw { get; set; }
+        /// <summary>
+        /// Withdraw fee in each request (only applicable to withdrawFeeType = ratio)
+        /// </summary>
+        public decimal? TransactFeeRateWithdraw { get; set; }
         /// <summary>
         /// Minimal withdraw fee in each request (only applicable to withdrawFeeType = circulated or ratio)
         /// </summary>

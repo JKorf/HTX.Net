@@ -20,11 +20,6 @@ namespace Huobi.Net.Objects
         public long Id { get; set; }
 
         /// <summary>
-        /// Version
-        /// </summary>
-        public long Version { get; set; }
-
-        /// <summary>
         /// The current best bid for the symbol
         /// </summary>
         [JsonProperty("bid")]

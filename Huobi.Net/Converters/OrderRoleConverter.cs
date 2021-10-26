@@ -1,18 +1,18 @@
 ﻿using CryptoExchange.Net.Converters;
-using Huobi.Net.Objects;
+using Huobi.Net.Enums;
 using System.Collections.Generic;
 
 namespace Huobi.Net.Converters
 {
-    internal class OrderRoleConverter : BaseConverter<HuobiOrderRole>
+    internal class OrderRoleConverter : BaseConverter<OrderRole>
     {
         public OrderRoleConverter() : this(true) { }
         public OrderRoleConverter(bool quotes) : base(quotes) { }
 
-        protected override List<KeyValuePair<HuobiOrderRole, string>> Mapping => new List<KeyValuePair<HuobiOrderRole, string>>
+        protected override List<KeyValuePair<OrderRole, string>> Mapping => new List<KeyValuePair<OrderRole, string>>
         {
-            new KeyValuePair<HuobiOrderRole, string>(HuobiOrderRole.Maker, "maker"),
-            new KeyValuePair<HuobiOrderRole, string>(HuobiOrderRole.Taker, "taker")
+            new KeyValuePair<OrderRole, string>(OrderRole.Maker, "maker"),
+            new KeyValuePair<OrderRole, string>(OrderRole.Taker, "taker")
         };
     }
 }

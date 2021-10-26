@@ -2,6 +2,7 @@
 using CryptoExchange.Net.Attributes;
 using CryptoExchange.Net.Converters;
 using Huobi.Net.Converters;
+using Huobi.Net.Enums;
 using Newtonsoft.Json;
 
 namespace Huobi.Net.Objects.SocketObjects.V2
@@ -12,9 +13,10 @@ namespace Huobi.Net.Objects.SocketObjects.V2
     public class HuobiAccountUpdate
     {
         /// <summary>
-        /// Currency
+        /// Asset
         /// </summary>
-        public string Currency { get; set; } = string.Empty;
+        [JsonProperty("currency")]
+        public string Asset { get; set; } = string.Empty;
         /// <summary>
         /// Account id
         /// </summary>
@@ -33,12 +35,12 @@ namespace Huobi.Net.Objects.SocketObjects.V2
         /// Type of change
         /// </summary>
         [JsonConverter(typeof(AccountEventConverter))]
-        public HuobiAccountEventType? ChangeType { get; set; }
+        public AccountEventType? ChangeType { get; set; }
         /// <summary>
         /// Account type
         /// </summary>
         [JsonConverter(typeof(BalanceTypeConverter))]
-        public HuobiBalanceType AccountType { get; set; }
+        public BalanceType AccountType { get; set; }
         /// <summary>
         /// Change time
         /// </summary>

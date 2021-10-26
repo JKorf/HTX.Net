@@ -1,4 +1,5 @@
 ﻿using Huobi.Net.Converters;
+using Huobi.Net.Enums;
 using Newtonsoft.Json;
 
 namespace Huobi.Net.Objects
@@ -16,11 +17,15 @@ namespace Huobi.Net.Objects
         /// The state of the account
         /// </summary>
         [JsonConverter(typeof(AccountStateConverter))]
-        public HuobiAccountState State { get; set; }
+        public AccountState State { get; set; }
         /// <summary>
         /// The type of the account
         /// </summary>
         [JsonConverter(typeof(AccountTypeConverter))]
-        public HuobiAccountType Type { get; set; }
+        public AccountType Type { get; set; }
+        /// <summary>
+        /// Sub state
+        /// </summary>
+        public string? SubType { get; set; }
     }
 }

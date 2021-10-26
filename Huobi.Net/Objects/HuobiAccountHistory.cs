@@ -1,6 +1,7 @@
 ﻿using System;
 using CryptoExchange.Net.Converters;
 using Huobi.Net.Converters;
+using Huobi.Net.Enums;
 using Newtonsoft.Json;
 
 namespace Huobi.Net.Objects
@@ -17,39 +18,40 @@ namespace Huobi.Net.Objects
         public long AccountId { get; set; }
 
         /// <summary>
-        /// Currency
+        /// Asset
         /// </summary>
-        public string Currency { get; set; } = string.Empty;
-		
+        [JsonProperty("currency")]
+        public string Asset { get; set; } = string.Empty;
+
         /// <summary>
-        /// Amount change (positive value if income, negative value if outcome)	
+        /// Quantity change (positive value if income, negative value if outcome)	
         /// </summary>
         [JsonProperty("transact-amt")]
         public decimal Quantity { get; set; }
 
         /// <summary>
-        /// Amount change types
+        /// Blance change types
         /// </summary>
         [JsonProperty("transact-type"), JsonConverter(typeof(TransactionTypeConverter))]
-        public HuobiTransactionType Type { get; set; }
+        public TransactionType Type { get; set; }
 
         /// <summary>
         /// Available balance
         /// </summary>
         [JsonProperty("avail-balance")]
-        public decimal AvailableBalance { get; set; }
+        public decimal Available { get; set; }
 		
         /// <summary>
         /// Account balance
         /// </summary>
         [JsonProperty("acct-balance")]
-        public decimal AccountBalance { get; set; }
+        public decimal Total { get; set; }
 		
         /// <summary>
         /// Transaction time (database time)
         /// </summary>
         [JsonProperty("transact-time"), JsonConverter(typeof(TimestampConverter))]
-        public DateTime Time { get; set; }
+        public DateTime Timestamp { get; set; }
 
         /// <summary>
         /// Unique record ID in the database

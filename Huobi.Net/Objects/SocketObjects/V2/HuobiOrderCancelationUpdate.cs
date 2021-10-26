@@ -2,14 +2,15 @@
 using CryptoExchange.Net.Attributes;
 using CryptoExchange.Net.Converters;
 using Huobi.Net.Converters;
+using Huobi.Net.Enums;
 using Newtonsoft.Json;
 
 namespace Huobi.Net.Objects.SocketObjects.V2
 {
     /// <summary>
-    /// Cancellation details
+    /// Cancelation details
     /// </summary>
-    public class HuobiOrderCancellationUpdate
+    public class HuobiOrderCancelationUpdate
     {
         /// <summary>
         /// Event type
@@ -28,12 +29,12 @@ namespace Huobi.Net.Objects.SocketObjects.V2
         /// Order side
         /// </summary>
         [JsonProperty("orderSide"), JsonConverter(typeof(OrderSideConverter))]
-        public HuobiOrderSide Side { get; set; }
+        public OrderSide Side { get; set; }
         /// <summary>
         /// Order type
         /// </summary>
         [JsonProperty("orderType"), JsonConverter(typeof(OrderTypeConverter))]
-        public HuobiOrderType Type { get; set; }
+        public OrderType Type { get; set; }
         /// <summary>
         /// Account id
         /// </summary>
@@ -49,9 +50,10 @@ namespace Huobi.Net.Objects.SocketObjects.V2
         /// </summary>
         public decimal OrderPrice { get; set; }
         /// <summary>
-        /// Order size
+        /// Order quantity
         /// </summary>
-        public decimal OrderSize { get; set; }
+        [JsonProperty("orderSize")]
+        public decimal OrderQuantity { get; set; }
         /// <summary>
         /// Client order id
         /// </summary>
@@ -76,12 +78,12 @@ namespace Huobi.Net.Objects.SocketObjects.V2
         /// Order status
         /// </summary>
         [JsonConverter(typeof(OrderStateConverter))]
-        public HuobiOrderState OrderStatus { get; set; }
+        public OrderState OrderStatus { get; set; }
 
         /// <summary>
-        /// Remaining amount
+        /// Remaining quantity
         /// </summary>
         [JsonProperty("remainAmt")]
-        public decimal RemainingQuantity { get; set; }
+        public decimal QuantityRemaining { get; set; }
     }
 }

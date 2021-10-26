@@ -3,6 +3,7 @@ using Huobi.Net.Converters;
 using Newtonsoft.Json;
 using System;
 using CryptoExchange.Net.ExchangeInterfaces;
+using Huobi.Net.Enums;
 
 namespace Huobi.Net.Objects
 {
@@ -23,17 +24,17 @@ namespace Huobi.Net.Objects
         /// The timestamp in milliseconds when this record is created
         /// </summary>
         [JsonProperty("created-at"), JsonConverter(typeof(TimestampConverter))]
-        public DateTime CreatedAt { get; set; }
+        public DateTime Timestamp { get; set; }
         /// <summary>
-        /// The amount which has been filled
+        /// The quantity which has been filled
         /// </summary>
         [JsonProperty("filled-amount")]
-        public decimal FilledQuantity { get; set; }
+        public decimal Quantity { get; set; }
         /// <summary>
         /// Transaction fee (positive value). If maker rebate applicable, revert maker rebate value per trade (negative value).
         /// </summary>
         [JsonProperty("filled-fees")]
-        public decimal FilledFees { get; set; }
+        public decimal Fee { get; set; }
         /// <summary>
         /// Deduction amount (unit: in ht or hbpoint).
         /// </summary>
@@ -66,37 +67,37 @@ namespace Huobi.Net.Objects
         /// The type of the order
         /// </summary>
         [JsonProperty("type"), JsonConverter(typeof(OrderTypeConverter))]
-        public HuobiOrderType OrderType { get; set; }
+        public OrderType OrderType { get; set; }
         /// <summary>
         /// The role in the transaction: taker or maker
         /// </summary>
         [JsonProperty("role"), JsonConverter(typeof(OrderRoleConverter))]
-        public HuobiOrderRole Role { get; set; }
+        public OrderRole Role { get; set; }
         /// <summary>
-        /// Currency of transaction fee or transaction fee rebate (transaction fee of buy order is based on base currency, transaction fee of sell order is based on quote currency; transaction fee rebate of buy order is based on quote currency, transaction fee rebate of sell order is based on base currency)
+        /// Asset of transaction fee or transaction fee rebate (transaction fee of buy order is based on base asset, transaction fee of sell order is based on quote asset; transaction fee rebate of buy order is based on quote asset, transaction fee rebate of sell order is based on base asset)
         /// </summary>
         [JsonProperty("fee-currency")]
-        public string FeeCurrency { get; set; } = string.Empty;
+        public string FeeAsset { get; set; } = string.Empty;
         /// <summary>
         /// Deduction type: ht or hbpoint.
         /// </summary>
         [JsonProperty("fee-deduct-currency")]
-        public string FeeDeductCurrency { get; set; } = string.Empty;
+        public string FeeDeductAsset { get; set; } = string.Empty;
         /// <summary>
         /// Fee deduction status.
         /// </summary>
         [JsonProperty("fee-deduct-state"), JsonConverter(typeof(FeeDeductStateConverter))]
-        public HuobiFeeDeductState FeeDeductState { get; set; }
+        public FeeDeductState FeeDeductState { get; set; }
 
 
         string ICommonTrade.CommonId => Id.ToString();
         decimal ICommonTrade.CommonPrice => Price;
-        decimal ICommonTrade.CommonQuantity => FilledQuantity;
-        decimal ICommonTrade.CommonFee => FilledFees;
+        decimal ICommonTrade.CommonQuantity => Quantity;
+        decimal ICommonTrade.CommonFee => Fee;
         string? ICommonTrade.CommonFeeAsset => null;
-        DateTime ICommonTrade.CommonTradeTime => CreatedAt;
+        DateTime ICommonTrade.CommonTradeTime => Timestamp;
         decimal ICommonRecentTrade.CommonPrice => Price;
-        decimal ICommonRecentTrade.CommonQuantity => FilledQuantity;
-        DateTime ICommonRecentTrade.CommonTradeTime => CreatedAt;
+        decimal ICommonRecentTrade.CommonQuantity => Quantity;
+        DateTime ICommonRecentTrade.CommonTradeTime => Timestamp;
     }
 }

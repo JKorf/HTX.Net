@@ -1,6 +1,7 @@
 ﻿using System;
 using CryptoExchange.Net.ExchangeInterfaces;
 using Huobi.Net.Converters;
+using Huobi.Net.Enums;
 using Newtonsoft.Json;
 
 namespace Huobi.Net.Objects
@@ -13,24 +14,25 @@ namespace Huobi.Net.Objects
         /// <summary>
         /// The symbol name
         /// </summary>
-        public string Symbol { get; set; } = string.Empty;
+        [JsonProperty("symbol")]
+        public string Name { get; set; } = string.Empty;
         /// <summary>
-        /// The base currency
+        /// The base asset
         /// </summary>
         [JsonProperty("base-currency")]
-        public string BaseCurrency { get; set; } = string.Empty;
+        public string BaseAsset { get; set; } = string.Empty;
         /// <summary>
-        /// The quote currency
+        /// The quote asset
         /// </summary>
         [JsonProperty("quote-currency")]
-        public string QuoteCurrency { get; set; } = string.Empty;
+        public string QuoteAsset { get; set; } = string.Empty;
         /// <summary>
         /// The precision of the price in decimal numbers
         /// </summary>
         [JsonProperty("price-precision")]
         public int PricePrecision { get; set; }
         /// <summary>
-        /// The precision of the amount in decimal numbers
+        /// The precision of the quantity in decimal numbers
         /// </summary>
         [JsonProperty("amount-precision")]
         public int QuantityPrecision { get; set; }
@@ -43,46 +45,56 @@ namespace Huobi.Net.Objects
         /// The state of the symbol
         /// </summary>
         [JsonProperty("state"), JsonConverter(typeof(SymbolStateConverter))]
-        public HuobiSymbolState State { get; set; }
+        public SymbolState State { get; set; }
         /// <summary>
-        /// Minimum value of the amount
+        /// Minimum value of the quantity
         /// </summary>
         [Obsolete]
         [JsonProperty("min-order-amt")]
         public decimal MinOrderQuantity { get; set; }
         /// <summary>
-        /// Maximum value of the amount
+        /// Maximum value of the quantity
         /// </summary>
         [Obsolete]
         [JsonProperty("max-order-amt")]
         public decimal MaxOrderQuantity { get; set; }
         /// <summary>
-        /// Minimum order amount of limit order in base currency
+        /// Minimum order quantity of limit order in base asset
         /// </summary>
         [JsonProperty("limit-order-min-order-amt")]
         public decimal MinLimitOrderQuantity { get; set; }
         /// <summary>
-        /// Max order amount of limit order in base currency
+        /// Max buy order quantity of limit order in base asset
+        /// </summary>
+        [JsonProperty("limit-order-max-buy-amt")]
+        public decimal MaxLimitOrderBuyQuantity { get; set; }
+        /// <summary>
+        /// Max sell order quantity of limit order in base asset
+        /// </summary>
+        [JsonProperty("limit-order-max-sell-amt")]
+        public decimal MaxLimitOrderSellQuantity { get; set; }
+        /// <summary>
+        /// Max order quantity of limit order in base asset
         /// </summary>
         [JsonProperty("limit-order-max-order-amt")]
         public decimal MaxLimitOrderQuantity { get; set; }
         /// <summary>
-        /// Minimum order amount of sell-market order in base currency
+        /// Minimum order quantity of sell-market order in base asset
         /// </summary>
         [JsonProperty("sell-market-min-order-amt")]
         public decimal MinMarketSellOrderQuantity { get; set; }
         /// <summary>
-        /// Max order amount of sell-market order in base currency
+        /// Max order quantity of sell-market order in base asset
         /// </summary>
         [JsonProperty("sell-market-max-order-amt")]
         public decimal MaxMarketSellOrderQuantity { get; set; }
         /// <summary>
-        /// Max order value of buy-market order in quote currency
+        /// Max order value of buy-market order in quote asset
         /// </summary>
         [JsonProperty("buy-market-max-order-value")]
         public decimal MaxMarketBuyOrderValue { get; set; }
         /// <summary>
-        /// Minimum value of the order amount in quote currency
+        /// Minimum value of the order quantity in quote asset
         /// </summary>
         [JsonProperty("min-order-value")]
         public decimal MinOrderValue { get; set; }
@@ -92,12 +104,17 @@ namespace Huobi.Net.Objects
         [JsonProperty("max-order-value")]
         public decimal MaxOrderValue { get; set; }
         /// <summary>
-        /// The precision of the order amount in quote currency
+        /// The precision of the order quantity in quote asset
         /// </summary>
         [JsonProperty("value-precision")]
         public int ValuePrecision { get; set; }
+        /// <summary>
+        /// Api trading status, enabled or disabled
+        /// </summary>
+        [JsonProperty("api-trading")]
+        public string ApiTrading { get; set; } = string.Empty;
 
-        string ICommonSymbol.CommonName => Symbol;
-        decimal ICommonSymbol.CommonMinimumTradeSize => MinLimitOrderQuantity;
+        string ICommonSymbol.CommonName => Name;
+        decimal ICommonSymbol.CommonMinimumTradeQuantity => MinLimitOrderQuantity;
     }
 }

@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using CryptoExchange.Net.ExchangeInterfaces;
+using Huobi.Net.Enums;
 
 namespace Huobi.Net.Objects
 {
@@ -39,15 +40,20 @@ namespace Huobi.Net.Objects
     public class HuobiSymbolTradeDetails
     {
         /// <summary>
-        /// The id of the trade
+        /// The id of the update
         /// </summary>
         public string Id { get; set; } = string.Empty;
+        /// <summary>
+        /// The id of the trade
+        /// </summary>
+        [JsonProperty("trade-id")]
+        public long TradeId { get; set; }
         /// <summary>
         /// The price of the trade
         /// </summary>
         public decimal Price { get; set; }
         /// <summary>
-        /// The amount of the trade
+        /// The quantity of the trade
         /// </summary>
         [JsonProperty("amount")]
         public decimal Quantity { get; set; }
@@ -55,7 +61,7 @@ namespace Huobi.Net.Objects
         /// The side of the trade
         /// </summary>
         [JsonProperty("direction"), JsonConverter(typeof(OrderSideConverter))]        
-        public HuobiOrderSide Side { get; set; }
+        public OrderSide Side { get; set; }
         /// <summary>
         /// The timestamp of the trade
         /// </summary>

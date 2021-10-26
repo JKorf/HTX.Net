@@ -14,7 +14,7 @@
         /// </summary>
         Halted = 2,
         /// <summary>
-        /// Only cancellation is possible
+        /// Only cancelation is possible
         /// </summary>
         CancelOnly = 3
     }

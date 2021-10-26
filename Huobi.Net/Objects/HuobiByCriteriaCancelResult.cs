@@ -18,7 +18,7 @@ namespace Huobi.Net.Objects
 		[JsonProperty("failed-count")]
 		public long Failed { get; set; }
 		/// <summary>
-		/// the next order id that can be cancelled
+		/// the next order id that can be canceled
 		/// </summary>
 		[JsonProperty("next-id")]
 		public long NextId { get; set; }

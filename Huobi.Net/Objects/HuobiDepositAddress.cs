@@ -1,4 +1,6 @@
-﻿namespace Huobi.Net.Objects
+﻿using Newtonsoft.Json;
+
+namespace Huobi.Net.Objects
 {
     /// <summary>
     /// Deposit address info
@@ -6,9 +8,14 @@
     public class HuobiDepositAddress 
     {
         /// <summary>
-        /// Crypto currency
+        /// User id
         /// </summary>
-        public string Currency { get; set; } = string.Empty;
+        public long UserId { get; set; }
+        /// <summary>
+        /// Asset
+        /// </summary>
+        [JsonProperty("currency")]
+        public string Asset { get; set; } = string.Empty;
         /// <summary>
         /// Deposit address
         /// </summary>
@@ -20,6 +27,7 @@
         /// <summary>
         /// Block chain name
         /// </summary>
-        public string Chain { get; set; } = string.Empty;
+        [JsonProperty("chain")]
+        public string Network { get; set; } = string.Empty;
     }
 }

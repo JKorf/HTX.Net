@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Sockets;
+using Huobi.Net.Enums;
 using Huobi.Net.Objects;
 using Huobi.Net.Objects.SocketObjects.V2;
 
@@ -27,7 +28,7 @@ namespace Huobi.Net.Interfaces
         /// <param name="symbol">The symbol to get the data for</param>
         /// <param name="period">The period of a single candlestick</param>
         /// <returns></returns>
-        Task<CallResult<IEnumerable<HuobiKline>>> GetKlinesAsync(string symbol, HuobiPeriod period);
+        Task<CallResult<IEnumerable<HuobiKline>>> GetKlinesAsync(string symbol, KlineInterval period);
 
         /// <summary>
         /// Subscribes to candlestick updates for a symbol
@@ -36,7 +37,7 @@ namespace Huobi.Net.Interfaces
         /// <param name="period">The period of a single candlestick</param>
         /// <param name="onData">The handler for updates</param>
         /// <returns></returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToKlineUpdatesAsync(string symbol, HuobiPeriod period, Action<DataEvent<HuobiKline>> onData);
+        Task<CallResult<UpdateSubscription>> SubscribeToKlineUpdatesAsync(string symbol, KlineInterval period, Action<DataEvent<HuobiKline>> onData);
 
         /// <summary>
         /// Gets the current order book for a symbol
@@ -117,14 +118,14 @@ namespace Huobi.Net.Interfaces
         /// <param name="symbol">The symbol to subscribe</param>
         /// <param name="onData">The handler for updates</param>
         /// <returns></returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToSymbolTickerUpdatesAsync(string symbol, Action<DataEvent<HuobiSymbolTick>> onData);
+        Task<CallResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(string symbol, Action<DataEvent<HuobiSymbolTick>> onData);
 
         /// <summary>
         /// Subscribes to updates for all tickers
         /// </summary>
         /// <param name="onData">The handler for updates</param>
         /// <returns></returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToSymbolTickerUpdatesAsync(Action<DataEvent<HuobiSymbolDatas>> onData);
+        Task<CallResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(Action<DataEvent<HuobiSymbolDatas>> onData);
 
         /// <summary>
         /// Subscribe to changes of a symbol's best ask/bid
@@ -141,17 +142,17 @@ namespace Huobi.Net.Interfaces
         /// <param name="symbol">Subscribe on a specific symbol</param>
         /// <param name="onOrderSubmitted">Event handler for the order submitted event</param>
         /// <param name="onOrderMatched">Event handler for the order matched event</param>
-        /// <param name="onOrderCancellation">Event handler for the order cancelled event</param>
+        /// <param name="onOrderCancelation">Event handler for the order cancelled event</param>
         /// <param name="onConditionalOrderTriggerFailure">Event handler for the conditional order trigger failed event</param>
-        /// <param name="onConditionalOrderCancelled">Event handler for the condition order cancelled event</param>
+        /// <param name="onConditionalOrderCanceled">Event handler for the condition order canceled event</param>
         /// <returns></returns>
         Task<CallResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(
             string? symbol = null,
             Action<DataEvent<HuobiSubmittedOrderUpdate>>? onOrderSubmitted = null,
             Action<DataEvent<HuobiMatchedOrderUpdate>>? onOrderMatched = null,
-            Action<DataEvent<HuobiCancelledOrderUpdate>>? onOrderCancellation = null,
+            Action<DataEvent<HuobiCanceledOrderUpdate>>? onOrderCancelation = null,
             Action<DataEvent<HuobiTriggerFailureOrderUpdate>>? onConditionalOrderTriggerFailure = null,
-            Action<DataEvent<Objects.SocketObjects.V2.HuobiOrderUpdate>>? onConditionalOrderCancelled = null);
+            Action<DataEvent<Objects.SocketObjects.V2.HuobiOrderUpdate>>? onConditionalOrderCanceled = null);
 
         /// <summary>
         /// Subscribe to updates of account balances
@@ -160,14 +161,14 @@ namespace Huobi.Net.Interfaces
         Task<CallResult<UpdateSubscription>> SubscribeToAccountUpdatesAsync(Action<DataEvent<HuobiAccountUpdate>> onAccountUpdate);
 
         /// <summary>
-        /// Subscribe to detailed order matched/cancelled updates
+        /// Subscribe to detailed order matched/canceled updates
         /// </summary>
         /// <param name="symbol">Subscribe to a specific symbol</param>
         /// <param name="onOrderMatch">Event handler for the order matched event</param>
-        /// <param name="onOrderCancel">Event handler for the order cancelled event</param>
+        /// <param name="onOrderCancel">Event handler for the order canceled event</param>
         /// <returns></returns>
         Task<CallResult<UpdateSubscription>> SubscribeToOrderDetailsUpdatesAsync(string? symbol = null,
-            Action<DataEvent<HuobiTradeUpdate>>? onOrderMatch = null, Action<DataEvent<HuobiOrderCancellationUpdate>>? onOrderCancel = null);
+            Action<DataEvent<HuobiTradeUpdate>>? onOrderMatch = null, Action<DataEvent<HuobiOrderCancelationUpdate>>? onOrderCancel = null);
 
     }
 }

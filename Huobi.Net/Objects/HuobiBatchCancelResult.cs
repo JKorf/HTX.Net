@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using Huobi.Net.Converters;
+using Huobi.Net.Enums;
 using Newtonsoft.Json;
 
 namespace Huobi.Net.Objects
@@ -40,5 +42,15 @@ namespace Huobi.Net.Objects
         /// </summary>
         [JsonProperty("order-id")]
         public long OrderId { get; set; }
+        /// <summary>
+        /// The state of the order
+        /// </summary>
+        [JsonProperty("order-state")]
+        public string? OrderState { get; set; }
+        /// <summary>
+        /// The id of the failed order
+        /// </summary>
+        [JsonProperty("client-order-id")]
+        public string? ClientOrderId { get; set; }
     }
 }

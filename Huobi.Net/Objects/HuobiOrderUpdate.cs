@@ -2,6 +2,7 @@
 using CryptoExchange.Net.Attributes;
 using CryptoExchange.Net.Converters;
 using Huobi.Net.Converters;
+using Huobi.Net.Enums;
 using Newtonsoft.Json;
 
 namespace Huobi.Net.Objects
@@ -27,7 +28,7 @@ namespace Huobi.Net.Objects
         [JsonProperty("account-id")]
         public long AccountId { get; set; }
         /// <summary>
-        /// The amount of the order
+        /// The quantity of the order
         /// </summary>
         [JsonProperty("order-amount")]
         public decimal Quantity { get; set; }
@@ -42,13 +43,13 @@ namespace Huobi.Net.Objects
         /// The time the order was created
         /// </summary>
         [JsonProperty("created-at"), JsonConverter(typeof(TimestampConverter))]
-        public DateTime CreatedAt { get; set; }
+        public DateTime CreateTime { get; set; }
         
         /// <summary>
         /// The type of the order
         /// </summary>
         [JsonProperty("order-type"), JsonConverter(typeof(OrderTypeConverter))]
-        public HuobiOrderType Type { get; set; }
+        public OrderType Type { get; set; }
 
 
         /// <summary>
@@ -61,35 +62,35 @@ namespace Huobi.Net.Objects
         /// The state of the order
         /// </summary>
         [JsonProperty("order-state"), JsonConverter(typeof(OrderStateConverter))]
-        public HuobiOrderState State { get; set; }
+        public OrderState State { get; set; }
 
         /// <summary>
         /// The role of the order
         /// </summary>
         [JsonProperty("role"), JsonConverter(typeof(OrderRoleConverter))]
-        public HuobiOrderRole Role { get; set; }
+        public OrderRole Role { get; set; }
 
         /// <summary>
-        /// The amount of the order that is filled
+        /// The quantity of the order that is filled
         /// </summary>
         [JsonProperty("filled-amount"), JsonOptionalProperty]
-        public decimal FilledQuantity { get; set; }
+        public decimal QuantityFilled { get; set; }
 
         /// <summary>
-        /// Unfilled amount
+        /// Unfilled quantity
         /// </summary>
         [JsonProperty("unfilled-amount"), JsonOptionalProperty]
-        public decimal UnfilledQuantity { get; set; }
+        public decimal QuantityRemaining { get; set; }
         /// <summary>
-        /// Filled cash amount
+        /// Filled cash quantity
         /// </summary>
         [JsonProperty("filled-cash-amount"), JsonOptionalProperty]
-        public decimal FilledCashQuantity { get; set; }
+        public decimal QuoteQuantityFilled { get; set; }
 
         /// <summary>
-        /// The amount of fees paid for the filled amount
+        /// The quantity of fees paid for the filled quantity
         /// </summary>
         [JsonProperty("filled-fees"), JsonOptionalProperty]
-        public decimal FilledFees { get; set; }
+        public decimal Fee { get; set; }
     }
 }

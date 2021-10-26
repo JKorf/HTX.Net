@@ -2,6 +2,7 @@
 using CryptoExchange.Net.Attributes;
 using CryptoExchange.Net.Converters;
 using Huobi.Net.Converters;
+using Huobi.Net.Enums;
 using Newtonsoft.Json;
 
 namespace Huobi.Net.Objects.SocketObjects.V2
@@ -28,13 +29,14 @@ namespace Huobi.Net.Objects.SocketObjects.V2
         /// Order status
         /// </summary>
         [JsonProperty("orderStatus"), JsonConverter(typeof(OrderStateConverter))]
-        public HuobiOrderState Status { get; set; }
+        public OrderState Status { get; set; }
         /// <summary>
         /// Timestamp
         /// </summary>
         [JsonConverter(typeof(TimestampConverter))]
         [JsonOptionalProperty]
-        public DateTime? LastActTime { get; set; }
+        [JsonProperty("lastActTime")]
+        public DateTime? UpdateTime { get; set; }
     }
     
     /// <summary>
@@ -56,21 +58,21 @@ namespace Huobi.Net.Objects.SocketObjects.V2
         [JsonProperty("orderPrice")]
         public decimal Price { get; set; }
         /// <summary>
-        /// Size of the order
+        /// Quantity of the order
         /// </summary>
         [JsonProperty("orderSize")]
-        public decimal? Size { get; set; }
+        public decimal? Quantity { get; set; }
         /// <summary>
         /// Value of the order
         /// </summary>
         [JsonProperty("orderValue")]
         [JsonOptionalProperty]
-        public decimal? Value { get; set; }
+        public decimal? QuoteQuantity { get; set; }
         /// <summary>
         /// Type of the order
         /// </summary>
         [JsonConverter(typeof(OrderTypeConverter))]
-        public HuobiOrderType Type { get; set; }
+        public OrderType Type { get; set; }
         /// <summary>
         /// Creation time
         /// </summary>
@@ -96,7 +98,8 @@ namespace Huobi.Net.Objects.SocketObjects.V2
         /// <summary>
         /// Trade volume
         /// </summary>
-        public decimal TradeVolume { get; set; }
+        [JsonProperty("tradeVolume")]
+        public decimal TradeQuantity { get; set; }
         /// <summary>
         /// Order id
         /// </summary>
@@ -105,7 +108,7 @@ namespace Huobi.Net.Objects.SocketObjects.V2
         /// Order type
         /// </summary>
         [JsonConverter(typeof(OrderTypeConverter))]
-        public HuobiOrderType Type { get; set; }
+        public OrderType Type { get; set; }
         /// <summary>
         /// Trade id
         /// </summary>
@@ -121,25 +124,25 @@ namespace Huobi.Net.Objects.SocketObjects.V2
         [JsonProperty("aggressor")]
         public bool IsTaker { get; set; }
         /// <summary>
-        /// Remaining amount
+        /// Remaining quantity
         /// </summary>
         [JsonProperty("remainAmt")]
-        public decimal RemainingQuantity { get; set; }
+        public decimal QuantityRemaining { get; set; }
         /// <summary>
-        /// Executed amount
+        /// Executed quantity
         /// </summary>
         [JsonProperty("execAmt")]
-        public decimal ExecutedQuantity { get; set; }
+        public decimal QuantityFilled { get; set; }
         /// <summary>
         /// Price of the order
         /// </summary>
         [JsonProperty("orderPrice")]
         public decimal Price { get; set; }
         /// <summary>
-        /// Size of the order
+        /// Quantity of the order
         /// </summary>
         [JsonProperty("orderSize")]
-        public decimal? Size { get; set; }
+        public decimal? Quantity { get; set; }
         /// <summary>
         /// Order source
         /// </summary>
@@ -147,9 +150,9 @@ namespace Huobi.Net.Objects.SocketObjects.V2
     }
 
     /// <summary>
-    /// Cancelled order update
+    /// Canceled order update
     /// </summary>
-    public class HuobiCancelledOrderUpdate : HuobiOrderUpdate
+    public class HuobiCanceledOrderUpdate : HuobiOrderUpdate
     {
         /// <summary>
         /// Order id
@@ -159,27 +162,27 @@ namespace Huobi.Net.Objects.SocketObjects.V2
         /// Order type
         /// </summary>
         [JsonConverter(typeof(OrderTypeConverter))]
-        public HuobiOrderType Type { get; set; }
+        public OrderType Type { get; set; }
         /// <summary>
-        /// Remaining amount
+        /// Remaining quantity
         /// </summary>
         [JsonProperty("remainAmt")]
-        public decimal RemainingQuantity { get; set; }
+        public decimal QuantityRemaining { get; set; }
         /// <summary>
-        /// Executed amount
+        /// Executed quantity
         /// </summary>
         [JsonProperty("execAmt")]
-        public decimal ExecutedQuantity { get; set; }
+        public decimal QuantityFilled { get; set; }
         /// <summary>
         /// Price of the order
         /// </summary>
         [JsonProperty("orderPrice")]
         public decimal Price { get; set; }
         /// <summary>
-        /// Size of the order
+        /// Quantity of the order
         /// </summary>
         [JsonProperty("orderSize")]
-        public decimal? Size { get; set; }
+        public decimal? Quantity { get; set; }
         /// <summary>
         /// Order source
         /// </summary>
@@ -195,7 +198,7 @@ namespace Huobi.Net.Objects.SocketObjects.V2
         /// Side of the order
         /// </summary>
         [JsonProperty("orderSide"), JsonConverter(typeof(OrderSideConverter))]
-        public HuobiOrderSide Side { get; set; }
+        public OrderSide Side { get; set; }
         /// <summary>
         /// The error code
         /// </summary>
