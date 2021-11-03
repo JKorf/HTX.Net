@@ -408,7 +408,7 @@ namespace Huobi.Net
             var request = new HuobiAuthenticatedSubscribeRequest($"trade.clearing#{symbol ?? "*"}#1");
             var internalHandler = new Action<DataEvent<JToken>>(data =>
             {
-                if(data.Data["data"] == null || data.Data["eventType"] == null)
+                if(data.Data["data"] == null || data.Data["data"]!["eventType"] == null)
                 {
                     log.Write(LogLevel.Warning, "Invalid order update data: " + data);
                     return;
