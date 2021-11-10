@@ -5,15 +5,16 @@ using CryptoExchange.Net.OrderBook;
 using CryptoExchange.Net.Sockets;
 using Huobi.Net.Interfaces;
 using System;
+using Huobi.Net.Interfaces.Clients.Socket;
 
-namespace Huobi.Net
+namespace Huobi.Net.SymbolOrderBooks
 {
     /// <summary>
     /// Huobi order book implementation
     /// </summary>
     public class HuobiSymbolOrderBook : SymbolOrderBook
     {
-        private readonly IHuobiSocketClient socketClient;
+        private readonly IHuobiSocketClientSpot socketClient;
         private readonly int? mergeStep;
         private int? _levels;
         private bool _socketOwner;
@@ -23,10 +24,12 @@ namespace Huobi.Net
         /// </summary>
         /// <param name="symbol">The symbol the order book is for</param>
         /// <param name="options">The options for the order book</param>
-        public HuobiSymbolOrderBook(string symbol, HuobiOrderBookOptions? options = null) : base(symbol, options ?? new HuobiOrderBookOptions())
+        public HuobiSymbolOrderBook(string symbol, HuobiOrderBookOptions? options = null) : base("Huobi[Spot]", symbol, options ?? new HuobiOrderBookOptions())
         {
             mergeStep = options?.MergeStep;
             _levels = options?.Levels;
+            strictLevels = false;
+            sequencesAreConsecutive = _levels != null;
 
             if (_levels != 150 && mergeStep != null)
                 throw new ArgumentException("Mergestep only supported with 150 levels");
@@ -34,7 +37,7 @@ namespace Huobi.Net
             if (_levels == null && mergeStep == null)
                 throw new ArgumentException("Levels need to be set when MergeStep is not set");
             
-            socketClient = options?.SocketClient ?? new HuobiSocketClient();
+            socketClient = options?.SocketClient ?? new HuobiSocketClientSpot();
             _socketOwner = options?.SocketClient == null;
         }
 

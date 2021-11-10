@@ -9,12 +9,12 @@ using Huobi.Net.Enums;
 using Huobi.Net.Objects;
 using Huobi.Net.Objects.SocketObjects.V2;
 
-namespace Huobi.Net.Interfaces
+namespace Huobi.Net.Interfaces.Clients.Socket
 {
     /// <summary>
     /// Interface for the Huobi socket client
     /// </summary>
-    public interface IHuobiSocketClient: ISocketClient
+    public interface IHuobiSocketClientSpot: ISocketClient
     {
         /// <summary>
         /// Set the API key and secret

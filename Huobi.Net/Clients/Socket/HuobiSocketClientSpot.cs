@@ -21,18 +21,16 @@ using Microsoft.Extensions.Logging;
 using CryptoExchange.Net.Authentication;
 using Huobi.Net.Enums;
 using System.Threading;
+using Huobi.Net.Interfaces.Clients.Socket;
 
 namespace Huobi.Net
 {
     /// <summary>
     /// Client for the Huobi socket API
     /// </summary>
-    public class HuobiSocketClient : SocketClient, IHuobiSocketClient
+    public class HuobiSocketClientSpot : SocketClient, IHuobiSocketClientSpot
     {
         #region fields
-        private static HuobiSocketClientOptions defaultOptions = new HuobiSocketClientOptions();
-        private static HuobiSocketClientOptions DefaultOptions => defaultOptions.Copy();
-
         private readonly string baseAddressAuthenticated;
         private readonly string baseAddressMbp;
         #endregion
@@ -41,7 +39,7 @@ namespace Huobi.Net
         /// <summary>
         /// Create a new instance of HuobiSocketClient with default options
         /// </summary>
-        public HuobiSocketClient() : this(DefaultOptions)
+        public HuobiSocketClientSpot() : this(HuobiSocketClientSpotOptions.Default)
         {
         }
 
@@ -49,7 +47,7 @@ namespace Huobi.Net
         /// Create a new instance of HuobiSocketClient using provided options
         /// </summary>
         /// <param name="options">The options to use for this client</param>
-        public HuobiSocketClient(HuobiSocketClientOptions options) : base("Huobi", options, options.ApiCredentials == null ? null : new HuobiAuthenticationProvider(options.ApiCredentials, false))
+        public HuobiSocketClientSpot(HuobiSocketClientSpotOptions options) : base("Huobi", options, options.ApiCredentials == null ? null : new HuobiAuthenticationProvider(options.ApiCredentials, false))
         {
             baseAddressAuthenticated = options.BaseAddressAuthenticated;
             baseAddressMbp = options.BaseAddressInrementalOrderBook;
@@ -75,9 +73,9 @@ namespace Huobi.Net
         /// Set the default options to be used when creating new socket clients
         /// </summary>
         /// <param name="options">The options to use for new clients</param>
-        public static void SetDefaultOptions(HuobiSocketClientOptions options)
+        public static void SetDefaultOptions(HuobiSocketClientSpotOptions options)
         {
-            defaultOptions = options;
+            HuobiSocketClientSpotOptions.Default = options;
         }
 
         /// <inheritdoc />
