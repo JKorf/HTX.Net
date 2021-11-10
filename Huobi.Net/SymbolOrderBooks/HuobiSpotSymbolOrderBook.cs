@@ -12,7 +12,7 @@ namespace Huobi.Net.SymbolOrderBooks
     /// <summary>
     /// Huobi order book implementation
     /// </summary>
-    public class HuobiSymbolOrderBook : SymbolOrderBook
+    public class HuobiSpotSymbolOrderBook : SymbolOrderBook
     {
         private readonly IHuobiSocketClientSpot socketClient;
         private readonly int? mergeStep;
@@ -24,7 +24,7 @@ namespace Huobi.Net.SymbolOrderBooks
         /// </summary>
         /// <param name="symbol">The symbol the order book is for</param>
         /// <param name="options">The options for the order book</param>
-        public HuobiSymbolOrderBook(string symbol, HuobiOrderBookOptions? options = null) : base("Huobi[Spot]", symbol, options ?? new HuobiOrderBookOptions())
+        public HuobiSpotSymbolOrderBook(string symbol, HuobiOrderBookOptions? options = null) : base("Huobi[Spot]", symbol, options ?? new HuobiOrderBookOptions())
         {
             mergeStep = options?.MergeStep;
             _levels = options?.Levels;
