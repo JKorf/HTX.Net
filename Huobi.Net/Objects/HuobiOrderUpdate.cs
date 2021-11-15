@@ -55,7 +55,7 @@ namespace Huobi.Net.Objects
         /// <summary>
         /// The source of the order
         /// </summary>
-        [JsonProperty("order-source"), JsonOptionalProperty]
+        [JsonProperty("order-source")]
         public string Source { get; set; } = string.Empty;
 
         /// <summary>
@@ -73,24 +73,24 @@ namespace Huobi.Net.Objects
         /// <summary>
         /// The quantity of the order that is filled
         /// </summary>
-        [JsonProperty("filled-amount"), JsonOptionalProperty]
+        [JsonProperty("filled-amount")]
         public decimal QuantityFilled { get; set; }
 
         /// <summary>
         /// Unfilled quantity
         /// </summary>
-        [JsonProperty("unfilled-amount"), JsonOptionalProperty]
+        [JsonProperty("unfilled-amount")]
         public decimal QuantityRemaining { get; set; }
         /// <summary>
         /// Filled cash quantity
         /// </summary>
-        [JsonProperty("filled-cash-amount"), JsonOptionalProperty]
+        [JsonProperty("filled-cash-amount")]
         public decimal QuoteQuantityFilled { get; set; }
 
         /// <summary>
         /// The quantity of fees paid for the filled quantity
         /// </summary>
-        [JsonProperty("filled-fees"), JsonOptionalProperty]
+        [JsonProperty("filled-fees")]
         public decimal Fee { get; set; }
     }
 }

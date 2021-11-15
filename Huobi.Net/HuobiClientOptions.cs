@@ -1,4 +1,7 @@
-﻿using System.Net.Http;
+﻿using System;
+using System.Collections.Generic;
+using System.Net.Http;
+using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Objects;
 using Huobi.Net.Interfaces;
 using Huobi.Net.Interfaces.Clients.Socket;
@@ -16,7 +19,14 @@ namespace Huobi.Net
         /// </summary>
         public static HuobiClientSpotOptions Default { get; set; } = new HuobiClientSpotOptions()
         {
-            BaseAddress = "https://api.huobi.pro"
+            BaseAddress = "https://api.huobi.pro",
+            RateLimiters = new List<IRateLimiter>
+            {
+                 new RateLimiter()
+                    .AddPartialEndpointLimit("/v1/order", 100, TimeSpan.FromSeconds(2), null, true, true)
+                    .AddApiKeyLimit(10, TimeSpan.FromSeconds(1), true, true)
+                    .AddTotalRateLimit(10, TimeSpan.FromSeconds(1))
+            }
         };
 
         /// <summary>

@@ -29,9 +29,8 @@ namespace Huobi.Net.Objects.SocketObjects
         /// <summary>
         /// The data
         /// </summary>
-        [JsonOptionalProperty]
         public T Data { get; set; } = default!;
-        [JsonOptionalProperty, JsonProperty("tick")]
+        [JsonProperty("tick")]
         private T Tick { set => Data = value; get => Data; }
     }
 

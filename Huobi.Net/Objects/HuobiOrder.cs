@@ -72,7 +72,7 @@ namespace Huobi.Net.Objects
         /// <summary>
         /// The source of the order
         /// </summary>
-        [JsonProperty("source"), JsonOptionalProperty]
+        [JsonProperty("source")]
         public string Source { get; set; } = string.Empty;
 
         /// <summary>

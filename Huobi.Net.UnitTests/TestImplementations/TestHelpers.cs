@@ -77,9 +77,9 @@ namespace Huobi.Net.UnitTests.TestImplementations
         public static HuobiSocketClientSpot CreateAuthenticatedSocketClient(IWebsocket socket, HuobiSocketClientSpotOptions options = null)
         {
             HuobiSocketClientSpot client;
-            client = options != null ? new HuobiSocketClientSpot(options) : new HuobiSocketClientSpot(new HuobiSocketClientSpotOptions(){ LogLevel = LogLevel.Debug, ApiCredentials = new ApiCredentials("Test", "Test")});
+            client = options != null ? new HuobiSocketClientSpot(options) : new HuobiSocketClientSpot(new HuobiSocketClientSpotOptions(){ LogLevel = LogLevel.Trace, ApiCredentials = new ApiCredentials("Test", "Test")});
             client.SocketFactory = Mock.Of<IWebsocketFactory>();
-            Mock.Get(client.SocketFactory).Setup(f => f.CreateWebsocket(It.IsAny<Log>(), It.IsAny<string>())).Returns(socket);
+            Mock.Get(client.SocketFactory).Setup(f => f.CreateWebsocket(It.IsAny<Log>(), It.IsAny<string>())).Returns(socket);  
             return client;
         }
 

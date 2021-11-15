@@ -84,7 +84,7 @@ namespace Huobi.Net.Clients.Rest.Spot
             parameters.AddOptionalParameter("side", side == null ? null : JsonConvert.SerializeObject(side, new OrderSideConverter(false)));
             parameters.AddOptionalParameter("size", limit);
 
-            return await _baseClient.SendHuobiRequest<IEnumerable<HuobiOpenOrder>>(_baseClient.GetUrl(OpenOrdersEndpoint, "1"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+            return await _baseClient.SendHuobiRequest<IEnumerable<HuobiOpenOrder>>(_baseClient.GetUrl(OpenOrdersEndpoint, "1"), HttpMethod.Get, ct, parameters, true, weight: 2).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -117,7 +117,7 @@ namespace Huobi.Net.Clients.Rest.Spot
             parameters.AddOptionalParameter("order-ids", orderIds?.Select(s => s.ToString(CultureInfo.InvariantCulture)));
             parameters.AddOptionalParameter("client-order-ids", clientOrderIds?.Select(s => s.ToString(CultureInfo.InvariantCulture)));
 
-            return await _baseClient.SendHuobiRequest<HuobiBatchCancelResult>(_baseClient.GetUrl(CancelOrdersEndpoint, "1"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
+            return await _baseClient.SendHuobiRequest<HuobiBatchCancelResult>(_baseClient.GetUrl(CancelOrdersEndpoint, "1"), HttpMethod.Post, ct, parameters, true, weight: 2).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -135,7 +135,7 @@ namespace Huobi.Net.Clients.Rest.Spot
         /// <inheritdoc />
         public async Task<WebCallResult<HuobiOrder>> GetOrderAsync(long orderId, CancellationToken ct = default)
         {
-            return await _baseClient.SendHuobiRequest<HuobiOrder>(_baseClient.GetUrl(_baseClient.FillPathParameter(OrderInfoEndpoint, orderId.ToString(CultureInfo.InvariantCulture)), "1"), HttpMethod.Get, ct, signed: true).ConfigureAwait(false);
+            return await _baseClient.SendHuobiRequest<HuobiOrder>(_baseClient.GetUrl(_baseClient.FillPathParameter(OrderInfoEndpoint, orderId.ToString(CultureInfo.InvariantCulture)), "1"), HttpMethod.Get, ct, signed: true, weight: 2).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -146,13 +146,13 @@ namespace Huobi.Net.Clients.Rest.Spot
                 { "clientOrderId", clientOrderId }
             };
 
-            return await _baseClient.SendHuobiRequest<HuobiOrder>(_baseClient.GetUrl(ClientOrderInfoEndpoint, "1"), HttpMethod.Get, ct, parameters: parameters, signed: true).ConfigureAwait(false);
+            return await _baseClient.SendHuobiRequest<HuobiOrder>(_baseClient.GetUrl(ClientOrderInfoEndpoint, "1"), HttpMethod.Get, ct, parameters: parameters, signed: true, weight: 2).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<WebCallResult<IEnumerable<HuobiOrderTrade>>> GetOrderTradesAsync(long orderId, CancellationToken ct = default)
         {
-            return await _baseClient.SendHuobiRequest<IEnumerable<HuobiOrderTrade>>(_baseClient.GetUrl(_baseClient.FillPathParameter(OrderTradesEndpoint, orderId.ToString(CultureInfo.InvariantCulture)), "1"), HttpMethod.Get, ct, signed: true).ConfigureAwait(false);
+            return await _baseClient.SendHuobiRequest<IEnumerable<HuobiOrderTrade>>(_baseClient.GetUrl(_baseClient.FillPathParameter(OrderTradesEndpoint, orderId.ToString(CultureInfo.InvariantCulture)), "1"), HttpMethod.Get, ct, signed: true, weight: 2).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -173,7 +173,7 @@ namespace Huobi.Net.Clients.Rest.Spot
             parameters.AddOptionalParameter("direct", direction == null ? null : JsonConvert.SerializeObject(direction, new FilterDirectionConverter(false)));
             parameters.AddOptionalParameter("size", limit);
 
-            return await _baseClient.SendHuobiRequest<IEnumerable<HuobiOrder>>(_baseClient.GetUrl(OrdersEndpoint, "1"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+            return await _baseClient.SendHuobiRequest<IEnumerable<HuobiOrder>>(_baseClient.GetUrl(OrdersEndpoint, "1"), HttpMethod.Get, ct, parameters, true, weight: 2).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -192,7 +192,7 @@ namespace Huobi.Net.Clients.Rest.Spot
             parameters.AddOptionalParameter("direct", direction == null ? null : JsonConvert.SerializeObject(direction, new FilterDirectionConverter(false)));
             parameters.AddOptionalParameter("size", limit);
 
-            return await _baseClient.SendHuobiRequest<IEnumerable<HuobiOrderTrade>>(_baseClient.GetUrl(SymbolTradesEndpoint, "1"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+            return await _baseClient.SendHuobiRequest<IEnumerable<HuobiOrderTrade>>(_baseClient.GetUrl(SymbolTradesEndpoint, "1"), HttpMethod.Get, ct, parameters, true, weight: 5).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -206,7 +206,7 @@ namespace Huobi.Net.Clients.Rest.Spot
             parameters.AddOptionalParameter("direct", direction == null ? null : JsonConvert.SerializeObject(direction, new FilterDirectionConverter(false)));
             parameters.AddOptionalParameter("size", limit);
 
-            var result = await _baseClient.SendHuobiRequest<IEnumerable<HuobiOrder>>(_baseClient.GetUrl(HistoryOrdersEndpoint, "1"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+            var result = await _baseClient.SendHuobiRequest<IEnumerable<HuobiOrder>>(_baseClient.GetUrl(HistoryOrdersEndpoint, "1"), HttpMethod.Get, ct, parameters, true, weight: 5).ConfigureAwait(false);
             if (!result)
                 return WebCallResult<IEnumerable<HuobiOrder>>.CreateErrorResult(result.ResponseStatusCode, result.ResponseHeaders, result.Error!);
 

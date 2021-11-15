@@ -59,7 +59,7 @@ namespace Huobi.Net.Clients.Rest.Spot
                 { "symbol", symbol }
             };
 
-            var result = await _baseClient.SendHuobiTimestampRequest<HuobiSymbolTickMerged>(_baseClient.GetUrl(MarketTickerMergedEndpoint), HttpMethod.Get, ct, parameters, checkResult: false).ConfigureAwait(false);
+            var result = await _baseClient.SendHuobiTimestampRequest<HuobiSymbolTickMerged>(_baseClient.GetUrl(MarketTickerMergedEndpoint), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
             if (!result)
                 return WebCallResult<HuobiSymbolTickMerged>.CreateErrorResult(result.ResponseStatusCode, result.ResponseHeaders, result.Error!);
 
@@ -97,7 +97,7 @@ namespace Huobi.Net.Clients.Rest.Spot
             };
             parameters.AddOptionalParameter("depth", limit);
 
-            var result = await _baseClient.SendHuobiTimestampRequest<HuobiOrderBook>(_baseClient.GetUrl(MarketDepthEndpoint), HttpMethod.Get, ct, parameters, checkResult: false).ConfigureAwait(false);
+            var result = await _baseClient.SendHuobiTimestampRequest<HuobiOrderBook>(_baseClient.GetUrl(MarketDepthEndpoint), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
             if (!result)
                 return WebCallResult<HuobiOrderBook>.CreateErrorResult(result.ResponseStatusCode, result.ResponseHeaders, result.Error!);
 
@@ -113,7 +113,7 @@ namespace Huobi.Net.Clients.Rest.Spot
                 { "symbol", symbol }
             };
 
-            return await _baseClient.SendHuobiRequest<HuobiSymbolTrade>(_baseClient.GetUrl(MarketLastTradeEndpoint), HttpMethod.Get, ct, parameters, checkResult: false).ConfigureAwait(false);
+            return await _baseClient.SendHuobiRequest<HuobiSymbolTrade>(_baseClient.GetUrl(MarketLastTradeEndpoint), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -140,7 +140,7 @@ namespace Huobi.Net.Clients.Rest.Spot
                 { "symbol", symbol }
             };
 
-            var result = await _baseClient.SendHuobiTimestampRequest<HuobiSymbolDetails>(_baseClient.GetUrl(MarketDetailsEndpoint), HttpMethod.Get, ct, parameters, checkResult: false).ConfigureAwait(false);
+            var result = await _baseClient.SendHuobiTimestampRequest<HuobiSymbolDetails>(_baseClient.GetUrl(MarketDetailsEndpoint), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
             if (!result)
                 return WebCallResult<HuobiSymbolDetails>.CreateErrorResult(result.ResponseStatusCode, result.ResponseHeaders, result.Error!);
 
@@ -157,7 +157,7 @@ namespace Huobi.Net.Clients.Rest.Spot
                 { "symbol", symbol }
             };
 
-            var result = await _baseClient.SendHuobiTimestampRequest<HuobiNav>(_baseClient.GetUrl(NavEndpoint), HttpMethod.Get, ct, parameters, checkResult: false).ConfigureAwait(false);
+            var result = await _baseClient.SendHuobiTimestampRequest<HuobiNav>(_baseClient.GetUrl(NavEndpoint), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
             if (!result)
                 return WebCallResult<HuobiNav>.CreateErrorResult(result.ResponseStatusCode, result.ResponseHeaders, result.Error!);
 

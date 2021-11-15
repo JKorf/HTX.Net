@@ -34,7 +34,6 @@ namespace Huobi.Net.Objects.SocketObjects.V2
         /// Timestamp
         /// </summary>
         [JsonConverter(typeof(TimestampConverter))]
-        [JsonOptionalProperty]
         [JsonProperty("lastActTime")]
         public DateTime? UpdateTime { get; set; }
     }
@@ -66,7 +65,6 @@ namespace Huobi.Net.Objects.SocketObjects.V2
         /// Value of the order
         /// </summary>
         [JsonProperty("orderValue")]
-        [JsonOptionalProperty]
         public decimal? QuoteQuantity { get; set; }
         /// <summary>
         /// Type of the order

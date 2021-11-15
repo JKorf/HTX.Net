@@ -88,9 +88,9 @@ namespace Huobi.Net.Client.Rest.Spot
             SetAuthenticationProvider(new HuobiAuthenticationProvider(new ApiCredentials(apiKey, apiSecret), ClientOptions.SignPublicRequests));
         }
                 
-        internal async Task<WebCallResult<T>> SendHuobiV2Request<T>(Uri uri, HttpMethod method, CancellationToken cancellationToken, Dictionary<string, object>? parameters = null, bool signed = false, bool checkResult = true)
+        internal async Task<WebCallResult<T>> SendHuobiV2Request<T>(Uri uri, HttpMethod method, CancellationToken cancellationToken, Dictionary<string, object>? parameters = null, bool signed = false)
         {
-            var result = await SendRequestAsync<HuobiApiResponseV2<T>>(uri, method, cancellationToken, parameters, signed, checkResult).ConfigureAwait(false);
+            var result = await SendRequestAsync<HuobiApiResponseV2<T>>(uri, method, cancellationToken, parameters, signed).ConfigureAwait(false);
             if (!result || result.Data == null)
                 return new WebCallResult<T>(result.ResponseStatusCode, result.ResponseHeaders, default, result.Error);
 
@@ -100,9 +100,9 @@ namespace Huobi.Net.Client.Rest.Spot
             return result.As(result.Data.Data);
         }
 
-        internal async Task<WebCallResult<(T, DateTime)>> SendHuobiTimestampRequest<T>(Uri uri, HttpMethod method, CancellationToken cancellationToken, Dictionary<string, object>? parameters = null, bool signed = false, bool checkResult = true)
+        internal async Task<WebCallResult<(T, DateTime)>> SendHuobiTimestampRequest<T>(Uri uri, HttpMethod method, CancellationToken cancellationToken, Dictionary<string, object>? parameters = null, bool signed = false)
         {
-            var result = await SendRequestAsync<HuobiBasicResponse<T>>(uri, method, cancellationToken, parameters, signed, checkResult).ConfigureAwait(false);
+            var result = await SendRequestAsync<HuobiBasicResponse<T>>(uri, method, cancellationToken, parameters, signed).ConfigureAwait(false);
             if (!result || result.Data == null)
                 return new WebCallResult<(T, DateTime)>(result.ResponseStatusCode, result.ResponseHeaders, default, result.Error);
 
@@ -112,9 +112,9 @@ namespace Huobi.Net.Client.Rest.Spot
             return result.As((result.Data.Data, result.Data.Timestamp));
         }
 
-        internal async Task<WebCallResult<T>> SendHuobiRequest<T>(Uri uri, HttpMethod method, CancellationToken cancellationToken, Dictionary<string, object>? parameters = null, bool signed = false, bool checkResult = true)
+        internal async Task<WebCallResult<T>> SendHuobiRequest<T>(Uri uri, HttpMethod method, CancellationToken cancellationToken, Dictionary<string, object>? parameters = null, bool signed = false, int? weight = 1)
         {
-            var result = await SendRequestAsync<HuobiBasicResponse<T>>(uri, method, cancellationToken, parameters, signed, checkResult).ConfigureAwait(false);
+            var result = await SendRequestAsync<HuobiBasicResponse<T>>(uri, method, cancellationToken, parameters, signed, requestWeight: weight ?? 1).ConfigureAwait(false);
             if (!result || result.Data == null)
                 return new WebCallResult<T>(result.ResponseStatusCode, result.ResponseHeaders, default, result.Error);
 

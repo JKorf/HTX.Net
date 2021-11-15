@@ -24,12 +24,10 @@ namespace Huobi.Net.Objects.SocketObjects.V2
         /// <summary>
         /// Total balance
         /// </summary>
-        [JsonOptionalProperty]
         public decimal? Balance { get; set; }
         /// <summary>
         /// Available balance
         /// </summary>
-        [JsonOptionalProperty]
         public decimal? Available { get; set; }
         /// <summary>
         /// Type of change

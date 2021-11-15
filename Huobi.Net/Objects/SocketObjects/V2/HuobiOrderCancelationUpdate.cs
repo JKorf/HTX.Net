@@ -57,17 +57,14 @@ namespace Huobi.Net.Objects.SocketObjects.V2
         /// <summary>
         /// Client order id
         /// </summary>
-        [JsonOptionalProperty]
         public string? ClientOrderId { get; set; }
         /// <summary>
         /// Stop price
         /// </summary>
-        [JsonOptionalProperty]
         public decimal? StopPrice { get; set; }
         /// <summary>
         /// Operator
         /// </summary>
-        [JsonOptionalProperty]
         public string? Operator { get; set; }
         /// <summary>
         /// Order creation time

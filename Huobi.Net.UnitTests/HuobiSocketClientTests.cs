@@ -260,7 +260,7 @@ namespace Huobi.Net.UnitTests
             HuobiAccountUpdate result = null;
             var subTask = client.SubscribeToAccountUpdatesAsync(test => result = test.Data);
             socket.InvokeMessage("{\"ch\": \"auth\", \"code\": 200, \"action\": \"req\"}");
-            Thread.Sleep(10);
+            Thread.Sleep(100);
             socket.InvokeMessage($"{{\"action\": \"sub\", \"code\": 200, \"ch\": \"accounts.update#1\"}}");
             var subResult = subTask.Result;
 
