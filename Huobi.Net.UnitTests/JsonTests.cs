@@ -5,6 +5,8 @@ using Huobi.Net.UnitTests.TestImplementations;
 using NUnit.Framework;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using CryptoExchange.Net.Interfaces;
+using Huobi.Net.Objects;
 
 namespace Huobi.Net.UnitTests
 {
@@ -12,7 +14,7 @@ namespace Huobi.Net.UnitTests
     public class JsonTests
     {
         private JsonToObjectComparer<IHuobiClientSpot> _comparer = new JsonToObjectComparer<IHuobiClientSpot>((json) => TestHelpers.CreateResponseClient(json, new HuobiClientSpotOptions()
-        { ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "123"), OutputOriginalData = true }));
+        { ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "123"), OutputOriginalData = true, RateLimiters = new List<IRateLimiter>() }));
 
         [Test]
         public async Task ValidateAccountCalls()

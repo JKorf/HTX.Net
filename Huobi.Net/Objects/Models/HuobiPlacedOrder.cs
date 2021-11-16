@@ -1,6 +1,6 @@
 ﻿using CryptoExchange.Net.ExchangeInterfaces;
 
-namespace Huobi.Net.Objects
+namespace Huobi.Net.Objects.Models
 {
     /// <summary>
     /// Placed order

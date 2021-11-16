@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Objects;
 using Huobi.Net.Enums;
-using Huobi.Net.Objects;
 
 namespace Huobi.Net.Interfaces.Clients.Rest.Spot
 {

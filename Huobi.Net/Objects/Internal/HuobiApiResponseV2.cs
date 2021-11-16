@@ -1,4 +1,4 @@
-﻿namespace Huobi.Net.Objects
+﻿namespace Huobi.Net.Objects.Internal
 {
     internal class HuobiApiResponseV2<T>
     {

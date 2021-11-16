@@ -1,11 +1,9 @@
 ﻿using CryptoExchange.Net;
 using CryptoExchange.Net.Converters;
 using CryptoExchange.Net.Objects;
-using Huobi.Net.Client.Rest.Spot;
 using Huobi.Net.Converters;
 using Huobi.Net.Enums;
 using Huobi.Net.Interfaces.Clients.Rest.Spot;
-using Huobi.Net.Objects;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -13,6 +11,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Huobi.Net.Objects.Models;
 
 namespace Huobi.Net.Clients.Rest.Spot
 {

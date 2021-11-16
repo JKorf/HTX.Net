@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace Huobi.Net.Objects
+namespace Huobi.Net.Objects.Models
 {
     /// <summary>
     /// Deposit address info

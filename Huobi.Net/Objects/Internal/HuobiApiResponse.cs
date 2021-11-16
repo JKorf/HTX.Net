@@ -1,9 +1,8 @@
-﻿using CryptoExchange.Net.Attributes;
+﻿using System;
 using CryptoExchange.Net.Converters;
 using Newtonsoft.Json;
-using System;
 
-namespace Huobi.Net.Objects
+namespace Huobi.Net.Objects.Internal
 {
     internal abstract class HuobiApiResponse
     {

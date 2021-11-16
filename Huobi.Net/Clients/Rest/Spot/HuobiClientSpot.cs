@@ -1,26 +1,22 @@
-﻿using CryptoExchange.Net;
-using CryptoExchange.Net.Authentication;
-using CryptoExchange.Net.Converters;
-using CryptoExchange.Net.Interfaces;
-using CryptoExchange.Net.Objects;
-using Huobi.Net.Converters;
-using Huobi.Net.Objects;
-using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using CryptoExchange.Net;
+using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.ExchangeInterfaces;
+using CryptoExchange.Net.Interfaces;
+using CryptoExchange.Net.Objects;
 using Huobi.Net.Enums;
-using Huobi.Net.Interfaces;
-using Newtonsoft.Json.Linq;
 using Huobi.Net.Interfaces.Clients.Rest.Spot;
-using Huobi.Net.Clients.Rest.Spot;
+using Huobi.Net.Objects;
+using Huobi.Net.Objects.Internal;
+using Huobi.Net.Objects.Models;
+using Newtonsoft.Json.Linq;
 
-namespace Huobi.Net.Client.Rest.Spot
+namespace Huobi.Net.Clients.Rest.Spot
 {
     /// <summary>
     /// Client for the Huobi REST API
@@ -254,13 +250,13 @@ namespace Huobi.Net.Client.Rest.Spot
         async Task<WebCallResult<ICommonTicker>> IExchangeClient.GetTickerAsync(string symbol)
         {
             var tickers = await ExchangeData.GetTickersAsync().ConfigureAwait(false);
-            return tickers.As<ICommonTicker>(tickers.Data?.Ticks.Where(w => w.Symbol == symbol).Select(t => (ICommonTicker)t).FirstOrDefault());
+            return tickers.As<ICommonTicker>(Enumerable.Where<HuobiSymbolTick>(tickers.Data?.Ticks, w => w.Symbol == symbol).Select(t => (ICommonTicker)t).FirstOrDefault());
         }
 
         async Task<WebCallResult<IEnumerable<ICommonTicker>>> IExchangeClient.GetTickersAsync()
         {
             var tickers = await ExchangeData.GetTickersAsync().ConfigureAwait(false);
-            return tickers.As<IEnumerable<ICommonTicker>>(tickers.Data?.Ticks.Select(t => (ICommonTicker)t));
+            return tickers.As<IEnumerable<ICommonTicker>>(Enumerable.Select<HuobiSymbolTick, ICommonTicker>(tickers.Data?.Ticks, t => (ICommonTicker)t));
         }
 
         async Task<WebCallResult<IEnumerable<ICommonKline>>> IExchangeClient.GetKlinesAsync(string symbol, TimeSpan timespan, DateTime? startTime = null, DateTime? endTime = null, int? limit = null)

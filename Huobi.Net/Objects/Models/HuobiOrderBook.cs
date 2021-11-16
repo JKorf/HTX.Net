@@ -5,7 +5,7 @@ using CryptoExchange.Net.ExchangeInterfaces;
 using CryptoExchange.Net.Interfaces;
 using Newtonsoft.Json;
 
-namespace Huobi.Net.Objects
+namespace Huobi.Net.Objects.Models
 {
     /// <summary>
     /// Order book

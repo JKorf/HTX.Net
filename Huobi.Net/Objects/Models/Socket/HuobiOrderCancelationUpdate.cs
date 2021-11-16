@@ -1,11 +1,10 @@
 ﻿using System;
-using CryptoExchange.Net.Attributes;
 using CryptoExchange.Net.Converters;
 using Huobi.Net.Converters;
 using Huobi.Net.Enums;
 using Newtonsoft.Json;
 
-namespace Huobi.Net.Objects.SocketObjects.V2
+namespace Huobi.Net.Objects.Models.Socket
 {
     /// <summary>
     /// Cancelation details

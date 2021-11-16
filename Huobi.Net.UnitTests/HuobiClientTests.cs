@@ -1,5 +1,4 @@
-﻿using Huobi.Net.Objects;
-using Huobi.Net.UnitTests.TestImplementations;
+﻿using Huobi.Net.UnitTests.TestImplementations;
 using Newtonsoft.Json;
 using NUnit.Framework;
 using System;
@@ -10,10 +9,11 @@ using CryptoExchange.Net.Authentication;
 using System.Threading.Tasks;
 using Huobi.Net.Enums;
 using System.Reflection;
-using Huobi.Net.Client.Rest.Spot;
 using System.Diagnostics;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Sockets;
+using Huobi.Net.Clients.Rest.Spot;
+using Huobi.Net.Clients.Socket;
 
 namespace Huobi.Net.UnitTests
 {

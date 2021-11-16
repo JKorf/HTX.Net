@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Net.Http;
 using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Objects;
-using Huobi.Net.Interfaces;
 using Huobi.Net.Interfaces.Clients.Socket;
-using Huobi.Net.Objects;
 
-namespace Huobi.Net
+namespace Huobi.Net.Objects
 {
     /// <summary>
     /// Client options

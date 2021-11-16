@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using CryptoExchange.Net.Converters;
 using Newtonsoft.Json;
 
-namespace Huobi.Net.Objects
+namespace Huobi.Net.Objects.Models
 {
     /// <summary>
     /// NAV info for ETP

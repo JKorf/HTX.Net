@@ -1,9 +1,8 @@
-﻿using CryptoExchange.Net.Attributes;
+﻿using System;
 using CryptoExchange.Net.Converters;
 using Newtonsoft.Json;
-using System;
 
-namespace Huobi.Net.Objects.SocketObjects
+namespace Huobi.Net.Objects.Internal
 {
     internal class HuobiDataEvent<T>
     {

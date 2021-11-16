@@ -2,7 +2,7 @@
 using CryptoExchange.Net.Converters;
 using Newtonsoft.Json;
 
-namespace Huobi.Net.Objects
+namespace Huobi.Net.Objects.Models
 {
     /// <summary>
     /// Account valuation

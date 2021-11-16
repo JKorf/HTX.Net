@@ -1,13 +1,12 @@
-﻿using CryptoExchange.Net.Attributes;
-using CryptoExchange.Net.Converters;
-using Huobi.Net.Converters;
-using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Globalization;
+using CryptoExchange.Net.Converters;
 using CryptoExchange.Net.ExchangeInterfaces;
+using Huobi.Net.Converters;
 using Huobi.Net.Enums;
+using Newtonsoft.Json;
 
-namespace Huobi.Net.Objects
+namespace Huobi.Net.Objects.Models
 {
     /// <summary>
     /// Open order

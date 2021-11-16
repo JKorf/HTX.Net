@@ -1,29 +1,29 @@
-﻿using CryptoExchange.Net;
-using CryptoExchange.Net.Objects;
-using CryptoExchange.Net.Sockets;
-using Huobi.Net.Converters;
-using Huobi.Net.Objects;
-using Huobi.Net.Objects.SocketObjects;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Net.Http;
-using System.Threading.Tasks;
-using Huobi.Net.Interfaces;
-using System.Globalization;
-using Huobi.Net.Objects.SocketObjects.V2;
-using HuobiOrderUpdate = Huobi.Net.Objects.SocketObjects.V2.HuobiOrderUpdate;
-using Microsoft.Extensions.Logging;
-using CryptoExchange.Net.Authentication;
-using Huobi.Net.Enums;
 using System.Threading;
+using System.Threading.Tasks;
+using CryptoExchange.Net;
+using CryptoExchange.Net.Authentication;
+using CryptoExchange.Net.Objects;
+using CryptoExchange.Net.Sockets;
+using Huobi.Net.Converters;
+using Huobi.Net.Enums;
 using Huobi.Net.Interfaces.Clients.Socket;
+using Huobi.Net.Objects;
+using Huobi.Net.Objects.Internal;
+using Huobi.Net.Objects.Models;
+using Huobi.Net.Objects.Models.Socket;
+using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using HuobiOrderUpdate = Huobi.Net.Objects.Models.Socket.HuobiOrderUpdate;
 
-namespace Huobi.Net
+namespace Huobi.Net.Clients.Socket
 {
     /// <summary>
     /// Client for the Huobi socket API

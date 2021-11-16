@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace Huobi.Net.Objects.SocketObjects
+namespace Huobi.Net.Objects.Internal
 {
     internal class HuobiPingRequest
     {

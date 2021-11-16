@@ -1,4 +1,4 @@
-﻿namespace Huobi.Net.Objects
+﻿namespace Huobi.Net
 {
     /// <summary>
     /// Huobi API addresses

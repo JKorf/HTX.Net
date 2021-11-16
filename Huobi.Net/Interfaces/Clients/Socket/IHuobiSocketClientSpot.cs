@@ -6,8 +6,8 @@ using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Sockets;
 using Huobi.Net.Enums;
-using Huobi.Net.Objects;
-using Huobi.Net.Objects.SocketObjects.V2;
+using Huobi.Net.Objects.Models;
+using Huobi.Net.Objects.Models.Socket;
 
 namespace Huobi.Net.Interfaces.Clients.Socket
 {
@@ -163,7 +163,7 @@ namespace Huobi.Net.Interfaces.Clients.Socket
             Action<DataEvent<HuobiMatchedOrderUpdate>>? onOrderMatched = null,
             Action<DataEvent<HuobiCanceledOrderUpdate>>? onOrderCancelation = null,
             Action<DataEvent<HuobiTriggerFailureOrderUpdate>>? onConditionalOrderTriggerFailure = null,
-            Action<DataEvent<Objects.SocketObjects.V2.HuobiOrderUpdate>>? onConditionalOrderCanceled = null,
+            Action<DataEvent<HuobiOrderUpdate>>? onConditionalOrderCanceled = null,
             CancellationToken ct = default);
 
         /// <summary>

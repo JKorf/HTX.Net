@@ -1,11 +1,13 @@
 ﻿using System.Threading.Tasks;
-using Huobi.Net.Objects;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.OrderBook;
 using CryptoExchange.Net.Sockets;
 using Huobi.Net.Interfaces;
 using System;
+using Huobi.Net.Clients.Socket;
 using Huobi.Net.Interfaces.Clients.Socket;
+using Huobi.Net.Objects;
+using Huobi.Net.Objects.Models;
 
 namespace Huobi.Net.SymbolOrderBooks
 {
