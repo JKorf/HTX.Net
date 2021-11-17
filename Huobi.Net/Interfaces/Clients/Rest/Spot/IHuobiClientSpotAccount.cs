@@ -12,6 +12,7 @@ namespace Huobi.Net.Interfaces.Clients.Rest.Spot
     {
         /// <summary>
         /// Gets a list of accounts associated with the apikey/secret
+        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-all-accounts-of-the-current-user" /></para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -19,6 +20,7 @@ namespace Huobi.Net.Interfaces.Clients.Rest.Spot
 
         /// <summary>
         /// Gets a list of balances for a specific account
+        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-account-balance-of-a-specific-account" /></para>
         /// </summary>
         /// <param name="accountId">The id of the account to get the balances for</param>
         /// <param name="ct">Cancellation token</param>
@@ -27,6 +29,7 @@ namespace Huobi.Net.Interfaces.Clients.Rest.Spot
 
         /// <summary>
         /// Gets the valuation of all assets
+        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-the-total-valuation-of-platform-assets" /></para>
         /// </summary>
         /// <param name="accountType">Type of account to valuate</param>
         /// <param name="valuationCurrency">The currency to get the value in</param>
@@ -37,6 +40,7 @@ namespace Huobi.Net.Interfaces.Clients.Rest.Spot
 
         /// <summary>
         /// Transfer assets between accounts
+        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#asset-transfer" /></para>
         /// </summary>
         /// <param name="fromUserId">From user id</param>
         /// <param name="fromAccountType">From account type</param>
@@ -53,6 +57,7 @@ namespace Huobi.Net.Interfaces.Clients.Rest.Spot
 
         /// <summary>
         /// Gets a list of balance changes of specified user's account
+        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-account-history" /></para>
         /// </summary>
         /// <param name="accountId">The id of the account to get the balances for</param>
         /// <param name="asset">Asset name</param>
@@ -67,6 +72,7 @@ namespace Huobi.Net.Interfaces.Clients.Rest.Spot
 
         /// <summary>
         /// This endpoint returns the balance changes of specified user's account.
+        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-account-ledger" /></para>
         /// </summary>
         /// <param name="accountId">The id of the account to get the ledger for</param>
         /// <param name="asset">Asset name</param>
@@ -82,6 +88,7 @@ namespace Huobi.Net.Interfaces.Clients.Rest.Spot
 
         /// <summary>
         /// Gets a list of balances for a specific sub account
+        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-account-balance-of-a-sub-user" /></para>
         /// </summary>
         /// <param name="subAccountId">The id of the sub account to get the balances for</param>
         /// <param name="ct">Cancellation token</param>
@@ -90,6 +97,7 @@ namespace Huobi.Net.Interfaces.Clients.Rest.Spot
 
         /// <summary>
         /// Transfer asset between parent and sub account
+        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#transfer-asset-between-parent-and-sub-account" /></para>
         /// </summary>
         /// <param name="subAccountId">The target sub account id to transfer to or from</param>
         /// <param name="asset">The asset to transfer</param>
@@ -99,9 +107,9 @@ namespace Huobi.Net.Interfaces.Clients.Rest.Spot
         /// <returns>Unique transfer id</returns>
         Task<WebCallResult<long>> TransferWithSubAccountAsync(long subAccountId, string asset, decimal quantity, TransferType transferType, CancellationToken ct = default);
 
-
         /// <summary>
         /// Parent user and sub user could query deposit address of corresponding chain, for a specific crypto currency (except IOTA).
+        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#query-deposit-address" /></para>
         /// </summary>
         /// <param name="asset">Asset</param>
         /// <param name="ct">Cancellation token</param>
@@ -110,6 +118,7 @@ namespace Huobi.Net.Interfaces.Clients.Rest.Spot
 
         /// <summary>
         /// Parent user creates a withdraw request from spot account to an external address (exists in your withdraw address list), which doesn't require two-factor-authentication.
+        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#create-a-withdraw-request" /></para>
         /// </summary>
         /// <param name="address">The desination address of this withdraw</param>
         /// <param name="asset">Asset</param>
@@ -123,6 +132,7 @@ namespace Huobi.Net.Interfaces.Clients.Rest.Spot
 
         /// <summary>
         /// Parent user and sub user searche for all existed withdraws and deposits and return their latest status.
+        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#search-for-existed-withdraws-and-deposits" /></para>
         /// </summary>
         /// <param name="type">Define transfer type to search</param>
         /// <param name="asset">The asset to withdraw</param>

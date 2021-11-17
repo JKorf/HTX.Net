@@ -10,9 +10,9 @@ namespace Huobi.Net.Interfaces.Clients.Rest.Spot
 {
     public interface IHuobiClientSpotTrading
     {
-
         /// <summary>
         /// Places an order
+        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#place-a-new-order" /></para>
         /// </summary>
         /// <param name="accountId">The account to place the order for</param>
         /// <param name="symbol">The symbol to place the order for</param>
@@ -29,6 +29,7 @@ namespace Huobi.Net.Interfaces.Clients.Rest.Spot
 
         /// <summary>
         /// Gets a list of open orders
+        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-all-open-orders" /></para>
         /// </summary>
         /// <param name="accountId">The account id for which to get the orders for</param>
         /// <param name="symbol">The symbol for which to get the orders for</param>
@@ -40,6 +41,7 @@ namespace Huobi.Net.Interfaces.Clients.Rest.Spot
 
         /// <summary>
         /// Cancels an open order
+        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#submit-cancel-for-an-order" /></para>
         /// </summary>
         /// <param name="orderId">The id of the order to cancel</param>
         /// <param name="ct">Cancellation token</param>
@@ -48,6 +50,7 @@ namespace Huobi.Net.Interfaces.Clients.Rest.Spot
 
         /// <summary>
         /// Cancels an open order
+        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#submit-cancel-for-an-order-based-on-client-order-id" /></para>
         /// </summary>
         /// <param name="clientOrderId">The client id of the order to cancel</param>
         /// <param name="ct">Cancellation token</param>
@@ -56,6 +59,7 @@ namespace Huobi.Net.Interfaces.Clients.Rest.Spot
 
         /// <summary>
         /// Cancel multiple open orders
+        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#submit-cancel-for-multiple-orders-by-ids" /></para>
         /// </summary>
         /// <param name="orderIds">The ids of the orders to cancel</param>
         /// <param name="clientOrderIds">The client ids of the orders to cancel</param>
@@ -65,6 +69,7 @@ namespace Huobi.Net.Interfaces.Clients.Rest.Spot
 
         /// <summary>
         /// Cancel multiple open orders
+        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#submit-cancel-for-multiple-orders-by-criteria" /></para>
         /// </summary>
         /// <param name="accountId">The account id used for this cancel</param>
         /// <param name="symbols">The trading symbol list (maximum 10 symbols, default value all symbols)</param>
@@ -76,6 +81,7 @@ namespace Huobi.Net.Interfaces.Clients.Rest.Spot
 
         /// <summary>
         /// Get details of an order
+        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-the-order-detail-of-an-order" /></para>
         /// </summary>
         /// <param name="orderId">The id of the order to retrieve</param>
         /// <param name="ct">Cancellation token</param>
@@ -84,6 +90,7 @@ namespace Huobi.Net.Interfaces.Clients.Rest.Spot
 
         /// <summary>
         /// Get details of an order by client order id
+        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-the-order-detail-of-an-order-based-on-client-order-id" /></para>
         /// </summary>
         /// <param name="clientOrderId">The client id of the order to retrieve</param>
         /// <param name="ct">Cancellation token</param>
@@ -92,6 +99,7 @@ namespace Huobi.Net.Interfaces.Clients.Rest.Spot
 
         /// <summary>
         /// Gets a list of trades made for a specific order
+        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-the-match-result-of-an-order" /></para>
         /// </summary>
         /// <param name="orderId">The id of the order to get trades for</param>
         /// <param name="ct">Cancellation token</param>
@@ -100,6 +108,7 @@ namespace Huobi.Net.Interfaces.Clients.Rest.Spot
 
         /// <summary>
         /// Gets a list of orders
+        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#search-past-orders" /></para>
         /// </summary>
         /// <param name="symbol">The symbol to get orders for</param>
         /// <param name="states">The states of orders to return</param>
@@ -115,6 +124,7 @@ namespace Huobi.Net.Interfaces.Clients.Rest.Spot
 
         /// <summary>
         /// Gets a list of trades for a specific symbol
+        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#search-match-results" /></para>
         /// </summary>
         /// <param name="states">Only return trades with specific states</param>
         /// <param name="symbol">The symbol to retrieve trades for</param>
@@ -130,6 +140,7 @@ namespace Huobi.Net.Interfaces.Clients.Rest.Spot
 
         /// <summary>
         /// Gets a list of history orders
+        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#search-historical-orders-within-48-hours" /></para>
         /// </summary>
         /// <param name="symbol">The symbol to get orders for</param>
         /// <param name="startTime">Only get orders after this date</param>
