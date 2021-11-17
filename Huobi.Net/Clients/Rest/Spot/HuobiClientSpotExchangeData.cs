@@ -8,7 +8,6 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Huobi.Net.Objects.Models;
@@ -32,7 +31,7 @@ namespace Huobi.Net.Clients.Rest.Spot
         private const string CommonCurrenciesAndChainsEndpoint = "reference/currencies";
         private const string ServerTimeEndpoint = "common/timestamp";
 
-        private HuobiClientSpot _baseClient;
+        private readonly HuobiClientSpot _baseClient;
 
         internal HuobiClientSpotExchangeData(HuobiClientSpot baseClient)
         {

@@ -125,8 +125,7 @@ namespace Huobi.Net.Clients.Rest.Spot
             HttpMethodParameterPosition parameterPosition, ArrayParametersSerialization arraySerialization, int requestId,
             Dictionary<string, string>? additionalHeaders)
         {
-            if (parameters == null)
-                parameters = new Dictionary<string, object>();
+            parameters ??= new Dictionary<string, object>();
 
             var uriString = uri.ToString();
             if (authProvider != null)
@@ -138,9 +137,9 @@ namespace Huobi.Net.Clients.Rest.Spot
             if (method == HttpMethod.Post && signed)
             {
                 var uriParamNames = new[] { "AccessKeyId", "SignatureMethod", "SignatureVersion", "Timestamp", "Signature" };
-                var uriParams = parameters.Where(p => uriParamNames.Contains(p.Key)).ToDictionary(k => k.Key, k => k.Value);
+                var uriParams = parameters!.Where(p => uriParamNames.Contains(p.Key)).ToDictionary(k => k.Key, k => k.Value);
                 uriString += "?" + uriParams.CreateParamString(true, ArrayParametersSerialization.MultipleValues);
-                parameters = parameters.Where(p => !uriParamNames.Contains(p.Key)).ToDictionary(k => k.Key, k => k.Value);
+                parameters = parameters!.Where(p => !uriParamNames.Contains(p.Key)).ToDictionary(k => k.Key, k => k.Value);
             }
 
             var contentType = requestBodyFormat == RequestBodyFormat.Json ? Constants.JsonContentHeader : Constants.FormContentHeader;

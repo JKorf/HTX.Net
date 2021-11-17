@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-using CryptoExchange.Net.Interfaces;
-using CryptoExchange.Net.Objects;
-using Huobi.Net.Enums;
+﻿using CryptoExchange.Net.Interfaces;
 
 namespace Huobi.Net.Interfaces.Clients.Rest.Spot
 {

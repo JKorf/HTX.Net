@@ -2,7 +2,6 @@
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.OrderBook;
 using CryptoExchange.Net.Sockets;
-using Huobi.Net.Interfaces;
 using System;
 using Huobi.Net.Clients.Socket;
 using Huobi.Net.Interfaces.Clients.Socket;
@@ -16,10 +15,10 @@ namespace Huobi.Net.SymbolOrderBooks
     /// </summary>
     public class HuobiSpotSymbolOrderBook : SymbolOrderBook
     {
-        private readonly IHuobiSocketClientSpot socketClient;
-        private readonly int? mergeStep;
-        private int? _levels;
-        private bool _socketOwner;
+        private readonly IHuobiSocketClientSpot _socketClient;
+        private readonly int? _mergeStep;
+        private readonly int? _levels;
+        private readonly bool _socketOwner;
 
         /// <summary>
         /// Create a new order book instance
@@ -28,27 +27,27 @@ namespace Huobi.Net.SymbolOrderBooks
         /// <param name="options">The options for the order book</param>
         public HuobiSpotSymbolOrderBook(string symbol, HuobiOrderBookOptions? options = null) : base("Huobi[Spot]", symbol, options ?? new HuobiOrderBookOptions())
         {
-            mergeStep = options?.MergeStep;
+            _mergeStep = options?.MergeStep;
             _levels = options?.Levels;
             strictLevels = false;
             sequencesAreConsecutive = _levels != null;
 
-            if (_levels != 150 && mergeStep != null)
+            if (_levels != 150 && _mergeStep != null)
                 throw new ArgumentException("Mergestep only supported with 150 levels");
 
-            if (_levels == null && mergeStep == null)
+            if (_levels == null && _mergeStep == null)
                 throw new ArgumentException("Levels need to be set when MergeStep is not set");
             
-            socketClient = options?.SocketClient ?? new HuobiSocketClientSpot();
+            _socketClient = options?.SocketClient ?? new HuobiSocketClientSpot();
             _socketOwner = options?.SocketClient == null;
         }
 
         /// <inheritdoc />
         protected override async Task<CallResult<UpdateSubscription>> DoStartAsync()
         {
-            if(mergeStep != null)
+            if(_mergeStep != null)
             {
-                var subResult = await socketClient.SubscribeToPartialOrderBookUpdates1SecondAsync(Symbol, mergeStep.Value, HandleUpdate).ConfigureAwait(false);
+                var subResult = await _socketClient.SubscribeToPartialOrderBookUpdates1SecondAsync(Symbol, _mergeStep.Value, HandleUpdate).ConfigureAwait(false);
                 if (!subResult)
                     return subResult;
 
@@ -61,17 +60,17 @@ namespace Huobi.Net.SymbolOrderBooks
             }
             else
             {
-                var subResult = await socketClient.SubscribeToOrderBookChangeUpdatesAsync(Symbol, _levels!.Value, HandleIncremental).ConfigureAwait(false);
+                var subResult = await _socketClient.SubscribeToOrderBookChangeUpdatesAsync(Symbol, _levels!.Value, HandleIncremental).ConfigureAwait(false);
                 if (!subResult)
                     return subResult;
 
                 // Wait a little so that the sequence number of the order book snapshot is higher than the first socket update sequence number
                 await Task.Delay(500).ConfigureAwait(false);
-                var book = await socketClient.GetOrderBookAsync(Symbol, _levels.Value).ConfigureAwait(false);
+                var book = await _socketClient.GetOrderBookAsync(Symbol, _levels.Value).ConfigureAwait(false);
                 if (!book) 
                 {
                     log.Write(Microsoft.Extensions.Logging.LogLevel.Debug, $"{Id} order book {Symbol} failed to retrieve initial order book");
-                    await socketClient.UnsubscribeAsync(subResult.Data).ConfigureAwait(false);
+                    await _socketClient.UnsubscribeAsync(subResult.Data).ConfigureAwait(false);
                     return new CallResult<UpdateSubscription>(null, book.Error);
                 }
 
@@ -96,7 +95,7 @@ namespace Huobi.Net.SymbolOrderBooks
         /// <inheritdoc />
         protected override async Task<CallResult<bool>> DoResyncAsync()
         {
-            if (mergeStep != null)
+            if (_mergeStep != null)
             {
                 return await WaitForSetOrderBookAsync(10000).ConfigureAwait(false);
             }
@@ -104,7 +103,7 @@ namespace Huobi.Net.SymbolOrderBooks
             {
                 // Wait a little so that the sequence number of the order book snapshot is higher than the first socket update sequence number
                 await Task.Delay(500).ConfigureAwait(false);
-                var book = await socketClient.GetOrderBookAsync(Symbol, _levels!.Value).ConfigureAwait(false);
+                var book = await _socketClient.GetOrderBookAsync(Symbol, _levels!.Value).ConfigureAwait(false);
                 if (!book)
                     return new CallResult<bool>(false, book.Error);                
 
@@ -121,7 +120,7 @@ namespace Huobi.Net.SymbolOrderBooks
             bids.Clear();
 
             if(_socketOwner)
-                socketClient?.Dispose();
+                _socketClient?.Dispose();
         }
     }
 }

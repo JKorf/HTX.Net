@@ -49,13 +49,13 @@ namespace Huobi.Net.Objects.Models
         /// <summary>
         /// Minimum value of the quantity
         /// </summary>
-        [Obsolete]
+        [Obsolete("Use MinLimitOrderQuantity instead")]
         [JsonProperty("min-order-amt")]
         public decimal MinOrderQuantity { get; set; }
         /// <summary>
         /// Maximum value of the quantity
         /// </summary>
-        [Obsolete]
+        [Obsolete("Use MaxLimitOrderQuantity instead")]
         [JsonProperty("max-order-amt")]
         public decimal MaxOrderQuantity { get; set; }
         /// <summary>

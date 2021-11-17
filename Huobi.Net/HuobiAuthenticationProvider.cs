@@ -67,7 +67,7 @@ namespace Huobi.Net
                     signParameters.Add(kvp.Key, kvp.Value);
             }
 
-            signParameters = signParameters.OrderBy(kv => Encoding.UTF8.GetBytes(WebUtility.UrlEncode(kv.Key)), new ByteOrderComparer()).ToDictionary(k => k.Key, k => k.Value);
+            signParameters = signParameters.OrderBy(kv => Encoding.UTF8.GetBytes(WebUtility.UrlEncode(kv.Key)!), new ByteOrderComparer()).ToDictionary(k => k.Key, k => k.Value);
 
             var paramString = signParameters.CreateParamString(true, ArrayParametersSerialization.MultipleValues);
             paramString = paramString.Replace("%2C", ".");

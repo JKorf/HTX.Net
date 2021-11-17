@@ -9,7 +9,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Net.Http;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Huobi.Net.Objects.Models;
@@ -32,7 +31,7 @@ namespace Huobi.Net.Clients.Rest.Spot
         private const string PlaceWithdrawEndpoint = "dw/withdraw/api/create";
         private const string QueryWithdrawDepositEndpoint = "query/deposit-withdraw";
 
-        private HuobiClientSpot _baseClient;
+        private readonly HuobiClientSpot _baseClient;
 
         internal HuobiClientSpotAccount(HuobiClientSpot baseClient)
         {
