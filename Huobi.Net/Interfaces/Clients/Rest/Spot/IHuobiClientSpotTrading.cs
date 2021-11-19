@@ -8,6 +8,9 @@ using Huobi.Net.Objects.Models;
 
 namespace Huobi.Net.Interfaces.Clients.Rest.Spot
 {
+    /// <summary>
+    /// Huobi trading endpoints, placing and mananging orders.
+    /// </summary>
     public interface IHuobiClientSpotTrading
     {
         /// <summary>
