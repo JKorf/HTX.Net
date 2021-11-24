@@ -207,7 +207,9 @@ namespace Huobi.Net.Clients.Rest.Spot
         /// <returns></returns>
         internal Uri GetUrl(string endpoint, string? version = null)
         {
-            return version == null ? new Uri($"{ClientOptions.BaseAddress}{endpoint}") : new Uri($"{ClientOptions.BaseAddress}v{version}/{endpoint}");
+            if(version == null)
+                return new Uri(ClientOptions.BaseAddress.AppendPath(endpoint));
+            return new Uri(ClientOptions.BaseAddress.AppendPath($"v{version}", endpoint));
         }
 
         internal new string FillPathParameter(string path, params string[] values) => BaseClient.FillPathParameter(path, values);
