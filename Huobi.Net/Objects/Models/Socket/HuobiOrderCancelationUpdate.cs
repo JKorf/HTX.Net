@@ -68,7 +68,7 @@ namespace Huobi.Net.Objects.Models.Socket
         /// <summary>
         /// Order creation time
         /// </summary>
-        [JsonConverter(typeof(TimestampConverter))]
+        [JsonConverter(typeof(DateTimeConverter))]
         public DateTime OrderCreateTime { get; set; }
         /// <summary>
         /// Order status

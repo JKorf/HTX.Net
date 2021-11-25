@@ -81,12 +81,12 @@ namespace Huobi.Net.Objects.Models
 		/// <summary>
 		/// The timestamp in milliseconds for the transfer creation
 		/// </summary>
-		[JsonProperty("created-at"), JsonConverter(typeof(TimestampConverter))]
+		[JsonProperty("created-at"), JsonConverter(typeof(DateTimeConverter))]
 		public DateTime CreateTime { get; set; }
 		/// <summary>
 		/// The timestamp in milliseconds for the transfer's latest update
 		/// </summary>
-		[JsonProperty("updated-at"), JsonConverter(typeof(TimestampConverter))]
+		[JsonProperty("updated-at"), JsonConverter(typeof(DateTimeConverter))]
 		public DateTime UpdateTime { get; set; }
 	}
 }

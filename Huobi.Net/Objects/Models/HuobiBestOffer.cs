@@ -16,7 +16,7 @@ namespace Huobi.Net.Objects.Models
         /// <summary>
         /// Time of the data
         /// </summary>
-        [JsonConverter(typeof(TimestampConverter))]
+        [JsonConverter(typeof(DateTimeConverter))]
         public DateTime QuoteTime { get; set; }
         /// <summary>
         /// Best bid price

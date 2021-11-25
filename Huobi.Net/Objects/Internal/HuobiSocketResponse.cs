@@ -22,7 +22,7 @@ namespace Huobi.Net.Objects.Internal
         /// <summary>
         /// The timestamp of the data
         /// </summary>
-        [JsonProperty("ts"), JsonConverter(typeof(TimestampConverter))]
+        [JsonProperty("ts"), JsonConverter(typeof(DateTimeConverter))]
         public DateTime Timestamp { get; set; }
 
         /// <summary>
@@ -38,7 +38,7 @@ namespace Huobi.Net.Objects.Internal
         internal override bool IsSuccessful => Status == "ok";
         public string Status { get; set; } = string.Empty;
         public string Subbed { get; set; } = string.Empty;
-        [JsonConverter(typeof(TimestampConverter)), JsonProperty("ts")]
+        [JsonConverter(typeof(DateTimeConverter)), JsonProperty("ts")]
         public DateTime Timestamp { get; set; }
     }
 

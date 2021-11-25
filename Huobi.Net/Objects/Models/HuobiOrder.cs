@@ -49,17 +49,17 @@ namespace Huobi.Net.Objects.Models
         /// <summary>
         /// The time the order was created
         /// </summary>
-        [JsonProperty("created-at"), JsonConverter(typeof(TimestampConverter))]
+        [JsonProperty("created-at"), JsonConverter(typeof(DateTimeConverter))]
         public DateTime CreateTime { get; set; }
         /// <summary>
         /// The time the order was canceled
         /// </summary>
-        [JsonProperty("canceled-at"), JsonConverter(typeof(TimestampConverter))]
+        [JsonProperty("canceled-at"), JsonConverter(typeof(DateTimeConverter))]
         public DateTime CancelTime { get; set; }
         /// <summary>
         /// The time the order was finished
         /// </summary>
-        [JsonProperty("finished-at"), JsonConverter(typeof(TimestampConverter))]
+        [JsonProperty("finished-at"), JsonConverter(typeof(DateTimeConverter))]
         public DateTime CompleteTime { get; set; }
 
         /// <summary>

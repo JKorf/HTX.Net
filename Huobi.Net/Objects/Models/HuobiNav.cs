@@ -21,7 +21,7 @@ namespace Huobi.Net.Objects.Models
         /// <summary>
         /// Update time
         /// </summary>
-        [JsonConverter(typeof(TimestampConverter))]
+        [JsonConverter(typeof(DateTimeConverter))]
         public DateTime NavTime { get; set; }
         /// <summary>
         /// Outstanding shares

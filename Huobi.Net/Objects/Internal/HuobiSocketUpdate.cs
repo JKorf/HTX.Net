@@ -14,7 +14,7 @@ namespace Huobi.Net.Objects.Internal
         /// <summary>
         /// The timestamp of the update
         /// </summary>
-        [JsonProperty("ts"), JsonConverter(typeof(TimestampConverter))]
+        [JsonProperty("ts"), JsonConverter(typeof(DateTimeConverter))]
         public DateTime Timestamp { get; set; }
 
         /// <summary>

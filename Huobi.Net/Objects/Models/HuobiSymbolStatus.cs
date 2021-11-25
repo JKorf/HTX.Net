@@ -19,12 +19,12 @@ namespace Huobi.Net.Objects.Models
         /// <summary>
         /// Start time of when market halted
         /// </summary>
-        [JsonConverter(typeof(TimestampConverter))]
+        [JsonConverter(typeof(DateTimeConverter))]
         public DateTime? HaltStartTime { get; set; }
         /// <summary>
         /// Estimated end time of the halt
         /// </summary>
-        [JsonConverter(typeof(TimestampConverter))]
+        [JsonConverter(typeof(DateTimeConverter))]
         public DateTime? HaltEndTime { get; set; }
         /// <summary>
         /// Reason for halting

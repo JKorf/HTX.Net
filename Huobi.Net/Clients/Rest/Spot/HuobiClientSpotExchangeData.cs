@@ -194,7 +194,7 @@ namespace Huobi.Net.Clients.Rest.Spot
             var result = await _baseClient.SendHuobiRequest<string>(_baseClient.GetUrl(ServerTimeEndpoint, "1"), HttpMethod.Get, ct).ConfigureAwait(false);
             if (!result)
                 return WebCallResult<DateTime>.CreateErrorResult(result.ResponseStatusCode, result.ResponseHeaders, result.Error!);
-            var time = (DateTime)JsonConvert.DeserializeObject(result.Data, typeof(DateTime), new TimestampConverter())!;
+            var time = (DateTime)JsonConvert.DeserializeObject(result.Data, typeof(DateTime), new DateTimeConverter())!;
             return result.As(time);
         }
 

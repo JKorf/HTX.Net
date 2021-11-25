@@ -16,7 +16,7 @@ namespace Huobi.Net.Objects.Models
         /// <summary>
         /// Timestamp of the data
         /// </summary>
-        [JsonConverter(typeof(TimestampConverter))]
+        [JsonConverter(typeof(DateTimeConverter))]
         public DateTime Timestamp { get; set; }
     }
 }

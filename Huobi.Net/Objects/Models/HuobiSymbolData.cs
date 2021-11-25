@@ -70,7 +70,7 @@ namespace Huobi.Net.Objects.Models
         /// <summary>
         /// The start time of the kline
         /// </summary>
-        [JsonConverter(typeof(TimestampSecondsConverter))]
+        [JsonConverter(typeof(DateTimeConverter))]
         public DateTime Id { get; set; }
 
         decimal ICommonKline.CommonHighPrice => HighPrice ?? 0;

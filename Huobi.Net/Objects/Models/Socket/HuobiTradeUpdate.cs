@@ -57,7 +57,7 @@ namespace Huobi.Net.Objects.Models.Socket
         /// <summary>
         /// Time of trade
         /// </summary>
-        [JsonConverter(typeof(TimestampConverter))]
+        [JsonConverter(typeof(DateTimeConverter))]
         [JsonProperty("tradeTime")]
         public DateTime Timestamp { get; set; }
         /// <summary>
@@ -114,7 +114,7 @@ namespace Huobi.Net.Objects.Models.Socket
         /// <summary>
         /// Order creation time
         /// </summary>
-        [JsonConverter(typeof(TimestampConverter))]
+        [JsonConverter(typeof(DateTimeConverter))]
         public DateTime OrderCreateTime { get; set; }
         /// <summary>
         /// Order status

@@ -43,7 +43,7 @@ namespace Huobi.Net.Objects.Models
         /// <summary>
         /// Transaction time
         /// </summary>
-        [JsonConverter(typeof(TimestampConverter))]
+        [JsonConverter(typeof(DateTimeConverter))]
         [JsonProperty("transactTime")]
         public DateTime TransactionTime { get; set; }
         /// <summary>

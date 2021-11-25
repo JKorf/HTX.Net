@@ -32,7 +32,7 @@ namespace Huobi.Net.Objects.Models.Socket
         /// <summary>
         /// Timestamp
         /// </summary>
-        [JsonConverter(typeof(TimestampConverter))]
+        [JsonConverter(typeof(DateTimeConverter))]
         [JsonProperty("lastActTime")]
         public DateTime? UpdateTime { get; set; }
     }
@@ -74,7 +74,7 @@ namespace Huobi.Net.Objects.Models.Socket
         /// Creation time
         /// </summary>
         [JsonProperty("orderCreateTime")]
-        [JsonConverter(typeof(TimestampConverter))]
+        [JsonConverter(typeof(DateTimeConverter))]
         public DateTime CreateTime { get; set; }
 
         /// <summary>
@@ -113,7 +113,7 @@ namespace Huobi.Net.Objects.Models.Socket
         /// <summary>
         /// Timestamp of trade
         /// </summary>
-        [JsonConverter(typeof(TimestampConverter))]
+        [JsonConverter(typeof(DateTimeConverter))]
         public DateTime TradeTime { get; set; }
         /// <summary>
         /// Is the taker

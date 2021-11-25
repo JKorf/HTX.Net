@@ -21,7 +21,7 @@ namespace Huobi.Net.Objects.Models
         /// <summary>
         /// The timestamp of the trade
         /// </summary>
-        [JsonProperty("ts"), JsonConverter(typeof(TimestampConverter))]
+        [JsonProperty("ts"), JsonConverter(typeof(DateTimeConverter))]
         public DateTime Timestamp { get; set; }
         /// <summary>
         /// The details of the trade
@@ -65,7 +65,7 @@ namespace Huobi.Net.Objects.Models
         /// <summary>
         /// The timestamp of the trade
         /// </summary>
-        [JsonProperty("ts"), JsonConverter(typeof(TimestampConverter))]
+        [JsonProperty("ts"), JsonConverter(typeof(DateTimeConverter))]
         public DateTime Timestamp { get; set; }
     }
 }

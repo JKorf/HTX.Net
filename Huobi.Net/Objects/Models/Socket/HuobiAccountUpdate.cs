@@ -41,7 +41,7 @@ namespace Huobi.Net.Objects.Models.Socket
         /// <summary>
         /// Change time
         /// </summary>
-        [JsonConverter(typeof(TimestampConverter))]
+        [JsonConverter(typeof(DateTimeConverter))]
         public DateTime? ChangeTime { get; set; }
         /// <summary>
         /// Update sequence number

@@ -21,11 +21,11 @@ namespace Huobi.Net.Objects.Internal
         public T Data { get; set; } = default!;
         [JsonProperty("tick")]
         private T Tick { set => Data = value; get => Data; }
-        [JsonProperty("ts"), JsonConverter(typeof(TimestampConverter))]
+        [JsonProperty("ts"), JsonConverter(typeof(DateTimeConverter))]
         public DateTime Timestamp { get; set; }
         [JsonProperty("ch")]
         public string Channel { get; set; } = string.Empty;
-        [JsonProperty("next-time"), JsonConverter(typeof(TimestampConverter))]
+        [JsonProperty("next-time"), JsonConverter(typeof(DateTimeConverter))]
         private DateTime NextTime { get => Timestamp; set => Timestamp = value; }
     }
 }

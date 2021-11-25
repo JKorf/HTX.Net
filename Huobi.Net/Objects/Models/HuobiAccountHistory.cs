@@ -50,7 +50,7 @@ namespace Huobi.Net.Objects.Models
         /// <summary>
         /// Transaction time (database time)
         /// </summary>
-        [JsonProperty("transact-time"), JsonConverter(typeof(TimestampConverter))]
+        [JsonProperty("transact-time"), JsonConverter(typeof(DateTimeConverter))]
         public DateTime Timestamp { get; set; }
 
         /// <summary>

@@ -23,7 +23,7 @@ namespace Huobi.Net.Objects.Models
         /// <summary>
         /// The timestamp in milliseconds when this record is created
         /// </summary>
-        [JsonProperty("created-at"), JsonConverter(typeof(TimestampConverter))]
+        [JsonProperty("created-at"), JsonConverter(typeof(DateTimeConverter))]
         public DateTime Timestamp { get; set; }
         /// <summary>
         /// The quantity which has been filled
