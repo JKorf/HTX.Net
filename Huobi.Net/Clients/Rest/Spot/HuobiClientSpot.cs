@@ -214,13 +214,6 @@ namespace Huobi.Net.Clients.Rest.Spot
 
         internal new string FillPathParameter(string path, params string[] values) => BaseClient.FillPathParameter(path, values);
 
-        internal static long? ToUnixTimestamp(DateTime? time)
-        {
-            if (time == null)
-                return null;
-            return (long)(time.Value - new DateTime(1970, 1, 1)).TotalMilliseconds;
-        }
-
         internal void InvokeOrderPlaced(ICommonOrderId id)
         {
             OnOrderPlaced?.Invoke(id);

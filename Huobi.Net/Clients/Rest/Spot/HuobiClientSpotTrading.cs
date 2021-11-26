@@ -12,6 +12,7 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using Huobi.Net.Objects.Models;
+using CryptoExchange.Net.Converters;
 
 namespace Huobi.Net.Clients.Rest.Spot
 {
@@ -199,8 +200,8 @@ namespace Huobi.Net.Clients.Rest.Spot
             symbol = symbol?.ValidateHuobiSymbol();
             var parameters = new Dictionary<string, object>();
             parameters.AddOptionalParameter("symbol", symbol);
-            parameters.AddOptionalParameter("start-time", startTime == null ? null : HuobiClientSpot.ToUnixTimestamp(startTime.Value).ToString());
-            parameters.AddOptionalParameter("end-time", endTime == null ? null : HuobiClientSpot.ToUnixTimestamp(endTime.Value).ToString());
+            parameters.AddOptionalParameter("start-time", DateTimeConverter.ConvertToMilliseconds(startTime)?.ToString());
+            parameters.AddOptionalParameter("end-time", DateTimeConverter.ConvertToMilliseconds(endTime)?.ToString());
             parameters.AddOptionalParameter("direct", direction == null ? null : JsonConvert.SerializeObject(direction, new FilterDirectionConverter(false)));
             parameters.AddOptionalParameter("size", limit);
 

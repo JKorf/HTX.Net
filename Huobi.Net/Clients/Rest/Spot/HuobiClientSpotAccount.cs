@@ -12,6 +12,7 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using Huobi.Net.Objects.Models;
+using CryptoExchange.Net.Converters;
 
 namespace Huobi.Net.Clients.Rest.Spot
 {
@@ -101,8 +102,8 @@ namespace Huobi.Net.Clients.Rest.Spot
             };
             parameters.AddOptionalParameter("currency", asset);
             parameters.AddOptionalParameter("transact-types", transactionTypes == null ? null : string.Join(",", transactionTypes.Select(s => JsonConvert.SerializeObject(s, transactionTypeConverter))));
-            parameters.AddOptionalParameter("start-time", HuobiClientSpot.ToUnixTimestamp(startTime));
-            parameters.AddOptionalParameter("end-time", HuobiClientSpot.ToUnixTimestamp(endTime));
+            parameters.AddOptionalParameter("start-time",DateTimeConverter.ConvertToMilliseconds(startTime));
+            parameters.AddOptionalParameter("end-time",DateTimeConverter.ConvertToMilliseconds(endTime));
             parameters.AddOptionalParameter("sort", sort == null ? null : JsonConvert.SerializeObject(sort, new SortingTypeConverter(false)));
             parameters.AddOptionalParameter("size", size);
 
@@ -121,8 +122,8 @@ namespace Huobi.Net.Clients.Rest.Spot
             };
             parameters.AddOptionalParameter("currency", asset);
             parameters.AddOptionalParameter("transactTypes", transactionTypes == null ? null : string.Join(",", transactionTypes.Select(s => JsonConvert.SerializeObject(s, transactionTypeConverter))));
-            parameters.AddOptionalParameter("startTime", HuobiClientSpot.ToUnixTimestamp(startTime));
-            parameters.AddOptionalParameter("endTime", HuobiClientSpot.ToUnixTimestamp(endTime));
+            parameters.AddOptionalParameter("startTime",DateTimeConverter.ConvertToMilliseconds(startTime));
+            parameters.AddOptionalParameter("endTime",DateTimeConverter.ConvertToMilliseconds(endTime));
             parameters.AddOptionalParameter("sort", sort == null ? null : JsonConvert.SerializeObject(sort, new SortingTypeConverter(false)));
             parameters.AddOptionalParameter("limit", size);
             parameters.AddOptionalParameter("fromId", fromId?.ToString(CultureInfo.InvariantCulture));
