@@ -15,7 +15,7 @@ namespace Huobi.Net.SymbolOrderBooks
     /// </summary>
     public class HuobiSpotSymbolOrderBook : SymbolOrderBook
     {
-        private readonly IHuobiSocketClientSpot _socketClient;
+        private readonly IHuobiSocketClient _socketClient;
         private readonly int? _mergeStep;
         private readonly int? _levels;
         private readonly bool _socketOwner;
@@ -38,7 +38,7 @@ namespace Huobi.Net.SymbolOrderBooks
             if (_levels == null && _mergeStep == null)
                 throw new ArgumentException("Levels need to be set when MergeStep is not set");
             
-            _socketClient = options?.SocketClient ?? new HuobiSocketClientSpot();
+            _socketClient = options?.SocketClient ?? new HuobiSocketClient();
             _socketOwner = options?.SocketClient == null;
         }
 
@@ -47,7 +47,7 @@ namespace Huobi.Net.SymbolOrderBooks
         {
             if(_mergeStep != null)
             {
-                var subResult = await _socketClient.SubscribeToPartialOrderBookUpdates1SecondAsync(Symbol, _mergeStep.Value, HandleUpdate).ConfigureAwait(false);
+                var subResult = await _socketClient.SpotMarket.SubscribeToPartialOrderBookUpdates1SecondAsync(Symbol, _mergeStep.Value, HandleUpdate).ConfigureAwait(false);
                 if (!subResult)
                     return subResult;
 
@@ -60,13 +60,13 @@ namespace Huobi.Net.SymbolOrderBooks
             }
             else
             {
-                var subResult = await _socketClient.SubscribeToOrderBookChangeUpdatesAsync(Symbol, _levels!.Value, HandleIncremental).ConfigureAwait(false);
+                var subResult = await _socketClient.SpotMarket.SubscribeToOrderBookChangeUpdatesAsync(Symbol, _levels!.Value, HandleIncremental).ConfigureAwait(false);
                 if (!subResult)
                     return subResult;
 
                 // Wait a little so that the sequence number of the order book snapshot is higher than the first socket update sequence number
                 await Task.Delay(500).ConfigureAwait(false);
-                var book = await _socketClient.GetOrderBookAsync(Symbol, _levels.Value).ConfigureAwait(false);
+                var book = await _socketClient.SpotMarket.GetOrderBookAsync(Symbol, _levels.Value).ConfigureAwait(false);
                 if (!book) 
                 {
                     log.Write(Microsoft.Extensions.Logging.LogLevel.Debug, $"{Id} order book {Symbol} failed to retrieve initial order book");
@@ -103,7 +103,7 @@ namespace Huobi.Net.SymbolOrderBooks
             {
                 // Wait a little so that the sequence number of the order book snapshot is higher than the first socket update sequence number
                 await Task.Delay(500).ConfigureAwait(false);
-                var book = await _socketClient.GetOrderBookAsync(Symbol, _levels!.Value).ConfigureAwait(false);
+                var book = await _socketClient.SpotMarket.GetOrderBookAsync(Symbol, _levels!.Value).ConfigureAwait(false);
                 if (!book)
                     return new CallResult<bool>(false, book.Error);                
 

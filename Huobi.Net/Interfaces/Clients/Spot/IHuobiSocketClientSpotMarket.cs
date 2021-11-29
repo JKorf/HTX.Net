@@ -14,15 +14,8 @@ namespace Huobi.Net.Interfaces.Clients.Socket
     /// <summary>
     /// Interface for the Huobi socket client
     /// </summary>
-    public interface IHuobiSocketClientSpot: ISocketClient
+    public interface IHuobiSocketClientSpotMarket
     {
-        /// <summary>
-        /// Set the API key and secret
-        /// </summary>
-        /// <param name="apiKey">The api key</param>
-        /// <param name="apiSecret">The api secret</param>
-        void SetApiCredentials(string apiKey, string apiSecret);
-
         /// <summary>
         /// Gets candlestick data for a symbol
         /// </summary>

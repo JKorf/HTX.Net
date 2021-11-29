@@ -13,7 +13,7 @@ namespace Huobi.Net.UnitTests
     [TestFixture]
     public class JsonTests
     {
-        private JsonToObjectComparer<IHuobiClientSpot> _comparer = new JsonToObjectComparer<IHuobiClientSpot>((json) => TestHelpers.CreateResponseClient(json, new HuobiClientSpotOptions()
+        private JsonToObjectComparer<IHuobiClient> _comparer = new JsonToObjectComparer<IHuobiClient>((json) => TestHelpers.CreateResponseClient(json, new HuobiClientSpotOptions()
         { ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "123"), OutputOriginalData = true, RateLimiters = new List<IRateLimiter>() }));
 
         [Test]

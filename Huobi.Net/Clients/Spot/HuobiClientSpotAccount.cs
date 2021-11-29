@@ -49,7 +49,7 @@ namespace Huobi.Net.Clients.Rest.Spot
         /// <inheritdoc />
         public async Task<WebCallResult<IEnumerable<HuobiBalance>>> GetBalancesAsync(long accountId, CancellationToken ct = default)
         {
-            var result = await _baseClient.SendHuobiRequest<HuobiAccountBalances>(_baseClient.GetUrl(_baseClient.FillPathParameter(GetBalancesEndpoint, accountId.ToString(CultureInfo.InvariantCulture)), "1"), HttpMethod.Get, ct, signed: true).ConfigureAwait(false);
+            var result = await _baseClient.SendHuobiRequest<HuobiAccountBalances>(_baseClient.GetUrl(GetBalancesEndpoint.FillPathParameters(accountId.ToString(CultureInfo.InvariantCulture)), "1"), HttpMethod.Get, ct, signed: true).ConfigureAwait(false);
             if (!result)
                 return WebCallResult<IEnumerable<HuobiBalance>>.CreateErrorResult(result.ResponseStatusCode, result.ResponseHeaders, result.Error!);
 
@@ -134,7 +134,7 @@ namespace Huobi.Net.Clients.Rest.Spot
         /// <inheritdoc />
         public async Task<WebCallResult<IEnumerable<HuobiBalance>>> GetSubAccountBalancesAsync(long subAccountId, CancellationToken ct = default)
         {
-            var result = await _baseClient.SendHuobiRequest<IEnumerable<HuobiAccountBalances>>(_baseClient.GetUrl(_baseClient.FillPathParameter(GetSubAccountBalancesEndpoint, subAccountId.ToString(CultureInfo.InvariantCulture)), "1"), HttpMethod.Get, ct, signed: true).ConfigureAwait(false);
+            var result = await _baseClient.SendHuobiRequest<IEnumerable<HuobiAccountBalances>>(_baseClient.GetUrl(GetSubAccountBalancesEndpoint.FillPathParameters(subAccountId.ToString(CultureInfo.InvariantCulture)), "1"), HttpMethod.Get, ct, signed: true).ConfigureAwait(false);
             if (!result)
                 return WebCallResult<IEnumerable<HuobiBalance>>.CreateErrorResult(result.ResponseStatusCode, result.ResponseHeaders, result.Error!);
 

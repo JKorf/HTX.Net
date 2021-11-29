@@ -9,20 +9,23 @@ namespace Huobi.Net.Objects
     /// <summary>
     /// Client options
     /// </summary>
-    public class HuobiClientSpotOptions: RestClientOptions
+    public class HuobiClientOptions: RestClientOptions
     {
         /// <summary>
         /// Default options for the spot client
         /// </summary>
-        public static HuobiClientSpotOptions Default { get; set; } = new HuobiClientSpotOptions()
+        public static HuobiClientOptions Default { get; set; } = new HuobiClientOptions()
         {
-            BaseAddress = "https://api.huobi.pro",
-            RateLimiters = new List<IRateLimiter>
+            OptionsSpot = new RestSubClientOptions
             {
-                 new RateLimiter()
-                    .AddPartialEndpointLimit("/v1/order", 100, TimeSpan.FromSeconds(2), null, true, true)
-                    .AddApiKeyLimit(10, TimeSpan.FromSeconds(1), true, true)
-                    .AddTotalRateLimit(10, TimeSpan.FromSeconds(1))
+                BaseAddress = "https://api.huobi.pro",
+                RateLimiters = new List<IRateLimiter>
+                {
+                     new RateLimiter()
+                        .AddPartialEndpointLimit("/v1/order", 100, TimeSpan.FromSeconds(2), null, true, true)
+                        .AddApiKeyLimit(10, TimeSpan.FromSeconds(1), true, true)
+                        .AddTotalRateLimit(10, TimeSpan.FromSeconds(1))
+                }
             }
         };
 
@@ -31,10 +34,12 @@ namespace Huobi.Net.Objects
         /// </summary>
         public bool SignPublicRequests { get; set; } = false;
 
+        public RestSubClientOptions OptionsSpot { get; set; }
+
         /// <summary>
         /// Ctor
         /// </summary>
-        public HuobiClientSpotOptions()
+        public HuobiClientOptions()
         {
             if (Default == null)
                 return;
@@ -48,42 +53,62 @@ namespace Huobi.Net.Objects
         /// <typeparam name="T"></typeparam>
         /// <param name="input"></param>
         /// <param name="def"></param>
-        public new void Copy<T>(T input, T def) where T : HuobiClientSpotOptions
+        public new void Copy<T>(T input, T def) where T : HuobiClientOptions
         {
             base.Copy(input, def);
 
             input.SignPublicRequests = def.SignPublicRequests;
+            input.OptionsSpot = new RestSubClientOptions();
+            def.OptionsSpot.Copy(input.OptionsSpot, def.OptionsSpot);
+        }
+    }
+
+    public class HuobiSubSocketClientOptions: SocketSubClientOptions
+    {
+        /// <summary>
+        /// The base address for the authenticated websocket
+        /// </summary>
+        public string BaseAddressAuthenticated { get; set; }
+
+        /// <summary>
+        /// The base address for the market by price websocket
+        /// </summary>
+        public string BaseAddressInrementalOrderBook { get; set; }
+
+        public new void Copy<T>(T input, T def) where T : HuobiSubSocketClientOptions
+        {
+            base.Copy(input, def);
+
+            input.BaseAddressAuthenticated = def.BaseAddressAuthenticated;
+            input.BaseAddressInrementalOrderBook = def.BaseAddressInrementalOrderBook;
         }
     }
 
     /// <summary>
     /// Socket client options
     /// </summary>
-    public class HuobiSocketClientSpotOptions : SocketClientOptions
+    public class HuobiSocketClientOptions : SocketClientOptions
     {
         /// <summary>
         /// Default options for the spot client
         /// </summary>
-        public static HuobiSocketClientSpotOptions Default { get; set; } = new HuobiSocketClientSpotOptions()
+        public static HuobiSocketClientOptions Default { get; set; } = new HuobiSocketClientOptions()
         {
-            BaseAddress = "wss://api.huobi.pro/ws",
+            OptionsSpot = new HuobiSubSocketClientOptions
+            {
+                BaseAddress = "wss://api.huobi.pro/ws",
+                BaseAddressAuthenticated = "wss://api.huobi.pro/ws/v2",
+                BaseAddressInrementalOrderBook = "wss://api.huobi.pro/feed"
+            },
             SocketSubscriptionsCombineTarget = 10
         };
 
-        /// <summary>
-        /// The base address for the authenticated websocket
-        /// </summary>
-        public string BaseAddressAuthenticated { get; set; } = "wss://api.huobi.pro/ws/v2";
-
-        /// <summary>
-        /// The base address for the market by price websocket
-        /// </summary>
-        public string BaseAddressInrementalOrderBook { get; set; } = "wss://api.huobi.pro/feed";
+        public HuobiSubSocketClientOptions OptionsSpot { get; set; }
 
         /// <summary>
         /// Ctor
         /// </summary>
-        public HuobiSocketClientSpotOptions()
+        public HuobiSocketClientOptions()
         {
             if (Default == null)
                 return;
@@ -97,12 +122,12 @@ namespace Huobi.Net.Objects
         /// <typeparam name="T"></typeparam>
         /// <param name="input"></param>
         /// <param name="def"></param>
-        public new void Copy<T>(T input, T def) where T : HuobiSocketClientSpotOptions
+        public new void Copy<T>(T input, T def) where T : HuobiSocketClientOptions
         {
             base.Copy(input, def);
 
-            input.BaseAddressAuthenticated = def.BaseAddressAuthenticated;
-            input.BaseAddressInrementalOrderBook = def.BaseAddressInrementalOrderBook;
+            input.OptionsSpot = new HuobiSubSocketClientOptions();
+            def.OptionsSpot.Copy(input.OptionsSpot, def.OptionsSpot);
         }
     }
 
@@ -124,7 +149,7 @@ namespace Huobi.Net.Objects
         /// <summary>
         /// The client to use for the socket connection. When using the same client for multiple order books the connection can be shared.
         /// </summary>
-        public IHuobiSocketClientSpot? SocketClient { get; set; }
+        public IHuobiSocketClient? SocketClient { get; set; }
 
         /// <summary>
         /// 
@@ -132,7 +157,7 @@ namespace Huobi.Net.Objects
         /// <param name="mergeStep">The way the entries are merged. 0 is no merge, 2 means to combine the entries on 2 decimal places</param>
         /// <param name="levels">The amount of entries to maintain. Either 5, 20 or 150</param>
         /// <param name="socketClient">The client to use for the socket connection. When using the same client for multiple order books the connection can be shared.</param>
-        public HuobiOrderBookOptions(int? mergeStep = null, int? levels = null, IHuobiSocketClientSpot? socketClient = null)
+        public HuobiOrderBookOptions(int? mergeStep = null, int? levels = null, IHuobiSocketClient? socketClient = null)
         {
             SocketClient = socketClient;
             MergeStep = mergeStep;

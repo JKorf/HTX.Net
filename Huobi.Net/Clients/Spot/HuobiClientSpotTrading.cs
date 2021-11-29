@@ -89,7 +89,7 @@ namespace Huobi.Net.Clients.Rest.Spot
         /// <inheritdoc />
         public async Task<WebCallResult<long>> CancelOrderAsync(long orderId, CancellationToken ct = default)
         {
-            var result = await _baseClient.SendHuobiRequest<long>(_baseClient.GetUrl(_baseClient.FillPathParameter(CancelOrderEndpoint, orderId.ToString(CultureInfo.InvariantCulture)), "1"), HttpMethod.Post, ct, signed: true).ConfigureAwait(false);
+            var result = await _baseClient.SendHuobiRequest<long>(_baseClient.GetUrl(CancelOrderEndpoint.FillPathParameters(orderId.ToString(CultureInfo.InvariantCulture)), "1"), HttpMethod.Post, ct, signed: true).ConfigureAwait(false);
             if (result)
                 _baseClient.InvokeOrderCanceled(new HuobiOrder { Id = result.Data });
             return result;
@@ -134,7 +134,7 @@ namespace Huobi.Net.Clients.Rest.Spot
         /// <inheritdoc />
         public async Task<WebCallResult<HuobiOrder>> GetOrderAsync(long orderId, CancellationToken ct = default)
         {
-            return await _baseClient.SendHuobiRequest<HuobiOrder>(_baseClient.GetUrl(_baseClient.FillPathParameter(OrderInfoEndpoint, orderId.ToString(CultureInfo.InvariantCulture)), "1"), HttpMethod.Get, ct, signed: true, weight: 2).ConfigureAwait(false);
+            return await _baseClient.SendHuobiRequest<HuobiOrder>(_baseClient.GetUrl(OrderInfoEndpoint.FillPathParameters(orderId.ToString(CultureInfo.InvariantCulture)), "1"), HttpMethod.Get, ct, signed: true, weight: 2).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -151,7 +151,7 @@ namespace Huobi.Net.Clients.Rest.Spot
         /// <inheritdoc />
         public async Task<WebCallResult<IEnumerable<HuobiOrderTrade>>> GetOrderTradesAsync(long orderId, CancellationToken ct = default)
         {
-            return await _baseClient.SendHuobiRequest<IEnumerable<HuobiOrderTrade>>(_baseClient.GetUrl(_baseClient.FillPathParameter(OrderTradesEndpoint, orderId.ToString(CultureInfo.InvariantCulture)), "1"), HttpMethod.Get, ct, signed: true, weight: 2).ConfigureAwait(false);
+            return await _baseClient.SendHuobiRequest<IEnumerable<HuobiOrderTrade>>(_baseClient.GetUrl(OrderTradesEndpoint.FillPathParameters(orderId.ToString(CultureInfo.InvariantCulture)), "1"), HttpMethod.Get, ct, signed: true, weight: 2).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
