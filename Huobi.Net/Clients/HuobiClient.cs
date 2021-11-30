@@ -185,5 +185,11 @@ namespace Huobi.Net.Clients.Rest.Spot
             return new ServerError($"{(string)error["err-code"]!}, {(string)error["err-msg"]!}");
         }
         #endregion
+
+        public override void Dispose()
+        {
+            SpotMarket.Dispose();
+            base.Dispose();
+        }
     }
 }

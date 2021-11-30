@@ -1,11 +1,12 @@
 ﻿using CryptoExchange.Net.Interfaces;
+using System;
 
 namespace Huobi.Net.Interfaces.Clients.Rest.Spot
 {
     /// <summary>
     /// Client for accessing the Huobi API. 
     /// </summary>
-    public interface IHuobiClientSpot
+    public interface IHuobiClientSpot: IDisposable
     {
         /// <summary>
         /// Endpoints related to account settings, info or actions

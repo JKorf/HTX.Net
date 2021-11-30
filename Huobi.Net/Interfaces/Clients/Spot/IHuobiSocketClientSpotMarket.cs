@@ -14,7 +14,7 @@ namespace Huobi.Net.Interfaces.Clients.Socket
     /// <summary>
     /// Interface for the Huobi socket client
     /// </summary>
-    public interface IHuobiSocketClientSpotMarket
+    public interface IHuobiSocketClientSpotMarket: IDisposable
     {
         /// <summary>
         /// Gets candlestick data for a symbol

@@ -63,7 +63,7 @@ namespace Huobi.Net.Objects
         }
     }
 
-    public class HuobiSubSocketClientOptions: SocketSubClientOptions
+    public class HuobiSubSocketClientOptions: SubClientOptions
     {
         /// <summary>
         /// The base address for the authenticated websocket

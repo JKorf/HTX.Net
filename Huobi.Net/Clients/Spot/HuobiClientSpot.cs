@@ -258,5 +258,6 @@ namespace Huobi.Net.Clients.Rest.Spot
             throw new ArgumentException("Unsupported timespan for Huobi Klines, check supported intervals using Huobi.Net.Objects.HuobiPeriod");
         }
         #endregion
+
     }
 }

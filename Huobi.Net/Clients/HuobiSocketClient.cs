@@ -431,5 +431,11 @@ namespace Huobi.Net.Clients.Socket
 
             throw new InvalidOperationException("Unknown request type");
         }
+
+        public override void Dispose()
+        {
+            SpotMarket.Dispose();
+            base.Dispose();
+        }
     }
 }
