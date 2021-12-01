@@ -6,12 +6,12 @@ using System.Threading;
 using System.Threading.Tasks;
 using Huobi.Net.Objects.Models;
 
-namespace Huobi.Net.Interfaces.Clients.Rest.Spot
+namespace Huobi.Net.Interfaces.Clients.SpotApi
 {
     /// <summary>
     /// Huobi exchange data endpoints. Exchange data includes market data (tickers, order books, etc) and system status.
     /// </summary>
-    public interface IHuobiClientSpotExchangeData
+    public interface IHuobiClientSpotApiExchangeData
     {
         /// <summary>
         /// Gets the latest ticker for all symbols

@@ -3,10 +3,10 @@ using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.OrderBook;
 using CryptoExchange.Net.Sockets;
 using System;
-using Huobi.Net.Clients.Socket;
-using Huobi.Net.Interfaces.Clients.Socket;
 using Huobi.Net.Objects;
 using Huobi.Net.Objects.Models;
+using Huobi.Net.Interfaces.Clients;
+using Huobi.Net.Clients;
 
 namespace Huobi.Net.SymbolOrderBooks
 {

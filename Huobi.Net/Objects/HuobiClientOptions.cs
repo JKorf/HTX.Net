@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Objects;
-using Huobi.Net.Interfaces.Clients.Socket;
+using Huobi.Net.Interfaces.Clients;
 
 namespace Huobi.Net.Objects
 {

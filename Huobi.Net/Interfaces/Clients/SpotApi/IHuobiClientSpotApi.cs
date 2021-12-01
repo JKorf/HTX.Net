@@ -1,26 +1,25 @@
-﻿using CryptoExchange.Net.Interfaces;
-using System;
+﻿using System;
 
-namespace Huobi.Net.Interfaces.Clients.Rest.Spot
+namespace Huobi.Net.Interfaces.Clients.SpotApi
 {
     /// <summary>
     /// Client for accessing the Huobi API. 
     /// </summary>
-    public interface IHuobiClientSpot: IDisposable
+    public interface IHuobiClientSpotApi : IDisposable
     {
         /// <summary>
         /// Endpoints related to account settings, info or actions
         /// </summary>
-        IHuobiClientSpotAccount Account { get; }
+        IHuobiClientSpotApiAccount Account { get; }
 
         /// <summary>
         /// Endpoints related to retrieving market and system data
         /// </summary>
-        IHuobiClientSpotExchangeData ExchangeData { get; }
+        IHuobiClientSpotApiExchangeData ExchangeData { get; }
 
         /// <summary>
         /// Endpoints related to orders and trades
         /// </summary>
-        IHuobiClientSpotTrading Trading { get; }
+        IHuobiClientSpotApiTrading Trading { get; }
     }
 }

@@ -6,12 +6,12 @@ using System.Threading;
 using System.Threading.Tasks;
 using Huobi.Net.Objects.Models;
 
-namespace Huobi.Net.Interfaces.Clients.Rest.Spot
+namespace Huobi.Net.Interfaces.Clients.SpotApi
 {
     /// <summary>
     /// Huobi account endpoints. Account endpoints include balance info, withdraw/deposit info and requesting and account settings
     /// </summary>
-    public interface IHuobiClientSpotAccount
+    public interface IHuobiClientSpotApiAccount
     {
         /// <summary>
         /// Gets a list of accounts associated with the apikey/secret

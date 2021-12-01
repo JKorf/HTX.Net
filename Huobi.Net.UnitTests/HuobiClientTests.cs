@@ -12,8 +12,8 @@ using System.Reflection;
 using System.Diagnostics;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Sockets;
-using Huobi.Net.Clients.Rest.Spot;
-using Huobi.Net.Clients.Socket;
+using Huobi.Net.Clients;
+using Huobi.Net.Clients.SpotApi;
 
 namespace Huobi.Net.UnitTests
 {
@@ -92,7 +92,7 @@ namespace Huobi.Net.UnitTests
         [Test]
         public void CheckRestInterfaces()
         {
-            var assembly = Assembly.GetAssembly(typeof(HuobiClientSpot));
+            var assembly = Assembly.GetAssembly(typeof(HuobiClientSpotApi));
             var ignore = new string[] { "IHuobiClientSpot" };
             var clientInterfaces = assembly.GetTypes().Where(t => t.Name.StartsWith("IHuobiClientSpot") && !ignore.Contains(t.Name));
 
@@ -103,7 +103,7 @@ namespace Huobi.Net.UnitTests
                 foreach (var method in implementation.GetMethods().Where(m => m.ReturnType.IsAssignableTo(typeof(Task))))
                 {
                     var interfaceMethod = clientInterface.GetMethod(method.Name, method.GetParameters().Select(p => p.ParameterType).ToArray());
-                    Assert.NotNull(interfaceMethod);
+                    Assert.NotNull(interfaceMethod, $"Missing interface for method {method.Name} in {implementation.Name} implementing interface {clientInterface.Name}");
                     methods++;
                 }
                 Debug.WriteLine($"{clientInterface.Name} {methods} methods validated");
@@ -123,7 +123,7 @@ namespace Huobi.Net.UnitTests
                 foreach (var method in implementation.GetMethods().Where(m => m.ReturnType.IsAssignableTo(typeof(Task<CallResult<UpdateSubscription>>))))
                 {
                     var interfaceMethod = clientInterface.GetMethod(method.Name, method.GetParameters().Select(p => p.ParameterType).ToArray());
-                    Assert.NotNull(interfaceMethod);
+                    Assert.NotNull(interfaceMethod, $"Missing interface for method {method.Name} in {implementation.Name} implementing interface {clientInterface.Name}");
                     methods++;
                 }
                 Debug.WriteLine($"{clientInterface.Name} {methods} methods validated");

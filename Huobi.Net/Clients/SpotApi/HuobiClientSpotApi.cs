@@ -7,21 +7,18 @@ using System.Threading.Tasks;
 using CryptoExchange.Net;
 using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.ExchangeInterfaces;
-using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Objects;
 using Huobi.Net.Enums;
-using Huobi.Net.Interfaces.Clients.Rest.Spot;
+using Huobi.Net.Interfaces.Clients.SpotApi;
 using Huobi.Net.Objects;
-using Huobi.Net.Objects.Internal;
 using Huobi.Net.Objects.Models;
-using Newtonsoft.Json.Linq;
 
-namespace Huobi.Net.Clients.Rest.Spot
+namespace Huobi.Net.Clients.SpotApi
 {
     /// <summary>
     /// Client for the Huobi REST API
     /// </summary>
-    public class HuobiClientSpot : RestApiClient, IHuobiClientSpot, IExchangeClient
+    public class HuobiClientSpotApi : RestApiClient, IHuobiClientSpotApi, IExchangeClient
     {
         private HuobiClient _baseClient;
         private HuobiClientOptions _options;
@@ -37,9 +34,9 @@ namespace Huobi.Net.Clients.Rest.Spot
 
         #region Api clients
 
-        public IHuobiClientSpotAccount Account { get; }
-        public IHuobiClientSpotExchangeData ExchangeData { get; }
-        public IHuobiClientSpotTrading Trading { get; }
+        public IHuobiClientSpotApiAccount Account { get; }
+        public IHuobiClientSpotApiExchangeData ExchangeData { get; }
+        public IHuobiClientSpotApiTrading Trading { get; }
 
         #endregion
 
@@ -47,18 +44,18 @@ namespace Huobi.Net.Clients.Rest.Spot
         /// <summary>
         /// Create a new instance of HuobiClient using the default options
         /// </summary>
-        public HuobiClientSpot(HuobiClient baseClient, HuobiClientOptions options)
+        public HuobiClientSpotApi(HuobiClient baseClient, HuobiClientOptions options)
             : base(options, options.SpotApiOptions)
         {
             _baseClient = baseClient;
             _options = options;
 
-            Account = new HuobiClientSpotAccount(this);
-            ExchangeData = new HuobiClientSpotExchangeData(this);
-            Trading = new HuobiClientSpotTrading(this);
+            Account = new HuobiClientSpotApiAccount(this);
+            ExchangeData = new HuobiClientSpotApiExchangeData(this);
+            Trading = new HuobiClientSpotApiTrading(this);
         }
         #endregion
-        
+
         public override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
             => new HuobiAuthenticationProvider(credentials, _options.SignPublicRequests);
 
@@ -81,7 +78,7 @@ namespace Huobi.Net.Clients.Rest.Spot
         /// <returns></returns>
         internal Uri GetUrl(string endpoint, string? version = null)
         {
-            if(version == null)
+            if (version == null)
                 return new Uri(BaseAddress.AppendPath(endpoint));
             return new Uri(BaseAddress.AppendPath($"v{version}", endpoint));
         }
@@ -116,13 +113,13 @@ namespace Huobi.Net.Clients.Rest.Spot
         async Task<WebCallResult<ICommonTicker>> IExchangeClient.GetTickerAsync(string symbol)
         {
             var tickers = await ExchangeData.GetTickersAsync().ConfigureAwait(false);
-            return tickers.As<ICommonTicker>(Enumerable.Where<HuobiSymbolTick>(tickers.Data?.Ticks, w => w.Symbol == symbol).Select(t => (ICommonTicker)t).FirstOrDefault());
+            return tickers.As((tickers.Data?.Ticks).Where(w => w.Symbol == symbol).Select(t => (ICommonTicker)t).FirstOrDefault());
         }
 
         async Task<WebCallResult<IEnumerable<ICommonTicker>>> IExchangeClient.GetTickersAsync()
         {
             var tickers = await ExchangeData.GetTickersAsync().ConfigureAwait(false);
-            return tickers.As<IEnumerable<ICommonTicker>>(Enumerable.Select<HuobiSymbolTick, ICommonTicker>(tickers.Data?.Ticks, t => (ICommonTicker)t));
+            return tickers.As((tickers.Data?.Ticks).Select(t => (ICommonTicker)t));
         }
 
         async Task<WebCallResult<IEnumerable<ICommonKline>>> IExchangeClient.GetKlinesAsync(string symbol, TimeSpan timespan, DateTime? startTime = null, DateTime? endTime = null, int? limit = null)

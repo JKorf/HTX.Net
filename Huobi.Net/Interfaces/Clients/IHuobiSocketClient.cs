@@ -1,22 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-using CryptoExchange.Net.Interfaces;
-using CryptoExchange.Net.Objects;
-using CryptoExchange.Net.Sockets;
-using Huobi.Net.Enums;
-using Huobi.Net.Objects.Models;
-using Huobi.Net.Objects.Models.Socket;
+﻿using CryptoExchange.Net.Interfaces;
+using Huobi.Net.Interfaces.Clients.SpotApi;
 
-namespace Huobi.Net.Interfaces.Clients.Socket
+namespace Huobi.Net.Interfaces.Clients
 {
     /// <summary>
     /// Interface for the Huobi socket client
     /// </summary>
-    public interface IHuobiSocketClient: ISocketClient
+    public interface IHuobiSocketClient : ISocketClient
     {
-        public IHuobiSocketClientSpotMarket SpotStreams { get; }
+        public IHuobiSocketClientSpotStreams SpotStreams { get; }
 
     }
 }

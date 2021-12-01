@@ -2,7 +2,6 @@
 using CryptoExchange.Net.Objects;
 using Huobi.Net.Converters;
 using Huobi.Net.Enums;
-using Huobi.Net.Interfaces.Clients.Rest.Spot;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -13,10 +12,11 @@ using System.Threading;
 using System.Threading.Tasks;
 using Huobi.Net.Objects.Models;
 using CryptoExchange.Net.Converters;
+using Huobi.Net.Interfaces.Clients.SpotApi;
 
-namespace Huobi.Net.Clients.Rest.Spot
+namespace Huobi.Net.Clients.SpotApi
 {
-    public class HuobiClientSpotTrading: IHuobiClientSpotTrading
+    public class HuobiClientSpotApiTrading : IHuobiClientSpotApiTrading
     {
         private const string PlaceOrderEndpoint = "order/orders/place";
         private const string OpenOrdersEndpoint = "order/openOrders";
@@ -31,9 +31,9 @@ namespace Huobi.Net.Clients.Rest.Spot
         private const string SymbolTradesEndpoint = "order/matchresults";
         private const string HistoryOrdersEndpoint = "order/history";
 
-        private readonly HuobiClientSpot _baseClient;
+        private readonly HuobiClientSpotApi _baseClient;
 
-        internal HuobiClientSpotTrading(HuobiClientSpot baseClient)
+        internal HuobiClientSpotApiTrading(HuobiClientSpotApi baseClient)
         {
             _baseClient = baseClient;
         }

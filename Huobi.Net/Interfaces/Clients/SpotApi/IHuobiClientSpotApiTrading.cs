@@ -6,12 +6,12 @@ using System.Threading;
 using System.Threading.Tasks;
 using Huobi.Net.Objects.Models;
 
-namespace Huobi.Net.Interfaces.Clients.Rest.Spot
+namespace Huobi.Net.Interfaces.Clients.SpotApi
 {
     /// <summary>
     /// Huobi trading endpoints, placing and mananging orders.
     /// </summary>
-    public interface IHuobiClientSpotTrading
+    public interface IHuobiClientSpotApiTrading
     {
         /// <summary>
         /// Places an order

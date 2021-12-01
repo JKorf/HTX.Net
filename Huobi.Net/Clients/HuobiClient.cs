@@ -5,18 +5,17 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using CryptoExchange.Net;
-using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.ExchangeInterfaces;
 using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Objects;
-using Huobi.Net.Enums;
-using Huobi.Net.Interfaces.Clients.Rest.Spot;
+using Huobi.Net.Clients.SpotApi;
+using Huobi.Net.Interfaces.Clients;
+using Huobi.Net.Interfaces.Clients.SpotApi;
 using Huobi.Net.Objects;
 using Huobi.Net.Objects.Internal;
-using Huobi.Net.Objects.Models;
 using Newtonsoft.Json.Linq;
 
-namespace Huobi.Net.Clients.Rest.Spot
+namespace Huobi.Net.Clients
 {
     /// <summary>
     /// Client for the Huobi REST API
@@ -34,7 +33,7 @@ namespace Huobi.Net.Clients.Rest.Spot
 
         #region Api clients
 
-        public IHuobiClientSpot SpotApi { get; }
+        public IHuobiClientSpotApi SpotApi { get; }
 
         #endregion
 
@@ -53,7 +52,7 @@ namespace Huobi.Net.Clients.Rest.Spot
         {
             manualParseError = true;
 
-            SpotApi = new HuobiClientSpot(this, options);
+            SpotApi = new HuobiClientSpotApi(this, options);
         }
         #endregion
 
@@ -66,7 +65,7 @@ namespace Huobi.Net.Clients.Rest.Spot
         {
             HuobiClientOptions.Default = options;
         }
-                
+
         internal async Task<WebCallResult<T>> SendHuobiV2Request<T>(RestApiClient apiClient, Uri uri, HttpMethod method, CancellationToken cancellationToken, Dictionary<string, object>? parameters = null, bool signed = false)
         {
             var result = await SendRequestAsync<HuobiApiResponseV2<T>>(apiClient, uri, method, cancellationToken, parameters, signed).ConfigureAwait(false);
@@ -164,7 +163,7 @@ namespace Huobi.Net.Clients.Rest.Spot
         /// <inheritdoc />
         protected override Task<ServerError?> TryParseErrorAsync(JToken data)
         {
-            if(data["code"] != null && data["code"]?.Value<int>() != 200)
+            if (data["code"] != null && data["code"]?.Value<int>() != 200)
                 return Task.FromResult<ServerError?>(new ServerError($"{(string)data["code"]!}, {(string)data["message"]!}"));
 
             if (data["err-code"] == null && data["err-msg"] == null)

@@ -2,19 +2,18 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Sockets;
 using Huobi.Net.Enums;
 using Huobi.Net.Objects.Models;
 using Huobi.Net.Objects.Models.Socket;
 
-namespace Huobi.Net.Interfaces.Clients.Socket
+namespace Huobi.Net.Interfaces.Clients.SpotApi
 {
     /// <summary>
     /// Interface for the Huobi socket client
     /// </summary>
-    public interface IHuobiSocketClientSpotMarket: IDisposable
+    public interface IHuobiSocketClientSpotStreams : IDisposable
     {
         /// <summary>
         /// Gets candlestick data for a symbol
@@ -78,7 +77,7 @@ namespace Huobi.Net.Interfaces.Clients.Socket
         /// <param name="onData">The handler for updates</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToOrderBookChangeUpdatesAsync(string symbol, int levels, Action<DataEvent<HuobiIncementalOrderBook>> onData, CancellationToken ct = default);        
+        Task<CallResult<UpdateSubscription>> SubscribeToOrderBookChangeUpdatesAsync(string symbol, int levels, Action<DataEvent<HuobiIncementalOrderBook>> onData, CancellationToken ct = default);
 
         /// <summary>
         /// Gets a list of trades for a symbol

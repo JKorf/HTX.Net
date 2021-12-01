@@ -1,6 +1,7 @@
 ﻿using CryptoExchange.Net.Interfaces;
+using Huobi.Net.Interfaces.Clients.SpotApi;
 
-namespace Huobi.Net.Interfaces.Clients.Rest.Spot
+namespace Huobi.Net.Interfaces.Clients
 {
     /// <summary>
     /// Client for accessing the Huobi API. 
@@ -10,6 +11,6 @@ namespace Huobi.Net.Interfaces.Clients.Rest.Spot
         /// <summary>
         /// Endpoints related to account settings, info or actions
         /// </summary>
-        IHuobiClientSpot SpotApi { get; }
+        IHuobiClientSpotApi SpotApi { get; }
     }
 }

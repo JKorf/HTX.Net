@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
@@ -8,22 +7,18 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using CryptoExchange.Net;
-using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Sockets;
-using Huobi.Net.Converters;
-using Huobi.Net.Enums;
-using Huobi.Net.Interfaces.Clients.Socket;
+using Huobi.Net.Clients.SpotApi;
+using Huobi.Net.Interfaces.Clients;
+using Huobi.Net.Interfaces.Clients.SpotApi;
 using Huobi.Net.Objects;
 using Huobi.Net.Objects.Internal;
-using Huobi.Net.Objects.Models;
-using Huobi.Net.Objects.Models.Socket;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using HuobiOrderUpdate = Huobi.Net.Objects.Models.Socket.HuobiOrderUpdate;
 
-namespace Huobi.Net.Clients.Socket
+namespace Huobi.Net.Clients
 {
     /// <summary>
     /// Client for the Huobi socket API
@@ -31,7 +26,7 @@ namespace Huobi.Net.Clients.Socket
     public class HuobiSocketClient : BaseSocketClient, IHuobiSocketClient
     {
         #region fields
-        public IHuobiSocketClientSpotMarket SpotStreams { get;  }
+        public IHuobiSocketClientSpotStreams SpotStreams { get; }
         #endregion
 
         #region ctor
@@ -48,7 +43,7 @@ namespace Huobi.Net.Clients.Socket
         /// <param name="options">The options to use for this client</param>
         public HuobiSocketClient(HuobiSocketClientOptions options) : base("Huobi", options)
         {
-            SpotStreams = new HuobiSocketClientSpotMarket(log, this, options);
+            SpotStreams = new HuobiSocketClientSpotStreams(log, this, options);
 
             SetDataInterpreter(DecompressData, null);
             AddGenericHandler("PingV1", PingHandlerV1);
@@ -82,17 +77,17 @@ namespace Huobi.Net.Clients.Socket
             if (v2Ping)
                 messageEvent.Connection.Send(new HuobiPingAuthResponse(messageEvent.JsonData["data"]!["ts"]!.Value<long>()));
         }
-        
+
         /// <inheritdoc />
         protected override SocketConnection GetSocketConnection(SocketApiClient apiClient, string address, bool authenticated)
         {
-            var socketResult = sockets.Where(s => s.Value.Socket.Url.TrimEnd('/') == address.TrimEnd('/') 
-                                && (s.Value.ApiClient.GetType() == apiClient.GetType())
+            var socketResult = sockets.Where(s => s.Value.Socket.Url.TrimEnd('/') == address.TrimEnd('/')
+                                && s.Value.ApiClient.GetType() == apiClient.GetType()
                                 && (s.Value.Authenticated == authenticated || !authenticated) && s.Value.Connected).OrderBy(s => s.Value.SubscriptionCount).FirstOrDefault();
             var result = socketResult.Equals(default(KeyValuePair<int, SocketConnection>)) ? null : socketResult.Value;
             if (result != null)
             {
-                if (result.SubscriptionCount < ClientOptions.SocketSubscriptionsCombineTarget || (sockets.Count >= MaxSocketConnections && sockets.All(s => s.Value.SubscriptionCount >= ClientOptions.SocketSubscriptionsCombineTarget)))
+                if (result.SubscriptionCount < ClientOptions.SocketSubscriptionsCombineTarget || sockets.Count >= MaxSocketConnections && sockets.All(s => s.Value.SubscriptionCount >= ClientOptions.SocketSubscriptionsCombineTarget))
                 {
                     // Use existing socket if it has less than target connections OR it has the least connections and we can't make new
                     return result;
@@ -151,7 +146,7 @@ namespace Huobi.Net.Clients.Socket
             var isV1QueryResponse = v1Data || v1Error;
             if (isV1QueryResponse)
             {
-                var hRequest = (HuobiSocketRequest) request;
+                var hRequest = (HuobiSocketRequest)request;
                 var id = data["id"];
                 if (id == null)
                     return false;
@@ -309,10 +304,10 @@ namespace Huobi.Net.Clients.Socket
         {
             if (request is HuobiSubscribeRequest hRequest)
                 return hRequest.Topic == message["ch"]?.ToString();
-            
+
             if (request is HuobiAuthenticatedSubscribeRequest haRequest)
                 return haRequest.Channel == message["ch"]?.ToString();
-            
+
             return false;
         }
 
@@ -339,8 +334,8 @@ namespace Huobi.Net.Clients.Socket
 
             var authParams = ((HuobiAuthenticationProvider)s.ApiClient.AuthenticationProvider).SignRequest(
                 s.Socket.Url,
-                HttpMethod.Get, 
-                new Dictionary<string, object>(), 
+                HttpMethod.Get,
+                new Dictionary<string, object>(),
                 "accessKey",
                 "signatureMethod",
                 "signatureVersion",

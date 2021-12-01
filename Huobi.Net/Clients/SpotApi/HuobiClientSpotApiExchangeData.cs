@@ -3,7 +3,6 @@ using CryptoExchange.Net.Converters;
 using CryptoExchange.Net.Objects;
 using Huobi.Net.Converters;
 using Huobi.Net.Enums;
-using Huobi.Net.Interfaces.Clients.Rest.Spot;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -11,10 +10,11 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using Huobi.Net.Objects.Models;
+using Huobi.Net.Interfaces.Clients.SpotApi;
 
-namespace Huobi.Net.Clients.Rest.Spot
+namespace Huobi.Net.Clients.SpotApi
 {
-    public class HuobiClientSpotExchangeData: IHuobiClientSpotExchangeData
+    public class HuobiClientSpotApiExchangeData : IHuobiClientSpotApiExchangeData
     {
         private const string MarketTickerEndpoint = "market/tickers";
         private const string MarketTickerMergedEndpoint = "market/detail/merged";
@@ -31,9 +31,9 @@ namespace Huobi.Net.Clients.Rest.Spot
         private const string CommonCurrenciesAndChainsEndpoint = "reference/currencies";
         private const string ServerTimeEndpoint = "common/timestamp";
 
-        private readonly HuobiClientSpot _baseClient;
+        private readonly HuobiClientSpotApi _baseClient;
 
-        internal HuobiClientSpotExchangeData(HuobiClientSpot baseClient)
+        internal HuobiClientSpotApiExchangeData(HuobiClientSpotApi baseClient)
         {
             _baseClient = baseClient;
         }

@@ -1,12 +1,12 @@
 ﻿using Huobi.Net;
 using Huobi.Net.Interfaces;
-using Huobi.Net.Interfaces.Clients.Rest.Spot;
 using Huobi.Net.UnitTests.TestImplementations;
 using NUnit.Framework;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using CryptoExchange.Net.Interfaces;
 using Huobi.Net.Objects;
+using Huobi.Net.Interfaces.Clients;
 
 namespace Huobi.Net.UnitTests
 {

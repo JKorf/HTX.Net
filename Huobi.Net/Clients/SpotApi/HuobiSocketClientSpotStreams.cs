@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.IO;
-using System.IO.Compression;
-using System.Linq;
-using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using CryptoExchange.Net;
@@ -14,7 +10,7 @@ using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Sockets;
 using Huobi.Net.Converters;
 using Huobi.Net.Enums;
-using Huobi.Net.Interfaces.Clients.Socket;
+using Huobi.Net.Interfaces.Clients.SpotApi;
 using Huobi.Net.Objects;
 using Huobi.Net.Objects.Internal;
 using Huobi.Net.Objects.Models;
@@ -24,12 +20,12 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using HuobiOrderUpdate = Huobi.Net.Objects.Models.Socket.HuobiOrderUpdate;
 
-namespace Huobi.Net.Clients.Socket
+namespace Huobi.Net.Clients.SpotApi
 {
     /// <summary>
     /// Client for the Huobi socket API
     /// </summary>
-    public class HuobiSocketClientSpotMarket : SocketApiClient, IHuobiSocketClientSpotMarket
+    public class HuobiSocketClientSpotStreams : SocketApiClient, IHuobiSocketClientSpotStreams
     {
         #region fields
         private readonly string baseAddressAuthenticated;
@@ -44,7 +40,7 @@ namespace Huobi.Net.Clients.Socket
         /// <summary>
         /// Create a new instance of HuobiSocketClient with default options
         /// </summary>
-        public HuobiSocketClientSpotMarket(Log log, HuobiSocketClient baseClient, HuobiSocketClientOptions options) 
+        public HuobiSocketClientSpotStreams(Log log, HuobiSocketClient baseClient, HuobiSocketClientOptions options)
             : base(options, options.SpotStreamsOptions)
         {
             _log = log;
@@ -214,7 +210,7 @@ namespace Huobi.Net.Clients.Socket
             var request = new HuobiSubscribeRequest(_baseClient.NextIdInternal().ToString(CultureInfo.InvariantCulture), "market.tickers");
             var internalHandler = new Action<DataEvent<HuobiDataEvent<IEnumerable<HuobiSymbolTicker>>>>(data =>
             {
-                var result = new HuobiSymbolDatas { Timestamp = data.Timestamp, Ticks = data.Data.Data};
+                var result = new HuobiSymbolDatas { Timestamp = data.Timestamp, Ticks = data.Data.Data };
                 onData(data.As(result));
             });
             return await _baseClient.SubscribeInternalAsync(this, request, null, false, internalHandler, ct).ConfigureAwait(false);
@@ -249,11 +245,11 @@ namespace Huobi.Net.Clients.Socket
             Action<DataEvent<HuobiMatchedOrderUpdate>>? onOrderMatched = null,
             Action<DataEvent<HuobiCanceledOrderUpdate>>? onOrderCancelation = null,
             Action<DataEvent<HuobiTriggerFailureOrderUpdate>>? onConditionalOrderTriggerFailure = null,
-            Action<DataEvent<HuobiOrderUpdate>>? onConditionalOrderCanceled = null, 
+            Action<DataEvent<HuobiOrderUpdate>>? onConditionalOrderCanceled = null,
             CancellationToken ct = default)
         {
             symbol = symbol?.ValidateHuobiSymbol();
-            var request = new HuobiAuthenticatedSubscribeRequest( $"orders#{symbol ?? "*"}");
+            var request = new HuobiAuthenticatedSubscribeRequest($"orders#{symbol ?? "*"}");
             var internalHandler = new Action<DataEvent<JToken>>(data =>
             {
                 if (data.Data["data"] == null || data.Data["data"]!["eventType"] == null)
@@ -303,7 +299,7 @@ namespace Huobi.Net.Clients.Socket
             var request = new HuobiAuthenticatedSubscribeRequest($"trade.clearing#{symbol ?? "*"}#1");
             var internalHandler = new Action<DataEvent<JToken>>(data =>
             {
-                if(data.Data["data"] == null || data.Data["data"]!["eventType"] == null)
+                if (data.Data["data"] == null || data.Data["data"]!["eventType"] == null)
                 {
                     _log.Write(LogLevel.Warning, "Invalid order update data: " + data);
                     return;
@@ -313,7 +309,7 @@ namespace Huobi.Net.Clients.Socket
                 var symbol = data.Data["data"]!["symbol"]?.ToString();
                 if (eventType == "trade")
                     DeserializeAndInvoke(data, onOrderMatch, symbol);
-                else if(eventType == "cancellation")
+                else if (eventType == "cancellation")
                     DeserializeAndInvoke(data, onOrderCancel, symbol);
                 else
                 {

@@ -2,7 +2,6 @@
 using CryptoExchange.Net.Objects;
 using Huobi.Net.Converters;
 using Huobi.Net.Enums;
-using Huobi.Net.Interfaces.Clients.Rest.Spot;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -13,10 +12,11 @@ using System.Threading;
 using System.Threading.Tasks;
 using Huobi.Net.Objects.Models;
 using CryptoExchange.Net.Converters;
+using Huobi.Net.Interfaces.Clients.SpotApi;
 
-namespace Huobi.Net.Clients.Rest.Spot
+namespace Huobi.Net.Clients.SpotApi
 {
-    public class HuobiClientSpotAccount: IHuobiClientSpotAccount
+    public class HuobiClientSpotApiAccount : IHuobiClientSpotApiAccount
     {
         private const string GetAccountsEndpoint = "account/accounts";
         private const string GetAssetValuationEndpoint = "account/asset-valuation";
@@ -32,9 +32,9 @@ namespace Huobi.Net.Clients.Rest.Spot
         private const string PlaceWithdrawEndpoint = "dw/withdraw/api/create";
         private const string QueryWithdrawDepositEndpoint = "query/deposit-withdraw";
 
-        private readonly HuobiClientSpot _baseClient;
+        private readonly HuobiClientSpotApi _baseClient;
 
-        internal HuobiClientSpotAccount(HuobiClientSpot baseClient)
+        internal HuobiClientSpotApiAccount(HuobiClientSpotApi baseClient)
         {
             _baseClient = baseClient;
         }
@@ -102,8 +102,8 @@ namespace Huobi.Net.Clients.Rest.Spot
             };
             parameters.AddOptionalParameter("currency", asset);
             parameters.AddOptionalParameter("transact-types", transactionTypes == null ? null : string.Join(",", transactionTypes.Select(s => JsonConvert.SerializeObject(s, transactionTypeConverter))));
-            parameters.AddOptionalParameter("start-time",DateTimeConverter.ConvertToMilliseconds(startTime));
-            parameters.AddOptionalParameter("end-time",DateTimeConverter.ConvertToMilliseconds(endTime));
+            parameters.AddOptionalParameter("start-time", DateTimeConverter.ConvertToMilliseconds(startTime));
+            parameters.AddOptionalParameter("end-time", DateTimeConverter.ConvertToMilliseconds(endTime));
             parameters.AddOptionalParameter("sort", sort == null ? null : JsonConvert.SerializeObject(sort, new SortingTypeConverter(false)));
             parameters.AddOptionalParameter("size", size);
 
@@ -122,8 +122,8 @@ namespace Huobi.Net.Clients.Rest.Spot
             };
             parameters.AddOptionalParameter("currency", asset);
             parameters.AddOptionalParameter("transactTypes", transactionTypes == null ? null : string.Join(",", transactionTypes.Select(s => JsonConvert.SerializeObject(s, transactionTypeConverter))));
-            parameters.AddOptionalParameter("startTime",DateTimeConverter.ConvertToMilliseconds(startTime));
-            parameters.AddOptionalParameter("endTime",DateTimeConverter.ConvertToMilliseconds(endTime));
+            parameters.AddOptionalParameter("startTime", DateTimeConverter.ConvertToMilliseconds(startTime));
+            parameters.AddOptionalParameter("endTime", DateTimeConverter.ConvertToMilliseconds(endTime));
             parameters.AddOptionalParameter("sort", sort == null ? null : JsonConvert.SerializeObject(sort, new SortingTypeConverter(false)));
             parameters.AddOptionalParameter("limit", size);
             parameters.AddOptionalParameter("fromId", fromId?.ToString(CultureInfo.InvariantCulture));
