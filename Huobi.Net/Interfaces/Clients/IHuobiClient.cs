@@ -10,6 +10,6 @@ namespace Huobi.Net.Interfaces.Clients.Rest.Spot
         /// <summary>
         /// Endpoints related to account settings, info or actions
         /// </summary>
-        IHuobiClientSpot SpotMarket { get; }
+        IHuobiClientSpot SpotApi { get; }
     }
 }

@@ -16,7 +16,7 @@ namespace Huobi.Net.Interfaces.Clients.Socket
     /// </summary>
     public interface IHuobiSocketClient: ISocketClient
     {
-        public IHuobiSocketClientSpotMarket SpotMarket { get; }
+        public IHuobiSocketClientSpotMarket SpotStreams { get; }
 
     }
 }

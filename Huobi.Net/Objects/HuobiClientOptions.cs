@@ -9,32 +9,33 @@ namespace Huobi.Net.Objects
     /// <summary>
     /// Client options
     /// </summary>
-    public class HuobiClientOptions: RestClientOptions
+    public class HuobiClientOptions: BaseRestClientOptions
     {
         /// <summary>
         /// Default options for the spot client
         /// </summary>
-        public static HuobiClientOptions Default { get; set; } = new HuobiClientOptions()
-        {
-            OptionsSpot = new RestSubClientOptions
-            {
-                BaseAddress = "https://api.huobi.pro",
-                RateLimiters = new List<IRateLimiter>
-                {
-                     new RateLimiter()
-                        .AddPartialEndpointLimit("/v1/order", 100, TimeSpan.FromSeconds(2), null, true, true)
-                        .AddApiKeyLimit(10, TimeSpan.FromSeconds(1), true, true)
-                        .AddTotalRateLimit(10, TimeSpan.FromSeconds(1))
-                }
-            }
-        };
+        public static HuobiClientOptions Default { get; set; } = new HuobiClientOptions();
 
         /// <summary>
         /// Whether public requests should be signed if ApiCredentials are provided. Needed for accurate rate limiting.
         /// </summary>
         public bool SignPublicRequests { get; set; } = false;
 
-        public RestSubClientOptions OptionsSpot { get; set; }
+        private RestApiClientOptions _spotApiOptions = new RestApiClientOptions("https://api.huobi.pro")
+        {
+            RateLimiters = new List<IRateLimiter>
+            {
+                    new RateLimiter()
+                    .AddPartialEndpointLimit("/v1/order", 100, TimeSpan.FromSeconds(2), null, true, true)
+                    .AddApiKeyLimit(10, TimeSpan.FromSeconds(1), true, true)
+                    .AddTotalRateLimit(10, TimeSpan.FromSeconds(1))
+            }
+        };
+        public RestApiClientOptions SpotApiOptions
+        {
+            get => _spotApiOptions;
+            set => _spotApiOptions.Copy(_spotApiOptions, value);
+        }
 
         /// <summary>
         /// Ctor
@@ -58,52 +59,29 @@ namespace Huobi.Net.Objects
             base.Copy(input, def);
 
             input.SignPublicRequests = def.SignPublicRequests;
-            input.OptionsSpot = new RestSubClientOptions();
-            def.OptionsSpot.Copy(input.OptionsSpot, def.OptionsSpot);
-        }
-    }
-
-    public class HuobiSubSocketClientOptions: SubClientOptions
-    {
-        /// <summary>
-        /// The base address for the authenticated websocket
-        /// </summary>
-        public string BaseAddressAuthenticated { get; set; }
-
-        /// <summary>
-        /// The base address for the market by price websocket
-        /// </summary>
-        public string BaseAddressInrementalOrderBook { get; set; }
-
-        public new void Copy<T>(T input, T def) where T : HuobiSubSocketClientOptions
-        {
-            base.Copy(input, def);
-
-            input.BaseAddressAuthenticated = def.BaseAddressAuthenticated;
-            input.BaseAddressInrementalOrderBook = def.BaseAddressInrementalOrderBook;
+            input.SpotApiOptions = new RestApiClientOptions(def.SpotApiOptions);
         }
     }
 
     /// <summary>
     /// Socket client options
     /// </summary>
-    public class HuobiSocketClientOptions : SocketClientOptions
+    public class HuobiSocketClientOptions : BaseSocketClientOptions
     {
         /// <summary>
         /// Default options for the spot client
         /// </summary>
         public static HuobiSocketClientOptions Default { get; set; } = new HuobiSocketClientOptions()
         {
-            OptionsSpot = new HuobiSubSocketClientOptions
-            {
-                BaseAddress = "wss://api.huobi.pro/ws",
-                BaseAddressAuthenticated = "wss://api.huobi.pro/ws/v2",
-                BaseAddressInrementalOrderBook = "wss://api.huobi.pro/feed"
-            },
             SocketSubscriptionsCombineTarget = 10
         };
 
-        public HuobiSubSocketClientOptions OptionsSpot { get; set; }
+        private HuobiSocketApiClientOptions _spotStreamsOptions = new HuobiSocketApiClientOptions("wss://api.huobi.pro/ws", "wss://api.huobi.pro/ws/v2", "wss://api.huobi.pro/feed");
+        public HuobiSocketApiClientOptions SpotStreamsOptions
+        {
+            get => _spotStreamsOptions;
+            set => _spotStreamsOptions.Copy(_spotStreamsOptions, value);
+        }
 
         /// <summary>
         /// Ctor
@@ -126,8 +104,44 @@ namespace Huobi.Net.Objects
         {
             base.Copy(input, def);
 
-            input.OptionsSpot = new HuobiSubSocketClientOptions();
-            def.OptionsSpot.Copy(input.OptionsSpot, def.OptionsSpot);
+            input.SpotStreamsOptions = new HuobiSocketApiClientOptions(def.SpotStreamsOptions);
+        }
+    }
+
+    public class HuobiSocketApiClientOptions : ApiClientOptions
+    {
+        /// <summary>
+        /// The base address for the authenticated websocket
+        /// </summary>
+        public string BaseAddressAuthenticated { get; set; }
+
+        /// <summary>
+        /// The base address for the market by price websocket
+        /// </summary>
+        public string BaseAddressInrementalOrderBook { get; set; }
+
+        public HuobiSocketApiClientOptions()
+        {
+        }
+
+        public HuobiSocketApiClientOptions(string baseAddress, string baseAddressAuthenticated, string baseAddressIncrementalOrderBook): base(baseAddress)
+        {
+            BaseAddressAuthenticated = baseAddressAuthenticated;
+            BaseAddressInrementalOrderBook = baseAddressIncrementalOrderBook;
+        }
+
+        public HuobiSocketApiClientOptions(HuobiSocketApiClientOptions baseOn): base(baseOn)
+        {
+            BaseAddressAuthenticated = baseOn.BaseAddressAuthenticated;
+            BaseAddressInrementalOrderBook = baseOn.BaseAddressInrementalOrderBook;
+        }
+
+        public new void Copy<T>(T input, T def) where T : HuobiSocketApiClientOptions
+        {
+            base.Copy(input, def);
+
+            input.BaseAddressAuthenticated = def.BaseAddressAuthenticated;
+            input.BaseAddressInrementalOrderBook = def.BaseAddressInrementalOrderBook;
         }
     }
 

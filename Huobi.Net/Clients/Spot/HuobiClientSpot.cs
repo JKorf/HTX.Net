@@ -21,9 +21,10 @@ namespace Huobi.Net.Clients.Rest.Spot
     /// <summary>
     /// Client for the Huobi REST API
     /// </summary>
-    public class HuobiClientSpot : RestSubClient, IHuobiClientSpot, IExchangeClient
+    public class HuobiClientSpot : RestApiClient, IHuobiClientSpot, IExchangeClient
     {
         private HuobiClient _baseClient;
+        private HuobiClientOptions _options;
 
         /// <summary>
         /// Event triggered when an order is placed via this client
@@ -34,7 +35,7 @@ namespace Huobi.Net.Clients.Rest.Spot
         /// </summary>
         public event Action<ICommonOrderId>? OnOrderCanceled;
 
-        #region SubClients
+        #region Api clients
 
         public IHuobiClientSpotAccount Account { get; }
         public IHuobiClientSpotExchangeData ExchangeData { get; }
@@ -47,15 +48,19 @@ namespace Huobi.Net.Clients.Rest.Spot
         /// Create a new instance of HuobiClient using the default options
         /// </summary>
         public HuobiClientSpot(HuobiClient baseClient, HuobiClientOptions options)
-            : base(options.OptionsSpot, options.OptionsSpot.ApiCredentials == null ? null: new HuobiAuthenticationProvider(options.OptionsSpot.ApiCredentials, options.SignPublicRequests))
+            : base(options, options.SpotApiOptions)
         {
             _baseClient = baseClient;
+            _options = options;
 
             Account = new HuobiClientSpotAccount(this);
             ExchangeData = new HuobiClientSpotExchangeData(this);
             Trading = new HuobiClientSpotTrading(this);
         }
         #endregion
+        
+        public override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
+            => new HuobiAuthenticationProvider(credentials, _options.SignPublicRequests);
 
         #region methods
 

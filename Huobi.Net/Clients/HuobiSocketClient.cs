@@ -28,10 +28,10 @@ namespace Huobi.Net.Clients.Socket
     /// <summary>
     /// Client for the Huobi socket API
     /// </summary>
-    public class HuobiSocketClient : SocketClient, IHuobiSocketClient
+    public class HuobiSocketClient : BaseSocketClient, IHuobiSocketClient
     {
         #region fields
-        public IHuobiSocketClientSpotMarket SpotMarket { get;  }
+        public IHuobiSocketClientSpotMarket SpotStreams { get;  }
         #endregion
 
         #region ctor
@@ -48,7 +48,7 @@ namespace Huobi.Net.Clients.Socket
         /// <param name="options">The options to use for this client</param>
         public HuobiSocketClient(HuobiSocketClientOptions options) : base("Huobi", options)
         {
-            SpotMarket = new HuobiSocketClientSpotMarket(log, this, options);
+            SpotStreams = new HuobiSocketClientSpotMarket(log, this, options);
 
             SetDataInterpreter(DecompressData, null);
             AddGenericHandler("PingV1", PingHandlerV1);
@@ -84,10 +84,10 @@ namespace Huobi.Net.Clients.Socket
         }
         
         /// <inheritdoc />
-        protected override SocketConnection GetSocketConnection(SocketSubClient subClient, string address, bool authenticated)
+        protected override SocketConnection GetSocketConnection(SocketApiClient apiClient, string address, bool authenticated)
         {
             var socketResult = sockets.Where(s => s.Value.Socket.Url.TrimEnd('/') == address.TrimEnd('/') 
-                                && (s.Value.SubClient.GetType() == subClient.GetType())
+                                && (s.Value.ApiClient.GetType() == apiClient.GetType())
                                 && (s.Value.Authenticated == authenticated || !authenticated) && s.Value.Connected).OrderBy(s => s.Value.SubscriptionCount).FirstOrDefault();
             var result = socketResult.Equals(default(KeyValuePair<int, SocketConnection>)) ? null : socketResult.Value;
             if (result != null)
@@ -101,7 +101,7 @@ namespace Huobi.Net.Clients.Socket
 
             // Create new socket
             var socket = CreateSocket(address);
-            var socketWrapper = new SocketConnection(this, subClient, socket);
+            var socketWrapper = new SocketConnection(this, apiClient, socket);
             foreach (var kvp in genericHandlers)
                 socketWrapper.AddSubscription(SocketSubscription.CreateForIdentifier(NextId(), kvp.Key, false, kvp.Value));
             return socketWrapper;
@@ -119,23 +119,23 @@ namespace Huobi.Net.Clients.Socket
             return streamReader.ReadToEnd();
         }
 
-        internal Task<CallResult<UpdateSubscription>> SubscribeInternalAsync<T>(SocketSubClient subClient, object? request, string? identifier, bool authenticated, Action<DataEvent<T>> dataHandler, CancellationToken ct)
+        internal Task<CallResult<UpdateSubscription>> SubscribeInternalAsync<T>(SocketApiClient apiClient, object? request, string? identifier, bool authenticated, Action<DataEvent<T>> dataHandler, CancellationToken ct)
         {
-            return SubscribeAsync(subClient, request, identifier, authenticated, dataHandler, ct);
+            return SubscribeAsync(apiClient, request, identifier, authenticated, dataHandler, ct);
         }
 
-        internal Task<CallResult<UpdateSubscription>> SubscribeInternalAsync<T>(SocketSubClient subClient, string url, object? request, string? identifier, bool authenticated, Action<DataEvent<T>> dataHandler, CancellationToken ct)
+        internal Task<CallResult<UpdateSubscription>> SubscribeInternalAsync<T>(SocketApiClient apiClient, string url, object? request, string? identifier, bool authenticated, Action<DataEvent<T>> dataHandler, CancellationToken ct)
         {
-            return SubscribeAsync(subClient, url, request, identifier, authenticated, dataHandler, ct);
+            return SubscribeAsync(apiClient, url, request, identifier, authenticated, dataHandler, ct);
         }
 
-        internal Task<CallResult<T>> QueryInternalAsync<T>(SocketSubClient subClient, string url, object request, bool authenticated)
-            => QueryAsync<T>(subClient, url, request, authenticated);
+        internal Task<CallResult<T>> QueryInternalAsync<T>(SocketApiClient apiClient, string url, object request, bool authenticated)
+            => QueryAsync<T>(apiClient, url, request, authenticated);
 
         internal int NextIdInternal() => NextId();
 
-        internal Task<CallResult<T>> QueryInternalAsync<T>(SocketSubClient subClient, object request, bool authenticated)
-            => QueryAsync<T>(subClient, request, authenticated);
+        internal Task<CallResult<T>> QueryInternalAsync<T>(SocketApiClient apiClient, object request, bool authenticated)
+            => QueryAsync<T>(apiClient, request, authenticated);
 
         internal CallResult<T> DeserializeInternal<T>(JToken obj, JsonSerializer? serializer = null, int? requestId = null)
             => Deserialize<T>(obj, serializer, requestId);
@@ -334,10 +334,10 @@ namespace Huobi.Net.Clients.Socket
         /// <inheritdoc />
         protected override async Task<CallResult<bool>> AuthenticateSocketAsync(SocketConnection s)
         {
-            if (s.SubClient.AuthenticationProvider == null)
+            if (s.ApiClient.AuthenticationProvider == null)
                 return new CallResult<bool>(false, new NoApiCredentialsError());
 
-            var authParams = ((HuobiAuthenticationProvider)s.SubClient.AuthenticationProvider).SignRequest(
+            var authParams = ((HuobiAuthenticationProvider)s.ApiClient.AuthenticationProvider).SignRequest(
                 s.Socket.Url,
                 HttpMethod.Get, 
                 new Dictionary<string, object>(), 
@@ -347,7 +347,7 @@ namespace Huobi.Net.Clients.Socket
                 "timestamp",
                 "signature",
                 2.1);
-            var authObjects = new HuobiAuthenticationRequest(s.SubClient.AuthenticationProvider.Credentials.Key!.GetString(),
+            var authObjects = new HuobiAuthenticationRequest(s.ApiClient.AuthenticationProvider.Credentials.Key!.GetString(),
                 (string)authParams["timestamp"],
                 (string)authParams["signature"]);
 
@@ -434,7 +434,7 @@ namespace Huobi.Net.Clients.Socket
 
         public override void Dispose()
         {
-            SpotMarket.Dispose();
+            SpotStreams.Dispose();
             base.Dispose();
         }
     }

@@ -43,7 +43,7 @@ namespace Huobi.Net.UnitTests
             var client = TestHelpers.CreateAuthResponseClient("{{\"status\": \"error\", \"err-code\": \"Error!\", \"err-msg\": \"ErrorMessage\"}}");
 
             // act
-            var result = await client.ExchangeData.GetAssetsAsync();
+            var result = await client.SpotApi.ExchangeData.GetAssetsAsync();
 
             // assert
             Assert.IsFalse(result.Success);
@@ -58,7 +58,7 @@ namespace Huobi.Net.UnitTests
             var client = TestHelpers.CreateAuthResponseClient("Error message", System.Net.HttpStatusCode.BadRequest);
 
             // act
-            var result = await client.ExchangeData.GetAssetsAsync();
+            var result = await client.SpotApi.ExchangeData.GetAssetsAsync();
 
             // assert
             Assert.IsFalse(result.Success);
@@ -113,7 +113,7 @@ namespace Huobi.Net.UnitTests
         [Test]
         public void CheckSocketInterfaces()
         {
-            var assembly = Assembly.GetAssembly(typeof(HuobiSocketClientSpot));
+            var assembly = Assembly.GetAssembly(typeof(HuobiSocketClient));
             var clientInterfaces = assembly.GetTypes().Where(t => t.Name.StartsWith("IHuobiSocketClientSpot"));
 
             foreach (var clientInterface in clientInterfaces)

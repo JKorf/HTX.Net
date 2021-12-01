@@ -29,7 +29,7 @@ namespace Huobi.Net.Clients.Socket
     /// <summary>
     /// Client for the Huobi socket API
     /// </summary>
-    public class HuobiSocketClientSpotMarket : SocketSubClient, IHuobiSocketClientSpotMarket
+    public class HuobiSocketClientSpotMarket : SocketApiClient, IHuobiSocketClientSpotMarket
     {
         #region fields
         private readonly string baseAddressAuthenticated;
@@ -37,6 +37,7 @@ namespace Huobi.Net.Clients.Socket
 
         private readonly HuobiSocketClient _baseClient;
         private readonly Log _log;
+        private readonly HuobiSocketClientOptions _options;
         #endregion
 
         #region ctor
@@ -44,15 +45,19 @@ namespace Huobi.Net.Clients.Socket
         /// Create a new instance of HuobiSocketClient with default options
         /// </summary>
         public HuobiSocketClientSpotMarket(Log log, HuobiSocketClient baseClient, HuobiSocketClientOptions options) 
-            : base(options.OptionsSpot, options.OptionsSpot.ApiCredentials == null ? null: new HuobiAuthenticationProvider(options.OptionsSpot.ApiCredentials, false))
+            : base(options, options.SpotStreamsOptions)
         {
             _log = log;
+            _options = options;
             _baseClient = baseClient;
-            baseAddressAuthenticated = options.OptionsSpot.BaseAddressAuthenticated;
-            baseAddressMbp = options.OptionsSpot.BaseAddressInrementalOrderBook;
+            baseAddressAuthenticated = options.SpotStreamsOptions.BaseAddressAuthenticated;
+            baseAddressMbp = options.SpotStreamsOptions.BaseAddressInrementalOrderBook;
         }
-            
+
         #endregion
+
+        public override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
+            => new HuobiAuthenticationProvider(credentials, false);
 
         #region methods
 

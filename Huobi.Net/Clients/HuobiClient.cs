@@ -21,7 +21,7 @@ namespace Huobi.Net.Clients.Rest.Spot
     /// <summary>
     /// Client for the Huobi REST API
     /// </summary>
-    public class HuobiClient : RestClient, IHuobiClient
+    public class HuobiClient : BaseRestClient, IHuobiClient
     {
         /// <summary>
         /// Event triggered when an order is placed via this client
@@ -32,11 +32,9 @@ namespace Huobi.Net.Clients.Rest.Spot
         /// </summary>
         public event Action<ICommonOrderId>? OnOrderCanceled;
 
-        public new HuobiClientOptions ClientOptions { get; }
+        #region Api clients
 
-        #region SubClients
-
-        public IHuobiClientSpot SpotMarket { get; }
+        public IHuobiClientSpot SpotApi { get; }
 
         #endregion
 
@@ -53,10 +51,9 @@ namespace Huobi.Net.Clients.Rest.Spot
         /// </summary>
         public HuobiClient(HuobiClientOptions options) : base("Huobi", options)
         {
-            ClientOptions = options;
             manualParseError = true;
 
-            SpotMarket = new HuobiClientSpot(this, options);
+            SpotApi = new HuobiClientSpot(this, options);
         }
         #endregion
 
@@ -70,9 +67,9 @@ namespace Huobi.Net.Clients.Rest.Spot
             HuobiClientOptions.Default = options;
         }
                 
-        internal async Task<WebCallResult<T>> SendHuobiV2Request<T>(RestSubClient subClient, Uri uri, HttpMethod method, CancellationToken cancellationToken, Dictionary<string, object>? parameters = null, bool signed = false)
+        internal async Task<WebCallResult<T>> SendHuobiV2Request<T>(RestApiClient apiClient, Uri uri, HttpMethod method, CancellationToken cancellationToken, Dictionary<string, object>? parameters = null, bool signed = false)
         {
-            var result = await SendRequestAsync<HuobiApiResponseV2<T>>(subClient, uri, method, cancellationToken, parameters, signed).ConfigureAwait(false);
+            var result = await SendRequestAsync<HuobiApiResponseV2<T>>(apiClient, uri, method, cancellationToken, parameters, signed).ConfigureAwait(false);
             if (!result || result.Data == null)
                 return new WebCallResult<T>(result.ResponseStatusCode, result.ResponseHeaders, default, result.Error);
 
@@ -82,9 +79,9 @@ namespace Huobi.Net.Clients.Rest.Spot
             return result.As(result.Data.Data);
         }
 
-        internal async Task<WebCallResult<(T, DateTime)>> SendHuobiTimestampRequest<T>(RestSubClient subClient, Uri uri, HttpMethod method, CancellationToken cancellationToken, Dictionary<string, object>? parameters = null, bool signed = false)
+        internal async Task<WebCallResult<(T, DateTime)>> SendHuobiTimestampRequest<T>(RestApiClient apiClient, Uri uri, HttpMethod method, CancellationToken cancellationToken, Dictionary<string, object>? parameters = null, bool signed = false)
         {
-            var result = await SendRequestAsync<HuobiBasicResponse<T>>(subClient, uri, method, cancellationToken, parameters, signed).ConfigureAwait(false);
+            var result = await SendRequestAsync<HuobiBasicResponse<T>>(apiClient, uri, method, cancellationToken, parameters, signed).ConfigureAwait(false);
             if (!result || result.Data == null)
                 return new WebCallResult<(T, DateTime)>(result.ResponseStatusCode, result.ResponseHeaders, default, result.Error);
 
@@ -94,9 +91,9 @@ namespace Huobi.Net.Clients.Rest.Spot
             return result.As((result.Data.Data, result.Data.Timestamp));
         }
 
-        internal async Task<WebCallResult<T>> SendHuobiRequest<T>(RestSubClient subClient, Uri uri, HttpMethod method, CancellationToken cancellationToken, Dictionary<string, object>? parameters = null, bool signed = false, int? weight = 1)
+        internal async Task<WebCallResult<T>> SendHuobiRequest<T>(RestApiClient apiClient, Uri uri, HttpMethod method, CancellationToken cancellationToken, Dictionary<string, object>? parameters = null, bool signed = false, int? weight = 1)
         {
-            var result = await SendRequestAsync<HuobiBasicResponse<T>>(subClient, uri, method, cancellationToken, parameters, signed, requestWeight: weight ?? 1).ConfigureAwait(false);
+            var result = await SendRequestAsync<HuobiBasicResponse<T>>(apiClient, uri, method, cancellationToken, parameters, signed, requestWeight: weight ?? 1).ConfigureAwait(false);
             if (!result || result.Data == null)
                 return new WebCallResult<T>(result.ResponseStatusCode, result.ResponseHeaders, default, result.Error);
 
@@ -107,15 +104,15 @@ namespace Huobi.Net.Clients.Rest.Spot
         }
 
         /// <inheritdoc />
-        protected override IRequest ConstructRequest(SubClient subClient, Uri uri, HttpMethod method, Dictionary<string, object>? parameters, bool signed,
+        protected override IRequest ConstructRequest(RestApiClient apiClient, Uri uri, HttpMethod method, Dictionary<string, object>? parameters, bool signed,
             HttpMethodParameterPosition parameterPosition, ArrayParametersSerialization arraySerialization, int requestId,
             Dictionary<string, string>? additionalHeaders)
         {
             parameters ??= new Dictionary<string, object>();
 
             var uriString = uri.ToString();
-            if (subClient.AuthenticationProvider != null)
-                parameters = subClient.AuthenticationProvider.AddAuthenticationToParameters(uriString, method, parameters, signed, parameterPosition, arraySerialization);
+            if (apiClient.AuthenticationProvider != null)
+                parameters = apiClient.AuthenticationProvider.AddAuthenticationToParameters(uriString, method, parameters, signed, parameterPosition, arraySerialization);
 
             if (parameterPosition == HttpMethodParameterPosition.InUri && parameters?.Any() == true)
                 uriString += "?" + parameters.CreateParamString(true, arraySerialization);
@@ -133,8 +130,8 @@ namespace Huobi.Net.Clients.Rest.Spot
             request.Accept = Constants.JsonContentHeader;
 
             var headers = new Dictionary<string, string>();
-            if (subClient.AuthenticationProvider != null)
-                headers = subClient.AuthenticationProvider.AddAuthenticationToHeaders(uriString, method, parameters!, signed, parameterPosition, arraySerialization);
+            if (apiClient.AuthenticationProvider != null)
+                headers = apiClient.AuthenticationProvider.AddAuthenticationToHeaders(uriString, method, parameters!, signed, parameterPosition, arraySerialization);
 
             foreach (var header in headers)
                 request.AddHeader(header.Key, header.Value);
@@ -188,7 +185,7 @@ namespace Huobi.Net.Clients.Rest.Spot
 
         public override void Dispose()
         {
-            SpotMarket.Dispose();
+            SpotApi.Dispose();
             base.Dispose();
         }
     }

@@ -67,19 +67,19 @@ namespace Huobi.Net.UnitTests.TestImplementations
             return self == to;
         }
 
-        public static HuobiSocketClientSpot CreateSocketClient(IWebsocket socket, HuobiSocketClientOptions options = null)
+        public static HuobiSocketClient CreateSocketClient(IWebsocket socket, HuobiSocketClientOptions options = null)
         {
-            HuobiSocketClientSpot client;
-            client = options != null ? new HuobiSocketClientSpot(options) : new HuobiSocketClientSpot(new HuobiSocketClientSpotOptions() { LogLevel = LogLevel.Debug, ApiCredentials = new ApiCredentials("Test", "Test") });
+            HuobiSocketClient client;
+            client = options != null ? new HuobiSocketClient(options) : new HuobiSocketClient(new HuobiSocketClientOptions() { LogLevel = LogLevel.Debug, ApiCredentials = new ApiCredentials("Test", "Test") });
             client.SocketFactory = Mock.Of<IWebsocketFactory>();
             Mock.Get(client.SocketFactory).Setup(f => f.CreateWebsocket(It.IsAny<Log>(), It.IsAny<string>())).Returns(socket);
             return client;
         }
 
-        public static HuobiSocketClientSpot CreateAuthenticatedSocketClient(IWebsocket socket, HuobiSocketClientOptions options = null)
+        public static HuobiSocketClient CreateAuthenticatedSocketClient(IWebsocket socket, HuobiSocketClientOptions options = null)
         {
-            HuobiSocketClientSpot client;
-            client = options != null ? new HuobiSocketClientSpot(options) : new HuobiSocketClientSpot(new HuobiSocketClientSpotOptions(){ LogLevel = LogLevel.Trace, ApiCredentials = new ApiCredentials("Test", "Test")});
+            HuobiSocketClient client;
+            client = options != null ? new HuobiSocketClient(options) : new HuobiSocketClient(new HuobiSocketClientOptions(){ LogLevel = LogLevel.Trace, ApiCredentials = new ApiCredentials("Test", "Test")});
             client.SocketFactory = Mock.Of<IWebsocketFactory>();
             Mock.Get(client.SocketFactory).Setup(f => f.CreateWebsocket(It.IsAny<Log>(), It.IsAny<string>())).Returns(socket);  
             return client;
@@ -88,14 +88,14 @@ namespace Huobi.Net.UnitTests.TestImplementations
         public static IHuobiClient CreateClient(HuobiClientOptions options = null)
         {
             IHuobiClient client;
-            client = options != null ? new HuobiClientSpot(options) : new HuobiClientSpot(new HuobiClientSpotOptions(){LogLevel = LogLevel.Debug});
+            client = options != null ? new HuobiClient(options) : new HuobiClient(new HuobiClientOptions(){LogLevel = LogLevel.Debug});
             client.RequestFactory = Mock.Of<IRequestFactory>();
             return client;
         }
 
         public static IHuobiClient CreateAuthResponseClient(string response, HttpStatusCode statusCode = HttpStatusCode.OK)
         {
-            var client = (HuobiClientSpot)CreateClient(new HuobiClientSpotOptions(){ ApiCredentials = new ApiCredentials("Test", "test")});
+            var client = (HuobiClient)CreateClient(new HuobiClientOptions(){ ApiCredentials = new ApiCredentials("Test", "test")});
             SetResponse(client, response, statusCode);
             return client;
         }
@@ -103,19 +103,19 @@ namespace Huobi.Net.UnitTests.TestImplementations
 
         public static IHuobiClient CreateResponseClient(string response, HuobiClientOptions options = null)
         {
-            var client = (HuobiClientSpot)CreateClient(options);
+            var client = (HuobiClient)CreateClient(options);
             SetResponse(client, response);
             return client;
         }
 
         public static IHuobiClient CreateResponseClient<T>(T response, HuobiClientOptions options = null)
         {
-            var client = (HuobiClientSpot)CreateClient(options);
+            var client = (HuobiClient)CreateClient(options);
             SetResponse(client, JsonConvert.SerializeObject(response));
             return client;
         }
 
-        public static void SetResponse(RestClient client, string responseData, HttpStatusCode statusCode = HttpStatusCode.OK)
+        public static void SetResponse(BaseRestClient client, string responseData, HttpStatusCode statusCode = HttpStatusCode.OK)
         {
             var expectedBytes = Encoding.UTF8.GetBytes(responseData);
             var responseStream = new MemoryStream();
