@@ -15,9 +15,7 @@ using Huobi.Net.Objects.Models;
 
 namespace Huobi.Net.Clients.SpotApi
 {
-    /// <summary>
-    /// Client for the Huobi REST API
-    /// </summary>
+    /// <inheritdoc />
     public class HuobiClientSpotApi : RestApiClient, IHuobiClientSpotApi, IExchangeClient
     {
         private HuobiClient _baseClient;
@@ -34,17 +32,17 @@ namespace Huobi.Net.Clients.SpotApi
 
         #region Api clients
 
+        /// <inheritdoc />
         public IHuobiClientSpotApiAccount Account { get; }
+        /// <inheritdoc />
         public IHuobiClientSpotApiExchangeData ExchangeData { get; }
+        /// <inheritdoc />
         public IHuobiClientSpotApiTrading Trading { get; }
 
         #endregion
 
         #region constructor/destructor
-        /// <summary>
-        /// Create a new instance of HuobiClient using the default options
-        /// </summary>
-        public HuobiClientSpotApi(HuobiClient baseClient, HuobiClientOptions options)
+        internal HuobiClientSpotApi(HuobiClient baseClient, HuobiClientOptions options)
             : base(options, options.SpotApiOptions)
         {
             _baseClient = baseClient;
@@ -56,7 +54,8 @@ namespace Huobi.Net.Clients.SpotApi
         }
         #endregion
 
-        public override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
+        /// <inheritdoc />
+        protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
             => new HuobiAuthenticationProvider(credentials, _options.SignPublicRequests);
 
         #region methods

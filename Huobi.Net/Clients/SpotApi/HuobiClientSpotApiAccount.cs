@@ -16,6 +16,7 @@ using Huobi.Net.Interfaces.Clients.SpotApi;
 
 namespace Huobi.Net.Clients.SpotApi
 {
+    /// <inheritdoc />
     public class HuobiClientSpotApiAccount : IHuobiClientSpotApiAccount
     {
         private const string GetAccountsEndpoint = "account/accounts";

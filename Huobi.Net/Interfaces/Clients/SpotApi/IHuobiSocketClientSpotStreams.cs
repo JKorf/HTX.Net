@@ -11,7 +11,7 @@ using Huobi.Net.Objects.Models.Socket;
 namespace Huobi.Net.Interfaces.Clients.SpotApi
 {
     /// <summary>
-    /// Interface for the Huobi socket client
+    /// Spot streams
     /// </summary>
     public interface IHuobiSocketClientSpotStreams : IDisposable
     {

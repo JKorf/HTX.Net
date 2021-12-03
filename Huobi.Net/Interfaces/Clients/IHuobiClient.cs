@@ -9,7 +9,7 @@ namespace Huobi.Net.Interfaces.Clients
     public interface IHuobiClient : IRestClient
     {
         /// <summary>
-        /// Endpoints related to account settings, info or actions
+        /// Spot endpoints
         /// </summary>
         IHuobiClientSpotApi SpotApi { get; }
     }

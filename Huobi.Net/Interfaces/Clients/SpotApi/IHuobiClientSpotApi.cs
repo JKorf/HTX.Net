@@ -3,7 +3,7 @@
 namespace Huobi.Net.Interfaces.Clients.SpotApi
 {
     /// <summary>
-    /// Client for accessing the Huobi API. 
+    /// Spot API endpoints
     /// </summary>
     public interface IHuobiClientSpotApi : IDisposable
     {

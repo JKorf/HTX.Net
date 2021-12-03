@@ -20,12 +20,11 @@ using Newtonsoft.Json.Linq;
 
 namespace Huobi.Net.Clients
 {
-    /// <summary>
-    /// Client for the Huobi socket API
-    /// </summary>
+    /// <inheritdoc cref="IHuobiSocketClient" />
     public class HuobiSocketClient : BaseSocketClient, IHuobiSocketClient
     {
         #region fields
+        /// <inheritdoc />
         public IHuobiSocketClientSpotStreams SpotStreams { get; }
         #endregion
 
@@ -53,9 +52,9 @@ namespace Huobi.Net.Clients
 
         #region methods
         /// <summary>
-        /// Set the default options to be used when creating new socket clients
+        /// Set the default options to be used when creating new clients
         /// </summary>
-        /// <param name="options">The options to use for new clients</param>
+        /// <param name="options">Options to use as default</param>
         public static void SetDefaultOptions(HuobiSocketClientOptions options)
         {
             HuobiSocketClientOptions.Default = options;
@@ -300,7 +299,7 @@ namespace Huobi.Net.Clients
         }
 
         /// <inheritdoc />
-        protected override bool MessageMatchesHandler(JToken message, object request)
+        protected override bool MessageMatchesHandler(SocketConnection socketConnection, JToken message, object request)
         {
             if (request is HuobiSubscribeRequest hRequest)
                 return hRequest.Topic == message["ch"]?.ToString();
@@ -312,7 +311,7 @@ namespace Huobi.Net.Clients
         }
 
         /// <inheritdoc />
-        protected override bool MessageMatchesHandler(JToken message, string identifier)
+        protected override bool MessageMatchesHandler(SocketConnection socketConnection, JToken message, string identifier)
         {
             if (message.Type != JTokenType.Object)
                 return false;
@@ -427,6 +426,7 @@ namespace Huobi.Net.Clients
             throw new InvalidOperationException("Unknown request type");
         }
 
+        /// <inheritdoc />
         public override void Dispose()
         {
             SpotStreams.Dispose();

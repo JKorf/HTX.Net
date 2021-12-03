@@ -17,22 +17,12 @@ using Newtonsoft.Json.Linq;
 
 namespace Huobi.Net.Clients
 {
-    /// <summary>
-    /// Client for the Huobi REST API
-    /// </summary>
+    /// <inheritdoc cref="IHuobiClient" />
     public class HuobiClient : BaseRestClient, IHuobiClient
     {
-        /// <summary>
-        /// Event triggered when an order is placed via this client
-        /// </summary>
-        public event Action<ICommonOrderId>? OnOrderPlaced;
-        /// <summary>
-        /// Event triggered when an order is canceled via this client
-        /// </summary>
-        public event Action<ICommonOrderId>? OnOrderCanceled;
-
         #region Api clients
 
+        /// <inheritdoc />
         public IHuobiClientSpotApi SpotApi { get; }
 
         #endregion
@@ -58,9 +48,9 @@ namespace Huobi.Net.Clients
 
         #region methods
         /// <summary>
-        /// Sets the default options to use for new clients
+        /// Set the default options to be used when creating new clients
         /// </summary>
-        /// <param name="options">The options to use for new clients</param>
+        /// <param name="options">Options to use as default</param>
         public static void SetDefaultOptions(HuobiClientOptions options)
         {
             HuobiClientOptions.Default = options;
@@ -182,6 +172,7 @@ namespace Huobi.Net.Clients
         }
         #endregion
 
+        /// <inheritdoc />
         public override void Dispose()
         {
             SpotApi.Dispose();

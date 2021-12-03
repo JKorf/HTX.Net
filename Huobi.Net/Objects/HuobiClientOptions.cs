@@ -31,6 +31,9 @@ namespace Huobi.Net.Objects
                     .AddTotalRateLimit(10, TimeSpan.FromSeconds(1))
             }
         };
+        /// <summary>
+        /// Spot API options
+        /// </summary>
         public RestApiClientOptions SpotApiOptions
         {
             get => _spotApiOptions;
@@ -77,6 +80,9 @@ namespace Huobi.Net.Objects
         };
 
         private HuobiSocketApiClientOptions _spotStreamsOptions = new HuobiSocketApiClientOptions("wss://api.huobi.pro/ws", "wss://api.huobi.pro/ws/v2", "wss://api.huobi.pro/feed");
+        /// <summary>
+        /// Spot stream options
+        /// </summary>
         public HuobiSocketApiClientOptions SpotStreamsOptions
         {
             get => _spotStreamsOptions;
@@ -108,6 +114,9 @@ namespace Huobi.Net.Objects
         }
     }
 
+    /// <summary>
+    /// Socket API client options
+    /// </summary>
     public class HuobiSocketApiClientOptions : ApiClientOptions
     {
         /// <summary>
@@ -120,22 +129,36 @@ namespace Huobi.Net.Objects
         /// </summary>
         public string BaseAddressInrementalOrderBook { get; set; }
 
+        /// <summary>
+        /// ctor
+        /// </summary>
         public HuobiSocketApiClientOptions()
         {
         }
 
+        /// <summary>
+        /// ctor
+        /// </summary>
+        /// <param name="baseAddress"></param>
+        /// <param name="baseAddressAuthenticated"></param>
+        /// <param name="baseAddressIncrementalOrderBook"></param>
         public HuobiSocketApiClientOptions(string baseAddress, string baseAddressAuthenticated, string baseAddressIncrementalOrderBook): base(baseAddress)
         {
             BaseAddressAuthenticated = baseAddressAuthenticated;
             BaseAddressInrementalOrderBook = baseAddressIncrementalOrderBook;
         }
-
+        
+        /// <summary>
+        /// ctor
+        /// </summary>
+        /// <param name="baseOn"></param>
         public HuobiSocketApiClientOptions(HuobiSocketApiClientOptions baseOn): base(baseOn)
         {
             BaseAddressAuthenticated = baseOn.BaseAddressAuthenticated;
             BaseAddressInrementalOrderBook = baseOn.BaseAddressInrementalOrderBook;
         }
 
+        /// <inheritdoc />
         public new void Copy<T>(T input, T def) where T : HuobiSocketApiClientOptions
         {
             base.Copy(input, def);

@@ -14,6 +14,7 @@ using Huobi.Net.Interfaces.Clients.SpotApi;
 
 namespace Huobi.Net.Clients.SpotApi
 {
+    /// <inheritdoc />
     public class HuobiClientSpotApiExchangeData : IHuobiClientSpotApiExchangeData
     {
         private const string MarketTickerEndpoint = "market/tickers";

@@ -22,9 +22,7 @@ using HuobiOrderUpdate = Huobi.Net.Objects.Models.Socket.HuobiOrderUpdate;
 
 namespace Huobi.Net.Clients.SpotApi
 {
-    /// <summary>
-    /// Client for the Huobi socket API
-    /// </summary>
+    /// <inheritdoc />
     public class HuobiSocketClientSpotStreams : SocketApiClient, IHuobiSocketClientSpotStreams
     {
         #region fields
@@ -37,10 +35,7 @@ namespace Huobi.Net.Clients.SpotApi
         #endregion
 
         #region ctor
-        /// <summary>
-        /// Create a new instance of HuobiSocketClient with default options
-        /// </summary>
-        public HuobiSocketClientSpotStreams(Log log, HuobiSocketClient baseClient, HuobiSocketClientOptions options)
+        internal HuobiSocketClientSpotStreams(Log log, HuobiSocketClient baseClient, HuobiSocketClientOptions options)
             : base(options, options.SpotStreamsOptions)
         {
             _log = log;
@@ -52,7 +47,8 @@ namespace Huobi.Net.Clients.SpotApi
 
         #endregion
 
-        public override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
+        /// <inheritdoc />
+        protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
             => new HuobiAuthenticationProvider(credentials, false);
 
         #region methods
