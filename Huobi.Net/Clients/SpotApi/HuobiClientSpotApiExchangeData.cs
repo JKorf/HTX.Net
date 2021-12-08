@@ -50,7 +50,7 @@ namespace Huobi.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<HuobiSymbolTickMerged>> GetMergedTickerAsync(string symbol, CancellationToken ct = default)
+        public async Task<WebCallResult<HuobiSymbolTickMerged>> GetTickerAsync(string symbol, CancellationToken ct = default)
         {
             symbol = symbol.ValidateHuobiSymbol();
             var parameters = new Dictionary<string, object>
@@ -67,17 +67,17 @@ namespace Huobi.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<HuobiKline>>> GetKlinesAsync(string symbol, KlineInterval period, int size, CancellationToken ct = default)
+        public async Task<WebCallResult<IEnumerable<HuobiKline>>> GetKlinesAsync(string symbol, KlineInterval period, int? limit = null, CancellationToken ct = default)
         {
             symbol = symbol.ValidateHuobiSymbol();
-            size.ValidateIntBetween(nameof(size), 0, 2000);
+            limit?.ValidateIntBetween(nameof(limit), 0, 2000);
 
             var parameters = new Dictionary<string, object>
             {
                 { "symbol", symbol },
                 { "period", JsonConvert.SerializeObject(period, new PeriodConverter(false)) },
-                { "size", size }
             };
+            parameters.AddOptionalParameter("size", limit);
 
             return await _baseClient.SendHuobiRequest<IEnumerable<HuobiKline>>(_baseClient.GetUrl(MarketKlineEndpoint), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
         }
@@ -116,16 +116,16 @@ namespace Huobi.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<HuobiSymbolTrade>>> GetTradeHistoryAsync(string symbol, int limit, CancellationToken ct = default)
+        public async Task<WebCallResult<IEnumerable<HuobiSymbolTrade>>> GetTradeHistoryAsync(string symbol, int? limit = null, CancellationToken ct = default)
         {
             symbol = symbol.ValidateHuobiSymbol();
-            limit.ValidateIntBetween(nameof(limit), 0, 2000);
+            limit?.ValidateIntBetween(nameof(limit), 0, 2000);
 
             var parameters = new Dictionary<string, object>
             {
                 { "symbol", symbol },
-                { "size", limit }
             };
+            parameters.AddOptionalParameter("size", limit);
 
             return await _baseClient.SendHuobiRequest<IEnumerable<HuobiSymbolTrade>>(_baseClient.GetUrl(MarketTradeHistoryEndpoint), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
         }

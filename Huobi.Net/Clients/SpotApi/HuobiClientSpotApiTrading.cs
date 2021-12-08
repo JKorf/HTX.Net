@@ -40,18 +40,20 @@ namespace Huobi.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<long>> PlaceOrderAsync(long accountId, string symbol, OrderType orderType, decimal quantity, decimal? price = null, string? clientOrderId = null, SourceType? source = null, decimal? stopPrice = null, Operator? stopOperator = null, CancellationToken ct = default)
+        public async Task<WebCallResult<long>> PlaceOrderAsync(long accountId, string symbol, OrderSide side, OrderType type, decimal quantity, decimal? price = null, string? clientOrderId = null, SourceType? source = null, decimal? stopPrice = null, Operator? stopOperator = null, CancellationToken ct = default)
         {
             symbol = symbol.ValidateHuobiSymbol();
-            if (orderType == OrderType.StopLimitBuy || orderType == OrderType.StopLimitSell)
+            if (type == OrderType.StopLimit)
                 throw new ArgumentException("Stop limit orders not supported by API");
+
+            var orderType = JsonConvert.SerializeObject(side, new OrderSideConverter(false)) + "-" + JsonConvert.SerializeObject(type, new OrderTypeConverter(false));
 
             var parameters = new Dictionary<string, object>
             {
                 { "account-id", accountId },
                 { "amount", quantity },
                 { "symbol", symbol },
-                { "type", JsonConvert.SerializeObject(orderType, new OrderTypeConverter(false)) }
+                { "type", orderType }
             };
 
             parameters.AddOptionalParameter("client-order-id", clientOrderId);

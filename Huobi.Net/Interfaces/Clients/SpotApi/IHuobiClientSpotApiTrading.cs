@@ -19,7 +19,8 @@ namespace Huobi.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <param name="accountId">The account to place the order for</param>
         /// <param name="symbol">The symbol to place the order for</param>
-        /// <param name="orderType">The type of the order</param>
+        /// <param name="side">The side of the order</param>
+        /// <param name="type">The type of the order</param>
         /// <param name="quantity">The quantity of the order</param>
         /// <param name="price">The price of the order. Should be omitted for market orders</param>
         /// <param name="clientOrderId">The clientOrderId the order should get</param>
@@ -28,7 +29,7 @@ namespace Huobi.Net.Interfaces.Clients.SpotApi
         /// <param name="stopOperator">Operator of the stop price</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<long>> PlaceOrderAsync(long accountId, string symbol, OrderType orderType, decimal quantity, decimal? price = null, string? clientOrderId = null, SourceType? source = null, decimal? stopPrice = null, Operator? stopOperator = null, CancellationToken ct = default);
+        Task<WebCallResult<long>> PlaceOrderAsync(long accountId, string symbol, OrderSide side, OrderType type, decimal quantity, decimal? price = null, string? clientOrderId = null, SourceType? source = null, decimal? stopPrice = null, Operator? stopOperator = null, CancellationToken ct = default);
 
         /// <summary>
         /// Gets a list of open orders

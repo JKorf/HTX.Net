@@ -28,7 +28,7 @@ namespace Huobi.Net.Interfaces.Clients.SpotApi
         /// <param name="symbol">The symbol to get the ticker for</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<HuobiSymbolTickMerged>> GetMergedTickerAsync(string symbol, CancellationToken ct = default);
+        Task<WebCallResult<HuobiSymbolTickMerged>> GetTickerAsync(string symbol, CancellationToken ct = default);
 
         /// <summary>
         /// Get candlestick data for a symbol
@@ -36,10 +36,10 @@ namespace Huobi.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <param name="symbol">The symbol to get the data for</param>
         /// <param name="period">The period of a single candlestick</param>
-        /// <param name="size">The amount of candlesticks</param>
+        /// <param name="limit">The amount of candlesticks</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<HuobiKline>>> GetKlinesAsync(string symbol, KlineInterval period, int size, CancellationToken ct = default);
+        Task<WebCallResult<IEnumerable<HuobiKline>>> GetKlinesAsync(string symbol, KlineInterval period, int? limit = null, CancellationToken ct = default);
 
         /// <summary>
         /// Gets the order book for a symbol
@@ -69,7 +69,7 @@ namespace Huobi.Net.Interfaces.Clients.SpotApi
         /// <param name="limit">The max number of results</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<HuobiSymbolTrade>>> GetTradeHistoryAsync(string symbol, int limit, CancellationToken ct = default);
+        Task<WebCallResult<IEnumerable<HuobiSymbolTrade>>> GetTradeHistoryAsync(string symbol, int? limit = null, CancellationToken ct = default);
 
         /// <summary>
         /// Gets 24h stats for a symbol

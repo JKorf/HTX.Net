@@ -11,21 +11,29 @@ namespace Huobi.Net.Converters
 
         protected override List<KeyValuePair<OrderType, string>> Mapping => new List<KeyValuePair<OrderType, string>>
         {
-            new KeyValuePair<OrderType, string>(OrderType.LimitBuy, "buy-limit"),
-            new KeyValuePair<OrderType, string>(OrderType.LimitSell, "sell-limit"),
-            new KeyValuePair<OrderType, string>(OrderType.MarketBuy, "buy-market"),
-            new KeyValuePair<OrderType, string>(OrderType.MarketSell, "sell-market"),
-            new KeyValuePair<OrderType, string>(OrderType.IOCBuy, "buy-ioc"),
-            new KeyValuePair<OrderType, string>(OrderType.IOCSell, "sell-ioc"),
-            new KeyValuePair<OrderType, string>(OrderType.LimitMakerBuy, "buy-limit-maker"),
-            new KeyValuePair<OrderType, string>(OrderType.LimitMakerSell, "sell-limit-maker"),
-            new KeyValuePair<OrderType, string>(OrderType.StopLimitBuy, "buy-stop-limit"),
-            new KeyValuePair<OrderType, string>(OrderType.StopLimitSell, "sell-stop-limit"),
+            new KeyValuePair<OrderType, string>(OrderType.Limit, "limit"),
+            new KeyValuePair<OrderType, string>(OrderType.Market, "market"),
+            new KeyValuePair<OrderType, string>(OrderType.IOC, "ioc"),
+            new KeyValuePair<OrderType, string>(OrderType.LimitMaker, "limit-maker"),
+            new KeyValuePair<OrderType, string>(OrderType.StopLimit, "stop-limit"),
+            new KeyValuePair<OrderType, string>(OrderType.FillOrKillLimit, "limit-fok"),
+            new KeyValuePair<OrderType, string>(OrderType.FillOrKillStopLimit, "stop-limit-fok"),
 
-            new KeyValuePair<OrderType, string>(OrderType.FillOrKillLimitBuy, "buy-limit-fok"),
-            new KeyValuePair<OrderType, string>(OrderType.FillOrKillLimitSell, "sell-limit-fok"),
-            new KeyValuePair<OrderType, string>(OrderType.FillOrKillStopLimitBuy, "buy-stop-limit-fok"),
-            new KeyValuePair<OrderType, string>(OrderType.FillOrKillStopLimitSell, "sell-stop-limit-fok")
+            new KeyValuePair<OrderType, string>(OrderType.Limit, "buy-limit"),
+            new KeyValuePair<OrderType, string>(OrderType.Limit, "sell-limit"),
+            new KeyValuePair<OrderType, string>(OrderType.Market, "buy-market"),
+            new KeyValuePair<OrderType, string>(OrderType.Market, "sell-market"),
+            new KeyValuePair<OrderType, string>(OrderType.IOC, "buy-ioc"),
+            new KeyValuePair<OrderType, string>(OrderType.IOC, "sell-ioc"),
+            new KeyValuePair<OrderType, string>(OrderType.LimitMaker, "buy-limit-maker"),
+            new KeyValuePair<OrderType, string>(OrderType.LimitMaker, "sell-limit-maker"),
+            new KeyValuePair<OrderType, string>(OrderType.StopLimit, "buy-stop-limit"),
+            new KeyValuePair<OrderType, string>(OrderType.StopLimit, "sell-stop-limit"),
+
+            new KeyValuePair<OrderType, string>(OrderType.FillOrKillLimit, "buy-limit-fok"),
+            new KeyValuePair<OrderType, string>(OrderType.FillOrKillLimit, "sell-limit-fok"),
+            new KeyValuePair<OrderType, string>(OrderType.FillOrKillStopLimit, "buy-stop-limit-fok"),
+            new KeyValuePair<OrderType, string>(OrderType.FillOrKillStopLimit, "sell-stop-limit-fok")
         };
     }
 }

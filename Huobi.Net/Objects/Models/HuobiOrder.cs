@@ -69,6 +69,12 @@ namespace Huobi.Net.Objects.Models
         public OrderType Type { get; set; }
 
         /// <summary>
+        /// The type of the order
+        /// </summary>
+        [JsonProperty("type"), JsonConverter(typeof(OrderSideConverter))]
+        public OrderSide Side { get; set; }
+
+        /// <summary>
         /// The source of the order
         /// </summary>
         [JsonProperty("source")]
@@ -121,11 +127,9 @@ namespace Huobi.Net.Objects.Models
         {
             get
             {
-                if (Type == OrderType.LimitBuy
-                    || Type == OrderType.LimitSell)
+                if (Type == OrderType.Limit)
                     return IExchangeClient.OrderType.Limit;
-                if (Type == OrderType.MarketBuy
-                    || Type == OrderType.MarketSell)
+                if (Type == OrderType.Market)
                     return IExchangeClient.OrderType.Market;
                 return IExchangeClient.OrderType.Other;
             }

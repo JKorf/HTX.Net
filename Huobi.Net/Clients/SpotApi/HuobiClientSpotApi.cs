@@ -149,7 +149,7 @@ namespace Huobi.Net.Clients.SpotApi
                     $"Huobi needs the {nameof(accountId)} parameter for the method {nameof(IExchangeClient.PlaceOrderAsync)}"));
 
             var huobiType = GetOrderType(type, side);
-            var result = await Trading.PlaceOrderAsync(long.Parse(accountId), symbol, huobiType, quantity, price).ConfigureAwait(false);
+            var result = await Trading.PlaceOrderAsync(long.Parse(accountId), symbol, side == IExchangeClient.OrderSide.Sell ? OrderSide.Sell: OrderSide.Buy, huobiType, quantity, price).ConfigureAwait(false);
             if (!result)
                 return WebCallResult<ICommonOrderId>.CreateErrorResult(result.ResponseStatusCode,
                     result.ResponseHeaders, result.Error!);
@@ -229,18 +229,9 @@ namespace Huobi.Net.Clients.SpotApi
 
         private static OrderType GetOrderType(IExchangeClient.OrderType type, IExchangeClient.OrderSide side)
         {
-            if (side == IExchangeClient.OrderSide.Sell)
-            {
-                if (type == IExchangeClient.OrderType.Limit)
-                    return OrderType.LimitSell;
-                return OrderType.MarketSell;
-            }
-            else
-            {
-                if (type == IExchangeClient.OrderType.Limit)
-                    return OrderType.LimitBuy;
-                return OrderType.MarketBuy;
-            }
+            if (type == IExchangeClient.OrderType.Limit)
+                return OrderType.Limit;
+            return OrderType.Market;
         }
 
         private static KlineInterval GetKlineIntervalFromTimespan(TimeSpan timeSpan)

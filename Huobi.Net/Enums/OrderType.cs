@@ -6,60 +6,32 @@
     public enum OrderType
     {
         /// <summary>
-        /// Limit buy
+        /// Limit
         /// </summary>
-        LimitBuy,
+        Limit,
         /// <summary>
-        /// Limit sell
+        /// Market
         /// </summary>
-        LimitSell,
+        Market,
         /// <summary>
-        /// Market buy
+        /// Immediate or cancel
         /// </summary>
-        MarketBuy,
+        IOC,
         /// <summary>
-        /// Market sell
+        /// Limit maker
         /// </summary>
-        MarketSell,
+        LimitMaker,
         /// <summary>
-        /// Immediate or cancel guy
+        /// Stop limit
         /// </summary>
-        IOCBuy,
+        StopLimit,
         /// <summary>
-        /// Immediate or cancel sell
+        /// Fill or kill limit
         /// </summary>
-        IOCSell,
+        FillOrKillLimit,
         /// <summary>
-        /// Limit maker buy
+        /// Fill or kill stop limit
         /// </summary>
-        LimitMakerBuy,
-        /// <summary>
-        /// Limit maker sell
-        /// </summary>
-        LimitMakerSell,
-        /// <summary>
-        /// Stop limit buy
-        /// </summary>
-        StopLimitBuy,
-        /// <summary>
-        /// Stop limit sell
-        /// </summary>
-        StopLimitSell,
-        /// <summary>
-        /// Fill or kill limit buy
-        /// </summary>
-        FillOrKillLimitBuy,
-        /// <summary>
-        /// Fill or kill limit sell
-        /// </summary>
-        FillOrKillLimitSell,
-        /// <summary>
-        /// Fill or kill stop limit buy
-        /// </summary>
-        FillOrKillStopLimitBuy,
-        /// <summary>
-        /// Fill or kill stop limit sell
-        /// </summary>
-        FillOrKillStopLimitSell,
+        FillOrKillStopLimit,
     }
 }
