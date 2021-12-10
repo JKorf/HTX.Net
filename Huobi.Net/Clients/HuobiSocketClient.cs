@@ -331,22 +331,22 @@ namespace Huobi.Net.Clients
             if (s.ApiClient.AuthenticationProvider == null)
                 return new CallResult<bool>(false, new NoApiCredentialsError());
 
-            var authParams = ((HuobiAuthenticationProvider)s.ApiClient.AuthenticationProvider).SignRequest(
-                s.Socket.Url,
-                HttpMethod.Get,
-                new Dictionary<string, object>(),
-                "accessKey",
-                "signatureMethod",
-                "signatureVersion",
-                "timestamp",
-                "signature",
-                2.1);
-            var authObjects = new HuobiAuthenticationRequest(s.ApiClient.AuthenticationProvider.Credentials.Key!.GetString(),
-                (string)authParams["timestamp"],
-                (string)authParams["signature"]);
+            //var authParams = ((HuobiAuthenticationProvider)s.ApiClient.AuthenticationProvider).SignRequest(
+            //    s.Socket.Url,
+            //    HttpMethod.Get,
+            //    new Dictionary<string, object>(),
+            //    "accessKey",
+            //    "signatureMethod",
+            //    "signatureVersion",
+            //    "timestamp",
+            //    "signature",
+            //    2.1);
+            // new HuobiAuthenticationRequest(s.ApiClient.AuthenticationProvider.Credentials.Key!.GetString(),
+            //    (string)authParams["timestamp"],
+            //    (string)authParams["signature"]);
 
             var result = new CallResult<bool>(false, new ServerError("No response from server"));
-            await s.SendAndWaitAsync(authObjects, ClientOptions.SocketResponseTimeout, data =>
+            await s.SendAndWaitAsync(((HuobiAuthenticationProvider)s.ApiClient.AuthenticationProvider).GetWebsocketAuthentication(new Uri(s.Socket.Url)), ClientOptions.SocketResponseTimeout, data =>
             {
                 if (data["ch"]?.ToString() != "auth")
                     return false;

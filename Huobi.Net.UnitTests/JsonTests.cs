@@ -48,7 +48,11 @@ namespace Huobi.Net.UnitTests
                 useNestedJsonPropertyForCompare: new Dictionary<string, string>
                 {
                 },
-                useNestedJsonPropertyForAllCompare: new List<string> { "data" }
+                useNestedJsonPropertyForAllCompare: new List<string> { "data" },
+                ignoreProperties: new Dictionary<string, List<string>> {
+                    { "GetOpenOrdersAsync", new List<string> { "Type", "Side" } },
+                    { "GetOrdersAsync", new List<string> { "Type", "Side" } },
+                }
                 );
         }
 

@@ -42,7 +42,7 @@ namespace Huobi.Net.Clients
         {
             manualParseError = true;
 
-            SpotApi = new HuobiClientSpotApi(this, options);
+            SpotApi = new HuobiClientSpotApi(log, this, options);
         }
         #endregion
 
@@ -90,64 +90,6 @@ namespace Huobi.Net.Clients
                 return new WebCallResult<T>(result.ResponseStatusCode, result.ResponseHeaders, default, new ServerError(result.Data.ErrorCode, result.Data.ErrorMessage));
 
             return result.As(result.Data.Data);
-        }
-
-        /// <inheritdoc />
-        protected override IRequest ConstructRequest(RestApiClient apiClient, Uri uri, HttpMethod method, Dictionary<string, object>? parameters, bool signed,
-            HttpMethodParameterPosition parameterPosition, ArrayParametersSerialization arraySerialization, int requestId,
-            Dictionary<string, string>? additionalHeaders)
-        {
-            parameters ??= new Dictionary<string, object>();
-
-            var uriString = uri.ToString();
-            if (apiClient.AuthenticationProvider != null)
-                parameters = apiClient.AuthenticationProvider.AddAuthenticationToParameters(uriString, method, parameters, signed, parameterPosition, arraySerialization);
-
-            if (parameterPosition == HttpMethodParameterPosition.InUri && parameters?.Any() == true)
-                uriString += "?" + parameters.CreateParamString(true, arraySerialization);
-
-            if (method == HttpMethod.Post && signed)
-            {
-                var uriParamNames = new[] { "AccessKeyId", "SignatureMethod", "SignatureVersion", "Timestamp", "Signature" };
-                var uriParams = parameters!.Where(p => uriParamNames.Contains(p.Key)).ToDictionary(k => k.Key, k => k.Value);
-                uriString += "?" + uriParams.CreateParamString(true, ArrayParametersSerialization.MultipleValues);
-                parameters = parameters!.Where(p => !uriParamNames.Contains(p.Key)).ToDictionary(k => k.Key, k => k.Value);
-            }
-
-            var contentType = requestBodyFormat == RequestBodyFormat.Json ? Constants.JsonContentHeader : Constants.FormContentHeader;
-            var request = RequestFactory.Create(method, uriString, requestId);
-            request.Accept = Constants.JsonContentHeader;
-
-            var headers = new Dictionary<string, string>();
-            if (apiClient.AuthenticationProvider != null)
-                headers = apiClient.AuthenticationProvider.AddAuthenticationToHeaders(uriString, method, parameters!, signed, parameterPosition, arraySerialization);
-
-            foreach (var header in headers)
-                request.AddHeader(header.Key, header.Value);
-
-            if (additionalHeaders != null)
-            {
-                foreach (var header in additionalHeaders)
-                    request.AddHeader(header.Key, header.Value);
-            }
-
-            if (StandardRequestHeaders != null)
-            {
-                foreach (var header in StandardRequestHeaders)
-                    // Only add it if it isn't overwritten
-                    if (additionalHeaders?.ContainsKey(header.Key) != true)
-                        request.AddHeader(header.Key, header.Value);
-            }
-
-            if (parameterPosition == HttpMethodParameterPosition.InBody)
-            {
-                if (parameters?.Any() == true)
-                    WriteParamBody(request, parameters, contentType);
-                else
-                    request.SetContent("{}", contentType);
-            }
-
-            return request;
         }
 
         /// <inheritdoc />

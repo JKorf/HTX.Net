@@ -62,17 +62,20 @@ namespace Huobi.Net.Objects.Models
         [JsonProperty("finished-at"), JsonConverter(typeof(DateTimeConverter))]
         public DateTime CompleteTime { get; set; }
 
-        /// <summary>
-        /// The type of the order
-        /// </summary>
-        [JsonProperty("type"), JsonConverter(typeof(OrderTypeConverter))]
-        public OrderType Type { get; set; }
+        [JsonProperty("type")]
+        internal string TypeInternal { get; set; } = string.Empty;
 
         /// <summary>
         /// The type of the order
         /// </summary>
-        [JsonProperty("type"), JsonConverter(typeof(OrderSideConverter))]
-        public OrderSide Side { get; set; }
+        [JsonIgnore]
+        public OrderType Type => new OrderTypeConverter(false).ReadString(TypeInternal);
+
+        /// <summary>
+        /// The type of the order
+        /// </summary>
+        [JsonIgnore]
+        public OrderSide Side => new OrderSideConverter(false).ReadString(TypeInternal);
 
         /// <summary>
         /// The source of the order

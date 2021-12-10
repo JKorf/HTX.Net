@@ -158,9 +158,12 @@ namespace Huobi.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<HuobiOrder>>> GetOrdersAsync(IEnumerable<OrderState> states, string? symbol = null, IEnumerable<OrderType>? types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, FilterDirection? direction = null, int? limit = null, CancellationToken ct = default)
+        public async Task<WebCallResult<IEnumerable<HuobiOrder>>> GetClosedOrdersAsync(string symbol, IEnumerable<OrderState>? states = null, IEnumerable<OrderType>? types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, FilterDirection? direction = null, int? limit = null, CancellationToken ct = default)
         {
-            symbol = symbol?.ValidateHuobiSymbol();
+            symbol = symbol.ValidateHuobiSymbol();
+
+            states ??= new OrderState[] { OrderState.Filled, OrderState.Canceled, OrderState.PartiallyCanceled };
+
             var stateConverter = new OrderStateConverter(false);
             var typeConverter = new OrderTypeConverter(false);
             var parameters = new Dictionary<string, object>

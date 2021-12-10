@@ -234,7 +234,7 @@ namespace Huobi.Net.UnitTests
                 CheckPropertyValue(method, prop.Value, propertyValue, property.Name, prop.Name, property, ignoreProperties);
         }
 
-        private static void CheckPropertyValue(string method, JToken propValue, object propertyValue, string? propertyName = null, string? propName = null, PropertyInfo info = null, Dictionary<string, List<string>> ignoreProperties = null)
+        private static void CheckPropertyValue(string method, JToken propValue, object propertyValue, string propertyName = null, string propName = null, PropertyInfo info = null, Dictionary<string, List<string>> ignoreProperties = null)
         {
             if (propertyValue == default && propValue.Type != JTokenType.Null && !string.IsNullOrEmpty(propValue.ToString()))
             {
@@ -306,7 +306,8 @@ namespace Huobi.Net.UnitTests
                             throw new Exception($"{method}: Property `{propertyName}` has no value while input json `{propName}` has value {jtoken}");
                         }
 
-                        CheckValues(method, propertyName, (JValue)jtoken, value);
+                        if(!(ignoreProperties?.ContainsKey(method) == true && ignoreProperties[method].Contains(propertyName)))
+                            CheckValues(method, propertyName, (JValue)jtoken, value);
                     }
                 }
             }
@@ -332,6 +333,7 @@ namespace Huobi.Net.UnitTests
                 else
                 {
                     if (info.GetCustomAttribute<JsonConverterAttribute>(true) == null
+                        && info.GetCustomAttribute<JsonIgnoreAttribute>(true) == null
                         && info.GetCustomAttribute<JsonPropertyAttribute>(true)?.ItemConverterType == null)
                         CheckValues(method, propertyName, (JValue)propValue, propertyValue);
                 }
@@ -360,44 +362,37 @@ namespace Huobi.Net.UnitTests
 
         private static void CheckValues(string method, string property, JValue jsonValue, object objectValue)
         {
-            try
+            if (jsonValue.Type == JTokenType.String)
             {
-                if (jsonValue.Type == JTokenType.String)
+                if (objectValue is decimal dec)
                 {
-                    if (objectValue is decimal dec)
-                    {
-                        if (jsonValue.Value<decimal>() != dec)
-                            throw new Exception($"{method}: {property} not equal: {jsonValue.Value<decimal>()} vs {dec}");
-                    }
-                    else if (objectValue is DateTime time)
-                    {
-                        // timestamp, hard to check..
-                    }
-                    else if (jsonValue.Value.ToString().ToLowerInvariant() != objectValue.ToString().ToLowerInvariant())
-                        throw new Exception($"{method}: {property} not equal: {jsonValue.Value<string>()} vs {objectValue.ToString()}");
+                    if (jsonValue.Value<decimal>() != dec)
+                        throw new Exception($"{method}: {property} not equal: {jsonValue.Value<decimal>()} vs {dec}");
                 }
-                else if (jsonValue.Type == JTokenType.Integer)
+                else if (objectValue is DateTime time)
                 {
-                    if (objectValue is string str)
-                    {
-                        if(jsonValue.Value.ToString().ToLowerInvariant() != objectValue.ToString().ToLowerInvariant())
-                            throw new Exception($"{method}: {property} not equal: {jsonValue.Value<string>().ToLowerInvariant()} vs {objectValue.ToString().ToLowerInvariant()}");
-                    }
-                    else
-                    {
-                        if (jsonValue.Value<long>() != Convert.ToInt64(objectValue))
-                            throw new Exception($"{method}: {property} not equal: {jsonValue.Value<long>()} vs {Convert.ToInt64(objectValue)}");
-                    }
+                    // timestamp, hard to check..
                 }
-                else if (jsonValue.Type == JTokenType.Boolean)
+                else if (jsonValue.Value.ToString().ToLowerInvariant() != objectValue.ToString().ToLowerInvariant())
+                    throw new Exception($"{method}: {property} not equal: {jsonValue.Value<string>()} vs {objectValue.ToString()}");
+            }
+            else if (jsonValue.Type == JTokenType.Integer)
+            {
+                if (objectValue is string str)
                 {
-                    if (jsonValue.Value<bool>() != (bool)objectValue)
-                        throw new Exception($"{method}: {property} not equal: {jsonValue.Value<bool>()} vs {(bool)objectValue}");
+                    if(jsonValue.Value.ToString().ToLowerInvariant() != objectValue.ToString().ToLowerInvariant())
+                        throw new Exception($"{method}: {property} not equal: {jsonValue.Value<string>().ToLowerInvariant()} vs {objectValue.ToString().ToLowerInvariant()}");
+                }
+                else
+                {
+                    if (jsonValue.Value<long>() != Convert.ToInt64(objectValue))
+                        throw new Exception($"{method}: {property} not equal: {jsonValue.Value<long>()} vs {Convert.ToInt64(objectValue)}");
                 }
             }
-            catch(Exception ex)
+            else if (jsonValue.Type == JTokenType.Boolean)
             {
-                throw;
+                if (jsonValue.Value<bool>() != (bool)objectValue)
+                    throw new Exception($"{method}: {property} not equal: {jsonValue.Value<bool>()} vs {(bool)objectValue}");
             }
         }
     }

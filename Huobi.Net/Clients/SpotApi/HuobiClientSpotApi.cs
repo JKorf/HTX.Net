@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using CryptoExchange.Net;
 using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.ExchangeInterfaces;
+using CryptoExchange.Net.Logging;
 using CryptoExchange.Net.Objects;
 using Huobi.Net.Enums;
 using Huobi.Net.Interfaces.Clients.SpotApi;
@@ -20,6 +21,9 @@ namespace Huobi.Net.Clients.SpotApi
     {
         private HuobiClient _baseClient;
         private HuobiClientOptions _options;
+        private Log _log;
+
+        internal static TimeSyncState TimeSyncState = new TimeSyncState();
 
         /// <summary>
         /// Event triggered when an order is placed via this client
@@ -42,11 +46,12 @@ namespace Huobi.Net.Clients.SpotApi
         #endregion
 
         #region constructor/destructor
-        internal HuobiClientSpotApi(HuobiClient baseClient, HuobiClientOptions options)
+        internal HuobiClientSpotApi(Log log, HuobiClient baseClient, HuobiClientOptions options)
             : base(options, options.SpotApiOptions)
         {
             _baseClient = baseClient;
             _options = options;
+            _log = log;
 
             Account = new HuobiClientSpotApiAccount(this);
             ExchangeData = new HuobiClientSpotApiExchangeData(this);
@@ -179,11 +184,11 @@ namespace Huobi.Net.Clients.SpotApi
 
         async Task<WebCallResult<IEnumerable<ICommonOrder>>> IExchangeClient.GetClosedOrdersAsync(string? symbol)
         {
-            var result = await Trading.GetOrdersAsync(
-                states: new[]
-                {
-                    OrderState.Filled
-                }, symbol).ConfigureAwait(false);
+            if (symbol == null)
+                return WebCallResult<IEnumerable<ICommonOrder>>.CreateErrorResult(new ArgumentError(
+                    $"Huobi needs the {nameof(symbol)} parameter for the method {nameof(IExchangeClient.GetClosedOrdersAsync)}"));
+
+            var result = await Trading.GetClosedOrdersAsync(symbol).ConfigureAwait(false);
             return result.As<IEnumerable<ICommonOrder>>(result.Data);
         }
 
@@ -251,5 +256,16 @@ namespace Huobi.Net.Clients.SpotApi
         }
         #endregion
 
+        /// <inheritdoc />
+        protected override Task<WebCallResult<DateTime>> GetServerTimestampAsync()
+            => ExchangeData.GetServerTimeAsync();
+
+        /// <inheritdoc />
+        protected override TimeSyncInfo GetTimeSyncInfo()
+            => new TimeSyncInfo(_log, _options.SpotApiOptions.AutoTimestamp, TimeSyncState);
+
+        /// <inheritdoc />
+        public override TimeSpan GetTimeOffset()
+            => TimeSyncState.TimeOffset;
     }
 }

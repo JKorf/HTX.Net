@@ -20,22 +20,6 @@ namespace Huobi.Net.UnitTests
     [TestFixture]
     public class HuobiClientTests
     {
-        [Test]
-        public void SigningString_Should_GiveCorrectSignResult()
-        {
-            // arrange
-            var authProvider = new HuobiAuthenticationProvider(new ApiCredentials("TestKey", "TestSecret"), false);
-
-            // act
-            var parameters = authProvider.AddAuthenticationToParameters("http://api.test.com/somepath/test", HttpMethod.Get, new Dictionary<string, object>()
-            {
-                { "Timestamp", new DateTime(2018, 1, 1).ToString("yyyy-MM-ddTHH:mm:ss") }
-            }, true, CryptoExchange.Net.Objects.HttpMethodParameterPosition.InBody, CryptoExchange.Net.Objects.ArrayParametersSerialization.MultipleValues);
-
-            // assert
-            Assert.AreEqual(parameters["Signature"], "5/vfYFw3cHwp20QWtv6DzTHDxBpHzNSU6Rv3p7Up/TI=");
-        }
-
         [TestCase]
         public async Task ReceivingErrorResponse_Should_FailCall()
         {
