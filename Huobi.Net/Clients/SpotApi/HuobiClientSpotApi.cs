@@ -19,9 +19,9 @@ namespace Huobi.Net.Clients.SpotApi
     /// <inheritdoc />
     public class HuobiClientSpotApi : RestApiClient, IHuobiClientSpotApi, IExchangeClient
     {
-        private HuobiClient _baseClient;
-        private HuobiClientOptions _options;
-        private Log _log;
+        private readonly HuobiClient _baseClient;
+        private readonly HuobiClientOptions _options;
+        private readonly Log _log;
 
         internal static TimeSyncState TimeSyncState = new TimeSyncState();
 
@@ -72,7 +72,7 @@ namespace Huobi.Net.Clients.SpotApi
             => _baseClient.SendHuobiTimestampRequest<T>(this, uri, method, cancellationToken, parameters, signed);
 
         internal Task<WebCallResult<T>> SendHuobiRequest<T>(Uri uri, HttpMethod method, CancellationToken cancellationToken, Dictionary<string, object>? parameters = null, bool signed = false, int? weight = 1)
-            => _baseClient.SendHuobiRequest<T>(this, uri, method, cancellationToken, parameters, signed);
+            => _baseClient.SendHuobiRequest<T>(this, uri, method, cancellationToken, parameters, signed, weight);
 
         /// <summary>
         /// Construct url

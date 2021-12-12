@@ -17,6 +17,7 @@ namespace Huobi.Net.Interfaces.Clients.SpotApi
     {
         /// <summary>
         /// Gets candlestick data for a symbol
+        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-latest-tickers-for-all-pairs" /></para>
         /// </summary>
         /// <param name="symbol">The symbol to get the data for</param>
         /// <param name="period">The period of a single candlestick</param>
@@ -35,6 +36,7 @@ namespace Huobi.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Gets the current order book for a symbol
+        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#market-depth" /></para>
         /// </summary>
         /// <param name="symbol">The symbol to get the data for</param>
         /// <param name="mergeStep">The way the results will be merged together</param>
@@ -43,6 +45,7 @@ namespace Huobi.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Gets the current order book for a symbol
+        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#market-by-price-incremental-update" /></para>
         /// </summary>
         /// <param name="symbol">The symbol to get the data for</param>
         /// <param name="levels">The amount of rows. 5, 20, 150 or 400</param>
@@ -51,6 +54,7 @@ namespace Huobi.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Subscribes to order book updates for a symbol
+        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#market-by-price-incremental-update" /></para>
         /// </summary>
         /// <param name="symbol">The symbol to subscribe to</param>
         /// <param name="levels">The number of price levels. 5, 10 or 20</param>
@@ -61,6 +65,7 @@ namespace Huobi.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Subscribes to order book updates for a symbol
+        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#market-depth" /></para>
         /// </summary>
         /// <param name="symbol">The symbol to subscribe to</param>
         /// <param name="mergeStep">The way the results will be merged together</param>
@@ -71,6 +76,7 @@ namespace Huobi.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Subscribes to order book updates for a symbol, 
+        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#market-by-price-incremental-update" /></para>
         /// </summary>
         /// <param name="symbol">The symbol to subscribe to</param>
         /// <param name="levels">The number of price levels. 5, 20, 150 or 400</param>
@@ -81,6 +87,7 @@ namespace Huobi.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Gets a list of trades for a symbol
+        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#trade-detail" /></para>
         /// </summary>
         /// <param name="symbol">The symbol to get trades for</param>
         /// <returns></returns>
@@ -88,6 +95,7 @@ namespace Huobi.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Subscribes to trade updates for a symbol
+        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#trade-detail" /></para>
         /// </summary>
         /// <param name="symbol">The symbol to subscribe to</param>
         /// <param name="onData">The handler for updates</param>
@@ -97,6 +105,7 @@ namespace Huobi.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Gets details for a symbol
+        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#market-details" /></para>
         /// </summary>
         /// <param name="symbol">The symbol to get data for</param>
         /// <returns></returns>
@@ -104,6 +113,7 @@ namespace Huobi.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Subscribes to symbol detail updates for a symbol
+        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#market-details" /></para>
         /// </summary>
         /// <param name="symbol">The symbol to subscribe to</param>
         /// <param name="onData">The handler for updates</param>
@@ -113,6 +123,7 @@ namespace Huobi.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Subscribes to updates for a symbol
+        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#market-ticker" /></para>
         /// </summary>
         /// <param name="symbol">The symbol to subscribe</param>
         /// <param name="onData">The handler for updates</param>
@@ -122,6 +133,7 @@ namespace Huobi.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Subscribes to updates for all tickers
+        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#market-ticker" /></para>
         /// </summary>
         /// <param name="onData">The handler for updates</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
@@ -130,6 +142,7 @@ namespace Huobi.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Subscribe to changes of a symbol's best ask/bid
+        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#best-bid-offer" /></para>
         /// </summary>
         /// <param name="symbol">Symbol to subscribe to</param>
         /// <param name="onData">Data handler</param>
@@ -140,6 +153,7 @@ namespace Huobi.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Subscribe to updates of orders
+        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#subscribe-order-updates" /></para>
         /// </summary>
         /// <param name="symbol">Subscribe on a specific symbol</param>
         /// <param name="onOrderSubmitted">Event handler for the order submitted event</param>
@@ -160,6 +174,7 @@ namespace Huobi.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Subscribe to updates of account balances
+        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#subscribe-account-change" /></para>
         /// </summary>
         /// <param name="onAccountUpdate">Event handler</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
@@ -168,6 +183,7 @@ namespace Huobi.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Subscribe to detailed order matched/canceled updates
+        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#subscribe-trade-details-amp-order-cancellation-post-clearing" /></para>
         /// </summary>
         /// <param name="symbol">Subscribe to a specific symbol</param>
         /// <param name="onOrderMatch">Event handler for the order matched event</param>

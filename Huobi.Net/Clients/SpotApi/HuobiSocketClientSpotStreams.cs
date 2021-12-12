@@ -31,7 +31,6 @@ namespace Huobi.Net.Clients.SpotApi
 
         private readonly HuobiSocketClient _baseClient;
         private readonly Log _log;
-        private readonly HuobiSocketClientOptions _options;
         #endregion
 
         #region ctor
@@ -39,7 +38,6 @@ namespace Huobi.Net.Clients.SpotApi
             : base(options, options.SpotStreamsOptions)
         {
             _log = log;
-            _options = options;
             _baseClient = baseClient;
             baseAddressAuthenticated = options.SpotStreamsOptions.BaseAddressAuthenticated;
             baseAddressMbp = options.SpotStreamsOptions.BaseAddressInrementalOrderBook;
