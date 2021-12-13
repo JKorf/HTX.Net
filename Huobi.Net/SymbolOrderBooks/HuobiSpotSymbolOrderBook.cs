@@ -25,7 +25,7 @@ namespace Huobi.Net.SymbolOrderBooks
         /// </summary>
         /// <param name="symbol">The symbol the order book is for</param>
         /// <param name="options">The options for the order book</param>
-        public HuobiSpotSymbolOrderBook(string symbol, HuobiOrderBookOptions? options = null) : base("Huobi[Spot]", symbol, options ?? new HuobiOrderBookOptions())
+        public HuobiSpotSymbolOrderBook(string symbol, HuobiOrderBookOptions? options = null) : base("Huobi", symbol, options ?? new HuobiOrderBookOptions())
         {
             _mergeStep = options?.MergeStep;
             _levels = options?.Levels;
@@ -36,7 +36,10 @@ namespace Huobi.Net.SymbolOrderBooks
                 throw new ArgumentException("Mergestep only supported with 150 levels");
 
             if (_levels == null && _mergeStep == null)
-                throw new ArgumentException("Levels need to be set when MergeStep is not set");
+            {
+                _mergeStep = 0;
+                _levels = 150;
+            }
             
             _socketClient = options?.SocketClient ?? new HuobiSocketClient();
             _socketOwner = options?.SocketClient == null;

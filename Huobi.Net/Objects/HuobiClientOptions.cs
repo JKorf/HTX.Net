@@ -187,18 +187,5 @@ namespace Huobi.Net.Objects
         /// The client to use for the socket connection. When using the same client for multiple order books the connection can be shared.
         /// </summary>
         public IHuobiSocketClient? SocketClient { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="mergeStep">The way the entries are merged. 0 is no merge, 2 means to combine the entries on 2 decimal places</param>
-        /// <param name="levels">The amount of entries to maintain. Either 5, 20 or 150</param>
-        /// <param name="socketClient">The client to use for the socket connection. When using the same client for multiple order books the connection can be shared.</param>
-        public HuobiOrderBookOptions(int? mergeStep = null, int? levels = null, IHuobiSocketClient? socketClient = null)
-        {
-            SocketClient = socketClient;
-            MergeStep = mergeStep;
-            Levels = levels;
-        }
     }
 }
