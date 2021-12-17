@@ -42,7 +42,7 @@ namespace Huobi.Net.Clients
         {
             manualParseError = true;
 
-            SpotApi = new HuobiClientSpotApi(log, this, options);
+            SpotApi = AddApiClient(new HuobiClientSpotApi(log, this, options));
         }
         #endregion
 
@@ -113,12 +113,5 @@ namespace Huobi.Net.Clients
             return new ServerError($"{(string)error["err-code"]!}, {(string)error["err-msg"]!}");
         }
         #endregion
-
-        /// <inheritdoc />
-        public override void Dispose()
-        {
-            SpotApi.Dispose();
-            base.Dispose();
-        }
     }
 }

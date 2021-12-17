@@ -42,7 +42,7 @@ namespace Huobi.Net.Clients
         /// <param name="options">The options to use for this client</param>
         public HuobiSocketClient(HuobiSocketClientOptions options) : base("Huobi", options)
         {
-            SpotStreams = new HuobiSocketClientSpotStreams(log, this, options);
+            SpotStreams = AddApiClient(new HuobiSocketClientSpotStreams(log, this, options));
 
             SetDataInterpreter(DecompressData, null);
             AddGenericHandler("PingV1", PingHandlerV1);
@@ -424,13 +424,6 @@ namespace Huobi.Net.Clients
             }
 
             throw new InvalidOperationException("Unknown request type");
-        }
-
-        /// <inheritdoc />
-        public override void Dispose()
-        {
-            SpotStreams.Dispose();
-            base.Dispose();
         }
     }
 }
