@@ -71,13 +71,13 @@ namespace Huobi.Net.Objects.Models
         /// The start time of the kline
         /// </summary>
         [JsonConverter(typeof(DateTimeConverter))]
-        public DateTime Id { get; set; }
+        public DateTime OpenTime { get; set; }
 
         decimal ICommonKline.CommonHighPrice => HighPrice ?? 0;
         decimal ICommonKline.CommonLowPrice => LowPrice ?? 0;
         decimal ICommonKline.CommonOpenPrice => OpenPrice ?? 0;
         decimal ICommonKline.CommonClosePrice => ClosePrice ?? 0;
-        DateTime ICommonKline.CommonOpenTime => Id;
+        DateTime ICommonKline.CommonOpenTime => OpenTime;
         decimal ICommonKline.CommonVolume => Volume ?? 0;
     }
 
