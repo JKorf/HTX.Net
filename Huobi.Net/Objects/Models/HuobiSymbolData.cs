@@ -71,6 +71,7 @@ namespace Huobi.Net.Objects.Models
         /// The start time of the kline
         /// </summary>
         [JsonConverter(typeof(DateTimeConverter))]
+        [JsonProperty("id")]
         public DateTime OpenTime { get; set; }
 
         decimal ICommonKline.CommonHighPrice => HighPrice ?? 0;
