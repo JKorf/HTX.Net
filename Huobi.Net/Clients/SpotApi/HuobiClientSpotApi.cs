@@ -153,7 +153,7 @@ namespace Huobi.Net.Clients.SpotApi
                 return WebCallResult<ICommonOrderId>.CreateErrorResult(new ArgumentError(
                     $"Huobi needs the {nameof(accountId)} parameter for the method {nameof(IExchangeClient.PlaceOrderAsync)}"));
 
-            var huobiType = GetOrderType(type, side);
+            var huobiType = GetOrderType(type);
             var result = await Trading.PlaceOrderAsync(long.Parse(accountId), symbol, side == IExchangeClient.OrderSide.Sell ? OrderSide.Sell: OrderSide.Buy, huobiType, quantity, price).ConfigureAwait(false);
             if (!result)
                 return WebCallResult<ICommonOrderId>.CreateErrorResult(result.ResponseStatusCode,
@@ -232,7 +232,7 @@ namespace Huobi.Net.Clients.SpotApi
         }
 #pragma warning restore 1066
 
-        private static OrderType GetOrderType(IExchangeClient.OrderType type, IExchangeClient.OrderSide side)
+        private static OrderType GetOrderType(IExchangeClient.OrderType type)
         {
             if (type == IExchangeClient.OrderType.Limit)
                 return OrderType.Limit;

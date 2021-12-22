@@ -21,7 +21,7 @@ namespace Huobi.Net.Objects
         /// </summary>
         public bool SignPublicRequests { get; set; } = false;
 
-        private RestApiClientOptions _spotApiOptions = new RestApiClientOptions("https://api.huobi.pro")
+        private readonly RestApiClientOptions _spotApiOptions = new RestApiClientOptions("https://api.huobi.pro")
         {
             RateLimiters = new List<IRateLimiter>
             {
@@ -79,7 +79,7 @@ namespace Huobi.Net.Objects
             SocketSubscriptionsCombineTarget = 10
         };
 
-        private HuobiSocketApiClientOptions _spotStreamsOptions = new HuobiSocketApiClientOptions("wss://api.huobi.pro/ws", "wss://api.huobi.pro/ws/v2", "wss://api.huobi.pro/feed");
+        private readonly HuobiSocketApiClientOptions _spotStreamsOptions = new HuobiSocketApiClientOptions("wss://api.huobi.pro/ws", "wss://api.huobi.pro/ws/v2", "wss://api.huobi.pro/feed");
         /// <summary>
         /// Spot stream options
         /// </summary>
@@ -132,7 +132,9 @@ namespace Huobi.Net.Objects
         /// <summary>
         /// ctor
         /// </summary>
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         public HuobiSocketApiClientOptions()
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         {
         }
 
