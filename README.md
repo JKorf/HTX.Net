@@ -95,6 +95,9 @@ For the basic client options see also the CryptoExchange.Net [docs](https://gith
 |`BaseAddressAuthenticated`|The base address for authenticated subscriptions|`wss://api.huobi.pro/ws/v2`
 
 ## Release notes
+* Version 4.0.0-alpha3 - 22 Dec 2021
+    * Fixed deserialization error, update order update side/type
+
 * Version 4.0.0-alpha2 - 21 Dec 2021
     * Update to new CryptoExchange.Net version
 
