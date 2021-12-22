@@ -23,13 +23,13 @@ namespace Huobi.Net.Objects.Models
         /// The current best bid for the symbol
         /// </summary>
         [JsonProperty("bid")]
-        public HuobiOrderBookEntry BestBid { get; set; } = default!;
+        public HuobiOrderBookEntry? BestBid { get; set; }
 
         /// <summary>
         /// The current best ask for the symbol
         /// </summary>
         [JsonProperty("ask")]
-        public HuobiOrderBookEntry BestAsk { get; set; } = default!;
+        public HuobiOrderBookEntry? BestAsk { get; set; }
     }
 
     /// <summary>

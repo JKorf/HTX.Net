@@ -65,11 +65,19 @@ namespace Huobi.Net.Objects.Models.Socket
         /// </summary>
         [JsonProperty("orderValue")]
         public decimal? QuoteQuantity { get; set; }
+        [JsonProperty("type")]
+        internal string TypeInternal { get; set; } = string.Empty;
         /// <summary>
-        /// Type of the order
+        /// The type of the order
         /// </summary>
-        [JsonConverter(typeof(OrderTypeConverter))]
-        public OrderType Type { get; set; }
+        [JsonIgnore]
+        public OrderType Type => new OrderTypeConverter(false).ReadString(TypeInternal);
+
+        /// <summary>
+        /// The type of the order
+        /// </summary>
+        [JsonIgnore]
+        public OrderSide Side => new OrderSideConverter(false).ReadString(TypeInternal);
         /// <summary>
         /// Creation time
         /// </summary>
@@ -101,11 +109,20 @@ namespace Huobi.Net.Objects.Models.Socket
         /// Order id
         /// </summary>
         public long OrderId { get; set; }
+        [JsonProperty("type")]
+        internal string TypeInternal { get; set; } = string.Empty;
+
         /// <summary>
-        /// Order type
+        /// The type of the order
         /// </summary>
-        [JsonConverter(typeof(OrderTypeConverter))]
-        public OrderType Type { get; set; }
+        [JsonIgnore]
+        public OrderType Type => new OrderTypeConverter(false).ReadString(TypeInternal);
+
+        /// <summary>
+        /// The type of the order
+        /// </summary>
+        [JsonIgnore]
+        public OrderSide Side => new OrderSideConverter(false).ReadString(TypeInternal);
         /// <summary>
         /// Trade id
         /// </summary>
@@ -155,11 +172,20 @@ namespace Huobi.Net.Objects.Models.Socket
         /// Order id
         /// </summary>
         public long OrderId { get; set; }
+        [JsonProperty("type")]
+        internal string TypeInternal { get; set; } = string.Empty;
+
         /// <summary>
-        /// Order type
+        /// The type of the order
         /// </summary>
-        [JsonConverter(typeof(OrderTypeConverter))]
-        public OrderType Type { get; set; }
+        [JsonIgnore]
+        public OrderType Type => new OrderTypeConverter(false).ReadString(TypeInternal);
+
+        /// <summary>
+        /// The type of the order
+        /// </summary>
+        [JsonIgnore]
+        public OrderSide Side => new OrderSideConverter(false).ReadString(TypeInternal);
         /// <summary>
         /// Remaining quantity
         /// </summary>
