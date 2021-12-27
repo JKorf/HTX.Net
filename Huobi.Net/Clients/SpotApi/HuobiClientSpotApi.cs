@@ -34,6 +34,9 @@ namespace Huobi.Net.Clients.SpotApi
         /// </summary>
         public event Action<ICommonOrderId>? OnOrderCanceled;
 
+        /// <inheritdoc />
+        public string ExchangeName => "Huobi";
+
         #region Api clients
 
         /// <inheritdoc />
@@ -267,5 +270,8 @@ namespace Huobi.Net.Clients.SpotApi
         /// <inheritdoc />
         public override TimeSpan GetTimeOffset()
             => TimeSyncState.TimeOffset;
+
+        /// <inheritdoc />
+        public IExchangeClient AsExchangeClient() => this;
     }
 }
