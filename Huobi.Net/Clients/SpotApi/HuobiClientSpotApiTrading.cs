@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using Huobi.Net.Objects.Models;
 using CryptoExchange.Net.Converters;
 using Huobi.Net.Interfaces.Clients.SpotApi;
+using CryptoExchange.Net.ComonObjects;
 
 namespace Huobi.Net.Clients.SpotApi
 {
@@ -40,10 +41,10 @@ namespace Huobi.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<long>> PlaceOrderAsync(long accountId, string symbol, OrderSide side, OrderType type, decimal quantity, decimal? price = null, string? clientOrderId = null, SourceType? source = null, decimal? stopPrice = null, Operator? stopOperator = null, CancellationToken ct = default)
+        public async Task<WebCallResult<long>> PlaceOrderAsync(long accountId, string symbol, Enums.OrderSide side, Enums.OrderType type, decimal quantity, decimal? price = null, string? clientOrderId = null, SourceType? source = null, decimal? stopPrice = null, Operator? stopOperator = null, CancellationToken ct = default)
         {
             symbol = symbol.ValidateHuobiSymbol();
-            if (type == OrderType.StopLimit)
+            if (type == Enums.OrderType.StopLimit)
                 throw new ArgumentException("Stop limit orders not supported by API");
 
             var orderType = JsonConvert.SerializeObject(side, new OrderSideConverter(false)) + "-" + JsonConvert.SerializeObject(type, new OrderTypeConverter(false));
@@ -69,12 +70,12 @@ namespace Huobi.Net.Clients.SpotApi
             parameters.AddOptionalParameter("price", price);
             var result = await _baseClient.SendHuobiRequest<long>(_baseClient.GetUrl(PlaceOrderEndpoint, "1"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
             if (result)
-                _baseClient.InvokeOrderPlaced(new HuobiOrder { Id = result.Data });
+                _baseClient.InvokeOrderPlaced(new OrderId { SourceObject = result.Data, Id = result.Data.ToString(CultureInfo.InvariantCulture) });
             return result;
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<HuobiOpenOrder>>> GetOpenOrdersAsync(long? accountId = null, string? symbol = null, OrderSide? side = null, int? limit = null, CancellationToken ct = default)
+        public async Task<WebCallResult<IEnumerable<HuobiOpenOrder>>> GetOpenOrdersAsync(long? accountId = null, string? symbol = null, Enums.OrderSide? side = null, int? limit = null, CancellationToken ct = default)
         {
             symbol = symbol?.ValidateHuobiSymbol();
             if (accountId != null && symbol == null)
@@ -94,7 +95,7 @@ namespace Huobi.Net.Clients.SpotApi
         {
             var result = await _baseClient.SendHuobiRequest<long>(_baseClient.GetUrl(CancelOrderEndpoint.FillPathParameters(orderId.ToString(CultureInfo.InvariantCulture)), "1"), HttpMethod.Post, ct, signed: true).ConfigureAwait(false);
             if (result)
-                _baseClient.InvokeOrderCanceled(new HuobiOrder { Id = result.Data });
+                _baseClient.InvokeOrderCanceled(new OrderId { SourceObject = result.Data, Id = result.Data.ToString(CultureInfo.InvariantCulture) });
             return result;
         }
 
@@ -123,7 +124,7 @@ namespace Huobi.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<HuobiByCriteriaCancelResult>> CancelOrdersByCriteriaAsync(long? accountId = null, IEnumerable<string>? symbols = null, OrderSide? side = null, int? limit = null, CancellationToken ct = default)
+        public async Task<WebCallResult<HuobiByCriteriaCancelResult>> CancelOrdersByCriteriaAsync(long? accountId = null, IEnumerable<string>? symbols = null, Enums.OrderSide? side = null, int? limit = null, CancellationToken ct = default)
         {
             var parameters = new Dictionary<string, object>();
             parameters.AddOptionalParameter("account-id", accountId?.ToString(CultureInfo.InvariantCulture));
@@ -158,7 +159,7 @@ namespace Huobi.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<HuobiOrder>>> GetClosedOrdersAsync(string symbol, IEnumerable<OrderState>? states = null, IEnumerable<OrderType>? types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, FilterDirection? direction = null, int? limit = null, CancellationToken ct = default)
+        public async Task<WebCallResult<IEnumerable<HuobiOrder>>> GetClosedOrdersAsync(string symbol, IEnumerable<OrderState>? states = null, IEnumerable<Enums.OrderType>? types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, FilterDirection? direction = null, int? limit = null, CancellationToken ct = default)
         {
             symbol = symbol.ValidateHuobiSymbol();
 
@@ -182,7 +183,7 @@ namespace Huobi.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<HuobiOrderTrade>>> GetUserTradesAsync(IEnumerable<OrderState>? states = null, string? symbol = null, IEnumerable<OrderType>? types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, FilterDirection? direction = null, int? limit = null, CancellationToken ct = default)
+        public async Task<WebCallResult<IEnumerable<HuobiOrderTrade>>> GetUserTradesAsync(IEnumerable<OrderState>? states = null, string? symbol = null, IEnumerable<Enums.OrderType>? types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, FilterDirection? direction = null, int? limit = null, CancellationToken ct = default)
         {
             symbol = symbol?.ValidateHuobiSymbol();
             var stateConverter = new OrderStateConverter(false);

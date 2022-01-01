@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Globalization;
 using CryptoExchange.Net.Converters;
-using CryptoExchange.Net.ExchangeInterfaces;
 using Huobi.Net.Converters;
 using Huobi.Net.Enums;
 using Newtonsoft.Json;
@@ -11,7 +10,7 @@ namespace Huobi.Net.Objects.Models
     /// <summary>
     /// Open order
     /// </summary>
-    public class HuobiOpenOrder: ICommonOrder
+    public class HuobiOpenOrder
     {
         /// <summary>
         /// The id of the order
@@ -106,37 +105,5 @@ namespace Huobi.Net.Objects.Models
         /// </summary>
         [JsonProperty("filled-fees")]
         public decimal Fee { get; set; }
-
-        string ICommonOrderId.CommonId => Id.ToString(CultureInfo.InvariantCulture);
-        string ICommonOrder.CommonSymbol => Symbol;
-        decimal ICommonOrder.CommonPrice => Price;
-        decimal ICommonOrder.CommonQuantity => Quantity;
-        DateTime ICommonOrder.CommonOrderTime => CreateTime;
-        IExchangeClient.OrderStatus ICommonOrder.CommonStatus =>
-            State == OrderState.Created || State == OrderState.PartiallyFilled || State == OrderState.PreSubmitted || State == OrderState.Submitted ? IExchangeClient.OrderStatus.Active :
-            State == OrderState.Filled ? IExchangeClient.OrderStatus.Filled :
-            IExchangeClient.OrderStatus.Canceled;
-
-        bool ICommonOrder.IsActive =>
-            State == OrderState.Created ||
-            State == OrderState.PreSubmitted ||
-            State == OrderState.Submitted ||
-            State == OrderState.PartiallyFilled;
-
-        IExchangeClient.OrderSide ICommonOrder.CommonSide => Type.ToString().ToLowerInvariant().Contains("buy")
-            ? IExchangeClient.OrderSide.Buy
-            : IExchangeClient.OrderSide.Sell;
-
-        IExchangeClient.OrderType ICommonOrder.CommonType
-        {
-            get
-            {
-                if (Type == OrderType.Limit)
-                    return IExchangeClient.OrderType.Limit;
-                if (Type == OrderType.Market)
-                    return IExchangeClient.OrderType.Market;
-                return IExchangeClient.OrderType.Other;
-            }
-        }
     }
 }

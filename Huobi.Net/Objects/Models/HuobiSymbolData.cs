@@ -1,6 +1,5 @@
 ﻿using System;
 using CryptoExchange.Net.Converters;
-using CryptoExchange.Net.ExchangeInterfaces;
 using Newtonsoft.Json;
 
 namespace Huobi.Net.Objects.Models
@@ -65,7 +64,7 @@ namespace Huobi.Net.Objects.Models
     /// <summary>
     /// Symbol kline data
     /// </summary>
-    public class HuobiKline : HuobiSymbolData, ICommonKline
+    public class HuobiKline : HuobiSymbolData
     {
         /// <summary>
         /// The start time of the kline
@@ -73,13 +72,6 @@ namespace Huobi.Net.Objects.Models
         [JsonConverter(typeof(DateTimeConverter))]
         [JsonProperty("id")]
         public DateTime OpenTime { get; set; }
-
-        decimal ICommonKline.CommonHighPrice => HighPrice ?? 0;
-        decimal ICommonKline.CommonLowPrice => LowPrice ?? 0;
-        decimal ICommonKline.CommonOpenPrice => OpenPrice ?? 0;
-        decimal ICommonKline.CommonClosePrice => ClosePrice ?? 0;
-        DateTime ICommonKline.CommonOpenTime => OpenTime;
-        decimal ICommonKline.CommonVolume => Volume ?? 0;
     }
 
     /// <summary>
@@ -101,7 +93,7 @@ namespace Huobi.Net.Objects.Models
     /// <summary>
     /// Symbol tick
     /// </summary>
-    public class HuobiSymbolTick : HuobiSymbolData, ICommonTicker
+    public class HuobiSymbolTick : HuobiSymbolData
     {
         /// <summary>
         /// The symbol
@@ -128,10 +120,5 @@ namespace Huobi.Net.Objects.Models
         /// </summary>
         [JsonProperty("ask")]
         public decimal BestAskPrice { get; set; }
-
-        string ICommonTicker.CommonSymbol => Symbol;
-        decimal ICommonTicker.CommonHighPrice => HighPrice ?? 0;
-        decimal ICommonTicker.CommonLowPrice => LowPrice ?? 0;
-        decimal ICommonTicker.CommonVolume => Volume ?? 0;
     }
 }

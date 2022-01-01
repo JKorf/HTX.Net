@@ -1,4 +1,8 @@
-﻿using System;
+﻿using Huobi.Net.Clients;
+using Huobi.Net.Interfaces.Clients;
+using Huobi.Net.Objects;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Globalization;
 using System.Text.RegularExpressions;
 
@@ -9,6 +13,28 @@ namespace Huobi.Net
     /// </summary>
     public static class HuobiHelpers
     {
+        /// <summary>
+        /// Add the IHuobiClient and IHuobiSocketClient to the sevice collection so they can be injected
+        /// </summary>
+        /// <param name="services">The service collection</param>
+        /// <param name="defaultOptionsCallback">Set default options for the client</param>
+        /// <returns></returns>
+        public static IServiceCollection AddHuobi(this IServiceCollection services, Action<HuobiClientOptions, HuobiSocketClientOptions>? defaultOptionsCallback = null)
+        {
+            if (defaultOptionsCallback != null)
+            {
+                var options = new HuobiClientOptions();
+                var socketOptions = new HuobiSocketClientOptions();
+                defaultOptionsCallback?.Invoke(options, socketOptions);
+
+                HuobiClient.SetDefaultOptions(options);
+                HuobiSocketClient.SetDefaultOptions(socketOptions);
+            }
+
+            return services.AddTransient<IHuobiClient, HuobiClient>()
+                           .AddScoped<IHuobiSocketClient, HuobiSocketClient>();
+        }
+
         /// <summary>
         /// Validate the string is a valid Huobi symbol.
         /// </summary>

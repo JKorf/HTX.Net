@@ -1,6 +1,5 @@
 ﻿using System;
 using CryptoExchange.Net.Converters;
-using CryptoExchange.Net.ExchangeInterfaces;
 using Huobi.Net.Converters;
 using Huobi.Net.Enums;
 using Newtonsoft.Json;
@@ -10,7 +9,7 @@ namespace Huobi.Net.Objects.Models
     /// <summary>
     /// Trade info
     /// </summary>
-    public class HuobiOrderTrade : ICommonRecentTrade, ICommonTrade
+    public class HuobiOrderTrade
     {
         /// <summary>
         /// The id of the trade
@@ -88,16 +87,5 @@ namespace Huobi.Net.Objects.Models
         /// </summary>
         [JsonProperty("fee-deduct-state"), JsonConverter(typeof(FeeDeductStateConverter))]
         public FeeDeductState FeeDeductState { get; set; }
-
-
-        string ICommonTrade.CommonId => Id.ToString();
-        decimal ICommonTrade.CommonPrice => Price;
-        decimal ICommonTrade.CommonQuantity => Quantity;
-        decimal ICommonTrade.CommonFee => Fee;
-        string? ICommonTrade.CommonFeeAsset => null;
-        DateTime ICommonTrade.CommonTradeTime => Timestamp;
-        decimal ICommonRecentTrade.CommonPrice => Price;
-        decimal ICommonRecentTrade.CommonQuantity => Quantity;
-        DateTime ICommonRecentTrade.CommonTradeTime => Timestamp;
     }
 }

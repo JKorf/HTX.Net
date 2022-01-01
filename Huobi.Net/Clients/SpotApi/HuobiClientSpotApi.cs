@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using CryptoExchange.Net;
 using CryptoExchange.Net.Authentication;
-using CryptoExchange.Net.ExchangeInterfaces;
+using CryptoExchange.Net.ComonObjects;
+using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Logging;
 using CryptoExchange.Net.Objects;
 using Huobi.Net.Enums;
@@ -17,7 +19,7 @@ using Huobi.Net.Objects.Models;
 namespace Huobi.Net.Clients.SpotApi
 {
     /// <inheritdoc />
-    public class HuobiClientSpotApi : RestApiClient, IHuobiClientSpotApi, IExchangeClient
+    public class HuobiClientSpotApi : RestApiClient, IHuobiClientSpotApi, ISpotClient
     {
         private readonly HuobiClient _baseClient;
         private readonly HuobiClientOptions _options;
@@ -28,11 +30,11 @@ namespace Huobi.Net.Clients.SpotApi
         /// <summary>
         /// Event triggered when an order is placed via this client
         /// </summary>
-        public event Action<ICommonOrderId>? OnOrderPlaced;
+        public event Action<OrderId>? OnOrderPlaced;
         /// <summary>
         /// Event triggered when an order is canceled via this client
         /// </summary>
-        public event Action<ICommonOrderId>? OnOrderCanceled;
+        public event Action<OrderId>? OnOrderCanceled;
 
         /// <inheritdoc />
         public string ExchangeName => "Huobi";
@@ -90,12 +92,12 @@ namespace Huobi.Net.Clients.SpotApi
             return new Uri(BaseAddress.AppendPath($"v{version}", endpoint));
         }
 
-        internal void InvokeOrderPlaced(ICommonOrderId id)
+        internal void InvokeOrderPlaced(OrderId id)
         {
             OnOrderPlaced?.Invoke(id);
         }
 
-        internal void InvokeOrderCanceled(ICommonOrderId id)
+        internal void InvokeOrderCanceled(OrderId id)
         {
             OnOrderCanceled?.Invoke(id);
         }
@@ -111,108 +113,263 @@ namespace Huobi.Net.Clients.SpotApi
         public string GetSymbolName(string baseAsset, string quoteAsset) => (baseAsset + quoteAsset).ToLowerInvariant();
 
 #pragma warning disable 1066
-        async Task<WebCallResult<IEnumerable<ICommonSymbol>>> IExchangeClient.GetSymbolsAsync()
+        async Task<WebCallResult<IEnumerable<Symbol>>> IBaseRestClient.GetSymbolsAsync()
         {
             var symbols = await ExchangeData.GetSymbolsAsync().ConfigureAwait(false);
-            return symbols.As<IEnumerable<ICommonSymbol>>(symbols.Data);
-        }
+            if (!symbols)
+                return symbols.As<IEnumerable<Symbol>>(null);
 
-        async Task<WebCallResult<ICommonTicker>> IExchangeClient.GetTickerAsync(string symbol)
-        {
-            var tickers = await ExchangeData.GetTickersAsync().ConfigureAwait(false);
-            return tickers.As((tickers.Data?.Ticks).Where(w => w.Symbol == symbol).Select(t => (ICommonTicker)t).FirstOrDefault());
-        }
-
-        async Task<WebCallResult<IEnumerable<ICommonTicker>>> IExchangeClient.GetTickersAsync()
-        {
-            var tickers = await ExchangeData.GetTickersAsync().ConfigureAwait(false);
-            return tickers.As((tickers.Data?.Ticks).Select(t => (ICommonTicker)t));
-        }
-
-        async Task<WebCallResult<IEnumerable<ICommonKline>>> IExchangeClient.GetKlinesAsync(string symbol, TimeSpan timespan, DateTime? startTime = null, DateTime? endTime = null, int? limit = null)
-        {
-            if (startTime != null || endTime != null)
-                return WebCallResult<IEnumerable<ICommonKline>>.CreateErrorResult(new ArgumentError($"Huobi does not support the {nameof(startTime)}/{nameof(endTime)} parameters for the method {nameof(IExchangeClient.GetKlinesAsync)}"));
-
-            var klines = await ExchangeData.GetKlinesAsync(symbol, GetKlineIntervalFromTimespan(timespan), limit ?? 500).ConfigureAwait(false);
-            return klines.As<IEnumerable<ICommonKline>>(klines.Data);
-        }
-
-        async Task<WebCallResult<ICommonOrderBook>> IExchangeClient.GetOrderBookAsync(string symbol)
-        {
-            var book = await ExchangeData.GetOrderBookAsync(symbol, 0).ConfigureAwait(false);
-            return book.As<ICommonOrderBook>(book.Data);
-        }
-
-        async Task<WebCallResult<IEnumerable<ICommonRecentTrade>>> IExchangeClient.GetRecentTradesAsync(string symbol)
-        {
-            var trades = await ExchangeData.GetTradeHistoryAsync(symbol, 100).ConfigureAwait(false);
-            return trades.As<IEnumerable<ICommonRecentTrade>>(trades.Data);
-        }
-
-        async Task<WebCallResult<ICommonOrderId>> IExchangeClient.PlaceOrderAsync(string symbol, IExchangeClient.OrderSide side, IExchangeClient.OrderType type, decimal quantity, decimal? price = null, string? accountId = null)
-        {
-            if (accountId == null)
-                return WebCallResult<ICommonOrderId>.CreateErrorResult(new ArgumentError(
-                    $"Huobi needs the {nameof(accountId)} parameter for the method {nameof(IExchangeClient.PlaceOrderAsync)}"));
-
-            var huobiType = GetOrderType(type);
-            var result = await Trading.PlaceOrderAsync(long.Parse(accountId), symbol, side == IExchangeClient.OrderSide.Sell ? OrderSide.Sell: OrderSide.Buy, huobiType, quantity, price).ConfigureAwait(false);
-            if (!result)
-                return WebCallResult<ICommonOrderId>.CreateErrorResult(result.ResponseStatusCode,
-                    result.ResponseHeaders, result.Error!);
-            return result.As<ICommonOrderId>(new HuobiPlacedOrder()
+            return symbols.As(symbols.Data.Select(d => new Symbol
             {
-                Id = result.Data
+                SourceObject = d,
+                Name = d.Name,
+                MinTradeQuantity = d.MinLimitOrderQuantity,
+                PriceDecimals = d.PricePrecision,
+                QuantityDecimals = d.QuantityPrecision
+            }));
+        }
+
+        async Task<WebCallResult<Ticker>> IBaseRestClient.GetTickerAsync(string symbol)
+        {
+            if (string.IsNullOrEmpty(symbol))
+                throw new ArgumentException(nameof(symbol) + " required for Huobi " + nameof(ISpotClient.GetTickerAsync), nameof(symbol));
+
+            var tickers = await ExchangeData.GetTickersAsync().ConfigureAwait(false);
+            if (!tickers)
+                return tickers.As<Ticker>(null);
+
+            var ticker = tickers.Data.Ticks.SingleOrDefault(s => s.Symbol == symbol);
+            return tickers.As(new Ticker
+            {
+                SourceObject =ticker,
+                HighPrice = ticker.HighPrice,
+                Symbol = ticker.Symbol,
+                LastPrice = ticker.ClosePrice,
+                LowPrice = ticker.LowPrice,
+                Price24H = ticker.OpenPrice,
+                Volume = ticker.Volume
             });
         }
 
-        async Task<WebCallResult<ICommonOrder>> IExchangeClient.GetOrderAsync(string orderId, string? symbol)
+        async Task<WebCallResult<IEnumerable<Ticker>>> IBaseRestClient.GetTickersAsync()
         {
-            var order = await Trading.GetOrderAsync(long.Parse(orderId)).ConfigureAwait(false);
-            return order.As<ICommonOrder>(order.Data);
+            var tickers = await ExchangeData.GetTickersAsync().ConfigureAwait(false);
+            if (!tickers)
+                return tickers.As<IEnumerable<Ticker>>(null);
+
+            return tickers.As(tickers.Data.Ticks.Select(t => new Ticker
+            {
+                SourceObject = t,
+                HighPrice = t.HighPrice,
+                Symbol = t.Symbol,
+                LastPrice = t.ClosePrice,
+                LowPrice = t.LowPrice,
+                Price24H = t.OpenPrice,
+                Volume = t.Volume
+            }));
         }
 
-        async Task<WebCallResult<IEnumerable<ICommonTrade>>> IExchangeClient.GetTradesAsync(string orderId, string? symbol = null)
+        async Task<WebCallResult<IEnumerable<Kline>>> IBaseRestClient.GetKlinesAsync(string symbol, TimeSpan timespan, DateTime? startTime = null, DateTime? endTime = null, int? limit = null)
         {
-            var result = await Trading.GetOrderTradesAsync(long.Parse(orderId)).ConfigureAwait(false);
-            return result.As<IEnumerable<ICommonTrade>>(result.Data);
+            if (string.IsNullOrEmpty(symbol))
+                throw new ArgumentException(nameof(symbol) + " required for Huobi " + nameof(ISpotClient.GetKlinesAsync), nameof(symbol));
+
+            if (startTime != null || endTime != null)
+                throw new ArgumentException($"Huobi does not support the {nameof(startTime)}/{nameof(endTime)} parameters for the method {nameof(IBaseRestClient.GetKlinesAsync)}");
+
+            var klines = await ExchangeData.GetKlinesAsync(symbol, GetKlineIntervalFromTimespan(timespan), limit ?? 500).ConfigureAwait(false);
+            if (!klines)
+                return klines.As<IEnumerable<Kline>>(null);
+
+            return klines.As(klines.Data.Select(d => new Kline
+            {
+                SourceObject = d,
+                ClosePrice = d.ClosePrice,
+                HighPrice = d.HighPrice,
+                LowPrice = d.LowPrice,
+                OpenPrice = d.OpenPrice,
+                OpenTime = d.OpenTime,
+                Volume = d.Volume
+            }));
         }
 
-        async Task<WebCallResult<IEnumerable<ICommonOrder>>> IExchangeClient.GetOpenOrdersAsync(string? symbol)
+        async Task<WebCallResult<OrderBook>> IBaseRestClient.GetOrderBookAsync(string symbol)
+        {
+            if (string.IsNullOrEmpty(symbol))
+                throw new ArgumentException(nameof(symbol) + " required for Huobi " + nameof(ISpotClient.GetOrderBookAsync), nameof(symbol));
+
+            var book = await ExchangeData.GetOrderBookAsync(symbol, 0).ConfigureAwait(false);
+            if (!book)
+                return book.As<OrderBook>(null);
+
+            return book.As(new OrderBook
+            {
+                SourceObject = book.Data,
+                Asks = book.Data.Asks.Select(a => new OrderBookEntry { Price = a.Price, Quantity = a.Quantity }),
+                Bids = book.Data.Bids.Select(b => new OrderBookEntry { Price = b.Price, Quantity = b.Quantity })
+            });
+        }
+
+        async Task<WebCallResult<IEnumerable<Trade>>> IBaseRestClient.GetRecentTradesAsync(string symbol)
+        {
+            if (string.IsNullOrEmpty(symbol))
+                throw new ArgumentException(nameof(symbol) + " required for Huobi " + nameof(ISpotClient.GetRecentTradesAsync), nameof(symbol));
+            
+            var trades = await ExchangeData.GetTradeHistoryAsync(symbol, 100).ConfigureAwait(false);
+            if (!trades)
+                return trades.As<IEnumerable<Trade>>(null);
+
+            return trades.As(trades.Data.SelectMany(t => t.Details).Select(t => new Trade
+            {
+                SourceObject = t,
+                Price = t.Price,
+                Quantity = t.Quantity,
+                Symbol = symbol,
+                Timestamp = t.Timestamp
+            }));
+        }
+
+        async Task<WebCallResult<OrderId>> ISpotClient.PlaceOrderAsync(string symbol, CryptoExchange.Net.ComonObjects.OrderSide side, CryptoExchange.Net.ComonObjects.OrderType type, decimal quantity, decimal? price = null, string? accountId = null)
+        {
+            if (string.IsNullOrEmpty(symbol))
+                throw new ArgumentException(nameof(symbol) + " required for Huobi " + nameof(ISpotClient.PlaceOrderAsync), nameof(symbol));
+
+            if (string.IsNullOrEmpty(accountId) || !long.TryParse(accountId, out var id))
+                throw new ArgumentException(nameof(accountId) + " required for Huobi " + nameof(ISpotClient.PlaceOrderAsync), nameof(accountId));
+
+            var huobiType = GetOrderType(type);
+            var result = await Trading.PlaceOrderAsync(id, symbol, side == CryptoExchange.Net.ComonObjects.OrderSide.Sell ? Enums.OrderSide.Sell: Enums.OrderSide.Buy, huobiType, quantity, price).ConfigureAwait(false);
+            if (!result)
+                return result.As<OrderId>(null);
+            return result.As(new OrderId()
+            {
+                SourceObject = result.Data,
+                Id = result.Data.ToString(CultureInfo.InvariantCulture)
+            });
+        }
+
+        async Task<WebCallResult<Order>> IBaseRestClient.GetOrderAsync(string orderId, string? symbol)
+        {
+            if(!long.TryParse(orderId, out var id))
+                throw new ArgumentException("Invalid order id for Huobi " + nameof(ISpotClient.GetOrderAsync), nameof(orderId));
+
+            var order = await Trading.GetOrderAsync(id).ConfigureAwait(false);
+            if (!order)
+                return order.As<Order>(null);
+
+            return order.As(new Order
+            {
+                SourceObject = order.Data,
+                Id = order.Data.Id.ToString(CultureInfo.InvariantCulture),
+                Price = order.Data.Price,
+                Quantity = order.Data.Quantity,
+                QuantityFilled = order.Data.QuantityFilled,
+                Symbol = order.Data.Symbol,
+                Timestamp = order.Data.CreateTime,
+                Side = order.Data.Side == Enums.OrderSide.Buy ? CryptoExchange.Net.ComonObjects.OrderSide.Buy: CryptoExchange.Net.ComonObjects.OrderSide.Sell,
+                Type = order.Data.Type == Enums.OrderType.Limit ? CryptoExchange.Net.ComonObjects.OrderType.Limit: order.Data.Type == Enums.OrderType.Market ? CryptoExchange.Net.ComonObjects.OrderType.Market: CryptoExchange.Net.ComonObjects.OrderType.Other,
+                Status = order.Data.State == OrderState.Canceled || order.Data.State == OrderState.PartiallyCanceled ? OrderStatus.Canceled: order.Data.State == OrderState.Filled ? OrderStatus.Filled: OrderStatus.Active
+            });
+        }
+
+        async Task<WebCallResult<IEnumerable<UserTrade>>> IBaseRestClient.GetOrderTradesAsync(string orderId, string? symbol = null)
+        {
+            if (!long.TryParse(orderId, out var id))
+                throw new ArgumentException("Invalid order id for Huobi " + nameof(ISpotClient.GetOrderAsync), nameof(orderId));
+
+            var result = await Trading.GetOrderTradesAsync(id).ConfigureAwait(false);
+            if (!result)
+                return result.As<IEnumerable<UserTrade>>(null);
+
+            return result.As(result.Data.Select(t => new UserTrade
+            {
+                SourceObject = t,
+                Id = t.Id.ToString(CultureInfo.InvariantCulture),
+                OrderId = t.OrderId.ToString(CultureInfo.InvariantCulture),
+                Symbol = t.Symbol,
+                Fee = t.Fee,
+                FeeAsset = t.FeeAsset,
+                Price = t.Price,
+                Quantity = t.Quantity,
+                Timestamp = t.Timestamp
+            }));
+        }
+
+        async Task<WebCallResult<IEnumerable<Order>>> IBaseRestClient.GetOpenOrdersAsync(string? symbol)
         {
             var orders = await Trading.GetOpenOrdersAsync(symbol: symbol).ConfigureAwait(false);
-            return orders.As<IEnumerable<ICommonOrder>>(orders.Data);
+            if (!orders)
+                return orders.As<IEnumerable<Order>>(null);
+
+            return orders.As(orders.Data.Select(o =>            
+                new Order
+                {
+                    SourceObject = o,
+                    Id = o.Id.ToString(CultureInfo.InvariantCulture),
+                    Price = o.Price,
+                    Quantity = o.Quantity,
+                    QuantityFilled = o.QuantityFilled,
+                    Symbol = o.Symbol,
+                    Timestamp = o.CreateTime,
+                    Side = o.Side == Enums.OrderSide.Buy ? CryptoExchange.Net.ComonObjects.OrderSide.Buy : CryptoExchange.Net.ComonObjects.OrderSide.Sell,
+                    Type = o.Type == Enums.OrderType.Limit ? CryptoExchange.Net.ComonObjects.OrderType.Limit : o.Type == Enums.OrderType.Market ? CryptoExchange.Net.ComonObjects.OrderType.Market : CryptoExchange.Net.ComonObjects.OrderType.Other,
+                    Status = o.State == OrderState.Canceled || o.State == OrderState.PartiallyCanceled ? OrderStatus.Canceled : o.State == OrderState.Filled ? OrderStatus.Filled : OrderStatus.Active
+                }
+            ));
         }
 
-        async Task<WebCallResult<IEnumerable<ICommonOrder>>> IExchangeClient.GetClosedOrdersAsync(string? symbol)
+        async Task<WebCallResult<IEnumerable<Order>>> IBaseRestClient.GetClosedOrdersAsync(string? symbol)
         {
-            if (symbol == null)
-                return WebCallResult<IEnumerable<ICommonOrder>>.CreateErrorResult(new ArgumentError(
-                    $"Huobi needs the {nameof(symbol)} parameter for the method {nameof(IExchangeClient.GetClosedOrdersAsync)}"));
+            if (string.IsNullOrEmpty(symbol))
+                throw new ArgumentException(nameof(symbol) + " required for Huobi " + nameof(ISpotClient.GetClosedOrdersAsync), nameof(symbol));
 
-            var result = await Trading.GetClosedOrdersAsync(symbol).ConfigureAwait(false);
-            return result.As<IEnumerable<ICommonOrder>>(result.Data);
+            var result = await Trading.GetClosedOrdersAsync(symbol!).ConfigureAwait(false);
+            if (!result)
+                return result.As<IEnumerable<Order>>(null);
+
+            return result.As(result.Data.Select(o =>
+                new Order
+                {
+                    SourceObject = o,
+                    Id = o.Id.ToString(CultureInfo.InvariantCulture),
+                    Price = o.Price,
+                    Quantity = o.Quantity,
+                    QuantityFilled = o.QuantityFilled,
+                    Symbol = o.Symbol,
+                    Timestamp = o.CreateTime,
+                    Side = o.Side == Enums.OrderSide.Buy ? CryptoExchange.Net.ComonObjects.OrderSide.Buy : CryptoExchange.Net.ComonObjects.OrderSide.Sell,
+                    Type = o.Type == Enums.OrderType.Limit ? CryptoExchange.Net.ComonObjects.OrderType.Limit : o.Type == Enums.OrderType.Market ? CryptoExchange.Net.ComonObjects.OrderType.Market : CryptoExchange.Net.ComonObjects.OrderType.Other,
+                    Status = o.State == OrderState.Canceled || o.State == OrderState.PartiallyCanceled ? OrderStatus.Canceled : o.State == OrderState.Filled ? OrderStatus.Filled : OrderStatus.Active
+                }
+            ));
         }
 
-        async Task<WebCallResult<ICommonOrderId>> IExchangeClient.CancelOrderAsync(string orderId, string? symbol)
+        async Task<WebCallResult<OrderId>> IBaseRestClient.CancelOrderAsync(string orderId, string? symbol)
         {
-            var result = await Trading.CancelOrderAsync(long.Parse(orderId)).ConfigureAwait(false);
-            return result.As<ICommonOrderId>(result ? new HuobiOrder() { Id = result.Data } : null);
+            if (!long.TryParse(orderId, out var id))
+                throw new ArgumentException("Invalid order id for Huobi " + nameof(ISpotClient.CancelOrderAsync), nameof(orderId));
+
+            var result = await Trading.CancelOrderAsync(id).ConfigureAwait(false);
+            if (!result)
+                return result.As<OrderId>(null);
+
+            return result.As(new OrderId
+            {
+                SourceObject = result.Data,
+                Id = result.Data.ToString(CultureInfo.InvariantCulture)
+            });
         }
 
-        async Task<WebCallResult<IEnumerable<ICommonBalance>>> IExchangeClient.GetBalancesAsync(string? accountId = null)
+        async Task<WebCallResult<IEnumerable<Balance>>> IBaseRestClient.GetBalancesAsync(string? accountId = null)
         {
-            if (accountId == null)
-                return WebCallResult<IEnumerable<ICommonBalance>>.CreateErrorResult(new ArgumentError(
-                    $"Huobi needs the {nameof(accountId)} parameter for the method {nameof(IExchangeClient.GetBalancesAsync)}"));
+            if (string.IsNullOrEmpty(accountId) || !long.TryParse(accountId, out var id))
+                throw new ArgumentException(nameof(accountId) + " required for Huobi " + nameof(ISpotClient.GetBalancesAsync), nameof(accountId));
 
             var balances = await Account.GetBalancesAsync(long.Parse(accountId)).ConfigureAwait(false);
             if (!balances)
-                return WebCallResult<IEnumerable<ICommonBalance>>.CreateErrorResult(balances.ResponseStatusCode,
-                    balances.ResponseHeaders, balances.Error!);
+                return balances.As<IEnumerable<Balance>>(null);
 
-            var result = new List<HuobiBalanceWrapper>();
+            var result = new List<Balance>();
             foreach (var balance in balances.Data)
             {
                 if (balance.Type == BalanceType.Interest || balance.Type == BalanceType.Loan)
@@ -221,25 +378,28 @@ namespace Huobi.Net.Clients.SpotApi
                 var existing = result.SingleOrDefault(b => b.Asset == balance.Asset);
                 if (existing == null)
                 {
-                    existing = new HuobiBalanceWrapper() { Asset = balance.Asset };
+                    existing = new Balance() { Asset = balance.Asset };
                     result.Add(existing);
                 }
 
                 if (balance.Type == BalanceType.Frozen)
-                    existing.Frozen = balance.Balance;
+                    existing.Total += balance.Balance;
                 else
-                    existing.Trade = balance.Balance;
+                {
+                    existing.Total += balance.Balance;
+                    existing.Available = balance.Balance;
+                }
             }
 
-            return balances.As<IEnumerable<ICommonBalance>>(result);
+            return balances.As<IEnumerable<Balance>>(result);
         }
 #pragma warning restore 1066
 
-        private static OrderType GetOrderType(IExchangeClient.OrderType type)
+        private static Enums.OrderType GetOrderType(CryptoExchange.Net.ComonObjects.OrderType type)
         {
-            if (type == IExchangeClient.OrderType.Limit)
-                return OrderType.Limit;
-            return OrderType.Market;
+            if (type == CryptoExchange.Net.ComonObjects.OrderType.Limit)
+                return Enums.OrderType.Limit;
+            return Enums.OrderType.Market;
         }
 
         private static KlineInterval GetKlineIntervalFromTimespan(TimeSpan timeSpan)
@@ -272,6 +432,7 @@ namespace Huobi.Net.Clients.SpotApi
             => TimeSyncState.TimeOffset;
 
         /// <inheritdoc />
-        public IExchangeClient AsExchangeClient() => this;
+        /// TODO make this take an accountId param so we don't need it in the interface?
+        public ISpotClient ComonSpotClient => this;
     }
 }

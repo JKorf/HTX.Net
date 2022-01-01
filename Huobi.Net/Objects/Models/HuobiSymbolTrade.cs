@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using CryptoExchange.Net.Converters;
-using CryptoExchange.Net.ExchangeInterfaces;
 using Huobi.Net.Converters;
 using Huobi.Net.Enums;
 using Newtonsoft.Json;
@@ -12,7 +11,7 @@ namespace Huobi.Net.Objects.Models
     /// <summary>
     /// Symbol trade
     /// </summary>
-    public class HuobiSymbolTrade: ICommonRecentTrade
+    public class HuobiSymbolTrade
     {
         /// <summary>
         /// The id of the trade
@@ -28,10 +27,6 @@ namespace Huobi.Net.Objects.Models
         /// </summary>
         [JsonProperty("data")]
         public IEnumerable<HuobiSymbolTradeDetails> Details { get; set; } = Array.Empty<HuobiSymbolTradeDetails>();
-
-        decimal ICommonRecentTrade.CommonPrice => Details.First().Price;
-        decimal ICommonRecentTrade.CommonQuantity => Details.First().Quantity;
-        DateTime ICommonRecentTrade.CommonTradeTime => Details.First().Timestamp;
     }
 
     /// <summary>

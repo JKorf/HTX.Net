@@ -1,11 +1,9 @@
-﻿using CryptoExchange.Net.ExchangeInterfaces;
-
-namespace Huobi.Net.Objects.Models
+﻿namespace Huobi.Net.Objects.Models
 {
     /// <summary>
     /// Balance info
     /// </summary>
-    public class HuobiBalanceWrapper: ICommonBalance
+    public class HuobiBalanceWrapper
     {
         /// <summary>
         /// Asset
@@ -19,9 +17,5 @@ namespace Huobi.Net.Objects.Models
         /// Trade
         /// </summary>
         public decimal Trade { get; set; }
-
-        string ICommonBalance.CommonAsset => Asset;
-        decimal ICommonBalance.CommonAvailable => Trade;
-        decimal ICommonBalance.CommonTotal => Frozen + Trade;
     }
 }
