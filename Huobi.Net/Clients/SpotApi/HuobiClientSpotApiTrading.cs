@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 using Huobi.Net.Objects.Models;
 using CryptoExchange.Net.Converters;
 using Huobi.Net.Interfaces.Clients.SpotApi;
-using CryptoExchange.Net.ComonObjects;
+using CryptoExchange.Net.CommonObjects;
 
 namespace Huobi.Net.Clients.SpotApi
 {
