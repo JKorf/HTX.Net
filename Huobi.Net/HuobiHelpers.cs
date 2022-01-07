@@ -18,8 +18,12 @@ namespace Huobi.Net
         /// </summary>
         /// <param name="services">The service collection</param>
         /// <param name="defaultOptionsCallback">Set default options for the client</param>
+        /// <param name="socketClientLifeTime">The lifetime of the IHuobiSocketClient for the service collection. Defaults to Scoped.</param>
         /// <returns></returns>
-        public static IServiceCollection AddHuobi(this IServiceCollection services, Action<HuobiClientOptions, HuobiSocketClientOptions>? defaultOptionsCallback = null)
+        public static IServiceCollection AddHuobi(
+            this IServiceCollection services, 
+            Action<HuobiClientOptions, HuobiSocketClientOptions>? defaultOptionsCallback = null,
+            ServiceLifetime? socketClientLifeTime = null)
         {
             if (defaultOptionsCallback != null)
             {
@@ -31,8 +35,12 @@ namespace Huobi.Net
                 HuobiSocketClient.SetDefaultOptions(socketOptions);
             }
 
-            return services.AddTransient<IHuobiClient, HuobiClient>()
-                           .AddScoped<IHuobiSocketClient, HuobiSocketClient>();
+            services.AddTransient<IHuobiClient, HuobiClient>();
+            if (socketClientLifeTime == null)
+                services.AddScoped<IHuobiSocketClient, HuobiSocketClient>();
+            else
+                services.Add(new ServiceDescriptor(typeof(IHuobiSocketClient), typeof(HuobiSocketClient), socketClientLifeTime.Value));
+            return services;
         }
 
         /// <summary>
