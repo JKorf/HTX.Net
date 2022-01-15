@@ -59,7 +59,7 @@ namespace Huobi.Net.SymbolOrderBooks
                 if (!setResult)
                     await subResult.Data.CloseAsync().ConfigureAwait(false);
 
-                return setResult ? subResult : new CallResult<UpdateSubscription>(null, setResult.Error);
+                return setResult ? subResult : new CallResult<UpdateSubscription>(setResult.Error!);
             }
             else
             {
@@ -74,7 +74,7 @@ namespace Huobi.Net.SymbolOrderBooks
                 {
                     log.Write(Microsoft.Extensions.Logging.LogLevel.Debug, $"{Id} order book {Symbol} failed to retrieve initial order book");
                     await _socketClient.UnsubscribeAsync(subResult.Data).ConfigureAwait(false);
-                    return new CallResult<UpdateSubscription>(null, book.Error);
+                    return new CallResult<UpdateSubscription>(book.Error!);
                 }
 
                 SetInitialOrderBook(book.Data.SequenceNumber, book.Data.Bids, book.Data.Asks);
@@ -108,10 +108,10 @@ namespace Huobi.Net.SymbolOrderBooks
                 await Task.Delay(500).ConfigureAwait(false);
                 var book = await _socketClient.SpotStreams.GetOrderBookAsync(Symbol, _levels!.Value).ConfigureAwait(false);
                 if (!book)
-                    return new CallResult<bool>(false, book.Error);                
+                    return new CallResult<bool>(book.Error!);                
 
                 SetInitialOrderBook(book.Data.SequenceNumber, book.Data.Bids!, book.Data.Asks!);
-                return new CallResult<bool>(true, null);
+                return new CallResult<bool>(true);
             }
         }
 

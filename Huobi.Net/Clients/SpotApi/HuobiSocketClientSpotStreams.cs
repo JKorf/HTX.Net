@@ -57,7 +57,7 @@ namespace Huobi.Net.Clients.SpotApi
             symbol = symbol.ValidateHuobiSymbol();
             var request = new HuobiSocketRequest(_baseClient.NextIdInternal().ToString(CultureInfo.InvariantCulture), $"market.{symbol}.kline.{JsonConvert.SerializeObject(period, new PeriodConverter(false))}");
             var result = await _baseClient.QueryInternalAsync<HuobiSocketResponse<IEnumerable<HuobiKline>>>(this, request, false).ConfigureAwait(false);
-            return new CallResult<IEnumerable<HuobiKline>>(result.Data?.Data, result.Error);
+            return result ? result.As(result.Data.Data) : result.AsError<IEnumerable<HuobiKline>>(result.Error!);
         }
 
         /// <inheritdoc />
@@ -78,10 +78,10 @@ namespace Huobi.Net.Clients.SpotApi
             var request = new HuobiSocketRequest(_baseClient.NextIdInternal().ToString(CultureInfo.InvariantCulture), $"market.{symbol}.depth.step{mergeStep}");
             var result = await _baseClient.QueryInternalAsync<HuobiSocketResponse<HuobiOrderBook>>(this, request, false).ConfigureAwait(false);
             if (!result)
-                return new CallResult<HuobiOrderBook>(null, result.Error);
+                return new CallResult<HuobiOrderBook>(result.Error!);
 
             result.Data.Data.Timestamp = result.Data.Timestamp;
-            return new CallResult<HuobiOrderBook>(result.Data.Data, null);
+            return new CallResult<HuobiOrderBook>(result.Data.Data);
         }
 
         /// <inheritdoc />
@@ -93,17 +93,17 @@ namespace Huobi.Net.Clients.SpotApi
             var request = new HuobiSocketRequest(_baseClient.NextIdInternal().ToString(CultureInfo.InvariantCulture), $"market.{symbol}.mbp.{levels}");
             var result = await _baseClient.QueryInternalAsync<HuobiSocketResponse<HuobiIncementalOrderBook>>(this, baseAddressMbp, request, false).ConfigureAwait(false);
             if (!result)
-                return new CallResult<HuobiIncementalOrderBook>(null, result.Error);
+                return new CallResult<HuobiIncementalOrderBook>(result.Error!);
 
             if (result.Data.Data == null)
             {
                 var info = "No data received when requesting order book. " +
                     "Levels 5/20 are only supported for a subset of symbols, see https://huobiapi.github.io/docs/spot/v1/en/#market-by-price-incremental-update. Use 150 level instead.";
                 _log.Write(LogLevel.Debug, info);
-                return new CallResult<HuobiIncementalOrderBook>(null, new ServerError(info));
+                return new CallResult<HuobiIncementalOrderBook>(new ServerError(info));
             }
 
-            return new CallResult<HuobiIncementalOrderBook>(result.Data.Data, null);
+            return new CallResult<HuobiIncementalOrderBook>(result.Data.Data);
         }
 
         /// <inheritdoc />
@@ -160,7 +160,7 @@ namespace Huobi.Net.Clients.SpotApi
             symbol = symbol.ValidateHuobiSymbol();
             var request = new HuobiSocketRequest(_baseClient.NextIdInternal().ToString(CultureInfo.InvariantCulture), $"market.{symbol}.trade.detail");
             var result = await _baseClient.QueryInternalAsync<HuobiSocketResponse<IEnumerable<HuobiSymbolTradeDetails>>>(this, request, false).ConfigureAwait(false);
-            return new CallResult<IEnumerable<HuobiSymbolTradeDetails>>(result.Data?.Data, result.Error);
+            return result ? result.As(result.Data.Data) : result.AsError<IEnumerable<HuobiSymbolTradeDetails>>(result.Error!);
         }
 
         /// <inheritdoc />
@@ -179,10 +179,10 @@ namespace Huobi.Net.Clients.SpotApi
             var request = new HuobiSocketRequest(_baseClient.NextIdInternal().ToString(CultureInfo.InvariantCulture), $"market.{symbol}.detail");
             var result = await _baseClient.QueryInternalAsync<HuobiSocketResponse<HuobiSymbolDetails>>(this, request, false).ConfigureAwait(false);
             if (!result)
-                return new CallResult<HuobiSymbolDetails>(null, result.Error);
+                return result.AsError<HuobiSymbolDetails>(result.Error!);
 
             result.Data.Data.Timestamp = result.Data.Timestamp;
-            return new CallResult<HuobiSymbolDetails>(result.Data.Data, null);
+            return result.As(result.Data.Data);
         }
 
         /// <inheritdoc />

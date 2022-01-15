@@ -139,7 +139,7 @@ namespace Huobi.Net.Clients
         /// <inheritdoc />
         protected override bool HandleQueryResponse<T>(SocketConnection s, object request, JToken data, out CallResult<T> callResult)
         {
-            callResult = new CallResult<T>(default, null);
+            callResult = new CallResult<T>(default(T)!);
             var v1Data = (data["data"] != null || data["tick"] != null) && data["rep"] != null;
             var v1Error = data["status"] != null && data["status"]!.ToString() == "error";
             var isV1QueryResponse = v1Data || v1Error;
@@ -156,7 +156,7 @@ namespace Huobi.Net.Clients
                 if (v1Error)
                 {
                     var error = new ServerError(data["err-msg"]!.ToString());
-                    callResult = new CallResult<T>(default, error);
+                    callResult = new CallResult<T>(error);
                     return true;
                 }
 
@@ -164,11 +164,11 @@ namespace Huobi.Net.Clients
                 if (!desResult)
                 {
                     log.Write(LogLevel.Warning, $"Socket {s.Socket.Id} Failed to deserialize data: {desResult.Error}. Data: {data}");
-                    callResult = new CallResult<T>(default, desResult.Error);
+                    callResult = new CallResult<T>(desResult.Error!);
                     return true;
                 }
 
-                callResult = new CallResult<T>(desResult.Data, null);
+                callResult = new CallResult<T>(desResult.Data);
                 return true;
             }
 
@@ -188,7 +188,7 @@ namespace Huobi.Net.Clients
                     return false;
                 }
 
-                callResult = new CallResult<T>(desResult.Data, null);
+                callResult = new CallResult<T>(desResult.Data);
                 return true;
             }
 
@@ -217,7 +217,7 @@ namespace Huobi.Net.Clients
                         return false; // Not for this request
 
                     log.Write(LogLevel.Warning, $"Socket {s.Socket.Id} Subscription failed: " + subResponse.Data.ErrorMessage);
-                    callResult = new CallResult<object>(null, new ServerError($"{subResponse.Data.ErrorCode}, {subResponse.Data.ErrorMessage}"));
+                    callResult = new CallResult<object>(new ServerError($"{subResponse.Data.ErrorCode}, {subResponse.Data.ErrorMessage}"));
                     return true;
                 }
 
@@ -227,7 +227,7 @@ namespace Huobi.Net.Clients
                     if (!subResponse)
                     {
                         log.Write(LogLevel.Warning, $"Socket {s.Socket.Id} Subscription failed: " + subResponse.Error);
-                        callResult = new CallResult<object>(null, subResponse.Error);
+                        callResult = new CallResult<object>(subResponse.Error!);
                         return false;
                     }
 
@@ -236,7 +236,7 @@ namespace Huobi.Net.Clients
                         return false; // Not for this request
 
                     log.Write(LogLevel.Warning, $"Socket {s.Socket.Id} Subscription failed: " + subResponse.Data.Code);
-                    callResult = new CallResult<object>(null, new ServerError(subResponse.Data.Code, "Failed to subscribe"));
+                    callResult = new CallResult<object>(new ServerError(subResponse.Data.Code, "Failed to subscribe"));
                     return true;
                 }
             }
@@ -258,12 +258,12 @@ namespace Huobi.Net.Clients
                 if (!subResponse.Data.IsSuccessful)
                 {
                     log.Write(LogLevel.Warning, $"Socket {s.Socket.Id} Subscription failed: " + subResponse.Data.ErrorMessage);
-                    callResult = new CallResult<object>(null, new ServerError($"{subResponse.Data.ErrorCode}, {subResponse.Data.ErrorMessage}"));
+                    callResult = new CallResult<object>(new ServerError($"{subResponse.Data.ErrorCode}, {subResponse.Data.ErrorMessage}"));
                     return true;
                 }
 
                 log.Write(LogLevel.Debug, $"Socket {s.Socket.Id} Subscription completed");
-                callResult = new CallResult<object>(subResponse.Data, null);
+                callResult = new CallResult<object>(subResponse.Data);
                 return true;
             }
 
@@ -275,7 +275,7 @@ namespace Huobi.Net.Clients
                 if (!subResponse)
                 {
                     log.Write(LogLevel.Warning, $"Socket {s.Socket.Id} Subscription failed: " + subResponse.Error);
-                    callResult = new CallResult<object>(null, subResponse.Error);
+                    callResult = new CallResult<object>(subResponse.Error!);
                     return false;
                 }
 
@@ -286,12 +286,12 @@ namespace Huobi.Net.Clients
                 if (!subResponse.Data.IsSuccessful)
                 {
                     log.Write(LogLevel.Warning, $"Socket {s.Socket.Id} Subscription failed: " + subResponse.Data.Message);
-                    callResult = new CallResult<object>(null, new ServerError(subResponse.Data.Code, subResponse.Data.Message));
+                    callResult = new CallResult<object>(new ServerError(subResponse.Data.Code, subResponse.Data.Message));
                     return true;
                 }
 
                 log.Write(LogLevel.Debug, $"Socket {s.Socket.Id} Subscription completed");
-                callResult = new CallResult<object>(subResponse.Data, null);
+                callResult = new CallResult<object>(subResponse.Data);
                 return true;
             }
 
@@ -329,23 +329,9 @@ namespace Huobi.Net.Clients
         protected override async Task<CallResult<bool>> AuthenticateSocketAsync(SocketConnection s)
         {
             if (s.ApiClient.AuthenticationProvider == null)
-                return new CallResult<bool>(false, new NoApiCredentialsError());
+                return new CallResult<bool>(new NoApiCredentialsError());
 
-            //var authParams = ((HuobiAuthenticationProvider)s.ApiClient.AuthenticationProvider).SignRequest(
-            //    s.Socket.Url,
-            //    HttpMethod.Get,
-            //    new Dictionary<string, object>(),
-            //    "accessKey",
-            //    "signatureMethod",
-            //    "signatureVersion",
-            //    "timestamp",
-            //    "signature",
-            //    2.1);
-            // new HuobiAuthenticationRequest(s.ApiClient.AuthenticationProvider.Credentials.Key!.GetString(),
-            //    (string)authParams["timestamp"],
-            //    (string)authParams["signature"]);
-
-            var result = new CallResult<bool>(false, new ServerError("No response from server"));
+            var result = new CallResult<bool>(new ServerError("No response from server"));
             await s.SendAndWaitAsync(((HuobiAuthenticationProvider)s.ApiClient.AuthenticationProvider).GetWebsocketAuthentication(new Uri(s.Socket.Url)), ClientOptions.SocketResponseTimeout, data =>
             {
                 if (data["ch"]?.ToString() != "auth")
@@ -355,18 +341,18 @@ namespace Huobi.Net.Clients
                 if (!authResponse)
                 {
                     log.Write(LogLevel.Warning, $"Socket {s.Socket.Id} Authorization failed: " + authResponse.Error);
-                    result = new CallResult<bool>(false, authResponse.Error);
+                    result = new CallResult<bool>(authResponse.Error!);
                     return true;
                 }
                 if (!authResponse.Data.IsSuccessful)
                 {
                     log.Write(LogLevel.Warning, $"Socket {s.Socket.Id} Authorization failed: " + authResponse.Data.Message);
-                    result = new CallResult<bool>(false, new ServerError(authResponse.Data.Code, authResponse.Data.Message));
+                    result = new CallResult<bool>(new ServerError(authResponse.Data.Code, authResponse.Data.Message));
                     return true;
                 }
 
                 log.Write(LogLevel.Debug, $"Socket {s.Socket.Id} Authorization completed");
-                result = new CallResult<bool>(true, null);
+                result = new CallResult<bool>(true);
                 return true;
             }).ConfigureAwait(false);
 

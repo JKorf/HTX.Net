@@ -59,10 +59,10 @@ namespace Huobi.Net.Clients
         {
             var result = await SendRequestAsync<HuobiApiResponseV2<T>>(apiClient, uri, method, cancellationToken, parameters, signed).ConfigureAwait(false);
             if (!result || result.Data == null)
-                return new WebCallResult<T>(result.ResponseStatusCode, result.ResponseHeaders, default, result.Error);
+                return result.AsError<T>(result.Error!);
 
             if (result.Data.Code != 200)
-                return new WebCallResult<T>(result.ResponseStatusCode, result.ResponseHeaders, default, new ServerError(result.Data.Code, result.Data.Message));
+                return result.AsError<T>(new ServerError(result.Data.Code, result.Data.Message));
 
             return result.As(result.Data.Data);
         }
@@ -71,10 +71,10 @@ namespace Huobi.Net.Clients
         {
             var result = await SendRequestAsync<HuobiBasicResponse<T>>(apiClient, uri, method, cancellationToken, parameters, signed).ConfigureAwait(false);
             if (!result || result.Data == null)
-                return new WebCallResult<(T, DateTime)>(result.ResponseStatusCode, result.ResponseHeaders, default, result.Error);
+                return result.AsError<(T, DateTime)>(result.Error!);
 
             if (result.Data.ErrorCode != null)
-                return new WebCallResult<(T, DateTime)>(result.ResponseStatusCode, result.ResponseHeaders, default, new ServerError($"{result.Data.ErrorCode}-{result.Data.ErrorMessage}"));
+                return result.AsError<(T, DateTime)>(new ServerError($"{result.Data.ErrorCode}-{result.Data.ErrorMessage}"));
 
             return result.As((result.Data.Data, result.Data.Timestamp));
         }
@@ -83,10 +83,10 @@ namespace Huobi.Net.Clients
         {
             var result = await SendRequestAsync<HuobiBasicResponse<T>>(apiClient, uri, method, cancellationToken, parameters, signed, requestWeight: weight ?? 1).ConfigureAwait(false);
             if (!result || result.Data == null)
-                return new WebCallResult<T>(result.ResponseStatusCode, result.ResponseHeaders, default, result.Error);
+                return result.AsError<T>(result.Error!);
 
             if (result.Data.ErrorCode != null)
-                return new WebCallResult<T>(result.ResponseStatusCode, result.ResponseHeaders, default, new ServerError(result.Data.ErrorCode, result.Data.ErrorMessage));
+                return result.AsError<T>(new ServerError(result.Data.ErrorCode, result.Data.ErrorMessage));
 
             return result.As(result.Data.Data);
         }

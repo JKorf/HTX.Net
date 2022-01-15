@@ -214,7 +214,7 @@ namespace Huobi.Net.Clients.SpotApi
 
             var result = await _baseClient.SendHuobiRequest<IEnumerable<HuobiOrder>>(_baseClient.GetUrl(HistoryOrdersEndpoint, "1"), HttpMethod.Get, ct, parameters, true, weight: 5).ConfigureAwait(false);
             if (!result)
-                return WebCallResult<IEnumerable<HuobiOrder>>.CreateErrorResult(result.ResponseStatusCode, result.ResponseHeaders, result.Error!);
+                return result.AsError<IEnumerable<HuobiOrder>>(result.Error!);
 
             return result;
         }

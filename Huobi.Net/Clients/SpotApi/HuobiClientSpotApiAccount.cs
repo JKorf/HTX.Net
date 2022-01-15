@@ -52,7 +52,7 @@ namespace Huobi.Net.Clients.SpotApi
         {
             var result = await _baseClient.SendHuobiRequest<HuobiAccountBalances>(_baseClient.GetUrl(GetBalancesEndpoint.FillPathParameters(accountId.ToString(CultureInfo.InvariantCulture)), "1"), HttpMethod.Get, ct, signed: true).ConfigureAwait(false);
             if (!result)
-                return WebCallResult<IEnumerable<HuobiBalance>>.CreateErrorResult(result.ResponseStatusCode, result.ResponseHeaders, result.Error!);
+                return result.AsError<IEnumerable<HuobiBalance>>(result.Error!);
 
             return result.As(result.Data.Data);
         }
@@ -137,7 +137,7 @@ namespace Huobi.Net.Clients.SpotApi
         {
             var result = await _baseClient.SendHuobiRequest<IEnumerable<HuobiAccountBalances>>(_baseClient.GetUrl(GetSubAccountBalancesEndpoint.FillPathParameters(subAccountId.ToString(CultureInfo.InvariantCulture)), "1"), HttpMethod.Get, ct, signed: true).ConfigureAwait(false);
             if (!result)
-                return WebCallResult<IEnumerable<HuobiBalance>>.CreateErrorResult(result.ResponseStatusCode, result.ResponseHeaders, result.Error!);
+                return result.AsError<IEnumerable<HuobiBalance>>(result.Error!);
 
             return result.As(result.Data.First().Data);
         }

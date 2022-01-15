@@ -44,7 +44,7 @@ namespace Huobi.Net.Clients.SpotApi
         {
             var result = await _baseClient.SendHuobiTimestampRequest<IEnumerable<HuobiSymbolTick>>(_baseClient.GetUrl(MarketTickerEndpoint), HttpMethod.Get, ct).ConfigureAwait(false);
             if (!result)
-                return WebCallResult<HuobiSymbolTicks>.CreateErrorResult(result.ResponseStatusCode, result.ResponseHeaders, result.Error!);
+                return result.AsError<HuobiSymbolTicks>(result.Error!);
 
             return result.As(new HuobiSymbolTicks() { Ticks = result.Data.Item1, Timestamp = result.Data.Item2 });
         }
@@ -60,7 +60,7 @@ namespace Huobi.Net.Clients.SpotApi
 
             var result = await _baseClient.SendHuobiTimestampRequest<HuobiSymbolTickMerged>(_baseClient.GetUrl(MarketTickerMergedEndpoint), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
             if (!result)
-                return WebCallResult<HuobiSymbolTickMerged>.CreateErrorResult(result.ResponseStatusCode, result.ResponseHeaders, result.Error!);
+                return result.AsError<HuobiSymbolTickMerged>(result.Error!);
 
             result.Data.Item1.Timestamp = result.Data.Item2;
             return result.As(result.Data.Item1);
@@ -98,7 +98,7 @@ namespace Huobi.Net.Clients.SpotApi
 
             var result = await _baseClient.SendHuobiTimestampRequest<HuobiOrderBook>(_baseClient.GetUrl(MarketDepthEndpoint), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
             if (!result)
-                return WebCallResult<HuobiOrderBook>.CreateErrorResult(result.ResponseStatusCode, result.ResponseHeaders, result.Error!);
+                return result.AsError<HuobiOrderBook>(result.Error!);
 
             return result.As(result.Data.Item1);
         }
@@ -141,7 +141,7 @@ namespace Huobi.Net.Clients.SpotApi
 
             var result = await _baseClient.SendHuobiTimestampRequest<HuobiSymbolDetails>(_baseClient.GetUrl(MarketDetailsEndpoint), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
             if (!result)
-                return WebCallResult<HuobiSymbolDetails>.CreateErrorResult(result.ResponseStatusCode, result.ResponseHeaders, result.Error!);
+                return result.AsError<HuobiSymbolDetails>(result.Error!);
 
             result.Data.Item1.Timestamp = result.Data.Item2;
             return result.As(result.Data.Item1);
@@ -158,7 +158,7 @@ namespace Huobi.Net.Clients.SpotApi
 
             var result = await _baseClient.SendHuobiTimestampRequest<HuobiNav>(_baseClient.GetUrl(NavEndpoint), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
             if (!result)
-                return WebCallResult<HuobiNav>.CreateErrorResult(result.ResponseStatusCode, result.ResponseHeaders, result.Error!);
+                return result.AsError<HuobiNav>(result.Error!);
 
             return result.As(result.Data.Item1);
         }
@@ -194,7 +194,7 @@ namespace Huobi.Net.Clients.SpotApi
         {
             var result = await _baseClient.SendHuobiRequest<string>(_baseClient.GetUrl(ServerTimeEndpoint, "1"), HttpMethod.Get, ct).ConfigureAwait(false);
             if (!result)
-                return WebCallResult<DateTime>.CreateErrorResult(result.ResponseStatusCode, result.ResponseHeaders, result.Error!);
+                return result.AsError<DateTime>(result.Error!);
             var time = (DateTime)JsonConvert.DeserializeObject(result.Data, typeof(DateTime), new DateTimeConverter())!;
             return result.As(time);
         }
