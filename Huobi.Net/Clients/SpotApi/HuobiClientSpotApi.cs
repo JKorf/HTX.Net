@@ -433,6 +433,6 @@ namespace Huobi.Net.Clients.SpotApi
 
         /// <inheritdoc />
         /// TODO make this take an accountId param so we don't need it in the interface?
-        public ISpotClient ComonSpotClient => this;
+        public ISpotClient CommonSpotClient => this;
     }
 }
