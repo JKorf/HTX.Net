@@ -13,6 +13,7 @@ Changes related to `IExchangeClient`, options and client structure are also (par
 
 ### Namespaces
 There are a few namespace changes:  
+
 |Type|Old|New|
 |----|---|---|
 |Enums|`Huobi.Net.Objects`|`Huobi.Net.Enums`  |
@@ -24,17 +25,17 @@ There are a few namespace changes:
 ### Client options
 The `BaseAddress` and rate limiting options are now under the `SpotApiOptions`.  
 *V3*
-````C#
+```csharp
 var huobiClient = new HuobiClient(new HuobiClientOptions
 {
 	ApiCredentials = new ApiCredentials("API-KEY", "API-SECRET"),
 	BaseAddress = "ADDRESS",
 	RateLimitingBehaviour = RateLimitingBehaviour.Fail
 });
-````
+```
 
 *V4*
-````C#
+```csharp
 var huobiClient = new HuobiClient(new HuobiClientOptions
 {
 	ApiCredentials = new ApiCredentials("API-KEY", "API-SECRET"),
@@ -44,14 +45,14 @@ var huobiClient = new HuobiClient(new HuobiClientOptions
 		RateLimitingBehaviour = RateLimitingBehaviour.Fail
 	}
 });
-````
+```
 
 ### Client structure
 Version 4 adds the `SpotApi` Api client under the `HuobiClient`, and a topic underneath that. This is done to keep the same client structure as other exchange implementations, more info on this [here](https://github.com/Jkorf/CryptoExchange.Net/wiki/Clients).
 In the HuobiSocketClient a `SpotStreams` Api client is added. This means all calls will have changed, though most will only need to add `SpotApi.[Topic].XXX`/`SpotStreams.XXX`:
 
 *V3*
-````C#
+```csharp
 var balances = await huobiClient.GetBalancesAsync();
 var withdrawals = await huobiClient.GetWithdrawDepositAsync();
 
@@ -62,10 +63,10 @@ var order = await huobiClient.PlaceOrderAsync();
 var trades = await huobiClient.GetUserTradesAsync();
 
 var sub = huobiSocketClient.SubscribeToTickerUpdatesAsync(DataHandler);
-````
+```
 
 *V4*  
-````C#
+```csharp
 var balances = await huobiClient.SpotApi.Account.GetBalancesAsync();
 var withdrawals = await huobiClient.SpotApi.Account.GetWithdrawDepositAsync();
 
@@ -76,10 +77,11 @@ var order = await huobiClient.SpotApi.Trading.PlaceOrderAsync();
 var trades = await huobiClient.SpotApi.Trading.GetUserTradesAsync();
 
 var sub = huobiSocketClient.SpotStreams.SubscribeToTickerUpdatesAsync(DataHandler);
-````
+```
 
 ### Definitions
 Some names have been changed to a common definition. This includes where the name is part of a bigger name  
+
 |Old|New||
 |----|---|---|
 |`Currency`|`Asset`|`GetCurrenciesAndChainsAsync()` -> `GetAssetDetailsAsync()`|
@@ -106,7 +108,7 @@ The `HuobiSymbolOrderBook` has been renamed to `HuobiSpotSymbolOrderBook`.
 ### Changed methods
 The `PlaceOrderAsync` and order objects used to have a combined property for the type of the order (limit, market etc) and the side (buy, sell). This has been split up for consistency with the other `CryptoExchange.Net` implementations:  
 *V3*
-````C#
+```csharp
 Task<WebCallResult<long>> PlaceOrderAsync(
 	long accountId, 
 	string symbol, 
@@ -118,9 +120,9 @@ Task<WebCallResult<long>> PlaceOrderAsync(
 	decimal? stopPrice = null, 
 	Operator? stopOperator = null, 
 	CancellationToken ct = default);
-````
+```
 *V4*
-````C#
+```csharp
 Task<WebCallResult<long>> PlaceOrderAsync(
 	long accountId, 
 	string symbol, 
@@ -133,6 +135,6 @@ Task<WebCallResult<long>> PlaceOrderAsync(
 	decimal? stopPrice = null, 
 	Operator? stopOperator = null, 
 	CancellationToken ct = default);
-````
+```
 
 
