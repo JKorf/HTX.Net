@@ -3,7 +3,7 @@
 
 Huobi.Net is a wrapper around the Huobi API as described on [Huobi](https://github.com/huobiapi), including all features the API provides using clear and readable objects, both for the REST  as the websocket API's.
 
-**If you think something is broken, something is missing or have any questions, please open an [Issue](https://github.com/JKorf/Huobi .Net/issues)**
+**If you think something is broken, something is missing or have any questions, please open an [Issue](https://github.com/JKorf/Huobi.Net/issues)**
 
 [Documentation](https://jkorf.github.io/Huobi.Net/)
 
