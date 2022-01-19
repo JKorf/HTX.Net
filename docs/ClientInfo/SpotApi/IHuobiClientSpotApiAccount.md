@@ -2,7 +2,7 @@
 title: IHuobiClientSpotApiAccount
 has_children: false
 parent: IHuobiClientSpotApi
-grand_parent: IHuobiClient
+grand_parent: Rest API documentation
 ---
 *[generated documentation]*  
 `HuobiClient > SpotApi > Account`  

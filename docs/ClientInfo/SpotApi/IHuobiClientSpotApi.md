@@ -1,7 +1,7 @@
 ---
 title: IHuobiClientSpotApi
 has_children: true
-parent: IHuobiClient
+parent: Rest API documentation
 ---
 *[generated documentation]*  
 `HuobiClient > SpotApi`  

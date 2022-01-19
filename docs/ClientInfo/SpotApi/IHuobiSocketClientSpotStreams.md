@@ -1,7 +1,7 @@
 ---
 title: IHuobiSocketClientSpotStreams
 has_children: true
-parent: IHuobiSocketClient
+parent: Socket API documentation
 ---
 *[generated documentation]*  
 `HuobiSocketClient > SpotStreams`  

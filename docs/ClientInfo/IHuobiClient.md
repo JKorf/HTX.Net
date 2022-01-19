@@ -1,8 +1,9 @@
 ---
-title: IHuobiClient
+title: Rest API documentation
 has_children: true
 ---
 *[generated documentation]*  
+### HuobiClient  
 *Client for accessing the Huobi API.*
   
 ***
