@@ -18,7 +18,7 @@ parent: Socket API documentation
 *Gets candlestick data for a symbol*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiSocketClient();  
 var result = await client.SpotStreams.GetKlinesAsync(/* parameters */);  
 ```  
 
@@ -43,7 +43,7 @@ Task<CallResult<IEnumerable<HuobiKline>>> GetKlinesAsync(string symbol, KlineInt
 *Gets the current order book for a symbol*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiSocketClient();  
 var result = await client.SpotStreams.GetOrderBookAsync(/* parameters */);  
 ```  
 
@@ -68,7 +68,7 @@ Task<CallResult<HuobiIncementalOrderBook>> GetOrderBookAsync(string symbol, int 
 *Gets the current order book for a symbol*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiSocketClient();  
 var result = await client.SpotStreams.GetOrderBookWithMergeStepAsync(/* parameters */);  
 ```  
 
@@ -93,7 +93,7 @@ Task<CallResult<HuobiOrderBook>> GetOrderBookWithMergeStepAsync(string symbol, i
 *Gets details for a symbol*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiSocketClient();  
 var result = await client.SpotStreams.GetSymbolDetailsAsync(/* parameters */);  
 ```  
 
@@ -117,7 +117,7 @@ Task<CallResult<HuobiSymbolDetails>> GetSymbolDetailsAsync(string symbol);
 *Gets a list of trades for a symbol*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiSocketClient();  
 var result = await client.SpotStreams.GetTradeHistoryAsync(/* parameters */);  
 ```  
 
@@ -141,7 +141,7 @@ Task<CallResult<IEnumerable<HuobiSymbolTradeDetails>>> GetTradeHistoryAsync(stri
 *Subscribe to updates of account balances*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiSocketClient();  
 var result = await client.SpotStreams.SubscribeToAccountUpdatesAsync(/* parameters */);  
 ```  
 
@@ -166,7 +166,7 @@ Task<CallResult<UpdateSubscription>> SubscribeToAccountUpdatesAsync(Action<DataE
 *Subscribe to changes of a symbol's best ask/bid*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiSocketClient();  
 var result = await client.SpotStreams.SubscribeToBestOfferUpdatesAsync(/* parameters */);  
 ```  
 
@@ -191,7 +191,7 @@ Task<CallResult<UpdateSubscription>> SubscribeToBestOfferUpdatesAsync(string sym
 *Subscribes to candlestick updates for a symbol*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiSocketClient();  
 var result = await client.SpotStreams.SubscribeToKlineUpdatesAsync(/* parameters */);  
 ```  
 
@@ -218,7 +218,7 @@ Task<CallResult<UpdateSubscription>> SubscribeToKlineUpdatesAsync(string symbol,
 *Subscribes to order book updates for a symbol,*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiSocketClient();  
 var result = await client.SpotStreams.SubscribeToOrderBookChangeUpdatesAsync(/* parameters */);  
 ```  
 
@@ -245,7 +245,7 @@ Task<CallResult<UpdateSubscription>> SubscribeToOrderBookChangeUpdatesAsync(stri
 *Subscribe to detailed order matched/canceled updates*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiSocketClient();  
 var result = await client.SpotStreams.SubscribeToOrderDetailsUpdatesAsync();  
 ```  
 
@@ -272,7 +272,7 @@ Task<CallResult<UpdateSubscription>> SubscribeToOrderDetailsUpdatesAsync(string?
 *Subscribe to updates of orders*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiSocketClient();  
 var result = await client.SpotStreams.SubscribeToOrderUpdatesAsync();  
 ```  
 
@@ -302,7 +302,7 @@ Task<CallResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(string? symbol
 *Subscribes to order book updates for a symbol*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiSocketClient();  
 var result = await client.SpotStreams.SubscribeToPartialOrderBookUpdates100MilisecondAsync(/* parameters */);  
 ```  
 
@@ -329,7 +329,7 @@ Task<CallResult<UpdateSubscription>> SubscribeToPartialOrderBookUpdates100Milise
 *Subscribes to order book updates for a symbol*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiSocketClient();  
 var result = await client.SpotStreams.SubscribeToPartialOrderBookUpdates1SecondAsync(/* parameters */);  
 ```  
 
@@ -356,7 +356,7 @@ Task<CallResult<UpdateSubscription>> SubscribeToPartialOrderBookUpdates1SecondAs
 *Subscribes to symbol detail updates for a symbol*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiSocketClient();  
 var result = await client.SpotStreams.SubscribeToSymbolDetailUpdatesAsync(/* parameters */);  
 ```  
 
@@ -382,7 +382,7 @@ Task<CallResult<UpdateSubscription>> SubscribeToSymbolDetailUpdatesAsync(string 
 *Subscribes to updates for a symbol*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiSocketClient();  
 var result = await client.SpotStreams.SubscribeToTickerUpdatesAsync(/* parameters */);  
 ```  
 
@@ -408,7 +408,7 @@ Task<CallResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(string symbol
 *Subscribes to updates for all tickers*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiSocketClient();  
 var result = await client.SpotStreams.SubscribeToTickerUpdatesAsync(/* parameters */);  
 ```  
 
@@ -433,7 +433,7 @@ Task<CallResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(Action<DataEv
 *Subscribes to trade updates for a symbol*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiSocketClient();  
 var result = await client.SpotStreams.SubscribeToTradeUpdatesAsync(/* parameters */);  
 ```  
 
