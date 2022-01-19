@@ -48,7 +48,7 @@ var huobiClient = new HuobiClient(new HuobiClientOptions
 ```
 
 ### Client structure
-Version 4 adds the `SpotApi` Api client under the `HuobiClient`, and a topic underneath that. This is done to keep the same client structure as other exchange implementations, more info on this [here](https://github.com/Jkorf/CryptoExchange.Net/wiki/Clients).
+Version 4 adds the `SpotApi` Api client under the `HuobiClient`, and a topic underneath that. This is done to keep the same client structure as other exchange implementations, more info on this [here](https://jkorf.github.io/CryptoExchange.Net/Clients.html).
 In the HuobiSocketClient a `SpotStreams` Api client is added. This means all calls will have changed, though most will only need to add `SpotApi.[Topic].XXX`/`SpotStreams.XXX`:
 
 *V3*
