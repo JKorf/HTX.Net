@@ -63,7 +63,7 @@ namespace Huobi.Net.Objects.Models.Socket
         /// <summary>
         /// Transaction fee
         /// </summary>
-        [JsonProperty("TransactFee")]
+        [JsonProperty("transactFee")]
         public decimal TransactionFee { get; set; }
 
         /// <summary>

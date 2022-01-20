@@ -120,5 +120,15 @@ namespace Huobi.Net.Objects.Models
         /// </summary>
         [JsonProperty("ask")]
         public decimal BestAskPrice { get; set; }
+        /// <summary>
+        /// Last trade price
+        /// </summary>
+        [JsonProperty("lastPrice")]
+        public decimal LastTradePrice { get; set; }
+        /// <summary>
+        /// Last trade quantity
+        /// </summary>
+        [JsonProperty("lastSize")]
+        public decimal LastTradeQuantity { get; set; }
     }
 }

@@ -47,6 +47,6 @@ namespace Huobi.Net.Objects.Models.Socket
         /// Update sequence number
         /// </summary>
         [JsonProperty("seqNum")]
-        public int SequenceNumber { get; set; }
+        public long SequenceNumber { get; set; }
     }
 }

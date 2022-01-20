@@ -1,0 +1,11 @@
+
+     {
+        "orderSide":"buy",
+        "lastActTime":1583853365586,
+        "clientOrderId":"abc123",
+        "orderStatus":"rejected",
+        "symbol":"btcusdt",
+        "eventType":"trigger",
+        "errCode": 2002,
+        "errMessage":"invalid.client.order.id (NT)"
+    }

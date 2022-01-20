@@ -43,6 +43,9 @@ namespace Huobi.Net.Objects.Models
         /// </summary>
         [JsonProperty("trade-id")]
         public long TradeId { get; set; }
+        // Rest uses trade-id, socket uses tradeId
+        [JsonProperty("tradeId")]
+        private long TradeIdInternal { get => TradeId; set => TradeId = value; }
         /// <summary>
         /// The price of the trade
         /// </summary>

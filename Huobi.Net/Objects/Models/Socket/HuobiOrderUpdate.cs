@@ -36,7 +36,7 @@ namespace Huobi.Net.Objects.Models.Socket
         [JsonProperty("lastActTime")]
         public DateTime? UpdateTime { get; set; }
     }
-    
+        
     /// <summary>
     /// Submitted order update
     /// </summary>
