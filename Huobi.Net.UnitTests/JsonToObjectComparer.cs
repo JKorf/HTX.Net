@@ -44,6 +44,8 @@ namespace Huobi.Net.UnitTests
            Dictionary<string, List<string>> ignoreProperties = null,
            List<string> takeFirstItemForCompare = null)
         {
+            var listener = new EnumValueTraceListener();
+            Trace.Listeners.Add(listener);
             var methods = typeof(K).GetMethods();
             var callResultMethods = methods.Where(m => m.Name.EndsWith("Async")).ToList();
             var skippedMethods = new List<string>();
@@ -91,13 +93,15 @@ namespace Huobi.Net.UnitTests
                     continue;
 
                 var resultData = resultProp.GetValue(result);
-                
+                ProcessData(method.Name, resultData, json, useNestedJsonPropertyForCompare, useNestedObjectPropertyForCompare, useNestedJsonPropertyForAllCompare, ignoreProperties, takeFirstItemForCompare);
             }
 
             if (skippedMethods.Any())
                 Debug.WriteLine("Skipped methods:");
             foreach (var method in skippedMethods)
                 Debug.WriteLine(method);
+
+            Trace.Listeners.Remove(listener);
         }
 
         public static void ProcessData(string method,
