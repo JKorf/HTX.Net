@@ -229,7 +229,7 @@ namespace Huobi.Net.Clients.SpotApi
             }));
         }
 
-        async Task<WebCallResult<OrderId>> ISpotClient.PlaceOrderAsync(string symbol, CryptoExchange.Net.CommonObjects.OrderSide side, CryptoExchange.Net.CommonObjects.OrderType type, decimal quantity, decimal? price = null, string? accountId = null)
+        async Task<WebCallResult<OrderId>> ISpotClient.PlaceOrderAsync(string symbol, CommonOrderSide side, CommonOrderType type, decimal quantity, decimal? price = null, string? accountId = null)
         {
             if (string.IsNullOrEmpty(symbol))
                 throw new ArgumentException(nameof(symbol) + " required for Huobi " + nameof(ISpotClient.PlaceOrderAsync), nameof(symbol));
@@ -238,7 +238,7 @@ namespace Huobi.Net.Clients.SpotApi
                 throw new ArgumentException(nameof(accountId) + " required for Huobi " + nameof(ISpotClient.PlaceOrderAsync), nameof(accountId));
 
             var huobiType = GetOrderType(type);
-            var result = await Trading.PlaceOrderAsync(id, symbol, side == CryptoExchange.Net.CommonObjects.OrderSide.Sell ? Enums.OrderSide.Sell: Enums.OrderSide.Buy, huobiType, quantity, price).ConfigureAwait(false);
+            var result = await Trading.PlaceOrderAsync(id, symbol, side == CommonOrderSide.Sell ? Enums.OrderSide.Sell: Enums.OrderSide.Buy, huobiType, quantity, price).ConfigureAwait(false);
             if (!result)
                 return result.As<OrderId>(null);
             return result.As(new OrderId()
@@ -266,9 +266,9 @@ namespace Huobi.Net.Clients.SpotApi
                 QuantityFilled = order.Data.QuantityFilled,
                 Symbol = order.Data.Symbol,
                 Timestamp = order.Data.CreateTime,
-                Side = order.Data.Side == Enums.OrderSide.Buy ? CryptoExchange.Net.CommonObjects.OrderSide.Buy: CryptoExchange.Net.CommonObjects.OrderSide.Sell,
-                Type = order.Data.Type == Enums.OrderType.Limit ? CryptoExchange.Net.CommonObjects.OrderType.Limit: order.Data.Type == Enums.OrderType.Market ? CryptoExchange.Net.CommonObjects.OrderType.Market: CryptoExchange.Net.CommonObjects.OrderType.Other,
-                Status = order.Data.State == OrderState.Canceled || order.Data.State == OrderState.PartiallyCanceled ? OrderStatus.Canceled: order.Data.State == OrderState.Filled ? OrderStatus.Filled: OrderStatus.Active
+                Side = order.Data.Side == OrderSide.Buy ? CommonOrderSide.Buy: CommonOrderSide.Sell,
+                Type = order.Data.Type == OrderType.Limit ? CommonOrderType.Limit: order.Data.Type == OrderType.Market ? CommonOrderType.Market: CommonOrderType.Other,
+                Status = order.Data.State == OrderState.Canceled || order.Data.State == OrderState.PartiallyCanceled ? CommonOrderStatus.Canceled: order.Data.State == OrderState.Filled ? CommonOrderStatus.Filled: CommonOrderStatus.Active
             });
         }
 
@@ -311,9 +311,9 @@ namespace Huobi.Net.Clients.SpotApi
                     QuantityFilled = o.QuantityFilled,
                     Symbol = o.Symbol,
                     Timestamp = o.CreateTime,
-                    Side = o.Side == Enums.OrderSide.Buy ? CryptoExchange.Net.CommonObjects.OrderSide.Buy : CryptoExchange.Net.CommonObjects.OrderSide.Sell,
-                    Type = o.Type == Enums.OrderType.Limit ? CryptoExchange.Net.CommonObjects.OrderType.Limit : o.Type == Enums.OrderType.Market ? CryptoExchange.Net.CommonObjects.OrderType.Market : CryptoExchange.Net.CommonObjects.OrderType.Other,
-                    Status = o.State == OrderState.Canceled || o.State == OrderState.PartiallyCanceled ? OrderStatus.Canceled : o.State == OrderState.Filled ? OrderStatus.Filled : OrderStatus.Active
+                    Side = o.Side == OrderSide.Buy ? CommonOrderSide.Buy : CommonOrderSide.Sell,
+                    Type = o.Type == OrderType.Limit ? CommonOrderType.Limit : o.Type == OrderType.Market ? CommonOrderType.Market : CommonOrderType.Other,
+                    Status = o.State == OrderState.Canceled || o.State == OrderState.PartiallyCanceled ? CommonOrderStatus.Canceled : o.State == OrderState.Filled ? CommonOrderStatus.Filled : CommonOrderStatus.Active
                 }
             ));
         }
@@ -337,9 +337,9 @@ namespace Huobi.Net.Clients.SpotApi
                     QuantityFilled = o.QuantityFilled,
                     Symbol = o.Symbol,
                     Timestamp = o.CreateTime,
-                    Side = o.Side == Enums.OrderSide.Buy ? CryptoExchange.Net.CommonObjects.OrderSide.Buy : CryptoExchange.Net.CommonObjects.OrderSide.Sell,
-                    Type = o.Type == Enums.OrderType.Limit ? CryptoExchange.Net.CommonObjects.OrderType.Limit : o.Type == Enums.OrderType.Market ? CryptoExchange.Net.CommonObjects.OrderType.Market : CryptoExchange.Net.CommonObjects.OrderType.Other,
-                    Status = o.State == OrderState.Canceled || o.State == OrderState.PartiallyCanceled ? OrderStatus.Canceled : o.State == OrderState.Filled ? OrderStatus.Filled : OrderStatus.Active
+                    Side = o.Side == OrderSide.Buy ? CommonOrderSide.Buy : CommonOrderSide.Sell,
+                    Type = o.Type == OrderType.Limit ? CommonOrderType.Limit : o.Type == OrderType.Market ? CommonOrderType.Market : CommonOrderType.Other,
+                    Status = o.State == OrderState.Canceled || o.State == OrderState.PartiallyCanceled ? CommonOrderStatus.Canceled : o.State == OrderState.Filled ? CommonOrderStatus.Filled : CommonOrderStatus.Active
                 }
             ));
         }
@@ -395,9 +395,9 @@ namespace Huobi.Net.Clients.SpotApi
         }
 #pragma warning restore 1066
 
-        private static Enums.OrderType GetOrderType(CryptoExchange.Net.CommonObjects.OrderType type)
+        private static Enums.OrderType GetOrderType(CommonOrderType type)
         {
-            if (type == CryptoExchange.Net.CommonObjects.OrderType.Limit)
+            if (type == CommonOrderType.Limit)
                 return Enums.OrderType.Limit;
             return Enums.OrderType.Market;
         }
