@@ -15,7 +15,6 @@ using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Logging;
 using Huobi.Net.Clients;
 using Huobi.Net.Enums;
-using Huobi.Net.Interfaces;
 using Huobi.Net.Interfaces.Clients;
 using Huobi.Net.Objects;
 using Microsoft.Extensions.Logging;

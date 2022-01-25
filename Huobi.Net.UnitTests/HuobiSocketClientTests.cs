@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using CryptoExchange.Net;
 using Huobi.Net.Enums;
 using Huobi.Net.Objects;
 using Huobi.Net.Objects.Models;
