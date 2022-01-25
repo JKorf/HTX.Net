@@ -14,7 +14,6 @@ using CryptoExchange.Net.Objects;
 using Huobi.Net.Enums;
 using Huobi.Net.Interfaces.Clients.SpotApi;
 using Huobi.Net.Objects;
-using Huobi.Net.Objects.Models;
 
 namespace Huobi.Net.Clients.SpotApi
 {
