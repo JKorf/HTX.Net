@@ -28,6 +28,7 @@ namespace Huobi.Net.Objects.Models.Futures
         /// <summary>
         /// The id of the trade
         /// </summary>
+        [JsonProperty("id")]
         public string Id { get; set; }
         /// <summary>
         /// The id of the match
@@ -47,6 +48,7 @@ namespace Huobi.Net.Objects.Models.Futures
         /// <summary>
         /// The symbol of the trade
         /// </summary>
+        [JsonProperty("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
         /// The order source of the order system, possible values: web, api, m, risk, settlement, ios, android, windows, mac, trigger, tpsl
@@ -118,5 +120,25 @@ namespace Huobi.Net.Objects.Models.Futures
         /// </summary>
         [JsonProperty("real_profit")]
         public decimal RealProfit { get; set; }
+        /// <summary>
+        /// The margin mode: "isolated"
+        /// </summary>
+        [JsonProperty("margin_mode")]
+        public string MarginMode { get; set; }
+        /// <summary>
+        /// The margin account
+        /// </summary>
+        [JsonProperty("margin_account")]
+        public string MarginAccount { get; set; }
+        /// <summary>
+        /// The pair
+        /// </summary>
+        [JsonProperty("pair")]
+        public string Pair { get; set; }
+        /// <summary>
+        /// The business type: futures, swap
+        /// </summary>
+        [JsonProperty("business_type")]
+        public string BusinessType { get; set; }
     }
 }
