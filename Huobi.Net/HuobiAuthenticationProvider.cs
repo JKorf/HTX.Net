@@ -1,6 +1,5 @@
 ﻿using CryptoExchange.Net;
 using CryptoExchange.Net.Authentication;
-using CryptoExchange.Net.Converters;
 using CryptoExchange.Net.Objects;
 using Huobi.Net.Objects.Internal;
 using System;
@@ -8,7 +7,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -17,10 +15,13 @@ namespace Huobi.Net
     internal class HuobiAuthenticationProvider : AuthenticationProvider
     {
         private readonly bool signPublicRequests;
+        private readonly bool stripApi;
 
-        public HuobiAuthenticationProvider(ApiCredentials credentials, bool signPublicRequests) : base(credentials)
+
+        public HuobiAuthenticationProvider(ApiCredentials credentials, bool signPublicRequests, bool stripApi = true) : base(credentials)
         {
             this.signPublicRequests = signPublicRequests;
+            this.stripApi = stripApi;
         }
 
         public override void AuthenticateRequest(RestApiClient apiClient,
@@ -48,7 +49,7 @@ namespace Huobi.Net
             uriParameters.Add("Timestamp", GetTimestamp(apiClient).ToString("yyyy-MM-ddTHH:mm:ss"));
 
             var absolutePath = uri.AbsolutePath;
-            if (absolutePath.StartsWith("/api"))
+            if (absolutePath.StartsWith("/api") && stripApi)
                 // Russian api has /api prefix which shouldn't be part of the signature
                 absolutePath = absolutePath.Substring(4);
 
