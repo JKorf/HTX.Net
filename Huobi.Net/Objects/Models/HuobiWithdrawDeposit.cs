@@ -9,7 +9,7 @@ namespace Huobi.Net.Objects.Models
     /// <summary>
     /// Withdraw or Deposit
     /// </summary>
-    public class WithdrawDeposit
+    public class HuobiWithdrawDeposit
 	{
 		/// <summary>
 		/// Transfer id

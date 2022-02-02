@@ -144,7 +144,7 @@ namespace Huobi.Net.Interfaces.Clients.SpotApi
         /// <param name="direction">the order of response</param>
         /// <param name="ct"></param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<WithdrawDeposit>>> GetWithdrawDepositAsync(WithdrawDepositType type, string? asset = null, int? from = null, int? size = null, FilterDirection? direction = null, CancellationToken ct = default);
+        Task<WebCallResult<IEnumerable<HuobiWithdrawDeposit>>> GetWithdrawDepositAsync(WithdrawDepositType type, string? asset = null, int? from = null, int? size = null, FilterDirection? direction = null, CancellationToken ct = default);
 
     }
 }
