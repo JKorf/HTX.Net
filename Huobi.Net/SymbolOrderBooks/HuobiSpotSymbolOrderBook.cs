@@ -7,6 +7,7 @@ using Huobi.Net.Objects;
 using Huobi.Net.Objects.Models;
 using Huobi.Net.Interfaces.Clients;
 using Huobi.Net.Clients;
+using System.Threading;
 
 namespace Huobi.Net.SymbolOrderBooks
 {
@@ -46,7 +47,7 @@ namespace Huobi.Net.SymbolOrderBooks
         }
 
         /// <inheritdoc />
-        protected override async Task<CallResult<UpdateSubscription>> DoStartAsync()
+        protected override async Task<CallResult<UpdateSubscription>> DoStartAsync(CancellationToken ct)
         {
             if(_mergeStep != null)
             {
@@ -54,8 +55,14 @@ namespace Huobi.Net.SymbolOrderBooks
                 if (!subResult)
                     return subResult;
 
+                if(ct.IsCancellationRequested)
+                {
+                    await subResult.Data.CloseAsync().ConfigureAwait(false);
+                    return subResult.AsError<UpdateSubscription>(new CancellationRequestedError());
+                }
+
                 Status = OrderBookStatus.Syncing;
-                var setResult = await WaitForSetOrderBookAsync(10000).ConfigureAwait(false);
+                var setResult = await WaitForSetOrderBookAsync(10000, ct).ConfigureAwait(false);
                 if (!setResult)
                     await subResult.Data.CloseAsync().ConfigureAwait(false);
 
@@ -67,6 +74,13 @@ namespace Huobi.Net.SymbolOrderBooks
                 if (!subResult)
                     return subResult;
 
+                if (ct.IsCancellationRequested)
+                {
+                    await subResult.Data.CloseAsync().ConfigureAwait(false);
+                    return subResult.AsError<UpdateSubscription>(new CancellationRequestedError());
+                }
+
+                Status = OrderBookStatus.Syncing;
                 // Wait a little so that the sequence number of the order book snapshot is higher than the first socket update sequence number
                 await Task.Delay(500).ConfigureAwait(false);
                 var book = await _socketClient.SpotStreams.GetOrderBookAsync(Symbol, _levels.Value).ConfigureAwait(false);
@@ -96,11 +110,11 @@ namespace Huobi.Net.SymbolOrderBooks
         }
 
         /// <inheritdoc />
-        protected override async Task<CallResult<bool>> DoResyncAsync()
+        protected override async Task<CallResult<bool>> DoResyncAsync(CancellationToken ct)
         {
             if (_mergeStep != null)
             {
-                return await WaitForSetOrderBookAsync(10000).ConfigureAwait(false);
+                return await WaitForSetOrderBookAsync(10000, ct).ConfigureAwait(false);
             }
             else
             {
