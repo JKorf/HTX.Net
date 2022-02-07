@@ -112,10 +112,9 @@ namespace Huobi.Net.Clients.SpotApi
         /// <returns></returns>
         public string GetSymbolName(string baseAsset, string quoteAsset) => (baseAsset + quoteAsset).ToLowerInvariant();
 
-#pragma warning disable 1066
-        async Task<WebCallResult<IEnumerable<Symbol>>> IBaseRestClient.GetSymbolsAsync()
+        async Task<WebCallResult<IEnumerable<Symbol>>> IBaseRestClient.GetSymbolsAsync(CancellationToken ct)
         {
-            var symbols = await ExchangeData.GetSymbolsAsync().ConfigureAwait(false);
+            var symbols = await ExchangeData.GetSymbolsAsync(ct: ct).ConfigureAwait(false);
             if (!symbols)
                 return symbols.As<IEnumerable<Symbol>>(null);
 
@@ -129,12 +128,12 @@ namespace Huobi.Net.Clients.SpotApi
             }));
         }
 
-        async Task<WebCallResult<Ticker>> IBaseRestClient.GetTickerAsync(string symbol)
+        async Task<WebCallResult<Ticker>> IBaseRestClient.GetTickerAsync(string symbol, CancellationToken ct)
         {
             if (string.IsNullOrEmpty(symbol))
                 throw new ArgumentException(nameof(symbol) + " required for Huobi " + nameof(ISpotClient.GetTickerAsync), nameof(symbol));
 
-            var tickers = await ExchangeData.GetTickersAsync().ConfigureAwait(false);
+            var tickers = await ExchangeData.GetTickersAsync(ct: ct).ConfigureAwait(false);
             if (!tickers)
                 return tickers.As<Ticker>(null);
 
@@ -151,9 +150,9 @@ namespace Huobi.Net.Clients.SpotApi
             });
         }
 
-        async Task<WebCallResult<IEnumerable<Ticker>>> IBaseRestClient.GetTickersAsync()
+        async Task<WebCallResult<IEnumerable<Ticker>>> IBaseRestClient.GetTickersAsync(CancellationToken ct)
         {
-            var tickers = await ExchangeData.GetTickersAsync().ConfigureAwait(false);
+            var tickers = await ExchangeData.GetTickersAsync(ct: ct).ConfigureAwait(false);
             if (!tickers)
                 return tickers.As<IEnumerable<Ticker>>(null);
 
@@ -169,7 +168,7 @@ namespace Huobi.Net.Clients.SpotApi
             }));
         }
 
-        async Task<WebCallResult<IEnumerable<Kline>>> IBaseRestClient.GetKlinesAsync(string symbol, TimeSpan timespan, DateTime? startTime = null, DateTime? endTime = null, int? limit = null)
+        async Task<WebCallResult<IEnumerable<Kline>>> IBaseRestClient.GetKlinesAsync(string symbol, TimeSpan timespan, DateTime? startTime, DateTime? endTime, int? limit, CancellationToken ct)
         {
             if (string.IsNullOrEmpty(symbol))
                 throw new ArgumentException(nameof(symbol) + " required for Huobi " + nameof(ISpotClient.GetKlinesAsync), nameof(symbol));
@@ -177,7 +176,7 @@ namespace Huobi.Net.Clients.SpotApi
             if (startTime != null || endTime != null)
                 throw new ArgumentException($"Huobi does not support the {nameof(startTime)}/{nameof(endTime)} parameters for the method {nameof(IBaseRestClient.GetKlinesAsync)}");
 
-            var klines = await ExchangeData.GetKlinesAsync(symbol, GetKlineIntervalFromTimespan(timespan), limit ?? 500).ConfigureAwait(false);
+            var klines = await ExchangeData.GetKlinesAsync(symbol, GetKlineIntervalFromTimespan(timespan), limit ?? 500, ct: ct).ConfigureAwait(false);
             if (!klines)
                 return klines.As<IEnumerable<Kline>>(null);
 
@@ -193,12 +192,12 @@ namespace Huobi.Net.Clients.SpotApi
             }));
         }
 
-        async Task<WebCallResult<OrderBook>> IBaseRestClient.GetOrderBookAsync(string symbol)
+        async Task<WebCallResult<OrderBook>> IBaseRestClient.GetOrderBookAsync(string symbol, CancellationToken ct)
         {
             if (string.IsNullOrEmpty(symbol))
                 throw new ArgumentException(nameof(symbol) + " required for Huobi " + nameof(ISpotClient.GetOrderBookAsync), nameof(symbol));
 
-            var book = await ExchangeData.GetOrderBookAsync(symbol, 0).ConfigureAwait(false);
+            var book = await ExchangeData.GetOrderBookAsync(symbol, 0, ct: ct).ConfigureAwait(false);
             if (!book)
                 return book.As<OrderBook>(null);
 
@@ -210,7 +209,7 @@ namespace Huobi.Net.Clients.SpotApi
             });
         }
 
-        async Task<WebCallResult<IEnumerable<Trade>>> IBaseRestClient.GetRecentTradesAsync(string symbol)
+        async Task<WebCallResult<IEnumerable<Trade>>> IBaseRestClient.GetRecentTradesAsync(string symbol, CancellationToken ct)
         {
             if (string.IsNullOrEmpty(symbol))
                 throw new ArgumentException(nameof(symbol) + " required for Huobi " + nameof(ISpotClient.GetRecentTradesAsync), nameof(symbol));
@@ -229,7 +228,7 @@ namespace Huobi.Net.Clients.SpotApi
             }));
         }
 
-        async Task<WebCallResult<OrderId>> ISpotClient.PlaceOrderAsync(string symbol, CommonOrderSide side, CommonOrderType type, decimal quantity, decimal? price = null, string? accountId = null)
+        async Task<WebCallResult<OrderId>> ISpotClient.PlaceOrderAsync(string symbol, CommonOrderSide side, CommonOrderType type, decimal quantity, decimal? price, string? accountId, CancellationToken ct)
         {
             if (string.IsNullOrEmpty(symbol))
                 throw new ArgumentException(nameof(symbol) + " required for Huobi " + nameof(ISpotClient.PlaceOrderAsync), nameof(symbol));
@@ -238,7 +237,7 @@ namespace Huobi.Net.Clients.SpotApi
                 throw new ArgumentException(nameof(accountId) + " required for Huobi " + nameof(ISpotClient.PlaceOrderAsync), nameof(accountId));
 
             var huobiType = GetOrderType(type);
-            var result = await Trading.PlaceOrderAsync(id, symbol, side == CommonOrderSide.Sell ? Enums.OrderSide.Sell: Enums.OrderSide.Buy, huobiType, quantity, price).ConfigureAwait(false);
+            var result = await Trading.PlaceOrderAsync(id, symbol, side == CommonOrderSide.Sell ? Enums.OrderSide.Sell: Enums.OrderSide.Buy, huobiType, quantity, price, ct: ct).ConfigureAwait(false);
             if (!result)
                 return result.As<OrderId>(null);
             return result.As(new OrderId()
@@ -248,12 +247,12 @@ namespace Huobi.Net.Clients.SpotApi
             });
         }
 
-        async Task<WebCallResult<Order>> IBaseRestClient.GetOrderAsync(string orderId, string? symbol)
+        async Task<WebCallResult<Order>> IBaseRestClient.GetOrderAsync(string orderId, string? symbol, CancellationToken ct)
         {
             if(!long.TryParse(orderId, out var id))
                 throw new ArgumentException("Invalid order id for Huobi " + nameof(ISpotClient.GetOrderAsync), nameof(orderId));
 
-            var order = await Trading.GetOrderAsync(id).ConfigureAwait(false);
+            var order = await Trading.GetOrderAsync(id, ct: ct).ConfigureAwait(false);
             if (!order)
                 return order.As<Order>(null);
 
@@ -272,12 +271,12 @@ namespace Huobi.Net.Clients.SpotApi
             });
         }
 
-        async Task<WebCallResult<IEnumerable<UserTrade>>> IBaseRestClient.GetOrderTradesAsync(string orderId, string? symbol = null)
+        async Task<WebCallResult<IEnumerable<UserTrade>>> IBaseRestClient.GetOrderTradesAsync(string orderId, string? symbol, CancellationToken ct)
         {
             if (!long.TryParse(orderId, out var id))
                 throw new ArgumentException("Invalid order id for Huobi " + nameof(ISpotClient.GetOrderAsync), nameof(orderId));
 
-            var result = await Trading.GetOrderTradesAsync(id).ConfigureAwait(false);
+            var result = await Trading.GetOrderTradesAsync(id, ct: ct).ConfigureAwait(false);
             if (!result)
                 return result.As<IEnumerable<UserTrade>>(null);
 
@@ -295,9 +294,9 @@ namespace Huobi.Net.Clients.SpotApi
             }));
         }
 
-        async Task<WebCallResult<IEnumerable<Order>>> IBaseRestClient.GetOpenOrdersAsync(string? symbol)
+        async Task<WebCallResult<IEnumerable<Order>>> IBaseRestClient.GetOpenOrdersAsync(string? symbol, CancellationToken ct)
         {
-            var orders = await Trading.GetOpenOrdersAsync(symbol: symbol).ConfigureAwait(false);
+            var orders = await Trading.GetOpenOrdersAsync(symbol: symbol, ct: ct).ConfigureAwait(false);
             if (!orders)
                 return orders.As<IEnumerable<Order>>(null);
 
@@ -318,12 +317,12 @@ namespace Huobi.Net.Clients.SpotApi
             ));
         }
 
-        async Task<WebCallResult<IEnumerable<Order>>> IBaseRestClient.GetClosedOrdersAsync(string? symbol)
+        async Task<WebCallResult<IEnumerable<Order>>> IBaseRestClient.GetClosedOrdersAsync(string? symbol, CancellationToken ct)
         {
             if (string.IsNullOrEmpty(symbol))
                 throw new ArgumentException(nameof(symbol) + " required for Huobi " + nameof(ISpotClient.GetClosedOrdersAsync), nameof(symbol));
 
-            var result = await Trading.GetClosedOrdersAsync(symbol!).ConfigureAwait(false);
+            var result = await Trading.GetClosedOrdersAsync(symbol!, ct: ct).ConfigureAwait(false);
             if (!result)
                 return result.As<IEnumerable<Order>>(null);
 
@@ -344,12 +343,12 @@ namespace Huobi.Net.Clients.SpotApi
             ));
         }
 
-        async Task<WebCallResult<OrderId>> IBaseRestClient.CancelOrderAsync(string orderId, string? symbol)
+        async Task<WebCallResult<OrderId>> IBaseRestClient.CancelOrderAsync(string orderId, string? symbol, CancellationToken ct)
         {
             if (!long.TryParse(orderId, out var id))
                 throw new ArgumentException("Invalid order id for Huobi " + nameof(ISpotClient.CancelOrderAsync), nameof(orderId));
 
-            var result = await Trading.CancelOrderAsync(id).ConfigureAwait(false);
+            var result = await Trading.CancelOrderAsync(id, ct: ct).ConfigureAwait(false);
             if (!result)
                 return result.As<OrderId>(null);
 
@@ -360,12 +359,12 @@ namespace Huobi.Net.Clients.SpotApi
             });
         }
 
-        async Task<WebCallResult<IEnumerable<Balance>>> IBaseRestClient.GetBalancesAsync(string? accountId = null)
+        async Task<WebCallResult<IEnumerable<Balance>>> IBaseRestClient.GetBalancesAsync(string? accountId, CancellationToken ct)
         {
             if (string.IsNullOrEmpty(accountId) || !long.TryParse(accountId, out var id))
                 throw new ArgumentException(nameof(accountId) + " required for Huobi " + nameof(ISpotClient.GetBalancesAsync), nameof(accountId));
 
-            var balances = await Account.GetBalancesAsync(long.Parse(accountId)).ConfigureAwait(false);
+            var balances = await Account.GetBalancesAsync(long.Parse(accountId), ct: ct).ConfigureAwait(false);
             if (!balances)
                 return balances.As<IEnumerable<Balance>>(null);
 
@@ -393,7 +392,6 @@ namespace Huobi.Net.Clients.SpotApi
 
             return balances.As<IEnumerable<Balance>>(result);
         }
-#pragma warning restore 1066
 
         private static Enums.OrderType GetOrderType(CommonOrderType type)
         {
