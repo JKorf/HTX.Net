@@ -21,7 +21,7 @@ namespace Huobi.Net.Objects
         /// </summary>
         public bool SignPublicRequests { get; set; } = false;
 
-        private readonly RestApiClientOptions _spotApiOptions = new RestApiClientOptions("https://api.huobi.pro")
+        private readonly RestApiClientOptions _spotApiOptions = new RestApiClientOptions(HuobiApiAddresses.Default.RestClientAddress)
         {
             RateLimiters = new List<IRateLimiter>
             {
@@ -79,7 +79,7 @@ namespace Huobi.Net.Objects
             SocketSubscriptionsCombineTarget = 10
         };
 
-        private readonly HuobiSocketApiClientOptions _spotStreamsOptions = new HuobiSocketApiClientOptions("wss://api.huobi.pro/ws", "wss://api.huobi.pro/ws/v2", "wss://api.huobi.pro/feed");
+        private readonly HuobiSocketApiClientOptions _spotStreamsOptions = new HuobiSocketApiClientOptions(HuobiApiAddresses.Default.SocketClientPublicAddress, HuobiApiAddresses.Default.SocketClientPrivateAddress, HuobiApiAddresses.Default.SocketClientIncrementalOrderBookAddress);
         /// <summary>
         /// Spot stream options
         /// </summary>
