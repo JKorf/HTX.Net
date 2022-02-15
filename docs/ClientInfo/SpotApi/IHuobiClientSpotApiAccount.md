@@ -213,7 +213,7 @@ var result = await client.SpotApi.Account.GetWithdrawDepositAsync(/* parameters 
 ```  
 
 ```csharp  
-Task<WebCallResult<IEnumerable<WithdrawDeposit>>> GetWithdrawDepositAsync(WithdrawDepositType type, string? asset = default, int? from = default, int? size = default, FilterDirection? direction = default, CancellationToken ct = default);  
+Task<WebCallResult<IEnumerable<HuobiWithdrawDeposit>>> GetWithdrawDepositAsync(WithdrawDepositType type, string? asset = default, int? from = default, int? size = default, FilterDirection? direction = default, CancellationToken ct = default);  
 ```  
 
 |Parameter|Description|
