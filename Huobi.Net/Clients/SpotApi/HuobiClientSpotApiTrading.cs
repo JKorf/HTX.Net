@@ -191,8 +191,8 @@ namespace Huobi.Net.Clients.SpotApi
             var parameters = new Dictionary<string, object>();
             parameters.AddOptionalParameter("states", states == null ? null : string.Join(",", states.Select(s => JsonConvert.SerializeObject(s, stateConverter))));
             parameters.AddOptionalParameter("symbol", symbol);
-            parameters.AddOptionalParameter("start-date", startTime?.ToString("yyyy-MM-dd"));
-            parameters.AddOptionalParameter("end-date", endTime?.ToString("yyyy-MM-dd"));
+            parameters.AddOptionalParameter("start-time", DateTimeConverter.ConvertToMilliseconds(startTime));
+            parameters.AddOptionalParameter("end-time", DateTimeConverter.ConvertToMilliseconds(endTime));
             parameters.AddOptionalParameter("types", types == null ? null : string.Join(",", types.Select(s => JsonConvert.SerializeObject(s, typeConverter))));
             parameters.AddOptionalParameter("from", fromId);
             parameters.AddOptionalParameter("direct", direction == null ? null : JsonConvert.SerializeObject(direction, new FilterDirectionConverter(false)));
@@ -207,8 +207,8 @@ namespace Huobi.Net.Clients.SpotApi
             symbol = symbol?.ValidateHuobiSymbol();
             var parameters = new Dictionary<string, object>();
             parameters.AddOptionalParameter("symbol", symbol);
-            parameters.AddOptionalParameter("start-time", DateTimeConverter.ConvertToMilliseconds(startTime)?.ToString());
-            parameters.AddOptionalParameter("end-time", DateTimeConverter.ConvertToMilliseconds(endTime)?.ToString());
+            parameters.AddOptionalParameter("start-time", DateTimeConverter.ConvertToMilliseconds(startTime));
+            parameters.AddOptionalParameter("end-time", DateTimeConverter.ConvertToMilliseconds(endTime));
             parameters.AddOptionalParameter("direct", direction == null ? null : JsonConvert.SerializeObject(direction, new FilterDirectionConverter(false)));
             parameters.AddOptionalParameter("size", limit);
 
