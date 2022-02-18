@@ -1,0 +1,37 @@
+{
+    "status":"ok",
+    "data":[
+        {
+            "id":45182894,
+            "type":"withdraw",
+            "sub-type":"FAST",
+            "currency":"usdt",
+            "chain":"trc20usdt",
+            "tx-hash":"",
+            "amount":400,
+            "from-addr-tag":"",
+            "address":"TRwkUYHWgUh23jbKpgTcYHgE9CcBzhGno9",
+            "address-tag":"",
+            "fee":0,
+            "state":"confirmed",
+            "created-at":1612261330443,
+            "updated-at":1612261389250
+        },
+        {
+            "id":61003926,
+            "type":"withdraw",
+            "sub-type":"FAST",
+            "currency":"usdt",
+            "chain":"trc20usdt",
+            "tx-hash":"",
+            "amount":2,
+            "from-addr-tag":"",
+            "address":"TYGvZSD1duPctGaMPSP12Fy8BrQMu2KCdp",
+            "address-tag":"",
+            "fee":0,
+            "state":"confirmed",
+            "created-at":1621416907639,
+            "updated-at":1621416907788
+        }
+    ]
+}

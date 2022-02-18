@@ -1,20 +1,20 @@
 ﻿using CryptoExchange.Net.Converters;
-using Huobi.Net.Objects;
+using Huobi.Net.Enums;
 using System.Collections.Generic;
 
 namespace Huobi.Net.Converters
 {
-    internal class BalanceTypeConverter : BaseConverter<HuobiBalanceType>
+    internal class BalanceTypeConverter : BaseConverter<BalanceType>
     {
         public BalanceTypeConverter() : this(true) { }
         public BalanceTypeConverter(bool quotes) : base(quotes) { }
 
-        protected override List<KeyValuePair<HuobiBalanceType, string>> Mapping => new List<KeyValuePair<HuobiBalanceType, string>>
+        protected override List<KeyValuePair<BalanceType, string>> Mapping => new List<KeyValuePair<BalanceType, string>>
         {
-            new KeyValuePair<HuobiBalanceType, string>(HuobiBalanceType.Frozen, "frozen"),
-            new KeyValuePair<HuobiBalanceType, string>(HuobiBalanceType.Trade, "trade"),
-            new KeyValuePair<HuobiBalanceType, string>(HuobiBalanceType.Loan, "loan"),
-            new KeyValuePair<HuobiBalanceType, string>(HuobiBalanceType.Interest, "interest"),
+            new KeyValuePair<BalanceType, string>(BalanceType.Frozen, "frozen"),
+            new KeyValuePair<BalanceType, string>(BalanceType.Trade, "trade"),
+            new KeyValuePair<BalanceType, string>(BalanceType.Loan, "loan"),
+            new KeyValuePair<BalanceType, string>(BalanceType.Interest, "interest"),
         };
     }
 }

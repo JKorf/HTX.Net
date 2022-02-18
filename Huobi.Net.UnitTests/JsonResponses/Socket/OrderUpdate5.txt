@@ -1,0 +1,15 @@
+
+    {
+        "lastActTime":1583853475406,
+        "remainAmt":"2.000000000000000000",
+        "execAmt":"2",
+        "orderId":27163533,
+        "type":"sell-limit",
+        "clientOrderId":"abc123",
+        "orderSource":"spot-api",
+        "orderPrice":"15000",
+        "orderSize":"0.01",
+        "orderStatus":"canceled",
+        "symbol":"btcusdt",
+        "eventType":"cancellation"
+    }

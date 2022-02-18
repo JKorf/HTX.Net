@@ -1,20 +1,20 @@
 ﻿using CryptoExchange.Net.Converters;
-using Huobi.Net.Objects;
+using Huobi.Net.Enums;
 using System.Collections.Generic;
 
 namespace Huobi.Net.Converters
 {
-    internal class SymbolStateConverter : BaseConverter<HuobiSymbolState>
+    internal class SymbolStateConverter : BaseConverter<SymbolState>
     {
         public SymbolStateConverter() : this(true) { }
         public SymbolStateConverter(bool quotes) : base(quotes) { }
 
-        protected override List<KeyValuePair<HuobiSymbolState, string>> Mapping => new List<KeyValuePair<HuobiSymbolState, string>>
+        protected override List<KeyValuePair<SymbolState, string>> Mapping => new List<KeyValuePair<SymbolState, string>>
         {
-            new KeyValuePair<HuobiSymbolState, string>(HuobiSymbolState.Online, "online"),
-            new KeyValuePair<HuobiSymbolState, string>(HuobiSymbolState.Offline, "offline"),
-            new KeyValuePair<HuobiSymbolState, string>(HuobiSymbolState.Suspended, "suspend"),
-            new KeyValuePair<HuobiSymbolState, string>(HuobiSymbolState.PreOnline, "pre-online")
+            new KeyValuePair<SymbolState, string>(SymbolState.Online, "online"),
+            new KeyValuePair<SymbolState, string>(SymbolState.Offline, "offline"),
+            new KeyValuePair<SymbolState, string>(SymbolState.Suspended, "suspend"),
+            new KeyValuePair<SymbolState, string>(SymbolState.PreOnline, "pre-online")
         };
     }
 }

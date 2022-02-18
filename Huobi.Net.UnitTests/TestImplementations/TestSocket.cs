@@ -23,7 +23,7 @@ namespace Huobi.Net.UnitTests.TestImplementations
         public Func<string, string> DataInterpreterString { get; set; }
         public Func<byte[], string> DataInterpreterBytes { get; set; }
         public DateTime? DisconnectTime { get; set; }
-        public string Url { get; }
+        public string Url { get; } = "wss://test.com/ws";
         public bool IsClosed => !Connected;
         public bool IsOpen => Connected;
         public bool PingConnection { get; set; }

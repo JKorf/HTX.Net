@@ -1,18 +1,18 @@
 ﻿using CryptoExchange.Net.Converters;
-using Huobi.Net.Objects;
+using Huobi.Net.Enums;
 using System.Collections.Generic;
 
 namespace Huobi.Net.Converters
 {
-    internal class FilterDirectionConverter : BaseConverter<HuobiFilterDirection>
+    internal class FilterDirectionConverter : BaseConverter<FilterDirection>
     {
         public FilterDirectionConverter() : this(true) { }
         public FilterDirectionConverter(bool quotes) : base(quotes) { }
 
-        protected override List<KeyValuePair<HuobiFilterDirection, string>> Mapping => new List<KeyValuePair<HuobiFilterDirection, string>>
+        protected override List<KeyValuePair<FilterDirection, string>> Mapping => new List<KeyValuePair<FilterDirection, string>>
         {
-            new KeyValuePair<HuobiFilterDirection, string>(HuobiFilterDirection.Next, "next"),
-            new KeyValuePair<HuobiFilterDirection, string>(HuobiFilterDirection.Previous, "prev")
+            new KeyValuePair<FilterDirection, string>(FilterDirection.Next, "next"),
+            new KeyValuePair<FilterDirection, string>(FilterDirection.Previous, "prev")
         };
     }
 }

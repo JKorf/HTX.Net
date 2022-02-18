@@ -1,0 +1,72 @@
+{
+    "code":200,
+    "data":[
+        {
+            "chains":[
+                {
+                    "chain":"trc20usdt",
+                    "displayName":"",
+                    "baseChain": "TRX",
+                    "baseChainProtocol": "TRC20",
+                    "isDynamic": false,
+                    "depositStatus":"allowed",
+                    "maxTransactFeeWithdraw":"1.00000000",
+                    "maxWithdrawAmt":"280000.00000000",
+                    "minDepositAmt":"100",
+                    "minTransactFeeWithdraw":"0.10000000",
+                    "minWithdrawAmt":"0.01",
+                    "numOfConfirmations":999,
+                    "numOfFastConfirmations":999,
+                    "withdrawFeeType":"circulated",
+                    "withdrawPrecision":5,
+                    "withdrawQuotaPerDay":"280000.00000000",
+                    "withdrawQuotaPerYear":"2800000.00000000",
+                    "withdrawQuotaTotal":"2800000.00000000",
+                    "withdrawStatus":"allowed"
+                },
+                {
+                    "chain":"usdt",
+                    "displayName":"",
+                    "baseChain": "BTC",
+                    "baseChainProtocol": "OMNI",
+                    "isDynamic": false,
+                    "depositStatus":"allowed",
+                    "maxWithdrawAmt":"19000.00000000",
+                    "minDepositAmt":"0.0001",
+                    "minWithdrawAmt":"2",
+                    "numOfConfirmations":30,
+                    "numOfFastConfirmations":15,
+                    "transactFeeRateWithdraw":"0.00100000",
+                    "withdrawFeeType":"ratio",
+                    "withdrawPrecision":7,
+                    "withdrawQuotaPerDay":"90000.00000000",
+                    "withdrawQuotaPerYear":"111000.00000000",
+                    "withdrawQuotaTotal":"1110000.00000000",
+                    "withdrawStatus":"allowed"
+                },
+                {
+                    "chain":"usdterc20",
+                    "displayName":"",
+                    "baseChain": "ETH",
+                    "baseChainProtocol": "ERC20",
+                    "isDynamic": false,
+                    "depositStatus":"allowed",
+                    "maxWithdrawAmt":"18000.00000000",
+                    "minDepositAmt":"100",
+                    "minWithdrawAmt":"1",
+                    "numOfConfirmations":999,
+                    "numOfFastConfirmations":999,
+                    "transactFeeWithdraw":"0.10000000",
+                    "withdrawFeeType":"fixed",
+                    "withdrawPrecision":6,
+                    "withdrawQuotaPerDay":"180000.00000000",
+                    "withdrawQuotaPerYear":"200000.00000000",
+                    "withdrawQuotaTotal":"300000.00000000",
+                    "withdrawStatus":"allowed"
+                }
+            ],
+            "currency":"usdt",
+            "instStatus":"normal"
+        }
+    ]
+}

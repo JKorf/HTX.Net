@@ -1,23 +1,23 @@
 ﻿using CryptoExchange.Net.Converters;
-using Huobi.Net.Objects;
+using Huobi.Net.Enums;
 using System.Collections.Generic;
 
 namespace Huobi.Net.Converters
 {
-    internal class AccountTypeConverter : BaseConverter<HuobiAccountType>
+    internal class AccountTypeConverter : BaseConverter<AccountType>
     {
         public AccountTypeConverter() : this(true) { }
         public AccountTypeConverter(bool quotes) : base(quotes) { }
 
-        protected override List<KeyValuePair<HuobiAccountType, string>> Mapping => new List<KeyValuePair<HuobiAccountType, string>>
+        protected override List<KeyValuePair<AccountType, string>> Mapping => new List<KeyValuePair<AccountType, string>>
         {
-            new KeyValuePair<HuobiAccountType, string>(HuobiAccountType.Margin, "margin"),
-            new KeyValuePair<HuobiAccountType, string>(HuobiAccountType.SuperMargin, "super-margin"),
-            new KeyValuePair<HuobiAccountType, string>(HuobiAccountType.Investment, "investment"),
-            new KeyValuePair<HuobiAccountType, string>(HuobiAccountType.Borrow, "borrow"),
-            new KeyValuePair<HuobiAccountType, string>(HuobiAccountType.Spot, "spot"),
-            new KeyValuePair<HuobiAccountType, string>(HuobiAccountType.Otc, "otc"),
-            new KeyValuePair<HuobiAccountType, string>(HuobiAccountType.Point, "point")
+            new KeyValuePair<AccountType, string>(AccountType.Margin, "margin"),
+            new KeyValuePair<AccountType, string>(AccountType.SuperMargin, "super-margin"),
+            new KeyValuePair<AccountType, string>(AccountType.Investment, "investment"),
+            new KeyValuePair<AccountType, string>(AccountType.Borrow, "borrow"),
+            new KeyValuePair<AccountType, string>(AccountType.Spot, "spot"),
+            new KeyValuePair<AccountType, string>(AccountType.Otc, "otc"),
+            new KeyValuePair<AccountType, string>(AccountType.Point, "point")
         };
     }
 }

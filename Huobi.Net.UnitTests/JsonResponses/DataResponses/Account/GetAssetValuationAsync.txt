@@ -1,0 +1,8 @@
+{
+    "code": 200,
+    "data": {
+        "balance": "34.75",
+        "timestamp": 1594901254363
+    },
+    "ok": true
+}

@@ -1,24 +1,24 @@
 ﻿using CryptoExchange.Net.Converters;
-using Huobi.Net.Objects;
+using Huobi.Net.Enums;
 using System.Collections.Generic;
 
 namespace Huobi.Net.Converters
 {
-    internal class OrderStateConverter : BaseConverter<HuobiOrderState>
+    internal class OrderStateConverter : BaseConverter<OrderState>
     {
         public OrderStateConverter() : this(true) { }
         public OrderStateConverter(bool quotes) : base(quotes) { }
 
-        protected override List<KeyValuePair<HuobiOrderState, string>> Mapping => new List<KeyValuePair<HuobiOrderState, string>>
+        protected override List<KeyValuePair<OrderState, string>> Mapping => new List<KeyValuePair<OrderState, string>>
         {
-            new KeyValuePair<HuobiOrderState, string>(HuobiOrderState.PreSubmitted, "pre-submitted"),
-            new KeyValuePair<HuobiOrderState, string>(HuobiOrderState.Submitted, "submitted"),
-            new KeyValuePair<HuobiOrderState, string>(HuobiOrderState.PartiallyFilled, "partial-filled"),
-            new KeyValuePair<HuobiOrderState, string>(HuobiOrderState.PartiallyCanceled, "partial-canceled"),
-            new KeyValuePair<HuobiOrderState, string>(HuobiOrderState.Filled, "filled"),
-            new KeyValuePair<HuobiOrderState, string>(HuobiOrderState.Canceled, "canceled"),
-            new KeyValuePair<HuobiOrderState, string>(HuobiOrderState.Rejected, "rejected"),
-            new KeyValuePair<HuobiOrderState, string>(HuobiOrderState.Created, "created")
+            new KeyValuePair<OrderState, string>(OrderState.PreSubmitted, "pre-submitted"),
+            new KeyValuePair<OrderState, string>(OrderState.Submitted, "submitted"),
+            new KeyValuePair<OrderState, string>(OrderState.PartiallyFilled, "partial-filled"),
+            new KeyValuePair<OrderState, string>(OrderState.PartiallyCanceled, "partial-canceled"),
+            new KeyValuePair<OrderState, string>(OrderState.Filled, "filled"),
+            new KeyValuePair<OrderState, string>(OrderState.Canceled, "canceled"),
+            new KeyValuePair<OrderState, string>(OrderState.Rejected, "rejected"),
+            new KeyValuePair<OrderState, string>(OrderState.Created, "created")
         };
     }
 }
