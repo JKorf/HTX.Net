@@ -146,12 +146,13 @@ var result = await client.SpotStreams.SubscribeToAccountUpdatesAsync(/* paramete
 ```  
 
 ```csharp  
-Task<CallResult<UpdateSubscription>> SubscribeToAccountUpdatesAsync(Action<DataEvent<HuobiAccountUpdate>> onAccountUpdate, CancellationToken ct = default);  
+Task<CallResult<UpdateSubscription>> SubscribeToAccountUpdatesAsync(Action<DataEvent<HuobiAccountUpdate>> onAccountUpdate, int? updateMode = default, CancellationToken ct = default);  
 ```  
 
 |Parameter|Description|
 |---|---|
 |onAccountUpdate|Event handler|
+|_[Optional]_ updateMode|The update mode. Defaults to 1, see API docs for more info|
 |_[Optional]_ ct|Cancellation token for closing this subscription|
 
 </p>

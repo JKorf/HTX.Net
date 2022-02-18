@@ -18,42 +18,22 @@ I develop and maintain this package on my own for free in my spare time. Donatio
 A Discord server is available [here](https://discord.gg/MSpeEtSY8t). Feel free to join for discussion and/or questions around the CryptoExchange.Net and implementation libraries.
 
 ## Release notes
-* Version 4.0.0-beta4 - 05 Feb 2022
-    * Updated CryptoExchange.Net, adding Cancellation token support for Common interface and SymbolOrderBook
+* Version 4.0.0 - 18 Feb 2022
+	* Added Github.io page for documentation: https://jkorf.github.io/Huobi.Net/
+	* Added unit tests for parsing the returned JSON for each endpoint and subscription
+	* Added AddHuobi extension method on IServiceCollection for easy dependency injection
+	* Added URL reference to API endpoint documentation for each endpoint
+	* Added default rate limiter
 
-* Version 4.0.0-beta3 - 31 Jan 2022
-    * Updated CryptoExchange.Net
+	* Refactored OrderType to be split in Type and Side to be consistent across exchange implementations
+	* Refactored client structure to be consistent across exchange implementations
+	* Renamed various properties to be consistent across exchange implementations
 
-* Version 4.0.0-beta2 - 24 Jan 2022
-    * Updated CryptoExchange.Net
+	* Cleaned up project structure
+	* Fixed various models
 
-* Version 4.0.0-beta1 - 15 Jan 2022
-    * Updated CryptoExchange.Net
-
-* Version 4.0.0-alpha7 - 07 Jan 2022
-    * Updated CrytpoExchange.Net
-    * Added optional parameter for socket client lifetime in AddHuobi
-
-* Version 4.0.0-alpha6 - 03 Jan 2022
-    * Fixed version number
-
-* Version 4.0.0-alpah6 - 03 Jan 2022
-    * Updated CryptoExchange.Net
-
-* Version 4.0.0-alpha5 - 01 Jan 2022
-    * New comon implementation, added AddHuobi extension method
-
-* Version 4.0.0-alpha4 - 27 Dec 2021
-    * Updated CryptoExchange.Net
-
-* Version 4.0.0-alpha3 - 22 Dec 2021
-    * Fixed deserialization error, update order update side/type
-
-* Version 4.0.0-alpha2 - 21 Dec 2021
-    * Update to new CryptoExchange.Net version
-
-* Version 4.0.0-alpha1 - 07 Dec 2021
-    * Initial version new CryptoExchange.Net. More documentation coming soon
+	* Updated CryptoExchange.Net, see https://github.com/JKorf/CryptoExchange.Net#release-notes
+	* See https://jkorf.github.io/Huobi.Net/MigrationGuide.html for additional notes for updating from V3 to V4
 
 * Version 3.2.4 - 03 Nov 2021
     * Fix for invalid check in SubscribeToOrderDetailsUpdatesAsync
