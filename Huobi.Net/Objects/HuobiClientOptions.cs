@@ -165,8 +165,10 @@ namespace Huobi.Net.Objects
         {
             base.Copy(input, def);
 
-            input.BaseAddressAuthenticated = def.BaseAddressAuthenticated;
-            input.BaseAddressInrementalOrderBook = def.BaseAddressInrementalOrderBook;
+            if (def.BaseAddressAuthenticated != null)
+                input.BaseAddressAuthenticated = def.BaseAddressAuthenticated;
+            if (def.BaseAddressInrementalOrderBook != null)
+                input.BaseAddressInrementalOrderBook = def.BaseAddressInrementalOrderBook;
         }
     }
 

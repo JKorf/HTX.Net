@@ -177,9 +177,10 @@ namespace Huobi.Net.Interfaces.Clients.SpotApi
         /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#subscribe-account-change" /></para>
         /// </summary>
         /// <param name="onAccountUpdate">Event handler</param>
+        /// <param name="updateMode">The update mode. Defaults to 1, see API docs for more info</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToAccountUpdatesAsync(Action<DataEvent<HuobiAccountUpdate>> onAccountUpdate, CancellationToken ct = default);
+        Task<CallResult<UpdateSubscription>> SubscribeToAccountUpdatesAsync(Action<DataEvent<HuobiAccountUpdate>> onAccountUpdate, int? updateMode = null, CancellationToken ct = default);
 
         /// <summary>
         /// Subscribe to detailed order matched/canceled updates

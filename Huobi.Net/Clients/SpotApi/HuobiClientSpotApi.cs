@@ -9,6 +9,7 @@ using CryptoExchange.Net;
 using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.CommonObjects;
 using CryptoExchange.Net.Interfaces;
+using CryptoExchange.Net.Interfaces.CommonClients;
 using CryptoExchange.Net.Logging;
 using CryptoExchange.Net.Objects;
 using Huobi.Net.Enums;
@@ -228,7 +229,7 @@ namespace Huobi.Net.Clients.SpotApi
             }));
         }
 
-        async Task<WebCallResult<OrderId>> ISpotClient.PlaceOrderAsync(string symbol, CommonOrderSide side, CommonOrderType type, decimal quantity, decimal? price, string? accountId, CancellationToken ct)
+        async Task<WebCallResult<OrderId>> ISpotClient.PlaceOrderAsync(string symbol, CommonOrderSide side, CommonOrderType type, decimal quantity, decimal? price, string? accountId, string? clientOrderId, CancellationToken ct)
         {
             if (string.IsNullOrEmpty(symbol))
                 throw new ArgumentException(nameof(symbol) + " required for Huobi " + nameof(ISpotClient.PlaceOrderAsync), nameof(symbol));
@@ -237,7 +238,7 @@ namespace Huobi.Net.Clients.SpotApi
                 throw new ArgumentException(nameof(accountId) + " required for Huobi " + nameof(ISpotClient.PlaceOrderAsync), nameof(accountId));
 
             var huobiType = GetOrderType(type);
-            var result = await Trading.PlaceOrderAsync(id, symbol, side == CommonOrderSide.Sell ? Enums.OrderSide.Sell: Enums.OrderSide.Buy, huobiType, quantity, price, ct: ct).ConfigureAwait(false);
+            var result = await Trading.PlaceOrderAsync(id, symbol, side == CommonOrderSide.Sell ? Enums.OrderSide.Sell: Enums.OrderSide.Buy, huobiType, quantity, price, clientOrderId: clientOrderId, ct: ct).ConfigureAwait(false);
             if (!result)
                 return result.As<OrderId>(null);
             return result.As(new OrderId()

@@ -278,9 +278,12 @@ namespace Huobi.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToAccountUpdatesAsync(Action<DataEvent<HuobiAccountUpdate>> onAccountUpdate, CancellationToken ct = default)
+        public async Task<CallResult<UpdateSubscription>> SubscribeToAccountUpdatesAsync(Action<DataEvent<HuobiAccountUpdate>> onAccountUpdate, int? updateMode = null, CancellationToken ct = default)
         {
-            var request = new HuobiAuthenticatedSubscribeRequest("accounts.update#1");
+            if (updateMode != null && (updateMode > 2 || updateMode < 0))
+                throw new ArgumentException("UpdateMode should be either 0, 1 or 2");
+
+            var request = new HuobiAuthenticatedSubscribeRequest("accounts.update#" + (updateMode ?? 1));
             var internalHandler = new Action<DataEvent<JToken>>(data =>
             {
                 DeserializeAndInvoke(data, onAccountUpdate);
