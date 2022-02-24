@@ -119,7 +119,7 @@ namespace Huobi.Net.SymbolOrderBooks
             else
             {
                 // Wait a little so that the sequence number of the order book snapshot is higher than the first socket update sequence number
-                await Task.Delay(500).ConfigureAwait(false);
+                await Task.Delay(5000).ConfigureAwait(false);
                 var book = await _socketClient.SpotStreams.GetOrderBookAsync(Symbol, _levels!.Value).ConfigureAwait(false);
                 if (!book)
                     return new CallResult<bool>(book.Error!);                
@@ -130,14 +130,12 @@ namespace Huobi.Net.SymbolOrderBooks
         }
 
         /// <inheritdoc />
-        public override void Dispose()
+        protected override void Dispose(bool disposing)
         {
-            processBuffer.Clear();
-            asks.Clear();
-            bids.Clear();
-
             if(_socketOwner)
                 _socketClient?.Dispose();
+
+            base.Dispose(disposing);
         }
     }
 }

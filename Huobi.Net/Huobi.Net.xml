@@ -1706,16 +1706,14 @@
         </member>
         <member name="M:Huobi.Net.Objects.HuobiClientOptions.#ctor">
             <summary>
-            Ctor
+            ctor
             </summary>
         </member>
-        <member name="M:Huobi.Net.Objects.HuobiClientOptions.Copy``1(``0,``0)">
+        <member name="M:Huobi.Net.Objects.HuobiClientOptions.#ctor(Huobi.Net.Objects.HuobiClientOptions)">
             <summary>
-            Copy the values of the def to the input
+            ctor
             </summary>
-            <typeparam name="T"></typeparam>
-            <param name="input"></param>
-            <param name="def"></param>
+            <param name="baseOn">Base the new options on other options</param>
         </member>
         <member name="T:Huobi.Net.Objects.HuobiSocketClientOptions">
             <summary>
@@ -1734,16 +1732,14 @@
         </member>
         <member name="M:Huobi.Net.Objects.HuobiSocketClientOptions.#ctor">
             <summary>
-            Ctor
+            ctor
             </summary>
         </member>
-        <member name="M:Huobi.Net.Objects.HuobiSocketClientOptions.Copy``1(``0,``0)">
+        <member name="M:Huobi.Net.Objects.HuobiSocketClientOptions.#ctor(Huobi.Net.Objects.HuobiSocketClientOptions)">
             <summary>
-            Copy the values of the def to the input
+            ctor
             </summary>
-            <typeparam name="T"></typeparam>
-            <param name="input"></param>
-            <param name="def"></param>
+            <param name="baseOn">Base the new options on other options</param>
         </member>
         <member name="T:Huobi.Net.Objects.HuobiSocketApiClientOptions">
             <summary>
@@ -1773,14 +1769,12 @@
             <param name="baseAddressAuthenticated"></param>
             <param name="baseAddressIncrementalOrderBook"></param>
         </member>
-        <member name="M:Huobi.Net.Objects.HuobiSocketApiClientOptions.#ctor(Huobi.Net.Objects.HuobiSocketApiClientOptions)">
+        <member name="M:Huobi.Net.Objects.HuobiSocketApiClientOptions.#ctor(Huobi.Net.Objects.HuobiSocketApiClientOptions,Huobi.Net.Objects.HuobiSocketApiClientOptions)">
             <summary>
             ctor
             </summary>
             <param name="baseOn"></param>
-        </member>
-        <member name="M:Huobi.Net.Objects.HuobiSocketApiClientOptions.Copy``1(``0,``0)">
-            <inheritdoc />
+            <param name="newValues"></param>
         </member>
         <member name="T:Huobi.Net.Objects.HuobiOrderBookOptions">
             <summary>
@@ -3620,7 +3614,7 @@
         <member name="M:Huobi.Net.SymbolOrderBooks.HuobiSpotSymbolOrderBook.DoResyncAsync(System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.SymbolOrderBooks.HuobiSpotSymbolOrderBook.Dispose">
+        <member name="M:Huobi.Net.SymbolOrderBooks.HuobiSpotSymbolOrderBook.Dispose(System.Boolean)">
             <inheritdoc />
         </member>
     </members>

@@ -21,7 +21,7 @@ namespace Huobi.Net.Objects
         /// </summary>
         public bool SignPublicRequests { get; set; } = false;
 
-        private readonly RestApiClientOptions _spotApiOptions = new RestApiClientOptions(HuobiApiAddresses.Default.RestClientAddress)
+        private RestApiClientOptions _spotApiOptions = new RestApiClientOptions(HuobiApiAddresses.Default.RestClientAddress)
         {
             RateLimiters = new List<IRateLimiter>
             {
@@ -37,32 +37,28 @@ namespace Huobi.Net.Objects
         public RestApiClientOptions SpotApiOptions
         {
             get => _spotApiOptions;
-            set => _spotApiOptions.Copy(_spotApiOptions, value);
+            set => _spotApiOptions = new RestApiClientOptions(_spotApiOptions, value);
         }
 
         /// <summary>
-        /// Ctor
+        /// ctor
         /// </summary>
-        public HuobiClientOptions()
+        public HuobiClientOptions() : this(Default)
         {
-            if (Default == null)
+        }
+
+        /// <summary>
+        /// ctor
+        /// </summary>
+        /// <param name="baseOn">Base the new options on other options</param>
+        internal HuobiClientOptions(HuobiClientOptions baseOn) : base(baseOn)
+        {
+            if (baseOn == null)
                 return;
 
-            Copy(this, Default);
-        }
 
-        /// <summary>
-        /// Copy the values of the def to the input
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="input"></param>
-        /// <param name="def"></param>
-        public new void Copy<T>(T input, T def) where T : HuobiClientOptions
-        {
-            base.Copy(input, def);
-
-            input.SignPublicRequests = def.SignPublicRequests;
-            input.SpotApiOptions = new RestApiClientOptions(def.SpotApiOptions);
+            SignPublicRequests = baseOn.SignPublicRequests;
+            _spotApiOptions = new RestApiClientOptions(baseOn.SpotApiOptions, null);
         }
     }
 
@@ -79,38 +75,33 @@ namespace Huobi.Net.Objects
             SocketSubscriptionsCombineTarget = 10
         };
 
-        private readonly HuobiSocketApiClientOptions _spotStreamsOptions = new HuobiSocketApiClientOptions(HuobiApiAddresses.Default.SocketClientPublicAddress, HuobiApiAddresses.Default.SocketClientPrivateAddress, HuobiApiAddresses.Default.SocketClientIncrementalOrderBookAddress);
+        private HuobiSocketApiClientOptions _spotStreamsOptions = new HuobiSocketApiClientOptions(HuobiApiAddresses.Default.SocketClientPublicAddress, HuobiApiAddresses.Default.SocketClientPrivateAddress, HuobiApiAddresses.Default.SocketClientIncrementalOrderBookAddress);
         /// <summary>
         /// Spot stream options
         /// </summary>
         public HuobiSocketApiClientOptions SpotStreamsOptions
         {
             get => _spotStreamsOptions;
-            set => _spotStreamsOptions.Copy(_spotStreamsOptions, value);
+            set => _spotStreamsOptions = new HuobiSocketApiClientOptions(_spotStreamsOptions, value);
         }
 
         /// <summary>
-        /// Ctor
+        /// ctor
         /// </summary>
-        public HuobiSocketClientOptions()
+        public HuobiSocketClientOptions() : this(Default)
         {
-            if (Default == null)
+        }
+
+        /// <summary>
+        /// ctor
+        /// </summary>
+        /// <param name="baseOn">Base the new options on other options</param>
+        internal HuobiSocketClientOptions(HuobiSocketClientOptions baseOn) : base(baseOn)
+        {
+            if (baseOn == null)
                 return;
 
-            Copy(this, Default);
-        }
-
-        /// <summary>
-        /// Copy the values of the def to the input
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="input"></param>
-        /// <param name="def"></param>
-        public new void Copy<T>(T input, T def) where T : HuobiSocketClientOptions
-        {
-            base.Copy(input, def);
-
-            input.SpotStreamsOptions = new HuobiSocketApiClientOptions(def.SpotStreamsOptions);
+            _spotStreamsOptions = new HuobiSocketApiClientOptions(baseOn.SpotStreamsOptions, null);
         }
     }
 
@@ -144,31 +135,21 @@ namespace Huobi.Net.Objects
         /// <param name="baseAddress"></param>
         /// <param name="baseAddressAuthenticated"></param>
         /// <param name="baseAddressIncrementalOrderBook"></param>
-        public HuobiSocketApiClientOptions(string baseAddress, string baseAddressAuthenticated, string baseAddressIncrementalOrderBook): base(baseAddress)
+        internal HuobiSocketApiClientOptions(string baseAddress, string baseAddressAuthenticated, string baseAddressIncrementalOrderBook): base(baseAddress)
         {
             BaseAddressAuthenticated = baseAddressAuthenticated;
             BaseAddressInrementalOrderBook = baseAddressIncrementalOrderBook;
         }
-        
+
         /// <summary>
         /// ctor
         /// </summary>
         /// <param name="baseOn"></param>
-        public HuobiSocketApiClientOptions(HuobiSocketApiClientOptions baseOn): base(baseOn)
+        /// <param name="newValues"></param>
+        internal HuobiSocketApiClientOptions(HuobiSocketApiClientOptions baseOn, HuobiSocketApiClientOptions? newValues) : base(baseOn, newValues)
         {
-            BaseAddressAuthenticated = baseOn.BaseAddressAuthenticated;
-            BaseAddressInrementalOrderBook = baseOn.BaseAddressInrementalOrderBook;
-        }
-
-        /// <inheritdoc />
-        public new void Copy<T>(T input, T def) where T : HuobiSocketApiClientOptions
-        {
-            base.Copy(input, def);
-
-            if (def.BaseAddressAuthenticated != null)
-                input.BaseAddressAuthenticated = def.BaseAddressAuthenticated;
-            if (def.BaseAddressInrementalOrderBook != null)
-                input.BaseAddressInrementalOrderBook = def.BaseAddressInrementalOrderBook;
+            BaseAddressAuthenticated = newValues?.BaseAddressAuthenticated ?? baseOn.BaseAddressAuthenticated;
+            BaseAddressInrementalOrderBook = newValues?.BaseAddressInrementalOrderBook ?? baseOn.BaseAddressInrementalOrderBook;
         }
     }
 
