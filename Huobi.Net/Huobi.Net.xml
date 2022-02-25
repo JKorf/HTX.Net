@@ -2468,7 +2468,7 @@
         </member>
         <member name="P:Huobi.Net.Objects.Models.HuobiOrder.Side">
             <summary>
-            The type of the order
+            The side of the order
             </summary>
         </member>
         <member name="P:Huobi.Net.Objects.Models.HuobiOrder.Source">
@@ -2621,9 +2621,14 @@
             The source where the order was triggered, possible values: sys, web, api, app
             </summary>
         </member>
-        <member name="P:Huobi.Net.Objects.Models.HuobiOrderTrade.OrderType">
+        <member name="P:Huobi.Net.Objects.Models.HuobiOrderTrade.Type">
             <summary>
             The type of the order
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.HuobiOrderTrade.Side">
+            <summary>
+            The side of the order
             </summary>
         </member>
         <member name="P:Huobi.Net.Objects.Models.HuobiOrderTrade.Role">

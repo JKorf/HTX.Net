@@ -71,7 +71,7 @@ namespace Huobi.Net.Objects.Models
         public OrderType Type => new OrderTypeConverter(false).ReadString(TypeInternal);
 
         /// <summary>
-        /// The type of the order
+        /// The side of the order
         /// </summary>
         [JsonIgnore]
         public OrderSide Side => new OrderSideConverter(false).ReadString(TypeInternal);

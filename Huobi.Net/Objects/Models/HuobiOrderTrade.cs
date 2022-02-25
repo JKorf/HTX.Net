@@ -62,11 +62,18 @@ namespace Huobi.Net.Objects.Models
         /// The source where the order was triggered, possible values: sys, web, api, app
         /// </summary>
         public string Source { get; set; } = string.Empty;
+        [JsonProperty("type")]
+        internal string TypeInternal { get; set; } = string.Empty;
         /// <summary>
         /// The type of the order
         /// </summary>
-        [JsonProperty("type"), JsonConverter(typeof(OrderTypeConverter))]
-        public OrderType OrderType { get; set; }
+        [JsonIgnore]
+        public OrderType Type => new OrderTypeConverter(false).ReadString(TypeInternal);
+        /// <summary>
+        /// The side of the order
+        /// </summary>
+        [JsonIgnore]
+        public OrderSide Side => new OrderSideConverter(false).ReadString(TypeInternal);
         /// <summary>
         /// The role in the transaction: taker or maker
         /// </summary>
