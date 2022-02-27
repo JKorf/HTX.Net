@@ -79,9 +79,9 @@ namespace Huobi.Net.Clients
             return result.As((result.Data.Data, result.Data.Timestamp));
         }
 
-        internal async Task<WebCallResult<T>> SendHuobiRequest<T>(RestApiClient apiClient, Uri uri, HttpMethod method, CancellationToken cancellationToken, Dictionary<string, object>? parameters = null, bool signed = false, int? weight = 1)
+        internal async Task<WebCallResult<T>> SendHuobiRequest<T>(RestApiClient apiClient, Uri uri, HttpMethod method, CancellationToken cancellationToken, Dictionary<string, object>? parameters = null, bool signed = false, int? weight = 1, bool ignoreRatelimit = false)
         {
-            var result = await SendRequestAsync<HuobiBasicResponse<T>>(apiClient, uri, method, cancellationToken, parameters, signed, requestWeight: weight ?? 1).ConfigureAwait(false);
+            var result = await SendRequestAsync<HuobiBasicResponse<T>>(apiClient, uri, method, cancellationToken, parameters, signed, requestWeight: weight ?? 1, ignoreRatelimit: ignoreRatelimit).ConfigureAwait(false);
             if (!result || result.Data == null)
                 return result.AsError<T>(result.Error!);
 

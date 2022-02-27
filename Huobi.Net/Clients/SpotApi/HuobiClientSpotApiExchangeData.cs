@@ -192,7 +192,7 @@ namespace Huobi.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<WebCallResult<DateTime>> GetServerTimeAsync(CancellationToken ct = default)
         {
-            var result = await _baseClient.SendHuobiRequest<string>(_baseClient.GetUrl(ServerTimeEndpoint, "1"), HttpMethod.Get, ct).ConfigureAwait(false);
+            var result = await _baseClient.SendHuobiRequest<string>(_baseClient.GetUrl(ServerTimeEndpoint, "1"), HttpMethod.Get, ct, ignoreRatelimit: true).ConfigureAwait(false);
             if (!result)
                 return result.AsError<DateTime>(result.Error!);
             var time = (DateTime)JsonConvert.DeserializeObject(result.Data, typeof(DateTime), new DateTimeConverter())!;
