@@ -26,7 +26,7 @@ namespace Huobi.Net.Clients.SpotApi
         private readonly HuobiClientOptions _options;
         private readonly Log _log;
 
-        internal static TimeSyncState TimeSyncState = new TimeSyncState();
+        internal static TimeSyncState TimeSyncState = new TimeSyncState("Spot Api");
 
         /// <summary>
         /// Event triggered when an order is placed via this client
