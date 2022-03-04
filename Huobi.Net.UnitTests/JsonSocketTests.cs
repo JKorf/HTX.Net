@@ -19,59 +19,59 @@ namespace Huobi.Net.UnitTests
         [Test]
         public async Task ValidateKlineUpdateStreamJson()
         {
-            await TestFileToObject<HuobiDataEvent<HuobiKline>>(@"JsonResponses\Socket\KlineUpdate.txt");
+            await TestFileToObject<HuobiDataEvent<HuobiKline>>(@"JsonResponses/Socket/KlineUpdate.txt");
         }
 
         [Test]
         public async Task ValidatePartialBookUpdateStreamJson()
         {
-            await TestFileToObject<HuobiDataEvent<HuobiOrderBook>>(@"JsonResponses\Socket\PartialOrderBookUpdate.txt");
+            await TestFileToObject<HuobiDataEvent<HuobiOrderBook>>(@"JsonResponses/Socket/PartialOrderBookUpdate.txt");
         }
 
         [Test]
         public async Task ValidateTradeUpdateStreamJson()
         {
-            await TestFileToObject<HuobiDataEvent<HuobiSymbolTrade>>(@"JsonResponses\Socket\TradeUpdate.txt");
+            await TestFileToObject<HuobiDataEvent<HuobiSymbolTrade>>(@"JsonResponses/Socket/TradeUpdate.txt");
         }
 
         [Test]
         public async Task ValidateSymbolDetailUpdateStreamJson()
         {
-            await TestFileToObject<HuobiDataEvent<HuobiSymbolDetails>>(@"JsonResponses\Socket\SymbolDetailUpdate.txt");
+            await TestFileToObject<HuobiDataEvent<HuobiSymbolDetails>>(@"JsonResponses/Socket/SymbolDetailUpdate.txt");
         }
 
         [Test]
         public async Task ValidateTickerUpdateStreamJson()
         {
-            await TestFileToObject<HuobiDataEvent<HuobiSymbolTick>>(@"JsonResponses\Socket\TickerUpdate.txt");
+            await TestFileToObject<HuobiDataEvent<HuobiSymbolTick>>(@"JsonResponses/Socket/TickerUpdate.txt");
         }
 
         [Test]
         public async Task ValidateBestOfferUpdateStreamJson()
         {
-            await TestFileToObject<HuobiDataEvent<HuobiBestOffer>>(@"JsonResponses\Socket\BestOfferUpdate.txt");
+            await TestFileToObject<HuobiDataEvent<HuobiBestOffer>>(@"JsonResponses/Socket/BestOfferUpdate.txt");
         }
 
         [Test]
         public async Task ValidateOrderUpdateStreamJson()
         {
-            await TestFileToObject<HuobiTriggerFailureOrderUpdate>(@"JsonResponses\Socket\OrderUpdate1.txt");
-            await TestFileToObject<HuobiOrderUpdate>(@"JsonResponses\Socket\OrderUpdate2.txt", new List<string> { "orderSide" });
-            await TestFileToObject<HuobiSubmittedOrderUpdate>(@"JsonResponses\Socket\OrderUpdate3.txt");
-            await TestFileToObject<HuobiMatchedOrderUpdate>(@"JsonResponses\Socket\OrderUpdate4.txt");
-            await TestFileToObject<HuobiCanceledOrderUpdate>(@"JsonResponses\Socket\OrderUpdate5.txt");
+            await TestFileToObject<HuobiTriggerFailureOrderUpdate>(@"JsonResponses/Socket/OrderUpdate1.txt");
+            await TestFileToObject<HuobiOrderUpdate>(@"JsonResponses/Socket/OrderUpdate2.txt", new List<string> { "orderSide" });
+            await TestFileToObject<HuobiSubmittedOrderUpdate>(@"JsonResponses/Socket/OrderUpdate3.txt");
+            await TestFileToObject<HuobiMatchedOrderUpdate>(@"JsonResponses/Socket/OrderUpdate4.txt");
+            await TestFileToObject<HuobiCanceledOrderUpdate>(@"JsonResponses/Socket/OrderUpdate5.txt");
         }
 
         [Test]
         public async Task ValidateAccountUpdateStreamJson()
         {
-            await TestFileToObject<HuobiAccountUpdate>(@"JsonResponses\Socket\AccountUpdate.txt");
+            await TestFileToObject<HuobiAccountUpdate>(@"JsonResponses/Socket/AccountUpdate.txt");
         }
 
         [Test]
         public async Task ValidateOrderDetailsUpdateStreamJson()
         {
-            await TestFileToObject<HuobiTradeUpdate>(@"JsonResponses\Socket\OrderDetailsUpdate1.txt");
+            await TestFileToObject<HuobiTradeUpdate>(@"JsonResponses/Socket/OrderDetailsUpdate1.txt");
         }
         
 

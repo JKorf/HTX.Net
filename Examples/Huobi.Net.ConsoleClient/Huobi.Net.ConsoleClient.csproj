@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Huobi.net" Version="4.0.0-beta4" />
+    <PackageReference Include="Huobi.net" Version="4.0.4" />
   </ItemGroup>
 
 </Project>

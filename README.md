@@ -1,5 +1,5 @@
 # Huobi.Net
-![Build status](https://travis-ci.com/JKorf/Huobi.Net.svg?branch=master) ![Nuget version](https://img.shields.io/nuget/v/Huobi.net.svg)  ![Nuget downloads](https://img.shields.io/nuget/dt/Huobi.Net.svg)
+[![.NET](https://github.com/JKorf/Huobi.Net/actions/workflows/dotnet.yml/badge.svg)](https://github.com/JKorf/Huobi.Net/actions/workflows/dotnet.yml) ![Nuget version](https://img.shields.io/nuget/v/Huobi.net.svg)  ![Nuget downloads](https://img.shields.io/nuget/dt/Huobi.Net.svg)
 
 Huobi.Net is a wrapper around the Huobi API as described on [Huobi](https://github.com/huobiapi), including all features the API provides using clear and readable objects, both for the REST  as the websocket API's.
 
