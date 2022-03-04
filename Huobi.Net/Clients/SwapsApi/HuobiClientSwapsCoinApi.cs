@@ -7,9 +7,11 @@ using System.Threading.Tasks;
 using CryptoExchange.Net;
 using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.CommonObjects;
-using CryptoExchange.Net.Interfaces;
+using CryptoExchange.Net.Interfaces.CommonClients;
 using CryptoExchange.Net.Logging;
 using CryptoExchange.Net.Objects;
+using Huobi.Net.Clients.FuturesApi;
+using Huobi.Net.Enums;
 using Huobi.Net.Interfaces.Clients.SwapsApi;
 using Huobi.Net.Objects;
 
@@ -33,11 +35,18 @@ namespace Huobi.Net.Clients.SwapsApi
         /// </summary>
         public event Action<OrderId>? OnOrderCanceled;
 
+        public Task<WebCallResult<OrderId>> CancelOrderAsync(string orderId, string? symbol = null, CancellationToken ct = new CancellationToken())
+        {
+            throw new NotImplementedException();
+        }
+
         /// <inheritdoc />
         public string ExchangeName => "Huobi";
 
         #region Api clients
 
+        /// <inheritdoc />
+        public IHuobiClientSwapsCoinApiAccount Account { get; }
         /// <inheritdoc />
         public IHuobiClientSwapsCoinApiTrading Trading { get; }
         /// <inheritdoc />
@@ -53,6 +62,7 @@ namespace Huobi.Net.Clients.SwapsApi
             _options = options;
             _log = log;
 
+            Account = new HuobiClientSwapsCoinApiAccount(this);
             Trading = new HuobiClientSwapsCoinApiTrading(this);
             ExchangeData = new HuobiClientSwapsCoinApiExchangeData(this);
         }
@@ -112,9 +122,9 @@ namespace Huobi.Net.Clients.SwapsApi
             throw new NotImplementedException();
         }
 
-        async Task<WebCallResult<IEnumerable<Symbol>>> IBaseRestClient.GetSymbolsAsync()
+        async Task<WebCallResult<IEnumerable<Symbol>>> IBaseRestClient.GetSymbolsAsync(CancellationToken ct)
         {
-            var symbols = await ExchangeData.GetSymbolsAsync().ConfigureAwait(false);
+            var symbols = await ExchangeData.GetSymbolsAsync(ct).ConfigureAwait(false);
             if (!symbols)
                 return symbols.As<IEnumerable<Symbol>>(null);
 
@@ -125,6 +135,57 @@ namespace Huobi.Net.Clients.SwapsApi
                 PriceStep = d.PriceTick,
                 QuantityStep = d.ContractSize
             }));
+        }
+
+        public Task<WebCallResult<Ticker>> GetTickerAsync(string symbol, CancellationToken ct = new CancellationToken())
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<WebCallResult<IEnumerable<Ticker>>> GetTickersAsync(CancellationToken ct = new CancellationToken())
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<WebCallResult<IEnumerable<Kline>>> GetKlinesAsync(string symbol, TimeSpan timespan, DateTime? startTime = null, DateTime? endTime = null,
+            int? limit = null, CancellationToken ct = new CancellationToken())
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<WebCallResult<OrderBook>> GetOrderBookAsync(string symbol, CancellationToken ct = new CancellationToken())
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<WebCallResult<IEnumerable<Trade>>> GetRecentTradesAsync(string symbol, CancellationToken ct = new CancellationToken())
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<WebCallResult<IEnumerable<Balance>>> GetBalancesAsync(string? accountId = null, CancellationToken ct = new CancellationToken())
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<WebCallResult<Order>> GetOrderAsync(string orderId, string? symbol = null, CancellationToken ct = new CancellationToken())
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<WebCallResult<IEnumerable<UserTrade>>> GetOrderTradesAsync(string orderId, string? symbol = null, CancellationToken ct = new CancellationToken())
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<WebCallResult<IEnumerable<Order>>> GetOpenOrdersAsync(string? symbol = null, CancellationToken ct = new CancellationToken())
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<WebCallResult<IEnumerable<Order>>> GetClosedOrdersAsync(string? symbol = null, CancellationToken ct = new CancellationToken())
+        {
+            throw new NotImplementedException();
         }
 
         public Task<WebCallResult<Ticker>> GetTickerAsync(string symbol)
@@ -206,5 +267,17 @@ namespace Huobi.Net.Clients.SwapsApi
         /// <inheritdoc />
         public override TimeSpan GetTimeOffset()
             => TimeSyncState.TimeOffset;
+
+        public Task<WebCallResult<OrderId>> PlaceOrderAsync(string symbol, CommonOrderSide side, CommonOrderType type, decimal quantity, decimal? price = null,
+            int? leverage = null, string? accountId = null, string? clientOrderId = null,
+            CancellationToken ct = new CancellationToken())
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<WebCallResult<IEnumerable<Position>>> GetPositionsAsync(CancellationToken ct = new CancellationToken())
+        {
+            throw new NotImplementedException();
+        }
     }
 }

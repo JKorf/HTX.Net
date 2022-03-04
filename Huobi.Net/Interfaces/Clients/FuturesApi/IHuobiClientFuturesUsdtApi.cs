@@ -8,6 +8,11 @@ namespace Huobi.Net.Interfaces.Clients.FuturesApi
     public interface IHuobiClientFuturesUsdtApi : IDisposable 
     {
         /// <summary>
+        /// Endpoints related to account settings, info or actions
+        /// </summary>
+        IHuobiClientFuturesUsdtApiAccount Account { get; }
+
+        /// <summary>
         /// Endpoints related to retrieving market and system data
         /// </summary>
         IHuobiClientFuturesUsdtApiExchangeData ExchangeData { get; }

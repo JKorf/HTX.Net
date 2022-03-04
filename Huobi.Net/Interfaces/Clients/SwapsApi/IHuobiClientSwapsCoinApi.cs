@@ -8,6 +8,11 @@ namespace Huobi.Net.Interfaces.Clients.SwapsApi
     public interface IHuobiClientSwapsCoinApi : IDisposable 
     {
         /// <summary>
+        /// Endpoints related to account settings, info or actions
+        /// </summary>
+        IHuobiClientSwapsCoinApiAccount Account { get; }
+
+        /// <summary>
         /// Endpoints related to retrieving market and system data
         /// </summary>
         IHuobiClientSwapsCoinApiExchangeData ExchangeData { get; }

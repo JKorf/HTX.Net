@@ -1,17 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using CryptoExchange.Net;
 using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.CommonObjects;
-using CryptoExchange.Net.Interfaces;
+using CryptoExchange.Net.Interfaces.CommonClients;
 using CryptoExchange.Net.Logging;
 using CryptoExchange.Net.Objects;
+using Huobi.Net.Enums;
 using Huobi.Net.Interfaces.Clients.FuturesApi;
 using Huobi.Net.Objects;
+using Huobi.Net.Objects.Models.Futures;
 
 namespace Huobi.Net.Clients.FuturesApi
 {
@@ -33,6 +36,11 @@ namespace Huobi.Net.Clients.FuturesApi
         /// </summary>
         public event Action<OrderId>? OnOrderCanceled;
 
+        public Task<WebCallResult<OrderId>> CancelOrderAsync(string orderId, string? symbol = null, CancellationToken ct = new CancellationToken())
+        {
+            throw new NotImplementedException();
+        }
+
         /// <inheritdoc />
         public string ExchangeName => "Huobi";
 
@@ -40,6 +48,10 @@ namespace Huobi.Net.Clients.FuturesApi
 
         /// <inheritdoc />
         public IHuobiClientFuturesCoinApiTrading Trading { get; }
+
+        /// <inheritdoc />
+        public IHuobiClientFuturesCoinApiAccount Account { get; }
+
         /// <inheritdoc />
         public IHuobiClientFuturesCoinApiExchangeData ExchangeData { get; }
 
@@ -55,6 +67,7 @@ namespace Huobi.Net.Clients.FuturesApi
 
             Trading = new HuobiClientFuturesCoinApiTrading(this);
             ExchangeData = new HuobiClientFuturesCoinApiExchangeData(this);
+            Account = new HuobiClientFuturesCoinApiAccount(this);
         }
         #endregion
 
@@ -107,9 +120,9 @@ namespace Huobi.Net.Clients.FuturesApi
             throw new NotImplementedException();
         }
 
-        async Task<WebCallResult<IEnumerable<Symbol>>> IBaseRestClient.GetSymbolsAsync()
+        async Task<WebCallResult<IEnumerable<Symbol>>> IBaseRestClient.GetSymbolsAsync(CancellationToken ct)
         {
-            var symbols = await ExchangeData.GetSymbolsAsync().ConfigureAwait(false);
+            var symbols = await ExchangeData.GetSymbolsAsync(ct).ConfigureAwait(false);
             if (!symbols)
                 return symbols.As<IEnumerable<Symbol>>(null);
 
@@ -120,6 +133,57 @@ namespace Huobi.Net.Clients.FuturesApi
                 PriceStep = d.PriceTick,
                 QuantityStep = d.ContractSize
             }));
+        }
+
+        public Task<WebCallResult<Ticker>> GetTickerAsync(string symbol, CancellationToken ct = new CancellationToken())
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<WebCallResult<IEnumerable<Ticker>>> GetTickersAsync(CancellationToken ct = new CancellationToken())
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<WebCallResult<IEnumerable<Kline>>> GetKlinesAsync(string symbol, TimeSpan timespan, DateTime? startTime = null, DateTime? endTime = null,
+            int? limit = null, CancellationToken ct = new CancellationToken())
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<WebCallResult<OrderBook>> GetOrderBookAsync(string symbol, CancellationToken ct = new CancellationToken())
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<WebCallResult<IEnumerable<Trade>>> GetRecentTradesAsync(string symbol, CancellationToken ct = new CancellationToken())
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<WebCallResult<IEnumerable<Balance>>> GetBalancesAsync(string? accountId = null, CancellationToken ct = new CancellationToken())
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<WebCallResult<Order>> GetOrderAsync(string orderId, string? symbol = null, CancellationToken ct = new CancellationToken())
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<WebCallResult<IEnumerable<UserTrade>>> GetOrderTradesAsync(string orderId, string? symbol = null, CancellationToken ct = new CancellationToken())
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<WebCallResult<IEnumerable<Order>>> GetOpenOrdersAsync(string? symbol = null, CancellationToken ct = new CancellationToken())
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<WebCallResult<IEnumerable<Order>>> GetClosedOrdersAsync(string? symbol = null, CancellationToken ct = new CancellationToken())
+        {
+            throw new NotImplementedException();
         }
 
         public Task<WebCallResult<Ticker>> GetTickerAsync(string symbol)
@@ -201,5 +265,34 @@ namespace Huobi.Net.Clients.FuturesApi
         /// <inheritdoc />
         public override TimeSpan GetTimeOffset()
             => TimeSyncState.TimeOffset;
+
+        public Task<WebCallResult<OrderId>> PlaceOrderAsync(string symbol, CommonOrderSide side, CommonOrderType type, decimal quantity, decimal? price = null,
+            int? leverage = null, string? accountId = null, string? clientOrderId = null,
+            CancellationToken ct = new CancellationToken())
+        {
+            throw new NotImplementedException();
+        }
+
+        async Task<WebCallResult<IEnumerable<Position>>> IFuturesClient.GetPositionsAsync(CancellationToken ct)
+        {
+            var positions = await Account.GetPositionsAsync(ct: ct).ConfigureAwait(false);
+            if (!positions)
+                return positions.As<IEnumerable<Position>>(null);
+
+            return positions.As(positions.Data.Select(p =>
+                new Position
+                {
+                    SourceObject = p,
+                    Symbol = p.Symbol,
+                    PositionMargin = p.PositionMargin,
+                    EntryPrice = p.CostOpen,
+                    Leverage = p.LeverRate,
+                    MarkPrice = p.LastPrice,
+                    Quantity = p.Quantity,
+                    UnrealizedPnl = p.ProfitUnreal,
+                    Side = p.Direction == OrderSide.Buy ? CommonPositionSide.Long : CommonPositionSide.Short
+                }
+            ));
+        }
     }
 }
