@@ -53,7 +53,7 @@ namespace Huobi.Net
                 absolutePath = absolutePath.Substring(4);
 
             var sortedParameters = uriParameters.OrderBy(kv => Encoding.UTF8.GetBytes(WebUtility.UrlEncode(kv.Key)!), new ByteOrderComparer());
-            var paramString = uri.SetParameters(sortedParameters).Query.Replace("?", "");
+            var paramString = uri.SetParameters(sortedParameters, arraySerialization).Query.Replace("?", "");
             paramString = new Regex(@"%[a-f0-9]{2}").Replace(paramString, m => m.Value.ToUpperInvariant());
             var signData = $"{method}\n{uri.Host}\n{absolutePath}\n{paramString}";
             uriParameters.Add("Signature", SignHMACSHA256(signData, SignOutputType.Base64));
@@ -68,7 +68,7 @@ namespace Huobi.Net
             parameters.Add("timestamp", DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm:ss"));
 
             var sortedParameters = parameters.OrderBy(kv => Encoding.UTF8.GetBytes(WebUtility.UrlEncode(kv.Key)!), new ByteOrderComparer());
-            var paramString = uri.SetParameters(sortedParameters).Query.Replace("?", "");
+            var paramString = uri.SetParameters(sortedParameters, ArrayParametersSerialization.Array).Query.Replace("?", "");
             paramString = new Regex(@"%[a-f0-9]{2}").Replace(paramString, m => m.Value.ToUpperInvariant()).Replace("%2C", ".");
             var signData = $"GET\n{uri.Host}\n{uri.AbsolutePath}\n{paramString}";
             var signature = SignHMACSHA256(signData, SignOutputType.Base64);
