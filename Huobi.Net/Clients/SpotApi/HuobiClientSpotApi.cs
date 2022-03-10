@@ -215,7 +215,7 @@ namespace Huobi.Net.Clients.SpotApi
             if (string.IsNullOrEmpty(symbol))
                 throw new ArgumentException(nameof(symbol) + " required for Huobi " + nameof(ISpotClient.GetRecentTradesAsync), nameof(symbol));
             
-            var trades = await ExchangeData.GetTradeHistoryAsync(symbol, 100).ConfigureAwait(false);
+            var trades = await ExchangeData.GetTradeHistoryAsync(symbol, 100, ct).ConfigureAwait(false);
             if (!trades)
                 return trades.As<IEnumerable<Trade>>(null);
 
