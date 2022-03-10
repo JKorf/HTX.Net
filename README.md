@@ -18,6 +18,10 @@ I develop and maintain this package on my own for free in my spare time. Donatio
 A Discord server is available [here](https://discord.gg/MSpeEtSY8t). Feel free to join for discussion and/or questions around the CryptoExchange.Net and implementation libraries.
 
 ## Release notes
+* Version 4.0.6 - 10 Mar 2022
+    * Updated CryptoExchange.Net
+    * Fixed CancellationToken not being passed to Common GetRecentTradesAsync
+
 * Version 4.0.5 - 08 Mar 2022
     * Updated CryptoExchange.Net
 
