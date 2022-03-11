@@ -1136,6 +1136,7 @@
         <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiClientSpotApiAccount.GetSubUserAccountsAsync(System.Int64,System.Threading.CancellationToken)">
             <summary>
             Gets a list of sub-user accounts associated with the sub-user id
+            <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-sub-user-39-s-account-list"/></para>
             </summary>
             <param name="subUserId">The if of the user to get accounts for</param>
             <param name="ct">Cancellation token</param>
