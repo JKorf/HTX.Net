@@ -14,6 +14,31 @@ namespace Huobi.Net.Interfaces.Clients.SpotApi
     public interface IHuobiClientSpotApiAccount
     {
         /// <summary>
+        /// Get the user id associated with the apikey/secret
+        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-uid"/></para>
+        /// </summary>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult<long>> GetUserIdAsync(CancellationToken ct = default);
+
+        /// <summary>
+        /// Gets a list of users associated with the apikey/secret
+        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-sub-user-39-s-list"/></para>
+        /// </summary>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult<IEnumerable<HuobiUser>>> GetSubAccountUsersAsync(CancellationToken ct = default);
+
+        /// <summary>
+        /// Gets a list of sub-user accounts associated with the sub-user id
+        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-sub-user-39-s-account-list"/></para>
+        /// </summary>
+        /// <param name="subUserId">The if of the user to get accounts for</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult<HuobiSubUserAccounts>> GetSubUserAccountsAsync(long subUserId, CancellationToken ct = default);
+
+        /// <summary>
         /// Gets a list of accounts associated with the apikey/secret
         /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-all-accounts-of-the-current-user" /></para>
         /// </summary>
