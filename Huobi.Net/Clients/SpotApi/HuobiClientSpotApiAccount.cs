@@ -19,6 +19,10 @@ namespace Huobi.Net.Clients.SpotApi
     /// <inheritdoc />
     public class HuobiClientSpotApiAccount : IHuobiClientSpotApiAccount
     {
+        private const string GetUserId = "user/uid";
+        private const string GetSubAccountUsers = "sub-user/user-list";
+        private const string GetSubUserAccounts = "sub-user/account-list";
+
         private const string GetAccountsEndpoint = "account/accounts";
         private const string GetAssetValuationEndpoint = "account/asset-valuation";
         private const string TransferAssetValuationEndpoint = "account/transfer";
@@ -40,6 +44,28 @@ namespace Huobi.Net.Clients.SpotApi
             _baseClient = baseClient;
         }
 
+        /// <inheritdoc />
+        public async Task<WebCallResult<long>> GetUserIdAsync(CancellationToken ct = default)
+        {
+            return await _baseClient.SendHuobiRequest<long>(_baseClient.GetUrl(GetUserId, "2"), HttpMethod.Get, ct, signed: true).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<IEnumerable<HuobiUser>>> GetSubAccountUsersAsync(CancellationToken ct = default)
+        {
+            return await _baseClient.SendHuobiRequest<IEnumerable<HuobiUser>>(_baseClient.GetUrl(GetSubAccountUsers, "2"), HttpMethod.Get, ct, signed: true).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<HuobiSubUserAccounts>> GetSubUserAccountsAsync(long subUserId, CancellationToken ct = default)
+        {
+            var parameters = new Dictionary<string, object>()
+            {
+                { "subUid", subUserId.ToString(CultureInfo.InvariantCulture)}
+            };
+
+            return await _baseClient.SendHuobiRequest<HuobiSubUserAccounts>(_baseClient.GetUrl(GetSubUserAccounts, "2"), HttpMethod.Get, ct, parameters, signed: true).ConfigureAwait(false);
+        }
 
         /// <inheritdoc />
         public async Task<WebCallResult<IEnumerable<HuobiAccount>>> GetAccountsAsync(CancellationToken ct = default)

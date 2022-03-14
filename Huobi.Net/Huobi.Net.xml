@@ -136,6 +136,15 @@
         <member name="T:Huobi.Net.Clients.SpotApi.HuobiClientSpotApiAccount">
             <inheritdoc />
         </member>
+        <member name="M:Huobi.Net.Clients.SpotApi.HuobiClientSpotApiAccount.GetUserIdAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Huobi.Net.Clients.SpotApi.HuobiClientSpotApiAccount.GetSubAccountUsersAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Huobi.Net.Clients.SpotApi.HuobiClientSpotApiAccount.GetSubUserAccountsAsync(System.Int64,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
         <member name="M:Huobi.Net.Clients.SpotApi.HuobiClientSpotApiAccount.GetAccountsAsync(System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
@@ -306,6 +315,21 @@
         </member>
         <member name="M:Huobi.Net.Clients.SpotApi.HuobiSocketClientSpotStreams.SubscribeToOrderDetailsUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Huobi.Net.Objects.Models.Socket.HuobiTradeUpdate}},System.Action{CryptoExchange.Net.Sockets.DataEvent{Huobi.Net.Objects.Models.Socket.HuobiOrderCancelationUpdate}},System.Threading.CancellationToken)">
             <inheritdoc />
+        </member>
+        <member name="T:Huobi.Net.Enums.AccountActivation">
+            <summary>
+            Account activation
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.AccountActivation.Activated">
+            <summary>
+            Activated
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.AccountActivation.Deactivated">
+            <summary>
+            Deactivated
+            </summary>
         </member>
         <member name="T:Huobi.Net.Enums.AccountEventType">
             <summary>
@@ -902,6 +926,21 @@
             Point to sub account
             </summary>
         </member>
+        <member name="T:Huobi.Net.Enums.UserState">
+            <summary>
+            User state
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.UserState.Normal">
+            <summary>
+            Normal
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.UserState.Locked">
+            <summary>
+            Locked
+            </summary>
+        </member>
         <member name="T:Huobi.Net.Enums.WithdrawDepositState">
             <summary>
             The state of a transfer 
@@ -1077,6 +1116,31 @@
             <summary>
             Huobi account endpoints. Account endpoints include balance info, withdraw/deposit info and requesting and account settings
             </summary>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiClientSpotApiAccount.GetUserIdAsync(System.Threading.CancellationToken)">
+            <summary>
+            Get the user id associated with the apikey/secret
+            <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-uid"/></para>
+            </summary>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiClientSpotApiAccount.GetSubAccountUsersAsync(System.Threading.CancellationToken)">
+            <summary>
+            Gets a list of users associated with the apikey/secret
+            <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-sub-user-39-s-list"/></para>
+            </summary>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiClientSpotApiAccount.GetSubUserAccountsAsync(System.Int64,System.Threading.CancellationToken)">
+            <summary>
+            Gets a list of sub-user accounts associated with the sub-user id
+            <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-sub-user-39-s-account-list"/></para>
+            </summary>
+            <param name="subUserId">The if of the user to get accounts for</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
         </member>
         <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiClientSpotApiAccount.GetAccountsAsync(System.Threading.CancellationToken)">
             <summary>
@@ -2661,6 +2725,71 @@
             The id
             </summary>
         </member>
+        <member name="T:Huobi.Net.Objects.Models.HuobiSubUserAccount">
+            <summary>
+            Huobi sub-user account info
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.HuobiSubUserAccount.Type">
+            <summary>
+            The type of the account
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.HuobiSubUserAccount.Activation">
+            <summary>
+            Whether the account is active of not
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.HuobiSubUserAccount.Transferrable">
+            <summary>
+            Whether transfers are allowed (only for spot account type)
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.HuobiSubUserAccount.AccountIds">
+            <summary>
+            Account ids
+            </summary>
+        </member>
+        <member name="T:Huobi.Net.Objects.Models.HuobiSubUserAccountId">
+            <summary>
+            Huobi sub-user account id and state
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.HuobiSubUserAccountId.Id">
+            <summary>
+            The id of the account
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.HuobiSubUserAccountId.State">
+            <summary>
+            The state of the account
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.HuobiSubUserAccountId.SubType">
+            <summary>
+            Sub state
+            </summary>
+        </member>
+        <member name="T:Huobi.Net.Objects.Models.HuobiSubUserAccounts">
+            <summary>
+            Huobi sub-user account info
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.HuobiSubUserAccounts.UserId">
+            <summary>
+            The id of the sub-user
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.HuobiSubUserAccounts.DeductMode">
+            <summary>
+            Deduct mode
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.HuobiSubUserAccounts.Accounts">
+            <summary>
+            List of accounts for the sub-user
+            </summary>
+        </member>
         <member name="T:Huobi.Net.Objects.Models.HuobiSymbol">
             <summary>
             Symbol data
@@ -3054,6 +3183,21 @@
         <member name="P:Huobi.Net.Objects.Models.HuobiTransactionResult.TransactionTime">
             <summary>
             Time
+            </summary>
+        </member>
+        <member name="T:Huobi.Net.Objects.Models.HuobiUser">
+            <summary>
+            Huobi user info
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.HuobiUser.Id">
+            <summary>
+            The id of the user
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.HuobiUser.State">
+            <summary>
+            The state of the user
             </summary>
         </member>
         <member name="T:Huobi.Net.Objects.Models.HuobiWithdrawDeposit">

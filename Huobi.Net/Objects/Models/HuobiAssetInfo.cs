@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Huobi.Net.Converters;
 using Huobi.Net.Enums;
 using Newtonsoft.Json;
 
@@ -55,6 +56,7 @@ namespace Huobi.Net.Objects.Models
         /// <summary>
         /// Deposit status
         /// </summary>
+        [JsonConverter(typeof(CurrencyStatusConverter))]
         public CurrencyStatus DepositStatus { get; set; }
         /// <summary>
         /// Maximum withdraw fee in each request (only applicable to withdrawFeeType = circulated or ratio)	
@@ -100,6 +102,7 @@ namespace Huobi.Net.Objects.Models
         /// <summary>
         /// Type of withdraw fee
         /// </summary>
+        [JsonConverter(typeof(FeeTypeConverter))]
         public FeeType WithdrawFeeType { get; set; }
         /// <summary>
         /// Precision of withdrawing
@@ -121,6 +124,7 @@ namespace Huobi.Net.Objects.Models
         /// <summary>
         /// Withdraw status
         /// </summary>
+        [JsonConverter(typeof(CurrencyStatusConverter))]
         public CurrencyStatus WithdrawStatus { get; set; }
     }
 }
