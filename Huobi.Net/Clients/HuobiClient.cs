@@ -39,8 +39,6 @@ namespace Huobi.Net.Clients
         /// </summary>
         public HuobiClient(HuobiClientOptions options) : base("Huobi", options)
         {
-            manualParseError = true;
-
             SpotApi = AddApiClient(new HuobiClientSpotApi(log, this, options));
         }
         #endregion

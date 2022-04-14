@@ -62,6 +62,8 @@ namespace Huobi.Net.Clients.SpotApi
             Account = new HuobiClientSpotApiAccount(this);
             ExchangeData = new HuobiClientSpotApiExchangeData(this);
             Trading = new HuobiClientSpotApiTrading(this);
+
+            manualParseError = true;
         }
         #endregion
 
