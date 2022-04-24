@@ -36,6 +36,9 @@ namespace Huobi.Net.UnitTests.TestImplementations
         public int? RatelimitPerSecond { get; set; }
         public string LastSendMessage { get; set; }
         public double IncomingKbps => 0;
+
+        public Uri Uri => new Uri("wss://test.com/ws");
+
         public Task<bool> ConnectAsync()
         {
             Connected = CanConnect;
@@ -92,6 +95,12 @@ namespace Huobi.Net.UnitTests.TestImplementations
         public void InvokeError(Exception error)
         {
             OnError?.Invoke(error);
+        }
+
+        public async Task ProcessAsync()
+        {
+            while (Connected)
+                await Task.Delay(50);
         }
     }
 }

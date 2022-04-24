@@ -20,6 +20,7 @@ namespace Huobi.Net.SymbolOrderBooks
         private readonly int? _mergeStep;
         private readonly int? _levels;
         private readonly bool _socketOwner;
+        private readonly TimeSpan _initialDataTimeout;
 
         /// <summary>
         /// Create a new order book instance
@@ -32,6 +33,7 @@ namespace Huobi.Net.SymbolOrderBooks
             _levels = options?.Levels;
             strictLevels = false;
             sequencesAreConsecutive = _levels != null;
+            _initialDataTimeout = options?.InitialDataTimeout ?? TimeSpan.FromSeconds(30);
 
             if (_levels != 150 && _mergeStep != null)
                 throw new ArgumentException("Mergestep only supported with 150 levels");
@@ -62,7 +64,7 @@ namespace Huobi.Net.SymbolOrderBooks
                 }
 
                 Status = OrderBookStatus.Syncing;
-                var setResult = await WaitForSetOrderBookAsync(10000, ct).ConfigureAwait(false);
+                var setResult = await WaitForSetOrderBookAsync(_initialDataTimeout, ct).ConfigureAwait(false);
                 if (!setResult)
                     await subResult.Data.CloseAsync().ConfigureAwait(false);
 
@@ -114,7 +116,7 @@ namespace Huobi.Net.SymbolOrderBooks
         {
             if (_mergeStep != null)
             {
-                return await WaitForSetOrderBookAsync(10000, ct).ConfigureAwait(false);
+                return await WaitForSetOrderBookAsync(_initialDataTimeout, ct).ConfigureAwait(false);
             }
             else
             {

@@ -1855,6 +1855,11 @@
             The amount of entries to maintain. Either 5, 20 or 150. Level 5 and 20 are currently only supported for the following symbols: btcusdt, ethusdt, xrpusdt, eosusdt, ltcusdt, etcusdt, adausdt, dashusdt, bsvusdt.
             </summary>
         </member>
+        <member name="P:Huobi.Net.Objects.HuobiOrderBookOptions.InitialDataTimeout">
+            <summary>
+            After how much time we should consider the connection dropped if no data is received for this time after the initial subscriptions
+            </summary>
+        </member>
         <member name="P:Huobi.Net.Objects.HuobiOrderBookOptions.SocketClient">
             <summary>
             The client to use for the socket connection. When using the same client for multiple order books the connection can be shared.

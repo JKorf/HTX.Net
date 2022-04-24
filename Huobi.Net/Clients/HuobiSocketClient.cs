@@ -80,13 +80,13 @@ namespace Huobi.Net.Clients
         /// <inheritdoc />
         protected override SocketConnection GetSocketConnection(SocketApiClient apiClient, string address, bool authenticated)
         {
-            var socketResult = sockets.Where(s => s.Value.Socket.Url.TrimEnd('/') == address.TrimEnd('/')
+            var socketResult = socketConnections.Where(s => s.Value.Uri.ToString().TrimEnd('/') == address.TrimEnd('/')
                                 && s.Value.ApiClient.GetType() == apiClient.GetType()
                                 && (s.Value.Authenticated == authenticated || !authenticated) && s.Value.Connected).OrderBy(s => s.Value.SubscriptionCount).FirstOrDefault();
             var result = socketResult.Equals(default(KeyValuePair<int, SocketConnection>)) ? null : socketResult.Value;
             if (result != null)
             {
-                if (result.SubscriptionCount < ClientOptions.SocketSubscriptionsCombineTarget || sockets.Count >= MaxSocketConnections && sockets.All(s => s.Value.SubscriptionCount >= ClientOptions.SocketSubscriptionsCombineTarget))
+                if (result.SubscriptionCount < ClientOptions.SocketSubscriptionsCombineTarget || socketConnections.Count >= MaxSocketConnections && socketConnections.All(s => s.Value.SubscriptionCount >= ClientOptions.SocketSubscriptionsCombineTarget))
                 {
                     // Use existing socket if it has less than target connections OR it has the least connections and we can't make new
                     return result;
@@ -163,7 +163,7 @@ namespace Huobi.Net.Clients
                 var desResult = Deserialize<T>(data);
                 if (!desResult)
                 {
-                    log.Write(LogLevel.Warning, $"Socket {s.Socket.Id} Failed to deserialize data: {desResult.Error}. Data: {data}");
+                    log.Write(LogLevel.Warning, $"Socket {s.SocketId} Failed to deserialize data: {desResult.Error}. Data: {data}");
                     callResult = new CallResult<T>(desResult.Error!);
                     return true;
                 }
@@ -184,7 +184,7 @@ namespace Huobi.Net.Clients
                 var desResult = Deserialize<T>(data);
                 if (!desResult)
                 {
-                    log.Write(LogLevel.Warning, $"Socket {s.Socket.Id} Failed to deserialize data: {desResult.Error}. Data: {data}");
+                    log.Write(LogLevel.Warning, $"Socket {s.SocketId} Failed to deserialize data: {desResult.Error}. Data: {data}");
                     return false;
                 }
 
@@ -208,7 +208,7 @@ namespace Huobi.Net.Clients
                     var subResponse = Deserialize<HuobiSubscribeResponse>(message);
                     if (!subResponse)
                     {
-                        log.Write(LogLevel.Warning, $"Socket {s.Socket.Id} Subscription failed: " + subResponse.Error);
+                        log.Write(LogLevel.Warning, $"Socket {s.SocketId} Subscription failed: " + subResponse.Error);
                         return false;
                     }
 
@@ -216,7 +216,7 @@ namespace Huobi.Net.Clients
                     if (id != hRequest.Id)
                         return false; // Not for this request
 
-                    log.Write(LogLevel.Warning, $"Socket {s.Socket.Id} Subscription failed: " + subResponse.Data.ErrorMessage);
+                    log.Write(LogLevel.Warning, $"Socket {s.SocketId} Subscription failed: " + subResponse.Data.ErrorMessage);
                     callResult = new CallResult<object>(new ServerError($"{subResponse.Data.ErrorCode}, {subResponse.Data.ErrorMessage}"));
                     return true;
                 }
@@ -226,7 +226,7 @@ namespace Huobi.Net.Clients
                     var subResponse = Deserialize<HuobiAuthSubscribeResponse>(message);
                     if (!subResponse)
                     {
-                        log.Write(LogLevel.Warning, $"Socket {s.Socket.Id} Subscription failed: " + subResponse.Error);
+                        log.Write(LogLevel.Warning, $"Socket {s.SocketId} Subscription failed: " + subResponse.Error);
                         callResult = new CallResult<object>(subResponse.Error!);
                         return false;
                     }
@@ -235,7 +235,7 @@ namespace Huobi.Net.Clients
                     if (id != haRequest.Channel)
                         return false; // Not for this request
 
-                    log.Write(LogLevel.Warning, $"Socket {s.Socket.Id} Subscription failed: " + subResponse.Data.Code);
+                    log.Write(LogLevel.Warning, $"Socket {s.SocketId} Subscription failed: " + subResponse.Data.Code);
                     callResult = new CallResult<object>(new ServerError(subResponse.Data.Code, "Failed to subscribe"));
                     return true;
                 }
@@ -247,7 +247,7 @@ namespace Huobi.Net.Clients
                 var subResponse = Deserialize<HuobiSubscribeResponse>(message);
                 if (!subResponse)
                 {
-                    log.Write(LogLevel.Warning, $"Socket {s.Socket.Id} Subscription failed: " + subResponse.Error);
+                    log.Write(LogLevel.Warning, $"Socket {s.SocketId} Subscription failed: " + subResponse.Error);
                     return false;
                 }
 
@@ -257,12 +257,12 @@ namespace Huobi.Net.Clients
 
                 if (!subResponse.Data.IsSuccessful)
                 {
-                    log.Write(LogLevel.Warning, $"Socket {s.Socket.Id} Subscription failed: " + subResponse.Data.ErrorMessage);
+                    log.Write(LogLevel.Warning, $"Socket {s.SocketId} Subscription failed: " + subResponse.Data.ErrorMessage);
                     callResult = new CallResult<object>(new ServerError($"{subResponse.Data.ErrorCode}, {subResponse.Data.ErrorMessage}"));
                     return true;
                 }
 
-                log.Write(LogLevel.Debug, $"Socket {s.Socket.Id} Subscription completed");
+                log.Write(LogLevel.Debug, $"Socket {s.SocketId} Subscription completed");
                 callResult = new CallResult<object>(subResponse.Data);
                 return true;
             }
@@ -274,7 +274,7 @@ namespace Huobi.Net.Clients
                 var subResponse = Deserialize<HuobiAuthSubscribeResponse>(message);
                 if (!subResponse)
                 {
-                    log.Write(LogLevel.Warning, $"Socket {s.Socket.Id} Subscription failed: " + subResponse.Error);
+                    log.Write(LogLevel.Warning, $"Socket {s.SocketId} Subscription failed: " + subResponse.Error);
                     callResult = new CallResult<object>(subResponse.Error!);
                     return false;
                 }
@@ -285,12 +285,12 @@ namespace Huobi.Net.Clients
 
                 if (!subResponse.Data.IsSuccessful)
                 {
-                    log.Write(LogLevel.Warning, $"Socket {s.Socket.Id} Subscription failed: " + subResponse.Data.Message);
+                    log.Write(LogLevel.Warning, $"Socket {s.SocketId} Subscription failed: " + subResponse.Data.Message);
                     callResult = new CallResult<object>(new ServerError(subResponse.Data.Code, subResponse.Data.Message));
                     return true;
                 }
 
-                log.Write(LogLevel.Debug, $"Socket {s.Socket.Id} Subscription completed");
+                log.Write(LogLevel.Debug, $"Socket {s.SocketId} Subscription completed");
                 callResult = new CallResult<object>(subResponse.Data);
                 return true;
             }
@@ -332,7 +332,7 @@ namespace Huobi.Net.Clients
                 return new CallResult<bool>(new NoApiCredentialsError());
 
             var result = new CallResult<bool>(new ServerError("No response from server"));
-            await s.SendAndWaitAsync(((HuobiAuthenticationProvider)s.ApiClient.AuthenticationProvider).GetWebsocketAuthentication(new Uri(s.Socket.Url)), ClientOptions.SocketResponseTimeout, data =>
+            await s.SendAndWaitAsync(((HuobiAuthenticationProvider)s.ApiClient.AuthenticationProvider).GetWebsocketAuthentication(s.Uri), ClientOptions.SocketResponseTimeout, data =>
             {
                 if (data["ch"]?.ToString() != "auth")
                     return false;
@@ -340,18 +340,18 @@ namespace Huobi.Net.Clients
                 var authResponse = Deserialize<HuobiAuthSubscribeResponse>(data);
                 if (!authResponse)
                 {
-                    log.Write(LogLevel.Warning, $"Socket {s.Socket.Id} Authorization failed: " + authResponse.Error);
+                    log.Write(LogLevel.Warning, $"Socket {s.SocketId} Authorization failed: " + authResponse.Error);
                     result = new CallResult<bool>(authResponse.Error!);
                     return true;
                 }
                 if (!authResponse.Data.IsSuccessful)
                 {
-                    log.Write(LogLevel.Warning, $"Socket {s.Socket.Id} Authorization failed: " + authResponse.Data.Message);
+                    log.Write(LogLevel.Warning, $"Socket {s.SocketId} Authorization failed: " + authResponse.Data.Message);
                     result = new CallResult<bool>(new ServerError(authResponse.Data.Code, authResponse.Data.Message));
                     return true;
                 }
 
-                log.Write(LogLevel.Debug, $"Socket {s.Socket.Id} Authorization completed");
+                log.Write(LogLevel.Debug, $"Socket {s.SocketId} Authorization completed");
                 result = new CallResult<bool>(true);
                 return true;
             }).ConfigureAwait(false);
