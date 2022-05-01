@@ -200,6 +200,79 @@ Task<WebCallResult<IEnumerable<HuobiBalance>>> GetSubAccountBalancesAsync(long s
 
 ***
 
+## GetSubAccountUsersAsync  
+
+[https://huobiapi.github.io/docs/spot/v1/en/#get-sub-user-39-s-list](https://huobiapi.github.io/docs/spot/v1/en/#get-sub-user-39-s-list)  
+<p>
+
+*Gets a list of users associated with the apikey/secret*  
+
+```csharp  
+var client = new HuobiClient();  
+var result = await client.SpotApi.Account.GetSubAccountUsersAsync();  
+```  
+
+```csharp  
+Task<WebCallResult<IEnumerable<HuobiUser>>> GetSubAccountUsersAsync(CancellationToken ct = default);  
+```  
+
+|Parameter|Description|
+|---|---|
+|_[Optional]_ ct|Cancellation token|
+
+</p>
+
+***
+
+## GetSubUserAccountsAsync  
+
+[https://huobiapi.github.io/docs/spot/v1/en/#get-sub-user-39-s-account-list](https://huobiapi.github.io/docs/spot/v1/en/#get-sub-user-39-s-account-list)  
+<p>
+
+*Gets a list of sub-user accounts associated with the sub-user id*  
+
+```csharp  
+var client = new HuobiClient();  
+var result = await client.SpotApi.Account.GetSubUserAccountsAsync(/* parameters */);  
+```  
+
+```csharp  
+Task<WebCallResult<HuobiSubUserAccounts>> GetSubUserAccountsAsync(long subUserId, CancellationToken ct = default);  
+```  
+
+|Parameter|Description|
+|---|---|
+|subUserId|The if of the user to get accounts for|
+|_[Optional]_ ct|Cancellation token|
+
+</p>
+
+***
+
+## GetUserIdAsync  
+
+[https://huobiapi.github.io/docs/spot/v1/en/#get-uid](https://huobiapi.github.io/docs/spot/v1/en/#get-uid)  
+<p>
+
+*Get the user id associated with the apikey/secret*  
+
+```csharp  
+var client = new HuobiClient();  
+var result = await client.SpotApi.Account.GetUserIdAsync();  
+```  
+
+```csharp  
+Task<WebCallResult<long>> GetUserIdAsync(CancellationToken ct = default);  
+```  
+
+|Parameter|Description|
+|---|---|
+|_[Optional]_ ct|Cancellation token|
+
+</p>
+
+***
+
 ## GetWithdrawDepositAsync  
 
 [https://huobiapi.github.io/docs/spot/v1/en/#search-for-existed-withdraws-and-deposits](https://huobiapi.github.io/docs/spot/v1/en/#search-for-existed-withdraws-and-deposits)  
