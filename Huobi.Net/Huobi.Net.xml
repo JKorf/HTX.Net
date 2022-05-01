@@ -558,7 +558,7 @@
         </member>
         <member name="T:Huobi.Net.Enums.KlineInterval">
             <summary>
-            Interval for klines
+            Interval for klines, int value represent the time in seconds
             </summary>
         </member>
         <member name="F:Huobi.Net.Enums.KlineInterval.OneMinute">
