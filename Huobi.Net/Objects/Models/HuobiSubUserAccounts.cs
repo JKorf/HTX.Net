@@ -18,7 +18,7 @@ namespace Huobi.Net.Objects.Models
         /// <summary>
         /// Deduct mode
         /// </summary>
-        public string DeductMode { get; set; }
+        public string DeductMode { get; set; } = string.Empty;
 
         /// <summary>
         /// List of accounts for the sub-user
