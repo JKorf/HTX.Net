@@ -194,5 +194,20 @@ namespace Huobi.Net.Interfaces.Clients.SpotApi
         /// <param name="ct">Cancelation token</param>
         /// <returns></returns>
         Task<WebCallResult<HuobiConditionalOrderCancelResult>> CancelConditionalOrdersAsync(IEnumerable<string> clientOrderIds, CancellationToken ct = default);
+
+        /// <summary>
+        /// Get open conditional orders based on the parameters
+        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#query-open-conditional-orders-before-triggering" /></para>
+        /// </summary>
+        /// <param name="accountId">Filter by account id</param>
+        /// <param name="symbol">Filter by symbol</param>
+        /// <param name="side">Filter by side</param>
+        /// <param name="type">Filter by type</param>
+        /// <param name="sort">Sort direction</param>
+        /// <param name="limit">Max results</param>
+        /// <param name="fromId">Ids after this</param>
+        /// <param name="ct">Cancelation token</param>
+        /// <returns></returns>
+        Task<WebCallResult<IEnumerable<HuobiConditionalOrder>>> GetOpenConditionalOrdersAsync(long? accountId = null, string? symbol = null, OrderSide? side = null, ConditionalOrderType? type = null, string? sort = null, int? limit = null, long? fromId = null, CancellationToken ct = default);
     }
 }

@@ -265,6 +265,9 @@
         <member name="M:Huobi.Net.Clients.SpotApi.HuobiClientSpotApiTrading.CancelConditionalOrdersAsync(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
+        <member name="M:Huobi.Net.Clients.SpotApi.HuobiClientSpotApiTrading.GetOpenConditionalOrdersAsync(System.Nullable{System.Int64},System.String,System.Nullable{Huobi.Net.Enums.OrderSide},System.Nullable{Huobi.Net.Enums.ConditionalOrderType},System.String,System.Nullable{System.Int32},System.Nullable{System.Int64},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
         <member name="T:Huobi.Net.Clients.SpotApi.HuobiSocketClientSpotStreams">
             <inheritdoc />
         </member>
@@ -1617,6 +1620,21 @@
             <param name="ct">Cancelation token</param>
             <returns></returns>
         </member>
+        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiClientSpotApiTrading.GetOpenConditionalOrdersAsync(System.Nullable{System.Int64},System.String,System.Nullable{Huobi.Net.Enums.OrderSide},System.Nullable{Huobi.Net.Enums.ConditionalOrderType},System.String,System.Nullable{System.Int32},System.Nullable{System.Int64},System.Threading.CancellationToken)">
+            <summary>
+            Get open conditional orders based on the parameters
+            <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#query-open-conditional-orders-before-triggering" /></para>
+            </summary>
+            <param name="accountId">Filter by account id</param>
+            <param name="symbol">Filter by symbol</param>
+            <param name="side">Filter by side</param>
+            <param name="type">Filter by type</param>
+            <param name="sort">Sort direction</param>
+            <param name="limit">Max results</param>
+            <param name="fromId">Ids after this</param>
+            <param name="ct">Cancelation token</param>
+            <returns></returns>
+        </member>
         <member name="T:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiSocketClientSpotStreams">
             <summary>
             Spot streams
@@ -2337,6 +2355,86 @@
         <member name="P:Huobi.Net.Objects.Models.HuobiByCriteriaCancelResult.NextId">
             <summary>
             the next order id that can be canceled
+            </summary>
+        </member>
+        <member name="T:Huobi.Net.Objects.Models.HuobiConditionalOrder">
+            <summary>
+            Conditional order info
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.HuobiConditionalOrder.AccountId">
+            <summary>
+            Acount id
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.HuobiConditionalOrder.Source">
+            <summary>
+            Source
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.HuobiConditionalOrder.ClientOrderId">
+            <summary>
+            Client order id
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.HuobiConditionalOrder.Symbol">
+            <summary>
+            Symbol
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.HuobiConditionalOrder.Price">
+            <summary>
+            Price
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.HuobiConditionalOrder.Quantity">
+            <summary>
+            Quantity
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.HuobiConditionalOrder.QuoteQuantity">
+            <summary>
+            Quote quantity
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.HuobiConditionalOrder.Side">
+            <summary>
+            Side
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.HuobiConditionalOrder.TimeInForce">
+            <summary>
+            Time in force
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.HuobiConditionalOrder.Type">
+            <summary>
+            Type
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.HuobiConditionalOrder.StopPrice">
+            <summary>
+            Stop price
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.HuobiConditionalOrder.TrailingRate">
+            <summary>
+            Trailing rate
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.HuobiConditionalOrder.CreateTime">
+            <summary>
+            Creation time
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.HuobiConditionalOrder.UpdateTime">
+            <summary>
+            Last update time
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.HuobiConditionalOrder.Status">
+            <summary>
+            Status
             </summary>
         </member>
         <member name="T:Huobi.Net.Objects.Models.HuobiConditionalOrderCancelResult">

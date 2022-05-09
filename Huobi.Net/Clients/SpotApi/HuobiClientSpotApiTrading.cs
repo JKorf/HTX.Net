@@ -261,5 +261,19 @@ namespace Huobi.Net.Clients.SpotApi
 
             return await _baseClient.SendHuobiV2Request<HuobiConditionalOrderCancelResult>(_baseClient.GetUrl("algo-orders/cancellation", "2"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
         }
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<IEnumerable<HuobiConditionalOrder>>> GetOpenConditionalOrdersAsync(long? accountId = null, string? symbol = null, OrderSide? side = null, ConditionalOrderType? type = null, string? sort = null, int? limit = null, long? fromId = null, CancellationToken ct = default)
+        {
+            var parameters = new Dictionary<string, object>();
+            parameters.AddOptionalParameter("accountId", accountId);
+            parameters.AddOptionalParameter("symbol", symbol);
+            parameters.AddOptionalParameter("orderSide", EnumConverter.GetString(side));
+            parameters.AddOptionalParameter("orderType", EnumConverter.GetString(type));
+            parameters.AddOptionalParameter("sort", sort);
+            parameters.AddOptionalParameter("limit", limit);
+            parameters.AddOptionalParameter("fromId", fromId);
+            return await _baseClient.SendHuobiV2Request<IEnumerable<HuobiConditionalOrder>>(_baseClient.GetUrl("algo-orders/opening", "2"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+        }
     }
 }
