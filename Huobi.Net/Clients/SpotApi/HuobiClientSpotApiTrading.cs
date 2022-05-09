@@ -78,8 +78,6 @@ namespace Huobi.Net.Clients.SpotApi
         public async Task<WebCallResult<IEnumerable<HuobiOpenOrder>>> GetOpenOrdersAsync(long? accountId = null, string? symbol = null, Enums.OrderSide? side = null, int? limit = null, CancellationToken ct = default)
         {
             symbol = symbol?.ValidateHuobiSymbol();
-            if (accountId != null && symbol == null)
-                throw new ArgumentException("Can't request open orders based on only the account id");
 
             var parameters = new Dictionary<string, object>();
             parameters.AddOptionalParameter("account-id", accountId);
