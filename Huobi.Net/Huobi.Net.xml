@@ -259,6 +259,12 @@
         <member name="M:Huobi.Net.Clients.SpotApi.HuobiClientSpotApiTrading.GetHistoricalOrdersAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Huobi.Net.Enums.FilterDirection},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
+        <member name="M:Huobi.Net.Clients.SpotApi.HuobiClientSpotApiTrading.PlaceConditionalOrderAsync(System.Int64,System.String,Huobi.Net.Enums.OrderSide,Huobi.Net.Enums.ConditionalOrderType,System.Decimal,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{Huobi.Net.Enums.TimeInForce},System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Huobi.Net.Clients.SpotApi.HuobiClientSpotApiTrading.CancelConditionalOrdersAsync(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
         <member name="T:Huobi.Net.Clients.SpotApi.HuobiSocketClientSpotStreams">
             <inheritdoc />
         </member>
@@ -474,6 +480,21 @@
         <member name="F:Huobi.Net.Enums.BalanceType.Interest">
             <summary>
             Interest balance
+            </summary>
+        </member>
+        <member name="T:Huobi.Net.Enums.ConditionalOrderType">
+            <summary>
+            Conditional order type
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.ConditionalOrderType.Limit">
+            <summary>
+            Limit order
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.ConditionalOrderType.Market">
+            <summary>
+            Market order
             </summary>
         </member>
         <member name="T:Huobi.Net.Enums.CurrencyStatus">
@@ -824,6 +845,31 @@
         <member name="F:Huobi.Net.Enums.SymbolState.Suspended">
             <summary>
             Suspended
+            </summary>
+        </member>
+        <member name="T:Huobi.Net.Enums.TimeInForce">
+            <summary>
+            Time an order is active
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.TimeInForce.GoodTillCancel">
+            <summary>
+            Good until the order is canceled
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.TimeInForce.ImmediateOrCancel">
+            <summary>
+            Should execute at least partly upon placing
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.TimeInForce.BookOrCancel">
+            <summary>
+            Should enter the book upon placing
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.TimeInForce.FillOrKill">
+            <summary>
+            Should fill entirely upon placing
             </summary>
         </member>
         <member name="T:Huobi.Net.Enums.TransactionType">
@@ -1541,6 +1587,34 @@
             <param name="direction">Direction of the results to return</param>
             <param name="limit">The max number of results</param>
             <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiClientSpotApiTrading.PlaceConditionalOrderAsync(System.Int64,System.String,Huobi.Net.Enums.OrderSide,Huobi.Net.Enums.ConditionalOrderType,System.Decimal,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{Huobi.Net.Enums.TimeInForce},System.String,System.Threading.CancellationToken)">
+            <summary>
+            Place a new conditional order
+            <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#place-a-conditional-order" /></para>
+            </summary>
+            <param name="accountId">The account the order should be placed from</param>
+            <param name="symbol">The symbol the order is for</param>
+            <param name="side">Side of the order</param>
+            <param name="type">Type of the order</param>
+            <param name="stopPrice">Stop price of the order</param>
+            <param name="quantity">Quantity of the order</param>
+            <param name="price">Price of the order</param>
+            <param name="quoteQuantity">Quote quantity of the order</param>
+            <param name="trailingRate">Trailing rate of the order</param>
+            <param name="timeInForce">Time in force</param>
+            <param name="clientOrderId">Client order id</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiClientSpotApiTrading.CancelConditionalOrdersAsync(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
+            <summary>
+            Cancel conditional orders
+            <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#cancel-conditional-orders-before-triggering" /></para>
+            </summary>
+            <param name="clientOrderIds">Client order ids of the conditional orders to cancels</param>
+            <param name="ct">Cancelation token</param>
             <returns></returns>
         </member>
         <member name="T:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiSocketClientSpotStreams">
@@ -2265,6 +2339,21 @@
             the next order id that can be canceled
             </summary>
         </member>
+        <member name="T:Huobi.Net.Objects.Models.HuobiConditionalOrderCancelResult">
+            <summary>
+            Conditional order cancelation result
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.HuobiConditionalOrderCancelResult.Accepted">
+            <summary>
+            Orders accepted for cancelation
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.HuobiConditionalOrderCancelResult.Rejected">
+            <summary>
+            Orders rejected for cancelation
+            </summary>
+        </member>
         <member name="T:Huobi.Net.Objects.Models.HuobiDepositAddress">
             <summary>
             Deposit address info
@@ -2718,6 +2807,16 @@
         <member name="P:Huobi.Net.Objects.Models.HuobiOrderTrade.FeeDeductState">
             <summary>
             Fee deduction status.
+            </summary>
+        </member>
+        <member name="T:Huobi.Net.Objects.Models.HuobiPlacedConditionalOrder">
+            <summary>
+            Placed conditional order
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.HuobiPlacedConditionalOrder.ClientOrderId">
+            <summary>
+            The id
             </summary>
         </member>
         <member name="T:Huobi.Net.Objects.Models.HuobiPlacedOrder">

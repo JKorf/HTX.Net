@@ -3,19 +3,19 @@
 namespace Huobi.Net.Enums
 {
     /// <summary>
-    /// Order side
+    /// Conditional order type
     /// </summary>
-    public enum OrderSide
+    public enum ConditionalOrderType
     {
         /// <summary>
-        /// Buy
+        /// Limit order
         /// </summary>
-        [Map("buy")]
-        Buy,
+        [Map("limit")]
+        Limit,
         /// <summary>
-        /// Sell
+        /// Market order
         /// </summary>
-        [Map("sell")]
-        Sell
+        [Map("market")]
+        Market
     }
 }

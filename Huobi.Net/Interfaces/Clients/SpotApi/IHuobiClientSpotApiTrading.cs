@@ -155,5 +155,44 @@ namespace Huobi.Net.Interfaces.Clients.SpotApi
         /// <returns></returns>
         Task<WebCallResult<IEnumerable<HuobiOrder>>> GetHistoricalOrdersAsync(string? symbol = null, DateTime? startTime = null, DateTime? endTime = null, FilterDirection? direction = null, int? limit = null, CancellationToken ct = default);
 
+        /// <summary>
+        /// Place a new conditional order
+        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#place-a-conditional-order" /></para>
+        /// </summary>
+        /// <param name="accountId">The account the order should be placed from</param>
+        /// <param name="symbol">The symbol the order is for</param>
+        /// <param name="side">Side of the order</param>
+        /// <param name="type">Type of the order</param>
+        /// <param name="stopPrice">Stop price of the order</param>
+        /// <param name="quantity">Quantity of the order</param>
+        /// <param name="price">Price of the order</param>
+        /// <param name="quoteQuantity">Quote quantity of the order</param>
+        /// <param name="trailingRate">Trailing rate of the order</param>
+        /// <param name="timeInForce">Time in force</param>
+        /// <param name="clientOrderId">Client order id</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult<HuobiPlacedConditionalOrder>> PlaceConditionalOrderAsync(
+            long accountId,
+            string symbol,
+            OrderSide side,
+            ConditionalOrderType type,
+            decimal stopPrice,
+            decimal? quantity = null,
+            decimal? price = null,
+            decimal? quoteQuantity = null,
+            decimal? trailingRate = null,
+            TimeInForce? timeInForce = null,
+            string? clientOrderId = null,
+            CancellationToken ct = default);
+
+        /// <summary>
+        /// Cancel conditional orders
+        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#cancel-conditional-orders-before-triggering" /></para>
+        /// </summary>
+        /// <param name="clientOrderIds">Client order ids of the conditional orders to cancels</param>
+        /// <param name="ct">Cancelation token</param>
+        /// <returns></returns>
+        Task<WebCallResult<HuobiConditionalOrderCancelResult>> CancelConditionalOrdersAsync(IEnumerable<string> clientOrderIds, CancellationToken ct = default);
     }
 }
