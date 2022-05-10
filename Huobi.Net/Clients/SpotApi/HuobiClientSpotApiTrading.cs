@@ -275,5 +275,45 @@ namespace Huobi.Net.Clients.SpotApi
             parameters.AddOptionalParameter("fromId", fromId);
             return await _baseClient.SendHuobiV2Request<IEnumerable<HuobiConditionalOrder>>(_baseClient.GetUrl("algo-orders/opening", "2"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
         }
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<IEnumerable<HuobiConditionalOrder>>> GetClosedConditionalOrdersAsync(
+            string symbol, 
+            ConditionalOrderStatus status, 
+            long? accountId = null, 
+            OrderSide? side = null, 
+            ConditionalOrderType? type = null, 
+            DateTime? startTime = null,
+            DateTime? endTime = null,
+            string? sort = null,
+            int? limit = null,
+            long? fromId = null,
+            CancellationToken ct = default)
+        {
+            var parameters = new Dictionary<string, object>()
+            {
+                { "symbol", symbol },
+                { "orderStatus", EnumConverter.GetString(status) }
+            };
+            parameters.AddOptionalParameter("accountId", accountId);
+            parameters.AddOptionalParameter("orderSide", EnumConverter.GetString(side));
+            parameters.AddOptionalParameter("orderType", EnumConverter.GetString(type));
+            parameters.AddOptionalParameter("startTime", DateTimeConverter.ConvertToMilliseconds(startTime));
+            parameters.AddOptionalParameter("endTime", DateTimeConverter.ConvertToMilliseconds(endTime));
+            parameters.AddOptionalParameter("sort", sort);
+            parameters.AddOptionalParameter("limit", limit);
+            parameters.AddOptionalParameter("fromId", fromId);
+            return await _baseClient.SendHuobiV2Request<IEnumerable<HuobiConditionalOrder>>(_baseClient.GetUrl("algo-orders/history", "2"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<HuobiConditionalOrder>> GetConditionalOrderAsync(string clientOrderId, CancellationToken ct = default)
+        {
+            var parameters = new Dictionary<string, object>()
+            {
+                { "clientOrderId", clientOrderId }
+            };
+            return await _baseClient.SendHuobiV2Request<HuobiConditionalOrder>(_baseClient.GetUrl("algo-orders/specific", "2"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+        }
     }
 }

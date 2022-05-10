@@ -154,7 +154,7 @@ namespace Huobi.Net.Interfaces.Clients.SpotApi
         /// <param name="fee">The fee to pay with this withdraw</param>
         /// <param name="network">Set as "usdt" to withdraw USDT to OMNI, set as "trc20usdt" to withdraw USDT to TRX</param>
         /// <param name="addressTag">A tag specified for this address</param>
-        /// <param name="ct"></param>
+        /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<long>> WithdrawAsync(string address, string asset, decimal quantity, decimal fee, string? network = null, string? addressTag = null, CancellationToken ct = default);
 
@@ -167,9 +167,97 @@ namespace Huobi.Net.Interfaces.Clients.SpotApi
         /// <param name="from">The transfer id to begin search</param>
         /// <param name="size">The number of items to return</param>
         /// <param name="direction">the order of response</param>
-        /// <param name="ct"></param>
+        /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<IEnumerable<HuobiWithdrawDeposit>>> GetWithdrawDepositAsync(WithdrawDepositType type, string? asset = null, int? from = null, int? size = null, FilterDirection? direction = null, CancellationToken ct = default);
 
+        /// <summary>
+        /// Repay a margin loan
+        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#repay-margin-loan-cross-isolated" /></para>
+        /// </summary>
+        /// <param name="accountId">Account id</param>
+        /// <param name="asset">Asset to repay</param>
+        /// <param name="quantity">Quantity to repay</param>
+        /// <param name="transactionId">Loan transaction ID</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult<HuobiRepaymentResult>> RepayMarginLoanAsync(string accountId, string asset, decimal quantity, string? transactionId = null, CancellationToken ct = default);
+
+        /// <summary>
+        /// Transfer asset from spot account to isolated margin account
+        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#transfer-asset-from-spot-trading-account-to-isolated-margin-account-isolated" /></para>
+        /// </summary>
+        /// <param name="symbol">Trading symbol</param>
+        /// <param name="asset">Asset to transfer</param>
+        /// <param name="quantity">Quantity to transfer</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns>Transfer id</returns>
+        Task<WebCallResult<long>> TransferSpotToIsolatedMarginAsync(string symbol, string asset, decimal quantity, CancellationToken ct = default);
+
+        /// <summary>
+        /// Transfer asset from isolated margin to spot account
+        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#transfer-asset-from-isolated-margin-account-to-spot-trading-account-isolated" /></para>
+        /// </summary>
+        /// <param name="symbol">Trading symbol</param>
+        /// <param name="asset">Asset to transfer</param>
+        /// <param name="quantity">Quantity to transfer</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns>Transfer id</returns>
+        Task<WebCallResult<long>> TransferIsolatedMarginToSpotAsync(string symbol, string asset, decimal quantity, CancellationToken ct = default);
+
+        /// <summary>
+        /// Get isolated loan interest rate and quotas
+        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-loan-interest-rate-and-quota-isolated" /></para>
+        /// </summary>
+        /// <param name="symbols">Filter on symbols</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult<IEnumerable<HuobiLoanInfo>>> GetIsolatedLoanInterestRateAndQuotaAsync(IEnumerable<string>? symbols = null, CancellationToken ct = default);
+
+        /// <summary>
+        /// Request a loan on isolated margin
+        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#request-a-margin-loan-isolated" /></para>
+        /// </summary>
+        /// <param name="symbol">The symbol</param>
+        /// <param name="asset">The asset</param>
+        /// <param name="quantity">The quantity</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns>Order id</returns>
+        Task<WebCallResult<long>> RequestIsolatedMarginLoanAsync(string symbol, string asset, decimal quantity, CancellationToken ct = default);
+
+        /// <summary>
+        /// Repay a isolated margin loan
+        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#repay-margin-loan-isolated" /></para>
+        /// </summary>
+        /// <param name="orderId">Id to repay</param>
+        /// <param name="quantity">Quantity</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns>Order id</returns>
+        Task<WebCallResult<long>> RepayIsolatedMarginLoanAsync(string orderId, decimal quantity, CancellationToken ct = default);
+
+        /// <summary>
+        /// Get isolated margin orders history
+        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#search-past-margin-orders-isolated" /></para>
+        /// </summary>
+        /// <param name="symbol">The symbol to get history for</param>
+        /// <param name="states">Filter by states</param>
+        /// <param name="startDate">Filter by start date</param>
+        /// <param name="endDate">Filter by end date</param>
+        /// <param name="from">Start order id for use in combination with direction</param>
+        /// <param name="direction">Direction of results in combination with from parameter</param>
+        /// <param name="limit">Max amount of results</param>
+        /// <param name="subUserId">Sub user id</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult<IEnumerable<HuobiMarginOrder>>> GetClosedIsolatedMarginOrdersAsync(
+            string symbol,
+            IEnumerable<MarginOrderStatus>? states = null,
+            DateTime? startDate = null,
+            DateTime? endDate = null,
+            string? from = null,
+            FilterDirection? direction = null,
+            int? limit = null,
+            int? subUserId = null,
+            CancellationToken ct = default);
     }
 }

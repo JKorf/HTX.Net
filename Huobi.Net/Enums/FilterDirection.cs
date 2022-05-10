@@ -1,4 +1,6 @@
-﻿namespace Huobi.Net.Enums
+﻿using CryptoExchange.Net.Attributes;
+
+namespace Huobi.Net.Enums
 {
     /// <summary>
     /// Filter direction
@@ -8,10 +10,12 @@
         /// <summary>
         /// Get results after
         /// </summary>
+        [Map("next")]
         Next,
         /// <summary>
         /// Get results before
         /// </summary>
+        [Map("prev")]
         Previous
     }
 }

@@ -81,7 +81,18 @@ namespace Huobi.Net.Objects.Models
         /// <summary>
         /// Status
         /// </summary>
+        [JsonConverter(typeof(EnumConverter))]
         [JsonProperty("orderStatus")]
-        public string Status { get; set; } = string.Empty;
+        public ConditionalOrderStatus Status { get; set; }
+        /// <summary>
+        /// Error code if the conditional order is rejected
+        /// </summary>
+        [JsonProperty("errCode")]
+        public int? ErrorCode { get; set; }
+        /// <summary>
+        /// Error message if conditional order is rejected
+        /// </summary>
+        [JsonProperty("errMessage")]
+        public string? ErrorMessage { get; set; }
     }
 }
