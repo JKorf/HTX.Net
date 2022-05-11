@@ -20,6 +20,14 @@
         /// <summary>
         /// Interest balance
         /// </summary>
-        Interest
+        Interest,
+        /// <summary>
+        /// Transfer out available
+        /// </summary>
+        TransferOutAvailable,
+        /// <summary>
+        /// Loan available
+        /// </summary>
+        LoanAvailable
     }
 }

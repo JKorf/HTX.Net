@@ -15,6 +15,8 @@ namespace Huobi.Net.Converters
             new KeyValuePair<BalanceType, string>(BalanceType.Trade, "trade"),
             new KeyValuePair<BalanceType, string>(BalanceType.Loan, "loan"),
             new KeyValuePair<BalanceType, string>(BalanceType.Interest, "interest"),
+            new KeyValuePair<BalanceType, string>(BalanceType.TransferOutAvailable, "transfer-out-available"),
+            new KeyValuePair<BalanceType, string>(BalanceType.LoanAvailable, "loan-available"),
         };
     }
 }

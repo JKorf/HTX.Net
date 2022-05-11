@@ -196,7 +196,34 @@
         <member name="M:Huobi.Net.Clients.SpotApi.HuobiClientSpotApiAccount.RepayIsolatedMarginLoanAsync(System.String,System.Decimal,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.Clients.SpotApi.HuobiClientSpotApiAccount.GetClosedIsolatedMarginOrdersAsync(System.String,System.Collections.Generic.IEnumerable{Huobi.Net.Enums.MarginOrderStatus},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.String,System.Nullable{Huobi.Net.Enums.FilterDirection},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Clients.SpotApi.HuobiClientSpotApiAccount.GetIsolatedMarginClosedOrdersAsync(System.String,System.Collections.Generic.IEnumerable{Huobi.Net.Enums.MarginOrderStatus},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.String,System.Nullable{Huobi.Net.Enums.FilterDirection},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Huobi.Net.Clients.SpotApi.HuobiClientSpotApiAccount.GetIsolatedMarginBalanceAsync(System.String,System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Huobi.Net.Clients.SpotApi.HuobiClientSpotApiAccount.TransferSpotToCrossMarginAsync(System.String,System.Decimal,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Huobi.Net.Clients.SpotApi.HuobiClientSpotApiAccount.TransferCrossMarginToSpotAsync(System.String,System.Decimal,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Huobi.Net.Clients.SpotApi.HuobiClientSpotApiAccount.GetCrossLoanInterestRateAndQuotaAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Huobi.Net.Clients.SpotApi.HuobiClientSpotApiAccount.RequestCrossMarginLoanAsync(System.String,System.Decimal,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Huobi.Net.Clients.SpotApi.HuobiClientSpotApiAccount.RepayCrossMarginLoanAsync(System.String,System.Decimal,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Huobi.Net.Clients.SpotApi.HuobiClientSpotApiAccount.GetCrossMarginClosedOrdersAsync(System.String,System.Nullable{Huobi.Net.Enums.MarginOrderStatus},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.String,System.Nullable{Huobi.Net.Enums.FilterDirection},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Huobi.Net.Clients.SpotApi.HuobiClientSpotApiAccount.GetCrossMarginBalanceAsync(System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Huobi.Net.Clients.SpotApi.HuobiClientSpotApiAccount.GetRepaymentHistoryAsync(System.Nullable{System.Int64},System.Nullable{System.Int64},System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.String,System.Nullable{System.Int32},System.Nullable{System.Int64},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="T:Huobi.Net.Clients.SpotApi.HuobiClientSpotApiExchangeData">
@@ -510,6 +537,16 @@
         <member name="F:Huobi.Net.Enums.BalanceType.Interest">
             <summary>
             Interest balance
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.BalanceType.TransferOutAvailable">
+            <summary>
+            Transfer out available
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.BalanceType.LoanAvailable">
+            <summary>
+            Loan available
             </summary>
         </member>
         <member name="T:Huobi.Net.Enums.ConditionalOrderStatus">
@@ -1469,7 +1506,7 @@
             <param name="ct">Cancellation token</param>
             <returns>Order id</returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiClientSpotApiAccount.GetClosedIsolatedMarginOrdersAsync(System.String,System.Collections.Generic.IEnumerable{Huobi.Net.Enums.MarginOrderStatus},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.String,System.Nullable{Huobi.Net.Enums.FilterDirection},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiClientSpotApiAccount.GetIsolatedMarginClosedOrdersAsync(System.String,System.Collections.Generic.IEnumerable{Huobi.Net.Enums.MarginOrderStatus},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.String,System.Nullable{Huobi.Net.Enums.FilterDirection},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get isolated margin orders history
             <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#search-past-margin-orders-isolated" /></para>
@@ -1482,6 +1519,105 @@
             <param name="direction">Direction of results in combination with from parameter</param>
             <param name="limit">Max amount of results</param>
             <param name="subUserId">Sub user id</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiClientSpotApiAccount.GetIsolatedMarginBalanceAsync(System.String,System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            Get isolated margin account balance
+            <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-the-balance-of-the-margin-loan-account-isolated" /></para>
+            </summary>
+            <param name="symbol">The symbol</param>
+            <param name="subUserId">Sub user id</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiClientSpotApiAccount.TransferSpotToCrossMarginAsync(System.String,System.Decimal,System.Threading.CancellationToken)">
+            <summary>
+            Transfer from spot account to cross margin account
+            <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#transfer-asset-from-spot-trading-account-to-cross-margin-account-cross" /></para>
+            </summary>
+            <param name="asset">The asset to transfer</param>
+            <param name="quantity">Quantity to transfer</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiClientSpotApiAccount.TransferCrossMarginToSpotAsync(System.String,System.Decimal,System.Threading.CancellationToken)">
+            <summary>
+            Transfer from cross margin account to spot account
+            <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#transfer-asset-from-cross-margin-account-to-spot-trading-account-cross" /></para>
+            </summary>
+            <param name="asset">The asset to transfer</param>
+            <param name="quantity">Quantity to transfer</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiClientSpotApiAccount.GetCrossLoanInterestRateAndQuotaAsync(System.Threading.CancellationToken)">
+            <summary>
+            Get cross margin interest rates and quotas
+            <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-loan-interest-rate-and-quota-cross" /></para>
+            </summary>
+            <param name="ct"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiClientSpotApiAccount.RequestCrossMarginLoanAsync(System.String,System.Decimal,System.Threading.CancellationToken)">
+            <summary>
+            Request a loan on cross margin
+            <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#request-a-margin-loan-cross" /></para>
+            </summary>
+            <param name="asset">The asset</param>
+            <param name="quantity">The quantity</param>
+            <param name="ct">Cancellation token</param>
+            <returns>Order id</returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiClientSpotApiAccount.RepayCrossMarginLoanAsync(System.String,System.Decimal,System.Threading.CancellationToken)">
+            <summary>
+            Repay a isolated margin loan
+            <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#repay-margin-loan-cross" /></para>
+            </summary>
+            <param name="orderId">Id to repay</param>
+            <param name="quantity">Quantity</param>
+            <param name="ct">Cancellation token</param>
+            <returns>Order id</returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiClientSpotApiAccount.GetCrossMarginClosedOrdersAsync(System.String,System.Nullable{Huobi.Net.Enums.MarginOrderStatus},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.String,System.Nullable{Huobi.Net.Enums.FilterDirection},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            Get cross margin order history
+            <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#search-past-margin-orders-cross" /></para>
+            </summary>
+            <param name="asset">Filter by asset</param>
+            <param name="state">Filter by state</param>
+            <param name="startDate">Filter by start date</param>
+            <param name="endDate">Filter by end date</param>
+            <param name="from">Start order id for use in combination with direction</param>
+            <param name="direction">Direction of results in combination with from parameter</param>
+            <param name="limit">Max amount of results</param>
+            <param name="subUserId">Sub user id</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiClientSpotApiAccount.GetCrossMarginBalanceAsync(System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            Get cross margin account balance
+            <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-the-balance-of-the-margin-loan-account-cross" /></para>
+            </summary>
+            <param name="subUserId">Sub user id</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiClientSpotApiAccount.GetRepaymentHistoryAsync(System.Nullable{System.Int64},System.Nullable{System.Int64},System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.String,System.Nullable{System.Int32},System.Nullable{System.Int64},System.Threading.CancellationToken)">
+            <summary>
+            Get repayment history
+            <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#repayment-record-reference" /></para>
+            </summary>
+            <param name="repayId">Filter by repay id</param>
+            <param name="accountId">Filter by account id</param>
+            <param name="asset">Filter by asset</param>
+            <param name="startTime">Only show records after this</param>
+            <param name="endTime">Only show records before this</param>
+            <param name="sort">Sort direction</param>
+            <param name="limit">Result limit</param>
+            <param name="fromId">Search id</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -2781,6 +2917,81 @@
             Actual interest rate
             </summary>
         </member>
+        <member name="T:Huobi.Net.Objects.Models.HuobiMarginBalances">
+            <summary>
+            Margin account balance
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.HuobiMarginBalances.Id">
+            <summary>
+            Id
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.HuobiMarginBalances.Type">
+            <summary>
+            Type
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.HuobiMarginBalances.Symbol">
+            <summary>
+            Symbol
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.HuobiMarginBalances.State">
+            <summary>
+            State
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.HuobiMarginBalances.RiskRate">
+            <summary>
+            Risk rate
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.HuobiMarginBalances.AccountBalanceSum">
+            <summary>
+            Account balance sum
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.HuobiMarginBalances.DebtBalanceSum">
+            <summary>
+            Debt balance sum
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.HuobiMarginBalances.FlPrice">
+            <summary>
+            The price which margin closeout was triggered
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.HuobiMarginBalances.FlType">
+            <summary>
+            Fl type
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.HuobiMarginBalances.List">
+            <summary>
+            Account details
+            </summary>
+        </member>
+        <member name="T:Huobi.Net.Objects.Models.HuobiIsolatedBalance">
+            <summary>
+            Balance info
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.HuobiIsolatedBalance.Asset">
+            <summary>
+            The asset
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.HuobiIsolatedBalance.Type">
+            <summary>
+            Balance type
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.HuobiIsolatedBalance.Balance">
+            <summary>
+            Balance
+            </summary>
+        </member>
         <member name="T:Huobi.Net.Objects.Models.HuobiMarginOrder">
             <summary>
             Margin order info
@@ -3284,6 +3495,71 @@
         <member name="P:Huobi.Net.Objects.Models.HuobiPlacedOrder.Id">
             <summary>
             The id
+            </summary>
+        </member>
+        <member name="T:Huobi.Net.Objects.Models.HuobiRepayment">
+            <summary>
+            Repayment info
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.HuobiRepayment.RepayId">
+            <summary>
+            Repayment id
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.HuobiRepayment.AccountId">
+            <summary>
+            Account id
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.HuobiRepayment.RepayTime">
+            <summary>
+            Repay time
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.HuobiRepayment.Asset">
+            <summary>
+            Asset
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.HuobiRepayment.RepaidQuantity">
+            <summary>
+            Repay quantity
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.HuobiRepayment.Transactions">
+            <summary>
+            Transactions
+            </summary>
+        </member>
+        <member name="T:Huobi.Net.Objects.Models.HuobiRepayTransaction">
+            <summary>
+            Repayment transaction
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.HuobiRepayTransaction.TransactId">
+            <summary>
+            Transact id
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.HuobiRepayTransaction.RepaidPrincipal">
+            <summary>
+            Principal repaid
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.HuobiRepayTransaction.RepaidInterest">
+            <summary>
+            Interest repaid
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.HuobiRepayTransaction.PaidHt">
+            <summary>
+            HT paid
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.HuobiRepayTransaction.PaidPoint">
+            <summary>
+            Points paid
             </summary>
         </member>
         <member name="T:Huobi.Net.Objects.Models.HuobiRepaymentResult">

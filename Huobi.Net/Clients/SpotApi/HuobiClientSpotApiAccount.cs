@@ -282,7 +282,7 @@ namespace Huobi.Net.Clients.SpotApi
                 { "amount", quantity.ToString(CultureInfo.InvariantCulture) },
             };
 
-            return await _baseClient.SendHuobiRequest<long>(_baseClient.GetUrl("margin/orders", "1"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+            return await _baseClient.SendHuobiRequest<long>(_baseClient.GetUrl("margin/orders", "1"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -297,7 +297,7 @@ namespace Huobi.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<HuobiMarginOrder>>> GetClosedIsolatedMarginOrdersAsync(
+        public async Task<WebCallResult<IEnumerable<HuobiMarginOrder>>> GetIsolatedMarginClosedOrdersAsync(
             string symbol, 
             IEnumerable<MarginOrderStatus>? states = null, 
             DateTime? startDate = null, 
@@ -315,13 +315,129 @@ namespace Huobi.Net.Clients.SpotApi
 
             parameters.AddOptionalParameter("states", states == null ? null : string.Join(",", states.Select(EnumConverter.GetString)));
             parameters.AddOptionalParameter("start-date", startDate == null ? null: startDate.Value.ToString("yyyy-mm-dd"));
-            parameters.AddOptionalParameter("end-date", endDate == null ? null: startDate.Value.ToString("yyyy-mm-dd"));
+            parameters.AddOptionalParameter("end-date", endDate == null ? null: endDate.Value.ToString("yyyy-mm-dd"));
             parameters.AddOptionalParameter("from", from);
             parameters.AddOptionalParameter("direct", EnumConverter.GetString(direction));
             parameters.AddOptionalParameter("size", limit);
             parameters.AddOptionalParameter("sub-uid", subUserId);
 
             return await _baseClient.SendHuobiRequest<IEnumerable<HuobiMarginOrder>>(_baseClient.GetUrl($"margin/loan-orders", "1"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<IEnumerable<HuobiMarginBalances>>> GetIsolatedMarginBalanceAsync(string symbol, int? subUserId = null, CancellationToken ct = default)
+        {
+            var parameters = new Dictionary<string, object>
+            {
+                { "symbol", symbol }
+            };
+
+            parameters.AddOptionalParameter("sub-uid", subUserId);
+
+            return await _baseClient.SendHuobiRequest<IEnumerable<HuobiMarginBalances>>(_baseClient.GetUrl($"margin/accounts/balance", "1"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<long>> TransferSpotToCrossMarginAsync(string asset, decimal quantity, CancellationToken ct = default)
+        {
+            var parameters = new Dictionary<string, object>
+            {
+                { "currency", asset },
+                { "amount", quantity },
+            };
+
+            return await _baseClient.SendHuobiRequest<long>(_baseClient.GetUrl($"cross-margin/transfer-in", "1"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<long>> TransferCrossMarginToSpotAsync(string asset, decimal quantity, CancellationToken ct = default)
+        {
+            var parameters = new Dictionary<string, object>
+            {
+                { "currency", asset },
+                { "amount", quantity },
+            };
+
+            return await _baseClient.SendHuobiRequest<long>(_baseClient.GetUrl($"cross-margin/transfer-out", "1"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<IEnumerable<HuobiLoanInfoAsset>>> GetCrossLoanInterestRateAndQuotaAsync(CancellationToken ct = default)
+        {
+            return await _baseClient.SendHuobiRequest<IEnumerable<HuobiLoanInfoAsset>>(_baseClient.GetUrl($"cross-margin/loan-info", "1"), HttpMethod.Get, ct, null, true).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<long>> RequestCrossMarginLoanAsync(string asset, decimal quantity, CancellationToken ct = default)
+        {
+            var parameters = new Dictionary<string, object>()
+            {
+                { "currency", asset },
+                { "amount", quantity.ToString(CultureInfo.InvariantCulture) },
+            };
+
+            return await _baseClient.SendHuobiRequest<long>(_baseClient.GetUrl("cross-margin/orders", "1"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<object>> RepayCrossMarginLoanAsync(string orderId, decimal quantity, CancellationToken ct = default)
+        {
+            var parameters = new Dictionary<string, object>
+            {
+                { "amount", quantity.ToString(CultureInfo.InvariantCulture) }
+            };
+
+            return await _baseClient.SendHuobiRequest<object>(_baseClient.GetUrl($"cross-margin/orders/{orderId}/repay", "1"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<IEnumerable<HuobiMarginOrder>>> GetCrossMarginClosedOrdersAsync(
+            string? asset = null,
+            MarginOrderStatus? state = null,
+            DateTime? startDate = null,
+            DateTime? endDate = null,
+            string? from = null,
+            FilterDirection? direction = null,
+            int? limit = null,
+            int? subUserId = null,
+            CancellationToken ct = default)
+        {
+            var parameters = new Dictionary<string, object>();
+            parameters.AddOptionalParameter("currency", asset);
+            parameters.AddOptionalParameter("state", EnumConverter.GetString(state));
+            parameters.AddOptionalParameter("start-date", startDate == null ? null : startDate.Value.ToString("yyyy-mm-dd"));
+            parameters.AddOptionalParameter("end-date", endDate == null ? null : endDate.Value.ToString("yyyy-mm-dd"));
+            parameters.AddOptionalParameter("from", from);
+            parameters.AddOptionalParameter("direct", EnumConverter.GetString(direction));
+            parameters.AddOptionalParameter("size", limit);
+            parameters.AddOptionalParameter("sub-uid", subUserId);
+
+            return await _baseClient.SendHuobiRequest<IEnumerable<HuobiMarginOrder>>(_baseClient.GetUrl($"cross-margin/loan-orders", "1"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<HuobiMarginBalances>> GetCrossMarginBalanceAsync(int? subUserId = null, CancellationToken ct = default)
+        {
+            var parameters = new Dictionary<string, object>();
+            parameters.AddOptionalParameter("sub-uid", subUserId);
+
+            return await _baseClient.SendHuobiRequest<HuobiMarginBalances>(_baseClient.GetUrl($"cross-margin/accounts/balance", "1"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<IEnumerable<HuobiRepayment>>> GetRepaymentHistoryAsync(long? repayId = null, long? accountId =null, string? asset =null, DateTime? startTime = null, DateTime? endTime = null, string? sort = null, int? limit = null, long? fromId = null, CancellationToken ct = default)
+        {
+            var parameters = new Dictionary<string, object>();
+            parameters.AddOptionalParameter("repayId", repayId);
+            parameters.AddOptionalParameter("accountId", accountId);
+            parameters.AddOptionalParameter("currency", asset);
+            parameters.AddOptionalParameter("startTime", DateTimeConverter.ConvertToMilliseconds(startTime));
+            parameters.AddOptionalParameter("endTime", DateTimeConverter.ConvertToMilliseconds(endTime));
+            parameters.AddOptionalParameter("sort", sort);
+            parameters.AddOptionalParameter("limit", limit);
+            parameters.AddOptionalParameter("fromId", fromId);
+
+            return await _baseClient.SendHuobiRequest<IEnumerable<HuobiRepayment>>(_baseClient.GetUrl($"account/repayment", "2"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
         }
     }
 }
