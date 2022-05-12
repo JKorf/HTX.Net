@@ -135,7 +135,7 @@ namespace Huobi.Net.Clients.SpotApi
             });
 
             var request = new HuobiSubscribeRequest(_baseClient.NextIdInternal().ToString(CultureInfo.InvariantCulture), $"market.{symbol}.mbp.refresh.{levels}");
-            return await _baseClient.SubscribeInternalAsync(this, baseAddressMbp, request, null, false, internalHandler, ct).ConfigureAwait(false);
+            return await _baseClient.SubscribeInternalAsync(this, request, null, false, internalHandler, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
