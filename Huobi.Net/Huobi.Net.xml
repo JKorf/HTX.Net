@@ -3062,7 +3062,7 @@
             State
             </summary>
         </member>
-        <member name="P:Huobi.Net.Objects.Models.HuobiMarginOrder.PaidPoint">
+        <member name="P:Huobi.Net.Objects.Models.HuobiMarginOrder.PaidPoints">
             <summary>
             Paid Huobi points
             </summary>
@@ -3070,6 +3070,16 @@
         <member name="P:Huobi.Net.Objects.Models.HuobiMarginOrder.PaidAsset">
             <summary>
             Paid asset
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.HuobiMarginOrder.FilledPoints">
+            <summary>
+            Filled Huobi points
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.HuobiMarginOrder.FilledHt">
+            <summary>
+            HT deduction amount
             </summary>
         </member>
         <member name="P:Huobi.Net.Objects.Models.HuobiMarginOrder.DeductRate">

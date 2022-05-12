@@ -224,7 +224,7 @@ namespace Huobi.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<HuobiRepaymentResult>> RepayMarginLoanAsync(string accountId, string asset, decimal quantity, string? transactionId = null, CancellationToken ct = default)
+        public async Task<WebCallResult<IEnumerable<HuobiRepaymentResult>>> RepayMarginLoanAsync(string accountId, string asset, decimal quantity, string? transactionId = null, CancellationToken ct = default)
         {
             var parameters = new Dictionary<string, object>
             {
@@ -234,7 +234,7 @@ namespace Huobi.Net.Clients.SpotApi
             };
 
             parameters.AddOptionalParameter("transactId", transactionId);
-            return await _baseClient.SendHuobiRequest<HuobiRepaymentResult>(_baseClient.GetUrl("account/repayment", "2"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
+            return await _baseClient.SendHuobiRequest<IEnumerable<HuobiRepaymentResult>>(_baseClient.GetUrl("account/repayment", "2"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
         }
 
         /// <inheritdoc />

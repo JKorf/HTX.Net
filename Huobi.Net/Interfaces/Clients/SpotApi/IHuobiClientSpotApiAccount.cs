@@ -181,7 +181,7 @@ namespace Huobi.Net.Interfaces.Clients.SpotApi
         /// <param name="transactionId">Loan transaction ID</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<HuobiRepaymentResult>> RepayMarginLoanAsync(string accountId, string asset, decimal quantity, string? transactionId = null, CancellationToken ct = default);
+        Task<WebCallResult<IEnumerable<HuobiRepaymentResult>>> RepayMarginLoanAsync(string accountId, string asset, decimal quantity, string? transactionId = null, CancellationToken ct = default);
 
         /// <summary>
         /// Transfer asset from spot account to isolated margin account

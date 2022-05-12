@@ -17,10 +17,12 @@ namespace Huobi.Net.Objects.Models
         /// <summary>
         /// Account id
         /// </summary>
+        [JsonProperty("account-id")]
         public long AccountId { get; set; }
         /// <summary>
         /// User id
         /// </summary>
+        [JsonProperty("user-id")]
         public long UserId { get; set; }
         /// <summary>
         /// Symbol
@@ -40,7 +42,7 @@ namespace Huobi.Net.Objects.Models
         /// <summary>
         /// Accrue time
         /// </summary>
-        [JsonProperty("accured-at")]
+        [JsonProperty("accrued-at")]
         [JsonConverter(typeof(DateTimeConverter))]
         public DateTime? AccrueTime { get; set; }
         /// <summary>
@@ -57,7 +59,7 @@ namespace Huobi.Net.Objects.Models
         /// Interst rate
         /// </summary>
         [JsonProperty("interest-rate")]
-        public decimal InterestRate { get; set; }
+        public decimal? InterestRate { get; set; }
         /// <summary>
         /// Interest quantity
         /// </summary>
@@ -77,42 +79,52 @@ namespace Huobi.Net.Objects.Models
         /// Paid Huobi points
         /// </summary>
         [JsonProperty("paid-point")]
-        public decimal PaidPoint { get; set; }
+        public decimal PaidPoints { get; set; }
         /// <summary>
         /// Paid asset
         /// </summary>
         [JsonProperty("paid-coin")]
         public decimal PaidAsset { get; set; }
         /// <summary>
+        /// Filled Huobi points
+        /// </summary>
+        [JsonProperty("filled-points")]
+        public decimal FilledPoints { get; set; }
+        /// <summary>
+        /// HT deduction amount
+        /// </summary>
+        [JsonProperty("filled-ht")]
+        public decimal FilledHt { get; set; }
+        /// <summary>
         /// Deduct rate
         /// </summary>
         [JsonProperty("deduct-rate")]
-        public decimal DeductRate { get; set; }
+        public decimal? DeductRate { get; set; }
         /// <summary>
         /// Deduct asset
         /// </summary>
         [JsonProperty("deduct-currency")]
-        public decimal DeductAsset { get; set; }
+        public string? DeductAsset { get; set; }
         /// <summary>
         /// Deduct quantity
         /// </summary>
         [JsonProperty("deduct-amount")]
-        public decimal DeductQuantity { get; set; }
+        public decimal? DeductQuantity { get; set; }
         /// <summary>
         /// Last updated
         /// </summary>
         [JsonProperty("updated-at")]
         [JsonConverter(typeof(DateTimeConverter))]
-        public DateTime UpdateTime { get; set; }
+        public DateTime? UpdateTime { get; set; }
         /// <summary>
         /// Hourly interest rate
         /// </summary>
         [JsonProperty("hour-interest-rate")]
-        public decimal HourInterestRate { get; set; }
+        public decimal? HourInterestRate { get; set; }
         /// <summary>
         /// Daily interest rate
         /// </summary>
         [JsonProperty("day-interest-rate")]
-        public decimal DayInterestRate { get; set; }
+        public decimal? DayInterestRate { get; set; }
     }
 }

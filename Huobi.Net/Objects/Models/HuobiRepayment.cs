@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using CryptoExchange.Net.Converters;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -21,21 +22,23 @@ namespace Huobi.Net.Objects.Models
         /// <summary>
         /// Repay time
         /// </summary>
+        [JsonConverter(typeof(DateTimeConverter))]
         public DateTime RepayTime { get; set; }
         /// <summary>
         /// Asset
         /// </summary>
         [JsonProperty("currency")]
-        public string Asset { get; set; } = String.Empty;
+        public string Asset { get; set; } = string.Empty;
         /// <summary>
         /// Repay quantity
         /// </summary>
+        [JsonProperty("repaidAmount")]
         public decimal RepaidQuantity { get; set; }
         /// <summary>
         /// Transactions
         /// </summary>
         [JsonProperty("transactIds")]
-        public IEnumerable<HuobiRepayTransaction> Transactions { get; set; } = Array.Empty<HuobiRepayTransaction>();
+        public HuobiRepayTransaction Transactions { get; set; } = null!;
     }
 
     /// <summary>

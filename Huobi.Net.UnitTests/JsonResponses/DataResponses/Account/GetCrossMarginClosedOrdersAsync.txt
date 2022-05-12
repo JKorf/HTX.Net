@@ -1,0 +1,20 @@
+{
+    "status":"ok",
+    "data":[
+        {
+            "loan-balance":"0.100000000000000000",
+            "interest-balance":"0.000200000000000000",
+            "loan-amount":"0.100000000000000000",
+            "accrued-at":1511169724531,
+            "interest-amount":"0.000200000000000000",
+            "filled-points":"0.2",
+            "filled-ht":"0.2",
+            "currency":"btc",
+            "id":394,
+            "state":"accrual",
+            "account-id":17747,
+            "user-id":119913,
+            "created-at":1511169724531
+        }
+    ]
+}
