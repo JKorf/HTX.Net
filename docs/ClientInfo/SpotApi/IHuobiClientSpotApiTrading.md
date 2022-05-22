@@ -11,6 +11,31 @@ grand_parent: Rest API documentation
 
 ***
 
+## CancelConditionalOrdersAsync  
+
+[https://huobiapi.github.io/docs/spot/v1/en/#cancel-conditional-orders-before-triggering](https://huobiapi.github.io/docs/spot/v1/en/#cancel-conditional-orders-before-triggering)  
+<p>
+
+*Cancel conditional orders*  
+
+```csharp  
+var client = new HuobiClient();  
+var result = await client.SpotApi.Trading.CancelConditionalOrdersAsync(/* parameters */);  
+```  
+
+```csharp  
+Task<WebCallResult<HuobiConditionalOrderCancelResult>> CancelConditionalOrdersAsync(IEnumerable<string> clientOrderIds, CancellationToken ct = default);  
+```  
+
+|Parameter|Description|
+|---|---|
+|clientOrderIds|Client order ids of the conditional orders to cancels|
+|_[Optional]_ ct|Cancelation token|
+
+</p>
+
+***
+
 ## CancelOrderAsync  
 
 [https://huobiapi.github.io/docs/spot/v1/en/#submit-cancel-for-an-order](https://huobiapi.github.io/docs/spot/v1/en/#submit-cancel-for-an-order)  
@@ -115,6 +140,40 @@ Task<WebCallResult<HuobiByCriteriaCancelResult>> CancelOrdersByCriteriaAsync(lon
 
 ***
 
+## GetClosedConditionalOrdersAsync  
+
+[https://huobiapi.github.io/docs/spot/v1/en/#query-conditional-order-history](https://huobiapi.github.io/docs/spot/v1/en/#query-conditional-order-history)  
+<p>
+
+*Get closed conditional orders*  
+
+```csharp  
+var client = new HuobiClient();  
+var result = await client.SpotApi.Trading.GetClosedConditionalOrdersAsync(/* parameters */);  
+```  
+
+```csharp  
+Task<WebCallResult<IEnumerable<HuobiConditionalOrder>>> GetClosedConditionalOrdersAsync(string symbol, ConditionalOrderStatus status, long? accountId = default, OrderSide? side = default, ConditionalOrderType? type = default, DateTime? startTime = default, DateTime? endTime = default, string? sort = default, int? limit = default, long? fromId = default, CancellationToken ct = default);  
+```  
+
+|Parameter|Description|
+|---|---|
+|symbol|Filter by symbol|
+|status|Filter by status|
+|_[Optional]_ accountId|Filter by account id|
+|_[Optional]_ side|Filter by side|
+|_[Optional]_ type|Filter by type|
+|_[Optional]_ startTime|Return only entries after this time|
+|_[Optional]_ endTime|Return only entries before this time|
+|_[Optional]_ sort|Sort direction|
+|_[Optional]_ limit|Max results|
+|_[Optional]_ fromId|Ids after this|
+|_[Optional]_ ct|Cancelation token|
+
+</p>
+
+***
+
 ## GetClosedOrdersAsync  
 
 [https://huobiapi.github.io/docs/spot/v1/en/#search-past-orders](https://huobiapi.github.io/docs/spot/v1/en/#search-past-orders)  
@@ -147,6 +206,31 @@ Task<WebCallResult<IEnumerable<HuobiOrder>>> GetClosedOrdersAsync(string symbol,
 
 ***
 
+## GetConditionalOrderAsync  
+
+[https://huobiapi.github.io/docs/spot/v1/en/#query-a-specific-conditional-order](https://huobiapi.github.io/docs/spot/v1/en/#query-a-specific-conditional-order)  
+<p>
+
+*Get a conditional order by id*  
+
+```csharp  
+var client = new HuobiClient();  
+var result = await client.SpotApi.Trading.GetConditionalOrderAsync(/* parameters */);  
+```  
+
+```csharp  
+Task<WebCallResult<HuobiConditionalOrder>> GetConditionalOrderAsync(string clientOrderId, CancellationToken ct = default);  
+```  
+
+|Parameter|Description|
+|---|---|
+|clientOrderId|Client order id|
+|_[Optional]_ ct|Cancelation token|
+
+</p>
+
+***
+
 ## GetHistoricalOrdersAsync  
 
 [https://huobiapi.github.io/docs/spot/v1/en/#search-historical-orders-within-48-hours](https://huobiapi.github.io/docs/spot/v1/en/#search-historical-orders-within-48-hours)  
@@ -171,6 +255,37 @@ Task<WebCallResult<IEnumerable<HuobiOrder>>> GetHistoricalOrdersAsync(string? sy
 |_[Optional]_ direction|Direction of the results to return|
 |_[Optional]_ limit|The max number of results|
 |_[Optional]_ ct|Cancellation token|
+
+</p>
+
+***
+
+## GetOpenConditionalOrdersAsync  
+
+[https://huobiapi.github.io/docs/spot/v1/en/#query-open-conditional-orders-before-triggering](https://huobiapi.github.io/docs/spot/v1/en/#query-open-conditional-orders-before-triggering)  
+<p>
+
+*Get open conditional orders based on the parameters*  
+
+```csharp  
+var client = new HuobiClient();  
+var result = await client.SpotApi.Trading.GetOpenConditionalOrdersAsync();  
+```  
+
+```csharp  
+Task<WebCallResult<IEnumerable<HuobiConditionalOrder>>> GetOpenConditionalOrdersAsync(long? accountId = default, string? symbol = default, OrderSide? side = default, ConditionalOrderType? type = default, string? sort = default, int? limit = default, long? fromId = default, CancellationToken ct = default);  
+```  
+
+|Parameter|Description|
+|---|---|
+|_[Optional]_ accountId|Filter by account id|
+|_[Optional]_ symbol|Filter by symbol|
+|_[Optional]_ side|Filter by side|
+|_[Optional]_ type|Filter by type|
+|_[Optional]_ sort|Sort direction|
+|_[Optional]_ limit|Max results|
+|_[Optional]_ fromId|Ids after this|
+|_[Optional]_ ct|Cancelation token|
 
 </p>
 
@@ -305,6 +420,41 @@ Task<WebCallResult<IEnumerable<HuobiOrderTrade>>> GetUserTradesAsync(IEnumerable
 |_[Optional]_ fromId|Only get orders with ID before or after this. Used together with the direction parameter|
 |_[Optional]_ direction|Direction of the results to return when using the fromId parameter|
 |_[Optional]_ limit|The max number of results|
+|_[Optional]_ ct|Cancellation token|
+
+</p>
+
+***
+
+## PlaceConditionalOrderAsync  
+
+[https://huobiapi.github.io/docs/spot/v1/en/#place-a-conditional-order](https://huobiapi.github.io/docs/spot/v1/en/#place-a-conditional-order)  
+<p>
+
+*Place a new conditional order*  
+
+```csharp  
+var client = new HuobiClient();  
+var result = await client.SpotApi.Trading.PlaceConditionalOrderAsync(/* parameters */);  
+```  
+
+```csharp  
+Task<WebCallResult<HuobiPlacedConditionalOrder>> PlaceConditionalOrderAsync(long accountId, string symbol, OrderSide side, ConditionalOrderType type, decimal stopPrice, decimal? quantity = default, decimal? price = default, decimal? quoteQuantity = default, decimal? trailingRate = default, TimeInForce? timeInForce = default, string? clientOrderId = default, CancellationToken ct = default);  
+```  
+
+|Parameter|Description|
+|---|---|
+|accountId|The account the order should be placed from|
+|symbol|The symbol the order is for|
+|side|Side of the order|
+|type|Type of the order|
+|stopPrice|Stop price of the order|
+|_[Optional]_ quantity|Quantity of the order|
+|_[Optional]_ price|Price of the order|
+|_[Optional]_ quoteQuantity|Quote quantity of the order|
+|_[Optional]_ trailingRate|Trailing rate of the order|
+|_[Optional]_ timeInForce|Time in force|
+|_[Optional]_ clientOrderId|Client order id|
 |_[Optional]_ ct|Cancellation token|
 
 </p>

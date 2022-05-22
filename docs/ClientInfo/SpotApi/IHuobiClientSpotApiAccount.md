@@ -150,6 +150,87 @@ Task<WebCallResult<IEnumerable<HuobiBalance>>> GetBalancesAsync(long accountId, 
 
 ***
 
+## GetCrossLoanInterestRateAndQuotaAsync  
+
+[https://huobiapi.github.io/docs/spot/v1/en/#get-loan-interest-rate-and-quota-cross](https://huobiapi.github.io/docs/spot/v1/en/#get-loan-interest-rate-and-quota-cross)  
+<p>
+
+*Get cross margin interest rates and quotas*  
+
+```csharp  
+var client = new HuobiClient();  
+var result = await client.SpotApi.Account.GetCrossLoanInterestRateAndQuotaAsync();  
+```  
+
+```csharp  
+Task<WebCallResult<IEnumerable<HuobiLoanInfoAsset>>> GetCrossLoanInterestRateAndQuotaAsync(CancellationToken ct = default);  
+```  
+
+|Parameter|Description|
+|---|---|
+|_[Optional]_ ct||
+
+</p>
+
+***
+
+## GetCrossMarginBalanceAsync  
+
+[https://huobiapi.github.io/docs/spot/v1/en/#get-the-balance-of-the-margin-loan-account-cross](https://huobiapi.github.io/docs/spot/v1/en/#get-the-balance-of-the-margin-loan-account-cross)  
+<p>
+
+*Get cross margin account balance*  
+
+```csharp  
+var client = new HuobiClient();  
+var result = await client.SpotApi.Account.GetCrossMarginBalanceAsync();  
+```  
+
+```csharp  
+Task<WebCallResult<HuobiMarginBalances>> GetCrossMarginBalanceAsync(int? subUserId = default, CancellationToken ct = default);  
+```  
+
+|Parameter|Description|
+|---|---|
+|_[Optional]_ subUserId|Sub user id|
+|_[Optional]_ ct|Cancellation token|
+
+</p>
+
+***
+
+## GetCrossMarginClosedOrdersAsync  
+
+[https://huobiapi.github.io/docs/spot/v1/en/#search-past-margin-orders-cross](https://huobiapi.github.io/docs/spot/v1/en/#search-past-margin-orders-cross)  
+<p>
+
+*Get cross margin order history*  
+
+```csharp  
+var client = new HuobiClient();  
+var result = await client.SpotApi.Account.GetCrossMarginClosedOrdersAsync();  
+```  
+
+```csharp  
+Task<WebCallResult<IEnumerable<HuobiMarginOrder>>> GetCrossMarginClosedOrdersAsync(string? asset = default, MarginOrderStatus? state = default, DateTime? startDate = default, DateTime? endDate = default, string? from = default, FilterDirection? direction = default, int? limit = default, int? subUserId = default, CancellationToken ct = default);  
+```  
+
+|Parameter|Description|
+|---|---|
+|_[Optional]_ asset|Filter by asset|
+|_[Optional]_ state|Filter by state|
+|_[Optional]_ startDate|Filter by start date|
+|_[Optional]_ endDate|Filter by end date|
+|_[Optional]_ from|Start order id for use in combination with direction|
+|_[Optional]_ direction|Direction of results in combination with from parameter|
+|_[Optional]_ limit|Max amount of results|
+|_[Optional]_ subUserId|Sub user id|
+|_[Optional]_ ct|Cancellation token|
+
+</p>
+
+***
+
 ## GetDepositAddressesAsync  
 
 [https://huobiapi.github.io/docs/spot/v1/en/#query-deposit-address](https://huobiapi.github.io/docs/spot/v1/en/#query-deposit-address)  
@@ -169,6 +250,121 @@ Task<WebCallResult<IEnumerable<HuobiDepositAddress>>> GetDepositAddressesAsync(s
 |Parameter|Description|
 |---|---|
 |asset|Asset|
+|_[Optional]_ ct|Cancellation token|
+
+</p>
+
+***
+
+## GetIsolatedLoanInterestRateAndQuotaAsync  
+
+[https://huobiapi.github.io/docs/spot/v1/en/#get-loan-interest-rate-and-quota-isolated](https://huobiapi.github.io/docs/spot/v1/en/#get-loan-interest-rate-and-quota-isolated)  
+<p>
+
+*Get isolated loan interest rate and quotas*  
+
+```csharp  
+var client = new HuobiClient();  
+var result = await client.SpotApi.Account.GetIsolatedLoanInterestRateAndQuotaAsync();  
+```  
+
+```csharp  
+Task<WebCallResult<IEnumerable<HuobiLoanInfo>>> GetIsolatedLoanInterestRateAndQuotaAsync(IEnumerable<string>? symbols = default, CancellationToken ct = default);  
+```  
+
+|Parameter|Description|
+|---|---|
+|_[Optional]_ symbols|Filter on symbols|
+|_[Optional]_ ct|Cancellation token|
+
+</p>
+
+***
+
+## GetIsolatedMarginBalanceAsync  
+
+[https://huobiapi.github.io/docs/spot/v1/en/#get-the-balance-of-the-margin-loan-account-isolated](https://huobiapi.github.io/docs/spot/v1/en/#get-the-balance-of-the-margin-loan-account-isolated)  
+<p>
+
+*Get isolated margin account balance*  
+
+```csharp  
+var client = new HuobiClient();  
+var result = await client.SpotApi.Account.GetIsolatedMarginBalanceAsync(/* parameters */);  
+```  
+
+```csharp  
+Task<WebCallResult<IEnumerable<HuobiMarginBalances>>> GetIsolatedMarginBalanceAsync(string symbol, int? subUserId = default, CancellationToken ct = default);  
+```  
+
+|Parameter|Description|
+|---|---|
+|symbol|The symbol|
+|_[Optional]_ subUserId|Sub user id|
+|_[Optional]_ ct|Cancellation token|
+
+</p>
+
+***
+
+## GetIsolatedMarginClosedOrdersAsync  
+
+[https://huobiapi.github.io/docs/spot/v1/en/#search-past-margin-orders-isolated](https://huobiapi.github.io/docs/spot/v1/en/#search-past-margin-orders-isolated)  
+<p>
+
+*Get isolated margin orders history*  
+
+```csharp  
+var client = new HuobiClient();  
+var result = await client.SpotApi.Account.GetIsolatedMarginClosedOrdersAsync(/* parameters */);  
+```  
+
+```csharp  
+Task<WebCallResult<IEnumerable<HuobiMarginOrder>>> GetIsolatedMarginClosedOrdersAsync(string symbol, IEnumerable<MarginOrderStatus>? states = default, DateTime? startDate = default, DateTime? endDate = default, string? from = default, FilterDirection? direction = default, int? limit = default, int? subUserId = default, CancellationToken ct = default);  
+```  
+
+|Parameter|Description|
+|---|---|
+|symbol|The symbol to get history for|
+|_[Optional]_ states|Filter by states|
+|_[Optional]_ startDate|Filter by start date|
+|_[Optional]_ endDate|Filter by end date|
+|_[Optional]_ from|Start order id for use in combination with direction|
+|_[Optional]_ direction|Direction of results in combination with from parameter|
+|_[Optional]_ limit|Max amount of results|
+|_[Optional]_ subUserId|Sub user id|
+|_[Optional]_ ct|Cancellation token|
+
+</p>
+
+***
+
+## GetRepaymentHistoryAsync  
+
+[https://huobiapi.github.io/docs/spot/v1/en/#repayment-record-reference](https://huobiapi.github.io/docs/spot/v1/en/#repayment-record-reference)  
+<p>
+
+*Get repayment history*  
+
+```csharp  
+var client = new HuobiClient();  
+var result = await client.SpotApi.Account.GetRepaymentHistoryAsync();  
+```  
+
+```csharp  
+Task<WebCallResult<IEnumerable<HuobiRepayment>>> GetRepaymentHistoryAsync(long? repayId = default, long? accountId = default, string? asset = default, DateTime? startTime = default, DateTime? endTime = default, string? sort = default, int? limit = default, long? fromId = default, CancellationToken ct = default);  
+```  
+
+|Parameter|Description|
+|---|---|
+|_[Optional]_ repayId|Filter by repay id|
+|_[Optional]_ accountId|Filter by account id|
+|_[Optional]_ asset|Filter by asset|
+|_[Optional]_ startTime|Only show records after this|
+|_[Optional]_ endTime|Only show records before this|
+|_[Optional]_ sort|Sort direction|
+|_[Optional]_ limit|Result limit|
+|_[Optional]_ fromId|Search id|
 |_[Optional]_ ct|Cancellation token|
 
 </p>
@@ -296,7 +492,140 @@ Task<WebCallResult<IEnumerable<HuobiWithdrawDeposit>>> GetWithdrawDepositAsync(W
 |_[Optional]_ from|The transfer id to begin search|
 |_[Optional]_ size|The number of items to return|
 |_[Optional]_ direction|the order of response|
-|_[Optional]_ ct||
+|_[Optional]_ ct|Cancellation token|
+
+</p>
+
+***
+
+## RepayCrossMarginLoanAsync  
+
+[https://huobiapi.github.io/docs/spot/v1/en/#repay-margin-loan-cross](https://huobiapi.github.io/docs/spot/v1/en/#repay-margin-loan-cross)  
+<p>
+
+*Repay a isolated margin loan*  
+
+```csharp  
+var client = new HuobiClient();  
+var result = await client.SpotApi.Account.RepayCrossMarginLoanAsync(/* parameters */);  
+```  
+
+```csharp  
+Task<WebCallResult<object>> RepayCrossMarginLoanAsync(string orderId, decimal quantity, CancellationToken ct = default);  
+```  
+
+|Parameter|Description|
+|---|---|
+|orderId|Id to repay|
+|quantity|Quantity|
+|_[Optional]_ ct|Cancellation token|
+
+</p>
+
+***
+
+## RepayIsolatedMarginLoanAsync  
+
+[https://huobiapi.github.io/docs/spot/v1/en/#repay-margin-loan-isolated](https://huobiapi.github.io/docs/spot/v1/en/#repay-margin-loan-isolated)  
+<p>
+
+*Repay a isolated margin loan*  
+
+```csharp  
+var client = new HuobiClient();  
+var result = await client.SpotApi.Account.RepayIsolatedMarginLoanAsync(/* parameters */);  
+```  
+
+```csharp  
+Task<WebCallResult<long>> RepayIsolatedMarginLoanAsync(string orderId, decimal quantity, CancellationToken ct = default);  
+```  
+
+|Parameter|Description|
+|---|---|
+|orderId|Id to repay|
+|quantity|Quantity|
+|_[Optional]_ ct|Cancellation token|
+
+</p>
+
+***
+
+## RepayMarginLoanAsync  
+
+[https://huobiapi.github.io/docs/spot/v1/en/#repay-margin-loan-cross-isolated](https://huobiapi.github.io/docs/spot/v1/en/#repay-margin-loan-cross-isolated)  
+<p>
+
+*Repay a margin loan*  
+
+```csharp  
+var client = new HuobiClient();  
+var result = await client.SpotApi.Account.RepayMarginLoanAsync(/* parameters */);  
+```  
+
+```csharp  
+Task<WebCallResult<IEnumerable<HuobiRepaymentResult>>> RepayMarginLoanAsync(string accountId, string asset, decimal quantity, string? transactionId = default, CancellationToken ct = default);  
+```  
+
+|Parameter|Description|
+|---|---|
+|accountId|Account id|
+|asset|Asset to repay|
+|quantity|Quantity to repay|
+|_[Optional]_ transactionId|Loan transaction ID|
+|_[Optional]_ ct|Cancellation token|
+
+</p>
+
+***
+
+## RequestCrossMarginLoanAsync  
+
+[https://huobiapi.github.io/docs/spot/v1/en/#request-a-margin-loan-cross](https://huobiapi.github.io/docs/spot/v1/en/#request-a-margin-loan-cross)  
+<p>
+
+*Request a loan on cross margin*  
+
+```csharp  
+var client = new HuobiClient();  
+var result = await client.SpotApi.Account.RequestCrossMarginLoanAsync(/* parameters */);  
+```  
+
+```csharp  
+Task<WebCallResult<long>> RequestCrossMarginLoanAsync(string asset, decimal quantity, CancellationToken ct = default);  
+```  
+
+|Parameter|Description|
+|---|---|
+|asset|The asset|
+|quantity|The quantity|
+|_[Optional]_ ct|Cancellation token|
+
+</p>
+
+***
+
+## RequestIsolatedMarginLoanAsync  
+
+[https://huobiapi.github.io/docs/spot/v1/en/#request-a-margin-loan-isolated](https://huobiapi.github.io/docs/spot/v1/en/#request-a-margin-loan-isolated)  
+<p>
+
+*Request a loan on isolated margin*  
+
+```csharp  
+var client = new HuobiClient();  
+var result = await client.SpotApi.Account.RequestIsolatedMarginLoanAsync(/* parameters */);  
+```  
+
+```csharp  
+Task<WebCallResult<long>> RequestIsolatedMarginLoanAsync(string symbol, string asset, decimal quantity, CancellationToken ct = default);  
+```  
+
+|Parameter|Description|
+|---|---|
+|symbol|The symbol|
+|asset|The asset|
+|quantity|The quantity|
+|_[Optional]_ ct|Cancellation token|
 
 </p>
 
@@ -328,6 +657,112 @@ Task<WebCallResult<HuobiTransactionResult>> TransferAssetAsync(long fromUserId, 
 |toAccountId|To account id|
 |asset|Asset to transfer|
 |quantity|Amount to transfer|
+|_[Optional]_ ct|Cancellation token|
+
+</p>
+
+***
+
+## TransferCrossMarginToSpotAsync  
+
+[https://huobiapi.github.io/docs/spot/v1/en/#transfer-asset-from-cross-margin-account-to-spot-trading-account-cross](https://huobiapi.github.io/docs/spot/v1/en/#transfer-asset-from-cross-margin-account-to-spot-trading-account-cross)  
+<p>
+
+*Transfer from cross margin account to spot account*  
+
+```csharp  
+var client = new HuobiClient();  
+var result = await client.SpotApi.Account.TransferCrossMarginToSpotAsync(/* parameters */);  
+```  
+
+```csharp  
+Task<WebCallResult<long>> TransferCrossMarginToSpotAsync(string asset, decimal quantity, CancellationToken ct = default);  
+```  
+
+|Parameter|Description|
+|---|---|
+|asset|The asset to transfer|
+|quantity|Quantity to transfer|
+|_[Optional]_ ct|Cancellation token|
+
+</p>
+
+***
+
+## TransferIsolatedMarginToSpotAsync  
+
+[https://huobiapi.github.io/docs/spot/v1/en/#transfer-asset-from-isolated-margin-account-to-spot-trading-account-isolated](https://huobiapi.github.io/docs/spot/v1/en/#transfer-asset-from-isolated-margin-account-to-spot-trading-account-isolated)  
+<p>
+
+*Transfer asset from isolated margin to spot account*  
+
+```csharp  
+var client = new HuobiClient();  
+var result = await client.SpotApi.Account.TransferIsolatedMarginToSpotAsync(/* parameters */);  
+```  
+
+```csharp  
+Task<WebCallResult<long>> TransferIsolatedMarginToSpotAsync(string symbol, string asset, decimal quantity, CancellationToken ct = default);  
+```  
+
+|Parameter|Description|
+|---|---|
+|symbol|Trading symbol|
+|asset|Asset to transfer|
+|quantity|Quantity to transfer|
+|_[Optional]_ ct|Cancellation token|
+
+</p>
+
+***
+
+## TransferSpotToCrossMarginAsync  
+
+[https://huobiapi.github.io/docs/spot/v1/en/#transfer-asset-from-spot-trading-account-to-cross-margin-account-cross](https://huobiapi.github.io/docs/spot/v1/en/#transfer-asset-from-spot-trading-account-to-cross-margin-account-cross)  
+<p>
+
+*Transfer from spot account to cross margin account*  
+
+```csharp  
+var client = new HuobiClient();  
+var result = await client.SpotApi.Account.TransferSpotToCrossMarginAsync(/* parameters */);  
+```  
+
+```csharp  
+Task<WebCallResult<long>> TransferSpotToCrossMarginAsync(string asset, decimal quantity, CancellationToken ct = default);  
+```  
+
+|Parameter|Description|
+|---|---|
+|asset|The asset to transfer|
+|quantity|Quantity to transfer|
+|_[Optional]_ ct|Cancellation token|
+
+</p>
+
+***
+
+## TransferSpotToIsolatedMarginAsync  
+
+[https://huobiapi.github.io/docs/spot/v1/en/#transfer-asset-from-spot-trading-account-to-isolated-margin-account-isolated](https://huobiapi.github.io/docs/spot/v1/en/#transfer-asset-from-spot-trading-account-to-isolated-margin-account-isolated)  
+<p>
+
+*Transfer asset from spot account to isolated margin account*  
+
+```csharp  
+var client = new HuobiClient();  
+var result = await client.SpotApi.Account.TransferSpotToIsolatedMarginAsync(/* parameters */);  
+```  
+
+```csharp  
+Task<WebCallResult<long>> TransferSpotToIsolatedMarginAsync(string symbol, string asset, decimal quantity, CancellationToken ct = default);  
+```  
+
+|Parameter|Description|
+|---|---|
+|symbol|Trading symbol|
+|asset|Asset to transfer|
+|quantity|Quantity to transfer|
 |_[Optional]_ ct|Cancellation token|
 
 </p>
@@ -386,6 +821,6 @@ Task<WebCallResult<long>> WithdrawAsync(string address, string asset, decimal qu
 |fee|The fee to pay with this withdraw|
 |_[Optional]_ network|Set as "usdt" to withdraw USDT to OMNI, set as "trc20usdt" to withdraw USDT to TRX|
 |_[Optional]_ addressTag|A tag specified for this address|
-|_[Optional]_ ct||
+|_[Optional]_ ct|Cancellation token|
 
 </p>
