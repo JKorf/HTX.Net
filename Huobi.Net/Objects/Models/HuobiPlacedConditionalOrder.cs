@@ -8,6 +8,6 @@
         /// <summary>
         /// The id
         /// </summary>
-        public string ClientOrderId { get; set; }
+        public string ClientOrderId { get; set; } = string.Empty;
     }
 }

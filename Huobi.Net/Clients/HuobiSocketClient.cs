@@ -80,13 +80,14 @@ namespace Huobi.Net.Clients
         /// <inheritdoc />
         protected override SocketConnection GetSocketConnection(SocketApiClient apiClient, string address, bool authenticated)
         {
-            var socketResult = socketConnections.Where(s => s.Value.Uri.ToString().TrimEnd('/') == address.TrimEnd('/')
+            var socketResult = socketConnections.Where(s => (s.Value.Status == SocketConnection.SocketStatus.None || s.Value.Status == SocketConnection.SocketStatus.Connected)
+                                && s.Value.Uri.ToString().TrimEnd('/') == address.TrimEnd('/')
                                 && s.Value.ApiClient.GetType() == apiClient.GetType()
                                 && (s.Value.Authenticated == authenticated || !authenticated) && s.Value.Connected).OrderBy(s => s.Value.SubscriptionCount).FirstOrDefault();
             var result = socketResult.Equals(default(KeyValuePair<int, SocketConnection>)) ? null : socketResult.Value;
             if (result != null)
             {
-                if (result.SubscriptionCount < ClientOptions.SocketSubscriptionsCombineTarget || socketConnections.Count >= MaxSocketConnections && socketConnections.All(s => s.Value.SubscriptionCount >= ClientOptions.SocketSubscriptionsCombineTarget))
+                if (result.SubscriptionCount < ClientOptions.SocketSubscriptionsCombineTarget || socketConnections.Count >= ClientOptions.MaxSocketConnections && socketConnections.All(s => s.Value.SubscriptionCount >= ClientOptions.SocketSubscriptionsCombineTarget))
                 {
                     // Use existing socket if it has less than target connections OR it has the least connections and we can't make new
                     return result;
