@@ -77,31 +77,6 @@ namespace Huobi.Net.Clients
                 messageEvent.Connection.Send(new HuobiPingAuthResponse(messageEvent.JsonData["data"]!["ts"]!.Value<long>()));
         }
 
-        /// <inheritdoc />
-        protected override SocketConnection GetSocketConnection(SocketApiClient apiClient, string address, bool authenticated)
-        {
-            var socketResult = socketConnections.Where(s => (s.Value.Status == SocketConnection.SocketStatus.None || s.Value.Status == SocketConnection.SocketStatus.Connected)
-                                && s.Value.Uri.ToString().TrimEnd('/') == address.TrimEnd('/')
-                                && s.Value.ApiClient.GetType() == apiClient.GetType()
-                                && (s.Value.Authenticated == authenticated || !authenticated) && s.Value.Connected).OrderBy(s => s.Value.SubscriptionCount).FirstOrDefault();
-            var result = socketResult.Equals(default(KeyValuePair<int, SocketConnection>)) ? null : socketResult.Value;
-            if (result != null)
-            {
-                if (result.SubscriptionCount < ClientOptions.SocketSubscriptionsCombineTarget || socketConnections.Count >= ClientOptions.MaxSocketConnections && socketConnections.All(s => s.Value.SubscriptionCount >= ClientOptions.SocketSubscriptionsCombineTarget))
-                {
-                    // Use existing socket if it has less than target connections OR it has the least connections and we can't make new
-                    return result;
-                }
-            }
-
-            // Create new socket
-            var socket = CreateSocket(address);
-            var socketWrapper = new SocketConnection(this, apiClient, socket);
-            foreach (var kvp in genericHandlers)
-                socketWrapper.AddSubscription(SocketSubscription.CreateForIdentifier(NextId(), kvp.Key, false, kvp.Value));
-            return socketWrapper;
-        }
-
         private static string DecompressData(byte[] byteData)
         {
             using var decompressedStream = new MemoryStream();
@@ -333,7 +308,7 @@ namespace Huobi.Net.Clients
                 return new CallResult<bool>(new NoApiCredentialsError());
 
             var result = new CallResult<bool>(new ServerError("No response from server"));
-            await s.SendAndWaitAsync(((HuobiAuthenticationProvider)s.ApiClient.AuthenticationProvider).GetWebsocketAuthentication(s.Uri), ClientOptions.SocketResponseTimeout, data =>
+            await s.SendAndWaitAsync(((HuobiAuthenticationProvider)s.ApiClient.AuthenticationProvider).GetWebsocketAuthentication(s.ConnectionUri), ClientOptions.SocketResponseTimeout, data =>
             {
                 if (data["ch"]?.ToString() != "auth")
                     return false;

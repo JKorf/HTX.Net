@@ -13,6 +13,7 @@ using CryptoExchange.Net;
 using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Logging;
+using CryptoExchange.Net.Sockets;
 using Huobi.Net.Clients;
 using Huobi.Net.Enums;
 using Huobi.Net.Interfaces;
@@ -71,7 +72,7 @@ namespace Huobi.Net.UnitTests.TestImplementations
             HuobiSocketClient client;
             client = options != null ? new HuobiSocketClient(options) : new HuobiSocketClient(new HuobiSocketClientOptions() { LogLevel = LogLevel.Debug, ApiCredentials = new ApiCredentials("Test", "Test") });
             client.SocketFactory = Mock.Of<IWebsocketFactory>();
-            Mock.Get(client.SocketFactory).Setup(f => f.CreateWebsocket(It.IsAny<Log>(), It.IsAny<string>())).Returns(socket);
+            Mock.Get(client.SocketFactory).Setup(f => f.CreateWebsocket(It.IsAny<Log>(), It.IsAny<WebSocketParameters>())).Returns(socket);
             return client;
         }
 
@@ -80,7 +81,7 @@ namespace Huobi.Net.UnitTests.TestImplementations
             HuobiSocketClient client;
             client = options != null ? new HuobiSocketClient(options) : new HuobiSocketClient(new HuobiSocketClientOptions(){ LogLevel = LogLevel.Trace, ApiCredentials = new ApiCredentials("Test", "Test")});
             client.SocketFactory = Mock.Of<IWebsocketFactory>();
-            Mock.Get(client.SocketFactory).Setup(f => f.CreateWebsocket(It.IsAny<Log>(), It.IsAny<string>())).Returns(socket);  
+            Mock.Get(client.SocketFactory).Setup(f => f.CreateWebsocket(It.IsAny<Log>(), It.IsAny<WebSocketParameters>())).Returns(socket);  
             return client;
         }
 

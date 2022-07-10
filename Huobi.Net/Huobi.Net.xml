@@ -55,7 +55,7 @@
             </summary>
             <param name="options">Options to use as default</param>
         </member>
-        <member name="M:Huobi.Net.Clients.HuobiSocketClient.GetSocketConnection(CryptoExchange.Net.SocketApiClient,System.String,System.Boolean)">
+        <member name="M:Huobi.Net.Clients.HuobiSocketClient.DecompressData(System.Byte[])">
             <inheritdoc />
         </member>
         <member name="M:Huobi.Net.Clients.HuobiSocketClient.HandleQueryResponse``1(CryptoExchange.Net.Sockets.SocketConnection,System.Object,Newtonsoft.Json.Linq.JToken,CryptoExchange.Net.Objects.CallResult{``0}@)">
