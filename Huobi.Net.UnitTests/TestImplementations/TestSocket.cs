@@ -17,8 +17,10 @@ namespace Huobi.Net.UnitTests.TestImplementations
         public event Action<string> OnMessage;
         public event Action<Exception> OnError;
         public event Action OnOpen;
+#pragma warning disable 0067
         public event Action OnReconnecting;
         public event Action OnReconnected;
+#pragma warning restore 0067
 
         public int Id { get; }
         public bool ShouldReconnect { get; set; }
