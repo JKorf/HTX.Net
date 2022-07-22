@@ -40,6 +40,11 @@ namespace Huobi.Net.Clients.SpotApi
         /// <inheritdoc />
         public string ExchangeName => "Huobi";
 
+        /// <summary>
+        /// HostName when signed. always use "api.huobi.pro" instead of the real host. It's useful when use a http-reverse-proxy
+        /// </summary>
+        public const string SignHost = "api.huobi.pro";
+
         #region Api clients
 
         /// <inheritdoc />
@@ -69,7 +74,7 @@ namespace Huobi.Net.Clients.SpotApi
 
         /// <inheritdoc />
         protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
-            => new HuobiAuthenticationProvider(credentials, _options.SignPublicRequests);
+            => new HuobiAuthenticationProvider(credentials, _options.SignPublicRequests, SignHost);
 
         #region methods
 
