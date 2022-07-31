@@ -511,6 +511,36 @@
             Borrow account
             </summary>
         </member>
+        <member name="F:Huobi.Net.Enums.AccountType.GridTrading">
+            <summary>
+            Grid trading
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.AccountType.DepositEarning">
+            <summary>
+            Deposit earning
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.AccountType.OtcOptions">
+            <summary>
+            Otc options
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.AccountType.Minepool">
+            <summary>
+            Minepool
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.AccountType.Etf">
+            <summary>
+            Etf
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.AccountType.CryptoLoans">
+            <summary>
+            Crypto loans
+            </summary>
+        </member>
         <member name="T:Huobi.Net.Enums.BalanceType">
             <summary>
             Balance type
