@@ -32,6 +32,30 @@
         /// <summary>
         /// Borrow account
         /// </summary>
-        Borrow
+        Borrow,
+        /// <summary>
+        /// Grid trading
+        /// </summary>
+        GridTrading,
+        /// <summary>
+        /// Deposit earning
+        /// </summary>
+        DepositEarning,
+        /// <summary>
+        /// Otc options
+        /// </summary>
+        OtcOptions,
+        /// <summary>
+        /// Minepool
+        /// </summary>
+        Minepool,
+        /// <summary>
+        /// Etf
+        /// </summary>
+        Etf,
+        /// <summary>
+        /// Crypto loans
+        /// </summary>
+        CryptoLoans
     }
 }
