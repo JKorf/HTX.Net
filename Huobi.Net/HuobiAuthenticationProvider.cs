@@ -5,6 +5,7 @@ using CryptoExchange.Net.Objects;
 using Huobi.Net.Objects.Internal;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -45,7 +46,7 @@ namespace Huobi.Net
             uriParameters.Add("AccessKeyId", Credentials.Key!.GetString());
             uriParameters.Add("SignatureMethod", "HmacSHA256");
             uriParameters.Add("SignatureVersion", 2);
-            uriParameters.Add("Timestamp", GetTimestamp(apiClient).ToString("yyyy-MM-ddTHH:mm:ss"));
+            uriParameters.Add("Timestamp", GetTimestamp(apiClient).ToString("yyyy-MM-ddTHH:mm:ss", CultureInfo.InvariantCulture));
 
             var absolutePath = uri.AbsolutePath;
             if (absolutePath.StartsWith("/api"))
@@ -65,7 +66,7 @@ namespace Huobi.Net
             parameters.Add("accessKey", Credentials.Key!.GetString());
             parameters.Add("signatureMethod", "HmacSHA256");
             parameters.Add("signatureVersion", 2.1);
-            parameters.Add("timestamp", DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm:ss"));
+            parameters.Add("timestamp", DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm:ss", CultureInfo.InvariantCulture));
 
             var sortedParameters = parameters.OrderBy(kv => Encoding.UTF8.GetBytes(WebUtility.UrlEncode(kv.Key)!), new ByteOrderComparer());
             var paramString = uri.SetParameters(sortedParameters, ArrayParametersSerialization.Array).Query.Replace("?", "");
