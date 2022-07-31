@@ -28,6 +28,10 @@ Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/s
 A Discord server is available [here](https://discord.gg/MSpeEtSY8t). Feel free to join for discussion and/or questions around the CryptoExchange.Net and implementation libraries.
 
 ## Release notes
+* Version 4.1.8 - 31 Jul 2022
+    * Added missing account types
+    * Fixed culture issue authenticating requests
+
 * Version 4.1.7 - 18 Jul 2022
     * Updated CryptoExchange.Net
 
