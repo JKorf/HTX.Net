@@ -89,6 +89,11 @@
         <member name="P:Huobi.Net.Clients.SpotApi.HuobiClientSpotApi.ExchangeName">
             <inheritdoc />
         </member>
+        <member name="F:Huobi.Net.Clients.SpotApi.HuobiClientSpotApi.SignHost">
+            <summary>
+            HostName when signed. always use "api.huobi.pro" instead of the real host. It's useful when use a http-reverse-proxy
+            </summary>
+        </member>
         <member name="P:Huobi.Net.Clients.SpotApi.HuobiClientSpotApi.Account">
             <inheritdoc />
         </member>
@@ -321,6 +326,11 @@
         </member>
         <member name="T:Huobi.Net.Clients.SpotApi.HuobiSocketClientSpotStreams">
             <inheritdoc />
+        </member>
+        <member name="F:Huobi.Net.Clients.SpotApi.HuobiSocketClientSpotStreams.SignHost">
+            <summary>
+            HostName when signed. always use "api.huobi.pro" instead of the real host. It's useful when use a http-reverse-proxy
+            </summary>
         </member>
         <member name="M:Huobi.Net.Clients.SpotApi.HuobiSocketClientSpotStreams.CreateAuthenticationProvider(CryptoExchange.Net.Authentication.ApiCredentials)">
             <inheritdoc />
