@@ -6,7 +6,7 @@
     public class HuobiApiAddresses
     {
         /// <summary>
-        /// The address used by the HuobiClient for the rest API
+        /// The address used by the HuobiClient for the rest spot API
         /// </summary>
         public string RestClientAddress { get; set; } = "";
         /// <summary>
@@ -23,6 +23,11 @@
         public string SocketClientIncrementalOrderBookAddress { get; set; } = "";
 
         /// <summary>
+        /// The address used by the HuobiClient for the rest usdt margin swaps API
+        /// </summary>
+        public string UsdtMarginSwapRestClientAddress { get; set; } = "";
+
+        /// <summary>
         /// The default addresses to connect to the Huobi.com API
         /// </summary>
         public static HuobiApiAddresses Default = new HuobiApiAddresses
@@ -30,7 +35,8 @@
             RestClientAddress = "https://api.huobi.pro",
             SocketClientPublicAddress = "wss://api.huobi.pro/ws",
             SocketClientPrivateAddress = "wss://api.huobi.pro/ws/v2",
-            SocketClientIncrementalOrderBookAddress = "wss://api.huobi.pro/feed"
+            SocketClientIncrementalOrderBookAddress = "wss://api.huobi.pro/feed",
+            UsdtMarginSwapRestClientAddress = "https://api.hbdm.com",
         };
     }
 }

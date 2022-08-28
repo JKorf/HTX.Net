@@ -21,6 +21,8 @@ namespace Huobi.Net.Objects.Internal
         public T Data { get; set; } = default!;
         [JsonProperty("tick")]
         private T Tick { set => Data = value; get => Data; }
+        [JsonProperty("ticks")]
+        private T Ticks { set => Data = value; get => Data; }
         [JsonProperty("ts"), JsonConverter(typeof(DateTimeConverter))]
         public DateTime Timestamp { get; set; }
         [JsonProperty("ch")]

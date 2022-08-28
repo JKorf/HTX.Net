@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using CryptoExchange.Net;
 using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Objects;
+using Huobi.Net.Clients.FuturesApi;
 using Huobi.Net.Clients.SpotApi;
 using Huobi.Net.Interfaces.Clients;
 using Huobi.Net.Interfaces.Clients.SpotApi;
@@ -24,6 +25,9 @@ namespace Huobi.Net.Clients
         /// <inheritdoc />
         public IHuobiClientSpotApi SpotApi { get; }
 
+        /// <inheritdoc />
+        public HuobiClientUsdtMarginSwapApi UsdtMarginSwapApi { get; }
+
         #endregion
 
         #region constructor/destructor
@@ -40,6 +44,7 @@ namespace Huobi.Net.Clients
         public HuobiClient(HuobiClientOptions options) : base("Huobi", options)
         {
             SpotApi = AddApiClient(new HuobiClientSpotApi(log, this, options));
+            UsdtMarginSwapApi = AddApiClient(new HuobiClientUsdtMarginSwapApi(log, this, options));
         }
         #endregion
 

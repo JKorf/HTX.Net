@@ -31,6 +31,7 @@ namespace Huobi.Net.Objects
                     .AddTotalRateLimit(10, TimeSpan.FromSeconds(1))
             }
         };
+        
         /// <summary>
         /// Spot API options
         /// </summary>
@@ -38,6 +39,20 @@ namespace Huobi.Net.Objects
         {
             get => _spotApiOptions;
             set => _spotApiOptions = new RestApiClientOptions(_spotApiOptions, value);
+        }
+
+        private RestApiClientOptions _usdtMarginSwapApiOptions = new RestApiClientOptions(HuobiApiAddresses.Default.UsdtMarginSwapRestClientAddress)
+        {
+
+        };
+
+        /// <summary>
+        /// Usdt margin swap API options
+        /// </summary>
+        public RestApiClientOptions UsdtMarginSwapApiOptions
+        {
+            get => _usdtMarginSwapApiOptions;
+            set => _usdtMarginSwapApiOptions = new RestApiClientOptions(_usdtMarginSwapApiOptions, value);
         }
 
         /// <summary>
@@ -59,6 +74,7 @@ namespace Huobi.Net.Objects
 
             SignPublicRequests = baseOn.SignPublicRequests;
             _spotApiOptions = new RestApiClientOptions(baseOn.SpotApiOptions, null);
+            _usdtMarginSwapApiOptions = new RestApiClientOptions(baseOn.UsdtMarginSwapApiOptions, null);
         }
     }
 
