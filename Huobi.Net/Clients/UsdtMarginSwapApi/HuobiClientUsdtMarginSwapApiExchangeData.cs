@@ -79,5 +79,13 @@ namespace Huobi.Net.Clients.UsdtMarginSwapApi
             parameters.AddOptionalParameter("business_type", EnumConverter.GetString(type));
             return await _baseClient.SendHuobiRequest<IEnumerable<HuobiSwapBestOffer>>(_baseClient.GetUrl("linear-swap-ex/market/bbo"), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
         }
+
+        public async Task<WebCallResult<IEnumerable<HuobiSwapBestOffer>>> GetKlinesAsync(string? contractCode = null, KlineInterval? type = null, int? limit = null, DateTime? from = null, DateTime? to = null, CancellationToken ct = default)
+        {
+            var parameters = new Dictionary<string, object>();
+            parameters.AddOptionalParameter("contract_code", contractCode);
+            parameters.AddOptionalParameter("business_type", EnumConverter.GetString(type));
+            return await _baseClient.SendHuobiRequest<IEnumerable<HuobiSwapBestOffer>>(_baseClient.GetUrl("linear-swap-ex/market/history/kline"), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
+        }
     }
 }
