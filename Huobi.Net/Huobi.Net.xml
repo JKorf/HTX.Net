@@ -4879,6 +4879,71 @@
             Contract type
             </summary>
         </member>
+        <member name="T:Huobi.Net.Objects.Models.UsdtMarginSwap.HuobiTrade">
+            <summary>
+            Last trade data
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.UsdtMarginSwap.HuobiTrade.Amount">
+            <summary>
+            Amount of contracts
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.UsdtMarginSwap.HuobiTrade.Quantity">
+            <summary>
+            Quantity
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.UsdtMarginSwap.HuobiTrade.Timestamp">
+            <summary>
+            Timestamp
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.UsdtMarginSwap.HuobiTrade.Id">
+            <summary>
+            Id
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.UsdtMarginSwap.HuobiTrade.Direction">
+            <summary>
+            Direction
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.UsdtMarginSwap.HuobiTrade.QuoteQuantity">
+            <summary>
+            Value
+            </summary>
+        </member>
+        <member name="T:Huobi.Net.Objects.Models.UsdtMarginSwap.HuobiLastTrade">
+            <summary>
+            Last trade info
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.UsdtMarginSwap.HuobiLastTrade.ContractCode">
+            <summary>
+            Contract code
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.UsdtMarginSwap.HuobiLastTrade.BusinessType">
+            <summary>
+            Business type
+            </summary>
+        </member>
+        <member name="T:Huobi.Net.Objects.Models.UsdtMarginSwap.HuobiMarketData">
+            <summary>
+            Market data
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.UsdtMarginSwap.HuobiMarketData.Ask">
+            <summary>
+            Best ask
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.UsdtMarginSwap.HuobiMarketData.Bid">
+            <summary>
+            Best bid
+            </summary>
+        </member>
         <member name="T:Huobi.Net.Objects.Models.UsdtMarginSwap.HuobiOpenInterest">
             <summary>
             Open interest

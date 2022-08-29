@@ -7,6 +7,7 @@ using Huobi.Net.Objects.Models;
 using Huobi.Net.Objects.Models.UsdtMarginSwap;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading;
@@ -80,12 +81,54 @@ namespace Huobi.Net.Clients.UsdtMarginSwapApi
             return await _baseClient.SendHuobiRequest<IEnumerable<HuobiSwapBestOffer>>(_baseClient.GetUrl("linear-swap-ex/market/bbo"), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
         }
 
-        public async Task<WebCallResult<IEnumerable<HuobiSwapBestOffer>>> GetKlinesAsync(string? contractCode = null, KlineInterval? type = null, int? limit = null, DateTime? from = null, DateTime? to = null, CancellationToken ct = default)
+        public async Task<WebCallResult<IEnumerable<HuobiKline>>> GetKlinesAsync(string contractCode, KlineInterval interval, int? limit = null, DateTime? from = null, DateTime? to = null, CancellationToken ct = default)
+        {
+            var parameters = new Dictionary<string, object>()
+            {
+                { "contract_code", contractCode },
+                { "period", EnumConverter.GetString(interval) }
+            };
+            parameters.AddOptionalParameter("size", limit);
+            parameters.AddOptionalParameter("from", DateTimeConverter.ConvertToSeconds(from));
+            parameters.AddOptionalParameter("to", DateTimeConverter.ConvertToSeconds(to));
+            return await _baseClient.SendHuobiRequest<IEnumerable<HuobiKline>>(_baseClient.GetUrl("linear-swap-ex/market/history/kline"), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
+        }
+
+        public async Task<WebCallResult<HuobiMarketData>> GetMarketDataAsync(string contractCode, CancellationToken ct = default)
+        {
+            var parameters = new Dictionary<string, object>()
+            {
+                { "contract_code", contractCode }
+            };
+            return await _baseClient.SendHuobiRequest<HuobiMarketData>(_baseClient.GetUrl("linear-swap-ex/market/detail/merged"), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
+        }
+
+        public async Task<WebCallResult<IEnumerable<HuobiMarketData>>> GetMarketDatasAsync(string? contractCode = null, BusinessType? businessType = null, CancellationToken ct = default)
         {
             var parameters = new Dictionary<string, object>();
             parameters.AddOptionalParameter("contract_code", contractCode);
-            parameters.AddOptionalParameter("business_type", EnumConverter.GetString(type));
-            return await _baseClient.SendHuobiRequest<IEnumerable<HuobiSwapBestOffer>>(_baseClient.GetUrl("linear-swap-ex/market/history/kline"), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
+            parameters.AddOptionalParameter("business_type", EnumConverter.GetString(businessType));
+            return await _baseClient.SendHuobiRequest<IEnumerable<HuobiMarketData>>(_baseClient.GetUrl("linear-swap-ex/market/detail/batch_merged"), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
+        }
+
+        public async Task<WebCallResult<HuobiLastTrade>> GetLastTradesAsync(string? contractCode = null, BusinessType? businessType = null, CancellationToken ct = default)
+        {
+            var parameters = new Dictionary<string, object>();
+            parameters.AddOptionalParameter("contract_code", contractCode);
+            parameters.AddOptionalParameter("business_type", EnumConverter.GetString(businessType));
+            var result = await _baseClient.SendHuobiRequest<HuobiLastTradeWrapper>(_baseClient.GetUrl("linear-swap-ex/market/trade"), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
+            return result.As(result.Data?.Data?.First()!);
+        }
+
+        public async Task<WebCallResult<IEnumerable<HuobiTrade>>> GetRecentTradesAsync(string contractCode, int limit, CancellationToken ct = default)
+        {
+            var parameters = new Dictionary<string, object>()
+            {
+                { "contract_code", contractCode },
+                { "size", limit }
+            };
+            var result = await _baseClient.SendHuobiRequest<IEnumerable<HuobiTradeWrapper>>(_baseClient.GetUrl("/linear-swap-ex/market/history/trade"), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
+            return result.As<IEnumerable<HuobiTrade>>(result.Data?.SelectMany(d => d.Data)!);
         }
     }
 }
