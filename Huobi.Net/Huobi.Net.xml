@@ -4904,6 +4904,21 @@
             Order status
             </summary>
         </member>
+        <member name="T:Huobi.Net.Objects.Models.UsdtMarginSwap.HuobiAssetValue">
+            <summary>
+            Asset valuation
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.UsdtMarginSwap.HuobiAssetValue.Asset">
+            <summary>
+            Asset name
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.UsdtMarginSwap.HuobiAssetValue.Balance">
+            <summary>
+            Balance
+            </summary>
+        </member>
         <member name="T:Huobi.Net.Objects.Models.UsdtMarginSwap.HuobiBasisData">
             <summary>
             Basis data
