@@ -5599,6 +5599,151 @@
             Tranfer inner out
             </summary>
         </member>
+        <member name="T:Huobi.Net.Objects.Models.UsdtMarginSwap.HuobiCrossMarginUserSettlementRecordPage">
+            <summary>
+            User settlement record page
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.UsdtMarginSwap.HuobiCrossMarginUserSettlementRecordPage.TotalPages">
+            <summary>
+            Total pages
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.UsdtMarginSwap.HuobiCrossMarginUserSettlementRecordPage.CurrentPage">
+            <summary>
+            Current pages
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.UsdtMarginSwap.HuobiCrossMarginUserSettlementRecordPage.TotalRecords">
+            <summary>
+            Total amount of records
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.UsdtMarginSwap.HuobiCrossMarginUserSettlementRecordPage.Records">
+            <summary>
+            Records
+            </summary>
+        </member>
+        <member name="T:Huobi.Net.Objects.Models.UsdtMarginSwap.HuobiCrossMarginUserSettlementRecord">
+            <summary>
+            User settlement record
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.UsdtMarginSwap.HuobiCrossMarginUserSettlementRecord.MarginAccount">
+            <summary>
+            Margin account
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.UsdtMarginSwap.HuobiCrossMarginUserSettlementRecord.MarginMode">
+            <summary>
+            Margin mode
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.UsdtMarginSwap.HuobiCrossMarginUserSettlementRecord.MarginBalanceInit">
+            <summary>
+            Margin balance init
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.UsdtMarginSwap.HuobiCrossMarginUserSettlementRecord.MarginBalance">
+            <summary>
+            Margin balance
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.UsdtMarginSwap.HuobiCrossMarginUserSettlementRecord.SettlementProfitReal">
+            <summary>
+            Settlement profit realized
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.UsdtMarginSwap.HuobiCrossMarginUserSettlementRecord.SettlementTime">
+            <summary>
+            Settlement time
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.UsdtMarginSwap.HuobiCrossMarginUserSettlementRecord.Clawback">
+            <summary>
+            Clawback
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.UsdtMarginSwap.HuobiCrossMarginUserSettlementRecord.FundingFee">
+            <summary>
+            Funding fee
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.UsdtMarginSwap.HuobiCrossMarginUserSettlementRecord.OffsetProfitLoss">
+            <summary>
+            Offset profit loss
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.UsdtMarginSwap.HuobiCrossMarginUserSettlementRecord.Fee">
+            <summary>
+            Fee
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.UsdtMarginSwap.HuobiCrossMarginUserSettlementRecord.FeeAsset">
+            <summary>
+            Fee asset
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.UsdtMarginSwap.HuobiCrossMarginUserSettlementRecord.Positions">
+            <summary>
+            Positions
+            </summary>
+        </member>
+        <member name="T:Huobi.Net.Objects.Models.UsdtMarginSwap.HuobiSettlementPosition">
+            <summary>
+            Settlement position
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.UsdtMarginSwap.HuobiSettlementPosition.Asset">
+            <summary>
+            Asset
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.UsdtMarginSwap.HuobiSettlementPosition.ContractCode">
+            <summary>
+            Contract code
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.UsdtMarginSwap.HuobiSettlementPosition.Direction">
+            <summary>
+            Direction
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.UsdtMarginSwap.HuobiSettlementPosition.Volume">
+            <summary>
+            Volume
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.UsdtMarginSwap.HuobiSettlementPosition.CostOpen">
+            <summary>
+            Cost open
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.UsdtMarginSwap.HuobiSettlementPosition.CostHoldPre">
+            <summary>
+            Cost hold before settlement
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.UsdtMarginSwap.HuobiSettlementPosition.ColdHold">
+            <summary>
+            Cost hold after settlement
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.UsdtMarginSwap.HuobiSettlementPosition.SettlementProfitUnreal">
+            <summary>
+            Settlement profit unreal
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.UsdtMarginSwap.HuobiSettlementPosition.SettlementPrice">
+            <summary>
+            Settlement price
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.UsdtMarginSwap.HuobiSettlementPosition.SettlementType">
+            <summary>
+            Settlement type
+            </summary>
+        </member>
         <member name="T:Huobi.Net.Objects.Models.UsdtMarginSwap.HuobiEstimatedSettlementPrice">
             <summary>
             Estimated settlement price
@@ -6032,6 +6177,161 @@
         <member name="P:Huobi.Net.Objects.Models.UsdtMarginSwap.HuobiIsolatedMarginSubAccountAsset.MarginAccount">
             <summary>
             Margin account
+            </summary>
+        </member>
+        <member name="T:Huobi.Net.Objects.Models.UsdtMarginSwap.HuobiUserSettlementRecordPage">
+            <summary>
+            User settlement record page
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.UsdtMarginSwap.HuobiUserSettlementRecordPage.TotalPages">
+            <summary>
+            Total pages
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.UsdtMarginSwap.HuobiUserSettlementRecordPage.CurrentPage">
+            <summary>
+            Current pages
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.UsdtMarginSwap.HuobiUserSettlementRecordPage.TotalRecords">
+            <summary>
+            Total amount of records
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.UsdtMarginSwap.HuobiUserSettlementRecordPage.Records">
+            <summary>
+            Records
+            </summary>
+        </member>
+        <member name="T:Huobi.Net.Objects.Models.UsdtMarginSwap.HuobiUserSettlementRecord">
+            <summary>
+            User settlement record
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.UsdtMarginSwap.HuobiUserSettlementRecord.Asset">
+            <summary>
+            Asset
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.UsdtMarginSwap.HuobiUserSettlementRecord.ContractCode">
+            <summary>
+            Contract code
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.UsdtMarginSwap.HuobiUserSettlementRecord.MarginMode">
+            <summary>
+            Margin mode
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.UsdtMarginSwap.HuobiUserSettlementRecord.MarginAccount">
+            <summary>
+            Margin account
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.UsdtMarginSwap.HuobiUserSettlementRecord.MarginBalanceInit">
+            <summary>
+            Margin balance init
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.UsdtMarginSwap.HuobiUserSettlementRecord.MarginBalance">
+            <summary>
+            Margin balance
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.UsdtMarginSwap.HuobiUserSettlementRecord.SettlementProfitReal">
+            <summary>
+            Settlement profit realized
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.UsdtMarginSwap.HuobiUserSettlementRecord.SettlementTime">
+            <summary>
+            Settlement time
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.UsdtMarginSwap.HuobiUserSettlementRecord.Clawback">
+            <summary>
+            Clawback
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.UsdtMarginSwap.HuobiUserSettlementRecord.FundingFee">
+            <summary>
+            Funding fee
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.UsdtMarginSwap.HuobiUserSettlementRecord.OffsetProfitLoss">
+            <summary>
+            Offset profit loss
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.UsdtMarginSwap.HuobiUserSettlementRecord.Fee">
+            <summary>
+            Fee
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.UsdtMarginSwap.HuobiUserSettlementRecord.FeeAsset">
+            <summary>
+            Fee asset
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.UsdtMarginSwap.HuobiUserSettlementRecord.Positions">
+            <summary>
+            Positions
+            </summary>
+        </member>
+        <member name="T:Huobi.Net.Objects.Models.UsdtMarginSwap.HuobiCrossSettlementPosition">
+            <summary>
+            Settlement position
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.UsdtMarginSwap.HuobiCrossSettlementPosition.Asset">
+            <summary>
+            Asset
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.UsdtMarginSwap.HuobiCrossSettlementPosition.ContractCode">
+            <summary>
+            Contract code
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.UsdtMarginSwap.HuobiCrossSettlementPosition.Direction">
+            <summary>
+            Direction
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.UsdtMarginSwap.HuobiCrossSettlementPosition.Volume">
+            <summary>
+            Volume
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.UsdtMarginSwap.HuobiCrossSettlementPosition.CostOpen">
+            <summary>
+            Cost open
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.UsdtMarginSwap.HuobiCrossSettlementPosition.CostHoldPre">
+            <summary>
+            Cost hold before settlement
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.UsdtMarginSwap.HuobiCrossSettlementPosition.ColdHold">
+            <summary>
+            Cost hold after settlement
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.UsdtMarginSwap.HuobiCrossSettlementPosition.SettlementProfitUnreal">
+            <summary>
+            Settlement profit unreal
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.UsdtMarginSwap.HuobiCrossSettlementPosition.SettlementPrice">
+            <summary>
+            Settlement price
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.UsdtMarginSwap.HuobiCrossSettlementPosition.SettlementType">
+            <summary>
+            Settlement type
             </summary>
         </member>
         <member name="T:Huobi.Net.Objects.Models.UsdtMarginSwap.HuobiTrade">

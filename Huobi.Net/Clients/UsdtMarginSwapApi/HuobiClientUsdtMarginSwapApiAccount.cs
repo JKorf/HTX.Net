@@ -113,5 +113,32 @@ namespace Huobi.Net.Clients.UsdtMarginSwapApi
             parameters.AddOptionalParameter("page_size", pageSize);
             return await _baseClient.SendHuobiRequest<HuobiFinancialRecordsPage>(_baseClient.GetUrl("/linear-swap-api/v1/swap_financial_record"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
         }
+
+        public async Task<WebCallResult<HuobiUserSettlementRecordPage>> GetIsolatedMarginSettlementRecordsAsync(string contractCode, DateTime? startTime = null, DateTime? endTime = null, int? page = null, int? pageSize = null, CancellationToken ct = default)
+        {
+            var parameters = new Dictionary<string, object>()
+            {
+                { "contract_code", contractCode }
+            };
+            parameters.AddOptionalParameter("start_time", DateTimeConverter.ConvertToMilliseconds(startTime));
+            parameters.AddOptionalParameter("end_time", DateTimeConverter.ConvertToMilliseconds(endTime));
+            parameters.AddOptionalParameter("page_index", page);
+            parameters.AddOptionalParameter("page_size", pageSize);
+            return await _baseClient.SendHuobiRequest<HuobiUserSettlementRecordPage>(_baseClient.GetUrl("linear-swap-api/v1/swap_user_settlement_records"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
+        }
+
+        public async Task<WebCallResult<HuobiUserSettlementRecordPage>> GetCrossMarginSettlementRecordsAsync(string contractCode, DateTime? startTime = null, DateTime? endTime = null, int? page = null, int? pageSize = null, CancellationToken ct = default)
+        {
+			// TODO
+            var parameters = new Dictionary<string, object>()
+            {
+                { "contract_code", contractCode }
+            };
+            parameters.AddOptionalParameter("start_time", DateTimeConverter.ConvertToMilliseconds(startTime));
+            parameters.AddOptionalParameter("end_time", DateTimeConverter.ConvertToMilliseconds(endTime));
+            parameters.AddOptionalParameter("page_index", page);
+            parameters.AddOptionalParameter("page_size", pageSize);
+            return await _baseClient.SendHuobiRequest<HuobiUserSettlementRecordPage>(_baseClient.GetUrl("linear-swap-api/v1/swap_user_settlement_records"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
+        }
     }
 }
