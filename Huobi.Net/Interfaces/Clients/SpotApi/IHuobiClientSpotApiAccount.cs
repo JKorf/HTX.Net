@@ -375,7 +375,7 @@ namespace Huobi.Net.Interfaces.Clients.SpotApi
         /// <param name="symbols">Filter on symbols</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<HuobiFeeRate>>> GetCurrentFeeRatesAsync(IEnumerable<string>? symbols = null,
+        Task<WebCallResult<IEnumerable<HuobiFeeRate>>> GetCurrentFeeRatesAsync(IEnumerable<string> symbols,
             CancellationToken ct = default);
     }
 }

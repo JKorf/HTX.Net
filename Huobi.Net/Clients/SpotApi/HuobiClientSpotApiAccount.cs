@@ -441,11 +441,11 @@ namespace Huobi.Net.Clients.SpotApi
         }
         
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<HuobiFeeRate>>> GetCurrentFeeRatesAsync(IEnumerable<string>? symbols = null,
+        public async Task<WebCallResult<IEnumerable<HuobiFeeRate>>> GetCurrentFeeRatesAsync(IEnumerable<string> symbols,
             CancellationToken ct = default)
         {
             var parameters = new Dictionary<string, object>();
-            parameters.AddOptionalParameter("symbols", symbols == null? null: string.Join(",", symbols));
+            parameters.AddOptionalParameter("symbols", string.Join(",", symbols));
 
             return await _baseClient
                 .SendHuobiRequest<IEnumerable<HuobiFeeRate>>(_baseClient.GetUrl("reference/transact-fee-rate", "2"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
