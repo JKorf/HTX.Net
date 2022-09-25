@@ -26,6 +26,8 @@ namespace Huobi.Net.Clients
         #region fields
         /// <inheritdoc />
         public IHuobiSocketClientSpotStreams SpotStreams { get; }
+        /// <inheritdoc />
+        public HuobiSocketClientUsdtMarginSwapStreams UsdtMarginSwapStreams { get; }
         #endregion
 
         #region ctor
@@ -43,6 +45,7 @@ namespace Huobi.Net.Clients
         public HuobiSocketClient(HuobiSocketClientOptions options) : base("Huobi", options)
         {
             SpotStreams = AddApiClient(new HuobiSocketClientSpotStreams(log, this, options));
+            UsdtMarginSwapStreams = AddApiClient(new HuobiSocketClientUsdtMarginSwapStreams(log, this, options));
 
             SetDataInterpreter(DecompressData, null);
             AddGenericHandler("PingV1", PingHandlerV1);

@@ -71,7 +71,6 @@ namespace Huobi.Net.Objects
             if (baseOn == null)
                 return;
 
-
             SignPublicRequests = baseOn.SignPublicRequests;
             _spotApiOptions = new RestApiClientOptions(baseOn.SpotApiOptions, null);
             _usdtMarginSwapApiOptions = new RestApiClientOptions(baseOn.UsdtMarginSwapApiOptions, null);
@@ -101,6 +100,16 @@ namespace Huobi.Net.Objects
             set => _spotStreamsOptions = new HuobiSocketApiClientOptions(_spotStreamsOptions, value);
         }
 
+        private HuobiSocketUsdtMarginSwapApiClientOptions _usdtMarginSwapStreamsOptions = new HuobiSocketUsdtMarginSwapApiClientOptions(HuobiApiAddresses.Default.SocketClientUsdtMarginSwapPublicAddress, HuobiApiAddresses.Default.SocketClientUsdtMarginSwapPrivateAddress, HuobiApiAddresses.Default.SocketClientUsdtMarginSwapIndexAddress);
+        /// <summary>
+        /// Usdt margin swap stream options
+        /// </summary>
+        public HuobiSocketUsdtMarginSwapApiClientOptions UsdtMarginSwapOptions
+        {
+            get => _usdtMarginSwapStreamsOptions;
+            set => _usdtMarginSwapStreamsOptions = new HuobiSocketUsdtMarginSwapApiClientOptions(_usdtMarginSwapStreamsOptions, value);
+        }
+
         /// <summary>
         /// ctor
         /// </summary>
@@ -118,6 +127,7 @@ namespace Huobi.Net.Objects
                 return;
 
             _spotStreamsOptions = new HuobiSocketApiClientOptions(baseOn.SpotStreamsOptions, null);
+            _usdtMarginSwapStreamsOptions = new HuobiSocketUsdtMarginSwapApiClientOptions(baseOn.UsdtMarginSwapOptions, null);
         }
     }
 
@@ -166,6 +176,54 @@ namespace Huobi.Net.Objects
         {
             BaseAddressAuthenticated = newValues?.BaseAddressAuthenticated ?? baseOn.BaseAddressAuthenticated;
             BaseAddressInrementalOrderBook = newValues?.BaseAddressInrementalOrderBook ?? baseOn.BaseAddressInrementalOrderBook;
+        }
+    }
+
+    /// <summary>
+    /// Socket API client options
+    /// </summary>
+    public class HuobiSocketUsdtMarginSwapApiClientOptions : ApiClientOptions
+    {
+        /// <summary>
+        /// The base address for the authenticated websocket
+        /// </summary>
+        public string BaseAddressAuthenticated { get; set; }
+
+        /// <summary>
+        /// The base address for the index api
+        /// </summary>
+        public string BaseAddressIndex { get; set; }
+
+        /// <summary>
+        /// ctor
+        /// </summary>
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+        public HuobiSocketUsdtMarginSwapApiClientOptions()
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+        {
+        }
+
+        /// <summary>
+        /// ctor
+        /// </summary>
+        /// <param name="baseAddress"></param>
+        /// <param name="baseAddressAuthenticated"></param>
+        /// <param name="baseAddressIndex"></param>
+        internal HuobiSocketUsdtMarginSwapApiClientOptions(string baseAddress, string baseAddressAuthenticated, string baseAddressIndex) : base(baseAddress)
+        {
+            BaseAddressAuthenticated = baseAddressAuthenticated;
+            BaseAddressIndex = baseAddressIndex;
+        }
+
+        /// <summary>
+        /// ctor
+        /// </summary>
+        /// <param name="baseOn"></param>
+        /// <param name="newValues"></param>
+        internal HuobiSocketUsdtMarginSwapApiClientOptions(HuobiSocketUsdtMarginSwapApiClientOptions baseOn, HuobiSocketUsdtMarginSwapApiClientOptions? newValues) : base(baseOn, newValues)
+        {
+            BaseAddressAuthenticated = newValues?.BaseAddressAuthenticated ?? baseOn.BaseAddressAuthenticated;
+            BaseAddressIndex = newValues?.BaseAddressIndex ?? baseOn.BaseAddressIndex;
         }
     }
 

@@ -26,6 +26,18 @@
         /// The address used by the HuobiClient for the rest usdt margin swaps API
         /// </summary>
         public string UsdtMarginSwapRestClientAddress { get; set; } = "";
+        /// <summary>
+        /// The address used by the HuobiSocketClient for the public socket API
+        /// </summary>
+        public string SocketClientUsdtMarginSwapPublicAddress { get; set; } = "";
+        /// <summary>
+        /// The address used by the HuobiSocketClient for the index/basis socket API
+        /// </summary>
+        public string SocketClientUsdtMarginSwapIndexAddress { get; set; } = "";
+        /// <summary>
+        /// The address used by the HuobiSocketClient for the private user socket API
+        /// </summary>
+        public string SocketClientUsdtMarginSwapPrivateAddress { get; set; } = "";
 
         /// <summary>
         /// The default addresses to connect to the Huobi.com API
@@ -37,6 +49,9 @@
             SocketClientPrivateAddress = "wss://api.huobi.pro/ws/v2",
             SocketClientIncrementalOrderBookAddress = "wss://api.huobi.pro/feed",
             UsdtMarginSwapRestClientAddress = "https://api.hbdm.com",
+            SocketClientUsdtMarginSwapPublicAddress = "wss://api.hbdm.com/linear-swap-ws",
+            SocketClientUsdtMarginSwapIndexAddress = "wss://api.hbdm.com/ws_index",
+            SocketClientUsdtMarginSwapPrivateAddress = "wss://api.hbdm.com/linear-swap-notification",
         };
     }
 }

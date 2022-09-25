@@ -94,6 +94,43 @@ namespace Huobi.Net.Objects.Models.UsdtMarginSwap
         [JsonProperty("fee_asset")]
         public string FeeAsset { get; set; } = string.Empty;
         /// <summary>
+        /// Contract details
+        /// </summary>
+        [JsonProperty("contract_detail")]
+        public IEnumerable<HuobiCrossMarginSettlementAccountContract> ContractDetails { get; set; } = Array.Empty<HuobiCrossMarginSettlementAccountContract>();
+
+    }
+
+    /// <summary>
+    /// Settlement contract details
+    /// </summary>
+    public class HuobiCrossMarginSettlementAccountContract
+    {
+        /// <summary>
+        /// Asset
+        /// </summary>
+        [JsonProperty("symbol")]
+        public string Asset { get; set; } = string.Empty;
+        /// <summary>
+        /// Contract code
+        /// </summary>
+        [JsonProperty("contract_code")]
+        public string ContractCode { get; set; } = string.Empty;
+        /// <summary>
+        /// Offset profit loss
+        /// </summary>
+        [JsonProperty("offset_profitloss")]
+        public decimal OffsetProfitLoss { get; set; }
+        /// <summary>
+        /// Fee
+        /// </summary>
+        public decimal Fee { get; set; }
+        /// <summary>
+        /// Fee asset
+        /// </summary>
+        [JsonProperty("fee_asset")]
+        public string FeeAsset { get; set; } = string.Empty;
+        /// <summary>
         /// Positions
         /// </summary>
         public IEnumerable<HuobiSettlementPosition> Positions { get; set; } = Array.Empty<HuobiSettlementPosition>();

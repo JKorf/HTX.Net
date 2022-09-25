@@ -26,6 +26,12 @@ namespace Huobi.Net.Objects.Internal
             get => ErrorCode;
             set => ErrorCode = value;
         }
+        [JsonProperty("code")]
+        private string? ErrorCodeInternal2
+        {
+            get => ErrorCode;
+            set => ErrorCode = value;
+        }
     }
 
     internal class HuobiBasicResponse<T> : HuobiApiResponse

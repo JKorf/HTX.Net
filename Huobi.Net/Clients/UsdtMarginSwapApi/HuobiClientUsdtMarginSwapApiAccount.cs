@@ -11,6 +11,7 @@ using System.Threading;
 using CryptoExchange.Net.Converters;
 using Huobi.Net.Enums;
 using System.Linq;
+using System.Globalization;
 
 namespace Huobi.Net.Clients.UsdtMarginSwapApi
 {
@@ -114,7 +115,7 @@ namespace Huobi.Net.Clients.UsdtMarginSwapApi
             return await _baseClient.SendHuobiRequest<HuobiFinancialRecordsPage>(_baseClient.GetUrl("/linear-swap-api/v1/swap_financial_record"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
         }
 
-        public async Task<WebCallResult<HuobiUserSettlementRecordPage>> GetIsolatedMarginSettlementRecordsAsync(string contractCode, DateTime? startTime = null, DateTime? endTime = null, int? page = null, int? pageSize = null, CancellationToken ct = default)
+        public async Task<WebCallResult<HuobiIsolatedMarginUserSettlementRecordPage>> GetIsolatedMarginSettlementRecordsAsync(string contractCode, DateTime? startTime = null, DateTime? endTime = null, int? page = null, int? pageSize = null, CancellationToken ct = default)
         {
             var parameters = new Dictionary<string, object>()
             {
@@ -124,12 +125,11 @@ namespace Huobi.Net.Clients.UsdtMarginSwapApi
             parameters.AddOptionalParameter("end_time", DateTimeConverter.ConvertToMilliseconds(endTime));
             parameters.AddOptionalParameter("page_index", page);
             parameters.AddOptionalParameter("page_size", pageSize);
-            return await _baseClient.SendHuobiRequest<HuobiUserSettlementRecordPage>(_baseClient.GetUrl("linear-swap-api/v1/swap_user_settlement_records"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
+            return await _baseClient.SendHuobiRequest<HuobiIsolatedMarginUserSettlementRecordPage>(_baseClient.GetUrl("linear-swap-api/v1/swap_user_settlement_records"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
         }
 
-        public async Task<WebCallResult<HuobiUserSettlementRecordPage>> GetCrossMarginSettlementRecordsAsync(string contractCode, DateTime? startTime = null, DateTime? endTime = null, int? page = null, int? pageSize = null, CancellationToken ct = default)
+        public async Task<WebCallResult<HuobiCrossMarginUserSettlementRecordPage>> GetCrossMarginSettlementRecordsAsync(string contractCode, DateTime? startTime = null, DateTime? endTime = null, int? page = null, int? pageSize = null, CancellationToken ct = default)
         {
-			// TODO
             var parameters = new Dictionary<string, object>()
             {
                 { "contract_code", contractCode }
@@ -138,7 +138,95 @@ namespace Huobi.Net.Clients.UsdtMarginSwapApi
             parameters.AddOptionalParameter("end_time", DateTimeConverter.ConvertToMilliseconds(endTime));
             parameters.AddOptionalParameter("page_index", page);
             parameters.AddOptionalParameter("page_size", pageSize);
-            return await _baseClient.SendHuobiRequest<HuobiUserSettlementRecordPage>(_baseClient.GetUrl("linear-swap-api/v1/swap_user_settlement_records"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
+            return await _baseClient.SendHuobiRequest<HuobiCrossMarginUserSettlementRecordPage>(_baseClient.GetUrl("linear-swap-api/v1/swap_cross_user_settlement_records"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
+        }
+
+        public async Task<WebCallResult<IEnumerable<HuobiIsolatedMarginLeverageAvailable>>> GetIsolatedMarginAvailableLeverageAsync(string? contractCode = null, CancellationToken ct = default)
+        {
+            var parameters = new Dictionary<string, object>();
+            parameters.AddOptionalParameter("contract_code", contractCode);
+            return await _baseClient.SendHuobiRequest<IEnumerable<HuobiIsolatedMarginLeverageAvailable>>(_baseClient.GetUrl("/linear-swap-api/v1/swap_available_level_rate"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
+        }
+
+        public async Task<WebCallResult<IEnumerable<HuobiCrossMarginLeverageAvailable>>> GetCrossMarginAvailableLeverageAsync(string? contractCode = null, string? symbol = null, ContractType? contractType = null, BusinessType? businessType = null, CancellationToken ct = default)
+        {
+            var parameters = new Dictionary<string, object>();
+            parameters.AddOptionalParameter("contract_code", contractCode);
+            parameters.AddOptionalParameter("pair", symbol);
+            parameters.AddOptionalParameter("contract_type", EnumConverter.GetString(contractType));
+            parameters.AddOptionalParameter("business_type", EnumConverter.GetString(businessType));
+            return await _baseClient.SendHuobiRequest<IEnumerable<HuobiCrossMarginLeverageAvailable>>(_baseClient.GetUrl("/linear-swap-api/v1/swap_cross_available_level_rate"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
+        }
+
+        public async Task<WebCallResult<IEnumerable<HuobiTradingFee>>> GetTradingFeesAsync(string? contractCode = null, string? symbol = null, ContractType? contractType = null, BusinessType? businessType = null, CancellationToken ct = default)
+        {
+            var parameters = new Dictionary<string, object>();
+            parameters.AddOptionalParameter("contract_code", contractCode);
+            parameters.AddOptionalParameter("pair", symbol);
+            parameters.AddOptionalParameter("contract_type", EnumConverter.GetString(contractType));
+            parameters.AddOptionalParameter("business_type", EnumConverter.GetString(businessType));
+            return await _baseClient.SendHuobiRequest<IEnumerable<HuobiTradingFee>>(_baseClient.GetUrl("/linear-swap-api/v1/swap_fee"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
+        }
+
+        public async Task<WebCallResult<HuobiOrderId>> TransferMasterSubAsync(string subUid, string asset, string fromMarginAccount, string toMarginAccount, decimal quantity, MasterSubTransferType type, long? clientOrderId = null, CancellationToken ct = default)
+        {
+            var parameters = new Dictionary<string, object>()
+            {
+                { "sub_uid", subUid },
+                { "asset", asset },
+                { "from_margin_account", fromMarginAccount },
+                { "to_margin_account", toMarginAccount },
+                { "amount", quantity.ToString(CultureInfo.InvariantCulture) },
+                { "type", type == MasterSubTransferType.SubToMaster ? "sub_to_master": "master_to_sub" },
+            };
+            parameters.AddOptionalParameter("client_order_id", clientOrderId);
+            return await _baseClient.SendHuobiRequest<HuobiOrderId>(_baseClient.GetUrl("/linear-swap-api/v1/swap_master_sub_transfer"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
+        }
+
+        public async Task<WebCallResult<HuobiMasterSubTransfer>> GetMasterSubTransferRecordsAsync(string marginAccount, int daysInHistory, MasterSubTransferType ? type = null, int? page = null, int? pageSize = null, CancellationToken ct = default)
+        {
+            var parameters = new Dictionary<string, object>()
+            {
+                { "margin_account", marginAccount },
+                { "create_date", daysInHistory }
+            };
+            parameters.AddOptionalParameter("transfer_type", EnumConverter.GetString(type));
+            parameters.AddOptionalParameter("page_index", page);
+            parameters.AddOptionalParameter("page_size", pageSize);
+            return await _baseClient.SendHuobiRequest<HuobiMasterSubTransfer>(_baseClient.GetUrl("/linear-swap-api/v1/swap_master_sub_transfer_record"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
+        }
+
+        public async Task<WebCallResult<HuobiOrderId>> TransferMarginAccountsAsync(string asset, string fromMarginAccount, string toMarginAccount, decimal quantity, long? clientOrderId = null, CancellationToken ct = default)
+        {
+            var parameters = new Dictionary<string, object>()
+            {
+                { "asset", asset },
+                { "from_margin_account", fromMarginAccount },
+                { "to_margin_account", toMarginAccount },
+                { "amount", quantity.ToString(CultureInfo.InvariantCulture) },
+            };
+            parameters.AddOptionalParameter("client_order_id", clientOrderId);
+            return await _baseClient.SendHuobiRequest<HuobiOrderId>(_baseClient.GetUrl("/linear-swap-api/v1/swap_transfer_inner"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
+        }
+
+        public async Task<WebCallResult<HuobiPositionMode>> ModifyIsolatedMarginPositionModeAsync(string marginAccount, PositionMode positionMode, CancellationToken ct = default)
+        {
+            var parameters = new Dictionary<string, object>()
+            {
+                { "margin_account", marginAccount },
+                { "position_mode", EnumConverter.GetString(positionMode) },
+            };
+            return await _baseClient.SendHuobiRequest<HuobiPositionMode>(_baseClient.GetUrl("/linear-swap-api/v1/swap_switch_position_mode"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
+        }
+
+        public async Task<WebCallResult<HuobiPositionMode>> ModifyCrossMarginPositionModeAsync(string marginAccount, PositionMode positionMode, CancellationToken ct = default)
+        {
+            var parameters = new Dictionary<string, object>()
+            {
+                { "margin_account", marginAccount },
+                { "position_mode", EnumConverter.GetString(positionMode) },
+            };
+            return await _baseClient.SendHuobiRequest<HuobiPositionMode>(_baseClient.GetUrl("/linear-swap-api/v1/swap_cross_switch_position_mode"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
         }
     }
 }
