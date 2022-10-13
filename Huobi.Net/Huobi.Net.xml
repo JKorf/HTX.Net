@@ -388,10 +388,22 @@
         <member name="M:Huobi.Net.Clients.SpotApi.HuobiSocketClientUsdtMarginSwapStreams.CreateAuthenticationProvider(CryptoExchange.Net.Authentication.ApiCredentials)">
             <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.Clients.SpotApi.HuobiSocketClientUsdtMarginSwapStreams.GetKlinesAsync(System.String,Huobi.Net.Enums.KlineInterval)">
+        <member name="M:Huobi.Net.Clients.SpotApi.HuobiSocketClientUsdtMarginSwapStreams.SubscribeToKlineUpdatesAsync(System.String,Huobi.Net.Enums.KlineInterval,System.Action{CryptoExchange.Net.Sockets.DataEvent{Huobi.Net.Objects.Models.HuobiKline}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.Clients.SpotApi.HuobiSocketClientUsdtMarginSwapStreams.SubscribeToKlineUpdatesAsync(System.String,Huobi.Net.Enums.KlineInterval,System.Action{CryptoExchange.Net.Sockets.DataEvent{Huobi.Net.Objects.Models.HuobiKline}},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Clients.SpotApi.HuobiSocketClientUsdtMarginSwapStreams.SubscribeToOrderBookUpdatesAsync(System.String,System.Int32,System.Action{CryptoExchange.Net.Sockets.DataEvent{Huobi.Net.Objects.Models.Socket.HuobiUsdtMarginSwapIncementalOrderBook}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Huobi.Net.Clients.SpotApi.HuobiSocketClientUsdtMarginSwapStreams.SubscribeToIncrementalOrderBookUpdatesAsync(System.String,System.Boolean,System.Int32,System.Action{CryptoExchange.Net.Sockets.DataEvent{Huobi.Net.Objects.Models.Socket.HuobiUsdtMarginSwapIncementalOrderBook}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Huobi.Net.Clients.SpotApi.HuobiSocketClientUsdtMarginSwapStreams.SubscribeToSymbolTickerUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Huobi.Net.Objects.Models.Socket.HuobiSymbolTickUpdate}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Huobi.Net.Clients.SpotApi.HuobiSocketClientUsdtMarginSwapStreams.SubscribeToBestOfferUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Huobi.Net.Objects.Models.Socket.HuobiBestOfferUpdate}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Huobi.Net.Clients.SpotApi.HuobiSocketClientUsdtMarginSwapStreams.SubscribeToTradeUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Huobi.Net.Objects.Models.Socket.HuobiUsdtMarginSwapTradesUpdate}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="E:Huobi.Net.Clients.FuturesApi.HuobiClientUsdtMarginSwapApi.OnOrderPlaced">
@@ -4959,6 +4971,56 @@
             Update sequence number
             </summary>
         </member>
+        <member name="T:Huobi.Net.Objects.Models.Socket.HuobiBestOfferUpdate">
+            <summary>
+            Best offer update
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.Socket.HuobiBestOfferUpdate.OrderId">
+            <summary>
+            Order id
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.Socket.HuobiBestOfferUpdate.Id">
+            <summary>
+            Update id
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.Socket.HuobiBestOfferUpdate.Bid">
+            <summary>
+            Best bid
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.Socket.HuobiBestOfferUpdate.Ask">
+            <summary>
+            Best ask
+            </summary>
+        </member>
+        <member name="T:Huobi.Net.Objects.Models.Socket.HuobiUsdtMarginSwapIncementalOrderBook">
+            <summary>
+            Incremental order book update
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.Socket.HuobiUsdtMarginSwapIncementalOrderBook.OrderId">
+            <summary>
+            Order id
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.Socket.HuobiUsdtMarginSwapIncementalOrderBook.Id">
+            <summary>
+            Update id
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.Socket.HuobiUsdtMarginSwapIncementalOrderBook.Bids">
+            <summary>
+            List of changed bids
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.Socket.HuobiUsdtMarginSwapIncementalOrderBook.Asks">
+            <summary>
+            List of changed asks
+            </summary>
+        </member>
         <member name="T:Huobi.Net.Objects.Models.Socket.HuobiOrderCancelationUpdate">
             <summary>
             Cancelation details
@@ -5254,6 +5316,36 @@
             The error message
             </summary>
         </member>
+        <member name="T:Huobi.Net.Objects.Models.Socket.HuobiSymbolTickUpdate">
+            <summary>
+            Symbol update
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.Socket.HuobiSymbolTickUpdate.Id">
+            <summary>
+            Id
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.Socket.HuobiSymbolTickUpdate.OrderId">
+            <summary>
+            Order id
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.Socket.HuobiSymbolTickUpdate.TradeTurnover">
+            <summary>
+            Turnover
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.Socket.HuobiSymbolTickUpdate.BestBid">
+            <summary>
+            Best bid
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.Socket.HuobiSymbolTickUpdate.BestAsk">
+            <summary>
+            Best ask
+            </summary>
+        </member>
         <member name="T:Huobi.Net.Objects.Models.Socket.HuobiTradeUpdate">
             <summary>
             Trade update
@@ -5372,6 +5464,66 @@
         <member name="P:Huobi.Net.Objects.Models.Socket.HuobiTradeUpdate.OrderStatus">
             <summary>
             Order status
+            </summary>
+        </member>
+        <member name="T:Huobi.Net.Objects.Models.Socket.HuobiUsdtMarginSwapTradesUpdate">
+            <summary>
+            Trade info
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.Socket.HuobiUsdtMarginSwapTradesUpdate.Id">
+            <summary>
+            Update id
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.Socket.HuobiUsdtMarginSwapTradesUpdate.Timestamp">
+            <summary>
+            Update timestamp
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.Socket.HuobiUsdtMarginSwapTradesUpdate.Trades">
+            <summary>
+            Trades
+            </summary>
+        </member>
+        <member name="T:Huobi.Net.Objects.Models.Socket.HuobiUsdtMarginSwapTradeUpdate">
+            <summary>
+            Trade info
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.Socket.HuobiUsdtMarginSwapTradeUpdate.Amount">
+            <summary>
+            Amount of trades
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.Socket.HuobiUsdtMarginSwapTradeUpdate.Timestamp">
+            <summary>
+            Timestamp
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.Socket.HuobiUsdtMarginSwapTradeUpdate.Id">
+            <summary>
+            Trade id
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.Socket.HuobiUsdtMarginSwapTradeUpdate.Price">
+            <summary>
+            Price
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.Socket.HuobiUsdtMarginSwapTradeUpdate.Side">
+            <summary>
+            Side
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.Socket.HuobiUsdtMarginSwapTradeUpdate.Quantity">
+            <summary>
+            Quantity
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.Socket.HuobiUsdtMarginSwapTradeUpdate.TradeTurnover">
+            <summary>
+            Turnover
             </summary>
         </member>
         <member name="T:Huobi.Net.Objects.Models.UsdtMarginSwap.HuobiAssetValue">

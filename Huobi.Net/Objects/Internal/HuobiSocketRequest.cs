@@ -51,4 +51,14 @@ namespace Huobi.Net.Objects.Internal
             Topic = topic;
         }
     }
+
+    internal class HuobiIncrementalOrderBookSubscribeRequest : HuobiSubscribeRequest
+    {
+        [JsonProperty("data_type")]
+        public string DataType { get; set; }
+        public HuobiIncrementalOrderBookSubscribeRequest(string id, string topic, string dataType) : base(id, topic) 
+        { 
+            DataType = dataType;
+        }
+    }
 }

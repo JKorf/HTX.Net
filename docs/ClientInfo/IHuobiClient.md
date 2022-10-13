@@ -9,3 +9,6 @@ has_children: true
 ***
 *Spot endpoints*  
 **[IHuobiClientSpotApi](SpotApi/IHuobiClientSpotApi.html) SpotApi { get; }**  
+***
+*Usdt margin swap endpoints*  
+**HuobiClientUsdtMarginSwapApi UsdtMarginSwapApi { get; }**  

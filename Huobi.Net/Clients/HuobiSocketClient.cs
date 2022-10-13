@@ -47,6 +47,8 @@ namespace Huobi.Net.Clients
             SpotStreams = AddApiClient(new HuobiSocketClientSpotStreams(log, this, options));
             UsdtMarginSwapStreams = AddApiClient(new HuobiSocketClientUsdtMarginSwapStreams(log, this, options));
 
+            KeepAliveInterval = TimeSpan.Zero;
+
             SetDataInterpreter(DecompressData, null);
             AddGenericHandler("PingV1", PingHandlerV1);
             AddGenericHandler("PingV2", PingHandlerV2);
