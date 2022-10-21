@@ -2,6 +2,7 @@
 using Huobi.Net.Enums;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 
 namespace Huobi.Net.Objects.Models.UsdtMarginSwap
 {
@@ -66,7 +67,7 @@ namespace Huobi.Net.Objects.Models.UsdtMarginSwap
         /// Client order id
         /// </summary>
         [JsonProperty("client_order_id")]
-        public long ClientOrderId { get; set; }
+        public long? ClientOrderId { get; set; }
         /// <summary>
         /// Creation time
         /// </summary>
@@ -107,7 +108,7 @@ namespace Huobi.Net.Objects.Models.UsdtMarginSwap
         /// Margin asset
         /// </summary>
         [JsonProperty("margin_asset")]
-        public decimal MarginAsset { get; set; }
+        public string MarginAsset { get; set; } = String.Empty;
         /// <summary>
         /// Profit
         /// </summary>
@@ -157,6 +158,11 @@ namespace Huobi.Net.Objects.Models.UsdtMarginSwap
         /// </summary>
         [JsonProperty("reduce_only")]
         public bool ReduceOnly { get; set; }
+        /// <summary>
+        /// Trades
+        /// </summary>
+        [JsonProperty("trade")]
+        public IEnumerable<HuobiMarginTrade>? Trades { get; set; }
     }
 
     /// <summary>

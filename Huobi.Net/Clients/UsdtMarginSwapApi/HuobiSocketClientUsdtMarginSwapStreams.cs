@@ -15,6 +15,7 @@ using Huobi.Net.Objects;
 using Huobi.Net.Objects.Internal;
 using Huobi.Net.Objects.Models;
 using Huobi.Net.Objects.Models.Socket;
+using Huobi.Net.Objects.Models.UsdtMarginSwap;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -114,6 +115,78 @@ namespace Huobi.Net.Clients.SpotApi
                 $"market.{contractCode}.trade.detail");
             var internalHandler = new Action<DataEvent<HuobiDataEvent<HuobiUsdtMarginSwapTradesUpdate>>>(data => onData(data.As(data.Data.Data, contractCode)));
             return await _baseClient.SubscribeInternalAsync(this, request, null, false, internalHandler, ct).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public async Task<CallResult<UpdateSubscription>> SubscribeToIndexKlineUpdatesAsync(string contractCode, KlineInterval period, Action<DataEvent<HuobiKline>> onData, CancellationToken ct = default)
+        {
+            var request = new HuobiSubscribeRequest(
+                _baseClient.NextIdInternal().ToString(CultureInfo.InvariantCulture),
+                $"market.{contractCode}.index.{JsonConvert.SerializeObject(period, new PeriodConverter(false))}");
+            var internalHandler = new Action<DataEvent<HuobiDataEvent<HuobiKline>>>(data => onData(data.As(data.Data.Data, contractCode)));
+            return await _baseClient.SubscribeInternalAsync(this, _baseAddressIndex, request, null, false, internalHandler, ct).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public async Task<CallResult<UpdateSubscription>> SubscribeToPremiumIndexKlineUpdatesAsync(string contractCode, KlineInterval period, Action<DataEvent<HuobiKline>> onData, CancellationToken ct = default)
+        {
+            var request = new HuobiSubscribeRequest(
+                _baseClient.NextIdInternal().ToString(CultureInfo.InvariantCulture),
+                $"market.{contractCode}.premium_index.{JsonConvert.SerializeObject(period, new PeriodConverter(false))}");
+            var internalHandler = new Action<DataEvent<HuobiDataEvent<HuobiKline>>>(data => onData(data.As(data.Data.Data, contractCode)));
+            return await _baseClient.SubscribeInternalAsync(this, _baseAddressIndex, request, null, false, internalHandler, ct).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public async Task<CallResult<UpdateSubscription>> SubscribeToEstimatedFundingRateKlineUpdatesAsync(string contractCode, KlineInterval period, Action<DataEvent<HuobiKline>> onData, CancellationToken ct = default)
+        {
+            var request = new HuobiSubscribeRequest(
+                _baseClient.NextIdInternal().ToString(CultureInfo.InvariantCulture),
+                $"market.{contractCode}.estimated_rate.{JsonConvert.SerializeObject(period, new PeriodConverter(false))}");
+            var internalHandler = new Action<DataEvent<HuobiDataEvent<HuobiKline>>>(data => onData(data.As(data.Data.Data, contractCode)));
+            return await _baseClient.SubscribeInternalAsync(this, _baseAddressIndex, request, null, false, internalHandler, ct).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public async Task<CallResult<UpdateSubscription>> SubscribeToBasisUpdatesAsync(string contractCode, KlineInterval period, string priceType, Action<DataEvent<HuobiUsdtMarginSwapBasisUpdate>> onData, CancellationToken ct = default)
+        {
+            var request = new HuobiSubscribeRequest(
+                _baseClient.NextIdInternal().ToString(CultureInfo.InvariantCulture),
+                $"market.{contractCode}.basis.{JsonConvert.SerializeObject(period, new PeriodConverter(false))}.{priceType}");
+            var internalHandler = new Action<DataEvent<HuobiDataEvent<HuobiUsdtMarginSwapBasisUpdate>>>(data => onData(data.As(data.Data.Data, contractCode)));
+            return await _baseClient.SubscribeInternalAsync(this, _baseAddressIndex, request, null, false, internalHandler, ct).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public async Task<CallResult<UpdateSubscription>> SubscribeToMarkPriceKlineUpdatesAsync(string contractCode, KlineInterval period, Action<DataEvent<HuobiKline>> onData, CancellationToken ct = default)
+        {
+            var request = new HuobiSubscribeRequest(
+                _baseClient.NextIdInternal().ToString(CultureInfo.InvariantCulture),
+                $"market.{contractCode}.mark_price.{JsonConvert.SerializeObject(period, new PeriodConverter(false))}");
+            var internalHandler = new Action<DataEvent<HuobiDataEvent<HuobiKline>>>(data => onData(data.As(data.Data.Data, contractCode)));
+            return await _baseClient.SubscribeInternalAsync(this, _baseAddressIndex, request, null, false, internalHandler, ct).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public async Task<CallResult<UpdateSubscription>> SubscribeToIsolatedOrderUpdatesAsync(Action<DataEvent<HuobiIsolatedMarginOrder>> onData, CancellationToken ct = default)
+        {
+            var request = new HuobiSocketRequest2(
+                "sub",
+                _baseClient.NextIdInternal().ToString(CultureInfo.InvariantCulture),
+                $"orders.*");
+            var internalHandler = new Action<DataEvent<HuobiIsolatedMarginOrder>>(data => onData(data.As(data.Data, data.Data.ContractCode)));
+            return await _baseClient.SubscribeInternalAsync(this, _baseAddressAuthenticated, request, null, true, internalHandler, ct).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public async Task<CallResult<UpdateSubscription>> SubscribeToIsolatedOrderUpdatesAsync(string contractCode, Action<DataEvent<HuobiIsolatedMarginOrder>> onData, CancellationToken ct = default)
+        {
+            var request = new HuobiSocketRequest2(
+                "sub",
+                _baseClient.NextIdInternal().ToString(CultureInfo.InvariantCulture),
+                $"orders.{contractCode}");
+            var internalHandler = new Action<DataEvent<HuobiDataEvent<HuobiIsolatedMarginOrder>>>(data => onData(data.As(data.Data.Data, contractCode)));
+            return await _baseClient.SubscribeInternalAsync(this, _baseAddressAuthenticated, request, null, true, internalHandler, ct).ConfigureAwait(false);
         }
 
         #region private

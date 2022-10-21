@@ -406,6 +406,27 @@
         <member name="M:Huobi.Net.Clients.SpotApi.HuobiSocketClientUsdtMarginSwapStreams.SubscribeToTradeUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Huobi.Net.Objects.Models.Socket.HuobiUsdtMarginSwapTradesUpdate}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
+        <member name="M:Huobi.Net.Clients.SpotApi.HuobiSocketClientUsdtMarginSwapStreams.SubscribeToIndexKlineUpdatesAsync(System.String,Huobi.Net.Enums.KlineInterval,System.Action{CryptoExchange.Net.Sockets.DataEvent{Huobi.Net.Objects.Models.HuobiKline}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Huobi.Net.Clients.SpotApi.HuobiSocketClientUsdtMarginSwapStreams.SubscribeToPremiumIndexKlineUpdatesAsync(System.String,Huobi.Net.Enums.KlineInterval,System.Action{CryptoExchange.Net.Sockets.DataEvent{Huobi.Net.Objects.Models.HuobiKline}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Huobi.Net.Clients.SpotApi.HuobiSocketClientUsdtMarginSwapStreams.SubscribeToEstimatedFundingRateKlineUpdatesAsync(System.String,Huobi.Net.Enums.KlineInterval,System.Action{CryptoExchange.Net.Sockets.DataEvent{Huobi.Net.Objects.Models.HuobiKline}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Huobi.Net.Clients.SpotApi.HuobiSocketClientUsdtMarginSwapStreams.SubscribeToBasisUpdatesAsync(System.String,Huobi.Net.Enums.KlineInterval,System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Huobi.Net.Objects.Models.Socket.HuobiUsdtMarginSwapBasisUpdate}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Huobi.Net.Clients.SpotApi.HuobiSocketClientUsdtMarginSwapStreams.SubscribeToMarkPriceKlineUpdatesAsync(System.String,Huobi.Net.Enums.KlineInterval,System.Action{CryptoExchange.Net.Sockets.DataEvent{Huobi.Net.Objects.Models.HuobiKline}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Huobi.Net.Clients.SpotApi.HuobiSocketClientUsdtMarginSwapStreams.SubscribeToIsolatedOrderUpdatesAsync(System.Action{CryptoExchange.Net.Sockets.DataEvent{Huobi.Net.Objects.Models.UsdtMarginSwap.HuobiIsolatedMarginOrder}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Huobi.Net.Clients.SpotApi.HuobiSocketClientUsdtMarginSwapStreams.SubscribeToIsolatedOrderUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Huobi.Net.Objects.Models.UsdtMarginSwap.HuobiIsolatedMarginOrder}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
         <member name="E:Huobi.Net.Clients.FuturesApi.HuobiClientUsdtMarginSwapApi.OnOrderPlaced">
             <summary>
             Event triggered when an order is placed via this client
@@ -3071,6 +3092,16 @@
             The data
             </summary>
         </member>
+        <member name="P:Huobi.Net.Objects.Internal.HuobiSocketResponse2.Timestamp">
+            <summary>
+            The timestamp of the data
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Internal.HuobiSocketResponse2`1.Data">
+            <summary>
+            The data
+            </summary>
+        </member>
         <member name="P:Huobi.Net.Objects.Internal.HuobiDataEvent`1.Channel">
             <summary>
             The name of the data channel
@@ -5466,6 +5497,36 @@
             Order status
             </summary>
         </member>
+        <member name="T:Huobi.Net.Objects.Models.Socket.HuobiUsdtMarginSwapBasisUpdate">
+            <summary>
+            Basis update
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.Socket.HuobiUsdtMarginSwapBasisUpdate.Id">
+            <summary>
+            Id
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.Socket.HuobiUsdtMarginSwapBasisUpdate.IndexPrice">
+            <summary>
+            Index price
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.Socket.HuobiUsdtMarginSwapBasisUpdate.ContractPrice">
+            <summary>
+            Contract price
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.Socket.HuobiUsdtMarginSwapBasisUpdate.Basis">
+            <summary>
+            Basis
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.Socket.HuobiUsdtMarginSwapBasisUpdate.BasisRate">
+            <summary>
+            Basis rate
+            </summary>
+        </member>
         <member name="T:Huobi.Net.Objects.Models.Socket.HuobiUsdtMarginSwapTradesUpdate">
             <summary>
             Trade info
@@ -6874,6 +6935,11 @@
         <member name="P:Huobi.Net.Objects.Models.UsdtMarginSwap.HuobiIsolatedMarginOrder.ReduceOnly">
             <summary>
             Reduce only
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.UsdtMarginSwap.HuobiIsolatedMarginOrder.Trades">
+            <summary>
+            Trades
             </summary>
         </member>
         <member name="T:Huobi.Net.Objects.Models.UsdtMarginSwap.HuobiCrossMarginOrder">

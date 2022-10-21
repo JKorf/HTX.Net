@@ -52,6 +52,7 @@ namespace Huobi.Net.Clients
             SetDataInterpreter(DecompressData, null);
             AddGenericHandler("PingV1", PingHandlerV1);
             AddGenericHandler("PingV2", PingHandlerV2);
+            AddGenericHandler("PingV3", PingHandlerV3);
         }
         #endregion
 
@@ -80,6 +81,18 @@ namespace Huobi.Net.Clients
 
             if (v2Ping)
                 messageEvent.Connection.Send(new HuobiPingAuthResponse(messageEvent.JsonData["data"]!["ts"]!.Value<long>()));
+        }
+
+        private void PingHandlerV3(MessageEvent messageEvent)
+        {
+            var v3Ping = messageEvent.JsonData["op"]?.ToString() == "ping";
+
+            if (v3Ping)
+                messageEvent.Connection.Send(new
+                {
+                    op = "pong",
+                    ts = messageEvent.JsonData["ts"]?.ToString()
+                });
         }
 
         private static string DecompressData(byte[] byteData)
@@ -276,6 +289,34 @@ namespace Huobi.Net.Clients
                 return true;
             }
 
+            var operation = message["op"]?.ToString();
+            var usdtMarginSub = operation == "sub";
+            if (usdtMarginSub)
+            {
+                var subResponse = Deserialize<HuobiSocketResponse2>(message);
+                if (!subResponse)
+                {
+                    log.Write(LogLevel.Warning, $"Socket {s.SocketId} Subscription failed: " + subResponse.Error);
+                    callResult = new CallResult<object>(subResponse.Error!);
+                    return false;
+                }
+
+                var hRequest = (HuobiSocketRequest2)request;
+                if (subResponse.Data.Topic != hRequest.Topic)
+                    return false;
+
+                if (!subResponse.Data.IsSuccessful)
+                {
+                    log.Write(LogLevel.Warning, $"Socket {s.SocketId} Subscription failed: " + subResponse.Data.ErrorMessage);
+                    callResult = new CallResult<object>(new ServerError(subResponse.Data.ErrorCode + " - " + subResponse.Data.ErrorMessage));
+                    return true;
+                }
+
+                log.Write(LogLevel.Debug, $"Socket {s.SocketId} Subscription completed");
+                callResult = new CallResult<object>(subResponse.Data);
+                return true;
+            }
+
             return false;
         }
 
@@ -287,6 +328,15 @@ namespace Huobi.Net.Clients
 
             if (request is HuobiAuthenticatedSubscribeRequest haRequest)
                 return haRequest.Channel == message["ch"]?.ToString();
+
+            if (request is HuobiSocketRequest2 hRequest2)
+            {
+                if (hRequest2.Topic == message["topic"]?.ToString())
+                    return true;
+
+                if (hRequest2.Topic.Contains("*") && hRequest2.Topic.Split('.')[0] == message["topic"]?.ToString().Split('.')[0])
+                    return true;
+            }
 
             return false;
         }
@@ -303,6 +353,9 @@ namespace Huobi.Net.Clients
             if (identifier == "PingV2" && message["action"]?.ToString() == "ping")
                 return true;
 
+            if (identifier == "PingV3" && message["op"]?.ToString() == "ping")
+                return true;
+
             return false;
         }
 
@@ -313,29 +366,58 @@ namespace Huobi.Net.Clients
                 return new CallResult<bool>(new NoApiCredentialsError());
 
             var result = new CallResult<bool>(new ServerError("No response from server"));
-            await s.SendAndWaitAsync(((HuobiAuthenticationProvider)s.ApiClient.AuthenticationProvider).GetWebsocketAuthentication(s.ConnectionUri), ClientOptions.SocketResponseTimeout, data =>
+            if (s.ApiClient is HuobiSocketClientUsdtMarginSwapStreams)
             {
-                if (data["ch"]?.ToString() != "auth")
-                    return false;
-
-                var authResponse = Deserialize<HuobiAuthSubscribeResponse>(data);
-                if (!authResponse)
+                await s.SendAndWaitAsync(((HuobiAuthenticationProvider)s.ApiClient.AuthenticationProvider).GetWebsocketAuthentication2(s.ConnectionUri), ClientOptions.SocketResponseTimeout, data =>
                 {
-                    log.Write(LogLevel.Warning, $"Socket {s.SocketId} Authorization failed: " + authResponse.Error);
-                    result = new CallResult<bool>(authResponse.Error!);
-                    return true;
-                }
-                if (!authResponse.Data.IsSuccessful)
-                {
-                    log.Write(LogLevel.Warning, $"Socket {s.SocketId} Authorization failed: " + authResponse.Data.Message);
-                    result = new CallResult<bool>(new ServerError(authResponse.Data.Code, authResponse.Data.Message));
-                    return true;
-                }
+                    if (data["op"]?.ToString() != "auth")
+                        return false;
 
-                log.Write(LogLevel.Debug, $"Socket {s.SocketId} Authorization completed");
-                result = new CallResult<bool>(true);
-                return true;
-            }).ConfigureAwait(false);
+                    var authResponse = Deserialize<HuobiAuthResponse>(data);
+                    if (!authResponse)
+                    {
+                        log.Write(LogLevel.Warning, $"Socket {s.SocketId} Authorization failed: " + authResponse.Error);
+                        result = new CallResult<bool>(authResponse.Error!);
+                        return true;
+                    }
+                    if (!authResponse.Data.IsSuccessful)
+                    {
+                        log.Write(LogLevel.Warning, $"Socket {s.SocketId} Authorization failed: " + authResponse.Data.Message);
+                        result = new CallResult<bool>(new ServerError(authResponse.Data.Code, authResponse.Data.Message));
+                        return true;
+                    }
+
+                    log.Write(LogLevel.Debug, $"Socket {s.SocketId} Authorization completed");
+                    result = new CallResult<bool>(true);
+                    return true;
+                }).ConfigureAwait(false);
+            }
+            else
+            {
+                await s.SendAndWaitAsync(((HuobiAuthenticationProvider)s.ApiClient.AuthenticationProvider).GetWebsocketAuthentication(s.ConnectionUri), ClientOptions.SocketResponseTimeout, data =>
+                {
+                    if (data["ch"]?.ToString() != "auth")
+                        return false;
+
+                    var authResponse = Deserialize<HuobiAuthSubscribeResponse>(data);
+                    if (!authResponse)
+                    {
+                        log.Write(LogLevel.Warning, $"Socket {s.SocketId} Authorization failed: " + authResponse.Error);
+                        result = new CallResult<bool>(authResponse.Error!);
+                        return true;
+                    }
+                    if (!authResponse.Data.IsSuccessful)
+                    {
+                        log.Write(LogLevel.Warning, $"Socket {s.SocketId} Authorization failed: " + authResponse.Data.Message);
+                        result = new CallResult<bool>(new ServerError(authResponse.Data.Code, authResponse.Data.Message));
+                        return true;
+                    }
+
+                    log.Write(LogLevel.Debug, $"Socket {s.SocketId} Authorization completed");
+                    result = new CallResult<bool>(true);
+                    return true;
+                }).ConfigureAwait(false);
+            }
 
             return result;
         }
@@ -382,6 +464,30 @@ namespace Huobi.Net.Clients
                     if (data["action"]?.ToString() == "unsub" && data["ch"]?.ToString() == haRequest.Channel)
                     {
                         result = data["code"]?.Value<int>() == 200;
+                        return true;
+                    }
+
+                    return false;
+                }).ConfigureAwait(false);
+                return result;
+            }
+
+            if (s.Request is HuobiSocketRequest2 hRequest2)
+            {
+                var unsub = new
+                {
+                    op = "unsub",
+                    topic = hRequest2.Topic,
+                    cid = NextId().ToString()
+                };
+                await connection.SendAndWaitAsync(unsub, ClientOptions.SocketResponseTimeout, data =>
+                {
+                    if (data.Type != JTokenType.Object)
+                        return false;
+
+                    if (data["op"]?.ToString() == "unsub" && data["cid"]?.ToString() == unsub.cid)
+                    {
+                        result = data["err-code"]?.Value<int>() == 0;
                         return true;
                     }
 

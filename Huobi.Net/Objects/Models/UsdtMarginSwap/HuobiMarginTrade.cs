@@ -1,4 +1,5 @@
-﻿using Huobi.Net.Converters;
+﻿using CryptoExchange.Net.Converters;
+using Huobi.Net.Converters;
 using Huobi.Net.Enums;
 using Newtonsoft.Json;
 using System;
@@ -43,6 +44,7 @@ namespace Huobi.Net.Objects.Models.UsdtMarginSwap
         /// Creation time
         /// </summary>
         [JsonProperty("created_at")]
+        [JsonConverter(typeof(DateTimeConverter))]
         public DateTime CreateTime { get; set; }
         /// <summary>
         /// Trade role
