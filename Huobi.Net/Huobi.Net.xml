@@ -211,6 +211,9 @@
         <member name="M:Huobi.Net.Clients.SpotApi.HuobiClientSpotApiAccount.GetRepaymentHistoryAsync(System.Nullable{System.Int64},System.Nullable{System.Int64},System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.String,System.Nullable{System.Int32},System.Nullable{System.Int64},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
+        <member name="M:Huobi.Net.Clients.SpotApi.HuobiClientSpotApiAccount.GetCurrentFeeRatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
         <member name="T:Huobi.Net.Clients.SpotApi.HuobiClientSpotApiExchangeData">
             <inheritdoc />
         </member>
@@ -2385,6 +2388,15 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
+        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiClientSpotApiAccount.GetCurrentFeeRatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
+            <summary>
+            Get Current Fee Rate Applied to The User
+            <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-current-fee-rate-applied-to-the-user" /></para>
+            </summary>
+            <param name="symbols">Filter on symbols</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
         <member name="T:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiClientSpotApiExchangeData">
             <summary>
             Huobi exchange data endpoints. Exchange data includes market data (tickers, order books, etc) and system status.
@@ -3541,6 +3553,11 @@
             Source
             </summary>
         </member>
+        <member name="P:Huobi.Net.Objects.Models.HuobiConditionalOrder.OrderId">
+            <summary>
+            Order id
+            </summary>
+        </member>
         <member name="P:Huobi.Net.Objects.Models.HuobiConditionalOrder.ClientOrderId">
             <summary>
             Client order id
@@ -3659,6 +3676,36 @@
         <member name="P:Huobi.Net.Objects.Models.HuobiDepositAddress.Network">
             <summary>
             Block chain name
+            </summary>
+        </member>
+        <member name="T:Huobi.Net.Objects.Models.HuobiFeeRate">
+            <summary>
+            Current transaction fee rate applied to the user
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.HuobiFeeRate.Symbol">
+            <summary>
+            The symbol
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.HuobiFeeRate.ActualMakerRate">
+            <summary>
+            Basic fee rate – passive side
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.HuobiFeeRate.ActualTakerRate">
+            <summary>
+            Basic fee rate – aggressive side
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.HuobiFeeRate.MakerFeeRate">
+            <summary>
+            Deducted fee rate – passive side
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.Models.HuobiFeeRate.TakerFeeRate">
+            <summary>
+            Basic fee rate – aggressive side
             </summary>
         </member>
         <member name="T:Huobi.Net.Objects.Models.HuobiLedgerEntry">

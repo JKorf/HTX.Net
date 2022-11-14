@@ -170,8 +170,8 @@ namespace Huobi.Net.Clients.SpotApi
                 { "states", string.Join(",", states.Select(s => JsonConvert.SerializeObject(s, stateConverter))) }
             };
             parameters.AddOptionalParameter("symbol", symbol);
-            parameters.AddOptionalParameter("start-date", startTime?.ToString("yyyy-MM-dd"));
-            parameters.AddOptionalParameter("end-date", endTime?.ToString("yyyy-MM-dd"));
+            parameters.AddOptionalParameter("start-date", DateTimeConverter.ConvertToMilliseconds(startTime));
+            parameters.AddOptionalParameter("end-date", DateTimeConverter.ConvertToMilliseconds(endTime));
             parameters.AddOptionalParameter("types", types == null ? null : string.Join(",", types.Select(s => JsonConvert.SerializeObject(s, typeConverter))));
             parameters.AddOptionalParameter("from", fromId);
             parameters.AddOptionalParameter("direct", direction == null ? null : JsonConvert.SerializeObject(direction, new FilterDirectionConverter(false)));

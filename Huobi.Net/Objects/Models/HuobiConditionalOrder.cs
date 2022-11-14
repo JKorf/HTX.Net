@@ -19,6 +19,10 @@ namespace Huobi.Net.Objects.Models
         /// </summary>
         public string Source { get; set; } = string.Empty;
         /// <summary>
+        /// Order id
+        /// </summary>
+        public string? OrderId { get; set; }
+        /// <summary>
         /// Client order id
         /// </summary>
         public string ClientOrderId { get; set; } = string.Empty;
