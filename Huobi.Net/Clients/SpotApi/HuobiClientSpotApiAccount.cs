@@ -155,7 +155,7 @@ namespace Huobi.Net.Clients.SpotApi
             parameters.AddOptionalParameter("limit", size);
             parameters.AddOptionalParameter("fromId", fromId?.ToString(CultureInfo.InvariantCulture));
 
-            return await _baseClient.SendHuobiRequest<IEnumerable<HuobiLedgerEntry>>(_baseClient.GetUrl(GetLedgerEndpoint, "2"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+            return await _baseClient.SendHuobiV2Request<IEnumerable<HuobiLedgerEntry>>(_baseClient.GetUrl(GetLedgerEndpoint, "2"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -234,7 +234,7 @@ namespace Huobi.Net.Clients.SpotApi
             };
 
             parameters.AddOptionalParameter("transactId", transactionId);
-            return await _baseClient.SendHuobiRequest<IEnumerable<HuobiRepaymentResult>>(_baseClient.GetUrl("account/repayment", "2"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
+            return await _baseClient.SendHuobiV2Request<IEnumerable<HuobiRepaymentResult>>(_baseClient.GetUrl("account/repayment", "2"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -247,7 +247,7 @@ namespace Huobi.Net.Clients.SpotApi
                 { "amount", quantity.ToString(CultureInfo.InvariantCulture) }
             };
 
-            return await _baseClient.SendHuobiRequest<long>(_baseClient.GetUrl("dw/transfer-in/margin", "1"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
+            return await _baseClient.SendHuobiV2Request<long>(_baseClient.GetUrl("dw/transfer-in/margin", "1"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -260,7 +260,7 @@ namespace Huobi.Net.Clients.SpotApi
                 { "amount", quantity.ToString(CultureInfo.InvariantCulture) }
             };
 
-            return await _baseClient.SendHuobiRequest<long>(_baseClient.GetUrl("dw/transfer-out/margin", "1"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
+            return await _baseClient.SendHuobiV2Request<long>(_baseClient.GetUrl("dw/transfer-out/margin", "1"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -364,7 +364,7 @@ namespace Huobi.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<WebCallResult<IEnumerable<HuobiLoanInfoAsset>>> GetCrossLoanInterestRateAndQuotaAsync(CancellationToken ct = default)
         {
-            return await _baseClient.SendHuobiRequest<IEnumerable<HuobiLoanInfoAsset>>(_baseClient.GetUrl($"cross-margin/loan-info", "1"), HttpMethod.Get, ct, null, true).ConfigureAwait(false);
+            return await _baseClient.SendHuobiV2Request<IEnumerable<HuobiLoanInfoAsset>>(_baseClient.GetUrl($"cross-margin/loan-info", "1"), HttpMethod.Get, ct, null, true).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -437,7 +437,7 @@ namespace Huobi.Net.Clients.SpotApi
             parameters.AddOptionalParameter("limit", limit);
             parameters.AddOptionalParameter("fromId", fromId);
 
-            return await _baseClient.SendHuobiRequest<IEnumerable<HuobiRepayment>>(_baseClient.GetUrl($"account/repayment", "2"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+            return await _baseClient.SendHuobiV2Request<IEnumerable<HuobiRepayment>>(_baseClient.GetUrl($"account/repayment", "2"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
         }
         
         /// <inheritdoc />

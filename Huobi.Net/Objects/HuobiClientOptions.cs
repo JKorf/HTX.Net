@@ -9,7 +9,7 @@ namespace Huobi.Net.Objects
     /// <summary>
     /// Client options
     /// </summary>
-    public class HuobiClientOptions: BaseRestClientOptions
+    public class HuobiClientOptions: ClientOptions
     {
         /// <summary>
         /// Default options for the spot client
@@ -80,17 +80,19 @@ namespace Huobi.Net.Objects
     /// <summary>
     /// Socket client options
     /// </summary>
-    public class HuobiSocketClientOptions : BaseSocketClientOptions
+    public class HuobiSocketClientOptions : ClientOptions
     {
         /// <summary>
         /// Default options for the spot client
         /// </summary>
-        public static HuobiSocketClientOptions Default { get; set; } = new HuobiSocketClientOptions()
+        public static HuobiSocketClientOptions Default { get; set; } = new HuobiSocketClientOptions();
+
+        private HuobiSocketApiClientOptions _spotStreamsOptions = new HuobiSocketApiClientOptions
+            (HuobiApiAddresses.Default.SocketClientPublicAddress, HuobiApiAddresses.Default.SocketClientPrivateAddress, HuobiApiAddresses.Default.SocketClientIncrementalOrderBookAddress)
         {
             SocketSubscriptionsCombineTarget = 10
         };
 
-        private HuobiSocketApiClientOptions _spotStreamsOptions = new HuobiSocketApiClientOptions(HuobiApiAddresses.Default.SocketClientPublicAddress, HuobiApiAddresses.Default.SocketClientPrivateAddress, HuobiApiAddresses.Default.SocketClientIncrementalOrderBookAddress);
         /// <summary>
         /// Spot stream options
         /// </summary>
@@ -100,7 +102,11 @@ namespace Huobi.Net.Objects
             set => _spotStreamsOptions = new HuobiSocketApiClientOptions(_spotStreamsOptions, value);
         }
 
-        private HuobiSocketUsdtMarginSwapApiClientOptions _usdtMarginSwapStreamsOptions = new HuobiSocketUsdtMarginSwapApiClientOptions(HuobiApiAddresses.Default.SocketClientUsdtMarginSwapPublicAddress, HuobiApiAddresses.Default.SocketClientUsdtMarginSwapPrivateAddress, HuobiApiAddresses.Default.SocketClientUsdtMarginSwapIndexAddress);
+        private HuobiSocketUsdtMarginSwapApiClientOptions _usdtMarginSwapStreamsOptions = new HuobiSocketUsdtMarginSwapApiClientOptions
+            (HuobiApiAddresses.Default.SocketClientUsdtMarginSwapPublicAddress, HuobiApiAddresses.Default.SocketClientUsdtMarginSwapPrivateAddress, HuobiApiAddresses.Default.SocketClientUsdtMarginSwapIndexAddress)
+        {
+            SocketSubscriptionsCombineTarget = 10
+        };
         /// <summary>
         /// Usdt margin swap stream options
         /// </summary>
@@ -134,7 +140,7 @@ namespace Huobi.Net.Objects
     /// <summary>
     /// Socket API client options
     /// </summary>
-    public class HuobiSocketApiClientOptions : ApiClientOptions
+    public class HuobiSocketApiClientOptions : SocketApiClientOptions
     {
         /// <summary>
         /// The base address for the authenticated websocket
@@ -182,7 +188,7 @@ namespace Huobi.Net.Objects
     /// <summary>
     /// Socket API client options
     /// </summary>
-    public class HuobiSocketUsdtMarginSwapApiClientOptions : ApiClientOptions
+    public class HuobiSocketUsdtMarginSwapApiClientOptions : SocketApiClientOptions
     {
         /// <summary>
         /// The base address for the authenticated websocket

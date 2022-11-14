@@ -71,8 +71,8 @@ namespace Huobi.Net.UnitTests.TestImplementations
         {
             HuobiSocketClient client;
             client = options != null ? new HuobiSocketClient(options) : new HuobiSocketClient(new HuobiSocketClientOptions() { LogLevel = LogLevel.Debug, ApiCredentials = new ApiCredentials("Test", "Test") });
-            client.SocketFactory = Mock.Of<IWebsocketFactory>();
-            Mock.Get(client.SocketFactory).Setup(f => f.CreateWebsocket(It.IsAny<Log>(), It.IsAny<WebSocketParameters>())).Returns(socket);
+            client.SpotStreams.SocketFactory = Mock.Of<IWebsocketFactory>();
+            Mock.Get(client.SpotStreams.SocketFactory).Setup(f => f.CreateWebsocket(It.IsAny<Log>(), It.IsAny<WebSocketParameters>())).Returns(socket);
             return client;
         }
 
@@ -80,8 +80,8 @@ namespace Huobi.Net.UnitTests.TestImplementations
         {
             HuobiSocketClient client;
             client = options != null ? new HuobiSocketClient(options) : new HuobiSocketClient(new HuobiSocketClientOptions(){ LogLevel = LogLevel.Trace, ApiCredentials = new ApiCredentials("Test", "Test")});
-            client.SocketFactory = Mock.Of<IWebsocketFactory>();
-            Mock.Get(client.SocketFactory).Setup(f => f.CreateWebsocket(It.IsAny<Log>(), It.IsAny<WebSocketParameters>())).Returns(socket);  
+            client.SpotStreams.SocketFactory = Mock.Of<IWebsocketFactory>();
+            Mock.Get(client.SpotStreams.SocketFactory).Setup(f => f.CreateWebsocket(It.IsAny<Log>(), It.IsAny<WebSocketParameters>())).Returns(socket);  
             return client;
         }
 
@@ -89,7 +89,7 @@ namespace Huobi.Net.UnitTests.TestImplementations
         {
             IHuobiClient client;
             client = options != null ? new HuobiClient(options) : new HuobiClient(new HuobiClientOptions(){LogLevel = LogLevel.Debug});
-            client.RequestFactory = Mock.Of<IRequestFactory>();
+            client.SpotApi.RequestFactory = Mock.Of<IRequestFactory>();
             return client;
         }
 
@@ -115,7 +115,7 @@ namespace Huobi.Net.UnitTests.TestImplementations
             return client;
         }
 
-        public static void SetResponse(BaseRestClient client, string responseData, HttpStatusCode statusCode = HttpStatusCode.OK)
+        public static void SetResponse(HuobiClient client, string responseData, HttpStatusCode statusCode = HttpStatusCode.OK)
         {
             var expectedBytes = Encoding.UTF8.GetBytes(responseData);
             var responseStream = new MemoryStream();
@@ -132,7 +132,7 @@ namespace Huobi.Net.UnitTests.TestImplementations
             request.Setup(c => c.GetResponseAsync(It.IsAny<CancellationToken>())).Returns(Task.FromResult(response.Object));
             request.Setup(c => c.GetHeaders()).Returns(new Dictionary<string, IEnumerable<string>>());
 
-            var factory = Mock.Get(client.RequestFactory);
+            var factory = Mock.Get(client.SpotApi.RequestFactory);
             factory.Setup(c => c.Create(It.IsAny<HttpMethod>(), It.IsAny<Uri>(), It.IsAny<int>()))
                 .Returns(request.Object);
         }

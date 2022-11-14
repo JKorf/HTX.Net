@@ -15,16 +15,16 @@ using CryptoExchange.Net.Objects;
 using Huobi.Net.Enums;
 using Huobi.Net.Interfaces.Clients.SpotApi;
 using Huobi.Net.Objects;
+using Huobi.Net.Objects.Internal;
 using Huobi.Net.Objects.Models;
+using Newtonsoft.Json.Linq;
 
 namespace Huobi.Net.Clients.SpotApi
 {
     /// <inheritdoc />
     public class HuobiClientSpotApi : RestApiClient, IHuobiClientSpotApi, ISpotClient
     {
-        private readonly HuobiClient _baseClient;
         private readonly HuobiClientOptions _options;
-        private readonly Log _log;
 
         internal static TimeSyncState TimeSyncState = new TimeSyncState("Spot Api");
 
@@ -52,12 +52,10 @@ namespace Huobi.Net.Clients.SpotApi
         #endregion
 
         #region constructor/destructor
-        internal HuobiClientSpotApi(Log log, HuobiClient baseClient, HuobiClientOptions options)
-            : base(options, options.SpotApiOptions)
+        internal HuobiClientSpotApi(Log log, HuobiClientOptions options)
+            : base(log, options, options.SpotApiOptions)
         {
-            _baseClient = baseClient;
             _options = options;
-            _log = log;
 
             Account = new HuobiClientSpotApiAccount(this);
             ExchangeData = new HuobiClientSpotApiExchangeData(this);
@@ -73,14 +71,67 @@ namespace Huobi.Net.Clients.SpotApi
 
         #region methods
 
-        internal Task<WebCallResult<T>> SendHuobiV2Request<T>(Uri uri, HttpMethod method, CancellationToken cancellationToken, Dictionary<string, object>? parameters = null, bool signed = false)
-            => _baseClient.SendHuobiV2Request<T>(this, uri, method, cancellationToken, parameters, signed);
+        internal async Task<WebCallResult<T>> SendHuobiV2Request<T>(Uri uri, HttpMethod method, CancellationToken cancellationToken, Dictionary<string, object>? parameters = null, bool signed = false)
+        {
+            var result = await SendRequestAsync<HuobiApiResponseV2<T>>(uri, method, cancellationToken, parameters, signed).ConfigureAwait(false);
+            if (!result || result.Data == null)
+                return result.AsError<T>(result.Error!);
 
-        internal Task<WebCallResult<(T, DateTime)>> SendHuobiTimestampRequest<T>(Uri uri, HttpMethod method, CancellationToken cancellationToken, Dictionary<string, object>? parameters = null, bool signed = false)
-            => _baseClient.SendHuobiTimestampRequest<T>(this, uri, method, cancellationToken, parameters, signed);
+            if (result.Data.Code != 200)
+                return result.AsError<T>(new ServerError(result.Data.Code, result.Data.Message));
 
-        internal Task<WebCallResult<T>> SendHuobiRequest<T>(Uri uri, HttpMethod method, CancellationToken cancellationToken, Dictionary<string, object>? parameters = null, bool signed = false, int? weight = 1, bool ignoreRatelimit = false)
-            => _baseClient.SendHuobiRequest<T>(this, uri, method, cancellationToken, parameters, signed, weight, ignoreRatelimit);
+            return result.As(result.Data.Data);
+        }
+
+        internal async Task<WebCallResult<(T, DateTime)>> SendHuobiTimestampRequest<T>(Uri uri, HttpMethod method, CancellationToken cancellationToken, Dictionary<string, object>? parameters = null, bool signed = false)
+        {
+            var result = await SendRequestAsync<HuobiBasicResponse<T>>(uri, method, cancellationToken, parameters, signed).ConfigureAwait(false);
+            if (!result || result.Data == null)
+                return result.AsError<(T, DateTime)>(result.Error!);
+
+            if (result.Data.ErrorCode != null)
+                return result.AsError<(T, DateTime)>(new ServerError($"{result.Data.ErrorCode}-{result.Data.ErrorMessage}"));
+
+            return result.As((result.Data.Data, result.Data.Timestamp));
+        }
+
+        internal async Task<WebCallResult<T>> SendHuobiRequest<T>(Uri uri, HttpMethod method, CancellationToken cancellationToken, Dictionary<string, object>? parameters = null, bool signed = false, int? weight = 1, bool ignoreRatelimit = false)
+        {
+            var result = await SendRequestAsync<HuobiBasicResponse<T>>(uri, method, cancellationToken, parameters, signed, requestWeight: weight ?? 1, ignoreRatelimit: ignoreRatelimit).ConfigureAwait(false);
+            if (!result || result.Data == null)
+                return result.AsError<T>(result.Error!);
+
+            if (result.Data.ErrorCode != null)
+                return result.AsError<T>(new ServerError(result.Data.ErrorCode, result.Data.ErrorMessage));
+
+            return result.As(result.Data.Data);
+        }
+
+        /// <inheritdoc />
+        protected override Task<ServerError?> TryParseErrorAsync(JToken data)
+        {
+            if (data["code"] != null && data["code"]?.Value<int>() != 200)
+            {
+                if (data["err-code"] != null)
+                    return Task.FromResult<ServerError?>(new ServerError($"{(string)data["err-code"]!}, {(string)data["err-msg"]!}"));
+
+                return Task.FromResult<ServerError?>(new ServerError($"{(string)data["code"]!}, {(string)data["message"]!}"));
+            }
+
+            if (data["err-code"] == null && data["err-msg"] == null)
+                return Task.FromResult<ServerError?>(null);
+
+            return Task.FromResult<ServerError?>(new ServerError($"{(string)data["err-code"]!}, {(string)data["err-msg"]!}"));
+        }
+
+        /// <inheritdoc />
+        protected override Error ParseErrorResponse(JToken error)
+        {
+            if (error["err-code"] == null || error["err-msg"] == null)
+                return new ServerError(error.ToString());
+
+            return new ServerError($"{(string)error["err-code"]!}, {(string)error["err-msg"]!}");
+        }
 
         /// <summary>
         /// Construct url

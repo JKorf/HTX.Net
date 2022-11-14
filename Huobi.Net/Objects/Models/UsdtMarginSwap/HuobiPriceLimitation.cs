@@ -42,7 +42,7 @@ namespace Huobi.Net.Objects.Models.UsdtMarginSwap
         /// Symbol
         /// </summary>
         [JsonProperty("pair")]
-        public string Symbol { get; set; }
+        public string Symbol { get; set; } = string.Empty;
         /// <summary>
         /// Contract type
         /// </summary>

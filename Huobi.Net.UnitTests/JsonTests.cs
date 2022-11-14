@@ -16,9 +16,9 @@ namespace Huobi.Net.UnitTests
         private JsonToObjectComparer<IHuobiClient> _comparer = new JsonToObjectComparer<IHuobiClient>((json) => TestHelpers.CreateResponseClient(json, new HuobiClientOptions()
         { 
             ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "123"), 
-            OutputOriginalData = true,
             SpotApiOptions = new CryptoExchange.Net.Objects.RestApiClientOptions
             {
+                OutputOriginalData = true,
                 RateLimiters = new List<IRateLimiter>()
             }
         }));

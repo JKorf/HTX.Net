@@ -7,12 +7,12 @@ namespace Huobi.Net.Objects.Models.UsdtMarginSwap
 {
     internal class HuobiLastTradeWrapper
     {
-        public HuobiLastTrade[] Data { get; set; }
+        public HuobiLastTrade[] Data { get; set; } = Array.Empty<HuobiLastTrade>();
     }
 
     internal class HuobiTradeWrapper
     {
-        public HuobiTrade[] Data { get; set; }
+        public HuobiTrade[] Data { get; set; } = Array.Empty<HuobiTrade>();
     }
 
     /// <summary>
