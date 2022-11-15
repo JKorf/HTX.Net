@@ -1,5 +1,6 @@
 ﻿using CryptoExchange.Net.Interfaces;
 using Huobi.Net.Interfaces.Clients.SpotApi;
+using Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi;
 
 namespace Huobi.Net.Interfaces.Clients
 {
@@ -12,5 +13,9 @@ namespace Huobi.Net.Interfaces.Clients
         /// Spot streams
         /// </summary>
         public IHuobiSocketClientSpotStreams SpotStreams { get; }
+        /// <summary>
+        /// Usdt margin swap streams
+        /// </summary>
+        public IHuobiSocketClientUsdtMarginSwapStreams UsdtMarginSwapStreams { get; }
     }
 }

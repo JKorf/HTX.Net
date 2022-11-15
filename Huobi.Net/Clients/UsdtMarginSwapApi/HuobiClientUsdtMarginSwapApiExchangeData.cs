@@ -5,6 +5,7 @@ using Huobi.Net.Clients.FuturesApi;
 using Huobi.Net.Enums;
 using Huobi.Net.Objects.Models;
 using Huobi.Net.Objects.Models.UsdtMarginSwap;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,7 @@ using System.Threading.Tasks;
 
 namespace Huobi.Net.Clients.UsdtMarginSwapApi
 {
-    public class HuobiClientUsdtMarginSwapApiExchangeData
+    public class HuobiClientUsdtMarginSwapApiExchangeData : IHuobiClientUsdtMarginSwapApiExchangeData
     {
         private readonly HuobiClientUsdtMarginSwapApi _baseClient;
 
@@ -24,7 +25,13 @@ namespace Huobi.Net.Clients.UsdtMarginSwapApi
             _baseClient = baseClient;
         }
 
-        public async Task<WebCallResult<IEnumerable<HuobiContractInfo>>> GetContractInfoAsync(string? contractCode = null, MarginMode? supportMarginMode = null, string? symbol = null, ContractType? contractType = null, BusinessType? businessType = null, CancellationToken ct = default) 
+        /// <inheritdoc />
+        public async Task<WebCallResult<DateTime>> GetServerTimeAsync(CancellationToken ct = default)
+        {
+            return await _baseClient.SendTimestampRequestAsync(_baseClient.GetUrl("api/v1/timestamp"), HttpMethod.Get, ct, ignoreRatelimit: true).ConfigureAwait(false);
+        }
+
+        public async Task<WebCallResult<IEnumerable<HuobiContractInfo>>> GetContractInfoAsync(string? contractCode = null, MarginMode? supportMarginMode = null, string? symbol = null, ContractType? contractType = null, BusinessType? businessType = null, CancellationToken ct = default)
         {
             var parameters = new Dictionary<string, object>();
             parameters.AddOptionalParameter("contract_code", contractCode);

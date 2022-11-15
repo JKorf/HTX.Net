@@ -24,7 +24,7 @@ using Newtonsoft.Json.Linq;
 namespace Huobi.Net.Clients.SpotApi
 {
     /// <inheritdoc />
-    public class HuobiSocketClientUsdtMarginSwapStreams : SocketApiClient
+    public class HuobiSocketClientUsdtMarginSwapStreams : SocketApiClient, IHuobiSocketClientUsdtMarginSwapStreams
     {
         #region fields
         private readonly string _baseAddressAuthenticated;
@@ -60,7 +60,7 @@ namespace Huobi.Net.Clients.SpotApi
         {
             var request = new HuobiSubscribeRequest(NextId().ToString(CultureInfo.InvariantCulture), $"market.{contractCode}.kline.{JsonConvert.SerializeObject(period, new PeriodConverter(false))}");
             var internalHandler = new Action<DataEvent<HuobiDataEvent<HuobiKline>>>(data => onData(data.As(data.Data.Data, contractCode)));
-            return await SubscribeAsync( request, null, false, internalHandler, ct).ConfigureAwait(false);
+            return await SubscribeAsync(request, null, false, internalHandler, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -68,7 +68,7 @@ namespace Huobi.Net.Clients.SpotApi
         {
             var request = new HuobiSubscribeRequest(NextId().ToString(CultureInfo.InvariantCulture), $"market.{contractCode}.depth.step" + mergeStep);
             var internalHandler = new Action<DataEvent<HuobiDataEvent<HuobiUsdtMarginSwapIncementalOrderBook>>>(data => onData(data.As(data.Data.Data, contractCode)));
-            return await SubscribeAsync( request, null, false, internalHandler, ct).ConfigureAwait(false);
+            return await SubscribeAsync(request, null, false, internalHandler, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -77,9 +77,9 @@ namespace Huobi.Net.Clients.SpotApi
             var request = new HuobiIncrementalOrderBookSubscribeRequest(
                 NextId().ToString(CultureInfo.InvariantCulture),
                 $"market.{contractCode}.depth.size_{limit}.high_freq",
-                snapshot ? "snapshot": "incremental");
+                snapshot ? "snapshot" : "incremental");
             var internalHandler = new Action<DataEvent<HuobiDataEvent<HuobiUsdtMarginSwapIncementalOrderBook>>>(data => onData(data.As(data.Data.Data, contractCode)));
-            return await SubscribeAsync( request, null, false, internalHandler, ct).ConfigureAwait(false);
+            return await SubscribeAsync(request, null, false, internalHandler, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -89,7 +89,7 @@ namespace Huobi.Net.Clients.SpotApi
                 NextId().ToString(CultureInfo.InvariantCulture),
                 $"market.{contractCode}.detail");
             var internalHandler = new Action<DataEvent<HuobiDataEvent<HuobiSymbolTickUpdate>>>(data => onData(data.As(data.Data.Data, contractCode)));
-            return await SubscribeAsync( request, null, false, internalHandler, ct).ConfigureAwait(false);
+            return await SubscribeAsync(request, null, false, internalHandler, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -99,7 +99,7 @@ namespace Huobi.Net.Clients.SpotApi
                 NextId().ToString(CultureInfo.InvariantCulture),
                 $"market.{contractCode}.bbo");
             var internalHandler = new Action<DataEvent<HuobiDataEvent<HuobiBestOfferUpdate>>>(data => onData(data.As(data.Data.Data, contractCode)));
-            return await SubscribeAsync( request, null, false, internalHandler, ct).ConfigureAwait(false);
+            return await SubscribeAsync(request, null, false, internalHandler, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -109,7 +109,7 @@ namespace Huobi.Net.Clients.SpotApi
                 NextId().ToString(CultureInfo.InvariantCulture),
                 $"market.{contractCode}.trade.detail");
             var internalHandler = new Action<DataEvent<HuobiDataEvent<HuobiUsdtMarginSwapTradesUpdate>>>(data => onData(data.As(data.Data.Data, contractCode)));
-            return await SubscribeAsync( request, null, false, internalHandler, ct).ConfigureAwait(false);
+            return await SubscribeAsync(request, null, false, internalHandler, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -119,7 +119,7 @@ namespace Huobi.Net.Clients.SpotApi
                 NextId().ToString(CultureInfo.InvariantCulture),
                 $"market.{contractCode}.index.{JsonConvert.SerializeObject(period, new PeriodConverter(false))}");
             var internalHandler = new Action<DataEvent<HuobiDataEvent<HuobiKline>>>(data => onData(data.As(data.Data.Data, contractCode)));
-            return await SubscribeAsync( _baseAddressIndex, request, null, false, internalHandler, ct).ConfigureAwait(false);
+            return await SubscribeAsync(_baseAddressIndex, request, null, false, internalHandler, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -129,7 +129,7 @@ namespace Huobi.Net.Clients.SpotApi
                 NextId().ToString(CultureInfo.InvariantCulture),
                 $"market.{contractCode}.premium_index.{JsonConvert.SerializeObject(period, new PeriodConverter(false))}");
             var internalHandler = new Action<DataEvent<HuobiDataEvent<HuobiKline>>>(data => onData(data.As(data.Data.Data, contractCode)));
-            return await SubscribeAsync( _baseAddressIndex, request, null, false, internalHandler, ct).ConfigureAwait(false);
+            return await SubscribeAsync(_baseAddressIndex, request, null, false, internalHandler, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -139,7 +139,7 @@ namespace Huobi.Net.Clients.SpotApi
                 NextId().ToString(CultureInfo.InvariantCulture),
                 $"market.{contractCode}.estimated_rate.{JsonConvert.SerializeObject(period, new PeriodConverter(false))}");
             var internalHandler = new Action<DataEvent<HuobiDataEvent<HuobiKline>>>(data => onData(data.As(data.Data.Data, contractCode)));
-            return await SubscribeAsync( _baseAddressIndex, request, null, false, internalHandler, ct).ConfigureAwait(false);
+            return await SubscribeAsync(_baseAddressIndex, request, null, false, internalHandler, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -149,7 +149,7 @@ namespace Huobi.Net.Clients.SpotApi
                 NextId().ToString(CultureInfo.InvariantCulture),
                 $"market.{contractCode}.basis.{JsonConvert.SerializeObject(period, new PeriodConverter(false))}.{priceType}");
             var internalHandler = new Action<DataEvent<HuobiDataEvent<HuobiUsdtMarginSwapBasisUpdate>>>(data => onData(data.As(data.Data.Data, contractCode)));
-            return await SubscribeAsync( _baseAddressIndex, request, null, false, internalHandler, ct).ConfigureAwait(false);
+            return await SubscribeAsync(_baseAddressIndex, request, null, false, internalHandler, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -159,44 +159,56 @@ namespace Huobi.Net.Clients.SpotApi
                 NextId().ToString(CultureInfo.InvariantCulture),
                 $"market.{contractCode}.mark_price.{JsonConvert.SerializeObject(period, new PeriodConverter(false))}");
             var internalHandler = new Action<DataEvent<HuobiDataEvent<HuobiKline>>>(data => onData(data.As(data.Data.Data, contractCode)));
-            return await SubscribeAsync( _baseAddressIndex, request, null, false, internalHandler, ct).ConfigureAwait(false);
+            return await SubscribeAsync(_baseAddressIndex, request, null, false, internalHandler, ct).ConfigureAwait(false);
         }
 
-        /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToIsolatedOrderUpdatesAsync(Action<DataEvent<HuobiIsolatedMarginOrder>> onData, CancellationToken ct = default)
-        {
-            var request = new HuobiSocketRequest2(
-                "sub",
-                NextId().ToString(CultureInfo.InvariantCulture),
-                $"orders.*");
-            var internalHandler = new Action<DataEvent<HuobiIsolatedMarginOrder>>(data => onData(data.As(data.Data, data.Data.ContractCode)));
-            return await SubscribeAsync( _baseAddressAuthenticated, request, null, true, internalHandler, ct).ConfigureAwait(false);
-        }
+        // WIP
 
-        /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToIsolatedOrderUpdatesAsync(string contractCode, Action<DataEvent<HuobiIsolatedMarginOrder>> onData, CancellationToken ct = default)
-        {
-            var request = new HuobiSocketRequest2(
-                "sub",
-                NextId().ToString(CultureInfo.InvariantCulture),
-                $"orders.{contractCode}");
-            var internalHandler = new Action<DataEvent<HuobiDataEvent<HuobiIsolatedMarginOrder>>>(data => onData(data.As(data.Data.Data, contractCode)));
-            return await SubscribeAsync( _baseAddressAuthenticated, request, null, true, internalHandler, ct).ConfigureAwait(false);
-        }
+        ///// <inheritdoc />
+        //public async Task<CallResult<UpdateSubscription>> SubscribeToIsolatedMarginOrderUpdatesAsync(Action<DataEvent<HuobiIsolatedMarginOrder>> onData, CancellationToken ct = default)
+        //{
+        //    var request = new HuobiSocketRequest2(
+        //        "sub",
+        //        NextId().ToString(CultureInfo.InvariantCulture),
+        //        $"orders.*");
+        //    var internalHandler = new Action<DataEvent<HuobiIsolatedMarginOrder>>(data => onData(data.As(data.Data, data.Data.ContractCode)));
+        //    return await SubscribeAsync( _baseAddressAuthenticated, request, null, true, internalHandler, ct).ConfigureAwait(false);
+        //}
+
+        ///// <inheritdoc />
+        //public async Task<CallResult<UpdateSubscription>> SubscribeToIsolatedMarginOrderUpdatesAsync(string contractCode, Action<DataEvent<HuobiIsolatedMarginOrder>> onData, CancellationToken ct = default)
+        //{
+        //    var request = new HuobiSocketRequest2(
+        //        "sub",
+        //        NextId().ToString(CultureInfo.InvariantCulture),
+        //        $"orders.{contractCode}");
+        //    var internalHandler = new Action<DataEvent<HuobiIsolatedMarginOrder>>(data => onData(data.As(data.Data, contractCode)));
+        //    return await SubscribeAsync( _baseAddressAuthenticated, request, null, true, internalHandler, ct).ConfigureAwait(false);
+        //}
+
+        ///// <inheritdoc />
+        //public async Task<CallResult<UpdateSubscription>> SubscribeToCrossMarginOrderUpdatesAsync(Action<DataEvent<HuobiCrossMarginOrder>> onData, CancellationToken ct = default)
+        //{
+        //    var request = new HuobiSocketRequest2(
+        //        "sub",
+        //        NextId().ToString(CultureInfo.InvariantCulture),
+        //        $"orders_cross.*");
+        //    var internalHandler = new Action<DataEvent<HuobiCrossMarginOrder>>(data => onData(data.As(data.Data, data.Data.ContractCode)));
+        //    return await SubscribeAsync(_baseAddressAuthenticated, request, null, true, internalHandler, ct).ConfigureAwait(false);
+        //}
+
+        ///// <inheritdoc />
+        //public async Task<CallResult<UpdateSubscription>> SubscribeToCrossMarginOrderUpdatesAsync(string contractCode, Action<DataEvent<HuobiCrossMarginOrder>> onData, CancellationToken ct = default)
+        //{
+        //    var request = new HuobiSocketRequest2(
+        //        "sub",
+        //        NextId().ToString(CultureInfo.InvariantCulture),
+        //        $"orders_cross.{contractCode}");
+        //    var internalHandler = new Action<DataEvent<HuobiCrossMarginOrder>>(data => onData(data.As(data.Data, contractCode)));
+        //    return await SubscribeAsync(_baseAddressAuthenticated, request, null, true, internalHandler, ct).ConfigureAwait(false);
+        //}
 
         #region private
-
-        private void DeserializeAndInvoke<T>(DataEvent<JToken> data, Action<DataEvent<T>>? action, string? symbol = null)
-        {
-            var obj = Deserialize<T>(data.Data["data"]!);
-            if (!obj)
-            {
-                _log.Write(LogLevel.Error, $"Failed to deserialize {typeof(T).Name}: " + obj.Error);
-                return;
-            }
-            action?.Invoke(data.As(obj.Data, symbol));
-        }
-
 
         private void PingHandlerV1(MessageEvent messageEvent)
         {
@@ -475,58 +487,29 @@ namespace Huobi.Net.Clients.SpotApi
                 return new CallResult<bool>(new NoApiCredentialsError());
 
             var result = new CallResult<bool>(new ServerError("No response from server"));
-            if (s.ApiClient is HuobiSocketClientUsdtMarginSwapStreams)
+            await s.SendAndWaitAsync(((HuobiAuthenticationProvider)s.ApiClient.AuthenticationProvider).GetWebsocketAuthentication2(s.ConnectionUri), Options.SocketResponseTimeout, data =>
             {
-                await s.SendAndWaitAsync(((HuobiAuthenticationProvider)s.ApiClient.AuthenticationProvider).GetWebsocketAuthentication2(s.ConnectionUri), Options.SocketResponseTimeout, data =>
+                if (data["op"]?.ToString() != "auth")
+                    return false;
+
+                var authResponse = Deserialize<HuobiAuthResponse>(data);
+                if (!authResponse)
                 {
-                    if (data["op"]?.ToString() != "auth")
-                        return false;
-
-                    var authResponse = Deserialize<HuobiAuthResponse>(data);
-                    if (!authResponse)
-                    {
-                        _log.Write(LogLevel.Warning, $"Socket {s.SocketId} Authorization failed: " + authResponse.Error);
-                        result = new CallResult<bool>(authResponse.Error!);
-                        return true;
-                    }
-                    if (!authResponse.Data.IsSuccessful)
-                    {
-                        _log.Write(LogLevel.Warning, $"Socket {s.SocketId} Authorization failed: " + authResponse.Data.Message);
-                        result = new CallResult<bool>(new ServerError(authResponse.Data.Code, authResponse.Data.Message));
-                        return true;
-                    }
-
-                    _log.Write(LogLevel.Debug, $"Socket {s.SocketId} Authorization completed");
-                    result = new CallResult<bool>(true);
+                    _log.Write(LogLevel.Warning, $"Socket {s.SocketId} Authorization failed: " + authResponse.Error);
+                    result = new CallResult<bool>(authResponse.Error!);
                     return true;
-                }).ConfigureAwait(false);
-            }
-            else
-            {
-                await s.SendAndWaitAsync(((HuobiAuthenticationProvider)s.ApiClient.AuthenticationProvider).GetWebsocketAuthentication(s.ConnectionUri), Options.SocketResponseTimeout, data =>
+                }
+                if (!authResponse.Data.IsSuccessful)
                 {
-                    if (data["ch"]?.ToString() != "auth")
-                        return false;
-
-                    var authResponse = Deserialize<HuobiAuthSubscribeResponse>(data);
-                    if (!authResponse)
-                    {
-                        _log.Write(LogLevel.Warning, $"Socket {s.SocketId} Authorization failed: " + authResponse.Error);
-                        result = new CallResult<bool>(authResponse.Error!);
-                        return true;
-                    }
-                    if (!authResponse.Data.IsSuccessful)
-                    {
-                        _log.Write(LogLevel.Warning, $"Socket {s.SocketId} Authorization failed: " + authResponse.Data.Message);
-                        result = new CallResult<bool>(new ServerError(authResponse.Data.Code, authResponse.Data.Message));
-                        return true;
-                    }
-
-                    _log.Write(LogLevel.Debug, $"Socket {s.SocketId} Authorization completed");
-                    result = new CallResult<bool>(true);
+                    _log.Write(LogLevel.Warning, $"Socket {s.SocketId} Authorization failed: " + authResponse.Data.Message);
+                    result = new CallResult<bool>(new ServerError(authResponse.Data.Code, authResponse.Data.Message));
                     return true;
-                }).ConfigureAwait(false);
-            }
+                }
+
+                _log.Write(LogLevel.Debug, $"Socket {s.SocketId} Authorization completed");
+                result = new CallResult<bool>(true);
+                return true;
+            }).ConfigureAwait(false);
 
             return result;
         }

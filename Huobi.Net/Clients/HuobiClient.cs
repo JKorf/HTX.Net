@@ -11,6 +11,7 @@ using Huobi.Net.Clients.FuturesApi;
 using Huobi.Net.Clients.SpotApi;
 using Huobi.Net.Interfaces.Clients;
 using Huobi.Net.Interfaces.Clients.SpotApi;
+using Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi;
 using Huobi.Net.Objects;
 using Huobi.Net.Objects.Internal;
 using Newtonsoft.Json.Linq;
@@ -26,7 +27,7 @@ namespace Huobi.Net.Clients
         public IHuobiClientSpotApi SpotApi { get; }
 
         /// <inheritdoc />
-        public HuobiClientUsdtMarginSwapApi UsdtMarginSwapApi { get; }
+        public IHuobiClientUsdtMarginSwapApi UsdtMarginSwapApi { get; }
 
         #endregion
 

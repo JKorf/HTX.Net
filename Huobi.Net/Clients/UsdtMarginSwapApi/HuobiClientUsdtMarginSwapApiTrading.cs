@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Huobi.Net.Clients.UsdtMarginSwapApi
 {
-    public class HuobiClientUsdtMarginSwapApiTrading
+    public class HuobiClientUsdtMarginSwapApiTrading : IHuobiClientUsdtMarginSwapApiTrading
     {
         private readonly HuobiClientUsdtMarginSwapApi _baseClient;
 
@@ -130,7 +130,7 @@ namespace Huobi.Net.Clients.UsdtMarginSwapApi
             return await _baseClient.SendHuobiRequest<HuobiBatchResult>(_baseClient.GetUrl("/linear-swap-api/v1/swap_cancel"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
         }
 
-        public async Task<WebCallResult<HuobiBatchResult>> CancelCrossMarginOrderAsync(long? orderId = null, long? clientOrderId = null, string ? contractCode = null, string? symbol = null, ContractType? contractType = null, CancellationToken ct = default)
+        public async Task<WebCallResult<HuobiBatchResult>> CancelCrossMarginOrderAsync(long? orderId = null, long? clientOrderId = null, string? contractCode = null, string? symbol = null, ContractType? contractType = null, CancellationToken ct = default)
         {
             var parameters = new Dictionary<string, object>();
             parameters.AddOptionalParameter("contract_code", contractCode);
@@ -285,7 +285,7 @@ namespace Huobi.Net.Clients.UsdtMarginSwapApi
             return await _baseClient.SendHuobiRequest<HuobiCrossMarginOrderPage>(_baseClient.GetUrl("/linear-swap-api/v1/swap_cross_openorders"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
         }
 
-        public async Task<WebCallResult<HuobiIsolatedMarginOrderPage>> GetIsolatedMarginClosedOrdersAsync(string contractCode, MarginTradeType tradeType, bool allOrders, int daysInHistory, int ? page = null, int? pageSize = null, string? sortBy = null, CancellationToken ct = default)
+        public async Task<WebCallResult<HuobiIsolatedMarginOrderPage>> GetIsolatedMarginClosedOrdersAsync(string contractCode, MarginTradeType tradeType, bool allOrders, int daysInHistory, int? page = null, int? pageSize = null, string? sortBy = null, CancellationToken ct = default)
         {
             var parameters = new Dictionary<string, object>()
             {

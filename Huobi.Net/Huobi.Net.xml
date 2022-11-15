@@ -424,12 +424,6 @@
         <member name="M:Huobi.Net.Clients.SpotApi.HuobiSocketClientUsdtMarginSwapStreams.SubscribeToMarkPriceKlineUpdatesAsync(System.String,Huobi.Net.Enums.KlineInterval,System.Action{CryptoExchange.Net.Sockets.DataEvent{Huobi.Net.Objects.Models.HuobiKline}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.Clients.SpotApi.HuobiSocketClientUsdtMarginSwapStreams.SubscribeToIsolatedOrderUpdatesAsync(System.Action{CryptoExchange.Net.Sockets.DataEvent{Huobi.Net.Objects.Models.UsdtMarginSwap.HuobiIsolatedMarginOrder}},System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:Huobi.Net.Clients.SpotApi.HuobiSocketClientUsdtMarginSwapStreams.SubscribeToIsolatedOrderUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Sockets.DataEvent{Huobi.Net.Objects.Models.UsdtMarginSwap.HuobiIsolatedMarginOrder}},System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
         <member name="M:Huobi.Net.Clients.SpotApi.HuobiSocketClientUsdtMarginSwapStreams.HandleQueryResponse``1(CryptoExchange.Net.Sockets.SocketConnection,System.Object,Newtonsoft.Json.Linq.JToken,CryptoExchange.Net.Objects.CallResult{``0}@)">
             <inheritdoc />
         </member>
@@ -446,6 +440,9 @@
             <inheritdoc />
         </member>
         <member name="M:Huobi.Net.Clients.SpotApi.HuobiSocketClientUsdtMarginSwapStreams.UnsubscribeAsync(CryptoExchange.Net.Sockets.SocketConnection,CryptoExchange.Net.Sockets.SocketSubscription)">
+            <inheritdoc />
+        </member>
+        <member name="T:Huobi.Net.Clients.FuturesApi.HuobiClientUsdtMarginSwapApi">
             <inheritdoc />
         </member>
         <member name="E:Huobi.Net.Clients.FuturesApi.HuobiClientUsdtMarginSwapApi.OnOrderPlaced">
@@ -494,6 +491,9 @@
             <inheritdoc />
         </member>
         <member name="M:Huobi.Net.Clients.FuturesApi.HuobiClientUsdtMarginSwapApi.GetTimeOffset">
+            <inheritdoc />
+        </member>
+        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiClientUsdtMarginSwapApiExchangeData.GetServerTimeAsync(System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="T:Huobi.Net.Enums.AccountActivation">
@@ -2915,6 +2915,31 @@
             <param name="onOrderCancel">Event handler for the order canceled event</param>
             <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        </member>
+        <member name="T:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiClientUsdtMarginSwapApi">
+            <summary>
+            Usdt margin swap api endpoints
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiClientUsdtMarginSwapApi.RequestFactory">
+            <summary>
+            The factory for creating requests. Used for unit testing
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiClientUsdtMarginSwapApi.Account">
+            <summary>
+            Endpoints related to account settings, info or actions
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiClientUsdtMarginSwapApi.ExchangeData">
+            <summary>
+            Endpoints related to retrieving market and system data
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiClientUsdtMarginSwapApi.Trading">
+            <summary>
+            Endpoints related to orders and trades
+            </summary>
         </member>
         <member name="T:Huobi.Net.Objects.HuobiApiAddresses">
             <summary>

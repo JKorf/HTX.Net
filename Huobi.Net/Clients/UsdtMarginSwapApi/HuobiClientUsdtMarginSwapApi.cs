@@ -4,6 +4,7 @@ using CryptoExchange.Net.CommonObjects;
 using CryptoExchange.Net.Logging;
 using CryptoExchange.Net.Objects;
 using Huobi.Net.Clients.UsdtMarginSwapApi;
+using Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi;
 using Huobi.Net.Objects;
 using Huobi.Net.Objects.Internal;
 using Newtonsoft.Json.Linq;
@@ -16,7 +17,8 @@ using System.Threading.Tasks;
 
 namespace Huobi.Net.Clients.FuturesApi
 {
-    public class HuobiClientUsdtMarginSwapApi : RestApiClient
+    /// <inheritdoc />
+    public class HuobiClientUsdtMarginSwapApi : RestApiClient, IHuobiClientUsdtMarginSwapApi
     {
         private readonly HuobiClientOptions _options;
 
@@ -37,7 +39,7 @@ namespace Huobi.Net.Clients.FuturesApi
         #region Api clients
 
         /// <inheritdoc />
-        public HuobiClientUsdtMarginSwapApiAccount Account { get; }
+        public IHuobiClientUsdtMarginSwapApiAccount Account { get; }
         /// <inheritdoc />
         public HuobiClientUsdtMarginSwapApiExchangeData ExchangeData { get; }
         /// <inheritdoc />
@@ -75,6 +77,16 @@ namespace Huobi.Net.Clients.FuturesApi
                 return new Uri(BaseAddress.AppendPath(endpoint));
             return new Uri(BaseAddress.AppendPath($"v{version}", endpoint));
         }
+
+        internal async Task<WebCallResult<DateTime>> SendTimestampRequestAsync(Uri uri, HttpMethod method, CancellationToken cancellationToken, Dictionary<string, object>? parameters = null, bool signed = false, int? weight = 1, bool ignoreRatelimit = false)
+        {
+            var result = await SendRequestAsync<HuobiBasicResponse<string>>(uri, method, cancellationToken, parameters, signed, requestWeight: weight ?? 1, ignoreRatelimit: ignoreRatelimit).ConfigureAwait(false);
+            if (!result || result.Data == null)
+                return result.AsError<DateTime>(result.Error!);
+
+            return result.As(result.Data.Timestamp);
+        }
+
 
         internal async Task<WebCallResult<T>> SendHuobiRequest<T>(Uri uri, HttpMethod method, CancellationToken cancellationToken, Dictionary<string, object>? parameters = null, bool signed = false, int? weight = 1, bool ignoreRatelimit = false)
         {
@@ -126,7 +138,7 @@ namespace Huobi.Net.Clients.FuturesApi
 
         /// <inheritdoc />
         protected override Task<WebCallResult<DateTime>> GetServerTimestampAsync()
-            => default;// ExchangeData.GetServerTimeAsync();
+            => ExchangeData.GetServerTimeAsync();
 
         /// <inheritdoc />
         public override TimeSyncInfo GetTimeSyncInfo()

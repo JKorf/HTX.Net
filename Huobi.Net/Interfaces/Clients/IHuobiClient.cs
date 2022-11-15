@@ -1,6 +1,7 @@
 ﻿using CryptoExchange.Net.Interfaces;
 using Huobi.Net.Clients.FuturesApi;
 using Huobi.Net.Interfaces.Clients.SpotApi;
+using Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi;
 
 namespace Huobi.Net.Interfaces.Clients
 {
@@ -16,6 +17,6 @@ namespace Huobi.Net.Interfaces.Clients
         /// <summary>
         /// Usdt margin swap endpoints
         /// </summary>
-        HuobiClientUsdtMarginSwapApi UsdtMarginSwapApi { get; }
+        IHuobiClientUsdtMarginSwapApi UsdtMarginSwapApi { get; }
     }
 }
