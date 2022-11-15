@@ -12,6 +12,7 @@ using CryptoExchange.Net.Sockets;
 using Huobi.Net.Clients.SpotApi;
 using Huobi.Net.Interfaces.Clients;
 using Huobi.Net.Interfaces.Clients.SpotApi;
+using Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi;
 using Huobi.Net.Objects;
 using Huobi.Net.Objects.Internal;
 using Microsoft.Extensions.Logging;
@@ -27,7 +28,7 @@ namespace Huobi.Net.Clients
         /// <inheritdoc />
         public IHuobiSocketClientSpotStreams SpotStreams { get; }
         /// <inheritdoc />
-        public HuobiSocketClientUsdtMarginSwapStreams UsdtMarginSwapStreams { get; }
+        public IHuobiSocketClientUsdtMarginSwapStreams UsdtMarginSwapStreams { get; }
         #endregion
 
         #region ctor

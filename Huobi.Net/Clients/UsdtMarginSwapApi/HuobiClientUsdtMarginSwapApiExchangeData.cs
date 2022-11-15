@@ -3,6 +3,7 @@ using CryptoExchange.Net.Converters;
 using CryptoExchange.Net.Objects;
 using Huobi.Net.Clients.FuturesApi;
 using Huobi.Net.Enums;
+using Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi;
 using Huobi.Net.Objects.Models;
 using Huobi.Net.Objects.Models.UsdtMarginSwap;
 using Newtonsoft.Json;

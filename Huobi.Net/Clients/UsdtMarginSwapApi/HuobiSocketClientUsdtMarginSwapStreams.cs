@@ -12,6 +12,7 @@ using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Sockets;
 using Huobi.Net.Converters;
 using Huobi.Net.Enums;
+using Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi;
 using Huobi.Net.Objects;
 using Huobi.Net.Objects.Internal;
 using Huobi.Net.Objects.Models;
