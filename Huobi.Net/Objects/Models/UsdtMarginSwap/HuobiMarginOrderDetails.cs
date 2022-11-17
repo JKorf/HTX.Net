@@ -42,6 +42,6 @@ namespace Huobi.Net.Objects.Models.UsdtMarginSwap
         /// <summary>
         /// Trades
         /// </summary>
-        public IEnumerable<HuobiMarginTrade> Trades { get; set; } = Array.Empty<HuobiMarginTrade>();
+        public new IEnumerable<HuobiMarginTrade> Trades { get; set; } = Array.Empty<HuobiMarginTrade>();
     }
 }

@@ -15,6 +15,7 @@ using System.Threading.Tasks;
 
 namespace Huobi.Net.Clients.UsdtMarginSwapApi
 {
+    /// <inheritdoc />
     public class HuobiClientUsdtMarginSwapApiTrading : IHuobiClientUsdtMarginSwapApiTrading
     {
         private readonly HuobiClientUsdtMarginSwapApi _baseClient;
@@ -24,6 +25,7 @@ namespace Huobi.Net.Clients.UsdtMarginSwapApi
             _baseClient = baseClient;
         }
 
+        /// <inheritdoc />
         public async Task<WebCallResult<HuobiPlacedOrderId>> PlaceIsolatedMarginOrderAsync(
             string contractCode,
             decimal quantity,
@@ -64,6 +66,7 @@ namespace Huobi.Net.Clients.UsdtMarginSwapApi
             return await _baseClient.SendHuobiRequest<HuobiPlacedOrderId>(_baseClient.GetUrl("/linear-swap-api/v1/swap_order"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
         }
 
+        /// <inheritdoc />
         public async Task<WebCallResult<HuobiPlacedOrderId>> PlaceCrossMarginOrderAsync(
             decimal quantity,
             OrderSide side,
@@ -108,7 +111,7 @@ namespace Huobi.Net.Clients.UsdtMarginSwapApi
             return await _baseClient.SendHuobiRequest<HuobiPlacedOrderId>(_baseClient.GetUrl("/linear-swap-api/v1/swap_cross_order"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
         }
 
-
+        /// <inheritdoc />
         public async Task<WebCallResult<HuobiBatchResult>> CancelIsolatedMarginOrderAsync(string contractCode, long? orderId = null, long? clientOrderId = null, CancellationToken ct = default)
         {
             var parameters = new Dictionary<string, object>()
@@ -120,7 +123,8 @@ namespace Huobi.Net.Clients.UsdtMarginSwapApi
             return await _baseClient.SendHuobiRequest<HuobiBatchResult>(_baseClient.GetUrl("/linear-swap-api/v1/swap_cancel"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
         }
 
-        public async Task<WebCallResult<HuobiBatchResult>> CancelIsolatedMarginOrderAsync(string contractCode, IEnumerable<long> orderId, IEnumerable<long> clientOrderId, CancellationToken ct = default)
+        /// <inheritdoc />
+        public async Task<WebCallResult<HuobiBatchResult>> CancelIsolatedMarginOrdersAsync(string contractCode, IEnumerable<long> orderId, IEnumerable<long> clientOrderId, CancellationToken ct = default)
         {
             var parameters = new Dictionary<string, object>()
             {
@@ -131,6 +135,7 @@ namespace Huobi.Net.Clients.UsdtMarginSwapApi
             return await _baseClient.SendHuobiRequest<HuobiBatchResult>(_baseClient.GetUrl("/linear-swap-api/v1/swap_cancel"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
         }
 
+        /// <inheritdoc />
         public async Task<WebCallResult<HuobiBatchResult>> CancelCrossMarginOrderAsync(long? orderId = null, long? clientOrderId = null, string? contractCode = null, string? symbol = null, ContractType? contractType = null, CancellationToken ct = default)
         {
             var parameters = new Dictionary<string, object>();
@@ -142,7 +147,8 @@ namespace Huobi.Net.Clients.UsdtMarginSwapApi
             return await _baseClient.SendHuobiRequest<HuobiBatchResult>(_baseClient.GetUrl("/linear-swap-api/v1/swap_cross_cancel"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
         }
 
-        public async Task<WebCallResult<HuobiBatchResult>> CancelCrossMarginOrderAsync(IEnumerable<long> orderId, IEnumerable<long> clientOrderId, string? contractCode = null, string? symbol = null, ContractType? contractType = null, CancellationToken ct = default)
+        /// <inheritdoc />
+        public async Task<WebCallResult<HuobiBatchResult>> CancelCrossMarginOrdersAsync(IEnumerable<long> orderId, IEnumerable<long> clientOrderId, string? contractCode = null, string? symbol = null, ContractType? contractType = null, CancellationToken ct = default)
         {
             var parameters = new Dictionary<string, object>()
             {
@@ -155,6 +161,7 @@ namespace Huobi.Net.Clients.UsdtMarginSwapApi
             return await _baseClient.SendHuobiRequest<HuobiBatchResult>(_baseClient.GetUrl("/linear-swap-api/v1/swap_cross_cancel"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
         }
 
+        /// <inheritdoc />
         public async Task<WebCallResult<HuobiBatchResult>> CancelAllIsolatedMarginOrdersAsync(string contractCode, OrderSide? side = null, Offset? offset = null, CancellationToken ct = default)
         {
             var parameters = new Dictionary<string, object>()
@@ -166,6 +173,7 @@ namespace Huobi.Net.Clients.UsdtMarginSwapApi
             return await _baseClient.SendHuobiRequest<HuobiBatchResult>(_baseClient.GetUrl("/linear-swap-api/v1/swap_cancelall"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
         }
 
+        /// <inheritdoc />
         public async Task<WebCallResult<HuobiBatchResult>> CancelAllCrossMarginOrdersAsync(string? contractCode = null, string? symbol = null, ContractType? contractType = null, OrderSide? side = null, Offset? offset = null, CancellationToken ct = default)
         {
             var parameters = new Dictionary<string, object>();
@@ -177,6 +185,7 @@ namespace Huobi.Net.Clients.UsdtMarginSwapApi
             return await _baseClient.SendHuobiRequest<HuobiBatchResult>(_baseClient.GetUrl("/linear-swap-api/v1/swap_cross_cancelall"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
         }
 
+        /// <inheritdoc />
         public async Task<WebCallResult<HuobiIsolatedMarginLeverageRate>> ChangeIsolatedMarginLeverageAsync(string contractCode, int leverageRate, CancellationToken ct = default)
         {
             var parameters = new Dictionary<string, object>()
@@ -187,6 +196,7 @@ namespace Huobi.Net.Clients.UsdtMarginSwapApi
             return await _baseClient.SendHuobiRequest<HuobiIsolatedMarginLeverageRate>(_baseClient.GetUrl("/linear-swap-api/v1/swap_switch_lever_rate"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
         }
 
+        /// <inheritdoc />
         public async Task<WebCallResult<HuobiCrossMarginLeverageRate>> ChangeCrossMarginLeverageAsync(int leverageRate, string? contractCode = null, string? symbol = null, ContractType? contractType = null, CancellationToken ct = default)
         {
             var parameters = new Dictionary<string, object>()
@@ -200,6 +210,7 @@ namespace Huobi.Net.Clients.UsdtMarginSwapApi
             return await _baseClient.SendHuobiRequest<HuobiCrossMarginLeverageRate>(_baseClient.GetUrl("/linear-swap-api/v1/swap_cross_switch_lever_rate"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
         }
 
+        /// <inheritdoc />
         public async Task<WebCallResult<IEnumerable<HuobiIsolatedMarginOrder>>> GetIsolatedMarginOrderAsync(string contractCode, long? orderId = null, long? clientOrderId = null, CancellationToken ct = default)
         {
             var parameters = new Dictionary<string, object>()
@@ -211,6 +222,7 @@ namespace Huobi.Net.Clients.UsdtMarginSwapApi
             return await _baseClient.SendHuobiRequest<IEnumerable<HuobiIsolatedMarginOrder>>(_baseClient.GetUrl("/linear-swap-api/v1/swap_order_info"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
         }
 
+        /// <inheritdoc />
         public async Task<WebCallResult<IEnumerable<HuobiIsolatedMarginOrder>>> GetIsolatedMarginOrdersAsync(string contractCode, IEnumerable<long> orderIds, IEnumerable<long> clientOrderIds, CancellationToken ct = default)
         {
             var parameters = new Dictionary<string, object>()
@@ -222,6 +234,7 @@ namespace Huobi.Net.Clients.UsdtMarginSwapApi
             return await _baseClient.SendHuobiRequest<IEnumerable<HuobiIsolatedMarginOrder>>(_baseClient.GetUrl("/linear-swap-api/v1/swap_order_info"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
         }
 
+        /// <inheritdoc />
         public async Task<WebCallResult<IEnumerable<HuobiCrossMarginOrder>>> GetCrossMarginOrderAsync(string? contractCode = null, string? symbol = null, long? orderId = null, long? clientOrderId = null, CancellationToken ct = default)
         {
             var parameters = new Dictionary<string, object>();
@@ -232,6 +245,7 @@ namespace Huobi.Net.Clients.UsdtMarginSwapApi
             return await _baseClient.SendHuobiRequest<IEnumerable<HuobiCrossMarginOrder>>(_baseClient.GetUrl("/linear-swap-api/v1/swap_cross_order_info"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
         }
 
+        /// <inheritdoc />
         public async Task<WebCallResult<IEnumerable<HuobiCrossMarginOrder>>> GetCrossMarginOrdersAsync(IEnumerable<long> orderIds, IEnumerable<long> clientOrderIds, string? contractCode = null, string? symbol = null, CancellationToken ct = default)
         {
             var parameters = new Dictionary<string, object>();
@@ -242,6 +256,7 @@ namespace Huobi.Net.Clients.UsdtMarginSwapApi
             return await _baseClient.SendHuobiRequest<IEnumerable<HuobiCrossMarginOrder>>(_baseClient.GetUrl("/linear-swap-api/v1/swap_cross_order_info"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
         }
 
+        /// <inheritdoc />
         public async Task<WebCallResult<HuobiMarginOrderDetails>> GetIsolatedMarginOrderDetailsAsync(string contractCode, long orderId, CancellationToken ct = default)
         {
             var parameters = new Dictionary<string, object>()
@@ -252,6 +267,7 @@ namespace Huobi.Net.Clients.UsdtMarginSwapApi
             return await _baseClient.SendHuobiRequest<HuobiMarginOrderDetails>(_baseClient.GetUrl("/linear-swap-api/v1/swap_order_detail"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
         }
 
+        /// <inheritdoc />
         public async Task<WebCallResult<HuobiMarginOrderDetails>> GetCrossMarginOrderDetailsAsync(string contractCode, long orderId, CancellationToken ct = default)
         {
             var parameters = new Dictionary<string, object>()
@@ -262,6 +278,7 @@ namespace Huobi.Net.Clients.UsdtMarginSwapApi
             return await _baseClient.SendHuobiRequest<HuobiMarginOrderDetails>(_baseClient.GetUrl("/linear-swap-api/v1/swap_cross_order_detail"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
         }
 
+        /// <inheritdoc />
         public async Task<WebCallResult<HuobiIsolatedMarginOrderPage>> GetIsolatedMarginOpenOrdersAsync(string contractCode, int? page = null, int? pageSize = null, string? sortBy = null, MarginTradeType? tradeType = null, CancellationToken ct = default)
         {
             var parameters = new Dictionary<string, object>()
@@ -275,6 +292,7 @@ namespace Huobi.Net.Clients.UsdtMarginSwapApi
             return await _baseClient.SendHuobiRequest<HuobiIsolatedMarginOrderPage>(_baseClient.GetUrl("/linear-swap-api/v1/swap_openorders"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
         }
 
+        /// <inheritdoc />
         public async Task<WebCallResult<HuobiCrossMarginOrderPage>> GetCrossMarginOpenOrdersAsync(string? contractCode = null, string? symbol = null, int? page = null, int? pageSize = null, string? sortBy = null, MarginTradeType? tradeType = null, CancellationToken ct = default)
         {
             var parameters = new Dictionary<string, object>();
@@ -286,6 +304,7 @@ namespace Huobi.Net.Clients.UsdtMarginSwapApi
             return await _baseClient.SendHuobiRequest<HuobiCrossMarginOrderPage>(_baseClient.GetUrl("/linear-swap-api/v1/swap_cross_openorders"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
         }
 
+        /// <inheritdoc />
         public async Task<WebCallResult<HuobiIsolatedMarginOrderPage>> GetIsolatedMarginClosedOrdersAsync(string contractCode, MarginTradeType tradeType, bool allOrders, int daysInHistory, int? page = null, int? pageSize = null, string? sortBy = null, CancellationToken ct = default)
         {
             var parameters = new Dictionary<string, object>()
@@ -302,6 +321,7 @@ namespace Huobi.Net.Clients.UsdtMarginSwapApi
             return await _baseClient.SendHuobiRequest<HuobiIsolatedMarginOrderPage>(_baseClient.GetUrl("/linear-swap-api/v1/swap_hisorders"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
         }
 
+        /// <inheritdoc />
         public async Task<WebCallResult<HuobiCrossMarginOrderPage>> GetCrossMarginClosedOrdersAsync(MarginTradeType tradeType, bool allOrders, int daysInHistory, string? contractCode = null, string? symbol = null, int? page = null, int? pageSize = null, string? sortBy = null, CancellationToken ct = default)
         {
             var parameters = new Dictionary<string, object>()
@@ -319,6 +339,7 @@ namespace Huobi.Net.Clients.UsdtMarginSwapApi
             return await _baseClient.SendHuobiRequest<HuobiCrossMarginOrderPage>(_baseClient.GetUrl("/linear-swap-api/v1/swap_cross_hisorders"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
         }
 
+        /// <inheritdoc />
         public async Task<WebCallResult<HuobiIsolatedMarginUserTradePage>> GetIsolatedMarginUserTradesAsync(string contractCode, MarginTradeType tradeType, int daysInHistory, int? page = null, int? pageSize = null, CancellationToken ct = default)
         {
             var parameters = new Dictionary<string, object>()
@@ -333,6 +354,7 @@ namespace Huobi.Net.Clients.UsdtMarginSwapApi
             return await _baseClient.SendHuobiRequest<HuobiIsolatedMarginUserTradePage>(_baseClient.GetUrl("/linear-swap-api/v1/swap_matchresults"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
         }
 
+        /// <inheritdoc />
         public async Task<WebCallResult<HuobiCrossMarginUserTradePage>> GetCrossMarginUserTradesAsync(string contractCode, MarginTradeType tradeType, int daysInHistory, int? page = null, int? pageSize = null, CancellationToken ct = default)
         {
             var parameters = new Dictionary<string, object>()
