@@ -9,3 +9,6 @@ has_children: true
 ***
 *Spot streams*  
 **[IHuobiSocketClientSpotStreams](SpotApi/IHuobiSocketClientSpotStreams.html) SpotStreams { get; }**  
+***
+*Usdt margin swap streams*  
+**[IHuobiSocketClientUsdtMarginSwapStreams](UsdtMarginSwapApi/IHuobiSocketClientUsdtMarginSwapStreams.html) UsdtMarginSwapStreams { get; }**  

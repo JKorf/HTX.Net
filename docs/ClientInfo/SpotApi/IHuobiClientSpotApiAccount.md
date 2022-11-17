@@ -231,6 +231,31 @@ Task<WebCallResult<IEnumerable<HuobiMarginOrder>>> GetCrossMarginClosedOrdersAsy
 
 ***
 
+## GetCurrentFeeRatesAsync  
+
+[https://huobiapi.github.io/docs/spot/v1/en/#get-current-fee-rate-applied-to-the-user](https://huobiapi.github.io/docs/spot/v1/en/#get-current-fee-rate-applied-to-the-user)  
+<p>
+
+*Get Current Fee Rate Applied to The User*  
+
+```csharp  
+var client = new HuobiClient();  
+var result = await client.SpotApi.Account.GetCurrentFeeRatesAsync(/* parameters */);  
+```  
+
+```csharp  
+Task<WebCallResult<IEnumerable<HuobiFeeRate>>> GetCurrentFeeRatesAsync(IEnumerable<string> symbols, CancellationToken ct = default);  
+```  
+
+|Parameter|Description|
+|---|---|
+|symbols|Filter on symbols|
+|_[Optional]_ ct|Cancellation token|
+
+</p>
+
+***
+
 ## GetDepositAddressesAsync  
 
 [https://huobiapi.github.io/docs/spot/v1/en/#query-deposit-address](https://huobiapi.github.io/docs/spot/v1/en/#query-deposit-address)  
