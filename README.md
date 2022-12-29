@@ -28,6 +28,9 @@ Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/s
 A Discord server is available [here](https://discord.gg/MSpeEtSY8t). Feel free to join for discussion and/or questions around the CryptoExchange.Net and implementation libraries.
 
 ## Release notes
+* Version 4.2.1 - 29 Dec 2022
+    * Fixed GetCurrentFeeRatesAsync deserialization
+
 * Version 4.2.0 - 17 Nov 2022
     * Added Usdt Margin Swap API
     * Updated CryptoExchange.Net
