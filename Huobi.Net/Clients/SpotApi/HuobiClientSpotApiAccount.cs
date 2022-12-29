@@ -448,7 +448,7 @@ namespace Huobi.Net.Clients.SpotApi
             parameters.AddOptionalParameter("symbols", string.Join(",", symbols));
 
             return await _baseClient
-                .SendHuobiRequest<IEnumerable<HuobiFeeRate>>(_baseClient.GetUrl("reference/transact-fee-rate", "2"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+                .SendHuobiV2Request<IEnumerable<HuobiFeeRate>>(_baseClient.GetUrl("reference/transact-fee-rate", "2"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
         }
     }
 }
