@@ -30,7 +30,7 @@ namespace Huobi.Net.Clients.UsdtMarginSwapApi
             string contractCode,
             decimal quantity,
             OrderSide side,
-            decimal leverageRate,
+            int leverageRate,
             decimal? price = null,
             Offset? offset = null,
             OrderPriceType? orderPriceType = null,
@@ -70,7 +70,7 @@ namespace Huobi.Net.Clients.UsdtMarginSwapApi
         public async Task<WebCallResult<HuobiPlacedOrderId>> PlaceCrossMarginOrderAsync(
             decimal quantity,
             OrderSide side,
-            decimal leverageRate,
+            int leverageRate,
             string? contractCode = null,
             string? symbol = null,
             ContractType? contractType = null,
