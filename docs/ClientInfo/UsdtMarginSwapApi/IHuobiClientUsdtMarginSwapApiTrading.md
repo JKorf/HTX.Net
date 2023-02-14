@@ -588,7 +588,7 @@ var result = await client.UsdtMarginSwapApi.Trading.PlaceCrossMarginOrderAsync(/
 ```  
 
 ```csharp  
-Task<WebCallResult<HuobiPlacedOrderId>> PlaceCrossMarginOrderAsync(decimal quantity, OrderSide side, decimal leverageRate, string? contractCode = default, string? symbol = default, ContractType? contractType = default, decimal? price = default, Offset? offset = default, OrderPriceType? orderPriceType = default, decimal? takeProfitTriggerPrice = default, decimal? takeProfitOrderPrice = default, OrderPriceType? takeProfitOrderPriceType = default, decimal? stopLossTriggerPrice = default, decimal? stopLossOrderPrice = default, OrderPriceType? stopLossOrderPriceType = default, bool? reduceOnly = default, long? clientOrderId = default, CancellationToken ct = default);  
+Task<WebCallResult<HuobiPlacedOrderId>> PlaceCrossMarginOrderAsync(decimal quantity, OrderSide side, int leverageRate, string? contractCode = default, string? symbol = default, ContractType? contractType = default, decimal? price = default, Offset? offset = default, OrderPriceType? orderPriceType = default, decimal? takeProfitTriggerPrice = default, decimal? takeProfitOrderPrice = default, OrderPriceType? takeProfitOrderPriceType = default, decimal? stopLossTriggerPrice = default, decimal? stopLossOrderPrice = default, OrderPriceType? stopLossOrderPriceType = default, bool? reduceOnly = default, long? clientOrderId = default, CancellationToken ct = default);  
 ```  
 
 |Parameter|Description|
@@ -629,7 +629,7 @@ var result = await client.UsdtMarginSwapApi.Trading.PlaceIsolatedMarginOrderAsyn
 ```  
 
 ```csharp  
-Task<WebCallResult<HuobiPlacedOrderId>> PlaceIsolatedMarginOrderAsync(string contractCode, decimal quantity, OrderSide side, decimal leverageRate, decimal? price = default, Offset? offset = default, OrderPriceType? orderPriceType = default, decimal? takeProfitTriggerPrice = default, decimal? takeProfitOrderPrice = default, OrderPriceType? takeProfitOrderPriceType = default, decimal? stopLossTriggerPrice = default, decimal? stopLossOrderPrice = default, OrderPriceType? stopLossOrderPriceType = default, bool? reduceOnly = default, long? clientOrderId = default, CancellationToken ct = default);  
+Task<WebCallResult<HuobiPlacedOrderId>> PlaceIsolatedMarginOrderAsync(string contractCode, decimal quantity, OrderSide side, int leverageRate, decimal? price = default, Offset? offset = default, OrderPriceType? orderPriceType = default, decimal? takeProfitTriggerPrice = default, decimal? takeProfitOrderPrice = default, OrderPriceType? takeProfitOrderPriceType = default, decimal? stopLossTriggerPrice = default, decimal? stopLossOrderPrice = default, OrderPriceType? stopLossOrderPriceType = default, bool? reduceOnly = default, long? clientOrderId = default, CancellationToken ct = default);  
 ```  
 
 |Parameter|Description|

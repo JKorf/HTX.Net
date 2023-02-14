@@ -7,9 +7,6 @@ parent: Socket API documentation
 `HuobiSocketClient > SpotStreams`  
 *Spot streams*
   
-***
-*The factory for creating sockets. Used for unit testing*  
-**IWebsocketFactory SocketFactory { get; set; }**  
 
 ***
 
