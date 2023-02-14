@@ -1,4 +1,5 @@
-﻿using CryptoExchange.Net.Objects;
+﻿using CryptoExchange.Net.Interfaces;
+using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Sockets;
 using Huobi.Net.Enums;
 using Huobi.Net.Objects.Models;
@@ -12,7 +13,7 @@ namespace Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi
     /// <summary>
     /// Usdt margin swap streams
     /// </summary>
-    public interface IHuobiSocketClientUsdtMarginSwapStreams
+    public interface IHuobiSocketClientUsdtMarginSwapStreams : ISocketApiClient
     {
         /// <summary>
         /// Subscribe to basis updates

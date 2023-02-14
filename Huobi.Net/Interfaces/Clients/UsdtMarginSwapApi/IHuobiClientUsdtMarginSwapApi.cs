@@ -6,13 +6,8 @@ namespace Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi
     /// <summary>
     /// Usdt margin swap api endpoints
     /// </summary>
-    public interface IHuobiClientUsdtMarginSwapApi
+    public interface IHuobiClientUsdtMarginSwapApi : IRestApiClient
     {
-        /// <summary>
-        /// The factory for creating requests. Used for unit testing
-        /// </summary>
-        IRequestFactory RequestFactory { get; set; }
-
         /// <summary>
         /// Endpoints related to account settings, info or actions
         /// </summary>

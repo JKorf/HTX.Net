@@ -141,11 +141,11 @@ namespace Huobi.Net.Clients.FuturesApi
             => ExchangeData.GetServerTimeAsync();
 
         /// <inheritdoc />
-        public override TimeSyncInfo GetTimeSyncInfo()
+        public override TimeSyncInfo? GetTimeSyncInfo()
             => new TimeSyncInfo(_log, _options.UsdtMarginSwapApiOptions.AutoTimestamp, _options.UsdtMarginSwapApiOptions.TimestampRecalculationInterval, TimeSyncState);
 
         /// <inheritdoc />
-        public override TimeSpan GetTimeOffset()
+        public override TimeSpan? GetTimeOffset()
             => TimeSyncState.TimeOffset;
     }
 }

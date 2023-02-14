@@ -29,6 +29,9 @@
             </summary>
             <param name="options">Options to use as default</param>
         </member>
+        <member name="M:Huobi.Net.Clients.HuobiClient.SetApiCredentials(CryptoExchange.Net.Authentication.ApiCredentials)">
+            <inheritdoc />
+        </member>
         <member name="T:Huobi.Net.Clients.HuobiSocketClient">
             <inheritdoc cref="T:Huobi.Net.Interfaces.Clients.IHuobiSocketClient" />
         </member>
@@ -54,6 +57,9 @@
             Set the default options to be used when creating new clients
             </summary>
             <param name="options">Options to use as default</param>
+        </member>
+        <member name="M:Huobi.Net.Clients.HuobiSocketClient.SetApiCredentials(CryptoExchange.Net.Authentication.ApiCredentials)">
+            <inheritdoc />
         </member>
         <member name="T:Huobi.Net.Clients.SpotApi.HuobiClientSpotApi">
             <inheritdoc />
@@ -2234,6 +2240,12 @@
             Usdt margin swap endpoints
             </summary>
         </member>
+        <member name="M:Huobi.Net.Interfaces.Clients.IHuobiClient.SetApiCredentials(CryptoExchange.Net.Authentication.ApiCredentials)">
+            <summary>
+            Set the API credentials for this client. All Api clients in this client will use the new credentials, regardless of earlier set options.
+            </summary>
+            <param name="credentials">The credentials to set</param>
+        </member>
         <member name="T:Huobi.Net.Interfaces.Clients.IHuobiSocketClient">
             <summary>
             Client for accessing the Huobi websocket API. 
@@ -2249,14 +2261,15 @@
             Usdt margin swap streams
             </summary>
         </member>
+        <member name="M:Huobi.Net.Interfaces.Clients.IHuobiSocketClient.SetApiCredentials(CryptoExchange.Net.Authentication.ApiCredentials)">
+            <summary>
+            Set the API credentials for this client. All Api clients in this client will use the new credentials, regardless of earlier set options.
+            </summary>
+            <param name="credentials">The credentials to set</param>
+        </member>
         <member name="T:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiClientSpotApi">
             <summary>
             Spot API endpoints
-            </summary>
-        </member>
-        <member name="P:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiClientSpotApi.RequestFactory">
-            <summary>
-            The factory for creating requests. Used for unit testing
             </summary>
         </member>
         <member name="P:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiClientSpotApi.Account">
@@ -2974,11 +2987,6 @@
             Spot streams
             </summary>
         </member>
-        <member name="P:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiSocketClientSpotStreams.SocketFactory">
-            <summary>
-            The factory for creating sockets. Used for unit testing
-            </summary>
-        </member>
         <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiSocketClientSpotStreams.GetKlinesAsync(System.String,Huobi.Net.Enums.KlineInterval)">
             <summary>
             Gets candlestick data for a symbol
@@ -3152,11 +3160,6 @@
         <member name="T:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiClientUsdtMarginSwapApi">
             <summary>
             Usdt margin swap api endpoints
-            </summary>
-        </member>
-        <member name="P:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiClientUsdtMarginSwapApi.RequestFactory">
-            <summary>
-            The factory for creating requests. Used for unit testing
             </summary>
         </member>
         <member name="P:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiClientUsdtMarginSwapApi.Account">

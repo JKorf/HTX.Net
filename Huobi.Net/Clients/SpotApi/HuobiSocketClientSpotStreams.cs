@@ -625,7 +625,7 @@ namespace Huobi.Net.Clients.SpotApi
             var result = new CallResult<bool>(new ServerError("No response from server"));
             if (s.ApiClient is HuobiSocketClientUsdtMarginSwapStreams)
             {
-                await s.SendAndWaitAsync(((HuobiAuthenticationProvider)s.ApiClient.AuthenticationProvider).GetWebsocketAuthentication2(s.ConnectionUri), Options.SocketResponseTimeout, data =>
+                await s.SendAndWaitAsync(((HuobiAuthenticationProvider)s.ApiClient.AuthenticationProvider).GetWebsocketAuthentication2(s.ConnectionUri), Options.SocketResponseTimeout, null, data =>
                 {
                     if (data["op"]?.ToString() != "auth")
                         return false;
@@ -651,7 +651,7 @@ namespace Huobi.Net.Clients.SpotApi
             }
             else
             {
-                await s.SendAndWaitAsync(((HuobiAuthenticationProvider)s.ApiClient.AuthenticationProvider).GetWebsocketAuthentication(s.ConnectionUri), Options.SocketResponseTimeout, data =>
+                await s.SendAndWaitAsync(((HuobiAuthenticationProvider)s.ApiClient.AuthenticationProvider).GetWebsocketAuthentication(s.ConnectionUri), Options.SocketResponseTimeout, null, data =>
                 {
                     if (data["ch"]?.ToString() != "auth")
                         return false;
@@ -688,7 +688,7 @@ namespace Huobi.Net.Clients.SpotApi
                 var unsubId = NextId().ToString();
                 var unsub = new HuobiUnsubscribeRequest(unsubId, hRequest.Topic);
 
-                await connection.SendAndWaitAsync(unsub, Options.SocketResponseTimeout, data =>
+                await connection.SendAndWaitAsync(unsub, Options.SocketResponseTimeout, null, data =>
                 {
                     if (data.Type != JTokenType.Object)
                         return false;
@@ -713,7 +713,7 @@ namespace Huobi.Net.Clients.SpotApi
                     { "ch", haRequest.Channel },
                 };
 
-                await connection.SendAndWaitAsync(unsub, Options.SocketResponseTimeout, data =>
+                await connection.SendAndWaitAsync(unsub, Options.SocketResponseTimeout, null, data =>
                 {
                     if (data.Type != JTokenType.Object)
                         return false;
@@ -737,7 +737,7 @@ namespace Huobi.Net.Clients.SpotApi
                     topic = hRequest2.Topic,
                     cid = NextId().ToString()
                 };
-                await connection.SendAndWaitAsync(unsub, Options.SocketResponseTimeout, data =>
+                await connection.SendAndWaitAsync(unsub, Options.SocketResponseTimeout, null, data =>
                 {
                     if (data.Type != JTokenType.Object)
                         return false;

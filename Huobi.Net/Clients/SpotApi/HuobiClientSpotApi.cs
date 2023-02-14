@@ -476,11 +476,11 @@ namespace Huobi.Net.Clients.SpotApi
             => ExchangeData.GetServerTimeAsync();
 
         /// <inheritdoc />
-        public override TimeSyncInfo GetTimeSyncInfo()
+        public override TimeSyncInfo? GetTimeSyncInfo()
             => new TimeSyncInfo(_log, _options.SpotApiOptions.AutoTimestamp, _options.SpotApiOptions.TimestampRecalculationInterval, TimeSyncState);
 
         /// <inheritdoc />
-        public override TimeSpan GetTimeOffset()
+        public override TimeSpan? GetTimeOffset()
             => TimeSyncState.TimeOffset;
 
         /// <inheritdoc />

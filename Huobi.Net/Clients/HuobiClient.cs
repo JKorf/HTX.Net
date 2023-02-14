@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using CryptoExchange.Net;
+using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Objects;
 using Huobi.Net.Clients.FuturesApi;
@@ -59,6 +60,12 @@ namespace Huobi.Net.Clients
             HuobiClientOptions.Default = options;
         }
 
+        /// <inheritdoc />
+        public void SetApiCredentials(ApiCredentials apiCredentials)
+        {
+            SpotApi.SetApiCredentials(apiCredentials);
+            UsdtMarginSwapApi.SetApiCredentials(apiCredentials);
+        }
         #endregion
     }
 }

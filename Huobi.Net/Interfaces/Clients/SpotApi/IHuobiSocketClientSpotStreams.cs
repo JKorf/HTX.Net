@@ -14,13 +14,8 @@ namespace Huobi.Net.Interfaces.Clients.SpotApi
     /// <summary>
     /// Spot streams
     /// </summary>
-    public interface IHuobiSocketClientSpotStreams : IDisposable
+    public interface IHuobiSocketClientSpotStreams : ISocketApiClient, IDisposable
     {
-        /// <summary>
-        /// The factory for creating sockets. Used for unit testing
-        /// </summary>
-        IWebsocketFactory SocketFactory { get; set; }
-
         /// <summary>
         /// Gets candlestick data for a symbol
         /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-latest-tickers-for-all-pairs" /></para>

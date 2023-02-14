@@ -7,6 +7,7 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using CryptoExchange.Net;
+using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Sockets;
 using Huobi.Net.Clients.SpotApi;
@@ -58,6 +59,13 @@ namespace Huobi.Net.Clients
         public static void SetDefaultOptions(HuobiSocketClientOptions options)
         {
             HuobiSocketClientOptions.Default = options;
+        }
+
+        /// <inheritdoc />
+        public void SetApiCredentials(ApiCredentials apiCredentials)
+        {
+            SpotStreams.SetApiCredentials(apiCredentials);
+            UsdtMarginSwapStreams.SetApiCredentials(apiCredentials);
         }
         #endregion
     }
