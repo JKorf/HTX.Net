@@ -43,16 +43,16 @@ var orderData = await huobiClient.SpotApi.Trading.PlaceOrderAsync(
                 OrderType.Limit,
                 0.001m,
                 50000);
-		
+        
 // Placing a market buy order for 50USDT. Buy market orders specify the quantity in quote quantity
 var orderData = await huobiClient.SpotApi.Trading.PlaceOrderAsync(
                 accountId,
                 "BTC-USDT",
                 OrderSide.Buy,
                 OrderType.Market,
-                50);			
-				
-													
+                50);            
+                
+                                                    
 // Place a stop loss order, place a limit order of 0.001 BTC at 39000USDT each when the last trade price drops below 40000USDT
 var orderData = await huobiClient.SpotApi.Trading.PlaceOrderAsync(
                 accountId,
@@ -92,7 +92,7 @@ var userTradesResult = await huobiClient.SpotApi.Trading.GetUserTradesAsync();
 ```csharp
 var subscribeResult = await huobiSocket.SpotApi.SubscribeToTickerUpdatesAsync(data =>
 {
-	// Handle ticker data
+    // Handle ticker data
 });
 ```
 
@@ -100,25 +100,25 @@ var subscribeResult = await huobiSocket.SpotApi.SubscribeToTickerUpdatesAsync(da
 ```csharp
 // Any of these handlers can passed as null if you're not interested in the update type
 var subscribeResult = await huobiSocket.SpotApi.SubscribeToOrderUpdatesAsync(
-	null,
-	data =>
-	{
-		// Handle order submitted update
-	},
-	data =>
-	{
-		// Handle order matched update
-	},
-	data =>
-	{
-		// Handle order cancel update
-	},
-	data =>
-	{
-		// Handle conditional order trigger failure update
-	}
-	, data =>
-	{
-		// Handle conditional order canceled update
-	});
+    null,
+    data =>
+    {
+        // Handle order submitted update
+    },
+    data =>
+    {
+        // Handle order matched update
+    },
+    data =>
+    {
+        // Handle order cancel update
+    },
+    data =>
+    {
+        // Handle conditional order trigger failure update
+    }
+    , data =>
+    {
+        // Handle conditional order canceled update
+    });
 ```
