@@ -18,7 +18,7 @@ using CryptoExchange.Net.CommonObjects;
 namespace Huobi.Net.Clients.SpotApi
 {
     /// <inheritdoc />
-    public class HuobiClientSpotApiTrading : IHuobiClientSpotApiTrading
+    public class HuobiRestClientSpotApiTrading : IHuobiClientSpotApiTrading
     {
         private const string PlaceOrderEndpoint = "order/orders/place";
         private const string OpenOrdersEndpoint = "order/openOrders";
@@ -33,9 +33,9 @@ namespace Huobi.Net.Clients.SpotApi
         private const string SymbolTradesEndpoint = "order/matchresults";
         private const string HistoryOrdersEndpoint = "order/history";
 
-        private readonly HuobiClientSpotApi _baseClient;
+        private readonly HuobiRestClientSpotApi _baseClient;
 
-        internal HuobiClientSpotApiTrading(HuobiClientSpotApi baseClient)
+        internal HuobiRestClientSpotApiTrading(HuobiRestClientSpotApi baseClient)
         {
             _baseClient = baseClient;
         }

@@ -1,12 +1,13 @@
 ﻿using CryptoExchange.Net;
 using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.CommonObjects;
-using CryptoExchange.Net.Logging;
 using CryptoExchange.Net.Objects;
 using Huobi.Net.Clients.UsdtMarginSwapApi;
 using Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi;
 using Huobi.Net.Objects;
 using Huobi.Net.Objects.Internal;
+using Huobi.Net.Objects.Options;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -20,9 +21,10 @@ namespace Huobi.Net.Clients.FuturesApi
     /// <inheritdoc />
     public class HuobiClientUsdtMarginSwapApi : RestApiClient, IHuobiClientUsdtMarginSwapApi
     {
-        private readonly HuobiClientOptions _options;
+        /// <inheritdoc />
+        public new HuobiRestOptions ClientOptions => (HuobiRestOptions)base.ClientOptions;
 
-        internal static TimeSyncState TimeSyncState = new TimeSyncState("Usdt Margin Swap Api");
+        internal static TimeSyncState _timeSyncState = new TimeSyncState("Usdt Margin Swap Api");
 
         /// <summary>
         /// Event triggered when an order is placed via this client
@@ -48,11 +50,9 @@ namespace Huobi.Net.Clients.FuturesApi
         #endregion
 
         #region constructor/destructor
-        internal HuobiClientUsdtMarginSwapApi(Log log, HuobiClientOptions options)
-            : base(log, options, options.UsdtMarginSwapApiOptions)
+        internal HuobiClientUsdtMarginSwapApi(ILogger log, HttpClient? httpClient, HuobiRestOptions options)
+            : base(log, httpClient, options.Environment.UsdtMarginSwapRestBaseAddress, options, options.UsdtMarginSwapOptions)
         {
-            _options = options;
-
             Account = new HuobiClientUsdtMarginSwapApiAccount(this);
             ExchangeData = new HuobiClientUsdtMarginSwapApiExchangeData(this);
             Trading = new HuobiClientUsdtMarginSwapApiTrading(this);
@@ -63,7 +63,7 @@ namespace Huobi.Net.Clients.FuturesApi
 
         /// <inheritdoc />
         protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
-            => new HuobiAuthenticationProvider(credentials, _options.SignPublicRequests);
+            => new HuobiAuthenticationProvider(credentials, ClientOptions.SignPublicRequests);
 
         /// <summary>
         /// Construct url
@@ -142,10 +142,10 @@ namespace Huobi.Net.Clients.FuturesApi
 
         /// <inheritdoc />
         public override TimeSyncInfo? GetTimeSyncInfo()
-            => new TimeSyncInfo(_log, _options.UsdtMarginSwapApiOptions.AutoTimestamp, _options.UsdtMarginSwapApiOptions.TimestampRecalculationInterval, TimeSyncState);
+            => new TimeSyncInfo(_logger, (ApiOptions.AutoTimestamp ?? ClientOptions.AutoTimestamp), (ApiOptions.TimestampRecalculationInterval ?? ClientOptions.TimestampRecalculationInterval), _timeSyncState);
 
         /// <inheritdoc />
         public override TimeSpan? GetTimeOffset()
-            => TimeSyncState.TimeOffset;
+            => _timeSyncState.TimeOffset;
     }
 }

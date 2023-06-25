@@ -90,7 +90,7 @@ var userTradesResult = await huobiClient.SpotApi.Trading.GetUserTradesAsync();
 
 ### Subscribing to market data updates
 ```csharp
-var subscribeResult = await huobiSocket.SpotStreams.SubscribeToTickerUpdatesAsync(data =>
+var subscribeResult = await huobiSocket.SpotApi.SubscribeToTickerUpdatesAsync(data =>
 {
 	// Handle ticker data
 });
@@ -99,7 +99,7 @@ var subscribeResult = await huobiSocket.SpotStreams.SubscribeToTickerUpdatesAsyn
 ### Subscribing to order updates
 ```csharp
 // Any of these handlers can passed as null if you're not interested in the update type
-var subscribeResult = await huobiSocket.SpotStreams.SubscribeToOrderUpdatesAsync(
+var subscribeResult = await huobiSocket.SpotApi.SubscribeToOrderUpdatesAsync(
 	null,
 	data =>
 	{

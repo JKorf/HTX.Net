@@ -9,7 +9,7 @@ namespace Huobi.Net.Interfaces.Clients
     /// <summary>
     /// Client for accessing the Huobi API. 
     /// </summary>
-    public interface IHuobiClient : IRestClient
+    public interface IHuobiRestClient : IRestClient
     {
         /// <summary>
         /// Spot endpoints

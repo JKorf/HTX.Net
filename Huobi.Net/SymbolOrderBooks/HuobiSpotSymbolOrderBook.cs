@@ -3,11 +3,12 @@ using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.OrderBook;
 using CryptoExchange.Net.Sockets;
 using System;
-using Huobi.Net.Objects;
 using Huobi.Net.Objects.Models;
 using Huobi.Net.Interfaces.Clients;
 using Huobi.Net.Clients;
 using System.Threading;
+using Microsoft.Extensions.Logging;
+using Huobi.Net.Objects.Options;
 
 namespace Huobi.Net.SymbolOrderBooks
 {
@@ -26,13 +27,33 @@ namespace Huobi.Net.SymbolOrderBooks
         /// Create a new order book instance
         /// </summary>
         /// <param name="symbol">The symbol the order book is for</param>
-        /// <param name="options">The options for the order book</param>
-        public HuobiSpotSymbolOrderBook(string symbol, HuobiOrderBookOptions? options = null) : base("Huobi", symbol, options ?? new HuobiOrderBookOptions())
+        /// <param name="optionsDelegate">Option configuration delegate</param>
+        public HuobiSpotSymbolOrderBook(string symbol, Action<HuobiOrderBookOptions>? optionsDelegate = null)
+            : this(symbol, optionsDelegate, null, null)
         {
+        }
+
+        /// <summary>
+        /// Create a new order book instance
+        /// </summary>
+        /// <param name="symbol">The symbol the order book is for</param>
+        /// <param name="optionsDelegate">Option configuration delegate</param>
+        /// <param name="logger">Logger</param>
+        /// <param name="socketClient">Socket client instance</param>
+        public HuobiSpotSymbolOrderBook(string symbol,
+            Action<HuobiOrderBookOptions>? optionsDelegate,
+            ILogger<HuobiSpotSymbolOrderBook>? logger,
+            IHuobiSocketClient? socketClient) : base(logger, "Huobi", symbol)
+        {
+            var options = HuobiOrderBookOptions.Default.Copy();
+            if (optionsDelegate != null)
+                optionsDelegate(options);
+            Initialize(options);
+
             _mergeStep = options?.MergeStep;
             _levels = options?.Levels;
-            strictLevels = false;
-            sequencesAreConsecutive = _levels != null;
+            _strictLevels = false;
+            _sequencesAreConsecutive = _levels != null;
             _initialDataTimeout = options?.InitialDataTimeout ?? TimeSpan.FromSeconds(30);
 
             if (_levels != 150 && _mergeStep != null)
@@ -44,8 +65,8 @@ namespace Huobi.Net.SymbolOrderBooks
                 _levels = 150;
             }
             
-            _socketClient = options?.SocketClient ?? new HuobiSocketClient();
-            _socketOwner = options?.SocketClient == null;
+            _socketClient = socketClient ?? new HuobiSocketClient();
+            _socketOwner = socketClient == null;
         }
 
         /// <inheritdoc />
@@ -53,7 +74,7 @@ namespace Huobi.Net.SymbolOrderBooks
         {
             if(_mergeStep != null)
             {
-                var subResult = await _socketClient.SpotStreams.SubscribeToPartialOrderBookUpdates1SecondAsync(Symbol, _mergeStep.Value, HandleUpdate).ConfigureAwait(false);
+                var subResult = await _socketClient.SpotApi.SubscribeToPartialOrderBookUpdates1SecondAsync(Symbol, _mergeStep.Value, HandleUpdate).ConfigureAwait(false);
                 if (!subResult)
                     return subResult;
 
@@ -72,7 +93,7 @@ namespace Huobi.Net.SymbolOrderBooks
             }
             else
             {
-                var subResult = await _socketClient.SpotStreams.SubscribeToOrderBookChangeUpdatesAsync(Symbol, _levels!.Value, HandleIncremental).ConfigureAwait(false);
+                var subResult = await _socketClient.SpotApi.SubscribeToOrderBookChangeUpdatesAsync(Symbol, _levels!.Value, HandleIncremental).ConfigureAwait(false);
                 if (!subResult)
                     return subResult;
 
@@ -85,10 +106,10 @@ namespace Huobi.Net.SymbolOrderBooks
                 Status = OrderBookStatus.Syncing;
                 // Wait a little so that the sequence number of the order book snapshot is higher than the first socket update sequence number
                 await Task.Delay(500).ConfigureAwait(false);
-                var book = await _socketClient.SpotStreams.GetOrderBookAsync(Symbol, _levels.Value).ConfigureAwait(false);
+                var book = await _socketClient.SpotApi.GetOrderBookAsync(Symbol, _levels.Value).ConfigureAwait(false);
                 if (!book) 
                 {
-                    log.Write(Microsoft.Extensions.Logging.LogLevel.Debug, $"{Id} order book {Symbol} failed to retrieve initial order book");
+                    _logger.Log(LogLevel.Debug, $"{Id} order book {Symbol} failed to retrieve initial order book");
                     await _socketClient.UnsubscribeAsync(subResult.Data).ConfigureAwait(false);
                     return new CallResult<UpdateSubscription>(book.Error!);
                 }
@@ -122,7 +143,7 @@ namespace Huobi.Net.SymbolOrderBooks
             {
                 // Wait a little so that the sequence number of the order book snapshot is higher than the first socket update sequence number
                 await Task.Delay(5000).ConfigureAwait(false);
-                var book = await _socketClient.SpotStreams.GetOrderBookAsync(Symbol, _levels!.Value).ConfigureAwait(false);
+                var book = await _socketClient.SpotApi.GetOrderBookAsync(Symbol, _levels!.Value).ConfigureAwait(false);
                 if (!book)
                     return new CallResult<bool>(book.Error!);                
 

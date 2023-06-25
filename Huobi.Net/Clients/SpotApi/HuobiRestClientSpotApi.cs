@@ -8,25 +8,24 @@ using System.Threading.Tasks;
 using CryptoExchange.Net;
 using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.CommonObjects;
-using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Interfaces.CommonClients;
-using CryptoExchange.Net.Logging;
 using CryptoExchange.Net.Objects;
 using Huobi.Net.Enums;
 using Huobi.Net.Interfaces.Clients.SpotApi;
-using Huobi.Net.Objects;
 using Huobi.Net.Objects.Internal;
-using Huobi.Net.Objects.Models;
+using Huobi.Net.Objects.Options;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 
 namespace Huobi.Net.Clients.SpotApi
 {
     /// <inheritdoc />
-    public class HuobiClientSpotApi : RestApiClient, IHuobiClientSpotApi, ISpotClient
+    public class HuobiRestClientSpotApi : RestApiClient, IHuobiClientSpotApi, ISpotClient
     {
-        private readonly HuobiClientOptions _options;
+        /// <inheritdoc />
+        public new HuobiRestOptions ClientOptions => (HuobiRestOptions)base.ClientOptions;
 
-        internal static TimeSyncState TimeSyncState = new TimeSyncState("Spot Api");
+        internal static TimeSyncState _timeSyncState = new TimeSyncState("Spot Api");
 
         /// <summary>
         /// Event triggered when an order is placed via this client
@@ -52,14 +51,12 @@ namespace Huobi.Net.Clients.SpotApi
         #endregion
 
         #region constructor/destructor
-        internal HuobiClientSpotApi(Log log, HuobiClientOptions options)
-            : base(log, options, options.SpotApiOptions)
+        internal HuobiRestClientSpotApi(ILogger logger, HttpClient? httpClient, HuobiRestOptions options)
+            : base(logger, httpClient, options.Environment.RestBaseAddress, options, options.SpotOptions)
         {
-            _options = options;
-
-            Account = new HuobiClientSpotApiAccount(this);
-            ExchangeData = new HuobiClientSpotApiExchangeData(this);
-            Trading = new HuobiClientSpotApiTrading(this);
+            Account = new HuobiRestClientSpotApiAccount(this);
+            ExchangeData = new HuobiRestClientSpotApiExchangeData(this);
+            Trading = new HuobiRestClientSpotApiTrading(this);
 
             manualParseError = true;
         }
@@ -67,7 +64,7 @@ namespace Huobi.Net.Clients.SpotApi
 
         /// <inheritdoc />
         protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
-            => new HuobiAuthenticationProvider(credentials, _options.SignPublicRequests);
+            => new HuobiAuthenticationProvider(credentials, ClientOptions.SignPublicRequests);
 
         #region methods
 
@@ -436,7 +433,9 @@ namespace Huobi.Net.Clients.SpotApi
                 }
 
                 if (balance.Type == BalanceType.Frozen)
+                {
                     existing.Total += balance.Balance;
+                }
                 else
                 {
                     existing.Total += balance.Balance;
@@ -477,11 +476,11 @@ namespace Huobi.Net.Clients.SpotApi
 
         /// <inheritdoc />
         public override TimeSyncInfo? GetTimeSyncInfo()
-            => new TimeSyncInfo(_log, _options.SpotApiOptions.AutoTimestamp, _options.SpotApiOptions.TimestampRecalculationInterval, TimeSyncState);
+            => new TimeSyncInfo(_logger, ClientOptions.AutoTimestamp, ClientOptions.TimestampRecalculationInterval, _timeSyncState);
 
         /// <inheritdoc />
         public override TimeSpan? GetTimeOffset()
-            => TimeSyncState.TimeOffset;
+            => _timeSyncState.TimeOffset;
 
         /// <inheritdoc />
         /// TODO make this take an accountId param so we don't need it in the interface?

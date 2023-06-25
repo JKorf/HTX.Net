@@ -14,7 +14,7 @@ namespace Huobi.Net.Interfaces.Clients.SpotApi
     /// <summary>
     /// Spot streams
     /// </summary>
-    public interface IHuobiSocketClientSpotStreams : ISocketApiClient, IDisposable
+    public interface IHuobiSocketClientSpotApi : ISocketApiClient, IDisposable
     {
         /// <summary>
         /// Gets candlestick data for a symbol

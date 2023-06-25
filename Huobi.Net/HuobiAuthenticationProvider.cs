@@ -17,11 +17,14 @@ namespace Huobi.Net
 {
     internal class HuobiAuthenticationProvider : AuthenticationProvider
     {
-        private readonly bool signPublicRequests;
+        private readonly bool _signPublicRequests;
 
         public HuobiAuthenticationProvider(ApiCredentials credentials, bool signPublicRequests) : base(credentials)
         {
-            this.signPublicRequests = signPublicRequests;
+            if (credentials.CredentialType != ApiCredentialsType.Hmac)
+                throw new Exception("Only Hmac authentication is supported");
+
+            _signPublicRequests = signPublicRequests;
         }
 
         public override void AuthenticateRequest(RestApiClient apiClient,
@@ -39,11 +42,11 @@ namespace Huobi.Net
             bodyParameters = parameterPosition == HttpMethodParameterPosition.InBody ? new SortedDictionary<string, object>(providedParameters) : new SortedDictionary<string, object>();
             headers = new Dictionary<string, string>();
 
-            if (!auth && !signPublicRequests)
+            if (!auth && !_signPublicRequests)
                 return;
 
             // These are always in the uri
-            uriParameters.Add("AccessKeyId", Credentials.Key!.GetString());
+            uriParameters.Add("AccessKeyId", _credentials.Key!.GetString());
             uriParameters.Add("SignatureMethod", "HmacSHA256");
             uriParameters.Add("SignatureVersion", 2);
             uriParameters.Add("Timestamp", GetTimestamp(apiClient).ToString("yyyy-MM-ddTHH:mm:ss", CultureInfo.InvariantCulture));
@@ -63,7 +66,7 @@ namespace Huobi.Net
         public HuobiAuthenticationRequest GetWebsocketAuthentication(Uri uri)
         {
             var parameters = new Dictionary<string, object>();
-            parameters.Add("accessKey", Credentials.Key!.GetString());
+            parameters.Add("accessKey", _credentials.Key!.GetString());
             parameters.Add("signatureMethod", "HmacSHA256");
             parameters.Add("signatureVersion", 2.1);
             parameters.Add("timestamp", DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm:ss", CultureInfo.InvariantCulture));
@@ -74,13 +77,13 @@ namespace Huobi.Net
             var signData = $"GET\n{uri.Host}\n{uri.AbsolutePath}\n{paramString}";
             var signature = SignHMACSHA256(signData, SignOutputType.Base64);
 
-            return new HuobiAuthenticationRequest(Credentials.Key!.GetString(), (string)parameters["timestamp"], signature);
+            return new HuobiAuthenticationRequest(_credentials.Key!.GetString(), (string)parameters["timestamp"], signature);
         }
 
         public HuobiAuthenticationRequest2 GetWebsocketAuthentication2(Uri uri)
         {
             var parameters = new Dictionary<string, object>();
-            parameters.Add("AccessKeyId", Credentials.Key!.GetString());
+            parameters.Add("AccessKeyId", _credentials.Key!.GetString());
             parameters.Add("SignatureMethod", "HmacSHA256");
             parameters.Add("SignatureVersion", 2);
             parameters.Add("Timestamp", DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm:ss", CultureInfo.InvariantCulture));
@@ -91,7 +94,7 @@ namespace Huobi.Net
             var signData = $"GET\n{uri.Host}\n{uri.AbsolutePath}\n{paramString}";
             var signature = SignHMACSHA256(signData, SignOutputType.Base64);
 
-            return new HuobiAuthenticationRequest2(Credentials.Key!.GetString(), (string)parameters["Timestamp"], signature);
+            return new HuobiAuthenticationRequest2(_credentials.Key!.GetString(), (string)parameters["Timestamp"], signature);
         }
     }
 }

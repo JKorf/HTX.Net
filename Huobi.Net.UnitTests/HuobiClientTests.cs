@@ -76,7 +76,7 @@ namespace Huobi.Net.UnitTests
         [Test]
         public void CheckRestInterfaces()
         {
-            var assembly = Assembly.GetAssembly(typeof(HuobiClientSpotApi));
+            var assembly = Assembly.GetAssembly(typeof(HuobiRestClientSpotApi));
             var ignore = new string[] { "IHuobiClientSpot" };
             var clientInterfaces = assembly.GetTypes().Where(t => t.Name.StartsWith("IHuobiClientSpot") && !ignore.Contains(t.Name));
 

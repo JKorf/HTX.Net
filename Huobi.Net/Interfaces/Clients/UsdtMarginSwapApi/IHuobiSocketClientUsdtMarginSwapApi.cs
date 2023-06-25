@@ -13,7 +13,7 @@ namespace Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi
     /// <summary>
     /// Usdt margin swap streams
     /// </summary>
-    public interface IHuobiSocketClientUsdtMarginSwapStreams : ISocketApiClient
+    public interface IHuobiSocketClientUsdtMarginSwapApi : ISocketApiClient
     {
         /// <summary>
         /// Subscribe to basis updates

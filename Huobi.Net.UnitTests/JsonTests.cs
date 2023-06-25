@@ -7,20 +7,18 @@ using System.Threading.Tasks;
 using CryptoExchange.Net.Interfaces;
 using Huobi.Net.Objects;
 using Huobi.Net.Interfaces.Clients;
+using Huobi.Net.Objects.Options;
 
 namespace Huobi.Net.UnitTests
 {
     [TestFixture]
     public class JsonTests
     {
-        private JsonToObjectComparer<IHuobiClient> _comparer = new JsonToObjectComparer<IHuobiClient>((json) => TestHelpers.CreateResponseClient(json, new HuobiClientOptions()
-        { 
-            ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "123"), 
-            SpotApiOptions = new CryptoExchange.Net.Objects.RestApiClientOptions
-            {
-                OutputOriginalData = true,
-                RateLimiters = new List<IRateLimiter>()
-            }
+        private JsonToObjectComparer<IHuobiRestClient> _comparer = new JsonToObjectComparer<IHuobiRestClient>((json) => TestHelpers.CreateResponseClient(json, x =>
+        {
+            x.ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "123");
+            x.SpotOptions.OutputOriginalData = true;
+            x.SpotOptions.RateLimiters = new List<IRateLimiter>();
         }));
 
         [Test]

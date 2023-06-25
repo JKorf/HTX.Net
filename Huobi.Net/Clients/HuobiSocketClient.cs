@@ -1,24 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.IO.Compression;
-using System.Linq;
-using System.Net.Http;
-using System.Threading;
-using System.Threading.Tasks;
-using CryptoExchange.Net;
+﻿using CryptoExchange.Net;
 using CryptoExchange.Net.Authentication;
-using CryptoExchange.Net.Objects;
-using CryptoExchange.Net.Sockets;
 using Huobi.Net.Clients.SpotApi;
 using Huobi.Net.Interfaces.Clients;
 using Huobi.Net.Interfaces.Clients.SpotApi;
 using Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi;
-using Huobi.Net.Objects;
-using Huobi.Net.Objects.Internal;
+using Huobi.Net.Objects.Options;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+using System;
 
 namespace Huobi.Net.Clients
 {
@@ -27,27 +15,41 @@ namespace Huobi.Net.Clients
     {
         #region fields
         /// <inheritdoc />
-        public IHuobiSocketClientSpotStreams SpotStreams { get; }
+        public IHuobiSocketClientSpotApi SpotApi { get; }
         /// <inheritdoc />
-        public IHuobiSocketClientUsdtMarginSwapStreams UsdtMarginSwapStreams { get; }
+        public IHuobiSocketClientUsdtMarginSwapApi UsdtMarginSwapApi { get; }
         #endregion
 
         #region ctor
         /// <summary>
-        /// Create a new instance of HuobiSocketClient with default options
+        /// Create a new instance of the HuobiSocketClient
         /// </summary>
-        public HuobiSocketClient() : this(HuobiSocketClientOptions.Default)
+        /// <param name="loggerFactory">The logger factory</param>
+        public HuobiSocketClient(ILoggerFactory? loggerFactory = null) : this((x) => { }, loggerFactory)
         {
         }
 
         /// <summary>
-        /// Create a new instance of HuobiSocketClient using provided options
+        /// Create a new instance of the HuobiSocketClient
         /// </summary>
-        /// <param name="options">The options to use for this client</param>
-        public HuobiSocketClient(HuobiSocketClientOptions options) : base("Huobi", options)
+        /// <param name="optionsDelegate">Option configuration delegate</param>
+        public HuobiSocketClient(Action<HuobiSocketOptions> optionsDelegate) : this(optionsDelegate, null)
         {
-            SpotStreams = AddApiClient(new HuobiSocketClientSpotStreams(log, options));
-            UsdtMarginSwapStreams = AddApiClient(new HuobiSocketClientUsdtMarginSwapStreams(log, options));
+        }
+
+        /// <summary>
+        /// Create a new instance of the HuobiSocketClient
+        /// </summary>
+        /// <param name="loggerFactory">The logger factory</param>
+        /// <param name="optionsDelegate">Option configuration delegate</param>
+        public HuobiSocketClient(Action<HuobiSocketOptions> optionsDelegate, ILoggerFactory? loggerFactory = null) : base(loggerFactory, "Huobi")
+        {
+            var options = HuobiSocketOptions.Default.Copy();
+            optionsDelegate(options);
+            Initialize(options);
+
+            SpotApi = AddApiClient(new HuobiSocketClientSpotApi(_logger, options));
+            UsdtMarginSwapApi = AddApiClient(new HuobiSocketClientUsdtMarginSwapApi(_logger, options));
         }
         #endregion
 
@@ -55,17 +57,19 @@ namespace Huobi.Net.Clients
         /// <summary>
         /// Set the default options to be used when creating new clients
         /// </summary>
-        /// <param name="options">Options to use as default</param>
-        public static void SetDefaultOptions(HuobiSocketClientOptions options)
+        /// <param name="optionsDelegate">Option configuration delegate</param>
+        public static void SetDefaultOptions(Action<HuobiSocketOptions> optionsDelegate)
         {
-            HuobiSocketClientOptions.Default = options;
+            var options = HuobiSocketOptions.Default.Copy();
+            optionsDelegate(options);
+            HuobiSocketOptions.Default = options;
         }
 
         /// <inheritdoc />
         public void SetApiCredentials(ApiCredentials apiCredentials)
         {
-            SpotStreams.SetApiCredentials(apiCredentials);
-            UsdtMarginSwapStreams.SetApiCredentials(apiCredentials);
+            SpotApi.SetApiCredentials(apiCredentials);
+            UsdtMarginSwapApi.SetApiCredentials(apiCredentials);
         }
         #endregion
     }

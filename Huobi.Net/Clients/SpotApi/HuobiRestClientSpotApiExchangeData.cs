@@ -15,7 +15,7 @@ using Huobi.Net.Interfaces.Clients.SpotApi;
 namespace Huobi.Net.Clients.SpotApi
 {
     /// <inheritdoc />
-    public class HuobiClientSpotApiExchangeData : IHuobiClientSpotApiExchangeData
+    public class HuobiRestClientSpotApiExchangeData : IHuobiClientSpotApiExchangeData
     {
         private const string MarketTickerEndpoint = "market/tickers";
         private const string MarketTickerMergedEndpoint = "market/detail/merged";
@@ -32,9 +32,9 @@ namespace Huobi.Net.Clients.SpotApi
         private const string CommonCurrenciesAndChainsEndpoint = "reference/currencies";
         private const string ServerTimeEndpoint = "common/timestamp";
 
-        private readonly HuobiClientSpotApi _baseClient;
+        private readonly HuobiRestClientSpotApi _baseClient;
 
-        internal HuobiClientSpotApiExchangeData(HuobiClientSpotApi baseClient)
+        internal HuobiRestClientSpotApiExchangeData(HuobiRestClientSpotApi baseClient)
         {
             _baseClient = baseClient;
         }

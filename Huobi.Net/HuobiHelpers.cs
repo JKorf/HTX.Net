@@ -1,10 +1,14 @@
 ﻿using Huobi.Net.Clients;
 using Huobi.Net.Interfaces.Clients;
-using Huobi.Net.Objects;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Globalization;
+using System.Net.Http;
+using System.Net;
 using System.Text.RegularExpressions;
+using Huobi.Net.Objects.Options;
+using Huobi.Net.Interfaces;
+using Huobi.Net.SymbolOrderBooks;
 
 namespace Huobi.Net
 {
@@ -17,27 +21,47 @@ namespace Huobi.Net
         /// Add the IHuobiClient and IHuobiSocketClient to the sevice collection so they can be injected
         /// </summary>
         /// <param name="services">The service collection</param>
-        /// <param name="defaultOptionsCallback">Set default options for the client</param>
-        /// <param name="socketClientLifeTime">The lifetime of the IHuobiSocketClient for the service collection. Defaults to Scoped.</param>
+        /// <param name="defaultRestOptionsDelegate">Set default options for the rest client</param>
+        /// <param name="defaultSocketOptionsDelegate">Set default options for the socket client</param>
+        /// <param name="socketClientLifeTime">The lifetime of the IHuobiSocketClient for the service collection. Defaults to Singleton.</param>
         /// <returns></returns>
         public static IServiceCollection AddHuobi(
-            this IServiceCollection services, 
-            Action<HuobiClientOptions, HuobiSocketClientOptions>? defaultOptionsCallback = null,
+            this IServiceCollection services,
+            Action<HuobiRestOptions>? defaultRestOptionsDelegate = null,
+            Action<HuobiSocketOptions>? defaultSocketOptionsDelegate = null,
             ServiceLifetime? socketClientLifeTime = null)
         {
-            if (defaultOptionsCallback != null)
-            {
-                var options = new HuobiClientOptions();
-                var socketOptions = new HuobiSocketClientOptions();
-                defaultOptionsCallback?.Invoke(options, socketOptions);
+            var restOptions = HuobiRestOptions.Default.Copy();
 
-                HuobiClient.SetDefaultOptions(options);
-                HuobiSocketClient.SetDefaultOptions(socketOptions);
+            if (defaultRestOptionsDelegate != null)
+            {
+                defaultRestOptionsDelegate(restOptions);
+                HuobiRestClient.SetDefaultOptions(defaultRestOptionsDelegate);
             }
 
-            services.AddTransient<IHuobiClient, HuobiClient>();
+            if (defaultSocketOptionsDelegate != null)
+                HuobiSocketClient.SetDefaultOptions(defaultSocketOptionsDelegate);
+
+            services.AddHttpClient<IHuobiRestClient, HuobiRestClient>(options =>
+            {
+                options.Timeout = restOptions.RequestTimeout;
+            }).ConfigurePrimaryHttpMessageHandler(() => {
+                var handler = new HttpClientHandler();
+                if (restOptions.Proxy != null)
+                {
+                    handler.Proxy = new WebProxy
+                    {
+                        Address = new Uri($"{restOptions.Proxy.Host}:{restOptions.Proxy.Port}"),
+                        Credentials = restOptions.Proxy.Password == null ? null : new NetworkCredential(restOptions.Proxy.Login, restOptions.Proxy.Password)
+                    };
+                }
+                return handler;
+            });
+
+            services.AddSingleton<IHuobiOrderBookFactory, HuobiOrderBookFactory>();
+            services.AddTransient<IHuobiRestClient, HuobiRestClient>();
             if (socketClientLifeTime == null)
-                services.AddScoped<IHuobiSocketClient, HuobiSocketClient>();
+                services.AddSingleton<IHuobiSocketClient, HuobiSocketClient>();
             else
                 services.Add(new ServiceDescriptor(typeof(IHuobiSocketClient), typeof(HuobiSocketClient), socketClientLifeTime.Value));
             return services;

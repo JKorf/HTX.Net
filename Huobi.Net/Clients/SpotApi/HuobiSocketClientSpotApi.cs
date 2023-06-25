@@ -7,7 +7,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using CryptoExchange.Net;
 using CryptoExchange.Net.Authentication;
-using CryptoExchange.Net.Logging;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Sockets;
 using Huobi.Net.Converters;
@@ -17,6 +16,7 @@ using Huobi.Net.Objects;
 using Huobi.Net.Objects.Internal;
 using Huobi.Net.Objects.Models;
 using Huobi.Net.Objects.Models.Socket;
+using Huobi.Net.Objects.Options;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -25,21 +25,15 @@ using HuobiOrderUpdate = Huobi.Net.Objects.Models.Socket.HuobiOrderUpdate;
 namespace Huobi.Net.Clients.SpotApi
 {
     /// <inheritdoc />
-    public class HuobiSocketClientSpotStreams : SocketApiClient, IHuobiSocketClientSpotStreams
+    public class HuobiSocketClientSpotApi : SocketApiClient, IHuobiSocketClientSpotApi
     {
         #region fields
-        private readonly string _baseAddressAuthenticated;
-        private readonly string _baseAddressMbp;
         #endregion
 
         #region ctor
-        internal HuobiSocketClientSpotStreams(Log log, HuobiSocketClientOptions options)
-            : base(log, options, options.SpotStreamsOptions)
+        internal HuobiSocketClientSpotApi(ILogger logger, HuobiSocketOptions options)
+            : base(logger, options.Environment.SocketBaseAddress, options, options.SpotOptions)
         {
-            _log = log;
-            _baseAddressAuthenticated = options.SpotStreamsOptions.BaseAddressAuthenticated;
-            _baseAddressMbp = options.SpotStreamsOptions.BaseAddressInrementalOrderBook;
-
             KeepAliveInterval = TimeSpan.Zero;
 
             SetDataInterpreter(DecompressData, null);
@@ -61,7 +55,7 @@ namespace Huobi.Net.Clients.SpotApi
         {
             symbol = symbol.ValidateHuobiSymbol();
             var request = new HuobiSocketRequest(NextId().ToString(CultureInfo.InvariantCulture), $"market.{symbol}.kline.{JsonConvert.SerializeObject(period, new PeriodConverter(false))}");
-            var result = await QueryAsync<HuobiSocketResponse<IEnumerable<HuobiKline>>>(request, false).ConfigureAwait(false);
+            var result = await QueryAsync<HuobiSocketResponse<IEnumerable<HuobiKline>>>(BaseAddress.AppendPath("ws"), request, false).ConfigureAwait(false);
             return result ? result.As(result.Data.Data) : result.AsError<IEnumerable<HuobiKline>>(result.Error!);
         }
 
@@ -71,7 +65,7 @@ namespace Huobi.Net.Clients.SpotApi
             symbol = symbol.ValidateHuobiSymbol();
             var request = new HuobiSubscribeRequest(NextId().ToString(CultureInfo.InvariantCulture), $"market.{symbol}.kline.{JsonConvert.SerializeObject(period, new PeriodConverter(false))}");
             var internalHandler = new Action<DataEvent<HuobiDataEvent<HuobiKline>>>(data => onData(data.As(data.Data.Data, symbol)));
-            return await SubscribeAsync(request, null, false, internalHandler, ct).ConfigureAwait(false);
+            return await SubscribeAsync(BaseAddress.AppendPath("ws"), request, null, false, internalHandler, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -81,7 +75,7 @@ namespace Huobi.Net.Clients.SpotApi
             mergeStep.ValidateIntBetween(nameof(mergeStep), 0, 5);
 
             var request = new HuobiSocketRequest(NextId().ToString(CultureInfo.InvariantCulture), $"market.{symbol}.depth.step{mergeStep}");
-            var result = await QueryAsync<HuobiSocketResponse<HuobiOrderBook>>(request, false).ConfigureAwait(false);
+            var result = await QueryAsync<HuobiSocketResponse<HuobiOrderBook>>(BaseAddress.AppendPath("ws"), request, false).ConfigureAwait(false);
             if (!result)
                 return new CallResult<HuobiOrderBook>(result.Error!);
 
@@ -96,7 +90,7 @@ namespace Huobi.Net.Clients.SpotApi
             levels.ValidateIntValues(nameof(levels), 5, 20, 150, 400);
 
             var request = new HuobiSocketRequest(NextId().ToString(CultureInfo.InvariantCulture), $"market.{symbol}.mbp.{levels}");
-            var result = await QueryAsync<HuobiSocketResponse<HuobiIncementalOrderBook>>(_baseAddressMbp, request, false).ConfigureAwait(false);
+            var result = await QueryAsync<HuobiSocketResponse<HuobiIncementalOrderBook>>(BaseAddress.AppendPath("feed"), request, false).ConfigureAwait(false);
             if (!result)
                 return new CallResult<HuobiIncementalOrderBook>(result.Error!);
 
@@ -104,7 +98,7 @@ namespace Huobi.Net.Clients.SpotApi
             {
                 var info = "No data received when requesting order book. " +
                     "Levels 5/20 are only supported for a subset of symbols, see https://huobiapi.github.io/docs/spot/v1/en/#market-by-price-incremental-update. Use 150 level instead.";
-                _log.Write(LogLevel.Debug, info);
+                _logger.Log(LogLevel.Debug, info);
                 return new CallResult<HuobiIncementalOrderBook>(new ServerError(info));
             }
 
@@ -124,7 +118,7 @@ namespace Huobi.Net.Clients.SpotApi
             });
 
             var request = new HuobiSubscribeRequest(NextId().ToString(CultureInfo.InvariantCulture), $"market.{symbol}.depth.step{mergeStep}");
-            return await SubscribeAsync(request, null, false, internalHandler, ct).ConfigureAwait(false);
+            return await SubscribeAsync(BaseAddress.AppendPath("ws"), request, null, false, internalHandler, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -140,7 +134,7 @@ namespace Huobi.Net.Clients.SpotApi
             });
 
             var request = new HuobiSubscribeRequest(NextId().ToString(CultureInfo.InvariantCulture), $"market.{symbol}.mbp.refresh.{levels}");
-            return await SubscribeAsync(request, null, false, internalHandler, ct).ConfigureAwait(false);
+            return await SubscribeAsync(BaseAddress.AppendPath("ws"), request, null, false, internalHandler, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -156,7 +150,7 @@ namespace Huobi.Net.Clients.SpotApi
             });
 
             var request = new HuobiSubscribeRequest(NextId().ToString(CultureInfo.InvariantCulture), $"market.{symbol}.mbp.{levels}");
-            return await SubscribeAsync(_baseAddressMbp, request, null, false, internalHandler, ct).ConfigureAwait(false);
+            return await SubscribeAsync(BaseAddress.AppendPath("feed"), request, null, false, internalHandler, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -164,7 +158,7 @@ namespace Huobi.Net.Clients.SpotApi
         {
             symbol = symbol.ValidateHuobiSymbol();
             var request = new HuobiSocketRequest(NextId().ToString(CultureInfo.InvariantCulture), $"market.{symbol}.trade.detail");
-            var result = await QueryAsync<HuobiSocketResponse<IEnumerable<HuobiSymbolTradeDetails>>>(request, false).ConfigureAwait(false);
+            var result = await QueryAsync<HuobiSocketResponse<IEnumerable<HuobiSymbolTradeDetails>>>(BaseAddress.AppendPath("ws"), request, false).ConfigureAwait(false);
             return result ? result.As(result.Data.Data) : result.AsError<IEnumerable<HuobiSymbolTradeDetails>>(result.Error!);
         }
 
@@ -174,7 +168,7 @@ namespace Huobi.Net.Clients.SpotApi
             symbol = symbol.ValidateHuobiSymbol();
             var request = new HuobiSubscribeRequest(NextId().ToString(CultureInfo.InvariantCulture), $"market.{symbol}.trade.detail");
             var internalHandler = new Action<DataEvent<HuobiDataEvent<HuobiSymbolTrade>>>(data => onData(data.As(data.Data.Data, symbol)));
-            return await SubscribeAsync(request, null, false, internalHandler, ct).ConfigureAwait(false);
+            return await SubscribeAsync(BaseAddress.AppendPath("ws"), request, null, false, internalHandler, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -182,7 +176,7 @@ namespace Huobi.Net.Clients.SpotApi
         {
             symbol = symbol.ValidateHuobiSymbol();
             var request = new HuobiSocketRequest(NextId().ToString(CultureInfo.InvariantCulture), $"market.{symbol}.detail");
-            var result = await QueryAsync<HuobiSocketResponse<HuobiSymbolDetails>>(request, false).ConfigureAwait(false);
+            var result = await QueryAsync<HuobiSocketResponse<HuobiSymbolDetails>>(BaseAddress.AppendPath("ws"), request, false).ConfigureAwait(false);
             if (!result)
                 return result.AsError<HuobiSymbolDetails>(result.Error!);
 
@@ -200,7 +194,7 @@ namespace Huobi.Net.Clients.SpotApi
                 data.Data.Timestamp = data.Timestamp;
                 onData(data.As(data.Data.Data, symbol));
             });
-            return await SubscribeAsync(request, null, false, internalHandler, ct).ConfigureAwait(false);
+            return await SubscribeAsync(BaseAddress.AppendPath("ws"), request, null, false, internalHandler, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -212,7 +206,7 @@ namespace Huobi.Net.Clients.SpotApi
                 var result = new HuobiSymbolDatas { Timestamp = data.Timestamp, Ticks = data.Data.Data };
                 onData(data.As(result));
             });
-            return await SubscribeAsync(request, null, false, internalHandler, ct).ConfigureAwait(false);
+            return await SubscribeAsync(BaseAddress.AppendPath("ws"), request, null, false, internalHandler, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -224,7 +218,7 @@ namespace Huobi.Net.Clients.SpotApi
                 data.Data.Data.Symbol = symbol;
                 onData(data.As(data.Data.Data));
             });
-            return await SubscribeAsync(request, null, false, internalHandler, ct).ConfigureAwait(false);
+            return await SubscribeAsync(BaseAddress.AppendPath("ws"), request, null, false, internalHandler, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -235,7 +229,7 @@ namespace Huobi.Net.Clients.SpotApi
             {
                 onData(data.As(data.Data.Data, symbol));
             });
-            return await SubscribeAsync(request, null, false, internalHandler, ct).ConfigureAwait(false);
+            return await SubscribeAsync(BaseAddress.AppendPath("ws"), request, null, false, internalHandler, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -254,7 +248,7 @@ namespace Huobi.Net.Clients.SpotApi
             {
                 if (data.Data["data"] == null || data.Data["data"]!["eventType"] == null)
                 {
-                    _log.Write(LogLevel.Warning, "Invalid order update data: " + data);
+                    _logger.Log(LogLevel.Warning, "Invalid order update data: " + data);
                     return;
                 }
 
@@ -282,10 +276,10 @@ namespace Huobi.Net.Clients.SpotApi
                 }
                 else
                 {
-                    _log.Write(LogLevel.Warning, "Unknown order event type: " + eventType);
+                    _logger.Log(LogLevel.Warning, "Unknown order event type: " + eventType);
                 }
             });
-            return await SubscribeAsync(_baseAddressAuthenticated, request, null, true, internalHandler, ct).ConfigureAwait(false);
+            return await SubscribeAsync(BaseAddress.AppendPath("ws/v2"), request, null, true, internalHandler, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -299,7 +293,7 @@ namespace Huobi.Net.Clients.SpotApi
             {
                 DeserializeAndInvoke(data, onAccountUpdate);
             });
-            return await SubscribeAsync(_baseAddressAuthenticated, request, null, true, internalHandler, ct).ConfigureAwait(false);
+            return await SubscribeAsync(BaseAddress.AppendPath("ws/v2"), request, null, true, internalHandler, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -310,7 +304,7 @@ namespace Huobi.Net.Clients.SpotApi
             {
                 if (data.Data["data"] == null || data.Data["data"]!["eventType"] == null)
                 {
-                    _log.Write(LogLevel.Warning, "Invalid order update data: " + data);
+                    _logger.Log(LogLevel.Warning, "Invalid order update data: " + data);
                     return;
                 }
 
@@ -326,10 +320,10 @@ namespace Huobi.Net.Clients.SpotApi
                 }
                 else
                 {
-                    _log.Write(LogLevel.Warning, "Unknown order details event type: " + eventType);
+                    _logger.Log(LogLevel.Warning, "Unknown order details event type: " + eventType);
                 }
             });
-            return await SubscribeAsync(_baseAddressAuthenticated, request, null, true, internalHandler, ct).ConfigureAwait(false);
+            return await SubscribeAsync(BaseAddress.AppendPath("ws/v2"), request, null, true, internalHandler, ct).ConfigureAwait(false);
         }
 
         #region private
@@ -339,7 +333,7 @@ namespace Huobi.Net.Clients.SpotApi
             var obj = Deserialize<T>(data.Data["data"]!);
             if (!obj)
             {
-                _log.Write(LogLevel.Error, $"Failed to deserialize {typeof(T).Name}: " + obj.Error);
+                _logger.Log(LogLevel.Error, $"Failed to deserialize {typeof(T).Name}: " + obj.Error);
                 return;
             }
             action?.Invoke(data.As(obj.Data, symbol));
@@ -414,7 +408,7 @@ namespace Huobi.Net.Clients.SpotApi
                 var desResult = Deserialize<T>(data);
                 if (!desResult)
                 {
-                    _log.Write(LogLevel.Warning, $"Socket {s.SocketId} Failed to deserialize data: {desResult.Error}. Data: {data}");
+                    _logger.Log(LogLevel.Warning, $"Socket {s.SocketId} Failed to deserialize data: {desResult.Error}. Data: {data}");
                     callResult = new CallResult<T>(desResult.Error!);
                     return true;
                 }
@@ -435,7 +429,7 @@ namespace Huobi.Net.Clients.SpotApi
                 var desResult = Deserialize<T>(data);
                 if (!desResult)
                 {
-                    _log.Write(LogLevel.Warning, $"Socket {s.SocketId} Failed to deserialize data: {desResult.Error}. Data: {data}");
+                    _logger.Log(LogLevel.Warning, $"Socket {s.SocketId} Failed to deserialize data: {desResult.Error}. Data: {data}");
                     return false;
                 }
 
@@ -459,7 +453,7 @@ namespace Huobi.Net.Clients.SpotApi
                     var subResponse = Deserialize<HuobiSubscribeResponse>(message);
                     if (!subResponse)
                     {
-                        _log.Write(LogLevel.Warning, $"Socket {s.SocketId} Subscription failed: " + subResponse.Error);
+                        _logger.Log(LogLevel.Warning, $"Socket {s.SocketId} Subscription failed: " + subResponse.Error);
                         return false;
                     }
 
@@ -467,7 +461,7 @@ namespace Huobi.Net.Clients.SpotApi
                     if (id != hRequest.Id)
                         return false; // Not for this request
 
-                    _log.Write(LogLevel.Warning, $"Socket {s.SocketId} Subscription failed: " + subResponse.Data.ErrorMessage);
+                    _logger.Log(LogLevel.Warning, $"Socket {s.SocketId} Subscription failed: " + subResponse.Data.ErrorMessage);
                     callResult = new CallResult<object>(new ServerError($"{subResponse.Data.ErrorCode}, {subResponse.Data.ErrorMessage}"));
                     return true;
                 }
@@ -477,7 +471,7 @@ namespace Huobi.Net.Clients.SpotApi
                     var subResponse = Deserialize<HuobiAuthSubscribeResponse>(message);
                     if (!subResponse)
                     {
-                        _log.Write(LogLevel.Warning, $"Socket {s.SocketId} Subscription failed: " + subResponse.Error);
+                        _logger.Log(LogLevel.Warning, $"Socket {s.SocketId} Subscription failed: " + subResponse.Error);
                         callResult = new CallResult<object>(subResponse.Error!);
                         return false;
                     }
@@ -486,7 +480,7 @@ namespace Huobi.Net.Clients.SpotApi
                     if (id != haRequest.Channel)
                         return false; // Not for this request
 
-                    _log.Write(LogLevel.Warning, $"Socket {s.SocketId} Subscription failed: " + subResponse.Data.Code);
+                    _logger.Log(LogLevel.Warning, $"Socket {s.SocketId} Subscription failed: " + subResponse.Data.Code);
                     callResult = new CallResult<object>(new ServerError(subResponse.Data.Code, "Failed to subscribe"));
                     return true;
                 }
@@ -498,7 +492,7 @@ namespace Huobi.Net.Clients.SpotApi
                 var subResponse = Deserialize<HuobiSubscribeResponse>(message);
                 if (!subResponse)
                 {
-                    _log.Write(LogLevel.Warning, $"Socket {s.SocketId} Subscription failed: " + subResponse.Error);
+                    _logger.Log(LogLevel.Warning, $"Socket {s.SocketId} Subscription failed: " + subResponse.Error);
                     return false;
                 }
 
@@ -508,12 +502,12 @@ namespace Huobi.Net.Clients.SpotApi
 
                 if (!subResponse.Data.IsSuccessful)
                 {
-                    _log.Write(LogLevel.Warning, $"Socket {s.SocketId} Subscription failed: " + subResponse.Data.ErrorMessage);
+                    _logger.Log(LogLevel.Warning, $"Socket {s.SocketId} Subscription failed: " + subResponse.Data.ErrorMessage);
                     callResult = new CallResult<object>(new ServerError($"{subResponse.Data.ErrorCode}, {subResponse.Data.ErrorMessage}"));
                     return true;
                 }
 
-                _log.Write(LogLevel.Debug, $"Socket {s.SocketId} Subscription completed");
+                _logger.Log(LogLevel.Debug, $"Socket {s.SocketId} Subscription completed");
                 callResult = new CallResult<object>(subResponse.Data);
                 return true;
             }
@@ -525,7 +519,7 @@ namespace Huobi.Net.Clients.SpotApi
                 var subResponse = Deserialize<HuobiAuthSubscribeResponse>(message);
                 if (!subResponse)
                 {
-                    _log.Write(LogLevel.Warning, $"Socket {s.SocketId} Subscription failed: " + subResponse.Error);
+                    _logger.Log(LogLevel.Warning, $"Socket {s.SocketId} Subscription failed: " + subResponse.Error);
                     callResult = new CallResult<object>(subResponse.Error!);
                     return false;
                 }
@@ -536,12 +530,12 @@ namespace Huobi.Net.Clients.SpotApi
 
                 if (!subResponse.Data.IsSuccessful)
                 {
-                    _log.Write(LogLevel.Warning, $"Socket {s.SocketId} Subscription failed: " + subResponse.Data.Message);
+                    _logger.Log(LogLevel.Warning, $"Socket {s.SocketId} Subscription failed: " + subResponse.Data.Message);
                     callResult = new CallResult<object>(new ServerError(subResponse.Data.Code, subResponse.Data.Message));
                     return true;
                 }
 
-                _log.Write(LogLevel.Debug, $"Socket {s.SocketId} Subscription completed");
+                _logger.Log(LogLevel.Debug, $"Socket {s.SocketId} Subscription completed");
                 callResult = new CallResult<object>(subResponse.Data);
                 return true;
             }
@@ -553,7 +547,7 @@ namespace Huobi.Net.Clients.SpotApi
                 var subResponse = Deserialize<HuobiSocketResponse2>(message);
                 if (!subResponse)
                 {
-                    _log.Write(LogLevel.Warning, $"Socket {s.SocketId} Subscription failed: " + subResponse.Error);
+                    _logger.Log(LogLevel.Warning, $"Socket {s.SocketId} Subscription failed: " + subResponse.Error);
                     callResult = new CallResult<object>(subResponse.Error!);
                     return false;
                 }
@@ -564,12 +558,12 @@ namespace Huobi.Net.Clients.SpotApi
 
                 if (!subResponse.Data.IsSuccessful)
                 {
-                    _log.Write(LogLevel.Warning, $"Socket {s.SocketId} Subscription failed: " + subResponse.Data.ErrorMessage);
+                    _logger.Log(LogLevel.Warning, $"Socket {s.SocketId} Subscription failed: " + subResponse.Data.ErrorMessage);
                     callResult = new CallResult<object>(new ServerError(subResponse.Data.ErrorCode + " - " + subResponse.Data.ErrorMessage));
                     return true;
                 }
 
-                _log.Write(LogLevel.Debug, $"Socket {s.SocketId} Subscription completed");
+                _logger.Log(LogLevel.Debug, $"Socket {s.SocketId} Subscription completed");
                 callResult = new CallResult<object>(subResponse.Data);
                 return true;
             }
@@ -623,9 +617,9 @@ namespace Huobi.Net.Clients.SpotApi
                 return new CallResult<bool>(new NoApiCredentialsError());
 
             var result = new CallResult<bool>(new ServerError("No response from server"));
-            if (s.ApiClient is HuobiSocketClientUsdtMarginSwapStreams)
+            if (s.ApiClient is HuobiSocketClientUsdtMarginSwapApi)
             {
-                await s.SendAndWaitAsync(((HuobiAuthenticationProvider)s.ApiClient.AuthenticationProvider).GetWebsocketAuthentication2(s.ConnectionUri), Options.SocketResponseTimeout, null, data =>
+                await s.SendAndWaitAsync(((HuobiAuthenticationProvider)s.ApiClient.AuthenticationProvider).GetWebsocketAuthentication2(s.ConnectionUri), ClientOptions.RequestTimeout, null, data =>
                 {
                     if (data["op"]?.ToString() != "auth")
                         return false;
@@ -633,25 +627,25 @@ namespace Huobi.Net.Clients.SpotApi
                     var authResponse = Deserialize<HuobiAuthResponse>(data);
                     if (!authResponse)
                     {
-                        _log.Write(LogLevel.Warning, $"Socket {s.SocketId} Authorization failed: " + authResponse.Error);
+                        _logger.Log(LogLevel.Warning, $"Socket {s.SocketId} Authorization failed: " + authResponse.Error);
                         result = new CallResult<bool>(authResponse.Error!);
                         return true;
                     }
                     if (!authResponse.Data.IsSuccessful)
                     {
-                        _log.Write(LogLevel.Warning, $"Socket {s.SocketId} Authorization failed: " + authResponse.Data.Message);
+                        _logger.Log(LogLevel.Warning, $"Socket {s.SocketId} Authorization failed: " + authResponse.Data.Message);
                         result = new CallResult<bool>(new ServerError(authResponse.Data.Code, authResponse.Data.Message));
                         return true;
                     }
 
-                    _log.Write(LogLevel.Debug, $"Socket {s.SocketId} Authorization completed");
+                    _logger.Log(LogLevel.Debug, $"Socket {s.SocketId} Authorization completed");
                     result = new CallResult<bool>(true);
                     return true;
                 }).ConfigureAwait(false);
             }
             else
             {
-                await s.SendAndWaitAsync(((HuobiAuthenticationProvider)s.ApiClient.AuthenticationProvider).GetWebsocketAuthentication(s.ConnectionUri), Options.SocketResponseTimeout, null, data =>
+                await s.SendAndWaitAsync(((HuobiAuthenticationProvider)s.ApiClient.AuthenticationProvider).GetWebsocketAuthentication(s.ConnectionUri), ClientOptions.RequestTimeout, null, data =>
                 {
                     if (data["ch"]?.ToString() != "auth")
                         return false;
@@ -659,18 +653,18 @@ namespace Huobi.Net.Clients.SpotApi
                     var authResponse = Deserialize<HuobiAuthSubscribeResponse>(data);
                     if (!authResponse)
                     {
-                        _log.Write(LogLevel.Warning, $"Socket {s.SocketId} Authorization failed: " + authResponse.Error);
+                        _logger.Log(LogLevel.Warning, $"Socket {s.SocketId} Authorization failed: " + authResponse.Error);
                         result = new CallResult<bool>(authResponse.Error!);
                         return true;
                     }
                     if (!authResponse.Data.IsSuccessful)
                     {
-                        _log.Write(LogLevel.Warning, $"Socket {s.SocketId} Authorization failed: " + authResponse.Data.Message);
+                        _logger.Log(LogLevel.Warning, $"Socket {s.SocketId} Authorization failed: " + authResponse.Data.Message);
                         result = new CallResult<bool>(new ServerError(authResponse.Data.Code, authResponse.Data.Message));
                         return true;
                     }
 
-                    _log.Write(LogLevel.Debug, $"Socket {s.SocketId} Authorization completed");
+                    _logger.Log(LogLevel.Debug, $"Socket {s.SocketId} Authorization completed");
                     result = new CallResult<bool>(true);
                     return true;
                 }).ConfigureAwait(false);
@@ -688,7 +682,7 @@ namespace Huobi.Net.Clients.SpotApi
                 var unsubId = NextId().ToString();
                 var unsub = new HuobiUnsubscribeRequest(unsubId, hRequest.Topic);
 
-                await connection.SendAndWaitAsync(unsub, Options.SocketResponseTimeout, null, data =>
+                await connection.SendAndWaitAsync(unsub, ClientOptions.RequestTimeout, null, data =>
                 {
                     if (data.Type != JTokenType.Object)
                         return false;
@@ -713,7 +707,7 @@ namespace Huobi.Net.Clients.SpotApi
                     { "ch", haRequest.Channel },
                 };
 
-                await connection.SendAndWaitAsync(unsub, Options.SocketResponseTimeout, null, data =>
+                await connection.SendAndWaitAsync(unsub, ClientOptions.RequestTimeout, null, data =>
                 {
                     if (data.Type != JTokenType.Object)
                         return false;
@@ -737,7 +731,7 @@ namespace Huobi.Net.Clients.SpotApi
                     topic = hRequest2.Topic,
                     cid = NextId().ToString()
                 };
-                await connection.SendAndWaitAsync(unsub, Options.SocketResponseTimeout, null, data =>
+                await connection.SendAndWaitAsync(unsub, ClientOptions.RequestTimeout, null, data =>
                 {
                     if (data.Type != JTokenType.Object)
                         return false;

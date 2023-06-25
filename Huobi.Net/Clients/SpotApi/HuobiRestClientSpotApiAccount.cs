@@ -17,7 +17,7 @@ using Huobi.Net.Interfaces.Clients.SpotApi;
 namespace Huobi.Net.Clients.SpotApi
 {
     /// <inheritdoc />
-    public class HuobiClientSpotApiAccount : IHuobiClientSpotApiAccount
+    public class HuobiRestClientSpotApiAccount : IHuobiClientSpotApiAccount
     {
         private const string GetUserId = "user/uid";
         private const string GetSubAccountUsers = "sub-user/user-list";
@@ -37,9 +37,9 @@ namespace Huobi.Net.Clients.SpotApi
         private const string PlaceWithdrawEndpoint = "dw/withdraw/api/create";
         private const string QueryWithdrawDepositEndpoint = "query/deposit-withdraw";
 
-        private readonly HuobiClientSpotApi _baseClient;
+        private readonly HuobiRestClientSpotApi _baseClient;
 
-        internal HuobiClientSpotApiAccount(HuobiClientSpotApi baseClient)
+        internal HuobiRestClientSpotApiAccount(HuobiRestClientSpotApi baseClient)
         {
             _baseClient = baseClient;
         }
