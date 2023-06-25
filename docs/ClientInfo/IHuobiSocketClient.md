@@ -11,7 +11,7 @@ has_children: true
 **void SetApiCredentials(ApiCredentials credentials);**  
 ***
 *Spot streams*  
-**[IHuobiSocketClientSpotStreams](SpotApi/IHuobiSocketClientSpotStreams.html) SpotStreams { get; }**  
+**[IHuobiSocketClientSpotApi](SpotApi/IHuobiSocketClientSpotApi.html) SpotApi { get; }**  
 ***
 *Usdt margin swap streams*  
-**[IHuobiSocketClientUsdtMarginSwapStreams](UsdtMarginSwapApi/IHuobiSocketClientUsdtMarginSwapStreams.html) UsdtMarginSwapStreams { get; }**  
+**[IHuobiSocketClientUsdtMarginSwapApi](UsdtMarginSwapApi/IHuobiSocketClientUsdtMarginSwapApi.html) UsdtMarginSwapApi { get; }**  

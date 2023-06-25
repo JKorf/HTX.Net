@@ -1,5 +1,5 @@
 ---
-title: Rest API documentation
+title: IHuobiRestClient
 has_children: true
 ---
 *[generated documentation]*  
