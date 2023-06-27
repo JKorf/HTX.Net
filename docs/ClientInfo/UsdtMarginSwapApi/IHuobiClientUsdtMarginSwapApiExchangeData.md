@@ -1,11 +1,11 @@
 ---
 title: IHuobiClientUsdtMarginSwapApiExchangeData
 has_children: false
-parent: IHuobiClientUsdtMarginSwapApi
+parent: IHuobiRestClientUsdtMarginSwapApi
 grand_parent: Rest API documentation
 ---
 *[generated documentation]*  
-`HuobiClient > UsdtMarginSwapApi > ExchangeData`  
+`HuobiRestClient > UsdtMarginSwapApi > ExchangeData`  
 *Huobi usdt margin swap exchange data endpoints. Exchange data includes market data (tickers, order books, etc) and system status.*
   
 
@@ -19,7 +19,7 @@ grand_parent: Rest API documentation
 *Get basis data*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.UsdtMarginSwapApi.ExchangeData.GetBasisDataAsync(/* parameters */);  
 ```  
 
@@ -47,7 +47,7 @@ Task<WebCallResult<IEnumerable<HuobiBasisData>>> GetBasisDataAsync(string contra
 *Get the best current offer*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.UsdtMarginSwapApi.ExchangeData.GetBestOfferAsync();  
 ```  
 
@@ -73,7 +73,7 @@ Task<WebCallResult<IEnumerable<HuobiSwapBestOffer>>> GetBestOfferAsync(string? c
 *Get contract info*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.UsdtMarginSwapApi.ExchangeData.GetContractInfoAsync();  
 ```  
 
@@ -102,7 +102,7 @@ Task<WebCallResult<IEnumerable<HuobiContractInfo>>> GetContractInfoAsync(string?
 *Get cross margin adjust factor info*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.UsdtMarginSwapApi.ExchangeData.GetCrossMarginAdjustFactorInfoAsync();  
 ```  
 
@@ -129,7 +129,7 @@ Task<WebCallResult<IEnumerable<HuobiCrossSwapAdjustFactorInfo>>> GetCrossMarginA
 *Get cross margin trade status*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.UsdtMarginSwapApi.ExchangeData.GetCrossMarginTradeStatusAsync();  
 ```  
 
@@ -156,7 +156,7 @@ Task<WebCallResult<IEnumerable<HuobiCrossMarginTradeStatus>>> GetCrossMarginTrad
 *Get cross margin transfer status*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.UsdtMarginSwapApi.ExchangeData.GetCrossMarginTransferStatusAsync();  
 ```  
 
@@ -181,7 +181,7 @@ Task<WebCallResult<IEnumerable<HuobiCrossMarginTransferStatus>>> GetCrossMarginT
 *Get cross tiered margin info*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.UsdtMarginSwapApi.ExchangeData.GetCrossTieredMarginInfoAsync();  
 ```  
 
@@ -208,7 +208,7 @@ Task<WebCallResult<IEnumerable<HuobiTieredCrossMarginInfo>>> GetCrossTieredMargi
 *Get estimated funding rate kliens*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.UsdtMarginSwapApi.ExchangeData.GetEstimatedFundingRateKlinesAsync(/* parameters */);  
 ```  
 
@@ -235,7 +235,7 @@ Task<WebCallResult<IEnumerable<HuobiKline>>> GetEstimatedFundingRateKlinesAsync(
 *Get estimated settlement price*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.UsdtMarginSwapApi.ExchangeData.GetEstimatedSettlementPriceAsync();  
 ```  
 
@@ -263,7 +263,7 @@ Task<WebCallResult<IEnumerable<HuobiEstimatedSettlementPrice>>> GetEstimatedSett
 *Get funding rate*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.UsdtMarginSwapApi.ExchangeData.GetFundingRateAsync(/* parameters */);  
 ```  
 
@@ -288,7 +288,7 @@ Task<WebCallResult<HuobiFundingRate>> GetFundingRateAsync(string contractCode, C
 *Get funding rates*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.UsdtMarginSwapApi.ExchangeData.GetFundingRatesAsync();  
 ```  
 
@@ -313,7 +313,7 @@ Task<WebCallResult<IEnumerable<HuobiFundingRate>>> GetFundingRatesAsync(string? 
 *Get historical funding rates*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.UsdtMarginSwapApi.ExchangeData.GetHistoricalFundingRatesAsync(/* parameters */);  
 ```  
 
@@ -340,7 +340,7 @@ Task<WebCallResult<HuobiFundingRatePage>> GetHistoricalFundingRatesAsync(string 
 *Get historical settlement records*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.UsdtMarginSwapApi.ExchangeData.GetHistoricalSettlementRecordsAsync(/* parameters */);  
 ```  
 
@@ -369,7 +369,7 @@ Task<WebCallResult<HuobiSettlementPage>> GetHistoricalSettlementRecordsAsync(str
 *Get insurance fund history*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.UsdtMarginSwapApi.ExchangeData.GetInsuranceFundHistoryAsync(/* parameters */);  
 ```  
 
@@ -396,7 +396,7 @@ Task<WebCallResult<HuobiInsuranceInfo>> GetInsuranceFundHistoryAsync(string cont
 *Get isolated margin adjust factor info*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.UsdtMarginSwapApi.ExchangeData.GetIsolatedMarginAdjustFactorInfoAsync();  
 ```  
 
@@ -421,7 +421,7 @@ Task<WebCallResult<IEnumerable<HuobiSwapAdjustFactorInfo>>> GetIsolatedMarginAdj
 *Get isolated margin tier info*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.UsdtMarginSwapApi.ExchangeData.GetIsolatedMarginTieredInfoAsync();  
 ```  
 
@@ -446,7 +446,7 @@ Task<WebCallResult<IEnumerable<HuobiTieredMarginInfo>>> GetIsolatedMarginTieredI
 *Get isolated margin status*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.UsdtMarginSwapApi.ExchangeData.GetIsolatedStatusAsync();  
 ```  
 
@@ -471,7 +471,7 @@ Task<WebCallResult<IEnumerable<HuobiContractStatus>>> GetIsolatedStatusAsync(str
 *Get klines*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.UsdtMarginSwapApi.ExchangeData.GetKlinesAsync(/* parameters */);  
 ```  
 
@@ -500,7 +500,7 @@ Task<WebCallResult<IEnumerable<HuobiKline>>> GetKlinesAsync(string contractCode,
 *Get last trades*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.UsdtMarginSwapApi.ExchangeData.GetLastTradesAsync();  
 ```  
 
@@ -526,7 +526,7 @@ Task<WebCallResult<HuobiLastTrade>> GetLastTradesAsync(string? contractCode = de
 *Get liquidation orders*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.UsdtMarginSwapApi.ExchangeData.GetLiquidationOrdersAsync(/* parameters */);  
 ```  
 
@@ -556,7 +556,7 @@ Task<WebCallResult<HuobiLiquidationOrderPage>> GetLiquidationOrdersAsync(int cre
 *Get market data*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.UsdtMarginSwapApi.ExchangeData.GetMarketDataAsync(/* parameters */);  
 ```  
 
@@ -581,7 +581,7 @@ Task<WebCallResult<HuobiMarketData>> GetMarketDataAsync(string contractCode, Can
 *Get market datas*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.UsdtMarginSwapApi.ExchangeData.GetMarketDatasAsync();  
 ```  
 
@@ -607,7 +607,7 @@ Task<WebCallResult<IEnumerable<HuobiMarketData>>> GetMarketDatasAsync(string? co
 *Get open interest*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.UsdtMarginSwapApi.ExchangeData.GetOpenInterestAsync(/* parameters */);  
 ```  
 
@@ -637,7 +637,7 @@ Task<WebCallResult<HuobiOpenInterestValue>> GetOpenInterestAsync(InterestPeriod 
 *Get order book*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.UsdtMarginSwapApi.ExchangeData.GetOrderBookAsync(/* parameters */);  
 ```  
 
@@ -663,7 +663,7 @@ Task<WebCallResult<HuobiOrderBook>> GetOrderBookAsync(string contractCode, strin
 *Get premium index klines*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.UsdtMarginSwapApi.ExchangeData.GetPremiumIndexKlinesAsync(/* parameters */);  
 ```  
 
@@ -690,7 +690,7 @@ Task<WebCallResult<IEnumerable<HuobiKline>>> GetPremiumIndexKlinesAsync(string c
 *Get recent trades*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.UsdtMarginSwapApi.ExchangeData.GetRecentTradesAsync(/* parameters */);  
 ```  
 
@@ -716,7 +716,7 @@ Task<WebCallResult<IEnumerable<HuobiTrade>>> GetRecentTradesAsync(string contrac
 *Get server time*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.UsdtMarginSwapApi.ExchangeData.GetServerTimeAsync();  
 ```  
 
@@ -740,7 +740,7 @@ Task<WebCallResult<DateTime>> GetServerTimeAsync(CancellationToken ct = default)
 *Get swap index price*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.UsdtMarginSwapApi.ExchangeData.GetSwapIndexPriceAsync();  
 ```  
 
@@ -765,7 +765,7 @@ Task<WebCallResult<IEnumerable<HuobiSwapIndex>>> GetSwapIndexPriceAsync(string? 
 *Get swap open interest*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.UsdtMarginSwapApi.ExchangeData.GetSwapOpenInterestAsync();  
 ```  
 
@@ -793,7 +793,7 @@ Task<WebCallResult<IEnumerable<HuobiOpenInterest>>> GetSwapOpenInterestAsync(str
 *Get swap price limitation*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.UsdtMarginSwapApi.ExchangeData.GetSwapPriceLimitationAsync();  
 ```  
 
@@ -821,7 +821,7 @@ Task<WebCallResult<IEnumerable<HuobiPriceLimitation>>> GetSwapPriceLimitationAsy
 *Get swap risk info*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.UsdtMarginSwapApi.ExchangeData.GetSwapRiskInfoAsync();  
 ```  
 

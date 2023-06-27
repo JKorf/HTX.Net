@@ -1,11 +1,11 @@
 ---
 title: IHuobiClientUsdtMarginSwapApiTrading
 has_children: false
-parent: IHuobiClientUsdtMarginSwapApi
+parent: IHuobiRestClientUsdtMarginSwapApi
 grand_parent: Rest API documentation
 ---
 *[generated documentation]*  
-`HuobiClient > UsdtMarginSwapApi > Trading`  
+`HuobiRestClient > UsdtMarginSwapApi > Trading`  
 *Huobi usdt margin swap trading endpoints, placing and mananging orders.*
   
 
@@ -19,7 +19,7 @@ grand_parent: Rest API documentation
 *Cancel all cross margin orders fitting the parameters*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.UsdtMarginSwapApi.Trading.CancelAllCrossMarginOrdersAsync();  
 ```  
 
@@ -48,7 +48,7 @@ Task<WebCallResult<HuobiBatchResult>> CancelAllCrossMarginOrdersAsync(string? co
 *Cancel all isolated margin order fitting the parameters*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.UsdtMarginSwapApi.Trading.CancelAllIsolatedMarginOrdersAsync(/* parameters */);  
 ```  
 
@@ -75,7 +75,7 @@ Task<WebCallResult<HuobiBatchResult>> CancelAllIsolatedMarginOrdersAsync(string 
 *Cancel cross margin order*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.UsdtMarginSwapApi.Trading.CancelCrossMarginOrderAsync();  
 ```  
 
@@ -104,7 +104,7 @@ Task<WebCallResult<HuobiBatchResult>> CancelCrossMarginOrderAsync(long? orderId 
 *Cancel cross margin orders*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.UsdtMarginSwapApi.Trading.CancelCrossMarginOrdersAsync(/* parameters */);  
 ```  
 
@@ -133,7 +133,7 @@ Task<WebCallResult<HuobiBatchResult>> CancelCrossMarginOrdersAsync(IEnumerable<l
 *Cancel isolated margin order*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.UsdtMarginSwapApi.Trading.CancelIsolatedMarginOrderAsync(/* parameters */);  
 ```  
 
@@ -160,7 +160,7 @@ Task<WebCallResult<HuobiBatchResult>> CancelIsolatedMarginOrderAsync(string cont
 *Cancel isolated margin orders*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.UsdtMarginSwapApi.Trading.CancelIsolatedMarginOrdersAsync(/* parameters */);  
 ```  
 
@@ -187,7 +187,7 @@ Task<WebCallResult<HuobiBatchResult>> CancelIsolatedMarginOrdersAsync(string con
 *Change cross margin leverage*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.UsdtMarginSwapApi.Trading.ChangeCrossMarginLeverageAsync(/* parameters */);  
 ```  
 
@@ -215,7 +215,7 @@ Task<WebCallResult<HuobiCrossMarginLeverageRate>> ChangeCrossMarginLeverageAsync
 *Change isolated margin leverage*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.UsdtMarginSwapApi.Trading.ChangeIsolatedMarginLeverageAsync(/* parameters */);  
 ```  
 
@@ -241,7 +241,7 @@ Task<WebCallResult<HuobiIsolatedMarginLeverageRate>> ChangeIsolatedMarginLeverag
 *Get cross margin closed orders*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.UsdtMarginSwapApi.Trading.GetCrossMarginClosedOrdersAsync(/* parameters */);  
 ```  
 
@@ -273,7 +273,7 @@ Task<WebCallResult<HuobiCrossMarginOrderPage>> GetCrossMarginClosedOrdersAsync(M
 *Get cross margin open orders*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.UsdtMarginSwapApi.Trading.GetCrossMarginOpenOrdersAsync();  
 ```  
 
@@ -303,7 +303,7 @@ Task<WebCallResult<HuobiCrossMarginOrderPage>> GetCrossMarginOpenOrdersAsync(str
 *Get cross margin order*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.UsdtMarginSwapApi.Trading.GetCrossMarginOrderAsync();  
 ```  
 
@@ -331,7 +331,7 @@ Task<WebCallResult<IEnumerable<HuobiCrossMarginOrder>>> GetCrossMarginOrderAsync
 *Get cross margin order details*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.UsdtMarginSwapApi.Trading.GetCrossMarginOrderDetailsAsync(/* parameters */);  
 ```  
 
@@ -357,7 +357,7 @@ Task<WebCallResult<HuobiMarginOrderDetails>> GetCrossMarginOrderDetailsAsync(str
 *Get cross margin orders*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.UsdtMarginSwapApi.Trading.GetCrossMarginOrdersAsync(/* parameters */);  
 ```  
 
@@ -385,7 +385,7 @@ Task<WebCallResult<IEnumerable<HuobiCrossMarginOrder>>> GetCrossMarginOrdersAsyn
 *Get cross margin user trades*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.UsdtMarginSwapApi.Trading.GetCrossMarginUserTradesAsync(/* parameters */);  
 ```  
 
@@ -414,7 +414,7 @@ Task<WebCallResult<HuobiCrossMarginUserTradePage>> GetCrossMarginUserTradesAsync
 *Get isolated margin closed orders*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.UsdtMarginSwapApi.Trading.GetIsolatedMarginClosedOrdersAsync(/* parameters */);  
 ```  
 
@@ -445,7 +445,7 @@ Task<WebCallResult<HuobiIsolatedMarginOrderPage>> GetIsolatedMarginClosedOrdersA
 *Get isolated margin open orders*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.UsdtMarginSwapApi.Trading.GetIsolatedMarginOpenOrdersAsync(/* parameters */);  
 ```  
 
@@ -474,7 +474,7 @@ Task<WebCallResult<HuobiIsolatedMarginOrderPage>> GetIsolatedMarginOpenOrdersAsy
 *Get isoalted margin order*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.UsdtMarginSwapApi.Trading.GetIsolatedMarginOrderAsync(/* parameters */);  
 ```  
 
@@ -501,7 +501,7 @@ Task<WebCallResult<IEnumerable<HuobiIsolatedMarginOrder>>> GetIsolatedMarginOrde
 *Get isolated margin order details*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.UsdtMarginSwapApi.Trading.GetIsolatedMarginOrderDetailsAsync(/* parameters */);  
 ```  
 
@@ -527,7 +527,7 @@ Task<WebCallResult<HuobiMarginOrderDetails>> GetIsolatedMarginOrderDetailsAsync(
 *Get isolated margin orders*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.UsdtMarginSwapApi.Trading.GetIsolatedMarginOrdersAsync(/* parameters */);  
 ```  
 
@@ -554,7 +554,7 @@ Task<WebCallResult<IEnumerable<HuobiIsolatedMarginOrder>>> GetIsolatedMarginOrde
 *Get isolated margin user trades*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.UsdtMarginSwapApi.Trading.GetIsolatedMarginUserTradesAsync(/* parameters */);  
 ```  
 
@@ -583,7 +583,7 @@ Task<WebCallResult<HuobiIsolatedMarginUserTradePage>> GetIsolatedMarginUserTrade
 *Place a new cross margin order*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.UsdtMarginSwapApi.Trading.PlaceCrossMarginOrderAsync(/* parameters */);  
 ```  
 
@@ -624,7 +624,7 @@ Task<WebCallResult<HuobiPlacedOrderId>> PlaceCrossMarginOrderAsync(decimal quant
 *Place a new isolated margin order*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.UsdtMarginSwapApi.Trading.PlaceIsolatedMarginOrderAsync(/* parameters */);  
 ```  
 

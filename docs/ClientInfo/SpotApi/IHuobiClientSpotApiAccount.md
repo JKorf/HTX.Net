@@ -1,11 +1,11 @@
 ---
 title: IHuobiClientSpotApiAccount
 has_children: false
-parent: IHuobiClientSpotApi
+parent: IHuobiRestClientSpotApi
 grand_parent: Rest API documentation
 ---
 *[generated documentation]*  
-`HuobiClient > SpotApi > Account`  
+`HuobiRestClient > SpotApi > Account`  
 *Huobi account endpoints. Account endpoints include balance info, withdraw/deposit info and requesting and account settings*
   
 
@@ -19,7 +19,7 @@ grand_parent: Rest API documentation
 *Gets a list of balance changes of specified user's account*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.SpotApi.Account.GetAccountHistoryAsync(/* parameters */);  
 ```  
 
@@ -50,7 +50,7 @@ Task<WebCallResult<IEnumerable<HuobiAccountHistory>>> GetAccountHistoryAsync(lon
 *This endpoint returns the balance changes of specified user's account.*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.SpotApi.Account.GetAccountLedgerAsync(/* parameters */);  
 ```  
 
@@ -82,7 +82,7 @@ Task<WebCallResult<IEnumerable<HuobiLedgerEntry>>> GetAccountLedgerAsync(long ac
 *Gets a list of accounts associated with the apikey/secret*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.SpotApi.Account.GetAccountsAsync();  
 ```  
 
@@ -106,7 +106,7 @@ Task<WebCallResult<IEnumerable<HuobiAccount>>> GetAccountsAsync(CancellationToke
 *Gets the valuation of all assets*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.SpotApi.Account.GetAssetValuationAsync(/* parameters */);  
 ```  
 
@@ -133,7 +133,7 @@ Task<WebCallResult<HuobiAccountValuation>> GetAssetValuationAsync(AccountType ac
 *Gets a list of balances for a specific account*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.SpotApi.Account.GetBalancesAsync(/* parameters */);  
 ```  
 
@@ -158,7 +158,7 @@ Task<WebCallResult<IEnumerable<HuobiBalance>>> GetBalancesAsync(long accountId, 
 *Get cross margin interest rates and quotas*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.SpotApi.Account.GetCrossLoanInterestRateAndQuotaAsync();  
 ```  
 
@@ -182,7 +182,7 @@ Task<WebCallResult<IEnumerable<HuobiLoanInfoAsset>>> GetCrossLoanInterestRateAnd
 *Get cross margin account balance*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.SpotApi.Account.GetCrossMarginBalanceAsync();  
 ```  
 
@@ -207,7 +207,7 @@ Task<WebCallResult<HuobiMarginBalances>> GetCrossMarginBalanceAsync(int? subUser
 *Get cross margin order history*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.SpotApi.Account.GetCrossMarginClosedOrdersAsync();  
 ```  
 
@@ -239,7 +239,7 @@ Task<WebCallResult<IEnumerable<HuobiMarginOrder>>> GetCrossMarginClosedOrdersAsy
 *Get Current Fee Rate Applied to The User*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.SpotApi.Account.GetCurrentFeeRatesAsync(/* parameters */);  
 ```  
 
@@ -264,7 +264,7 @@ Task<WebCallResult<IEnumerable<HuobiFeeRate>>> GetCurrentFeeRatesAsync(IEnumerab
 *Parent user and sub user could query deposit address of corresponding chain, for a specific crypto currency (except IOTA).*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.SpotApi.Account.GetDepositAddressesAsync(/* parameters */);  
 ```  
 
@@ -289,7 +289,7 @@ Task<WebCallResult<IEnumerable<HuobiDepositAddress>>> GetDepositAddressesAsync(s
 *Get isolated loan interest rate and quotas*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.SpotApi.Account.GetIsolatedLoanInterestRateAndQuotaAsync();  
 ```  
 
@@ -314,7 +314,7 @@ Task<WebCallResult<IEnumerable<HuobiLoanInfo>>> GetIsolatedLoanInterestRateAndQu
 *Get isolated margin account balance*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.SpotApi.Account.GetIsolatedMarginBalanceAsync(/* parameters */);  
 ```  
 
@@ -340,7 +340,7 @@ Task<WebCallResult<IEnumerable<HuobiMarginBalances>>> GetIsolatedMarginBalanceAs
 *Get isolated margin orders history*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.SpotApi.Account.GetIsolatedMarginClosedOrdersAsync(/* parameters */);  
 ```  
 
@@ -372,7 +372,7 @@ Task<WebCallResult<IEnumerable<HuobiMarginOrder>>> GetIsolatedMarginClosedOrders
 *Get repayment history*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.SpotApi.Account.GetRepaymentHistoryAsync();  
 ```  
 
@@ -404,7 +404,7 @@ Task<WebCallResult<IEnumerable<HuobiRepayment>>> GetRepaymentHistoryAsync(long? 
 *Gets a list of balances for a specific sub account*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.SpotApi.Account.GetSubAccountBalancesAsync(/* parameters */);  
 ```  
 
@@ -429,7 +429,7 @@ Task<WebCallResult<IEnumerable<HuobiBalance>>> GetSubAccountBalancesAsync(long s
 *Gets a list of users associated with the apikey/secret*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.SpotApi.Account.GetSubAccountUsersAsync();  
 ```  
 
@@ -453,7 +453,7 @@ Task<WebCallResult<IEnumerable<HuobiUser>>> GetSubAccountUsersAsync(Cancellation
 *Gets a list of sub-user accounts associated with the sub-user id*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.SpotApi.Account.GetSubUserAccountsAsync(/* parameters */);  
 ```  
 
@@ -478,7 +478,7 @@ Task<WebCallResult<HuobiSubUserAccounts>> GetSubUserAccountsAsync(long subUserId
 *Get the user id associated with the apikey/secret*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.SpotApi.Account.GetUserIdAsync();  
 ```  
 
@@ -502,7 +502,7 @@ Task<WebCallResult<long>> GetUserIdAsync(CancellationToken ct = default);
 *Parent user and sub user searche for all existed withdraws and deposits and return their latest status.*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.SpotApi.Account.GetWithdrawDepositAsync(/* parameters */);  
 ```  
 
@@ -531,7 +531,7 @@ Task<WebCallResult<IEnumerable<HuobiWithdrawDeposit>>> GetWithdrawDepositAsync(W
 *Repay a isolated margin loan*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.SpotApi.Account.RepayCrossMarginLoanAsync(/* parameters */);  
 ```  
 
@@ -557,7 +557,7 @@ Task<WebCallResult<object>> RepayCrossMarginLoanAsync(string orderId, decimal qu
 *Repay a isolated margin loan*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.SpotApi.Account.RepayIsolatedMarginLoanAsync(/* parameters */);  
 ```  
 
@@ -583,7 +583,7 @@ Task<WebCallResult<long>> RepayIsolatedMarginLoanAsync(string orderId, decimal q
 *Repay a margin loan*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.SpotApi.Account.RepayMarginLoanAsync(/* parameters */);  
 ```  
 
@@ -611,7 +611,7 @@ Task<WebCallResult<IEnumerable<HuobiRepaymentResult>>> RepayMarginLoanAsync(stri
 *Request a loan on cross margin*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.SpotApi.Account.RequestCrossMarginLoanAsync(/* parameters */);  
 ```  
 
@@ -637,7 +637,7 @@ Task<WebCallResult<long>> RequestCrossMarginLoanAsync(string asset, decimal quan
 *Request a loan on isolated margin*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.SpotApi.Account.RequestIsolatedMarginLoanAsync(/* parameters */);  
 ```  
 
@@ -664,7 +664,7 @@ Task<WebCallResult<long>> RequestIsolatedMarginLoanAsync(string symbol, string a
 *Transfer assets between accounts*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.SpotApi.Account.TransferAssetAsync(/* parameters */);  
 ```  
 
@@ -696,7 +696,7 @@ Task<WebCallResult<HuobiTransactionResult>> TransferAssetAsync(long fromUserId, 
 *Transfer from cross margin account to spot account*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.SpotApi.Account.TransferCrossMarginToSpotAsync(/* parameters */);  
 ```  
 
@@ -722,7 +722,7 @@ Task<WebCallResult<long>> TransferCrossMarginToSpotAsync(string asset, decimal q
 *Transfer asset from isolated margin to spot account*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.SpotApi.Account.TransferIsolatedMarginToSpotAsync(/* parameters */);  
 ```  
 
@@ -749,7 +749,7 @@ Task<WebCallResult<long>> TransferIsolatedMarginToSpotAsync(string symbol, strin
 *Transfer from spot account to cross margin account*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.SpotApi.Account.TransferSpotToCrossMarginAsync(/* parameters */);  
 ```  
 
@@ -775,7 +775,7 @@ Task<WebCallResult<long>> TransferSpotToCrossMarginAsync(string asset, decimal q
 *Transfer asset from spot account to isolated margin account*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.SpotApi.Account.TransferSpotToIsolatedMarginAsync(/* parameters */);  
 ```  
 
@@ -802,7 +802,7 @@ Task<WebCallResult<long>> TransferSpotToIsolatedMarginAsync(string symbol, strin
 *Transfer asset between parent and sub account*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.SpotApi.Account.TransferWithSubAccountAsync(/* parameters */);  
 ```  
 
@@ -830,7 +830,7 @@ Task<WebCallResult<long>> TransferWithSubAccountAsync(long subAccountId, string 
 *Parent user creates a withdraw request from spot account to an external address (exists in your withdraw address list), which doesn't require two-factor-authentication.*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.SpotApi.Account.WithdrawAsync(/* parameters */);  
 ```  
 

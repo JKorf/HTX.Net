@@ -1,10 +1,10 @@
 ---
 title: IHuobiSocketClientUsdtMarginSwapApi
 has_children: true
-parent: Rest API documentation
+parent: Socket API documentation
 ---
 *[generated documentation]*  
-`HuobiClient > UsdtMarginSwapApi`  
+`HuobiSocketClient > UsdtMarginSwapApi`  
 *Usdt margin swap streams*
   
 
@@ -18,7 +18,7 @@ parent: Rest API documentation
 *Subscribe to basis updates*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiSocketClient();  
 var result = await client.UsdtMarginSwapApi.SubscribeToBasisUpdatesAsync(/* parameters */);  
 ```  
 
@@ -46,7 +46,7 @@ Task<CallResult<UpdateSubscription>> SubscribeToBasisUpdatesAsync(string contrac
 *Subscribe to best offer updates*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiSocketClient();  
 var result = await client.UsdtMarginSwapApi.SubscribeToBestOfferUpdatesAsync(/* parameters */);  
 ```  
 
@@ -72,7 +72,7 @@ Task<CallResult<UpdateSubscription>> SubscribeToBestOfferUpdatesAsync(string con
 *Subscribe to estimated funding rate kline updates*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiSocketClient();  
 var result = await client.UsdtMarginSwapApi.SubscribeToEstimatedFundingRateKlineUpdatesAsync(/* parameters */);  
 ```  
 
@@ -99,7 +99,7 @@ Task<CallResult<UpdateSubscription>> SubscribeToEstimatedFundingRateKlineUpdates
 *Subscribe to incremental order book updates*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiSocketClient();  
 var result = await client.UsdtMarginSwapApi.SubscribeToIncrementalOrderBookUpdatesAsync(/* parameters */);  
 ```  
 
@@ -127,7 +127,7 @@ Task<CallResult<UpdateSubscription>> SubscribeToIncrementalOrderBookUpdatesAsync
 *Subscribe to index kline updates*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiSocketClient();  
 var result = await client.UsdtMarginSwapApi.SubscribeToIndexKlineUpdatesAsync(/* parameters */);  
 ```  
 
@@ -154,7 +154,7 @@ Task<CallResult<UpdateSubscription>> SubscribeToIndexKlineUpdatesAsync(string co
 *Subscribe to kline updates*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiSocketClient();  
 var result = await client.UsdtMarginSwapApi.SubscribeToKlineUpdatesAsync(/* parameters */);  
 ```  
 
@@ -181,7 +181,7 @@ Task<CallResult<UpdateSubscription>> SubscribeToKlineUpdatesAsync(string contrac
 *Subscribe to mark price updates*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiSocketClient();  
 var result = await client.UsdtMarginSwapApi.SubscribeToMarkPriceKlineUpdatesAsync(/* parameters */);  
 ```  
 
@@ -208,7 +208,7 @@ Task<CallResult<UpdateSubscription>> SubscribeToMarkPriceKlineUpdatesAsync(strin
 *Subscribe to order book updates*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiSocketClient();  
 var result = await client.UsdtMarginSwapApi.SubscribeToOrderBookUpdatesAsync(/* parameters */);  
 ```  
 
@@ -235,7 +235,7 @@ Task<CallResult<UpdateSubscription>> SubscribeToOrderBookUpdatesAsync(string con
 *Subscribe to premium index kline updates*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiSocketClient();  
 var result = await client.UsdtMarginSwapApi.SubscribeToPremiumIndexKlineUpdatesAsync(/* parameters */);  
 ```  
 
@@ -262,7 +262,7 @@ Task<CallResult<UpdateSubscription>> SubscribeToPremiumIndexKlineUpdatesAsync(st
 *Subscribe to symbol ticker updates*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiSocketClient();  
 var result = await client.UsdtMarginSwapApi.SubscribeToSymbolTickerUpdatesAsync(/* parameters */);  
 ```  
 
@@ -288,7 +288,7 @@ Task<CallResult<UpdateSubscription>> SubscribeToSymbolTickerUpdatesAsync(string 
 *Subscribe to symbol trade updates*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiSocketClient();  
 var result = await client.UsdtMarginSwapApi.SubscribeToTradeUpdatesAsync(/* parameters */);  
 ```  
 

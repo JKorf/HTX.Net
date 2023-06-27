@@ -1,11 +1,11 @@
 ---
 title: IHuobiClientUsdtMarginSwapApiAccount
 has_children: false
-parent: IHuobiClientUsdtMarginSwapApi
+parent: IHuobiRestClientUsdtMarginSwapApi
 grand_parent: Rest API documentation
 ---
 *[generated documentation]*  
-`HuobiClient > UsdtMarginSwapApi > Account`  
+`HuobiRestClient > UsdtMarginSwapApi > Account`  
 *Huobi usdt swap account endpoints*
   
 
@@ -19,7 +19,7 @@ grand_parent: Rest API documentation
 *Get asset values*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.UsdtMarginSwapApi.Account.GetAssetValuationAsync();  
 ```  
 
@@ -44,7 +44,7 @@ Task<WebCallResult<IEnumerable<HuobiAssetValue>>> GetAssetValuationAsync(string?
 *Get cross margin account info*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.UsdtMarginSwapApi.Account.GetCrossMarginAccountInfoAsync();  
 ```  
 
@@ -69,7 +69,7 @@ Task<WebCallResult<IEnumerable<HuobiCrossMarginAccountInfo>>> GetCrossMarginAcco
 *Get cross margin assets and positions*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.UsdtMarginSwapApi.Account.GetCrossMarginAssetAndPositionsAsync(/* parameters */);  
 ```  
 
@@ -94,7 +94,7 @@ Task<WebCallResult<HuobiCrossMarginAssetsAndPositions>> GetCrossMarginAssetAndPo
 *Get cross margin available leverage*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.UsdtMarginSwapApi.Account.GetCrossMarginAvailableLeverageAsync();  
 ```  
 
@@ -122,7 +122,7 @@ Task<WebCallResult<IEnumerable<HuobiCrossMarginLeverageAvailable>>> GetCrossMarg
 *Get cross margin positions*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.UsdtMarginSwapApi.Account.GetCrossMarginPositionsAsync();  
 ```  
 
@@ -147,7 +147,7 @@ Task<WebCallResult<IEnumerable<HuobiPosition>>> GetCrossMarginPositionsAsync(str
 *Get cross margin settlement records*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.UsdtMarginSwapApi.Account.GetCrossMarginSettlementRecordsAsync(/* parameters */);  
 ```  
 
@@ -176,7 +176,7 @@ Task<WebCallResult<HuobiCrossMarginUserSettlementRecordPage>> GetCrossMarginSett
 *Get cross margin sub account assets*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.UsdtMarginSwapApi.Account.GetCrossMarginSubAccountsAssetsAsync();  
 ```  
 
@@ -201,7 +201,7 @@ Task<WebCallResult<IEnumerable<HuobiIsolatedMarginSubAccountAssets>>> GetCrossMa
 *Get financial records*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.UsdtMarginSwapApi.Account.GetFinancialRecordsAsync(/* parameters */);  
 ```  
 
@@ -231,7 +231,7 @@ Task<WebCallResult<HuobiFinancialRecordsPage>> GetFinancialRecordsAsync(string m
 *Get isolated margin account info*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.UsdtMarginSwapApi.Account.GetIsolatedMarginAccountInfoAsync();  
 ```  
 
@@ -256,7 +256,7 @@ Task<WebCallResult<IEnumerable<HuobiIsolatedMarginAccountInfo>>> GetIsolatedMarg
 *Get isolated margin assets and positisons*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.UsdtMarginSwapApi.Account.GetIsolatedMarginAssetAndPositionsAsync(/* parameters */);  
 ```  
 
@@ -281,7 +281,7 @@ Task<WebCallResult<IEnumerable<HuobiIsolatedMarginAssetsAndPositions>>> GetIsola
 *Get isolated margin available leverage*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.UsdtMarginSwapApi.Account.GetIsolatedMarginAvailableLeverageAsync();  
 ```  
 
@@ -306,7 +306,7 @@ Task<WebCallResult<IEnumerable<HuobiIsolatedMarginLeverageAvailable>>> GetIsolat
 *Get isolated margin position info*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.UsdtMarginSwapApi.Account.GetIsolatedMarginPositionsAsync();  
 ```  
 
@@ -331,7 +331,7 @@ Task<WebCallResult<IEnumerable<HuobiPosition>>> GetIsolatedMarginPositionsAsync(
 *Get isolated margin settlement records*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.UsdtMarginSwapApi.Account.GetIsolatedMarginSettlementRecordsAsync(/* parameters */);  
 ```  
 
@@ -360,7 +360,7 @@ Task<WebCallResult<HuobiIsolatedMarginUserSettlementRecordPage>> GetIsolatedMarg
 *Get isolated margin sub account assets*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.UsdtMarginSwapApi.Account.GetIsolatedMarginSubAccountsAssetsAsync();  
 ```  
 
@@ -385,7 +385,7 @@ Task<WebCallResult<IEnumerable<HuobiIsolatedMarginSubAccountAssets>>> GetIsolate
 *Get master sub account transfer records*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.UsdtMarginSwapApi.Account.GetMasterSubTransferRecordsAsync(/* parameters */);  
 ```  
 
@@ -414,7 +414,7 @@ Task<WebCallResult<HuobiMasterSubTransfer>> GetMasterSubTransferRecordsAsync(str
 *Get trading fees*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.UsdtMarginSwapApi.Account.GetTradingFeesAsync();  
 ```  
 
@@ -442,7 +442,7 @@ Task<WebCallResult<IEnumerable<HuobiTradingFee>>> GetTradingFeesAsync(string? co
 *Switch cross margin position mode*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.UsdtMarginSwapApi.Account.ModifyCrossMarginPositionModeAsync(/* parameters */);  
 ```  
 
@@ -468,7 +468,7 @@ Task<WebCallResult<HuobiPositionMode>> ModifyCrossMarginPositionModeAsync(string
 *Switch isolated margin position mode*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.UsdtMarginSwapApi.Account.ModifyIsolatedMarginPositionModeAsync(/* parameters */);  
 ```  
 
@@ -494,7 +494,7 @@ Task<WebCallResult<HuobiPositionMode>> ModifyIsolatedMarginPositionModeAsync(str
 *Set sub account trading permissions*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.UsdtMarginSwapApi.Account.SetSubAccountsTradingPermissionsAsync(/* parameters */);  
 ```  
 
@@ -520,7 +520,7 @@ Task<WebCallResult<HuobiSubAccountResult>> SetSubAccountsTradingPermissionsAsync
 *Transfer between margin accounts*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.UsdtMarginSwapApi.Account.TransferMarginAccountsAsync(/* parameters */);  
 ```  
 
@@ -549,7 +549,7 @@ Task<WebCallResult<HuobiOrderId>> TransferMarginAccountsAsync(string asset, stri
 *Transfer between master and sub account*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.UsdtMarginSwapApi.Account.TransferMasterSubAsync(/* parameters */);  
 ```  
 

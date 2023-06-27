@@ -1,9 +1,9 @@
 ---
-title: IHuobiRestClient
+title: Rest API documentation
 has_children: true
 ---
 *[generated documentation]*  
-### HuobiClient  
+### HuobiRestClient  
 *Client for accessing the Huobi API.*
   
 ***
@@ -11,7 +11,7 @@ has_children: true
 **void SetApiCredentials(ApiCredentials credentials);**  
 ***
 *Spot endpoints*  
-**[IHuobiClientSpotApi](SpotApi/IHuobiClientSpotApi.html) SpotApi { get; }**  
+**IHuobiClientSpotApi SpotApi { get; }**  
 ***
 *Usdt margin swap endpoints*  
-**[IHuobiClientUsdtMarginSwapApi](UsdtMarginSwapApi/IHuobiClientUsdtMarginSwapApi.html) UsdtMarginSwapApi { get; }**  
+**IHuobiClientUsdtMarginSwapApi UsdtMarginSwapApi { get; }**  

@@ -1,11 +1,11 @@
 ---
 title: IHuobiClientSpotApiTrading
 has_children: false
-parent: IHuobiClientSpotApi
+parent: IHuobiRestClientSpotApi
 grand_parent: Rest API documentation
 ---
 *[generated documentation]*  
-`HuobiClient > SpotApi > Trading`  
+`HuobiRestClient > SpotApi > Trading`  
 *Huobi trading endpoints, placing and mananging orders.*
   
 
@@ -19,7 +19,7 @@ grand_parent: Rest API documentation
 *Cancel conditional orders*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.SpotApi.Trading.CancelConditionalOrdersAsync(/* parameters */);  
 ```  
 
@@ -44,7 +44,7 @@ Task<WebCallResult<HuobiConditionalOrderCancelResult>> CancelConditionalOrdersAs
 *Cancels an open order*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.SpotApi.Trading.CancelOrderAsync(/* parameters */);  
 ```  
 
@@ -69,7 +69,7 @@ Task<WebCallResult<long>> CancelOrderAsync(long orderId, CancellationToken ct = 
 *Cancels an open order*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.SpotApi.Trading.CancelOrderByClientOrderIdAsync(/* parameters */);  
 ```  
 
@@ -94,7 +94,7 @@ Task<WebCallResult<long>> CancelOrderByClientOrderIdAsync(string clientOrderId, 
 *Cancel multiple open orders*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.SpotApi.Trading.CancelOrdersAsync();  
 ```  
 
@@ -120,7 +120,7 @@ Task<WebCallResult<HuobiBatchCancelResult>> CancelOrdersAsync(IEnumerable<long>?
 *Cancel multiple open orders*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.SpotApi.Trading.CancelOrdersByCriteriaAsync();  
 ```  
 
@@ -148,7 +148,7 @@ Task<WebCallResult<HuobiByCriteriaCancelResult>> CancelOrdersByCriteriaAsync(lon
 *Get closed conditional orders*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.SpotApi.Trading.GetClosedConditionalOrdersAsync(/* parameters */);  
 ```  
 
@@ -182,7 +182,7 @@ Task<WebCallResult<IEnumerable<HuobiConditionalOrder>>> GetClosedConditionalOrde
 *Gets a list of orders*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.SpotApi.Trading.GetClosedOrdersAsync(/* parameters */);  
 ```  
 
@@ -214,7 +214,7 @@ Task<WebCallResult<IEnumerable<HuobiOrder>>> GetClosedOrdersAsync(string symbol,
 *Get a conditional order by id*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.SpotApi.Trading.GetConditionalOrderAsync(/* parameters */);  
 ```  
 
@@ -239,7 +239,7 @@ Task<WebCallResult<HuobiConditionalOrder>> GetConditionalOrderAsync(string clien
 *Gets a list of history orders*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.SpotApi.Trading.GetHistoricalOrdersAsync();  
 ```  
 
@@ -268,7 +268,7 @@ Task<WebCallResult<IEnumerable<HuobiOrder>>> GetHistoricalOrdersAsync(string? sy
 *Get open conditional orders based on the parameters*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.SpotApi.Trading.GetOpenConditionalOrdersAsync();  
 ```  
 
@@ -299,7 +299,7 @@ Task<WebCallResult<IEnumerable<HuobiConditionalOrder>>> GetOpenConditionalOrders
 *Gets a list of open orders*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.SpotApi.Trading.GetOpenOrdersAsync();  
 ```  
 
@@ -327,7 +327,7 @@ Task<WebCallResult<IEnumerable<HuobiOpenOrder>>> GetOpenOrdersAsync(long? accoun
 *Get details of an order*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.SpotApi.Trading.GetOrderAsync(/* parameters */);  
 ```  
 
@@ -352,7 +352,7 @@ Task<WebCallResult<HuobiOrder>> GetOrderAsync(long orderId, CancellationToken ct
 *Get details of an order by client order id*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.SpotApi.Trading.GetOrderByClientOrderIdAsync(/* parameters */);  
 ```  
 
@@ -377,7 +377,7 @@ Task<WebCallResult<HuobiOrder>> GetOrderByClientOrderIdAsync(string clientOrderI
 *Gets a list of trades made for a specific order*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.SpotApi.Trading.GetOrderTradesAsync(/* parameters */);  
 ```  
 
@@ -402,7 +402,7 @@ Task<WebCallResult<IEnumerable<HuobiOrderTrade>>> GetOrderTradesAsync(long order
 *Gets a list of trades for a specific symbol*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.SpotApi.Trading.GetUserTradesAsync();  
 ```  
 
@@ -434,7 +434,7 @@ Task<WebCallResult<IEnumerable<HuobiOrderTrade>>> GetUserTradesAsync(IEnumerable
 *Place a new conditional order*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.SpotApi.Trading.PlaceConditionalOrderAsync(/* parameters */);  
 ```  
 
@@ -469,7 +469,7 @@ Task<WebCallResult<HuobiPlacedConditionalOrder>> PlaceConditionalOrderAsync(long
 *Places an order*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.SpotApi.Trading.PlaceOrderAsync(/* parameters */);  
 ```  
 

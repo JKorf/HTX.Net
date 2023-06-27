@@ -4,7 +4,7 @@ has_children: true
 parent: Rest API documentation
 ---
 *[generated documentation]*  
-`HuobiClient > SpotApi`  
+`HuobiRestClient > SpotApi`  
 *Spot API endpoints*
   
 ***
@@ -12,10 +12,10 @@ parent: Rest API documentation
 **ISpotClient CommonSpotClient { get; }**  
 ***
 *Endpoints related to account settings, info or actions*  
-**[IHuobiClientSpotApiAccount](IHuobiClientSpotApiAccount.html) Account { get; }**  
+**IHuobiClientSpotApiAccount Account { get; }**  
 ***
 *Endpoints related to retrieving market and system data*  
-**[IHuobiClientSpotApiExchangeData](IHuobiClientSpotApiExchangeData.html) ExchangeData { get; }**  
+**IHuobiClientSpotApiExchangeData ExchangeData { get; }**  
 ***
 *Endpoints related to orders and trades*  
-**[IHuobiClientSpotApiTrading](IHuobiClientSpotApiTrading.html) Trading { get; }**  
+**IHuobiClientSpotApiTrading Trading { get; }**  

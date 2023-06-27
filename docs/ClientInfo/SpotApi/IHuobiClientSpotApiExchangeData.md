@@ -1,11 +1,11 @@
 ---
 title: IHuobiClientSpotApiExchangeData
 has_children: false
-parent: IHuobiClientSpotApi
+parent: IHuobiRestClientSpotApi
 grand_parent: Rest API documentation
 ---
 *[generated documentation]*  
-`HuobiClient > SpotApi > ExchangeData`  
+`HuobiRestClient > SpotApi > ExchangeData`  
 *Huobi exchange data endpoints. Exchange data includes market data (tickers, order books, etc) and system status.*
   
 
@@ -19,7 +19,7 @@ grand_parent: Rest API documentation
 *Gets a list of supported currencies and chains*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.SpotApi.ExchangeData.GetAssetDetailsAsync();  
 ```  
 
@@ -44,7 +44,7 @@ Task<WebCallResult<IEnumerable<HuobiAssetInfo>>> GetAssetDetailsAsync(string? as
 *Gets a list of supported currencies*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.SpotApi.ExchangeData.GetAssetsAsync();  
 ```  
 
@@ -68,7 +68,7 @@ Task<WebCallResult<IEnumerable<string>>> GetAssetsAsync(CancellationToken ct = d
 *Get candlestick data for a symbol*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.SpotApi.ExchangeData.GetKlinesAsync(/* parameters */);  
 ```  
 
@@ -95,7 +95,7 @@ Task<WebCallResult<IEnumerable<HuobiKline>>> GetKlinesAsync(string symbol, Kline
 *Gets the last trade for a symbol*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.SpotApi.ExchangeData.GetLastTradeAsync(/* parameters */);  
 ```  
 
@@ -120,7 +120,7 @@ Task<WebCallResult<HuobiSymbolTrade>> GetLastTradeAsync(string symbol, Cancellat
 *Gets real time NAV for ETP*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.SpotApi.ExchangeData.GetNavAsync(/* parameters */);  
 ```  
 
@@ -145,7 +145,7 @@ Task<WebCallResult<HuobiNav>> GetNavAsync(string symbol, CancellationToken ct = 
 *Gets the order book for a symbol*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.SpotApi.ExchangeData.GetOrderBookAsync(/* parameters */);  
 ```  
 
@@ -172,7 +172,7 @@ Task<WebCallResult<HuobiOrderBook>> GetOrderBookAsync(string symbol, int mergeSt
 *Gets the server time*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.SpotApi.ExchangeData.GetServerTimeAsync();  
 ```  
 
@@ -196,7 +196,7 @@ Task<WebCallResult<DateTime>> GetServerTimeAsync(CancellationToken ct = default)
 *Gets 24h stats for a symbol*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.SpotApi.ExchangeData.GetSymbolDetails24HAsync(/* parameters */);  
 ```  
 
@@ -221,7 +221,7 @@ Task<WebCallResult<HuobiSymbolDetails>> GetSymbolDetails24HAsync(string symbol, 
 *Gets a list of supported symbols*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.SpotApi.ExchangeData.GetSymbolsAsync();  
 ```  
 
@@ -245,7 +245,7 @@ Task<WebCallResult<IEnumerable<HuobiSymbol>>> GetSymbolsAsync(CancellationToken 
 *Gets the current market status*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.SpotApi.ExchangeData.GetSymbolStatusAsync();  
 ```  
 
@@ -269,7 +269,7 @@ Task<WebCallResult<HuobiSymbolStatus>> GetSymbolStatusAsync(CancellationToken ct
 *Gets the ticker, including the best bid / best ask for a symbol*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.SpotApi.ExchangeData.GetTickerAsync(/* parameters */);  
 ```  
 
@@ -294,7 +294,7 @@ Task<WebCallResult<HuobiSymbolTickMerged>> GetTickerAsync(string symbol, Cancell
 *Gets the latest ticker for all symbols*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.SpotApi.ExchangeData.GetTickersAsync();  
 ```  
 
@@ -318,7 +318,7 @@ Task<WebCallResult<HuobiSymbolTicks>> GetTickersAsync(CancellationToken ct = def
 *Get the last x trades for a symbol*  
 
 ```csharp  
-var client = new HuobiClient();  
+var client = new HuobiRestClient();  
 var result = await client.SpotApi.ExchangeData.GetTradeHistoryAsync(/* parameters */);  
 ```  
 
