@@ -50,7 +50,7 @@ namespace Huobi.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToKlineUpdatesAsync(string contractCode, KlineInterval period, Action<DataEvent<HuobiKline>> onData, CancellationToken ct = default)
         {
-            var request = new HuobiSubscribeRequest(NextId().ToString(CultureInfo.InvariantCulture), $"market.{contractCode}.kline.{JsonConvert.SerializeObject(period, new PeriodConverter(false))}");
+            var request = new HuobiSubscribeRequest(ExchangeHelpers.NextId().ToString(CultureInfo.InvariantCulture), $"market.{contractCode}.kline.{JsonConvert.SerializeObject(period, new PeriodConverter(false))}");
             var internalHandler = new Action<DataEvent<HuobiDataEvent<HuobiKline>>>(data => onData(data.As(data.Data.Data, contractCode)));
             return await SubscribeAsync(BaseAddress.AppendPath("linear-swap-ws"), request, null, false, internalHandler, ct).ConfigureAwait(false);
         }
@@ -58,7 +58,7 @@ namespace Huobi.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToOrderBookUpdatesAsync(string contractCode, int mergeStep, Action<DataEvent<HuobiUsdtMarginSwapIncementalOrderBook>> onData, CancellationToken ct = default)
         {
-            var request = new HuobiSubscribeRequest(NextId().ToString(CultureInfo.InvariantCulture), $"market.{contractCode}.depth.step" + mergeStep);
+            var request = new HuobiSubscribeRequest(ExchangeHelpers.NextId().ToString(CultureInfo.InvariantCulture), $"market.{contractCode}.depth.step" + mergeStep);
             var internalHandler = new Action<DataEvent<HuobiDataEvent<HuobiUsdtMarginSwapIncementalOrderBook>>>(data => onData(data.As(data.Data.Data, contractCode)));
             return await SubscribeAsync(BaseAddress.AppendPath("linear-swap-ws"), request, null, false, internalHandler, ct).ConfigureAwait(false);
         }
@@ -67,7 +67,7 @@ namespace Huobi.Net.Clients.SpotApi
         public async Task<CallResult<UpdateSubscription>> SubscribeToIncrementalOrderBookUpdatesAsync(string contractCode, bool snapshot, int limit, Action<DataEvent<HuobiUsdtMarginSwapIncementalOrderBook>> onData, CancellationToken ct = default)
         {
             var request = new HuobiIncrementalOrderBookSubscribeRequest(
-                NextId().ToString(CultureInfo.InvariantCulture),
+                ExchangeHelpers.NextId().ToString(CultureInfo.InvariantCulture),
                 $"market.{contractCode}.depth.size_{limit}.high_freq",
                 snapshot ? "snapshot" : "incremental");
             var internalHandler = new Action<DataEvent<HuobiDataEvent<HuobiUsdtMarginSwapIncementalOrderBook>>>(data => onData(data.As(data.Data.Data, contractCode)));
@@ -78,7 +78,7 @@ namespace Huobi.Net.Clients.SpotApi
         public async Task<CallResult<UpdateSubscription>> SubscribeToSymbolTickerUpdatesAsync(string contractCode, Action<DataEvent<HuobiSymbolTickUpdate>> onData, CancellationToken ct = default)
         {
             var request = new HuobiSubscribeRequest(
-                NextId().ToString(CultureInfo.InvariantCulture),
+                ExchangeHelpers.NextId().ToString(CultureInfo.InvariantCulture),
                 $"market.{contractCode}.detail");
             var internalHandler = new Action<DataEvent<HuobiDataEvent<HuobiSymbolTickUpdate>>>(data => onData(data.As(data.Data.Data, contractCode)));
             return await SubscribeAsync(BaseAddress.AppendPath("linear-swap-ws"), request, null, false, internalHandler, ct).ConfigureAwait(false);
@@ -88,7 +88,7 @@ namespace Huobi.Net.Clients.SpotApi
         public async Task<CallResult<UpdateSubscription>> SubscribeToBestOfferUpdatesAsync(string contractCode, Action<DataEvent<HuobiBestOfferUpdate>> onData, CancellationToken ct = default)
         {
             var request = new HuobiSubscribeRequest(
-                NextId().ToString(CultureInfo.InvariantCulture),
+                ExchangeHelpers.NextId().ToString(CultureInfo.InvariantCulture),
                 $"market.{contractCode}.bbo");
             var internalHandler = new Action<DataEvent<HuobiDataEvent<HuobiBestOfferUpdate>>>(data => onData(data.As(data.Data.Data, contractCode)));
             return await SubscribeAsync(BaseAddress.AppendPath("linear-swap-ws"), request, null, false, internalHandler, ct).ConfigureAwait(false);
@@ -98,7 +98,7 @@ namespace Huobi.Net.Clients.SpotApi
         public async Task<CallResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(string contractCode, Action<DataEvent<HuobiUsdtMarginSwapTradesUpdate>> onData, CancellationToken ct = default)
         {
             var request = new HuobiSubscribeRequest(
-                NextId().ToString(CultureInfo.InvariantCulture),
+                ExchangeHelpers.NextId().ToString(CultureInfo.InvariantCulture),
                 $"market.{contractCode}.trade.detail");
             var internalHandler = new Action<DataEvent<HuobiDataEvent<HuobiUsdtMarginSwapTradesUpdate>>>(data => onData(data.As(data.Data.Data, contractCode)));
             return await SubscribeAsync(BaseAddress.AppendPath("linear-swap-ws"), request, null, false, internalHandler, ct).ConfigureAwait(false);
@@ -108,7 +108,7 @@ namespace Huobi.Net.Clients.SpotApi
         public async Task<CallResult<UpdateSubscription>> SubscribeToIndexKlineUpdatesAsync(string contractCode, KlineInterval period, Action<DataEvent<HuobiKline>> onData, CancellationToken ct = default)
         {
             var request = new HuobiSubscribeRequest(
-                NextId().ToString(CultureInfo.InvariantCulture),
+                ExchangeHelpers.NextId().ToString(CultureInfo.InvariantCulture),
                 $"market.{contractCode}.index.{JsonConvert.SerializeObject(period, new PeriodConverter(false))}");
             var internalHandler = new Action<DataEvent<HuobiDataEvent<HuobiKline>>>(data => onData(data.As(data.Data.Data, contractCode)));
             return await SubscribeAsync(BaseAddress.AppendPath("ws_index"), request, null, false, internalHandler, ct).ConfigureAwait(false);
@@ -118,7 +118,7 @@ namespace Huobi.Net.Clients.SpotApi
         public async Task<CallResult<UpdateSubscription>> SubscribeToPremiumIndexKlineUpdatesAsync(string contractCode, KlineInterval period, Action<DataEvent<HuobiKline>> onData, CancellationToken ct = default)
         {
             var request = new HuobiSubscribeRequest(
-                NextId().ToString(CultureInfo.InvariantCulture),
+                ExchangeHelpers.NextId().ToString(CultureInfo.InvariantCulture),
                 $"market.{contractCode}.premium_index.{JsonConvert.SerializeObject(period, new PeriodConverter(false))}");
             var internalHandler = new Action<DataEvent<HuobiDataEvent<HuobiKline>>>(data => onData(data.As(data.Data.Data, contractCode)));
             return await SubscribeAsync(BaseAddress.AppendPath("ws_index"), request, null, false, internalHandler, ct).ConfigureAwait(false);
@@ -128,7 +128,7 @@ namespace Huobi.Net.Clients.SpotApi
         public async Task<CallResult<UpdateSubscription>> SubscribeToEstimatedFundingRateKlineUpdatesAsync(string contractCode, KlineInterval period, Action<DataEvent<HuobiKline>> onData, CancellationToken ct = default)
         {
             var request = new HuobiSubscribeRequest(
-                NextId().ToString(CultureInfo.InvariantCulture),
+                ExchangeHelpers.NextId().ToString(CultureInfo.InvariantCulture),
                 $"market.{contractCode}.estimated_rate.{JsonConvert.SerializeObject(period, new PeriodConverter(false))}");
             var internalHandler = new Action<DataEvent<HuobiDataEvent<HuobiKline>>>(data => onData(data.As(data.Data.Data, contractCode)));
             return await SubscribeAsync(BaseAddress.AppendPath("ws_index"), request, null, false, internalHandler, ct).ConfigureAwait(false);
@@ -138,7 +138,7 @@ namespace Huobi.Net.Clients.SpotApi
         public async Task<CallResult<UpdateSubscription>> SubscribeToBasisUpdatesAsync(string contractCode, KlineInterval period, string priceType, Action<DataEvent<HuobiUsdtMarginSwapBasisUpdate>> onData, CancellationToken ct = default)
         {
             var request = new HuobiSubscribeRequest(
-                NextId().ToString(CultureInfo.InvariantCulture),
+                ExchangeHelpers.NextId().ToString(CultureInfo.InvariantCulture),
                 $"market.{contractCode}.basis.{JsonConvert.SerializeObject(period, new PeriodConverter(false))}.{priceType}");
             var internalHandler = new Action<DataEvent<HuobiDataEvent<HuobiUsdtMarginSwapBasisUpdate>>>(data => onData(data.As(data.Data.Data, contractCode)));
             return await SubscribeAsync(BaseAddress.AppendPath("ws_index"), request, null, false, internalHandler, ct).ConfigureAwait(false);
@@ -148,7 +148,7 @@ namespace Huobi.Net.Clients.SpotApi
         public async Task<CallResult<UpdateSubscription>> SubscribeToMarkPriceKlineUpdatesAsync(string contractCode, KlineInterval period, Action<DataEvent<HuobiKline>> onData, CancellationToken ct = default)
         {
             var request = new HuobiSubscribeRequest(
-                NextId().ToString(CultureInfo.InvariantCulture),
+                ExchangeHelpers.NextId().ToString(CultureInfo.InvariantCulture),
                 $"market.{contractCode}.mark_price.{JsonConvert.SerializeObject(period, new PeriodConverter(false))}");
             var internalHandler = new Action<DataEvent<HuobiDataEvent<HuobiKline>>>(data => onData(data.As(data.Data.Data, contractCode)));
             return await SubscribeAsync(BaseAddress.AppendPath("ws_index"), request, null, false, internalHandler, ct).ConfigureAwait(false);
@@ -207,7 +207,7 @@ namespace Huobi.Net.Clients.SpotApi
             var v1Ping = messageEvent.JsonData["ping"] != null;
 
             if (v1Ping)
-                messageEvent.Connection.Send(new HuobiPingResponse(messageEvent.JsonData["ping"]!.Value<long>()));
+                messageEvent.Connection.Send(ExchangeHelpers.NextId(), new HuobiPingResponse(messageEvent.JsonData["ping"]!.Value<long>()), 1);
         }
 
         private void PingHandlerV2(MessageEvent messageEvent)
@@ -215,7 +215,7 @@ namespace Huobi.Net.Clients.SpotApi
             var v2Ping = messageEvent.JsonData["action"]?.ToString() == "ping";
 
             if (v2Ping)
-                messageEvent.Connection.Send(new HuobiPingAuthResponse(messageEvent.JsonData["data"]!["ts"]!.Value<long>()));
+                messageEvent.Connection.Send(ExchangeHelpers.NextId(), new HuobiPingAuthResponse(messageEvent.JsonData["data"]!["ts"]!.Value<long>()), 1);
         }
 
         private void PingHandlerV3(MessageEvent messageEvent)
@@ -224,11 +224,11 @@ namespace Huobi.Net.Clients.SpotApi
 
             if (v3Ping)
             {
-                messageEvent.Connection.Send(new
+                messageEvent.Connection.Send(ExchangeHelpers.NextId(), new
                 {
                     op = "pong",
                     ts = messageEvent.JsonData["ts"]?.ToString()
-                });
+                }, 1);
             }
         }
 
@@ -479,7 +479,7 @@ namespace Huobi.Net.Clients.SpotApi
                 return new CallResult<bool>(new NoApiCredentialsError());
 
             var result = new CallResult<bool>(new ServerError("No response from server"));
-            await s.SendAndWaitAsync(((HuobiAuthenticationProvider)s.ApiClient.AuthenticationProvider).GetWebsocketAuthentication2(s.ConnectionUri), ClientOptions.RequestTimeout, null, data =>
+            await s.SendAndWaitAsync(((HuobiAuthenticationProvider)s.ApiClient.AuthenticationProvider).GetWebsocketAuthentication2(s.ConnectionUri), ClientOptions.RequestTimeout, null, 1, data =>
             {
                 if (data["op"]?.ToString() != "auth")
                     return false;
@@ -512,10 +512,10 @@ namespace Huobi.Net.Clients.SpotApi
             var result = false;
             if (s.Request is HuobiSubscribeRequest hRequest)
             {
-                var unsubId = NextId().ToString();
+                var unsubId = ExchangeHelpers.NextId().ToString();
                 var unsub = new HuobiUnsubscribeRequest(unsubId, hRequest.Topic);
 
-                await connection.SendAndWaitAsync(unsub, ClientOptions.RequestTimeout, null, data =>
+                await connection.SendAndWaitAsync(unsub, ClientOptions.RequestTimeout, null, 1, data =>
                 {
                     if (data.Type != JTokenType.Object)
                         return false;
@@ -540,7 +540,7 @@ namespace Huobi.Net.Clients.SpotApi
                     { "ch", haRequest.Channel },
                 };
 
-                await connection.SendAndWaitAsync(unsub, ClientOptions.RequestTimeout, null, data =>
+                await connection.SendAndWaitAsync(unsub, ClientOptions.RequestTimeout, null, 1, data =>
                 {
                     if (data.Type != JTokenType.Object)
                         return false;
@@ -562,9 +562,9 @@ namespace Huobi.Net.Clients.SpotApi
                 {
                     op = "unsub",
                     topic = hRequest2.Topic,
-                    cid = NextId().ToString()
+                    cid = ExchangeHelpers.NextId().ToString()
                 };
-                await connection.SendAndWaitAsync(unsub, ClientOptions.RequestTimeout, null, data =>
+                await connection.SendAndWaitAsync(unsub, ClientOptions.RequestTimeout, null, 1, data =>
                 {
                     if (data.Type != JTokenType.Object)
                         return false;

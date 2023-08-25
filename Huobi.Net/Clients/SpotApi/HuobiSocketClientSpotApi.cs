@@ -54,7 +54,7 @@ namespace Huobi.Net.Clients.SpotApi
         public async Task<CallResult<IEnumerable<HuobiKline>>> GetKlinesAsync(string symbol, KlineInterval period)
         {
             symbol = symbol.ValidateHuobiSymbol();
-            var request = new HuobiSocketRequest(NextId().ToString(CultureInfo.InvariantCulture), $"market.{symbol}.kline.{JsonConvert.SerializeObject(period, new PeriodConverter(false))}");
+            var request = new HuobiSocketRequest(ExchangeHelpers.NextId().ToString(CultureInfo.InvariantCulture), $"market.{symbol}.kline.{JsonConvert.SerializeObject(period, new PeriodConverter(false))}");
             var result = await QueryAsync<HuobiSocketResponse<IEnumerable<HuobiKline>>>(BaseAddress.AppendPath("ws"), request, false).ConfigureAwait(false);
             return result ? result.As(result.Data.Data) : result.AsError<IEnumerable<HuobiKline>>(result.Error!);
         }
@@ -63,7 +63,7 @@ namespace Huobi.Net.Clients.SpotApi
         public async Task<CallResult<UpdateSubscription>> SubscribeToKlineUpdatesAsync(string symbol, KlineInterval period, Action<DataEvent<HuobiKline>> onData, CancellationToken ct = default)
         {
             symbol = symbol.ValidateHuobiSymbol();
-            var request = new HuobiSubscribeRequest(NextId().ToString(CultureInfo.InvariantCulture), $"market.{symbol}.kline.{JsonConvert.SerializeObject(period, new PeriodConverter(false))}");
+            var request = new HuobiSubscribeRequest(ExchangeHelpers.NextId().ToString(CultureInfo.InvariantCulture), $"market.{symbol}.kline.{JsonConvert.SerializeObject(period, new PeriodConverter(false))}");
             var internalHandler = new Action<DataEvent<HuobiDataEvent<HuobiKline>>>(data => onData(data.As(data.Data.Data, symbol)));
             return await SubscribeAsync(BaseAddress.AppendPath("ws"), request, null, false, internalHandler, ct).ConfigureAwait(false);
         }
@@ -74,7 +74,7 @@ namespace Huobi.Net.Clients.SpotApi
             symbol = symbol.ValidateHuobiSymbol();
             mergeStep.ValidateIntBetween(nameof(mergeStep), 0, 5);
 
-            var request = new HuobiSocketRequest(NextId().ToString(CultureInfo.InvariantCulture), $"market.{symbol}.depth.step{mergeStep}");
+            var request = new HuobiSocketRequest(ExchangeHelpers.NextId().ToString(CultureInfo.InvariantCulture), $"market.{symbol}.depth.step{mergeStep}");
             var result = await QueryAsync<HuobiSocketResponse<HuobiOrderBook>>(BaseAddress.AppendPath("ws"), request, false).ConfigureAwait(false);
             if (!result)
                 return new CallResult<HuobiOrderBook>(result.Error!);
@@ -89,7 +89,7 @@ namespace Huobi.Net.Clients.SpotApi
             symbol = symbol.ValidateHuobiSymbol();
             levels.ValidateIntValues(nameof(levels), 5, 20, 150, 400);
 
-            var request = new HuobiSocketRequest(NextId().ToString(CultureInfo.InvariantCulture), $"market.{symbol}.mbp.{levels}");
+            var request = new HuobiSocketRequest(ExchangeHelpers.NextId().ToString(CultureInfo.InvariantCulture), $"market.{symbol}.mbp.{levels}");
             var result = await QueryAsync<HuobiSocketResponse<HuobiIncementalOrderBook>>(BaseAddress.AppendPath("feed"), request, false).ConfigureAwait(false);
             if (!result)
                 return new CallResult<HuobiIncementalOrderBook>(result.Error!);
@@ -117,7 +117,7 @@ namespace Huobi.Net.Clients.SpotApi
                 onData(data.As(data.Data.Data, symbol));
             });
 
-            var request = new HuobiSubscribeRequest(NextId().ToString(CultureInfo.InvariantCulture), $"market.{symbol}.depth.step{mergeStep}");
+            var request = new HuobiSubscribeRequest(ExchangeHelpers.NextId().ToString(CultureInfo.InvariantCulture), $"market.{symbol}.depth.step{mergeStep}");
             return await SubscribeAsync(BaseAddress.AppendPath("ws"), request, null, false, internalHandler, ct).ConfigureAwait(false);
         }
 
@@ -133,7 +133,7 @@ namespace Huobi.Net.Clients.SpotApi
                 onData(data.As(data.Data.Data, symbol));
             });
 
-            var request = new HuobiSubscribeRequest(NextId().ToString(CultureInfo.InvariantCulture), $"market.{symbol}.mbp.refresh.{levels}");
+            var request = new HuobiSubscribeRequest(ExchangeHelpers.NextId().ToString(CultureInfo.InvariantCulture), $"market.{symbol}.mbp.refresh.{levels}");
             return await SubscribeAsync(BaseAddress.AppendPath("ws"), request, null, false, internalHandler, ct).ConfigureAwait(false);
         }
 
@@ -149,7 +149,7 @@ namespace Huobi.Net.Clients.SpotApi
                 onData(data.As(data.Data.Data, symbol));
             });
 
-            var request = new HuobiSubscribeRequest(NextId().ToString(CultureInfo.InvariantCulture), $"market.{symbol}.mbp.{levels}");
+            var request = new HuobiSubscribeRequest(ExchangeHelpers.NextId().ToString(CultureInfo.InvariantCulture), $"market.{symbol}.mbp.{levels}");
             return await SubscribeAsync(BaseAddress.AppendPath("feed"), request, null, false, internalHandler, ct).ConfigureAwait(false);
         }
 
@@ -157,7 +157,7 @@ namespace Huobi.Net.Clients.SpotApi
         public async Task<CallResult<IEnumerable<HuobiSymbolTradeDetails>>> GetTradeHistoryAsync(string symbol)
         {
             symbol = symbol.ValidateHuobiSymbol();
-            var request = new HuobiSocketRequest(NextId().ToString(CultureInfo.InvariantCulture), $"market.{symbol}.trade.detail");
+            var request = new HuobiSocketRequest(ExchangeHelpers.NextId().ToString(CultureInfo.InvariantCulture), $"market.{symbol}.trade.detail");
             var result = await QueryAsync<HuobiSocketResponse<IEnumerable<HuobiSymbolTradeDetails>>>(BaseAddress.AppendPath("ws"), request, false).ConfigureAwait(false);
             return result ? result.As(result.Data.Data) : result.AsError<IEnumerable<HuobiSymbolTradeDetails>>(result.Error!);
         }
@@ -166,7 +166,7 @@ namespace Huobi.Net.Clients.SpotApi
         public async Task<CallResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(string symbol, Action<DataEvent<HuobiSymbolTrade>> onData, CancellationToken ct = default)
         {
             symbol = symbol.ValidateHuobiSymbol();
-            var request = new HuobiSubscribeRequest(NextId().ToString(CultureInfo.InvariantCulture), $"market.{symbol}.trade.detail");
+            var request = new HuobiSubscribeRequest(ExchangeHelpers.NextId().ToString(CultureInfo.InvariantCulture), $"market.{symbol}.trade.detail");
             var internalHandler = new Action<DataEvent<HuobiDataEvent<HuobiSymbolTrade>>>(data => onData(data.As(data.Data.Data, symbol)));
             return await SubscribeAsync(BaseAddress.AppendPath("ws"), request, null, false, internalHandler, ct).ConfigureAwait(false);
         }
@@ -175,7 +175,7 @@ namespace Huobi.Net.Clients.SpotApi
         public async Task<CallResult<HuobiSymbolDetails>> GetSymbolDetailsAsync(string symbol)
         {
             symbol = symbol.ValidateHuobiSymbol();
-            var request = new HuobiSocketRequest(NextId().ToString(CultureInfo.InvariantCulture), $"market.{symbol}.detail");
+            var request = new HuobiSocketRequest(ExchangeHelpers.NextId().ToString(CultureInfo.InvariantCulture), $"market.{symbol}.detail");
             var result = await QueryAsync<HuobiSocketResponse<HuobiSymbolDetails>>(BaseAddress.AppendPath("ws"), request, false).ConfigureAwait(false);
             if (!result)
                 return result.AsError<HuobiSymbolDetails>(result.Error!);
@@ -188,7 +188,7 @@ namespace Huobi.Net.Clients.SpotApi
         public async Task<CallResult<UpdateSubscription>> SubscribeToSymbolDetailUpdatesAsync(string symbol, Action<DataEvent<HuobiSymbolDetails>> onData, CancellationToken ct = default)
         {
             symbol = symbol.ValidateHuobiSymbol();
-            var request = new HuobiSubscribeRequest(NextId().ToString(CultureInfo.InvariantCulture), $"market.{symbol}.detail");
+            var request = new HuobiSubscribeRequest(ExchangeHelpers.NextId().ToString(CultureInfo.InvariantCulture), $"market.{symbol}.detail");
             var internalHandler = new Action<DataEvent<HuobiDataEvent<HuobiSymbolDetails>>>(data =>
             {
                 data.Data.Timestamp = data.Timestamp;
@@ -200,7 +200,7 @@ namespace Huobi.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(Action<DataEvent<HuobiSymbolDatas>> onData, CancellationToken ct = default)
         {
-            var request = new HuobiSubscribeRequest(NextId().ToString(CultureInfo.InvariantCulture), "market.tickers");
+            var request = new HuobiSubscribeRequest(ExchangeHelpers.NextId().ToString(CultureInfo.InvariantCulture), "market.tickers");
             var internalHandler = new Action<DataEvent<HuobiDataEvent<IEnumerable<HuobiSymbolTicker>>>>(data =>
             {
                 var result = new HuobiSymbolDatas { Timestamp = data.Timestamp, Ticks = data.Data.Data };
@@ -212,7 +212,7 @@ namespace Huobi.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(string symbol, Action<DataEvent<HuobiSymbolTick>> onData, CancellationToken ct = default)
         {
-            var request = new HuobiSubscribeRequest(NextId().ToString(CultureInfo.InvariantCulture), $"market.{symbol}.ticker");
+            var request = new HuobiSubscribeRequest(ExchangeHelpers.NextId().ToString(CultureInfo.InvariantCulture), $"market.{symbol}.ticker");
             var internalHandler = new Action<DataEvent<HuobiDataEvent<HuobiSymbolTick>>>(data =>
             {
                 data.Data.Data.Symbol = symbol;
@@ -224,7 +224,7 @@ namespace Huobi.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToBestOfferUpdatesAsync(string symbol, Action<DataEvent<HuobiBestOffer>> onData, CancellationToken ct = default)
         {
-            var request = new HuobiSubscribeRequest(NextId().ToString(CultureInfo.InvariantCulture), $"market.{symbol}.bbo");
+            var request = new HuobiSubscribeRequest(ExchangeHelpers.NextId().ToString(CultureInfo.InvariantCulture), $"market.{symbol}.bbo");
             var internalHandler = new Action<DataEvent<HuobiDataEvent<HuobiBestOffer>>>(data =>
             {
                 onData(data.As(data.Data.Data, symbol));
@@ -345,7 +345,7 @@ namespace Huobi.Net.Clients.SpotApi
             var v1Ping = messageEvent.JsonData["ping"] != null;
 
             if (v1Ping)
-                messageEvent.Connection.Send(new HuobiPingResponse(messageEvent.JsonData["ping"]!.Value<long>()));
+                messageEvent.Connection.Send(ExchangeHelpers.NextId(), new HuobiPingResponse(messageEvent.JsonData["ping"]!.Value<long>()), 1);
         }
 
         private void PingHandlerV2(MessageEvent messageEvent)
@@ -353,7 +353,7 @@ namespace Huobi.Net.Clients.SpotApi
             var v2Ping = messageEvent.JsonData["action"]?.ToString() == "ping";
 
             if (v2Ping)
-                messageEvent.Connection.Send(new HuobiPingAuthResponse(messageEvent.JsonData["data"]!["ts"]!.Value<long>()));
+                messageEvent.Connection.Send(ExchangeHelpers.NextId(), new HuobiPingAuthResponse(messageEvent.JsonData["data"]!["ts"]!.Value<long>()), 1);
         }
 
         private void PingHandlerV3(MessageEvent messageEvent)
@@ -362,11 +362,11 @@ namespace Huobi.Net.Clients.SpotApi
 
             if (v3Ping)
             {
-                messageEvent.Connection.Send(new
+                messageEvent.Connection.Send(ExchangeHelpers.NextId(), new
                 {
                     op = "pong",
                     ts = messageEvent.JsonData["ts"]?.ToString()
-                });
+                }, 1);
             }
         }
 
@@ -619,7 +619,7 @@ namespace Huobi.Net.Clients.SpotApi
             var result = new CallResult<bool>(new ServerError("No response from server"));
             if (s.ApiClient is HuobiSocketClientUsdtMarginSwapApi)
             {
-                await s.SendAndWaitAsync(((HuobiAuthenticationProvider)s.ApiClient.AuthenticationProvider).GetWebsocketAuthentication2(s.ConnectionUri), ClientOptions.RequestTimeout, null, data =>
+                await s.SendAndWaitAsync(((HuobiAuthenticationProvider)s.ApiClient.AuthenticationProvider).GetWebsocketAuthentication2(s.ConnectionUri), ClientOptions.RequestTimeout, null, 1, data =>
                 {
                     if (data["op"]?.ToString() != "auth")
                         return false;
@@ -645,7 +645,7 @@ namespace Huobi.Net.Clients.SpotApi
             }
             else
             {
-                await s.SendAndWaitAsync(((HuobiAuthenticationProvider)s.ApiClient.AuthenticationProvider).GetWebsocketAuthentication(s.ConnectionUri), ClientOptions.RequestTimeout, null, data =>
+                await s.SendAndWaitAsync(((HuobiAuthenticationProvider)s.ApiClient.AuthenticationProvider).GetWebsocketAuthentication(s.ConnectionUri), ClientOptions.RequestTimeout, null, 1, data =>
                 {
                     if (data["ch"]?.ToString() != "auth")
                         return false;
@@ -679,10 +679,10 @@ namespace Huobi.Net.Clients.SpotApi
             var result = false;
             if (s.Request is HuobiSubscribeRequest hRequest)
             {
-                var unsubId = NextId().ToString();
+                var unsubId = ExchangeHelpers.NextId().ToString();
                 var unsub = new HuobiUnsubscribeRequest(unsubId, hRequest.Topic);
 
-                await connection.SendAndWaitAsync(unsub, ClientOptions.RequestTimeout, null, data =>
+                await connection.SendAndWaitAsync(unsub, ClientOptions.RequestTimeout, null, 1, data =>
                 {
                     if (data.Type != JTokenType.Object)
                         return false;
@@ -707,7 +707,7 @@ namespace Huobi.Net.Clients.SpotApi
                     { "ch", haRequest.Channel },
                 };
 
-                await connection.SendAndWaitAsync(unsub, ClientOptions.RequestTimeout, null, data =>
+                await connection.SendAndWaitAsync(unsub, ClientOptions.RequestTimeout, null, 1, data =>
                 {
                     if (data.Type != JTokenType.Object)
                         return false;
@@ -729,9 +729,9 @@ namespace Huobi.Net.Clients.SpotApi
                 {
                     op = "unsub",
                     topic = hRequest2.Topic,
-                    cid = NextId().ToString()
+                    cid = ExchangeHelpers.NextId().ToString()
                 };
-                await connection.SendAndWaitAsync(unsub, ClientOptions.RequestTimeout, null, data =>
+                await connection.SendAndWaitAsync(unsub, ClientOptions.RequestTimeout, null, 1, data =>
                 {
                     if (data.Type != JTokenType.Object)
                         return false;

@@ -112,7 +112,7 @@
         <member name="M:Huobi.Net.Clients.SpotApi.HuobiRestClientSpotApi.TryParseErrorAsync(Newtonsoft.Json.Linq.JToken)">
             <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.Clients.SpotApi.HuobiRestClientSpotApi.ParseErrorResponse(Newtonsoft.Json.Linq.JToken)">
+        <member name="M:Huobi.Net.Clients.SpotApi.HuobiRestClientSpotApi.ParseErrorResponse(System.Int32,System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{System.String,System.Collections.Generic.IEnumerable{System.String}}},System.String)">
             <inheritdoc />
         </member>
         <member name="M:Huobi.Net.Clients.SpotApi.HuobiRestClientSpotApi.GetUrl(System.String,System.String)">
@@ -510,7 +510,7 @@
         <member name="M:Huobi.Net.Clients.FuturesApi.HuobiClientUsdtMarginSwapApi.TryParseErrorAsync(Newtonsoft.Json.Linq.JToken)">
             <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.Clients.FuturesApi.HuobiClientUsdtMarginSwapApi.ParseErrorResponse(Newtonsoft.Json.Linq.JToken)">
+        <member name="M:Huobi.Net.Clients.FuturesApi.HuobiClientUsdtMarginSwapApi.ParseErrorResponse(System.Int32,System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{System.String,System.Collections.Generic.IEnumerable{System.String}}},System.String)">
             <inheritdoc />
         </member>
         <member name="M:Huobi.Net.Clients.FuturesApi.HuobiClientUsdtMarginSwapApi.GetServerTimestampAsync">

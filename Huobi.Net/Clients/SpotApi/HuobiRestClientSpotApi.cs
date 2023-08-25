@@ -122,12 +122,16 @@ namespace Huobi.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        protected override Error ParseErrorResponse(JToken error)
+        protected override Error ParseErrorResponse(int httpStatusCode, IEnumerable<KeyValuePair<string, IEnumerable<string>>> responseHeaders, string data)
         {
-            if (error["err-code"] == null || error["err-msg"] == null)
-                return new ServerError(error.ToString());
+            var errorData = ValidateJson(data);
+            if (!errorData)
+                return new ServerError(data);
 
-            return new ServerError($"{(string)error["err-code"]!}, {(string)error["err-msg"]!}");
+            if (errorData.Data["err-code"] == null || errorData.Data["err-msg"] == null)
+                return new ServerError(errorData.Data.ToString());
+
+            return new ServerError($"{(string)errorData.Data["err-code"]!}, {(string)errorData.Data["err-msg"]!}");
         }
 
         /// <summary>
