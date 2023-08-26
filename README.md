@@ -1,11 +1,14 @@
 # Huobi.Net
-[![.NET](https://github.com/JKorf/Huobi.Net/actions/workflows/dotnet.yml/badge.svg)](https://github.com/JKorf/Huobi.Net/actions/workflows/dotnet.yml) ![Nuget version](https://img.shields.io/nuget/v/Huobi.net.svg)  ![Nuget downloads](https://img.shields.io/nuget/dt/Huobi.Net.svg)
+[![.NET](https://github.com/JKorf/Huobi.Net/actions/workflows/dotnet.yml/badge.svg)](https://github.com/JKorf/Huobi.Net/actions/workflows/dotnet.yml) [![Nuget version](https://img.shields.io/nuget/v/Huobi.net.svg)](https://www.nuget.org/packages/Huobi.Net)  [![Nuget downloads](https://img.shields.io/nuget/dt/Huobi.Net.svg)](https://www.nuget.org/packages/Huobi.Net)
 
 Huobi.Net is a wrapper around the Huobi API as described on [Huobi](https://github.com/huobiapi), including all features the API provides using clear and readable objects, both for the REST  as the websocket API's.
 
 **If you think something is broken, something is missing or have any questions, please open an [Issue](https://github.com/JKorf/Huobi.Net/issues)**
 
 [Documentation](https://jkorf.github.io/Huobi.Net/)
+
+## Installation
+`dotnet add package Huobi.Net`
 
 ## Support the project
 I develop and maintain this package on my own for free in my spare time, any support is greatly appreciated.
