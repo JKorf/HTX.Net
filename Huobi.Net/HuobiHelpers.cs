@@ -60,6 +60,7 @@ namespace Huobi.Net
 
             services.AddSingleton<IHuobiOrderBookFactory, HuobiOrderBookFactory>();
             services.AddTransient<IHuobiRestClient, HuobiRestClient>();
+            services.AddTransient(x => x.GetRequiredService<IHuobiRestClient>().SpotApi.CommonSpotClient);
             if (socketClientLifeTime == null)
                 services.AddSingleton<IHuobiSocketClient, HuobiSocketClient>();
             else
