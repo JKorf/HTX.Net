@@ -38,6 +38,8 @@ namespace Huobi.Net.Clients.FuturesApi
         /// <inheritdoc />
         public string ExchangeName => "Huobi";
 
+        internal readonly string _brokerId;
+
         #region Api clients
 
         /// <inheritdoc />
@@ -58,6 +60,8 @@ namespace Huobi.Net.Clients.FuturesApi
             Trading = new HuobiClientUsdtMarginSwapApiTrading(this);
 
             manualParseError = true;
+
+            _brokerId = !string.IsNullOrEmpty(options.BrokerId) ? options.BrokerId : "AA1ef14811";
         }
         #endregion
 

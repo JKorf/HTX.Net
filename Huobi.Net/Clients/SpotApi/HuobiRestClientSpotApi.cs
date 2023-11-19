@@ -39,6 +39,8 @@ namespace Huobi.Net.Clients.SpotApi
         /// <inheritdoc />
         public string ExchangeName => "Huobi";
 
+        internal readonly string _brokerId;
+
         #region Api clients
 
         /// <inheritdoc />
@@ -59,6 +61,8 @@ namespace Huobi.Net.Clients.SpotApi
             Trading = new HuobiRestClientSpotApiTrading(this);
 
             manualParseError = true;
+
+            _brokerId = !string.IsNullOrEmpty(options.BrokerId) ? options.BrokerId : "AA1ef14811";
         }
         #endregion
 

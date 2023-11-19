@@ -9599,6 +9599,11 @@
             Whether public requests should be signed if ApiCredentials are provided. Needed for accurate rate limiting.
             </summary>
         </member>
+        <member name="P:Huobi.Net.Objects.Options.HuobiRestOptions.BrokerId">
+            <summary>
+            Broker id
+            </summary>
+        </member>
         <member name="P:Huobi.Net.Objects.Options.HuobiRestOptions.SpotOptions">
             <summary>
             Spot API options

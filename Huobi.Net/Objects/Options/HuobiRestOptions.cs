@@ -25,6 +25,11 @@ namespace Huobi.Net.Objects.Options
         public bool SignPublicRequests { get; set; } = false;
 
         /// <summary>
+        /// Broker id
+        /// </summary>
+        public string? BrokerId { get; set; }
+
+        /// <summary>
         /// Spot API options
         /// </summary>
         public RestApiOptions SpotOptions { get; private set; } = new RestApiOptions()
@@ -49,6 +54,7 @@ namespace Huobi.Net.Objects.Options
             options.SpotOptions = SpotOptions.Copy<RestApiOptions>();
             options.UsdtMarginSwapOptions = UsdtMarginSwapOptions.Copy<RestApiOptions>();
             options.SignPublicRequests = SignPublicRequests;
+            options.BrokerId = BrokerId;
             return options;
         }
     }

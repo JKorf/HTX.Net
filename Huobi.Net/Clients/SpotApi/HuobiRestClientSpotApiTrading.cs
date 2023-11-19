@@ -57,6 +57,8 @@ namespace Huobi.Net.Clients.SpotApi
                 { "type", orderType }
             };
 
+            clientOrderId = clientOrderId ?? ExchangeHelpers.AppendRandomString(_baseClient._brokerId, 64);
+
             parameters.AddOptionalParameter("client-order-id", clientOrderId);
             parameters.AddOptionalParameter("source", source == null ? null : JsonConvert.SerializeObject(source, new SourceTypeConverter(false)));
             parameters.AddOptionalParameter("stop-price", stopPrice);
