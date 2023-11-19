@@ -62,7 +62,7 @@ namespace Huobi.Net.Clients.SpotApi
 
             manualParseError = true;
 
-            _brokerId = !string.IsNullOrEmpty(options.BrokerId) ? options.BrokerId : "AA1ef14811";
+            _brokerId = !string.IsNullOrEmpty(options.BrokerId) ? options.BrokerId! : "AA1ef14811";
         }
         #endregion
 

@@ -61,7 +61,7 @@ namespace Huobi.Net.Clients.FuturesApi
 
             manualParseError = true;
 
-            _brokerId = !string.IsNullOrEmpty(options.BrokerId) ? options.BrokerId : "AA1ef14811";
+            _brokerId = !string.IsNullOrEmpty(options.BrokerId) ? options.BrokerId! : "AA1ef14811";
         }
         #endregion
 
