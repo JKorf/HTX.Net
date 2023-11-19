@@ -1,22 +1,10 @@
 ﻿using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
-namespace Huobi.Net.Objects.Internal
+namespace Huobi.Net.Objects.Sockets
 {
-    internal class HuobiAuthenticationRequest: HuobiAuthenticatedSubscribeRequest
-    {
-        [JsonProperty("params")] public HuobiAuthParams Parameters { get; set; }
-
-        public HuobiAuthenticationRequest(string accessKey, string timestamp, string signature): base("auth", "req")
-        {
-            Parameters = new HuobiAuthParams()
-            {
-                AccessKey = accessKey,
-                Timestamp = timestamp,
-                Signature = signature
-            };
-        }
-    }
-
     internal class HuobiAuthParams
     {
         [JsonProperty("authType")] public string AuthType { get; set; } = "api";

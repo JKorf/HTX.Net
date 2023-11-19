@@ -9,6 +9,7 @@ using Huobi.Net.Clients;
 using System.Threading;
 using Microsoft.Extensions.Logging;
 using Huobi.Net.Objects.Options;
+using CryptoExchange.Net.Objects.Sockets;
 
 namespace Huobi.Net.SymbolOrderBooks
 {
@@ -72,51 +73,52 @@ namespace Huobi.Net.SymbolOrderBooks
         /// <inheritdoc />
         protected override async Task<CallResult<UpdateSubscription>> DoStartAsync(CancellationToken ct)
         {
-            if(_mergeStep != null)
-            {
-                var subResult = await _socketClient.SpotApi.SubscribeToPartialOrderBookUpdates1SecondAsync(Symbol, _mergeStep.Value, HandleUpdate).ConfigureAwait(false);
-                if (!subResult)
-                    return subResult;
+            return new CallResult<UpdateSubscription>(new ServerError(""));
+            //if(_mergeStep != null)
+            //{
+            //    var subResult = await _socketClient.SpotApi.SubscribeToPartialOrderBookUpdates1SecondAsync(Symbol, _mergeStep.Value, HandleUpdate).ConfigureAwait(false);
+            //    if (!subResult)
+            //        return subResult;
 
-                if(ct.IsCancellationRequested)
-                {
-                    await subResult.Data.CloseAsync().ConfigureAwait(false);
-                    return subResult.AsError<UpdateSubscription>(new CancellationRequestedError());
-                }
+            //    if(ct.IsCancellationRequested)
+            //    {
+            //        await subResult.Data.CloseAsync().ConfigureAwait(false);
+            //        return subResult.AsError<UpdateSubscription>(new CancellationRequestedError());
+            //    }
 
-                Status = OrderBookStatus.Syncing;
-                var setResult = await WaitForSetOrderBookAsync(_initialDataTimeout, ct).ConfigureAwait(false);
-                if (!setResult)
-                    await subResult.Data.CloseAsync().ConfigureAwait(false);
+            //    Status = OrderBookStatus.Syncing;
+            //    var setResult = await WaitForSetOrderBookAsync(_initialDataTimeout, ct).ConfigureAwait(false);
+            //    if (!setResult)
+            //        await subResult.Data.CloseAsync().ConfigureAwait(false);
 
-                return setResult ? subResult : new CallResult<UpdateSubscription>(setResult.Error!);
-            }
-            else
-            {
-                var subResult = await _socketClient.SpotApi.SubscribeToOrderBookChangeUpdatesAsync(Symbol, _levels!.Value, HandleIncremental).ConfigureAwait(false);
-                if (!subResult)
-                    return subResult;
+            //    return setResult ? subResult : new CallResult<UpdateSubscription>(setResult.Error!);
+            //}
+            //else
+            //{
+            //    var subResult = await _socketClient.SpotApi.SubscribeToOrderBookChangeUpdatesAsync(Symbol, _levels!.Value, HandleIncremental).ConfigureAwait(false);
+            //    if (!subResult)
+            //        return subResult;
 
-                if (ct.IsCancellationRequested)
-                {
-                    await subResult.Data.CloseAsync().ConfigureAwait(false);
-                    return subResult.AsError<UpdateSubscription>(new CancellationRequestedError());
-                }
+            //    if (ct.IsCancellationRequested)
+            //    {
+            //        await subResult.Data.CloseAsync().ConfigureAwait(false);
+            //        return subResult.AsError<UpdateSubscription>(new CancellationRequestedError());
+            //    }
 
-                Status = OrderBookStatus.Syncing;
-                // Wait a little so that the sequence number of the order book snapshot is higher than the first socket update sequence number
-                await Task.Delay(500).ConfigureAwait(false);
-                var book = await _socketClient.SpotApi.GetOrderBookAsync(Symbol, _levels.Value).ConfigureAwait(false);
-                if (!book) 
-                {
-                    _logger.Log(LogLevel.Debug, $"{Id} order book {Symbol} failed to retrieve initial order book");
-                    await _socketClient.UnsubscribeAsync(subResult.Data).ConfigureAwait(false);
-                    return new CallResult<UpdateSubscription>(book.Error!);
-                }
+            //    Status = OrderBookStatus.Syncing;
+            //    // Wait a little so that the sequence number of the order book snapshot is higher than the first socket update sequence number
+            //    await Task.Delay(500).ConfigureAwait(false);
+            //    var book = await _socketClient.SpotApi.GetOrderBookAsync(Symbol, _levels.Value).ConfigureAwait(false);
+            //    if (!book) 
+            //    {
+            //        _logger.Log(LogLevel.Debug, $"{Id} order book {Symbol} failed to retrieve initial order book");
+            //        await _socketClient.UnsubscribeAsync(subResult.Data).ConfigureAwait(false);
+            //        return new CallResult<UpdateSubscription>(book.Error!);
+            //    }
 
-                SetInitialOrderBook(book.Data.SequenceNumber, book.Data.Bids, book.Data.Asks);
-                return subResult;
-            }            
+            //    SetInitialOrderBook(book.Data.SequenceNumber, book.Data.Bids, book.Data.Asks);
+            //    return subResult;
+            //}            
         }
 
         private void HandleIncremental(DataEvent<HuobiIncementalOrderBook> book)
@@ -135,21 +137,23 @@ namespace Huobi.Net.SymbolOrderBooks
         /// <inheritdoc />
         protected override async Task<CallResult<bool>> DoResyncAsync(CancellationToken ct)
         {
-            if (_mergeStep != null)
-            {
-                return await WaitForSetOrderBookAsync(_initialDataTimeout, ct).ConfigureAwait(false);
-            }
-            else
-            {
-                // Wait a little so that the sequence number of the order book snapshot is higher than the first socket update sequence number
-                await Task.Delay(5000).ConfigureAwait(false);
-                var book = await _socketClient.SpotApi.GetOrderBookAsync(Symbol, _levels!.Value).ConfigureAwait(false);
-                if (!book)
-                    return new CallResult<bool>(book.Error!);                
+            return new CallResult<bool>(new ServerError(""));
 
-                SetInitialOrderBook(book.Data.SequenceNumber, book.Data.Bids!, book.Data.Asks!);
-                return new CallResult<bool>(true);
-            }
+            //if (_mergeStep != null)
+            //{
+            //    return await WaitForSetOrderBookAsync(_initialDataTimeout, ct).ConfigureAwait(false);
+            //}
+            //else
+            //{
+            //    // Wait a little so that the sequence number of the order book snapshot is higher than the first socket update sequence number
+            //    await Task.Delay(5000).ConfigureAwait(false);
+            //    var book = await _socketClient.SpotApi.GetOrderBookAsync(Symbol, _levels!.Value).ConfigureAwait(false);
+            //    if (!book)
+            //        return new CallResult<bool>(book.Error!);                
+
+            //    SetInitialOrderBook(book.Data.SequenceNumber, book.Data.Bids!, book.Data.Asks!);
+            //    return new CallResult<bool>(true);
+            //}
         }
 
         /// <inheritdoc />

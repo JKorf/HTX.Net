@@ -7,6 +7,11 @@ namespace Huobi.Net.Objects.Internal
     internal class HuobiDataEvent<T>
     {
         /// <summary>
+        /// The action
+        /// </summary>
+        [JsonProperty("action")]
+        public string Action { get; set; } = string.Empty;
+        /// <summary>
         /// The name of the data channel
         /// </summary>
         [JsonProperty("ch")]
