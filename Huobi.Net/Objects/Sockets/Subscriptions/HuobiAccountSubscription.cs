@@ -3,6 +3,7 @@ using CryptoExchange.Net.Objects.Sockets;
 using CryptoExchange.Net.Sockets;
 using CryptoExchange.Net.Sockets.MessageParsing.Interfaces;
 using Huobi.Net.Objects.Internal;
+using Huobi.Net.Objects.Models.Socket;
 using Huobi.Net.Objects.Sockets.Queries;
 using Microsoft.Extensions.Logging;
 using System;
@@ -11,14 +12,14 @@ using System.Threading.Tasks;
 
 namespace Huobi.Net.Objects.Sockets.Subscriptions
 {
-    internal class HuobiSubscription<T> : Subscription<HuobiSocketResponse, HuobiSocketResponse>
+    internal class HuobiAccountSubscription : Subscription<HuobiSocketAuthResponse, HuobiSocketAuthResponse>
     {
         private string _topic;
-        private Action<DataEvent<T>> _handler;
+        private Action<DataEvent<HuobiAccountUpdate>> _handler;
 
         public override HashSet<string> ListenerIdentifiers { get; set; }
 
-        public HuobiSubscription(ILogger logger, string topic, Action<DataEvent<T>> handler, bool authenticated) : base(logger, authenticated)
+        public HuobiAccountSubscription(ILogger logger, string topic, Action<DataEvent<HuobiAccountUpdate>> handler, bool authenticated) : base(logger, authenticated)
         {
             _handler = handler;
             _topic = topic;
@@ -27,20 +28,19 @@ namespace Huobi.Net.Objects.Sockets.Subscriptions
 
         public override Query? GetSubQuery(SocketConnection connection)
         {
-            return new HuobiSubscribeQuery(_topic, Authenticated);
+            return new HuobiAuthQuery("sub", _topic, Authenticated);
         }
         public override Query? GetUnsubQuery()
         {
-            return new HuobiUnsubscribeQuery(_topic, Authenticated);
+            return new HuobiAuthQuery("unsub", _topic, Authenticated);
         }
-
-        public override Type? GetMessageType(IMessageAccessor message) => typeof(HuobiDataEvent<T>);
-
         public override Task<CallResult> DoHandleMessageAsync(SocketConnection connection, DataEvent<object> message)
         {
-            var huobiEvent = (HuobiDataEvent<T>)message.Data;
-            _handler.Invoke(message.As(huobiEvent.Data, huobiEvent.Channel));
+            var update = (HuobiDataEvent<HuobiAccountUpdate>)message.Data;
+            _handler.Invoke(message.As(update.Data, update.Channel));
             return Task.FromResult(new CallResult(null));
         }
+
+        public override Type? GetMessageType(IMessageAccessor message) => typeof(HuobiDataEvent<HuobiAccountUpdate>);
     }
 }

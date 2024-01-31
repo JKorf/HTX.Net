@@ -1,32 +1,30 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Huobi.Net.Objects.Sockets
 {
     internal class HuobiAuthPongMessage
     {
         [JsonProperty("action")]
-        public string Action { get; set; }
+        public string Action { get; set; } = string.Empty;
         [JsonProperty("data")]
-        public HuobiAuthPongMessageTimestamp Data { get; set; }
+        public HuobiAuthPongMessageTimestamp Data { get; set; } = null!;
     }
+
     internal class HuobiAuthPingMessage
     {
         [JsonProperty("action")]
-        public string Action { get; set; }
+        public string Action { get; set; } = string.Empty;
         [JsonProperty("data")]
-        public HuobiAuthPingMessageTimestamp Data { get; set; }
+        public HuobiAuthPingMessageTimestamp Data { get; set; } = null!;
     }
 
-    public class HuobiAuthPongMessageTimestamp
+    internal class HuobiAuthPongMessageTimestamp
     {
         [JsonProperty("pong")]
         public long Pong { get; set; }
     }
 
-    public class HuobiAuthPingMessageTimestamp
+    internal class HuobiAuthPingMessageTimestamp
     {
         [JsonProperty("ts")]
         public long Ping { get; set; }

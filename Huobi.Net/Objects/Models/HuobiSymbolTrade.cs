@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using CryptoExchange.Net.Converters;
 using Huobi.Net.Converters;
 using Huobi.Net.Enums;

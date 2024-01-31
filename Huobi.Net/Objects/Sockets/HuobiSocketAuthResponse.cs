@@ -1,16 +1,13 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Huobi.Net.Objects.Sockets
 {
     internal class HuobiSocketAuthResponse
     {
         [JsonProperty("action")]
-        public string Action { get; set; }
+        public string Action { get; set; } = string.Empty;
         [JsonProperty("ch")]
-        public string Channel { get; set; }
+        public string Channel { get; set; } = string.Empty;
         [JsonProperty("code")]
         public int Code { get; set; }
         [JsonProperty("message")]

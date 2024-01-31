@@ -339,22 +339,112 @@
         <member name="T:Huobi.Net.Clients.SpotApi.HuobiSocketClientSpotApi">
             <inheritdoc />
         </member>
+        <member name="M:Huobi.Net.Clients.SpotApi.HuobiSocketClientSpotApi.GetListenerIdentifier(CryptoExchange.Net.Sockets.MessageParsing.Interfaces.IMessageAccessor)">
+            <inheritdoc />
+        </member>
+        <member name="M:Huobi.Net.Clients.SpotApi.HuobiSocketClientSpotApi.PreprocessStreamMessage(System.Net.WebSockets.WebSocketMessageType,System.IO.Stream)">
+            <inheritdoc />
+        </member>
         <member name="M:Huobi.Net.Clients.SpotApi.HuobiSocketClientSpotApi.CreateAuthenticationProvider(CryptoExchange.Net.Authentication.ApiCredentials)">
+            <inheritdoc />
+        </member>
+        <member name="M:Huobi.Net.Clients.SpotApi.HuobiSocketClientSpotApi.GetAuthenticationRequest">
+            <inheritdoc />
+        </member>
+        <member name="M:Huobi.Net.Clients.SpotApi.HuobiSocketClientSpotApi.GetKlinesAsync(System.String,Huobi.Net.Enums.KlineInterval)">
+            <inheritdoc />
+        </member>
+        <member name="M:Huobi.Net.Clients.SpotApi.HuobiSocketClientSpotApi.SubscribeToKlineUpdatesAsync(System.String,Huobi.Net.Enums.KlineInterval,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Huobi.Net.Objects.Models.HuobiKline}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Huobi.Net.Clients.SpotApi.HuobiSocketClientSpotApi.GetOrderBookWithMergeStepAsync(System.String,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Huobi.Net.Clients.SpotApi.HuobiSocketClientSpotApi.GetOrderBookAsync(System.String,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Huobi.Net.Clients.SpotApi.HuobiSocketClientSpotApi.SubscribeToPartialOrderBookUpdates1SecondAsync(System.String,System.Int32,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Huobi.Net.Objects.Models.HuobiOrderBook}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Huobi.Net.Clients.SpotApi.HuobiSocketClientSpotApi.SubscribeToPartialOrderBookUpdates100MilisecondAsync(System.String,System.Int32,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Huobi.Net.Objects.Models.HuobiOrderBook}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Huobi.Net.Clients.SpotApi.HuobiSocketClientSpotApi.SubscribeToOrderBookChangeUpdatesAsync(System.String,System.Int32,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Huobi.Net.Objects.Models.HuobiIncementalOrderBook}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:Huobi.Net.Clients.SpotApi.HuobiSocketClientSpotApi.GetTradeHistoryAsync(System.String)">
             <inheritdoc />
         </member>
+        <member name="M:Huobi.Net.Clients.SpotApi.HuobiSocketClientSpotApi.SubscribeToTradeUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Huobi.Net.Objects.Models.HuobiSymbolTrade}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Huobi.Net.Clients.SpotApi.HuobiSocketClientSpotApi.GetSymbolDetailsAsync(System.String)">
+            <inheritdoc />
+        </member>
         <member name="M:Huobi.Net.Clients.SpotApi.HuobiSocketClientSpotApi.SubscribeToSymbolDetailUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Huobi.Net.Objects.Models.HuobiSymbolDetails}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Huobi.Net.Clients.SpotApi.HuobiSocketClientSpotApi.SubscribeToTickerUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{Huobi.Net.Objects.Models.HuobiSymbolTicker}}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Huobi.Net.Clients.SpotApi.HuobiSocketClientSpotApi.SubscribeToTickerUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Huobi.Net.Objects.Models.HuobiSymbolTick}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Huobi.Net.Clients.SpotApi.HuobiSocketClientSpotApi.SubscribeToBestOfferUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Huobi.Net.Objects.Models.HuobiBestOffer}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Huobi.Net.Clients.SpotApi.HuobiSocketClientSpotApi.SubscribeToOrderUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Huobi.Net.Objects.Models.Socket.HuobiSubmittedOrderUpdate}},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Huobi.Net.Objects.Models.Socket.HuobiMatchedOrderUpdate}},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Huobi.Net.Objects.Models.Socket.HuobiCanceledOrderUpdate}},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Huobi.Net.Objects.Models.Socket.HuobiTriggerFailureOrderUpdate}},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Huobi.Net.Objects.Models.Socket.HuobiOrderUpdate}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:Huobi.Net.Clients.SpotApi.HuobiSocketClientSpotApi.SubscribeToAccountUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Huobi.Net.Objects.Models.Socket.HuobiAccountUpdate}},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
+        <member name="M:Huobi.Net.Clients.SpotApi.HuobiSocketClientSpotApi.SubscribeToOrderDetailsUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Huobi.Net.Objects.Models.Socket.HuobiTradeUpdate}},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Huobi.Net.Objects.Models.Socket.HuobiOrderCancelationUpdate}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
         <member name="T:Huobi.Net.Clients.SpotApi.HuobiSocketClientUsdtMarginSwapApi">
             <inheritdoc />
         </member>
+        <member name="M:Huobi.Net.Clients.SpotApi.HuobiSocketClientUsdtMarginSwapApi.PreprocessStreamMessage(System.Net.WebSockets.WebSocketMessageType,System.IO.Stream)">
+            <inheritdoc />
+        </member>
+        <member name="M:Huobi.Net.Clients.SpotApi.HuobiSocketClientUsdtMarginSwapApi.GetListenerIdentifier(CryptoExchange.Net.Sockets.MessageParsing.Interfaces.IMessageAccessor)">
+            <inheritdoc />
+        </member>
         <member name="M:Huobi.Net.Clients.SpotApi.HuobiSocketClientUsdtMarginSwapApi.CreateAuthenticationProvider(CryptoExchange.Net.Authentication.ApiCredentials)">
+            <inheritdoc />
+        </member>
+        <member name="M:Huobi.Net.Clients.SpotApi.HuobiSocketClientUsdtMarginSwapApi.SubscribeToKlineUpdatesAsync(System.String,Huobi.Net.Enums.KlineInterval,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Huobi.Net.Objects.Models.HuobiKline}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Huobi.Net.Clients.SpotApi.HuobiSocketClientUsdtMarginSwapApi.SubscribeToOrderBookUpdatesAsync(System.String,System.Int32,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Huobi.Net.Objects.Models.Socket.HuobiUsdtMarginSwapIncementalOrderBook}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Huobi.Net.Clients.SpotApi.HuobiSocketClientUsdtMarginSwapApi.SubscribeToIncrementalOrderBookUpdatesAsync(System.String,System.Boolean,System.Int32,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Huobi.Net.Objects.Models.Socket.HuobiUsdtMarginSwapIncementalOrderBook}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Huobi.Net.Clients.SpotApi.HuobiSocketClientUsdtMarginSwapApi.SubscribeToSymbolTickerUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Huobi.Net.Objects.Models.Socket.HuobiSymbolTickUpdate}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Huobi.Net.Clients.SpotApi.HuobiSocketClientUsdtMarginSwapApi.SubscribeToBestOfferUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Huobi.Net.Objects.Models.Socket.HuobiBestOfferUpdate}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Huobi.Net.Clients.SpotApi.HuobiSocketClientUsdtMarginSwapApi.SubscribeToTradeUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Huobi.Net.Objects.Models.Socket.HuobiUsdtMarginSwapTradesUpdate}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Huobi.Net.Clients.SpotApi.HuobiSocketClientUsdtMarginSwapApi.SubscribeToIndexKlineUpdatesAsync(System.String,Huobi.Net.Enums.KlineInterval,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Huobi.Net.Objects.Models.HuobiKline}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Huobi.Net.Clients.SpotApi.HuobiSocketClientUsdtMarginSwapApi.SubscribeToPremiumIndexKlineUpdatesAsync(System.String,Huobi.Net.Enums.KlineInterval,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Huobi.Net.Objects.Models.HuobiKline}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Huobi.Net.Clients.SpotApi.HuobiSocketClientUsdtMarginSwapApi.SubscribeToEstimatedFundingRateKlineUpdatesAsync(System.String,Huobi.Net.Enums.KlineInterval,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Huobi.Net.Objects.Models.HuobiKline}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Huobi.Net.Clients.SpotApi.HuobiSocketClientUsdtMarginSwapApi.SubscribeToBasisUpdatesAsync(System.String,Huobi.Net.Enums.KlineInterval,System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Huobi.Net.Objects.Models.Socket.HuobiUsdtMarginSwapBasisUpdate}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Huobi.Net.Clients.SpotApi.HuobiSocketClientUsdtMarginSwapApi.SubscribeToMarkPriceKlineUpdatesAsync(System.String,Huobi.Net.Enums.KlineInterval,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Huobi.Net.Objects.Models.HuobiKline}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="T:Huobi.Net.Clients.FuturesApi.HuobiClientUsdtMarginSwapApi">
@@ -2941,12 +3031,100 @@
             Spot streams
             </summary>
         </member>
+        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiSocketClientSpotApi.GetKlinesAsync(System.String,Huobi.Net.Enums.KlineInterval)">
+            <summary>
+            Gets candlestick data for a symbol
+            <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-latest-tickers-for-all-pairs" /></para>
+            </summary>
+            <param name="symbol">The symbol to get the data for</param>
+            <param name="period">The period of a single candlestick</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiSocketClientSpotApi.SubscribeToKlineUpdatesAsync(System.String,Huobi.Net.Enums.KlineInterval,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Huobi.Net.Objects.Models.HuobiKline}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribes to candlestick updates for a symbol
+            </summary>
+            <param name="symbol">The symbol to subscribe to</param>
+            <param name="period">The period of a single candlestick</param>
+            <param name="onData">The handler for updates</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiSocketClientSpotApi.GetOrderBookWithMergeStepAsync(System.String,System.Int32)">
+            <summary>
+            Gets the current order book for a symbol
+            <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#market-depth" /></para>
+            </summary>
+            <param name="symbol">The symbol to get the data for</param>
+            <param name="mergeStep">The way the results will be merged together</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiSocketClientSpotApi.GetOrderBookAsync(System.String,System.Int32)">
+            <summary>
+            Gets the current order book for a symbol
+            <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#market-by-price-incremental-update" /></para>
+            </summary>
+            <param name="symbol">The symbol to get the data for</param>
+            <param name="levels">The amount of rows. 5, 20, 150 or 400</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiSocketClientSpotApi.SubscribeToPartialOrderBookUpdates100MilisecondAsync(System.String,System.Int32,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Huobi.Net.Objects.Models.HuobiOrderBook}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribes to order book updates for a symbol
+            <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#market-by-price-incremental-update" /></para>
+            </summary>
+            <param name="symbol">The symbol to subscribe to</param>
+            <param name="levels">The number of price levels. 5, 10 or 20</param>
+            <param name="onData">The handler for updates</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiSocketClientSpotApi.SubscribeToPartialOrderBookUpdates1SecondAsync(System.String,System.Int32,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Huobi.Net.Objects.Models.HuobiOrderBook}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribes to order book updates for a symbol
+            <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#market-depth" /></para>
+            </summary>
+            <param name="symbol">The symbol to subscribe to</param>
+            <param name="mergeStep">The way the results will be merged together</param>
+            <param name="onData">The handler for updates</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiSocketClientSpotApi.SubscribeToOrderBookChangeUpdatesAsync(System.String,System.Int32,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Huobi.Net.Objects.Models.HuobiIncementalOrderBook}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribes to order book updates for a symbol, 
+            <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#market-by-price-incremental-update" /></para>
+            </summary>
+            <param name="symbol">The symbol to subscribe to</param>
+            <param name="levels">The number of price levels. 5, 20, 150 or 400</param>
+            <param name="onData">The handler for updates</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        </member>
         <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiSocketClientSpotApi.GetTradeHistoryAsync(System.String)">
             <summary>
             Gets a list of trades for a symbol
             <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#trade-detail" /></para>
             </summary>
             <param name="symbol">The symbol to get trades for</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiSocketClientSpotApi.SubscribeToTradeUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Huobi.Net.Objects.Models.HuobiSymbolTrade}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribes to trade updates for a symbol
+            <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#trade-detail" /></para>
+            </summary>
+            <param name="symbol">The symbol to subscribe to</param>
+            <param name="onData">The handler for updates</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiSocketClientSpotApi.GetSymbolDetailsAsync(System.String)">
+            <summary>
+            Gets details for a symbol
+            <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#market-details" /></para>
+            </summary>
+            <param name="symbol">The symbol to get data for</param>
             <returns></returns>
         </member>
         <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiSocketClientSpotApi.SubscribeToSymbolDetailUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Huobi.Net.Objects.Models.HuobiSymbolDetails}},System.Threading.CancellationToken)">
@@ -2959,6 +3137,49 @@
             <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
         </member>
+        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiSocketClientSpotApi.SubscribeToTickerUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Huobi.Net.Objects.Models.HuobiSymbolTick}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribes to updates for a symbol
+            <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#market-ticker" /></para>
+            </summary>
+            <param name="symbol">The symbol to subscribe</param>
+            <param name="onData">The handler for updates</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiSocketClientSpotApi.SubscribeToTickerUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{Huobi.Net.Objects.Models.HuobiSymbolTicker}}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribes to updates for all tickers
+            <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#market-ticker" /></para>
+            </summary>
+            <param name="onData">The handler for updates</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiSocketClientSpotApi.SubscribeToBestOfferUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Huobi.Net.Objects.Models.HuobiBestOffer}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to changes of a symbol's best ask/bid
+            <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#best-bid-offer" /></para>
+            </summary>
+            <param name="symbol">Symbol to subscribe to</param>
+            <param name="onData">Data handler</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiSocketClientSpotApi.SubscribeToOrderUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Huobi.Net.Objects.Models.Socket.HuobiSubmittedOrderUpdate}},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Huobi.Net.Objects.Models.Socket.HuobiMatchedOrderUpdate}},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Huobi.Net.Objects.Models.Socket.HuobiCanceledOrderUpdate}},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Huobi.Net.Objects.Models.Socket.HuobiTriggerFailureOrderUpdate}},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Huobi.Net.Objects.Models.Socket.HuobiOrderUpdate}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to updates of orders
+            <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#subscribe-order-updates" /></para>
+            </summary>
+            <param name="symbol">Subscribe on a specific symbol</param>
+            <param name="onOrderSubmitted">Event handler for the order submitted event</param>
+            <param name="onOrderMatched">Event handler for the order matched event</param>
+            <param name="onOrderCancelation">Event handler for the order cancelled event</param>
+            <param name="onConditionalOrderTriggerFailure">Event handler for the conditional order trigger failed event</param>
+            <param name="onConditionalOrderCanceled">Event handler for the condition order canceled event</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        </member>
         <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiSocketClientSpotApi.SubscribeToAccountUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Huobi.Net.Objects.Models.Socket.HuobiAccountUpdate}},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Subscribe to updates of account balances
@@ -2966,6 +3187,17 @@
             </summary>
             <param name="onAccountUpdate">Event handler</param>
             <param name="updateMode">The update mode. Defaults to 1, see API docs for more info</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiSocketClientSpotApi.SubscribeToOrderDetailsUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Huobi.Net.Objects.Models.Socket.HuobiTradeUpdate}},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Huobi.Net.Objects.Models.Socket.HuobiOrderCancelationUpdate}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to detailed order matched/canceled updates
+            <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#subscribe-trade-details-amp-order-cancellation-post-clearing" /></para>
+            </summary>
+            <param name="symbol">Subscribe to a specific symbol</param>
+            <param name="onOrderMatch">Event handler for the order matched event</param>
+            <param name="onOrderCancel">Event handler for the order canceled event</param>
             <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
         </member>
@@ -3857,6 +4089,126 @@
             <summary>
             Usdt margin swap streams
             </summary>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiSocketClientUsdtMarginSwapApi.SubscribeToBasisUpdatesAsync(System.String,Huobi.Net.Enums.KlineInterval,System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Huobi.Net.Objects.Models.Socket.HuobiUsdtMarginSwapBasisUpdate}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to basis updates
+            <para><a href="https://huobiapi.github.io/docs/usdt_swap/v1/en/#general-subscribe-basis-data" /></para>
+            </summary>
+            <param name="contractCode">Contract code</param>
+            <param name="period">Period</param>
+            <param name="priceType">Price type</param>
+            <param name="onData">Data handler</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiSocketClientUsdtMarginSwapApi.SubscribeToBestOfferUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Huobi.Net.Objects.Models.Socket.HuobiBestOfferUpdate}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to best offer updates
+            <para><a href="https://huobiapi.github.io/docs/usdt_swap/v1/en/#general-subscribe-market-bbo-data-push" /></para>
+            </summary>
+            <param name="contractCode">Contract code</param>
+            <param name="onData">Data handler</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiSocketClientUsdtMarginSwapApi.SubscribeToEstimatedFundingRateKlineUpdatesAsync(System.String,Huobi.Net.Enums.KlineInterval,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Huobi.Net.Objects.Models.HuobiKline}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to estimated funding rate kline updates
+            <para><a href="https://huobiapi.github.io/docs/usdt_swap/v1/en/#general-subscribe-estimated-funding-rate-kline-data" /></para>
+            </summary>
+            <param name="contractCode">Contract code</param>
+            <param name="period">Period</param>
+            <param name="onData">Data handler</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiSocketClientUsdtMarginSwapApi.SubscribeToIncrementalOrderBookUpdatesAsync(System.String,System.Boolean,System.Int32,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Huobi.Net.Objects.Models.Socket.HuobiUsdtMarginSwapIncementalOrderBook}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to incremental order book updates
+            <para><a href="https://huobiapi.github.io/docs/usdt_swap/v1/en/#general-subscribe-incremental-market-depth-data" /></para>
+            </summary>
+            <param name="contractCode">Contract code</param>
+            <param name="snapshot">Snapshot or incremental</param>
+            <param name="limit">Depth</param>
+            <param name="onData">Data handler</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiSocketClientUsdtMarginSwapApi.SubscribeToIndexKlineUpdatesAsync(System.String,Huobi.Net.Enums.KlineInterval,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Huobi.Net.Objects.Models.HuobiKline}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to index kline updates
+            <para><a href="https://huobiapi.github.io/docs/usdt_swap/v1/en/#general-subscribe-index-kline-data" /></para>
+            </summary>
+            <param name="contractCode">Contract code</param>
+            <param name="period">Period</param>
+            <param name="onData">Data handler</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiSocketClientUsdtMarginSwapApi.SubscribeToKlineUpdatesAsync(System.String,Huobi.Net.Enums.KlineInterval,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Huobi.Net.Objects.Models.HuobiKline}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to kline updates
+            <para><a href = "https://huobiapi.github.io/docs/usdt_swap/v1/en/#general-subscribe-kline-data" /></para >
+            </summary >
+            <param name="contractCode">Contract code</param>
+            <param name="period">Period</param>
+            <param name="onData">Data handler</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiSocketClientUsdtMarginSwapApi.SubscribeToMarkPriceKlineUpdatesAsync(System.String,Huobi.Net.Enums.KlineInterval,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Huobi.Net.Objects.Models.HuobiKline}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to mark price updates
+            <para><a href="https://huobiapi.github.io/docs/usdt_swap/v1/en/#general-subscribe-kline-data-of-mark-price" /></para>
+            </summary>
+            <param name="contractCode">Contract code</param>
+            <param name="period">Period</param>
+            <param name="onData">Data handler</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiSocketClientUsdtMarginSwapApi.SubscribeToOrderBookUpdatesAsync(System.String,System.Int32,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Huobi.Net.Objects.Models.Socket.HuobiUsdtMarginSwapIncementalOrderBook}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to order book updates
+            <para><a href="https://huobiapi.github.io/docs/usdt_swap/v1/en/#general-subscribe-market-depth-data" /></para>
+            </summary>
+            <param name="contractCode">Contract code</param>
+            <param name="mergeStep">Merge step</param>
+            <param name="onData">Data handler</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiSocketClientUsdtMarginSwapApi.SubscribeToPremiumIndexKlineUpdatesAsync(System.String,Huobi.Net.Enums.KlineInterval,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Huobi.Net.Objects.Models.HuobiKline}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to premium index kline updates
+            <para><a href="https://huobiapi.github.io/docs/usdt_swap/v1/en/#general-subscribe-premium-index-kline-data" /></para>
+            </summary>
+            <param name="contractCode">Contract code</param>
+            <param name="period">Period</param>
+            <param name="onData">Data handler</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiSocketClientUsdtMarginSwapApi.SubscribeToSymbolTickerUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Huobi.Net.Objects.Models.Socket.HuobiSymbolTickUpdate}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to symbol ticker updates
+            <para><a href="https://huobiapi.github.io/docs/usdt_swap/v1/en/#general-subscribe-market-detail-data" /></para>
+            </summary>
+            <param name="contractCode">Contract code</param>
+            <param name="onData">Data handler</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiSocketClientUsdtMarginSwapApi.SubscribeToTradeUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Huobi.Net.Objects.Models.Socket.HuobiUsdtMarginSwapTradesUpdate}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to symbol trade updates
+            <para><a href="https://huobiapi.github.io/docs/usdt_swap/v1/en/#general-subscribe-trade-detail-data" /></para>
+            </summary>
+            <param name="contractCode">Contract code</param>
+            <param name="onData">Data handler</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
         </member>
         <member name="T:Huobi.Net.Interfaces.IHuobiOrderBookFactory">
             <summary>

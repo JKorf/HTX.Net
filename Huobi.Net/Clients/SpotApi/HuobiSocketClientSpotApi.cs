@@ -1,20 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.IO.Compression;
+using System.Net.WebSockets;
 using System.Threading;
 using System.Threading.Tasks;
 using CryptoExchange.Net;
 using CryptoExchange.Net.Authentication;
-using CryptoExchange.Net.Converters;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Objects.Sockets;
 using CryptoExchange.Net.Sockets;
+using CryptoExchange.Net.Sockets.MessageParsing;
+using CryptoExchange.Net.Sockets.MessageParsing.Interfaces;
 using Huobi.Net.Converters;
 using Huobi.Net.Enums;
 using Huobi.Net.Interfaces.Clients.SpotApi;
-using Huobi.Net.Objects;
 using Huobi.Net.Objects.Internal;
 using Huobi.Net.Objects.Models;
 using Huobi.Net.Objects.Models.Socket;
@@ -24,7 +24,6 @@ using Huobi.Net.Objects.Sockets.Queries;
 using Huobi.Net.Objects.Sockets.Subscriptions;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using HuobiOrderUpdate = Huobi.Net.Objects.Models.Socket.HuobiOrderUpdate;
 
 namespace Huobi.Net.Clients.SpotApi
@@ -32,6 +31,10 @@ namespace Huobi.Net.Clients.SpotApi
     /// <inheritdoc />
     public class HuobiSocketClientSpotApi : SocketApiClient, IHuobiSocketClientSpotApi
     {
+        private static readonly MessagePath _idPath = MessagePath.Get().Property("id");
+        private static readonly MessagePath _actionPath = MessagePath.Get().Property("action");
+        private static readonly MessagePath _channelPath = MessagePath.Get().Property("ch");
+
         #region fields
         #endregion
 
@@ -41,137 +44,128 @@ namespace Huobi.Net.Clients.SpotApi
         {
             KeepAliveInterval = TimeSpan.Zero;
 
-            //SetDataInterpreter(DecompressData, null);
-            //AddGenericHandler("PingV1", PingHandlerV1);
-            //AddGenericHandler("PingV2", PingHandlerV2);
-            //AddGenericHandler("PingV3", PingHandlerV3);
-
             AddSystemSubscription(new HuobiPingSubscription(_logger));
             AddSystemSubscription(new HuobiAuthPingSubscription(_logger));
         }
 
-        public override SocketConverter StreamConverter { get; } = new HuobiSocketConverter();
-
         #endregion
+
+        /// <inheritdoc />
+        public override string GetListenerIdentifier(IMessageAccessor message)
+        {
+            var id = message.GetValue<string>(_idPath);
+            if (id != null)
+                return id;
+
+            var action = message.GetValue<string>(_actionPath);
+            var channel = message.GetValue<string>(_channelPath);
+            if (channel == null)
+                return action == null ? "ping" : "pingv2";
+
+            if (action != null && action != "push")
+                return action + channel;
+
+            return channel;
+        }
+
+        /// <inheritdoc />
+        public override Stream PreprocessStreamMessage(WebSocketMessageType type, Stream stream)
+        {
+            if (type != WebSocketMessageType.Binary)
+                return stream;
+
+            var decompressedStream = new MemoryStream();
+            using var deflateStream = new GZipStream(stream, CompressionMode.Decompress);
+            deflateStream.CopyTo(decompressedStream);
+            decompressedStream.Position = 0;
+            return decompressedStream;
+        }
 
         /// <inheritdoc />
         protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
             => new HuobiAuthenticationProvider(credentials, false);
 
-        protected override BaseQuery GetAuthenticationRequest()
+        /// <inheritdoc />
+        protected override Query GetAuthenticationRequest()
         {
             return new HuobiAuthQuery(new HuobiAuthRequest<HuobiAuthParams>
             {
                 Action = "req",
                 Channel = "auth",
-                Params = ((HuobiAuthenticationProvider)AuthenticationProvider).GetWebsocketAuthentication(new Uri(BaseAddress.AppendPath("ws/v2")))
+                Params = ((HuobiAuthenticationProvider)AuthenticationProvider!).GetWebsocketAuthentication(new Uri(BaseAddress.AppendPath("ws/v2")))
             });
         }
 
-        //#region methods
+        /// <inheritdoc />
+        public async Task<CallResult<IEnumerable<HuobiKline>>> GetKlinesAsync(string symbol, KlineInterval period)
+        {
+            symbol = symbol.ValidateHuobiSymbol();
 
-        ///// <inheritdoc />
-        //public async Task<CallResult<IEnumerable<HuobiKline>>> GetKlinesAsync(string symbol, KlineInterval period)
-        //{
-        //    symbol = symbol.ValidateHuobiSymbol();
-        //    var request = new HuobiSocketRequest(ExchangeHelpers.NextId().ToString(CultureInfo.InvariantCulture), $"market.{symbol}.kline.{JsonConvert.SerializeObject(period, new PeriodConverter(false))}");
-        //    var result = await QueryAsync<HuobiSocketResponse<IEnumerable<HuobiKline>>>(BaseAddress.AppendPath("ws"), request, false).ConfigureAwait(false);
-        //    return result ? result.As(result.Data.Data) : result.AsError<IEnumerable<HuobiKline>>(result.Error!);
-        //}
+            var query = new HuobiQuery<IEnumerable<HuobiKline>>($"market.{symbol}.kline.{JsonConvert.SerializeObject(period, new PeriodConverter(false))}", false);
+            var result = await QueryAsync(BaseAddress.AppendPath("ws"), query).ConfigureAwait(false);
+            return result ? result.As(result.Data.Data) : result.AsError<IEnumerable<HuobiKline>>(result.Error!);
+        }
 
-        ///// <inheritdoc />
-        //public async Task<CallResult<UpdateSubscription>> SubscribeToKlineUpdatesAsync(string symbol, KlineInterval period, Action<DataEvent<HuobiKline>> onData, CancellationToken ct = default)
-        //{
-        //    symbol = symbol.ValidateHuobiSymbol();
-        //    var request = new HuobiSubscribeRequest(ExchangeHelpers.NextId().ToString(CultureInfo.InvariantCulture), $"market.{symbol}.kline.{JsonConvert.SerializeObject(period, new PeriodConverter(false))}");
-        //    var internalHandler = new Action<DataEvent<HuobiDataEvent<HuobiKline>>>(data => onData(data.As(data.Data.Data, symbol)));
-        //    return await SubscribeAsync(BaseAddress.AppendPath("ws"), request, null, false, internalHandler, ct).ConfigureAwait(false);
-        //}
+        /// <inheritdoc />
+        public async Task<CallResult<UpdateSubscription>> SubscribeToKlineUpdatesAsync(string symbol, KlineInterval period, Action<DataEvent<HuobiKline>> onData, CancellationToken ct = default)
+        {
+            symbol = symbol.ValidateHuobiSymbol();
 
-        ///// <inheritdoc />
-        //public async Task<CallResult<HuobiOrderBook>> GetOrderBookWithMergeStepAsync(string symbol, int mergeStep)
-        //{
-        //    symbol = symbol.ValidateHuobiSymbol();
-        //    mergeStep.ValidateIntBetween(nameof(mergeStep), 0, 5);
+            var subscription = new HuobiSubscription<HuobiKline>(_logger, $"market.{symbol}.kline.{JsonConvert.SerializeObject(period, new PeriodConverter(false))}", onData, false);
+            return await SubscribeAsync(BaseAddress.AppendPath("ws"), subscription, ct).ConfigureAwait(false);
+        }
 
-        //    var request = new HuobiSocketRequest(ExchangeHelpers.NextId().ToString(CultureInfo.InvariantCulture), $"market.{symbol}.depth.step{mergeStep}");
-        //    var result = await QueryAsync<HuobiSocketResponse<HuobiOrderBook>>(BaseAddress.AppendPath("ws"), request, false).ConfigureAwait(false);
-        //    if (!result)
-        //        return new CallResult<HuobiOrderBook>(result.Error!);
+        /// <inheritdoc />
+        public async Task<CallResult<HuobiOrderBook>> GetOrderBookWithMergeStepAsync(string symbol, int mergeStep)
+        {
+            symbol = symbol.ValidateHuobiSymbol();
+            mergeStep.ValidateIntBetween(nameof(mergeStep), 0, 5);
 
-        //    result.Data.Data.Timestamp = result.Data.Timestamp;
-        //    return new CallResult<HuobiOrderBook>(result.Data.Data);
-        //}
+            var query = new HuobiQuery<HuobiOrderBook>($"market.{symbol}.depth.step{mergeStep}", false);
+            var result = await QueryAsync(BaseAddress.AppendPath("ws"), query).ConfigureAwait(false);
+            return result ? result.As(result.Data.Data) : result.AsError<HuobiOrderBook>(result.Error!);
+        }
 
-        ///// <inheritdoc />
-        //public async Task<CallResult<HuobiIncementalOrderBook>> GetOrderBookAsync(string symbol, int levels)
-        //{
-        //    symbol = symbol.ValidateHuobiSymbol();
-        //    levels.ValidateIntValues(nameof(levels), 5, 20, 150, 400);
+        /// <inheritdoc />
+        public async Task<CallResult<HuobiIncementalOrderBook>> GetOrderBookAsync(string symbol, int levels)
+        {
+            symbol = symbol.ValidateHuobiSymbol();
+            levels.ValidateIntValues(nameof(levels), 5, 20, 150, 400);
 
-        //    var request = new HuobiSocketRequest(ExchangeHelpers.NextId().ToString(CultureInfo.InvariantCulture), $"market.{symbol}.mbp.{levels}");
-        //    var result = await QueryAsync<HuobiSocketResponse<HuobiIncementalOrderBook>>(BaseAddress.AppendPath("feed"), request, false).ConfigureAwait(false);
-        //    if (!result)
-        //        return new CallResult<HuobiIncementalOrderBook>(result.Error!);
+            var query = new HuobiQuery<HuobiIncementalOrderBook>($"market.{symbol}.mbp.{levels}", false);
+            var result = await QueryAsync(BaseAddress.AppendPath("feed"), query).ConfigureAwait(false);
+            return result ? result.As(result.Data.Data) : result.AsError<HuobiIncementalOrderBook>(result.Error!);
+        }
 
-        //    if (result.Data.Data == null)
-        //    {
-        //        var info = "No data received when requesting order book. " +
-        //            "Levels 5/20 are only supported for a subset of symbols, see https://huobiapi.github.io/docs/spot/v1/en/#market-by-price-incremental-update. Use 150 level instead.";
-        //        _logger.Log(LogLevel.Debug, info);
-        //        return new CallResult<HuobiIncementalOrderBook>(new ServerError(info));
-        //    }
+        /// <inheritdoc />
+        public async Task<CallResult<UpdateSubscription>> SubscribeToPartialOrderBookUpdates1SecondAsync(string symbol, int mergeStep, Action<DataEvent<HuobiOrderBook>> onData, CancellationToken ct = default)
+        {
+            symbol = symbol.ValidateHuobiSymbol();
+            mergeStep.ValidateIntBetween(nameof(mergeStep), 0, 5);
 
-        //    return new CallResult<HuobiIncementalOrderBook>(result.Data.Data);
-        //}
+            var subscription = new HuobiSubscription<HuobiOrderBook>(_logger, $"market.{symbol}.depth.step{mergeStep}", onData, false);
+            return await SubscribeAsync(BaseAddress.AppendPath("ws"), subscription, ct).ConfigureAwait(false);
+        }
 
-        ///// <inheritdoc />
-        //public async Task<CallResult<UpdateSubscription>> SubscribeToPartialOrderBookUpdates1SecondAsync(string symbol, int mergeStep, Action<DataEvent<HuobiOrderBook>> onData, CancellationToken ct = default)
-        //{
-        //    symbol = symbol.ValidateHuobiSymbol();
-        //    mergeStep.ValidateIntBetween(nameof(mergeStep), 0, 5);
+        /// <inheritdoc />
+        public async Task<CallResult<UpdateSubscription>> SubscribeToPartialOrderBookUpdates100MilisecondAsync(string symbol, int levels, Action<DataEvent<HuobiOrderBook>> onData, CancellationToken ct = default)
+        {
+            symbol = symbol.ValidateHuobiSymbol();
+            levels.ValidateIntValues(nameof(levels), 5, 10, 20);
 
-        //    var internalHandler = new Action<DataEvent<HuobiDataEvent<HuobiOrderBook>>>(data =>
-        //    {
-        //        data.Data.Timestamp = data.Timestamp;
-        //        onData(data.As(data.Data.Data, symbol));
-        //    });
+            var subscription = new HuobiSubscription<HuobiOrderBook>(_logger, $"market.{symbol}.mbp.refresh.{levels}", onData, false);
+            return await SubscribeAsync(BaseAddress.AppendPath("ws"), subscription, ct).ConfigureAwait(false);
+        }
 
-        //    var request = new HuobiSubscribeRequest(ExchangeHelpers.NextId().ToString(CultureInfo.InvariantCulture), $"market.{symbol}.depth.step{mergeStep}");
-        //    return await SubscribeAsync(BaseAddress.AppendPath("ws"), request, null, false, internalHandler, ct).ConfigureAwait(false);
-        //}
+        /// <inheritdoc />
+        public async Task<CallResult<UpdateSubscription>> SubscribeToOrderBookChangeUpdatesAsync(string symbol, int levels, Action<DataEvent<HuobiIncementalOrderBook>> onData, CancellationToken ct = default)
+        {
+            symbol = symbol.ValidateHuobiSymbol();
+            levels.ValidateIntValues(nameof(levels), 5, 20, 150, 400);
 
-        ///// <inheritdoc />
-        //public async Task<CallResult<UpdateSubscription>> SubscribeToPartialOrderBookUpdates100MilisecondAsync(string symbol, int levels, Action<DataEvent<HuobiOrderBook>> onData, CancellationToken ct = default)
-        //{
-        //    symbol = symbol.ValidateHuobiSymbol();
-        //    levels.ValidateIntValues(nameof(levels), 5, 10, 20);
-
-        //    var internalHandler = new Action<DataEvent<HuobiDataEvent<HuobiOrderBook>>>(data =>
-        //    {
-        //        data.Data.Timestamp = data.Timestamp;
-        //        onData(data.As(data.Data.Data, symbol));
-        //    });
-
-        //    var request = new HuobiSubscribeRequest(ExchangeHelpers.NextId().ToString(CultureInfo.InvariantCulture), $"market.{symbol}.mbp.refresh.{levels}");
-        //    return await SubscribeAsync(BaseAddress.AppendPath("ws"), request, null, false, internalHandler, ct).ConfigureAwait(false);
-        //}
-
-        ///// <inheritdoc />
-        //public async Task<CallResult<UpdateSubscription>> SubscribeToOrderBookChangeUpdatesAsync(string symbol, int levels, Action<DataEvent<HuobiIncementalOrderBook>> onData, CancellationToken ct = default)
-        //{
-        //    symbol = symbol.ValidateHuobiSymbol();
-        //    levels.ValidateIntValues(nameof(levels), 5, 20, 150, 400);
-
-        //    var internalHandler = new Action<DataEvent<HuobiDataEvent<HuobiIncementalOrderBook>>>(data =>
-        //    {
-        //        data.Data.Timestamp = data.Timestamp;
-        //        onData(data.As(data.Data.Data, symbol));
-        //    });
-
-        //    var request = new HuobiSubscribeRequest(ExchangeHelpers.NextId().ToString(CultureInfo.InvariantCulture), $"market.{symbol}.mbp.{levels}");
-        //    return await SubscribeAsync(BaseAddress.AppendPath("feed"), request, null, false, internalHandler, ct).ConfigureAwait(false);
-        //}
+            var subscription = new HuobiSubscription<HuobiIncementalOrderBook>(_logger, $"market.{symbol}.mbp.{levels}", onData, false);
+            return await SubscribeAsync(BaseAddress.AppendPath("feed"), subscription, ct).ConfigureAwait(false);
+        }
 
         /// <inheritdoc />
         public async Task<CallResult<IEnumerable<HuobiSymbolTradeDetails>>> GetTradeHistoryAsync(string symbol)
@@ -183,128 +177,72 @@ namespace Huobi.Net.Clients.SpotApi
             return result ? result.As(result.Data.Data) : result.AsError<IEnumerable<HuobiSymbolTradeDetails>>(result.Error!);
         }
 
-        ///// <inheritdoc />
-        //public async Task<CallResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(string symbol, Action<DataEvent<HuobiSymbolTrade>> onData, CancellationToken ct = default)
-        //{
-        //    symbol = symbol.ValidateHuobiSymbol();
-        //    var request = new HuobiSubscribeRequest(ExchangeHelpers.NextId().ToString(CultureInfo.InvariantCulture), $"market.{symbol}.trade.detail");
-        //    var internalHandler = new Action<DataEvent<HuobiDataEvent<HuobiSymbolTrade>>>(data => onData(data.As(data.Data.Data, symbol)));
-        //    return await SubscribeAsync(BaseAddress.AppendPath("ws"), request, null, false, internalHandler, ct).ConfigureAwait(false);
-        //}
+        /// <inheritdoc />
+        public async Task<CallResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(string symbol, Action<DataEvent<HuobiSymbolTrade>> onData, CancellationToken ct = default)
+        {
+            symbol = symbol.ValidateHuobiSymbol();
+            var subscription = new HuobiSubscription<HuobiSymbolTrade>(_logger, $"market.{symbol}.trade.detail", onData, false);
+            return await SubscribeAsync(BaseAddress.AppendPath("ws"), subscription, ct).ConfigureAwait(false);
+        }
 
-        ///// <inheritdoc />
-        //public async Task<CallResult<HuobiSymbolDetails>> GetSymbolDetailsAsync(string symbol)
-        //{
-        //    symbol = symbol.ValidateHuobiSymbol();
-        //    var request = new HuobiSocketRequest(ExchangeHelpers.NextId().ToString(CultureInfo.InvariantCulture), $"market.{symbol}.detail");
-        //    var result = await QueryAsync<HuobiSocketResponse<HuobiSymbolDetails>>(BaseAddress.AppendPath("ws"), request, false).ConfigureAwait(false);
-        //    if (!result)
-        //        return result.AsError<HuobiSymbolDetails>(result.Error!);
+        /// <inheritdoc />
+        public async Task<CallResult<HuobiSymbolDetails>> GetSymbolDetailsAsync(string symbol)
+        {
+            symbol = symbol.ValidateHuobiSymbol();
 
-        //    result.Data.Data.Timestamp = result.Data.Timestamp;
-        //    return result.As(result.Data.Data);
-        //}
+            var query = new HuobiQuery<HuobiSymbolDetails>($"market.{symbol}.detail", false);
+            var result = await QueryAsync(BaseAddress.AppendPath("ws"), query).ConfigureAwait(false);
+            if (!result)
+                return result.AsError<HuobiSymbolDetails>(result.Error!);
+
+            result.Data.Data.Timestamp = result.Data.Timestamp;
+            return result.As(result.Data.Data);
+        }
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToSymbolDetailUpdatesAsync(string symbol, Action<DataEvent<HuobiSymbolDetails>> onData, CancellationToken ct = default)
         {
             symbol = symbol.ValidateHuobiSymbol();
-            var subscription = new HuobiSubscription<HuobiDataEvent<HuobiSymbolDetails>>(_logger, $"market.{symbol}.detail", x => onData(x.As(x.Data.Data)), false);
+            var subscription = new HuobiSubscription<HuobiSymbolDetails>(_logger, $"market.{symbol}.detail", onData, false);
             return await SubscribeAsync(BaseAddress.AppendPath("ws"), subscription, ct).ConfigureAwait(false);
-
-            //var request = new HuobiSubscribeRequest(ExchangeHelpers.NextId().ToString(CultureInfo.InvariantCulture), $"market.{symbol}.detail");
-            //var internalHandler = new Action<DataEvent<HuobiDataEvent<HuobiSymbolDetails>>>(data =>
-            //{
-            //    data.Data.Timestamp = data.Timestamp;
-            //    onData(data.As(data.Data.Data, symbol));
-            //});
-            //return await SubscribeAsync(BaseAddress.AppendPath("ws"), request, null, false, internalHandler, ct).ConfigureAwait(false);
         }
 
-        ///// <inheritdoc />
-        //public async Task<CallResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(Action<DataEvent<HuobiSymbolDatas>> onData, CancellationToken ct = default)
-        //{
-        //    var request = new HuobiSubscribeRequest(ExchangeHelpers.NextId().ToString(CultureInfo.InvariantCulture), "market.tickers");
-        //    var internalHandler = new Action<DataEvent<HuobiDataEvent<IEnumerable<HuobiSymbolTicker>>>>(data =>
-        //    {
-        //        var result = new HuobiSymbolDatas { Timestamp = data.Timestamp, Ticks = data.Data.Data };
-        //        onData(data.As(result));
-        //    });
-        //    return await SubscribeAsync(BaseAddress.AppendPath("ws"), request, null, false, internalHandler, ct).ConfigureAwait(false);
-        //}
+        /// <inheritdoc />
+        public async Task<CallResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(Action<DataEvent<IEnumerable<HuobiSymbolTicker>>> onData, CancellationToken ct = default)
+        {
+            var subscription = new HuobiSubscription<IEnumerable<HuobiSymbolTicker>>(_logger, $"market.tickers", onData, false);
+            return await SubscribeAsync(BaseAddress.AppendPath("ws"), subscription, ct).ConfigureAwait(false);
+        }
 
-        ///// <inheritdoc />
-        //public async Task<CallResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(string symbol, Action<DataEvent<HuobiSymbolTick>> onData, CancellationToken ct = default)
-        //{
-        //    var request = new HuobiSubscribeRequest(ExchangeHelpers.NextId().ToString(CultureInfo.InvariantCulture), $"market.{symbol}.ticker");
-        //    var internalHandler = new Action<DataEvent<HuobiDataEvent<HuobiSymbolTick>>>(data =>
-        //    {
-        //        data.Data.Data.Symbol = symbol;
-        //        onData(data.As(data.Data.Data));
-        //    });
-        //    return await SubscribeAsync(BaseAddress.AppendPath("ws"), request, null, false, internalHandler, ct).ConfigureAwait(false);
-        //}
+        /// <inheritdoc />
+        public async Task<CallResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(string symbol, Action<DataEvent<HuobiSymbolTick>> onData, CancellationToken ct = default)
+        {
+            var subscription = new HuobiSubscription<HuobiSymbolTick>(_logger, $"market.{symbol}.ticker", onData, false);
+            return await SubscribeAsync(BaseAddress.AppendPath("ws"), subscription, ct).ConfigureAwait(false);
+        }
 
-        ///// <inheritdoc />
-        //public async Task<CallResult<UpdateSubscription>> SubscribeToBestOfferUpdatesAsync(string symbol, Action<DataEvent<HuobiBestOffer>> onData, CancellationToken ct = default)
-        //{
-        //    var request = new HuobiSubscribeRequest(ExchangeHelpers.NextId().ToString(CultureInfo.InvariantCulture), $"market.{symbol}.bbo");
-        //    var internalHandler = new Action<DataEvent<HuobiDataEvent<HuobiBestOffer>>>(data =>
-        //    {
-        //        onData(data.As(data.Data.Data, symbol));
-        //    });
-        //    return await SubscribeAsync(BaseAddress.AppendPath("ws"), request, null, false, internalHandler, ct).ConfigureAwait(false);
-        //}
+        /// <inheritdoc />
+        public async Task<CallResult<UpdateSubscription>> SubscribeToBestOfferUpdatesAsync(string symbol, Action<DataEvent<HuobiBestOffer>> onData, CancellationToken ct = default)
+        {
+            var subscription = new HuobiSubscription<HuobiBestOffer>(_logger, $"market.{symbol}.bbo", onData, false);
+            return await SubscribeAsync(BaseAddress.AppendPath("ws"), subscription, ct).ConfigureAwait(false);
+        }
 
-        ///// <inheritdoc />
-        //public async Task<CallResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(
-        //    string? symbol = null,
-        //    Action<DataEvent<HuobiSubmittedOrderUpdate>>? onOrderSubmitted = null,
-        //    Action<DataEvent<HuobiMatchedOrderUpdate>>? onOrderMatched = null,
-        //    Action<DataEvent<HuobiCanceledOrderUpdate>>? onOrderCancelation = null,
-        //    Action<DataEvent<HuobiTriggerFailureOrderUpdate>>? onConditionalOrderTriggerFailure = null,
-        //    Action<DataEvent<HuobiOrderUpdate>>? onConditionalOrderCanceled = null,
-        //    CancellationToken ct = default)
-        //{
-        //    symbol = symbol?.ValidateHuobiSymbol();
-        //    var request = new HuobiAuthenticatedSubscribeRequest($"orders#{symbol ?? "*"}");
-        //    var internalHandler = new Action<DataEvent<JToken>>(data =>
-        //    {
-        //        if (data.Data["data"] == null || data.Data["data"]!["eventType"] == null)
-        //        {
-        //            _logger.Log(LogLevel.Warning, "Invalid order update data: " + data);
-        //            return;
-        //        }
+        /// <inheritdoc />
+        public async Task<CallResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(
+            string? symbol = null,
+            Action<DataEvent<HuobiSubmittedOrderUpdate>>? onOrderSubmitted = null,
+            Action<DataEvent<HuobiMatchedOrderUpdate>>? onOrderMatched = null,
+            Action<DataEvent<HuobiCanceledOrderUpdate>>? onOrderCancelation = null,
+            Action<DataEvent<HuobiTriggerFailureOrderUpdate>>? onConditionalOrderTriggerFailure = null,
+            Action<DataEvent<HuobiOrderUpdate>>? onConditionalOrderCanceled = null,
+            CancellationToken ct = default)
+        {
+            symbol = symbol?.ValidateHuobiSymbol();
 
-        //        var eventType = data.Data["data"]!["eventType"]?.ToString();
-        //        var symbol = data.Data["data"]!["symbol"]?.ToString();
-        //        if (eventType == "trigger")
-        //        {
-        //            DeserializeAndInvoke(data, onConditionalOrderTriggerFailure, symbol);
-        //        }
-        //        else if (eventType == "deletion")
-        //        {
-        //            DeserializeAndInvoke(data, onConditionalOrderCanceled, symbol);
-        //        }
-        //        else if (eventType == "creation")
-        //        {
-        //            DeserializeAndInvoke(data, onOrderSubmitted, symbol);
-        //        }
-        //        else if (eventType == "trade")
-        //        {
-        //            DeserializeAndInvoke(data, onOrderMatched, symbol);
-        //        }
-        //        else if (eventType == "cancellation")
-        //        {
-        //            DeserializeAndInvoke(data, onOrderCancelation, symbol);
-        //        }
-        //        else
-        //        {
-        //            _logger.Log(LogLevel.Warning, "Unknown order event type: " + eventType);
-        //        }
-        //    });
-        //    return await SubscribeAsync(BaseAddress.AppendPath("ws/v2"), request, null, true, internalHandler, ct).ConfigureAwait(false);
-        //}
+            var subscription = new HuobiOrderSubscription(_logger, symbol, onOrderSubmitted, onOrderMatched, onOrderCancelation, onConditionalOrderTriggerFailure, onConditionalOrderCanceled);
+            return await SubscribeAsync(BaseAddress.AppendPath("ws/v2"), subscription, ct).ConfigureAwait(false);
+        }
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToAccountUpdatesAsync(Action<DataEvent<HuobiAccountUpdate>> onAccountUpdate, int? updateMode = null, CancellationToken ct = default)
@@ -312,45 +250,16 @@ namespace Huobi.Net.Clients.SpotApi
             if (updateMode != null && (updateMode > 2 || updateMode < 0))
                 throw new ArgumentException("UpdateMode should be either 0, 1 or 2");
 
-            var subscription = new HuobiAuthSubscription<HuobiDataEvent<HuobiAccountUpdate>>(_logger, "accounts.update#" + (updateMode ?? 1), x => onAccountUpdate.Invoke(x.As(x.Data.Data)), true);
+            var subscription = new HuobiAccountSubscription(_logger, "accounts.update#" + (updateMode ?? 1), onAccountUpdate, true);
             return await SubscribeAsync(BaseAddress.AppendPath("ws/v2"), subscription, ct).ConfigureAwait(false);
-            //var request = new HuobiAuthenticatedSubscribeRequest("accounts.update#" + (updateMode ?? 1));
-            //var internalHandler = new Action<DataEvent<JToken>>(data =>
-            //{
-            //    DeserializeAndInvoke(data, onAccountUpdate);
-            //});
-            //return await SubscribeAsync(BaseAddress.AppendPath("ws/v2"), request, null, true, internalHandler, ct).ConfigureAwait(false);
         }
 
-        ///// <inheritdoc />
-        //public async Task<CallResult<UpdateSubscription>> SubscribeToOrderDetailsUpdatesAsync(string? symbol = null, Action<DataEvent<HuobiTradeUpdate>>? onOrderMatch = null, Action<DataEvent<HuobiOrderCancelationUpdate>>? onOrderCancel = null, CancellationToken ct = default)
-        //{
-        //    var request = new HuobiAuthenticatedSubscribeRequest($"trade.clearing#{symbol ?? "*"}#1");
-        //    var internalHandler = new Action<DataEvent<JToken>>(data =>
-        //    {
-        //        if (data.Data["data"] == null || data.Data["data"]!["eventType"] == null)
-        //        {
-        //            _logger.Log(LogLevel.Warning, "Invalid order update data: " + data);
-        //            return;
-        //        }
-
-        //        var eventType = data.Data["data"]!["eventType"]?.ToString();
-        //        var symbol = data.Data["data"]!["symbol"]?.ToString();
-        //        if (eventType == "trade")
-        //        {
-        //            DeserializeAndInvoke(data, onOrderMatch, symbol);
-        //        }
-        //        else if (eventType == "cancellation")
-        //        {
-        //            DeserializeAndInvoke(data, onOrderCancel, symbol);
-        //        }
-        //        else
-        //        {
-        //            _logger.Log(LogLevel.Warning, "Unknown order details event type: " + eventType);
-        //        }
-        //    });
-        //    return await SubscribeAsync(BaseAddress.AppendPath("ws/v2"), request, null, true, internalHandler, ct).ConfigureAwait(false);
-        //}
+        /// <inheritdoc />
+        public async Task<CallResult<UpdateSubscription>> SubscribeToOrderDetailsUpdatesAsync(string? symbol = null, Action<DataEvent<HuobiTradeUpdate>>? onOrderMatch = null, Action<DataEvent<HuobiOrderCancelationUpdate>>? onOrderCancel = null, CancellationToken ct = default)
+        {
+            var subscription = new HuobiOrderDetailsSubscription(_logger, symbol, onOrderMatch, onOrderCancel);
+            return await SubscribeAsync(BaseAddress.AppendPath("ws/v2"), subscription, ct).ConfigureAwait(false);
+        }
 
         //#region private
 

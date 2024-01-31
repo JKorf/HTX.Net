@@ -14,6 +14,7 @@ using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Sockets;
 using Huobi.Net.Clients;
 using Huobi.Net.Clients.SpotApi;
+using CryptoExchange.Net.Objects.Sockets;
 
 namespace Huobi.Net.UnitTests
 {
