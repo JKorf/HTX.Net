@@ -19,11 +19,6 @@
             </summary>
             <param name="optionsDelegate">Option configuration delegate</param>
         </member>
-        <member name="M:Huobi.Net.Clients.HuobiRestClient.#ctor(Microsoft.Extensions.Logging.ILoggerFactory,System.Net.Http.HttpClient)">
-            <summary>
-            Create a new instance of the HuobiRestClient using default options
-            </summary>
-        </member>
         <member name="M:Huobi.Net.Clients.HuobiRestClient.#ctor(System.Net.Http.HttpClient,Microsoft.Extensions.Logging.ILoggerFactory,System.Action{Huobi.Net.Objects.Options.HuobiRestOptions})">
             <summary>
             Create a new instance of the HuobiRestClient

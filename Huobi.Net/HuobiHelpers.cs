@@ -9,6 +9,7 @@ using System.Text.RegularExpressions;
 using Huobi.Net.Objects.Options;
 using Huobi.Net.Interfaces;
 using Huobi.Net.SymbolOrderBooks;
+using CryptoExchange.Net.Clients;
 
 namespace Huobi.Net
 {
@@ -58,8 +59,8 @@ namespace Huobi.Net
                 return handler;
             });
 
+            services.AddTransient<ICryptoExchangeClient, CryptoExchangeClient>();
             services.AddSingleton<IHuobiOrderBookFactory, HuobiOrderBookFactory>();
-            services.AddTransient<IHuobiRestClient, HuobiRestClient>();
             services.AddTransient(x => x.GetRequiredService<IHuobiRestClient>().SpotApi.CommonSpotClient);
             if (socketClientLifeTime == null)
                 services.AddSingleton<IHuobiSocketClient, HuobiSocketClient>();

@@ -30,14 +30,7 @@ namespace Huobi.Net.Clients
         /// Create a new instance of the HuobiRestClient using provided options
         /// </summary>
         /// <param name="optionsDelegate">Option configuration delegate</param>
-        public HuobiRestClient(Action<HuobiRestOptions> optionsDelegate) : this(null, null, optionsDelegate)
-        {
-        }
-
-        /// <summary>
-        /// Create a new instance of the HuobiRestClient using default options
-        /// </summary>
-        public HuobiRestClient(ILoggerFactory? loggerFactory = null, HttpClient? httpClient = null) : this(httpClient, loggerFactory, null)
+        public HuobiRestClient(Action<HuobiRestOptions>? optionsDelegate = null) : this(null, null, optionsDelegate)
         {
         }
 
