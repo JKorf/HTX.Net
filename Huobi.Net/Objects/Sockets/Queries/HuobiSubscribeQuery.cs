@@ -19,7 +19,7 @@ namespace Huobi.Net.Objects.Sockets.Queries
         public override Task<CallResult<HuobiSocketResponse>> HandleMessageAsync(SocketConnection connection, DataEvent<HuobiSocketResponse> message)
         {
             if (message.Data.Status != "ok")
-                return Task.FromResult(new CallResult<HuobiSocketResponse>(new ServerError(message.Data.ErrorMessage)));
+                return Task.FromResult(new CallResult<HuobiSocketResponse>(new ServerError(message.Data.ErrorMessage!)));
 
             return Task.FromResult(new CallResult<HuobiSocketResponse>(message.Data, message.OriginalData, null));
         }

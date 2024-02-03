@@ -59,7 +59,7 @@ namespace Huobi.Net
                 return handler;
             });
 
-            services.AddTransient<ICryptoExchangeClient, CryptoExchangeClient>();
+            services.AddTransient<ICryptoRestClient, CryptoRestClient>();
             services.AddSingleton<IHuobiOrderBookFactory, HuobiOrderBookFactory>();
             services.AddTransient(x => x.GetRequiredService<IHuobiRestClient>().SpotApi.CommonSpotClient);
             if (socketClientLifeTime == null)

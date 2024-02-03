@@ -9655,5 +9655,24 @@
         <member name="M:Huobi.Net.SymbolOrderBooks.HuobiSpotSymbolOrderBook.Dispose(System.Boolean)">
             <inheritdoc />
         </member>
+        <member name="T:CryptoExchange.Net.Clients.CryptoClientExtensions">
+            <summary>
+            Extensions for the ICryptoRestClient and ICryptoSocketClient interfaces
+            </summary>
+        </member>
+        <member name="M:CryptoExchange.Net.Clients.CryptoClientExtensions.Huobi(CryptoExchange.Net.Clients.ICryptoRestClient)">
+            <summary>
+            Get the Huobi REST Api client
+            </summary>
+            <param name="baseClient"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CryptoExchange.Net.Clients.CryptoClientExtensions.Huobi(CryptoExchange.Net.Clients.ICryptoSocketClient)">
+            <summary>
+            Get the Huobi Websocket Api client
+            </summary>
+            <param name="baseClient"></param>
+            <returns></returns>
+        </member>
     </members>
 </doc>
