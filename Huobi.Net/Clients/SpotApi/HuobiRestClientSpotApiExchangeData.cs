@@ -11,6 +11,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Huobi.Net.Objects.Models;
 using Huobi.Net.Interfaces.Clients.SpotApi;
+using Huobi.Net.ExtensionMethods;
 
 namespace Huobi.Net.Clients.SpotApi
 {

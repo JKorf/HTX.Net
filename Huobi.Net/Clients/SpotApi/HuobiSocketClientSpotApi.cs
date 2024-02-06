@@ -14,6 +14,7 @@ using CryptoExchange.Net.Sockets.MessageParsing;
 using CryptoExchange.Net.Sockets.MessageParsing.Interfaces;
 using Huobi.Net.Converters;
 using Huobi.Net.Enums;
+using Huobi.Net.ExtensionMethods;
 using Huobi.Net.Interfaces.Clients.SpotApi;
 using Huobi.Net.Objects.Internal;
 using Huobi.Net.Objects.Models;
