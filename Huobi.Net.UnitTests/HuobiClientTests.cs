@@ -2,18 +2,14 @@
 using Newtonsoft.Json;
 using NUnit.Framework;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
-using CryptoExchange.Net.Authentication;
 using System.Threading.Tasks;
-using Huobi.Net.Enums;
 using System.Reflection;
 using System.Diagnostics;
 using CryptoExchange.Net.Objects;
-using CryptoExchange.Net.Sockets;
 using Huobi.Net.Clients;
 using Huobi.Net.Clients.SpotApi;
+using Huobi.Net.ExtensionMethods;
 using CryptoExchange.Net.Objects.Sockets;
 
 namespace Huobi.Net.UnitTests
