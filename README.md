@@ -49,9 +49,6 @@ CryptoExchange.Net also allows for [easy access to different exchange API's](htt
 ## Discord
 A Discord server is available [here](https://discord.gg/MSpeEtSY8t). Feel free to join for discussion and/or questions around the CryptoExchange.Net and implementation libraries.
 
-## Support the project
-I develop and maintain this package on my own for free in my spare time, any support is greatly appreciated.
-
 ## Supported functionality
 
 ### Spot Api
@@ -92,6 +89,9 @@ I develop and maintain this package on my own for free in my spare time, any sup
 |Websocket Index and Basis Interface|✓|`socketClient.UsdtMarginSwapApi`|
 |Orders And Account WebSocket|X||
 |WebSocket System updates|X||
+
+## Support the project
+I develop and maintain this package on my own for free in my spare time, any support is greatly appreciated.
 
 ### Donate
 Make a one time donation in a crypto currency of your choice. If you prefer to donate a currency not listed here please contact me.
