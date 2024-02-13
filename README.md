@@ -1,6 +1,6 @@
 # ![.Huobi.Net](https://github.com/JKorf/Huobi.Net/blob/master/Huobi.Net/Icon/icon.png?raw=true) Huobi.Net
 
-[![.NET](https://img.shields.io/github/actions/workflow/status/JKorf/Huobi.Net/dotnet.yml?style=for-the-badge)](https://github.com/JKorf/Huobi.Net/actions/workflows/dotnet.yml) 
+[![.NET](https://img.shields.io/github/actions/workflow/status/JKorf/Huobi.Net/dotnet.yml?style=for-the-badge)](https://github.com/JKorf/Huobi.Net/actions/workflows/dotnet.yml) ![License](https://img.shields.io/github/license/JKorf/Huobi.Net?style=for-the-badge)
 
 Huobi.Net is a wrapper around the Huobi API as described on [Huobi](https://github.com/huobiapi), including all features the API provides using clear and readable objects, both for the REST  as the websocket API's.
 
