@@ -35,6 +35,7 @@ namespace Huobi.Net.Clients.SpotApi
         private static readonly MessagePath _idPath = MessagePath.Get().Property("id");
         private static readonly MessagePath _actionPath = MessagePath.Get().Property("action");
         private static readonly MessagePath _channelPath = MessagePath.Get().Property("ch");
+        private static readonly MessagePath _pingPath = MessagePath.Get().Property("ping");
 
         #region fields
         #endregion
@@ -45,24 +46,28 @@ namespace Huobi.Net.Clients.SpotApi
         {
             KeepAliveInterval = TimeSpan.Zero;
 
+            AddSystemSubscription(new HuobiSpotPingSubscription(_logger));
             AddSystemSubscription(new HuobiPingSubscription(_logger));
-            AddSystemSubscription(new HuobiAuthPingSubscription(_logger));
         }
 
         #endregion
 
         /// <inheritdoc />
-        public override string GetListenerIdentifier(IMessageAccessor message)
+        public override string? GetListenerIdentifier(IMessageAccessor message)
         {
             var id = message.GetValue<string>(_idPath);
             if (id != null)
                 return id;
 
-            var channel = message.GetValue<string>(_channelPath);
-            if (channel == null)
-                return "ping";
-
             var action = message.GetValue<string>(_actionPath);
+            if (action == "ping")
+                return "pingV2";
+
+            var ping = message.GetValue<string>(_pingPath);
+            if (ping != null)
+                return "pingV3";
+
+            var channel = message.GetValue<string>(_channelPath);
             if (action != null && action != "push")
                 return action + channel;
 

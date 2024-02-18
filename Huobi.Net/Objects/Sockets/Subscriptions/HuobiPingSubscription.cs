@@ -10,7 +10,7 @@ namespace Huobi.Net.Objects.Sockets.Subscriptions
 {
     internal class HuobiPingSubscription : SystemSubscription<HuobiPingMessage>
     {
-        public override HashSet<string> ListenerIdentifiers { get; set; } = new HashSet<string>() { "ping" };
+        public override HashSet<string> ListenerIdentifiers { get; set; } = new HashSet<string>() { "pingV3" };
 
         public HuobiPingSubscription(ILogger logger) : base(logger, false)
         {

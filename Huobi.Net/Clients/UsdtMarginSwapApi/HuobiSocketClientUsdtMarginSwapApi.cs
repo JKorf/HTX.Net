@@ -28,6 +28,7 @@ namespace Huobi.Net.Clients.SpotApi
         private static readonly MessagePath _idPath = MessagePath.Get().Property("id");
         private static readonly MessagePath _actionPath = MessagePath.Get().Property("action");
         private static readonly MessagePath _channelPath = MessagePath.Get().Property("ch");
+        private static readonly MessagePath _pingPath = MessagePath.Get().Property("ping");
 
         #region ctor
         internal HuobiSocketClientUsdtMarginSwapApi(ILogger logger, HuobiSocketOptions options)
@@ -54,16 +55,17 @@ namespace Huobi.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public override string GetListenerIdentifier(IMessageAccessor message)
+        public override string? GetListenerIdentifier(IMessageAccessor message)
         {
             var id = message.GetValue<string>(_idPath);
             if (id != null)
                 return id;
 
-            var channel = message.GetValue<string>(_channelPath);
-            if (channel == null)
-                return "ping";
+            var ping = message.GetValue<string>(_pingPath);
+            if (ping != null)
+                return "pingV3";
 
+            var channel = message.GetValue<string>(_channelPath);
             var action = message.GetValue<string>(_actionPath);
             if (action != null && action != "push")
                 return action + channel;
@@ -78,77 +80,77 @@ namespace Huobi.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToKlineUpdatesAsync(string contractCode, KlineInterval period, Action<DataEvent<HuobiKline>> onData, CancellationToken ct = default)
         {
-            var subscription = new HuobiSubscription<HuobiKline>(_logger, $"market.{contractCode}.kline.{JsonConvert.SerializeObject(period, new PeriodConverter(false))}", onData, false);
+            var subscription = new HuobiSubscription<HuobiKline>(_logger, $"market.{contractCode.ToUpperInvariant()}.kline.{JsonConvert.SerializeObject(period, new PeriodConverter(false))}", onData, false);
             return await SubscribeAsync(BaseAddress.AppendPath("linear-swap-ws"), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToOrderBookUpdatesAsync(string contractCode, int mergeStep, Action<DataEvent<HuobiUsdtMarginSwapIncementalOrderBook>> onData, CancellationToken ct = default)
         {
-            var subscription = new HuobiSubscription<HuobiUsdtMarginSwapIncementalOrderBook>(_logger, $"market.{contractCode}.depth.step" + mergeStep, onData, false);
+            var subscription = new HuobiSubscription<HuobiUsdtMarginSwapIncementalOrderBook>(_logger, $"market.{contractCode.ToUpperInvariant()}.depth.step" + mergeStep, onData, false);
             return await SubscribeAsync(BaseAddress.AppendPath("linear-swap-ws"), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToIncrementalOrderBookUpdatesAsync(string contractCode, bool snapshot, int limit, Action<DataEvent<HuobiUsdtMarginSwapIncementalOrderBook>> onData, CancellationToken ct = default)
         {
-            var subscription = new HuobiSubscription<HuobiUsdtMarginSwapIncementalOrderBook>(_logger, $"market.{contractCode}.depth.size_{limit}.high_freq", onData, false);
+            var subscription = new HuobiSubscription<HuobiUsdtMarginSwapIncementalOrderBook>(_logger, $"market.{contractCode.ToUpperInvariant()}.depth.size_{limit}.high_freq", onData, false);
             return await SubscribeAsync(BaseAddress.AppendPath("linear-swap-ws"), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToSymbolTickerUpdatesAsync(string contractCode, Action<DataEvent<HuobiSymbolTickUpdate>> onData, CancellationToken ct = default)
         {
-            var subscription = new HuobiSubscription<HuobiSymbolTickUpdate>(_logger, $"market.{contractCode}.detail", onData, false);
+            var subscription = new HuobiSubscription<HuobiSymbolTickUpdate>(_logger, $"market.{contractCode.ToUpperInvariant()}.detail", onData, false);
             return await SubscribeAsync(BaseAddress.AppendPath("linear-swap-ws"), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToBestOfferUpdatesAsync(string contractCode, Action<DataEvent<HuobiBestOfferUpdate>> onData, CancellationToken ct = default)
         {
-            var subscription = new HuobiSubscription<HuobiBestOfferUpdate>(_logger, $"market.{contractCode}.bbo", onData, false);
+            var subscription = new HuobiSubscription<HuobiBestOfferUpdate>(_logger, $"market.{contractCode.ToUpperInvariant()}.bbo", onData, false);
             return await SubscribeAsync(BaseAddress.AppendPath("linear-swap-ws"), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(string contractCode, Action<DataEvent<HuobiUsdtMarginSwapTradesUpdate>> onData, CancellationToken ct = default)
         {
-            var subscription = new HuobiSubscription<HuobiUsdtMarginSwapTradesUpdate>(_logger, $"market.{contractCode}.trade.detail", onData, false);
+            var subscription = new HuobiSubscription<HuobiUsdtMarginSwapTradesUpdate>(_logger, $"market.{contractCode.ToUpperInvariant()}.trade.detail", onData, false);
             return await SubscribeAsync(BaseAddress.AppendPath("linear-swap-ws"), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToIndexKlineUpdatesAsync(string contractCode, KlineInterval period, Action<DataEvent<HuobiKline>> onData, CancellationToken ct = default)
         {
-            var subscription = new HuobiSubscription<HuobiKline>(_logger, $"market.{contractCode}.index.{JsonConvert.SerializeObject(period, new PeriodConverter(false))}", onData, false);
+            var subscription = new HuobiSubscription<HuobiKline>(_logger, $"market.{contractCode.ToUpperInvariant()}.index.{JsonConvert.SerializeObject(period, new PeriodConverter(false))}", onData, false);
             return await SubscribeAsync(BaseAddress.AppendPath("ws_index"), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToPremiumIndexKlineUpdatesAsync(string contractCode, KlineInterval period, Action<DataEvent<HuobiKline>> onData, CancellationToken ct = default)
         {
-            var subscription = new HuobiSubscription<HuobiKline>(_logger, $"market.{contractCode}.premium_index.{JsonConvert.SerializeObject(period, new PeriodConverter(false))}", onData, false);
+            var subscription = new HuobiSubscription<HuobiKline>(_logger, $"market.{contractCode.ToUpperInvariant()}.premium_index.{JsonConvert.SerializeObject(period, new PeriodConverter(false))}", onData, false);
             return await SubscribeAsync(BaseAddress.AppendPath("ws_index"), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToEstimatedFundingRateKlineUpdatesAsync(string contractCode, KlineInterval period, Action<DataEvent<HuobiKline>> onData, CancellationToken ct = default)
         {
-            var subscription = new HuobiSubscription<HuobiKline>(_logger, $"market.{contractCode}.estimated_rate.{JsonConvert.SerializeObject(period, new PeriodConverter(false))}", onData, false);
+            var subscription = new HuobiSubscription<HuobiKline>(_logger, $"market.{contractCode.ToUpperInvariant()}.estimated_rate.{JsonConvert.SerializeObject(period, new PeriodConverter(false))}", onData, false);
             return await SubscribeAsync(BaseAddress.AppendPath("ws_index"), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToBasisUpdatesAsync(string contractCode, KlineInterval period, string priceType, Action<DataEvent<HuobiUsdtMarginSwapBasisUpdate>> onData, CancellationToken ct = default)
         {
-            var subscription = new HuobiSubscription<HuobiUsdtMarginSwapBasisUpdate>(_logger, $"market.{contractCode}.basis.{JsonConvert.SerializeObject(period, new PeriodConverter(false))}.{priceType}", onData, false);
+            var subscription = new HuobiSubscription<HuobiUsdtMarginSwapBasisUpdate>(_logger, $"market.{contractCode.ToUpperInvariant()}.basis.{JsonConvert.SerializeObject(period, new PeriodConverter(false))}.{priceType}", onData, false);
             return await SubscribeAsync(BaseAddress.AppendPath("ws_index"), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToMarkPriceKlineUpdatesAsync(string contractCode, KlineInterval period, Action<DataEvent<HuobiKline>> onData, CancellationToken ct = default)
         {
-            var subscription = new HuobiSubscription<HuobiKline>(_logger, $"market.{contractCode}.mark_price.{JsonConvert.SerializeObject(period, new PeriodConverter(false))}", onData, false);
+            var subscription = new HuobiSubscription<HuobiKline>(_logger, $"market.{contractCode.ToUpperInvariant()}.mark_price.{JsonConvert.SerializeObject(period, new PeriodConverter(false))}", onData, false);
             return await SubscribeAsync(BaseAddress.AppendPath("ws_index"), subscription, ct).ConfigureAwait(false);
         }
 
