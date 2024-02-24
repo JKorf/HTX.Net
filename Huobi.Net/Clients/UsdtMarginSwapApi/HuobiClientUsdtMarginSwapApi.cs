@@ -4,7 +4,6 @@ using CryptoExchange.Net.CommonObjects;
 using CryptoExchange.Net.Objects;
 using Huobi.Net.Clients.UsdtMarginSwapApi;
 using Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi;
-using Huobi.Net.Objects;
 using Huobi.Net.Objects.Internal;
 using Huobi.Net.Objects.Options;
 using Microsoft.Extensions.Logging;
@@ -12,7 +11,6 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 

@@ -1,0 +1,66 @@
+﻿using CryptoExchange.Net.Objects;
+using CryptoExchange.Net.Objects.Sockets;
+using CryptoExchange.Net.Sockets;
+using CryptoExchange.Net.Sockets.MessageParsing;
+using CryptoExchange.Net.Sockets.MessageParsing.Interfaces;
+using Huobi.Net.Objects.Internal;
+using Huobi.Net.Objects.Models.Socket;
+using Huobi.Net.Objects.Sockets.Queries;
+using Microsoft.Extensions.Logging;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+namespace Huobi.Net.Objects.Sockets.Subscriptions
+{
+    internal class HuobiOrderDetailsSubscription : Subscription<HuobiSocketAuthResponse, HuobiSocketAuthResponse>
+    {
+        private string _topic;
+        private Action<DataEvent<HuobiTradeUpdate>>? _onOrderMatch;
+        private Action<DataEvent<HuobiOrderCancelationUpdate>>? _onOrderCancel;
+
+        public override HashSet<string> ListenerIdentifiers { get; set; }
+
+        public HuobiOrderDetailsSubscription(
+            ILogger logger,
+            string? symbol,
+            Action<DataEvent<HuobiTradeUpdate>>? onOrderMatch,
+            Action<DataEvent<HuobiOrderCancelationUpdate>>? onOrderCancel) : base(logger, true)
+        {
+            _topic = $"trade.clearing#{symbol ?? "*"}#1";
+            _onOrderMatch = onOrderMatch;
+            _onOrderCancel = onOrderCancel;
+            ListenerIdentifiers = new HashSet<string>() { _topic };
+        }
+
+        public override Query? GetSubQuery(SocketConnection connection)
+        {
+            return new HuobiAuthQuery("sub", _topic, Authenticated);
+        }
+        public override Query? GetUnsubQuery()
+        {
+            return new HuobiAuthQuery("unsub", _topic, Authenticated);
+        }
+        public override Task<CallResult> DoHandleMessageAsync(SocketConnection connection, DataEvent<object> message)
+        {
+            var data = message.Data;
+            if (data is HuobiDataEvent<HuobiTradeUpdate> tradeEvent)
+                _onOrderMatch?.Invoke(message.As(tradeEvent.Data, tradeEvent.Channel));
+            if (data is HuobiDataEvent<HuobiOrderCancelationUpdate> cancelEvent)
+                _onOrderCancel?.Invoke(message.As(cancelEvent.Data, cancelEvent.Channel));
+            return Task.FromResult(new CallResult(null));
+        }
+
+        public override Type? GetMessageType(IMessageAccessor message)
+        {
+            var typePath = MessagePath.Get().Property("data").Property("eventType");
+            var eventType = message.GetValue<string>(typePath);
+            if (eventType == "trade")
+                return typeof(HuobiDataEvent<HuobiTradeUpdate>);
+            if (eventType == "cancellation")
+                return typeof(HuobiDataEvent<HuobiOrderCancelationUpdate>);
+
+            return null;
+        }
+    }
+}

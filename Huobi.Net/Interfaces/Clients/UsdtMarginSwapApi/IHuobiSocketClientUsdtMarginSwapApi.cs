@@ -1,6 +1,6 @@
 ﻿using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Objects;
-using CryptoExchange.Net.Sockets;
+using CryptoExchange.Net.Objects.Sockets;
 using Huobi.Net.Enums;
 using Huobi.Net.Objects.Models;
 using Huobi.Net.Objects.Models.Socket;
@@ -68,8 +68,8 @@ namespace Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi
         Task<CallResult<UpdateSubscription>> SubscribeToIndexKlineUpdatesAsync(string contractCode, KlineInterval period, Action<DataEvent<HuobiKline>> onData, CancellationToken ct = default);
         /// <summary>
         /// Subscribe to kline updates
-        /// <para><a href="https://huobiapi.github.io/docs/usdt_swap/v1/en/#general-subscribe-kline-data" /></para>
-        /// </summary>
+        /// <para><a href = "https://huobiapi.github.io/docs/usdt_swap/v1/en/#general-subscribe-kline-data" /></para >
+        /// </summary >
         /// <param name="contractCode">Contract code</param>
         /// <param name="period">Period</param>
         /// <param name="onData">Data handler</param>

@@ -2,7 +2,6 @@
 using Huobi.Net.Interfaces;
 using Huobi.Net.Interfaces.Clients;
 using Huobi.Net.Objects.Options;
-using Huobi.Net.SymbolOrderBooks;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;

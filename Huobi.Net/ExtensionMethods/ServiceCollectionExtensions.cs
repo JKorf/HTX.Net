@@ -1,21 +1,20 @@
-﻿using Huobi.Net.Clients;
-using Huobi.Net.Interfaces.Clients;
-using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Globalization;
-using System.Net.Http;
-using System.Net;
-using System.Text.RegularExpressions;
-using Huobi.Net.Objects.Options;
+﻿using CryptoExchange.Net.Clients;
+using CryptoExchange.Net.Interfaces;
+using Huobi.Net.Clients;
 using Huobi.Net.Interfaces;
+using Huobi.Net.Interfaces.Clients;
+using Huobi.Net.Objects.Options;
 using Huobi.Net.SymbolOrderBooks;
+using System;
+using System.Net;
+using System.Net.Http;
 
-namespace Huobi.Net
+namespace Microsoft.Extensions.DependencyInjection
 {
     /// <summary>
-    /// Helpers for Huobi
+    /// Extensions for DI
     /// </summary>
-    public static class HuobiHelpers
+    public static class ServiceCollectionExtensions
     {
         /// <summary>
         /// Add the IHuobiClient and IHuobiSocketClient to the sevice collection so they can be injected
@@ -58,28 +57,15 @@ namespace Huobi.Net
                 return handler;
             });
 
+            services.AddTransient<ICryptoRestClient, CryptoRestClient>();
+            services.AddTransient<ICryptoSocketClient, CryptoSocketClient>();
             services.AddSingleton<IHuobiOrderBookFactory, HuobiOrderBookFactory>();
-            services.AddTransient<IHuobiRestClient, HuobiRestClient>();
             services.AddTransient(x => x.GetRequiredService<IHuobiRestClient>().SpotApi.CommonSpotClient);
             if (socketClientLifeTime == null)
                 services.AddSingleton<IHuobiSocketClient, HuobiSocketClient>();
             else
                 services.Add(new ServiceDescriptor(typeof(IHuobiSocketClient), typeof(HuobiSocketClient), socketClientLifeTime.Value));
             return services;
-        }
-
-        /// <summary>
-        /// Validate the string is a valid Huobi symbol.
-        /// </summary>
-        /// <param name="symbolString">string to validate</param>
-        public static string ValidateHuobiSymbol(this string symbolString)
-        {
-            if (string.IsNullOrEmpty(symbolString))
-                throw new ArgumentException("Symbol is not provided");
-            symbolString = symbolString.ToLower(CultureInfo.InvariantCulture);
-            if (!Regex.IsMatch(symbolString, "^(([a-z]|[0-9]){4,})$"))
-                throw new ArgumentException($"{symbolString} is not a valid Huobi symbol. Should be [QuoteAsset][BaseAsset], e.g. ETHBTC");
-            return symbolString;
         }
     }
 }

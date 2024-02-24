@@ -1,15 +1,14 @@
 ﻿using CryptoExchange.Net;
 using CryptoExchange.Net.Authentication;
-using CryptoExchange.Net.Converters;
 using CryptoExchange.Net.Objects;
 using Huobi.Net.Objects.Internal;
+using Huobi.Net.Objects.Sockets;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -63,7 +62,7 @@ namespace Huobi.Net
             uriParameters.Add("Signature", SignHMACSHA256(signData, SignOutputType.Base64));
         }
 
-        public HuobiAuthenticationRequest GetWebsocketAuthentication(Uri uri)
+        public HuobiAuthParams GetWebsocketAuthentication(Uri uri)
         {
             var parameters = new Dictionary<string, object>();
             parameters.Add("accessKey", _credentials.Key!.GetString());
@@ -77,7 +76,7 @@ namespace Huobi.Net
             var signData = $"GET\n{uri.Host}\n{uri.AbsolutePath}\n{paramString}";
             var signature = SignHMACSHA256(signData, SignOutputType.Base64);
 
-            return new HuobiAuthenticationRequest(_credentials.Key!.GetString(), (string)parameters["timestamp"], signature);
+            return new HuobiAuthParams { AccessKey = _credentials.Key!.GetString(), Timestamp = (string)parameters["timestamp"], Signature = signature };
         }
 
         public HuobiAuthenticationRequest2 GetWebsocketAuthentication2(Uri uri)
