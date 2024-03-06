@@ -10,6 +10,7 @@ using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.CommonObjects;
 using CryptoExchange.Net.Interfaces.CommonClients;
 using CryptoExchange.Net.Objects;
+using CryptoExchange.Net.Sockets.MessageParsing;
 using CryptoExchange.Net.Sockets.MessageParsing.Interfaces;
 using Huobi.Net.Enums;
 using Huobi.Net.Interfaces.Clients.SpotApi;
@@ -130,11 +131,14 @@ namespace Huobi.Net.Clients.SpotApi
             if (!accessor.IsJson)
                 return new ServerError(accessor.GetOriginalString());
 
-            var result = accessor.Deserialize<HuobiApiResponse>();
-            if (!result)
+            var code = accessor.GetValue<string>(MessagePath.Get().Property("err-code"));
+            var msg = accessor.GetValue<string>(MessagePath.Get().Property("err-msg"));
+
+            if (code == null || msg == null)
                 return new ServerError(accessor.GetOriginalString());
 
-            return new ServerError(result.Data.ErrorCode!, result.Data.ErrorMessage);
+
+            return new ServerError($"{code}, {msg}");
         }
 
         /// <summary>
