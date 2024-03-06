@@ -1,5 +1,4 @@
-﻿using CryptoExchange.Net;
-using CryptoExchange.Net.Authentication;
+﻿using CryptoExchange.Net.Authentication;
 using Huobi.Net.Clients.FuturesApi;
 using Huobi.Net.Clients.SpotApi;
 using Huobi.Net.Interfaces.Clients;
@@ -9,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using System.Net.Http;
 using System;
 using Huobi.Net.Objects.Options;
+using CryptoExchange.Net.Clients;
 
 namespace Huobi.Net.Clients
 {

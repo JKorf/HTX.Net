@@ -1,7 +1,6 @@
 ﻿using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Objects.Sockets;
 using CryptoExchange.Net.Sockets;
-using CryptoExchange.Net.Sockets.MessageParsing.Interfaces;
 using Huobi.Net.Objects.Internal;
 using Huobi.Net.Objects.Models.Socket;
 using Huobi.Net.Objects.Sockets.Queries;
