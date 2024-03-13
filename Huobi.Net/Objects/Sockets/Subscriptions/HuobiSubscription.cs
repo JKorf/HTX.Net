@@ -35,11 +35,11 @@ namespace Huobi.Net.Objects.Sockets.Subscriptions
 
         public override Type? GetMessageType(IMessageAccessor message) => typeof(HuobiDataEvent<T>);
 
-        public override Task<CallResult> DoHandleMessageAsync(SocketConnection connection, DataEvent<object> message)
+        public override CallResult DoHandleMessage(SocketConnection connection, DataEvent<object> message)
         {
             var huobiEvent = (HuobiDataEvent<T>)message.Data;
             _handler.Invoke(message.As(huobiEvent.Data, huobiEvent.Channel));
-            return Task.FromResult(new CallResult(null));
+            return new CallResult(null);
         }
     }
 }

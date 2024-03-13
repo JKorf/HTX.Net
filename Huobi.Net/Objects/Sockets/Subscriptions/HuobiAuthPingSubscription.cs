@@ -16,10 +16,10 @@ namespace Huobi.Net.Objects.Sockets.Subscriptions
         {
         }
 
-        public override Task<CallResult> HandleMessageAsync(SocketConnection connection, DataEvent<HuobiAuthPingMessage> message)
+        public override CallResult HandleMessage(SocketConnection connection, DataEvent<HuobiAuthPingMessage> message)
         {
             connection.Send(ExchangeHelpers.NextId(), new HuobiAuthPongMessage() { Action = "pong", Data = new HuobiAuthPongMessageTimestamp { Pong = message.Data.Data.Ping } }, 1);
-            return Task.FromResult(new CallResult(null));
+            return new CallResult(null);
         }
     }
 }

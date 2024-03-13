@@ -49,7 +49,7 @@ namespace Huobi.Net.Objects.Sockets.Subscriptions
         {
             return new HuobiAuthQuery("unsub", _topic, Authenticated);
         }
-        public override Task<CallResult> DoHandleMessageAsync(SocketConnection connection, DataEvent<object> message)
+        public override CallResult DoHandleMessage(SocketConnection connection, DataEvent<object> message)
         {
             var data = message.Data;
             if (data is HuobiDataEvent<HuobiTriggerFailureOrderUpdate> triggerFailEvent)
@@ -62,7 +62,7 @@ namespace Huobi.Net.Objects.Sockets.Subscriptions
                 _onOrderMatched?.Invoke(message.As(matchOrderEvent.Data, matchOrderEvent.Channel));
             if (data is HuobiDataEvent<HuobiCanceledOrderUpdate> cancelOrderEvent)
                 _onOrderCancelation?.Invoke(message.As(cancelOrderEvent.Data, cancelOrderEvent.Channel));
-            return Task.FromResult(new CallResult(null));
+            return new CallResult(null);
         }
 
         public override Type? GetMessageType(IMessageAccessor message)

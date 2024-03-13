@@ -16,12 +16,12 @@ namespace Huobi.Net.Objects.Sockets.Queries
             ListenerIdentifiers = new HashSet<string> { ((HuobiSubscribeRequest)Request).Id };
         }
 
-        public override Task<CallResult<HuobiSocketResponse>> HandleMessageAsync(SocketConnection connection, DataEvent<HuobiSocketResponse> message)
+        public override CallResult<HuobiSocketResponse> HandleMessage(SocketConnection connection, DataEvent<HuobiSocketResponse> message)
         {
             if (message.Data.Status != "ok")
-                return Task.FromResult(new CallResult<HuobiSocketResponse>(new ServerError(message.Data.ErrorMessage!)));
+                return new CallResult<HuobiSocketResponse>(new ServerError(message.Data.ErrorMessage!));
 
-            return Task.FromResult(new CallResult<HuobiSocketResponse>(message.Data, message.OriginalData, null));
+            return new CallResult<HuobiSocketResponse>(message.Data, message.OriginalData, null);
         }
     }
 }
