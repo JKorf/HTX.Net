@@ -33,6 +33,7 @@ namespace Huobi.Net
             bool auth,
             ArrayParametersSerialization arraySerialization,
             HttpMethodParameterPosition parameterPosition,
+            RequestBodyFormat bodyFormat,
             out SortedDictionary<string, object> uriParameters,
             out SortedDictionary<string, object> bodyParameters,
             out Dictionary<string, string> headers)

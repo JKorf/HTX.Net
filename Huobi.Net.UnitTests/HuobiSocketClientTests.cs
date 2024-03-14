@@ -29,7 +29,7 @@ namespace Huobi.Net.UnitTests
             // act
             var subTask = client.SpotApi.SubscribeToPartialOrderBookUpdates1SecondAsync("ETHBTC", 1, test => { });
             var id = JToken.Parse(socket.LastSendMessage)["id"];
-            await socket.InvokeMessage($"{{\"subbed\": \"test\", \"id\":\"{id}\", \"status\": \"ok\"}}");
+            socket.InvokeMessage($"{{\"subbed\": \"test\", \"id\":\"{id}\", \"status\": \"ok\"}}");
             var subResult = subTask.Result;
 
             // assert
@@ -65,7 +65,7 @@ namespace Huobi.Net.UnitTests
             // act
             var subTask = client.SpotApi.SubscribeToPartialOrderBookUpdates1SecondAsync("ETHBTC", 1, test => { });
             var id = JToken.Parse(socket.LastSendMessage)["id"];
-            await socket.InvokeMessage($"{{\"status\": \"error\", \"id\": \"{id}\", \"err-code\": \"Fail\", \"err-msg\": \"failed\"}}");
+            socket.InvokeMessage($"{{\"status\": \"error\", \"id\": \"{id}\", \"err-code\": \"Fail\", \"err-msg\": \"failed\"}}");
             var subResult = subTask.Result;
 
             // assert
@@ -83,7 +83,7 @@ namespace Huobi.Net.UnitTests
             HuobiOrderBook result = null;
             var subTask = client.SpotApi.SubscribeToPartialOrderBookUpdates1SecondAsync("ETHBTC", 1, test => result = test.Data);
             var id = JToken.Parse(socket.LastSendMessage)["id"];
-            await socket.InvokeMessage($"{{\"subbed\": \"ethbtc\", \"status\": \"ok\", \"id\": \"{id}\"}}");
+            socket.InvokeMessage($"{{\"subbed\": \"ethbtc\", \"status\": \"ok\", \"id\": \"{id}\"}}");
             var subResult = subTask.Result;
 
             var expected =  new HuobiOrderBook()
@@ -99,7 +99,7 @@ namespace Huobi.Net.UnitTests
             };
 
             // act
-            await socket.InvokeMessage(SerializeExpected("market.ethbtc.depth.step1", expected));
+            socket.InvokeMessage(SerializeExpected("market.ethbtc.depth.step1", expected));
 
             // assert
             Assert.IsTrue(subResult.Success);
@@ -118,7 +118,7 @@ namespace Huobi.Net.UnitTests
             HuobiSymbolDetails result = null;
             var subTask = client.SpotApi.SubscribeToSymbolDetailUpdatesAsync("ETHBTC", test => result = test.Data);
             var id = JToken.Parse(socket.LastSendMessage)["id"];
-            await socket.InvokeMessage($"{{\"subbed\": \"ethbtc\", \"id\": \"{id}\", \"status\": \"ok\"}}");
+            socket.InvokeMessage($"{{\"subbed\": \"ethbtc\", \"id\": \"{id}\", \"status\": \"ok\"}}");
             var subResult = subTask.Result;
 
             var expected = new HuobiSymbolData()
@@ -133,7 +133,7 @@ namespace Huobi.Net.UnitTests
             };
 
             // act
-            await socket.InvokeMessage(SerializeExpected("market.ethbtc.detail", expected));
+            socket.InvokeMessage(SerializeExpected("market.ethbtc.detail", expected));
 
             // assert
             Assert.IsTrue(subResult.Success);
@@ -151,7 +151,7 @@ namespace Huobi.Net.UnitTests
             HuobiSymbolData result = null;
             var subTask = client.SpotApi.SubscribeToKlineUpdatesAsync("ETHBTC", KlineInterval.FiveMinutes, test => result = test.Data);
             var id = JToken.Parse(socket.LastSendMessage)["id"];
-            await socket.InvokeMessage($"{{\"subbed\": \"ethbtc\", \"id\": \"{id}\", \"status\": \"ok\"}}");
+            socket.InvokeMessage($"{{\"subbed\": \"ethbtc\", \"id\": \"{id}\", \"status\": \"ok\"}}");
             var subResult = subTask.Result;
 
             var expected = new HuobiSymbolData()
@@ -166,7 +166,7 @@ namespace Huobi.Net.UnitTests
             };
 
             // act
-            await socket.InvokeMessage(SerializeExpected("market.ethbtc.kline.5min", expected));
+            socket.InvokeMessage(SerializeExpected("market.ethbtc.kline.5min", expected));
 
             // assert
             Assert.IsTrue(subResult.Success);
@@ -184,7 +184,7 @@ namespace Huobi.Net.UnitTests
             IEnumerable<HuobiSymbolTicker> result = null;
             var subTask = client.SpotApi.SubscribeToTickerUpdatesAsync((test => result = test.Data));
             var id = JToken.Parse(socket.LastSendMessage)["id"];
-            await socket.InvokeMessage($"{{\"subbed\": \"test\", \"id\": \"{id}\", \"status\": \"ok\"}}");
+            socket.InvokeMessage($"{{\"subbed\": \"test\", \"id\": \"{id}\", \"status\": \"ok\"}}");
             var subResult = subTask.Result;
 
             var expected = new List<HuobiSymbolTicker>
@@ -202,7 +202,7 @@ namespace Huobi.Net.UnitTests
             };
 
             // act
-            await socket.InvokeMessage(SerializeExpected("market.tickers", expected));
+            socket.InvokeMessage(SerializeExpected("market.tickers", expected));
 
             // assert
             Assert.IsTrue(subResult.Success);
@@ -220,7 +220,7 @@ namespace Huobi.Net.UnitTests
             HuobiSymbolTrade result = null;
             var subTask = client.SpotApi.SubscribeToTradeUpdatesAsync("ethusdt", test => result = test.Data);
             var id = JToken.Parse(socket.LastSendMessage)["id"];
-            await socket.InvokeMessage($"{{\"subbed\": \"test\", \"id\": \"{id}\", \"status\": \"ok\"}}");
+            socket.InvokeMessage($"{{\"subbed\": \"test\", \"id\": \"{id}\", \"status\": \"ok\"}}");
             var subResult = subTask.Result;
 
             var expected = 
@@ -242,7 +242,7 @@ namespace Huobi.Net.UnitTests
             };
 
             // act
-            await socket.InvokeMessage(SerializeExpected("market.ethusdt.trade.detail", expected));
+            socket.InvokeMessage(SerializeExpected("market.ethusdt.trade.detail", expected));
 
             // assert
             Assert.IsTrue(subResult.Success);
@@ -260,9 +260,9 @@ namespace Huobi.Net.UnitTests
 
             HuobiAccountUpdate result = null;
             var subTask = client.SpotApi.SubscribeToAccountUpdatesAsync(test => result = test.Data);
-            await socket.InvokeMessage("{\"ch\": \"auth\", \"code\": 200, \"action\": \"req\"}");
+            socket.InvokeMessage("{\"ch\": \"auth\", \"code\": 200, \"action\": \"req\"}");
             Thread.Sleep(100);
-            await socket.InvokeMessage($"{{\"action\": \"sub\", \"code\": 200, \"ch\": \"accounts.update#1\"}}");
+            socket.InvokeMessage($"{{\"action\": \"sub\", \"code\": 200, \"ch\": \"accounts.update#1\"}}");
             var subResult = subTask.Result;
 
             var expected = new HuobiAccountUpdate()
@@ -277,7 +277,7 @@ namespace Huobi.Net.UnitTests
             };
 
             // act
-            await socket.InvokeMessage(SerializeExpectedAuth("accounts.update#1", expected));
+            socket.InvokeMessage(SerializeExpectedAuth("accounts.update#1", expected));
 
             // assert
             Assert.IsTrue(subResult.Success);
@@ -294,9 +294,9 @@ namespace Huobi.Net.UnitTests
 
             // act
             var subTask = client.SpotApi.SubscribeToAccountUpdatesAsync(test => { });
-            await socket.InvokeMessage("{\"action\": \"req\", \"code\": 200, \"ch\": \"auth\"}");
+             socket.InvokeMessage("{\"action\": \"req\", \"code\": 200, \"ch\": \"auth\"}");
             Thread.Sleep(10);
-            await socket.InvokeMessage("{\"action\": \"sub\", \"code\": 200, \"ch\": \"accounts.update#1\"}");
+             socket.InvokeMessage("{\"action\": \"sub\", \"code\": 200, \"ch\": \"accounts.update#1\"}");
             var subResult = subTask.Result;
 
             // assert
@@ -313,7 +313,7 @@ namespace Huobi.Net.UnitTests
 
             // act
             var subTask = client.SpotApi.SubscribeToAccountUpdatesAsync(test => { });
-            await socket.InvokeMessage("{ \"action\": \"req\", \"ch\": \"auth\", \"code\": 400}");
+            socket.InvokeMessage("{ \"action\": \"req\", \"ch\": \"auth\", \"code\": 400}");
             var subResult = subTask.Result;
 
             // assert
@@ -330,10 +330,10 @@ namespace Huobi.Net.UnitTests
 
         //    // act
         //    var subTask = client.SpotApi.SubscribeToAccountUpdatesAsync(test => { });
-        //    await socket.InvokeMessage("{\"op\": \"auth\"}");
+        //    socket.InvokeMessage("{\"op\": \"auth\"}");
         //    Thread.Sleep(10);
         //    var id = JToken.Parse(socket.LastSendMessage)["id"];
-        //    await socket.InvokeMessage($"{{\"op\": \"sub\", \"cid\": \"{id}\", \"status\": \"error\", \"err-code\": 1, \"err-msg\": \"failed\"}}");
+        //    socket.InvokeMessage($"{{\"op\": \"sub\", \"cid\": \"{id}\", \"status\": \"error\", \"err-code\": 1, \"err-msg\": \"failed\"}}");
         //    var subResult = subTask.Result;
 
         //    // assert
