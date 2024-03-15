@@ -19,7 +19,7 @@ namespace Huobi.Net.UnitTests
     public class HuobiSocketClientTests
     {
         [Test]
-        public async Task SubscribeV1_Should_SucceedIfSubbedResponse()
+        public void SubscribeV1_Should_SucceedIfSubbedResponse()
         {
             // arrange
             var socket = new TestSocket();
@@ -55,7 +55,7 @@ namespace Huobi.Net.UnitTests
         }
 
         [Test]
-        public async Task SubscribeV1_Should_FailIfErrorResponse()
+        public void SubscribeV1_Should_FailIfErrorResponse()
         {
             // arrange
             var socket = new TestSocket();
@@ -73,7 +73,7 @@ namespace Huobi.Net.UnitTests
         }
 
         [Test]
-        public async Task SubscribeToDepthUpdates_Should_TriggerWithDepthUpdate()
+        public void SubscribeToDepthUpdates_Should_TriggerWithDepthUpdate()
         {
             // arrange
             var socket = new TestSocket();
@@ -108,7 +108,7 @@ namespace Huobi.Net.UnitTests
         }
 
         [Test]
-        public async Task SubscribeToDetailUpdates_Should_TriggerWithDetailUpdate()
+        public void SubscribeToDetailUpdates_Should_TriggerWithDetailUpdate()
         {
             // arrange
             var socket = new TestSocket();
@@ -141,7 +141,7 @@ namespace Huobi.Net.UnitTests
         }
 
         [Test]
-        public async Task SubscribeToKlineUpdates_Should_TriggerWithKlineUpdate()
+        public void SubscribeToKlineUpdates_Should_TriggerWithKlineUpdate()
         {
             // arrange
             var socket = new TestSocket();
@@ -174,7 +174,7 @@ namespace Huobi.Net.UnitTests
         }
 
         [Test]
-        public async Task SubscribeToTickerUpdates_Should_TriggerWithTickerUpdate()
+        public void SubscribeToTickerUpdates_Should_TriggerWithTickerUpdate()
         {
             // arrange
             var socket = new TestSocket();
@@ -210,7 +210,7 @@ namespace Huobi.Net.UnitTests
         }
 
         [Test]
-        public async Task SubscribeToTradeUpdates_Should_TriggerWithTradeUpdate()
+        public void SubscribeToTradeUpdates_Should_TriggerWithTradeUpdate()
         {
             // arrange
             var socket = new TestSocket();
@@ -251,7 +251,7 @@ namespace Huobi.Net.UnitTests
         }
 
         [Test]
-        public async Task SubscribeToAccountUpdates_Should_TriggerWithAccountUpdate()
+        public void SubscribeToAccountUpdates_Should_TriggerWithAccountUpdate()
         {
             // arrange
             var socket = new TestSocket();
@@ -285,7 +285,7 @@ namespace Huobi.Net.UnitTests
         }
         
         [Test]
-        public async Task SubscribeV2_Should_SucceedIfSubbedResponse()
+        public void SubscribeV2_Should_SucceedIfSubbedResponse()
         {
             // arrange
             var socket = new TestSocket();
@@ -304,7 +304,7 @@ namespace Huobi.Net.UnitTests
         }
 
         [Test]
-        public async Task SubscribeV2_Should_FailIfAuthErrorResponse()
+        public void SubscribeV2_Should_FailIfAuthErrorResponse()
         {
             // arrange
             var socket = new TestSocket();
