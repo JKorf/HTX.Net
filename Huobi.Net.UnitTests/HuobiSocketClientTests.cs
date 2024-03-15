@@ -12,6 +12,7 @@ using Huobi.Net.UnitTests.TestImplementations;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace Huobi.Net.UnitTests
 {
@@ -33,7 +34,7 @@ namespace Huobi.Net.UnitTests
             var subResult = subTask.Result;
 
             // assert
-            Assert.IsTrue(subResult.Success);
+            Assert.That(subResult.Success);
         }
 
         [Test]
@@ -51,7 +52,7 @@ namespace Huobi.Net.UnitTests
             var subResult = await client.SpotApi.SubscribeToPartialOrderBookUpdates1SecondAsync("ETHBTC", 1, test => { });
 
             // assert
-            Assert.IsFalse(subResult.Success);
+            ClassicAssert.IsFalse(subResult.Success);
         }
 
         [Test]
@@ -69,7 +70,7 @@ namespace Huobi.Net.UnitTests
             var subResult = subTask.Result;
 
             // assert
-            Assert.IsFalse(subResult.Success);
+            ClassicAssert.IsFalse(subResult.Success);
         }
 
         [Test]
@@ -102,9 +103,9 @@ namespace Huobi.Net.UnitTests
             socket.InvokeMessage(SerializeExpected("market.ethbtc.depth.step1", expected));
 
             // assert
-            Assert.IsTrue(subResult.Success);
-            Assert.IsTrue(TestHelpers.AreEqual(expected.Asks.ToList()[0], result.Asks.ToList()[0]));
-            Assert.IsTrue(TestHelpers.AreEqual(expected.Bids.ToList()[0], result.Bids.ToList()[0]));
+            Assert.That(subResult.Success);
+            Assert.That(TestHelpers.AreEqual(expected.Asks.ToList()[0], result.Asks.ToList()[0]));
+            Assert.That(TestHelpers.AreEqual(expected.Bids.ToList()[0], result.Bids.ToList()[0]));
         }
 
         [Test]
@@ -136,8 +137,8 @@ namespace Huobi.Net.UnitTests
             socket.InvokeMessage(SerializeExpected("market.ethbtc.detail", expected));
 
             // assert
-            Assert.IsTrue(subResult.Success);
-            Assert.IsTrue(TestHelpers.AreEqual(expected, result));
+            Assert.That(subResult.Success);
+            Assert.That(TestHelpers.AreEqual(expected, result));
         }
 
         [Test]
@@ -169,8 +170,8 @@ namespace Huobi.Net.UnitTests
             socket.InvokeMessage(SerializeExpected("market.ethbtc.kline.5min", expected));
 
             // assert
-            Assert.IsTrue(subResult.Success);
-            Assert.IsTrue(TestHelpers.AreEqual(expected, result));
+            Assert.That(subResult.Success);
+            Assert.That(TestHelpers.AreEqual(expected, result));
         }
 
         [Test]
@@ -205,8 +206,8 @@ namespace Huobi.Net.UnitTests
             socket.InvokeMessage(SerializeExpected("market.tickers", expected));
 
             // assert
-            Assert.IsTrue(subResult.Success);
-            Assert.IsTrue(TestHelpers.AreEqual(expected[0], result.First()));
+            Assert.That(subResult.Success);
+            Assert.That(TestHelpers.AreEqual(expected[0], result.First()));
         }
 
         [Test]
@@ -245,9 +246,9 @@ namespace Huobi.Net.UnitTests
             socket.InvokeMessage(SerializeExpected("market.ethusdt.trade.detail", expected));
 
             // assert
-            Assert.IsTrue(subResult.Success);
-            Assert.IsTrue(TestHelpers.AreEqual(expected, result, "Details"));
-            Assert.IsTrue(TestHelpers.AreEqual(expected.Details.ToList()[0], result.Details.ToList()[0]));
+            Assert.That(subResult.Success);
+            Assert.That(TestHelpers.AreEqual(expected, result, "Details"));
+            Assert.That(TestHelpers.AreEqual(expected.Details.ToList()[0], result.Details.ToList()[0]));
         }
 
         [Test]
@@ -280,8 +281,8 @@ namespace Huobi.Net.UnitTests
             socket.InvokeMessage(SerializeExpectedAuth("accounts.update#1", expected));
 
             // assert
-            Assert.IsTrue(subResult.Success);
-            Assert.IsTrue(TestHelpers.AreEqual(expected, result));
+            Assert.That(subResult.Success);
+            Assert.That(TestHelpers.AreEqual(expected, result));
         }
         
         [Test]
@@ -300,7 +301,7 @@ namespace Huobi.Net.UnitTests
             var subResult = subTask.Result;
 
             // assert
-            Assert.IsTrue(subResult.Success);
+            Assert.That(subResult.Success);
         }
 
         [Test]
@@ -317,7 +318,7 @@ namespace Huobi.Net.UnitTests
             var subResult = subTask.Result;
 
             // assert
-            Assert.IsFalse(subResult.Success);
+            ClassicAssert.IsFalse(subResult.Success);
         }
 
         //[Test]
@@ -337,7 +338,7 @@ namespace Huobi.Net.UnitTests
         //    var subResult = subTask.Result;
 
         //    // assert
-        //    Assert.IsFalse(subResult.Success);
+        //    ClassicAssert.IsFalse(subResult.Success);
         //}
 
         [Test]
@@ -356,7 +357,7 @@ namespace Huobi.Net.UnitTests
             var subResult = subTask.Result;
 
             // assert
-            Assert.IsFalse(subResult.Success);
+            ClassicAssert.IsFalse(subResult.Success);
         }
 
         public string SerializeExpected<T>(string channel, T data)
