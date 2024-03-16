@@ -107,23 +107,6 @@ namespace Huobi.Net.Clients.SpotApi
             return result.As(result.Data.Data);
         }
 
-        ///// <inheritdoc />
-        //protected override Task<ServerError?> TryParseErrorAsync(JToken data)
-        //{
-        //    if (data["code"] != null && data["code"]?.Value<int>() != 200)
-        //    {
-        //        if (data["err-code"] != null)
-        //            return Task.FromResult<ServerError?>(new ServerError($"{(string)data["err-code"]!}, {(string)data["err-msg"]!}"));
-
-        //        return Task.FromResult<ServerError?>(new ServerError($"{(string)data["code"]!}, {(string)data["message"]!}"));
-        //    }
-
-        //    if (data["err-code"] == null && data["err-msg"] == null)
-        //        return Task.FromResult<ServerError?>(null);
-
-        //    return Task.FromResult<ServerError?>(new ServerError($"{(string)data["err-code"]!}, {(string)data["err-msg"]!}"));
-        //}
-
         /// <inheritdoc />
         protected override Error ParseErrorResponse(int httpStatusCode, IEnumerable<KeyValuePair<string, IEnumerable<string>>> responseHeaders, IMessageAccessor accessor)
         {
