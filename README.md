@@ -23,22 +23,25 @@ The library is targeting both `.NET Standard 2.0` and `.NET Standard 2.1` for op
 	dotnet add package Huobi.Net
 
 ## How to use
-* REST Endpoints
-	```csharp
-	// Get the ETH/USDT ticker via rest request
-	var restClient = new HuobiRestClient();
-	var tickerResult = await restClient.SpotApi.ExchangeData.GetTickerAsync("ETHUSDT");
-	var lastPrice = tickerResult.Data.ClosePrice;
-	```
-* Websocket streams
-	```csharp
-	// Subscribe to ETH/USDT ticker updates via the websocket API
-	var socketClient = new HuobiSocketClient();
-	var tickerSubscriptionResult = socketClient.SpotApi.SubscribeToTickerUpdatesAsync("ethusdt", (update) =>
-	{
-		var lastPrice = update.Data.ClosePrice;
-	});
-	```
+*REST Endpoints* 
+ 
+```csharp
+// Get the ETH/USDT ticker via rest request
+var restClient = new HuobiRestClient();
+var tickerResult = await restClient.SpotApi.ExchangeData.GetTickerAsync("ETHUSDT");
+var lastPrice = tickerResult.Data.ClosePrice;
+```
+
+*Websocket streams*  
+
+```csharp
+// Subscribe to ETH/USDT ticker updates via the websocket API
+var socketClient = new HuobiSocketClient();
+var tickerSubscriptionResult = socketClient.SpotApi.SubscribeToTickerUpdatesAsync("ethusdt", (update) =>
+{
+	var lastPrice = update.Data.ClosePrice;
+});
+```
 
 For information on the clients, dependency injection, response processing and more see the [documentation](https://jkorf.github.io/CryptoExchange.Net), or have a look at the examples  [here](https://github.com/JKorf/CryptoExchange.Net/tree/master/Examples).
 
