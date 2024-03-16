@@ -1,8 +1,7 @@
-﻿using CryptoExchange.Net.Objects;
+﻿using CryptoExchange.Net.Converters.MessageParsing;
+using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Objects.Sockets;
 using CryptoExchange.Net.Sockets;
-using CryptoExchange.Net.Sockets.MessageParsing;
-using CryptoExchange.Net.Sockets.MessageParsing.Interfaces;
 using Huobi.Net.Objects.Internal;
 using Huobi.Net.Objects.Models.Socket;
 using Huobi.Net.Objects.Sockets.Queries;
@@ -50,7 +49,7 @@ namespace Huobi.Net.Objects.Sockets.Subscriptions
         {
             return new HuobiAuthQuery("unsub", _topic, Authenticated);
         }
-        public override Task<CallResult> DoHandleMessageAsync(SocketConnection connection, DataEvent<object> message)
+        public override CallResult DoHandleMessage(SocketConnection connection, DataEvent<object> message)
         {
             var data = message.Data;
             if (data is HuobiDataEvent<HuobiTriggerFailureOrderUpdate> triggerFailEvent)
@@ -63,7 +62,7 @@ namespace Huobi.Net.Objects.Sockets.Subscriptions
                 _onOrderMatched?.Invoke(message.As(matchOrderEvent.Data, matchOrderEvent.Channel));
             if (data is HuobiDataEvent<HuobiCanceledOrderUpdate> cancelOrderEvent)
                 _onOrderCancelation?.Invoke(message.As(cancelOrderEvent.Data, cancelOrderEvent.Channel));
-            return Task.FromResult(new CallResult(null));
+            return new CallResult(null);
         }
 
         public override Type? GetMessageType(IMessageAccessor message)

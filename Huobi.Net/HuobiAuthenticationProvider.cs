@@ -1,5 +1,5 @@
-﻿using CryptoExchange.Net;
-using CryptoExchange.Net.Authentication;
+﻿using CryptoExchange.Net.Authentication;
+using CryptoExchange.Net.Clients;
 using CryptoExchange.Net.Objects;
 using Huobi.Net.Objects.Internal;
 using Huobi.Net.Objects.Sockets;
@@ -33,6 +33,7 @@ namespace Huobi.Net
             bool auth,
             ArrayParametersSerialization arraySerialization,
             HttpMethodParameterPosition parameterPosition,
+            RequestBodyFormat bodyFormat,
             out SortedDictionary<string, object> uriParameters,
             out SortedDictionary<string, object> bodyParameters,
             out Dictionary<string, string> headers)

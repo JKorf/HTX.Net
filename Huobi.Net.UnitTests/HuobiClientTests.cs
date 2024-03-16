@@ -11,6 +11,7 @@ using Huobi.Net.Clients;
 using Huobi.Net.Clients.SpotApi;
 using Huobi.Net.ExtensionMethods;
 using CryptoExchange.Net.Objects.Sockets;
+using NUnit.Framework.Legacy;
 
 namespace Huobi.Net.UnitTests
 {
@@ -27,9 +28,9 @@ namespace Huobi.Net.UnitTests
             var result = await client.SpotApi.ExchangeData.GetAssetsAsync();
 
             // assert
-            Assert.IsFalse(result.Success);
-            Assert.IsTrue(result.Error.ToString().Contains("Error!"));
-            Assert.IsTrue(result.Error.ToString().Contains("ErrorMessage"));
+            ClassicAssert.IsFalse(result.Success);
+            Assert.That(result.Error.ToString().Contains("Error!"));
+            Assert.That(result.Error.ToString().Contains("ErrorMessage"));
         }
 
         [TestCase]
@@ -42,8 +43,8 @@ namespace Huobi.Net.UnitTests
             var result = await client.SpotApi.ExchangeData.GetAssetsAsync();
 
             // assert
-            Assert.IsFalse(result.Success);
-            Assert.IsTrue(result.Error.ToString().Contains("Error message"));
+            ClassicAssert.IsFalse(result.Success);
+            Assert.That(result.Error.ToString().Contains("Error message"));
         }
 
 
@@ -84,7 +85,7 @@ namespace Huobi.Net.UnitTests
                 foreach (var method in implementation.GetMethods().Where(m => m.ReturnType.IsAssignableTo(typeof(Task))))
                 {
                     var interfaceMethod = clientInterface.GetMethod(method.Name, method.GetParameters().Select(p => p.ParameterType).ToArray());
-                    Assert.NotNull(interfaceMethod, $"Missing interface for method {method.Name} in {implementation.Name} implementing interface {clientInterface.Name}");
+                    ClassicAssert.NotNull(interfaceMethod, $"Missing interface for method {method.Name} in {implementation.Name} implementing interface {clientInterface.Name}");
                     methods++;
                 }
                 Debug.WriteLine($"{clientInterface.Name} {methods} methods validated");
@@ -104,7 +105,7 @@ namespace Huobi.Net.UnitTests
                 foreach (var method in implementation.GetMethods().Where(m => m.ReturnType.IsAssignableTo(typeof(Task<CallResult<UpdateSubscription>>))))
                 {
                     var interfaceMethod = clientInterface.GetMethod(method.Name, method.GetParameters().Select(p => p.ParameterType).ToArray());
-                    Assert.NotNull(interfaceMethod, $"Missing interface for method {method.Name} in {implementation.Name} implementing interface {clientInterface.Name}");
+                    ClassicAssert.NotNull(interfaceMethod, $"Missing interface for method {method.Name} in {implementation.Name} implementing interface {clientInterface.Name}");
                     methods++;
                 }
                 Debug.WriteLine($"{clientInterface.Name} {methods} methods validated");

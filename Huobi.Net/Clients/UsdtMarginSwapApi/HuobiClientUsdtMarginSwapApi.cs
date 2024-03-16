@@ -1,6 +1,7 @@
-﻿using CryptoExchange.Net;
-using CryptoExchange.Net.Authentication;
+﻿using CryptoExchange.Net.Authentication;
+using CryptoExchange.Net.Clients;
 using CryptoExchange.Net.CommonObjects;
+using CryptoExchange.Net.Converters.MessageParsing;
 using CryptoExchange.Net.Objects;
 using Huobi.Net.Clients.UsdtMarginSwapApi;
 using Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi;
@@ -57,8 +58,6 @@ namespace Huobi.Net.Clients.FuturesApi
             ExchangeData = new HuobiClientUsdtMarginSwapApiExchangeData(this);
             Trading = new HuobiClientUsdtMarginSwapApiTrading(this);
 
-            manualParseError = true;
-
             _brokerId = !string.IsNullOrEmpty(options.BrokerId) ? options.BrokerId! : "AA1ef14811";
         }
         #endregion
@@ -103,33 +102,19 @@ namespace Huobi.Net.Clients.FuturesApi
         }
 
         /// <inheritdoc />
-        protected override Task<ServerError?> TryParseErrorAsync(JToken data)
+        protected override Error ParseErrorResponse(int httpStatusCode, IEnumerable<KeyValuePair<string, IEnumerable<string>>> responseHeaders, IMessageAccessor accessor)
         {
-            if (data["code"] != null && data["code"]?.Value<int>() != 200)
-            {
-                if (data["err-code"] != null)
-                    return Task.FromResult<ServerError?>(new ServerError($"{(string)data["err-code"]!}, {(string)data["err-msg"]!}"));
+            if (!accessor.IsJson)
+                return new ServerError(accessor.GetOriginalString());
 
-                return Task.FromResult<ServerError?>(new ServerError($"{(string)data["code"]!}, {(string)data["message"]!}"));
-            }
+            var code = accessor.GetValue<string>(MessagePath.Get().Property("err-code"));
+            var msg = accessor.GetValue<string>(MessagePath.Get().Property("err-msg"));
 
-            if (data["err-code"] == null && data["err-msg"] == null)
-                return Task.FromResult<ServerError?>(null);
+            if (code == null || msg == null)
+                return new ServerError(accessor.GetOriginalString());
 
-            return Task.FromResult<ServerError?>(new ServerError($"{(string)data["err-code"]!}, {(string)data["err-msg"]!}"));
-        }
 
-        /// <inheritdoc />
-        protected override Error ParseErrorResponse(int httpStatusCode, IEnumerable<KeyValuePair<string, IEnumerable<string>>> responseHeaders, string data)
-        {
-            var errorData = ValidateJson(data);
-            if (!errorData)
-                return new ServerError(data);
-
-            if (errorData.Data["err-code"] == null || errorData.Data["err-msg"] == null)
-                return new ServerError(errorData.Data.ToString());
-
-            return new ServerError($"{(string)errorData.Data["err-code"]!}, {(string)errorData.Data["err-msg"]!}");
+            return new ServerError($"{code}, {msg}");
         }
 
         internal void InvokeOrderPlaced(OrderId id)

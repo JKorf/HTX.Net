@@ -1,8 +1,7 @@
-﻿using CryptoExchange.Net.Objects;
+﻿using CryptoExchange.Net.Converters.MessageParsing;
+using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Objects.Sockets;
 using CryptoExchange.Net.Sockets;
-using CryptoExchange.Net.Sockets.MessageParsing;
-using CryptoExchange.Net.Sockets.MessageParsing.Interfaces;
 using Huobi.Net.Objects.Internal;
 using Huobi.Net.Objects.Models.Socket;
 using Huobi.Net.Objects.Sockets.Queries;
@@ -41,14 +40,14 @@ namespace Huobi.Net.Objects.Sockets.Subscriptions
         {
             return new HuobiAuthQuery("unsub", _topic, Authenticated);
         }
-        public override Task<CallResult> DoHandleMessageAsync(SocketConnection connection, DataEvent<object> message)
+        public override CallResult DoHandleMessage(SocketConnection connection, DataEvent<object> message)
         {
             var data = message.Data;
             if (data is HuobiDataEvent<HuobiTradeUpdate> tradeEvent)
                 _onOrderMatch?.Invoke(message.As(tradeEvent.Data, tradeEvent.Channel));
             if (data is HuobiDataEvent<HuobiOrderCancelationUpdate> cancelEvent)
                 _onOrderCancel?.Invoke(message.As(cancelEvent.Data, cancelEvent.Channel));
-            return Task.FromResult(new CallResult(null));
+            return new CallResult(null);
         }
 
         public override Type? GetMessageType(IMessageAccessor message)
