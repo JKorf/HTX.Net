@@ -79,7 +79,7 @@ namespace Huobi.Net.Clients.SpotApi
             if (type != WebSocketMessageType.Binary)
                 return data;
 
-            var decompressedStream = new MemoryStream();
+            using var decompressedStream = new MemoryStream();
             using var deflateStream = new GZipStream(new MemoryStream(data.ToArray()), CompressionMode.Decompress);
             deflateStream.CopyTo(decompressedStream);
             decompressedStream.Position = 0;
