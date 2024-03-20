@@ -49,8 +49,7 @@ namespace Huobi.Net.Clients.SpotApi
             using var decompressedStream = new MemoryStream();
             using var deflateStream = new GZipStream(new MemoryStream(data.ToArray()), CompressionMode.Decompress);
             deflateStream.CopyTo(decompressedStream);
-            decompressedStream.Position = 0;
-            return new ReadOnlyMemory<byte>(decompressedStream.ToArray());
+            return new ReadOnlyMemory<byte>(decompressedStream.GetBuffer(), 0, (int)decompressedStream.Length);
         }
 
         /// <inheritdoc />
