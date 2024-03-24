@@ -9621,7 +9621,7 @@
             <param name="symbol">The symbol the order book is for</param>
             <param name="optionsDelegate">Option configuration delegate</param>
         </member>
-        <member name="M:Huobi.Net.SymbolOrderBooks.HuobiSpotSymbolOrderBook.#ctor(System.String,System.Action{Huobi.Net.Objects.Options.HuobiOrderBookOptions},Microsoft.Extensions.Logging.ILogger{Huobi.Net.SymbolOrderBooks.HuobiSpotSymbolOrderBook},Huobi.Net.Interfaces.Clients.IHuobiSocketClient)">
+        <member name="M:Huobi.Net.SymbolOrderBooks.HuobiSpotSymbolOrderBook.#ctor(System.String,System.Action{Huobi.Net.Objects.Options.HuobiOrderBookOptions},Microsoft.Extensions.Logging.ILoggerFactory,Huobi.Net.Interfaces.Clients.IHuobiSocketClient)">
             <summary>
             Create a new order book instance
             </summary>

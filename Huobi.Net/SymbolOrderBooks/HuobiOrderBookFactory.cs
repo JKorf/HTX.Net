@@ -26,7 +26,7 @@ namespace Huobi.Net.SymbolOrderBooks
         public ISymbolOrderBook CreateSpot(string symbol, Action<HuobiOrderBookOptions>? options = null)
             => new HuobiSpotSymbolOrderBook(symbol,
                                         options,
-                                        _serviceProvider.GetRequiredService<ILogger<HuobiSpotSymbolOrderBook>>(),
+                                        _serviceProvider.GetRequiredService<ILoggerFactory>(),
                                         _serviceProvider.GetRequiredService<IHuobiSocketClient>());
     }
 }

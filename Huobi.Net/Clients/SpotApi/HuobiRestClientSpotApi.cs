@@ -119,7 +119,6 @@ namespace Huobi.Net.Clients.SpotApi
             if (code == null || msg == null)
                 return new ServerError(accessor.GetOriginalString());
 
-
             return new ServerError($"{code}, {msg}");
         }
 

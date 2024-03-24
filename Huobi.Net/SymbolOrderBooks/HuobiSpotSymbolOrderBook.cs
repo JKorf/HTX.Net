@@ -42,8 +42,8 @@ namespace Huobi.Net.SymbolOrderBooks
         /// <param name="socketClient">Socket client instance</param>
         public HuobiSpotSymbolOrderBook(string symbol,
             Action<HuobiOrderBookOptions>? optionsDelegate,
-            ILogger<HuobiSpotSymbolOrderBook>? logger,
-            IHuobiSocketClient? socketClient) : base(logger, "Huobi", symbol)
+            ILoggerFactory? logger,
+            IHuobiSocketClient? socketClient) : base(logger, "Huobi", "Spot", symbol)
         {
             var options = HuobiOrderBookOptions.Default.Copy();
             if (optionsDelegate != null)
@@ -109,7 +109,7 @@ namespace Huobi.Net.SymbolOrderBooks
                 var book = await _socketClient.SpotApi.GetOrderBookAsync(Symbol, _levels.Value).ConfigureAwait(false);
                 if (!book)
                 {
-                    _logger.Log(LogLevel.Debug, $"{Id} order book {Symbol} failed to retrieve initial order book");
+                    _logger.Log(LogLevel.Debug, $"{Api} order book {Symbol} failed to retrieve initial order book");
                     await _socketClient.UnsubscribeAsync(subResult.Data).ConfigureAwait(false);
                     return new CallResult<UpdateSubscription>(book.Error!);
                 }

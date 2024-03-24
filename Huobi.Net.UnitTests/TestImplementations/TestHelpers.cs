@@ -96,7 +96,7 @@ namespace Huobi.Net.UnitTests.TestImplementations
 
         public static IHuobiRestClient CreateAuthResponseClient(string response, HttpStatusCode statusCode = HttpStatusCode.OK)
         {
-            var client = (HuobiRestClient)CreateClient(x => { x.ApiCredentials = new ApiCredentials("Test", "test");  });
+            var client = (HuobiRestClient)CreateClient(x => { x.ApiCredentials = new ApiCredentials("Test", "test"); });
             SetResponse(client, response, statusCode);
             return client;
         }
