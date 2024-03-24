@@ -1601,6 +1601,11 @@
             Order price type
             </summary>
         </member>
+        <member name="F:Huobi.Net.Enums.OrderPriceType.Market">
+            <summary>
+            Market
+            </summary>
+        </member>
         <member name="F:Huobi.Net.Enums.OrderPriceType.Limit">
             <summary>
             Limit
