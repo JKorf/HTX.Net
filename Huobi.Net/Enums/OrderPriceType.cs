@@ -7,10 +7,15 @@ namespace Huobi.Net.Enums
     /// </summary>
     public enum OrderPriceType
     {
-        /// <summary>
-        /// Limit
-        /// </summary>
-        [Map("limit")]
+		/// <summary>
+		/// Market
+		/// </summary>
+		[Map("market")]
+		Market,
+		/// <summary>
+		/// Limit
+		/// </summary>
+		[Map("limit")]
         Limit,
         /// <summary>
         /// Best offer
