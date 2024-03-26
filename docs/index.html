@@ -278,13 +278,13 @@ var result = await huobiClient.SpotApi.Trading.CancelOrderAsync(123);</code></pr
 var result = await huobiClient.UsdtMarginSwapApi.ExchangeData.GetContractInfoAsync();</code></pre>
 		  
 		  <b id="idocs_example_symbols">Get Symbol Ticker</b><br />
-		  <p>Get the 24h price ticker of a spot symbol</p>
+		  <p>Get the 24h price ticker of a margin swap symbol</p>
 		  <pre><code>var huobiClient = new HuobiRestClient();
 
 var result = await huobiClient.UsdtMarginSwapApi.ExchangeData.GetMarketDataAsync("ETH-USDT");</code></pre>
 
 		  <b id="idocs_example_symbols">Get Recent Trades</b><br />
-		  <p>Get the most recent trades for a spot symbol</p>
+		  <p>Get the most recent trades for a margin swap symbol</p>
 		  <pre><code>var huobiClient = new HuobiRestClient();
 
 var result = await huobiClient.UsdtMarginSwapApi.ExchangeData.GetRecentTradesAsync("ETH-USDT", 100);</code></pre>
