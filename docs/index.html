@@ -315,7 +315,7 @@ var result = await huobiClient.UsdtMarginSwapApi.Account.GetCrossMarginPositions
     options.ApiCredentials = new ApiCredentials("KEY", "SECRET");
 });
 
-var result = await huobiClient.UsdtMarginSwapApi.Trading.PlaceCrossMarginOrderAsync(0.1m, Huobi.Net.Enums.OrderSide.Buy, 10, "ETH-USDT");
+var result = await huobiClient.UsdtMarginSwapApi.Trading.PlaceCrossMarginOrderAsync(0.1m, Huobi.Net.Enums.OrderSide.Buy, 10, "ETH-USDT", price: 2000m);
 </code></pre>
         </section>
         		
