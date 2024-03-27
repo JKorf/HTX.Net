@@ -69,15 +69,15 @@ namespace Huobi.Net.Objects.Sockets.Subscriptions
         {
             var typePath = MessagePath.Get().Property("data").Property("eventType");
             var eventType = message.GetValue<string>(typePath);
-            if (eventType == "trigger")
+            if (string.Equals(eventType, "trigger", StringComparison.Ordinal))
                 return typeof(HuobiDataEvent<HuobiTriggerFailureOrderUpdate>);
-            if (eventType == "deletion")
+            if (string.Equals(eventType, "deletion", StringComparison.Ordinal))
                 return typeof(HuobiDataEvent<HuobiOrderUpdate>);
-            if (eventType == "creation")
+            if (string.Equals(eventType, "creation", StringComparison.Ordinal))
                 return typeof(HuobiDataEvent<HuobiSubmittedOrderUpdate>);
-            if (eventType == "trade")
+            if (string.Equals(eventType, "trade", StringComparison.Ordinal))
                 return typeof(HuobiDataEvent<HuobiMatchedOrderUpdate>);
-            if (eventType == "cancellation")
+            if (string.Equals(eventType, "cancellation", StringComparison.Ordinal))
                 return typeof(HuobiDataEvent<HuobiCanceledOrderUpdate>);
 
             return null;

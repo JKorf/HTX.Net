@@ -59,7 +59,7 @@ namespace Huobi.Net.Clients.SpotApi
                 return id;
 
             var action = message.GetValue<string>(_actionPath);
-            if (action == "ping")
+            if (string.Equals(action, "ping", StringComparison.Ordinal))
                 return "pingV2";
 
             var ping = message.GetValue<string>(_pingPath);

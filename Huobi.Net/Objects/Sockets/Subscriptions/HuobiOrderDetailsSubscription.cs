@@ -54,9 +54,9 @@ namespace Huobi.Net.Objects.Sockets.Subscriptions
         {
             var typePath = MessagePath.Get().Property("data").Property("eventType");
             var eventType = message.GetValue<string>(typePath);
-            if (eventType == "trade")
+            if (string.Equals(eventType, "trade", StringComparison.Ordinal))
                 return typeof(HuobiDataEvent<HuobiTradeUpdate>);
-            if (eventType == "cancellation")
+            if (string.Equals(eventType, "cancellation", StringComparison.Ordinal))
                 return typeof(HuobiDataEvent<HuobiOrderCancelationUpdate>);
 
             return null;

@@ -6,7 +6,7 @@ namespace Huobi.Net.Objects.Internal
 {
     internal class HuobiSocketResponse2: HuobiResponse
     {
-        internal override bool IsSuccessful => ErrorCode == "0";
+        internal override bool IsSuccessful => string.Equals(ErrorCode, "0", StringComparison.Ordinal);
         [JsonProperty("status")]
         internal string Status { get; set; } = string.Empty;
 

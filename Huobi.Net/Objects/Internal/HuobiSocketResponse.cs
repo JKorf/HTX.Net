@@ -16,7 +16,7 @@ namespace Huobi.Net.Objects.Internal
 
     internal class HuobiSocketResponse<T>: HuobiResponse
     {
-        internal override bool IsSuccessful => Status == "ok";
+        internal override bool IsSuccessful => string.Equals(Status, "ok", StringComparison.Ordinal);
         [JsonProperty("status")] internal string Status { get; set; } = string.Empty;
         
         /// <summary>
@@ -35,7 +35,7 @@ namespace Huobi.Net.Objects.Internal
 
     internal class HuobiSubscribeResponse: HuobiResponse
     {
-        internal override bool IsSuccessful => Status == "ok";
+        internal override bool IsSuccessful => string.Equals(Status, "ok", StringComparison.Ordinal);
         public string Status { get; set; } = string.Empty;
         public string Subbed { get; set; } = string.Empty;
         [JsonConverter(typeof(DateTimeConverter)), JsonProperty("ts")]
