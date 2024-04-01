@@ -122,6 +122,21 @@ namespace Huobi.Net.Clients.SpotApi
             return new ServerError($"{code}, {msg}");
         }
 
+        /// <inheritdoc />
+        protected override ServerError? TryParseError(IMessageAccessor accessor)
+        {
+            if (!accessor.IsJson)
+                return new ServerError(accessor.GetOriginalString());
+
+            var code = accessor.GetValue<string>(MessagePath.Get().Property("err-code"));
+            var msg = accessor.GetValue<string>(MessagePath.Get().Property("err-msg"));
+
+            if (code == null && msg == null)
+                return null;
+
+            return new ServerError($"{code}, {msg}");
+        }
+
         /// <summary>
         /// Construct url
         /// </summary>
