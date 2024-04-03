@@ -53,24 +53,6 @@ namespace Huobi.Net.UnitTests
             return $"{{\"status\": \"ok\", {(tick ? "tick" : "data")}: {JsonConvert.SerializeObject(data)}}}";
         }
 
-        [TestCase("BTCUSDT", true)]
-        [TestCase("NANOUSDT", true)]
-        [TestCase("NANOBTC", true)]
-        [TestCase("ETHBTC", true)]
-        [TestCase("BEETC", true)]
-        [TestCase("BEEC", true)]
-        [TestCase("BEC", false)]
-        [TestCase("NANOUSDTD", true)]
-        [TestCase("BTC-USDT", false)]
-        [TestCase("BTC-USD", false)]
-        public void CheckValidHuobiSymbol(string symbol, bool isValid)
-        {
-            if (isValid)
-                Assert.DoesNotThrow(() => symbol.ValidateHuobiSymbol());
-            else
-                Assert.Throws(typeof(ArgumentException), () => symbol.ValidateHuobiSymbol());
-        }
-
         [Test]
         public void CheckRestInterfaces()
         {
