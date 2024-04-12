@@ -48,7 +48,7 @@ namespace Huobi.Net.Clients.UsdtMarginSwapApi
                 { "volume", quantity.ToString(CultureInfo.InvariantCulture) },
                 { "direction", EnumConverter.GetString(side) },
                 { "lever_rate", leverageRate },
-                { "channel_code", ExchangeHelpers.AppendRandomString(_baseClient._brokerId, 64) }
+                { "channel_code", _baseClient._brokerId }
             };
             parameters.AddOptionalParameter("price", price?.ToString(CultureInfo.InvariantCulture));
             parameters.AddOptionalParameter("offset", EnumConverter.GetString(offset));
@@ -91,7 +91,7 @@ namespace Huobi.Net.Clients.UsdtMarginSwapApi
                 { "volume", quantity.ToString(CultureInfo.InvariantCulture) },
                 { "direction", EnumConverter.GetString(side) },
                 { "lever_rate", leverageRate },
-                { "channel_code", ExchangeHelpers.AppendRandomString(_baseClient._brokerId, 64) }
+                { "channel_code", _baseClient._brokerId }
             };
             parameters.AddOptionalParameter("contract_code", contractCode);
             parameters.AddOptionalParameter("pair", symbol);
