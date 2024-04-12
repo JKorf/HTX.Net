@@ -123,6 +123,9 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 5.2.3 - 12 Apr 2024
+    * Fix for futures broker id reference
+
 * Version 5.2.2 - 03 Apr 2024
     * Updated string comparision for improved performance
     * Fix for error parsing rest client
