@@ -32,16 +32,7 @@ namespace Huobi.Net.Objects.Options
         /// <summary>
         /// Spot API options
         /// </summary>
-        public RestApiOptions SpotOptions { get; private set; } = new RestApiOptions()
-        {
-            //RateLimiters = new List<IRateLimiter>
-            //{
-            //        new RateLimiter()
-            //        .AddPartialEndpointLimit("/v1/order", 100, TimeSpan.FromSeconds(2), null, true, true)
-            //        .AddApiKeyLimit(10, TimeSpan.FromSeconds(1), true, true)
-            //        .AddTotalRateLimit(10, TimeSpan.FromSeconds(1))
-            //}
-        };
+        public RestApiOptions SpotOptions { get; private set; } = new RestApiOptions();
 
         /// <summary>
         /// USDT margin swap API options
