@@ -18,7 +18,7 @@ namespace Huobi.Net.UnitTests
         {
             x.ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "123");
             x.SpotOptions.OutputOriginalData = true;
-            x.RatelimiterEnabled = false;
+            x.RateLimiterEnabled = false;
         }));
 
         [Test]
