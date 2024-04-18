@@ -123,6 +123,10 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 5.2.4 - 18 Apr 2024
+    * Updated CryptoExchange.Net to 7.3.1, see https://github.com/JKorf/CryptoExchange.Net?tab=readme-ov-file#release-notes for release notes
+    * Until new rate limit configuration and handling has been implemented client side rate limiting has been disabled
+
 * Version 5.2.3 - 12 Apr 2024
     * Fix for futures broker id reference
 
