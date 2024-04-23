@@ -1804,6 +1804,16 @@
             Fill or kill stop limit
             </summary>
         </member>
+        <member name="F:Huobi.Net.Enums.OrderType.MarketGrid">
+            <summary>
+            Grid market order
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Enums.OrderType.LimitGrid">
+            <summary>
+            Grid limit order
+            </summary>
+        </member>
         <member name="T:Huobi.Net.Enums.PositionMode">
             <summary>
             Position mode

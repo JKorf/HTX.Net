@@ -28,6 +28,10 @@ namespace Huobi.Net.Converters
             new KeyValuePair<OrderSide, string>(OrderSide.Sell, "sell-limit-fok"),
             new KeyValuePair<OrderSide, string>(OrderSide.Buy, "buy-stop-limit-fok"),
             new KeyValuePair<OrderSide, string>(OrderSide.Sell, "sell-stop-limit-fok"),
+            new KeyValuePair<OrderSide, string>(OrderSide.Buy, "buy-limit-grid"),
+            new KeyValuePair<OrderSide, string>(OrderSide.Sell, "sell-limit-grid"),
+            new KeyValuePair<OrderSide, string>(OrderSide.Buy, "buy-market-grid"),
+            new KeyValuePair<OrderSide, string>(OrderSide.Sell, "sell-market-grid"),
         };
     }
 }

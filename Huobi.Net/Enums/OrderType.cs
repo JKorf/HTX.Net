@@ -33,5 +33,13 @@
         /// Fill or kill stop limit
         /// </summary>
         FillOrKillStopLimit,
+        /// <summary>
+        /// Grid market order
+        /// </summary>
+        MarketGrid,
+        /// <summary>
+        /// Grid limit order
+        /// </summary>
+        LimitGrid,
     }
 }

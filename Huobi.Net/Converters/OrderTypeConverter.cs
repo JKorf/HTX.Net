@@ -33,7 +33,12 @@ namespace Huobi.Net.Converters
             new KeyValuePair<OrderType, string>(OrderType.FillOrKillLimit, "buy-limit-fok"),
             new KeyValuePair<OrderType, string>(OrderType.FillOrKillLimit, "sell-limit-fok"),
             new KeyValuePair<OrderType, string>(OrderType.FillOrKillStopLimit, "buy-stop-limit-fok"),
-            new KeyValuePair<OrderType, string>(OrderType.FillOrKillStopLimit, "sell-stop-limit-fok")
+            new KeyValuePair<OrderType, string>(OrderType.FillOrKillStopLimit, "sell-stop-limit-fok"),
+
+            new KeyValuePair<OrderType, string>(OrderType.LimitGrid, "buy-limit-grid"),
+            new KeyValuePair<OrderType, string>(OrderType.LimitGrid, "buy-market-grid"),
+            new KeyValuePair<OrderType, string>(OrderType.MarketGrid, "sell-market-grid"),
+            new KeyValuePair<OrderType, string>(OrderType.MarketGrid, "sell-limit-grid")
         };
     }
 }
