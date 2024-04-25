@@ -63,6 +63,9 @@ namespace Huobi.Net.Clients.FuturesApi
         #endregion
 
         /// <inheritdoc />
+        public override string FormatSymbol(string baseAsset, string quoteAsset) => $"{baseAsset.ToUpperInvariant()}-{quoteAsset.ToUpperInvariant()}";
+
+        /// <inheritdoc />
         protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
             => new HuobiAuthenticationProvider(credentials, ClientOptions.SignPublicRequests);
 

@@ -101,6 +101,9 @@
         <member name="P:Huobi.Net.Clients.SpotApi.HuobiRestClientSpotApi.Trading">
             <inheritdoc />
         </member>
+        <member name="M:Huobi.Net.Clients.SpotApi.HuobiRestClientSpotApi.FormatSymbol(System.String,System.String)">
+            <inheritdoc />
+        </member>
         <member name="M:Huobi.Net.Clients.SpotApi.HuobiRestClientSpotApi.CreateAuthenticationProvider(CryptoExchange.Net.Authentication.ApiCredentials)">
             <inheritdoc />
         </member>
@@ -334,6 +337,9 @@
         <member name="T:Huobi.Net.Clients.SpotApi.HuobiSocketClientSpotApi">
             <inheritdoc />
         </member>
+        <member name="M:Huobi.Net.Clients.SpotApi.HuobiSocketClientSpotApi.FormatSymbol(System.String,System.String)">
+            <inheritdoc />
+        </member>
         <member name="M:Huobi.Net.Clients.SpotApi.HuobiSocketClientSpotApi.GetListenerIdentifier(CryptoExchange.Net.Interfaces.IMessageAccessor)">
             <inheritdoc />
         </member>
@@ -398,6 +404,9 @@
             <inheritdoc />
         </member>
         <member name="T:Huobi.Net.Clients.SpotApi.HuobiSocketClientUsdtMarginSwapApi">
+            <inheritdoc />
+        </member>
+        <member name="M:Huobi.Net.Clients.SpotApi.HuobiSocketClientUsdtMarginSwapApi.FormatSymbol(System.String,System.String)">
             <inheritdoc />
         </member>
         <member name="M:Huobi.Net.Clients.SpotApi.HuobiSocketClientUsdtMarginSwapApi.PreprocessStreamMessage(System.Net.WebSockets.WebSocketMessageType,System.ReadOnlyMemory{System.Byte})">
@@ -468,6 +477,9 @@
             <inheritdoc />
         </member>
         <member name="P:Huobi.Net.Clients.FuturesApi.HuobiClientUsdtMarginSwapApi.Trading">
+            <inheritdoc />
+        </member>
+        <member name="M:Huobi.Net.Clients.FuturesApi.HuobiClientUsdtMarginSwapApi.FormatSymbol(System.String,System.String)">
             <inheritdoc />
         </member>
         <member name="M:Huobi.Net.Clients.FuturesApi.HuobiClientUsdtMarginSwapApi.CreateAuthenticationProvider(CryptoExchange.Net.Authentication.ApiCredentials)">
@@ -4210,6 +4222,11 @@
         <member name="T:Huobi.Net.Interfaces.IHuobiOrderBookFactory">
             <summary>
             Huobi order book factory
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Interfaces.IHuobiOrderBookFactory.Spot">
+            <summary>
+            Spot order book factory methods
             </summary>
         </member>
         <member name="M:Huobi.Net.Interfaces.IHuobiOrderBookFactory.CreateSpot(System.String,System.Action{Huobi.Net.Objects.Options.HuobiOrderBookOptions})">
@@ -9616,6 +9633,9 @@
             </summary>
         </member>
         <member name="T:Huobi.Net.SymbolOrderBooks.HuobiOrderBookFactory">
+            <inheritdoc />
+        </member>
+        <member name="P:Huobi.Net.SymbolOrderBooks.HuobiOrderBookFactory.Spot">
             <inheritdoc />
         </member>
         <member name="M:Huobi.Net.SymbolOrderBooks.HuobiOrderBookFactory.#ctor(System.IServiceProvider)">

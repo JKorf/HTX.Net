@@ -66,6 +66,9 @@ namespace Huobi.Net.Clients.SpotApi
         #endregion
 
         /// <inheritdoc />
+        public override string FormatSymbol(string baseAsset, string quoteAsset) => $"{baseAsset.ToLowerInvariant()}{quoteAsset.ToLowerInvariant()}";
+
+        /// <inheritdoc />
         protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
             => new HuobiAuthenticationProvider(credentials, ClientOptions.SignPublicRequests);
 

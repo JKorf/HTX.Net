@@ -41,15 +41,15 @@ namespace Huobi.Net.Clients.SpotApi
         #endregion
 
         /// <inheritdoc />
+        public override string FormatSymbol(string baseAsset, string quoteAsset) => $"{baseAsset.ToUpperInvariant()}-{quoteAsset.ToUpperInvariant()}";
+
+        /// <inheritdoc />
         public override ReadOnlyMemory<byte> PreprocessStreamMessage(WebSocketMessageType type, ReadOnlyMemory<byte> data)
         {
             if (type != WebSocketMessageType.Binary)
                 return data;
 
-            using var decompressedStream = new MemoryStream();
-            using var deflateStream = new GZipStream(new MemoryStream(data.ToArray()), CompressionMode.Decompress);
-            deflateStream.CopyTo(decompressedStream);
-            return new ReadOnlyMemory<byte>(decompressedStream.GetBuffer(), 0, (int)decompressedStream.Length);
+            return data.DecompressGzip();
         }
 
         /// <inheritdoc />

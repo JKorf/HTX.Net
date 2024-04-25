@@ -1,4 +1,5 @@
 ﻿using CryptoExchange.Net.Interfaces;
+using CryptoExchange.Net.OrderBook;
 using Huobi.Net.Interfaces;
 using Huobi.Net.Interfaces.Clients;
 using Huobi.Net.Objects.Options;
@@ -13,6 +14,9 @@ namespace Huobi.Net.SymbolOrderBooks
     {
         private readonly IServiceProvider _serviceProvider;
 
+        /// <inheritdoc />
+        public IOrderBookFactory<HuobiOrderBookOptions> Spot { get; }
+
         /// <summary>
         /// ctor
         /// </summary>
@@ -20,6 +24,8 @@ namespace Huobi.Net.SymbolOrderBooks
         public HuobiOrderBookFactory(IServiceProvider serviceProvider)
         {
             _serviceProvider = serviceProvider;
+
+            Spot = new OrderBookFactory<HuobiOrderBookOptions>((symbol, options) => CreateSpot(symbol, options), (baseAsset, quoteAsset, options) => CreateSpot(baseAsset.ToLowerInvariant() + quoteAsset.ToLowerInvariant(), options));
         }
 
         /// <inheritdoc />
