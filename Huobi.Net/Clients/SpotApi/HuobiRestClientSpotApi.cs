@@ -199,9 +199,12 @@ namespace Huobi.Net.Clients.SpotApi
                 return tickers.As<Ticker>(null);
 
             var ticker = tickers.Data.Ticks.SingleOrDefault(s => s.Symbol == symbol);
+            if (ticker == null)
+                return tickers.AsError<Ticker>(new ServerError("Symbol not found"));
+
             return tickers.As(new Ticker
             {
-                SourceObject =ticker,
+                SourceObject = ticker,
                 HighPrice = ticker.HighPrice,
                 Symbol = ticker.Symbol,
                 LastPrice = ticker.ClosePrice,

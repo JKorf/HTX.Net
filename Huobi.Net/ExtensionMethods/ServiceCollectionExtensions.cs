@@ -59,7 +59,7 @@ namespace Microsoft.Extensions.DependencyInjection
 
             services.AddTransient<ICryptoRestClient, CryptoRestClient>();
             services.AddTransient<ICryptoSocketClient, CryptoSocketClient>();
-            services.AddSingleton<IHuobiOrderBookFactory, HuobiOrderBookFactory>();
+            services.AddTransient<IHuobiOrderBookFactory, HuobiOrderBookFactory>();
             services.AddTransient(x => x.GetRequiredService<IHuobiRestClient>().SpotApi.CommonSpotClient);
             if (socketClientLifeTime == null)
                 services.AddSingleton<IHuobiSocketClient, HuobiSocketClient>();
