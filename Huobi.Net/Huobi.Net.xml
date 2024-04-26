@@ -2278,6 +2278,26 @@
             <param name="usdtMarginSwapSocketAddress"></param>
             <returns></returns>
         </member>
+        <member name="T:Huobi.Net.HuobiExchange">
+            <summary>
+            Huobi exchange information and configuration
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.HuobiExchange.ExchangeName">
+            <summary>
+            Exchange name
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.HuobiExchange.Url">
+            <summary>
+            Url to the main website
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.HuobiExchange.ApiDocsUrl">
+            <summary>
+            Urls to the API documentation
+            </summary>
+        </member>
         <member name="T:Huobi.Net.Interfaces.Clients.IHuobiRestClient">
             <summary>
             Client for accessing the Huobi API. 
