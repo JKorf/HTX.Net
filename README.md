@@ -123,6 +123,13 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 5.2.6 - 28 Apr 2024
+    * Added HuobiExchange static info class
+    * Added HuobiOrderBookFactory book creation method
+    * Fixed HuobiOrderBookFactory injection issue
+    * Fixed result checking on common spot GetTickerAsync endpoint
+    * Updated CryptoExchange.Net to v7.4.0, see https://github.com/JKorf/CryptoExchange.Net?tab=readme-ov-file#release-notes for release notes
+
 * Version 5.2.5 - 23 Apr 2024
     * Updated OrderSide and OrderType enum values and converters
     * Updated CryptoExchange.Net to 7.3.3, see https://github.com/JKorf/CryptoExchange.Net?tab=readme-ov-file#release-notes for release notes
