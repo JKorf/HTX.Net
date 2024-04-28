@@ -10,6 +10,11 @@ namespace Huobi.Net.Interfaces
     public interface IHuobiOrderBookFactory
     {
         /// <summary>
+        /// Spot order book factory methods
+        /// </summary>
+        public IOrderBookFactory<HuobiOrderBookOptions> Spot { get; }
+
+        /// <summary>
         /// Create a SymbolOrderBook for the Spot API
         /// </summary>
         /// <param name="symbol">The symbol</param>
