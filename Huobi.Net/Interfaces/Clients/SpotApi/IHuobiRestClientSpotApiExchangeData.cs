@@ -11,7 +11,7 @@ namespace Huobi.Net.Interfaces.Clients.SpotApi
     /// <summary>
     /// Huobi exchange data endpoints. Exchange data includes market data (tickers, order books, etc) and system status.
     /// </summary>
-    public interface IHuobiClientSpotApiExchangeData
+    public interface IHuobiRestClientSpotApiExchangeData
     {
         /// <summary>
         /// Gets the latest ticker for all symbols

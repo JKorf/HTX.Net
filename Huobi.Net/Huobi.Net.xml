@@ -451,41 +451,41 @@
         <member name="M:Huobi.Net.Clients.SpotApi.HuobiSocketClientUsdtMarginSwapApi.SubscribeToMarkPriceKlineUpdatesAsync(System.String,Huobi.Net.Enums.KlineInterval,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{Huobi.Net.Objects.Models.HuobiKline}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="T:Huobi.Net.Clients.FuturesApi.HuobiClientUsdtMarginSwapApi">
+        <member name="T:Huobi.Net.Clients.FuturesApi.HuobiRestClientUsdtMarginSwapApi">
             <inheritdoc />
         </member>
-        <member name="P:Huobi.Net.Clients.FuturesApi.HuobiClientUsdtMarginSwapApi.ClientOptions">
+        <member name="P:Huobi.Net.Clients.FuturesApi.HuobiRestClientUsdtMarginSwapApi.ClientOptions">
             <inheritdoc />
         </member>
-        <member name="E:Huobi.Net.Clients.FuturesApi.HuobiClientUsdtMarginSwapApi.OnOrderPlaced">
+        <member name="E:Huobi.Net.Clients.FuturesApi.HuobiRestClientUsdtMarginSwapApi.OnOrderPlaced">
             <summary>
             Event triggered when an order is placed via this client
             </summary>
         </member>
-        <member name="E:Huobi.Net.Clients.FuturesApi.HuobiClientUsdtMarginSwapApi.OnOrderCanceled">
+        <member name="E:Huobi.Net.Clients.FuturesApi.HuobiRestClientUsdtMarginSwapApi.OnOrderCanceled">
             <summary>
             Event triggered when an order is canceled via this client
             </summary>
         </member>
-        <member name="P:Huobi.Net.Clients.FuturesApi.HuobiClientUsdtMarginSwapApi.ExchangeName">
+        <member name="P:Huobi.Net.Clients.FuturesApi.HuobiRestClientUsdtMarginSwapApi.ExchangeName">
             <inheritdoc />
         </member>
-        <member name="P:Huobi.Net.Clients.FuturesApi.HuobiClientUsdtMarginSwapApi.Account">
+        <member name="P:Huobi.Net.Clients.FuturesApi.HuobiRestClientUsdtMarginSwapApi.Account">
             <inheritdoc />
         </member>
-        <member name="P:Huobi.Net.Clients.FuturesApi.HuobiClientUsdtMarginSwapApi.ExchangeData">
+        <member name="P:Huobi.Net.Clients.FuturesApi.HuobiRestClientUsdtMarginSwapApi.ExchangeData">
             <inheritdoc />
         </member>
-        <member name="P:Huobi.Net.Clients.FuturesApi.HuobiClientUsdtMarginSwapApi.Trading">
+        <member name="P:Huobi.Net.Clients.FuturesApi.HuobiRestClientUsdtMarginSwapApi.Trading">
             <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.Clients.FuturesApi.HuobiClientUsdtMarginSwapApi.FormatSymbol(System.String,System.String)">
+        <member name="M:Huobi.Net.Clients.FuturesApi.HuobiRestClientUsdtMarginSwapApi.FormatSymbol(System.String,System.String)">
             <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.Clients.FuturesApi.HuobiClientUsdtMarginSwapApi.CreateAuthenticationProvider(CryptoExchange.Net.Authentication.ApiCredentials)">
+        <member name="M:Huobi.Net.Clients.FuturesApi.HuobiRestClientUsdtMarginSwapApi.CreateAuthenticationProvider(CryptoExchange.Net.Authentication.ApiCredentials)">
             <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.Clients.FuturesApi.HuobiClientUsdtMarginSwapApi.GetUrl(System.String,System.String)">
+        <member name="M:Huobi.Net.Clients.FuturesApi.HuobiRestClientUsdtMarginSwapApi.GetUrl(System.String,System.String)">
             <summary>
             Construct url
             </summary>
@@ -493,247 +493,247 @@
             <param name="version"></param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Clients.FuturesApi.HuobiClientUsdtMarginSwapApi.ParseErrorResponse(System.Int32,System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{System.String,System.Collections.Generic.IEnumerable{System.String}}},CryptoExchange.Net.Interfaces.IMessageAccessor)">
+        <member name="M:Huobi.Net.Clients.FuturesApi.HuobiRestClientUsdtMarginSwapApi.ParseErrorResponse(System.Int32,System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{System.String,System.Collections.Generic.IEnumerable{System.String}}},CryptoExchange.Net.Interfaces.IMessageAccessor)">
             <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.Clients.FuturesApi.HuobiClientUsdtMarginSwapApi.GetServerTimestampAsync">
+        <member name="M:Huobi.Net.Clients.FuturesApi.HuobiRestClientUsdtMarginSwapApi.GetServerTimestampAsync">
             <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.Clients.FuturesApi.HuobiClientUsdtMarginSwapApi.GetTimeSyncInfo">
+        <member name="M:Huobi.Net.Clients.FuturesApi.HuobiRestClientUsdtMarginSwapApi.GetTimeSyncInfo">
             <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.Clients.FuturesApi.HuobiClientUsdtMarginSwapApi.GetTimeOffset">
+        <member name="M:Huobi.Net.Clients.FuturesApi.HuobiRestClientUsdtMarginSwapApi.GetTimeOffset">
             <inheritdoc />
         </member>
-        <member name="T:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiClientUsdtMarginSwapApiAccount">
+        <member name="T:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiRestClientUsdtMarginSwapApiAccount">
             <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiClientUsdtMarginSwapApiAccount.GetAssetValuationAsync(System.String,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiRestClientUsdtMarginSwapApiAccount.GetAssetValuationAsync(System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiClientUsdtMarginSwapApiAccount.GetIsolatedMarginAccountInfoAsync(System.String,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiRestClientUsdtMarginSwapApiAccount.GetIsolatedMarginAccountInfoAsync(System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiClientUsdtMarginSwapApiAccount.GetCrossMarginAccountInfoAsync(System.String,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiRestClientUsdtMarginSwapApiAccount.GetCrossMarginAccountInfoAsync(System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiClientUsdtMarginSwapApiAccount.GetIsolatedMarginPositionsAsync(System.String,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiRestClientUsdtMarginSwapApiAccount.GetIsolatedMarginPositionsAsync(System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiClientUsdtMarginSwapApiAccount.GetCrossMarginPositionsAsync(System.String,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiRestClientUsdtMarginSwapApiAccount.GetCrossMarginPositionsAsync(System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiClientUsdtMarginSwapApiAccount.GetIsolatedMarginAssetAndPositionsAsync(System.String,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiRestClientUsdtMarginSwapApiAccount.GetIsolatedMarginAssetAndPositionsAsync(System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiClientUsdtMarginSwapApiAccount.GetCrossMarginAssetAndPositionsAsync(System.String,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiRestClientUsdtMarginSwapApiAccount.GetCrossMarginAssetAndPositionsAsync(System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiClientUsdtMarginSwapApiAccount.SetSubAccountsTradingPermissionsAsync(System.Collections.Generic.IEnumerable{System.String},System.Boolean,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiRestClientUsdtMarginSwapApiAccount.SetSubAccountsTradingPermissionsAsync(System.Collections.Generic.IEnumerable{System.String},System.Boolean,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiClientUsdtMarginSwapApiAccount.GetIsolatedMarginSubAccountsAssetsAsync(System.String,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiRestClientUsdtMarginSwapApiAccount.GetIsolatedMarginSubAccountsAssetsAsync(System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiClientUsdtMarginSwapApiAccount.GetCrossMarginSubAccountsAssetsAsync(System.String,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiRestClientUsdtMarginSwapApiAccount.GetCrossMarginSubAccountsAssetsAsync(System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiClientUsdtMarginSwapApiAccount.GetFinancialRecordsAsync(System.String,System.String,System.Collections.Generic.IEnumerable{Huobi.Net.Enums.FinancialRecordType},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiRestClientUsdtMarginSwapApiAccount.GetFinancialRecordsAsync(System.String,System.String,System.Collections.Generic.IEnumerable{Huobi.Net.Enums.FinancialRecordType},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiClientUsdtMarginSwapApiAccount.GetIsolatedMarginSettlementRecordsAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiRestClientUsdtMarginSwapApiAccount.GetIsolatedMarginSettlementRecordsAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiClientUsdtMarginSwapApiAccount.GetCrossMarginSettlementRecordsAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiRestClientUsdtMarginSwapApiAccount.GetCrossMarginSettlementRecordsAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiClientUsdtMarginSwapApiAccount.GetIsolatedMarginAvailableLeverageAsync(System.String,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiRestClientUsdtMarginSwapApiAccount.GetIsolatedMarginAvailableLeverageAsync(System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiClientUsdtMarginSwapApiAccount.GetCrossMarginAvailableLeverageAsync(System.String,System.String,System.Nullable{Huobi.Net.Enums.ContractType},System.Nullable{Huobi.Net.Enums.BusinessType},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiRestClientUsdtMarginSwapApiAccount.GetCrossMarginAvailableLeverageAsync(System.String,System.String,System.Nullable{Huobi.Net.Enums.ContractType},System.Nullable{Huobi.Net.Enums.BusinessType},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiClientUsdtMarginSwapApiAccount.GetTradingFeesAsync(System.String,System.String,System.Nullable{Huobi.Net.Enums.ContractType},System.Nullable{Huobi.Net.Enums.BusinessType},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiRestClientUsdtMarginSwapApiAccount.GetTradingFeesAsync(System.String,System.String,System.Nullable{Huobi.Net.Enums.ContractType},System.Nullable{Huobi.Net.Enums.BusinessType},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiClientUsdtMarginSwapApiAccount.TransferMasterSubAsync(System.String,System.String,System.String,System.String,System.Decimal,Huobi.Net.Enums.MasterSubTransferType,System.Nullable{System.Int64},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiRestClientUsdtMarginSwapApiAccount.TransferMasterSubAsync(System.String,System.String,System.String,System.String,System.Decimal,Huobi.Net.Enums.MasterSubTransferType,System.Nullable{System.Int64},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiClientUsdtMarginSwapApiAccount.GetMasterSubTransferRecordsAsync(System.String,System.Int32,System.Nullable{Huobi.Net.Enums.MasterSubTransferType},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiRestClientUsdtMarginSwapApiAccount.GetMasterSubTransferRecordsAsync(System.String,System.Int32,System.Nullable{Huobi.Net.Enums.MasterSubTransferType},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiClientUsdtMarginSwapApiAccount.TransferMarginAccountsAsync(System.String,System.String,System.String,System.Decimal,System.Nullable{System.Int64},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiRestClientUsdtMarginSwapApiAccount.TransferMarginAccountsAsync(System.String,System.String,System.String,System.Decimal,System.Nullable{System.Int64},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiClientUsdtMarginSwapApiAccount.ModifyIsolatedMarginPositionModeAsync(System.String,Huobi.Net.Enums.PositionMode,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiRestClientUsdtMarginSwapApiAccount.ModifyIsolatedMarginPositionModeAsync(System.String,Huobi.Net.Enums.PositionMode,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiClientUsdtMarginSwapApiAccount.ModifyCrossMarginPositionModeAsync(System.String,Huobi.Net.Enums.PositionMode,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiRestClientUsdtMarginSwapApiAccount.ModifyCrossMarginPositionModeAsync(System.String,Huobi.Net.Enums.PositionMode,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="T:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiClientUsdtMarginSwapApiExchangeData">
+        <member name="T:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiRestClientUsdtMarginSwapApiExchangeData">
             <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiClientUsdtMarginSwapApiExchangeData.GetServerTimeAsync(System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiRestClientUsdtMarginSwapApiExchangeData.GetServerTimeAsync(System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiClientUsdtMarginSwapApiExchangeData.GetContractInfoAsync(System.String,System.Nullable{Huobi.Net.Enums.MarginMode},System.String,System.Nullable{Huobi.Net.Enums.ContractType},System.Nullable{Huobi.Net.Enums.BusinessType},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiRestClientUsdtMarginSwapApiExchangeData.GetContractInfoAsync(System.String,System.Nullable{Huobi.Net.Enums.MarginMode},System.String,System.Nullable{Huobi.Net.Enums.ContractType},System.Nullable{Huobi.Net.Enums.BusinessType},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiClientUsdtMarginSwapApiExchangeData.GetSwapIndexPriceAsync(System.String,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiRestClientUsdtMarginSwapApiExchangeData.GetSwapIndexPriceAsync(System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiClientUsdtMarginSwapApiExchangeData.GetSwapPriceLimitationAsync(System.String,System.String,System.Nullable{Huobi.Net.Enums.ContractType},System.Nullable{Huobi.Net.Enums.BusinessType},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiRestClientUsdtMarginSwapApiExchangeData.GetSwapPriceLimitationAsync(System.String,System.String,System.Nullable{Huobi.Net.Enums.ContractType},System.Nullable{Huobi.Net.Enums.BusinessType},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiClientUsdtMarginSwapApiExchangeData.GetSwapOpenInterestAsync(System.String,System.String,System.Nullable{Huobi.Net.Enums.ContractType},System.Nullable{Huobi.Net.Enums.BusinessType},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiRestClientUsdtMarginSwapApiExchangeData.GetSwapOpenInterestAsync(System.String,System.String,System.Nullable{Huobi.Net.Enums.ContractType},System.Nullable{Huobi.Net.Enums.BusinessType},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiClientUsdtMarginSwapApiExchangeData.GetOrderBookAsync(System.String,System.String,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiRestClientUsdtMarginSwapApiExchangeData.GetOrderBookAsync(System.String,System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiClientUsdtMarginSwapApiExchangeData.GetBestOfferAsync(System.String,System.Nullable{Huobi.Net.Enums.BusinessType},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiRestClientUsdtMarginSwapApiExchangeData.GetBestOfferAsync(System.String,System.Nullable{Huobi.Net.Enums.BusinessType},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiClientUsdtMarginSwapApiExchangeData.GetKlinesAsync(System.String,Huobi.Net.Enums.KlineInterval,System.Nullable{System.Int32},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiRestClientUsdtMarginSwapApiExchangeData.GetKlinesAsync(System.String,Huobi.Net.Enums.KlineInterval,System.Nullable{System.Int32},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiClientUsdtMarginSwapApiExchangeData.GetMarketDataAsync(System.String,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiRestClientUsdtMarginSwapApiExchangeData.GetMarketDataAsync(System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiClientUsdtMarginSwapApiExchangeData.GetMarketDatasAsync(System.String,System.Nullable{Huobi.Net.Enums.BusinessType},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiRestClientUsdtMarginSwapApiExchangeData.GetMarketDatasAsync(System.String,System.Nullable{Huobi.Net.Enums.BusinessType},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiClientUsdtMarginSwapApiExchangeData.GetLastTradesAsync(System.String,System.Nullable{Huobi.Net.Enums.BusinessType},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiRestClientUsdtMarginSwapApiExchangeData.GetLastTradesAsync(System.String,System.Nullable{Huobi.Net.Enums.BusinessType},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiClientUsdtMarginSwapApiExchangeData.GetRecentTradesAsync(System.String,System.Int32,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiRestClientUsdtMarginSwapApiExchangeData.GetRecentTradesAsync(System.String,System.Int32,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiClientUsdtMarginSwapApiExchangeData.GetSwapRiskInfoAsync(System.String,System.Nullable{Huobi.Net.Enums.BusinessType},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiRestClientUsdtMarginSwapApiExchangeData.GetSwapRiskInfoAsync(System.String,System.Nullable{Huobi.Net.Enums.BusinessType},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiClientUsdtMarginSwapApiExchangeData.GetInsuranceFundHistoryAsync(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiRestClientUsdtMarginSwapApiExchangeData.GetInsuranceFundHistoryAsync(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiClientUsdtMarginSwapApiExchangeData.GetIsolatedMarginAdjustFactorInfoAsync(System.String,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiRestClientUsdtMarginSwapApiExchangeData.GetIsolatedMarginAdjustFactorInfoAsync(System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiClientUsdtMarginSwapApiExchangeData.GetCrossMarginAdjustFactorInfoAsync(System.String,System.String,System.Nullable{Huobi.Net.Enums.ContractType},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiRestClientUsdtMarginSwapApiExchangeData.GetCrossMarginAdjustFactorInfoAsync(System.String,System.String,System.Nullable{Huobi.Net.Enums.ContractType},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiClientUsdtMarginSwapApiExchangeData.GetOpenInterestAsync(Huobi.Net.Enums.InterestPeriod,Huobi.Net.Enums.Unit,System.String,System.String,System.Nullable{Huobi.Net.Enums.ContractType},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiRestClientUsdtMarginSwapApiExchangeData.GetOpenInterestAsync(Huobi.Net.Enums.InterestPeriod,Huobi.Net.Enums.Unit,System.String,System.String,System.Nullable{Huobi.Net.Enums.ContractType},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiClientUsdtMarginSwapApiExchangeData.GetIsolatedMarginTieredInfoAsync(System.String,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiRestClientUsdtMarginSwapApiExchangeData.GetIsolatedMarginTieredInfoAsync(System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiClientUsdtMarginSwapApiExchangeData.GetCrossTieredMarginInfoAsync(System.String,System.String,System.Nullable{Huobi.Net.Enums.ContractType},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiRestClientUsdtMarginSwapApiExchangeData.GetCrossTieredMarginInfoAsync(System.String,System.String,System.Nullable{Huobi.Net.Enums.ContractType},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiClientUsdtMarginSwapApiExchangeData.GetIsolatedStatusAsync(System.String,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiRestClientUsdtMarginSwapApiExchangeData.GetIsolatedStatusAsync(System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiClientUsdtMarginSwapApiExchangeData.GetCrossMarginTransferStatusAsync(System.String,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiRestClientUsdtMarginSwapApiExchangeData.GetCrossMarginTransferStatusAsync(System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiClientUsdtMarginSwapApiExchangeData.GetCrossMarginTradeStatusAsync(System.String,System.String,System.Nullable{Huobi.Net.Enums.ContractType},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiRestClientUsdtMarginSwapApiExchangeData.GetCrossMarginTradeStatusAsync(System.String,System.String,System.Nullable{Huobi.Net.Enums.ContractType},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiClientUsdtMarginSwapApiExchangeData.GetLiquidationOrdersAsync(System.Int32,Huobi.Net.Enums.LiquidationTradeType,System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiRestClientUsdtMarginSwapApiExchangeData.GetLiquidationOrdersAsync(System.Int32,Huobi.Net.Enums.LiquidationTradeType,System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiClientUsdtMarginSwapApiExchangeData.GetHistoricalSettlementRecordsAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiRestClientUsdtMarginSwapApiExchangeData.GetHistoricalSettlementRecordsAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiClientUsdtMarginSwapApiExchangeData.GetFundingRateAsync(System.String,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiRestClientUsdtMarginSwapApiExchangeData.GetFundingRateAsync(System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiClientUsdtMarginSwapApiExchangeData.GetFundingRatesAsync(System.String,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiRestClientUsdtMarginSwapApiExchangeData.GetFundingRatesAsync(System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiClientUsdtMarginSwapApiExchangeData.GetHistoricalFundingRatesAsync(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiRestClientUsdtMarginSwapApiExchangeData.GetHistoricalFundingRatesAsync(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiClientUsdtMarginSwapApiExchangeData.GetPremiumIndexKlinesAsync(System.String,Huobi.Net.Enums.KlineInterval,System.Int32,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiRestClientUsdtMarginSwapApiExchangeData.GetPremiumIndexKlinesAsync(System.String,Huobi.Net.Enums.KlineInterval,System.Int32,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiClientUsdtMarginSwapApiExchangeData.GetEstimatedFundingRateKlinesAsync(System.String,Huobi.Net.Enums.KlineInterval,System.Int32,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiRestClientUsdtMarginSwapApiExchangeData.GetEstimatedFundingRateKlinesAsync(System.String,Huobi.Net.Enums.KlineInterval,System.Int32,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiClientUsdtMarginSwapApiExchangeData.GetBasisDataAsync(System.String,Huobi.Net.Enums.KlineInterval,System.Int32,System.String,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiRestClientUsdtMarginSwapApiExchangeData.GetBasisDataAsync(System.String,Huobi.Net.Enums.KlineInterval,System.Int32,System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiClientUsdtMarginSwapApiExchangeData.GetEstimatedSettlementPriceAsync(System.String,System.String,System.Nullable{Huobi.Net.Enums.ContractType},System.Nullable{Huobi.Net.Enums.BusinessType},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiRestClientUsdtMarginSwapApiExchangeData.GetEstimatedSettlementPriceAsync(System.String,System.String,System.Nullable{Huobi.Net.Enums.ContractType},System.Nullable{Huobi.Net.Enums.BusinessType},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="T:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiClientUsdtMarginSwapApiTrading">
+        <member name="T:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiRestClientUsdtMarginSwapApiTrading">
             <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiClientUsdtMarginSwapApiTrading.PlaceIsolatedMarginOrderAsync(System.String,System.Decimal,Huobi.Net.Enums.OrderSide,System.Int32,System.Nullable{System.Decimal},System.Nullable{Huobi.Net.Enums.Offset},System.Nullable{Huobi.Net.Enums.OrderPriceType},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{Huobi.Net.Enums.OrderPriceType},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{Huobi.Net.Enums.OrderPriceType},System.Nullable{System.Boolean},System.Nullable{System.Int64},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiRestClientUsdtMarginSwapApiTrading.PlaceIsolatedMarginOrderAsync(System.String,System.Decimal,Huobi.Net.Enums.OrderSide,System.Int32,System.Nullable{System.Decimal},System.Nullable{Huobi.Net.Enums.Offset},System.Nullable{Huobi.Net.Enums.OrderPriceType},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{Huobi.Net.Enums.OrderPriceType},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{Huobi.Net.Enums.OrderPriceType},System.Nullable{System.Boolean},System.Nullable{System.Int64},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiClientUsdtMarginSwapApiTrading.PlaceCrossMarginOrderAsync(System.Decimal,Huobi.Net.Enums.OrderSide,System.Int32,System.String,System.String,System.Nullable{Huobi.Net.Enums.ContractType},System.Nullable{System.Decimal},System.Nullable{Huobi.Net.Enums.Offset},System.Nullable{Huobi.Net.Enums.OrderPriceType},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{Huobi.Net.Enums.OrderPriceType},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{Huobi.Net.Enums.OrderPriceType},System.Nullable{System.Boolean},System.Nullable{System.Int64},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiRestClientUsdtMarginSwapApiTrading.PlaceCrossMarginOrderAsync(System.Decimal,Huobi.Net.Enums.OrderSide,System.Int32,System.String,System.String,System.Nullable{Huobi.Net.Enums.ContractType},System.Nullable{System.Decimal},System.Nullable{Huobi.Net.Enums.Offset},System.Nullable{Huobi.Net.Enums.OrderPriceType},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{Huobi.Net.Enums.OrderPriceType},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{Huobi.Net.Enums.OrderPriceType},System.Nullable{System.Boolean},System.Nullable{System.Int64},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiClientUsdtMarginSwapApiTrading.CancelIsolatedMarginOrderAsync(System.String,System.Nullable{System.Int64},System.Nullable{System.Int64},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiRestClientUsdtMarginSwapApiTrading.CancelIsolatedMarginOrderAsync(System.String,System.Nullable{System.Int64},System.Nullable{System.Int64},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiClientUsdtMarginSwapApiTrading.CancelIsolatedMarginOrdersAsync(System.String,System.Collections.Generic.IEnumerable{System.Int64},System.Collections.Generic.IEnumerable{System.Int64},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiRestClientUsdtMarginSwapApiTrading.CancelIsolatedMarginOrdersAsync(System.String,System.Collections.Generic.IEnumerable{System.Int64},System.Collections.Generic.IEnumerable{System.Int64},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiClientUsdtMarginSwapApiTrading.CancelCrossMarginOrderAsync(System.Nullable{System.Int64},System.Nullable{System.Int64},System.String,System.String,System.Nullable{Huobi.Net.Enums.ContractType},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiRestClientUsdtMarginSwapApiTrading.CancelCrossMarginOrderAsync(System.Nullable{System.Int64},System.Nullable{System.Int64},System.String,System.String,System.Nullable{Huobi.Net.Enums.ContractType},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiClientUsdtMarginSwapApiTrading.CancelCrossMarginOrdersAsync(System.Collections.Generic.IEnumerable{System.Int64},System.Collections.Generic.IEnumerable{System.Int64},System.String,System.String,System.Nullable{Huobi.Net.Enums.ContractType},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiRestClientUsdtMarginSwapApiTrading.CancelCrossMarginOrdersAsync(System.Collections.Generic.IEnumerable{System.Int64},System.Collections.Generic.IEnumerable{System.Int64},System.String,System.String,System.Nullable{Huobi.Net.Enums.ContractType},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiClientUsdtMarginSwapApiTrading.CancelAllIsolatedMarginOrdersAsync(System.String,System.Nullable{Huobi.Net.Enums.OrderSide},System.Nullable{Huobi.Net.Enums.Offset},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiRestClientUsdtMarginSwapApiTrading.CancelAllIsolatedMarginOrdersAsync(System.String,System.Nullable{Huobi.Net.Enums.OrderSide},System.Nullable{Huobi.Net.Enums.Offset},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiClientUsdtMarginSwapApiTrading.CancelAllCrossMarginOrdersAsync(System.String,System.String,System.Nullable{Huobi.Net.Enums.ContractType},System.Nullable{Huobi.Net.Enums.OrderSide},System.Nullable{Huobi.Net.Enums.Offset},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiRestClientUsdtMarginSwapApiTrading.CancelAllCrossMarginOrdersAsync(System.String,System.String,System.Nullable{Huobi.Net.Enums.ContractType},System.Nullable{Huobi.Net.Enums.OrderSide},System.Nullable{Huobi.Net.Enums.Offset},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiClientUsdtMarginSwapApiTrading.ChangeIsolatedMarginLeverageAsync(System.String,System.Int32,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiRestClientUsdtMarginSwapApiTrading.ChangeIsolatedMarginLeverageAsync(System.String,System.Int32,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiClientUsdtMarginSwapApiTrading.ChangeCrossMarginLeverageAsync(System.Int32,System.String,System.String,System.Nullable{Huobi.Net.Enums.ContractType},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiRestClientUsdtMarginSwapApiTrading.ChangeCrossMarginLeverageAsync(System.Int32,System.String,System.String,System.Nullable{Huobi.Net.Enums.ContractType},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiClientUsdtMarginSwapApiTrading.GetIsolatedMarginOrderAsync(System.String,System.Nullable{System.Int64},System.Nullable{System.Int64},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiRestClientUsdtMarginSwapApiTrading.GetIsolatedMarginOrderAsync(System.String,System.Nullable{System.Int64},System.Nullable{System.Int64},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiClientUsdtMarginSwapApiTrading.GetIsolatedMarginOrdersAsync(System.String,System.Collections.Generic.IEnumerable{System.Int64},System.Collections.Generic.IEnumerable{System.Int64},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiRestClientUsdtMarginSwapApiTrading.GetIsolatedMarginOrdersAsync(System.String,System.Collections.Generic.IEnumerable{System.Int64},System.Collections.Generic.IEnumerable{System.Int64},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiClientUsdtMarginSwapApiTrading.GetCrossMarginOrderAsync(System.String,System.String,System.Nullable{System.Int64},System.Nullable{System.Int64},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiRestClientUsdtMarginSwapApiTrading.GetCrossMarginOrderAsync(System.String,System.String,System.Nullable{System.Int64},System.Nullable{System.Int64},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiClientUsdtMarginSwapApiTrading.GetCrossMarginOrdersAsync(System.Collections.Generic.IEnumerable{System.Int64},System.Collections.Generic.IEnumerable{System.Int64},System.String,System.String,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiRestClientUsdtMarginSwapApiTrading.GetCrossMarginOrdersAsync(System.Collections.Generic.IEnumerable{System.Int64},System.Collections.Generic.IEnumerable{System.Int64},System.String,System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiClientUsdtMarginSwapApiTrading.GetIsolatedMarginOrderDetailsAsync(System.String,System.Int64,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiRestClientUsdtMarginSwapApiTrading.GetIsolatedMarginOrderDetailsAsync(System.String,System.Int64,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiClientUsdtMarginSwapApiTrading.GetCrossMarginOrderDetailsAsync(System.String,System.Int64,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiRestClientUsdtMarginSwapApiTrading.GetCrossMarginOrderDetailsAsync(System.String,System.Int64,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiClientUsdtMarginSwapApiTrading.GetIsolatedMarginOpenOrdersAsync(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,System.Nullable{Huobi.Net.Enums.MarginTradeType},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiRestClientUsdtMarginSwapApiTrading.GetIsolatedMarginOpenOrdersAsync(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,System.Nullable{Huobi.Net.Enums.MarginTradeType},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiClientUsdtMarginSwapApiTrading.GetCrossMarginOpenOrdersAsync(System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,System.Nullable{Huobi.Net.Enums.MarginTradeType},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiRestClientUsdtMarginSwapApiTrading.GetCrossMarginOpenOrdersAsync(System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,System.Nullable{Huobi.Net.Enums.MarginTradeType},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiClientUsdtMarginSwapApiTrading.GetIsolatedMarginClosedOrdersAsync(System.String,Huobi.Net.Enums.MarginTradeType,System.Boolean,System.Int32,System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiRestClientUsdtMarginSwapApiTrading.GetIsolatedMarginClosedOrdersAsync(System.String,Huobi.Net.Enums.MarginTradeType,System.Boolean,System.Int32,System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiClientUsdtMarginSwapApiTrading.GetCrossMarginClosedOrdersAsync(Huobi.Net.Enums.MarginTradeType,System.Boolean,System.Int32,System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiRestClientUsdtMarginSwapApiTrading.GetCrossMarginClosedOrdersAsync(Huobi.Net.Enums.MarginTradeType,System.Boolean,System.Int32,System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiClientUsdtMarginSwapApiTrading.GetIsolatedMarginUserTradesAsync(System.String,Huobi.Net.Enums.MarginTradeType,System.Int32,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiRestClientUsdtMarginSwapApiTrading.GetIsolatedMarginUserTradesAsync(System.String,Huobi.Net.Enums.MarginTradeType,System.Int32,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiClientUsdtMarginSwapApiTrading.GetCrossMarginUserTradesAsync(System.String,Huobi.Net.Enums.MarginTradeType,System.Int32,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Clients.UsdtMarginSwapApi.HuobiRestClientUsdtMarginSwapApiTrading.GetCrossMarginUserTradesAsync(System.String,Huobi.Net.Enums.MarginTradeType,System.Int32,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="T:Huobi.Net.Enums.AccountActivation">
@@ -2340,38 +2340,38 @@
             </summary>
             <param name="credentials">The credentials to set</param>
         </member>
-        <member name="T:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiClientSpotApi">
+        <member name="T:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiRestClientSpotApi">
             <summary>
             Spot API endpoints
             </summary>
         </member>
-        <member name="P:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiClientSpotApi.Account">
+        <member name="P:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiRestClientSpotApi.Account">
             <summary>
             Endpoints related to account settings, info or actions
             </summary>
         </member>
-        <member name="P:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiClientSpotApi.ExchangeData">
+        <member name="P:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiRestClientSpotApi.ExchangeData">
             <summary>
             Endpoints related to retrieving market and system data
             </summary>
         </member>
-        <member name="P:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiClientSpotApi.Trading">
+        <member name="P:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiRestClientSpotApi.Trading">
             <summary>
             Endpoints related to orders and trades
             </summary>
         </member>
-        <member name="P:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiClientSpotApi.CommonSpotClient">
+        <member name="P:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiRestClientSpotApi.CommonSpotClient">
             <summary>
             Get the ISpotClient for this client. This is a common interface which allows for some basic operations without knowing any details of the exchange.
             </summary>
             <returns></returns>
         </member>
-        <member name="T:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiClientSpotApiAccount">
+        <member name="T:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiRestClientSpotApiAccount">
             <summary>
             Huobi account endpoints. Account endpoints include balance info, withdraw/deposit info and requesting and account settings
             </summary>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiClientSpotApiAccount.GetUserIdAsync(System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiRestClientSpotApiAccount.GetUserIdAsync(System.Threading.CancellationToken)">
             <summary>
             Get the user id associated with the apikey/secret
             <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-uid"/></para>
@@ -2379,7 +2379,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiClientSpotApiAccount.GetSubAccountUsersAsync(System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiRestClientSpotApiAccount.GetSubAccountUsersAsync(System.Threading.CancellationToken)">
             <summary>
             Gets a list of users associated with the apikey/secret
             <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-sub-user-39-s-list"/></para>
@@ -2387,7 +2387,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiClientSpotApiAccount.GetSubUserAccountsAsync(System.Int64,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiRestClientSpotApiAccount.GetSubUserAccountsAsync(System.Int64,System.Threading.CancellationToken)">
             <summary>
             Gets a list of sub-user accounts associated with the sub-user id
             <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-sub-user-39-s-account-list"/></para>
@@ -2396,7 +2396,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiClientSpotApiAccount.GetAccountsAsync(System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiRestClientSpotApiAccount.GetAccountsAsync(System.Threading.CancellationToken)">
             <summary>
             Gets a list of accounts associated with the apikey/secret
             <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-all-accounts-of-the-current-user" /></para>
@@ -2404,7 +2404,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiClientSpotApiAccount.GetBalancesAsync(System.Int64,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiRestClientSpotApiAccount.GetBalancesAsync(System.Int64,System.Threading.CancellationToken)">
             <summary>
             Gets a list of balances for a specific account
             <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-account-balance-of-a-specific-account" /></para>
@@ -2413,7 +2413,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiClientSpotApiAccount.GetAssetValuationAsync(Huobi.Net.Enums.AccountType,System.String,System.Nullable{System.Int64},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiRestClientSpotApiAccount.GetAssetValuationAsync(Huobi.Net.Enums.AccountType,System.String,System.Nullable{System.Int64},System.Threading.CancellationToken)">
             <summary>
             Gets the valuation of all assets
             <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-the-total-valuation-of-platform-assets" /></para>
@@ -2424,7 +2424,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiClientSpotApiAccount.TransferAssetAsync(System.Int64,Huobi.Net.Enums.AccountType,System.Int64,System.Int64,Huobi.Net.Enums.AccountType,System.Int64,System.String,System.Decimal,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiRestClientSpotApiAccount.TransferAssetAsync(System.Int64,Huobi.Net.Enums.AccountType,System.Int64,System.Int64,Huobi.Net.Enums.AccountType,System.Int64,System.String,System.Decimal,System.Threading.CancellationToken)">
             <summary>
             Transfer assets between accounts
             <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#asset-transfer" /></para>
@@ -2440,7 +2440,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiClientSpotApiAccount.GetAccountHistoryAsync(System.Int64,System.String,System.Collections.Generic.IEnumerable{Huobi.Net.Enums.TransactionType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Huobi.Net.Enums.SortingType},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiRestClientSpotApiAccount.GetAccountHistoryAsync(System.Int64,System.String,System.Collections.Generic.IEnumerable{Huobi.Net.Enums.TransactionType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Huobi.Net.Enums.SortingType},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Gets a list of balance changes of specified user's account
             <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-account-history" /></para>
@@ -2455,7 +2455,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiClientSpotApiAccount.GetAccountLedgerAsync(System.Int64,System.String,System.Collections.Generic.IEnumerable{Huobi.Net.Enums.TransactionType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Huobi.Net.Enums.SortingType},System.Nullable{System.Int32},System.Nullable{System.Int64},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiRestClientSpotApiAccount.GetAccountLedgerAsync(System.Int64,System.String,System.Collections.Generic.IEnumerable{Huobi.Net.Enums.TransactionType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Huobi.Net.Enums.SortingType},System.Nullable{System.Int32},System.Nullable{System.Int64},System.Threading.CancellationToken)">
             <summary>
             This endpoint returns the balance changes of specified user's account.
             <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-account-ledger" /></para>
@@ -2471,7 +2471,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiClientSpotApiAccount.GetSubAccountBalancesAsync(System.Int64,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiRestClientSpotApiAccount.GetSubAccountBalancesAsync(System.Int64,System.Threading.CancellationToken)">
             <summary>
             Gets a list of balances for a specific sub account
             <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-account-balance-of-a-sub-user" /></para>
@@ -2480,7 +2480,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiClientSpotApiAccount.TransferWithSubAccountAsync(System.Int64,System.String,System.Decimal,Huobi.Net.Enums.TransferType,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiRestClientSpotApiAccount.TransferWithSubAccountAsync(System.Int64,System.String,System.Decimal,Huobi.Net.Enums.TransferType,System.Threading.CancellationToken)">
             <summary>
             Transfer asset between parent and sub account
             <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#transfer-asset-between-parent-and-sub-account" /></para>
@@ -2492,7 +2492,7 @@
             <param name="ct">Cancellation token</param>
             <returns>Unique transfer id</returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiClientSpotApiAccount.GetDepositAddressesAsync(System.String,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiRestClientSpotApiAccount.GetDepositAddressesAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Parent user and sub user could query deposit address of corresponding chain, for a specific crypto currency (except IOTA).
             <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#query-deposit-address" /></para>
@@ -2501,7 +2501,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiClientSpotApiAccount.WithdrawAsync(System.String,System.String,System.Decimal,System.Decimal,System.String,System.String,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiRestClientSpotApiAccount.WithdrawAsync(System.String,System.String,System.Decimal,System.Decimal,System.String,System.String,System.Threading.CancellationToken)">
             <summary>
             Parent user creates a withdraw request from spot account to an external address (exists in your withdraw address list), which doesn't require two-factor-authentication.
             <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#create-a-withdraw-request" /></para>
@@ -2515,7 +2515,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiClientSpotApiAccount.GetWithdrawDepositAsync(Huobi.Net.Enums.WithdrawDepositType,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{Huobi.Net.Enums.FilterDirection},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiRestClientSpotApiAccount.GetWithdrawDepositAsync(Huobi.Net.Enums.WithdrawDepositType,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{Huobi.Net.Enums.FilterDirection},System.Threading.CancellationToken)">
             <summary>
             Parent user and sub user searche for all existed withdraws and deposits and return their latest status.
             <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#search-for-existed-withdraws-and-deposits" /></para>
@@ -2528,7 +2528,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiClientSpotApiAccount.RepayMarginLoanAsync(System.String,System.String,System.Decimal,System.String,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiRestClientSpotApiAccount.RepayMarginLoanAsync(System.String,System.String,System.Decimal,System.String,System.Threading.CancellationToken)">
             <summary>
             Repay a margin loan
             <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#repay-margin-loan-cross-isolated" /></para>
@@ -2540,7 +2540,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiClientSpotApiAccount.TransferSpotToIsolatedMarginAsync(System.String,System.String,System.Decimal,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiRestClientSpotApiAccount.TransferSpotToIsolatedMarginAsync(System.String,System.String,System.Decimal,System.Threading.CancellationToken)">
             <summary>
             Transfer asset from spot account to isolated margin account
             <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#transfer-asset-from-spot-trading-account-to-isolated-margin-account-isolated" /></para>
@@ -2551,7 +2551,7 @@
             <param name="ct">Cancellation token</param>
             <returns>Transfer id</returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiClientSpotApiAccount.TransferIsolatedMarginToSpotAsync(System.String,System.String,System.Decimal,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiRestClientSpotApiAccount.TransferIsolatedMarginToSpotAsync(System.String,System.String,System.Decimal,System.Threading.CancellationToken)">
             <summary>
             Transfer asset from isolated margin to spot account
             <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#transfer-asset-from-isolated-margin-account-to-spot-trading-account-isolated" /></para>
@@ -2562,7 +2562,7 @@
             <param name="ct">Cancellation token</param>
             <returns>Transfer id</returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiClientSpotApiAccount.GetIsolatedLoanInterestRateAndQuotaAsync(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiRestClientSpotApiAccount.GetIsolatedLoanInterestRateAndQuotaAsync(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
             <summary>
             Get isolated loan interest rate and quotas
             <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-loan-interest-rate-and-quota-isolated" /></para>
@@ -2571,7 +2571,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiClientSpotApiAccount.RequestIsolatedMarginLoanAsync(System.String,System.String,System.Decimal,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiRestClientSpotApiAccount.RequestIsolatedMarginLoanAsync(System.String,System.String,System.Decimal,System.Threading.CancellationToken)">
             <summary>
             Request a loan on isolated margin
             <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#request-a-margin-loan-isolated" /></para>
@@ -2582,7 +2582,7 @@
             <param name="ct">Cancellation token</param>
             <returns>Order id</returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiClientSpotApiAccount.RepayIsolatedMarginLoanAsync(System.String,System.Decimal,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiRestClientSpotApiAccount.RepayIsolatedMarginLoanAsync(System.String,System.Decimal,System.Threading.CancellationToken)">
             <summary>
             Repay a isolated margin loan
             <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#repay-margin-loan-isolated" /></para>
@@ -2592,7 +2592,7 @@
             <param name="ct">Cancellation token</param>
             <returns>Order id</returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiClientSpotApiAccount.GetIsolatedMarginClosedOrdersAsync(System.String,System.Collections.Generic.IEnumerable{Huobi.Net.Enums.MarginOrderStatus},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.String,System.Nullable{Huobi.Net.Enums.FilterDirection},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiRestClientSpotApiAccount.GetIsolatedMarginClosedOrdersAsync(System.String,System.Collections.Generic.IEnumerable{Huobi.Net.Enums.MarginOrderStatus},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.String,System.Nullable{Huobi.Net.Enums.FilterDirection},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get isolated margin orders history
             <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#search-past-margin-orders-isolated" /></para>
@@ -2608,7 +2608,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiClientSpotApiAccount.GetIsolatedMarginBalanceAsync(System.String,System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiRestClientSpotApiAccount.GetIsolatedMarginBalanceAsync(System.String,System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get isolated margin account balance
             <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-the-balance-of-the-margin-loan-account-isolated" /></para>
@@ -2618,7 +2618,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiClientSpotApiAccount.TransferSpotToCrossMarginAsync(System.String,System.Decimal,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiRestClientSpotApiAccount.TransferSpotToCrossMarginAsync(System.String,System.Decimal,System.Threading.CancellationToken)">
             <summary>
             Transfer from spot account to cross margin account
             <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#transfer-asset-from-spot-trading-account-to-cross-margin-account-cross" /></para>
@@ -2628,7 +2628,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiClientSpotApiAccount.TransferCrossMarginToSpotAsync(System.String,System.Decimal,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiRestClientSpotApiAccount.TransferCrossMarginToSpotAsync(System.String,System.Decimal,System.Threading.CancellationToken)">
             <summary>
             Transfer from cross margin account to spot account
             <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#transfer-asset-from-cross-margin-account-to-spot-trading-account-cross" /></para>
@@ -2638,7 +2638,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiClientSpotApiAccount.GetCrossLoanInterestRateAndQuotaAsync(System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiRestClientSpotApiAccount.GetCrossLoanInterestRateAndQuotaAsync(System.Threading.CancellationToken)">
             <summary>
             Get cross margin interest rates and quotas
             <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-loan-interest-rate-and-quota-cross" /></para>
@@ -2646,7 +2646,7 @@
             <param name="ct"></param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiClientSpotApiAccount.RequestCrossMarginLoanAsync(System.String,System.Decimal,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiRestClientSpotApiAccount.RequestCrossMarginLoanAsync(System.String,System.Decimal,System.Threading.CancellationToken)">
             <summary>
             Request a loan on cross margin
             <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#request-a-margin-loan-cross" /></para>
@@ -2656,7 +2656,7 @@
             <param name="ct">Cancellation token</param>
             <returns>Order id</returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiClientSpotApiAccount.RepayCrossMarginLoanAsync(System.String,System.Decimal,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiRestClientSpotApiAccount.RepayCrossMarginLoanAsync(System.String,System.Decimal,System.Threading.CancellationToken)">
             <summary>
             Repay a isolated margin loan
             <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#repay-margin-loan-cross" /></para>
@@ -2666,7 +2666,7 @@
             <param name="ct">Cancellation token</param>
             <returns>Order id</returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiClientSpotApiAccount.GetCrossMarginClosedOrdersAsync(System.String,System.Nullable{Huobi.Net.Enums.MarginOrderStatus},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.String,System.Nullable{Huobi.Net.Enums.FilterDirection},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiRestClientSpotApiAccount.GetCrossMarginClosedOrdersAsync(System.String,System.Nullable{Huobi.Net.Enums.MarginOrderStatus},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.String,System.Nullable{Huobi.Net.Enums.FilterDirection},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get cross margin order history
             <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#search-past-margin-orders-cross" /></para>
@@ -2682,7 +2682,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiClientSpotApiAccount.GetCrossMarginBalanceAsync(System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiRestClientSpotApiAccount.GetCrossMarginBalanceAsync(System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get cross margin account balance
             <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-the-balance-of-the-margin-loan-account-cross" /></para>
@@ -2691,7 +2691,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiClientSpotApiAccount.GetRepaymentHistoryAsync(System.Nullable{System.Int64},System.Nullable{System.Int64},System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.String,System.Nullable{System.Int32},System.Nullable{System.Int64},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiRestClientSpotApiAccount.GetRepaymentHistoryAsync(System.Nullable{System.Int64},System.Nullable{System.Int64},System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.String,System.Nullable{System.Int32},System.Nullable{System.Int64},System.Threading.CancellationToken)">
             <summary>
             Get repayment history
             <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#repayment-record-reference" /></para>
@@ -2707,7 +2707,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiClientSpotApiAccount.GetCurrentFeeRatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiRestClientSpotApiAccount.GetCurrentFeeRatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
             <summary>
             Get Current Fee Rate Applied to The User
             <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-current-fee-rate-applied-to-the-user" /></para>
@@ -2716,12 +2716,12 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="T:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiClientSpotApiExchangeData">
+        <member name="T:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiRestClientSpotApiExchangeData">
             <summary>
             Huobi exchange data endpoints. Exchange data includes market data (tickers, order books, etc) and system status.
             </summary>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiClientSpotApiExchangeData.GetTickersAsync(System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiRestClientSpotApiExchangeData.GetTickersAsync(System.Threading.CancellationToken)">
             <summary>
             Gets the latest ticker for all symbols
             <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-latest-tickers-for-all-pairs" /></para>
@@ -2729,7 +2729,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiClientSpotApiExchangeData.GetTickerAsync(System.String,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiRestClientSpotApiExchangeData.GetTickerAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Gets the ticker, including the best bid / best ask for a symbol
             <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-latest-aggregated-ticker" /></para>
@@ -2738,7 +2738,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiClientSpotApiExchangeData.GetKlinesAsync(System.String,Huobi.Net.Enums.KlineInterval,System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiRestClientSpotApiExchangeData.GetKlinesAsync(System.String,Huobi.Net.Enums.KlineInterval,System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get candlestick data for a symbol
             <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-klines-candles" /></para>
@@ -2749,7 +2749,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiClientSpotApiExchangeData.GetOrderBookAsync(System.String,System.Int32,System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiRestClientSpotApiExchangeData.GetOrderBookAsync(System.String,System.Int32,System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Gets the order book for a symbol
             <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-market-depth" /></para>
@@ -2760,7 +2760,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiClientSpotApiExchangeData.GetLastTradeAsync(System.String,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiRestClientSpotApiExchangeData.GetLastTradeAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Gets the last trade for a symbol
             <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-the-last-trade" /></para>
@@ -2769,7 +2769,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiClientSpotApiExchangeData.GetTradeHistoryAsync(System.String,System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiRestClientSpotApiExchangeData.GetTradeHistoryAsync(System.String,System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get the last x trades for a symbol
             <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-the-most-recent-trades" /></para>
@@ -2779,7 +2779,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiClientSpotApiExchangeData.GetSymbolDetails24HAsync(System.String,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiRestClientSpotApiExchangeData.GetSymbolDetails24HAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Gets 24h stats for a symbol
             <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-the-last-24h-market-summary" /></para>
@@ -2788,7 +2788,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiClientSpotApiExchangeData.GetNavAsync(System.String,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiRestClientSpotApiExchangeData.GetNavAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Gets real time NAV for ETP
             <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-real-time-nav" /></para>
@@ -2797,7 +2797,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiClientSpotApiExchangeData.GetSymbolStatusAsync(System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiRestClientSpotApiExchangeData.GetSymbolStatusAsync(System.Threading.CancellationToken)">
             <summary>
             Gets the current market status
             <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-market-status" /></para>
@@ -2805,7 +2805,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiClientSpotApiExchangeData.GetSymbolsAsync(System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiRestClientSpotApiExchangeData.GetSymbolsAsync(System.Threading.CancellationToken)">
             <summary>
             Gets a list of supported symbols
             <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-all-supported-trading-symbol" /></para>
@@ -2813,7 +2813,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiClientSpotApiExchangeData.GetAssetsAsync(System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiRestClientSpotApiExchangeData.GetAssetsAsync(System.Threading.CancellationToken)">
             <summary>
             Gets a list of supported currencies
             <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-all-supported-currencies" /></para>
@@ -2821,7 +2821,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiClientSpotApiExchangeData.GetAssetDetailsAsync(System.String,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiRestClientSpotApiExchangeData.GetAssetDetailsAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Gets a list of supported currencies and chains
             <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#apiv2-currency-amp-chains" /></para>
@@ -2830,7 +2830,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiClientSpotApiExchangeData.GetServerTimeAsync(System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiRestClientSpotApiExchangeData.GetServerTimeAsync(System.Threading.CancellationToken)">
             <summary>
             Gets the server time
             <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-current-timestamp" /></para>
@@ -2838,12 +2838,12 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="T:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiClientSpotApiTrading">
+        <member name="T:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiRestClientSpotApiTrading">
             <summary>
             Huobi trading endpoints, placing and mananging orders.
             </summary>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiClientSpotApiTrading.PlaceOrderAsync(System.Int64,System.String,Huobi.Net.Enums.OrderSide,Huobi.Net.Enums.OrderType,System.Decimal,System.Nullable{System.Decimal},System.String,System.Nullable{Huobi.Net.Enums.SourceType},System.Nullable{System.Decimal},System.Nullable{Huobi.Net.Enums.Operator},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiRestClientSpotApiTrading.PlaceOrderAsync(System.Int64,System.String,Huobi.Net.Enums.OrderSide,Huobi.Net.Enums.OrderType,System.Decimal,System.Nullable{System.Decimal},System.String,System.Nullable{Huobi.Net.Enums.SourceType},System.Nullable{System.Decimal},System.Nullable{Huobi.Net.Enums.Operator},System.Threading.CancellationToken)">
             <summary>
             Places an order
             <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#place-a-new-order" /></para>
@@ -2861,7 +2861,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiClientSpotApiTrading.GetOpenOrdersAsync(System.Nullable{System.Int64},System.String,System.Nullable{Huobi.Net.Enums.OrderSide},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiRestClientSpotApiTrading.GetOpenOrdersAsync(System.Nullable{System.Int64},System.String,System.Nullable{Huobi.Net.Enums.OrderSide},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Gets a list of open orders
             <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-all-open-orders" /></para>
@@ -2873,7 +2873,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiClientSpotApiTrading.CancelOrderAsync(System.Int64,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiRestClientSpotApiTrading.CancelOrderAsync(System.Int64,System.Threading.CancellationToken)">
             <summary>
             Cancels an open order
             <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#submit-cancel-for-an-order" /></para>
@@ -2882,7 +2882,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiClientSpotApiTrading.CancelOrderByClientOrderIdAsync(System.String,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiRestClientSpotApiTrading.CancelOrderByClientOrderIdAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Cancels an open order
             <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#submit-cancel-for-an-order-based-on-client-order-id" /></para>
@@ -2891,7 +2891,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiClientSpotApiTrading.CancelOrdersAsync(System.Collections.Generic.IEnumerable{System.Int64},System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiRestClientSpotApiTrading.CancelOrdersAsync(System.Collections.Generic.IEnumerable{System.Int64},System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
             <summary>
             Cancel multiple open orders
             <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#submit-cancel-for-multiple-orders-by-ids" /></para>
@@ -2901,7 +2901,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiClientSpotApiTrading.CancelOrdersByCriteriaAsync(System.Nullable{System.Int64},System.Collections.Generic.IEnumerable{System.String},System.Nullable{Huobi.Net.Enums.OrderSide},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiRestClientSpotApiTrading.CancelOrdersByCriteriaAsync(System.Nullable{System.Int64},System.Collections.Generic.IEnumerable{System.String},System.Nullable{Huobi.Net.Enums.OrderSide},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Cancel multiple open orders
             <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#submit-cancel-for-multiple-orders-by-criteria" /></para>
@@ -2913,7 +2913,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiClientSpotApiTrading.GetOrderAsync(System.Int64,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiRestClientSpotApiTrading.GetOrderAsync(System.Int64,System.Threading.CancellationToken)">
             <summary>
             Get details of an order
             <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-the-order-detail-of-an-order" /></para>
@@ -2922,7 +2922,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiClientSpotApiTrading.GetOrderByClientOrderIdAsync(System.String,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiRestClientSpotApiTrading.GetOrderByClientOrderIdAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get details of an order by client order id
             <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-the-order-detail-of-an-order-based-on-client-order-id" /></para>
@@ -2931,7 +2931,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiClientSpotApiTrading.GetOrderTradesAsync(System.Int64,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiRestClientSpotApiTrading.GetOrderTradesAsync(System.Int64,System.Threading.CancellationToken)">
             <summary>
             Gets a list of trades made for a specific order
             <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-the-match-result-of-an-order" /></para>
@@ -2940,7 +2940,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiClientSpotApiTrading.GetClosedOrdersAsync(System.String,System.Collections.Generic.IEnumerable{Huobi.Net.Enums.OrderState},System.Collections.Generic.IEnumerable{Huobi.Net.Enums.OrderType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int64},System.Nullable{Huobi.Net.Enums.FilterDirection},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiRestClientSpotApiTrading.GetClosedOrdersAsync(System.String,System.Collections.Generic.IEnumerable{Huobi.Net.Enums.OrderState},System.Collections.Generic.IEnumerable{Huobi.Net.Enums.OrderType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int64},System.Nullable{Huobi.Net.Enums.FilterDirection},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Gets a list of orders
             <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#search-past-orders" /></para>
@@ -2956,7 +2956,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiClientSpotApiTrading.GetUserTradesAsync(System.Collections.Generic.IEnumerable{Huobi.Net.Enums.OrderState},System.String,System.Collections.Generic.IEnumerable{Huobi.Net.Enums.OrderType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int64},System.Nullable{Huobi.Net.Enums.FilterDirection},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiRestClientSpotApiTrading.GetUserTradesAsync(System.Collections.Generic.IEnumerable{Huobi.Net.Enums.OrderState},System.String,System.Collections.Generic.IEnumerable{Huobi.Net.Enums.OrderType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int64},System.Nullable{Huobi.Net.Enums.FilterDirection},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Gets a list of trades for a specific symbol
             <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#search-match-results" /></para>
@@ -2972,7 +2972,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiClientSpotApiTrading.GetHistoricalOrdersAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Huobi.Net.Enums.FilterDirection},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiRestClientSpotApiTrading.GetHistoricalOrdersAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{Huobi.Net.Enums.FilterDirection},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Gets a list of history orders
             <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#search-historical-orders-within-48-hours" /></para>
@@ -2985,7 +2985,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiClientSpotApiTrading.PlaceConditionalOrderAsync(System.Int64,System.String,Huobi.Net.Enums.OrderSide,Huobi.Net.Enums.ConditionalOrderType,System.Decimal,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{Huobi.Net.Enums.TimeInForce},System.String,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiRestClientSpotApiTrading.PlaceConditionalOrderAsync(System.Int64,System.String,Huobi.Net.Enums.OrderSide,Huobi.Net.Enums.ConditionalOrderType,System.Decimal,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{Huobi.Net.Enums.TimeInForce},System.String,System.Threading.CancellationToken)">
             <summary>
             Place a new conditional order
             <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#place-a-conditional-order" /></para>
@@ -3004,7 +3004,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiClientSpotApiTrading.CancelConditionalOrdersAsync(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiRestClientSpotApiTrading.CancelConditionalOrdersAsync(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
             <summary>
             Cancel conditional orders
             <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#cancel-conditional-orders-before-triggering" /></para>
@@ -3013,7 +3013,7 @@
             <param name="ct">Cancelation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiClientSpotApiTrading.GetOpenConditionalOrdersAsync(System.Nullable{System.Int64},System.String,System.Nullable{Huobi.Net.Enums.OrderSide},System.Nullable{Huobi.Net.Enums.ConditionalOrderType},System.String,System.Nullable{System.Int32},System.Nullable{System.Int64},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiRestClientSpotApiTrading.GetOpenConditionalOrdersAsync(System.Nullable{System.Int64},System.String,System.Nullable{Huobi.Net.Enums.OrderSide},System.Nullable{Huobi.Net.Enums.ConditionalOrderType},System.String,System.Nullable{System.Int32},System.Nullable{System.Int64},System.Threading.CancellationToken)">
             <summary>
             Get open conditional orders based on the parameters
             <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#query-open-conditional-orders-before-triggering" /></para>
@@ -3028,7 +3028,7 @@
             <param name="ct">Cancelation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiClientSpotApiTrading.GetClosedConditionalOrdersAsync(System.String,Huobi.Net.Enums.ConditionalOrderStatus,System.Nullable{System.Int64},System.Nullable{Huobi.Net.Enums.OrderSide},System.Nullable{Huobi.Net.Enums.ConditionalOrderType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.String,System.Nullable{System.Int32},System.Nullable{System.Int64},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiRestClientSpotApiTrading.GetClosedConditionalOrdersAsync(System.String,Huobi.Net.Enums.ConditionalOrderStatus,System.Nullable{System.Int64},System.Nullable{Huobi.Net.Enums.OrderSide},System.Nullable{Huobi.Net.Enums.ConditionalOrderType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.String,System.Nullable{System.Int32},System.Nullable{System.Int64},System.Threading.CancellationToken)">
             <summary>
             Get closed conditional orders
             <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#query-conditional-order-history" /></para>
@@ -3046,7 +3046,7 @@
             <param name="endTime">Return only entries before this time</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiClientSpotApiTrading.GetConditionalOrderAsync(System.String,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.SpotApi.IHuobiRestClientSpotApiTrading.GetConditionalOrderAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get a conditional order by id
             <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#query-a-specific-conditional-order" /></para>
@@ -3230,32 +3230,32 @@
             <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
         </member>
-        <member name="T:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiClientUsdtMarginSwapApi">
+        <member name="T:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiRestClientUsdtMarginSwapApi">
             <summary>
             Usdt margin swap api endpoints
             </summary>
         </member>
-        <member name="P:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiClientUsdtMarginSwapApi.Account">
+        <member name="P:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiRestClientUsdtMarginSwapApi.Account">
             <summary>
             Endpoints related to account settings, info or actions
             </summary>
         </member>
-        <member name="P:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiClientUsdtMarginSwapApi.ExchangeData">
+        <member name="P:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiRestClientUsdtMarginSwapApi.ExchangeData">
             <summary>
             Endpoints related to retrieving market and system data
             </summary>
         </member>
-        <member name="P:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiClientUsdtMarginSwapApi.Trading">
+        <member name="P:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiRestClientUsdtMarginSwapApi.Trading">
             <summary>
             Endpoints related to orders and trades
             </summary>
         </member>
-        <member name="T:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiClientUsdtMarginSwapApiAccount">
+        <member name="T:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiRestClientUsdtMarginSwapApiAccount">
             <summary>
             Huobi usdt swap account endpoints
             </summary>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiClientUsdtMarginSwapApiAccount.GetAssetValuationAsync(System.String,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiRestClientUsdtMarginSwapApiAccount.GetAssetValuationAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get asset values
             <para><a href="https://huobiapi.github.io/docs/usdt_swap/v1/en/#general-query-asset-valuation"/></para>
@@ -3264,7 +3264,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiClientUsdtMarginSwapApiAccount.GetIsolatedMarginAccountInfoAsync(System.String,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiRestClientUsdtMarginSwapApiAccount.GetIsolatedMarginAccountInfoAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get isolated margin account info
             <para><a href="https://huobiapi.github.io/docs/usdt_swap/v1/en/#isolated-query-user-s-account-information"/></para>
@@ -3273,7 +3273,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiClientUsdtMarginSwapApiAccount.GetCrossMarginAccountInfoAsync(System.String,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiRestClientUsdtMarginSwapApiAccount.GetCrossMarginAccountInfoAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get cross margin account info
             <para><a href="https://huobiapi.github.io/docs/usdt_swap/v1/en/#cross-query-user-39-s-account-information"/></para>
@@ -3282,7 +3282,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiClientUsdtMarginSwapApiAccount.GetCrossMarginAssetAndPositionsAsync(System.String,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiRestClientUsdtMarginSwapApiAccount.GetCrossMarginAssetAndPositionsAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get cross margin assets and positions
             <para><a href="https://huobiapi.github.io/docs/usdt_swap/v1/en/#cross-query-assets-and-positions"/></para>
@@ -3291,7 +3291,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiClientUsdtMarginSwapApiAccount.GetCrossMarginAvailableLeverageAsync(System.String,System.String,System.Nullable{Huobi.Net.Enums.ContractType},System.Nullable{Huobi.Net.Enums.BusinessType},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiRestClientUsdtMarginSwapApiAccount.GetCrossMarginAvailableLeverageAsync(System.String,System.String,System.Nullable{Huobi.Net.Enums.ContractType},System.Nullable{Huobi.Net.Enums.BusinessType},System.Threading.CancellationToken)">
             <summary>
             Get cross margin available leverage
             <para><a href="https://huobiapi.github.io/docs/usdt_swap/v1/en/#cross-query-user-s-available-leverage" /></para>
@@ -3303,7 +3303,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiClientUsdtMarginSwapApiAccount.GetCrossMarginPositionsAsync(System.String,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiRestClientUsdtMarginSwapApiAccount.GetCrossMarginPositionsAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get cross margin positions
             <para><a href="https://huobiapi.github.io/docs/usdt_swap/v1/en/#cross-query-user-39-s-position-information" /></para>
@@ -3312,7 +3312,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiClientUsdtMarginSwapApiAccount.GetCrossMarginSettlementRecordsAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiRestClientUsdtMarginSwapApiAccount.GetCrossMarginSettlementRecordsAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get cross margin settlement records
             <para><a href="https://huobiapi.github.io/docs/usdt_swap/v1/en/#cross-query-settlement-records-of-users" /></para>
@@ -3325,7 +3325,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiClientUsdtMarginSwapApiAccount.GetCrossMarginSubAccountsAssetsAsync(System.String,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiRestClientUsdtMarginSwapApiAccount.GetCrossMarginSubAccountsAssetsAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get cross margin sub account assets
             <para><a href="https://huobiapi.github.io/docs/usdt_swap/v1/en/#cross-query-assets-information-of-all-sub-accounts-under-the-master-account" /></para>
@@ -3334,7 +3334,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiClientUsdtMarginSwapApiAccount.GetFinancialRecordsAsync(System.String,System.String,System.Collections.Generic.IEnumerable{Huobi.Net.Enums.FinancialRecordType},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiRestClientUsdtMarginSwapApiAccount.GetFinancialRecordsAsync(System.String,System.String,System.Collections.Generic.IEnumerable{Huobi.Net.Enums.FinancialRecordType},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get financial records
             <para><a href="https://huobiapi.github.io/docs/usdt_swap/v1/en/#general-query-account-financial-records" /></para>
@@ -3348,7 +3348,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiClientUsdtMarginSwapApiAccount.GetIsolatedMarginAssetAndPositionsAsync(System.String,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiRestClientUsdtMarginSwapApiAccount.GetIsolatedMarginAssetAndPositionsAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get isolated margin assets and positisons
             <para><a href="https://huobiapi.github.io/docs/usdt_swap/v1/en/#isolated-query-assets-and-positions" /></para>
@@ -3357,7 +3357,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiClientUsdtMarginSwapApiAccount.GetIsolatedMarginAvailableLeverageAsync(System.String,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiRestClientUsdtMarginSwapApiAccount.GetIsolatedMarginAvailableLeverageAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get isolated margin available leverage
             <para><a href="https://huobiapi.github.io/docs/usdt_swap/v1/en/#isolated-query-user-s-available-leverage" /></para>
@@ -3366,7 +3366,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiClientUsdtMarginSwapApiAccount.GetIsolatedMarginPositionsAsync(System.String,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiRestClientUsdtMarginSwapApiAccount.GetIsolatedMarginPositionsAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get isolated margin position info
             <para><a href="https://huobiapi.github.io/docs/usdt_swap/v1/en/#isolated-query-user-s-position-information" /></para>
@@ -3375,7 +3375,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiClientUsdtMarginSwapApiAccount.GetIsolatedMarginSettlementRecordsAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiRestClientUsdtMarginSwapApiAccount.GetIsolatedMarginSettlementRecordsAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get isolated margin settlement records
             <para><a href="https://huobiapi.github.io/docs/usdt_swap/v1/en/#isolated-query-settlement-records-of-users" /></para>
@@ -3388,7 +3388,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiClientUsdtMarginSwapApiAccount.GetIsolatedMarginSubAccountsAssetsAsync(System.String,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiRestClientUsdtMarginSwapApiAccount.GetIsolatedMarginSubAccountsAssetsAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get isolated margin sub account assets
             <para><a href="https://huobiapi.github.io/docs/usdt_swap/v1/en/#isolated-query-assets-information-of-all-sub-accounts-under-the-master-account" /></para>
@@ -3397,7 +3397,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiClientUsdtMarginSwapApiAccount.GetMasterSubTransferRecordsAsync(System.String,System.Int32,System.Nullable{Huobi.Net.Enums.MasterSubTransferType},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiRestClientUsdtMarginSwapApiAccount.GetMasterSubTransferRecordsAsync(System.String,System.Int32,System.Nullable{Huobi.Net.Enums.MasterSubTransferType},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get master sub account transfer records
             <para><a href="https://huobiapi.github.io/docs/usdt_swap/v1/en/#general-query-transfer-records-between-master-and-sub-account" /></para>
@@ -3410,7 +3410,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiClientUsdtMarginSwapApiAccount.GetTradingFeesAsync(System.String,System.String,System.Nullable{Huobi.Net.Enums.ContractType},System.Nullable{Huobi.Net.Enums.BusinessType},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiRestClientUsdtMarginSwapApiAccount.GetTradingFeesAsync(System.String,System.String,System.Nullable{Huobi.Net.Enums.ContractType},System.Nullable{Huobi.Net.Enums.BusinessType},System.Threading.CancellationToken)">
             <summary>
             Get trading fees
             <para><a href="https://huobiapi.github.io/docs/usdt_swap/v1/en/#general-query-information-on-swap-trading-fee" /></para>
@@ -3422,7 +3422,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiClientUsdtMarginSwapApiAccount.ModifyCrossMarginPositionModeAsync(System.String,Huobi.Net.Enums.PositionMode,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiRestClientUsdtMarginSwapApiAccount.ModifyCrossMarginPositionModeAsync(System.String,Huobi.Net.Enums.PositionMode,System.Threading.CancellationToken)">
             <summary>
             Switch cross margin position mode
             <para><a href="https://huobiapi.github.io/docs/usdt_swap/v1/en/#cross-switch-position-mode" /></para>
@@ -3432,7 +3432,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiClientUsdtMarginSwapApiAccount.ModifyIsolatedMarginPositionModeAsync(System.String,Huobi.Net.Enums.PositionMode,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiRestClientUsdtMarginSwapApiAccount.ModifyIsolatedMarginPositionModeAsync(System.String,Huobi.Net.Enums.PositionMode,System.Threading.CancellationToken)">
             <summary>
             Switch isolated margin position mode
             <para><a href="https://huobiapi.github.io/docs/usdt_swap/v1/en/#isolated-switch-position-mode" /></para>
@@ -3442,7 +3442,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiClientUsdtMarginSwapApiAccount.SetSubAccountsTradingPermissionsAsync(System.Collections.Generic.IEnumerable{System.String},System.Boolean,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiRestClientUsdtMarginSwapApiAccount.SetSubAccountsTradingPermissionsAsync(System.Collections.Generic.IEnumerable{System.String},System.Boolean,System.Threading.CancellationToken)">
             <summary>
             Set sub account trading permissions
             <para><a href="https://huobiapi.github.io/docs/usdt_swap/v1/en/#general-set-a-batch-of-sub-account-trading-permissions" /></para>
@@ -3452,7 +3452,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiClientUsdtMarginSwapApiAccount.TransferMarginAccountsAsync(System.String,System.String,System.String,System.Decimal,System.Nullable{System.Int64},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiRestClientUsdtMarginSwapApiAccount.TransferMarginAccountsAsync(System.String,System.String,System.String,System.Decimal,System.Nullable{System.Int64},System.Threading.CancellationToken)">
             <summary>
             Transfer between margin accounts
             <para><a href="https://huobiapi.github.io/docs/usdt_swap/v1/en/#general-transfer-between-different-margin-accounts-under-the-same-account" /></para>
@@ -3465,7 +3465,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiClientUsdtMarginSwapApiAccount.TransferMasterSubAsync(System.String,System.String,System.String,System.String,System.Decimal,Huobi.Net.Enums.MasterSubTransferType,System.Nullable{System.Int64},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiRestClientUsdtMarginSwapApiAccount.TransferMasterSubAsync(System.String,System.String,System.String,System.String,System.Decimal,Huobi.Net.Enums.MasterSubTransferType,System.Nullable{System.Int64},System.Threading.CancellationToken)">
             <summary>
             Transfer between master and sub account
             <para><a href="https://huobiapi.github.io/docs/usdt_swap/v1/en/#general-transfer-between-master-and-sub-account" /></para>
@@ -3480,12 +3480,12 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="T:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiClientUsdtMarginSwapApiExchangeData">
+        <member name="T:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiRestClientUsdtMarginSwapApiExchangeData">
             <summary>
             Huobi usdt margin swap exchange data endpoints. Exchange data includes market data (tickers, order books, etc) and system status.
             </summary>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiClientUsdtMarginSwapApiExchangeData.GetBasisDataAsync(System.String,Huobi.Net.Enums.KlineInterval,System.Int32,System.String,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiRestClientUsdtMarginSwapApiExchangeData.GetBasisDataAsync(System.String,Huobi.Net.Enums.KlineInterval,System.Int32,System.String,System.Threading.CancellationToken)">
             <summary>
             Get basis data
             <para><a href="https://huobiapi.github.io/docs/usdt_swap/v1/en/#general-query-basis-data" /></para>
@@ -3497,7 +3497,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiClientUsdtMarginSwapApiExchangeData.GetBestOfferAsync(System.String,System.Nullable{Huobi.Net.Enums.BusinessType},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiRestClientUsdtMarginSwapApiExchangeData.GetBestOfferAsync(System.String,System.Nullable{Huobi.Net.Enums.BusinessType},System.Threading.CancellationToken)">
             <summary>
             Get the best current offer
             <para><a href="https://huobiapi.github.io/docs/usdt_swap/v1/en/#general-get-market-bbo-data" /></para>
@@ -3507,7 +3507,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiClientUsdtMarginSwapApiExchangeData.GetContractInfoAsync(System.String,System.Nullable{Huobi.Net.Enums.MarginMode},System.String,System.Nullable{Huobi.Net.Enums.ContractType},System.Nullable{Huobi.Net.Enums.BusinessType},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiRestClientUsdtMarginSwapApiExchangeData.GetContractInfoAsync(System.String,System.Nullable{Huobi.Net.Enums.MarginMode},System.String,System.Nullable{Huobi.Net.Enums.ContractType},System.Nullable{Huobi.Net.Enums.BusinessType},System.Threading.CancellationToken)">
             <summary>
             Get contract info
             <para><a href="https://huobiapi.github.io/docs/usdt_swap/v1/en/#general-query-swap-info" /></para>
@@ -3520,7 +3520,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiClientUsdtMarginSwapApiExchangeData.GetCrossMarginAdjustFactorInfoAsync(System.String,System.String,System.Nullable{Huobi.Net.Enums.ContractType},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiRestClientUsdtMarginSwapApiExchangeData.GetCrossMarginAdjustFactorInfoAsync(System.String,System.String,System.Nullable{Huobi.Net.Enums.ContractType},System.Threading.CancellationToken)">
             <summary>
             Get cross margin adjust factor info
             <para><a href="https://huobiapi.github.io/docs/usdt_swap/v1/en/#cross-query-information-on-tiered-adjustment-factor" /></para>
@@ -3531,7 +3531,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiClientUsdtMarginSwapApiExchangeData.GetCrossMarginTradeStatusAsync(System.String,System.String,System.Nullable{Huobi.Net.Enums.ContractType},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiRestClientUsdtMarginSwapApiExchangeData.GetCrossMarginTradeStatusAsync(System.String,System.String,System.Nullable{Huobi.Net.Enums.ContractType},System.Threading.CancellationToken)">
             <summary>
             Get cross margin trade status
             <para><a href="https://huobiapi.github.io/docs/usdt_swap/v1/en/#cross-query-information-on-trade-state" /></para>
@@ -3542,7 +3542,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiClientUsdtMarginSwapApiExchangeData.GetCrossMarginTransferStatusAsync(System.String,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiRestClientUsdtMarginSwapApiExchangeData.GetCrossMarginTransferStatusAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get cross margin transfer status
             <para><a href="https://huobiapi.github.io/docs/usdt_swap/v1/en/#cross-query-information-on-transfer-state" /></para>
@@ -3551,7 +3551,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiClientUsdtMarginSwapApiExchangeData.GetCrossTieredMarginInfoAsync(System.String,System.String,System.Nullable{Huobi.Net.Enums.ContractType},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiRestClientUsdtMarginSwapApiExchangeData.GetCrossTieredMarginInfoAsync(System.String,System.String,System.Nullable{Huobi.Net.Enums.ContractType},System.Threading.CancellationToken)">
             <summary>
             Get cross tiered margin info
             <para><a href="https://huobiapi.github.io/docs/usdt_swap/v1/en/#cross-query-information-on-tiered-margin" /></para>
@@ -3562,7 +3562,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiClientUsdtMarginSwapApiExchangeData.GetEstimatedFundingRateKlinesAsync(System.String,Huobi.Net.Enums.KlineInterval,System.Int32,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiRestClientUsdtMarginSwapApiExchangeData.GetEstimatedFundingRateKlinesAsync(System.String,Huobi.Net.Enums.KlineInterval,System.Int32,System.Threading.CancellationToken)">
             <summary>
             Get estimated funding rate kliens
             <para><a href="https://huobiapi.github.io/docs/usdt_swap/v1/en/#general-query-estimated-funding-rate-kline-data" /></para>
@@ -3573,7 +3573,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiClientUsdtMarginSwapApiExchangeData.GetEstimatedSettlementPriceAsync(System.String,System.String,System.Nullable{Huobi.Net.Enums.ContractType},System.Nullable{Huobi.Net.Enums.BusinessType},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiRestClientUsdtMarginSwapApiExchangeData.GetEstimatedSettlementPriceAsync(System.String,System.String,System.Nullable{Huobi.Net.Enums.ContractType},System.Nullable{Huobi.Net.Enums.BusinessType},System.Threading.CancellationToken)">
             <summary>
             Get estimated settlement price
             <para><a href="https://huobiapi.github.io/docs/usdt_swap/v1/en/#general-get-the-estimated-settlement-price" /></para>
@@ -3585,7 +3585,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiClientUsdtMarginSwapApiExchangeData.GetFundingRateAsync(System.String,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiRestClientUsdtMarginSwapApiExchangeData.GetFundingRateAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get funding rate
             <para><a href="https://huobiapi.github.io/docs/usdt_swap/v1/en/#general-query-funding-rate" /></para>
@@ -3594,7 +3594,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiClientUsdtMarginSwapApiExchangeData.GetFundingRatesAsync(System.String,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiRestClientUsdtMarginSwapApiExchangeData.GetFundingRatesAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get funding rates
             <para><a href="https://huobiapi.github.io/docs/usdt_swap/v1/en/#general-query-a-batch-of-funding-rate" /></para>
@@ -3603,7 +3603,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiClientUsdtMarginSwapApiExchangeData.GetHistoricalFundingRatesAsync(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiRestClientUsdtMarginSwapApiExchangeData.GetHistoricalFundingRatesAsync(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get historical funding rates
             <para><a href="https://huobiapi.github.io/docs/usdt_swap/v1/en/#general-query-historical-funding-rate" /></para>
@@ -3614,7 +3614,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiClientUsdtMarginSwapApiExchangeData.GetHistoricalSettlementRecordsAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiRestClientUsdtMarginSwapApiExchangeData.GetHistoricalSettlementRecordsAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get historical settlement records
             <para><a href="https://huobiapi.github.io/docs/usdt_swap/v1/en/#general-query-historical-settlement-records-of-the-platform-interface" /></para>
@@ -3627,7 +3627,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiClientUsdtMarginSwapApiExchangeData.GetInsuranceFundHistoryAsync(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiRestClientUsdtMarginSwapApiExchangeData.GetInsuranceFundHistoryAsync(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get insurance fund history
             <para><a href="https://huobiapi.github.io/docs/usdt_swap/v1/en/#general-query-history-records-of-insurance-fund-balance" /></para>
@@ -3638,7 +3638,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiClientUsdtMarginSwapApiExchangeData.GetIsolatedMarginAdjustFactorInfoAsync(System.String,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiRestClientUsdtMarginSwapApiExchangeData.GetIsolatedMarginAdjustFactorInfoAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get isolated margin adjust factor info
             <para><a href="https://huobiapi.github.io/docs/usdt_swap/v1/en/#isolated-query-information-on-tiered-adjustment-factor" /></para>
@@ -3647,7 +3647,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiClientUsdtMarginSwapApiExchangeData.GetIsolatedStatusAsync(System.String,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiRestClientUsdtMarginSwapApiExchangeData.GetIsolatedStatusAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get isolated margin status
             <para><a href="https://huobiapi.github.io/docs/usdt_swap/v1/en/#isolated-query-information-on-system-status" /></para>
@@ -3656,7 +3656,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiClientUsdtMarginSwapApiExchangeData.GetIsolatedMarginTieredInfoAsync(System.String,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiRestClientUsdtMarginSwapApiExchangeData.GetIsolatedMarginTieredInfoAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get isolated margin tier info
             <para><a href="https://huobiapi.github.io/docs/usdt_swap/v1/en/#isolated-query-information-on-tiered-margin" /></para>
@@ -3665,7 +3665,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiClientUsdtMarginSwapApiExchangeData.GetKlinesAsync(System.String,Huobi.Net.Enums.KlineInterval,System.Nullable{System.Int32},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiRestClientUsdtMarginSwapApiExchangeData.GetKlinesAsync(System.String,Huobi.Net.Enums.KlineInterval,System.Nullable{System.Int32},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Threading.CancellationToken)">
             <summary>
             Get klines
             <para><a href="https://huobiapi.github.io/docs/usdt_swap/v1/en/#general-get-kline-data" /></para>
@@ -3678,7 +3678,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiClientUsdtMarginSwapApiExchangeData.GetLastTradesAsync(System.String,System.Nullable{Huobi.Net.Enums.BusinessType},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiRestClientUsdtMarginSwapApiExchangeData.GetLastTradesAsync(System.String,System.Nullable{Huobi.Net.Enums.BusinessType},System.Threading.CancellationToken)">
             <summary>
             Get last trades
             <para><a href="https://huobiapi.github.io/docs/usdt_swap/v1/en/#general-query-the-last-trade-of-a-contract" /></para>
@@ -3688,7 +3688,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiClientUsdtMarginSwapApiExchangeData.GetLiquidationOrdersAsync(System.Int32,Huobi.Net.Enums.LiquidationTradeType,System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiRestClientUsdtMarginSwapApiExchangeData.GetLiquidationOrdersAsync(System.Int32,Huobi.Net.Enums.LiquidationTradeType,System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get liquidation orders
             <para><a href="https://huobiapi.github.io/docs/usdt_swap/v1/en/#general-query-liquidation-orders" /></para>
@@ -3702,7 +3702,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiClientUsdtMarginSwapApiExchangeData.GetMarketDataAsync(System.String,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiRestClientUsdtMarginSwapApiExchangeData.GetMarketDataAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get market data
             <para><a href="https://huobiapi.github.io/docs/usdt_swap/v1/en/#general-get-market-data-overview" /></para>
@@ -3711,7 +3711,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiClientUsdtMarginSwapApiExchangeData.GetMarketDatasAsync(System.String,System.Nullable{Huobi.Net.Enums.BusinessType},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiRestClientUsdtMarginSwapApiExchangeData.GetMarketDatasAsync(System.String,System.Nullable{Huobi.Net.Enums.BusinessType},System.Threading.CancellationToken)">
             <summary>
             Get market datas
             <para><a href="https://huobiapi.github.io/docs/usdt_swap/v1/en/#general-get-a-batch-of-market-data-overview" /></para>
@@ -3721,7 +3721,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiClientUsdtMarginSwapApiExchangeData.GetOpenInterestAsync(Huobi.Net.Enums.InterestPeriod,Huobi.Net.Enums.Unit,System.String,System.String,System.Nullable{Huobi.Net.Enums.ContractType},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiRestClientUsdtMarginSwapApiExchangeData.GetOpenInterestAsync(Huobi.Net.Enums.InterestPeriod,Huobi.Net.Enums.Unit,System.String,System.String,System.Nullable{Huobi.Net.Enums.ContractType},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get open interest
             <para><a href="https://huobiapi.github.io/docs/usdt_swap/v1/en/#general-query-information-on-open-interest" /></para>
@@ -3735,7 +3735,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiClientUsdtMarginSwapApiExchangeData.GetOrderBookAsync(System.String,System.String,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiRestClientUsdtMarginSwapApiExchangeData.GetOrderBookAsync(System.String,System.String,System.Threading.CancellationToken)">
             <summary>
             Get order book
             <para><a href="https://huobiapi.github.io/docs/usdt_swap/v1/en/#general-get-market-depth" /></para>
@@ -3745,7 +3745,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiClientUsdtMarginSwapApiExchangeData.GetPremiumIndexKlinesAsync(System.String,Huobi.Net.Enums.KlineInterval,System.Int32,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiRestClientUsdtMarginSwapApiExchangeData.GetPremiumIndexKlinesAsync(System.String,Huobi.Net.Enums.KlineInterval,System.Int32,System.Threading.CancellationToken)">
             <summary>
             Get premium index klines
             <para><a href="https://huobiapi.github.io/docs/usdt_swap/v1/en/#general-query-premium-index-kline-data" /></para>
@@ -3756,7 +3756,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiClientUsdtMarginSwapApiExchangeData.GetRecentTradesAsync(System.String,System.Int32,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiRestClientUsdtMarginSwapApiExchangeData.GetRecentTradesAsync(System.String,System.Int32,System.Threading.CancellationToken)">
             <summary>
             Get recent trades
             <para><a href="https://huobiapi.github.io/docs/usdt_swap/v1/en/#general-query-a-batch-of-trade-records-of-a-contract" /></para>
@@ -3766,7 +3766,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiClientUsdtMarginSwapApiExchangeData.GetServerTimeAsync(System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiRestClientUsdtMarginSwapApiExchangeData.GetServerTimeAsync(System.Threading.CancellationToken)">
             <summary>
             Get server time
             <para><a href="https://huobiapi.github.io/docs/usdt_swap/v1/en/#get-current-system-timestamp" /></para>
@@ -3774,7 +3774,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiClientUsdtMarginSwapApiExchangeData.GetSwapIndexPriceAsync(System.String,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiRestClientUsdtMarginSwapApiExchangeData.GetSwapIndexPriceAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get swap index price
             <para><a href="https://huobiapi.github.io/docs/usdt_swap/v1/en/#general-query-swap-index-price-information" /></para>
@@ -3783,7 +3783,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiClientUsdtMarginSwapApiExchangeData.GetSwapOpenInterestAsync(System.String,System.String,System.Nullable{Huobi.Net.Enums.ContractType},System.Nullable{Huobi.Net.Enums.BusinessType},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiRestClientUsdtMarginSwapApiExchangeData.GetSwapOpenInterestAsync(System.String,System.String,System.Nullable{Huobi.Net.Enums.ContractType},System.Nullable{Huobi.Net.Enums.BusinessType},System.Threading.CancellationToken)">
             <summary>
             Get swap open interest
             <para><a href="https://huobiapi.github.io/docs/usdt_swap/v1/en/#general-get-swap-open-interest-information" /></para>
@@ -3795,7 +3795,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiClientUsdtMarginSwapApiExchangeData.GetSwapPriceLimitationAsync(System.String,System.String,System.Nullable{Huobi.Net.Enums.ContractType},System.Nullable{Huobi.Net.Enums.BusinessType},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiRestClientUsdtMarginSwapApiExchangeData.GetSwapPriceLimitationAsync(System.String,System.String,System.Nullable{Huobi.Net.Enums.ContractType},System.Nullable{Huobi.Net.Enums.BusinessType},System.Threading.CancellationToken)">
             <summary>
             Get swap price limitation
             <para><a href="https://huobiapi.github.io/docs/usdt_swap/v1/en/#general-query-swap-price-limitation" /></para>
@@ -3807,7 +3807,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiClientUsdtMarginSwapApiExchangeData.GetSwapRiskInfoAsync(System.String,System.Nullable{Huobi.Net.Enums.BusinessType},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiRestClientUsdtMarginSwapApiExchangeData.GetSwapRiskInfoAsync(System.String,System.Nullable{Huobi.Net.Enums.BusinessType},System.Threading.CancellationToken)">
             <summary>
             Get swap risk info
             <para><a href="https://huobiapi.github.io/docs/usdt_swap/v1/en/#general-query-information-on-contract-insurance-fund-balance-and-estimated-clawback-rate" /></para>
@@ -3817,12 +3817,12 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="T:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiClientUsdtMarginSwapApiTrading">
+        <member name="T:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiRestClientUsdtMarginSwapApiTrading">
             <summary>
             Huobi usdt margin swap trading endpoints, placing and mananging orders.
             </summary>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiClientUsdtMarginSwapApiTrading.CancelAllCrossMarginOrdersAsync(System.String,System.String,System.Nullable{Huobi.Net.Enums.ContractType},System.Nullable{Huobi.Net.Enums.OrderSide},System.Nullable{Huobi.Net.Enums.Offset},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiRestClientUsdtMarginSwapApiTrading.CancelAllCrossMarginOrdersAsync(System.String,System.String,System.Nullable{Huobi.Net.Enums.ContractType},System.Nullable{Huobi.Net.Enums.OrderSide},System.Nullable{Huobi.Net.Enums.Offset},System.Threading.CancellationToken)">
             <summary>
             Cancel all cross margin orders fitting the parameters
             <para><a href="https://huobiapi.github.io/docs/usdt_swap/v1/en/#cross-cancel-all-orders" /></para>
@@ -3835,7 +3835,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiClientUsdtMarginSwapApiTrading.CancelAllIsolatedMarginOrdersAsync(System.String,System.Nullable{Huobi.Net.Enums.OrderSide},System.Nullable{Huobi.Net.Enums.Offset},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiRestClientUsdtMarginSwapApiTrading.CancelAllIsolatedMarginOrdersAsync(System.String,System.Nullable{Huobi.Net.Enums.OrderSide},System.Nullable{Huobi.Net.Enums.Offset},System.Threading.CancellationToken)">
             <summary>
             Cancel all isolated margin order fitting the parameters
             <para><a href="https://huobiapi.github.io/docs/usdt_swap/v1/en/#isolated-cancel-all-orders" /></para>
@@ -3846,7 +3846,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiClientUsdtMarginSwapApiTrading.CancelCrossMarginOrderAsync(System.Nullable{System.Int64},System.Nullable{System.Int64},System.String,System.String,System.Nullable{Huobi.Net.Enums.ContractType},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiRestClientUsdtMarginSwapApiTrading.CancelCrossMarginOrderAsync(System.Nullable{System.Int64},System.Nullable{System.Int64},System.String,System.String,System.Nullable{Huobi.Net.Enums.ContractType},System.Threading.CancellationToken)">
             <summary>
             Cancel cross margin order
             <para><a href="https://huobiapi.github.io/docs/usdt_swap/v1/en/#cross-cancel-all-orders" /></para>
@@ -3859,7 +3859,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiClientUsdtMarginSwapApiTrading.CancelCrossMarginOrdersAsync(System.Collections.Generic.IEnumerable{System.Int64},System.Collections.Generic.IEnumerable{System.Int64},System.String,System.String,System.Nullable{Huobi.Net.Enums.ContractType},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiRestClientUsdtMarginSwapApiTrading.CancelCrossMarginOrdersAsync(System.Collections.Generic.IEnumerable{System.Int64},System.Collections.Generic.IEnumerable{System.Int64},System.String,System.String,System.Nullable{Huobi.Net.Enums.ContractType},System.Threading.CancellationToken)">
             <summary>
             Cancel cross margin orders
             <para><a href="https://huobiapi.github.io/docs/usdt_swap/v1/en/#cross-cancel-all-orders" /></para>
@@ -3872,7 +3872,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiClientUsdtMarginSwapApiTrading.CancelIsolatedMarginOrderAsync(System.String,System.Nullable{System.Int64},System.Nullable{System.Int64},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiRestClientUsdtMarginSwapApiTrading.CancelIsolatedMarginOrderAsync(System.String,System.Nullable{System.Int64},System.Nullable{System.Int64},System.Threading.CancellationToken)">
             <summary>
             Cancel isolated margin order
             <para><a href="https://huobiapi.github.io/docs/usdt_swap/v1/en/#isolated-cancel-an-order" /></para>
@@ -3883,7 +3883,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiClientUsdtMarginSwapApiTrading.CancelIsolatedMarginOrdersAsync(System.String,System.Collections.Generic.IEnumerable{System.Int64},System.Collections.Generic.IEnumerable{System.Int64},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiRestClientUsdtMarginSwapApiTrading.CancelIsolatedMarginOrdersAsync(System.String,System.Collections.Generic.IEnumerable{System.Int64},System.Collections.Generic.IEnumerable{System.Int64},System.Threading.CancellationToken)">
             <summary>
             Cancel isolated margin orders
             <para><a href="https://huobiapi.github.io/docs/usdt_swap/v1/en/#isolated-cancel-an-order" /></para>
@@ -3894,7 +3894,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiClientUsdtMarginSwapApiTrading.ChangeCrossMarginLeverageAsync(System.Int32,System.String,System.String,System.Nullable{Huobi.Net.Enums.ContractType},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiRestClientUsdtMarginSwapApiTrading.ChangeCrossMarginLeverageAsync(System.Int32,System.String,System.String,System.Nullable{Huobi.Net.Enums.ContractType},System.Threading.CancellationToken)">
             <summary>
             Change cross margin leverage
             <para><a href="https://huobiapi.github.io/docs/usdt_swap/v1/en/#cross-switch-leverage" /></para>
@@ -3906,7 +3906,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiClientUsdtMarginSwapApiTrading.ChangeIsolatedMarginLeverageAsync(System.String,System.Int32,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiRestClientUsdtMarginSwapApiTrading.ChangeIsolatedMarginLeverageAsync(System.String,System.Int32,System.Threading.CancellationToken)">
             <summary>
             Change isolated margin leverage
             <para><a href="https://huobiapi.github.io/docs/usdt_swap/v1/en/#isolated-switch-leverage" /></para>
@@ -3916,7 +3916,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiClientUsdtMarginSwapApiTrading.GetCrossMarginClosedOrdersAsync(Huobi.Net.Enums.MarginTradeType,System.Boolean,System.Int32,System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiRestClientUsdtMarginSwapApiTrading.GetCrossMarginClosedOrdersAsync(Huobi.Net.Enums.MarginTradeType,System.Boolean,System.Int32,System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,System.Threading.CancellationToken)">
             <summary>
             Get cross margin closed orders
             <para><a href="https://huobiapi.github.io/docs/usdt_swap/v1/en/#cross-get-history-orders-new" /></para>
@@ -3932,7 +3932,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiClientUsdtMarginSwapApiTrading.GetCrossMarginOpenOrdersAsync(System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,System.Nullable{Huobi.Net.Enums.MarginTradeType},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiRestClientUsdtMarginSwapApiTrading.GetCrossMarginOpenOrdersAsync(System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,System.Nullable{Huobi.Net.Enums.MarginTradeType},System.Threading.CancellationToken)">
             <summary>
             Get cross margin open orders
             <para><a href="https://huobiapi.github.io/docs/usdt_swap/v1/en/#cross-current-unfilled-order-acquisition" /></para>
@@ -3946,7 +3946,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiClientUsdtMarginSwapApiTrading.GetCrossMarginOrderAsync(System.String,System.String,System.Nullable{System.Int64},System.Nullable{System.Int64},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiRestClientUsdtMarginSwapApiTrading.GetCrossMarginOrderAsync(System.String,System.String,System.Nullable{System.Int64},System.Nullable{System.Int64},System.Threading.CancellationToken)">
             <summary>
             Get cross margin order
             <para><a href="https://huobiapi.github.io/docs/usdt_swap/v1/en/#cross-get-information-of-order" /></para>
@@ -3958,7 +3958,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiClientUsdtMarginSwapApiTrading.GetCrossMarginOrderDetailsAsync(System.String,System.Int64,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiRestClientUsdtMarginSwapApiTrading.GetCrossMarginOrderDetailsAsync(System.String,System.Int64,System.Threading.CancellationToken)">
             <summary>
             Get cross margin order details
             <para><a href="https://huobiapi.github.io/docs/usdt_swap/v1/en/#cross-get-detail-information-of-order" /></para>
@@ -3968,7 +3968,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiClientUsdtMarginSwapApiTrading.GetCrossMarginOrdersAsync(System.Collections.Generic.IEnumerable{System.Int64},System.Collections.Generic.IEnumerable{System.Int64},System.String,System.String,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiRestClientUsdtMarginSwapApiTrading.GetCrossMarginOrdersAsync(System.Collections.Generic.IEnumerable{System.Int64},System.Collections.Generic.IEnumerable{System.Int64},System.String,System.String,System.Threading.CancellationToken)">
             <summary>
             Get cross margin orders
             <para><a href="https://huobiapi.github.io/docs/usdt_swap/v1/en/#cross-get-information-of-order" /></para>
@@ -3980,7 +3980,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiClientUsdtMarginSwapApiTrading.GetCrossMarginUserTradesAsync(System.String,Huobi.Net.Enums.MarginTradeType,System.Int32,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiRestClientUsdtMarginSwapApiTrading.GetCrossMarginUserTradesAsync(System.String,Huobi.Net.Enums.MarginTradeType,System.Int32,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get cross margin user trades
             <para><a href="https://huobiapi.github.io/docs/usdt_swap/v1/en/#cross-get-history-match-results" /></para>
@@ -3993,7 +3993,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiClientUsdtMarginSwapApiTrading.GetIsolatedMarginClosedOrdersAsync(System.String,Huobi.Net.Enums.MarginTradeType,System.Boolean,System.Int32,System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiRestClientUsdtMarginSwapApiTrading.GetIsolatedMarginClosedOrdersAsync(System.String,Huobi.Net.Enums.MarginTradeType,System.Boolean,System.Int32,System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,System.Threading.CancellationToken)">
             <summary>
             Get isolated margin closed orders
             <para><a href="https://huobiapi.github.io/docs/usdt_swap/v1/en/#isolated-get-history-orders" /></para>
@@ -4008,7 +4008,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiClientUsdtMarginSwapApiTrading.GetIsolatedMarginOpenOrdersAsync(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,System.Nullable{Huobi.Net.Enums.MarginTradeType},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiRestClientUsdtMarginSwapApiTrading.GetIsolatedMarginOpenOrdersAsync(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,System.Nullable{Huobi.Net.Enums.MarginTradeType},System.Threading.CancellationToken)">
             <summary>
             Get isolated margin open orders
             <para><a href="https://huobiapi.github.io/docs/usdt_swap/v1/en/#isolated-current-unfilled-order-acquisition" /></para>
@@ -4021,7 +4021,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiClientUsdtMarginSwapApiTrading.GetIsolatedMarginOrderAsync(System.String,System.Nullable{System.Int64},System.Nullable{System.Int64},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiRestClientUsdtMarginSwapApiTrading.GetIsolatedMarginOrderAsync(System.String,System.Nullable{System.Int64},System.Nullable{System.Int64},System.Threading.CancellationToken)">
             <summary>
             Get isoalted margin order
             <para><a href="https://huobiapi.github.io/docs/usdt_swap/v1/en/#isolated-get-information-of-an-order" /></para>
@@ -4032,7 +4032,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiClientUsdtMarginSwapApiTrading.GetIsolatedMarginOrderDetailsAsync(System.String,System.Int64,System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiRestClientUsdtMarginSwapApiTrading.GetIsolatedMarginOrderDetailsAsync(System.String,System.Int64,System.Threading.CancellationToken)">
             <summary>
             Get isolated margin order details
             <para><a href="https://huobiapi.github.io/docs/usdt_swap/v1/en/#isolated-order-details-acquisition" /></para>
@@ -4042,7 +4042,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiClientUsdtMarginSwapApiTrading.GetIsolatedMarginOrdersAsync(System.String,System.Collections.Generic.IEnumerable{System.Int64},System.Collections.Generic.IEnumerable{System.Int64},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiRestClientUsdtMarginSwapApiTrading.GetIsolatedMarginOrdersAsync(System.String,System.Collections.Generic.IEnumerable{System.Int64},System.Collections.Generic.IEnumerable{System.Int64},System.Threading.CancellationToken)">
             <summary>
             Get isolated margin orders
             <para><a href="https://huobiapi.github.io/docs/usdt_swap/v1/en/#isolated-get-information-of-an-order" /></para>
@@ -4053,7 +4053,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiClientUsdtMarginSwapApiTrading.GetIsolatedMarginUserTradesAsync(System.String,Huobi.Net.Enums.MarginTradeType,System.Int32,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiRestClientUsdtMarginSwapApiTrading.GetIsolatedMarginUserTradesAsync(System.String,Huobi.Net.Enums.MarginTradeType,System.Int32,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get isolated margin user trades
             <para><a href="https://huobiapi.github.io/docs/usdt_swap/v1/en/#isolated-acquire-history-match-results-new" /></para>
@@ -4066,7 +4066,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiClientUsdtMarginSwapApiTrading.PlaceCrossMarginOrderAsync(System.Decimal,Huobi.Net.Enums.OrderSide,System.Int32,System.String,System.String,System.Nullable{Huobi.Net.Enums.ContractType},System.Nullable{System.Decimal},System.Nullable{Huobi.Net.Enums.Offset},System.Nullable{Huobi.Net.Enums.OrderPriceType},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{Huobi.Net.Enums.OrderPriceType},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{Huobi.Net.Enums.OrderPriceType},System.Nullable{System.Boolean},System.Nullable{System.Int64},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiRestClientUsdtMarginSwapApiTrading.PlaceCrossMarginOrderAsync(System.Decimal,Huobi.Net.Enums.OrderSide,System.Int32,System.String,System.String,System.Nullable{Huobi.Net.Enums.ContractType},System.Nullable{System.Decimal},System.Nullable{Huobi.Net.Enums.Offset},System.Nullable{Huobi.Net.Enums.OrderPriceType},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{Huobi.Net.Enums.OrderPriceType},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{Huobi.Net.Enums.OrderPriceType},System.Nullable{System.Boolean},System.Nullable{System.Int64},System.Threading.CancellationToken)">
             <summary>
             Place a new cross margin order
             <para><a href="https://huobiapi.github.io/docs/usdt_swap/v1/en/#cross-place-an-order" /></para>
@@ -4091,7 +4091,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiClientUsdtMarginSwapApiTrading.PlaceIsolatedMarginOrderAsync(System.String,System.Decimal,Huobi.Net.Enums.OrderSide,System.Int32,System.Nullable{System.Decimal},System.Nullable{Huobi.Net.Enums.Offset},System.Nullable{Huobi.Net.Enums.OrderPriceType},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{Huobi.Net.Enums.OrderPriceType},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{Huobi.Net.Enums.OrderPriceType},System.Nullable{System.Boolean},System.Nullable{System.Int64},System.Threading.CancellationToken)">
+        <member name="M:Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi.IHuobiRestClientUsdtMarginSwapApiTrading.PlaceIsolatedMarginOrderAsync(System.String,System.Decimal,Huobi.Net.Enums.OrderSide,System.Int32,System.Nullable{System.Decimal},System.Nullable{Huobi.Net.Enums.Offset},System.Nullable{Huobi.Net.Enums.OrderPriceType},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{Huobi.Net.Enums.OrderPriceType},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{Huobi.Net.Enums.OrderPriceType},System.Nullable{System.Boolean},System.Nullable{System.Int64},System.Threading.CancellationToken)">
             <summary>
             Place a new isolated margin order
             <para><a href="https://huobiapi.github.io/docs/usdt_swap/v1/en/#isolated-place-an-order" /></para>

@@ -11,7 +11,7 @@ namespace Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi
     /// <summary>
     /// Huobi usdt swap account endpoints
     /// </summary>
-    public interface IHuobiClientUsdtMarginSwapApiAccount
+    public interface IHuobiRestClientUsdtMarginSwapApiAccount
     {
         /// <summary>
         /// Get asset values

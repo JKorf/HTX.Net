@@ -18,7 +18,7 @@ using System.Threading.Tasks;
 namespace Huobi.Net.Clients.FuturesApi
 {
     /// <inheritdoc />
-    public class HuobiClientUsdtMarginSwapApi : RestApiClient, IHuobiClientUsdtMarginSwapApi
+    public class HuobiRestClientUsdtMarginSwapApi : RestApiClient, IHuobiRestClientUsdtMarginSwapApi
     {
         /// <inheritdoc />
         public new HuobiRestOptions ClientOptions => (HuobiRestOptions)base.ClientOptions;
@@ -42,21 +42,21 @@ namespace Huobi.Net.Clients.FuturesApi
         #region Api clients
 
         /// <inheritdoc />
-        public IHuobiClientUsdtMarginSwapApiAccount Account { get; }
+        public IHuobiRestClientUsdtMarginSwapApiAccount Account { get; }
         /// <inheritdoc />
-        public HuobiClientUsdtMarginSwapApiExchangeData ExchangeData { get; }
+        public HuobiRestClientUsdtMarginSwapApiExchangeData ExchangeData { get; }
         /// <inheritdoc />
-        public HuobiClientUsdtMarginSwapApiTrading Trading { get; }
+        public HuobiRestClientUsdtMarginSwapApiTrading Trading { get; }
 
         #endregion
 
         #region constructor/destructor
-        internal HuobiClientUsdtMarginSwapApi(ILogger log, HttpClient? httpClient, HuobiRestOptions options)
+        internal HuobiRestClientUsdtMarginSwapApi(ILogger log, HttpClient? httpClient, HuobiRestOptions options)
             : base(log, httpClient, options.Environment.UsdtMarginSwapRestBaseAddress, options, options.UsdtMarginSwapOptions)
         {
-            Account = new HuobiClientUsdtMarginSwapApiAccount(this);
-            ExchangeData = new HuobiClientUsdtMarginSwapApiExchangeData(this);
-            Trading = new HuobiClientUsdtMarginSwapApiTrading(this);
+            Account = new HuobiRestClientUsdtMarginSwapApiAccount(this);
+            ExchangeData = new HuobiRestClientUsdtMarginSwapApiExchangeData(this);
+            Trading = new HuobiRestClientUsdtMarginSwapApiTrading(this);
 
             _brokerId = !string.IsNullOrEmpty(options.BrokerId) ? options.BrokerId! : "AA1ef14811";
         }

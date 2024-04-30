@@ -18,10 +18,10 @@ namespace Huobi.Net.Clients
         #region Api clients
 
         /// <inheritdoc />
-        public IHuobiClientSpotApi SpotApi { get; }
+        public IHuobiRestClientSpotApi SpotApi { get; }
 
         /// <inheritdoc />
-        public IHuobiClientUsdtMarginSwapApi UsdtMarginSwapApi { get; }
+        public IHuobiRestClientUsdtMarginSwapApi UsdtMarginSwapApi { get; }
 
         #endregion
 
@@ -49,7 +49,7 @@ namespace Huobi.Net.Clients
             Initialize(options);
 
             SpotApi = AddApiClient(new HuobiRestClientSpotApi(_logger, httpClient, options));
-            UsdtMarginSwapApi = AddApiClient(new HuobiClientUsdtMarginSwapApi(_logger, httpClient, options));
+            UsdtMarginSwapApi = AddApiClient(new HuobiRestClientUsdtMarginSwapApi(_logger, httpClient, options));
         }
         #endregion
 

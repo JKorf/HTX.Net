@@ -16,7 +16,7 @@ using Huobi.Net.ExtensionMethods;
 namespace Huobi.Net.Clients.SpotApi
 {
     /// <inheritdoc />
-    public class HuobiRestClientSpotApiExchangeData : IHuobiClientSpotApiExchangeData
+    public class HuobiRestClientSpotApiExchangeData : IHuobiRestClientSpotApiExchangeData
     {
         private const string MarketTickerEndpoint = "market/tickers";
         private const string MarketTickerMergedEndpoint = "market/detail/merged";

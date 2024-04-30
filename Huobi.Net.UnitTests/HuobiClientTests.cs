@@ -12,6 +12,11 @@ using Huobi.Net.Clients.SpotApi;
 using Huobi.Net.ExtensionMethods;
 using CryptoExchange.Net.Objects.Sockets;
 using NUnit.Framework.Legacy;
+using CryptoExchange.Net.Authentication;
+using CryptoExchange.Net.Clients;
+using System.Net.Http;
+using System.Collections.Generic;
+using CryptoExchange.Net.Converters.JsonNet;
 
 namespace Huobi.Net.UnitTests
 {
@@ -54,44 +59,37 @@ namespace Huobi.Net.UnitTests
         }
 
         [Test]
-        public void CheckRestInterfaces()
+        public void CheckSignatureExample()
         {
-            var assembly = Assembly.GetAssembly(typeof(HuobiRestClientSpotApi));
-            var ignore = new string[] { "IHuobiClientSpot" };
-            var clientInterfaces = assembly.GetTypes().Where(t => t.Name.StartsWith("IHuobiClientSpot") && !ignore.Contains(t.Name));
+            var authProvider = new HuobiAuthenticationProvider(
+                new ApiCredentials("e2xxxxxx-99xxxxxx-84xxxxxx-7xxxx", "XXXXXXXXXX"),
+                false
+                );
+            var client = (RestApiClient)new HuobiRestClient().SpotApi;
 
-            foreach (var clientInterface in clientInterfaces)
-            {
-                var implementation = assembly.GetTypes().Single(t => t.IsAssignableTo(clientInterface) && t != clientInterface);
-                int methods = 0;
-                foreach (var method in implementation.GetMethods().Where(m => m.ReturnType.IsAssignableTo(typeof(Task))))
+            CryptoExchange.Net.Testing.TestHelpers.CheckSignature(
+                client,
+                authProvider,
+                HttpMethod.Get,
+                "/v1/order/orders",
+                (uriParams, bodyParams, headers) =>
                 {
-                    var interfaceMethod = clientInterface.GetMethod(method.Name, method.GetParameters().Select(p => p.ParameterType).ToArray());
-                    ClassicAssert.NotNull(interfaceMethod, $"Missing interface for method {method.Name} in {implementation.Name} implementing interface {clientInterface.Name}");
-                    methods++;
-                }
-                Debug.WriteLine($"{clientInterface.Name} {methods} methods validated");
-            }
+                    return uriParams["Signature"].ToString();
+                },
+                "2ZQ7/roKBjdnAv8z5DymwzgSaOPyPgJl0BIlq9fa94w=",
+                new Dictionary<string, object>
+                {
+                    { "order-id", "1234567890" }
+                },
+                time: new DateTime(2017, 5, 11, 15, 19, 30, DateTimeKind.Utc),
+                host: "https://api.huobi.pro");
         }
 
         [Test]
-        public void CheckSocketInterfaces()
+        public void CheckInterfaces()
         {
-            var assembly = Assembly.GetAssembly(typeof(HuobiSocketClient));
-            var clientInterfaces = assembly.GetTypes().Where(t => t.Name.StartsWith("IHuobiSocketClientSpot"));
-
-            foreach (var clientInterface in clientInterfaces)
-            {
-                var implementation = assembly.GetTypes().Single(t => t.IsAssignableTo(clientInterface) && t != clientInterface);
-                int methods = 0;
-                foreach (var method in implementation.GetMethods().Where(m => m.ReturnType.IsAssignableTo(typeof(Task<CallResult<UpdateSubscription>>))))
-                {
-                    var interfaceMethod = clientInterface.GetMethod(method.Name, method.GetParameters().Select(p => p.ParameterType).ToArray());
-                    ClassicAssert.NotNull(interfaceMethod, $"Missing interface for method {method.Name} in {implementation.Name} implementing interface {clientInterface.Name}");
-                    methods++;
-                }
-                Debug.WriteLine($"{clientInterface.Name} {methods} methods validated");
-            }
+            CryptoExchange.Net.Testing.TestHelpers.CheckForMissingRestInterfaces<HuobiRestClient>();
+            CryptoExchange.Net.Testing.TestHelpers.CheckForMissingSocketInterfaces<HuobiSocketClient>();
         }
     }
 }

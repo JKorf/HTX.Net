@@ -21,7 +21,7 @@ using Newtonsoft.Json.Linq;
 namespace Huobi.Net.Clients.SpotApi
 {
     /// <inheritdoc />
-    public class HuobiRestClientSpotApi : RestApiClient, IHuobiClientSpotApi, ISpotClient
+    public class HuobiRestClientSpotApi : RestApiClient, IHuobiRestClientSpotApi, ISpotClient
     {
         /// <inheritdoc />
         public new HuobiRestOptions ClientOptions => (HuobiRestOptions)base.ClientOptions;
@@ -45,11 +45,11 @@ namespace Huobi.Net.Clients.SpotApi
         #region Api clients
 
         /// <inheritdoc />
-        public IHuobiClientSpotApiAccount Account { get; }
+        public IHuobiRestClientSpotApiAccount Account { get; }
         /// <inheritdoc />
-        public IHuobiClientSpotApiExchangeData ExchangeData { get; }
+        public IHuobiRestClientSpotApiExchangeData ExchangeData { get; }
         /// <inheritdoc />
-        public IHuobiClientSpotApiTrading Trading { get; }
+        public IHuobiRestClientSpotApiTrading Trading { get; }
 
         #endregion
 

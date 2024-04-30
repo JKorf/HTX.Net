@@ -13,11 +13,11 @@ namespace Huobi.Net.Interfaces.Clients
         /// <summary>
         /// Spot endpoints
         /// </summary>
-        IHuobiClientSpotApi SpotApi { get; }
+        IHuobiRestClientSpotApi SpotApi { get; }
         /// <summary>
         /// Usdt margin swap endpoints
         /// </summary>
-        IHuobiClientUsdtMarginSwapApi UsdtMarginSwapApi { get; }
+        IHuobiRestClientUsdtMarginSwapApi UsdtMarginSwapApi { get; }
 
         /// <summary>
         /// Set the API credentials for this client. All Api clients in this client will use the new credentials, regardless of earlier set options.
