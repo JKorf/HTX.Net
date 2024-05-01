@@ -11,7 +11,7 @@ namespace Huobi.Net.Interfaces.Clients.SpotApi
     /// <summary>
     /// Huobi account endpoints. Account endpoints include balance info, withdraw/deposit info and requesting and account settings
     /// </summary>
-    public interface IHuobiClientSpotApiAccount
+    public interface IHuobiRestClientSpotApiAccount
     {
         /// <summary>
         /// Get the user id associated with the apikey/secret

@@ -14,11 +14,11 @@ using System.Threading.Tasks;
 namespace Huobi.Net.Clients.UsdtMarginSwapApi
 {
     /// <inheritdoc />
-    public class HuobiClientUsdtMarginSwapApiTrading : IHuobiClientUsdtMarginSwapApiTrading
+    public class HuobiRestClientUsdtMarginSwapApiTrading : IHuobiRestClientUsdtMarginSwapApiTrading
     {
-        private readonly HuobiClientUsdtMarginSwapApi _baseClient;
+        private readonly HuobiRestClientUsdtMarginSwapApi _baseClient;
 
-        internal HuobiClientUsdtMarginSwapApiTrading(HuobiClientUsdtMarginSwapApi baseClient)
+        internal HuobiRestClientUsdtMarginSwapApiTrading(HuobiRestClientUsdtMarginSwapApi baseClient)
         {
             _baseClient = baseClient;
         }

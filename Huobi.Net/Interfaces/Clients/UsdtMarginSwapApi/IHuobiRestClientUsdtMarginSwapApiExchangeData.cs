@@ -12,7 +12,7 @@ namespace Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi
     /// <summary>
     /// Huobi usdt margin swap exchange data endpoints. Exchange data includes market data (tickers, order books, etc) and system status.
     /// </summary>
-    public interface IHuobiClientUsdtMarginSwapApiExchangeData
+    public interface IHuobiRestClientUsdtMarginSwapApiExchangeData
     {
         /// <summary>
         /// Get basis data

@@ -10,7 +10,7 @@ namespace Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi
     /// <summary>
     /// Huobi usdt margin swap trading endpoints, placing and mananging orders.
     /// </summary>
-    public interface IHuobiClientUsdtMarginSwapApiTrading
+    public interface IHuobiRestClientUsdtMarginSwapApiTrading
     {
         /// <summary>
         /// Cancel all cross margin orders fitting the parameters

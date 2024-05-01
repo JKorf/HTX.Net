@@ -29,38 +29,33 @@ namespace Huobi.Net
         public override void AuthenticateRequest(RestApiClient apiClient,
             Uri uri,
             HttpMethod method,
-            Dictionary<string, object> providedParameters,
+            IDictionary<string, object> uriParams,
+            IDictionary<string, object> bodyParams,
+            Dictionary<string, string> headers,
             bool auth,
             ArrayParametersSerialization arraySerialization,
             HttpMethodParameterPosition parameterPosition,
-            RequestBodyFormat bodyFormat,
-            out SortedDictionary<string, object> uriParameters,
-            out SortedDictionary<string, object> bodyParameters,
-            out Dictionary<string, string> headers)
+            RequestBodyFormat bodyFormat)
         {
-            uriParameters = parameterPosition == HttpMethodParameterPosition.InUri ? new SortedDictionary<string, object>(providedParameters) : new SortedDictionary<string, object>();
-            bodyParameters = parameterPosition == HttpMethodParameterPosition.InBody ? new SortedDictionary<string, object>(providedParameters) : new SortedDictionary<string, object>();
-            headers = new Dictionary<string, string>();
-
             if (!auth && !_signPublicRequests)
                 return;
 
             // These are always in the uri
-            uriParameters.Add("AccessKeyId", _credentials.Key!.GetString());
-            uriParameters.Add("SignatureMethod", "HmacSHA256");
-            uriParameters.Add("SignatureVersion", 2);
-            uriParameters.Add("Timestamp", GetTimestamp(apiClient).ToString("yyyy-MM-ddTHH:mm:ss", CultureInfo.InvariantCulture));
+            uriParams.Add("AccessKeyId", _credentials.Key!.GetString());
+            uriParams.Add("SignatureMethod", "HmacSHA256");
+            uriParams.Add("SignatureVersion", 2);
+            uriParams.Add("Timestamp", GetTimestamp(apiClient).ToString("yyyy-MM-ddTHH:mm:ss", CultureInfo.InvariantCulture));
 
             var absolutePath = uri.AbsolutePath;
             if (absolutePath.StartsWith("/api"))
                 // Russian api has /api prefix which shouldn't be part of the signature
                 absolutePath = absolutePath.Substring(4);
 
-            var sortedParameters = uriParameters.OrderBy(kv => Encoding.UTF8.GetBytes(WebUtility.UrlEncode(kv.Key)!), new ByteOrderComparer());
+            var sortedParameters = uriParams.OrderBy(kv => Encoding.UTF8.GetBytes(WebUtility.UrlEncode(kv.Key)!), new ByteOrderComparer());
             var paramString = uri.SetParameters(sortedParameters, arraySerialization).Query.Replace("?", "");
             paramString = new Regex(@"%[a-f0-9]{2}").Replace(paramString, m => m.Value.ToUpperInvariant());
             var signData = $"{method}\n{uri.Host}\n{absolutePath}\n{paramString}";
-            uriParameters.Add("Signature", SignHMACSHA256(signData, SignOutputType.Base64));
+            uriParams.Add("Signature", SignHMACSHA256(signData, SignOutputType.Base64));
         }
 
         public HuobiAuthParams GetWebsocketAuthentication(Uri uri)

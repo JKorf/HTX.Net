@@ -17,7 +17,7 @@ using Huobi.Net.Interfaces.Clients.SpotApi;
 namespace Huobi.Net.Clients.SpotApi
 {
     /// <inheritdoc />
-    public class HuobiRestClientSpotApiAccount : IHuobiClientSpotApiAccount
+    public class HuobiRestClientSpotApiAccount : IHuobiRestClientSpotApiAccount
     {
         private const string GetUserId = "user/uid";
         private const string GetSubAccountUsers = "sub-user/user-list";

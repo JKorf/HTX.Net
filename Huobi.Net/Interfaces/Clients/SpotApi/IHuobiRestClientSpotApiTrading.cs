@@ -11,7 +11,7 @@ namespace Huobi.Net.Interfaces.Clients.SpotApi
     /// <summary>
     /// Huobi trading endpoints, placing and mananging orders.
     /// </summary>
-    public interface IHuobiClientSpotApiTrading
+    public interface IHuobiRestClientSpotApiTrading
     {
         /// <summary>
         /// Places an order
