@@ -44,9 +44,9 @@ namespace Huobi.Net.Objects.Sockets.Subscriptions
         {
             var data = message.Data;
             if (data is HuobiDataEvent<HuobiTradeUpdate> tradeEvent)
-                _onOrderMatch?.Invoke(message.As(tradeEvent.Data, tradeEvent.Channel));
+                _onOrderMatch?.Invoke(message.As(tradeEvent.Data, tradeEvent.Channel, tradeEvent.Data.Symbol, SocketUpdateType.Update));
             if (data is HuobiDataEvent<HuobiOrderCancelationUpdate> cancelEvent)
-                _onOrderCancel?.Invoke(message.As(cancelEvent.Data, cancelEvent.Channel));
+                _onOrderCancel?.Invoke(message.As(cancelEvent.Data, cancelEvent.Channel, cancelEvent.Data.Symbol, SocketUpdateType.Update));
             return new CallResult(null);
         }
 

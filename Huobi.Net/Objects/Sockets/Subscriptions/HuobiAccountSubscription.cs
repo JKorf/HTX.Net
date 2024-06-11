@@ -36,7 +36,7 @@ namespace Huobi.Net.Objects.Sockets.Subscriptions
         public override CallResult DoHandleMessage(SocketConnection connection, DataEvent<object> message)
         {
             var update = (HuobiDataEvent<HuobiAccountUpdate>)message.Data;
-            _handler.Invoke(message.As(update.Data, update.Channel));
+            _handler.Invoke(message.As(update.Data, update.Channel, null, SocketUpdateType.Update));
             return new CallResult(null);
         }
 

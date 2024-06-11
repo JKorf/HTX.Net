@@ -53,15 +53,15 @@ namespace Huobi.Net.Objects.Sockets.Subscriptions
         {
             var data = message.Data;
             if (data is HuobiDataEvent<HuobiTriggerFailureOrderUpdate> triggerFailEvent)
-                _onConditionalOrderTriggerFailure?.Invoke(message.As(triggerFailEvent.Data, triggerFailEvent.Channel));
+                _onConditionalOrderTriggerFailure?.Invoke(message.As(triggerFailEvent.Data, triggerFailEvent.Channel, triggerFailEvent.Data.Symbol, SocketUpdateType.Update));
             if (data is HuobiDataEvent<HuobiOrderUpdate> orderEvent)
-                _onConditionalOrderCanceled?.Invoke(message.As(orderEvent.Data, orderEvent.Channel));
+                _onConditionalOrderCanceled?.Invoke(message.As(orderEvent.Data, orderEvent.Channel, orderEvent.Data.Symbol, SocketUpdateType.Update));
             if (data is HuobiDataEvent<HuobiSubmittedOrderUpdate> submitOrderEvent)
-                _onOrderSubmitted?.Invoke(message.As(submitOrderEvent.Data, submitOrderEvent.Channel));
+                _onOrderSubmitted?.Invoke(message.As(submitOrderEvent.Data, submitOrderEvent.Channel, submitOrderEvent.Data.Symbol, SocketUpdateType.Update));
             if (data is HuobiDataEvent<HuobiMatchedOrderUpdate> matchOrderEvent)
-                _onOrderMatched?.Invoke(message.As(matchOrderEvent.Data, matchOrderEvent.Channel));
+                _onOrderMatched?.Invoke(message.As(matchOrderEvent.Data, matchOrderEvent.Channel, matchOrderEvent.Data.Symbol, SocketUpdateType.Update));
             if (data is HuobiDataEvent<HuobiCanceledOrderUpdate> cancelOrderEvent)
-                _onOrderCancelation?.Invoke(message.As(cancelOrderEvent.Data, cancelOrderEvent.Channel));
+                _onOrderCancelation?.Invoke(message.As(cancelOrderEvent.Data, cancelOrderEvent.Channel, cancelOrderEvent.Data.Symbol, SocketUpdateType.Update));
             return new CallResult(null);
         }
 

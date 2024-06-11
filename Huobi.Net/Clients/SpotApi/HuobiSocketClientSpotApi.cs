@@ -115,7 +115,7 @@ namespace Huobi.Net.Clients.SpotApi
         {
             symbol = symbol.ValidateHuobiSymbol();
 
-            var subscription = new HuobiSubscription<HuobiKline>(_logger, $"market.{symbol}.kline.{JsonConvert.SerializeObject(period, new PeriodConverter(false))}", onData, false);
+            var subscription = new HuobiSubscription<HuobiKline>(_logger, $"market.{symbol}.kline.{JsonConvert.SerializeObject(period, new PeriodConverter(false))}", x => onData(x.WithSymbol(symbol)), false);
             return await SubscribeAsync(BaseAddress.AppendPath("ws"), subscription, ct).ConfigureAwait(false);
         }
 
@@ -147,7 +147,7 @@ namespace Huobi.Net.Clients.SpotApi
             symbol = symbol.ValidateHuobiSymbol();
             mergeStep.ValidateIntBetween(nameof(mergeStep), 0, 5);
 
-            var subscription = new HuobiSubscription<HuobiOrderBook>(_logger, $"market.{symbol}.depth.step{mergeStep}", onData, false);
+            var subscription = new HuobiSubscription<HuobiOrderBook>(_logger, $"market.{symbol}.depth.step{mergeStep}", x => onData(x.WithSymbol(symbol)), false);
             return await SubscribeAsync(BaseAddress.AppendPath("ws"), subscription, ct).ConfigureAwait(false);
         }
 
@@ -157,7 +157,7 @@ namespace Huobi.Net.Clients.SpotApi
             symbol = symbol.ValidateHuobiSymbol();
             levels.ValidateIntValues(nameof(levels), 5, 10, 20);
 
-            var subscription = new HuobiSubscription<HuobiOrderBook>(_logger, $"market.{symbol}.mbp.refresh.{levels}", onData, false);
+            var subscription = new HuobiSubscription<HuobiOrderBook>(_logger, $"market.{symbol}.mbp.refresh.{levels}", x => onData(x.WithSymbol(symbol)), false);
             return await SubscribeAsync(BaseAddress.AppendPath("ws"), subscription, ct).ConfigureAwait(false);
         }
 
@@ -167,7 +167,7 @@ namespace Huobi.Net.Clients.SpotApi
             symbol = symbol.ValidateHuobiSymbol();
             levels.ValidateIntValues(nameof(levels), 5, 20, 150, 400);
 
-            var subscription = new HuobiSubscription<HuobiIncementalOrderBook>(_logger, $"market.{symbol}.mbp.{levels}", onData, false);
+            var subscription = new HuobiSubscription<HuobiIncementalOrderBook>(_logger, $"market.{symbol}.mbp.{levels}", x => onData(x.WithSymbol(symbol)), false);
             return await SubscribeAsync(BaseAddress.AppendPath("feed"), subscription, ct).ConfigureAwait(false);
         }
 
@@ -185,7 +185,7 @@ namespace Huobi.Net.Clients.SpotApi
         public async Task<CallResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(string symbol, Action<DataEvent<HuobiSymbolTrade>> onData, CancellationToken ct = default)
         {
             symbol = symbol.ValidateHuobiSymbol();
-            var subscription = new HuobiSubscription<HuobiSymbolTrade>(_logger, $"market.{symbol}.trade.detail", onData, false);
+            var subscription = new HuobiSubscription<HuobiSymbolTrade>(_logger, $"market.{symbol}.trade.detail", x => onData(x.WithSymbol(symbol)), false);
             return await SubscribeAsync(BaseAddress.AppendPath("ws"), subscription, ct).ConfigureAwait(false);
         }
 
@@ -207,7 +207,7 @@ namespace Huobi.Net.Clients.SpotApi
         public async Task<CallResult<UpdateSubscription>> SubscribeToSymbolDetailUpdatesAsync(string symbol, Action<DataEvent<HuobiSymbolDetails>> onData, CancellationToken ct = default)
         {
             symbol = symbol.ValidateHuobiSymbol();
-            var subscription = new HuobiSubscription<HuobiSymbolDetails>(_logger, $"market.{symbol}.detail", onData, false);
+            var subscription = new HuobiSubscription<HuobiSymbolDetails>(_logger, $"market.{symbol}.detail", x => onData(x.WithSymbol(symbol)), false);
             return await SubscribeAsync(BaseAddress.AppendPath("ws"), subscription, ct).ConfigureAwait(false);
         }
 
@@ -221,14 +221,14 @@ namespace Huobi.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(string symbol, Action<DataEvent<HuobiSymbolTick>> onData, CancellationToken ct = default)
         {
-            var subscription = new HuobiSubscription<HuobiSymbolTick>(_logger, $"market.{symbol}.ticker", onData, false);
+            var subscription = new HuobiSubscription<HuobiSymbolTick>(_logger, $"market.{symbol}.ticker", x => onData(x.WithSymbol(symbol)), false);
             return await SubscribeAsync(BaseAddress.AppendPath("ws"), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToBestOfferUpdatesAsync(string symbol, Action<DataEvent<HuobiBestOffer>> onData, CancellationToken ct = default)
         {
-            var subscription = new HuobiSubscription<HuobiBestOffer>(_logger, $"market.{symbol}.bbo", onData, false);
+            var subscription = new HuobiSubscription<HuobiBestOffer>(_logger, $"market.{symbol}.bbo", x => onData(x.WithSymbol(symbol)), false);
             return await SubscribeAsync(BaseAddress.AppendPath("ws"), subscription, ct).ConfigureAwait(false);
         }
 

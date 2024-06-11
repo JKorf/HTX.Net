@@ -38,7 +38,7 @@ namespace Huobi.Net.Objects.Sockets.Subscriptions
         public override CallResult DoHandleMessage(SocketConnection connection, DataEvent<object> message)
         {
             var huobiEvent = (HuobiDataEvent<T>)message.Data;
-            _handler.Invoke(message.As(huobiEvent.Data, huobiEvent.Channel));
+            _handler.Invoke(message.As(huobiEvent.Data).WithStreamId(huobiEvent.Channel));
             return new CallResult(null);
         }
     }
