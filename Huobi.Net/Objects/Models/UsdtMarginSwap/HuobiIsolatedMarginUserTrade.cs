@@ -9,7 +9,7 @@ namespace Huobi.Net.Objects.Models.UsdtMarginSwap
     /// <summary>
     /// Margin user trade page
     /// </summary>
-    public class HuobiIsolatedMarginUserTradePage : HuobiPage
+    public record HuobiIsolatedMarginUserTradePage : HuobiPage
     {
         /// <summary>
         /// Trades
@@ -20,7 +20,7 @@ namespace Huobi.Net.Objects.Models.UsdtMarginSwap
     /// <summary>
     /// User trade info
     /// </summary>
-    public class HuobiIsolatedMarginUserTrade : HuobiMarginTrade
+    public record HuobiIsolatedMarginUserTrade : HuobiMarginTrade
     {
         /// <summary>
         /// Match id

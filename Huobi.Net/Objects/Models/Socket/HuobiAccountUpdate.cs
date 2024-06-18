@@ -9,7 +9,7 @@ namespace Huobi.Net.Objects.Models.Socket
     /// <summary>
     /// Account update
     /// </summary>
-    public class HuobiAccountUpdate
+    public record HuobiAccountUpdate
     {
         /// <summary>
         /// Asset

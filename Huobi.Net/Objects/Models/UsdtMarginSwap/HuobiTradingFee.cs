@@ -7,7 +7,7 @@ namespace Huobi.Net.Objects.Models.UsdtMarginSwap
     /// <summary>
     /// Trading fee info
     /// </summary>
-    public class HuobiTradingFee
+    public record HuobiTradingFee
     {
         /// <summary>
         /// Asset

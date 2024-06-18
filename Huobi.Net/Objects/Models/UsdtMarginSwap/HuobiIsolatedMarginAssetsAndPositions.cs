@@ -6,7 +6,7 @@ namespace Huobi.Net.Objects.Models.UsdtMarginSwap
     /// <summary>
     /// Isolated margin assets and positions info
     /// </summary>
-    public class HuobiIsolatedMarginAssetsAndPositions: HuobiIsolatedMarginAccountInfo
+    public record HuobiIsolatedMarginAssetsAndPositions: HuobiIsolatedMarginAccountInfo
     {
         /// <summary>
         /// Positions

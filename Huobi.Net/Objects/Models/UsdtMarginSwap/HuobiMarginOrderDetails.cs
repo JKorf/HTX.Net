@@ -7,7 +7,7 @@ namespace Huobi.Net.Objects.Models.UsdtMarginSwap
     /// <summary>
     /// Isolated margin order info
     /// </summary>
-    public class HuobiMarginOrderDetails : HuobiIsolatedMarginOrder
+    public record HuobiMarginOrderDetails : HuobiIsolatedMarginOrder
     {
         /// <summary>
         /// Instrument price

@@ -5,7 +5,7 @@ namespace Huobi.Net.Objects.Models
     /// <summary>
     /// Deposit address info
     /// </summary>
-    public class HuobiDepositAddress 
+    public record HuobiDepositAddress 
     {
         /// <summary>
         /// User id

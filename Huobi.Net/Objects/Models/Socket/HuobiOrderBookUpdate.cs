@@ -7,7 +7,7 @@ namespace Huobi.Net.Objects.Models.Socket
     /// <summary>
     /// Incremental order book update
     /// </summary>
-    public class HuobiUsdtMarginSwapIncementalOrderBook
+    public record HuobiUsdtMarginSwapIncementalOrderBook
     {
         /// <summary>
         /// Order id

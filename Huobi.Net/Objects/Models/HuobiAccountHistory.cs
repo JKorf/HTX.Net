@@ -9,7 +9,7 @@ namespace Huobi.Net.Objects.Models
     /// <summary>
     /// Account history data
     /// </summary>
-    public class HuobiAccountHistory
+    public record HuobiAccountHistory
     {
         /// <summary>
         /// Account ID

@@ -7,7 +7,7 @@ namespace Huobi.Net.Objects.Models
     /// <summary>
     /// Repayment result
     /// </summary>
-    public class HuobiRepaymentResult
+    public record HuobiRepaymentResult
     {
         /// <summary>
         /// Repayment id

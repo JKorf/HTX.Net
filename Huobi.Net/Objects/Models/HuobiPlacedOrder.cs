@@ -3,7 +3,7 @@
     /// <summary>
     /// Placed order
     /// </summary>
-    public class HuobiPlacedOrder
+    public record HuobiPlacedOrder
     {
         /// <summary>
         /// The id

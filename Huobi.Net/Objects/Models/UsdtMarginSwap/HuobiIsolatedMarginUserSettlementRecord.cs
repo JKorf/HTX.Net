@@ -9,7 +9,7 @@ namespace Huobi.Net.Objects.Models.UsdtMarginSwap
     /// <summary>
     /// User settlement record page
     /// </summary>
-    public class HuobiIsolatedMarginUserSettlementRecordPage
+    public record HuobiIsolatedMarginUserSettlementRecordPage
     {
         /// <summary>
         /// Total pages
@@ -36,7 +36,7 @@ namespace Huobi.Net.Objects.Models.UsdtMarginSwap
     /// <summary>
     /// User settlement record
     /// </summary>
-    public class HuobiIsolatedMarginUserSettlementRecord
+    public record HuobiIsolatedMarginUserSettlementRecord
     {
         /// <summary>
         /// Asset
@@ -112,7 +112,7 @@ namespace Huobi.Net.Objects.Models.UsdtMarginSwap
     /// <summary>
     /// Settlement position
     /// </summary>
-    public class HuobiCrossSettlementPosition
+    public record HuobiCrossSettlementPosition
     {
         /// <summary>
         /// Asset

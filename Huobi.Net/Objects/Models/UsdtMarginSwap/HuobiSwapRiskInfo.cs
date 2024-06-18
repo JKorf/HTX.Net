@@ -6,7 +6,7 @@ namespace Huobi.Net.Objects.Models.UsdtMarginSwap
     /// <summary>
     /// Swap risk info
     /// </summary>
-    public class HuobiSwapRiskInfo
+    public record HuobiSwapRiskInfo
     {
         /// <summary>
         /// Contract code

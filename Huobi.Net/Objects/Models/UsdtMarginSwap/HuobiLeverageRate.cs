@@ -7,7 +7,7 @@ namespace Huobi.Net.Objects.Models.UsdtMarginSwap
     /// <summary>
     /// Leverage rate
     /// </summary>
-    public class HuobiIsolatedMarginLeverageRate
+    public record HuobiIsolatedMarginLeverageRate
     {
         /// <summary>
         /// Contract code
@@ -30,7 +30,7 @@ namespace Huobi.Net.Objects.Models.UsdtMarginSwap
     /// <summary>
     /// Leverage rate
     /// </summary>
-    public class HuobiCrossMarginLeverageRate: HuobiIsolatedMarginLeverageRate
+    public record HuobiCrossMarginLeverageRate: HuobiIsolatedMarginLeverageRate
     {
         /// <summary>
         /// Symbol

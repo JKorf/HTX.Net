@@ -9,7 +9,7 @@ namespace Huobi.Net.Objects.Models
     /// <summary>
     /// Huobi sub-user account info
     /// </summary>
-    public class HuobiSubUserAccount
+    public record HuobiSubUserAccount
     {
         /// <summary>
         /// The type of the account

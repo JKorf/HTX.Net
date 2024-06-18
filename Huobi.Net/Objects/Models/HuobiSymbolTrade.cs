@@ -10,7 +10,7 @@ namespace Huobi.Net.Objects.Models
     /// <summary>
     /// Symbol trade
     /// </summary>
-    public class HuobiSymbolTrade
+    public record HuobiSymbolTrade
     {
         /// <summary>
         /// The id of the trade
@@ -31,7 +31,7 @@ namespace Huobi.Net.Objects.Models
     /// <summary>
     /// Symbol trade details
     /// </summary>
-    public class HuobiSymbolTradeDetails
+    public record HuobiSymbolTradeDetails
     {
         /// <summary>
         /// The id of the update

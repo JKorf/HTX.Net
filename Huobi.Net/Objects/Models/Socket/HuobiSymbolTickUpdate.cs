@@ -5,7 +5,7 @@ namespace Huobi.Net.Objects.Models.Socket
     /// <summary>
     /// Symbol update
     /// </summary>
-    public class HuobiSymbolTickUpdate: HuobiSymbolData
+    public record HuobiSymbolTickUpdate: HuobiSymbolData
     {
         /// <summary>
         /// Id

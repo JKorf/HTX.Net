@@ -8,7 +8,7 @@ namespace Huobi.Net.Objects.Models
     /// <summary>
     /// Symbol data
     /// </summary>
-    public class HuobiSymbol
+    public record HuobiSymbol
     {
         /// <summary>
         /// The symbol name

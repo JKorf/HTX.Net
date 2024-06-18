@@ -8,7 +8,7 @@ namespace Huobi.Net.Objects.Models.UsdtMarginSwap
     /// <summary>
     /// Transfer between master and sub account
     /// </summary>
-    public class HuobiMasterSubTransfer
+    public record HuobiMasterSubTransfer
     {
         /// <summary>
         /// Id

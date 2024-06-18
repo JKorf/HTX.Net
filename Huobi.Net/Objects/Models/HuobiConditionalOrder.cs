@@ -8,7 +8,7 @@ namespace Huobi.Net.Objects.Models
     /// <summary>
     /// Conditional order info
     /// </summary>
-    public class HuobiConditionalOrder
+    public record HuobiConditionalOrder
     {
         /// <summary>
         /// Acount id

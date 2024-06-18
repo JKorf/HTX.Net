@@ -9,7 +9,7 @@ namespace Huobi.Net.Objects.Models.UsdtMarginSwap
     /// <summary>
     /// Liquidation order page
     /// </summary>
-    public class HuobiLiquidationOrderPage
+    public record HuobiLiquidationOrderPage
     {
         /// <summary>
         /// Total pages
@@ -35,7 +35,7 @@ namespace Huobi.Net.Objects.Models.UsdtMarginSwap
     /// <summary>
     /// Liquidation order
     /// </summary>
-    public class HuobiLiquidationOrder
+    public record HuobiLiquidationOrder
     {
         /// <summary>
         /// Contract code

@@ -9,7 +9,7 @@ namespace Huobi.Net.Objects.Models.UsdtMarginSwap
     /// <summary>
     /// Sub account assets info
     /// </summary>
-    public class HuobiIsolatedMarginSubAccountAssets
+    public record HuobiIsolatedMarginSubAccountAssets
     {
         /// <summary>
         /// Sub account uid
@@ -26,7 +26,7 @@ namespace Huobi.Net.Objects.Models.UsdtMarginSwap
     /// <summary>
     /// Sub account asset info
     /// </summary>
-    public class HuobiIsolatedMarginSubAccountAsset
+    public record HuobiIsolatedMarginSubAccountAsset
     {
         /// <summary>
         /// Asset

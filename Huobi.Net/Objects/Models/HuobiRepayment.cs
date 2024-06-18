@@ -7,7 +7,7 @@ namespace Huobi.Net.Objects.Models
     /// <summary>
     /// Repayment info
     /// </summary>
-    public class HuobiRepayment
+    public record HuobiRepayment
     {
         /// <summary>
         /// Repayment id
@@ -42,7 +42,7 @@ namespace Huobi.Net.Objects.Models
     /// <summary>
     /// Repayment transaction
     /// </summary>
-    public class HuobiRepayTransaction
+    public record HuobiRepayTransaction
     {
         /// <summary>
         /// Transact id

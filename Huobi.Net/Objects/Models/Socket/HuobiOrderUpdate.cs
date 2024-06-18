@@ -9,7 +9,7 @@ namespace Huobi.Net.Objects.Models.Socket
     /// <summary>
     /// Order update
     /// </summary>
-    public class HuobiOrderUpdate
+    public record HuobiOrderUpdate
     {
         /// <summary>
         /// Event type
@@ -40,7 +40,7 @@ namespace Huobi.Net.Objects.Models.Socket
     /// <summary>
     /// Submitted order update
     /// </summary>
-    public class HuobiSubmittedOrderUpdate : HuobiOrderUpdate
+    public record HuobiSubmittedOrderUpdate : HuobiOrderUpdate
     {
         /// <summary>
         /// Account id
@@ -94,7 +94,7 @@ namespace Huobi.Net.Objects.Models.Socket
     /// <summary>
     /// Matched order update
     /// </summary>
-    public class HuobiMatchedOrderUpdate : HuobiOrderUpdate
+    public record HuobiMatchedOrderUpdate : HuobiOrderUpdate
     {
         /// <summary>
         /// Trade price
@@ -166,7 +166,7 @@ namespace Huobi.Net.Objects.Models.Socket
     /// <summary>
     /// Canceled order update
     /// </summary>
-    public class HuobiCanceledOrderUpdate : HuobiOrderUpdate
+    public record HuobiCanceledOrderUpdate : HuobiOrderUpdate
     {
         /// <summary>
         /// Order id
@@ -215,7 +215,7 @@ namespace Huobi.Net.Objects.Models.Socket
     /// <summary>
     /// Info on a failed trigger for a conditional order
     /// </summary>
-    public class HuobiTriggerFailureOrderUpdate : HuobiOrderUpdate
+    public record HuobiTriggerFailureOrderUpdate : HuobiOrderUpdate
     {
         /// <summary>
         /// Side of the order

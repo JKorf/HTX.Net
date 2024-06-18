@@ -7,7 +7,7 @@ namespace Huobi.Net.Objects.Models.UsdtMarginSwap
     /// <summary>
     /// Account info
     /// </summary>
-    public class HuobiIsolatedMarginAccountInfo
+    public record HuobiIsolatedMarginAccountInfo
     {
         /// <summary>
         /// Asset info

@@ -7,7 +7,7 @@ namespace Huobi.Net.Objects.Models.UsdtMarginSwap
     /// <summary>
     /// Contract status
     /// </summary>
-    public class HuobiContractStatus
+    public record HuobiContractStatus
     {
         /// <summary>
         /// Asset

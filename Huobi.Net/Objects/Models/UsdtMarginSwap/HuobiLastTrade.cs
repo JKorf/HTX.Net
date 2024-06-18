@@ -5,12 +5,12 @@ using System;
 
 namespace Huobi.Net.Objects.Models.UsdtMarginSwap
 {
-    internal class HuobiLastTradeWrapper
+    internal record HuobiLastTradeWrapper
     {
         public HuobiLastTrade[] Data { get; set; } = Array.Empty<HuobiLastTrade>();
     }
 
-    internal class HuobiTradeWrapper
+    internal record HuobiTradeWrapper
     {
         public HuobiTrade[] Data { get; set; } = Array.Empty<HuobiTrade>();
     }
@@ -18,7 +18,7 @@ namespace Huobi.Net.Objects.Models.UsdtMarginSwap
     /// <summary>
     /// Last trade data
     /// </summary>
-    public class HuobiTrade
+    public record HuobiTrade
     {
         /// <summary>
         /// Amount of contracts
@@ -52,7 +52,7 @@ namespace Huobi.Net.Objects.Models.UsdtMarginSwap
     /// <summary>
     /// Last trade info
     /// </summary>
-    public class HuobiLastTrade: HuobiTrade
+    public record HuobiLastTrade: HuobiTrade
     {
         /// <summary>
         /// Contract code

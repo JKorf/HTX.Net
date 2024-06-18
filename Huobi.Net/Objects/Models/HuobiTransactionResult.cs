@@ -5,7 +5,7 @@ namespace Huobi.Net.Objects.Models
     /// <summary>
     /// Transaction result
     /// </summary>
-    public class HuobiTransactionResult
+    public record HuobiTransactionResult
     {
         /// <summary>
         /// Id

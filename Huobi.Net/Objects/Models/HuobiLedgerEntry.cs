@@ -8,7 +8,7 @@ namespace Huobi.Net.Objects.Models
     /// <summary>
     /// Ledger entry
     /// </summary>
-    public class HuobiLedgerEntry
+    public record HuobiLedgerEntry
     {
         /// <summary>
         /// Account id

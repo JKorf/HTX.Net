@@ -7,7 +7,7 @@ namespace Huobi.Net.Objects.Models.UsdtMarginSwap
     /// <summary>
     /// Price limitation
     /// </summary>
-    public class HuobiPriceLimitation
+    public record HuobiPriceLimitation
     {
         /// <summary>
         /// The asset

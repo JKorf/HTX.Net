@@ -7,7 +7,7 @@ namespace Huobi.Net.Objects.Models.UsdtMarginSwap
     /// <summary>
     /// Estimated settlement price
     /// </summary>
-    public class HuobiEstimatedSettlementPrice
+    public record HuobiEstimatedSettlementPrice
     {
         /// <summary>
         /// Contract code

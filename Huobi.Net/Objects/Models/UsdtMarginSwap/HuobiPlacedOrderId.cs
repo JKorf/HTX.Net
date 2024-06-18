@@ -5,7 +5,7 @@ namespace Huobi.Net.Objects.Models.UsdtMarginSwap
     /// <summary>
     /// Placed order id 
     /// </summary>
-    public class HuobiPlacedOrderId
+    public record HuobiPlacedOrderId
     {
         /// <summary>
         /// Order id

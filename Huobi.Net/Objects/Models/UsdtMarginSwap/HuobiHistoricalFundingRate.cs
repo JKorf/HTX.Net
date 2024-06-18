@@ -8,7 +8,7 @@ namespace Huobi.Net.Objects.Models.UsdtMarginSwap
     /// <summary>
     /// Funding rates page
     /// </summary>
-    public class HuobiFundingRatePage
+    public record HuobiFundingRatePage
     {
         /// <summary>
         /// Total pages
@@ -35,7 +35,7 @@ namespace Huobi.Net.Objects.Models.UsdtMarginSwap
     /// <summary>
     /// Historical funding rate
     /// </summary>
-    public class HuobiHistoricalFundingRate
+    public record HuobiHistoricalFundingRate
     {
         /// <summary>
         /// Average premium index

@@ -7,7 +7,7 @@ namespace Huobi.Net.Objects.Models
     /// <summary>
     /// Huobi user info
     /// </summary>
-    public class HuobiUser
+    public record HuobiUser
     {
         /// <summary>
         /// The id of the user

@@ -9,7 +9,7 @@ namespace Huobi.Net.Objects.Models
     /// <summary>
     /// Order info
     /// </summary>
-    public class HuobiOrder
+    public record HuobiOrder
     {
         /// <summary>
         /// The id of the order

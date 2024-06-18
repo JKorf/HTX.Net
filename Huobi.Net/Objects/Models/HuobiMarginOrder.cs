@@ -8,7 +8,7 @@ namespace Huobi.Net.Objects.Models
     /// <summary>
     /// Margin order info
     /// </summary>
-    public class HuobiMarginOrder
+    public record HuobiMarginOrder
     {
         /// <summary>
         /// Order id

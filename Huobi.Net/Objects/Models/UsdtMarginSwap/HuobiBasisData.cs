@@ -5,7 +5,7 @@ namespace Huobi.Net.Objects.Models.UsdtMarginSwap
     /// <summary>
     /// Basis data
     /// </summary>
-    public class HuobiBasisData
+    public record HuobiBasisData
     {
         /// <summary>
         /// Basis

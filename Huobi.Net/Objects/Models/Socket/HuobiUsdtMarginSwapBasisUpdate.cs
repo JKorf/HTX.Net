@@ -4,7 +4,7 @@ namespace Huobi.Net.Objects.Models.Socket
     /// <summary>
     /// Basis update
     /// </summary>
-    public class HuobiUsdtMarginSwapBasisUpdate
+    public record HuobiUsdtMarginSwapBasisUpdate
     {
         /// <summary>
         /// Id

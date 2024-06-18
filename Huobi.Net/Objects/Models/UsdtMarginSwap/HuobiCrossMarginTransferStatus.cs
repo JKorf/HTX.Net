@@ -7,7 +7,7 @@ namespace Huobi.Net.Objects.Models.UsdtMarginSwap
     /// <summary>
     /// Cross margin transfer status
     /// </summary>
-    public class HuobiCrossMarginTransferStatus
+    public record HuobiCrossMarginTransferStatus
     {
         /// <summary>
         /// Margin mode

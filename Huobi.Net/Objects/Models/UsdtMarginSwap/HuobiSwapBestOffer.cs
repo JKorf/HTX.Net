@@ -8,7 +8,7 @@ namespace Huobi.Net.Objects.Models.UsdtMarginSwap
     /// <summary>
     /// Best offer
     /// </summary>
-    public class HuobiSwapBestOffer
+    public record HuobiSwapBestOffer
     {
         /// <summary>
         /// Business type

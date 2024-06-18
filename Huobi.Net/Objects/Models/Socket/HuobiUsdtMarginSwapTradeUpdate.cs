@@ -9,7 +9,7 @@ namespace Huobi.Net.Objects.Models.Socket
     /// <summary>
     /// Trade info
     /// </summary>
-    public class HuobiUsdtMarginSwapTradesUpdate
+    public record HuobiUsdtMarginSwapTradesUpdate
     {
         /// <summary>
         /// Update id
@@ -31,7 +31,7 @@ namespace Huobi.Net.Objects.Models.Socket
     /// <summary>
     /// Trade info
     /// </summary>
-    public class HuobiUsdtMarginSwapTradeUpdate
+    public record HuobiUsdtMarginSwapTradeUpdate
     {
         /// <summary>
         /// Amount of trades

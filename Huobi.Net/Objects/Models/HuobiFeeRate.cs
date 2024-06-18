@@ -3,7 +3,7 @@
     /// <summary>
     /// Current transaction fee rate applied to the user
     /// </summary>
-    public class HuobiFeeRate
+    public record HuobiFeeRate
     {
         /// <summary>
         /// The symbol

@@ -7,7 +7,7 @@ namespace Huobi.Net.Objects.Models
     /// <summary>
     /// Info on a symbol's best offer
     /// </summary>
-    public class HuobiBestOffer
+    public record HuobiBestOffer
     {
         /// <summary>
         /// Symbol

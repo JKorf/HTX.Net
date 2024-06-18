@@ -7,7 +7,7 @@ namespace Huobi.Net.Objects.Models.UsdtMarginSwap
     /// <summary>
     /// Funding rate
     /// </summary>
-    public class HuobiFundingRate
+    public record HuobiFundingRate
     {
         /// <summary>
         /// Estimated rate

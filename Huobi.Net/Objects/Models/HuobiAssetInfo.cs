@@ -9,7 +9,7 @@ namespace Huobi.Net.Objects.Models
     /// <summary>
     /// Info on an asset
     /// </summary>
-    public class HuobiAssetInfo
+    public record HuobiAssetInfo
     {
         /// <summary>
         /// Asset
@@ -31,7 +31,7 @@ namespace Huobi.Net.Objects.Models
     /// <summary>
     /// Info on an asset network
     /// </summary>
-    public class HuobiChain
+    public record HuobiChain
     {
         /// <summary>
         /// Chain

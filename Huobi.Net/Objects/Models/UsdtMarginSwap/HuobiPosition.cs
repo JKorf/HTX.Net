@@ -7,7 +7,7 @@ namespace Huobi.Net.Objects.Models.UsdtMarginSwap
     /// <summary>
     /// Isolated margin position info
     /// </summary>
-    public class HuobiPosition
+    public record HuobiPosition
     {
         /// <summary>
         /// Asset

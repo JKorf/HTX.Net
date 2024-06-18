@@ -9,7 +9,7 @@ namespace Huobi.Net.Objects.Models.UsdtMarginSwap
     /// <summary>
     /// Trade info
     /// </summary>
-    public class HuobiMarginTrade
+    public record HuobiMarginTrade
     {
         /// <summary>
         /// Id

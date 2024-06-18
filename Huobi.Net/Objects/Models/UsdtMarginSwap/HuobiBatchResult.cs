@@ -6,7 +6,7 @@ namespace Huobi.Net.Objects.Models.UsdtMarginSwap
     /// <summary>
     /// Batch result
     /// </summary>
-    public class HuobiBatchResult
+    public record HuobiBatchResult
     {
         /// <summary>
         /// Errors in the batch
@@ -21,7 +21,7 @@ namespace Huobi.Net.Objects.Models.UsdtMarginSwap
     /// <summary>
     /// Batch operation error
     /// </summary>
-    public class HuobiBatchError
+    public record HuobiBatchError
     {
         /// <summary>
         /// Order id

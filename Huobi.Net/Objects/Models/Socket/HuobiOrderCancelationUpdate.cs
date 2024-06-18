@@ -9,7 +9,7 @@ namespace Huobi.Net.Objects.Models.Socket
     /// <summary>
     /// Cancelation details
     /// </summary>
-    public class HuobiOrderCancelationUpdate
+    public record HuobiOrderCancelationUpdate
     {
         /// <summary>
         /// Event type

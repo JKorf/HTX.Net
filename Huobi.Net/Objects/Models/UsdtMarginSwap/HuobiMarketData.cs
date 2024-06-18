@@ -6,7 +6,7 @@ namespace Huobi.Net.Objects.Models.UsdtMarginSwap
     /// <summary>
     /// Market data
     /// </summary>
-    public class HuobiMarketData: HuobiSymbolData
+    public record HuobiMarketData: HuobiSymbolData
     {
         /// <summary>
         /// Best ask

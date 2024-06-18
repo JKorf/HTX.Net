@@ -9,7 +9,7 @@ namespace Huobi.Net.Objects.Models.UsdtMarginSwap
     /// <summary>
     /// Financial records page
     /// </summary>
-    public class HuobiFinancialRecordsPage
+    public record HuobiFinancialRecordsPage
     {
         /// <summary>
         /// Total amount of pages
@@ -36,7 +36,7 @@ namespace Huobi.Net.Objects.Models.UsdtMarginSwap
     /// <summary>
     /// Financial records
     /// </summary>
-    public class HuobiFinancialRecord
+    public record HuobiFinancialRecord
     {
         /// <summary>
         /// Record id

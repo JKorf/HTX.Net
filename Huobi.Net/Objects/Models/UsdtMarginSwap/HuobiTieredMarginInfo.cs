@@ -9,7 +9,7 @@ namespace Huobi.Net.Objects.Models.UsdtMarginSwap
     /// <summary>
     /// Tiered margin info
     /// </summary>
-    public class HuobiTieredMarginInfo
+    public record HuobiTieredMarginInfo
     {
         /// <summary>
         /// Margin account
@@ -41,7 +41,7 @@ namespace Huobi.Net.Objects.Models.UsdtMarginSwap
     /// <summary>
     /// Tiered cross margin info
     /// </summary>
-    public class HuobiTieredCrossMarginInfo: HuobiTieredMarginInfo
+    public record HuobiTieredCrossMarginInfo: HuobiTieredMarginInfo
     {
         /// <summary>
         /// Business type
@@ -65,7 +65,7 @@ namespace Huobi.Net.Objects.Models.UsdtMarginSwap
     /// <summary>
     /// Margin rate
     /// </summary>
-    public class HuobiTieredMarginRate
+    public record HuobiTieredMarginRate
     {
         /// <summary>
         /// Lever rate
@@ -81,7 +81,7 @@ namespace Huobi.Net.Objects.Models.UsdtMarginSwap
     /// <summary>
     /// Ladder info
     /// </summary>
-    public class HuobiTieredMarginLadder
+    public record HuobiTieredMarginLadder
     {
         /// <summary>
         /// Min marging balance

@@ -7,7 +7,7 @@ namespace Huobi.Net.Objects.Models.UsdtMarginSwap
     /// <summary>
     /// Open interest
     /// </summary>
-    public class HuobiOpenInterest
+    public record HuobiOpenInterest
     {
         /// <summary>
         /// The asset

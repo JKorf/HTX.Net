@@ -6,7 +6,7 @@ namespace Huobi.Net.Objects.Models
     /// <summary>
     /// Orders info
     /// </summary>
-    public class HuobiOrders
+    public record HuobiOrders
 	{
         /// <summary>
         /// Timestamp for pagination

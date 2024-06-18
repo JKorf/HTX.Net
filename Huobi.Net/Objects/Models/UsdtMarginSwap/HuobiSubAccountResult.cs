@@ -7,7 +7,7 @@ namespace Huobi.Net.Objects.Models.UsdtMarginSwap
     /// <summary>
     /// sub account results
     /// </summary>
-    public class HuobiSubAccountResult
+    public record HuobiSubAccountResult
     {
         /// <summary>
         /// Successfully updated ids
@@ -22,7 +22,7 @@ namespace Huobi.Net.Objects.Models.UsdtMarginSwap
     /// <summary>
     /// Sub account error info
     /// </summary>
-    public class HuobiSubAccountError
+    public record HuobiSubAccountError
     {
         /// <summary>
         /// Sub uid

@@ -9,7 +9,7 @@ namespace Huobi.Net.Objects.Models.UsdtMarginSwap
     /// <summary>
     /// Open interest value
     /// </summary>
-    public class HuobiOpenInterestValue
+    public record HuobiOpenInterestValue
     {
         /// <summary>
         /// Asset
@@ -48,7 +48,7 @@ namespace Huobi.Net.Objects.Models.UsdtMarginSwap
     /// <summary>
     /// Open interest value tick
     /// </summary>
-    public class HuobiOpenInterestValueTick
+    public record HuobiOpenInterestValueTick
     {
         /// <summary>
         /// Volume

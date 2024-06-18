@@ -9,7 +9,7 @@ namespace Huobi.Net.Objects.Models.Socket
     /// <summary>
     /// Trade update
     /// </summary>
-    public class HuobiTradeUpdate
+    public record HuobiTradeUpdate
     {
         /// <summary>
         /// Event type

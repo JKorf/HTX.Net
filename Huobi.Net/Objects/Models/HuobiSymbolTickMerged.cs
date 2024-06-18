@@ -8,7 +8,7 @@ namespace Huobi.Net.Objects.Models
     /// <summary>
     /// Symbol tick info
     /// </summary>
-    public class HuobiSymbolTickMerged: HuobiSymbolData
+    public record HuobiSymbolTickMerged: HuobiSymbolData
     {
         /// <summary>
         /// Timestamp of the data
@@ -36,7 +36,7 @@ namespace Huobi.Net.Objects.Models
     /// Order book entry
     /// </summary>
     [JsonConverter(typeof(ArrayConverter))]
-    public class HuobiOrderBookEntry: ISymbolOrderBookEntry
+    public record HuobiOrderBookEntry: ISymbolOrderBookEntry
     {
         /// <summary>
         /// The price for this entry

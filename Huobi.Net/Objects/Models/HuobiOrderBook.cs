@@ -8,7 +8,7 @@ namespace Huobi.Net.Objects.Models
     /// <summary>
     /// Order book
     /// </summary>
-    public class HuobiOrderBook
+    public record HuobiOrderBook
     {
         /// <summary>
         /// Timestamp
@@ -32,7 +32,7 @@ namespace Huobi.Net.Objects.Models
     /// <summary>
     /// Incremental order book update
     /// </summary>
-    public class HuobiIncementalOrderBook
+    public record HuobiIncementalOrderBook
     {
         /// <summary>
         /// Sequence number

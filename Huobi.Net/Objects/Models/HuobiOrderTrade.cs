@@ -9,7 +9,7 @@ namespace Huobi.Net.Objects.Models
     /// <summary>
     /// Trade info
     /// </summary>
-    public class HuobiOrderTrade
+    public record HuobiOrderTrade
     {
         /// <summary>
         /// The id of the trade

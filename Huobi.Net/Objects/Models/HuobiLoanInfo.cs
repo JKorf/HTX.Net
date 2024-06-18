@@ -7,7 +7,7 @@ namespace Huobi.Net.Objects.Models
     /// <summary>
     /// Loan info
     /// </summary>
-    public class HuobiLoanInfo
+    public record HuobiLoanInfo
     {
         /// <summary>
         /// Symbol name
@@ -23,7 +23,7 @@ namespace Huobi.Net.Objects.Models
     /// <summary>
     /// Asset info
     /// </summary>
-    public class HuobiLoanInfoAsset
+    public record HuobiLoanInfoAsset
     {
         /// <summary>
         /// Asset

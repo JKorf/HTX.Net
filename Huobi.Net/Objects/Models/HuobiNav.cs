@@ -8,7 +8,7 @@ namespace Huobi.Net.Objects.Models
     /// <summary>
     /// NAV info for ETP
     /// </summary>
-    public class HuobiNav
+    public record HuobiNav
     {
         /// <summary>
         /// The symbol
@@ -40,7 +40,7 @@ namespace Huobi.Net.Objects.Models
     /// <summary>
     /// Basket
     /// </summary>
-    public class HuobiBasket
+    public record HuobiBasket
     {
         /// <summary>
         /// Asset

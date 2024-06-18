@@ -3,7 +3,7 @@
     /// <summary>
     /// Balance info
     /// </summary>
-    public class HuobiBalanceWrapper
+    public record HuobiBalanceWrapper
     {
         /// <summary>
         /// Asset

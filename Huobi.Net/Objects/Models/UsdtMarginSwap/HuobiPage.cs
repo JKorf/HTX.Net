@@ -5,7 +5,7 @@ namespace Huobi.Net.Objects.Models.UsdtMarginSwap
     /// <summary>
     /// Page of data
     /// </summary>
-    public class HuobiPage
+    public record HuobiPage
     {
         /// <summary>
         /// Total amount of pages

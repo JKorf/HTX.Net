@@ -3,7 +3,7 @@
     /// <summary>
     /// Placed conditional order
     /// </summary>
-    public class HuobiPlacedConditionalOrder
+    public record HuobiPlacedConditionalOrder
     {
         /// <summary>
         /// The id

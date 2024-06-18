@@ -7,7 +7,7 @@ namespace Huobi.Net.Objects.Models.UsdtMarginSwap
     /// <summary>
     /// Swap index
     /// </summary>
-    public class HuobiSwapIndex
+    public record HuobiSwapIndex
     {
         /// <summary>
         /// Contract code

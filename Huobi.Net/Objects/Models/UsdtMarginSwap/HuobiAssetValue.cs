@@ -5,7 +5,7 @@ namespace Huobi.Net.Objects.Models.UsdtMarginSwap
     /// <summary>
     /// Asset valuation
     /// </summary>
-    public  class HuobiAssetValue
+    public  record HuobiAssetValue
     {
         /// <summary>
         /// Asset name

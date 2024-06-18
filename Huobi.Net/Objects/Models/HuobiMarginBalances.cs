@@ -9,7 +9,7 @@ namespace Huobi.Net.Objects.Models
     /// <summary>
     /// Margin account balance
     /// </summary>
-    public class HuobiMarginBalances
+    public record HuobiMarginBalances
     {
         /// <summary>
         /// Id
@@ -61,7 +61,7 @@ namespace Huobi.Net.Objects.Models
     /// <summary>
     /// Balance info
     /// </summary>
-    public class HuobiIsolatedBalance
+    public record HuobiIsolatedBalance
     {
         /// <summary>
         /// The asset

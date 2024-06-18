@@ -6,7 +6,7 @@ namespace Huobi.Net.Objects.Models
     /// <summary>
     /// Conditional order cancelation result
     /// </summary>
-    public class HuobiConditionalOrderCancelResult
+    public record HuobiConditionalOrderCancelResult
     {
         /// <summary>
         /// Orders accepted for cancelation

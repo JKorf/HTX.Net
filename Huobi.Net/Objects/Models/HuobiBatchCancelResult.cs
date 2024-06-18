@@ -7,7 +7,7 @@ namespace Huobi.Net.Objects.Models
     /// <summary>
     /// Result of a batch cancel
     /// </summary>
-    public class HuobiBatchCancelResult
+    public record HuobiBatchCancelResult
     {
         /// <summary>
         /// Orders that were successfully canceled
@@ -23,7 +23,7 @@ namespace Huobi.Net.Objects.Models
     /// <summary>
     /// Cancel result
     /// </summary>
-    public class HuobiFailedCancelResult
+    public record HuobiFailedCancelResult
     {
         /// <summary>
         /// The error code

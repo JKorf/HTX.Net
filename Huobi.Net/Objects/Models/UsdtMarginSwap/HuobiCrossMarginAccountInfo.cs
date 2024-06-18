@@ -9,7 +9,7 @@ namespace Huobi.Net.Objects.Models.UsdtMarginSwap
     /// <summary>
     /// Account info
     /// </summary>
-    public class HuobiCrossMarginAccountInfo
+    public record HuobiCrossMarginAccountInfo
     {
         /// <summary>
         /// Margin balance

@@ -5,7 +5,7 @@ namespace Huobi.Net.Objects.Models
 	/// <summary>
 	/// Result of Cancel Orders by Criteria
 	/// </summary>
-	public class HuobiByCriteriaCancelResult
+	public record HuobiByCriteriaCancelResult
 	{
 		/// <summary>
 		/// The number of cancel request sent successfully

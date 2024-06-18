@@ -6,7 +6,7 @@ namespace Huobi.Net.Objects.Models.UsdtMarginSwap
     /// <summary>
     /// Order page
     /// </summary>
-    public class HuobiCrossMarginOrderPage : HuobiPage
+    public record HuobiCrossMarginOrderPage : HuobiPage
     {
         /// <summary>
         /// Orders

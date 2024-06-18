@@ -9,7 +9,7 @@ namespace Huobi.Net.Objects.Models.UsdtMarginSwap
     /// <summary>
     /// Settlement page
     /// </summary>
-    public class HuobiSettlementPage
+    public record HuobiSettlementPage
     {
         /// <summary>
         /// Total pages
@@ -37,7 +37,7 @@ namespace Huobi.Net.Objects.Models.UsdtMarginSwap
     /// <summary>
     /// Settlement info
     /// </summary>
-    public class HuobiSettlementRecord
+    public record HuobiSettlementRecord
     {
         /// <summary>
         /// Asset

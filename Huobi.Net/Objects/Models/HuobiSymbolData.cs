@@ -7,7 +7,7 @@ namespace Huobi.Net.Objects.Models
     /// <summary>
     /// Symbol data
     /// </summary>
-    public class HuobiSymbolData
+    public record HuobiSymbolData
     {
         /// <summary>
         /// The highest price
@@ -53,7 +53,7 @@ namespace Huobi.Net.Objects.Models
     /// <summary>
     /// Ticker data
     /// </summary>
-    public class HuobiSymbolTicker : HuobiSymbolData
+    public record HuobiSymbolTicker : HuobiSymbolData
     {
         /// <summary>
         /// The symbol
@@ -64,7 +64,7 @@ namespace Huobi.Net.Objects.Models
     /// <summary>
     /// Symbol kline data
     /// </summary>
-    public class HuobiKline : HuobiSymbolData
+    public record HuobiKline : HuobiSymbolData
     {
         /// <summary>
         /// The start time of the kline
@@ -77,7 +77,7 @@ namespace Huobi.Net.Objects.Models
     /// <summary>
     /// Symbol details
     /// </summary>
-    public class HuobiSymbolDetails : HuobiSymbolData
+    public record HuobiSymbolDetails : HuobiSymbolData
     {
         /// <summary>
         /// The id of the details
@@ -93,7 +93,7 @@ namespace Huobi.Net.Objects.Models
     /// <summary>
     /// Symbol tick
     /// </summary>
-    public class HuobiSymbolTick : HuobiSymbolData
+    public record HuobiSymbolTick : HuobiSymbolData
     {
         /// <summary>
         /// The symbol

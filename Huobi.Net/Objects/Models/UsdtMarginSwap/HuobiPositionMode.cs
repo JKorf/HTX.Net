@@ -7,7 +7,7 @@ namespace Huobi.Net.Objects.Models.UsdtMarginSwap
     /// <summary>
     /// Position mode
     /// </summary>
-    public class HuobiPositionMode
+    public record HuobiPositionMode
     {
         /// <summary>
         /// Margin account

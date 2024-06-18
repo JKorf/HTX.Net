@@ -5,7 +5,7 @@ namespace Huobi.Net.Objects.Models.Socket
     /// <summary>
     /// Best offer update
     /// </summary>
-    public class HuobiBestOfferUpdate
+    public record HuobiBestOfferUpdate
     {
         /// <summary>
         /// Order id

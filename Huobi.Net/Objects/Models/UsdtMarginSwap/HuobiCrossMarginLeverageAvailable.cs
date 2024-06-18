@@ -7,7 +7,7 @@ namespace Huobi.Net.Objects.Models.UsdtMarginSwap
     /// <summary>
     /// Available leverage info
     /// </summary>
-    public class HuobiCrossMarginLeverageAvailable: HuobiIsolatedMarginLeverageAvailable
+    public record HuobiCrossMarginLeverageAvailable: HuobiIsolatedMarginLeverageAvailable
     {
         /// <summary>
         /// Contract type

@@ -9,7 +9,7 @@ namespace Huobi.Net.Objects.Models.UsdtMarginSwap
     /// <summary>
     /// Isolated margin order info
     /// </summary>
-    public class HuobiIsolatedMarginOrder
+    public record HuobiIsolatedMarginOrder
     {
         /// <summary>
         /// Asset
@@ -168,7 +168,7 @@ namespace Huobi.Net.Objects.Models.UsdtMarginSwap
     /// <summary>
     /// Cross margin order info
     /// </summary>
-    public class HuobiCrossMarginOrder : HuobiIsolatedMarginOrder
+    public record HuobiCrossMarginOrder : HuobiIsolatedMarginOrder
     {
         /// <summary>
         /// Business type

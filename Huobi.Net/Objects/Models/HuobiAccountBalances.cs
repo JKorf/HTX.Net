@@ -7,7 +7,7 @@ namespace Huobi.Net.Objects.Models
     /// <summary>
     /// Account and balance info
     /// </summary>
-    public class HuobiAccountBalances: HuobiAccount
+    public record HuobiAccountBalances: HuobiAccount
     {
         /// <summary>
         /// The list of balances

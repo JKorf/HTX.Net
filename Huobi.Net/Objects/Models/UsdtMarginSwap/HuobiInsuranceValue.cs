@@ -9,7 +9,7 @@ namespace Huobi.Net.Objects.Models.UsdtMarginSwap
     /// <summary>
     /// Insurance info
     /// </summary>
-    public class HuobiInsuranceInfo
+    public record HuobiInsuranceInfo
     {
         /// <summary>
         /// Total amount of pages
@@ -56,7 +56,7 @@ namespace Huobi.Net.Objects.Models.UsdtMarginSwap
     /// <summary>
     /// Insurance value
     /// </summary>
-    public class HuobiInsuranceValue
+    public record HuobiInsuranceValue
     {
         /// <summary>
         /// Insurance fund

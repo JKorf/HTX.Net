@@ -7,7 +7,7 @@ namespace Huobi.Net.Objects.Models
     /// <summary>
     /// Huobi sub-user account id and state
     /// </summary>
-    public class HuobiSubUserAccountId
+    public record HuobiSubUserAccountId
     {
         /// <summary>
         /// The id of the account

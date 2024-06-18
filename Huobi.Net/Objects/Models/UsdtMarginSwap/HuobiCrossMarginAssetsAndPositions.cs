@@ -6,7 +6,7 @@ namespace Huobi.Net.Objects.Models.UsdtMarginSwap
     /// <summary>
     /// Cross margin assets and positions info
     /// </summary>
-    public class HuobiCrossMarginAssetsAndPositions : HuobiCrossMarginAccountInfo
+    public record HuobiCrossMarginAssetsAndPositions : HuobiCrossMarginAccountInfo
     {
         /// <summary>
         /// Positions

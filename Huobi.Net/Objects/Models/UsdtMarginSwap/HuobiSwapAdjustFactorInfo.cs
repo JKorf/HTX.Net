@@ -9,7 +9,7 @@ namespace Huobi.Net.Objects.Models.UsdtMarginSwap
     /// <summary>
     /// Adjust factor info
     /// </summary>
-    public class HuobiSwapAdjustFactorInfo
+    public record HuobiSwapAdjustFactorInfo
     {
         /// <summary>
         /// Asset
@@ -36,7 +36,7 @@ namespace Huobi.Net.Objects.Models.UsdtMarginSwap
     /// <summary>
     /// Cross margin adjust factor info
     /// </summary>
-    public class HuobiCrossSwapAdjustFactorInfo: HuobiSwapAdjustFactorInfo
+    public record HuobiCrossSwapAdjustFactorInfo: HuobiSwapAdjustFactorInfo
     {
         /// <summary>
         /// Business type
@@ -58,7 +58,7 @@ namespace Huobi.Net.Objects.Models.UsdtMarginSwap
     /// <summary>
     /// Factor info
     /// </summary>
-    public class HuobiFactorInfo
+    public record HuobiFactorInfo
     {
         /// <summary>
         /// Lever rate
@@ -74,7 +74,7 @@ namespace Huobi.Net.Objects.Models.UsdtMarginSwap
     /// <summary>
     /// Factor info
     /// </summary>
-    public class HuobiFactorEntry
+    public record HuobiFactorEntry
     {
         /// <summary>
         /// Ladder
