@@ -90,7 +90,7 @@ namespace Huobi.Net.Clients.SpotApi
             => new HuobiAuthenticationProvider(credentials, false);
 
         /// <inheritdoc />
-        protected override Query GetAuthenticationRequest()
+        protected override Query GetAuthenticationRequest(SocketConnection connection)
         {
             return new HuobiAuthQuery(new HuobiAuthRequest<HuobiAuthParams>
             {
