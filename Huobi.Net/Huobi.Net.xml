@@ -349,7 +349,7 @@
         <member name="M:Huobi.Net.Clients.SpotApi.HuobiSocketClientSpotApi.CreateAuthenticationProvider(CryptoExchange.Net.Authentication.ApiCredentials)">
             <inheritdoc />
         </member>
-        <member name="M:Huobi.Net.Clients.SpotApi.HuobiSocketClientSpotApi.GetAuthenticationRequest">
+        <member name="M:Huobi.Net.Clients.SpotApi.HuobiSocketClientSpotApi.GetAuthenticationRequest(CryptoExchange.Net.Sockets.SocketConnection)">
             <inheritdoc />
         </member>
         <member name="M:Huobi.Net.Clients.SpotApi.HuobiSocketClientSpotApi.GetKlinesAsync(System.String,Huobi.Net.Enums.KlineInterval)">
