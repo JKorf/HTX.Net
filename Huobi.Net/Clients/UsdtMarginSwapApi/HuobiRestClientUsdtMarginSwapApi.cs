@@ -18,7 +18,7 @@ using System.Threading.Tasks;
 namespace Huobi.Net.Clients.FuturesApi
 {
     /// <inheritdoc />
-    public class HuobiRestClientUsdtMarginSwapApi : RestApiClient, IHuobiRestClientUsdtMarginSwapApi
+    internal class HuobiRestClientUsdtMarginSwapApi : RestApiClient, IHuobiRestClientUsdtMarginSwapApi
     {
         /// <inheritdoc />
         public new HuobiRestOptions ClientOptions => (HuobiRestOptions)base.ClientOptions;
@@ -44,9 +44,9 @@ namespace Huobi.Net.Clients.FuturesApi
         /// <inheritdoc />
         public IHuobiRestClientUsdtMarginSwapApiAccount Account { get; }
         /// <inheritdoc />
-        public HuobiRestClientUsdtMarginSwapApiExchangeData ExchangeData { get; }
+        public IHuobiRestClientUsdtMarginSwapApiExchangeData ExchangeData { get; }
         /// <inheritdoc />
-        public HuobiRestClientUsdtMarginSwapApiTrading Trading { get; }
+        public IHuobiRestClientUsdtMarginSwapApiTrading Trading { get; }
 
         #endregion
 

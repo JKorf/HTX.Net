@@ -15,10 +15,10 @@ namespace Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi
         /// <summary>
         /// Endpoints related to retrieving market and system data
         /// </summary>
-        HuobiRestClientUsdtMarginSwapApiExchangeData ExchangeData { get; }
+        IHuobiRestClientUsdtMarginSwapApiExchangeData ExchangeData { get; }
         /// <summary>
         /// Endpoints related to orders and trades
         /// </summary>
-        HuobiRestClientUsdtMarginSwapApiTrading Trading { get; }
+        IHuobiRestClientUsdtMarginSwapApiTrading Trading { get; }
     }
 }

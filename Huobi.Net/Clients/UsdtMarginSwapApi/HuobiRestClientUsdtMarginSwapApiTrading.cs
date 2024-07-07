@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 namespace Huobi.Net.Clients.UsdtMarginSwapApi
 {
     /// <inheritdoc />
-    public class HuobiRestClientUsdtMarginSwapApiTrading : IHuobiRestClientUsdtMarginSwapApiTrading
+    internal class HuobiRestClientUsdtMarginSwapApiTrading : IHuobiRestClientUsdtMarginSwapApiTrading
     {
         private readonly HuobiRestClientUsdtMarginSwapApi _baseClient;
 

@@ -21,7 +21,7 @@ using Newtonsoft.Json.Linq;
 namespace Huobi.Net.Clients.SpotApi
 {
     /// <inheritdoc />
-    public class HuobiRestClientSpotApi : RestApiClient, IHuobiRestClientSpotApi, ISpotClient
+    internal class HuobiRestClientSpotApi : RestApiClient, IHuobiRestClientSpotApi, ISpotClient
     {
         /// <inheritdoc />
         public new HuobiRestOptions ClientOptions => (HuobiRestOptions)base.ClientOptions;

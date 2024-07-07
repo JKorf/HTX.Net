@@ -29,7 +29,7 @@ using HuobiOrderUpdate = Huobi.Net.Objects.Models.Socket.HuobiOrderUpdate;
 namespace Huobi.Net.Clients.SpotApi
 {
     /// <inheritdoc />
-    public class HuobiSocketClientSpotApi : SocketApiClient, IHuobiSocketClientSpotApi
+    internal class HuobiSocketClientSpotApi : SocketApiClient, IHuobiSocketClientSpotApi
     {
         private static readonly MessagePath _idPath = MessagePath.Get().Property("id");
         private static readonly MessagePath _actionPath = MessagePath.Get().Property("action");

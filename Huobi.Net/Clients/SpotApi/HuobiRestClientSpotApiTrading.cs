@@ -19,7 +19,7 @@ using Huobi.Net.ExtensionMethods;
 namespace Huobi.Net.Clients.SpotApi
 {
     /// <inheritdoc />
-    public class HuobiRestClientSpotApiTrading : IHuobiRestClientSpotApiTrading
+    internal class HuobiRestClientSpotApiTrading : IHuobiRestClientSpotApiTrading
     {
         private const string PlaceOrderEndpoint = "order/orders/place";
         private const string OpenOrdersEndpoint = "order/openOrders";

@@ -16,7 +16,7 @@ using Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi;
 namespace Huobi.Net.Clients.UsdtMarginSwapApi
 {
     /// <inheritdoc />
-    public class HuobiRestClientUsdtMarginSwapApiAccount : IHuobiRestClientUsdtMarginSwapApiAccount
+    internal class HuobiRestClientUsdtMarginSwapApiAccount : IHuobiRestClientUsdtMarginSwapApiAccount
     {
         private readonly HuobiRestClientUsdtMarginSwapApi _baseClient;
 

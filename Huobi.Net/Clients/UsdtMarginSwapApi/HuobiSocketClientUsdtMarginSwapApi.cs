@@ -22,7 +22,7 @@ using Newtonsoft.Json;
 namespace Huobi.Net.Clients.SpotApi
 {
     /// <inheritdoc />
-    public class HuobiSocketClientUsdtMarginSwapApi : SocketApiClient, IHuobiSocketClientUsdtMarginSwapApi
+    internal class HuobiSocketClientUsdtMarginSwapApi : SocketApiClient, IHuobiSocketClientUsdtMarginSwapApi
     {
         private static readonly MessagePath _idPath = MessagePath.Get().Property("id");
         private static readonly MessagePath _actionPath = MessagePath.Get().Property("action");
