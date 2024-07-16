@@ -22,7 +22,7 @@ namespace Huobi.Net.UnitTests.TestImplementations
         public event Func<int, Task> OnRequestRateLimited;
 #pragma warning restore 0067
         public event Func<int, Task> OnRequestSent;
-        public event Action<WebSocketMessageType, ReadOnlyMemory<byte>> OnStreamMessage;
+        public event Func<WebSocketMessageType, ReadOnlyMemory<byte>, Task> OnStreamMessage;
         public event Func<Exception, Task> OnError;
         public event Func<Task> OnOpen;
 
@@ -56,12 +56,13 @@ namespace Huobi.Net.UnitTests.TestImplementations
             return Task.FromResult(CanConnect ? new CallResult(null) : new CallResult(new CantConnectError()));
         }
 
-        public void Send(int requestId, string data, int weight)
+        public bool Send(int requestId, string data, int weight)
         {
             if(!Connected)
                 throw new Exception("Socket not connected");
             LastSendMessage = data;
             OnRequestSent?.Invoke(requestId);
+            return true;
         }
 
         public void Reset()
