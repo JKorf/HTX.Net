@@ -9,6 +9,7 @@ using CryptoExchange.Net.Clients;
 using CryptoExchange.Net.Converters.MessageParsing;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Objects.Sockets;
+using CryptoExchange.Net.Sockets;
 using Huobi.Net.Converters;
 using Huobi.Net.Enums;
 using Huobi.Net.Interfaces.Clients.UsdtMarginSwapApi;
@@ -44,7 +45,7 @@ namespace Huobi.Net.Clients.SpotApi
         public override string FormatSymbol(string baseAsset, string quoteAsset) => $"{baseAsset.ToUpperInvariant()}-{quoteAsset.ToUpperInvariant()}";
 
         /// <inheritdoc />
-        public override ReadOnlyMemory<byte> PreprocessStreamMessage(WebSocketMessageType type, ReadOnlyMemory<byte> data)
+        public override ReadOnlyMemory<byte> PreprocessStreamMessage(SocketConnection connection, WebSocketMessageType type, ReadOnlyMemory<byte> data)
         {
             if (type != WebSocketMessageType.Binary)
                 return data;
