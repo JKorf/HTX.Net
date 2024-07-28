@@ -1,5 +1,5 @@
-﻿using Huobi.Net.Clients;
-using Huobi.Net.Interfaces.Clients;
+﻿using HTX.Net.Clients;
+using HTX.Net.Interfaces.Clients;
 
 namespace CryptoExchange.Net.Interfaces
 {
@@ -9,17 +9,17 @@ namespace CryptoExchange.Net.Interfaces
     public static class CryptoClientExtensions
     {
         /// <summary>
-        /// Get the Huobi REST Api client
+        /// Get the HTX REST Api client
         /// </summary>
         /// <param name="baseClient"></param>
         /// <returns></returns>
-        public static IHuobiRestClient Huobi(this ICryptoRestClient baseClient) => baseClient.TryGet<IHuobiRestClient>(() => new HuobiRestClient());
+        public static IHTXRestClient HTX(this ICryptoRestClient baseClient) => baseClient.TryGet<IHTXRestClient>(() => new HTXRestClient());
 
         /// <summary>
-        /// Get the Huobi Websocket Api client
+        /// Get the HTX Websocket Api client
         /// </summary>
         /// <param name="baseClient"></param>
         /// <returns></returns>
-        public static IHuobiSocketClient Huobi(this ICryptoSocketClient baseClient) => baseClient.TryGet<IHuobiSocketClient>(() => new HuobiSocketClient());
+        public static IHTXSocketClient HTX(this ICryptoSocketClient baseClient) => baseClient.TryGet<IHTXSocketClient>(() => new HTXSocketClient());
     }
 }

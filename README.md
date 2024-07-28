@@ -1,8 +1,8 @@
-# ![.Huobi.Net](https://github.com/JKorf/Huobi.Net/blob/master/Huobi.Net/Icon/icon.png?raw=true) Huobi.Net
+# ![.HTX.Net](https://github.com/JKorf/HTX.Net/blob/master/HTX.Net/Icon/icon.png?raw=true) HTX.Net
 
-[![.NET](https://img.shields.io/github/actions/workflow/status/JKorf/Huobi.Net/dotnet.yml?style=for-the-badge)](https://github.com/JKorf/Huobi.Net/actions/workflows/dotnet.yml) ![License](https://img.shields.io/github/license/JKorf/Huobi.Net?style=for-the-badge)
+[![.NET](https://img.shields.io/github/actions/workflow/status/JKorf/HTX.Net/dotnet.yml?style=for-the-badge)](https://github.com/JKorf/HTX.Net/actions/workflows/dotnet.yml) ![License](https://img.shields.io/github/license/JKorf/HTX.Net?style=for-the-badge)
 
-Huobi.Net is a strongly typed client library for accessing the [Huobi REST and Websocket API](https://github.com/huobiapi).
+HTX.Net is a strongly typed client library for accessing the [HTX REST and Websocket API](https://github.com/huobiapi).
 ## Features
 * Response data is mapped to descriptive models
 * Input parameters and response values are mapped to discriptive enum values where possible
@@ -28,24 +28,24 @@ The library is targeting both `.NET Standard 2.0` and `.NET Standard 2.1` for op
 ## Install the library
 
 ### NuGet 
-[![NuGet version](https://img.shields.io/nuget/v/Huobi.net.svg?style=for-the-badge)](https://www.nuget.org/packages/Huobi.Net)  [![Nuget downloads](https://img.shields.io/nuget/dt/Huobi.Net.svg?style=for-the-badge)](https://www.nuget.org/packages/Huobi.Net)
+[![NuGet version](https://img.shields.io/nuget/v/HTX.net.svg?style=for-the-badge)](https://www.nuget.org/packages/HTX.Net)  [![Nuget downloads](https://img.shields.io/nuget/dt/HTX.Net.svg?style=for-the-badge)](https://www.nuget.org/packages/HTX.Net)
 
-	dotnet add package Huobi.Net
+	dotnet add package HTX.Net
 	
 ### GitHub packages
-Huobi.Net is available on [GitHub packages](https://github.com/JKorf/Huobi.Net/pkgs/nuget/Huobi.Net). You'll need to add `https://nuget.pkg.github.com/JKorf/index.json` as a NuGet package source.
+HTX.Net is available on [GitHub packages](https://github.com/JKorf/HTX.Net/pkgs/nuget/HTX.Net). You'll need to add `https://nuget.pkg.github.com/JKorf/index.json` as a NuGet package source.
 
 ### Download release
-[![GitHub Release](https://img.shields.io/github/v/release/JKorf/Huobi.Net?style=for-the-badge&label=GitHub)](https://github.com/JKorf/Huobi.Net/releases)
+[![GitHub Release](https://img.shields.io/github/v/release/JKorf/HTX.Net?style=for-the-badge&label=GitHub)](https://github.com/JKorf/HTX.Net/releases)
 
-The NuGet package files are added along side the source with the latest GitHub release which can found [here](https://github.com/JKorf/Huobi.Net/releases).
+The NuGet package files are added along side the source with the latest GitHub release which can found [here](https://github.com/JKorf/HTX.Net/releases).
 
 ## How to use
 *REST Endpoints* 
  
 ```csharp
 // Get the ETH/USDT ticker via rest request
-var restClient = new HuobiRestClient();
+var restClient = new HTXRestClient();
 var tickerResult = await restClient.SpotApi.ExchangeData.GetTickerAsync("ETHUSDT");
 var lastPrice = tickerResult.Data.ClosePrice;
 ```
@@ -54,17 +54,17 @@ var lastPrice = tickerResult.Data.ClosePrice;
 
 ```csharp
 // Subscribe to ETH/USDT ticker updates via the websocket API
-var socketClient = new HuobiSocketClient();
+var socketClient = new HTXSocketClient();
 var tickerSubscriptionResult = socketClient.SpotApi.SubscribeToTickerUpdatesAsync("ethusdt", (update) =>
 {
 	var lastPrice = update.Data.ClosePrice;
 });
 ```
 
-For information on the clients, dependency injection, response processing and more see the [Huobi.Net documentation](https://jkorf.github.io/Huobi.Net), [CryptoExchange.Net documentation](https://jkorf.github.io/CryptoExchange.Net), or have a look at the examples [here](https://github.com/JKorf/Huobi.Net/tree/master/Examples) or [here](https://github.com/JKorf/CryptoExchange.Net/tree/master/Examples).
+For information on the clients, dependency injection, response processing and more see the [HTX.Net documentation](https://jkorf.github.io/HTX.Net), [CryptoExchange.Net documentation](https://jkorf.github.io/CryptoExchange.Net), or have a look at the examples [here](https://github.com/JKorf/HTX.Net/tree/master/Examples) or [here](https://github.com/JKorf/CryptoExchange.Net/tree/master/Examples).
 
 ## CryptoExchange.Net
-Huobi.Net is based on the [CryptoExchange.Net](https://github.com/JKorf/CryptoExchange.Net) base library. Other exchange API implementations based on the CryptoExchange.Net base library are available and follow the same logic.
+HTX.Net is based on the [CryptoExchange.Net](https://github.com/JKorf/CryptoExchange.Net) base library. Other exchange API implementations based on the CryptoExchange.Net base library are available and follow the same logic.
 
 CryptoExchange.Net also allows for [easy access to different exchange API's](https://jkorf.github.io/CryptoExchange.Net#idocs_common).
 
@@ -166,9 +166,9 @@ Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/s
     * Updated CryptoExchange.Net to v7.5.0, see https://github.com/JKorf/CryptoExchange.Net?tab=readme-ov-file#release-notes for release notes
 
 * Version 5.2.6 - 28 Apr 2024
-    * Added HuobiExchange static info class
-    * Added HuobiOrderBookFactory book creation method
-    * Fixed HuobiOrderBookFactory injection issue
+    * Added HTXExchange static info class
+    * Added HTXOrderBookFactory book creation method
+    * Fixed HTXOrderBookFactory injection issue
     * Fixed result checking on common spot GetTickerAsync endpoint
     * Updated CryptoExchange.Net to v7.4.0, see https://github.com/JKorf/CryptoExchange.Net?tab=readme-ov-file#release-notes for release notes
 
@@ -198,7 +198,7 @@ Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/s
 * Version 5.1.0 - 25 Feb 2024
     * Updated CryptoExchange.Net and implemented reworked websocket message handling. For release notes for the CryptoExchange.Net base library see: https://github.com/JKorf/CryptoExchange.Net?tab=readme-ov-file#release-notes
     * Fixed issue in DI registration causing http client to not be correctly injected
-    * Removed redundant HuobiRestClient constructor overload
+    * Removed redundant HTXRestClient constructor overload
     * Updated some namespaces
 
 * Version 5.0.5 - 03 Dec 2023
@@ -219,11 +219,11 @@ Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/s
 
 * Version 5.0.0 - 25 Jun 2023
     * Updated CryptoExchange.Net to version 6.0.0
-    * Renamed HuobiClient to HuobiRestClient
-    * Renamed **Streams to **Api on the HuobiSocketClient
+    * Renamed HTXClient to HTXRestClient
+    * Renamed **Streams to **Api on the HTXSocketClient
     * Updated endpoints to consistently use a base url without any path as basis to make switching environments/base urls clearer
-    * Added IHuobiOrderBookFactory and implementation for creating order books
-    * Updated dependency injection register method (AddHuobi)
+    * Added IHTXOrderBookFactory and implementation for creating order books
+    * Updated dependency injection register method (AddHTX)
 
 * Version 4.2.4 - 18 Mar 2023
     * Updated CryptoExchange.Net
@@ -308,9 +308,9 @@ Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/s
     * Updated CryptoExchange.Net
 
 * Version 4.0.0 - 18 Feb 2022
-	* Added Github.io page for documentation: https://jkorf.github.io/Huobi.Net/
+	* Added Github.io page for documentation: https://jkorf.github.io/HTX.Net/
 	* Added unit tests for parsing the returned JSON for each endpoint and subscription
-	* Added AddHuobi extension method on IServiceCollection for easy dependency injection
+	* Added AddHTX extension method on IServiceCollection for easy dependency injection
 	* Added URL reference to API endpoint documentation for each endpoint
 	* Added default rate limiter
 
@@ -322,7 +322,7 @@ Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/s
 	* Fixed various models
 
 	* Updated CryptoExchange.Net, see https://github.com/JKorf/CryptoExchange.Net#release-notes
-	* See https://jkorf.github.io/Huobi.Net/MigrationGuide.html for additional notes for updating from V3 to V4
+	* See https://jkorf.github.io/HTX.Net/MigrationGuide.html for additional notes for updating from V3 to V4
 
 * Version 3.2.4 - 03 Nov 2021
     * Fix for invalid check in SubscribeToOrderDetailsUpdatesAsync
@@ -332,7 +332,7 @@ Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/s
 
 * Version 3.2.2 - 06 Oct 2021
     * Updated CryptoExchange.Net, fixing socket issue when calling from .Net Framework
-    * Fixed issue in HuobiSymbolOrderBook syncing
+    * Fixed issue in HTXSymbolOrderBook syncing
 
 * Version 3.2.1 - 05 Oct 2021
     * Fixed incorrect sanity check in SubscribeToOrderUpdatesAsync
@@ -420,7 +420,7 @@ Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/s
     * Added Withdraw endpoint
     * Fix ClientOrderId deserialization on order
     * Added NextTime property for pagination on GetHistoryOrders
-    * Updated HuobiOrderTrade model
+    * Updated HTXOrderTrade model
     * Fixed ticker models
 
 * Version 2.2.0 - 21 dec 2020
@@ -507,13 +507,13 @@ Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/s
     * Added HistoryOrders endpoint, made symbol parameter optional for order retrieving methods
 
 * Version 1.1.5 - 09 jul 2019
-	* Updated HuobiSymbolOrderBook
+	* Updated HTXSymbolOrderBook
 
 * Version 1.1.4 - 27 jun 2019
-	* Added Loan and Interest to HuobiBalanceTypes enum, fixing deserialization issue
+	* Added Loan and Interest to HTXBalanceTypes enum, fixing deserialization issue
 
 * Version 1.1.3 - 24 jun 2019
-	* Extended HuobiSymbol object
+	* Extended HTXSymbol object
 
 * Version 1.1.2 - 17 may 2019
 	* Fix for deserializing stop-orders created on the website

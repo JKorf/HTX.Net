@@ -1,4 +1,6 @@
-﻿namespace Huobi.Net.Enums
+﻿using CryptoExchange.Net.Attributes;
+
+namespace HTX.Net.Enums
 {
     /// <summary>
     /// Sorting order
@@ -8,10 +10,12 @@
         /// <summary>
         /// Ascending
         /// </summary>
+        [Map("asc")]
         Ascending,
         /// <summary>
         /// Descending
         /// </summary>
+        [Map("desc")]
         Descending
     }
 }

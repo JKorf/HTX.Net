@@ -1,4 +1,4 @@
-﻿namespace Huobi.Net.Enums
+﻿namespace HTX.Net.Enums
 {
     /// <summary>
     /// Status of the market

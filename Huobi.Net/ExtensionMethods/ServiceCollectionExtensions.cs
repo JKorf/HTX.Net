@@ -1,10 +1,10 @@
 ﻿using CryptoExchange.Net.Clients;
 using CryptoExchange.Net.Interfaces;
-using Huobi.Net.Clients;
-using Huobi.Net.Interfaces;
-using Huobi.Net.Interfaces.Clients;
-using Huobi.Net.Objects.Options;
-using Huobi.Net.SymbolOrderBooks;
+using HTX.Net.Clients;
+using HTX.Net.Interfaces;
+using HTX.Net.Interfaces.Clients;
+using HTX.Net.Objects.Options;
+using HTX.Net.SymbolOrderBooks;
 using System;
 using System.Net;
 using System.Net.Http;
@@ -17,31 +17,31 @@ namespace Microsoft.Extensions.DependencyInjection
     public static class ServiceCollectionExtensions
     {
         /// <summary>
-        /// Add the IHuobiClient and IHuobiSocketClient to the sevice collection so they can be injected
+        /// Add the IHTXClient and IHTXSocketClient to the sevice collection so they can be injected
         /// </summary>
         /// <param name="services">The service collection</param>
         /// <param name="defaultRestOptionsDelegate">Set default options for the rest client</param>
         /// <param name="defaultSocketOptionsDelegate">Set default options for the socket client</param>
-        /// <param name="socketClientLifeTime">The lifetime of the IHuobiSocketClient for the service collection. Defaults to Singleton.</param>
+        /// <param name="socketClientLifeTime">The lifetime of the IHTXSocketClient for the service collection. Defaults to Singleton.</param>
         /// <returns></returns>
-        public static IServiceCollection AddHuobi(
+        public static IServiceCollection AddHTX(
             this IServiceCollection services,
-            Action<HuobiRestOptions>? defaultRestOptionsDelegate = null,
-            Action<HuobiSocketOptions>? defaultSocketOptionsDelegate = null,
+            Action<HTXRestOptions>? defaultRestOptionsDelegate = null,
+            Action<HTXSocketOptions>? defaultSocketOptionsDelegate = null,
             ServiceLifetime? socketClientLifeTime = null)
         {
-            var restOptions = HuobiRestOptions.Default.Copy();
+            var restOptions = HTXRestOptions.Default.Copy();
 
             if (defaultRestOptionsDelegate != null)
             {
                 defaultRestOptionsDelegate(restOptions);
-                HuobiRestClient.SetDefaultOptions(defaultRestOptionsDelegate);
+                HTXRestClient.SetDefaultOptions(defaultRestOptionsDelegate);
             }
 
             if (defaultSocketOptionsDelegate != null)
-                HuobiSocketClient.SetDefaultOptions(defaultSocketOptionsDelegate);
+                HTXSocketClient.SetDefaultOptions(defaultSocketOptionsDelegate);
 
-            services.AddHttpClient<IHuobiRestClient, HuobiRestClient>(options =>
+            services.AddHttpClient<IHTXRestClient, HTXRestClient>(options =>
             {
                 options.Timeout = restOptions.RequestTimeout;
             }).ConfigurePrimaryHttpMessageHandler(() => {
@@ -59,12 +59,12 @@ namespace Microsoft.Extensions.DependencyInjection
 
             services.AddTransient<ICryptoRestClient, CryptoRestClient>();
             services.AddTransient<ICryptoSocketClient, CryptoSocketClient>();
-            services.AddTransient<IHuobiOrderBookFactory, HuobiOrderBookFactory>();
-            services.AddTransient(x => x.GetRequiredService<IHuobiRestClient>().SpotApi.CommonSpotClient);
+            services.AddTransient<IHTXOrderBookFactory, HTXOrderBookFactory>();
+            services.AddTransient(x => x.GetRequiredService<IHTXRestClient>().SpotApi.CommonSpotClient);
             if (socketClientLifeTime == null)
-                services.AddSingleton<IHuobiSocketClient, HuobiSocketClient>();
+                services.AddSingleton<IHTXSocketClient, HTXSocketClient>();
             else
-                services.Add(new ServiceDescriptor(typeof(IHuobiSocketClient), typeof(HuobiSocketClient), socketClientLifeTime.Value));
+                services.Add(new ServiceDescriptor(typeof(IHTXSocketClient), typeof(HTXSocketClient), socketClientLifeTime.Value));
             return services;
         }
     }

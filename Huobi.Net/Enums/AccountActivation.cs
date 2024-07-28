@@ -1,4 +1,6 @@
-﻿namespace Huobi.Net.Enums
+﻿using CryptoExchange.Net.Attributes;
+
+namespace HTX.Net.Enums
 {
     /// <summary>
     /// Account activation
@@ -8,10 +10,12 @@
         /// <summary>
         /// Activated
         /// </summary>
+        [Map("activated")]
         Activated,
         /// <summary>
         /// Deactivated
         /// </summary>
+        [Map("deactivated")]
         Deactivated
     }
 }

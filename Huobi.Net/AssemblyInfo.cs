@@ -1,1 +1,1 @@
-﻿[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("Huobi.Net.UnitTests")]
+﻿[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("HTX.Net.UnitTests")]

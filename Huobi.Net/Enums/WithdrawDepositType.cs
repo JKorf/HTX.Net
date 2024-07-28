@@ -1,4 +1,6 @@
-﻿namespace Huobi.Net.Enums
+﻿using CryptoExchange.Net.Attributes;
+
+namespace HTX.Net.Enums
 {
     /// <summary>
     /// Define transfer type
@@ -8,10 +10,12 @@
 		/// <summary>
 		/// Deposit
 		/// </summary>
+		[Map("deposit")]
 		Deposit,
 		/// <summary>
 		/// Withdraw
 		/// </summary>
-		Withdraw
-	}
+		[Map("withdraw")]
+        Withdraw
+    }
 }

@@ -1,4 +1,6 @@
-﻿namespace Huobi.Net.Enums
+﻿using CryptoExchange.Net.Attributes;
+
+namespace HTX.Net.Enums
 {
     /// <summary>
     /// User state
@@ -8,10 +10,12 @@
         /// <summary>
         /// Normal
         /// </summary>
+        [Map("normal")]
         Normal,
         /// <summary>
         /// Locked
         /// </summary>
+        [Map("lock")]
         Locked
     }
 }

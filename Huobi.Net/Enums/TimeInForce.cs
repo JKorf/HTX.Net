@@ -1,6 +1,6 @@
 ﻿using CryptoExchange.Net.Attributes;
 
-namespace Huobi.Net.Enums
+namespace HTX.Net.Enums
 {
     /// <summary>
     /// Time an order is active

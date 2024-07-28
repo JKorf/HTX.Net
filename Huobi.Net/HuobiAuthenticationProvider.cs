@@ -1,8 +1,8 @@
 ﻿using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Clients;
 using CryptoExchange.Net.Objects;
-using Huobi.Net.Objects.Internal;
-using Huobi.Net.Objects.Sockets;
+using HTX.Net.Objects.Internal;
+using HTX.Net.Objects.Sockets;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -12,13 +12,13 @@ using System.Net.Http;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace Huobi.Net
+namespace HTX.Net
 {
-    internal class HuobiAuthenticationProvider : AuthenticationProvider
+    internal class HTXAuthenticationProvider : AuthenticationProvider
     {
         private readonly bool _signPublicRequests;
 
-        public HuobiAuthenticationProvider(ApiCredentials credentials, bool signPublicRequests) : base(credentials)
+        public HTXAuthenticationProvider(ApiCredentials credentials, bool signPublicRequests) : base(credentials)
         {
             if (credentials.CredentialType != ApiCredentialsType.Hmac)
                 throw new Exception("Only Hmac authentication is supported");
@@ -59,9 +59,9 @@ namespace Huobi.Net
             uriParameters.Add("Signature", SignHMACSHA256(signData, SignOutputType.Base64));
         }
 
-        public HuobiAuthParams GetWebsocketAuthentication(Uri uri)
+        public HTXAuthParams GetWebsocketAuthentication(Uri uri)
         {
-            var parameters = new Dictionary<string, object>();
+            var parameters = new ParameterCollection();
             parameters.Add("accessKey", _credentials.Key!.GetString());
             parameters.Add("signatureMethod", "HmacSHA256");
             parameters.Add("signatureVersion", 2.1);
@@ -73,12 +73,12 @@ namespace Huobi.Net
             var signData = $"GET\n{uri.Host}\n{uri.AbsolutePath}\n{paramString}";
             var signature = SignHMACSHA256(signData, SignOutputType.Base64);
 
-            return new HuobiAuthParams { AccessKey = _credentials.Key!.GetString(), Timestamp = (string)parameters["timestamp"], Signature = signature };
+            return new HTXAuthParams { AccessKey = _credentials.Key!.GetString(), Timestamp = (string)parameters["timestamp"], Signature = signature };
         }
 
-        public HuobiAuthenticationRequest2 GetWebsocketAuthentication2(Uri uri)
+        public HTXAuthenticationRequest2 GetWebsocketAuthentication2(Uri uri)
         {
-            var parameters = new Dictionary<string, object>();
+            var parameters = new ParameterCollection();
             parameters.Add("AccessKeyId", _credentials.Key!.GetString());
             parameters.Add("SignatureMethod", "HmacSHA256");
             parameters.Add("SignatureVersion", 2);
@@ -90,7 +90,7 @@ namespace Huobi.Net
             var signData = $"GET\n{uri.Host}\n{uri.AbsolutePath}\n{paramString}";
             var signature = SignHMACSHA256(signData, SignOutputType.Base64);
 
-            return new HuobiAuthenticationRequest2(_credentials.Key!.GetString(), (string)parameters["Timestamp"], signature);
+            return new HTXAuthenticationRequest2(_credentials.Key!.GetString(), (string)parameters["Timestamp"], signature);
         }
     }
 }
