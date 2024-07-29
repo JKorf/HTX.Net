@@ -9,6 +9,7 @@ namespace HTX.Net.Objects.Models.Socket
         /// <summary>
         /// Id
         /// </summary>
+        [JsonPropertyName("id")]
         public long Id { get; set; }
         /// <summary>
         /// Index price
@@ -23,6 +24,7 @@ namespace HTX.Net.Objects.Models.Socket
         /// <summary>
         /// Basis
         /// </summary>
+        [JsonPropertyName("basis")]
         public decimal Basis { get; set; }
         /// <summary>
         /// Basis rate

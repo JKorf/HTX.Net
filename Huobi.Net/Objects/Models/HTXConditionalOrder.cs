@@ -10,22 +10,27 @@ namespace HTX.Net.Objects.Models
         /// <summary>
         /// Acount id
         /// </summary>
+        [JsonPropertyName("accountId")]
         public long AccountId { get; set; }
         /// <summary>
         /// Source
         /// </summary>
+        [JsonPropertyName("source")]
         public string Source { get; set; } = string.Empty;
         /// <summary>
         /// Order id
         /// </summary>
+        [JsonPropertyName("orderId")]
         public string? OrderId { get; set; }
         /// <summary>
         /// Client order id
         /// </summary>
+        [JsonPropertyName("clientOrderId")]
         public string ClientOrderId { get; set; } = string.Empty;
         /// <summary>
         /// Symbol
         /// </summary>
+        [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
         /// Price
@@ -52,6 +57,7 @@ namespace HTX.Net.Objects.Models
         /// Time in force
         /// </summary>
         [JsonConverter(typeof(EnumConverter))]
+        [JsonPropertyName("timeInForce")]
         public TimeInForce TimeInForce { get; set; }
         /// <summary>
         /// Type
@@ -62,10 +68,12 @@ namespace HTX.Net.Objects.Models
         /// <summary>
         /// Stop price
         /// </summary>
+        [JsonPropertyName("stopPrice")]
         public decimal StopPrice { get; set; }
         /// <summary>
         /// Trailing rate
         /// </summary>
+        [JsonPropertyName("trailingRate")]
         public decimal? TrailingRate { get; set; }
         /// <summary>
         /// Creation time

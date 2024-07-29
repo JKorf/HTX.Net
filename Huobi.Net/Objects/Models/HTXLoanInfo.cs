@@ -12,6 +12,7 @@ namespace HTX.Net.Objects.Models
         /// <summary>
         /// Symbol name
         /// </summary>
+        [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
         /// Currencies

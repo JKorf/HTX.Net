@@ -233,6 +233,18 @@
         <member name="T:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiExchangeData">
             <inheritdoc />
         </member>
+        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiExchangeData.GetSystemStatusAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiExchangeData.GetSymbolsAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiExchangeData.GetAssetsAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiExchangeData.GetSymbolConfigAsync(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
         <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiExchangeData.GetTickersAsync(System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
@@ -258,12 +270,6 @@
             <inheritdoc />
         </member>
         <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiExchangeData.GetSymbolStatusAsync(System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiExchangeData.GetSymbolsAsync(System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiExchangeData.GetAssetsAsync(System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiExchangeData.GetAssetDetailsAsync(System.String,System.Threading.CancellationToken)">
@@ -883,6 +889,21 @@
             Crypto loans
             </summary>
         </member>
+        <member name="T:HTX.Net.Enums.AssetType">
+            <summary>
+            Asset type
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.AssetType.Virtual">
+            <summary>
+            Virtual asset
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.AssetType.Fiat">
+            <summary>
+            Fiat asset
+            </summary>
+        </member>
         <member name="T:HTX.Net.Enums.BalanceType">
             <summary>
             Balance type
@@ -931,6 +952,36 @@
         <member name="F:HTX.Net.Enums.BusinessType.Swap">
             <summary>
             Swap
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Enums.ComponentStatus">
+            <summary>
+            Component status
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.ComponentStatus.Operational">
+            <summary>
+            Operational
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.ComponentStatus.DegradedPerformance">
+            <summary>
+            Degraded performance
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.ComponentStatus.PartialOutage">
+            <summary>
+            Partial outage
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.ComponentStatus.MajorOutage">
+            <summary>
+            Major outage
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.ComponentStatus.UnderMaintenance">
+            <summary>
+            Under maintance
             </summary>
         </member>
         <member name="T:HTX.Net.Enums.ConditionalOrderStatus">
@@ -1268,6 +1319,31 @@
             Adl close short
             </summary>
         </member>
+        <member name="T:HTX.Net.Enums.IncidentStatus">
+            <summary>
+            Incident status
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.IncidentStatus.Investigating">
+            <summary>
+            Investigating
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.IncidentStatus.Identified">
+            <summary>
+            Identified
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.IncidentStatus.Monitoring">
+            <summary>
+            Monitoring
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.IncidentStatus.Resolved">
+            <summary>
+            Resolved
+            </summary>
+        </member>
         <member name="T:HTX.Net.Enums.InstrumentStatus">
             <summary>
             Status of an instrument
@@ -1406,6 +1482,31 @@
         <member name="F:HTX.Net.Enums.LiquidationType.FullLiquidated">
             <summary>
             Full liquidation
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Enums.MaintenanceStatus">
+            <summary>
+            Maintenance status
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.MaintenanceStatus.Scheduled">
+            <summary>
+            Scheduled
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.MaintenanceStatus.InProgress">
+            <summary>
+            In progress
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.MaintenanceStatus.Verifying">
+            <summary>
+            Verifying
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.MaintenanceStatus.Completed">
+            <summary>
+            Completed
             </summary>
         </member>
         <member name="T:HTX.Net.Enums.MarginMode">
@@ -1928,6 +2029,16 @@
             Symbol status
             </summary>
         </member>
+        <member name="F:HTX.Net.Enums.SymbolStatus.Unknown">
+            <summary>
+            Unknown
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.SymbolStatus.NotOnline">
+            <summary>
+            Not online
+            </summary>
+        </member>
         <member name="F:HTX.Net.Enums.SymbolStatus.PreOnline">
             <summary>
             Not yet online
@@ -1946,6 +2057,46 @@
         <member name="F:HTX.Net.Enums.SymbolStatus.Suspended">
             <summary>
             Suspended
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.SymbolStatus.TransferBoard">
+            <summary>
+            Transfer board
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.SymbolStatus.Fuse">
+            <summary>
+            Fuse
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Enums.SystemStatusIndicator">
+            <summary>
+            System status indicator
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.SystemStatusIndicator.None">
+            <summary>
+            None
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.SystemStatusIndicator.Minor">
+            <summary>
+            Minor
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.SystemStatusIndicator.Major">
+            <summary>
+            Major
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.SystemStatusIndicator.Critical">
+            <summary>
+            Critical
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.SystemStatusIndicator.Maintenance">
+            <summary>
+            Maintenance
             </summary>
         </member>
         <member name="T:HTX.Net.Enums.TimeInForce">
@@ -2718,6 +2869,35 @@
             HTX exchange data endpoints. Exchange data includes market data (tickers, order books, etc) and system status.
             </summary>
         </member>
+        <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiExchangeData.GetSystemStatusAsync(System.Threading.CancellationToken)">
+            <summary>
+            Get current system status and announcements
+            <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec52f93-7773-11ed-9966-0242ac110003" /></para>
+            </summary>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiExchangeData.GetSymbolsAsync(System.Threading.CancellationToken)">
+            <summary>
+            Get supported symbols
+            <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec51cb5-7773-11ed-9966-0242ac110003" /></para>
+            </summary>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiExchangeData.GetAssetsAsync(System.Threading.CancellationToken)">
+            <summary>
+            Get supported assets
+            <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec51aee-7773-11ed-9966-0242ac110003" /></para>
+            </summary>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiExchangeData.GetSymbolConfigAsync(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
+            <summary>
+            Get symbol trading configuration
+            <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4f5d6-7773-11ed-9966-0242ac110003" /></para>
+            </summary>
+            <param name="symbols">Filter by symbols</param>
+            <param name="ct">Cancellation token</param>
+        </member>
         <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiExchangeData.GetTickersAsync(System.Threading.CancellationToken)">
             <summary>
             Gets the latest ticker for all symbols
@@ -2798,22 +2978,6 @@
             <summary>
             Gets the current market status
             <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-market-status" /></para>
-            </summary>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
-        </member>
-        <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiExchangeData.GetSymbolsAsync(System.Threading.CancellationToken)">
-            <summary>
-            Gets a list of supported symbols
-            <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-all-supported-trading-symbol" /></para>
-            </summary>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
-        </member>
-        <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiExchangeData.GetAssetsAsync(System.Threading.CancellationToken)">
-            <summary>
-            Gets a list of supported currencies
-            <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-all-supported-currencies" /></para>
             </summary>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -4419,6 +4583,141 @@
             Timestamp of the data
             </summary>
         </member>
+        <member name="T:HTX.Net.Objects.Models.HTXAsset">
+            <summary>
+            Asset information
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXAsset.Tags">
+            <summary>
+            Tags
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXAsset.AssetAddressTag">
+            <summary>
+            Asset addrress with tag
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXAsset.FastConfirms">
+            <summary>
+            Fast confirms
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXAsset.SafeConfirms">
+            <summary>
+            Safe confirms
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXAsset.DepositMinQuantity">
+            <summary>
+            Minimal deposit quantity
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXAsset.WithdrawMinQuantity">
+            <summary>
+            Minimal withdrawal quantity
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXAsset.FeeType">
+            <summary>
+            Fee type
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXAsset.WhiteEnabled">
+            <summary>
+            White enabled
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXAsset.CountryDisabled">
+            <summary>
+            Country disabled
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXAsset.IsQuoteAsset">
+            <summary>
+            Is this a quote asset
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXAsset.DisplayPrecision">
+            <summary>
+            Precision for displaying
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXAsset.WithdrawPrecision">
+            <summary>
+            Precision for withdrawing
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXAsset.FullName">
+            <summary>
+            Full asset name
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXAsset.AssetType">
+            <summary>
+            Asset type
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXAsset.AssetCode">
+            <summary>
+            Asset code
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXAsset.Visible">
+            <summary>
+            Visible
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXAsset.DepositEnabled">
+            <summary>
+            Is deposit enabled
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXAsset.WithdrawEnabled">
+            <summary>
+            Is withdraw enabled
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXAsset.Weight">
+            <summary>
+            Weight
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXAsset.AssetStatus">
+            <summary>
+            Status
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXAsset.DisplayName">
+            <summary>
+            Display name
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXAsset.DepositDescription">
+            <summary>
+            Info regarding deposits
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXAsset.SuspendDescription">
+            <summary>
+            Suspend description
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXAsset.SuspendWithdrawDescription">
+            <summary>
+            Suspend withdraw description
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXAsset.SuspendDepositDescription">
+            <summary>
+            Suspend deposit description
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXAsset.WithdrawDescription">
+            <summary>
+            Withdrawal description
+            </summary>
+        </member>
         <member name="T:HTX.Net.Objects.Models.HTXAssetInfo">
             <summary>
             Info on an asset
@@ -5721,107 +6020,287 @@
         </member>
         <member name="T:HTX.Net.Objects.Models.HTXSymbol">
             <summary>
-            Symbol data
+            Symbol information
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSymbol.Tags">
+            <summary>
+            Tags
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSymbol.SymbolStatus">
+            <summary>
+            State
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSymbol.WithdrawRisk">
+            <summary>
+            WithdrawRisk
             </summary>
         </member>
         <member name="P:HTX.Net.Objects.Models.HTXSymbol.Name">
             <summary>
-            The symbol name
+            Symbol name
             </summary>
         </member>
-        <member name="P:HTX.Net.Objects.Models.HTXSymbol.BaseAsset">
+        <member name="P:HTX.Net.Objects.Models.HTXSymbol.BaseAssetName">
             <summary>
-            The base asset
+            Base asset display name
             </summary>
         </member>
-        <member name="P:HTX.Net.Objects.Models.HTXSymbol.QuoteAsset">
+        <member name="P:HTX.Net.Objects.Models.HTXSymbol.QuoteAssetName">
             <summary>
-            The quote asset
+            Quote asset display name
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSymbol.EtpLeverageRatio">
+            <summary>
+            Etp leverage ratio
             </summary>
         </member>
         <member name="P:HTX.Net.Objects.Models.HTXSymbol.PricePrecision">
             <summary>
-            The precision of the price in decimal numbers
+            Price precision
             </summary>
         </member>
         <member name="P:HTX.Net.Objects.Models.HTXSymbol.QuantityPrecision">
             <summary>
-            The precision of the quantity in decimal numbers
+            Quantity precision
             </summary>
         </member>
-        <member name="P:HTX.Net.Objects.Models.HTXSymbol.SymbolPartition">
+        <member name="P:HTX.Net.Objects.Models.HTXSymbol.FeePrecision">
+            <summary>
+            Fee precision
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSymbol.SuperMarginLeverageRatio">
+            <summary>
+            Super margin leverage ratio
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSymbol.C2CLeverageRatio">
+            <summary>
+            C2C leverage ratio
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSymbol.WhiteEnabled">
+            <summary>
+            White enabled
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSymbol.CountryDisabled">
+            <summary>
+            Country disabled
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSymbol.TradeEnabled">
+            <summary>
+            Trade enabled
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSymbol.Partition">
+            <summary>
+            Symbol partition
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSymbol.Direction">
+            <summary>
+            Direction
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSymbol.BaseAsset">
+            <summary>
+            Base asset
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSymbol.QuoteAsset">
+            <summary>
+            Quote asset
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSymbol.TradeOpenTime">
+            <summary>
+            Time trading starts
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSymbol.TradeTotalPrecision">
+            <summary>
+            trade total precision
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSymbol.WeightSort">
+            <summary>
+            Weight sort
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSymbol.LeverageRatio">
+            <summary>
+            Leverage ratio
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSymbol.DisplayName">
+            <summary>
+            DisplayName
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Objects.Models.HTXSymbolConfig">
+            <summary>
+            Symbol configuration
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSymbolConfig.Symbol">
+            <summary>
+            Symbol
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSymbolConfig.Status">
+            <summary>
+            Status
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSymbolConfig.BaseAsset">
+            <summary>
+            Base asset
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSymbolConfig.QuoteAsset">
+            <summary>
+            Quote asset
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSymbolConfig.PricePrecision">
+            <summary>
+            Price precision
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSymbolConfig.QuantityPrecision">
+            <summary>
+            Quantity precision
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSymbolConfig.Partition">
             <summary>
             Partition
             </summary>
         </member>
-        <member name="P:HTX.Net.Objects.Models.HTXSymbol.Status">
+        <member name="P:HTX.Net.Objects.Models.HTXSymbolConfig.ValuePrecision">
             <summary>
-            The status of the symbol
+            Value precision
             </summary>
         </member>
-        <member name="P:HTX.Net.Objects.Models.HTXSymbol.MinOrderQuantity">
+        <member name="P:HTX.Net.Objects.Models.HTXSymbolConfig.MinOrderQuantity">
             <summary>
-            Minimum value of the quantity
+            Minimal order quantity
             </summary>
         </member>
-        <member name="P:HTX.Net.Objects.Models.HTXSymbol.MaxOrderQuantity">
+        <member name="P:HTX.Net.Objects.Models.HTXSymbolConfig.MaxOrderQuantity">
             <summary>
-            Maximum value of the quantity
+            Max order quantity
             </summary>
         </member>
-        <member name="P:HTX.Net.Objects.Models.HTXSymbol.MinLimitOrderQuantity">
+        <member name="P:HTX.Net.Objects.Models.HTXSymbolConfig.MinOrderValue">
             <summary>
-            Minimum order quantity of limit order in base asset
+            Minimal order value
             </summary>
         </member>
-        <member name="P:HTX.Net.Objects.Models.HTXSymbol.MaxLimitOrderBuyQuantity">
+        <member name="P:HTX.Net.Objects.Models.HTXSymbolConfig.MinQuantityLimitOrder">
             <summary>
-            Max buy order quantity of limit order in base asset
+            Minimal quantity of limit order
             </summary>
         </member>
-        <member name="P:HTX.Net.Objects.Models.HTXSymbol.MaxLimitOrderSellQuantity">
+        <member name="P:HTX.Net.Objects.Models.HTXSymbolConfig.MaxQuantityLimitOrder">
             <summary>
-            Max sell order quantity of limit order in base asset
+            Max quantity of limit order
             </summary>
         </member>
-        <member name="P:HTX.Net.Objects.Models.HTXSymbol.MaxLimitOrderQuantity">
+        <member name="P:HTX.Net.Objects.Models.HTXSymbolConfig.MaxQuantityLimitBuyOrder">
             <summary>
-            Max order quantity of limit order in base asset
+            Max quantity of limit buy order
             </summary>
         </member>
-        <member name="P:HTX.Net.Objects.Models.HTXSymbol.MinMarketSellOrderQuantity">
+        <member name="P:HTX.Net.Objects.Models.HTXSymbolConfig.MaxQuantityLimitSellOrder">
             <summary>
-            Minimum order quantity of sell-market order in base asset
+            Max quantity of limit sell order
             </summary>
         </member>
-        <member name="P:HTX.Net.Objects.Models.HTXSymbol.MaxMarketSellOrderQuantity">
+        <member name="P:HTX.Net.Objects.Models.HTXSymbolConfig.MinQuantityMarketSellOrder">
             <summary>
-            Max order quantity of sell-market order in base asset
+            Minimal quantity of market sell order
             </summary>
         </member>
-        <member name="P:HTX.Net.Objects.Models.HTXSymbol.MaxMarketBuyOrderValue">
+        <member name="P:HTX.Net.Objects.Models.HTXSymbolConfig.BuyLimitLessThan">
             <summary>
-            Max order value of buy-market order in quote asset
+            Buy limit order must be less than this
             </summary>
         </member>
-        <member name="P:HTX.Net.Objects.Models.HTXSymbol.MinOrderValue">
+        <member name="P:HTX.Net.Objects.Models.HTXSymbolConfig.SellLimitLessThan">
             <summary>
-            Minimum value of the order quantity in quote asset
+            Sell limit order must be less than this
             </summary>
         </member>
-        <member name="P:HTX.Net.Objects.Models.HTXSymbol.MaxOrderValue">
+        <member name="P:HTX.Net.Objects.Models.HTXSymbolConfig.MaxQuantityMarketSellOrder">
             <summary>
-            Max order value of limit order and buy-market order in usdt
+            Max quantity of market sell order
             </summary>
         </member>
-        <member name="P:HTX.Net.Objects.Models.HTXSymbol.ValuePrecision">
+        <member name="P:HTX.Net.Objects.Models.HTXSymbolConfig.MaxQuantityMarketBuyOrder">
             <summary>
-            The precision of the order quantity in quote asset
+            Max quantity of market buy order
             </summary>
         </member>
-        <member name="P:HTX.Net.Objects.Models.HTXSymbol.ApiTrading">
+        <member name="P:HTX.Net.Objects.Models.HTXSymbolConfig.SellMarketLessThan">
             <summary>
-            Api trading status, enabled or disabled
+            Sell market order rate must be less than this
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSymbolConfig.BuyMarketLessThan">
+            <summary>
+            Buy market order rate must be less than this
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSymbolConfig.MaxValueMarketOrder">
+            <summary>
+            Max value of a market order
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSymbolConfig.EtpSymbol">
+            <summary>
+            Etp symbol
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSymbolConfig.Mfr">
+            <summary>
+            Mfr
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSymbolConfig.ChareTime">
+            <summary>
+            ETP charge time
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSymbolConfig.RebalTime">
+            <summary>
+            ETP rebal time
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSymbolConfig.RebalThreshold">
+            <summary>
+            ETP rebal threshold
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSymbolConfig.InitialNav">
+            <summary>
+            ETP initial NAV
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSymbolConfig.ApiTrading">
+            <summary>
+            ApiTrading
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSymbolConfig.Tags">
+            <summary>
+            Tags
             </summary>
         </member>
         <member name="T:HTX.Net.Objects.Models.HTXSymbolData">
@@ -6097,6 +6576,381 @@
         <member name="P:HTX.Net.Objects.Models.HTXSymbolTradeDetails.Timestamp">
             <summary>
             The timestamp of the trade
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Objects.Models.HTXSystemStatus">
+            <summary>
+            System status info
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSystemStatus.Page">
+            <summary>
+            Page
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSystemStatus.Components">
+            <summary>
+            Components
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSystemStatus.Incidents">
+            <summary>
+            Incidents
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSystemStatus.ScheduledMaintenances">
+            <summary>
+            Scheduled maintenances
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSystemStatus.Status">
+            <summary>
+            Status
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Objects.Models.HTXPageInfo">
+            <summary>
+            Page info
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXPageInfo.Id">
+            <summary>
+            Id
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXPageInfo.Name">
+            <summary>
+            Name
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXPageInfo.Url">
+            <summary>
+            Url
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXPageInfo.TimeZone">
+            <summary>
+            Time zone
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXPageInfo.UpdatedAt">
+            <summary>
+            Updated at
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Objects.Models.HTXSystemComponent">
+            <summary>
+            System component
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSystemComponent.Id">
+            <summary>
+            Id
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSystemComponent.Name">
+            <summary>
+            Name
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSystemComponent.SystemStatus">
+            <summary>
+            System status
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSystemComponent.CreatedAt">
+            <summary>
+            Created at
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSystemComponent.UpdatedAt">
+            <summary>
+            Updated at
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSystemComponent.Position">
+            <summary>
+            Position
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSystemComponent.Description">
+            <summary>
+            Description
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSystemComponent.Showcase">
+            <summary>
+            Showcase
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSystemComponent.GroupId">
+            <summary>
+            Group id
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSystemComponent.PageId">
+            <summary>
+            Page id
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSystemComponent.Group">
+            <summary>
+            Group
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSystemComponent.OnlyShowIfDegraded">
+            <summary>
+            Only show if degraded
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Objects.Models.HTXSystemIncident">
+            <summary>
+            System incident
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSystemIncident.Id">
+            <summary>
+            Id
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSystemIncident.Name">
+            <summary>
+            Name
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSystemIncident.IncidentStatus">
+            <summary>
+            Incident status
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSystemIncident.CreatedAt">
+            <summary>
+            Created at
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSystemIncident.UpdatedAt">
+            <summary>
+            Updated at
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSystemIncident.MonitoringAt">
+            <summary>
+            Monitoring at
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSystemIncident.ResolvedAt">
+            <summary>
+            Resolved at
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSystemIncident.Impact">
+            <summary>
+            Impact
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSystemIncident.Shortlink">
+            <summary>
+            Shortlink
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSystemIncident.StartedAt">
+            <summary>
+            Started at
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSystemIncident.PageId">
+            <summary>
+            Page id
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSystemIncident.IncidentUpdates">
+            <summary>
+            Incident updates
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSystemIncident.Components">
+            <summary>
+            Components
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Objects.Models.HTXSystemIncidentUpdate">
+            <summary>
+            System incident update
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSystemIncidentUpdate.Id">
+            <summary>
+            Id
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSystemIncidentUpdate.IncidentStatus">
+            <summary>
+            Incident status
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSystemIncidentUpdate.Body">
+            <summary>
+            Body
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSystemIncidentUpdate.IncidentId">
+            <summary>
+            Incident id
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSystemIncidentUpdate.CreatedAt">
+            <summary>
+            Created at
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSystemIncidentUpdate.UpdatedAt">
+            <summary>
+            Updated at
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSystemIncidentUpdate.DisplayAt">
+            <summary>
+            Display at
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSystemIncidentUpdate.AffectedComponents">
+            <summary>
+            Affected components
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSystemIncidentUpdate.DeliverNotifications">
+            <summary>
+            Deliver notifications
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSystemIncidentUpdate.CustomTweet">
+            <summary>
+            Custom tweet
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSystemIncidentUpdate.TweetId">
+            <summary>
+            Tweet id
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Objects.Models.HTXSystemIncidentComponent">
+            <summary>
+            System incident affacted component
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSystemIncidentComponent.Code">
+            <summary>
+            Code
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSystemIncidentComponent.Name">
+            <summary>
+            Name
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSystemIncidentComponent.OldStatus">
+            <summary>
+            Old status
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSystemIncidentComponent.NewStatus">
+            <summary>
+            New status
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Objects.Models.HTXSystemMaintenance">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSystemMaintenance.Id">
+            <summary>
+            Id
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSystemMaintenance.Name">
+            <summary>
+            Name
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSystemMaintenance.Status">
+            <summary>
+            Status
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSystemMaintenance.CreatedAt">
+            <summary>
+            Created at
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSystemMaintenance.UpdatedAt">
+            <summary>
+            Updated at
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSystemMaintenance.MonitoringAt">
+            <summary>
+            Monitoring at
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSystemMaintenance.ResolvedAt">
+            <summary>
+            Resolved at
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSystemMaintenance.Impact">
+            <summary>
+            Impact
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSystemMaintenance.Shortlink">
+            <summary>
+            Shortlink
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSystemMaintenance.StartedAt">
+            <summary>
+            Started at
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSystemMaintenance.PageId">
+            <summary>
+            Page id
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSystemMaintenance.IncidentUpdates">
+            <summary>
+            Incident updates
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSystemMaintenance.Components">
+            <summary>
+            Components
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSystemMaintenance.ScheduledFor">
+            <summary>
+            Scheduled for
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSystemMaintenance.ScheduledUntil">
+            <summary>
+            Scheduled until
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Objects.Models.HTXSystemStatusIndicator">
+            <summary>
+            Indicator
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSystemStatusIndicator.Indicator">
+            <summary>
+            Indicator
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSystemStatusIndicator.Description">
+            <summary>
+            Description
             </summary>
         </member>
         <member name="T:HTX.Net.Objects.Models.HTXTransactionResult">

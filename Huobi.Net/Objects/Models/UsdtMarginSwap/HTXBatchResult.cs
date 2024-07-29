@@ -11,10 +11,12 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// <summary>
         /// Errors in the batch
         /// </summary>
+        [JsonPropertyName("errors")]
         public IEnumerable<HTXBatchError> Errors { get; set; } = new List<HTXBatchError>();
         /// <summary>
         /// Success
         /// </summary>
+        [JsonPropertyName("successes")]
         public string Successes { get; set; } = string.Empty;
     }
 

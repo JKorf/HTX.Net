@@ -13,10 +13,12 @@ namespace HTX.Net.Objects.Models
         /// <summary>
         /// Timestamp of the data
         /// </summary>
+        [JsonPropertyName("timestamp")]
         public DateTime Timestamp { get; set; }
         /// <summary>
         /// The id of the tick
         /// </summary>
+        [JsonPropertyName("id")]
         public long Id { get; set; }
 
         /// <summary>

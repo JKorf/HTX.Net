@@ -3,10 +3,20 @@
 namespace HTX.Net.Enums
 {
     /// <summary>
-    /// Symbol state
+    /// Symbol status
     /// </summary>
-    public enum SymbolState
+    public enum SymbolStatus
     {
+        /// <summary>
+        /// Unknown
+        /// </summary>
+        [Map("unknown")]
+        Unknown,
+        /// <summary>
+        /// Not online
+        /// </summary>
+        [Map("not-online")]
+        NotOnline,
         /// <summary>
         /// Not yet online
         /// </summary>
@@ -26,6 +36,16 @@ namespace HTX.Net.Enums
         /// Suspended
         /// </summary>
         [Map("suspend")]
-        Suspended
+        Suspended,
+        /// <summary>
+        /// Transfer board
+        /// </summary>
+        [Map("transfer-board")]
+        TransferBoard,
+        /// <summary>
+        /// Fuse
+        /// </summary>
+        [Map("fuse")]
+        Fuse
     }
 }

@@ -10,6 +10,7 @@ namespace HTX.Net.Objects.Models
         /// <summary>
         /// User id
         /// </summary>
+        [JsonPropertyName("userId")]
         public long UserId { get; set; }
         /// <summary>
         /// Asset
@@ -19,10 +20,12 @@ namespace HTX.Net.Objects.Models
         /// <summary>
         /// Deposit address
         /// </summary>
+        [JsonPropertyName("address")]
         public string Address { get; set; } = string.Empty;
         /// <summary>
         /// Deposit address tag
         /// </summary>
+        [JsonPropertyName("addressTag")]
         public string AddressTag { get; set; } = string.Empty;
         /// <summary>
         /// Block chain name

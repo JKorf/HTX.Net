@@ -124,7 +124,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// <param name="limit">The max number of results</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<HTXOrder>>> GetClosedOrdersAsync(string symbol, IEnumerable<OrderState>? states = null, IEnumerable<OrderType>? types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, FilterDirection? direction = null, int? limit = null, CancellationToken ct = default);
+        Task<WebCallResult<IEnumerable<HTXOrder>>> GetClosedOrdersAsync(string symbol, IEnumerable<OrderStatus>? states = null, IEnumerable<OrderType>? types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, FilterDirection? direction = null, int? limit = null, CancellationToken ct = default);
 
         /// <summary>
         /// Gets a list of trades for a specific symbol
@@ -140,7 +140,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// <param name="limit">The max number of results</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<HTXOrderTrade>>> GetUserTradesAsync(IEnumerable<OrderState>? states = null, string? symbol = null, IEnumerable<OrderType>? types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, FilterDirection? direction = null, int? limit = null, CancellationToken ct = default);
+        Task<WebCallResult<IEnumerable<HTXOrderTrade>>> GetUserTradesAsync(IEnumerable<OrderStatus>? states = null, string? symbol = null, IEnumerable<OrderType>? types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, FilterDirection? direction = null, int? limit = null, CancellationToken ct = default);
 
         /// <summary>
         /// Gets a list of history orders

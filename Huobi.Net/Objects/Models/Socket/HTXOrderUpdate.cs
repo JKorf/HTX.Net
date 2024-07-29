@@ -14,21 +14,24 @@ namespace HTX.Net.Objects.Models.Socket
         /// <summary>
         /// Event type
         /// </summary>
+        [JsonPropertyName("eventType")]
         public string EventType { get; set; } = string.Empty;
 
         /// <summary>
         /// The symbol
         /// </summary>
+        [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
         /// Client order id
         /// </summary>
+        [JsonPropertyName("clientOrderId")]
         public string? ClientOrderId { get; set; }
         /// <summary>
         /// Order status
         /// </summary>
         [JsonPropertyName("orderStatus"), JsonConverter(typeof(EnumConverter))]
-        public OrderState Status { get; set; }
+        public OrderStatus Status { get; set; }
         /// <summary>
         /// Timestamp
         /// </summary>
@@ -45,10 +48,12 @@ namespace HTX.Net.Objects.Models.Socket
         /// <summary>
         /// Account id
         /// </summary>
+        [JsonPropertyName("accountId")]
         public long AccountId { get; set; }
         /// <summary>
         /// Order id
         /// </summary>
+        [JsonPropertyName("orderId")]
         public long OrderId { get; set; }
         /// <summary>
         /// Price of the order
@@ -92,6 +97,7 @@ namespace HTX.Net.Objects.Models.Socket
         /// <summary>
         /// Order source
         /// </summary>
+        [JsonPropertyName("orderSource")]
         public string OrderSource { get; set; } = string.Empty;
     }
 
@@ -103,6 +109,7 @@ namespace HTX.Net.Objects.Models.Socket
         /// <summary>
         /// Trade price
         /// </summary>
+        [JsonPropertyName("tradePrice")]
         public decimal TradePrice { get; set; }
         /// <summary>
         /// Trade volume
@@ -112,6 +119,7 @@ namespace HTX.Net.Objects.Models.Socket
         /// <summary>
         /// Order id
         /// </summary>
+        [JsonPropertyName("orderId")]
         public long OrderId { get; set; }
         /// <summary>
         /// The raw type string
@@ -133,11 +141,13 @@ namespace HTX.Net.Objects.Models.Socket
         /// <summary>
         /// Trade id
         /// </summary>
+        [JsonPropertyName("tradeId")]
         public long TradeId { get; set; }
         /// <summary>
         /// Timestamp of trade
         /// </summary>
         [JsonConverter(typeof(DateTimeConverter))]
+        [JsonPropertyName("tradeTime")]
         public DateTime TradeTime { get; set; }
         /// <summary>
         /// Is the taker
@@ -167,6 +177,7 @@ namespace HTX.Net.Objects.Models.Socket
         /// <summary>
         /// Order source
         /// </summary>
+        [JsonPropertyName("orderSource")]
         public string OrderSource { get; set; } = string.Empty;
     }
 
@@ -178,6 +189,7 @@ namespace HTX.Net.Objects.Models.Socket
         /// <summary>
         /// Order id
         /// </summary>
+        [JsonPropertyName("orderId")]
         public long OrderId { get; set; }
 
         /// <summary>
@@ -220,6 +232,7 @@ namespace HTX.Net.Objects.Models.Socket
         /// <summary>
         /// Order source
         /// </summary>
+        [JsonPropertyName("orderSource")]
         public string OrderSource { get; set; } = string.Empty;
     }
 

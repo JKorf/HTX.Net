@@ -83,6 +83,7 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// <summary>
         /// Clawback
         /// </summary>
+        [JsonPropertyName("clawback")]
         public decimal Clawback { get; set; }
         /// <summary>
         /// Funding fee
@@ -97,6 +98,7 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// <summary>
         /// Fee
         /// </summary>
+        [JsonPropertyName("fee")]
         public decimal Fee { get; set; }
         /// <summary>
         /// Fee asset
@@ -106,6 +108,7 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// <summary>
         /// Positions
         /// </summary>
+        [JsonPropertyName("positions")]
         public IEnumerable<HTXCrossSettlementPosition> Positions { get; set; } = Array.Empty<HTXCrossSettlementPosition>();
     }
 
@@ -127,10 +130,12 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// <summary>
         /// Direction
         /// </summary>
+        [JsonPropertyName("direction")]
         public OrderSide Direction { get; set; }
         /// <summary>
         /// Volume
         /// </summary>
+        [JsonPropertyName("volume")]
         public decimal Volume { get; set; }
         /// <summary>
         /// Cost open

@@ -40,6 +40,10 @@ namespace HTX.Net.Clients.SpotApi
 
         #endregion
 
+        protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer();
+
+        protected override IByteMessageAccessor CreateAccessor() => new SystemTextJsonByteMessageAccessor();
+
         /// <inheritdoc />
         public override string FormatSymbol(string baseAsset, string quoteAsset) => $"{baseAsset.ToLowerInvariant()}{quoteAsset.ToLowerInvariant()}";
 

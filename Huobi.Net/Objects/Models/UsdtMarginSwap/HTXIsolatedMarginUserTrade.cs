@@ -14,6 +14,7 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// <summary>
         /// Trades
         /// </summary>
+        [JsonPropertyName("trades")]
         public IEnumerable<HTXIsolatedMarginUserTrade> Trades { get; set; } = Array.Empty<HTXIsolatedMarginUserTrade>();
     }
 
@@ -46,11 +47,13 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// Side
         /// </summary>
         [JsonConverter(typeof(EnumConverter))]
+        [JsonPropertyName("side")]
         public OrderSide Side { get; set; }
         /// <summary>
         /// Offset
         /// </summary>
         [JsonConverter(typeof(EnumConverter))]
+        [JsonPropertyName("offset")]
         public Offset Offset { get; set; }
         /// <summary>
         /// Offset profit loss

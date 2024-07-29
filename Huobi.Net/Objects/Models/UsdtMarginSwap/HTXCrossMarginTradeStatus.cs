@@ -33,14 +33,17 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// <summary>
         /// Open order access
         /// </summary>
+        [JsonPropertyName("open")]
         public bool Open { get; set; }
         /// <summary>
         /// Close order access
         /// </summary>
+        [JsonPropertyName("close")]
         public bool Close { get; set; }
         /// <summary>
         /// Cancel order access
         /// </summary>
+        [JsonPropertyName("cancel")]
         public bool Cancel { get; set; }
         /// <summary>
         /// Business type

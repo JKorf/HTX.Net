@@ -29,6 +29,7 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// <summary>
         /// Orders
         /// </summary>
+        [JsonPropertyName("orders")]
         public IEnumerable<HTXLiquidationOrder> Orders { get; set; } = Array.Empty<HTXLiquidationOrder>();
     }
 
@@ -51,19 +52,23 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// Direction
         /// </summary>
         [JsonConverter(typeof(EnumConverter))]
+        [JsonPropertyName("direction")]
         public OrderSide Direction { get; set; }
         /// <summary>
         /// Offset
         /// </summary>
         [JsonConverter(typeof(EnumConverter))]
+        [JsonPropertyName("offset")]
         public Offset Offset { get; set; }
         /// <summary>
         /// Volume
         /// </summary>
+        [JsonPropertyName("volume")]
         public decimal Volume { get; set; }
         /// <summary>
         /// Price
         /// </summary>
+        [JsonPropertyName("price")]
         public decimal Price { get; set; }
         /// <summary>
         /// Creation time
@@ -74,6 +79,7 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// <summary>
         /// Amount
         /// </summary>
+        [JsonPropertyName("amount")]
         public decimal Amount { get; set; }
         /// <summary>
         /// Turnover

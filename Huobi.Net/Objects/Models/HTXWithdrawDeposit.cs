@@ -10,11 +10,12 @@ namespace HTX.Net.Objects.Models
 		/// <summary>
 		/// Transfer id
 		/// </summary>
+        [JsonPropertyName("id")]
 		public int Id { get; set; }
-		/// <summary>
-		/// Define transfer type to search, possible values: [deposit, withdraw]
-		/// </summary>
-		[JsonPropertyName("type"), JsonConverter(typeof(EnumConverter))]
+        /// <summary>
+        /// Define transfer type to search, possible values: [deposit, withdraw]
+        /// </summary>
+        [JsonPropertyName("type"), JsonConverter(typeof(EnumConverter))]
 		public WithdrawDepositType Type { get; set; }
 		/// <summary>
 		/// Sub type
@@ -44,6 +45,7 @@ namespace HTX.Net.Objects.Models
 		/// <summary>
 		/// The deposit or withdraw target address
 		/// </summary>
+        [JsonPropertyName("address")]
 		public string? Address { get; set; }
 		/// <summary>
 		/// The user defined address tag
@@ -58,12 +60,13 @@ namespace HTX.Net.Objects.Models
 		/// <summary>
 		/// Withdraw fee
 		/// </summary>
+        [JsonPropertyName("fee")]
 		public decimal Fee { get; set; }
-		/// <summary>
-		/// The state of this transfer
-		/// </summary>
-		[JsonPropertyName("state"), JsonConverter(typeof(EnumConverter))]
-		public WithdrawDepositState State { get; set; }
+        /// <summary>
+        /// The status of this transfer
+        /// </summary>
+        [JsonPropertyName("state"), JsonConverter(typeof(EnumConverter))]
+		public WithdrawDepositStatus Status { get; set; }
 		/// <summary>
 		/// Error code for withdrawal failure, only returned when the type is "withdraw" and the state is "reject", "wallet-reject" and "failed".
 		/// </summary>

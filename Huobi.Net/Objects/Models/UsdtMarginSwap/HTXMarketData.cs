@@ -12,11 +12,13 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// Best ask
         /// </summary>
         [JsonConverter(typeof(ArrayConverter))]
+        [JsonPropertyName("ask")]
         public HTXOrderBookEntry? Ask { get; set; }
         /// <summary>
         /// Best bid
         /// </summary>
         [JsonConverter(typeof(ArrayConverter))]
+        [JsonPropertyName("bid")]
         public HTXOrderBookEntry? Bid { get; set; }
     }
 }

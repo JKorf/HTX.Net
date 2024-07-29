@@ -14,6 +14,35 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
     public interface IHTXRestClientSpotApiExchangeData
     {
         /// <summary>
+        /// Get current system status and announcements
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec52f93-7773-11ed-9966-0242ac110003" /></para>
+        /// </summary>
+        /// <param name="ct">Cancellation token</param>
+        Task<WebCallResult<HTXSystemStatus>> GetSystemStatusAsync(CancellationToken ct = default);
+
+        /// <summary>
+        /// Get supported symbols
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec51cb5-7773-11ed-9966-0242ac110003" /></para>
+        /// </summary>
+        /// <param name="ct">Cancellation token</param>
+        Task<WebCallResult<IEnumerable<HTXSymbol>>> GetSymbolsAsync(CancellationToken ct = default);
+
+        /// <summary>
+        /// Get supported assets
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec51aee-7773-11ed-9966-0242ac110003" /></para>
+        /// </summary>
+        /// <param name="ct">Cancellation token</param>
+        Task<WebCallResult<IEnumerable<HTXAsset>>> GetAssetsAsync(CancellationToken ct = default);
+
+        /// <summary>
+        /// Get symbol trading configuration
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4f5d6-7773-11ed-9966-0242ac110003" /></para>
+        /// </summary>
+        /// <param name="symbols">Filter by symbols</param>
+        /// <param name="ct">Cancellation token</param>
+        Task<WebCallResult<IEnumerable<HTXSymbolConfig>>> GetSymbolConfigAsync(IEnumerable<string>? symbols = null, CancellationToken ct = default);
+
+        /// <summary>
         /// Gets the latest ticker for all symbols
         /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-latest-tickers-for-all-pairs" /></para>
         /// </summary>
@@ -96,22 +125,6 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<HTXSymbolStatus>> GetSymbolStatusAsync(CancellationToken ct = default);
-
-        /// <summary>
-        /// Gets a list of supported symbols
-        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-all-supported-trading-symbol" /></para>
-        /// </summary>
-        /// <param name="ct">Cancellation token</param>
-        /// <returns></returns>
-        Task<WebCallResult<IEnumerable<HTXSymbol>>> GetSymbolsAsync(CancellationToken ct = default);
-
-        /// <summary>
-        /// Gets a list of supported currencies
-        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-all-supported-currencies" /></para>
-        /// </summary>
-        /// <param name="ct">Cancellation token</param>
-        /// <returns></returns>
-        Task<WebCallResult<IEnumerable<string>>> GetAssetsAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Gets a list of supported currencies and chains

@@ -42,6 +42,7 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// <summary>
         /// Tick
         /// </summary>
+        [JsonPropertyName("tick")]
         public IEnumerable<HTXOpenInterestValueTick> Tick { get; set; } = Array.Empty<HTXOpenInterestValueTick>();
     }
 
@@ -53,6 +54,7 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// <summary>
         /// Volume
         /// </summary>
+        [JsonPropertyName("volume")]
         public decimal Volume { get; set; }
         /// <summary>
         /// Unit
@@ -63,6 +65,7 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// <summary>
         /// Value
         /// </summary>
+        [JsonPropertyName("value")]
         public decimal Value { get; set; }
         /// <summary>
         /// Timestamp

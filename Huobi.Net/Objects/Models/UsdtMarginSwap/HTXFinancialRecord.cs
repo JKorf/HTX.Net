@@ -41,20 +41,24 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// <summary>
         /// Record id
         /// </summary>
+        [JsonPropertyName("id")]
         public long Id { get; set; }
         /// <summary>
         /// Record type
         /// </summary>
         [JsonConverter(typeof(EnumConverter))]
+        [JsonPropertyName("type")]
         public FinancialRecordType Type { get; set; }
         /// <summary>
         /// Amount
         /// </summary>
+        [JsonPropertyName("amount")]
         public decimal Amount { get; set; }
         /// <summary>
         /// Timestamp
         /// </summary>
         [JsonConverter(typeof(DateTimeConverter))]
+        [JsonPropertyName("timestamp")]
         public DateTime Timestamp { get; set; }
         /// <summary>
         /// Contract code
@@ -64,6 +68,7 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// <summary>
         /// Asset
         /// </summary>
+        [JsonPropertyName("asset")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
         /// Margin account

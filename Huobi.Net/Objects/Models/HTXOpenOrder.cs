@@ -26,6 +26,7 @@ namespace HTX.Net.Objects.Models
         /// <summary>
         /// The symbol of the order
         /// </summary>
+        [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
         /// The id of the account that placed the order
@@ -88,7 +89,7 @@ namespace HTX.Net.Objects.Models
         /// The state of the order
         /// </summary>
         [JsonPropertyName("state"), JsonConverter(typeof(EnumConverter))]
-        public OrderState State { get; set; }
+        public OrderStatus Status { get; set; }
 
         /// <summary>
         /// The quantity of the order that is filled

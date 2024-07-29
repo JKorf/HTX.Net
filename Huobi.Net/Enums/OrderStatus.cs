@@ -3,9 +3,9 @@
 namespace HTX.Net.Enums
 {
     /// <summary>
-    /// Order state
+    /// Order status
     /// </summary>
-    public enum OrderState
+    public enum OrderStatus
     {
         /// <summary>
         /// Pre-submitted

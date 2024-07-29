@@ -4,6 +4,7 @@ namespace HTX.Net.Objects.Internal
     internal abstract class HTXResponse
     {
         internal abstract bool IsSuccessful { get; }
+        [JsonPropertyName("id")]
         public string? Id { get; set; }
         [JsonPropertyName("err-code")]
         public string? ErrorCode { get; set; }
@@ -25,6 +26,7 @@ namespace HTX.Net.Objects.Internal
         /// <summary>
         /// The data
         /// </summary>
+        [JsonPropertyName("data")]
         public T Data { get; set; } = default!;
         [JsonPropertyName("tick")]
         private T Tick { set => Data = value; get => Data; }
@@ -33,7 +35,9 @@ namespace HTX.Net.Objects.Internal
     internal class HTXSubscribeResponse: HTXResponse
     {
         internal override bool IsSuccessful => string.Equals(Status, "ok", StringComparison.Ordinal);
+        [JsonPropertyName("status")]
         public string Status { get; set; } = string.Empty;
+        [JsonPropertyName("subbed")]
         public string Subbed { get; set; } = string.Empty;
         [JsonConverter(typeof(DateTimeConverter)), JsonPropertyName("ts")]
         public DateTime Timestamp { get; set; }
@@ -42,10 +46,13 @@ namespace HTX.Net.Objects.Internal
     internal class HTXAuthSubscribeResponse
     {
         internal bool IsSuccessful => Code == 200;
+        [JsonPropertyName("code")]
         public int Code { get; set; }
+        [JsonPropertyName("message")]
         public string Message { get; set; } = string.Empty;
         [JsonPropertyName("ch")]
         public string Channel { get; set; } = string.Empty;
+        [JsonPropertyName("action")]
         public string Action { get; set; } = string.Empty;
     }
     

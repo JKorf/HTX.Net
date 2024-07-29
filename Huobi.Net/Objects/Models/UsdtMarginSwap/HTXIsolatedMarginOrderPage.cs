@@ -11,6 +11,7 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// <summary>
         /// Orders
         /// </summary>
+        [JsonPropertyName("orders")]
         public IEnumerable<HTXIsolatedMarginOrder> Orders { get; set; } = Array.Empty<HTXIsolatedMarginOrder>();
     }
 }

@@ -7,11 +7,13 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
 {
     internal record HTXLastTradeWrapper
     {
+        [JsonPropertyName("data")]
         public HTXLastTrade[] Data { get; set; } = Array.Empty<HTXLastTrade>();
     }
 
     internal record HTXTradeWrapper
     {
+        [JsonPropertyName("data")]
         public HTXTrade[] Data { get; set; } = Array.Empty<HTXTrade>();
     }
 
@@ -23,10 +25,12 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// <summary>
         /// Amount of contracts
         /// </summary>
+        [JsonPropertyName("amount")]
         public decimal Amount { get; set; }
         /// <summary>
         /// Quantity
         /// </summary>
+        [JsonPropertyName("quantity")]
         public decimal Quantity { get; set; }
         /// <summary>
         /// Timestamp
@@ -37,10 +41,12 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// <summary>
         /// Id
         /// </summary>
+        [JsonPropertyName("id")]
         public long Id { get; set; }
         /// <summary>
         /// Direction
         /// </summary>
+        [JsonPropertyName("direction")]
         public OrderSide Direction { get; set; }
         /// <summary>
         /// Value

@@ -10,6 +10,7 @@ namespace HTX.Net.Objects.Models.Socket
         /// <summary>
         /// Id
         /// </summary>
+        [JsonPropertyName("id")]
         public long Id { get; set; }
         /// <summary>
         /// Order id

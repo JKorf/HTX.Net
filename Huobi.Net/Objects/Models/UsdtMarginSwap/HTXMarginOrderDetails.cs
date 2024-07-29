@@ -42,6 +42,7 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// <summary>
         /// Trades
         /// </summary>
+        [JsonPropertyName("trades")]
         public new IEnumerable<HTXMarginTrade> Trades { get; set; } = Array.Empty<HTXMarginTrade>();
     }
 }

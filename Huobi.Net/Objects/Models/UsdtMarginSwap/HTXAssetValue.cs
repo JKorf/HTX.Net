@@ -15,6 +15,7 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// <summary>
         /// Balance
         /// </summary>
+        [JsonPropertyName("balance")]
         public decimal Balance { get; set; }
     }
 }

@@ -5,26 +5,26 @@
     <LangVersion>10.0</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
-    <PackageId>Huobi.Net</PackageId>
+    <PackageId>HTX.Net</PackageId>
     <Authors>JKorf</Authors>
     <PackageVersion>5.6.0</PackageVersion>
     <AssemblyVersion>5.6.0</AssemblyVersion>
     <FileVersion>5.6.0</FileVersion>
-    <Description>Huobi.Net is a client library for accessing the Huobi REST and Websocket API. All data is mapped to readable models and enum values. Additional features include automatic websocket (re)connection management, an implementation for maintaining a client side order book, easy integration with other exchange client libraries and more.</Description>
+    <Description>HTX.Net is a client library for accessing the HTX REST and Websocket API. All data is mapped to readable models and enum values. Additional features include automatic websocket (re)connection management, an implementation for maintaining a client side order book, easy integration with other exchange client libraries and more.</Description>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <PackageTags>Huobi;Huobi.Net;Huobi Client;Huobi API;CryptoCurrency;CryptoCurrency Exchange</PackageTags>
+    <PackageTags>HTX;HTX.Net;HTX Client;HTX API;CryptoCurrency;CryptoCurrency Exchange;Huobi</PackageTags>
     <RepositoryType>git</RepositoryType>
-    <RepositoryUrl>https://github.com/JKorf/Huobi.Net.git</RepositoryUrl>
-    <PackageProjectUrl>https://github.com/JKorf/Huobi.Net</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/JKorf/HTX.Net.git</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/JKorf/HTX.Net</PackageProjectUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageIcon>icon.png</PackageIcon>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <NeutralLanguage>en</NeutralLanguage>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageReleaseNotes>https://github.com/JKorf/Huobi.Net?tab=readme-ov-file#release-notes</PackageReleaseNotes>
+    <PackageReleaseNotes>https://github.com/JKorf/HTX.Net?tab=readme-ov-file#release-notes</PackageReleaseNotes>
   </PropertyGroup>
   <PropertyGroup>
-    <DocumentationFile>Huobi.Net.xml</DocumentationFile>
+    <DocumentationFile>HTX.Net.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Label="Deterministic Build" Condition="'$(Configuration)' == 'Release'">
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
@@ -38,6 +38,11 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Converters\**" />
+    <EmbeddedResource Remove="Converters\**" />
+    <None Remove="Converters\**" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Icon\icon.png" Pack="true" PackagePath="\" />
@@ -55,8 +60,5 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\CryptoExchange.Net\CryptoExchange.Net\CryptoExchange.Net.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Converters\" />
   </ItemGroup>
 </Project>

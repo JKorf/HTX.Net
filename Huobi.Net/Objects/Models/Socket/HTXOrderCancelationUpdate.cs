@@ -14,15 +14,18 @@ namespace HTX.Net.Objects.Models.Socket
         /// <summary>
         /// Event type
         /// </summary>
+        [JsonPropertyName("eventType")]
         public string EventType { get; set; } = string.Empty;
 
         /// <summary>
         /// The symbol
         /// </summary>
+        [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
         /// Order id
         /// </summary>
+        [JsonPropertyName("orderId")]
         public long OrderId { get; set; }
         /// <summary>
         /// Order side
@@ -37,6 +40,7 @@ namespace HTX.Net.Objects.Models.Socket
         /// <summary>
         /// Account id
         /// </summary>
+        [JsonPropertyName("accountId")]
         public long AccountId { get; set; }
 
         /// <summary>
@@ -47,6 +51,7 @@ namespace HTX.Net.Objects.Models.Socket
         /// <summary>
         /// Order price
         /// </summary>
+        [JsonPropertyName("orderPrice")]
         public decimal OrderPrice { get; set; }
         /// <summary>
         /// Order quantity
@@ -56,25 +61,30 @@ namespace HTX.Net.Objects.Models.Socket
         /// <summary>
         /// Client order id
         /// </summary>
+        [JsonPropertyName("clientOrderId")]
         public string? ClientOrderId { get; set; }
         /// <summary>
         /// Stop price
         /// </summary>
+        [JsonPropertyName("stopPrice")]
         public decimal? StopPrice { get; set; }
         /// <summary>
         /// Operator
         /// </summary>
+        [JsonPropertyName("operator")]
         public string? Operator { get; set; }
         /// <summary>
         /// Order creation time
         /// </summary>
         [JsonConverter(typeof(DateTimeConverter))]
+        [JsonPropertyName("orderCreateTime")]
         public DateTime OrderCreateTime { get; set; }
         /// <summary>
         /// Order status
         /// </summary>
         [JsonConverter(typeof(EnumConverter))]
-        public OrderState OrderStatus { get; set; }
+        [JsonPropertyName("orderStatus")]
+        public OrderStatus OrderStatus { get; set; }
 
         /// <summary>
         /// Remaining quantity

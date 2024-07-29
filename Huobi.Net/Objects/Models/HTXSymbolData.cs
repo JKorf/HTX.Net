@@ -47,6 +47,7 @@ namespace HTX.Net.Objects.Models
         /// <summary>
         /// Version
         /// </summary>
+        [JsonPropertyName("version")]
         public long? Version { get; set; }
     }
 
@@ -58,6 +59,7 @@ namespace HTX.Net.Objects.Models
         /// <summary>
         /// The symbol
         /// </summary>
+        [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
     }
 
@@ -82,11 +84,13 @@ namespace HTX.Net.Objects.Models
         /// <summary>
         /// The id of the details
         /// </summary>
+        [JsonPropertyName("id")]
         public long Id { get; set; }
 
         /// <summary>
         /// Timestamp of the data
         /// </summary>
+        [JsonPropertyName("timestamp")]
         public DateTime Timestamp { get; set; }
     }
 
@@ -98,6 +102,7 @@ namespace HTX.Net.Objects.Models
         /// <summary>
         /// The symbol
         /// </summary>
+        [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
 
         /// <summary>

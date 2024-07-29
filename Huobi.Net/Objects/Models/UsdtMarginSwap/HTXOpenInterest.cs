@@ -17,14 +17,17 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// <summary>
         /// Amount
         /// </summary>
+        [JsonPropertyName("amount")]
         public decimal Amount { get; set; }
         /// <summary>
         /// Volume
         /// </summary>
+        [JsonPropertyName("volume")]
         public decimal Volume { get; set; }
         /// <summary>
         /// Value
         /// </summary>
+        [JsonPropertyName("value")]
         public decimal Value { get; set; }
         /// <summary>
         /// Contract code

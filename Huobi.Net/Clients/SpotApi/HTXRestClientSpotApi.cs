@@ -54,6 +54,10 @@ namespace HTX.Net.Clients.SpotApi
         }
         #endregion
 
+        protected override IStreamMessageAccessor CreateAccessor() => new SystemTextJsonStreamMessageAccessor();
+
+        protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer();
+
         /// <inheritdoc />
         public override string FormatSymbol(string baseAsset, string quoteAsset) => $"{baseAsset.ToLowerInvariant()}{quoteAsset.ToLowerInvariant()}";
 
@@ -62,6 +66,10 @@ namespace HTX.Net.Clients.SpotApi
             => new HTXAuthenticationProvider(credentials, ClientOptions.SignPublicRequests);
 
         #region methods
+        internal async Task<WebCallResult<T>> SendToAddressRawAsync<T>(string baseAddress, RequestDefinition definition, ParameterCollection? parameters, CancellationToken cancellationToken, int? weight = null) where T : class
+        {
+            return await base.SendAsync<T>(baseAddress, definition, parameters, cancellationToken, null, weight).ConfigureAwait(false);
+        }
 
         internal Task<WebCallResult<T>> SendAsync<T>(RequestDefinition definition, ParameterCollection? parameters, CancellationToken cancellationToken, int? weight = null)
             => SendToAddressAsync<T>(BaseAddress, definition, parameters, cancellationToken, weight);
@@ -188,15 +196,15 @@ namespace HTX.Net.Clients.SpotApi
 
         async Task<WebCallResult<IEnumerable<Symbol>>> IBaseRestClient.GetSymbolsAsync(CancellationToken ct)
         {
-            var symbols = await ExchangeData.GetSymbolsAsync(ct: ct).ConfigureAwait(false);
+            var symbols = await ExchangeData.GetSymbolConfigAsync(ct: ct).ConfigureAwait(false);
             if (!symbols)
                 return symbols.As<IEnumerable<Symbol>>(null);
 
             return symbols.As(symbols.Data.Select(d => new Symbol
             {
                 SourceObject = d,
-                Name = d.Name,
-                MinTradeQuantity = d.MinLimitOrderQuantity,
+                Name = d.Symbol,
+                MinTradeQuantity = d.MinOrderQuantity,
                 PriceDecimals = d.PricePrecision,
                 QuantityDecimals = d.QuantityPrecision
             }));
@@ -344,7 +352,7 @@ namespace HTX.Net.Clients.SpotApi
                 Timestamp = order.Data.CreateTime,
                 Side = order.Data.Side == OrderSide.Buy ? CommonOrderSide.Buy: CommonOrderSide.Sell,
                 Type = order.Data.Type == OrderType.Limit ? CommonOrderType.Limit: order.Data.Type == OrderType.Market ? CommonOrderType.Market: CommonOrderType.Other,
-                Status = order.Data.State == OrderState.Canceled || order.Data.State == OrderState.PartiallyCanceled ? CommonOrderStatus.Canceled: order.Data.State == OrderState.Filled ? CommonOrderStatus.Filled: CommonOrderStatus.Active
+                Status = order.Data.Status == OrderStatus.Canceled || order.Data.Status == OrderStatus.PartiallyCanceled ? CommonOrderStatus.Canceled: order.Data.Status == OrderStatus.Filled ? CommonOrderStatus.Filled: CommonOrderStatus.Active
             });
         }
 
@@ -389,7 +397,7 @@ namespace HTX.Net.Clients.SpotApi
                     Timestamp = o.CreateTime,
                     Side = o.Side == OrderSide.Buy ? CommonOrderSide.Buy : CommonOrderSide.Sell,
                     Type = o.Type == OrderType.Limit ? CommonOrderType.Limit : o.Type == OrderType.Market ? CommonOrderType.Market : CommonOrderType.Other,
-                    Status = o.State == OrderState.Canceled || o.State == OrderState.PartiallyCanceled ? CommonOrderStatus.Canceled : o.State == OrderState.Filled ? CommonOrderStatus.Filled : CommonOrderStatus.Active
+                    Status = o.Status == OrderStatus.Canceled || o.Status == OrderStatus.PartiallyCanceled ? CommonOrderStatus.Canceled : o.Status == OrderStatus.Filled ? CommonOrderStatus.Filled : CommonOrderStatus.Active
                 }
             ));
         }
@@ -415,7 +423,7 @@ namespace HTX.Net.Clients.SpotApi
                     Timestamp = o.CreateTime,
                     Side = o.Side == OrderSide.Buy ? CommonOrderSide.Buy : CommonOrderSide.Sell,
                     Type = o.Type == OrderType.Limit ? CommonOrderType.Limit : o.Type == OrderType.Market ? CommonOrderType.Market : CommonOrderType.Other,
-                    Status = o.State == OrderState.Canceled || o.State == OrderState.PartiallyCanceled ? CommonOrderStatus.Canceled : o.State == OrderState.Filled ? CommonOrderStatus.Filled : CommonOrderStatus.Active
+                    Status = o.Status == OrderStatus.Canceled || o.Status == OrderStatus.PartiallyCanceled ? CommonOrderStatus.Canceled : o.Status == OrderStatus.Filled ? CommonOrderStatus.Filled : CommonOrderStatus.Active
                 }
             ));
         }

@@ -44,7 +44,7 @@ namespace HTX.Net.Objects.Models
         /// The state of the order
         /// </summary>
         [JsonPropertyName("order-state")]
-        public string? OrderState { get; set; }
+        public string? OrderStatus { get; set; }
         /// <summary>
         /// The id of the failed order
         /// </summary>

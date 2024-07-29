@@ -14,10 +14,12 @@ namespace HTX.Net.Objects.Models
         /// <summary>
         /// The id of the trade
         /// </summary>
+        [JsonPropertyName("id")]
         public long Id { get; set; }
         /// <summary>
         /// The symbol of the trade
         /// </summary>
+        [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
         /// The timestamp in milliseconds when this record is created
@@ -57,10 +59,12 @@ namespace HTX.Net.Objects.Models
         /// <summary>
         /// The limit price of limit order
         /// </summary>
+        [JsonPropertyName("price")]
         public decimal Price { get; set; }
         /// <summary>
         /// The source where the order was triggered, possible values: sys, web, api, app
         /// </summary>
+        [JsonPropertyName("source")]
         public string Source { get; set; } = string.Empty;
 
         /// <summary>
@@ -99,6 +103,6 @@ namespace HTX.Net.Objects.Models
         /// Fee deduction status.
         /// </summary>
         [JsonPropertyName("fee-deduct-state"), JsonConverter(typeof(EnumConverter))]
-        public FeeDeductState FeeDeductState { get; set; }
+        public FeeDeductStatus FeeDeductStatus { get; set; }
     }
 }

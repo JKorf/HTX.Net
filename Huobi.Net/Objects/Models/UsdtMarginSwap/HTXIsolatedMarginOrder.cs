@@ -29,6 +29,7 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// <summary>
         /// Price
         /// </summary>
+        [JsonPropertyName("price")]
         public decimal Price { get; set; }
         /// <summary>
         /// Order price type
@@ -52,6 +53,7 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// Offset
         /// </summary>
         [JsonConverter(typeof(EnumConverter))]
+        [JsonPropertyName("offset")]
         public Offset Offset { get; set; }
         /// <summary>
         /// Leverage rate
@@ -93,6 +95,7 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// <summary>
         /// Fee
         /// </summary>
+        [JsonPropertyName("fee")]
         public decimal Fee { get; set; }
         /// <summary>
         /// Average fill price
@@ -112,12 +115,14 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// <summary>
         /// Profit
         /// </summary>
+        [JsonPropertyName("profit")]
         public decimal Profit { get; set; }
         /// <summary>
         /// Order status
         /// </summary>
         [JsonConverter(typeof(EnumConverter))]
-        public SwapMarginOrderStatus Status { get; set; } 
+        [JsonPropertyName("status")]
+        public SwapMarginOrderStatus Status { get; set; }
         /// <summary>
         /// Source
         /// </summary>

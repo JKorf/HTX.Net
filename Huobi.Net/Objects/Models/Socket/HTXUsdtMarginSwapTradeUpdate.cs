@@ -14,6 +14,7 @@ namespace HTX.Net.Objects.Models.Socket
         /// <summary>
         /// Update id
         /// </summary>
+        [JsonPropertyName("id")]
         public long Id { get; set; }
         /// <summary>
         /// Update timestamp
@@ -36,6 +37,7 @@ namespace HTX.Net.Objects.Models.Socket
         /// <summary>
         /// Amount of trades
         /// </summary>
+        [JsonPropertyName("amount")]
         public int Amount { get; set; }
         /// <summary>
         /// Timestamp
@@ -46,10 +48,12 @@ namespace HTX.Net.Objects.Models.Socket
         /// <summary>
         /// Trade id
         /// </summary>
+        [JsonPropertyName("id")]
         public long Id { get; set; }
         /// <summary>
         /// Price
         /// </summary>
+        [JsonPropertyName("price")]
         public decimal Price { get; set; }
         /// <summary>
         /// Side
@@ -60,6 +64,7 @@ namespace HTX.Net.Objects.Models.Socket
         /// <summary>
         /// Quantity
         /// </summary>
+        [JsonPropertyName("quantity")]
         public decimal Quantity { get; set; }
         /// <summary>
         /// Turnover

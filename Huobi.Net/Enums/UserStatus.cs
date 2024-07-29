@@ -3,15 +3,15 @@
 namespace HTX.Net.Enums
 {
     /// <summary>
-    /// Account state
+    /// User status
     /// </summary>
-    public enum AccountState
+    public enum UserStatus
     {
         /// <summary>
-        /// Working
+        /// Normal
         /// </summary>
-        [Map("working")]
-        Working,
+        [Map("normal")]
+        Normal,
         /// <summary>
         /// Locked
         /// </summary>

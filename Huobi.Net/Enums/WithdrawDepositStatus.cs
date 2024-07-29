@@ -3,9 +3,9 @@
 namespace HTX.Net.Enums
 {
     /// <summary>
-    /// The state of a transfer 
+    /// The status of a transfer 
     /// </summary>
-    public enum WithdrawDepositState
+    public enum WithdrawDepositStatus
 	{
 		/// <summary>
 		/// Awaiting verification

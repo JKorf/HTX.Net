@@ -3,19 +3,19 @@
 namespace HTX.Net.Enums
 {
     /// <summary>
-    /// User state
+    /// Fee deduction status.
     /// </summary>
-    public enum UserState
+    public enum FeeDeductStatus
     {
         /// <summary>
-        /// Normal
+        /// In deduction
         /// </summary>
-        [Map("normal")]
-        Normal,
+        [Map("ongoing")]
+        Ongoing,
         /// <summary>
-        /// Locked
+        /// Deduction completed
         /// </summary>
-        [Map("lock")]
-        Locked
+        [Map("done")]
+        Done,
     }
 }

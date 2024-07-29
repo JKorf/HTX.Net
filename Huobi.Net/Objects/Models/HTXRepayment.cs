@@ -12,15 +12,18 @@ namespace HTX.Net.Objects.Models
         /// <summary>
         /// Repayment id
         /// </summary>
+        [JsonPropertyName("repayId")]
         public long RepayId { get; set; }
         /// <summary>
         /// Account id
         /// </summary>
+        [JsonPropertyName("accountId")]
         public long AccountId { get; set; }
         /// <summary>
         /// Repay time
         /// </summary>
         [JsonConverter(typeof(DateTimeConverter))]
+        [JsonPropertyName("repayTime")]
         public DateTime RepayTime { get; set; }
         /// <summary>
         /// Asset
@@ -47,22 +50,27 @@ namespace HTX.Net.Objects.Models
         /// <summary>
         /// Transact id
         /// </summary>
+        [JsonPropertyName("transactId")]
         public long TransactId { get; set; }
         /// <summary>
         /// Principal repaid
         /// </summary>
+        [JsonPropertyName("repaidPrincipal")]
         public decimal RepaidPrincipal { get; set; }
         /// <summary>
         /// Interest repaid
         /// </summary>
+        [JsonPropertyName("repaidInterest")]
         public decimal RepaidInterest { get; set; }
         /// <summary>
         /// HT paid
         /// </summary>
+        [JsonPropertyName("paidHt")]
         public decimal PaidHt { get; set; }
         /// <summary>
         /// Points paid
         /// </summary>
+        [JsonPropertyName("paidPoint")]
         public decimal PaidPoint { get; set; }
     }
 }

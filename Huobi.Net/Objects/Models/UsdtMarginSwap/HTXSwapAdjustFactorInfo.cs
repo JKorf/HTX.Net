@@ -30,6 +30,7 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// <summary>
         /// list
         /// </summary>
+        [JsonPropertyName("list")]
         public IEnumerable<HTXFactorInfo> List { get; set; } = Array.Empty<HTXFactorInfo>();
     }
 
@@ -68,6 +69,7 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// <summary>
         /// Ladders
         /// </summary>
+        [JsonPropertyName("ladders")]
         public IEnumerable<HTXFactorEntry> Ladders { get; set; } = Array.Empty<HTXFactorEntry>();
     }
 
@@ -79,6 +81,7 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// <summary>
         /// Ladder
         /// </summary>
+        [JsonPropertyName("ladder")]
         public int Ladder { get; set; }
         /// <summary>
         /// Min size

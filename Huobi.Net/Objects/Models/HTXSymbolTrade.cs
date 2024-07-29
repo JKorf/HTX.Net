@@ -15,6 +15,7 @@ namespace HTX.Net.Objects.Models
         /// <summary>
         /// The id of the trade
         /// </summary>
+        [JsonPropertyName("id")]
         public long Id { get; set; }
         /// <summary>
         /// The timestamp of the trade
@@ -36,6 +37,7 @@ namespace HTX.Net.Objects.Models
         /// <summary>
         /// The id of the update
         /// </summary>
+        [JsonPropertyName("id")]
         public string Id { get; set; } = string.Empty;
         /// <summary>
         /// The id of the trade
@@ -43,11 +45,12 @@ namespace HTX.Net.Objects.Models
         [JsonPropertyName("trade-id")]
         public long TradeId { get; set; }
         // Rest uses trade-id, socket uses tradeId
-        [JsonPropertyName("tradeId")]
+        [JsonInclude, JsonPropertyName("tradeId")]
         private long TradeIdInternal { get => TradeId; set => TradeId = value; }
         /// <summary>
         /// The price of the trade
         /// </summary>
+        [JsonPropertyName("price")]
         public decimal Price { get; set; }
         /// <summary>
         /// The quantity of the trade

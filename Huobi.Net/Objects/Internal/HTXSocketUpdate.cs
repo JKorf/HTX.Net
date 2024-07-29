@@ -21,8 +21,9 @@
         /// <summary>
         /// The data of the update
         /// </summary>
+        [JsonPropertyName("data")]
         public T Data { get; set; } = default!;
-        [JsonPropertyName("tick")]
+        [JsonInclude, JsonPropertyName("tick")]
         private T Tick { set => Data = value; get => Data; }
     }
 }

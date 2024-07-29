@@ -16,14 +16,17 @@ namespace HTX.Net.Objects.Models
         /// Whether the account is active of not
         /// </summary>
         [JsonConverter(typeof(EnumConverter))]
+        [JsonPropertyName("activation")]
         public AccountActivation Activation { get; set; }
         /// <summary>
         /// Whether transfers are allowed (only for spot account type)
         /// </summary>
+        [JsonPropertyName("transferrable")]
         public bool? Transferrable { get; set; }
         /// <summary>
         /// Account ids
         /// </summary>
+        [JsonPropertyName("accountIds")]
         public IEnumerable<HTXSubUserAccountId> AccountIds { get; set; } = Array.Empty<HTXSubUserAccountId>();
     }
 }

@@ -10,6 +10,7 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// <summary>
         /// Basis
         /// </summary>
+        [JsonPropertyName("basis")]
         public decimal Basis { get; set; }
         /// <summary>
         /// Basis rate
@@ -29,6 +30,7 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// <summary>
         /// Unique id
         /// </summary>
+        [JsonPropertyName("id")]
         public long Id { get; set; }
     }
 }

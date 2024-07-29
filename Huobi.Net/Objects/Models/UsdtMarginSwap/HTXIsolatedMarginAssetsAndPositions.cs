@@ -11,6 +11,7 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// <summary>
         /// Positions
         /// </summary>
+        [JsonPropertyName("positions")]
         public IEnumerable<HTXPosition>? Positions { get; set; } = Array.Empty<HTXPosition>();
     }
 }

@@ -8,6 +8,7 @@
         /// <summary>
         /// The id
         /// </summary>
+        [JsonPropertyName("id")]
         public long Id { get; set; }
     }
 }

@@ -15,13 +15,14 @@ namespace HTX.Net.Objects.Models
         [JsonPropertyName("accountId")]
         public long Id { get; set; }
         /// <summary>
-        /// The state of the account
+        /// The status of the account
         /// </summary>
         [JsonPropertyName("accountStatus"), JsonConverter(typeof(EnumConverter))]
-        public AccountState State { get; set; }
+        public AccountStatus Status { get; set; }
         /// <summary>
         /// Sub state
         /// </summary>
+        [JsonPropertyName("subtype")]
         public string? SubType { get; set; }
     }
 }

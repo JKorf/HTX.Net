@@ -18,10 +18,12 @@ namespace HTX.Net.Objects.Models
         /// The type of the balance
         /// </summary>
         [JsonConverter(typeof(EnumConverter))]
+        [JsonPropertyName("type")]
         public BalanceType Type { get; set; }
         /// <summary>
         /// The balance
         /// </summary>
+        [JsonPropertyName("balance")]
         public decimal Balance { get; set; }
         /// <summary>
         /// Sequence number of the update

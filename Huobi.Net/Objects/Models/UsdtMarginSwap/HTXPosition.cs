@@ -22,14 +22,17 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// <summary>
         /// Volume
         /// </summary>
+        [JsonPropertyName("value")]
         public decimal Volume { get; set; }
         /// <summary>
         /// Available
         /// </summary>
+        [JsonPropertyName("available")]
         public decimal Available { get; set; }
         /// <summary>
         /// Frozen
         /// </summary>
+        [JsonPropertyName("frozen")]
         public decimal Frozen { get; set; }
         /// <summary>
         /// Opening average price
@@ -69,6 +72,7 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// <summary>
         /// Profit
         /// </summary>
+        [JsonPropertyName("profit")]
         public decimal Profit { get; set; }
         /// <summary>
         /// Last price

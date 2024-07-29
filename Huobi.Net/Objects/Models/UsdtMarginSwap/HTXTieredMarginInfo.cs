@@ -35,6 +35,7 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// <summary>
         /// List
         /// </summary>
+        [JsonPropertyName("list")]
         public IEnumerable<HTXTieredMarginRate> List { get; set; } = Array.Empty<HTXTieredMarginRate>();
     }
 
@@ -75,6 +76,7 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// <summary>
         /// Ladders
         /// </summary>
+        [JsonPropertyName("ladders")]
         public IEnumerable<HTXTieredMarginLadder> Ladders { get; set; } = Array.Empty<HTXTieredMarginLadder>();
     }
 

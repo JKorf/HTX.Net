@@ -14,6 +14,7 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// <summary>
         /// Id
         /// </summary>
+        [JsonPropertyName("id")]
         public string Id { get; set; } = string.Empty;
         /// <summary>
         /// Trade id
@@ -50,6 +51,7 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// Trade role
         /// </summary>
         [JsonConverter(typeof(EnumConverter))]
+        [JsonPropertyName("role")]
         public OrderRole Role { get; set; }
         /// <summary>
         /// Fee asset
@@ -59,6 +61,7 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// <summary>
         /// Profit
         /// </summary>
+        [JsonPropertyName("profit")]
         public decimal Profit { get; set; }
         /// <summary>
         /// Real profit

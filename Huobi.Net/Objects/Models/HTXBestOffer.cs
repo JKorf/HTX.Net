@@ -8,11 +8,13 @@
         /// <summary>
         /// Symbol
         /// </summary>
+        [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
         /// Time of the data
         /// </summary>
         [JsonConverter(typeof(DateTimeConverter))]
+        [JsonPropertyName("quoteTime")]
         public DateTime QuoteTime { get; set; }
         /// <summary>
         /// Best bid price

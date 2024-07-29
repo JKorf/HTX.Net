@@ -10,19 +10,23 @@ namespace HTX.Net.Objects.Models
         /// <summary>
         /// Id
         /// </summary>
+        [JsonPropertyName("id")]
         public long Id { get; set; }
         /// <summary>
         /// Type
         /// </summary>
+        [JsonPropertyName("type")]
         public string Type { get; set; } = string.Empty;
         /// <summary>
         /// Symbol
         /// </summary>
+        [JsonPropertyName("symbol")]
         public string? Symbol { get; set; }
         /// <summary>
-        /// State
+        /// Status
         /// </summary>
-        public string State { get; set; } = string.Empty;
+        [JsonPropertyName("state")]
+        public string Status { get; set; } = string.Empty;
         /// <summary>
         /// Risk rate
         /// </summary>
@@ -51,6 +55,7 @@ namespace HTX.Net.Objects.Models
         /// <summary>
         /// Account details
         /// </summary>
+        [JsonPropertyName("list")]
         public IEnumerable<HTXIsolatedBalance> List { get; set; } = Array.Empty<HTXIsolatedBalance>();
     }
 
@@ -68,10 +73,12 @@ namespace HTX.Net.Objects.Models
         /// Balance type
         /// </summary>
         [JsonConverter(typeof(EnumConverter))]
+        [JsonPropertyName("type")]
         public BalanceType Type { get; set; }
         /// <summary>
         /// Balance
         /// </summary>
+        [JsonPropertyName("balance")]
         public decimal Balance { get; set; }
     }
 }

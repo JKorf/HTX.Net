@@ -323,7 +323,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#search-past-margin-orders-cross" /></para>
         /// </summary>
         /// <param name="asset">Filter by asset</param>
-        /// <param name="state">Filter by state</param>
+        /// <param name="status">Filter by status</param>
         /// <param name="startDate">Filter by start date</param>
         /// <param name="endDate">Filter by end date</param>
         /// <param name="from">Start order id for use in combination with direction</param>
@@ -334,7 +334,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// <returns></returns>
         Task<WebCallResult<IEnumerable<HTXMarginOrder>>> GetCrossMarginClosedOrdersAsync(
             string? asset = null,
-            MarginOrderStatus? state = null,
+            MarginOrderStatus? status = null,
             DateTime? startDate = null,
             DateTime? endDate = null,
             string? from = null,

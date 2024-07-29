@@ -17,6 +17,60 @@ namespace HTX.Net.Clients.SpotApi
             _baseClient = baseClient;
         }
 
+        #region Get System Status
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<HTXSystemStatus>> GetSystemStatusAsync(CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "api/v2/summary.json", HTXExchange.RateLimiter.EndpointLimit, 1, false);
+            var result = await _baseClient.SendToAddressRawAsync<HTXSystemStatus>("https://status.huobigroup.com", request, parameters, ct).ConfigureAwait(false);
+            return result;
+        }
+
+        #endregion
+
+        #region Get Symbols
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<IEnumerable<HTXSymbol>>> GetSymbolsAsync(CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "v2/settings/common/symbols", HTXExchange.RateLimiter.EndpointLimit, 1, false);
+            var result = await _baseClient.SendBasicAsync<IEnumerable<HTXSymbol>>(request, parameters, ct).ConfigureAwait(false);
+            return result;
+        }
+
+        #endregion
+
+        #region Get Assets
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<IEnumerable<HTXAsset>>> GetAssetsAsync(CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/v2/settings/common/currencies", HTXExchange.RateLimiter.EndpointLimit, 1, false);
+            var result = await _baseClient.SendBasicAsync<IEnumerable<HTXAsset>>(request, parameters, ct).ConfigureAwait(false);
+            return result;
+        }
+
+        #endregion
+
+        #region Get Symbol Config
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<IEnumerable<HTXSymbolConfig>>> GetSymbolConfigAsync(IEnumerable<string>? symbols = null, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.AddOptional("symbols", symbols == null ? null : string.Join(",", symbols));
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/v1/settings/common/market-symbols", HTXExchange.RateLimiter.EndpointLimit, 1, false);
+            var result = await _baseClient.SendBasicAsync<IEnumerable<HTXSymbolConfig>>(request, parameters, ct).ConfigureAwait(false);
+            return result;
+        }
+
+        #endregion
+
+
         /// <inheritdoc />
         public async Task<WebCallResult<HTXSymbolTicks>> GetTickersAsync(CancellationToken ct = default)
         {
@@ -154,20 +208,6 @@ namespace HTX.Net.Clients.SpotApi
         {
             var request = _definitions.GetOrCreate(HttpMethod.Get, "v2/market-status", HTXExchange.RateLimiter.EndpointLimit, 1, false);
             return await _baseClient.SendAsync<HTXSymbolStatus>(request, null, ct).ConfigureAwait(false);
-        }
-
-        /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<HTXSymbol>>> GetSymbolsAsync(CancellationToken ct = default)
-        {
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "v1/common/symbols", HTXExchange.RateLimiter.EndpointLimit, 1, false);
-            return await _baseClient.SendBasicAsync<IEnumerable<HTXSymbol>>(request, null, ct).ConfigureAwait(false);
-        }
-
-        /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<string>>> GetAssetsAsync(CancellationToken ct = default)
-        {
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "v1/common/currencys", HTXExchange.RateLimiter.EndpointLimit, 1, false);
-            return await _baseClient.SendBasicAsync<IEnumerable<string>>(request, null, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />

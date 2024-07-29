@@ -8,6 +8,7 @@
         /// <summary>
         /// The id
         /// </summary>
+        [JsonPropertyName("clientOrderId")]
         public string ClientOrderId { get; set; } = string.Empty;
     }
 }

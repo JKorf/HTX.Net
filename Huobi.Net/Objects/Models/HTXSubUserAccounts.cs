@@ -18,6 +18,7 @@ namespace HTX.Net.Objects.Models
         /// <summary>
         /// Deduct mode
         /// </summary>
+        [JsonPropertyName("deductMode")]
         public string DeductMode { get; set; } = string.Empty;
 
         /// <summary>

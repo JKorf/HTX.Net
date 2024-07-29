@@ -2,27 +2,27 @@
 {
     internal abstract class HTXApiResponse
     {
-        [JsonPropertyName("status")]
+        [JsonInclude, JsonPropertyName("status")]
         internal string? Status { get; set; }
 
 
-        [JsonPropertyName("err-msg")]
+        [JsonInclude, JsonPropertyName("err-msg")]
         internal string? ErrorMessage { get; set; }
-        [JsonPropertyName("err_msg")]
+        [JsonInclude, JsonPropertyName("err_msg")]
         private string? ErrorMessageInternal
         {
             get => ErrorMessage;
             set => ErrorMessage = value;
         }
-        [JsonPropertyName("err-code")]
+        [JsonInclude, JsonPropertyName("err-code")]
         internal string? ErrorCode { get; set; }
-        [JsonPropertyName("err_code")]
+        [JsonInclude, JsonPropertyName("err_code")]
         private string? ErrorCodeInternal
         {
             get => ErrorCode;
             set => ErrorCode = value;
         }
-        [JsonPropertyName("code")]
+        [JsonInclude, JsonPropertyName("code")]
         private string? ErrorCodeInternal2
         {
             get => ErrorCode;
@@ -36,16 +36,17 @@
         public DateTime Timestamp { get; set; }
         [JsonPropertyName("ch")]
         public string Channel { get; set; } = string.Empty;
-        [JsonPropertyName("next-time"), JsonConverter(typeof(DateTimeConverter))]
+        [JsonInclude, JsonPropertyName("next-time"), JsonConverter(typeof(DateTimeConverter))]
         private DateTime NextTime { get => Timestamp; set => Timestamp = value; }
     }
 
     internal class HTXBasicResponse<T> : HTXBasicResponse
     {
+        [JsonPropertyName("data")]
         public T Data { get; set; } = default!;
-        [JsonPropertyName("tick")]
+        [JsonInclude, JsonPropertyName("tick")]
         private T Tick { set => Data = value; get => Data; }
-        [JsonPropertyName("ticks")]
+        [JsonInclude, JsonPropertyName("ticks")]
         private T Ticks { set => Data = value; get => Data; }
     }
 }

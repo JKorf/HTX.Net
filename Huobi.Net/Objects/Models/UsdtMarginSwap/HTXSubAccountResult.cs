@@ -12,10 +12,12 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// <summary>
         /// Successfully updated ids
         /// </summary>
+        [JsonPropertyName("successes")]
         public string Successes { get; set; } = string.Empty;
         /// <summary>
         /// Errors
         /// </summary>
+        [JsonPropertyName("errors")]
         public IEnumerable<HTXSubAccountError> Errors { get; set; } = Array.Empty<HTXSubAccountError>();
     }
 

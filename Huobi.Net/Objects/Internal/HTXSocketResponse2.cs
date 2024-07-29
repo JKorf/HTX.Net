@@ -3,13 +3,13 @@
     internal class HTXSocketResponse2: HTXResponse
     {
         internal override bool IsSuccessful => string.Equals(ErrorCode, "0", StringComparison.Ordinal);
-        [JsonPropertyName("status")]
+        [JsonInclude, JsonPropertyName("status")]
         internal string Status { get; set; } = string.Empty;
 
-        [JsonPropertyName("cid")]
+        [JsonInclude, JsonPropertyName("cid")]
         internal string ClientId { get; set; } = string.Empty;
 
-        [JsonPropertyName("topic")]
+        [JsonInclude, JsonPropertyName("topic")]
         internal string Topic { get; set; } = string.Empty;
 
         /// <summary>
@@ -24,8 +24,9 @@
         /// <summary>
         /// The data
         /// </summary>
+        [JsonPropertyName("data")]
         public T Data { get; set; } = default!;
-        [JsonPropertyName("tick")]
+        [JsonInclude, JsonPropertyName("tick")]
         private T Tick { set => Data = value; get => Data; }
     }
 

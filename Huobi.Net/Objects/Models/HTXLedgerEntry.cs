@@ -13,6 +13,7 @@ namespace HTX.Net.Objects.Models
         /// <summary>
         /// Account id
         /// </summary>
+        [JsonPropertyName("accountId")]
         public long AccountId { get; set; }
 
         /// <summary>
@@ -34,6 +35,7 @@ namespace HTX.Net.Objects.Models
         /// <summary>
         /// Type of transfer
         /// </summary>
+        [JsonPropertyName("transferType")]
         public string TransferType { get; set; } = string.Empty;
         /// <summary>
         /// Transaction id
@@ -49,10 +51,12 @@ namespace HTX.Net.Objects.Models
         /// <summary>
         /// Transferer
         /// </summary>
+        [JsonPropertyName("transferer")]
         public long Transferer { get; set; }
         /// <summary>
         /// Transferee
         /// </summary>
+        [JsonPropertyName("transferee")]
         public long Transferee { get; set; }
     }
 }

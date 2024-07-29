@@ -10,6 +10,7 @@ namespace HTX.Net.Objects.Models
         /// <summary>
         /// Order id
         /// </summary>
+        [JsonPropertyName("id")]
         public long Id { get; set; }
         /// <summary>
         /// Account id
@@ -24,6 +25,7 @@ namespace HTX.Net.Objects.Models
         /// <summary>
         /// Symbol
         /// </summary>
+        [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
         /// Asset
@@ -71,7 +73,8 @@ namespace HTX.Net.Objects.Models
         /// State
         /// </summary>
         [JsonConverter(typeof(EnumConverter))]
-        public MarginOrderStatus State { get; set; }
+        [JsonPropertyName("state")]
+        public MarginOrderStatus Status { get; set; }
         /// <summary>
         /// Paid HTX points
         /// </summary>
