@@ -96,7 +96,7 @@ namespace HTX.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<CallResult<IEnumerable<HTXKline>>> GetKlinesAsync(string symbol, KlineInterval period)
         {
-            symbol = symbol.ValidateHTXSymbol();
+            symbol = symbol.ToLowerInvariant();
 
             var query = new HTXQuery<IEnumerable<HTXKline>>($"market.{symbol}.kline.{EnumConverter.GetString(period)}", false);
             var result = await QueryAsync(BaseAddress.AppendPath("ws"), query).ConfigureAwait(false);
@@ -106,7 +106,7 @@ namespace HTX.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToKlineUpdatesAsync(string symbol, KlineInterval period, Action<DataEvent<HTXKline>> onData, CancellationToken ct = default)
         {
-            symbol = symbol.ValidateHTXSymbol();
+            symbol = symbol.ToLowerInvariant();
 
             var subscription = new HTXSubscription<HTXKline>(_logger, $"market.{symbol}.kline.{EnumConverter.GetString(period)}", x => onData(x.WithSymbol(symbol)), false);
             return await SubscribeAsync(BaseAddress.AppendPath("ws"), subscription, ct).ConfigureAwait(false);
@@ -115,7 +115,7 @@ namespace HTX.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<CallResult<HTXOrderBook>> GetOrderBookWithMergeStepAsync(string symbol, int mergeStep)
         {
-            symbol = symbol.ValidateHTXSymbol();
+            symbol = symbol.ToLowerInvariant();
             mergeStep.ValidateIntBetween(nameof(mergeStep), 0, 5);
 
             var query = new HTXQuery<HTXOrderBook>($"market.{symbol}.depth.step{mergeStep}", false);
@@ -126,7 +126,7 @@ namespace HTX.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<CallResult<HTXIncementalOrderBook>> GetOrderBookAsync(string symbol, int levels)
         {
-            symbol = symbol.ValidateHTXSymbol();
+            symbol = symbol.ToLowerInvariant();
             levels.ValidateIntValues(nameof(levels), 5, 20, 150, 400);
 
             var query = new HTXQuery<HTXIncementalOrderBook>($"market.{symbol}.mbp.{levels}", false);
@@ -137,7 +137,7 @@ namespace HTX.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToPartialOrderBookUpdates1SecondAsync(string symbol, int mergeStep, Action<DataEvent<HTXOrderBook>> onData, CancellationToken ct = default)
         {
-            symbol = symbol.ValidateHTXSymbol();
+            symbol = symbol.ToLowerInvariant();
             mergeStep.ValidateIntBetween(nameof(mergeStep), 0, 5);
 
             var subscription = new HTXSubscription<HTXOrderBook>(_logger, $"market.{symbol}.depth.step{mergeStep}", x => onData(x.WithSymbol(symbol)), false);
@@ -147,7 +147,7 @@ namespace HTX.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToPartialOrderBookUpdates100MilisecondAsync(string symbol, int levels, Action<DataEvent<HTXOrderBook>> onData, CancellationToken ct = default)
         {
-            symbol = symbol.ValidateHTXSymbol();
+            symbol = symbol.ToLowerInvariant();
             levels.ValidateIntValues(nameof(levels), 5, 10, 20);
 
             var subscription = new HTXSubscription<HTXOrderBook>(_logger, $"market.{symbol}.mbp.refresh.{levels}", x => onData(x.WithSymbol(symbol)), false);
@@ -157,7 +157,7 @@ namespace HTX.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToOrderBookChangeUpdatesAsync(string symbol, int levels, Action<DataEvent<HTXIncementalOrderBook>> onData, CancellationToken ct = default)
         {
-            symbol = symbol.ValidateHTXSymbol();
+            symbol = symbol.ToLowerInvariant();
             levels.ValidateIntValues(nameof(levels), 5, 20, 150, 400);
 
             var subscription = new HTXSubscription<HTXIncementalOrderBook>(_logger, $"market.{symbol}.mbp.{levels}", x => onData(x.WithSymbol(symbol)), false);
@@ -167,7 +167,7 @@ namespace HTX.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<CallResult<IEnumerable<HTXSymbolTradeDetails>>> GetTradeHistoryAsync(string symbol)
         {
-            symbol = symbol.ValidateHTXSymbol();
+            symbol = symbol.ToLowerInvariant();
 
             var query = new HTXQuery<IEnumerable<HTXSymbolTradeDetails>>($"market.{symbol}.trade.detail", false);
             var result = await QueryAsync(BaseAddress.AppendPath("ws"), query).ConfigureAwait(false);
@@ -177,7 +177,7 @@ namespace HTX.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(string symbol, Action<DataEvent<HTXSymbolTrade>> onData, CancellationToken ct = default)
         {
-            symbol = symbol.ValidateHTXSymbol();
+            symbol = symbol.ToLowerInvariant();
             var subscription = new HTXSubscription<HTXSymbolTrade>(_logger, $"market.{symbol}.trade.detail", x => onData(x.WithSymbol(symbol)), false);
             return await SubscribeAsync(BaseAddress.AppendPath("ws"), subscription, ct).ConfigureAwait(false);
         }
@@ -185,7 +185,7 @@ namespace HTX.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<CallResult<HTXSymbolDetails>> GetSymbolDetailsAsync(string symbol)
         {
-            symbol = symbol.ValidateHTXSymbol();
+            symbol = symbol.ToLowerInvariant();
 
             var query = new HTXQuery<HTXSymbolDetails>($"market.{symbol}.detail", false);
             var result = await QueryAsync(BaseAddress.AppendPath("ws"), query).ConfigureAwait(false);
@@ -199,7 +199,7 @@ namespace HTX.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToSymbolDetailUpdatesAsync(string symbol, Action<DataEvent<HTXSymbolDetails>> onData, CancellationToken ct = default)
         {
-            symbol = symbol.ValidateHTXSymbol();
+            symbol = symbol.ToLowerInvariant();
             var subscription = new HTXSubscription<HTXSymbolDetails>(_logger, $"market.{symbol}.detail", x => onData(x.WithSymbol(symbol)), false);
             return await SubscribeAsync(BaseAddress.AppendPath("ws"), subscription, ct).ConfigureAwait(false);
         }
@@ -235,7 +235,7 @@ namespace HTX.Net.Clients.SpotApi
             Action<DataEvent<HTXOrderUpdate>>? onConditionalOrderCanceled = null,
             CancellationToken ct = default)
         {
-            symbol = symbol?.ValidateHTXSymbol();
+            symbol = symbol?.ToLowerInvariant();
 
             var subscription = new HTXOrderSubscription(_logger, symbol, onOrderSubmitted, onOrderMatched, onOrderCancelation, onConditionalOrderTriggerFailure, onConditionalOrderCanceled);
             return await SubscribeAsync(BaseAddress.AppendPath("ws/v2"), subscription, ct).ConfigureAwait(false);

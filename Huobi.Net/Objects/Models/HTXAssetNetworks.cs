@@ -1,36 +1,39 @@
 ﻿using HTX.Net.Enums;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace HTX.Net.Objects.Models
 {
     /// <summary>
-    /// Info on an asset
+    /// Asset info
     /// </summary>
-    public record HTXAssetInfo
+    public record HTXAssetNetworks
     {
+        /// <summary>
+        /// Networks
+        /// </summary>
+        [JsonPropertyName("chains")]
+        public IEnumerable<HTXAssetNetwork> Networks { get; set; } = Array.Empty<HTXAssetNetwork>();
         /// <summary>
         /// Asset
         /// </summary>
         [JsonPropertyName("currency")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// Status of the asset
+        /// Status
         /// </summary>
         [JsonPropertyName("instStatus")]
-        public InstrumentStatus Status { get; set; }
-        /// <summary>
-        /// Networks
-        /// </summary>
-        [JsonPropertyName("chains")]
-        public IEnumerable<HTXNetwork> Networks { get; set; } = Array.Empty<HTXNetwork>();
+        public AssetStatus Status { get; set; }
     }
 
     /// <summary>
-    /// Info on an asset network
+    /// Network info
     /// </summary>
-    public record HTXNetwork
+    public record HTXAssetNetwork
     {
         /// <summary>
-        /// Network name
+        /// Network
         /// </summary>
         [JsonPropertyName("chain")]
         public string Network { get; set; } = string.Empty;
@@ -38,105 +41,93 @@ namespace HTX.Net.Objects.Models
         /// Display name
         /// </summary>
         [JsonPropertyName("displayName")]
-        public string DisplayName { get; set; } = string.Empty;
+        public string? DisplayName { get; set; }
         /// <summary>
         /// Base network
         /// </summary>
         [JsonPropertyName("baseChain")]
         public string BaseNetwork { get; set; } = string.Empty;
         /// <summary>
-        /// Protocol of the base network
+        /// Base network protocol
         /// </summary>
         [JsonPropertyName("baseChainProtocol")]
         public string BaseNetworkProtocol { get; set; } = string.Empty;
         /// <summary>
-        /// Is dynamic fee type or not (only applicable to withdrawFeeType = fixed)
+        /// Is dynamic
         /// </summary>
         [JsonPropertyName("isDynamic")]
         public bool IsDynamic { get; set; }
         /// <summary>
         /// Deposit status
         /// </summary>
-        [JsonConverter(typeof(EnumConverter))]
         [JsonPropertyName("depositStatus")]
-        public CurrencyStatus DepositStatus { get; set; }
+        public NetworkStatus? DepositStatus { get; set; }
         /// <summary>
-        /// Maximum withdraw fee in each request (only applicable to withdrawFeeType = circulated or ratio)	
+        /// Max transact fee withdraw
         /// </summary>
         [JsonPropertyName("maxTransactFeeWithdraw")]
         public decimal MaxTransactFeeWithdraw { get; set; }
         /// <summary>
-        /// Max withdraw quantity per request
+        /// Max withdraw quantity
         /// </summary>
         [JsonPropertyName("maxWithdrawAmt")]
         public decimal MaxWithdrawQuantity { get; set; }
         /// <summary>
-        /// Min deposit quantity per request
+        /// Min deposit quantity
         /// </summary>
         [JsonPropertyName("minDepositAmt")]
         public decimal MinDepositQuantity { get; set; }
         /// <summary>
-        /// Min withdraw quantity per request
-        /// </summary>
-        [JsonPropertyName("minWithdrawAmt")]
-        public decimal MinWithdrawQuantity { get; set; }
-        /// <summary>
-        /// Withdraw fee in each request (only applicable to withdrawFeeType = fixed)
-        /// </summary>
-        [JsonPropertyName("transactFeeWithdraw")]
-        public decimal TransactFeeWithdraw { get; set; }
-        /// <summary>
-        /// Withdraw fee in each request (only applicable to withdrawFeeType = ratio)
-        /// </summary>
-        [JsonPropertyName("transactFeeRateWithdraw")]
-        public decimal? TransactFeeRateWithdraw { get; set; }
-        /// <summary>
-        /// Minimal withdraw fee in each request (only applicable to withdrawFeeType = circulated or ratio)
+        /// Min transact fee withdraw
         /// </summary>
         [JsonPropertyName("minTransactFeeWithdraw")]
         public decimal MinTransactFeeWithdraw { get; set; }
         /// <summary>
-        /// Number of confirmations required for deposit
+        /// Min withdraw quantity
+        /// </summary>
+        [JsonPropertyName("minWithdrawAmt")]
+        public decimal MinWithdrawQuantity { get; set; }
+        /// <summary>
+        /// Num of confirmations
         /// </summary>
         [JsonPropertyName("numOfConfirmations")]
-        public int NumberOfConfirmations { get; set; }
+        public int NumOfConfirmations { get; set; }
         /// <summary>
-        /// Number of confirmations required for quick success (trading allowed but withdrawal disallowed)
+        /// Num of fast confirmations
         /// </summary>
         [JsonPropertyName("numOfFastConfirmations")]
-        public int NumberOfFastConfirmations { get; set; }
+        public int NumOfFastConfirmations { get; set; }
         /// <summary>
-        /// Type of withdraw fee
+        /// Withdraw fee type
         /// </summary>
-        [JsonConverter(typeof(EnumConverter))]
         [JsonPropertyName("withdrawFeeType")]
-        public FeeType WithdrawFeeType { get; set; }
+        public FeeType? WithdrawFeeType { get; set; }
         /// <summary>
-        /// Precision of withdrawing
+        /// Withdraw precision
         /// </summary>
         [JsonPropertyName("withdrawPrecision")]
-        public int WithdrawPrecision { get; set; }
+        public decimal WithdrawPrecision { get; set; }
         /// <summary>
         /// Withdraw quota per day
         /// </summary>
         [JsonPropertyName("withdrawQuotaPerDay")]
-        public decimal? WithdrawQuotaPerDay { get; set; }
+        public decimal WithdrawQuotaPerDay { get; set; }
         /// <summary>
         /// Withdraw quota per year
         /// </summary>
         [JsonPropertyName("withdrawQuotaPerYear")]
-        public decimal? WithdrawQuotaPerYear { get; set; }
+        public decimal WithdrawQuotaPerYear { get; set; }
         /// <summary>
-        /// Withdraw quota in total
+        /// Withdraw quota total
         /// </summary>
         [JsonPropertyName("withdrawQuotaTotal")]
-        public decimal? WithdrawQuotaTotal { get; set; }
-
+        public decimal WithdrawQuotaTotal { get; set; }
         /// <summary>
         /// Withdraw status
         /// </summary>
-        [JsonConverter(typeof(EnumConverter))]
         [JsonPropertyName("withdrawStatus")]
-        public CurrencyStatus WithdrawStatus { get; set; }
+        public NetworkStatus? WithdrawStatus { get; set; }
     }
+
+
 }

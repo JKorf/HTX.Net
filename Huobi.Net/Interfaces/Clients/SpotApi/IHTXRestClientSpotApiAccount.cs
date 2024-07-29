@@ -56,6 +56,16 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         Task<WebCallResult<IEnumerable<HTXBalance>>> GetBalancesAsync(long accountId, CancellationToken ct = default);
 
         /// <summary>
+        /// Get platform asset valuation
+        /// <para><a href="https://www.htx.com/en-in/opend/newApiPages/?id=7ec5058c-7773-11ed-9966-0242ac110003" /></para>
+        /// </summary>
+        /// <param name="accountType">Filter by account type</param>
+        /// <param name="valuationAsset">Valuation asset, only BTC supported at the moment</param>
+        /// <param name="ct"></param>
+        /// <returns></returns>
+        Task<WebCallResult<HTXPlatformValuation>> GetPlatformValuationAsync(AccountType? accountType = null, string? valuationAsset = null, CancellationToken ct = default);
+
+        /// <summary>
         /// Gets the valuation of all assets
         /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-the-total-valuation-of-platform-assets" /></para>
         /// </summary>
@@ -93,10 +103,10 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// <param name="startTime">Far point of time of the query window. The maximum size of the query window is 1 hour. The query window can be shifted within 30 days</param>
         /// <param name="endTime">Near point of time of the query window. The maximum size of the query window is 1 hour. The query window can be shifted within 30 days</param>
         /// <param name="sort">Sorting order (Ascending by default)</param>
-        /// <param name="size">Maximum number of items in each response (from 1 to 500, default is 100)</param>
+        /// <param name="limit">Maximum number of items in each response (from 1 to 500, default is 100)</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<HTXAccountHistory>>> GetAccountHistoryAsync(long accountId, string? asset = null, IEnumerable<TransactionType>? transactionTypes = null, DateTime? startTime = null, DateTime? endTime = null, SortingType? sort = null, int? size = null, CancellationToken ct = default);
+        Task<WebCallResult<IEnumerable<HTXAccountHistory>>> GetAccountHistoryAsync(long accountId, string? asset = null, IEnumerable<TransactionType>? transactionTypes = null, DateTime? startTime = null, DateTime? endTime = null, SortingType? sort = null, int? limit = null, CancellationToken ct = default);
 
         /// <summary>
         /// This endpoint returns the balance changes of specified user's account.
@@ -108,11 +118,11 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// <param name="startTime">Far point of time of the query window. The maximum size of the query window is 10 days. The query window can be shifted within 30 days</param>
         /// <param name="endTime">Near point of time of the query window. The maximum size of the query window is 10 days. The query window can be shifted within 30 days</param>
         /// <param name="sort">Sorting order (Ascending by default)</param>
-        /// <param name="size">Maximum number of items in each response (from 1 to 500, default is 100)</param>
+        /// <param name="limit">Maximum number of items in each response (from 1 to 500, default is 100)</param>
         /// <param name="fromId">Only get orders with ID before or after this. Used together with the direction parameter</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<HTXLedgerEntry>>> GetAccountLedgerAsync(long accountId, string? asset = null, IEnumerable<TransactionType>? transactionTypes = null, DateTime? startTime = null, DateTime? endTime = null, SortingType? sort = null, int? size = null, long? fromId = null, CancellationToken ct = default);
+        Task<WebCallResult<IEnumerable<HTXLedgerEntry>>> GetAccountLedgerAsync(long accountId, string? asset = null, IEnumerable<TransactionType>? transactionTypes = null, DateTime? startTime = null, DateTime? endTime = null, SortingType? sort = null, int? limit = null, long? fromId = null, CancellationToken ct = default);
 
         /// <summary>
         /// Gets a list of balances for a specific sub account
@@ -154,9 +164,10 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// <param name="fee">The fee to pay with this withdraw</param>
         /// <param name="network">Set as "usdt" to withdraw USDT to OMNI, set as "trc20usdt" to withdraw USDT to TRX</param>
         /// <param name="addressTag">A tag specified for this address</param>
+        /// <param name="clientOrderId">Client order id</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<long>> WithdrawAsync(string address, string asset, decimal quantity, decimal fee, string? network = null, string? addressTag = null, CancellationToken ct = default);
+        Task<WebCallResult<long>> WithdrawAsync(string address, string asset, decimal quantity, decimal fee, string? network = null, string? addressTag = null, string? clientOrderId = null, CancellationToken ct = default);
 
         /// <summary>
         /// Parent user and sub user searche for all existed withdraws and deposits and return their latest status.
@@ -375,7 +386,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// <param name="symbols">Filter on symbols</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<HTXFeeRate>>> GetCurrentFeeRatesAsync(IEnumerable<string> symbols,
+        Task<WebCallResult<IEnumerable<HTXFeeRate>>> GetFeeRatesAsync(IEnumerable<string> symbols,
             CancellationToken ct = default);
     }
 }

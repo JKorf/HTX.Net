@@ -1,7 +1,6 @@
 ﻿using HTX.Net.Enums;
 using HTX.Net.Objects.Models;
 using HTX.Net.Interfaces.Clients.SpotApi;
-using System.Security.Cryptography;
 
 namespace HTX.Net.Clients.SpotApi
 {
@@ -16,30 +15,7 @@ namespace HTX.Net.Clients.SpotApi
             _baseClient = baseClient;
         }
 
-        /// <inheritdoc />
-        public async Task<WebCallResult<long>> GetUserIdAsync(CancellationToken ct = default)
-        {
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "v2/user/uid", HTXExchange.RateLimiter.EndpointLimit, 1, true);
-            return await _baseClient.SendAsync<long>(request, null, ct).ConfigureAwait(false);
-        }
-
-        /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<HTXUser>>> GetSubAccountUsersAsync(CancellationToken ct = default)
-        {
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "v2/sub-user/user-list", HTXExchange.RateLimiter.EndpointLimit, 1, true);
-            return await _baseClient.SendAsync<IEnumerable<HTXUser>>(request, null, ct).ConfigureAwait(false);
-        }
-
-        /// <inheritdoc />
-        public async Task<WebCallResult<HTXSubUserAccounts>> GetSubUserAccountsAsync(long subUserId, CancellationToken ct = default)
-        {
-            var parameters = new ParameterCollection()
-            {
-                { "subUid", subUserId.ToString(CultureInfo.InvariantCulture)}
-            };
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "v2/sub-user/account-list", HTXExchange.RateLimiter.EndpointLimit, 1, true);
-            return await _baseClient.SendAsync<HTXSubUserAccounts>(request, parameters, ct).ConfigureAwait(false);
-        }
+        #region Get Accounts
 
         /// <inheritdoc />
         public async Task<WebCallResult<IEnumerable<HTXAccount>>> GetAccountsAsync(CancellationToken ct = default)
@@ -47,6 +23,10 @@ namespace HTX.Net.Clients.SpotApi
             var request = _definitions.GetOrCreate(HttpMethod.Get, "v1/account/accounts", HTXExchange.RateLimiter.EndpointLimit, 1, true);
             return await _baseClient.SendBasicAsync<IEnumerable<HTXAccount>>(request, null, ct).ConfigureAwait(false);
         }
+
+        #endregion
+
+        #region Get Balances
 
         /// <inheritdoc />
         public async Task<WebCallResult<IEnumerable<HTXBalance>>> GetBalancesAsync(long accountId, CancellationToken ct = default)
@@ -58,6 +38,25 @@ namespace HTX.Net.Clients.SpotApi
 
             return result.As(result.Data.Data);
         }
+
+        #endregion
+
+        #region Get Platform Valuation
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<HTXPlatformValuation>> GetPlatformValuationAsync(AccountType? accountType = null, string? valuationAsset = null, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.AddOptionalEnum("accountType", accountType);
+            parameters.AddOptionalParameter("valuationCurrency", valuationAsset);
+
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "v2/account/valuation", HTXExchange.RateLimiter.EndpointLimit, 1, true);
+            return await _baseClient.SendAsync<HTXPlatformValuation>(request, parameters, ct).ConfigureAwait(false);
+        }
+
+        #endregion
+
+        #region Get Asset Valuation
 
         /// <inheritdoc />
         public async Task<WebCallResult<HTXAccountValuation>> GetAssetValuationAsync(AccountType accountType, string? valuationCurrency = null, long? subUserId = null, CancellationToken ct = default)
@@ -71,8 +70,12 @@ namespace HTX.Net.Clients.SpotApi
             return await _baseClient.SendAsync<HTXAccountValuation>(request, parameters, ct).ConfigureAwait(false);
         }
 
+        #endregion
+
+        #region Transfer
+
         /// <inheritdoc />
-        public async Task<WebCallResult<HTXTransactionResult>> TransferAssetAsync(long fromUserId, AccountType fromAccountType, long fromAccountId,
+        public async Task<WebCallResult<HTXTransactionResult>> TransferSubAccountAsync(long fromUserId, AccountType fromAccountType, long fromAccountId,
             long toUserId, AccountType toAccountType, long toAccountId, string asset, decimal quantity, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection()
@@ -93,10 +96,14 @@ namespace HTX.Net.Clients.SpotApi
             return await _baseClient.SendBasicAsync<HTXTransactionResult>(request, null, ct).ConfigureAwait(false);
         }
 
+        #endregion
+
+        #region Get Account History
+
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<HTXAccountHistory>>> GetAccountHistoryAsync(long accountId, string? asset = null, IEnumerable<TransactionType>? transactionTypes = null, DateTime? startTime = null, DateTime? endTime = null, SortingType? sort = null, int? size = null, CancellationToken ct = default)
+        public async Task<WebCallResult<IEnumerable<HTXAccountHistory>>> GetAccountHistoryAsync(long accountId, string? asset = null, IEnumerable<TransactionType>? transactionTypes = null, DateTime? startTime = null, DateTime? endTime = null, SortingType? sort = null, int? limit = null, CancellationToken ct = default)
         {
-            size?.ValidateIntBetween(nameof(size), 1, 500);
+            limit?.ValidateIntBetween(nameof(limit), 1, 500);
 
             var parameters = new ParameterCollection()
             {
@@ -106,17 +113,21 @@ namespace HTX.Net.Clients.SpotApi
             parameters.AddOptionalParameter("transact-types", transactionTypes == null ? null : string.Join(",", transactionTypes.Select(s => EnumConverter.GetString(s))));
             parameters.AddOptionalParameter("start-time", DateTimeConverter.ConvertToMilliseconds(startTime));
             parameters.AddOptionalParameter("end-time", DateTimeConverter.ConvertToMilliseconds(endTime));
-            parameters.AddOptionalParameter("size", size);
+            parameters.AddOptionalParameter("size", limit);
             parameters.AddOptionalEnum("sort", sort);
 
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"v1/account/history", HTXExchange.RateLimiter.EndpointLimit, 1, true);
             return await _baseClient.SendBasicAsync<IEnumerable<HTXAccountHistory>>(request, null, ct).ConfigureAwait(false);
         }
 
+        #endregion
+
+        #region Get Account Ledger
+
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<HTXLedgerEntry>>> GetAccountLedgerAsync(long accountId, string? asset = null, IEnumerable<TransactionType>? transactionTypes = null, DateTime? startTime = null, DateTime? endTime = null, SortingType? sort = null, int? size = null, long? fromId = null, CancellationToken ct = default)
+        public async Task<WebCallResult<IEnumerable<HTXLedgerEntry>>> GetAccountLedgerAsync(long accountId, string? asset = null, IEnumerable<TransactionType>? transactionTypes = null, DateTime? startTime = null, DateTime? endTime = null, SortingType? sort = null, int? limit = null, long? fromId = null, CancellationToken ct = default)
         {
-            size?.ValidateIntBetween(nameof(size), 1, 500);
+            limit?.ValidateIntBetween(nameof(limit), 1, 500);
 
             var parameters = new ParameterCollection()
             {
@@ -126,7 +137,7 @@ namespace HTX.Net.Clients.SpotApi
             parameters.AddOptionalParameter("transactTypes", transactionTypes == null ? null : string.Join(",", transactionTypes.Select(s => EnumConverter.GetString(s))));
             parameters.AddOptionalParameter("startTime", DateTimeConverter.ConvertToMilliseconds(startTime));
             parameters.AddOptionalParameter("endTime", DateTimeConverter.ConvertToMilliseconds(endTime));
-            parameters.AddOptionalParameter("limit", size);
+            parameters.AddOptionalParameter("limit", limit);
             parameters.AddOptionalParameter("fromId", fromId?.ToString(CultureInfo.InvariantCulture));
             parameters.AddOptionalEnum("sort", sort);
 
@@ -134,32 +145,17 @@ namespace HTX.Net.Clients.SpotApi
             return await _baseClient.SendAsync<IEnumerable<HTXLedgerEntry>>(request, parameters, ct).ConfigureAwait(false);
         }
 
-        /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<HTXBalance>>> GetSubAccountBalancesAsync(long subAccountId, CancellationToken ct = default)
-        {
-            var request = _definitions.GetOrCreate(HttpMethod.Get, $"v1/account/accounts/{subAccountId}", HTXExchange.RateLimiter.EndpointLimit, 1, true);
-            var result = await _baseClient.SendBasicAsync<IEnumerable<HTXAccountBalances>>(request, null, ct).ConfigureAwait(false);           
-            if (!result)
-                return result.AsError<IEnumerable<HTXBalance>>(result.Error!);
+        #endregion
 
-            return result.As(result.Data.First().Data);
-        }
+        // /v2/account/transfer
+        // /v1/futures/transfer
+        // /v2/point/account
+        // /v2/point/transfer
+        // /v1/account/switch/user/info
+        // /v1/account/overview/info
+        // /v1/account/fee/switch
 
-        /// <inheritdoc />
-        public async Task<WebCallResult<long>> TransferWithSubAccountAsync(long subAccountId, string asset, decimal quantity, TransferType transferType, CancellationToken ct = default)
-        {
-            asset.ValidateNotNull(nameof(asset));
-            var parameters = new ParameterCollection()
-            {
-                { "sub-uid", subAccountId },
-                { "currency", asset },
-                { "amount", quantity }
-            };
-            parameters.AddEnum("type", transferType);
-
-            var request = _definitions.GetOrCreate(HttpMethod.Post, $"v1/subuser/transfer", HTXExchange.RateLimiter.EndpointLimit, 1, true);
-            return await _baseClient.SendBasicAsync<long>(request, null, ct).ConfigureAwait(false);
-        }
+        #region Get Deposit Addresses
 
         /// <inheritdoc />
         public async Task<WebCallResult<IEnumerable<HTXDepositAddress>>> GetDepositAddressesAsync(string asset, CancellationToken ct = default)
@@ -170,8 +166,15 @@ namespace HTX.Net.Clients.SpotApi
             return await _baseClient.SendAsync<IEnumerable<HTXDepositAddress>>(request, parameters, ct).ConfigureAwait(false);
         }
 
+        #endregion
+
+        // /v2/account/withdraw/quota
+        // /v2/account/withdraw/address
+
+        #region Withdraw
+
         /// <inheritdoc />
-        public async Task<WebCallResult<long>> WithdrawAsync(string address, string asset, decimal quantity, decimal fee, string? network = null, string? addressTag = null, CancellationToken ct = default)
+        public async Task<WebCallResult<long>> WithdrawAsync(string address, string asset, decimal quantity, decimal fee, string? network = null, string? addressTag = null, string? clientOrderId = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection()
             {
@@ -183,9 +186,17 @@ namespace HTX.Net.Clients.SpotApi
 
             parameters.AddOptionalParameter("chain", network);
             parameters.AddOptionalParameter("addr-tag", addressTag);
+            parameters.AddOptionalParameter("client-order-id", clientOrderId);
             var request = _definitions.GetOrCreate(HttpMethod.Post, $"v1/dw/withdraw/api/create", HTXExchange.RateLimiter.EndpointLimit, 1, true);
             return await _baseClient.SendBasicAsync<long>(request, parameters, ct).ConfigureAwait(false);
         }
+
+        #endregion
+
+        // /v1/query/withdraw/client-order-id
+        // /v1/dw/withdraw-virtual/{withdraw-id}/cancel
+
+        #region Get Withdraw Deposit
 
         /// <inheritdoc />
         public async Task<WebCallResult<IEnumerable<HTXWithdrawDeposit>>> GetWithdrawDepositAsync(WithdrawDepositType type, string? asset = null, int? from = null, int? size = null, FilterDirection? direction = null, CancellationToken ct = default)
@@ -199,6 +210,27 @@ namespace HTX.Net.Clients.SpotApi
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"v1/query/deposit-withdraw", HTXExchange.RateLimiter.EndpointLimit, 1, true);
             return await _baseClient.SendBasicAsync<IEnumerable<HTXWithdrawDeposit>>(request, parameters, ct).ConfigureAwait(false);
         }
+
+        #endregion
+
+        #region Get Fee Rates
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<IEnumerable<HTXFeeRate>>> GetFeeRatesAsync(IEnumerable<string> symbols,
+            CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.AddOptionalParameter("symbols", string.Join(",", symbols));
+
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "v2/reference/transact-fee-rate", HTXExchange.RateLimiter.EndpointLimit, 1, true);
+            return await _baseClient.SendAsync<IEnumerable<HTXFeeRate>>(request, null, ct).ConfigureAwait(false);
+        }
+
+        #endregion
+
+        // Split User Accounts to seperate topic
+        // Split Margin Loans?
+
 
         /// <inheritdoc />
         public async Task<WebCallResult<IEnumerable<HTXRepaymentResult>>> RepayMarginLoanAsync(string accountId, string asset, decimal quantity, string? transactionId = null, CancellationToken ct = default)
@@ -433,15 +465,58 @@ namespace HTX.Net.Clients.SpotApi
             return await _baseClient.SendAsync<IEnumerable<HTXRepayment>>(request, null, ct).ConfigureAwait(false);
         }
         
-        /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<HTXFeeRate>>> GetCurrentFeeRatesAsync(IEnumerable<string> symbols,
-            CancellationToken ct = default)
-        {
-            var parameters = new ParameterCollection();
-            parameters.AddOptionalParameter("symbols", string.Join(",", symbols));
 
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "v2/reference/transact-fee-rate", HTXExchange.RateLimiter.EndpointLimit, 1, true);
-            return await _baseClient.SendAsync<IEnumerable<HTXFeeRate>>(request, null, ct).ConfigureAwait(false);
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<long>> GetUserIdAsync(CancellationToken ct = default)
+        {
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "v2/user/uid", HTXExchange.RateLimiter.EndpointLimit, 1, true);
+            return await _baseClient.SendAsync<long>(request, null, ct).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<IEnumerable<HTXUser>>> GetSubAccountUsersAsync(CancellationToken ct = default)
+        {
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "v2/sub-user/user-list", HTXExchange.RateLimiter.EndpointLimit, 1, true);
+            return await _baseClient.SendAsync<IEnumerable<HTXUser>>(request, null, ct).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<HTXSubUserAccounts>> GetSubUserAccountsAsync(long subUserId, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection()
+            {
+                { "subUid", subUserId.ToString(CultureInfo.InvariantCulture)}
+            };
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "v2/sub-user/account-list", HTXExchange.RateLimiter.EndpointLimit, 1, true);
+            return await _baseClient.SendAsync<HTXSubUserAccounts>(request, parameters, ct).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<IEnumerable<HTXBalance>>> GetSubAccountBalancesAsync(long subAccountId, CancellationToken ct = default)
+        {
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"v1/account/accounts/{subAccountId}", HTXExchange.RateLimiter.EndpointLimit, 1, true);
+            var result = await _baseClient.SendBasicAsync<IEnumerable<HTXAccountBalances>>(request, null, ct).ConfigureAwait(false);
+            if (!result)
+                return result.AsError<IEnumerable<HTXBalance>>(result.Error!);
+
+            return result.As(result.Data.First().Data);
+        }
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<long>> TransferWithSubAccountAsync(long subAccountId, string asset, decimal quantity, TransferType transferType, CancellationToken ct = default)
+        {
+            asset.ValidateNotNull(nameof(asset));
+            var parameters = new ParameterCollection()
+            {
+                { "sub-uid", subAccountId },
+                { "currency", asset },
+                { "amount", quantity }
+            };
+            parameters.AddEnum("type", transferType);
+
+            var request = _definitions.GetOrCreate(HttpMethod.Post, $"v1/subuser/transfer", HTXExchange.RateLimiter.EndpointLimit, 1, true);
+            return await _baseClient.SendBasicAsync<long>(request, null, ct).ConfigureAwait(false);
         }
     }
 }

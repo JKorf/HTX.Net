@@ -33,7 +33,7 @@ namespace HTX.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<WebCallResult<long>> PlaceOrderAsync(long accountId, string symbol, Enums.OrderSide side, Enums.OrderType type, decimal quantity, decimal? price = null, string? clientOrderId = null, SourceType? source = null, decimal? stopPrice = null, Operator? stopOperator = null, CancellationToken ct = default)
         {
-            symbol = symbol.ValidateHTXSymbol();
+            symbol = symbol.ToLowerInvariant();
             if (type == Enums.OrderType.StopLimit)
                 throw new ArgumentException("Stop limit orders not supported by API");
 
@@ -71,7 +71,7 @@ namespace HTX.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<WebCallResult<IEnumerable<HTXOpenOrder>>> GetOpenOrdersAsync(long? accountId = null, string? symbol = null, Enums.OrderSide? side = null, int? limit = null, CancellationToken ct = default)
         {
-            symbol = symbol?.ValidateHTXSymbol();
+            symbol = symbol?.ToLowerInvariant();
 
             var parameters = new ParameterCollection();
             parameters.AddOptionalParameter("account-id", accountId);
@@ -161,7 +161,7 @@ namespace HTX.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<WebCallResult<IEnumerable<HTXOrder>>> GetClosedOrdersAsync(string symbol, IEnumerable<OrderStatus>? states = null, IEnumerable<Enums.OrderType>? types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, FilterDirection? direction = null, int? limit = null, CancellationToken ct = default)
         {
-            symbol = symbol.ValidateHTXSymbol();
+            symbol = symbol.ToLowerInvariant();
 
             states ??= new OrderStatus[] { OrderStatus.Filled, OrderStatus.Canceled, OrderStatus.PartiallyCanceled };
 
@@ -184,7 +184,7 @@ namespace HTX.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<WebCallResult<IEnumerable<HTXOrderTrade>>> GetUserTradesAsync(IEnumerable<OrderStatus>? states = null, string? symbol = null, IEnumerable<Enums.OrderType>? types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, FilterDirection? direction = null, int? limit = null, CancellationToken ct = default)
         {
-            symbol = symbol?.ValidateHTXSymbol();
+            symbol = symbol?.ToLowerInvariant();
             var parameters = new ParameterCollection();
             parameters.AddOptionalParameter("states", states == null ? null : string.Join(",", states.Select(s => EnumConverter.GetString(s))));
             parameters.AddOptionalParameter("symbol", symbol);
@@ -202,7 +202,7 @@ namespace HTX.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<WebCallResult<IEnumerable<HTXOrder>>> GetHistoricalOrdersAsync(string? symbol = null, DateTime? startTime = null, DateTime? endTime = null, FilterDirection? direction = null, int? limit = null, CancellationToken ct = default)
         {
-            symbol = symbol?.ValidateHTXSymbol();
+            symbol = symbol?.ToLowerInvariant();
             var parameters = new ParameterCollection();
             parameters.AddOptionalParameter("symbol", symbol);
             parameters.AddOptionalParameter("start-time", DateTimeConverter.ConvertToMilliseconds(startTime));

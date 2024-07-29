@@ -43,6 +43,15 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         Task<WebCallResult<IEnumerable<HTXSymbolConfig>>> GetSymbolConfigAsync(IEnumerable<string>? symbols = null, CancellationToken ct = default);
 
         /// <summary>
+        /// Get assets and network information
+        /// <para><a href="https://www.htx.com/en-in/opend/newApiPages/?id=7ec516fc-7773-11ed-9966-0242ac110003" /></para>
+        /// </summary>
+        /// <param name="asset">The asset</param>
+        /// <param name="ct">Cancellation token</param>
+        Task<WebCallResult<IEnumerable<HTXAssetNetworks>>> GetAssetsAndNetworksAsync(string asset, CancellationToken ct = default);
+
+
+        /// <summary>
         /// Gets the latest ticker for all symbols
         /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-latest-tickers-for-all-pairs" /></para>
         /// </summary>
@@ -110,30 +119,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         Task<WebCallResult<HTXSymbolDetails>> GetSymbolDetails24HAsync(string symbol, CancellationToken ct = default);
 
         /// <summary>
-        /// Gets real time NAV for ETP
-        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-real-time-nav" /></para>
-        /// </summary>
-        /// <param name="symbol">The symbol to get the data for</param>
-        /// <param name="ct">Cancellation token</param>
-        /// <returns></returns>
-        Task<WebCallResult<HTXNav>> GetNavAsync(string symbol, CancellationToken ct = default);
-
-        /// <summary>
         /// Gets the current market status
         /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-market-status" /></para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<HTXSymbolStatus>> GetSymbolStatusAsync(CancellationToken ct = default);
-
-        /// <summary>
-        /// Gets a list of supported currencies and chains
-        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#apiv2-currency-amp-chains" /></para>
-        /// </summary>
-        /// <param name="asset">Filter by asset</param>
-        /// <param name="ct">Cancellation token</param>
-        /// <returns></returns>
-        Task<WebCallResult<IEnumerable<HTXAssetInfo>>> GetAssetDetailsAsync(string? asset = null, CancellationToken ct = default);
 
         /// <summary>
         /// Gets the server time
