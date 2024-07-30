@@ -11,7 +11,7 @@ namespace HTX.Net.Objects.Models
 		/// Transfer id
 		/// </summary>
         [JsonPropertyName("id")]
-		public int Id { get; set; }
+		public long Id { get; set; }
         /// <summary>
         /// Define transfer type to search, possible values: [deposit, withdraw]
         /// </summary>

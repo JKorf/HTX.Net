@@ -6,7 +6,7 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
     /// <summary>
     /// Market data
     /// </summary>
-    public record HTXMarketData: HTXSymbolData
+    public record HTXTicker: HTXSymbolData
     {
         /// <summary>
         /// Best ask

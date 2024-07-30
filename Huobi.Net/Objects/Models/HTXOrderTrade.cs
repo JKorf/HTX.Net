@@ -80,7 +80,7 @@ namespace HTX.Net.Objects.Models
         public OrderType Type => EnumConverter.ParseString<OrderType>(RawType);
 
         /// <summary>
-        /// The type of the order
+        /// The side of the order
         /// </summary>
         [JsonIgnore]
         public OrderSide Side => EnumConverter.ParseString<OrderSide>(RawType);

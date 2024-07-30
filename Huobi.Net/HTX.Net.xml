@@ -98,6 +98,12 @@
         <member name="P:HTX.Net.Clients.SpotApi.HTXRestClientSpotApi.ExchangeData">
             <inheritdoc />
         </member>
+        <member name="P:HTX.Net.Clients.SpotApi.HTXRestClientSpotApi.Margin">
+            <inheritdoc />
+        </member>
+        <member name="P:HTX.Net.Clients.SpotApi.HTXRestClientSpotApi.SubAccount">
+            <inheritdoc />
+        </member>
         <member name="P:HTX.Net.Clients.SpotApi.HTXRestClientSpotApi.Trading">
             <inheritdoc />
         </member>
@@ -137,25 +143,19 @@
         <member name="T:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiAccount">
             <inheritdoc />
         </member>
-        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiAccount.GetUserIdAsync(System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiAccount.GetSubAccountUsersAsync(System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiAccount.GetSubUserAccountsAsync(System.Int64,System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
         <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiAccount.GetAccountsAsync(System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiAccount.GetBalancesAsync(System.Int64,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
+        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiAccount.GetPlatformValuationAsync(System.Nullable{HTX.Net.Enums.AccountType},System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
         <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiAccount.GetAssetValuationAsync(HTX.Net.Enums.AccountType,System.String,System.Nullable{System.Int64},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiAccount.TransferAssetAsync(System.Int64,HTX.Net.Enums.AccountType,System.Int64,System.Int64,HTX.Net.Enums.AccountType,System.Int64,System.String,System.Decimal,System.Threading.CancellationToken)">
+        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiAccount.InternalTransferAsync(System.Int64,HTX.Net.Enums.AccountType,System.Int64,System.Int64,HTX.Net.Enums.AccountType,System.Int64,System.String,System.Decimal,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiAccount.GetAccountHistoryAsync(System.Int64,System.String,System.Collections.Generic.IEnumerable{HTX.Net.Enums.TransactionType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{HTX.Net.Enums.SortingType},System.Nullable{System.Int32},System.Threading.CancellationToken)">
@@ -164,76 +164,61 @@
         <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiAccount.GetAccountLedgerAsync(System.Int64,System.String,System.Collections.Generic.IEnumerable{HTX.Net.Enums.TransactionType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{HTX.Net.Enums.SortingType},System.Nullable{System.Int32},System.Nullable{System.Int64},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiAccount.GetSubAccountBalancesAsync(System.Int64,System.Threading.CancellationToken)">
+        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiAccount.TransferAsync(HTX.Net.Enums.TransferAccount,HTX.Net.Enums.TransferAccount,System.String,System.Decimal,System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiAccount.TransferWithSubAccountAsync(System.Int64,System.String,System.Decimal,HTX.Net.Enums.TransferType,System.Threading.CancellationToken)">
+        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiAccount.GetPointBalanceAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiAccount.TransferPointsAsync(System.String,System.String,System.String,System.Decimal,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiAccount.GetUserDeductionInfoAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiAccount.GetDeductAssetsAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiAccount.SetDeductionSwitchAsync(HTX.Net.Enums.DeductionSwitchType,System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiAccount.GetDepositAddressesAsync(System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiAccount.WithdrawAsync(System.String,System.String,System.Decimal,System.Decimal,System.String,System.String,System.Threading.CancellationToken)">
+        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiAccount.GetWithdrawalQuotasAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiAccount.GetWithdrawalAddressesAsync(System.String,System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.Int64},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiAccount.WithdrawAsync(System.String,System.String,System.Decimal,System.Decimal,System.String,System.String,System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiAccount.GetWithdrawalByClientOrderIdAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiAccount.CancelWithdrawalAsync(System.Int64,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiAccount.GetWithdrawDepositAsync(HTX.Net.Enums.WithdrawDepositType,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{HTX.Net.Enums.FilterDirection},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiAccount.RepayMarginLoanAsync(System.String,System.String,System.Decimal,System.String,System.Threading.CancellationToken)">
+        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiAccount.GetFeeRatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiAccount.TransferSpotToIsolatedMarginAsync(System.String,System.String,System.Decimal,System.Threading.CancellationToken)">
+        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiAccount.GetApiKeyInfoAsync(System.Int64,System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiAccount.TransferIsolatedMarginToSpotAsync(System.String,System.String,System.Decimal,System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiAccount.GetIsolatedLoanInterestRateAndQuotaAsync(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiAccount.RequestIsolatedMarginLoanAsync(System.String,System.String,System.Decimal,System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiAccount.RepayIsolatedMarginLoanAsync(System.String,System.Decimal,System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiAccount.GetIsolatedMarginClosedOrdersAsync(System.String,System.Collections.Generic.IEnumerable{HTX.Net.Enums.MarginOrderStatus},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.String,System.Nullable{HTX.Net.Enums.FilterDirection},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiAccount.GetIsolatedMarginBalanceAsync(System.String,System.Nullable{System.Int32},System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiAccount.TransferSpotToCrossMarginAsync(System.String,System.Decimal,System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiAccount.TransferCrossMarginToSpotAsync(System.String,System.Decimal,System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiAccount.GetCrossLoanInterestRateAndQuotaAsync(System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiAccount.RequestCrossMarginLoanAsync(System.String,System.Decimal,System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiAccount.RepayCrossMarginLoanAsync(System.String,System.Decimal,System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiAccount.GetCrossMarginClosedOrdersAsync(System.String,System.Nullable{HTX.Net.Enums.MarginOrderStatus},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.String,System.Nullable{HTX.Net.Enums.FilterDirection},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiAccount.GetCrossMarginBalanceAsync(System.Nullable{System.Int32},System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiAccount.GetRepaymentHistoryAsync(System.Nullable{System.Int64},System.Nullable{System.Int64},System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.String,System.Nullable{System.Int32},System.Nullable{System.Int64},System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiAccount.GetCurrentFeeRatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
+        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiAccount.GetUserIdAsync(System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="T:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiExchangeData">
             <inheritdoc />
         </member>
         <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiExchangeData.GetSystemStatusAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiExchangeData.GetSymbolStatusAsync(System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiExchangeData.GetSymbolsAsync(System.Threading.CancellationToken)">
@@ -245,13 +230,19 @@
         <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiExchangeData.GetSymbolConfigAsync(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiExchangeData.GetTickersAsync(System.Threading.CancellationToken)">
+        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiExchangeData.GetAssetsAndNetworksAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiExchangeData.GetServerTimeAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiExchangeData.GetKlinesAsync(System.String,HTX.Net.Enums.KlineInterval,System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiExchangeData.GetTickerAsync(System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiExchangeData.GetKlinesAsync(System.String,HTX.Net.Enums.KlineInterval,System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiExchangeData.GetTickersAsync(System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiExchangeData.GetOrderBookAsync(System.String,System.Int32,System.Nullable{System.Int32},System.Threading.CancellationToken)">
@@ -266,16 +257,109 @@
         <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiExchangeData.GetSymbolDetails24HAsync(System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiExchangeData.GetNavAsync(System.String,System.Threading.CancellationToken)">
+        <member name="T:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiMargin">
             <inheritdoc />
         </member>
-        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiExchangeData.GetSymbolStatusAsync(System.Threading.CancellationToken)">
+        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiMargin.RepayLoanAsync(System.String,System.String,System.Decimal,System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiExchangeData.GetAssetDetailsAsync(System.String,System.Threading.CancellationToken)">
+        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiMargin.TransferSpotToIsolatedMarginAsync(System.String,System.String,System.Decimal,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiExchangeData.GetServerTimeAsync(System.Threading.CancellationToken)">
+        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiMargin.TransferIsolatedMarginToSpotAsync(System.String,System.String,System.Decimal,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiMargin.GetIsolatedLoanInterestRateAndQuotaAsync(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiMargin.RequestIsolatedMarginLoanAsync(System.String,System.String,System.Decimal,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiMargin.RepayIsolatedMarginLoanAsync(System.String,System.Decimal,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiMargin.GetIsolatedMarginClosedOrdersAsync(System.String,System.Collections.Generic.IEnumerable{HTX.Net.Enums.MarginOrderStatus},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.String,System.Nullable{HTX.Net.Enums.FilterDirection},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiMargin.GetIsolatedMarginBalanceAsync(System.String,System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiMargin.TransferSpotToCrossMarginAsync(System.String,System.Decimal,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiMargin.TransferCrossMarginToSpotAsync(System.String,System.Decimal,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiMargin.GetCrossLoanInterestRateAndQuotaAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiMargin.RequestCrossMarginLoanAsync(System.String,System.Decimal,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiMargin.RepayCrossMarginLoanAsync(System.String,System.Decimal,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiMargin.GetCrossMarginClosedOrdersAsync(System.String,System.Nullable{HTX.Net.Enums.MarginOrderStatus},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.String,System.Nullable{HTX.Net.Enums.FilterDirection},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiMargin.GetCrossMarginBalanceAsync(System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiMargin.GetCrossMarginLimitAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiMargin.GetRepaymentHistoryAsync(System.Nullable{System.Int64},System.Nullable{System.Int64},System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.String,System.Nullable{System.Int32},System.Nullable{System.Int64},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="T:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiSubAccount">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiSubAccount.SetDeductModeAsync(System.Collections.Generic.IEnumerable{System.String},HTX.Net.Enums.DeductMode,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiSubAccount.CreateSubAccountsAsync(System.Collections.Generic.IEnumerable{HTX.Net.Objects.Models.HTXSubAccountRequest},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiSubAccount.GetSubUserListAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiSubAccount.SetLockAsync(System.Int64,HTX.Net.Enums.LockAction,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiSubAccount.GetSubUserAsync(System.Int64,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiSubAccount.SetTradableMarketAsync(System.Collections.Generic.IEnumerable{System.String},HTX.Net.Enums.SubAccountMarketType,System.Boolean,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiSubAccount.SetAssetTransferPermissionsAsync(System.Collections.Generic.IEnumerable{System.String},System.Boolean,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiSubAccount.GetSubUserAccountsAsync(System.Int64,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiSubAccount.CreateApiKeyAsync(System.String,System.Int64,System.String,System.Collections.Generic.IEnumerable{System.String},System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiSubAccount.EditApiKeyAsync(System.Int64,System.String,System.String,System.Collections.Generic.IEnumerable{System.String},System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiSubAccount.DeleteApiKeyAsync(System.Int64,System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiSubAccount.TransferWithSubAccountAsync(System.Int64,System.String,System.Decimal,HTX.Net.Enums.TransferType,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiSubAccount.GetDepositAddressAsync(System.Int64,System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiSubAccount.GetDepositHistoryAsync(System.Int64,System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{HTX.Net.Enums.SortingType},System.Nullable{System.Int32},System.Nullable{System.Int64},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiSubAccount.GetAggregateBalancesAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiSubAccount.GetBalancesAsync(System.Int64,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="T:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiTrading">
@@ -284,7 +368,10 @@
         <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiTrading.PlaceOrderAsync(System.Int64,System.String,HTX.Net.Enums.OrderSide,HTX.Net.Enums.OrderType,System.Decimal,System.Nullable{System.Decimal},System.String,System.Nullable{HTX.Net.Enums.SourceType},System.Nullable{System.Decimal},System.Nullable{HTX.Net.Enums.Operator},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiTrading.GetOpenOrdersAsync(System.Nullable{System.Int64},System.String,System.Nullable{HTX.Net.Enums.OrderSide},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiTrading.PlaceMultipleOrderAsync(System.Collections.Generic.IEnumerable{HTX.Net.Objects.Models.HTXOrderRequest},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiTrading.PlaceMarginOrderAsync(System.Int64,System.String,HTX.Net.Enums.OrderSide,HTX.Net.Enums.OrderType,HTX.Net.Enums.MarginPurpose,HTX.Net.Enums.SourceType,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{HTX.Net.Enums.Operator},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiTrading.CancelOrderAsync(System.Int64,System.Threading.CancellationToken)">
@@ -293,10 +380,13 @@
         <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiTrading.CancelOrderByClientOrderIdAsync(System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiTrading.CancelOrdersAsync(System.Collections.Generic.IEnumerable{System.Int64},System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
+        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiTrading.GetOpenOrdersAsync(System.Nullable{System.Int64},System.String,System.Nullable{HTX.Net.Enums.OrderSide},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiTrading.CancelOrdersByCriteriaAsync(System.Nullable{System.Int64},System.Collections.Generic.IEnumerable{System.String},System.Nullable{HTX.Net.Enums.OrderSide},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiTrading.CancelOrdersAsync(System.Collections.Generic.IEnumerable{System.Int64},System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiTrading.GetOrderAsync(System.Int64,System.Threading.CancellationToken)">
@@ -311,10 +401,10 @@
         <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiTrading.GetClosedOrdersAsync(System.String,System.Collections.Generic.IEnumerable{HTX.Net.Enums.OrderStatus},System.Collections.Generic.IEnumerable{HTX.Net.Enums.OrderType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int64},System.Nullable{HTX.Net.Enums.FilterDirection},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiTrading.GetUserTradesAsync(System.Collections.Generic.IEnumerable{HTX.Net.Enums.OrderStatus},System.String,System.Collections.Generic.IEnumerable{HTX.Net.Enums.OrderType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int64},System.Nullable{HTX.Net.Enums.FilterDirection},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiTrading.GetHistoricalOrdersAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{HTX.Net.Enums.FilterDirection},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiTrading.GetHistoricalOrdersAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{HTX.Net.Enums.FilterDirection},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiTrading.GetUserTradesAsync(System.String,System.Collections.Generic.IEnumerable{HTX.Net.Enums.OrderType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int64},System.Nullable{HTX.Net.Enums.FilterDirection},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiTrading.PlaceConditionalOrderAsync(System.Int64,System.String,HTX.Net.Enums.OrderSide,HTX.Net.Enums.ConditionalOrderType,System.Decimal,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{HTX.Net.Enums.TimeInForce},System.String,System.Threading.CancellationToken)">
@@ -473,14 +563,6 @@
         <member name="M:HTX.Net.Clients.FuturesApi.HTXRestClientUsdtMarginSwapApi.CreateAuthenticationProvider(CryptoExchange.Net.Authentication.ApiCredentials)">
             <inheritdoc />
         </member>
-        <member name="M:HTX.Net.Clients.FuturesApi.HTXRestClientUsdtMarginSwapApi.GetUrl(System.String,System.String)">
-            <summary>
-            Construct url
-            </summary>
-            <param name="endpoint"></param>
-            <param name="version"></param>
-            <returns></returns>
-        </member>
         <member name="M:HTX.Net.Clients.FuturesApi.HTXRestClientUsdtMarginSwapApi.ParseErrorResponse(System.Int32,System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{System.String,System.Collections.Generic.IEnumerable{System.String}}},CryptoExchange.Net.Interfaces.IMessageAccessor)">
             <inheritdoc />
         </member>
@@ -565,43 +647,31 @@
         <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiExchangeData.GetServerTimeAsync(System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiExchangeData.GetContractInfoAsync(System.String,System.Nullable{HTX.Net.Enums.MarginMode},System.String,System.Nullable{HTX.Net.Enums.ContractType},System.Nullable{HTX.Net.Enums.BusinessType},System.Threading.CancellationToken)">
+        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiExchangeData.GetFundingRateAsync(System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiExchangeData.GetSwapIndexPriceAsync(System.String,System.Threading.CancellationToken)">
+        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiExchangeData.GetFundingRatesAsync(System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiExchangeData.GetSwapPriceLimitationAsync(System.String,System.String,System.Nullable{HTX.Net.Enums.ContractType},System.Nullable{HTX.Net.Enums.BusinessType},System.Threading.CancellationToken)">
+        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiExchangeData.GetHistoricalFundingRatesAsync(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiExchangeData.GetSwapOpenInterestAsync(System.String,System.String,System.Nullable{HTX.Net.Enums.ContractType},System.Nullable{HTX.Net.Enums.BusinessType},System.Threading.CancellationToken)">
+        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiExchangeData.GetLiquidationOrdersAsync(System.String,HTX.Net.Enums.LiquidationTradeType,System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{HTX.Net.Enums.FilterDirection},System.Nullable{System.Int64},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiExchangeData.GetOrderBookAsync(System.String,System.String,System.Threading.CancellationToken)">
+        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiExchangeData.GetHistoricalSettlementRecordsAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiExchangeData.GetBestOfferAsync(System.String,System.Nullable{HTX.Net.Enums.BusinessType},System.Threading.CancellationToken)">
+        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiExchangeData.GetIsolatedStatusAsync(System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiExchangeData.GetKlinesAsync(System.String,HTX.Net.Enums.KlineInterval,System.Nullable{System.Int32},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Threading.CancellationToken)">
+        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiExchangeData.GetCrossTieredMarginInfoAsync(System.String,System.String,System.Nullable{HTX.Net.Enums.ContractType},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiExchangeData.GetMarketDataAsync(System.String,System.Threading.CancellationToken)">
+        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiExchangeData.GetIsolatedMarginTieredInfoAsync(System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiExchangeData.GetMarketDatasAsync(System.String,System.Nullable{HTX.Net.Enums.BusinessType},System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiExchangeData.GetLastTradesAsync(System.String,System.Nullable{HTX.Net.Enums.BusinessType},System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiExchangeData.GetRecentTradesAsync(System.String,System.Int32,System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiExchangeData.GetSwapRiskInfoAsync(System.String,System.Nullable{HTX.Net.Enums.BusinessType},System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiExchangeData.GetInsuranceFundHistoryAsync(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiExchangeData.GetEstimatedSettlementPriceAsync(System.String,System.String,System.Nullable{HTX.Net.Enums.ContractType},System.Nullable{HTX.Net.Enums.BusinessType},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiExchangeData.GetIsolatedMarginAdjustFactorInfoAsync(System.String,System.Threading.CancellationToken)">
@@ -610,37 +680,46 @@
         <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiExchangeData.GetCrossMarginAdjustFactorInfoAsync(System.String,System.String,System.Nullable{HTX.Net.Enums.ContractType},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
+        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiExchangeData.GetInsuranceFundHistoryAsync(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiExchangeData.GetSwapRiskInfoAsync(System.String,System.Nullable{HTX.Net.Enums.BusinessType},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiExchangeData.GetSwapPriceLimitationAsync(System.String,System.String,System.Nullable{HTX.Net.Enums.ContractType},System.Nullable{HTX.Net.Enums.BusinessType},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiExchangeData.GetSwapOpenInterestAsync(System.String,System.String,System.Nullable{HTX.Net.Enums.ContractType},System.Nullable{HTX.Net.Enums.BusinessType},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiExchangeData.GetContractInfoAsync(System.String,System.Nullable{HTX.Net.Enums.MarginMode},System.String,System.Nullable{HTX.Net.Enums.ContractType},System.Nullable{HTX.Net.Enums.BusinessType},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiExchangeData.GetSwapIndexPriceAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiExchangeData.GetOrderBookAsync(System.String,System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiExchangeData.GetBookTickerAsync(System.String,System.Nullable{HTX.Net.Enums.BusinessType},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiExchangeData.GetKlinesAsync(System.String,HTX.Net.Enums.KlineInterval,System.Nullable{System.Int32},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiExchangeData.GetTickerAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiExchangeData.GetTickersAsync(System.String,System.Nullable{HTX.Net.Enums.BusinessType},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiExchangeData.GetLastTradesAsync(System.String,System.Nullable{HTX.Net.Enums.BusinessType},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiExchangeData.GetRecentTradesAsync(System.String,System.Int32,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
         <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiExchangeData.GetOpenInterestAsync(HTX.Net.Enums.InterestPeriod,HTX.Net.Enums.Unit,System.String,System.String,System.Nullable{HTX.Net.Enums.ContractType},System.Nullable{System.Int32},System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiExchangeData.GetIsolatedMarginTieredInfoAsync(System.String,System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiExchangeData.GetCrossTieredMarginInfoAsync(System.String,System.String,System.Nullable{HTX.Net.Enums.ContractType},System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiExchangeData.GetIsolatedStatusAsync(System.String,System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiExchangeData.GetCrossMarginTransferStatusAsync(System.String,System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiExchangeData.GetCrossMarginTradeStatusAsync(System.String,System.String,System.Nullable{HTX.Net.Enums.ContractType},System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiExchangeData.GetLiquidationOrdersAsync(System.Int32,HTX.Net.Enums.LiquidationTradeType,System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiExchangeData.GetHistoricalSettlementRecordsAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiExchangeData.GetFundingRateAsync(System.String,System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiExchangeData.GetFundingRatesAsync(System.String,System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiExchangeData.GetHistoricalFundingRatesAsync(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiExchangeData.GetPremiumIndexKlinesAsync(System.String,HTX.Net.Enums.KlineInterval,System.Int32,System.Threading.CancellationToken)">
@@ -652,7 +731,10 @@
         <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiExchangeData.GetBasisDataAsync(System.String,HTX.Net.Enums.KlineInterval,System.Int32,System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiExchangeData.GetEstimatedSettlementPriceAsync(System.String,System.String,System.Nullable{HTX.Net.Enums.ContractType},System.Nullable{HTX.Net.Enums.BusinessType},System.Threading.CancellationToken)">
+        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiExchangeData.GetCrossMarginTradeStatusAsync(System.String,System.String,System.Nullable{HTX.Net.Enums.ContractType},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiExchangeData.GetCrossMarginTransferStatusAsync(System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="T:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiTrading">
@@ -667,10 +749,10 @@
         <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiTrading.CancelIsolatedMarginOrderAsync(System.String,System.Nullable{System.Int64},System.Nullable{System.Int64},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiTrading.CancelIsolatedMarginOrdersAsync(System.String,System.Collections.Generic.IEnumerable{System.Int64},System.Collections.Generic.IEnumerable{System.Int64},System.Threading.CancellationToken)">
+        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiTrading.CancelCrossMarginOrderAsync(System.Nullable{System.Int64},System.Nullable{System.Int64},System.String,System.String,System.Nullable{HTX.Net.Enums.ContractType},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiTrading.CancelCrossMarginOrderAsync(System.Nullable{System.Int64},System.Nullable{System.Int64},System.String,System.String,System.Nullable{HTX.Net.Enums.ContractType},System.Threading.CancellationToken)">
+        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiTrading.CancelIsolatedMarginOrdersAsync(System.String,System.Collections.Generic.IEnumerable{System.Int64},System.Collections.Generic.IEnumerable{System.Int64},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiTrading.CancelCrossMarginOrdersAsync(System.Collections.Generic.IEnumerable{System.Int64},System.Collections.Generic.IEnumerable{System.Int64},System.String,System.String,System.Nullable{HTX.Net.Enums.ContractType},System.Threading.CancellationToken)">
@@ -682,19 +764,19 @@
         <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiTrading.CancelAllCrossMarginOrdersAsync(System.String,System.String,System.Nullable{HTX.Net.Enums.ContractType},System.Nullable{HTX.Net.Enums.OrderSide},System.Nullable{HTX.Net.Enums.Offset},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiTrading.ChangeIsolatedMarginLeverageAsync(System.String,System.Int32,System.Threading.CancellationToken)">
+        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiTrading.SetIsolatedMarginLeverageAsync(System.String,System.Int32,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiTrading.ChangeCrossMarginLeverageAsync(System.Int32,System.String,System.String,System.Nullable{HTX.Net.Enums.ContractType},System.Threading.CancellationToken)">
+        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiTrading.SetCrossMarginLeverageAsync(System.Int32,System.String,System.String,System.Nullable{HTX.Net.Enums.ContractType},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiTrading.GetIsolatedMarginOrderAsync(System.String,System.Nullable{System.Int64},System.Nullable{System.Int64},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiTrading.GetIsolatedMarginOrdersAsync(System.String,System.Collections.Generic.IEnumerable{System.Int64},System.Collections.Generic.IEnumerable{System.Int64},System.Threading.CancellationToken)">
+        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiTrading.GetCrossMarginOrderAsync(System.String,System.String,System.Nullable{System.Int64},System.Nullable{System.Int64},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiTrading.GetCrossMarginOrderAsync(System.String,System.String,System.Nullable{System.Int64},System.Nullable{System.Int64},System.Threading.CancellationToken)">
+        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiTrading.GetIsolatedMarginOrdersAsync(System.String,System.Collections.Generic.IEnumerable{System.Int64},System.Collections.Generic.IEnumerable{System.Int64},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiTrading.GetCrossMarginOrdersAsync(System.Collections.Generic.IEnumerable{System.Int64},System.Collections.Generic.IEnumerable{System.Int64},System.String,System.String,System.Threading.CancellationToken)">
@@ -889,6 +971,36 @@
             Crypto loans
             </summary>
         </member>
+        <member name="T:HTX.Net.Enums.ApiKeyStatus">
+            <summary>
+            Api key status
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.ApiKeyStatus.Normal">
+            <summary>
+            Normal
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.ApiKeyStatus.Expired">
+            <summary>
+            Expired
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Enums.AssetStatus">
+            <summary>
+            Asset status
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.AssetStatus.Normal">
+            <summary>
+            Normal
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.AssetStatus.Delisted">
+            <summary>
+            Delisted
+            </summary>
+        </member>
         <member name="T:HTX.Net.Enums.AssetType">
             <summary>
             Asset type
@@ -924,9 +1036,29 @@
             Loan balance
             </summary>
         </member>
+        <member name="F:HTX.Net.Enums.BalanceType.Lock">
+            <summary>
+            Locked balance
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.BalanceType.Bank">
+            <summary>
+            Bank balance
+            </summary>
+        </member>
         <member name="F:HTX.Net.Enums.BalanceType.Interest">
             <summary>
             Interest balance
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.BalanceType.CreditRepay">
+            <summary>
+            Credit repay
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.BalanceType.TrustAsset">
+            <summary>
+            Trust asset
             </summary>
         </member>
         <member name="F:HTX.Net.Enums.BalanceType.TransferOutAvailable">
@@ -1117,6 +1249,41 @@
         <member name="F:HTX.Net.Enums.CurrencyStatus.Prohibited">
             <summary>
             Prohibited
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Enums.DeductionSwitchType">
+            <summary>
+            Deduction switch type
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.DeductionSwitchType.PointCardDeduction">
+            <summary>
+            Point card deduction
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.DeductionSwitchType.AssetDeduction">
+            <summary>
+            Asset deduction
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.DeductionSwitchType.CloseDeduction">
+            <summary>
+            Close deduction
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Enums.DeductMode">
+            <summary>
+            Sub account deduct mode
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.DeductMode.Master">
+            <summary>
+            Deduct from master
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.DeductMode.Sub">
+            <summary>
+            Deduct from sub
             </summary>
         </member>
         <member name="T:HTX.Net.Enums.FeeDeductStatus">
@@ -1484,6 +1651,21 @@
             Full liquidation
             </summary>
         </member>
+        <member name="T:HTX.Net.Enums.LockAction">
+            <summary>
+            Lock 
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.LockAction.Lock">
+            <summary>
+            Lock
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.LockAction.Normal">
+            <summary>
+            Normal
+            </summary>
+        </member>
         <member name="T:HTX.Net.Enums.MaintenanceStatus">
             <summary>
             Maintenance status
@@ -1584,6 +1766,21 @@
             Delivery
             </summary>
         </member>
+        <member name="T:HTX.Net.Enums.MarginPurpose">
+            <summary>
+            Margin order purpose
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.MarginPurpose.AutomaticLoan">
+            <summary>
+            Loan
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.MarginPurpose.AutomaticRepayment">
+            <summary>
+            Repayment
+            </summary>
+        </member>
         <member name="T:HTX.Net.Enums.MarginTradeType">
             <summary>
             Trade type
@@ -1657,6 +1854,21 @@
         <member name="F:HTX.Net.Enums.MasterSubTransferType.SubToMaster">
             <summary>
             Transfer from sub to master
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Enums.NetworkStatus">
+            <summary>
+            Network action status
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.NetworkStatus.Allowed">
+            <summary>
+            Allowed
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.NetworkStatus.Prohibited">
+            <summary>
+            Prohibited
             </summary>
         </member>
         <member name="T:HTX.Net.Enums.Offset">
@@ -1909,6 +2121,41 @@
             Grid limit order
             </summary>
         </member>
+        <member name="T:HTX.Net.Enums.PointAccountStatus">
+            <summary>
+            Point account status
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.PointAccountStatus.Working">
+            <summary>
+            Working
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.PointAccountStatus.Lock">
+            <summary>
+            Lock
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.PointAccountStatus.FlSys">
+            <summary>
+            Fl sys
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.PointAccountStatus.FlMgt">
+            <summary>
+            Fl mgt
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.PointAccountStatus.FlEnd">
+            <summary>
+            Fl end
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.PointAccountStatus.FlNegative">
+            <summary>
+            Fl negative
+            </summary>
+        </member>
         <member name="T:HTX.Net.Enums.PositionMode">
             <summary>
             Position mode
@@ -1977,6 +2224,21 @@
         <member name="F:HTX.Net.Enums.SourceType.C2CMargin">
             <summary>
             c2c margin api
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Enums.SubAccountMarketType">
+            <summary>
+            Market type
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.SubAccountMarketType.IsolatedMargin">
+            <summary>
+            Isolated margin
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.SubAccountMarketType.CrossMargin">
+            <summary>
+            Cross margin
             </summary>
         </member>
         <member name="T:HTX.Net.Enums.SwapMarginOrderStatus">
@@ -2199,6 +2461,36 @@
             Rebate
             </summary>
         </member>
+        <member name="T:HTX.Net.Enums.TransferAccount">
+            <summary>
+            Account type for transfer
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.TransferAccount.Spot">
+            <summary>
+            Spot
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.TransferAccount.LinearSwap">
+            <summary>
+            Linear swap
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.TransferAccount.Otc">
+            <summary>
+            OTC
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.TransferAccount.Futures">
+            <summary>
+            Futures
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.TransferAccount.Swap">
+            <summary>
+            Swap
+            </summary>
+        </member>
         <member name="T:HTX.Net.Enums.TransferType">
             <summary>
             Transfer type
@@ -2252,6 +2544,86 @@
         <member name="F:HTX.Net.Enums.UserStatus.Locked">
             <summary>
             Locked
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Enums.ValuationBalanceType">
+            <summary>
+            Balance type
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.ValuationBalanceType.Spot">
+            <summary>
+            Spot
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.ValuationBalanceType.IsolatedMargin">
+            <summary>
+            Isolated 
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.ValuationBalanceType.CrossMargin">
+            <summary>
+            Cross 
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.ValuationBalanceType.CoinFutures">
+            <summary>
+            Coin futures
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.ValuationBalanceType.Flat">
+            <summary>
+            Flat 
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.ValuationBalanceType.Minepool">
+            <summary>
+            Minepool 
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.ValuationBalanceType.CoinSwaps">
+            <summary>
+            Coin swaps
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.ValuationBalanceType.Investment">
+            <summary>
+            Investment
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.ValuationBalanceType.Borrow">
+            <summary>
+            Borrow 
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.ValuationBalanceType.Earn">
+            <summary>
+            Earn 
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.ValuationBalanceType.UsdtSwaps">
+            <summary>
+            Usdt swaps
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.ValuationBalanceType.Option">
+            <summary>
+            Option
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.ValuationBalanceType.OtcOptions">
+            <summary>
+            Otc-options
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.ValuationBalanceType.CryptoLoans">
+            <summary>
+            Crypto loans
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.ValuationBalanceType.GridTrading">
+            <summary>
+            Grid trading
             </summary>
         </member>
         <member name="T:HTX.Net.Enums.WithdrawDepositStatus">
@@ -2363,12 +2735,6 @@
             <summary>
             Extension methods specific to using the HTX API
             </summary>
-        </member>
-        <member name="M:HTX.Net.ExtensionMethods.HTXExtensionMethods.ValidateHTXSymbol(System.String)">
-            <summary>
-            Validate the string is a valid HTX symbol.
-            </summary>
-            <param name="symbolString">string to validate</param>
         </member>
         <member name="T:HTX.Net.HTXEnvironment">
             <summary>
@@ -2503,6 +2869,16 @@
             Endpoints related to retrieving market and system data
             </summary>
         </member>
+        <member name="P:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApi.Margin">
+            <summary>
+            Endpoints related to margin
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApi.SubAccount">
+            <summary>
+            Endpoints related to sub-accounts
+            </summary>
+        </member>
         <member name="P:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApi.Trading">
             <summary>
             Endpoints related to orders and trades
@@ -2527,23 +2903,6 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiAccount.GetSubAccountUsersAsync(System.Threading.CancellationToken)">
-            <summary>
-            Gets a list of users associated with the apikey/secret
-            <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-sub-user-39-s-list"/></para>
-            </summary>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
-        </member>
-        <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiAccount.GetSubUserAccountsAsync(System.Int64,System.Threading.CancellationToken)">
-            <summary>
-            Gets a list of sub-user accounts associated with the sub-user id
-            <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-sub-user-39-s-account-list"/></para>
-            </summary>
-            <param name="subUserId">The if of the user to get accounts for</param>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
-        </member>
         <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiAccount.GetAccountsAsync(System.Threading.CancellationToken)">
             <summary>
             Gets a list of accounts associated with the apikey/secret
@@ -2561,6 +2920,16 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
+        <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiAccount.GetPlatformValuationAsync(System.Nullable{HTX.Net.Enums.AccountType},System.String,System.Threading.CancellationToken)">
+            <summary>
+            Get platform asset valuation
+            <para><a href="https://www.htx.com/en-in/opend/newApiPages/?id=7ec5058c-7773-11ed-9966-0242ac110003" /></para>
+            </summary>
+            <param name="accountType">Filter by account type</param>
+            <param name="valuationAsset">Valuation asset, only BTC supported at the moment</param>
+            <param name="ct"></param>
+            <returns></returns>
+        </member>
         <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiAccount.GetAssetValuationAsync(HTX.Net.Enums.AccountType,System.String,System.Nullable{System.Int64},System.Threading.CancellationToken)">
             <summary>
             Gets the valuation of all assets
@@ -2569,22 +2938,6 @@
             <param name="accountType">Type of account to valuate</param>
             <param name="valuationCurrency">The currency to get the value in</param>
             <param name="subUserId">The id of the sub user</param>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
-        </member>
-        <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiAccount.TransferAssetAsync(System.Int64,HTX.Net.Enums.AccountType,System.Int64,System.Int64,HTX.Net.Enums.AccountType,System.Int64,System.String,System.Decimal,System.Threading.CancellationToken)">
-            <summary>
-            Transfer assets between accounts
-            <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#asset-transfer" /></para>
-            </summary>
-            <param name="fromUserId">From user id</param>
-            <param name="fromAccountType">From account type</param>
-            <param name="fromAccountId">From account id</param>
-            <param name="toUserId">To user id</param>
-            <param name="toAccountType">To account type</param>
-            <param name="toAccountId">To account id</param>
-            <param name="asset">Asset to transfer</param>
-            <param name="quantity">Amount to transfer</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -2599,7 +2952,7 @@
             <param name="startTime">Far point of time of the query window. The maximum size of the query window is 1 hour. The query window can be shifted within 30 days</param>
             <param name="endTime">Near point of time of the query window. The maximum size of the query window is 1 hour. The query window can be shifted within 30 days</param>
             <param name="sort">Sorting order (Ascending by default)</param>
-            <param name="size">Maximum number of items in each response (from 1 to 500, default is 100)</param>
+            <param name="limit">Maximum number of items in each response (from 1 to 500, default is 100)</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -2614,31 +2967,22 @@
             <param name="startTime">Far point of time of the query window. The maximum size of the query window is 10 days. The query window can be shifted within 30 days</param>
             <param name="endTime">Near point of time of the query window. The maximum size of the query window is 10 days. The query window can be shifted within 30 days</param>
             <param name="sort">Sorting order (Ascending by default)</param>
-            <param name="size">Maximum number of items in each response (from 1 to 500, default is 100)</param>
+            <param name="limit">Maximum number of items in each response (from 1 to 500, default is 100)</param>
             <param name="fromId">Only get orders with ID before or after this. Used together with the direction parameter</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiAccount.GetSubAccountBalancesAsync(System.Int64,System.Threading.CancellationToken)">
+        <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiAccount.TransferAsync(HTX.Net.Enums.TransferAccount,HTX.Net.Enums.TransferAccount,System.String,System.Decimal,System.String,System.Threading.CancellationToken)">
             <summary>
-            Gets a list of balances for a specific sub account
-            <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-account-balance-of-a-sub-user" /></para>
+            Transfer asset between accounts
+            <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=10000096-77b7-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="subAccountId">The id of the sub account to get the balances for</param>
+            <param name="fromAccount">Source account type</param>
+            <param name="toAccount">Target account type</param>
+            <param name="asset">The asset</param>
+            <param name="quantity">Quantity</param>
+            <param name="marginAccount">Margin account</param>
             <param name="ct">Cancellation token</param>
-            <returns></returns>
-        </member>
-        <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiAccount.TransferWithSubAccountAsync(System.Int64,System.String,System.Decimal,HTX.Net.Enums.TransferType,System.Threading.CancellationToken)">
-            <summary>
-            Transfer asset between parent and sub account
-            <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#transfer-asset-between-parent-and-sub-account" /></para>
-            </summary>
-            <param name="subAccountId">The target sub account id to transfer to or from</param>
-            <param name="asset">The asset to transfer</param>
-            <param name="quantity">The quantity of asset to transfer</param>
-            <param name="transferType">The type of transfer</param>
-            <param name="ct">Cancellation token</param>
-            <returns>Unique transfer id</returns>
         </member>
         <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiAccount.GetDepositAddressesAsync(System.String,System.Threading.CancellationToken)">
             <summary>
@@ -2649,7 +2993,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiAccount.WithdrawAsync(System.String,System.String,System.Decimal,System.Decimal,System.String,System.String,System.Threading.CancellationToken)">
+        <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiAccount.WithdrawAsync(System.String,System.String,System.Decimal,System.Decimal,System.String,System.String,System.String,System.Threading.CancellationToken)">
             <summary>
             Parent user creates a withdraw request from spot account to an external address (exists in your withdraw address list), which doesn't require two-factor-authentication.
             <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#create-a-withdraw-request" /></para>
@@ -2660,6 +3004,7 @@
             <param name="fee">The fee to pay with this withdraw</param>
             <param name="network">Set as "usdt" to withdraw USDT to OMNI, set as "trc20usdt" to withdraw USDT to TRX</param>
             <param name="addressTag">A tag specified for this address</param>
+            <param name="clientOrderId">Client order id</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -2676,191 +3021,115 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiAccount.RepayMarginLoanAsync(System.String,System.String,System.Decimal,System.String,System.Threading.CancellationToken)">
-            <summary>
-            Repay a margin loan
-            <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#repay-margin-loan-cross-isolated" /></para>
-            </summary>
-            <param name="accountId">Account id</param>
-            <param name="asset">Asset to repay</param>
-            <param name="quantity">Quantity to repay</param>
-            <param name="transactionId">Loan transaction ID</param>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
-        </member>
-        <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiAccount.TransferSpotToIsolatedMarginAsync(System.String,System.String,System.Decimal,System.Threading.CancellationToken)">
-            <summary>
-            Transfer asset from spot account to isolated margin account
-            <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#transfer-asset-from-spot-trading-account-to-isolated-margin-account-isolated" /></para>
-            </summary>
-            <param name="symbol">Trading symbol</param>
-            <param name="asset">Asset to transfer</param>
-            <param name="quantity">Quantity to transfer</param>
-            <param name="ct">Cancellation token</param>
-            <returns>Transfer id</returns>
-        </member>
-        <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiAccount.TransferIsolatedMarginToSpotAsync(System.String,System.String,System.Decimal,System.Threading.CancellationToken)">
-            <summary>
-            Transfer asset from isolated margin to spot account
-            <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#transfer-asset-from-isolated-margin-account-to-spot-trading-account-isolated" /></para>
-            </summary>
-            <param name="symbol">Trading symbol</param>
-            <param name="asset">Asset to transfer</param>
-            <param name="quantity">Quantity to transfer</param>
-            <param name="ct">Cancellation token</param>
-            <returns>Transfer id</returns>
-        </member>
-        <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiAccount.GetIsolatedLoanInterestRateAndQuotaAsync(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
-            <summary>
-            Get isolated loan interest rate and quotas
-            <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-loan-interest-rate-and-quota-isolated" /></para>
-            </summary>
-            <param name="symbols">Filter on symbols</param>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
-        </member>
-        <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiAccount.RequestIsolatedMarginLoanAsync(System.String,System.String,System.Decimal,System.Threading.CancellationToken)">
-            <summary>
-            Request a loan on isolated margin
-            <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#request-a-margin-loan-isolated" /></para>
-            </summary>
-            <param name="symbol">The symbol</param>
-            <param name="asset">The asset</param>
-            <param name="quantity">The quantity</param>
-            <param name="ct">Cancellation token</param>
-            <returns>Order id</returns>
-        </member>
-        <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiAccount.RepayIsolatedMarginLoanAsync(System.String,System.Decimal,System.Threading.CancellationToken)">
-            <summary>
-            Repay a isolated margin loan
-            <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#repay-margin-loan-isolated" /></para>
-            </summary>
-            <param name="orderId">Id to repay</param>
-            <param name="quantity">Quantity</param>
-            <param name="ct">Cancellation token</param>
-            <returns>Order id</returns>
-        </member>
-        <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiAccount.GetIsolatedMarginClosedOrdersAsync(System.String,System.Collections.Generic.IEnumerable{HTX.Net.Enums.MarginOrderStatus},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.String,System.Nullable{HTX.Net.Enums.FilterDirection},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
-            <summary>
-            Get isolated margin orders history
-            <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#search-past-margin-orders-isolated" /></para>
-            </summary>
-            <param name="symbol">The symbol to get history for</param>
-            <param name="states">Filter by states</param>
-            <param name="startDate">Filter by start date</param>
-            <param name="endDate">Filter by end date</param>
-            <param name="from">Start order id for use in combination with direction</param>
-            <param name="direction">Direction of results in combination with from parameter</param>
-            <param name="limit">Max amount of results</param>
-            <param name="subUserId">Sub user id</param>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
-        </member>
-        <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiAccount.GetIsolatedMarginBalanceAsync(System.String,System.Nullable{System.Int32},System.Threading.CancellationToken)">
-            <summary>
-            Get isolated margin account balance
-            <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-the-balance-of-the-margin-loan-account-isolated" /></para>
-            </summary>
-            <param name="symbol">The symbol</param>
-            <param name="subUserId">Sub user id</param>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
-        </member>
-        <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiAccount.TransferSpotToCrossMarginAsync(System.String,System.Decimal,System.Threading.CancellationToken)">
-            <summary>
-            Transfer from spot account to cross margin account
-            <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#transfer-asset-from-spot-trading-account-to-cross-margin-account-cross" /></para>
-            </summary>
-            <param name="asset">The asset to transfer</param>
-            <param name="quantity">Quantity to transfer</param>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
-        </member>
-        <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiAccount.TransferCrossMarginToSpotAsync(System.String,System.Decimal,System.Threading.CancellationToken)">
-            <summary>
-            Transfer from cross margin account to spot account
-            <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#transfer-asset-from-cross-margin-account-to-spot-trading-account-cross" /></para>
-            </summary>
-            <param name="asset">The asset to transfer</param>
-            <param name="quantity">Quantity to transfer</param>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
-        </member>
-        <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiAccount.GetCrossLoanInterestRateAndQuotaAsync(System.Threading.CancellationToken)">
-            <summary>
-            Get cross margin interest rates and quotas
-            <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-loan-interest-rate-and-quota-cross" /></para>
-            </summary>
-            <param name="ct"></param>
-            <returns></returns>
-        </member>
-        <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiAccount.RequestCrossMarginLoanAsync(System.String,System.Decimal,System.Threading.CancellationToken)">
-            <summary>
-            Request a loan on cross margin
-            <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#request-a-margin-loan-cross" /></para>
-            </summary>
-            <param name="asset">The asset</param>
-            <param name="quantity">The quantity</param>
-            <param name="ct">Cancellation token</param>
-            <returns>Order id</returns>
-        </member>
-        <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiAccount.RepayCrossMarginLoanAsync(System.String,System.Decimal,System.Threading.CancellationToken)">
-            <summary>
-            Repay a isolated margin loan
-            <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#repay-margin-loan-cross" /></para>
-            </summary>
-            <param name="orderId">Id to repay</param>
-            <param name="quantity">Quantity</param>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
-        </member>
-        <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiAccount.GetCrossMarginClosedOrdersAsync(System.String,System.Nullable{HTX.Net.Enums.MarginOrderStatus},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.String,System.Nullable{HTX.Net.Enums.FilterDirection},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
-            <summary>
-            Get cross margin order history
-            <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#search-past-margin-orders-cross" /></para>
-            </summary>
-            <param name="asset">Filter by asset</param>
-            <param name="status">Filter by status</param>
-            <param name="startDate">Filter by start date</param>
-            <param name="endDate">Filter by end date</param>
-            <param name="from">Start order id for use in combination with direction</param>
-            <param name="direction">Direction of results in combination with from parameter</param>
-            <param name="limit">Max amount of results</param>
-            <param name="subUserId">Sub user id</param>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
-        </member>
-        <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiAccount.GetCrossMarginBalanceAsync(System.Nullable{System.Int32},System.Threading.CancellationToken)">
-            <summary>
-            Get cross margin account balance
-            <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-the-balance-of-the-margin-loan-account-cross" /></para>
-            </summary>
-            <param name="subUserId">Sub user id</param>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
-        </member>
-        <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiAccount.GetRepaymentHistoryAsync(System.Nullable{System.Int64},System.Nullable{System.Int64},System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.String,System.Nullable{System.Int32},System.Nullable{System.Int64},System.Threading.CancellationToken)">
-            <summary>
-            Get repayment history
-            <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#repayment-record-reference" /></para>
-            </summary>
-            <param name="repayId">Filter by repay id</param>
-            <param name="accountId">Filter by account id</param>
-            <param name="asset">Filter by asset</param>
-            <param name="startTime">Only show records after this</param>
-            <param name="endTime">Only show records before this</param>
-            <param name="sort">Sort direction</param>
-            <param name="limit">Result limit</param>
-            <param name="fromId">Search id</param>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
-        </member>
-        <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiAccount.GetCurrentFeeRatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
+        <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiAccount.GetFeeRatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
             <summary>
             Get Current Fee Rate Applied to The User
             <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-current-fee-rate-applied-to-the-user" /></para>
             </summary>
             <param name="symbols">Filter on symbols</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiAccount.GetPointBalanceAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Get point balance
+            <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec514e2-7773-11ed-9966-0242ac110003" /></para>
+            </summary>
+            <param name="subUserId">Sub user id to request for</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiAccount.TransferPointsAsync(System.String,System.String,System.String,System.Decimal,System.Threading.CancellationToken)">
+            <summary>
+            Transfer points to another user
+            <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec515bf-7773-11ed-9966-0242ac110003" /></para>
+            </summary>
+            <param name="fromUserId">From user id</param>
+            <param name="toUserId">To user id</param>
+            <param name="groupId">Group id</param>
+            <param name="quantity">Quantity</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiAccount.GetUserDeductionInfoAsync(System.Threading.CancellationToken)">
+            <summary>
+            Get user deduction info
+            <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb89359-77b5-11ed-9966-18f7c48b051" /></para>
+            </summary>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiAccount.GetDeductAssetsAsync(System.Threading.CancellationToken)">
+            <summary>
+            Get deduction assets
+            <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb89359-77b5-11ed-9966-18f7c4cea32" /></para>
+            </summary>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiAccount.SetDeductionSwitchAsync(HTX.Net.Enums.DeductionSwitchType,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Set deduction switch
+            <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb89359-77b5-11ed-9966-18f7c4ff921" /></para>
+            </summary>
+            <param name="switchType">Deduction switch type</param>
+            <param name="deductionAsset">Asset</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiAccount.GetWithdrawalQuotasAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Get withdrawal quota
+            <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec50799-7773-11ed-9966-0242ac110003" /></para>
+            </summary>
+            <param name="asset">Filter by asse</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiAccount.GetWithdrawalAddressesAsync(System.String,System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.Int64},System.Threading.CancellationToken)">
+            <summary>
+            Get withdrawal addresses
+            <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec50654-7773-11ed-9966-0242ac110003" /></para>
+            </summary>
+            <param name="asset">The asset</param>
+            <param name="network">Filter by network</param>
+            <param name="note">Filter by note</param>
+            <param name="limit">Max number of results</param>
+            <param name="fromId">Return results after this id</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiAccount.GetWithdrawalByClientOrderIdAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Get a withdrawal by client order id
+            <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4f198-7773-11ed-9966-0242ac110003" /></para>
+            </summary>
+            <param name="clientOrderId">The client order id</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiAccount.CancelWithdrawalAsync(System.Int64,System.Threading.CancellationToken)">
+            <summary>
+            Cancel a pending withdrawal
+            <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4cda7-7773-11ed-9966-0242ac110003" /></para>
+            </summary>
+            <param name="id">The withdrawal id</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiAccount.GetApiKeyInfoAsync(System.Int64,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Get API key info
+            <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec52c92-7773-11ed-9966-0242ac110003" /></para>
+            </summary>
+            <param name="userId">User id</param>
+            <param name="apiKey">The API key</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiAccount.InternalTransferAsync(System.Int64,HTX.Net.Enums.AccountType,System.Int64,System.Int64,HTX.Net.Enums.AccountType,System.Int64,System.String,System.Decimal,System.Threading.CancellationToken)">
+            <summary>
+            Transfer assets between accounts
+            <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#asset-transfer" /></para>
+            </summary>
+            <param name="fromUserId">From user id</param>
+            <param name="fromAccountType">From account type</param>
+            <param name="fromAccountId">From account id</param>
+            <param name="toUserId">To user id</param>
+            <param name="toAccountType">To account type</param>
+            <param name="toAccountId">To account id</param>
+            <param name="asset">Asset to transfer</param>
+            <param name="quantity">Amount to transfer</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -2896,6 +3165,14 @@
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4f5d6-7773-11ed-9966-0242ac110003" /></para>
             </summary>
             <param name="symbols">Filter by symbols</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiExchangeData.GetAssetsAndNetworksAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Get assets and network information
+            <para><a href="https://www.htx.com/en-in/opend/newApiPages/?id=7ec516fc-7773-11ed-9966-0242ac110003" /></para>
+            </summary>
+            <param name="asset">The asset</param>
             <param name="ct">Cancellation token</param>
         </member>
         <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiExchangeData.GetTickersAsync(System.Threading.CancellationToken)">
@@ -2965,29 +3242,11 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiExchangeData.GetNavAsync(System.String,System.Threading.CancellationToken)">
-            <summary>
-            Gets real time NAV for ETP
-            <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-real-time-nav" /></para>
-            </summary>
-            <param name="symbol">The symbol to get the data for</param>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
-        </member>
         <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiExchangeData.GetSymbolStatusAsync(System.Threading.CancellationToken)">
             <summary>
             Gets the current market status
             <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-market-status" /></para>
             </summary>
-            <param name="ct">Cancellation token</param>
-            <returns></returns>
-        </member>
-        <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiExchangeData.GetAssetDetailsAsync(System.String,System.Threading.CancellationToken)">
-            <summary>
-            Gets a list of supported currencies and chains
-            <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#apiv2-currency-amp-chains" /></para>
-            </summary>
-            <param name="asset">Filter by asset</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -2998,6 +3257,358 @@
             </summary>
             <param name="ct">Cancellation token</param>
             <returns></returns>
+        </member>
+        <member name="T:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiMargin">
+            <summary>
+            HTX margin endpoints.
+            </summary>
+        </member>
+        <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiMargin.RepayLoanAsync(System.String,System.String,System.Decimal,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Repay a margin loan
+            <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#repay-margin-loan-cross-isolated" /></para>
+            </summary>
+            <param name="accountId">Account id</param>
+            <param name="asset">Asset to repay</param>
+            <param name="quantity">Quantity to repay</param>
+            <param name="transactionId">Loan transaction ID</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiMargin.TransferSpotToIsolatedMarginAsync(System.String,System.String,System.Decimal,System.Threading.CancellationToken)">
+            <summary>
+            Transfer asset from spot account to isolated margin account
+            <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#transfer-asset-from-spot-trading-account-to-isolated-margin-account-isolated" /></para>
+            </summary>
+            <param name="symbol">Trading symbol</param>
+            <param name="asset">Asset to transfer</param>
+            <param name="quantity">Quantity to transfer</param>
+            <param name="ct">Cancellation token</param>
+            <returns>Transfer id</returns>
+        </member>
+        <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiMargin.TransferIsolatedMarginToSpotAsync(System.String,System.String,System.Decimal,System.Threading.CancellationToken)">
+            <summary>
+            Transfer asset from isolated margin to spot account
+            <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#transfer-asset-from-isolated-margin-account-to-spot-trading-account-isolated" /></para>
+            </summary>
+            <param name="symbol">Trading symbol</param>
+            <param name="asset">Asset to transfer</param>
+            <param name="quantity">Quantity to transfer</param>
+            <param name="ct">Cancellation token</param>
+            <returns>Transfer id</returns>
+        </member>
+        <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiMargin.GetIsolatedLoanInterestRateAndQuotaAsync(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
+            <summary>
+            Get isolated loan interest rate and quotas
+            <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-loan-interest-rate-and-quota-isolated" /></para>
+            </summary>
+            <param name="symbols">Filter on symbols</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiMargin.RequestIsolatedMarginLoanAsync(System.String,System.String,System.Decimal,System.Threading.CancellationToken)">
+            <summary>
+            Request a loan on isolated margin
+            <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#request-a-margin-loan-isolated" /></para>
+            </summary>
+            <param name="symbol">The symbol</param>
+            <param name="asset">The asset</param>
+            <param name="quantity">The quantity</param>
+            <param name="ct">Cancellation token</param>
+            <returns>Order id</returns>
+        </member>
+        <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiMargin.RepayIsolatedMarginLoanAsync(System.String,System.Decimal,System.Threading.CancellationToken)">
+            <summary>
+            Repay a isolated margin loan
+            <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#repay-margin-loan-isolated" /></para>
+            </summary>
+            <param name="orderId">Id to repay</param>
+            <param name="quantity">Quantity</param>
+            <param name="ct">Cancellation token</param>
+            <returns>Order id</returns>
+        </member>
+        <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiMargin.GetIsolatedMarginClosedOrdersAsync(System.String,System.Collections.Generic.IEnumerable{HTX.Net.Enums.MarginOrderStatus},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.String,System.Nullable{HTX.Net.Enums.FilterDirection},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            Get isolated margin orders history
+            <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#search-past-margin-orders-isolated" /></para>
+            </summary>
+            <param name="symbol">The symbol to get history for</param>
+            <param name="states">Filter by states</param>
+            <param name="startDate">Filter by start date</param>
+            <param name="endDate">Filter by end date</param>
+            <param name="from">Start order id for use in combination with direction</param>
+            <param name="direction">Direction of results in combination with from parameter</param>
+            <param name="limit">Max amount of results</param>
+            <param name="subUserId">Sub user id</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiMargin.GetIsolatedMarginBalanceAsync(System.String,System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            Get isolated margin account balance
+            <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-the-balance-of-the-margin-loan-account-isolated" /></para>
+            </summary>
+            <param name="symbol">The symbol</param>
+            <param name="subUserId">Sub user id</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiMargin.TransferSpotToCrossMarginAsync(System.String,System.Decimal,System.Threading.CancellationToken)">
+            <summary>
+            Transfer from spot account to cross margin account
+            <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#transfer-asset-from-spot-trading-account-to-cross-margin-account-cross" /></para>
+            </summary>
+            <param name="asset">The asset to transfer</param>
+            <param name="quantity">Quantity to transfer</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiMargin.TransferCrossMarginToSpotAsync(System.String,System.Decimal,System.Threading.CancellationToken)">
+            <summary>
+            Transfer from cross margin account to spot account
+            <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#transfer-asset-from-cross-margin-account-to-spot-trading-account-cross" /></para>
+            </summary>
+            <param name="asset">The asset to transfer</param>
+            <param name="quantity">Quantity to transfer</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiMargin.GetCrossLoanInterestRateAndQuotaAsync(System.Threading.CancellationToken)">
+            <summary>
+            Get cross margin interest rates and quotas
+            <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-loan-interest-rate-and-quota-cross" /></para>
+            </summary>
+            <param name="ct"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiMargin.RequestCrossMarginLoanAsync(System.String,System.Decimal,System.Threading.CancellationToken)">
+            <summary>
+            Request a loan on cross margin
+            <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#request-a-margin-loan-cross" /></para>
+            </summary>
+            <param name="asset">The asset</param>
+            <param name="quantity">The quantity</param>
+            <param name="ct">Cancellation token</param>
+            <returns>Order id</returns>
+        </member>
+        <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiMargin.RepayCrossMarginLoanAsync(System.String,System.Decimal,System.Threading.CancellationToken)">
+            <summary>
+            Repay a isolated margin loan
+            <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#repay-margin-loan-cross" /></para>
+            </summary>
+            <param name="orderId">Id to repay</param>
+            <param name="quantity">Quantity</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiMargin.GetCrossMarginClosedOrdersAsync(System.String,System.Nullable{HTX.Net.Enums.MarginOrderStatus},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.String,System.Nullable{HTX.Net.Enums.FilterDirection},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            Get cross margin order history
+            <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#search-past-margin-orders-cross" /></para>
+            </summary>
+            <param name="asset">Filter by asset</param>
+            <param name="status">Filter by status</param>
+            <param name="startDate">Filter by start date</param>
+            <param name="endDate">Filter by end date</param>
+            <param name="from">Start order id for use in combination with direction</param>
+            <param name="direction">Direction of results in combination with from parameter</param>
+            <param name="limit">Max amount of results</param>
+            <param name="subUserId">Sub user id</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiMargin.GetCrossMarginBalanceAsync(System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            Get cross margin account balance
+            <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-the-balance-of-the-margin-loan-account-cross" /></para>
+            </summary>
+            <param name="subUserId">Sub user id</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiMargin.GetCrossMarginLimitAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Get cross margin limits
+            <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec512ec-7773-11ed-9966-0242ac110003" /></para>
+            </summary>
+            <param name="asset">The asset</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiMargin.GetRepaymentHistoryAsync(System.Nullable{System.Int64},System.Nullable{System.Int64},System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.String,System.Nullable{System.Int32},System.Nullable{System.Int64},System.Threading.CancellationToken)">
+            <summary>
+            Get repayment history
+            <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#repayment-record-reference" /></para>
+            </summary>
+            <param name="repayId">Filter by repay id</param>
+            <param name="accountId">Filter by account id</param>
+            <param name="asset">Filter by asset</param>
+            <param name="startTime">Only show records after this</param>
+            <param name="endTime">Only show records before this</param>
+            <param name="sort">Sort direction</param>
+            <param name="limit">Result limit</param>
+            <param name="fromId">Search id</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="T:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiSubAccount">
+            <summary>
+            HTX sub-account endpoints.
+            </summary>
+        </member>
+        <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiSubAccount.SetDeductModeAsync(System.Collections.Generic.IEnumerable{System.String},HTX.Net.Enums.DeductMode,System.Threading.CancellationToken)">
+            <summary>
+            Set fee deduct mode for sub accounts
+            <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec52497-7773-11ed-9966-0242ac110003" /></para>
+            </summary>
+            <param name="subUserIds">Sub user ids</param>
+            <param name="deductMode">Deduct from account</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiSubAccount.CreateSubAccountsAsync(System.Collections.Generic.IEnumerable{HTX.Net.Objects.Models.HTXSubAccountRequest},System.Threading.CancellationToken)">
+            <summary>
+            Create new sub accounts
+            <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec52336-7773-11ed-9966-0242ac110003" /></para>
+            </summary>
+            <param name="accounts">Accounts to create</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiSubAccount.GetSubUserListAsync(System.Threading.CancellationToken)">
+            <summary>
+            Gets a list of users associated with the apikey/secret
+            <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-sub-user-39-s-list"/></para>
+            </summary>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiSubAccount.SetLockAsync(System.Int64,HTX.Net.Enums.LockAction,System.Threading.CancellationToken)">
+            <summary>
+            Set (un)lock status on a sub account
+            <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec52620-7773-11ed-9966-0242ac110003" /></para>
+            </summary>
+            <param name="subUserId">Sub user id</param>
+            <param name="lockAction">Lock action</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiSubAccount.GetSubUserAsync(System.Int64,System.Threading.CancellationToken)">
+            <summary>
+            Get sub user by id
+            <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec52b46-7773-11ed-9966-0242ac110003" /></para>
+            </summary>
+            <param name="subUserId">Sub user id</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiSubAccount.SetTradableMarketAsync(System.Collections.Generic.IEnumerable{System.String},HTX.Net.Enums.SubAccountMarketType,System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            Set tradable market for sub accounts
+            <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec52859-7773-11ed-9966-0242ac110003" /></para>
+            </summary>
+            <param name="subUserIds">Sub user ids</param>
+            <param name="accountType">Account type</param>
+            <param name="enabled">Enabled or not</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiSubAccount.SetAssetTransferPermissionsAsync(System.Collections.Generic.IEnumerable{System.String},System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            Set asset transfer permissions for sub accounts
+            <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec529c3-7773-11ed-9966-0242ac110003" /></para>
+            </summary>
+            <param name="subUserIds">Sub user ids</param>
+            <param name="enabled">Enabled</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiSubAccount.GetSubUserAccountsAsync(System.Int64,System.Threading.CancellationToken)">
+            <summary>
+            Gets a list of sub-user accounts associated with the sub-user id
+            <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-sub-user-39-s-account-list"/></para>
+            </summary>
+            <param name="subUserId">The if of the user to get accounts for</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiSubAccount.CreateApiKeyAsync(System.String,System.Int64,System.String,System.Collections.Generic.IEnumerable{System.String},System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
+            <summary>
+            Create a new API key
+            <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec52185-7773-11ed-9966-0242ac110003" /></para>
+            </summary>
+            <param name="otpToken">Two factor authentication code</param>
+            <param name="subUserId">Sub user id</param>
+            <param name="note">Note</param>
+            <param name="permissions">Permissions</param>
+            <param name="ipAddresses">Ip addresses</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiSubAccount.EditApiKeyAsync(System.Int64,System.String,System.String,System.Collections.Generic.IEnumerable{System.String},System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
+            <summary>
+            Edit an API key
+            <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec52249-7773-11ed-9966-0242ac110003" /></para>
+            </summary>
+            <param name="subUserId">Sub user id</param>
+            <param name="apiKey">Api key to edit</param>
+            <param name="note">Note</param>
+            <param name="permissions">Permissions</param>
+            <param name="ipAddresses">Ip addresses</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiSubAccount.DeleteApiKeyAsync(System.Int64,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Delete an API key
+            <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec5208e-7773-11ed-9966-0242ac110003" /></para>
+            </summary>
+            <param name="subUserId">Sub user id</param>
+            <param name="apiKey">Api key to remove</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiSubAccount.GetDepositAddressAsync(System.Int64,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Get deposit address for a sub account
+            <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec5255a-7773-11ed-9966-0242ac110003" /></para>
+            </summary>
+            <param name="subUserId">Sub user id</param>
+            <param name="asset">The asset</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiSubAccount.GetDepositHistoryAsync(System.Int64,System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{HTX.Net.Enums.SortingType},System.Nullable{System.Int32},System.Nullable{System.Int64},System.Threading.CancellationToken)">
+            <summary>
+            Get deposit history
+            <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec5278c-7773-11ed-9966-0242ac110003" /></para>
+            </summary>
+            <param name="subUserId">Sub user id</param>
+            <param name="asset">Filter by asset</param>
+            <param name="startTime">Filter by start time</param>
+            <param name="endTime">Filter by end time</param>
+            <param name="sort">Sort</param>
+            <param name="limit">Max number of results</param>
+            <param name="fromId">Return results after this id</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiSubAccount.GetAggregateBalancesAsync(System.Threading.CancellationToken)">
+            <summary>
+            Get aggregate balances of all sub accounts
+            <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4fd28-7773-11ed-9966-0242ac110003" /></para>
+            </summary>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiSubAccount.GetBalancesAsync(System.Int64,System.Threading.CancellationToken)">
+            <summary>
+            Gets a list of balances for a specific sub account
+            <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-account-balance-of-a-sub-user" /></para>
+            </summary>
+            <param name="subAccountId">The id of the sub account to get the balances for</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiSubAccount.TransferWithSubAccountAsync(System.Int64,System.String,System.Decimal,HTX.Net.Enums.TransferType,System.Threading.CancellationToken)">
+            <summary>
+            Transfer asset between parent and sub account
+            <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#transfer-asset-between-parent-and-sub-account" /></para>
+            </summary>
+            <param name="subAccountId">The target sub account id to transfer to or from</param>
+            <param name="asset">The asset to transfer</param>
+            <param name="quantity">The quantity of asset to transfer</param>
+            <param name="transferType">The type of transfer</param>
+            <param name="ct">Cancellation token</param>
+            <returns>Unique transfer id</returns>
         </member>
         <member name="T:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiTrading">
             <summary>
@@ -3016,6 +3627,35 @@
             <param name="quantity">The quantity of the order</param>
             <param name="price">The price of the order. Should be omitted for market orders</param>
             <param name="clientOrderId">The clientOrderId the order should get</param>
+            <param name="source">Source. defaults to SpotAPI</param>
+            <param name="stopPrice">Stop price</param>
+            <param name="stopOperator">Operator of the stop price</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiTrading.PlaceMultipleOrderAsync(System.Collections.Generic.IEnumerable{HTX.Net.Objects.Models.HTXOrderRequest},System.Threading.CancellationToken)">
+            <summary>
+            Place multiple orders in a single call
+            <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4d8cc-7773-11ed-9966-0242ac110003" /></para>
+            </summary>
+            <param name="orders">Orders to place</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiTrading.PlaceMarginOrderAsync(System.Int64,System.String,HTX.Net.Enums.OrderSide,HTX.Net.Enums.OrderType,HTX.Net.Enums.MarginPurpose,HTX.Net.Enums.SourceType,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{HTX.Net.Enums.Operator},System.Threading.CancellationToken)">
+            <summary>
+            Place a new margin order
+            <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=10000066-77b7-11ed-9966-0242ac110003" /></para>
+            </summary>
+            <param name="accountId">The account to place the order for</param>
+            <param name="symbol">The symbol to place the order for</param>
+            <param name="side">The side of the order</param>
+            <param name="type">The type of the order</param>
+            <param name="purpose">Transaction purpose</param>
+            <param name="quantity">The quantity of the order in base asset</param>
+            <param name="quoteQuantity">The quantity of the order in quote asset</param>
+            <param name="borrowQuantity">The quantity that needs to be borrowed</param>
+            <param name="price">The price of the order. Should be omitted for market orders</param>
             <param name="source">Source. defaults to SpotAPI</param>
             <param name="stopPrice">Stop price</param>
             <param name="stopOperator">Operator of the stop price</param>
@@ -3117,12 +3757,11 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiTrading.GetUserTradesAsync(System.Collections.Generic.IEnumerable{HTX.Net.Enums.OrderStatus},System.String,System.Collections.Generic.IEnumerable{HTX.Net.Enums.OrderType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int64},System.Nullable{HTX.Net.Enums.FilterDirection},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiTrading.GetUserTradesAsync(System.String,System.Collections.Generic.IEnumerable{HTX.Net.Enums.OrderType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int64},System.Nullable{HTX.Net.Enums.FilterDirection},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Gets a list of trades for a specific symbol
             <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#search-match-results" /></para>
             </summary>
-            <param name="states">Only return trades with specific states</param>
             <param name="symbol">The symbol to retrieve trades for</param>
             <param name="types">The type of orders to return</param>
             <param name="startTime">Only get orders after this date</param>
@@ -3658,7 +4297,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:HTX.Net.Interfaces.Clients.UsdtMarginSwapApi.IHTXRestClientUsdtMarginSwapApiExchangeData.GetBestOfferAsync(System.String,System.Nullable{HTX.Net.Enums.BusinessType},System.Threading.CancellationToken)">
+        <member name="M:HTX.Net.Interfaces.Clients.UsdtMarginSwapApi.IHTXRestClientUsdtMarginSwapApiExchangeData.GetBookTickerAsync(System.String,System.Nullable{HTX.Net.Enums.BusinessType},System.Threading.CancellationToken)">
             <summary>
             Get the best current offer
             <para><a href="https://huobiapi.github.io/docs/usdt_swap/v1/en/#general-get-market-bbo-data" /></para>
@@ -3849,21 +4488,22 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:HTX.Net.Interfaces.Clients.UsdtMarginSwapApi.IHTXRestClientUsdtMarginSwapApiExchangeData.GetLiquidationOrdersAsync(System.Int32,HTX.Net.Enums.LiquidationTradeType,System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:HTX.Net.Interfaces.Clients.UsdtMarginSwapApi.IHTXRestClientUsdtMarginSwapApiExchangeData.GetLiquidationOrdersAsync(System.String,HTX.Net.Enums.LiquidationTradeType,System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{HTX.Net.Enums.FilterDirection},System.Nullable{System.Int64},System.Threading.CancellationToken)">
             <summary>
             Get liquidation orders
             <para><a href="https://huobiapi.github.io/docs/usdt_swap/v1/en/#general-query-liquidation-orders" /></para>
             </summary>
-            <param name="createDate">Create date</param>
             <param name="tradeType">Trade type</param>
             <param name="contractCode">Contract code</param>
             <param name="symbol">Symbol</param>
-            <param name="page">Page</param>
-            <param name="pageSize">Page size</param>
+            <param name="startTime">Filter by start time</param>
+            <param name="endTime">Filter by end time</param>
+            <param name="direction">Result direction</param>
+            <param name="fromId">Return results after this id</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:HTX.Net.Interfaces.Clients.UsdtMarginSwapApi.IHTXRestClientUsdtMarginSwapApiExchangeData.GetMarketDataAsync(System.String,System.Threading.CancellationToken)">
+        <member name="M:HTX.Net.Interfaces.Clients.UsdtMarginSwapApi.IHTXRestClientUsdtMarginSwapApiExchangeData.GetTickerAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get market data
             <para><a href="https://huobiapi.github.io/docs/usdt_swap/v1/en/#general-get-market-data-overview" /></para>
@@ -3872,7 +4512,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:HTX.Net.Interfaces.Clients.UsdtMarginSwapApi.IHTXRestClientUsdtMarginSwapApiExchangeData.GetMarketDatasAsync(System.String,System.Nullable{HTX.Net.Enums.BusinessType},System.Threading.CancellationToken)">
+        <member name="M:HTX.Net.Interfaces.Clients.UsdtMarginSwapApi.IHTXRestClientUsdtMarginSwapApiExchangeData.GetTickersAsync(System.String,System.Nullable{HTX.Net.Enums.BusinessType},System.Threading.CancellationToken)">
             <summary>
             Get market datas
             <para><a href="https://huobiapi.github.io/docs/usdt_swap/v1/en/#general-get-a-batch-of-market-data-overview" /></para>
@@ -4055,7 +4695,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:HTX.Net.Interfaces.Clients.UsdtMarginSwapApi.IHTXRestClientUsdtMarginSwapApiTrading.ChangeCrossMarginLeverageAsync(System.Int32,System.String,System.String,System.Nullable{HTX.Net.Enums.ContractType},System.Threading.CancellationToken)">
+        <member name="M:HTX.Net.Interfaces.Clients.UsdtMarginSwapApi.IHTXRestClientUsdtMarginSwapApiTrading.SetCrossMarginLeverageAsync(System.Int32,System.String,System.String,System.Nullable{HTX.Net.Enums.ContractType},System.Threading.CancellationToken)">
             <summary>
             Change cross margin leverage
             <para><a href="https://huobiapi.github.io/docs/usdt_swap/v1/en/#cross-switch-leverage" /></para>
@@ -4067,7 +4707,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:HTX.Net.Interfaces.Clients.UsdtMarginSwapApi.IHTXRestClientUsdtMarginSwapApiTrading.ChangeIsolatedMarginLeverageAsync(System.String,System.Int32,System.Threading.CancellationToken)">
+        <member name="M:HTX.Net.Interfaces.Clients.UsdtMarginSwapApi.IHTXRestClientUsdtMarginSwapApiTrading.SetIsolatedMarginLeverageAsync(System.String,System.Int32,System.Threading.CancellationToken)">
             <summary>
             Change isolated margin leverage
             <para><a href="https://huobiapi.github.io/docs/usdt_swap/v1/en/#isolated-switch-leverage" /></para>
@@ -4583,6 +5223,51 @@
             Timestamp of the data
             </summary>
         </member>
+        <member name="T:HTX.Net.Objects.Models.HTXApiKeyInfo">
+            <summary>
+            API key info
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXApiKeyInfo.AccessKey">
+            <summary>
+            Access key
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXApiKeyInfo.Status">
+            <summary>
+            Status
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXApiKeyInfo.Note">
+            <summary>
+            Note
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXApiKeyInfo.Permissions">
+            <summary>
+            Permissions
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXApiKeyInfo.IpAddresses">
+            <summary>
+            Ip addresses
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXApiKeyInfo.ValidDays">
+            <summary>
+            Valid days
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXApiKeyInfo.CreateTime">
+            <summary>
+            Create time
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXApiKeyInfo.UpdateTime">
+            <summary>
+            Update time
+            </summary>
+        </member>
         <member name="T:HTX.Net.Objects.Models.HTXAsset">
             <summary>
             Asset information
@@ -4718,132 +5403,122 @@
             Withdrawal description
             </summary>
         </member>
-        <member name="T:HTX.Net.Objects.Models.HTXAssetInfo">
+        <member name="T:HTX.Net.Objects.Models.HTXAssetNetworks">
             <summary>
-            Info on an asset
+            Asset info
             </summary>
         </member>
-        <member name="P:HTX.Net.Objects.Models.HTXAssetInfo.Asset">
-            <summary>
-            Asset
-            </summary>
-        </member>
-        <member name="P:HTX.Net.Objects.Models.HTXAssetInfo.Status">
-            <summary>
-            Status of the asset
-            </summary>
-        </member>
-        <member name="P:HTX.Net.Objects.Models.HTXAssetInfo.Networks">
+        <member name="P:HTX.Net.Objects.Models.HTXAssetNetworks.Networks">
             <summary>
             Networks
             </summary>
         </member>
-        <member name="T:HTX.Net.Objects.Models.HTXNetwork">
+        <member name="P:HTX.Net.Objects.Models.HTXAssetNetworks.Asset">
             <summary>
-            Info on an asset network
+            Asset
             </summary>
         </member>
-        <member name="P:HTX.Net.Objects.Models.HTXNetwork.Network">
+        <member name="P:HTX.Net.Objects.Models.HTXAssetNetworks.Status">
             <summary>
-            Network name
+            Status
             </summary>
         </member>
-        <member name="P:HTX.Net.Objects.Models.HTXNetwork.DisplayName">
+        <member name="T:HTX.Net.Objects.Models.HTXAssetNetwork">
+            <summary>
+            Network info
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXAssetNetwork.Network">
+            <summary>
+            Network
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXAssetNetwork.DisplayName">
             <summary>
             Display name
             </summary>
         </member>
-        <member name="P:HTX.Net.Objects.Models.HTXNetwork.BaseNetwork">
+        <member name="P:HTX.Net.Objects.Models.HTXAssetNetwork.BaseNetwork">
             <summary>
             Base network
             </summary>
         </member>
-        <member name="P:HTX.Net.Objects.Models.HTXNetwork.BaseNetworkProtocol">
+        <member name="P:HTX.Net.Objects.Models.HTXAssetNetwork.BaseNetworkProtocol">
             <summary>
-            Protocol of the base network
+            Base network protocol
             </summary>
         </member>
-        <member name="P:HTX.Net.Objects.Models.HTXNetwork.IsDynamic">
+        <member name="P:HTX.Net.Objects.Models.HTXAssetNetwork.IsDynamic">
             <summary>
-            Is dynamic fee type or not (only applicable to withdrawFeeType = fixed)
+            Is dynamic
             </summary>
         </member>
-        <member name="P:HTX.Net.Objects.Models.HTXNetwork.DepositStatus">
+        <member name="P:HTX.Net.Objects.Models.HTXAssetNetwork.DepositStatus">
             <summary>
             Deposit status
             </summary>
         </member>
-        <member name="P:HTX.Net.Objects.Models.HTXNetwork.MaxTransactFeeWithdraw">
+        <member name="P:HTX.Net.Objects.Models.HTXAssetNetwork.MaxTransactFeeWithdraw">
             <summary>
-            Maximum withdraw fee in each request (only applicable to withdrawFeeType = circulated or ratio)	
+            Max transact fee withdraw
             </summary>
         </member>
-        <member name="P:HTX.Net.Objects.Models.HTXNetwork.MaxWithdrawQuantity">
+        <member name="P:HTX.Net.Objects.Models.HTXAssetNetwork.MaxWithdrawQuantity">
             <summary>
-            Max withdraw quantity per request
+            Max withdraw quantity
             </summary>
         </member>
-        <member name="P:HTX.Net.Objects.Models.HTXNetwork.MinDepositQuantity">
+        <member name="P:HTX.Net.Objects.Models.HTXAssetNetwork.MinDepositQuantity">
             <summary>
-            Min deposit quantity per request
+            Min deposit quantity
             </summary>
         </member>
-        <member name="P:HTX.Net.Objects.Models.HTXNetwork.MinWithdrawQuantity">
+        <member name="P:HTX.Net.Objects.Models.HTXAssetNetwork.MinTransactFeeWithdraw">
             <summary>
-            Min withdraw quantity per request
+            Min transact fee withdraw
             </summary>
         </member>
-        <member name="P:HTX.Net.Objects.Models.HTXNetwork.TransactFeeWithdraw">
+        <member name="P:HTX.Net.Objects.Models.HTXAssetNetwork.MinWithdrawQuantity">
             <summary>
-            Withdraw fee in each request (only applicable to withdrawFeeType = fixed)
+            Min withdraw quantity
             </summary>
         </member>
-        <member name="P:HTX.Net.Objects.Models.HTXNetwork.TransactFeeRateWithdraw">
+        <member name="P:HTX.Net.Objects.Models.HTXAssetNetwork.NumOfConfirmations">
             <summary>
-            Withdraw fee in each request (only applicable to withdrawFeeType = ratio)
+            Num of confirmations
             </summary>
         </member>
-        <member name="P:HTX.Net.Objects.Models.HTXNetwork.MinTransactFeeWithdraw">
+        <member name="P:HTX.Net.Objects.Models.HTXAssetNetwork.NumOfFastConfirmations">
             <summary>
-            Minimal withdraw fee in each request (only applicable to withdrawFeeType = circulated or ratio)
+            Num of fast confirmations
             </summary>
         </member>
-        <member name="P:HTX.Net.Objects.Models.HTXNetwork.NumberOfConfirmations">
+        <member name="P:HTX.Net.Objects.Models.HTXAssetNetwork.WithdrawFeeType">
             <summary>
-            Number of confirmations required for deposit
+            Withdraw fee type
             </summary>
         </member>
-        <member name="P:HTX.Net.Objects.Models.HTXNetwork.NumberOfFastConfirmations">
+        <member name="P:HTX.Net.Objects.Models.HTXAssetNetwork.WithdrawPrecision">
             <summary>
-            Number of confirmations required for quick success (trading allowed but withdrawal disallowed)
+            Withdraw precision
             </summary>
         </member>
-        <member name="P:HTX.Net.Objects.Models.HTXNetwork.WithdrawFeeType">
-            <summary>
-            Type of withdraw fee
-            </summary>
-        </member>
-        <member name="P:HTX.Net.Objects.Models.HTXNetwork.WithdrawPrecision">
-            <summary>
-            Precision of withdrawing
-            </summary>
-        </member>
-        <member name="P:HTX.Net.Objects.Models.HTXNetwork.WithdrawQuotaPerDay">
+        <member name="P:HTX.Net.Objects.Models.HTXAssetNetwork.WithdrawQuotaPerDay">
             <summary>
             Withdraw quota per day
             </summary>
         </member>
-        <member name="P:HTX.Net.Objects.Models.HTXNetwork.WithdrawQuotaPerYear">
+        <member name="P:HTX.Net.Objects.Models.HTXAssetNetwork.WithdrawQuotaPerYear">
             <summary>
             Withdraw quota per year
             </summary>
         </member>
-        <member name="P:HTX.Net.Objects.Models.HTXNetwork.WithdrawQuotaTotal">
+        <member name="P:HTX.Net.Objects.Models.HTXAssetNetwork.WithdrawQuotaTotal">
             <summary>
-            Withdraw quota in total
+            Withdraw quota total
             </summary>
         </member>
-        <member name="P:HTX.Net.Objects.Models.HTXNetwork.WithdrawStatus">
+        <member name="P:HTX.Net.Objects.Models.HTXAssetNetwork.WithdrawStatus">
             <summary>
             Withdraw status
             </summary>
@@ -4936,6 +5611,36 @@
         <member name="P:HTX.Net.Objects.Models.HTXFailedCancelResult.ClientOrderId">
             <summary>
             The id of the failed order
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Objects.Models.HTXBatchPlaceResult">
+            <summary>
+            Batch placement result
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXBatchPlaceResult.OrderId">
+            <summary>
+            Order id
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXBatchPlaceResult.ClientOrderId">
+            <summary>
+            Client order id
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXBatchPlaceResult.Success">
+            <summary>
+            Whether the placement was successful
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXBatchPlaceResult.ErrorCode">
+            <summary>
+            The error code
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXBatchPlaceResult.ErrorMessage">
+            <summary>
+            The error message
             </summary>
         </member>
         <member name="T:HTX.Net.Objects.Models.HTXBestOffer">
@@ -5106,6 +5811,36 @@
         <member name="P:HTX.Net.Objects.Models.HTXConditionalOrderCancelResult.Rejected">
             <summary>
             Orders rejected for cancelation
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Objects.Models.HTXDeductInfo">
+            <summary>
+            Deduction info
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXDeductInfo.PointSwitch">
+            <summary>
+            Point switch
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXDeductInfo.HtxSwitch">
+            <summary>
+            Htx switch
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXDeductInfo.Asset">
+            <summary>
+            Asset
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Objects.Models.HTXDeductionAssets">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXDeductionAssets.Assets">
+            <summary>
+            Asset
             </summary>
         </member>
         <member name="T:HTX.Net.Objects.Models.HTXDepositAddress">
@@ -5463,6 +6198,21 @@
             Daily interest rate
             </summary>
         </member>
+        <member name="T:HTX.Net.Objects.Models.HTXMaxHolding">
+            <summary>
+            Max holdings
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXMaxHolding.Asset">
+            <summary>
+            Asset
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXMaxHolding.MaxHoldings">
+            <summary>
+            Max holdings
+            </summary>
+        </member>
         <member name="T:HTX.Net.Objects.Models.HTXNav">
             <summary>
             NAV info for ETP
@@ -5575,7 +6325,7 @@
         </member>
         <member name="P:HTX.Net.Objects.Models.HTXOpenOrder.Side">
             <summary>
-            The type of the order
+            The side of the order
             </summary>
         </member>
         <member name="P:HTX.Net.Objects.Models.HTXOpenOrder.Source">
@@ -5665,7 +6415,7 @@
         </member>
         <member name="P:HTX.Net.Objects.Models.HTXOrder.Side">
             <summary>
-            The type of the order
+            The side of the order
             </summary>
         </member>
         <member name="P:HTX.Net.Objects.Models.HTXOrder.Source">
@@ -5691,6 +6441,11 @@
         <member name="P:HTX.Net.Objects.Models.HTXOrder.Fee">
             <summary>
             The quantity of fees paid for the filled quantity
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXOrder.CancelSource">
+            <summary>
+            Source of cancelation
             </summary>
         </member>
         <member name="T:HTX.Net.Objects.Models.HTXOrderBook">
@@ -5741,6 +6496,71 @@
         <member name="P:HTX.Net.Objects.Models.HTXIncementalOrderBook.Asks">
             <summary>
             List of changed asks
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Objects.Models.HTXOrderId">
+            <summary>
+            Order id
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXOrderId.OrderId">
+            <summary>
+            Order id
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Objects.Models.HTXOrderRequest">
+            <summary>
+            Order request
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXOrderRequest.AccountId">
+            <summary>
+            Account id
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXOrderRequest.Symbol">
+            <summary>
+            Symbol
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXOrderRequest.Side">
+            <summary>
+            Order side
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXOrderRequest.Type">
+            <summary>
+            Order type
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXOrderRequest.Quantity">
+            <summary>
+            Order quantity. For Buy Market orders this is in quote asset.
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXOrderRequest.Price">
+            <summary>
+            Limit price
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXOrderRequest.Source">
+            <summary>
+            Order source
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXOrderRequest.ClientOrderId">
+            <summary>
+            Client order id
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXOrderRequest.StopPrice">
+            <summary>
+            Stop price
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXOrderRequest.StopOperator">
+            <summary>
+            Stop operator
             </summary>
         </member>
         <member name="T:HTX.Net.Objects.Models.HTXOrders">
@@ -5830,7 +6650,7 @@
         </member>
         <member name="P:HTX.Net.Objects.Models.HTXOrderTrade.Side">
             <summary>
-            The type of the order
+            The side of the order
             </summary>
         </member>
         <member name="P:HTX.Net.Objects.Models.HTXOrderTrade.Role">
@@ -5871,6 +6691,136 @@
         <member name="P:HTX.Net.Objects.Models.HTXPlacedOrder.Id">
             <summary>
             The id
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Objects.Models.HTXPlatformValuation">
+            <summary>
+            Platform wide valuation
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXPlatformValuation.Updated">
+            <summary>
+            Updated
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXPlatformValuation.TodayProfitRate">
+            <summary>
+            Today profit rate
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXPlatformValuation.TotalBalance">
+            <summary>
+            Total balance
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXPlatformValuation.TodayProfit">
+            <summary>
+            Todays profit
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXPlatformValuation.Balances">
+            <summary>
+            Account balance list
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Objects.Models.HTXPlatformValuationUpdate">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXPlatformValuationUpdate.Success">
+            <summary>
+            Success
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXPlatformValuationUpdate.UpdateTime">
+            <summary>
+            Last update time
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Objects.Models.HTXPlatformValuationBalance">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXPlatformValuationBalance.BalanceType">
+            <summary>
+            Balance type
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXPlatformValuationBalance.Balance">
+            <summary>
+            Balance
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXPlatformValuationBalance.Success">
+            <summary>
+            Success
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXPlatformValuationBalance.AccountBalance">
+            <summary>
+            Account balance
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Objects.Models.HTXPointBalance">
+            <summary>
+            Point balance
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXPointBalance.AccountId">
+            <summary>
+            Account id
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXPointBalance.GroupIds">
+            <summary>
+            Group ids
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXPointBalance.AccountBalance">
+            <summary>
+            Accountt balance
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXPointBalance.AccountStatus">
+            <summary>
+            Account status
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Objects.Models.HTXPointBalanceGroup">
+            <summary>
+            Group info
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXPointBalanceGroup.GroupId">
+            <summary>
+            Group id
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXPointBalanceGroup.ExpiryDate">
+            <summary>
+            Expiry date
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXPointBalanceGroup.RemainingQuantity">
+            <summary>
+            Remaining quantity
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Objects.Models.HTXPointTransfer">
+            <summary>
+            Transfer result
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXPointTransfer.TransactId">
+            <summary>
+            Transact id
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXPointTransfer.TransactTime">
+            <summary>
+            Transact time
             </summary>
         </member>
         <member name="T:HTX.Net.Objects.Models.HTXRepayment">
@@ -5951,6 +6901,246 @@
         <member name="P:HTX.Net.Objects.Models.HTXRepaymentResult.RepayTime">
             <summary>
             Repay time
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Objects.Models.HTXSubAccountInfo">
+            <summary>
+            Sub account info
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSubAccountInfo.UserName">
+            <summary>
+            User name
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSubAccountInfo.Note">
+            <summary>
+            Note
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSubAccountInfo.UserId">
+            <summary>
+            User id
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSubAccountInfo.ErrorCode">
+            <summary>
+            Error code
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSubAccountInfo.ErrorMessage">
+            <summary>
+            Error message
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Objects.Models.HTXSubAccountLock">
+            <summary>
+            Sub account lock
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSubAccountLock.SubUserId">
+            <summary>
+            Sub user id
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSubAccountLock.UserState">
+            <summary>
+            User lock state
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Objects.Models.HTXSubAccountRequest">
+            <summary>
+            Sub account request
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSubAccountRequest.UserName">
+            <summary>
+            User name
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSubAccountRequest.Note">
+            <summary>
+            Note
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Objects.Models.HTXSubApiKey">
+            <summary>
+            Sub account API key
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSubApiKey.AccessKey">
+            <summary>
+            Access key
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSubApiKey.SecretKey">
+            <summary>
+            Secret key
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSubApiKey.Note">
+            <summary>
+            Note
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSubApiKey.Permission">
+            <summary>
+            Permission, comma seperated
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSubApiKey.IpAddresses">
+            <summary>
+            Ip addresses, comma seperated
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Objects.Models.HTXSubApiKeyEdit">
+            <summary>
+            Edit result
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSubApiKeyEdit.Note">
+            <summary>
+            Note
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSubApiKeyEdit.Permission">
+            <summary>
+            Permission, comma seperated
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSubApiKeyEdit.IpAddresses">
+            <summary>
+            Ip addresses, comma seperated
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Objects.Models.HTXSubDeductMode">
+            <summary>
+            Sub account deduct mode
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSubDeductMode.SubUid">
+            <summary>
+            Sub uid
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSubDeductMode.DeductMode">
+            <summary>
+            Deduct mode
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSubDeductMode.ErrorCode">
+            <summary>
+            Error code
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSubDeductMode.ErrorMessage">
+            <summary>
+            Error message
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Objects.Models.HTXSubDeposit">
+            <summary>
+            Sub account deposit
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSubDeposit.Id">
+            <summary>
+            Id
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSubDeposit.Asset">
+            <summary>
+            Asset
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSubDeposit.Network">
+            <summary>
+            Network
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSubDeposit.Quantity">
+            <summary>
+            Quantity
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSubDeposit.Address">
+            <summary>
+            Address
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSubDeposit.DepositStatus">
+            <summary>
+            Status
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSubDeposit.TransactionHash">
+            <summary>
+            Transaction hash
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSubDeposit.AddressTag">
+            <summary>
+            Address tag
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSubDeposit.CreateTime">
+            <summary>
+            Create time
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSubDeposit.UpdateTime">
+            <summary>
+            Update time
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Objects.Models.HTXSubMarketTradable">
+            <summary>
+            Sub account tradable market status
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSubMarketTradable.SubUserId">
+            <summary>
+            Sub user id
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSubMarketTradable.AccountType">
+            <summary>
+            Account type
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSubMarketTradable.Activation">
+            <summary>
+            Activation
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Objects.Models.HTXSubTransferPermission">
+            <summary>
+            Transfer permission
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSubTransferPermission.AccountType">
+            <summary>
+            Account type
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSubTransferPermission.Transferrable">
+            <summary>
+            Transferrable
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSubTransferPermission.SubUserId">
+            <summary>
+            Sub user id
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSubTransferPermission.ErrorCode">
+            <summary>
+            Error code
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSubTransferPermission.ErrorMessage">
+            <summary>
+            Error message
             </summary>
         </member>
         <member name="T:HTX.Net.Objects.Models.HTXSubUserAccount">
@@ -6981,6 +8171,96 @@
         <member name="P:HTX.Net.Objects.Models.HTXUser.Status">
             <summary>
             The status of the user
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Objects.Models.HTXWithdrawalAddress">
+            <summary>
+            Withdrawal address info
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXWithdrawalAddress.Asset">
+            <summary>
+            Asset
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXWithdrawalAddress.Network">
+            <summary>
+            Network
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXWithdrawalAddress.Note">
+            <summary>
+            Note
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXWithdrawalAddress.AddressTag">
+            <summary>
+            Address tag
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXWithdrawalAddress.Address">
+            <summary>
+            Address
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Objects.Models.HTXWithdrawalQuota">
+            <summary>
+            Asset quota
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXWithdrawalQuota.Asset">
+            <summary>
+            Asset
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXWithdrawalQuota.Networks">
+            <summary>
+            Networks
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Objects.Models.HTXWithdrawalNetworkQuota">
+            <summary>
+            Network quota
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXWithdrawalNetworkQuota.Network">
+            <summary>
+            Network
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXWithdrawalNetworkQuota.MaxWithdrawAmt">
+            <summary>
+            Max withdraw amt
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXWithdrawalNetworkQuota.WithdrawQuotaPerDay">
+            <summary>
+            Withdraw quota per day
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXWithdrawalNetworkQuota.RemainWithdrawQuotaPerDay">
+            <summary>
+            Remain withdraw quota per day
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXWithdrawalNetworkQuota.WithdrawQuotaPerYear">
+            <summary>
+            Withdraw quota per year
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXWithdrawalNetworkQuota.RemainWithdrawQuotaPerYear">
+            <summary>
+            Remain withdraw quota per year
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXWithdrawalNetworkQuota.WithdrawQuotaTotal">
+            <summary>
+            Withdraw quota total
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXWithdrawalNetworkQuota.RemainWithdrawQuotaTotal">
+            <summary>
+            Remain withdraw quota total
             </summary>
         </member>
         <member name="T:HTX.Net.Objects.Models.HTXWithdrawDeposit">
@@ -9458,31 +10738,6 @@
             Contract type
             </summary>
         </member>
-        <member name="T:HTX.Net.Objects.Models.UsdtMarginSwap.HTXLiquidationOrderPage">
-            <summary>
-            Liquidation order page
-            </summary>
-        </member>
-        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXLiquidationOrderPage.TotalPages">
-            <summary>
-            Total pages
-            </summary>
-        </member>
-        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXLiquidationOrderPage.CurrentPage">
-            <summary>
-            Current page
-            </summary>
-        </member>
-        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXLiquidationOrderPage.TotalSize">
-            <summary>
-            Total results
-            </summary>
-        </member>
-        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXLiquidationOrderPage.Orders">
-            <summary>
-            Orders
-            </summary>
-        </member>
         <member name="T:HTX.Net.Objects.Models.UsdtMarginSwap.HTXLiquidationOrder">
             <summary>
             Liquidation order
@@ -9641,21 +10896,6 @@
         <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXMarginTrade.RealProfit">
             <summary>
             Real profit
-            </summary>
-        </member>
-        <member name="T:HTX.Net.Objects.Models.UsdtMarginSwap.HTXMarketData">
-            <summary>
-            Market data
-            </summary>
-        </member>
-        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXMarketData.Ask">
-            <summary>
-            Best ask
-            </summary>
-        </member>
-        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXMarketData.Bid">
-            <summary>
-            Best bid
             </summary>
         </member>
         <member name="T:HTX.Net.Objects.Models.UsdtMarginSwap.HTXMasterSubTransfer">
@@ -10218,37 +11458,37 @@
             Adjust factor
             </summary>
         </member>
-        <member name="T:HTX.Net.Objects.Models.UsdtMarginSwap.HTXSwapBestOffer">
+        <member name="T:HTX.Net.Objects.Models.UsdtMarginSwap.HTXSwapBookTicker">
             <summary>
             Best offer
             </summary>
         </member>
-        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXSwapBestOffer.BusinessType">
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXSwapBookTicker.BusinessType">
             <summary>
             Business type
             </summary>
         </member>
-        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXSwapBestOffer.ContractCode">
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXSwapBookTicker.ContractCode">
             <summary>
             Contract code
             </summary>
         </member>
-        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXSwapBestOffer.Ask">
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXSwapBookTicker.Ask">
             <summary>
             Best ask
             </summary>
         </member>
-        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXSwapBestOffer.Bid">
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXSwapBookTicker.Bid">
             <summary>
             Best bid
             </summary>
         </member>
-        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXSwapBestOffer.Id">
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXSwapBookTicker.Id">
             <summary>
             Order id
             </summary>
         </member>
-        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXSwapBestOffer.Timestamp">
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXSwapBookTicker.Timestamp">
             <summary>
             Timestamp
             </summary>
@@ -10301,6 +11541,21 @@
         <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXSwapRiskInfo.Symbol">
             <summary>
             Symbol
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTicker">
+            <summary>
+            Market data
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTicker.Ask">
+            <summary>
+            Best ask
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTicker.Bid">
+            <summary>
+            Best bid
             </summary>
         </member>
         <member name="T:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTieredMarginInfo">

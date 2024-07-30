@@ -55,32 +55,48 @@ namespace HTX.Net.Clients.FuturesApi
         protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
             => new HTXAuthenticationProvider(credentials, ClientOptions.SignPublicRequests);
 
-        /// <summary>
-        /// Construct url
-        /// </summary>
-        /// <param name="endpoint"></param>
-        /// <param name="version"></param>
-        /// <returns></returns>
-        internal Uri GetUrl(string endpoint, string? version = null)
+        internal async Task<WebCallResult<T>> SendToAddressRawAsync<T>(string baseAddress, RequestDefinition definition, ParameterCollection? parameters, CancellationToken cancellationToken, int? weight = null) where T : class
         {
-            if (version == null)
-                return new Uri(BaseAddress.AppendPath(endpoint));
-            return new Uri(BaseAddress.AppendPath($"v{version}", endpoint));
+            return await base.SendAsync<T>(baseAddress, definition, parameters, cancellationToken, null, weight).ConfigureAwait(false);
         }
 
-        internal async Task<WebCallResult<DateTime>> SendTimestampRequestAsync(Uri uri, HttpMethod method, CancellationToken cancellationToken, Dictionary<string, object>? parameters = null, bool signed = false)
+        internal Task<WebCallResult<T>> SendAsync<T>(RequestDefinition definition, ParameterCollection? parameters, CancellationToken cancellationToken, int? weight = null)
+            => SendToAddressAsync<T>(BaseAddress, definition, parameters, cancellationToken, weight);
+
+        internal async Task<WebCallResult<T>> SendToAddressAsync<T>(string baseAddress, RequestDefinition definition, ParameterCollection? parameters, CancellationToken cancellationToken, int? weight = null)
         {
-            var result = await SendRequestAsync<HTXBasicResponse<string>>(uri, method, cancellationToken, parameters, signed, requestWeight: 0).ConfigureAwait(false);
+            var result = await base.SendAsync<HTXApiResponseV2<T>>(baseAddress, definition, parameters, cancellationToken, null, weight).ConfigureAwait(false);
             if (!result || result.Data == null)
-                return result.AsError<DateTime>(result.Error!);
+                return result.AsError<T>(result.Error!);
 
-            return result.As(result.Data.Timestamp);
+            if (result.Data.Code != 200)
+                return result.AsError<T>(new ServerError(result.Data.Code, result.Data.Message));
+
+            return result.As(result.Data.Data);
         }
 
+        internal Task<WebCallResult> SendBasicAsync(RequestDefinition definition, ParameterCollection? parameters, CancellationToken cancellationToken, int? weight = null)
+            => SendBasicToAddressAsync(BaseAddress, definition, parameters, cancellationToken, weight);
 
-        internal async Task<WebCallResult<T>> SendHTXRequest<T>(Uri uri, HttpMethod method, CancellationToken cancellationToken, Dictionary<string, object>? parameters = null, bool signed = false)
+        internal async Task<WebCallResult> SendBasicToAddressAsync(string baseAddress, RequestDefinition definition, ParameterCollection? parameters, CancellationToken cancellationToken, int? weight = null)
         {
-            var result = await SendRequestAsync<HTXBasicResponse<T>>(uri, method, cancellationToken, parameters, signed, requestWeight: 0).ConfigureAwait(false);
+            var result = await base.SendAsync<HTXBasicResponse>(baseAddress, definition, parameters, cancellationToken, null, weight).ConfigureAwait(false);
+            if (!result || result.Data == null)
+                return result.AsDatalessError(result.Error!);
+
+            if (result.Data.ErrorCode != null)
+                return result.AsDatalessError(new ServerError(result.Data.ErrorCode, result.Data.ErrorMessage));
+
+            return result.AsDataless();
+
+        }
+
+        internal Task<WebCallResult<T>> SendBasicAsync<T>(RequestDefinition definition, ParameterCollection? parameters, CancellationToken cancellationToken, int? weight = null)
+            => SendBasicToAddressAsync<T>(BaseAddress, definition, parameters, cancellationToken, weight);
+
+        internal async Task<WebCallResult<T>> SendBasicToAddressAsync<T>(string baseAddress, RequestDefinition definition, ParameterCollection? parameters, CancellationToken cancellationToken, int? weight = null)
+        {
+            var result = await base.SendAsync<HTXBasicResponse<T>>(baseAddress, definition, parameters, cancellationToken, null, weight).ConfigureAwait(false);
             if (!result || result.Data == null)
                 return result.AsError<T>(result.Error!);
 
@@ -89,6 +105,7 @@ namespace HTX.Net.Clients.FuturesApi
 
             return result.As(result.Data.Data);
         }
+
 
         /// <inheritdoc />
         protected override Error ParseErrorResponse(int httpStatusCode, IEnumerable<KeyValuePair<string, IEnumerable<string>>> responseHeaders, IMessageAccessor accessor)

@@ -21,7 +21,7 @@ namespace HTX.Net.Objects.Models
         /// The order id as specified by the client
         /// </summary>
         [JsonPropertyName("client-order-id")]
-        public string ClientOrderId { get; set; } = string.Empty;
+        public string? ClientOrderId { get; set; }
 
         /// <summary>
         /// The symbol of the order
@@ -54,12 +54,12 @@ namespace HTX.Net.Objects.Models
         /// The time the order was canceled
         /// </summary>
         [JsonPropertyName("canceled-at"), JsonConverter(typeof(DateTimeConverter))]
-        public DateTime CancelTime { get; set; }
+        public DateTime? CancelTime { get; set; }
         /// <summary>
         /// The time the order was completed
         /// </summary>
         [JsonPropertyName("finished-at"), JsonConverter(typeof(DateTimeConverter))]
-        public DateTime CompleteTime { get; set; }
+        public DateTime? CompleteTime { get; set; }
 
         /// <summary>
         /// The raw type string
@@ -74,7 +74,7 @@ namespace HTX.Net.Objects.Models
         public OrderType Type => EnumConverter.ParseString<OrderType>(RawType);
 
         /// <summary>
-        /// The type of the order
+        /// The side of the order
         /// </summary>
         [JsonIgnore]
         public OrderSide Side => EnumConverter.ParseString<OrderSide>(RawType);

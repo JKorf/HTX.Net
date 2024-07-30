@@ -7,33 +7,6 @@ using System.Collections.Generic;
 namespace HTX.Net.Objects.Models.UsdtMarginSwap
 {
     /// <summary>
-    /// Liquidation order page
-    /// </summary>
-    public record HTXLiquidationOrderPage
-    {
-        /// <summary>
-        /// Total pages
-        /// </summary>
-        [JsonPropertyName("total_page")]
-        public int TotalPages { get; set; }
-        /// <summary>
-        /// Current page
-        /// </summary>
-        [JsonPropertyName("current_page")]
-        public int CurrentPage { get; set; }
-        /// <summary>
-        /// Total results
-        /// </summary>
-        [JsonPropertyName("total_size")]
-        public int TotalSize { get; set; }
-        /// <summary>
-        /// Orders
-        /// </summary>
-        [JsonPropertyName("orders")]
-        public IEnumerable<HTXLiquidationOrder> Orders { get; set; } = Array.Empty<HTXLiquidationOrder>();
-    }
-
-    /// <summary>
     /// Liquidation order
     /// </summary>
     public record HTXLiquidationOrder

@@ -20,8 +20,254 @@ namespace HTX.Net.Clients.UsdtMarginSwapApi
         /// <inheritdoc />
         public async Task<WebCallResult<DateTime>> GetServerTimeAsync(CancellationToken ct = default)
         {
-            return await _baseClient.SendTimestampRequestAsync(_baseClient.GetUrl("api/v1/timestamp"), HttpMethod.Get, ct).ConfigureAwait(false);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "api/v1/timestamp", HTXExchange.RateLimiter.EndpointLimit, 1, false);
+            return await _baseClient.SendBasicAsync<DateTime>(request, null, ct).ConfigureAwait(false);
         }
+
+        #region Get Funding Rate
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<HTXFundingRate>> GetFundingRateAsync(string contractCode, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection() {
+                { "contract_code", contractCode }
+            };
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/linear-swap-api/v1/swap_funding_rate", HTXExchange.RateLimiter.EndpointLimit, 1, false);
+            return await _baseClient.SendBasicAsync<HTXFundingRate>(request, parameters, ct).ConfigureAwait(false);
+        }
+
+        #endregion
+
+        #region Get Funding Rates
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<IEnumerable<HTXFundingRate>>> GetFundingRatesAsync(string? contractCode = null, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.AddOptionalParameter("contract_code", contractCode);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/linear-swap-api/v1/swap_batch_funding_rate", HTXExchange.RateLimiter.EndpointLimit, 1, false);
+            return await _baseClient.SendBasicAsync<IEnumerable<HTXFundingRate>>(request, parameters, ct).ConfigureAwait(false);
+        }
+
+        #endregion
+
+        #region Get Historical Funding Rates
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<HTXFundingRatePage>> GetHistoricalFundingRatesAsync(string contractCode, int? page = null, int? pageSize = null, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection()
+            {
+                { "contract_code", contractCode }
+            };
+            parameters.AddOptionalParameter("page_index", page);
+            parameters.AddOptionalParameter("page_size", pageSize);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/linear-swap-api/v1/swap_historical_funding_rate", HTXExchange.RateLimiter.EndpointLimit, 1, false);
+            return await _baseClient.SendBasicAsync<HTXFundingRatePage>(request, parameters, ct).ConfigureAwait(false);
+        }
+
+        #endregion
+
+        #region Get Liquidation Orders
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<IEnumerable<HTXLiquidationOrder>>> GetLiquidationOrdersAsync(
+            string contractCode,
+            LiquidationTradeType tradeType,
+            string? symbol = null,
+            DateTime? startTime = null,
+            DateTime? endTime = null,
+            FilterDirection? direction = null,
+            long? fromId = null,
+            CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection()
+            {
+                { "contract", contractCode },
+                { "trade_type", EnumConverter.GetString(tradeType) },
+            };
+            parameters.AddOptionalParameter("pair", symbol);
+            parameters.AddOptionalMilliseconds("start_time", startTime);
+            parameters.AddOptionalMilliseconds("end_time", endTime);
+            parameters.AddOptionalEnum("direct", direction);
+            parameters.AddOptional("from_id", fromId);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/linear-swap-api/v3/swap_liquidation_orders", HTXExchange.RateLimiter.EndpointLimit, 1, false);
+            return await _baseClient.SendAsync<IEnumerable<HTXLiquidationOrder>>(request, parameters, ct).ConfigureAwait(false);
+        }
+
+        #endregion
+
+        #region Get Historical Settlement Records
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<HTXSettlementPage>> GetHistoricalSettlementRecordsAsync(string contractCode, DateTime? startTime = null, DateTime? endTime = null, int? page = null, int? pageSize = null, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection()
+            {
+                { "contract_code", contractCode }
+            };
+            parameters.AddOptionalParameter("start_time", DateTimeConverter.ConvertToMilliseconds(startTime));
+            parameters.AddOptionalParameter("end_time", DateTimeConverter.ConvertToMilliseconds(endTime));
+            parameters.AddOptionalParameter("page_index", page);
+            parameters.AddOptionalParameter("page_size", pageSize);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/linear-swap-api/v1/swap_settlement_records", HTXExchange.RateLimiter.EndpointLimit, 1, false);
+            return await _baseClient.SendBasicAsync<HTXSettlementPage>(request, parameters, ct).ConfigureAwait(false);
+        }
+
+        #endregion
+
+        // /linear-swap-api/v1/swap_elite_account_ratio
+        // //linear-swap-api/v1/swap_elite_position_ratio
+
+        #region Get Isolated Status
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<IEnumerable<HTXContractStatus>>> GetIsolatedStatusAsync(string? contractCode = null, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.AddOptionalParameter("contract_code", contractCode);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/linear-swap-api/v1/swap_api_state", HTXExchange.RateLimiter.EndpointLimit, 1, false);
+            return await _baseClient.SendBasicAsync<IEnumerable<HTXContractStatus>>(request, parameters, ct).ConfigureAwait(false);
+        }
+
+        #endregion
+
+        #region Get Cross Tiered Margin Info
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<IEnumerable<HTXTieredCrossMarginInfo>>> GetCrossTieredMarginInfoAsync(string? contractCode = null, string? symbol = null, ContractType? contractType = null, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.AddOptionalParameter("contract_code", contractCode);
+            parameters.AddOptionalParameter("pair", symbol);
+            parameters.AddOptionalParameter("contract_type", EnumConverter.GetString(contractType));
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/linear-swap-api/v1/swap_cross_ladder_margin", HTXExchange.RateLimiter.EndpointLimit, 1, false);
+            return await _baseClient.SendBasicAsync<IEnumerable<HTXTieredCrossMarginInfo>>(request, parameters, ct).ConfigureAwait(false);
+        }
+
+        #endregion
+
+        #region Get Isolated Margin Tiered Info
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<IEnumerable<HTXTieredMarginInfo>>> GetIsolatedMarginTieredInfoAsync(string? contractCode = null, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.AddOptionalParameter("contract_code", contractCode);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/linear-swap-api/v1/swap_ladder_margin", HTXExchange.RateLimiter.EndpointLimit, 1, false);
+            return await _baseClient.SendBasicAsync<IEnumerable<HTXTieredMarginInfo>>(request, parameters, ct).ConfigureAwait(false);
+        }
+
+        #endregion
+
+        #region Get Estimated Setllement Price
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<IEnumerable<HTXEstimatedSettlementPrice>>> GetEstimatedSettlementPriceAsync(string? contractCode = null, string? symbol = null, ContractType? contractType = null, BusinessType? businessType = null, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.AddOptionalParameter("contract_code", contractCode);
+            parameters.AddOptionalParameter("pair", symbol);
+            parameters.AddOptionalParameter("contract_type", EnumConverter.GetString(contractType));
+            parameters.AddOptionalParameter("business_type", EnumConverter.GetString(businessType));
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/linear-swap-api/v1/swap_estimated_settlement_price", HTXExchange.RateLimiter.EndpointLimit, 1, false);
+            return await _baseClient.SendBasicAsync<IEnumerable<HTXEstimatedSettlementPrice>>(request, parameters, ct).ConfigureAwait(false);
+        }
+
+        #endregion
+
+        #region Get Isolated Margin Adjust Factor Info
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<IEnumerable<HTXSwapAdjustFactorInfo>>> GetIsolatedMarginAdjustFactorInfoAsync(string? contractCode = null, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.AddOptionalParameter("contract_code", contractCode);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/linear-swap-api/v1/swap_adjustfactor", HTXExchange.RateLimiter.EndpointLimit, 1, false);
+            return await _baseClient.SendBasicAsync<IEnumerable<HTXSwapAdjustFactorInfo>>(request, parameters, ct).ConfigureAwait(false);
+        }
+
+        #endregion
+
+        #region Get Cross Margin Adjust Factor Info
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<IEnumerable<HTXCrossSwapAdjustFactorInfo>>> GetCrossMarginAdjustFactorInfoAsync(string? contractCode = null, string? asset = null, ContractType? type = null, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.AddOptionalParameter("contract_code", contractCode);
+            parameters.AddOptionalParameter("pair", asset);
+            parameters.AddOptionalParameter("contract_type", EnumConverter.GetString(type));
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/linear-swap-api/v1/swap_cross_adjustfactor", HTXExchange.RateLimiter.EndpointLimit, 1, false);
+            return await _baseClient.SendBasicAsync<IEnumerable<HTXCrossSwapAdjustFactorInfo>>(request, parameters, ct).ConfigureAwait(false);
+        }
+
+        #endregion
+
+        #region Get Insurance Fund History
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<HTXInsuranceInfo>> GetInsuranceFundHistoryAsync(string contractCode, int? page = null, int? pageSize = null, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection()
+            {
+                { "contract_code", contractCode }
+            };
+            parameters.AddOptionalParameter("page_index", page);
+            parameters.AddOptionalParameter("page_size", pageSize);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "linear-swap-api/v1/swap_insurance_fund", HTXExchange.RateLimiter.EndpointLimit, 1, false);
+            return await _baseClient.SendBasicAsync<HTXInsuranceInfo>(request, parameters, ct).ConfigureAwait(false);
+        }
+
+        #endregion
+
+        #region Get Swap Risk Info
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<IEnumerable<HTXSwapRiskInfo>>> GetSwapRiskInfoAsync(string? contractCode = null, BusinessType? businessType = null, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.AddOptionalParameter("contract_code", contractCode);
+            parameters.AddOptionalParameter("business_type", EnumConverter.GetString(businessType));
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/linear-swap-api/v1/swap_risk_info", HTXExchange.RateLimiter.EndpointLimit, 1, false);
+            return await _baseClient.SendBasicAsync<IEnumerable<HTXSwapRiskInfo>>(request, parameters, ct).ConfigureAwait(false);
+        }
+
+        #endregion
+
+        #region Get Swap Price Limitation
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<IEnumerable<HTXPriceLimitation>>> GetSwapPriceLimitationAsync(string? contractCode = null, string? symbol = null, ContractType? contractType = null, BusinessType? businessType = null, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.AddOptionalParameter("contract_code", contractCode);
+            parameters.AddOptionalParameter("pair", symbol);
+            parameters.AddOptionalParameter("contract_type", EnumConverter.GetString(contractType));
+            parameters.AddOptionalParameter("business_type", EnumConverter.GetString(businessType));
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "linear-swap-api/v1/swap_price_limit", HTXExchange.RateLimiter.EndpointLimit, 1, false);
+            return await _baseClient.SendBasicAsync<IEnumerable<HTXPriceLimitation>>(request, parameters, ct).ConfigureAwait(false);
+        }
+
+        #endregion
+
+        #region Get Swap Open Interest
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<IEnumerable<HTXOpenInterest>>> GetSwapOpenInterestAsync(string? contractCode = null, string? symbol = null, ContractType? contractType = null, BusinessType? businessType = null, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.AddOptionalParameter("contract_code", contractCode);
+            parameters.AddOptionalParameter("pair", symbol);
+            parameters.AddOptionalParameter("contract_type", EnumConverter.GetString(contractType));
+            parameters.AddOptionalParameter("business_type", EnumConverter.GetString(businessType));
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "linear-swap-api/v1/swap_open_interest", HTXExchange.RateLimiter.EndpointLimit, 1, false);
+            return await _baseClient.SendBasicAsync<IEnumerable<HTXOpenInterest>>(request, parameters, ct).ConfigureAwait(false);
+        }
+
+        #endregion
+
+        #region Get Contract Info
 
         /// <inheritdoc />
         public async Task<WebCallResult<IEnumerable<HTXContractInfo>>> GetContractInfoAsync(string? contractCode = null, MarginMode? supportMarginMode = null, string? symbol = null, ContractType? contractType = null, BusinessType? businessType = null, CancellationToken ct = default)
@@ -33,38 +279,28 @@ namespace HTX.Net.Clients.UsdtMarginSwapApi
             parameters.AddOptionalParameter("contract_type", EnumConverter.GetString(contractType));
             parameters.AddOptionalParameter("business_type", EnumConverter.GetString(businessType));
 
-            return await _baseClient.SendHTXRequest<IEnumerable<HTXContractInfo>>(_baseClient.GetUrl("linear-swap-api/v1/swap_contract_info"), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "linear-swap-api/v1/swap_contract_info", HTXExchange.RateLimiter.EndpointLimit, 1, false);
+            return await _baseClient.SendBasicAsync<IEnumerable<HTXContractInfo>>(request, parameters, ct).ConfigureAwait(false);
         }
+
+        #endregion
+
+        #region Get Swap Index Price
 
         /// <inheritdoc />
         public async Task<WebCallResult<IEnumerable<HTXSwapIndex>>> GetSwapIndexPriceAsync(string? contractCode = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.AddOptionalParameter("contract_code", contractCode);
-            return await _baseClient.SendHTXRequest<IEnumerable<HTXSwapIndex>>(_baseClient.GetUrl("linear-swap-api/v1/swap_index"), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "linear-swap-api/v1/swap_index", HTXExchange.RateLimiter.EndpointLimit, 1, false);
+            return await _baseClient.SendBasicAsync<IEnumerable<HTXSwapIndex>>(request, parameters, ct).ConfigureAwait(false);
         }
 
-        /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<HTXPriceLimitation>>> GetSwapPriceLimitationAsync(string? contractCode = null, string? symbol = null, ContractType? contractType = null, BusinessType? businessType = null, CancellationToken ct = default)
-        {
-            var parameters = new ParameterCollection();
-            parameters.AddOptionalParameter("contract_code", contractCode);
-            parameters.AddOptionalParameter("pair", symbol);
-            parameters.AddOptionalParameter("contract_type", EnumConverter.GetString(contractType));
-            parameters.AddOptionalParameter("business_type", EnumConverter.GetString(businessType));
-            return await _baseClient.SendHTXRequest<IEnumerable<HTXPriceLimitation>>(_baseClient.GetUrl("linear-swap-api/v1/swap_price_limit"), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
-        }
+        #endregion
 
-        /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<HTXOpenInterest>>> GetSwapOpenInterestAsync(string? contractCode = null, string? symbol = null, ContractType? contractType = null, BusinessType? businessType = null, CancellationToken ct = default)
-        {
-            var parameters = new ParameterCollection();
-            parameters.AddOptionalParameter("contract_code", contractCode);
-            parameters.AddOptionalParameter("pair", symbol);
-            parameters.AddOptionalParameter("contract_type", EnumConverter.GetString(contractType));
-            parameters.AddOptionalParameter("business_type", EnumConverter.GetString(businessType));
-            return await _baseClient.SendHTXRequest<IEnumerable<HTXOpenInterest>>(_baseClient.GetUrl("linear-swap-api/v1/swap_open_interest"), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
-        }
+        // /linear-swap-api/v1/swap_query_elements
+
+        #region Get Order Book
 
         /// <inheritdoc />
         public async Task<WebCallResult<HTXOrderBook>> GetOrderBookAsync(string contractCode, string step, CancellationToken ct = default)
@@ -74,17 +310,27 @@ namespace HTX.Net.Clients.UsdtMarginSwapApi
                 { "contract_code", contractCode },
                 { "type", step },
             };
-            return await _baseClient.SendHTXRequest<HTXOrderBook>(_baseClient.GetUrl("linear-swap-ex/market/depth"), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "linear-swap-ex/market/depth", HTXExchange.RateLimiter.EndpointLimit, 1, false);
+            return await _baseClient.SendBasicAsync<HTXOrderBook>(request, parameters, ct).ConfigureAwait(false);
         }
 
+        #endregion
+
+        #region Get Book Ticker
+
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<HTXSwapBestOffer>>> GetBestOfferAsync(string? contractCode = null, BusinessType? type = null, CancellationToken ct = default)
+        public async Task<WebCallResult<IEnumerable<HTXSwapBookTicker>>> GetBookTickerAsync(string? contractCode = null, BusinessType? type = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.AddOptionalParameter("contract_code", contractCode);
             parameters.AddOptionalParameter("business_type", EnumConverter.GetString(type));
-            return await _baseClient.SendHTXRequest<IEnumerable<HTXSwapBestOffer>>(_baseClient.GetUrl("linear-swap-ex/market/bbo"), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "linear-swap-ex/market/bbo", HTXExchange.RateLimiter.EndpointLimit, 1, false);
+            return await _baseClient.SendBasicAsync<IEnumerable<HTXSwapBookTicker>>(request, parameters, ct).ConfigureAwait(false);
         }
+
+        #endregion
+
+        #region Get Klines
 
         /// <inheritdoc />
         public async Task<WebCallResult<IEnumerable<HTXKline>>> GetKlinesAsync(string contractCode, KlineInterval interval, int? limit = null, DateTime? from = null, DateTime? to = null, CancellationToken ct = default)
@@ -97,27 +343,44 @@ namespace HTX.Net.Clients.UsdtMarginSwapApi
             parameters.AddOptionalParameter("size", limit);
             parameters.AddOptionalParameter("from", DateTimeConverter.ConvertToSeconds(from));
             parameters.AddOptionalParameter("to", DateTimeConverter.ConvertToSeconds(to));
-            return await _baseClient.SendHTXRequest<IEnumerable<HTXKline>>(_baseClient.GetUrl("linear-swap-ex/market/history/kline"), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "linear-swap-ex/market/history/kline", HTXExchange.RateLimiter.EndpointLimit, 1, false);
+            return await _baseClient.SendBasicAsync<IEnumerable<HTXKline>>(request, parameters, ct).ConfigureAwait(false);
         }
 
+        #endregion
+
+        // /index/market/history/linear_swap_mark_price_kline
+
+        #region Get Ticker
+
         /// <inheritdoc />
-        public async Task<WebCallResult<HTXMarketData>> GetMarketDataAsync(string contractCode, CancellationToken ct = default)
+        public async Task<WebCallResult<HTXTicker>> GetTickerAsync(string contractCode, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection()
             {
                 { "contract_code", contractCode }
             };
-            return await _baseClient.SendHTXRequest<HTXMarketData>(_baseClient.GetUrl("linear-swap-ex/market/detail/merged"), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "linear-swap-ex/market/detail/merged", HTXExchange.RateLimiter.EndpointLimit, 1, false);
+            return await _baseClient.SendBasicAsync<HTXTicker>(request, parameters, ct).ConfigureAwait(false);
         }
 
+        #endregion
+
+        #region Get Tickers
+
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<HTXMarketData>>> GetMarketDatasAsync(string? contractCode = null, BusinessType? businessType = null, CancellationToken ct = default)
+        public async Task<WebCallResult<IEnumerable<HTXTicker>>> GetTickersAsync(string? contractCode = null, BusinessType? businessType = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.AddOptionalParameter("contract_code", contractCode);
             parameters.AddOptionalParameter("business_type", EnumConverter.GetString(businessType));
-            return await _baseClient.SendHTXRequest<IEnumerable<HTXMarketData>>(_baseClient.GetUrl("linear-swap-ex/market/detail/batch_merged"), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/v2/linear-swap-ex/market/detail/batch_merged", HTXExchange.RateLimiter.EndpointLimit, 1, false);
+            return await _baseClient.SendBasicAsync<IEnumerable<HTXTicker>>(request, parameters, ct).ConfigureAwait(false);
         }
+
+        #endregion
+
+        #region Get Last Trade
 
         /// <inheritdoc />
         public async Task<WebCallResult<HTXLastTrade>> GetLastTradesAsync(string? contractCode = null, BusinessType? businessType = null, CancellationToken ct = default)
@@ -125,9 +388,14 @@ namespace HTX.Net.Clients.UsdtMarginSwapApi
             var parameters = new ParameterCollection();
             parameters.AddOptionalParameter("contract_code", contractCode);
             parameters.AddOptionalParameter("business_type", EnumConverter.GetString(businessType));
-            var result = await _baseClient.SendHTXRequest<HTXLastTradeWrapper>(_baseClient.GetUrl("linear-swap-ex/market/trade"), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "linear-swap-ex/market/trade", HTXExchange.RateLimiter.EndpointLimit, 1, false);
+            var result = await _baseClient.SendBasicAsync<HTXLastTradeWrapper>(request, parameters, ct).ConfigureAwait(false);
             return result.As(result.Data?.Data?.First()!);
         }
+
+        #endregion
+
+        #region Get Recent Trades
 
         /// <inheritdoc />
         public async Task<WebCallResult<IEnumerable<HTXTrade>>> GetRecentTradesAsync(string contractCode, int limit, CancellationToken ct = default)
@@ -137,48 +405,15 @@ namespace HTX.Net.Clients.UsdtMarginSwapApi
                 { "contract_code", contractCode },
                 { "size", limit }
             };
-            var result = await _baseClient.SendHTXRequest<IEnumerable<HTXTradeWrapper>>(_baseClient.GetUrl("/linear-swap-ex/market/history/trade"), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
+
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "linear-swap-ex/market/history/trade", HTXExchange.RateLimiter.EndpointLimit, 1, false);
+            var result = await _baseClient.SendBasicAsync<IEnumerable<HTXTradeWrapper>>(request, parameters, ct).ConfigureAwait(false);
             return result.As<IEnumerable<HTXTrade>>(result.Data?.SelectMany(d => d.Data)!);
         }
 
-        /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<HTXSwapRiskInfo>>> GetSwapRiskInfoAsync(string? contractCode = null, BusinessType? businessType = null, CancellationToken ct = default)
-        {
-            var parameters = new ParameterCollection();
-            parameters.AddOptionalParameter("contract_code", contractCode);
-            parameters.AddOptionalParameter("business_type", EnumConverter.GetString(businessType));
-            return await _baseClient.SendHTXRequest<IEnumerable<HTXSwapRiskInfo>>(_baseClient.GetUrl("/linear-swap-api/v1/swap_risk_info"), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
-        }
+        #endregion
 
-        /// <inheritdoc />
-        public async Task<WebCallResult<HTXInsuranceInfo>> GetInsuranceFundHistoryAsync(string contractCode, int? page = null, int? pageSize = null, CancellationToken ct = default)
-        {
-            var parameters = new ParameterCollection()
-            {
-                { "contract_code", contractCode }
-            };
-            parameters.AddOptionalParameter("page_index", page);
-            parameters.AddOptionalParameter("page_size", pageSize);
-            return await _baseClient.SendHTXRequest<HTXInsuranceInfo>(_baseClient.GetUrl("linear-swap-api/v1/swap_insurance_fund"), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
-        }
-
-        /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<HTXSwapAdjustFactorInfo>>> GetIsolatedMarginAdjustFactorInfoAsync(string? contractCode = null, CancellationToken ct = default)
-        {
-            var parameters = new ParameterCollection();
-            parameters.AddOptionalParameter("contract_code", contractCode);
-            return await _baseClient.SendHTXRequest<IEnumerable<HTXSwapAdjustFactorInfo>>(_baseClient.GetUrl("/linear-swap-api/v1/swap_adjustfactor"), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
-        }
-
-        /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<HTXCrossSwapAdjustFactorInfo>>> GetCrossMarginAdjustFactorInfoAsync(string? contractCode = null, string? asset = null, ContractType? type = null, CancellationToken ct = default)
-        {
-            var parameters = new ParameterCollection();
-            parameters.AddOptionalParameter("contract_code", contractCode);
-            parameters.AddOptionalParameter("pair", asset);
-            parameters.AddOptionalParameter("contract_type", EnumConverter.GetString(type));
-            return await _baseClient.SendHTXRequest<IEnumerable<HTXCrossSwapAdjustFactorInfo>>(_baseClient.GetUrl("/linear-swap-api/v1/swap_cross_adjustfactor"), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
-        }
+        #region Get Open Interest
 
         /// <inheritdoc />
         public async Task<WebCallResult<HTXOpenInterestValue>> GetOpenInterestAsync(InterestPeriod period, Unit unit, string? contractCode = null, string? symbol = null, ContractType? type = null, int? limit = null, CancellationToken ct = default)
@@ -192,110 +427,13 @@ namespace HTX.Net.Clients.UsdtMarginSwapApi
             parameters.AddOptionalParameter("pair", symbol);
             parameters.AddOptionalParameter("size", limit);
             parameters.AddOptionalParameter("contract_type", EnumConverter.GetString(type));
-            return await _baseClient.SendHTXRequest<HTXOpenInterestValue>(_baseClient.GetUrl("/linear-swap-api/v1/swap_his_open_interest"), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/linear-swap-api/v1/swap_his_open_interest", HTXExchange.RateLimiter.EndpointLimit, 1, false);
+            return await _baseClient.SendBasicAsync<HTXOpenInterestValue>(request, parameters, ct).ConfigureAwait(false);
         }
 
-        /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<HTXTieredMarginInfo>>> GetIsolatedMarginTieredInfoAsync(string? contractCode = null, CancellationToken ct = default)
-        {
-            var parameters = new ParameterCollection();
-            parameters.AddOptionalParameter("contract_code", contractCode);
-            return await _baseClient.SendHTXRequest<IEnumerable<HTXTieredMarginInfo>>(_baseClient.GetUrl("/linear-swap-api/v1/swap_ladder_margin"), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
-        }
+        #endregion
 
-        /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<HTXTieredCrossMarginInfo>>> GetCrossTieredMarginInfoAsync(string? contractCode = null, string? symbol = null, ContractType? contractType = null, CancellationToken ct = default)
-        {
-            var parameters = new ParameterCollection();
-            parameters.AddOptionalParameter("contract_code", contractCode);
-            parameters.AddOptionalParameter("pair", symbol);
-            parameters.AddOptionalParameter("contract_type", EnumConverter.GetString(contractType));
-            return await _baseClient.SendHTXRequest<IEnumerable<HTXTieredCrossMarginInfo>>(_baseClient.GetUrl("/linear-swap-api/v1/swap_cross_ladder_margin"), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
-        }
-
-        /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<HTXContractStatus>>> GetIsolatedStatusAsync(string? contractCode = null, CancellationToken ct = default)
-        {
-            var parameters = new ParameterCollection();
-            parameters.AddOptionalParameter("contract_code", contractCode);
-            return await _baseClient.SendHTXRequest<IEnumerable<HTXContractStatus>>(_baseClient.GetUrl("/linear-swap-api/v1/swap_api_state"), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
-        }
-
-        /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<HTXCrossMarginTransferStatus>>> GetCrossMarginTransferStatusAsync(string? marginAccount = null, CancellationToken ct = default)
-        {
-            var parameters = new ParameterCollection();
-            parameters.AddOptionalParameter("margin_account", marginAccount);
-            return await _baseClient.SendHTXRequest<IEnumerable<HTXCrossMarginTransferStatus>>(_baseClient.GetUrl("/linear-swap-api/v1/swap_cross_transfer_state"), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
-        }
-
-        /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<HTXCrossMarginTradeStatus>>> GetCrossMarginTradeStatusAsync(string? contractCode = null, string? symbol = null, ContractType? contractType = null, CancellationToken ct = default)
-        {
-            var parameters = new ParameterCollection();
-            parameters.AddOptionalParameter("contract_code", contractCode);
-            parameters.AddOptionalParameter("pair", symbol);
-            parameters.AddOptionalParameter("contract_type", EnumConverter.GetString(contractType));
-            return await _baseClient.SendHTXRequest<IEnumerable<HTXCrossMarginTradeStatus>>(_baseClient.GetUrl("/linear-swap-api/v1/swap_cross_trade_state"), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
-        }
-
-        /// <inheritdoc />
-        public async Task<WebCallResult<HTXLiquidationOrderPage>> GetLiquidationOrdersAsync(int createDate, LiquidationTradeType tradeType, string? contractCode = null, string? symbol = null, int? page = null, int? pageSize = null, CancellationToken ct = default)
-        {
-            var parameters = new ParameterCollection()
-            {
-                { "create_date", createDate },
-                { "trade_type", EnumConverter.GetString(tradeType) },
-            };
-            parameters.AddOptionalParameter("contract_code", contractCode);
-            parameters.AddOptionalParameter("pair", symbol);
-            parameters.AddOptionalParameter("page_index", page);
-            parameters.AddOptionalParameter("page_size", pageSize);
-            return await _baseClient.SendHTXRequest<HTXLiquidationOrderPage>(_baseClient.GetUrl("/linear-swap-api/v1/swap_liquidation_orders"), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
-        }
-
-        /// <inheritdoc />
-        public async Task<WebCallResult<HTXSettlementPage>> GetHistoricalSettlementRecordsAsync(string contractCode, DateTime? startTime = null, DateTime? endTime = null, int? page = null, int? pageSize = null, CancellationToken ct = default)
-        {
-            var parameters = new ParameterCollection()
-            {
-                { "contract_code", contractCode }
-            };
-            parameters.AddOptionalParameter("start_time", DateTimeConverter.ConvertToMilliseconds(startTime));
-            parameters.AddOptionalParameter("end_time", DateTimeConverter.ConvertToMilliseconds(endTime));
-            parameters.AddOptionalParameter("page_index", page);
-            parameters.AddOptionalParameter("page_size", pageSize);
-            return await _baseClient.SendHTXRequest<HTXSettlementPage>(_baseClient.GetUrl("/linear-swap-api/v1/swap_settlement_records"), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
-        }
-
-        /// <inheritdoc />
-        public async Task<WebCallResult<HTXFundingRate>> GetFundingRateAsync(string contractCode, CancellationToken ct = default)
-        {
-            var parameters = new ParameterCollection() {
-                { "contract_code", contractCode }
-            };
-            return await _baseClient.SendHTXRequest<HTXFundingRate>(_baseClient.GetUrl("/linear-swap-api/v1/swap_funding_rate"), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
-        }
-
-        /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<HTXFundingRate>>> GetFundingRatesAsync(string? contractCode = null, CancellationToken ct = default)
-        {
-            var parameters = new ParameterCollection();
-            parameters.AddOptionalParameter("contract_code", contractCode);
-            return await _baseClient.SendHTXRequest<IEnumerable<HTXFundingRate>>(_baseClient.GetUrl("/linear-swap-api/v1/swap_batch_funding_rate"), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
-        }
-
-        /// <inheritdoc />
-        public async Task<WebCallResult<HTXFundingRatePage>> GetHistoricalFundingRatesAsync(string contractCode, int? page = null, int? pageSize = null, CancellationToken ct = default)
-        {
-            var parameters = new ParameterCollection()
-            {
-                { "contract_code", contractCode }
-            };
-            parameters.AddOptionalParameter("page_index", page);
-            parameters.AddOptionalParameter("page_size", pageSize);
-            return await _baseClient.SendHTXRequest<HTXFundingRatePage>(_baseClient.GetUrl("/linear-swap-api/v1/swap_historical_funding_rate"), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
-        }
+        #region Get Premium Index Klines
 
         /// <inheritdoc />
         public async Task<WebCallResult<IEnumerable<HTXKline>>> GetPremiumIndexKlinesAsync(string contractCode, KlineInterval interval, int limit, CancellationToken ct = default)
@@ -306,8 +444,13 @@ namespace HTX.Net.Clients.UsdtMarginSwapApi
                 { "period", EnumConverter.GetString(interval) },
                 { "size", limit }
             };
-            return await _baseClient.SendHTXRequest<IEnumerable<HTXKline>>(_baseClient.GetUrl("/index/market/history/linear_swap_premium_index_kline"), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/index/market/history/linear_swap_premium_index_kline", HTXExchange.RateLimiter.EndpointLimit, 1, false);
+            return await _baseClient.SendBasicAsync<IEnumerable<HTXKline>>(request, parameters, ct).ConfigureAwait(false);
         }
+
+        #endregion
+
+        #region Get Estimated Funding Rate Klines
 
         /// <inheritdoc />
         public async Task<WebCallResult<IEnumerable<HTXKline>>> GetEstimatedFundingRateKlinesAsync(string contractCode, KlineInterval interval, int limit, CancellationToken ct = default)
@@ -318,8 +461,13 @@ namespace HTX.Net.Clients.UsdtMarginSwapApi
                 { "period", EnumConverter.GetString(interval) },
                 { "size", limit }
             };
-            return await _baseClient.SendHTXRequest<IEnumerable<HTXKline>>(_baseClient.GetUrl("/index/market/history/linear_swap_estimated_rate_kline"), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "index/market/history/linear_swap_estimated_rate_kline", HTXExchange.RateLimiter.EndpointLimit, 1, false);
+            return await _baseClient.SendBasicAsync<IEnumerable<HTXKline>>(request, parameters, ct).ConfigureAwait(false);
         }
+
+        #endregion
+
+        #region Get Basis Data
 
         /// <inheritdoc />
         public async Task<WebCallResult<IEnumerable<HTXBasisData>>> GetBasisDataAsync(string contractCode, KlineInterval interval, int limit, string? basisPriceType = null, CancellationToken ct = default)
@@ -331,18 +479,38 @@ namespace HTX.Net.Clients.UsdtMarginSwapApi
                 { "size", limit }
             };
             parameters.AddOptionalParameter("basis_price_type", basisPriceType);
-            return await _baseClient.SendHTXRequest<IEnumerable<HTXBasisData>>(_baseClient.GetUrl("/index/market/history/linear_swap_basis"), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/index/market/history/linear_swap_basis", HTXExchange.RateLimiter.EndpointLimit, 1, false);
+            return await _baseClient.SendBasicAsync<IEnumerable<HTXBasisData>>(request, parameters, ct).ConfigureAwait(false);
         }
 
+        #endregion
+
+        #region Get Cross Margin Trade Status 
+
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<HTXEstimatedSettlementPrice>>> GetEstimatedSettlementPriceAsync(string? contractCode = null, string? symbol = null, ContractType? contractType = null, BusinessType? businessType = null, CancellationToken ct = default)
+        public async Task<WebCallResult<IEnumerable<HTXCrossMarginTradeStatus>>> GetCrossMarginTradeStatusAsync(string? contractCode = null, string? symbol = null, ContractType? contractType = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.AddOptionalParameter("contract_code", contractCode);
             parameters.AddOptionalParameter("pair", symbol);
             parameters.AddOptionalParameter("contract_type", EnumConverter.GetString(contractType));
-            parameters.AddOptionalParameter("business_type", EnumConverter.GetString(businessType));
-            return await _baseClient.SendHTXRequest<IEnumerable<HTXEstimatedSettlementPrice>>(_baseClient.GetUrl("/linear-swap-api/v1/swap_estimated_settlement_price"), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/linear-swap-api/v1/swap_cross_trade_state", HTXExchange.RateLimiter.EndpointLimit, 1, false);
+            return await _baseClient.SendBasicAsync<IEnumerable<HTXCrossMarginTradeStatus>>(request, parameters, ct).ConfigureAwait(false);
         }
+
+        #endregion
+
+        #region Get Cross Margin Transfer Status 
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<IEnumerable<HTXCrossMarginTransferStatus>>> GetCrossMarginTransferStatusAsync(string? marginAccount = null, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.AddOptionalParameter("margin_account", marginAccount);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/linear-swap-api/v1/swap_cross_transfer_state", HTXExchange.RateLimiter.EndpointLimit, 1, false);
+            return await _baseClient.SendBasicAsync<IEnumerable<HTXCrossMarginTransferStatus>>(request, parameters, ct).ConfigureAwait(false);
+        }
+
+        #endregion
     }
 }

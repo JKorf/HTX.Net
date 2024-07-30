@@ -70,7 +70,7 @@ namespace HTX.Net.Objects.Models
         public OrderType Type => EnumConverter.ParseString<OrderType>(RawType);
 
         /// <summary>
-        /// The type of the order
+        /// The side of the order
         /// </summary>
         [JsonIgnore]
         public OrderSide Side => EnumConverter.ParseString<OrderSide>(RawType);
@@ -104,5 +104,11 @@ namespace HTX.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("field-fees")]
         public decimal Fee { get; set; }
+
+        /// <summary>
+        /// Source of cancelation
+        /// </summary>
+        [JsonPropertyName("canceled-source")]
+        public string? CancelSource { get; set; }
     }
 }

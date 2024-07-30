@@ -8,7 +8,7 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
     /// <summary>
     /// Best offer
     /// </summary>
-    public record HTXSwapBestOffer
+    public record HTXSwapBookTicker
     {
         /// <summary>
         /// Business type

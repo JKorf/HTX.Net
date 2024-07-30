@@ -33,7 +33,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtMarginSwapApi
         /// <param name="type">Type</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<HTXSwapBestOffer>>> GetBestOfferAsync(string? contractCode = null, BusinessType? type = null, CancellationToken ct = default);
+        Task<WebCallResult<IEnumerable<HTXSwapBookTicker>>> GetBookTickerAsync(string? contractCode = null, BusinessType? type = null, CancellationToken ct = default);
         /// <summary>
         /// Get contract info
         /// <para><a href="https://huobiapi.github.io/docs/usdt_swap/v1/en/#general-query-swap-info" /></para>
@@ -202,15 +202,23 @@ namespace HTX.Net.Interfaces.Clients.UsdtMarginSwapApi
         /// Get liquidation orders
         /// <para><a href="https://huobiapi.github.io/docs/usdt_swap/v1/en/#general-query-liquidation-orders" /></para>
         /// </summary>
-        /// <param name="createDate">Create date</param>
         /// <param name="tradeType">Trade type</param>
         /// <param name="contractCode">Contract code</param>
         /// <param name="symbol">Symbol</param>
-        /// <param name="page">Page</param>
-        /// <param name="pageSize">Page size</param>
+        /// <param name="startTime">Filter by start time</param>
+        /// <param name="endTime">Filter by end time</param>
+        /// <param name="direction">Result direction</param>
+        /// <param name="fromId">Return results after this id</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<HTXLiquidationOrderPage>> GetLiquidationOrdersAsync(int createDate, LiquidationTradeType tradeType, string? contractCode = null, string? symbol = null, int? page = null, int? pageSize = null, CancellationToken ct = default);
+        Task<WebCallResult<IEnumerable<HTXLiquidationOrder>>> GetLiquidationOrdersAsync(string contractCode,
+            LiquidationTradeType tradeType,
+            string? symbol = null,
+            DateTime? startTime = null,
+            DateTime? endTime = null,
+            FilterDirection? direction = null,
+            long? fromId = null,
+            CancellationToken ct = default);
         /// <summary>
         /// Get market data
         /// <para><a href="https://huobiapi.github.io/docs/usdt_swap/v1/en/#general-get-market-data-overview" /></para>
@@ -218,7 +226,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtMarginSwapApi
         /// <param name="contractCode">Contract code</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<HTXMarketData>> GetMarketDataAsync(string contractCode, CancellationToken ct = default);
+        Task<WebCallResult<HTXTicker>> GetTickerAsync(string contractCode, CancellationToken ct = default);
         /// <summary>
         /// Get market datas
         /// <para><a href="https://huobiapi.github.io/docs/usdt_swap/v1/en/#general-get-a-batch-of-market-data-overview" /></para>
@@ -227,7 +235,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtMarginSwapApi
         /// <param name="businessType">Business type</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<HTXMarketData>>> GetMarketDatasAsync(string? contractCode = null, BusinessType? businessType = null, CancellationToken ct = default);
+        Task<WebCallResult<IEnumerable<HTXTicker>>> GetTickersAsync(string? contractCode = null, BusinessType? businessType = null, CancellationToken ct = default);
         /// <summary>
         /// Get open interest
         /// <para><a href="https://huobiapi.github.io/docs/usdt_swap/v1/en/#general-query-information-on-open-interest" /></para>

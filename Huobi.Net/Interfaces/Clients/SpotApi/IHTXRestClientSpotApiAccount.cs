@@ -22,23 +22,6 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         Task<WebCallResult<long>> GetUserIdAsync(CancellationToken ct = default);
 
         /// <summary>
-        /// Gets a list of users associated with the apikey/secret
-        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-sub-user-39-s-list"/></para>
-        /// </summary>
-        /// <param name="ct">Cancellation token</param>
-        /// <returns></returns>
-        Task<WebCallResult<IEnumerable<HTXUser>>> GetSubAccountUsersAsync(CancellationToken ct = default);
-
-        /// <summary>
-        /// Gets a list of sub-user accounts associated with the sub-user id
-        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-sub-user-39-s-account-list"/></para>
-        /// </summary>
-        /// <param name="subUserId">The if of the user to get accounts for</param>
-        /// <param name="ct">Cancellation token</param>
-        /// <returns></returns>
-        Task<WebCallResult<HTXSubUserAccounts>> GetSubUserAccountsAsync(long subUserId, CancellationToken ct = default);
-
-        /// <summary>
         /// Gets a list of accounts associated with the apikey/secret
         /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-all-accounts-of-the-current-user" /></para>
         /// </summary>
@@ -77,23 +60,6 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         Task<WebCallResult<HTXAccountValuation>> GetAssetValuationAsync(AccountType accountType, string? valuationCurrency = null, long? subUserId = null, CancellationToken ct = default);
 
         /// <summary>
-        /// Transfer assets between accounts
-        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#asset-transfer" /></para>
-        /// </summary>
-        /// <param name="fromUserId">From user id</param>
-        /// <param name="fromAccountType">From account type</param>
-        /// <param name="fromAccountId">From account id</param>
-        /// <param name="toUserId">To user id</param>
-        /// <param name="toAccountType">To account type</param>
-        /// <param name="toAccountId">To account id</param>
-        /// <param name="asset">Asset to transfer</param>
-        /// <param name="quantity">Amount to transfer</param>
-        /// <param name="ct">Cancellation token</param>
-        /// <returns></returns>
-        Task<WebCallResult<HTXTransactionResult>> TransferAssetAsync(long fromUserId, AccountType fromAccountType, long fromAccountId,
-            long toUserId, AccountType toAccountType, long toAccountId, string asset, decimal quantity, CancellationToken ct = default);
-
-        /// <summary>
         /// Gets a list of balance changes of specified user's account
         /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-account-history" /></para>
         /// </summary>
@@ -125,25 +91,16 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         Task<WebCallResult<IEnumerable<HTXLedgerEntry>>> GetAccountLedgerAsync(long accountId, string? asset = null, IEnumerable<TransactionType>? transactionTypes = null, DateTime? startTime = null, DateTime? endTime = null, SortingType? sort = null, int? limit = null, long? fromId = null, CancellationToken ct = default);
 
         /// <summary>
-        /// Gets a list of balances for a specific sub account
-        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-account-balance-of-a-sub-user" /></para>
+        /// Transfer asset between accounts
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=10000096-77b7-11ed-9966-0242ac110003" /></para>
         /// </summary>
-        /// <param name="subAccountId">The id of the sub account to get the balances for</param>
+        /// <param name="fromAccount">Source account type</param>
+        /// <param name="toAccount">Target account type</param>
+        /// <param name="asset">The asset</param>
+        /// <param name="quantity">Quantity</param>
+        /// <param name="marginAccount">Margin account</param>
         /// <param name="ct">Cancellation token</param>
-        /// <returns></returns>
-        Task<WebCallResult<IEnumerable<HTXBalance>>> GetSubAccountBalancesAsync(long subAccountId, CancellationToken ct = default);
-
-        /// <summary>
-        /// Transfer asset between parent and sub account
-        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#transfer-asset-between-parent-and-sub-account" /></para>
-        /// </summary>
-        /// <param name="subAccountId">The target sub account id to transfer to or from</param>
-        /// <param name="asset">The asset to transfer</param>
-        /// <param name="quantity">The quantity of asset to transfer</param>
-        /// <param name="transferType">The type of transfer</param>
-        /// <param name="ct">Cancellation token</param>
-        /// <returns>Unique transfer id</returns>
-        Task<WebCallResult<long>> TransferWithSubAccountAsync(long subAccountId, string asset, decimal quantity, TransferType transferType, CancellationToken ct = default);
+        Task<WebCallResult<long>> TransferAsync(TransferAccount fromAccount, TransferAccount toAccount, string asset, decimal quantity, string marginAccount, CancellationToken ct = default);
 
         /// <summary>
         /// Parent user and sub user could query deposit address of corresponding chain, for a specific crypto currency (except IOTA).
@@ -183,210 +140,118 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         Task<WebCallResult<IEnumerable<HTXWithdrawDeposit>>> GetWithdrawDepositAsync(WithdrawDepositType type, string? asset = null, int? from = null, int? size = null, FilterDirection? direction = null, CancellationToken ct = default);
 
         /// <summary>
-        /// Repay a margin loan
-        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#repay-margin-loan-cross-isolated" /></para>
-        /// </summary>
-        /// <param name="accountId">Account id</param>
-        /// <param name="asset">Asset to repay</param>
-        /// <param name="quantity">Quantity to repay</param>
-        /// <param name="transactionId">Loan transaction ID</param>
-        /// <param name="ct">Cancellation token</param>
-        /// <returns></returns>
-        Task<WebCallResult<IEnumerable<HTXRepaymentResult>>> RepayMarginLoanAsync(string accountId, string asset, decimal quantity, string? transactionId = null, CancellationToken ct = default);
-
-        /// <summary>
-        /// Transfer asset from spot account to isolated margin account
-        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#transfer-asset-from-spot-trading-account-to-isolated-margin-account-isolated" /></para>
-        /// </summary>
-        /// <param name="symbol">Trading symbol</param>
-        /// <param name="asset">Asset to transfer</param>
-        /// <param name="quantity">Quantity to transfer</param>
-        /// <param name="ct">Cancellation token</param>
-        /// <returns>Transfer id</returns>
-        Task<WebCallResult<long>> TransferSpotToIsolatedMarginAsync(string symbol, string asset, decimal quantity, CancellationToken ct = default);
-
-        /// <summary>
-        /// Transfer asset from isolated margin to spot account
-        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#transfer-asset-from-isolated-margin-account-to-spot-trading-account-isolated" /></para>
-        /// </summary>
-        /// <param name="symbol">Trading symbol</param>
-        /// <param name="asset">Asset to transfer</param>
-        /// <param name="quantity">Quantity to transfer</param>
-        /// <param name="ct">Cancellation token</param>
-        /// <returns>Transfer id</returns>
-        Task<WebCallResult<long>> TransferIsolatedMarginToSpotAsync(string symbol, string asset, decimal quantity, CancellationToken ct = default);
-
-        /// <summary>
-        /// Get isolated loan interest rate and quotas
-        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-loan-interest-rate-and-quota-isolated" /></para>
-        /// </summary>
-        /// <param name="symbols">Filter on symbols</param>
-        /// <param name="ct">Cancellation token</param>
-        /// <returns></returns>
-        Task<WebCallResult<IEnumerable<HTXLoanInfo>>> GetIsolatedLoanInterestRateAndQuotaAsync(IEnumerable<string>? symbols = null, CancellationToken ct = default);
-
-        /// <summary>
-        /// Request a loan on isolated margin
-        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#request-a-margin-loan-isolated" /></para>
-        /// </summary>
-        /// <param name="symbol">The symbol</param>
-        /// <param name="asset">The asset</param>
-        /// <param name="quantity">The quantity</param>
-        /// <param name="ct">Cancellation token</param>
-        /// <returns>Order id</returns>
-        Task<WebCallResult<long>> RequestIsolatedMarginLoanAsync(string symbol, string asset, decimal quantity, CancellationToken ct = default);
-
-        /// <summary>
-        /// Repay a isolated margin loan
-        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#repay-margin-loan-isolated" /></para>
-        /// </summary>
-        /// <param name="orderId">Id to repay</param>
-        /// <param name="quantity">Quantity</param>
-        /// <param name="ct">Cancellation token</param>
-        /// <returns>Order id</returns>
-        Task<WebCallResult<long>> RepayIsolatedMarginLoanAsync(string orderId, decimal quantity, CancellationToken ct = default);
-
-        /// <summary>
-        /// Get isolated margin orders history
-        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#search-past-margin-orders-isolated" /></para>
-        /// </summary>
-        /// <param name="symbol">The symbol to get history for</param>
-        /// <param name="states">Filter by states</param>
-        /// <param name="startDate">Filter by start date</param>
-        /// <param name="endDate">Filter by end date</param>
-        /// <param name="from">Start order id for use in combination with direction</param>
-        /// <param name="direction">Direction of results in combination with from parameter</param>
-        /// <param name="limit">Max amount of results</param>
-        /// <param name="subUserId">Sub user id</param>
-        /// <param name="ct">Cancellation token</param>
-        /// <returns></returns>
-        Task<WebCallResult<IEnumerable<HTXMarginOrder>>> GetIsolatedMarginClosedOrdersAsync(
-            string symbol,
-            IEnumerable<MarginOrderStatus>? states = null,
-            DateTime? startDate = null,
-            DateTime? endDate = null,
-            string? from = null,
-            FilterDirection? direction = null,
-            int? limit = null,
-            int? subUserId = null,
-            CancellationToken ct = default);
-
-        /// <summary>
-        /// Get isolated margin account balance
-        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-the-balance-of-the-margin-loan-account-isolated" /></para>
-        /// </summary>
-        /// <param name="symbol">The symbol</param>
-        /// <param name="subUserId">Sub user id</param>
-        /// <param name="ct">Cancellation token</param>
-        /// <returns></returns>
-        Task<WebCallResult<IEnumerable<HTXMarginBalances>>> GetIsolatedMarginBalanceAsync(string symbol, int? subUserId = null, CancellationToken ct = default);
-
-        /// <summary>
-        /// Transfer from spot account to cross margin account
-        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#transfer-asset-from-spot-trading-account-to-cross-margin-account-cross" /></para>
-        /// </summary>
-        /// <param name="asset">The asset to transfer</param>
-        /// <param name="quantity">Quantity to transfer</param>
-        /// <param name="ct">Cancellation token</param>
-        /// <returns></returns>
-        Task<WebCallResult<long>> TransferSpotToCrossMarginAsync(string asset, decimal quantity, CancellationToken ct = default);
-
-        /// <summary>
-        /// Transfer from cross margin account to spot account
-        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#transfer-asset-from-cross-margin-account-to-spot-trading-account-cross" /></para>
-        /// </summary>
-        /// <param name="asset">The asset to transfer</param>
-        /// <param name="quantity">Quantity to transfer</param>
-        /// <param name="ct">Cancellation token</param>
-        /// <returns></returns>
-        Task<WebCallResult<long>> TransferCrossMarginToSpotAsync(string asset, decimal quantity, CancellationToken ct = default);
-
-        /// <summary>
-        /// Get cross margin interest rates and quotas
-        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-loan-interest-rate-and-quota-cross" /></para>
-        /// </summary>
-        /// <param name="ct"></param>
-        /// <returns></returns>
-        Task<WebCallResult<IEnumerable<HTXLoanInfoAsset>>> GetCrossLoanInterestRateAndQuotaAsync(CancellationToken ct = default);
-
-        /// <summary>
-        /// Request a loan on cross margin
-        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#request-a-margin-loan-cross" /></para>
-        /// </summary>
-        /// <param name="asset">The asset</param>
-        /// <param name="quantity">The quantity</param>
-        /// <param name="ct">Cancellation token</param>
-        /// <returns>Order id</returns>
-        Task<WebCallResult<long>> RequestCrossMarginLoanAsync(string asset, decimal quantity, CancellationToken ct = default);
-
-        /// <summary>
-        /// Repay a isolated margin loan
-        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#repay-margin-loan-cross" /></para>
-        /// </summary>
-        /// <param name="orderId">Id to repay</param>
-        /// <param name="quantity">Quantity</param>
-        /// <param name="ct">Cancellation token</param>
-        /// <returns></returns>
-        Task<WebCallResult> RepayCrossMarginLoanAsync(string orderId, decimal quantity, CancellationToken ct = default);
-
-        /// <summary>
-        /// Get cross margin order history
-        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#search-past-margin-orders-cross" /></para>
-        /// </summary>
-        /// <param name="asset">Filter by asset</param>
-        /// <param name="status">Filter by status</param>
-        /// <param name="startDate">Filter by start date</param>
-        /// <param name="endDate">Filter by end date</param>
-        /// <param name="from">Start order id for use in combination with direction</param>
-        /// <param name="direction">Direction of results in combination with from parameter</param>
-        /// <param name="limit">Max amount of results</param>
-        /// <param name="subUserId">Sub user id</param>
-        /// <param name="ct">Cancellation token</param>
-        /// <returns></returns>
-        Task<WebCallResult<IEnumerable<HTXMarginOrder>>> GetCrossMarginClosedOrdersAsync(
-            string? asset = null,
-            MarginOrderStatus? status = null,
-            DateTime? startDate = null,
-            DateTime? endDate = null,
-            string? from = null,
-            FilterDirection? direction = null,
-            int? limit = null,
-            int? subUserId = null,
-            CancellationToken ct = default);
-
-        /// <summary>
-        /// Get cross margin account balance
-        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-the-balance-of-the-margin-loan-account-cross" /></para>
-        /// </summary>
-        /// <param name="subUserId">Sub user id</param>
-        /// <param name="ct">Cancellation token</param>
-        /// <returns></returns>
-        Task<WebCallResult<HTXMarginBalances>> GetCrossMarginBalanceAsync(int? subUserId = null, CancellationToken ct = default);
-
-        /// <summary>
-        /// Get repayment history
-        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#repayment-record-reference" /></para>
-        /// </summary>
-        /// <param name="repayId">Filter by repay id</param>
-        /// <param name="accountId">Filter by account id</param>
-        /// <param name="asset">Filter by asset</param>
-        /// <param name="startTime">Only show records after this</param>
-        /// <param name="endTime">Only show records before this</param>
-        /// <param name="sort">Sort direction</param>
-        /// <param name="limit">Result limit</param>
-        /// <param name="fromId">Search id</param>
-        /// <param name="ct">Cancellation token</param>
-        /// <returns></returns>
-        Task<WebCallResult<IEnumerable<HTXRepayment>>> GetRepaymentHistoryAsync(long? repayId = null, long? accountId = null, string? asset = null, DateTime? startTime = null, DateTime? endTime = null, string? sort = null, int? limit = null, long? fromId = null, CancellationToken ct = default);
-        
-        /// <summary>
         /// Get Current Fee Rate Applied to The User
         /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-current-fee-rate-applied-to-the-user" /></para>
         /// </summary>
         /// <param name="symbols">Filter on symbols</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<HTXFeeRate>>> GetFeeRatesAsync(IEnumerable<string> symbols,
+        Task<WebCallResult<IEnumerable<HTXFeeRate>>> GetTradingFeesAsync(IEnumerable<string> symbols,
             CancellationToken ct = default);
+
+        /// <summary>
+        /// Get point balance
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec514e2-7773-11ed-9966-0242ac110003" /></para>
+        /// </summary>
+        /// <param name="subUserId">Sub user id to request for</param>
+        /// <param name="ct">Cancellation token</param>
+        Task<WebCallResult<HTXPointBalance>> GetPointBalanceAsync(string? subUserId = null, CancellationToken ct = default);
+
+        /// <summary>
+        /// Transfer points to another user
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec515bf-7773-11ed-9966-0242ac110003" /></para>
+        /// </summary>
+        /// <param name="fromUserId">From user id</param>
+        /// <param name="toUserId">To user id</param>
+        /// <param name="groupId">Group id</param>
+        /// <param name="quantity">Quantity</param>
+        /// <param name="ct">Cancellation token</param>
+        Task<WebCallResult<HTXPointTransfer>> TransferPointsAsync(string fromUserId, string toUserId, string groupId, decimal quantity, CancellationToken ct = default);
+
+        /// <summary>
+        /// Get user deduction info
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb89359-77b5-11ed-9966-18f7c48b051" /></para>
+        /// </summary>
+        /// <param name="ct">Cancellation token</param>
+        Task<WebCallResult<HTXDeductInfo>> GetUserDeductionInfoAsync(CancellationToken ct = default);
+
+        /// <summary>
+        /// Get deduction assets
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb89359-77b5-11ed-9966-18f7c4cea32" /></para>
+        /// </summary>
+        /// <param name="ct">Cancellation token</param>
+        Task<WebCallResult<HTXDeductionAssets>> GetDeductAssetsAsync(CancellationToken ct = default);
+
+        /// <summary>
+        /// Set deduction switch
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb89359-77b5-11ed-9966-18f7c4ff921" /></para>
+        /// </summary>
+        /// <param name="switchType">Deduction switch type</param>
+        /// <param name="deductionAsset">Asset</param>
+        /// <param name="ct">Cancellation token</param>
+        Task<WebCallResult> SetDeductionSwitchAsync(DeductionSwitchType switchType, string? deductionAsset = null, CancellationToken ct = default);
+
+        /// <summary>
+        /// Get withdrawal quota
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec50799-7773-11ed-9966-0242ac110003" /></para>
+        /// </summary>
+        /// <param name="asset">Filter by asse</param>
+        /// <param name="ct">Cancellation token</param>
+        Task<WebCallResult<HTXWithdrawalQuota>> GetWithdrawalQuotasAsync(string? asset = null, CancellationToken ct = default);
+
+        /// <summary>
+        /// Get withdrawal addresses
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec50654-7773-11ed-9966-0242ac110003" /></para>
+        /// </summary>
+        /// <param name="asset">The asset</param>
+        /// <param name="network">Filter by network</param>
+        /// <param name="note">Filter by note</param>
+        /// <param name="limit">Max number of results</param>
+        /// <param name="fromId">Return results after this id</param>
+        /// <param name="ct">Cancellation token</param>
+        Task<WebCallResult<IEnumerable<HTXWithdrawalAddress>>> GetWithdrawalAddressesAsync(string asset, string? network = null, string? note = null, int? limit = null, long? fromId = null, CancellationToken ct = default);
+
+        /// <summary>
+        /// Get a withdrawal by client order id
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4f198-7773-11ed-9966-0242ac110003" /></para>
+        /// </summary>
+        /// <param name="clientOrderId">The client order id</param>
+        /// <param name="ct">Cancellation token</param>
+        Task<WebCallResult<HTXWithdrawDeposit>> GetWithdrawalByClientOrderIdAsync(string clientOrderId, CancellationToken ct = default);
+
+        /// <summary>
+        /// Cancel a pending withdrawal
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4cda7-7773-11ed-9966-0242ac110003" /></para>
+        /// </summary>
+        /// <param name="id">The withdrawal id</param>
+        /// <param name="ct">Cancellation token</param>
+        Task<WebCallResult<long>> CancelWithdrawalAsync(long id, CancellationToken ct = default);
+
+        /// <summary>
+        /// Get API key info
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec52c92-7773-11ed-9966-0242ac110003" /></para>
+        /// </summary>
+        /// <param name="userId">User id</param>
+        /// <param name="apiKey">The API key</param>
+        /// <param name="ct">Cancellation token</param>
+        Task<WebCallResult<IEnumerable<HTXApiKeyInfo>>> GetApiKeyInfoAsync(long userId, string ? apiKey = null, CancellationToken ct = default);
+
+        /// <summary>
+        /// Transfer assets between accounts
+        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#asset-transfer" /></para>
+        /// </summary>
+        /// <param name="fromUserId">From user id</param>
+        /// <param name="fromAccountType">From account type</param>
+        /// <param name="fromAccountId">From account id</param>
+        /// <param name="toUserId">To user id</param>
+        /// <param name="toAccountType">To account type</param>
+        /// <param name="toAccountId">To account id</param>
+        /// <param name="asset">Asset to transfer</param>
+        /// <param name="quantity">Amount to transfer</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult<HTXTransactionResult>> InternalTransferAsync(long fromUserId, AccountType fromAccountType, long fromAccountId,
+            long toUserId, AccountType toAccountType, long toAccountId, string asset, decimal quantity, CancellationToken ct = default);
+
     }
 }

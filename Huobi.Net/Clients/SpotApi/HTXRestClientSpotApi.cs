@@ -38,6 +38,10 @@ namespace HTX.Net.Clients.SpotApi
         /// <inheritdoc />
         public IHTXRestClientSpotApiExchangeData ExchangeData { get; }
         /// <inheritdoc />
+        public IHTXRestClientSpotApiMargin Margin { get; }
+        /// <inheritdoc />
+        public IHTXRestClientSpotApiSubAccount SubAccount { get; }
+        /// <inheritdoc />
         public IHTXRestClientSpotApiTrading Trading { get; }
 
         #endregion
@@ -48,6 +52,8 @@ namespace HTX.Net.Clients.SpotApi
         {
             Account = new HTXRestClientSpotApiAccount(this);
             ExchangeData = new HTXRestClientSpotApiExchangeData(this);
+            SubAccount = new HTXRestClientSpotApiSubAccount(this);
+            Margin = new HTXRestClientSpotApiMargin(this);
             Trading = new HTXRestClientSpotApiTrading(this);
 
             _brokerId = !string.IsNullOrEmpty(options.BrokerId) ? options.BrokerId! : "AA1ef14811";

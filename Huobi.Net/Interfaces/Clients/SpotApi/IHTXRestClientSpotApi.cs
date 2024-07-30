@@ -18,6 +18,14 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// Endpoints related to retrieving market and system data
         /// </summary>
         IHTXRestClientSpotApiExchangeData ExchangeData { get; }
+        /// <summary>
+        /// Endpoints related to margin
+        /// </summary>
+        IHTXRestClientSpotApiMargin Margin { get; }
+        /// <summary>
+        /// Endpoints related to sub-accounts
+        /// </summary>
+        IHTXRestClientSpotApiSubAccount SubAccount { get; }
 
         /// <summary>
         /// Endpoints related to orders and trades

@@ -32,6 +32,50 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         Task<WebCallResult<long>> PlaceOrderAsync(long accountId, string symbol, OrderSide side, OrderType type, decimal quantity, decimal? price = null, string? clientOrderId = null, SourceType? source = null, decimal? stopPrice = null, Operator? stopOperator = null, CancellationToken ct = default);
 
         /// <summary>
+        /// Place multiple orders in a single call
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4d8cc-7773-11ed-9966-0242ac110003" /></para>
+        /// </summary>
+        /// <param name="orders">Orders to place</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult<IEnumerable<HTXBatchPlaceResult>>> PlaceMultipleOrderAsync(
+            IEnumerable<HTXOrderRequest> orders,
+            CancellationToken ct = default);
+
+        /// <summary>
+        /// Place a new margin order
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=10000066-77b7-11ed-9966-0242ac110003" /></para>
+        /// </summary>
+        /// <param name="accountId">The account to place the order for</param>
+        /// <param name="symbol">The symbol to place the order for</param>
+        /// <param name="side">The side of the order</param>
+        /// <param name="type">The type of the order</param>
+        /// <param name="purpose">Transaction purpose</param>
+        /// <param name="quantity">The quantity of the order in base asset</param>
+        /// <param name="quoteQuantity">The quantity of the order in quote asset</param>
+        /// <param name="borrowQuantity">The quantity that needs to be borrowed</param>
+        /// <param name="price">The price of the order. Should be omitted for market orders</param>
+        /// <param name="source">Source. defaults to SpotAPI</param>
+        /// <param name="stopPrice">Stop price</param>
+        /// <param name="stopOperator">Operator of the stop price</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult<HTXOrderId>> PlaceMarginOrderAsync(
+            long accountId,
+            string symbol,
+            Enums.OrderSide side,
+            Enums.OrderType type,
+            Enums.MarginPurpose purpose,
+            SourceType source,
+            decimal? quantity,
+            decimal? quoteQuantity,
+            decimal? borrowQuantity,
+            decimal? price = null,
+            decimal? stopPrice = null,
+            Operator? stopOperator = null,
+            CancellationToken ct = default);
+
+        /// <summary>
         /// Gets a list of open orders
         /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-all-open-orders" /></para>
         /// </summary>
@@ -130,7 +174,6 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// Gets a list of trades for a specific symbol
         /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#search-match-results" /></para>
         /// </summary>
-        /// <param name="states">Only return trades with specific states</param>
         /// <param name="symbol">The symbol to retrieve trades for</param>
         /// <param name="types">The type of orders to return</param>
         /// <param name="startTime">Only get orders after this date</param>
@@ -140,7 +183,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// <param name="limit">The max number of results</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<HTXOrderTrade>>> GetUserTradesAsync(IEnumerable<OrderStatus>? states = null, string? symbol = null, IEnumerable<OrderType>? types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, FilterDirection? direction = null, int? limit = null, CancellationToken ct = default);
+        Task<WebCallResult<IEnumerable<HTXOrderTrade>>> GetUserTradesAsync(string? symbol = null, IEnumerable<OrderType>? types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, FilterDirection? direction = null, int? limit = null, CancellationToken ct = default);
 
         /// <summary>
         /// Gets a list of history orders
