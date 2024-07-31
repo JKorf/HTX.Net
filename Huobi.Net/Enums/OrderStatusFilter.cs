@@ -11,6 +11,11 @@ namespace HTX.Net.Enums
     public enum OrderStatusFilter
     {
         /// <summary>
+        /// Placing in book
+        /// </summary>
+        [Map("1", "2")]
+        Placing,
+        /// <summary>
         /// Submitted orders
         /// </summary>
         [Map("3")]
@@ -34,6 +39,11 @@ namespace HTX.Net.Enums
         /// Canceled orders
         /// </summary>
         [Map("7")]
-        Canceled
+        Canceled,
+        /// <summary>
+        /// Canceled orders
+        /// </summary>
+        [Map("11")]
+        Canceling
     }
 }

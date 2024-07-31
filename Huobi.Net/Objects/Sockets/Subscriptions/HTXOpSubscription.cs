@@ -17,11 +17,11 @@ namespace HTX.Net.Objects.Sockets.Subscriptions
 
         public override HashSet<string> ListenerIdentifiers { get; set; }
 
-        public HTXOpSubscription(ILogger logger, string topic, Action<DataEvent<T>> handler, bool authenticated) : base(logger, authenticated)
+        public HTXOpSubscription(ILogger logger, string listenId, string topic, Action<DataEvent<T>> handler, bool authenticated) : base(logger, authenticated)
         {
             _handler = handler;
             _topic = topic;
-            ListenerIdentifiers = new HashSet<string>() { topic };
+            ListenerIdentifiers = new HashSet<string>() { listenId };
         }
 
         public override Query? GetSubQuery(SocketConnection connection)

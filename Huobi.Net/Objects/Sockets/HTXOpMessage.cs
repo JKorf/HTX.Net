@@ -26,6 +26,12 @@ namespace HTX.Net.Objects.Sockets
         public string Topic { get; set; } = string.Empty;
     }
 
+    internal record HTXOpPingMessage : HTXOpMessage
+    {
+        [JsonPropertyName("ts")]
+        public long Timestamp { get; set; }
+    }
+
     internal record HTXOpResponse : HTXOpMessage
     {
         [JsonPropertyName("ts")]

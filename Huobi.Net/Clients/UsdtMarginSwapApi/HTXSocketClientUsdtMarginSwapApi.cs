@@ -8,6 +8,7 @@ using HTX.Net.Interfaces.Clients.UsdtMarginSwapApi;
 using HTX.Net.Objects.Models;
 using HTX.Net.Objects.Models.Socket;
 using HTX.Net.Objects.Options;
+using HTX.Net.Objects.Sockets.Queries;
 using HTX.Net.Objects.Sockets.Subscriptions;
 
 
@@ -33,6 +34,7 @@ namespace HTX.Net.Clients.SpotApi
             KeepAliveInterval = TimeSpan.Zero;
 
             AddSystemSubscription(new HTXPingSubscription(_logger));
+            AddSystemSubscription(new HTXOpPingSubscription(_logger));
         }
 
         #endregion
@@ -54,6 +56,12 @@ namespace HTX.Net.Clients.SpotApi
             return data.DecompressGzip();
         }
 
+        protected override Query? GetAuthenticationRequest(SocketConnection connection)
+        {
+            var request = ((HTXAuthenticationProvider)AuthenticationProvider!).GetWebsocketAuthentication2(connection.ConnectionUri);
+            return new HTXOpAuthQuery(request);
+        }
+
         /// <inheritdoc />
         public override string? GetListenerIdentifier(IMessageAccessor message)
         {
@@ -64,6 +72,13 @@ namespace HTX.Net.Clients.SpotApi
             var ping = message.GetValue<string>(_pingPath);
             if (ping != null)
                 return "pingV3";
+
+            var opPing = message.GetValue<string>(_opPath);
+            if (string.Equals(opPing, "ping"))
+                return "ping";
+
+            if (string.Equals(opPing, "auth"))
+                return "auth";
 
             var channel = message.GetValue<string>(_channelPath);
             var action = message.GetValue<string>(_actionPath);
@@ -161,54 +176,28 @@ namespace HTX.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToSystemStatusUpdatesAsync(Action<DataEvent<HTXStatusUpdate>> onData, CancellationToken ct = default)
         {
-            var subscription = new HTXOpSubscription<HTXStatusUpdate>(_logger, $"public.linear-swap.heartbeat", onData, false);
+            var subscription = new HTXOpSubscription<HTXStatusUpdate>(_logger, "public.linear-swap.heartbeat", "public.linear-swap.heartbeat", onData, false);
             return await SubscribeAsync(BaseAddress.AppendPath("center-notification"), subscription, ct).ConfigureAwait(false);
         }
-        //// WIP
 
-        /////// <inheritdoc />
-        ////public async Task<CallResult<UpdateSubscription>> SubscribeToIsolatedMarginOrderUpdatesAsync(Action<DataEvent<HTXIsolatedMarginOrder>> onData, CancellationToken ct = default)
-        ////{
-        ////    var request = new HTXSocketRequest2(
-        ////        "sub",
-        ////        NextId().ToString(CultureInfo.InvariantCulture),
-        ////        $"orders.*");
-        ////    var internalHandler = new Action<DataEvent<HTXIsolatedMarginOrder>>(data => onData(data.As(data.Data, data.Data.ContractCode)));
-        ////    return await SubscribeAsync( _baseAddressAuthenticated, request, null, true, internalHandler, ct).ConfigureAwait(false);
-        ////}
+        /// <inheritdoc />
+        public async Task<CallResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(Enums.MarginMode mode, Action<DataEvent<HTXUsdtMarginSwapOrderUpdate>> onData, CancellationToken ct = default)
+        {
+            if (mode == MarginMode.All)
+                throw new ArgumentException("Mode should be either Cross or Isolated", nameof(mode));
 
-        /////// <inheritdoc />
-        ////public async Task<CallResult<UpdateSubscription>> SubscribeToIsolatedMarginOrderUpdatesAsync(string contractCode, Action<DataEvent<HTXIsolatedMarginOrder>> onData, CancellationToken ct = default)
-        ////{
-        ////    var request = new HTXSocketRequest2(
-        ////        "sub",
-        ////        NextId().ToString(CultureInfo.InvariantCulture),
-        ////        $"orders.{contractCode}");
-        ////    var internalHandler = new Action<DataEvent<HTXIsolatedMarginOrder>>(data => onData(data.As(data.Data, contractCode)));
-        ////    return await SubscribeAsync( _baseAddressAuthenticated, request, null, true, internalHandler, ct).ConfigureAwait(false);
-        ////}
+            var topic = mode == MarginMode.Cross ? "orders_cross" : "orders"; 
+            var subscription = new HTXOpSubscription<HTXUsdtMarginSwapOrderUpdate>(_logger, topic, topic + ".*", onData, true);
+            return await SubscribeAsync(BaseAddress.AppendPath("linear-swap-notification"), subscription, ct).ConfigureAwait(false);
+        }
 
-        /////// <inheritdoc />
-        ////public async Task<CallResult<UpdateSubscription>> SubscribeToCrossMarginOrderUpdatesAsync(Action<DataEvent<HTXCrossMarginOrder>> onData, CancellationToken ct = default)
-        ////{
-        ////    var request = new HTXSocketRequest2(
-        ////        "sub",
-        ////        NextId().ToString(CultureInfo.InvariantCulture),
-        ////        $"orders_cross.*");
-        ////    var internalHandler = new Action<DataEvent<HTXCrossMarginOrder>>(data => onData(data.As(data.Data, data.Data.ContractCode)));
-        ////    return await SubscribeAsync(_baseAddressAuthenticated, request, null, true, internalHandler, ct).ConfigureAwait(false);
-        ////}
+        /// <inheritdoc />
+        public async Task<CallResult<UpdateSubscription>> SubscribeToIsolatedMarginBalanceUpdatesAsync(Action<DataEvent<HTXUsdtMarginSwapIsolatedBalanceUpdate>> onData, CancellationToken ct = default)
+        {
+            var subscription = new HTXOpSubscription<HTXUsdtMarginSwapIsolatedBalanceUpdate>(_logger, "accounts", "accounts.*", onData, true);
+            return await SubscribeAsync(BaseAddress.AppendPath("linear-swap-notification"), subscription, ct).ConfigureAwait(false);
+        }
 
-        /////// <inheritdoc />
-        ////public async Task<CallResult<UpdateSubscription>> SubscribeToCrossMarginOrderUpdatesAsync(string contractCode, Action<DataEvent<HTXCrossMarginOrder>> onData, CancellationToken ct = default)
-        ////{
-        ////    var request = new HTXSocketRequest2(
-        ////        "sub",
-        ////        NextId().ToString(CultureInfo.InvariantCulture),
-        ////        $"orders_cross.{contractCode}");
-        ////    var internalHandler = new Action<DataEvent<HTXCrossMarginOrder>>(data => onData(data.As(data.Data, contractCode)));
-        ////    return await SubscribeAsync(_baseAddressAuthenticated, request, null, true, internalHandler, ct).ConfigureAwait(false);
-        ////}
 
     }
 }

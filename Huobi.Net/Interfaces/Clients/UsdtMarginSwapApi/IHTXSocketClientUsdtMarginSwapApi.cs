@@ -133,5 +133,25 @@ namespace HTX.Net.Interfaces.Clients.UsdtMarginSwapApi
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<CallResult<UpdateSubscription>> SubscribeToSystemStatusUpdatesAsync(Action<DataEvent<HTXStatusUpdate>> onData, CancellationToken ct = default);
+
+        /// <summary>
+        /// Subscribe to order updates
+        /// <para><a href="https://www.htx.com/en-in/opend/newApiPages/?id=8cb7d8d9-77b5-11ed-9966-0242ac110003" /></para>
+        /// <para><a href="https://www.htx.com/en-in/opend/newApiPages/?id=8cb7da4b-77b5-11ed-9966-0242ac110003" /></para>
+        /// </summary>
+        /// <param name="mode">Margin mode</param>
+        /// <param name="onData">Data handler</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<CallResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(Enums.MarginMode mode, Action<DataEvent<HTXUsdtMarginSwapOrderUpdate>> onData, CancellationToken ct = default);
+
+        /// <summary>
+        /// Subscribe to isolated margin balance updates
+        /// <para><a href="https://www.htx.com/en-in/opend/newApiPages/?id=8cb7dbbb-77b5-11ed-9966-0242ac110003" /></para>
+        /// </summary>
+        /// <param name="onData">Data handler</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<CallResult<UpdateSubscription>> SubscribeToIsolatedMarginBalanceUpdatesAsync(Action<DataEvent<HTXUsdtMarginSwapIsolatedBalanceUpdate>> onData, CancellationToken ct = default);
     }
 }
