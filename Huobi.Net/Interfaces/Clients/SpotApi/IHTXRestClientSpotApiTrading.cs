@@ -15,7 +15,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
     {
         /// <summary>
         /// Places an order
-        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#place-a-new-order" /></para>
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4ee16-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="accountId">The account to place the order for</param>
         /// <param name="symbol">The symbol to place the order for</param>
@@ -77,7 +77,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Gets a list of open orders
-        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-all-open-orders" /></para>
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4e04b-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="accountId">The account id for which to get the orders for</param>
         /// <param name="symbol">The symbol for which to get the orders for</param>
@@ -89,7 +89,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Cancels an open order
-        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#submit-cancel-for-an-order" /></para>
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4e938-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="orderId">The id of the order to cancel</param>
         /// <param name="ct">Cancellation token</param>
@@ -98,7 +98,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Cancels an open order
-        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#submit-cancel-for-an-order-based-on-client-order-id" /></para>
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4ef06-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="clientOrderId">The client id of the order to cancel</param>
         /// <param name="ct">Cancellation token</param>
@@ -107,7 +107,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Cancel multiple open orders
-        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#submit-cancel-for-multiple-orders-by-ids" /></para>
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4ea21-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="orderIds">The ids of the orders to cancel</param>
         /// <param name="clientOrderIds">The client ids of the orders to cancel</param>
@@ -117,7 +117,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Cancel multiple open orders
-        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#submit-cancel-for-multiple-orders-by-criteria" /></para>
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4eb66-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="accountId">The account id used for this cancel</param>
         /// <param name="symbols">The trading symbol list (maximum 10 symbols, default value all symbols)</param>
@@ -129,7 +129,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get details of an order
-        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-the-order-detail-of-an-order" /></para>
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4e31c-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="orderId">The id of the order to retrieve</param>
         /// <param name="ct">Cancellation token</param>
@@ -138,7 +138,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get details of an order by client order id
-        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-the-order-detail-of-an-order-based-on-client-order-id" /></para>
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4ec26-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="clientOrderId">The client id of the order to retrieve</param>
         /// <param name="ct">Cancellation token</param>
@@ -147,7 +147,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Gets a list of trades made for a specific order
-        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-the-match-result-of-an-order" /></para>
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4e708-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="orderId">The id of the order to get trades for</param>
         /// <param name="ct">Cancellation token</param>
@@ -156,7 +156,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Gets a list of orders
-        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#search-past-orders" /></para>
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4e1c4-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="symbol">The symbol to get orders for</param>
         /// <param name="states">The states of orders to return</param>
@@ -172,7 +172,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Gets a list of trades for a specific symbol
-        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#search-match-results" /></para>
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4de21-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="symbol">The symbol to retrieve trades for</param>
         /// <param name="types">The type of orders to return</param>
@@ -187,7 +187,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Gets a list of history orders
-        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#search-historical-orders-within-48-hours" /></para>
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4db3d-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="symbol">The symbol to get orders for</param>
         /// <param name="startTime">Only get orders after this date</param>
@@ -200,7 +200,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Place a new conditional order
-        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#place-a-conditional-order" /></para>
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec50918-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="accountId">The account the order should be placed from</param>
         /// <param name="symbol">The symbol the order is for</param>
@@ -231,7 +231,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Cancel conditional orders
-        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#cancel-conditional-orders-before-triggering" /></para>
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec50be1-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="clientOrderIds">Client order ids of the conditional orders to cancels</param>
         /// <param name="ct">Cancelation token</param>
@@ -240,7 +240,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get open conditional orders based on the parameters
-        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#query-open-conditional-orders-before-triggering" /></para>
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec51082-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="accountId">Filter by account id</param>
         /// <param name="symbol">Filter by symbol</param>
@@ -255,7 +255,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get closed conditional orders
-        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#query-conditional-order-history" /></para>
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec50dcf-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="accountId">Filter by account id</param>
         /// <param name="symbol">Filter by symbol</param>
@@ -284,7 +284,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get a conditional order by id
-        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#query-a-specific-conditional-order" /></para>
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec5121b-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="clientOrderId">Client order id</param>
         /// <param name="ct">Cancelation token</param>

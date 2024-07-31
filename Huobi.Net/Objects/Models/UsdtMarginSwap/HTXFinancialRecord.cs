@@ -53,12 +53,12 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// Amount
         /// </summary>
         [JsonPropertyName("amount")]
-        public decimal Amount { get; set; }
+        public decimal Quantity { get; set; }
         /// <summary>
         /// Timestamp
         /// </summary>
         [JsonConverter(typeof(DateTimeConverter))]
-        [JsonPropertyName("timestamp")]
+        [JsonPropertyName("ts")]
         public DateTime Timestamp { get; set; }
         /// <summary>
         /// Contract code

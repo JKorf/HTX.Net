@@ -32,7 +32,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Gets a list of users associated with the apikey/secret
-        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-sub-user-39-s-list"/></para>
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec52a87-7773-11ed-9966-0242ac110003"/></para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -77,7 +77,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Gets a list of sub-user accounts associated with the sub-user id
-        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-sub-user-39-s-account-list"/></para>
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec51da3-7773-11ed-9966-0242ac110003"/></para>
         /// </summary>
         /// <param name="subUserId">The if of the user to get accounts for</param>
         /// <param name="ct">Cancellation token</param>
@@ -149,7 +149,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Gets a list of balances for a specific sub account
-        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-account-balance-of-a-sub-user" /></para>
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4b62b-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="subAccountId">The id of the sub account to get the balances for</param>
         /// <param name="ct">Cancellation token</param>
@@ -158,7 +158,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Transfer asset between parent and sub account
-        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#transfer-asset-between-parent-and-sub-account" /></para>
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4feac-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="subAccountId">The target sub account id to transfer to or from</param>
         /// <param name="asset">The asset to transfer</param>

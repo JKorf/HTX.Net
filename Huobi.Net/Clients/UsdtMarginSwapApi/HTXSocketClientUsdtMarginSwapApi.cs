@@ -21,6 +21,11 @@ namespace HTX.Net.Clients.SpotApi
         private static readonly MessagePath _channelPath = MessagePath.Get().Property("ch");
         private static readonly MessagePath _pingPath = MessagePath.Get().Property("ping");
 
+
+        private static readonly MessagePath _cidPath = MessagePath.Get().Property("cid");
+        private static readonly MessagePath _opPath = MessagePath.Get().Property("op");
+        private static readonly MessagePath _topicPath = MessagePath.Get().Property("topic");
+
         #region ctor
         internal HTXSocketClientUsdtMarginSwapApi(ILogger logger, HTXSocketOptions options)
             : base(logger, options.Environment.UsdtMarginSwapSocketBaseAddress, options, options.UsdtMarginSwapOptions)
@@ -52,7 +57,7 @@ namespace HTX.Net.Clients.SpotApi
         /// <inheritdoc />
         public override string? GetListenerIdentifier(IMessageAccessor message)
         {
-            var id = message.GetValue<string>(_idPath);
+            var id = message.GetValue<string>(_idPath) ?? message.GetValue<string>(_cidPath);
             if (id != null)
                 return id;
 
@@ -64,6 +69,10 @@ namespace HTX.Net.Clients.SpotApi
             var action = message.GetValue<string>(_actionPath);
             if (action != null && action != "push")
                 return action + channel;
+
+            var topic = message.GetValue<string>(_topicPath);
+            if (topic != null)
+                return topic;
 
             return channel;
         }
@@ -101,7 +110,7 @@ namespace HTX.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToBestOfferUpdatesAsync(string contractCode, Action<DataEvent<HTXBestOfferUpdate>> onData, CancellationToken ct = default)
+        public async Task<CallResult<UpdateSubscription>> SubscribeToBookTickerUpdatesAsync(string contractCode, Action<DataEvent<HTXBestOfferUpdate>> onData, CancellationToken ct = default)
         {
             var subscription = new HTXSubscription<HTXBestOfferUpdate>(_logger, $"market.{contractCode.ToUpperInvariant()}.bbo", x => onData(x.WithSymbol(contractCode)), false);
             return await SubscribeAsync(BaseAddress.AppendPath("linear-swap-ws"), subscription, ct).ConfigureAwait(false);
@@ -149,6 +158,12 @@ namespace HTX.Net.Clients.SpotApi
             return await SubscribeAsync(BaseAddress.AppendPath("ws_index"), subscription, ct).ConfigureAwait(false);
         }
 
+        /// <inheritdoc />
+        public async Task<CallResult<UpdateSubscription>> SubscribeToSystemStatusUpdatesAsync(Action<DataEvent<HTXStatusUpdate>> onData, CancellationToken ct = default)
+        {
+            var subscription = new HTXOpSubscription<HTXStatusUpdate>(_logger, $"public.linear-swap.heartbeat", onData, false);
+            return await SubscribeAsync(BaseAddress.AppendPath("center-notification"), subscription, ct).ConfigureAwait(false);
+        }
         //// WIP
 
         /////// <inheritdoc />

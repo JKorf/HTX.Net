@@ -2,7 +2,7 @@
 
 namespace HTX.Net.Objects.Internal
 {
-    internal class HTXSocketRequest2
+    internal class HTXSocketRequestOp
     {
         [JsonPropertyName("op")]
         public string Operation { get; set; }
@@ -11,7 +11,7 @@ namespace HTX.Net.Objects.Internal
         [JsonPropertyName("topic")]
         public string Topic { get; set; }
 
-        public HTXSocketRequest2(string operation, string clientId, string topic)
+        public HTXSocketRequestOp(string operation, string clientId, string topic)
         {
             Operation = operation;
             ClientId = clientId;

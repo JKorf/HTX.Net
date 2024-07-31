@@ -15,7 +15,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
     {
         /// <summary>
         /// Repay a margin loan
-        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#repay-margin-loan-cross-isolated" /></para>
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec5037d-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="accountId">Account id</param>
         /// <param name="asset">Asset to repay</param>
@@ -27,7 +27,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Transfer asset from spot account to isolated margin account
-        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#transfer-asset-from-spot-trading-account-to-isolated-margin-account-isolated" /></para>
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4c545-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="symbol">Trading symbol</param>
         /// <param name="asset">Asset to transfer</param>
@@ -38,7 +38,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Transfer asset from isolated margin to spot account
-        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#transfer-asset-from-isolated-margin-account-to-spot-trading-account-isolated" /></para>
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4cb3f-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="symbol">Trading symbol</param>
         /// <param name="asset">Asset to transfer</param>
@@ -49,7 +49,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get isolated loan interest rate and quotas
-        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-loan-interest-rate-and-quota-isolated" /></para>
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4d178-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="symbols">Filter on symbols</param>
         /// <param name="ct">Cancellation token</param>
@@ -58,7 +58,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Request a loan on isolated margin
-        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#request-a-margin-loan-isolated" /></para>
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4d587-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="symbol">The symbol</param>
         /// <param name="asset">The asset</param>
@@ -69,7 +69,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Repay a isolated margin loan
-        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#repay-margin-loan-isolated" /></para>
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4d7f0-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="orderId">Id to repay</param>
         /// <param name="quantity">Quantity</param>
@@ -79,7 +79,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get isolated margin orders history
-        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#search-past-margin-orders-isolated" /></para>
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4d423-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="symbol">The symbol to get history for</param>
         /// <param name="states">Filter by states</param>
@@ -104,7 +104,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get isolated margin account balance
-        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-the-balance-of-the-margin-loan-account-isolated" /></para>
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4d015-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="symbol">The symbol</param>
         /// <param name="subUserId">Sub user id</param>
@@ -114,7 +114,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Transfer from spot account to cross margin account
-        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#transfer-asset-from-spot-trading-account-to-cross-margin-account-cross" /></para>
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4c32c-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="asset">The asset to transfer</param>
         /// <param name="quantity">Quantity to transfer</param>
@@ -124,7 +124,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Transfer from cross margin account to spot account
-        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#transfer-asset-from-cross-margin-account-to-spot-trading-account-cross" /></para>
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4c47a-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="asset">The asset to transfer</param>
         /// <param name="quantity">Quantity to transfer</param>
@@ -134,7 +134,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get cross margin interest rates and quotas
-        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-loan-interest-rate-and-quota-cross" /></para>
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4bef5-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="ct"></param>
         /// <returns></returns>
@@ -142,7 +142,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Request a loan on cross margin
-        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#request-a-margin-loan-cross" /></para>
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4c1ac-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="asset">The asset</param>
         /// <param name="quantity">The quantity</param>
@@ -152,7 +152,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Repay a isolated margin loan
-        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#repay-margin-loan-cross" /></para>
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4c26f-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="orderId">Id to repay</param>
         /// <param name="quantity">Quantity</param>
@@ -162,7 +162,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get cross margin order history
-        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#search-past-margin-orders-cross" /></para>
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4c055-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="asset">Filter by asset</param>
         /// <param name="status">Filter by status</param>
@@ -187,7 +187,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get cross margin account balance
-        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-the-balance-of-the-margin-loan-account-cross" /></para>
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4bca0-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="subUserId">Sub user id</param>
         /// <param name="ct">Cancellation token</param>
@@ -204,7 +204,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get repayment history
-        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#repayment-record-reference" /></para>
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec50446-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="repayId">Filter by repay id</param>
         /// <param name="accountId">Filter by account id</param>

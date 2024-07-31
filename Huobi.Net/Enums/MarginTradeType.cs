@@ -33,6 +33,16 @@ namespace HTX.Net.Enums
         [Map("4")]
         SellLong,
         /// <summary>
+        /// Liquidate long positions
+        /// </summary>
+        [Map("5")]
+        LiquidateLong,
+        /// <summary>
+        /// Liquidate short positions
+        /// </summary>
+        [Map("6")]
+        LiquidateShort,
+        /// <summary>
         /// Buy one way
         /// </summary>
         [Map("17")]

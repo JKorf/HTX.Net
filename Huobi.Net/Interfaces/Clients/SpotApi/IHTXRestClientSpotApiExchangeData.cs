@@ -53,7 +53,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Gets the latest ticker for all symbols
-        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-latest-tickers-for-all-pairs" /></para>
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4a808-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -61,7 +61,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Gets the ticker, including the best bid / best ask for a symbol
-        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-latest-aggregated-ticker" /></para>
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4a3b6-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="symbol">The symbol to get the ticker for</param>
         /// <param name="ct">Cancellation token</param>
@@ -70,7 +70,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get candlestick data for a symbol
-        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-klines-candles" /></para>
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4a4da-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="symbol">The symbol to get the data for</param>
         /// <param name="period">The period of a single candlestick</param>
@@ -81,7 +81,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Gets the order book for a symbol
-        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-market-depth" /></para>
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4a0fc-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="symbol">The symbol to request for</param>
         /// <param name="mergeStep">The way the results will be merged together</param>
@@ -92,7 +92,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Gets the last trade for a symbol
-        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-the-last-trade" /></para>
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4aa2b-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="symbol">The symbol to request for</param>
         /// <param name="ct">Cancellation token</param>
@@ -101,7 +101,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get the last x trades for a symbol
-        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-the-most-recent-trades" /></para>
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4a59d-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="symbol">The symbol to get trades for</param>
         /// <param name="limit">The max number of results</param>
@@ -111,7 +111,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Gets 24h stats for a symbol
-        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-the-last-24h-market-summary" /></para>
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4a2cd-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="symbol">The symbol to get the data for</param>
         /// <param name="ct">Cancellation token</param>
@@ -120,7 +120,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Gets the current market status
-        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-market-status" /></para>
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec513b1-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -128,7 +128,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Gets the server time
-        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-current-timestamp" /></para>
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4bb2c-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>

@@ -27,6 +27,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Subscribes to candlestick updates for a symbol
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec53241-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="symbol">The symbol to subscribe to</param>
         /// <param name="period">The period of a single candlestick</param>
@@ -55,7 +56,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Subscribes to order book updates for a symbol
-        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#market-by-price-incremental-update" /></para>
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec5378b-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="symbol">The symbol to subscribe to</param>
         /// <param name="levels">The number of price levels. 5, 10 or 20</param>
@@ -66,7 +67,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Subscribes to order book updates for a symbol
-        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#market-depth" /></para>
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec5342e-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="symbol">The symbol to subscribe to</param>
         /// <param name="mergeStep">The way the results will be merged together</param>
@@ -77,7 +78,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Subscribes to order book updates for a symbol, 
-        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#market-by-price-incremental-update" /></para>
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec5362b-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="symbol">The symbol to subscribe to</param>
         /// <param name="levels">The number of price levels. 5, 20, 150 or 400</param>
@@ -96,7 +97,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Subscribes to trade updates for a symbol
-        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#trade-detail" /></para>
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec53b69-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="symbol">The symbol to subscribe to</param>
         /// <param name="onData">The handler for updates</param>
@@ -114,7 +115,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Subscribes to symbol detail updates for a symbol
-        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#market-details" /></para>
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec53561-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="symbol">The symbol to subscribe to</param>
         /// <param name="onData">The handler for updates</param>
@@ -124,7 +125,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Subscribes to updates for a symbol
-        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#market-ticker" /></para>
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec538cf-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="symbol">The symbol to subscribe</param>
         /// <param name="onData">The handler for updates</param>
@@ -134,7 +135,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Subscribes to updates for all tickers
-        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#market-ticker" /></para>
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec538cf-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="onData">The handler for updates</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
@@ -143,17 +144,17 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Subscribe to changes of a symbol's best ask/bid
-        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#best-bid-offer" /></para>
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec5333f-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="symbol">Symbol to subscribe to</param>
         /// <param name="onData">Data handler</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToBestOfferUpdatesAsync(string symbol, Action<DataEvent<HTXBestOffer>> onData, CancellationToken ct = default);
+        Task<CallResult<UpdateSubscription>> SubscribeToBookTickerUpdatesAsync(string symbol, Action<DataEvent<HTXBestOffer>> onData, CancellationToken ct = default);
 
         /// <summary>
         /// Subscribe to updates of orders
-        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#subscribe-order-updates" /></para>
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec53c8f-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="symbol">Subscribe on a specific symbol</param>
         /// <param name="onOrderSubmitted">Event handler for the order submitted event</param>
@@ -174,7 +175,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Subscribe to updates of account balances
-        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#subscribe-account-change" /></para>
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec52e28-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="onAccountUpdate">Event handler</param>
         /// <param name="updateMode">The update mode. Defaults to 1, see API docs for more info</param>
@@ -184,7 +185,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Subscribe to detailed order matched/canceled updates
-        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#subscribe-trade-details-amp-order-cancellation-post-clearing" /></para>
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec53dd5-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="symbol">Subscribe to a specific symbol</param>
         /// <param name="onOrderMatch">Event handler for the order matched event</param>

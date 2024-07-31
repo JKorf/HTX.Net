@@ -15,7 +15,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
     {
         /// <summary>
         /// Get the user id associated with the apikey/secret
-        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-uid"/></para>
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec52d6c-7773-11ed-9966-0242ac110003"/></para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -23,7 +23,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Gets a list of accounts associated with the apikey/secret
-        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-all-accounts-of-the-current-user" /></para>
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4b291-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -31,7 +31,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Gets a list of balances for a specific account
-        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-account-balance-of-a-specific-account" /></para>
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4b429-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="accountId">The id of the account to get the balances for</param>
         /// <param name="ct">Cancellation token</param>
@@ -40,7 +40,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get platform asset valuation
-        /// <para><a href="https://www.htx.com/en-in/opend/newApiPages/?id=7ec5058c-7773-11ed-9966-0242ac110003" /></para>
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec5058c-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="accountType">Filter by account type</param>
         /// <param name="valuationAsset">Valuation asset, only BTC supported at the moment</param>
@@ -50,7 +50,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Gets the valuation of all assets
-        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-the-total-valuation-of-platform-assets" /></para>
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4ff6d-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="accountType">Type of account to valuate</param>
         /// <param name="valuationCurrency">The currency to get the value in</param>
@@ -61,7 +61,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Gets a list of balance changes of specified user's account
-        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-account-history" /></para>
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4b85b-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="accountId">The id of the account to get the balances for</param>
         /// <param name="asset">Asset name</param>
@@ -76,7 +76,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// This endpoint returns the balance changes of specified user's account.
-        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-account-ledger" /></para>
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec501f7-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="accountId">The id of the account to get the ledger for</param>
         /// <param name="asset">Asset name</param>
@@ -104,7 +104,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Parent user and sub user could query deposit address of corresponding chain, for a specific crypto currency (except IOTA).
-        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#query-deposit-address" /></para>
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec50029-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="asset">Asset</param>
         /// <param name="ct">Cancellation token</param>
@@ -113,7 +113,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Parent user creates a withdraw request from spot account to an external address (exists in your withdraw address list), which doesn't require two-factor-authentication.
-        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#create-a-withdraw-request" /></para>
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4cc41-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="address">The desination address of this withdraw</param>
         /// <param name="asset">Asset</param>
@@ -128,7 +128,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Parent user and sub user searche for all existed withdraws and deposits and return their latest status.
-        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#search-for-existed-withdraws-and-deposits" /></para>
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4f050-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="type">Define transfer type to search</param>
         /// <param name="asset">The asset to withdraw</param>
@@ -140,8 +140,8 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         Task<WebCallResult<IEnumerable<HTXWithdrawDeposit>>> GetWithdrawDepositAsync(WithdrawDepositType type, string? asset = null, int? from = null, int? size = null, FilterDirection? direction = null, CancellationToken ct = default);
 
         /// <summary>
-        /// Get Current Fee Rate Applied to The User
-        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-current-fee-rate-applied-to-the-user" /></para>
+        /// Get current trading fees
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec51870-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="symbols">Filter on symbols</param>
         /// <param name="ct">Cancellation token</param>
@@ -238,7 +238,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Transfer assets between accounts
-        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#asset-transfer" /></para>
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4b9db-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="fromUserId">From user id</param>
         /// <param name="fromAccountType">From account type</param>
