@@ -2,7 +2,6 @@
 using HTX.Net.Enums;
 using HTX.Net.Interfaces.Clients.UsdtMarginSwapApi;
 using HTX.Net.Objects.Models.UsdtMarginSwap;
-using System.Drawing;
 
 namespace HTX.Net.Clients.UsdtMarginSwapApi
 {

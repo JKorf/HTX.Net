@@ -1,13 +1,7 @@
-﻿using CryptoExchange.Net.Interfaces;
-using CryptoExchange.Net.Objects;
-using CryptoExchange.Net.Objects.Sockets;
+﻿using CryptoExchange.Net.Objects.Sockets;
 using HTX.Net.Enums;
 using HTX.Net.Objects.Models;
 using HTX.Net.Objects.Models.Socket;
-using HTX.Net.Objects.Models.UsdtMarginSwap;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace HTX.Net.Interfaces.Clients.UsdtMarginSwapApi
 {

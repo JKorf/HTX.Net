@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace HTX.Net.Objects.Models
+﻿namespace HTX.Net.Objects.Models
 {
     /// <summary>
     /// Conditional order cancelation result

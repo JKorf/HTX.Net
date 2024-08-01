@@ -1,6 +1,4 @@
-﻿using CryptoExchange.Net.Interfaces;
-using HTX.Net.Objects.Options;
-using System;
+﻿using HTX.Net.Objects.Options;
 
 namespace HTX.Net.Interfaces
 {

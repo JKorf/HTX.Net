@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using CryptoExchange.Net.Converters;
-
-
-namespace HTX.Net.Objects.Models
+﻿namespace HTX.Net.Objects.Models
 {
     /// <summary>
     /// NAV info for ETP

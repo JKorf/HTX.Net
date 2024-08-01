@@ -1,7 +1,4 @@
-﻿using CryptoExchange.Net.Converters;
-
-
-namespace HTX.Net.Objects.Models.UsdtMarginSwap
+﻿namespace HTX.Net.Objects.Models.UsdtMarginSwap
 {
     /// <summary>
     /// Market data

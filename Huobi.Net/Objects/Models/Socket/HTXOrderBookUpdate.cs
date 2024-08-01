@@ -1,8 +1,4 @@
-﻿
-using System;
-using System.Collections.Generic;
-
-namespace HTX.Net.Objects.Models.Socket
+﻿namespace HTX.Net.Objects.Models.Socket
 {
     /// <summary>
     /// Incremental order book update

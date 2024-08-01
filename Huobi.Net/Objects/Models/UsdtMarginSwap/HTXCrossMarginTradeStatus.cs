@@ -1,5 +1,4 @@
-﻿using CryptoExchange.Net.Converters;
-using HTX.Net.Enums;
+﻿using HTX.Net.Enums;
 
 
 namespace HTX.Net.Objects.Models.UsdtMarginSwap

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace HTX.Net.Objects.Models.UsdtMarginSwap
+﻿namespace HTX.Net.Objects.Models.UsdtMarginSwap
 {
     /// <summary>
     /// Close position result

@@ -1,7 +1,4 @@
 ﻿using HTX.Net.Objects.Sockets;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using HTX.Net.Enums;
 
 namespace HTX.Net.Objects.Models.Socket

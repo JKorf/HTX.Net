@@ -1,6 +1,4 @@
-﻿using CryptoExchange.Net;
-using CryptoExchange.Net.Sockets;
-using System.Collections.Generic;
+﻿using CryptoExchange.Net.Sockets;
 
 namespace HTX.Net.Objects.Sockets.Queries
 {

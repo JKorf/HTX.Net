@@ -7,7 +7,6 @@ using HTX.Net.Enums;
 using HTX.Net.Interfaces.Clients.UsdtMarginSwapApi;
 using HTX.Net.Objects.Models;
 using HTX.Net.Objects.Models.Socket;
-using HTX.Net.Objects.Models.UsdtMarginSwap;
 using HTX.Net.Objects.Options;
 using HTX.Net.Objects.Sockets.Queries;
 using HTX.Net.Objects.Sockets.Subscriptions;

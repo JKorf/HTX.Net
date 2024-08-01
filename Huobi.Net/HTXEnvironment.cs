@@ -1,5 +1,4 @@
-﻿using CryptoExchange.Net.Objects;
-using HTX.Net.Objects;
+﻿using HTX.Net.Objects;
 
 namespace HTX.Net
 {

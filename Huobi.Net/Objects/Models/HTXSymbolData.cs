@@ -1,8 +1,4 @@
-﻿using System;
-using CryptoExchange.Net.Converters;
-
-
-namespace HTX.Net.Objects.Models
+﻿namespace HTX.Net.Objects.Models
 {
     /// <summary>
     /// Symbol data

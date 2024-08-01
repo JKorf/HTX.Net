@@ -1,8 +1,4 @@
-﻿using CryptoExchange.Net.Converters;
-
-using System;
-
-namespace HTX.Net.Objects.Models
+﻿namespace HTX.Net.Objects.Models
 {
     /// <summary>
     /// Repayment result

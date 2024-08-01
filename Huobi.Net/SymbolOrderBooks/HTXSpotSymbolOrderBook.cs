@@ -1,12 +1,7 @@
-﻿using System.Threading.Tasks;
-using CryptoExchange.Net.Objects;
-using CryptoExchange.Net.OrderBook;
-using System;
+﻿using CryptoExchange.Net.OrderBook;
 using HTX.Net.Objects.Models;
 using HTX.Net.Interfaces.Clients;
 using HTX.Net.Clients;
-using System.Threading;
-using Microsoft.Extensions.Logging;
 using HTX.Net.Objects.Options;
 using CryptoExchange.Net.Objects.Sockets;
 

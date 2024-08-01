@@ -1,11 +1,8 @@
-﻿using CryptoExchange.Net.Interfaces;
-using CryptoExchange.Net.OrderBook;
+﻿using CryptoExchange.Net.OrderBook;
 using HTX.Net.Interfaces;
 using HTX.Net.Interfaces.Clients;
 using HTX.Net.Objects.Options;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using System;
 
 namespace HTX.Net.SymbolOrderBooks
 {

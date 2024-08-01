@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace HTX.Net.Objects.Sockets
+﻿namespace HTX.Net.Objects.Sockets
 {
     /// <summary>
     /// Message

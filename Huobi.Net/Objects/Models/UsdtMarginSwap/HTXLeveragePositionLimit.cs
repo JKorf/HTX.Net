@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using HTX.Net.Enums;
+﻿using HTX.Net.Enums;
 
 namespace HTX.Net.Objects.Models.UsdtMarginSwap
 {

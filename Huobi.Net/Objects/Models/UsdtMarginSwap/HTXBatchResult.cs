@@ -1,7 +1,4 @@
-﻿
-using System.Collections.Generic;
-
-namespace HTX.Net.Objects.Models.UsdtMarginSwap
+﻿namespace HTX.Net.Objects.Models.UsdtMarginSwap
 {
     /// <summary>
     /// Batch result

@@ -1,6 +1,4 @@
-﻿using CryptoExchange.Net.Interfaces;
-using CryptoExchange.Net.Interfaces.CommonClients;
-using System;
+﻿using CryptoExchange.Net.Interfaces.CommonClients;
 
 namespace HTX.Net.Interfaces.Clients.SpotApi
 {

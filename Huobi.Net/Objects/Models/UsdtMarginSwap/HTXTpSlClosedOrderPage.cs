@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using HTX.Net.Enums;
-
-namespace HTX.Net.Objects.Models.UsdtMarginSwap
+﻿namespace HTX.Net.Objects.Models.UsdtMarginSwap
 {
     /// <summary>
     /// Take profit / stop loss order page

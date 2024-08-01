@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace HTX.Net.Objects.Models
+﻿namespace HTX.Net.Objects.Models
 {
     /// <summary>
     /// Sub account request

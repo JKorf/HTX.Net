@@ -1,8 +1,6 @@
 ﻿using HTX.Net.Enums;
 using HTX.Net.Objects.Models;
 using HTX.Net.Interfaces.Clients.SpotApi;
-using HTX.Net.ExtensionMethods;
-using System.Security.Cryptography;
 
 namespace HTX.Net.Clients.SpotApi
 {
