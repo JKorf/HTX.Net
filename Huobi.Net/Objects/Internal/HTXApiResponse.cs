@@ -15,15 +15,15 @@
             set => ErrorMessage = value;
         }
         [JsonInclude, JsonPropertyName("err-code")]
-        internal string? ErrorCode { get; set; }
+        internal int? ErrorCode { get; set; }
         [JsonInclude, JsonPropertyName("err_code")]
-        private string? ErrorCodeInternal
+        private int? ErrorCodeInternal
         {
             get => ErrorCode;
             set => ErrorCode = value;
         }
         [JsonInclude, JsonPropertyName("code")]
-        private string? ErrorCodeInternal2
+        private int? ErrorCodeInternal2
         {
             get => ErrorCode;
             set => ErrorCode = value;

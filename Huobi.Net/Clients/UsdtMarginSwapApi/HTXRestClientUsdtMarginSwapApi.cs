@@ -85,7 +85,7 @@ namespace HTX.Net.Clients.FuturesApi
                 return result.AsDatalessError(result.Error!);
 
             if (result.Data.ErrorCode != null)
-                return result.AsDatalessError(new ServerError(result.Data.ErrorCode, result.Data.ErrorMessage));
+                return result.AsDatalessError(new ServerError(result.Data.ErrorCode.Value, result.Data.ErrorMessage!));
 
             return result.AsDataless();
 
@@ -101,7 +101,7 @@ namespace HTX.Net.Clients.FuturesApi
                 return result.AsError<T>(result.Error!);
 
             if (result.Data.ErrorCode != null)
-                return result.AsError<T>(new ServerError(result.Data.ErrorCode, result.Data.ErrorMessage));
+                return result.AsError<T>(new ServerError(result.Data.ErrorCode.Value, result.Data.ErrorMessage!));
 
             return result.As(result.Data.Data);
         }
@@ -113,7 +113,7 @@ namespace HTX.Net.Clients.FuturesApi
             if (!accessor.IsJson)
                 return new ServerError(accessor.GetOriginalString());
 
-            var code = accessor.GetValue<string>(MessagePath.Get().Property("err-code"));
+            var code = accessor.GetValue<int?>(MessagePath.Get().Property("err-code"));
             var msg = accessor.GetValue<string>(MessagePath.Get().Property("err-msg"));
 
             if (code == null || msg == null)
