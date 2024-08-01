@@ -4,7 +4,6 @@ using CryptoExchange.Net.Converters.MessageParsing;
 using CryptoExchange.Net.Objects.Sockets;
 using CryptoExchange.Net.Sockets;
 using HTX.Net.Enums;
-using HTX.Net.ExtensionMethods;
 using HTX.Net.Interfaces.Clients.SpotApi;
 using HTX.Net.Objects.Models;
 using HTX.Net.Objects.Models.Socket;

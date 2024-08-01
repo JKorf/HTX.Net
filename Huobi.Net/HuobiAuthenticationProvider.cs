@@ -1,14 +1,7 @@
-﻿using CryptoExchange.Net.Authentication;
-using CryptoExchange.Net.Clients;
-using CryptoExchange.Net.Objects;
+﻿using CryptoExchange.Net.Clients;
 using HTX.Net.Objects.Internal;
 using HTX.Net.Objects.Sockets;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Text;
 using System.Text.RegularExpressions;
 

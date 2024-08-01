@@ -1,5 +1,4 @@
 ﻿using CryptoExchange.Net.Clients;
-using CryptoExchange.Net.CommonObjects;
 using CryptoExchange.Net.Converters.MessageParsing;
 using HTX.Net.Clients.UsdtMarginSwapApi;
 using HTX.Net.Interfaces.Clients.UsdtMarginSwapApi;

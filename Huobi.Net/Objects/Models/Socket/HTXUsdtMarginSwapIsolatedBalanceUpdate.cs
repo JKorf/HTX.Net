@@ -1,15 +1,12 @@
 ﻿using HTX.Net.Objects.Sockets;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using HTX.Net.Enums;
 
 namespace HTX.Net.Objects.Models.Socket
 {
     /// <summary>
-    /// 
+    /// Isolated balance update
     /// </summary>
-    public record HTXUsdtMarginSwapIsolatedBalanceUpdate : HTXOpMessage
+    public record HTXUsdtMarginSwapIsolatedBalanceUpdate: HTXOpMessage
     {
         /// <summary>
         /// Timestamp
@@ -20,12 +17,12 @@ namespace HTX.Net.Objects.Models.Socket
         /// Event trigger
         /// </summary>
         [JsonPropertyName("event")]
-        public BalanceEvent Event { get; set; }
+        public EventTrigger Event { get; set; }
         /// <summary>
         /// Data
         /// </summary>
         [JsonPropertyName("data")]
-        public IEnumerable<HTXUsdtMarginSwapIsolatedBalanceUpdateData> Data { get; set; } = Array.Empty<HTXUsdtMarginSwapIsolatedBalanceUpdateData>();
+        public IEnumerable<HTXUsdtMarginSwapIsolatedBalanceUpdateDta> Data { get; set; } = Array.Empty<HTXUsdtMarginSwapIsolatedBalanceUpdateDta>();
         /// <summary>
         /// User id
         /// </summary>
@@ -34,9 +31,9 @@ namespace HTX.Net.Objects.Models.Socket
     }
 
     /// <summary>
-    /// 
+    /// Isolated margin balance update
     /// </summary>
-    public record HTXUsdtMarginSwapIsolatedBalanceUpdateData
+    public record HTXUsdtMarginSwapIsolatedBalanceUpdateDta
     {
         /// <summary>
         /// Asset

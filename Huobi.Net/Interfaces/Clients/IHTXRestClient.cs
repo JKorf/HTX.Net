@@ -1,6 +1,4 @@
-﻿using CryptoExchange.Net.Authentication;
-using CryptoExchange.Net.Interfaces;
-using HTX.Net.Interfaces.Clients.SpotApi;
+﻿using HTX.Net.Interfaces.Clients.SpotApi;
 using HTX.Net.Interfaces.Clients.UsdtMarginSwapApi;
 
 namespace HTX.Net.Interfaces.Clients

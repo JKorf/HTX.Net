@@ -1,5 +1,4 @@
 ﻿using CryptoExchange.Net.Objects.Options;
-using System;
 
 namespace HTX.Net.Objects.Options
 {

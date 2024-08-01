@@ -92,5 +92,10 @@ namespace HTX.Net.Enums
         /// </summary>
         [Map("optimal_20_fok")]
         FillOrKillOptimal20,
+        /// <summary>
+        /// Formula price
+        /// </summary>
+        [Map("formula_price")]
+        FormulaPrice
     }
 }

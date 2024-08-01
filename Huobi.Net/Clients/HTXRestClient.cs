@@ -1,12 +1,8 @@
-﻿using CryptoExchange.Net.Authentication;
-using HTX.Net.Clients.FuturesApi;
+﻿using HTX.Net.Clients.FuturesApi;
 using HTX.Net.Clients.SpotApi;
 using HTX.Net.Interfaces.Clients;
 using HTX.Net.Interfaces.Clients.SpotApi;
 using HTX.Net.Interfaces.Clients.UsdtMarginSwapApi;
-using Microsoft.Extensions.Logging;
-using System.Net.Http;
-using System;
 using HTX.Net.Objects.Options;
 using CryptoExchange.Net.Clients;
 

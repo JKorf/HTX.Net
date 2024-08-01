@@ -1,7 +1,4 @@
-﻿using CryptoExchange.Net.Interfaces;
-using HTX.Net.Clients.UsdtMarginSwapApi;
-
-namespace HTX.Net.Interfaces.Clients.UsdtMarginSwapApi
+﻿namespace HTX.Net.Interfaces.Clients.UsdtMarginSwapApi
 {
     /// <summary>
     /// Usdt margin swap api endpoints

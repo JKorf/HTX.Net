@@ -1,21 +1,7 @@
-﻿using CryptoExchange.Net;
-using CryptoExchange.Net.Objects;
-
-using HTX.Net.Enums;
-
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Net.Http;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using HTX.Net.Enums;
 using HTX.Net.Objects.Models;
-using CryptoExchange.Net.Converters;
 using HTX.Net.Interfaces.Clients.SpotApi;
 using CryptoExchange.Net.CommonObjects;
-using HTX.Net.ExtensionMethods;
-using System.Security.Cryptography;
 
 namespace HTX.Net.Clients.SpotApi
 {

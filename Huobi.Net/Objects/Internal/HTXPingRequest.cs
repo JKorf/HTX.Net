@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-
-
-namespace HTX.Net.Objects.Internal
+﻿namespace HTX.Net.Objects.Internal
 {
     internal class HTXPingRequest
     {

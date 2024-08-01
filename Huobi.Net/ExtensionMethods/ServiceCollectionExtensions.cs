@@ -1,13 +1,10 @@
 ﻿using CryptoExchange.Net.Clients;
-using CryptoExchange.Net.Interfaces;
 using HTX.Net.Clients;
 using HTX.Net.Interfaces;
 using HTX.Net.Interfaces.Clients;
 using HTX.Net.Objects.Options;
 using HTX.Net.SymbolOrderBooks;
-using System;
 using System.Net;
-using System.Net.Http;
 
 namespace Microsoft.Extensions.DependencyInjection
 {

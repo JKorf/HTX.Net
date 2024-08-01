@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace HTX.Net.Objects.Sockets
+﻿namespace HTX.Net.Objects.Sockets
 {
     /// <summary>
     /// Message
@@ -41,6 +37,6 @@ namespace HTX.Net.Objects.Sockets
         public int ErrorCode { get; set; }
 
         [JsonPropertyName("err-msg")]
-        public string ErrorMessage { get; set; }
+        public string ErrorMessage { get; set; } = string.Empty;
     }
 }

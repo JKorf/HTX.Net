@@ -1,8 +1,4 @@
-﻿using CryptoExchange.Net.Converters;
-using HTX.Net.Enums;
-
-using System;
-using System.Collections.Generic;
+﻿using HTX.Net.Enums;
 
 namespace HTX.Net.Objects.Models.UsdtMarginSwap
 {
@@ -36,9 +32,9 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         [JsonConverter(typeof(EnumConverter))]
         public BusinessType BusinessType { get; set; }
         /// <summary>
-        /// Symbol
+        /// Pair
         /// </summary>
         [JsonPropertyName("pair")]
-        public string Symbol { get; set; } = string.Empty;
+        public string Pair { get; set; } = string.Empty;
     }
 }

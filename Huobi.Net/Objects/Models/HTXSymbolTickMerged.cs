@@ -1,6 +1,4 @@
-﻿using System;
-using CryptoExchange.Net.Converters;
-using CryptoExchange.Net.Interfaces;
+﻿using CryptoExchange.Net.Converters;
 
 
 namespace HTX.Net.Objects.Models
