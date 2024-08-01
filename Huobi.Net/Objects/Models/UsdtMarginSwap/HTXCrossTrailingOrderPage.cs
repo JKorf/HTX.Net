@@ -6,15 +6,15 @@ using HTX.Net.Enums;
 namespace HTX.Net.Objects.Models.UsdtMarginSwap
 {
     /// <summary>
-    /// Trigger cross margin order page
+    /// Trailing order page
     /// </summary>
-    public record HTXCrossTriggerOrderPage
+    public record HTXCrossTrailingOrderPage
     {
         /// <summary>
         /// Orders
         /// </summary>
         [JsonPropertyName("orders")]
-        public IEnumerable<HTXCrossTriggerOrder> Orders { get; set; } = Array.Empty<HTXCrossTriggerOrder>();
+        public IEnumerable<HTXCrossTrailingOrder> Orders { get; set; } = Array.Empty<HTXCrossTrailingOrder>();
         /// <summary>
         /// Total page
         /// </summary>
@@ -33,9 +33,9 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
     }
 
     /// <summary>
-    /// Trigger order
+    /// Trailing order info
     /// </summary>
-    public record HTXCrossTriggerOrder: HTXTriggerOrder
+    public record HTXCrossTrailingOrder : HTXTrailingOrder
     {
         /// <summary>
         /// Contract type
@@ -50,9 +50,11 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         [JsonConverter(typeof(EnumConverter))]
         public BusinessType BusinessType { get; set; }
         /// <summary>
-        /// Symbol
+        /// Pair
         /// </summary>
         [JsonPropertyName("pair")]
         public string Pair { get; set; } = string.Empty;
     }
+
+
 }

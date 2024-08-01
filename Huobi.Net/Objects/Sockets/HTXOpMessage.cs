@@ -41,6 +41,6 @@ namespace HTX.Net.Objects.Sockets
         public int ErrorCode { get; set; }
 
         [JsonPropertyName("err-msg")]
-        public string ErrorMessage { get; set; }
+        public string ErrorMessage { get; set; } = string.Empty;
     }
 }

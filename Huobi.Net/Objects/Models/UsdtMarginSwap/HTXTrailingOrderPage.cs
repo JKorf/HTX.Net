@@ -6,15 +6,15 @@ using HTX.Net.Enums;
 namespace HTX.Net.Objects.Models.UsdtMarginSwap
 {
     /// <summary>
-    /// Trigger order page
+    /// Trailing order page
     /// </summary>
-    public record HTXTriggerOrderPage
+    public record HTXTrailingOrderPage
     {
         /// <summary>
         /// Orders
         /// </summary>
         [JsonPropertyName("orders")]
-        public IEnumerable<HTXTriggerOrder> Orders { get; set; } = Array.Empty<HTXTriggerOrder>();
+        public IEnumerable<HTXTrailingOrder> Orders { get; set; } = Array.Empty<HTXTrailingOrder>();
         /// <summary>
         /// Total page
         /// </summary>
@@ -33,9 +33,9 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
     }
 
     /// <summary>
-    /// Trigger order
+    /// Trailing order info
     /// </summary>
-    public record HTXTriggerOrder
+    public record HTXTrailingOrder
     {
         /// <summary>
         /// Symbol
@@ -48,11 +48,6 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         [JsonPropertyName("contract_code")]
         public string ContractCode { get; set; } = string.Empty;
         /// <summary>
-        /// Trigger type
-        /// </summary>
-        [JsonPropertyName("trigger_type")]
-        public TriggerType TriggerType { get; set; }
-        /// <summary>
         /// Quantity
         /// </summary>
         [JsonPropertyName("volume")]
@@ -61,12 +56,12 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// Order type
         /// </summary>
         [JsonPropertyName("order_type")]
-        public int OrderType { get; set; }
+        public MarginOrderType OrderType { get; set; }
         /// <summary>
         /// Side
         /// </summary>
         [JsonPropertyName("direction")]
-        public OrderSide OrderSide { get; set; }
+        public OrderSide Side { get; set; }
         /// <summary>
         /// Offset
         /// </summary>
@@ -93,17 +88,7 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         [JsonPropertyName("order_source")]
         public string OrderSource { get; set; } = string.Empty;
         /// <summary>
-        /// Trigger price
-        /// </summary>
-        [JsonPropertyName("trigger_price")]
-        public decimal TriggerPrice { get; set; }
-        /// <summary>
-        /// Order price
-        /// </summary>
-        [JsonPropertyName("order_price")]
-        public decimal? OrderPrice { get; set; }
-        /// <summary>
-        /// Create time
+        /// Creation time
         /// </summary>
         [JsonPropertyName("created_at")]
         public DateTime CreateTime { get; set; }
@@ -116,7 +101,22 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// Status
         /// </summary>
         [JsonPropertyName("status")]
-        public OrderStatusFilter Status { get; set; }
+        public TpSlStatus Status { get; set; }
+        /// <summary>
+        /// Callback rate
+        /// </summary>
+        [JsonPropertyName("callback_rate")]
+        public decimal CallbackRate { get; set; }
+        /// <summary>
+        /// Active price
+        /// </summary>
+        [JsonPropertyName("active_price")]
+        public decimal ActivePrice { get; set; }
+        /// <summary>
+        /// Is active
+        /// </summary>
+        [JsonPropertyName("is_active")]
+        public bool IsActive { get; set; }
         /// <summary>
         /// Margin mode
         /// </summary>

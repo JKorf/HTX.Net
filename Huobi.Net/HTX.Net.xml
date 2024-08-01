@@ -914,19 +914,19 @@
         <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiTrading.CloseIsolatedMarginPositionAsync(System.String,HTX.Net.Enums.OrderSide,System.Nullable{System.Int64},System.Nullable{HTX.Net.Enums.LightningPriceType},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiTrading.CloseCrossMarginPositionAsync(System.String,System.String,System.Nullable{HTX.Net.Enums.ContractType},HTX.Net.Enums.OrderSide,System.Nullable{System.Int64},System.Nullable{HTX.Net.Enums.LightningPriceType},System.Threading.CancellationToken)">
+        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiTrading.CloseCrossMarginPositionAsync(HTX.Net.Enums.OrderSide,System.String,System.String,System.Nullable{HTX.Net.Enums.ContractType},System.Nullable{System.Int64},System.Nullable{HTX.Net.Enums.LightningPriceType},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiTrading.PlaceIsolatedMarginTriggerOrderAsync(System.String,HTX.Net.Enums.TriggerType,System.Decimal,System.Decimal,HTX.Net.Enums.OrderSide,System.Nullable{HTX.Net.Enums.Offset},System.Nullable{System.Boolean},System.Nullable{System.Decimal},System.Nullable{HTX.Net.Enums.OrderPriceType},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiTrading.PlaceCrossMarginTriggerOrderAsync(System.String,System.String,HTX.Net.Enums.ContractType,HTX.Net.Enums.TriggerType,System.Decimal,System.Decimal,HTX.Net.Enums.OrderSide,System.Nullable{HTX.Net.Enums.Offset},System.Nullable{System.Boolean},System.Nullable{System.Decimal},System.Nullable{HTX.Net.Enums.OrderPriceType},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiTrading.PlaceCrossMarginTriggerOrderAsync(HTX.Net.Enums.TriggerType,System.Decimal,System.Decimal,HTX.Net.Enums.OrderSide,System.String,System.String,System.Nullable{HTX.Net.Enums.ContractType},System.Nullable{HTX.Net.Enums.Offset},System.Nullable{System.Boolean},System.Nullable{System.Decimal},System.Nullable{HTX.Net.Enums.OrderPriceType},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiTrading.CancelIsolatedMarginTriggerOrderAsync(System.String,System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiTrading.CancelCrossMarginTriggerOrderAsync(System.String,System.String,HTX.Net.Enums.ContractType,System.String,System.Threading.CancellationToken)">
+        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiTrading.CancelCrossMarginTriggerOrderAsync(System.String,System.String,System.String,System.Nullable{HTX.Net.Enums.ContractType},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiTrading.CancelAllIsolatedMarginTriggerOrdersAsync(System.String,System.Nullable{HTX.Net.Enums.OrderSide},System.Nullable{HTX.Net.Enums.Offset},System.Threading.CancellationToken)">
@@ -936,6 +936,81 @@
             <inheritdoc />
         </member>
         <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiTrading.GetIsolatedMarginOpenTriggerOrdersAsync(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{HTX.Net.Enums.MarginTradeType},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiTrading.GetCrossMarginOpenTriggerOrdersAsync(System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{HTX.Net.Enums.MarginTradeType},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiTrading.GetIsolatedMarginTriggerOrderHistoryAsync(System.String,HTX.Net.Enums.MarginTradeType,System.Int32,System.Nullable{HTX.Net.Enums.OrderStatusFilter},System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiTrading.GetCrossMarginTriggerOrderHistoryAsync(HTX.Net.Enums.MarginTradeType,System.Int32,System.String,System.String,System.Nullable{HTX.Net.Enums.ContractType},System.Nullable{HTX.Net.Enums.OrderStatusFilter},System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiTrading.SetIsolatedMarginTpSlAsync(System.String,HTX.Net.Enums.OrderSide,System.Decimal,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{HTX.Net.Enums.OrderPriceType},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{HTX.Net.Enums.OrderPriceType},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiTrading.SetCrossMarginTpSlAsync(HTX.Net.Enums.OrderSide,System.Decimal,System.String,System.String,System.Nullable{HTX.Net.Enums.ContractType},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{HTX.Net.Enums.OrderPriceType},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{HTX.Net.Enums.OrderPriceType},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiTrading.CancelIsolatedMarginTpSlAsync(System.String,System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiTrading.CancelCrossMarginTpSlAsync(System.String,System.String,System.String,System.Nullable{HTX.Net.Enums.ContractType},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiTrading.CancelAllIsolatedMarginTpSlAsync(System.String,System.Nullable{HTX.Net.Enums.OrderSide},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiTrading.CancelAllCrossMarginTpSlAsync(System.String,System.String,System.Nullable{HTX.Net.Enums.ContractType},System.Nullable{HTX.Net.Enums.OrderSide},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiTrading.GetIsolatedMarginOpenTpSlOrdersAsync(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{HTX.Net.Enums.MarginTradeType},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiTrading.GetCrossMarginOpenTpSlOrdersAsync(System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{HTX.Net.Enums.MarginTradeType},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiTrading.GetIsolatedMarginTpSlHistoryAsync(System.String,System.Collections.Generic.IEnumerable{HTX.Net.Enums.TpSlStatus},System.Int32,System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiTrading.GetCrossMarginTpSlHistoryAsync(System.Collections.Generic.IEnumerable{HTX.Net.Enums.TpSlStatus},System.Int32,System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiTrading.GetIsolatedMarginPositionOpenTpSlInfoAsync(System.String,System.Int64,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiTrading.GetCrossMarginPositionOpenTpSlInfoAsync(System.Int64,System.String,System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiTrading.PlaceIsolatedMarginTrailingOrderAsync(System.String,System.Boolean,HTX.Net.Enums.OrderSide,HTX.Net.Enums.Offset,System.Int32,System.Decimal,System.Decimal,System.Decimal,HTX.Net.Enums.OrderPriceType,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiTrading.PlaceCrossMarginTrailingOrderAsync(HTX.Net.Enums.OrderSide,HTX.Net.Enums.Offset,System.Int32,System.Decimal,System.Decimal,System.Decimal,HTX.Net.Enums.OrderPriceType,System.String,System.String,System.Nullable{HTX.Net.Enums.ContractType},System.Nullable{System.Boolean},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiTrading.CancelIsolatedMarginTrailingOrderAsync(System.String,System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiTrading.CancelCrossMarginTrailingOrderAsync(System.String,System.String,System.String,System.Nullable{HTX.Net.Enums.ContractType},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiTrading.CancelAllIsolatedMarginTrailingOrdersAsync(System.String,System.Nullable{HTX.Net.Enums.OrderSide},System.Nullable{HTX.Net.Enums.Offset},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiTrading.CancelAllCrossMarginTrailingOrdersAsync(System.String,System.String,System.Nullable{HTX.Net.Enums.ContractType},System.Nullable{HTX.Net.Enums.OrderSide},System.Nullable{HTX.Net.Enums.Offset},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiTrading.GetOpenIsolatedMarginTrailingOrdersAsync(System.String,System.Nullable{HTX.Net.Enums.MarginTradeType},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiTrading.GetOpenCrossMarginTrailingOrdersAsync(System.String,System.String,System.Nullable{HTX.Net.Enums.ContractType},System.Nullable{HTX.Net.Enums.MarginTradeType},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiTrading.GetClosedIsolatedMarginTrailingOrdersAsync(System.String,System.Collections.Generic.IEnumerable{HTX.Net.Enums.TpSlStatus},HTX.Net.Enums.MarginTradeType,System.Int32,System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiTrading.GetClosedCrossMarginTrailingOrdersAsync(System.Collections.Generic.IEnumerable{HTX.Net.Enums.TpSlStatus},HTX.Net.Enums.MarginTradeType,System.Int32,System.String,System.String,System.Nullable{HTX.Net.Enums.ContractType},System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="T:HTX.Net.Enums.AccountActivation">
@@ -2313,6 +2388,11 @@
             Fill or kill optimal 20
             </summary>
         </member>
+        <member name="F:HTX.Net.Enums.OrderPriceType.FormulaPrice">
+            <summary>
+            Formula price
+            </summary>
+        </member>
         <member name="T:HTX.Net.Enums.OrderRole">
             <summary>
             Order role
@@ -2796,6 +2876,86 @@
         <member name="F:HTX.Net.Enums.TimeInForce.FillOrKill">
             <summary>
             Should fill entirely upon placing
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Enums.TpslOrderType">
+            <summary>
+            Take profit / stop loss type
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.TpslOrderType.TakeProfit">
+            <summary>
+            Take profit order
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.TpslOrderType.StopLoss">
+            <summary>
+            Stop loss order
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Enums.TpSlStatus">
+            <summary>
+            Tp/Sl order status
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.TpSlStatus.All">
+            <summary>
+            All (for filtering)
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.TpSlStatus.NotActivated">
+            <summary>
+            Not activated
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.TpSlStatus.ReadyToSubmit">
+            <summary>
+            Ready to submit
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.TpSlStatus.Submitting">
+            <summary>
+            Submitting orders
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.TpSlStatus.SubmitSuccess">
+            <summary>
+            Orders successfully submited
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.TpSlStatus.SubmitFailed">
+            <summary>
+            Orders failed to submit
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.TpSlStatus.Canceled">
+            <summary>
+            Orders canceled
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.TpSlStatus.CanceledOrderNotFound">
+            <summary>
+            Canceled orders not found
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.TpSlStatus.Canceling">
+            <summary>
+            Orders canceling
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.TpSlStatus.Failed">
+            <summary>
+            Failed
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.TpSlStatus.Expired">
+            <summary>
+            Expired
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.TpSlStatus.NotActivatedExpired">
+            <summary>
+            Not activated - Expired
             </summary>
         </member>
         <member name="T:HTX.Net.Enums.TransactionType">
@@ -5544,7 +5704,7 @@
             <param name="orderPriceType">Order price type</param>
             <param name="ct">Cancellation token</param>
         </member>
-        <member name="M:HTX.Net.Interfaces.Clients.UsdtMarginSwapApi.IHTXRestClientUsdtMarginSwapApiTrading.CloseCrossMarginPositionAsync(System.String,System.String,System.Nullable{HTX.Net.Enums.ContractType},HTX.Net.Enums.OrderSide,System.Nullable{System.Int64},System.Nullable{HTX.Net.Enums.LightningPriceType},System.Threading.CancellationToken)">
+        <member name="M:HTX.Net.Interfaces.Clients.UsdtMarginSwapApi.IHTXRestClientUsdtMarginSwapApiTrading.CloseCrossMarginPositionAsync(HTX.Net.Enums.OrderSide,System.String,System.String,System.Nullable{HTX.Net.Enums.ContractType},System.Nullable{System.Int64},System.Nullable{HTX.Net.Enums.LightningPriceType},System.Threading.CancellationToken)">
             <summary>
             Lightning close position
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb86944-77b5-11ed-9966-0242ac110003" /></para>
@@ -5574,7 +5734,7 @@
             <param name="leverageRate">Leverage rate</param>
             <param name="ct">Cancellation token</param>
         </member>
-        <member name="M:HTX.Net.Interfaces.Clients.UsdtMarginSwapApi.IHTXRestClientUsdtMarginSwapApiTrading.PlaceCrossMarginTriggerOrderAsync(System.String,System.String,HTX.Net.Enums.ContractType,HTX.Net.Enums.TriggerType,System.Decimal,System.Decimal,HTX.Net.Enums.OrderSide,System.Nullable{HTX.Net.Enums.Offset},System.Nullable{System.Boolean},System.Nullable{System.Decimal},System.Nullable{HTX.Net.Enums.OrderPriceType},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:HTX.Net.Interfaces.Clients.UsdtMarginSwapApi.IHTXRestClientUsdtMarginSwapApiTrading.PlaceCrossMarginTriggerOrderAsync(HTX.Net.Enums.TriggerType,System.Decimal,System.Decimal,HTX.Net.Enums.OrderSide,System.String,System.String,System.Nullable{HTX.Net.Enums.ContractType},System.Nullable{HTX.Net.Enums.Offset},System.Nullable{System.Boolean},System.Nullable{System.Decimal},System.Nullable{HTX.Net.Enums.OrderPriceType},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Place a new isolated margin trigger order
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb86dfe-77b5-11ed-9966-0242ac110003" /></para>
@@ -5602,7 +5762,7 @@
             <param name="orderId">Order id</param>
             <param name="ct">Cancellation token</param>
         </member>
-        <member name="M:HTX.Net.Interfaces.Clients.UsdtMarginSwapApi.IHTXRestClientUsdtMarginSwapApiTrading.CancelCrossMarginTriggerOrderAsync(System.String,System.String,HTX.Net.Enums.ContractType,System.String,System.Threading.CancellationToken)">
+        <member name="M:HTX.Net.Interfaces.Clients.UsdtMarginSwapApi.IHTXRestClientUsdtMarginSwapApiTrading.CancelCrossMarginTriggerOrderAsync(System.String,System.String,System.String,System.Nullable{HTX.Net.Enums.ContractType},System.Threading.CancellationToken)">
             <summary>
             Cancel cross margin trigger order
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb87056-77b5-11ed-9966-0242ac110003" /></para>
@@ -5623,6 +5783,18 @@
             <param name="offset">Filter by offset</param>
             <param name="ct">Cancellation token</param>
         </member>
+        <member name="M:HTX.Net.Interfaces.Clients.UsdtMarginSwapApi.IHTXRestClientUsdtMarginSwapApiTrading.CancelAllCrossMarginTriggerOrdersAsync(System.String,System.String,System.Nullable{HTX.Net.Enums.ContractType},System.Nullable{HTX.Net.Enums.OrderSide},System.Nullable{HTX.Net.Enums.Offset},System.Threading.CancellationToken)">
+            <summary>
+            Cancel all cross margin trigger orders matching the parameters
+            <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb872c3-77b5-11ed-9966-0242ac110003" /></para>
+            </summary>
+            <param name="contractCode">Contract code</param>
+            <param name="pair">Pair</param>
+            <param name="contractType">Contract type</param>
+            <param name="side">Filter by side</param>
+            <param name="offset">Filter by offset</param>
+            <param name="ct">Cancellation token</param>
+        </member>
         <member name="M:HTX.Net.Interfaces.Clients.UsdtMarginSwapApi.IHTXRestClientUsdtMarginSwapApiTrading.GetIsolatedMarginOpenTriggerOrdersAsync(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{HTX.Net.Enums.MarginTradeType},System.Threading.CancellationToken)">
             <summary>
             Get isolated margin open trigger orders
@@ -5633,6 +5805,325 @@
             <param name="pageSize">Page size</param>
             <param name="tradeType">Trade type</param>
             <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:HTX.Net.Interfaces.Clients.UsdtMarginSwapApi.IHTXRestClientUsdtMarginSwapApiTrading.GetCrossMarginOpenTriggerOrdersAsync(System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{HTX.Net.Enums.MarginTradeType},System.Threading.CancellationToken)">
+            <summary>
+            Get cross margin open trigger orders
+            <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb874fd-77b5-11ed-9966-0242ac110003" /></para>
+            </summary>
+            <param name="contractCode">Contract code</param>
+            <param name="pair">Pair</param>
+            <param name="page">Page</param>
+            <param name="pageSize">Page size</param>
+            <param name="tradeType">Trade type</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:HTX.Net.Interfaces.Clients.UsdtMarginSwapApi.IHTXRestClientUsdtMarginSwapApiTrading.GetIsolatedMarginTriggerOrderHistoryAsync(System.String,HTX.Net.Enums.MarginTradeType,System.Int32,System.Nullable{HTX.Net.Enums.OrderStatusFilter},System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,System.Threading.CancellationToken)">
+            <summary>
+            Get isolated margin trigger order history
+            <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb87658-77b5-11ed-9966-0242ac110003" /></para>
+            </summary>
+            <param name="contractCode">Contract code</param>
+            <param name="tradeType">Trade type</param>
+            <param name="daysPast">Amount of days ago. Max 90</param>
+            <param name="status">Status</param>
+            <param name="page">Page</param>
+            <param name="pageIndex">Page index</param>
+            <param name="sortBy">Sort by; 'created_at' or 'update_time'</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:HTX.Net.Interfaces.Clients.UsdtMarginSwapApi.IHTXRestClientUsdtMarginSwapApiTrading.GetCrossMarginTriggerOrderHistoryAsync(HTX.Net.Enums.MarginTradeType,System.Int32,System.String,System.String,System.Nullable{HTX.Net.Enums.ContractType},System.Nullable{HTX.Net.Enums.OrderStatusFilter},System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,System.Threading.CancellationToken)">
+            <summary>
+            Get cross margin trigger order history
+            <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb877ac-77b5-11ed-9966-0242ac110003" /></para>
+            </summary>
+            <param name="tradeType">Trade type</param>
+            <param name="daysPast">Amount of days ago. Max 90</param>
+            <param name="contractCode">Contract code</param>
+            <param name="pair">Pair</param>
+            <param name="contractType">Contract type</param>
+            <param name="status">Status</param>
+            <param name="page">Page</param>
+            <param name="pageIndex">Page index</param>
+            <param name="sortBy">Sort by; 'created_at' or 'update_time'</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:HTX.Net.Interfaces.Clients.UsdtMarginSwapApi.IHTXRestClientUsdtMarginSwapApiTrading.SetIsolatedMarginTpSlAsync(System.String,HTX.Net.Enums.OrderSide,System.Decimal,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{HTX.Net.Enums.OrderPriceType},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{HTX.Net.Enums.OrderPriceType},System.Threading.CancellationToken)">
+            <summary>
+            Set isolated margin order take profit / stop loss for an existing position
+            <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb87911-77b5-11ed-9966-0242ac110003" /></para>
+            </summary>
+            <param name="contractCode">Contract code</param>
+            <param name="side">Order side</param>
+            <param name="quantity">Quantity</param>
+            <param name="takeProfitTriggerPrice">Take profit trigger price</param>
+            <param name="takeProfitOrderPrice">Take profit order price</param>
+            <param name="takeProfitOrderPriceType">Take profit order price type</param>
+            <param name="stopLossTriggerPrice">Stop loss trigger price</param>
+            <param name="stopLossOrderPrice">Stop loss order price</param>
+            <param name="stopLossOrderPriceType">Stop loss order price type</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:HTX.Net.Interfaces.Clients.UsdtMarginSwapApi.IHTXRestClientUsdtMarginSwapApiTrading.SetCrossMarginTpSlAsync(HTX.Net.Enums.OrderSide,System.Decimal,System.String,System.String,System.Nullable{HTX.Net.Enums.ContractType},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{HTX.Net.Enums.OrderPriceType},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{HTX.Net.Enums.OrderPriceType},System.Threading.CancellationToken)">
+            <summary>
+            Set cross margin order take profit / stop loss for an existing position
+            <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb87a6f-77b5-11ed-9966-0242ac110003" /></para>
+            </summary>
+            <param name="contractCode">Contract code</param>
+            <param name="pair">Pair</param>
+            <param name="contractType">Contract type</param>
+            <param name="side">Order side</param>
+            <param name="quantity">Quantity</param>
+            <param name="takeProfitTriggerPrice">Take profit trigger price</param>
+            <param name="takeProfitOrderPrice">Take profit order price</param>
+            <param name="takeProfitOrderPriceType">Take profit order price type</param>
+            <param name="stopLossTriggerPrice">Stop loss trigger price</param>
+            <param name="stopLossOrderPrice">Stop loss order price</param>
+            <param name="stopLossOrderPriceType">Stop loss order price type</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:HTX.Net.Interfaces.Clients.UsdtMarginSwapApi.IHTXRestClientUsdtMarginSwapApiTrading.CancelIsolatedMarginTpSlAsync(System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Cancel isolated margin take profit / stop loss orders for an existing position
+            <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb87bc0-77b5-11ed-9966-0242ac110003" /></para>
+            </summary>
+            <param name="contractCode">Contract code</param>
+            <param name="orderId">Order id</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:HTX.Net.Interfaces.Clients.UsdtMarginSwapApi.IHTXRestClientUsdtMarginSwapApiTrading.CancelCrossMarginTpSlAsync(System.String,System.String,System.String,System.Nullable{HTX.Net.Enums.ContractType},System.Threading.CancellationToken)">
+            <summary>
+            Cancel isolated margin take profit / stop loss orders for an existing position
+            <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb87bc0-77b5-11ed-9966-0242ac110003" /></para>
+            </summary>
+            <param name="contractCode">Contract code</param>
+            <param name="pair">Pair</param>
+            <param name="contractType">Contract type</param>
+            <param name="orderId">Order id</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:HTX.Net.Interfaces.Clients.UsdtMarginSwapApi.IHTXRestClientUsdtMarginSwapApiTrading.CancelAllIsolatedMarginTpSlAsync(System.String,System.Nullable{HTX.Net.Enums.OrderSide},System.Threading.CancellationToken)">
+            <summary>
+            Cancel all isolated margin take profit / stop loss orders
+            <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb87d94-77b5-11ed-9966-0242ac110003" /></para>
+            </summary>
+            <param name="contractCode">Contract code</param>
+            <param name="side">Side</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:HTX.Net.Interfaces.Clients.UsdtMarginSwapApi.IHTXRestClientUsdtMarginSwapApiTrading.CancelAllCrossMarginTpSlAsync(System.String,System.String,System.Nullable{HTX.Net.Enums.ContractType},System.Nullable{HTX.Net.Enums.OrderSide},System.Threading.CancellationToken)">
+            <summary>
+            Cancel all cross margin take profit / stop loss orders
+            <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb87edb-77b5-11ed-9966-0242ac110003" /></para>
+            </summary>
+            <param name="contractCode">Contract code</param>
+            <param name="pair">Pair</param>
+            <param name="contractType">Contract type</param>
+            <param name="side">Side</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:HTX.Net.Interfaces.Clients.UsdtMarginSwapApi.IHTXRestClientUsdtMarginSwapApiTrading.GetIsolatedMarginOpenTpSlOrdersAsync(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{HTX.Net.Enums.MarginTradeType},System.Threading.CancellationToken)">
+            <summary>
+            Get open isolated margin take profit / stop loss orders
+            <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb87fb0-77b5-11ed-9966-0242ac110003" /></para>
+            </summary>
+            <param name="contractCode">Contract code</param>
+            <param name="page">Page index</param>
+            <param name="pageSize">Page size</param>
+            <param name="tradeType">Trade type</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:HTX.Net.Interfaces.Clients.UsdtMarginSwapApi.IHTXRestClientUsdtMarginSwapApiTrading.GetCrossMarginOpenTpSlOrdersAsync(System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{HTX.Net.Enums.MarginTradeType},System.Threading.CancellationToken)">
+            <summary>
+            Get open cross margin take profit / stop loss orders
+            </summary>
+            <param name="contractCode">Contract code</param>
+            <param name="pair">Pair</param>
+            <param name="page">Page index</param>
+            <param name="pageSize">Page size</param>
+            <param name="tradeType">Trade type</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:HTX.Net.Interfaces.Clients.UsdtMarginSwapApi.IHTXRestClientUsdtMarginSwapApiTrading.GetIsolatedMarginTpSlHistoryAsync(System.String,System.Collections.Generic.IEnumerable{HTX.Net.Enums.TpSlStatus},System.Int32,System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,System.Threading.CancellationToken)">
+            <summary>
+            Get isolated margin take profit / stop loss order history
+            <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb88253-77b5-11ed-9966-0242ac110003" /></para>
+            </summary>
+            <param name="contractCode">Contract code</param>
+            <param name="tpSlOrderStatus">Status</param>
+            <param name="daysPast">Amount of days ago. Max 90</param>
+            <param name="page">Page</param>
+            <param name="pageSize">Page size</param>
+            <param name="sortBy">Sort by; 'created_at' or 'update_time'</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:HTX.Net.Interfaces.Clients.UsdtMarginSwapApi.IHTXRestClientUsdtMarginSwapApiTrading.GetCrossMarginTpSlHistoryAsync(System.Collections.Generic.IEnumerable{HTX.Net.Enums.TpSlStatus},System.Int32,System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,System.Threading.CancellationToken)">
+            <summary>
+            Get cross maring take profit / stop loss order history
+            <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb883a0-77b5-11ed-9966-0242ac110003" /></para>
+            </summary>
+            <param name="contractCode">Contract code</param>
+            <param name="pair">Pair</param>
+            <param name="tpSlOrderStatus">Status</param>
+            <param name="daysPast">Amount of days ago. Max 90</param>
+            <param name="page">Page</param>
+            <param name="pageSize">Page size</param>
+            <param name="sortBy">Sort by; 'created_at' or 'update_time'</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:HTX.Net.Interfaces.Clients.UsdtMarginSwapApi.IHTXRestClientUsdtMarginSwapApiTrading.GetIsolatedMarginPositionOpenTpSlInfoAsync(System.String,System.Int64,System.Threading.CancellationToken)">
+            <summary>
+            Get isolated margin position open info with attached tp/sl orders
+            <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb884f1-77b5-11ed-9966-0242ac110003" /></para>
+            </summary>
+            <param name="contractCode">Contract code</param>
+            <param name="orderId">Order id</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:HTX.Net.Interfaces.Clients.UsdtMarginSwapApi.IHTXRestClientUsdtMarginSwapApiTrading.GetCrossMarginPositionOpenTpSlInfoAsync(System.Int64,System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Get cross margin position open info with attached tp/sl orders
+            <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb8864d-77b5-11ed-9966-0242ac110003" /></para>
+            </summary>
+            <param name="orderId">Order id</param>
+            <param name="contractCode">Contract code</param>
+            <param name="pair">Pair</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:HTX.Net.Interfaces.Clients.UsdtMarginSwapApi.IHTXRestClientUsdtMarginSwapApiTrading.PlaceIsolatedMarginTrailingOrderAsync(System.String,System.Boolean,HTX.Net.Enums.OrderSide,HTX.Net.Enums.Offset,System.Int32,System.Decimal,System.Decimal,System.Decimal,HTX.Net.Enums.OrderPriceType,System.Threading.CancellationToken)">
+            <summary>
+            Place isolated margin trailing order
+            <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb88960-77b5-11ed-9966-0242ac110003" /></para>
+            </summary>
+            <param name="contractCode">Contract code</param>
+            <param name="reduceOnly">Reduce only</param>
+            <param name="side">Side</param>
+            <param name="offset">Offset</param>
+            <param name="leverageRate">Leverage rate</param>
+            <param name="quantity">Quantity</param>
+            <param name="callbackRate">Callback rate, 0.01 means 1%</param>
+            <param name="activePrice">Active price</param>
+            <param name="orderPriceType">Price type</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:HTX.Net.Interfaces.Clients.UsdtMarginSwapApi.IHTXRestClientUsdtMarginSwapApiTrading.PlaceCrossMarginTrailingOrderAsync(HTX.Net.Enums.OrderSide,HTX.Net.Enums.Offset,System.Int32,System.Decimal,System.Decimal,System.Decimal,HTX.Net.Enums.OrderPriceType,System.String,System.String,System.Nullable{HTX.Net.Enums.ContractType},System.Nullable{System.Boolean},System.Threading.CancellationToken)">
+            <summary>
+            Place cross margin trailing order
+            <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb88bb5-77b5-11ed-9966-0242ac110003" /></para>
+            </summary>
+            <param name="side">Side</param>
+            <param name="offset">Offset</param>
+            <param name="leverageRate">Leverage rate</param>
+            <param name="quantity">Quantity</param>
+            <param name="callbackRate">Callback rate, 0.01 means 1%</param>
+            <param name="activePrice">Active price</param>
+            <param name="orderPriceType">Price type</param>
+            <param name="contractCode">Contract code</param>
+            <param name="pair">Pair</param>
+            <param name="contractType">Contract type</param>
+            <param name="reduceOnly">Reduce only</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:HTX.Net.Interfaces.Clients.UsdtMarginSwapApi.IHTXRestClientUsdtMarginSwapApiTrading.CancelIsolatedMarginTrailingOrderAsync(System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Cancel an isolated margin trailing order
+            <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb88f2c-77b5-11ed-9966-0242ac110003" /></para>
+            </summary>
+            <param name="contractCode">Contract code</param>
+            <param name="orderId">Order id</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:HTX.Net.Interfaces.Clients.UsdtMarginSwapApi.IHTXRestClientUsdtMarginSwapApiTrading.CancelCrossMarginTrailingOrderAsync(System.String,System.String,System.String,System.Nullable{HTX.Net.Enums.ContractType},System.Threading.CancellationToken)">
+            <summary>
+            Cancel a cross margin trailing order
+            </summary>
+            <param name="orderId">Order id</param>
+            <param name="contractCode">Contract code</param>
+            <param name="pair">Pair</param>
+            <param name="contractType">Contract type</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:HTX.Net.Interfaces.Clients.UsdtMarginSwapApi.IHTXRestClientUsdtMarginSwapApiTrading.CancelAllIsolatedMarginTrailingOrdersAsync(System.String,System.Nullable{HTX.Net.Enums.OrderSide},System.Nullable{HTX.Net.Enums.Offset},System.Threading.CancellationToken)">
+            <summary>
+            Cancel all open isolated margin trailing orders
+            <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb8924f-77b5-11ed-9966-0242ac110003" /></para>
+            </summary>
+            <param name="contractCode">Contract code</param>
+            <param name="side">Filter by side</param>
+            <param name="offset">Filter by offset</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:HTX.Net.Interfaces.Clients.UsdtMarginSwapApi.IHTXRestClientUsdtMarginSwapApiTrading.CancelAllCrossMarginTrailingOrdersAsync(System.String,System.String,System.Nullable{HTX.Net.Enums.ContractType},System.Nullable{HTX.Net.Enums.OrderSide},System.Nullable{HTX.Net.Enums.Offset},System.Threading.CancellationToken)">
+            <summary>
+            Cancel all open cross margin trailing orders
+            <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb89359-77b5-11ed-9966-0242ac110003" /></para>
+            </summary>
+            <param name="contractCode">Contract code</param>
+            <param name="pair">Pair</param>
+            <param name="contractType">Contract type</param>
+            <param name="side">Filter by side</param>
+            <param name="offset">Filter by offset</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:HTX.Net.Interfaces.Clients.UsdtMarginSwapApi.IHTXRestClientUsdtMarginSwapApiTrading.GetOpenIsolatedMarginTrailingOrdersAsync(System.String,System.Nullable{HTX.Net.Enums.MarginTradeType},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            Get open isolated margin trailing orders
+            <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb894b7-77b5-11ed-9966-0242ac110003" /></para>
+            </summary>
+            <param name="contractCode">Contract code</param>
+            <param name="tradeType">Trade type</param>
+            <param name="page">Page</param>
+            <param name="pageSize">Page size</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:HTX.Net.Interfaces.Clients.UsdtMarginSwapApi.IHTXRestClientUsdtMarginSwapApiTrading.GetOpenCrossMarginTrailingOrdersAsync(System.String,System.String,System.Nullable{HTX.Net.Enums.ContractType},System.Nullable{HTX.Net.Enums.MarginTradeType},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            Get open cross margin trailing orders
+            <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb89614-77b5-11ed-9966-0242ac110003" /></para>
+            </summary>
+            <param name="contractCode">Contract code</param>
+            <param name="pair">Pair</param>
+            <param name="contractType">Contract type</param>
+            <param name="tradeType">Trade type</param>
+            <param name="page">Page</param>
+            <param name="pageSize">Page size</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:HTX.Net.Interfaces.Clients.UsdtMarginSwapApi.IHTXRestClientUsdtMarginSwapApiTrading.GetClosedIsolatedMarginTrailingOrdersAsync(System.String,System.Collections.Generic.IEnumerable{HTX.Net.Enums.TpSlStatus},HTX.Net.Enums.MarginTradeType,System.Int32,System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,System.Threading.CancellationToken)">
+            <summary>
+            Get isolated margin trailing order history
+            <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb89781-77b5-11ed-9966-0242ac110003" /></para>
+            </summary>
+            <param name="contractCode">Contract code</param>
+            <param name="tpSlOrderStatus">Status</param>
+            <param name="tradeType">Trade type</param>
+            <param name="daysPast">Amount of days ago. Max 90</param>
+            <param name="page">Page</param>
+            <param name="pageSize">Page size</param>
+            <param name="sortBy">Sort by; 'created_at' or 'update_time'</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:HTX.Net.Interfaces.Clients.UsdtMarginSwapApi.IHTXRestClientUsdtMarginSwapApiTrading.GetClosedCrossMarginTrailingOrdersAsync(System.Collections.Generic.IEnumerable{HTX.Net.Enums.TpSlStatus},HTX.Net.Enums.MarginTradeType,System.Int32,System.String,System.String,System.Nullable{HTX.Net.Enums.ContractType},System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,System.Threading.CancellationToken)">
+            <summary>
+            Get cross margin trailing order history
+            <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb8996a-77b5-11ed-9966-0242ac110003" /></para>
+            </summary>
+            <param name="tpSlOrderStatus">Status</param>
+            <param name="tradeType">Trade type</param>
+            <param name="daysPast">Amount of days ago. Max 90</param>
+            <param name="contractCode"></param>
+            <param name="pair">Pair</param>
+            <param name="contractType">Contract type</param>
+            <param name="page">Page</param>
+            <param name="pageSize">Page size</param>
+            <param name="sortBy">Sort by; 'created_at' or 'update_time'</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
         </member>
         <member name="T:HTX.Net.Interfaces.Clients.UsdtMarginSwapApi.IHTXSocketClientUsdtMarginSwapApi">
             <summary>
@@ -12615,9 +13106,209 @@
             Business type
             </summary>
         </member>
-        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXCrossMarginUserTrade.Symbol">
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXCrossMarginUserTrade.Pair">
             <summary>
-            Symbol
+            Pair
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Objects.Models.UsdtMarginSwap.HTXCrossPositionOpenTpSlOrders">
+            <summary>
+            Position open and tp/sl info
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXCrossPositionOpenTpSlOrders.ContractType">
+            <summary>
+            Contract type
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXCrossPositionOpenTpSlOrders.BusinessType">
+            <summary>
+            Business type
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXCrossPositionOpenTpSlOrders.Pair">
+            <summary>
+            Pair
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Objects.Models.UsdtMarginSwap.HTXCrossTpSlClosedOrderPage">
+            <summary>
+            Take profit / stop loss order page
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXCrossTpSlClosedOrderPage.Orders">
+            <summary>
+            Orders
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXCrossTpSlClosedOrderPage.TotalPage">
+            <summary>
+            Total page
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXCrossTpSlClosedOrderPage.CurrentPage">
+            <summary>
+            Current page
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXCrossTpSlClosedOrderPage.Total">
+            <summary>
+            Total results
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Objects.Models.UsdtMarginSwap.HTXCrossTpSlClosedOrder">
+            <summary>
+            Tp/Sl order
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXCrossTpSlClosedOrder.ContractType">
+            <summary>
+            Contract type
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXCrossTpSlClosedOrder.BusinessType">
+            <summary>
+            Business type
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXCrossTpSlClosedOrder.Pair">
+            <summary>
+            Pair
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Objects.Models.UsdtMarginSwap.HTXCrossTpSlOrderPage">
+            <summary>
+            Take profit / stop loss order page
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXCrossTpSlOrderPage.Orders">
+            <summary>
+            Orders
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXCrossTpSlOrderPage.TotalPage">
+            <summary>
+            Total page
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXCrossTpSlOrderPage.CurrentPage">
+            <summary>
+            Current page
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXCrossTpSlOrderPage.Total">
+            <summary>
+            Total results
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Objects.Models.UsdtMarginSwap.HTXCrossTpSlOrder">
+            <summary>
+            Tp/Sl order
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXCrossTpSlOrder.ContractType">
+            <summary>
+            Contract type
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXCrossTpSlOrder.BusinessType">
+            <summary>
+            Business type
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXCrossTpSlOrder.Pair">
+            <summary>
+            Pair
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Objects.Models.UsdtMarginSwap.HTXCrossTrailingClosedOrderPage">
+            <summary>
+            Trailing order page
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXCrossTrailingClosedOrderPage.Orders">
+            <summary>
+            Orders
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXCrossTrailingClosedOrderPage.TotalPage">
+            <summary>
+            Total page
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXCrossTrailingClosedOrderPage.CurrentPage">
+            <summary>
+            Current page
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXCrossTrailingClosedOrderPage.Total">
+            <summary>
+            Total results
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Objects.Models.UsdtMarginSwap.HTXCrossTrailingClosedOrder">
+            <summary>
+            Trailing order info
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXCrossTrailingClosedOrder.ContractType">
+            <summary>
+            Contract type
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXCrossTrailingClosedOrder.BusinessType">
+            <summary>
+            Business type
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXCrossTrailingClosedOrder.Pair">
+            <summary>
+            Pair
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Objects.Models.UsdtMarginSwap.HTXCrossTrailingOrderPage">
+            <summary>
+            Trailing order page
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXCrossTrailingOrderPage.Orders">
+            <summary>
+            Orders
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXCrossTrailingOrderPage.TotalPage">
+            <summary>
+            Total page
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXCrossTrailingOrderPage.CurrentPage">
+            <summary>
+            Current page
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXCrossTrailingOrderPage.Total">
+            <summary>
+            Total results
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Objects.Models.UsdtMarginSwap.HTXCrossTrailingOrder">
+            <summary>
+            Trailing order info
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXCrossTrailingOrder.ContractType">
+            <summary>
+            Contract type
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXCrossTrailingOrder.BusinessType">
+            <summary>
+            Business type
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXCrossTrailingOrder.Pair">
+            <summary>
+            Pair
             </summary>
         </member>
         <member name="T:HTX.Net.Objects.Models.UsdtMarginSwap.HTXCrossTransferLimit">
@@ -12673,6 +13364,51 @@
         <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXCrossTransferLimit.MarginMode">
             <summary>
             Margin mode
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Objects.Models.UsdtMarginSwap.HTXCrossTriggerOrderPage">
+            <summary>
+            Trigger cross margin order page
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXCrossTriggerOrderPage.Orders">
+            <summary>
+            Orders
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXCrossTriggerOrderPage.TotalPage">
+            <summary>
+            Total page
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXCrossTriggerOrderPage.CurrentPage">
+            <summary>
+            Current page
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXCrossTriggerOrderPage.Total">
+            <summary>
+            Total results
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Objects.Models.UsdtMarginSwap.HTXCrossTriggerOrder">
+            <summary>
+            Trigger order
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXCrossTriggerOrder.ContractType">
+            <summary>
+            Contract type
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXCrossTriggerOrder.BusinessType">
+            <summary>
+            Business type
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXCrossTriggerOrder.Pair">
+            <summary>
+            Symbol
             </summary>
         </member>
         <member name="T:HTX.Net.Objects.Models.UsdtMarginSwap.HTXEstimatedSettlementPrice">
@@ -14255,6 +14991,231 @@
             Position mode
             </summary>
         </member>
+        <member name="T:HTX.Net.Objects.Models.UsdtMarginSwap.HTXPositionOpenTpSlOrders">
+            <summary>
+            Position open and tp/sl info
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXPositionOpenTpSlOrders.Symbol">
+            <summary>
+            Symbol
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXPositionOpenTpSlOrders.ContractCode">
+            <summary>
+            Contract code
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXPositionOpenTpSlOrders.MarginMode">
+            <summary>
+            Margin mode
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXPositionOpenTpSlOrders.MarginAccount">
+            <summary>
+            Margin account
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXPositionOpenTpSlOrders.Quantity">
+            <summary>
+            Quantity
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXPositionOpenTpSlOrders.Price">
+            <summary>
+            Price
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXPositionOpenTpSlOrders.OrderPriceType">
+            <summary>
+            Order price type
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXPositionOpenTpSlOrders.Side">
+            <summary>
+            Side
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXPositionOpenTpSlOrders.Offset">
+            <summary>
+            Offset
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXPositionOpenTpSlOrders.LeverageRate">
+            <summary>
+            Leverage rate
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXPositionOpenTpSlOrders.OrderId">
+            <summary>
+            Order id
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXPositionOpenTpSlOrders.OrderIdStr">
+            <summary>
+            Order id string
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXPositionOpenTpSlOrders.ClientOrderId">
+            <summary>
+            Client order id
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXPositionOpenTpSlOrders.CreateTime">
+            <summary>
+            Creation time
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXPositionOpenTpSlOrders.QuantityFilled">
+            <summary>
+            Filled quantity
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXPositionOpenTpSlOrders.ValueFilled">
+            <summary>
+            Value filled
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXPositionOpenTpSlOrders.Fee">
+            <summary>
+            Fee
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXPositionOpenTpSlOrders.AveragePrice">
+            <summary>
+            Average trade price
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXPositionOpenTpSlOrders.MarginFrozen">
+            <summary>
+            Margin frozen
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXPositionOpenTpSlOrders.Profit">
+            <summary>
+            Profit
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXPositionOpenTpSlOrders.Status">
+            <summary>
+            Status
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXPositionOpenTpSlOrders.OrderType">
+            <summary>
+            Order type
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXPositionOpenTpSlOrders.OrderSource">
+            <summary>
+            Order source
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXPositionOpenTpSlOrders.FeeAsset">
+            <summary>
+            Fee asset
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXPositionOpenTpSlOrders.CancelTime">
+            <summary>
+            Cancelation time
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXPositionOpenTpSlOrders.TpslOrderInfo">
+            <summary>
+            Tpsl order info
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Objects.Models.UsdtMarginSwap.HTXPositionOpenTpSlOrdersSUB">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXPositionOpenTpSlOrdersSUB.Quantity">
+            <summary>
+            Quantity
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXPositionOpenTpSlOrdersSUB.Side">
+            <summary>
+            Side
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXPositionOpenTpSlOrdersSUB.TpslOrderType">
+            <summary>
+            Tpsl order type
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXPositionOpenTpSlOrdersSUB.OrderId">
+            <summary>
+            Order id
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXPositionOpenTpSlOrdersSUB.OrderIdStr">
+            <summary>
+            Order id string
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXPositionOpenTpSlOrdersSUB.TriggerType">
+            <summary>
+            Trigger type
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXPositionOpenTpSlOrdersSUB.TriggerPrice">
+            <summary>
+            Trigger price
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXPositionOpenTpSlOrdersSUB.OrderPrice">
+            <summary>
+            Order price
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXPositionOpenTpSlOrdersSUB.CreateTime">
+            <summary>
+            Creation time
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXPositionOpenTpSlOrdersSUB.OrderPriceType">
+            <summary>
+            Order price type
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXPositionOpenTpSlOrdersSUB.RelationTpslOrderId">
+            <summary>
+            Relation tpsl order id
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXPositionOpenTpSlOrdersSUB.Status">
+            <summary>
+            Status
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXPositionOpenTpSlOrdersSUB.CancelTime">
+            <summary>
+            Cancelation time
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXPositionOpenTpSlOrdersSUB.FailCode">
+            <summary>
+            Fail code
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXPositionOpenTpSlOrdersSUB.FailReason">
+            <summary>
+            Fail reason
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXPositionOpenTpSlOrdersSUB.TriggeredPrice">
+            <summary>
+            Triggered price
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXPositionOpenTpSlOrdersSUB.RelationOrderId">
+            <summary>
+            Relation order id
+            </summary>
+        </member>
         <member name="T:HTX.Net.Objects.Models.UsdtMarginSwap.HTXPriceLimitation">
             <summary>
             Price limitation
@@ -14885,6 +15846,221 @@
             Max margin available
             </summary>
         </member>
+        <member name="T:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTpSlClosedOrderPage">
+            <summary>
+            Take profit / stop loss order page
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTpSlClosedOrderPage.Orders">
+            <summary>
+            Orders
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTpSlClosedOrderPage.TotalPage">
+            <summary>
+            Total page
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTpSlClosedOrderPage.CurrentPage">
+            <summary>
+            Current page
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTpSlClosedOrderPage.Total">
+            <summary>
+            Total results
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTpSlClosedOrder">
+            <summary>
+            Tp/Sl order
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTpSlClosedOrder.CancelTime">
+            <summary>
+            Cancel time
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTpSlClosedOrder.UpdateTime">
+            <summary>
+            Update time
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTpSlClosedOrder.FailCode">
+            <summary>
+            Error code
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTpSlClosedOrder.FailReason">
+            <summary>
+            Error reason
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTpSlClosedOrder.TriggeredPrice">
+            <summary>
+            Triggered price
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTpSlClosedOrder.RelationOrderId">
+            <summary>
+            Relation order id
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTpSlOrderPage">
+            <summary>
+            Take profit / stop loss order page
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTpSlOrderPage.Orders">
+            <summary>
+            Orders
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTpSlOrderPage.TotalPage">
+            <summary>
+            Total page
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTpSlOrderPage.CurrentPage">
+            <summary>
+            Current page
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTpSlOrderPage.Total">
+            <summary>
+            Total results
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTpSlOrder">
+            <summary>
+            Tp/Sl order
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTpSlOrder.Symbol">
+            <summary>
+            Symbol
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTpSlOrder.ContractCode">
+            <summary>
+            Contract code
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTpSlOrder.MarginMode">
+            <summary>
+            Margin mode
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTpSlOrder.MarginAccount">
+            <summary>
+            Margin account
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTpSlOrder.Quantity">
+            <summary>
+            Quantity
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTpSlOrder.OrderType">
+            <summary>
+            Order type
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTpSlOrder.OrderSide">
+            <summary>
+            Side
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTpSlOrder.OrderId">
+            <summary>
+            Order id
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTpSlOrder.OrderIdStr">
+            <summary>
+            Order id string
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTpSlOrder.OrderSource">
+            <summary>
+            Order source
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTpSlOrder.TriggerType">
+            <summary>
+            Trigger type
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTpSlOrder.TriggerPrice">
+            <summary>
+            Trigger price
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTpSlOrder.OrderPrice">
+            <summary>
+            Order price
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTpSlOrder.CreateTime">
+            <summary>
+            Creation time
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTpSlOrder.OrderPriceType">
+            <summary>
+            Order price type
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTpSlOrder.Status">
+            <summary>
+            Status
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTpSlOrder.TpslOrderType">
+            <summary>
+            Tpsl order type
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTpSlOrder.SourceOrderId">
+            <summary>
+            Source order id
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTpSlOrder.RelationTpslOrderId">
+            <summary>
+            Relation tpsl order id
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTpSlResult">
+            <summary>
+            Tp/sl set result
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTpSlResult.TpOrder">
+            <summary>
+            Take profit order
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTpSlResult.SlOrder">
+            <summary>
+            Stop loss order
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTpSlResultOrder">
+            <summary>
+            Order info
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTpSlResultOrder.OrderId">
+            <summary>
+            Order id
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTpSlResultOrder.OrderIdStr">
+            <summary>
+            Order id string
+            </summary>
+        </member>
         <member name="T:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTradingFee">
             <summary>
             Trading fee info
@@ -15048,6 +16224,206 @@
         <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTradingStatusTdn.IsActive">
             <summary>
             Is active
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTrailingClosedOrderPage">
+            <summary>
+            Trailing order page
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTrailingClosedOrderPage.Orders">
+            <summary>
+            Orders
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTrailingClosedOrderPage.TotalPage">
+            <summary>
+            Total page
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTrailingClosedOrderPage.CurrentPage">
+            <summary>
+            Current page
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTrailingClosedOrderPage.Total">
+            <summary>
+            Total results
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTrailingClosedOrder">
+            <summary>
+            Trailing order info
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTrailingClosedOrder.TriggeredPrice">
+            <summary>
+            Triggered price
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTrailingClosedOrder.UpdateTime">
+            <summary>
+            Update time
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTrailingClosedOrder.CancelTime">
+            <summary>
+            Cancel time
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTrailingClosedOrder.FailCode">
+            <summary>
+            Error code
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTrailingClosedOrder.FailReason">
+            <summary>
+            Error reason
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTrailingClosedOrder.RelationOrderId">
+            <summary>
+            Relation order id
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTrailingClosedOrder.MarketLimitPrice">
+            <summary>
+            Lowest/highest market price (use the lowest price when buy. use the highest when sell)
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTrailingClosedOrder.RealVolume">
+            <summary>
+            Real volume
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTrailingClosedOrder.FormulaPrice">
+            <summary>
+            Formula price(the lowest (highest) market price* (1 ± callback rate))
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTrailingOrderPage">
+            <summary>
+            Trailing order page
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTrailingOrderPage.Orders">
+            <summary>
+            Orders
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTrailingOrderPage.TotalPage">
+            <summary>
+            Total page
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTrailingOrderPage.CurrentPage">
+            <summary>
+            Current page
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTrailingOrderPage.Total">
+            <summary>
+            Total results
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTrailingOrder">
+            <summary>
+            Trailing order info
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTrailingOrder.Symbol">
+            <summary>
+            Symbol
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTrailingOrder.ContractCode">
+            <summary>
+            Contract code
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTrailingOrder.Quantity">
+            <summary>
+            Quantity
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTrailingOrder.OrderType">
+            <summary>
+            Order type
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTrailingOrder.Side">
+            <summary>
+            Side
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTrailingOrder.Offset">
+            <summary>
+            Offset
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTrailingOrder.LeverageRate">
+            <summary>
+            Leverage rate
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTrailingOrder.OrderId">
+            <summary>
+            Order id
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTrailingOrder.OrderIdStr">
+            <summary>
+            Order id str
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTrailingOrder.OrderSource">
+            <summary>
+            Order source
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTrailingOrder.CreateTime">
+            <summary>
+            Creation time
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTrailingOrder.OrderPriceType">
+            <summary>
+            Order price type
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTrailingOrder.Status">
+            <summary>
+            Status
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTrailingOrder.CallbackRate">
+            <summary>
+            Callback rate
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTrailingOrder.ActivePrice">
+            <summary>
+            Active price
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTrailingOrder.IsActive">
+            <summary>
+            Is active
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTrailingOrder.MarginMode">
+            <summary>
+            Margin mode
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTrailingOrder.MarginAccount">
+            <summary>
+            Margin account
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTrailingOrder.ReduceOnly">
+            <summary>
+            Reduce only
             </summary>
         </member>
         <member name="T:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTransferLimit">

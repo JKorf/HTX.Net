@@ -14,7 +14,7 @@ namespace HTX.Net.Objects.Sockets.Queries
 
         public HTXOpQuery(string topic, string op, bool authenticated, int weight = 1) : base(new HTXOpMessage { RequestId = ExchangeHelpers.NextId().ToString(), Topic = topic, Operation = op }, authenticated, weight)
         {
-            ListenerIdentifiers = new HashSet<string> { ((HTXOpMessage)Request).RequestId };
+            ListenerIdentifiers = new HashSet<string> { ((HTXOpMessage)Request).RequestId! };
         }
 
         public override CallResult<HTXOpResponse> HandleMessage(SocketConnection connection, DataEvent<HTXOpResponse> message)

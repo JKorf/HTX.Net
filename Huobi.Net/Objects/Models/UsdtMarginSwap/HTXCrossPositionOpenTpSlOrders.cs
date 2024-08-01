@@ -1,27 +1,14 @@
-﻿using CryptoExchange.Net.Converters;
-using HTX.Net.Enums;
-
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Text;
+using HTX.Net.Enums;
 
 namespace HTX.Net.Objects.Models.UsdtMarginSwap
 {
     /// <summary>
-    /// Margin user trade page
+    /// Position open and tp/sl info
     /// </summary>
-    public record HTXCrossMarginUserTradePage : HTXPage
-    {
-        /// <summary>
-        /// Trades
-        /// </summary>
-        [JsonPropertyName("trades")]
-        public IEnumerable<HTXCrossMarginUserTrade> Trades { get; set; } = Array.Empty<HTXCrossMarginUserTrade>();
-    }
-
-    /// <summary>
-    /// User trade info
-    /// </summary>
-    public record HTXCrossMarginUserTrade : HTXIsolatedMarginUserTrade
+    public record HTXCrossPositionOpenTpSlOrders : HTXPositionOpenTpSlOrders
     {
         /// <summary>
         /// Contract type

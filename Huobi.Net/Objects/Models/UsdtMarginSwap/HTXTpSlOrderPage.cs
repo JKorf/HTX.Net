@@ -6,15 +6,15 @@ using HTX.Net.Enums;
 namespace HTX.Net.Objects.Models.UsdtMarginSwap
 {
     /// <summary>
-    /// Trigger order page
+    /// Take profit / stop loss order page
     /// </summary>
-    public record HTXTriggerOrderPage
+    public record HTXTpSlOrderPage
     {
         /// <summary>
         /// Orders
         /// </summary>
         [JsonPropertyName("orders")]
-        public IEnumerable<HTXTriggerOrder> Orders { get; set; } = Array.Empty<HTXTriggerOrder>();
+        public IEnumerable<HTXTpSlOrder> Orders { get; set; } = Array.Empty<HTXTpSlOrder>();
         /// <summary>
         /// Total page
         /// </summary>
@@ -33,9 +33,9 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
     }
 
     /// <summary>
-    /// Trigger order
+    /// Tp/Sl order
     /// </summary>
-    public record HTXTriggerOrder
+    public record HTXTpSlOrder
     {
         /// <summary>
         /// Symbol
@@ -48,10 +48,15 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         [JsonPropertyName("contract_code")]
         public string ContractCode { get; set; } = string.Empty;
         /// <summary>
-        /// Trigger type
+        /// Margin mode
         /// </summary>
-        [JsonPropertyName("trigger_type")]
-        public TriggerType TriggerType { get; set; }
+        [JsonPropertyName("margin_mode")]
+        public MarginMode MarginMode { get; set; }
+        /// <summary>
+        /// Margin account
+        /// </summary>
+        [JsonPropertyName("margin_account")]
+        public string MarginAccount { get; set; } = string.Empty;
         /// <summary>
         /// Quantity
         /// </summary>
@@ -68,22 +73,12 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         [JsonPropertyName("direction")]
         public OrderSide OrderSide { get; set; }
         /// <summary>
-        /// Offset
-        /// </summary>
-        [JsonPropertyName("offset")]
-        public Offset Offset { get; set; }
-        /// <summary>
-        /// Leverage rate
-        /// </summary>
-        [JsonPropertyName("lever_rate")]
-        public int LeverageRate { get; set; }
-        /// <summary>
         /// Order id
         /// </summary>
         [JsonPropertyName("order_id")]
         public long OrderId { get; set; }
         /// <summary>
-        /// Order id str
+        /// Order id string
         /// </summary>
         [JsonPropertyName("order_id_str")]
         public string OrderIdStr { get; set; } = string.Empty;
@@ -92,6 +87,11 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// </summary>
         [JsonPropertyName("order_source")]
         public string OrderSource { get; set; } = string.Empty;
+        /// <summary>
+        /// Trigger type
+        /// </summary>
+        [JsonPropertyName("trigger_type")]
+        public TriggerType TriggerType { get; set; }
         /// <summary>
         /// Trigger price
         /// </summary>
@@ -103,7 +103,7 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         [JsonPropertyName("order_price")]
         public decimal? OrderPrice { get; set; }
         /// <summary>
-        /// Create time
+        /// Creation time
         /// </summary>
         [JsonPropertyName("created_at")]
         public DateTime CreateTime { get; set; }
@@ -116,22 +116,22 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// Status
         /// </summary>
         [JsonPropertyName("status")]
-        public OrderStatusFilter Status { get; set; }
+        public TpSlStatus? Status { get; set; }
         /// <summary>
-        /// Margin mode
+        /// Tpsl order type
         /// </summary>
-        [JsonPropertyName("margin_mode")]
-        public MarginMode MarginMode { get; set; }
+        [JsonPropertyName("tpsl_order_type")]
+        public TpslOrderType? TpslOrderType { get; set; }
         /// <summary>
-        /// Margin account
+        /// Source order id
         /// </summary>
-        [JsonPropertyName("margin_account")]
-        public string MarginAccount { get; set; } = string.Empty;
+        [JsonPropertyName("source_order_id")]
+        public string? SourceOrderId { get; set; }
         /// <summary>
-        /// Reduce only
+        /// Relation tpsl order id
         /// </summary>
-        [JsonPropertyName("reduce_only")]
-        public bool ReduceOnly { get; set; }
+        [JsonPropertyName("relation_tpsl_order_id")]
+        public string? RelationTpslOrderId { get; set; }
     }
 
 
