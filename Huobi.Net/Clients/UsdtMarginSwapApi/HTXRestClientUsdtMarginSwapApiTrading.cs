@@ -2,6 +2,7 @@
 using HTX.Net.Enums;
 using HTX.Net.Interfaces.Clients.UsdtMarginSwapApi;
 using HTX.Net.Objects.Models.UsdtMarginSwap;
+using System.Drawing;
 
 namespace HTX.Net.Clients.UsdtMarginSwapApi
 {
@@ -461,7 +462,7 @@ namespace HTX.Net.Clients.UsdtMarginSwapApi
         // /linear-swap-api/v3/swap_hisorders_exact
         // /linear-swap-api/v3/swap_cross_hisorders_exact
 
-        #region Get Cross Margin User Trades
+        #region Get Isolated Margin User Trades
 
         /// <inheritdoc />
         public async Task<WebCallResult<HTXIsolatedMarginUserTradePage>> GetIsolatedMarginUserTradesAsync(string contractCode, MarginTradeType tradeType, int daysInHistory, int? page = null, int? pageSize = null, CancellationToken ct = default)
@@ -526,13 +527,13 @@ namespace HTX.Net.Clients.UsdtMarginSwapApi
         #region Close Cross Margin Position
 
         /// <inheritdoc />
-        public async Task<WebCallResult<HTXClosePositionResult>> CloseCrossMarginPositionAsync(string contractCode, string pair, ContractType? contractType, OrderSide direction, long? clientOrderId = null, LightningPriceType? orderPriceType = null, CancellationToken ct = default)
+        public async Task<WebCallResult<HTXClosePositionResult>> CloseCrossMarginPositionAsync(OrderSide direction, string? contractCode = null, string? pair = null, ContractType? contractType = null, long? clientOrderId = null, LightningPriceType? orderPriceType = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
-            parameters.Add("contract_code", contractCode);
-            parameters.Add("pair", pair);
+            parameters.AddOptional("contract_code", contractCode);
+            parameters.AddOptional("pair", pair);
             parameters.AddEnum("direction", direction);
-            parameters.AddEnum("contractType", contractType);
+            parameters.AddOptionalEnum("contractType", contractType);
             parameters.AddOptional("client_order_id", clientOrderId);
             parameters.AddOptionalEnum("order_price_type", orderPriceType);
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/linear-swap-api/v1/swap_lightning_close_position", HTXExchange.RateLimiter.EndpointLimit, 1, true);
@@ -541,5 +542,155 @@ namespace HTX.Net.Clients.UsdtMarginSwapApi
         }
 
         #endregion
+
+        #region Place Isolated Margin Trigger Order
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<HTXTriggerOrderId>> PlaceIsolatedMarginTriggerOrderAsync(string contractCode, TriggerType triggerType, decimal triggerPrice, decimal quantity, OrderSide side, Offset? offset = null, bool? reduceOnly = null, decimal? orderPrice = null, OrderPriceType? orderPriceType = null, int? leverageRate = null, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.Add("contract_code", contractCode);
+            parameters.AddEnum("trigger_type", triggerType);
+            parameters.Add("trigger_price", triggerPrice);
+            parameters.Add("volume", quantity);
+            parameters.AddEnum("direction", side);
+            parameters.AddOptionalEnum("offset", offset);
+            parameters.AddOptional("reduce_only", reduceOnly);
+            parameters.AddOptional("order_price", orderPrice);
+            parameters.AddOptionalEnum("order_price_type", orderPriceType);
+            parameters.AddOptional("lever_rate", leverageRate);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, "/linear-swap-api/v1/swap_trigger_order", HTXExchange.RateLimiter.EndpointLimit, 1, true);
+            var result = await _baseClient.SendAsync<HTXTriggerOrderId>(request, parameters, ct).ConfigureAwait(false);
+            return result;
+        }
+
+        #endregion
+
+        #region Place Cross Margin Trigger Order
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<HTXTriggerOrderId>> PlaceCrossMarginTriggerOrderAsync(TriggerType triggerType, decimal triggerPrice, decimal quantity, OrderSide side, string? contractCode = null, string? pair = null, ContractType? contractType = null, Offset? offset = null, bool? reduceOnly = null, decimal? orderPrice = null, OrderPriceType? orderPriceType = null, int? leverageRate = null, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.AddOptional("contract_code", contractCode);
+            parameters.AddEnum("trigger_type", triggerType);
+            parameters.Add("trigger_price", triggerPrice);
+            parameters.Add("volume", quantity);
+            parameters.AddEnum("direction", side);
+            parameters.AddOptionalEnum("contract_type", contractType);
+            parameters.AddOptionalEnum("offset", offset);
+            parameters.AddOptional("pair", pair);
+            parameters.AddOptional("reduce_only", reduceOnly);
+            parameters.AddOptional("order_price", orderPrice);
+            parameters.AddOptionalEnum("order_price_type", orderPriceType);
+            parameters.AddOptional("lever_rate", leverageRate);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, "/linear-swap-api/v1/swap_cross_trigger_order", HTXExchange.RateLimiter.EndpointLimit, 1, true);
+            var result = await _baseClient.SendAsync<HTXTriggerOrderId>(request, parameters, ct).ConfigureAwait(false);
+            return result;
+        }
+
+        #endregion
+
+        #region Cancel Isolated Margin Trigger Order
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<HTXTriggerOrderResult>> CancelIsolatedMarginTriggerOrderAsync(string contractCode, string orderId, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.Add("contract_code", contractCode);
+            parameters.Add("order_id", orderId);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, "/linear-swap-api/v1/swap_trigger_cancel", HTXExchange.RateLimiter.EndpointLimit, 1, true);
+            var result = await _baseClient.SendAsync<HTXTriggerOrderResult>(request, parameters, ct).ConfigureAwait(false);
+            return result;
+        }
+
+        #endregion
+
+        #region Cancel Cross Margin Trigger Order
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<HTXTriggerOrderResult>> CancelCrossMarginTriggerOrderAsync(string orderId, string? contractCode = null, string? pair = null, ContractType? contractType = null, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.Add("contract_code", contractCode);
+            parameters.Add("order_id", orderId);
+            parameters.Add("pair", pair);
+            parameters.AddEnum("contract_type", contractType);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, "/linear-swap-api/v1/swap_cross_trigger_cancel", HTXExchange.RateLimiter.EndpointLimit, 1, true);
+            var result = await _baseClient.SendAsync<HTXTriggerOrderResult>(request, parameters, ct).ConfigureAwait(false);
+            return result;
+        }
+
+        #endregion
+
+        #region Cancel All Isolated Margin Trigger Orders
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<HTXTriggerOrderResult>> CancelAllIsolatedMarginTriggerOrdersAsync(string contractCode, OrderSide? side = null, Offset? offset = null, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.Add("contract_code", contractCode);
+            parameters.AddOptionalEnum("direction", side);
+            parameters.AddOptionalEnum("offset", offset);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, "/linear-swap-api/v1/swap_trigger_cancelall", HTXExchange.RateLimiter.EndpointLimit, 1, true);
+            var result = await _baseClient.SendAsync<HTXTriggerOrderResult>(request, parameters, ct).ConfigureAwait(false);
+            return result;
+        }
+
+        #endregion
+
+        #region Cancel All Isolated Margin Trigger Orders
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<HTXTriggerOrderResult>> CancelAllCrossMarginTriggerOrdersAsync(string? contractCode = null, string? pair = null, ContractType? contractType = null, OrderSide? side = null, Offset? offset = null, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.AddOptional("contract_code", contractCode);
+            parameters.AddOptional("pair", pair);
+            parameters.AddOptionalEnum("contract_type", contractType);
+            parameters.AddOptionalEnum("direction", side);
+            parameters.AddOptionalEnum("offset", offset);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, "/linear-swap-api/v1/swap_cross_trigger_cancelall ", HTXExchange.RateLimiter.EndpointLimit, 1, true);
+            var result = await _baseClient.SendAsync<HTXTriggerOrderResult>(request, parameters, ct).ConfigureAwait(false);
+            return result;
+        }
+
+        #endregion
+
+        #region Get Isolated Margin Open Trigger Orders
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<HTXTriggerOrderPage>> GetIsolatedMarginOpenTriggerOrdersAsync(string contractCode, int? page = null, int? pageSize = null, Enums.MarginTradeType? tradeType = null, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.Add("contract_code", contractCode);
+            parameters.AddOptional("page_index", page);
+            parameters.AddOptional("page_size", pageSize);
+            parameters.AddOptional("trade_type", tradeType);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, "/linear-swap-api/v1/swap_trigger_openorders", HTXExchange.RateLimiter.EndpointLimit, 1, true);
+            var result = await _baseClient.SendAsync<HTXTriggerOrderPage>(request, parameters, ct).ConfigureAwait(false);
+            return result;
+        }
+
+        #endregion
+
+        #region Get Isolated Margin Open Trigger Orders
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<HTXCrossTriggerOrderPage>> GetCrossMarginOpenTriggerOrdersAsync(string? contractCode = null, string? pair = null, int? page = null, int? pageSize = null, Enums.MarginTradeType? tradeType = null, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.AddOptional("contract_code", contractCode);
+            parameters.AddOptional("pair", pair);
+            parameters.AddOptional("page_index", page);
+            parameters.AddOptional("page_size", pageSize);
+            parameters.AddOptional("trade_type", tradeType);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, "/linear-swap-api/v1/swap_cross_trigger_openorders", HTXExchange.RateLimiter.EndpointLimit, 1, true);
+            var result = await _baseClient.SendAsync<HTXCrossTriggerOrderPage>(request, parameters, ct).ConfigureAwait(false);
+            return result;
+        }
+
+        #endregion
+
     }
 }

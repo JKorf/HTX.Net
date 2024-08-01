@@ -539,6 +539,18 @@
         <member name="M:HTX.Net.Clients.SpotApi.HTXSocketClientUsdtMarginSwapApi.SubscribeToMarkPriceKlineUpdatesAsync(System.String,HTX.Net.Enums.KlineInterval,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{HTX.Net.Objects.Models.HTXKline}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
+        <member name="M:HTX.Net.Clients.SpotApi.HTXSocketClientUsdtMarginSwapApi.SubscribeToLiquidationUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapLiquidationUpdate}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.SpotApi.HTXSocketClientUsdtMarginSwapApi.SubscribeToFundingRateUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapFundingRateUpdate}}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.SpotApi.HTXSocketClientUsdtMarginSwapApi.SubscribeToContractUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapContractUpdate}}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.SpotApi.HTXSocketClientUsdtMarginSwapApi.SubscribeToContractElementsUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapContractElementsUpdate}}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
         <member name="M:HTX.Net.Clients.SpotApi.HTXSocketClientUsdtMarginSwapApi.SubscribeToSystemStatusUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{HTX.Net.Objects.Models.Socket.HTXStatusUpdate}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
@@ -546,6 +558,27 @@
             <inheritdoc />
         </member>
         <member name="M:HTX.Net.Clients.SpotApi.HTXSocketClientUsdtMarginSwapApi.SubscribeToIsolatedMarginBalanceUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedBalanceUpdate}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.SpotApi.HTXSocketClientUsdtMarginSwapApi.SubscribeToCrossMarginBalanceUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapCrossBalanceUpdate}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.SpotApi.HTXSocketClientUsdtMarginSwapApi.SubscribeToIsolatedMarginPositionUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedPositionUpdate}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.SpotApi.HTXSocketClientUsdtMarginSwapApi.SubscribeToCrossMarginPositionUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapCrossPositionUpdate}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.SpotApi.HTXSocketClientUsdtMarginSwapApi.SubscribeToIsolatedMarginUserTradeUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedTradeUpdate}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.SpotApi.HTXSocketClientUsdtMarginSwapApi.SubscribeToCrossMarginUserTradeUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapCrossTradeUpdate}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.SpotApi.HTXSocketClientUsdtMarginSwapApi.SubscribeToIsolatedMarginTriggerOrderUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedTriggerOrderUpdate}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.SpotApi.HTXSocketClientUsdtMarginSwapApi.SubscribeToCrossMarginTriggerOrderUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapCrossTriggerOrderUpdate}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="T:HTX.Net.Clients.FuturesApi.HTXRestClientUsdtMarginSwapApi">
@@ -882,6 +915,27 @@
             <inheritdoc />
         </member>
         <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiTrading.CloseCrossMarginPositionAsync(System.String,System.String,System.Nullable{HTX.Net.Enums.ContractType},HTX.Net.Enums.OrderSide,System.Nullable{System.Int64},System.Nullable{HTX.Net.Enums.LightningPriceType},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiTrading.PlaceIsolatedMarginTriggerOrderAsync(System.String,HTX.Net.Enums.TriggerType,System.Decimal,System.Decimal,HTX.Net.Enums.OrderSide,System.Nullable{HTX.Net.Enums.Offset},System.Nullable{System.Boolean},System.Nullable{System.Decimal},System.Nullable{HTX.Net.Enums.OrderPriceType},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiTrading.PlaceCrossMarginTriggerOrderAsync(System.String,System.String,HTX.Net.Enums.ContractType,HTX.Net.Enums.TriggerType,System.Decimal,System.Decimal,HTX.Net.Enums.OrderSide,System.Nullable{HTX.Net.Enums.Offset},System.Nullable{System.Boolean},System.Nullable{System.Decimal},System.Nullable{HTX.Net.Enums.OrderPriceType},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiTrading.CancelIsolatedMarginTriggerOrderAsync(System.String,System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiTrading.CancelCrossMarginTriggerOrderAsync(System.String,System.String,HTX.Net.Enums.ContractType,System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiTrading.CancelAllIsolatedMarginTriggerOrdersAsync(System.String,System.Nullable{HTX.Net.Enums.OrderSide},System.Nullable{HTX.Net.Enums.Offset},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiTrading.CancelAllCrossMarginTriggerOrdersAsync(System.String,System.String,System.Nullable{HTX.Net.Enums.ContractType},System.Nullable{HTX.Net.Enums.OrderSide},System.Nullable{HTX.Net.Enums.Offset},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiTrading.GetIsolatedMarginOpenTriggerOrdersAsync(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{HTX.Net.Enums.MarginTradeType},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="T:HTX.Net.Enums.AccountActivation">
@@ -1432,6 +1486,91 @@
         <member name="F:HTX.Net.Enums.ElementModeType.CrossMargin">
             <summary>
             Cross margin
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Enums.EventOrderTrigger">
+            <summary>
+            Trigger order event
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.EventOrderTrigger.TriggerPlaced">
+            <summary>
+            Trigger order placed
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.EventOrderTrigger.TriggerCanceled">
+            <summary>
+            Trigger order canceled
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.EventOrderTrigger.TriggerSuccess">
+            <summary>
+            Successfully triggered
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.EventOrderTrigger.TriggerFail">
+            <summary>
+            Failed to trigger
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Enums.EventTrigger">
+            <summary>
+            Event trigger
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.EventTrigger.Open">
+            <summary>
+            Open order
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.EventTrigger.Match">
+            <summary>
+            Order match
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.EventTrigger.Settlement">
+            <summary>
+            Settlement and delivery
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.EventTrigger.Liquidation">
+            <summary>
+            Order liquidation
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.EventTrigger.Cancel">
+            <summary>
+            Order cancel
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.EventTrigger.Transfer">
+            <summary>
+            Asset transfer
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.EventTrigger.System">
+            <summary>
+            System
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.EventTrigger.Other">
+            <summary>
+            Other
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.EventTrigger.SwitchLeverageRate">
+            <summary>
+            Switch leverage
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.EventTrigger.Initial">
+            <summary>
+            Initial update
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.EventTrigger.Snapshot">
+            <summary>
+            Snapshot
             </summary>
         </member>
         <member name="T:HTX.Net.Enums.FeeDeductStatus">
@@ -2084,61 +2223,6 @@
             Less than or equal to stop price
             </summary>
         </member>
-        <member name="T:HTX.Net.Enums.OrderEvent">
-            <summary>
-            Order event
-            </summary>
-        </member>
-        <member name="F:HTX.Net.Enums.OrderEvent.Open">
-            <summary>
-            Open order
-            </summary>
-        </member>
-        <member name="F:HTX.Net.Enums.OrderEvent.Match">
-            <summary>
-            Order match
-            </summary>
-        </member>
-        <member name="F:HTX.Net.Enums.OrderEvent.Settlement">
-            <summary>
-            Settlement and delivery
-            </summary>
-        </member>
-        <member name="F:HTX.Net.Enums.OrderEvent.Liquidation">
-            <summary>
-            Order liquidation
-            </summary>
-        </member>
-        <member name="F:HTX.Net.Enums.OrderEvent.Cancel">
-            <summary>
-            Order cancel
-            </summary>
-        </member>
-        <member name="F:HTX.Net.Enums.OrderEvent.Transfer">
-            <summary>
-            Asset transfer
-            </summary>
-        </member>
-        <member name="F:HTX.Net.Enums.OrderEvent.System">
-            <summary>
-            System
-            </summary>
-        </member>
-        <member name="F:HTX.Net.Enums.OrderEvent.Other">
-            <summary>
-            Other
-            </summary>
-        </member>
-        <member name="F:HTX.Net.Enums.OrderEvent.SwitchLeverageRate">
-            <summary>
-            Switch leverage
-            </summary>
-        </member>
-        <member name="F:HTX.Net.Enums.OrderEvent.InitialMargin">
-            <summary>
-            Initial margin
-            </summary>
-        </member>
         <member name="T:HTX.Net.Enums.OrderPriceType">
             <summary>
             Order price type
@@ -2309,7 +2393,7 @@
             Order status filter
             </summary>
         </member>
-        <member name="F:HTX.Net.Enums.OrderStatusFilter.Placing">
+        <member name="F:HTX.Net.Enums.OrderStatusFilter.ReadyToPlace">
             <summary>
             Placing in book
             </summary>
@@ -2842,6 +2926,21 @@
         <member name="F:HTX.Net.Enums.TransferType.PointToSubAccount">
             <summary>
             Point to sub account
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Enums.TriggerType">
+            <summary>
+            Trigger type
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.TriggerType.GreaterThanOrEqual">
+            <summary>
+            Greater than or equal to price
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.TriggerType.LesserThanOrEqual">
+            <summary>
+            Lesser than or equal to price
             </summary>
         </member>
         <member name="T:HTX.Net.Enums.Unit">
@@ -5458,6 +5557,83 @@
             <param name="orderPriceType">Order price type</param>
             <param name="ct">Cancellation token</param>
         </member>
+        <member name="M:HTX.Net.Interfaces.Clients.UsdtMarginSwapApi.IHTXRestClientUsdtMarginSwapApiTrading.PlaceIsolatedMarginTriggerOrderAsync(System.String,HTX.Net.Enums.TriggerType,System.Decimal,System.Decimal,HTX.Net.Enums.OrderSide,System.Nullable{HTX.Net.Enums.Offset},System.Nullable{System.Boolean},System.Nullable{System.Decimal},System.Nullable{HTX.Net.Enums.OrderPriceType},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            Place a new isolated margin trigger order
+            <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb86c95-77b5-11ed-9966-0242ac110003" /></para>
+            </summary>
+            <param name="contractCode">Contract code</param>
+            <param name="triggerType">Trigger type</param>
+            <param name="triggerPrice">Trigger price</param>
+            <param name="quantity">Order quantity</param>
+            <param name="side">Order side</param>
+            <param name="offset">Offset</param>
+            <param name="reduceOnly">Reduce only</param>
+            <param name="orderPrice">Order price</param>
+            <param name="orderPriceType">Order price type</param>
+            <param name="leverageRate">Leverage rate</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:HTX.Net.Interfaces.Clients.UsdtMarginSwapApi.IHTXRestClientUsdtMarginSwapApiTrading.PlaceCrossMarginTriggerOrderAsync(System.String,System.String,HTX.Net.Enums.ContractType,HTX.Net.Enums.TriggerType,System.Decimal,System.Decimal,HTX.Net.Enums.OrderSide,System.Nullable{HTX.Net.Enums.Offset},System.Nullable{System.Boolean},System.Nullable{System.Decimal},System.Nullable{HTX.Net.Enums.OrderPriceType},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            Place a new isolated margin trigger order
+            <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb86dfe-77b5-11ed-9966-0242ac110003" /></para>
+            </summary>
+            <param name="contractCode">Contract code</param>
+            <param name="triggerType">Trigger type</param>
+            <param name="triggerPrice">Trigger price</param>
+            <param name="quantity">Order quantity</param>
+            <param name="side">Order side</param>
+            <param name="pair">Pair</param>
+            <param name="contractType">Contract type</param>
+            <param name="offset">Offset</param>
+            <param name="reduceOnly">Reduce only</param>
+            <param name="orderPrice">Order price</param>
+            <param name="orderPriceType">Order price type</param>
+            <param name="leverageRate">Leverage rate</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:HTX.Net.Interfaces.Clients.UsdtMarginSwapApi.IHTXRestClientUsdtMarginSwapApiTrading.CancelIsolatedMarginTriggerOrderAsync(System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Cancel isolated margin trigger order
+            <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb86f61-77b5-11ed-9966-0242ac110003" /></para>
+            </summary>
+            <param name="contractCode">Contract code</param>
+            <param name="orderId">Order id</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:HTX.Net.Interfaces.Clients.UsdtMarginSwapApi.IHTXRestClientUsdtMarginSwapApiTrading.CancelCrossMarginTriggerOrderAsync(System.String,System.String,HTX.Net.Enums.ContractType,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Cancel cross margin trigger order
+            <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb87056-77b5-11ed-9966-0242ac110003" /></para>
+            </summary>
+            <param name="contractCode">Contract code</param>
+            <param name="pair">Pair</param>
+            <param name="contractType">Contract type</param>
+            <param name="orderId">Order id</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:HTX.Net.Interfaces.Clients.UsdtMarginSwapApi.IHTXRestClientUsdtMarginSwapApiTrading.CancelAllIsolatedMarginTriggerOrdersAsync(System.String,System.Nullable{HTX.Net.Enums.OrderSide},System.Nullable{HTX.Net.Enums.Offset},System.Threading.CancellationToken)">
+            <summary>
+            Cancel all isolated margin trigger orders matching the parameters
+            <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb87161-77b5-11ed-9966-0242ac110003" /></para>
+            </summary>
+            <param name="contractCode">Contract code</param>
+            <param name="side">Filter by side</param>
+            <param name="offset">Filter by offset</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:HTX.Net.Interfaces.Clients.UsdtMarginSwapApi.IHTXRestClientUsdtMarginSwapApiTrading.GetIsolatedMarginOpenTriggerOrdersAsync(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{HTX.Net.Enums.MarginTradeType},System.Threading.CancellationToken)">
+            <summary>
+            Get isolated margin open trigger orders
+            <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb873a8-77b5-11ed-9966-0242ac110003" /></para>
+            </summary>
+            <param name="contractCode">Contract code</param>
+            <param name="page">Page</param>
+            <param name="pageSize">Page size</param>
+            <param name="tradeType">Trade type</param>
+            <param name="ct">Cancellation token</param>
+        </member>
         <member name="T:HTX.Net.Interfaces.Clients.UsdtMarginSwapApi.IHTXSocketClientUsdtMarginSwapApi">
             <summary>
             Usdt margin swap streams
@@ -5607,6 +5783,105 @@
             <summary>
             Subscribe to isolated margin balance updates
             <para><a href="https://www.htx.com/en-in/opend/newApiPages/?id=8cb7dbbb-77b5-11ed-9966-0242ac110003" /></para>
+            </summary>
+            <param name="onData">Data handler</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:HTX.Net.Interfaces.Clients.UsdtMarginSwapApi.IHTXSocketClientUsdtMarginSwapApi.SubscribeToCrossMarginBalanceUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapCrossBalanceUpdate}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to cross margin balance updates
+            <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7dcca-77b5-11ed-9966-0242ac110003" /></para>
+            </summary>
+            <param name="onData">Data handler</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:HTX.Net.Interfaces.Clients.UsdtMarginSwapApi.IHTXSocketClientUsdtMarginSwapApi.SubscribeToIsolatedMarginPositionUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedPositionUpdate}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to isolated margin position updates
+            <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7dbbb-77b5-11ed-9966-0242ac110003" /></para>
+            </summary>
+            <param name="onData">Data handler</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:HTX.Net.Interfaces.Clients.UsdtMarginSwapApi.IHTXSocketClientUsdtMarginSwapApi.SubscribeToCrossMarginPositionUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapCrossPositionUpdate}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to cross margin position updates
+            <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7df0f-77b5-11ed-9966-0242ac110003" /></para>
+            </summary>
+            <param name="onData">Data handler</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:HTX.Net.Interfaces.Clients.UsdtMarginSwapApi.IHTXSocketClientUsdtMarginSwapApi.SubscribeToIsolatedMarginUserTradeUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedTradeUpdate}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to isolated margin user trades
+            <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7e05a-77b5-11ed-9966-0242ac110003" /></para>
+            </summary>
+            <param name="onData">Data handler</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:HTX.Net.Interfaces.Clients.UsdtMarginSwapApi.IHTXSocketClientUsdtMarginSwapApi.SubscribeToCrossMarginUserTradeUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapCrossTradeUpdate}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to cross margin user trades
+            <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7e155-77b5-11ed-9966-0242ac110003" /></para>
+            </summary>
+            <param name="onData">Data handler</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:HTX.Net.Interfaces.Clients.UsdtMarginSwapApi.IHTXSocketClientUsdtMarginSwapApi.SubscribeToLiquidationUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapLiquidationUpdate}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to liquidation order updates
+            <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7e25d-77b5-11ed-9966-0242ac110003" /></para>
+            </summary>
+            <param name="onData">Data handler</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:HTX.Net.Interfaces.Clients.UsdtMarginSwapApi.IHTXSocketClientUsdtMarginSwapApi.SubscribeToFundingRateUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapFundingRateUpdate}}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to funding rate updates
+            <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7e3b0-77b5-11ed-9966-0242ac110003" /></para>
+            </summary>
+            <param name="onData">Data handler</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:HTX.Net.Interfaces.Clients.UsdtMarginSwapApi.IHTXSocketClientUsdtMarginSwapApi.SubscribeToContractUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapContractUpdate}}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to contract info updates
+            <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7e49a-77b5-11ed-9966-0242ac110003" /></para>
+            </summary>
+            <param name="onData">Data handler</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:HTX.Net.Interfaces.Clients.UsdtMarginSwapApi.IHTXSocketClientUsdtMarginSwapApi.SubscribeToContractElementsUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapContractElementsUpdate}}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to contract element updates. Only changed properties are send after the initial update, other properties will be `null`.
+            <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb89359-77b5-11ed-9966-18ef15d1f28" /></para>
+            </summary>
+            <param name="onData">Data handler</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:HTX.Net.Interfaces.Clients.UsdtMarginSwapApi.IHTXSocketClientUsdtMarginSwapApi.SubscribeToIsolatedMarginTriggerOrderUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedTriggerOrderUpdate}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to isolated margin trigger order updates
+            <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7e5fc-77b5-11ed-9966-0242ac110003" /></para>
+            </summary>
+            <param name="onData">Data handler</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:HTX.Net.Interfaces.Clients.UsdtMarginSwapApi.IHTXSocketClientUsdtMarginSwapApi.SubscribeToCrossMarginTriggerOrderUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapCrossTriggerOrderUpdate}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to cross margin trigger order updates
+            <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7e753-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
             <param name="onData">Data handler</param>
             <param name="ct">Cancellation token</param>
@@ -9525,9 +9800,644 @@
             Basis rate
             </summary>
         </member>
-        <member name="T:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedBalanceUpdate">
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapContractElementsUpdateWrapper.Timestamp">
+            <summary>
+            Timestamp
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapContractElementsUpdateWrapper.Event">
+            <summary>
+            Event
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapContractElementsUpdateWrapper.Data">
+            <summary>
+            Data
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapContractElementsUpdate">
+            <summary>
+            Contract element info
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapContractElementsUpdate.ContractCode">
+            <summary>
+            Contract code
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapContractElementsUpdate.FundingRateCap">
+            <summary>
+            Funding rate cap
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapContractElementsUpdate.FundingRateFloor">
+            <summary>
+            Funding rate floor
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapContractElementsUpdate.ModeType">
+            <summary>
+            Mode type
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapContractElementsUpdate.SwapDeliveryType">
+            <summary>
+            Swap delivery type
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapContractElementsUpdate.SettlePeriod">
+            <summary>
+            Settle period
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapContractElementsUpdate.InstrumentIndexCode">
+            <summary>
+            Instrument index code
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapContractElementsUpdate.PriceTicks">
+            <summary>
+            Price ticks
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapContractElementsUpdate.InstrumentValues">
+            <summary>
+            Instrument values
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapContractElementsUpdate.MinLevel">
+            <summary>
+            Min level
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapContractElementsUpdate.MaxLevel">
+            <summary>
+            Max level
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapContractElementsUpdate.OrderLimits">
+            <summary>
+            Order limits
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapContractElementsUpdate.NormalLimits">
+            <summary>
+            Normal limits
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapContractElementsUpdate.OpenLimits">
+            <summary>
+            Open limits
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapContractElementsUpdate.TradeLimits">
+            <summary>
+            Trade limits
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapContractElementsUpdate.RealTimeSettlement">
+            <summary>
+            Real time settlement
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapContractElementsUpdate.TransferProfitRatio">
+            <summary>
+            Transfer profit ratio
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapContractElementsUpdate.CrossTransferProfitRatio">
+            <summary>
+            Cross transfer profit ratio
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapContractElementsUpdate.PriceTick">
+            <summary>
+            Price tick
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapContractElementsUpdate.InstrumentValue">
+            <summary>
+            Instrument value
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapContractElementsUpdate.TradePartition">
+            <summary>
+            Trade partition
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapContractElementsUpdate.OpenOrderLimit">
+            <summary>
+            Open order limit
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapContractElementsUpdate.OffsetOrderLimit">
+            <summary>
+            Offset order limit
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapContractElementsUpdate.LongPositionLimit">
+            <summary>
+            Long position limit
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapContractElementsUpdate.ShortPositionLimit">
+            <summary>
+            Short position limit
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapContractElementsUpdate.ContractInfos">
+            <summary>
+            Contract infos
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapContractUpdateWrapper">
             <summary>
             
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapContractUpdateWrapper.Timestamp">
+            <summary>
+            Timestamp
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapContractUpdateWrapper.Event">
+            <summary>
+            Event
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapContractUpdateWrapper.Data">
+            <summary>
+            Data
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapContractUpdate">
+            <summary>
+            Contract update
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapContractUpdate.Symbol">
+            <summary>
+            Symbol
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapContractUpdate.ContractCode">
+            <summary>
+            Contract code
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapContractUpdate.ContractQuantity">
+            <summary>
+            Contract quantity
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapContractUpdate.PriceTick">
+            <summary>
+            Price tick
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapContractUpdate.SettlementDate">
+            <summary>
+            Settlement date
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapContractUpdate.CreateDate">
+            <summary>
+            Create date
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapContractUpdate.ContractStatus">
+            <summary>
+            Contract status
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapContractUpdate.SupportMarginMode">
+            <summary>
+            Support margin mode
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapContractUpdate.DeliveryTime">
+            <summary>
+            Delivery time
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapContractUpdate.ContractType">
+            <summary>
+            Contract type
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapContractUpdate.BusinessType">
+            <summary>
+            Business type
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapContractUpdate.Pair">
+            <summary>
+            Pair
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapContractUpdate.DeliveryDate">
+            <summary>
+            Delivery date
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapCrossBalanceUpdate">
+            <summary>
+            Cross margin balance update
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapCrossBalanceUpdate.Timestamp">
+            <summary>
+            Timestamp
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapCrossBalanceUpdate.Event">
+            <summary>
+            Event
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapCrossBalanceUpdate.Data">
+            <summary>
+            Data
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapCrossBalanceUpdate.UserId">
+            <summary>
+            User id
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapCrossBalanceUpdateData">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapCrossBalanceUpdateData.MarginMode">
+            <summary>
+            Margin mode
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapCrossBalanceUpdateData.MarginAccount">
+            <summary>
+            Margin account
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapCrossBalanceUpdateData.MarginAsset">
+            <summary>
+            Margin asset
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapCrossBalanceUpdateData.MarginBalance">
+            <summary>
+            Margin balance
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapCrossBalanceUpdateData.MarginStatic">
+            <summary>
+            Static margin
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapCrossBalanceUpdateData.MarginPosition">
+            <summary>
+            Margin position
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapCrossBalanceUpdateData.MarginFrozen">
+            <summary>
+            Margin frozen
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapCrossBalanceUpdateData.RealizedPnl">
+            <summary>
+            Realized profit and loss
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapCrossBalanceUpdateData.UnrealizedPnl">
+            <summary>
+            Unrealized profit and loss
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapCrossBalanceUpdateData.WithdrawAvailable">
+            <summary>
+            Withdraw available
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapCrossBalanceUpdateData.RiskRate">
+            <summary>
+            Risk rate
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapCrossBalanceUpdateData.PositionMode">
+            <summary>
+            Position mode
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapCrossBalanceUpdateData.ContractDetail">
+            <summary>
+            Contract detail
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapCrossBalanceUpdateData.FuturesContractDetail">
+            <summary>
+            Futures contract detail
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapCrossBalanceUpdateContract">
+            <summary>
+            Contract info
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapCrossBalanceUpdateContract.Symbol">
+            <summary>
+            Symbol
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapCrossBalanceUpdateContract.ContractCode">
+            <summary>
+            Contract code
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapCrossBalanceUpdateContract.MarginPosition">
+            <summary>
+            Margin position
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapCrossBalanceUpdateContract.MarginFrozen">
+            <summary>
+            Margin frozen
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapCrossBalanceUpdateContract.MarginAvailable">
+            <summary>
+            Margin available
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapCrossBalanceUpdateContract.UnrealizedPnl">
+            <summary>
+            Unrealized profit and loss
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapCrossBalanceUpdateContract.LiquidationPrice">
+            <summary>
+            Liquidation price
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapCrossBalanceUpdateContract.LeverageRate">
+            <summary>
+            Leverage rate
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapCrossBalanceUpdateContract.AdjustFactor">
+            <summary>
+            Adjust factor
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapCrossBalanceUpdateContract.ContractType">
+            <summary>
+            Contract type
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapCrossBalanceUpdateContract.Pair">
+            <summary>
+            Pair
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapCrossBalanceUpdateContract.BusinessType">
+            <summary>
+            Business type
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapCrossBalanceUpdateFutures">
+            <summary>
+            Futures contract
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapCrossBalanceUpdateFutures.Symbol">
+            <summary>
+            Symbol
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapCrossBalanceUpdateFutures.ContractCode">
+            <summary>
+            Contract code
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapCrossBalanceUpdateFutures.MarginPosition">
+            <summary>
+            Margin position
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapCrossBalanceUpdateFutures.MarginFrozen">
+            <summary>
+            Margin frozen
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapCrossBalanceUpdateFutures.MarginAvailable">
+            <summary>
+            Margin available
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapCrossBalanceUpdateFutures.UnrealizedPnl">
+            <summary>
+            Unrealized profit and loss
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapCrossBalanceUpdateFutures.LiquidationPrice">
+            <summary>
+            Liquidation price
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapCrossBalanceUpdateFutures.LeverageRate">
+            <summary>
+            Leverage rate
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapCrossBalanceUpdateFutures.AdjustFactor">
+            <summary>
+            Adjust factor
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapCrossBalanceUpdateFutures.ContractType">
+            <summary>
+            Contract type
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapCrossBalanceUpdateFutures.Pair">
+            <summary>
+            Pair
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapCrossBalanceUpdateFutures.BusinessType">
+            <summary>
+            Business type
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapCrossPositionUpdate">
+            <summary>
+            Cross margin position update
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapCrossPositionUpdate.Timestamp">
+            <summary>
+            Data timestamp
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapCrossPositionUpdate.Event">
+            <summary>
+            Event
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapCrossPositionUpdate.Data">
+            <summary>
+            Data
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapCrossPositionUpdate.UserId">
+            <summary>
+            User id
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapCrossPositionUpdateData">
+            <summary>
+            Cross margin position data
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapCrossPositionUpdateData.Pair">
+            <summary>
+            Pair
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapCrossPositionUpdateData.BusinessType">
+            <summary>
+            Business type
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapCrossPositionUpdateData.ContractType">
+            <summary>
+            Contract type
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapCrossTradeUpdate">
+            <summary>
+            Cross margin trade update
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapCrossTradeUpdate.Pair">
+            <summary>
+            Pair
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapCrossTradeUpdate.BusinessType">
+            <summary>
+            Business type
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapCrossTradeUpdate.ContractType">
+            <summary>
+            Contract type
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapCrossTriggerOrderUpdate">
+            <summary>
+            Trigger order update
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapCrossTriggerOrderUpdate.Timestamp">
+            <summary>
+            Timestamp
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapCrossTriggerOrderUpdate.EventOrderTrigger">
+            <summary>
+            Event
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapCrossTriggerOrderUpdate.UserId">
+            <summary>
+            User id
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapCrossTriggerOrderUpdate.Data">
+            <summary>
+            Data
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapCrossTriggerOrderUpdateData">
+            <summary>
+            Trigger update
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapCrossTriggerOrderUpdateData.Pair">
+            <summary>
+            Pair
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapCrossTriggerOrderUpdateData.BusinessType">
+            <summary>
+            Business type
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapCrossTriggerOrderUpdateData.ContractType">
+            <summary>
+            Contract type
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapFundingRateUpdateWrapper">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapFundingRateUpdateWrapper.Timestamp">
+            <summary>
+            Timestamp
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapFundingRateUpdateWrapper.Data">
+            <summary>
+            Data
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapFundingRateUpdate">
+            <summary>
+            Funding rate update
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapFundingRateUpdate.Symbol">
+            <summary>
+            Symbol
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapFundingRateUpdate.ContractCode">
+            <summary>
+            Contract code
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapFundingRateUpdate.FeeAsset">
+            <summary>
+            Fee asset
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapFundingRateUpdate.FundingTime">
+            <summary>
+            Funding time
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapFundingRateUpdate.FundingRate">
+            <summary>
+            Funding rate
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapFundingRateUpdate.SettlementTime">
+            <summary>
+            Settlement time
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapFundingRateUpdate.EstimatedRate">
+            <summary>
+            Estimated rate
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedBalanceUpdate">
+            <summary>
+            Isolated balance update
             </summary>
         </member>
         <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedBalanceUpdate.Timestamp">
@@ -9535,7 +10445,7 @@
             Timestamp
             </summary>
         </member>
-        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedBalanceUpdate.OrderEvent">
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedBalanceUpdate.Event">
             <summary>
             Event trigger
             </summary>
@@ -9550,99 +10460,624 @@
             User id
             </summary>
         </member>
-        <member name="T:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedBalanceUpdateData">
+        <member name="T:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedBalanceUpdateDta">
             <summary>
-            
+            Isolated margin balance update
             </summary>
         </member>
-        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedBalanceUpdateData.Asset">
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedBalanceUpdateDta.Asset">
             <summary>
             Asset
             </summary>
         </member>
-        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedBalanceUpdateData.ContractCode">
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedBalanceUpdateDta.ContractCode">
             <summary>
             Contract code
             </summary>
         </member>
-        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedBalanceUpdateData.MarginBalance">
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedBalanceUpdateDta.MarginBalance">
             <summary>
             Margin balance
             </summary>
         </member>
-        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedBalanceUpdateData.MarginStatic">
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedBalanceUpdateDta.MarginStatic">
             <summary>
             Static equity
             </summary>
         </member>
-        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedBalanceUpdateData.MarginPosition">
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedBalanceUpdateDta.MarginPosition">
             <summary>
             Margin position
             </summary>
         </member>
-        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedBalanceUpdateData.MarginFrozen">
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedBalanceUpdateDta.MarginFrozen">
             <summary>
             Margin frozen
             </summary>
         </member>
-        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedBalanceUpdateData.MarginAvailable">
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedBalanceUpdateDta.MarginAvailable">
             <summary>
             Margin available
             </summary>
         </member>
-        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedBalanceUpdateData.RealizedPnl">
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedBalanceUpdateDta.RealizedPnl">
             <summary>
             Realized profit and loss
             </summary>
         </member>
-        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedBalanceUpdateData.UnrealizedPnl">
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedBalanceUpdateDta.UnrealizedPnl">
             <summary>
             Unrealized proft and loss
             </summary>
         </member>
-        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedBalanceUpdateData.WithdrawAvailable">
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedBalanceUpdateDta.WithdrawAvailable">
             <summary>
             Withdraw available
             </summary>
         </member>
-        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedBalanceUpdateData.RiskRate">
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedBalanceUpdateDta.RiskRate">
             <summary>
             Risk rate
             </summary>
         </member>
-        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedBalanceUpdateData.LiquidationPrice">
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedBalanceUpdateDta.LiquidationPrice">
             <summary>
             Liquidation price
             </summary>
         </member>
-        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedBalanceUpdateData.LeverageRate">
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedBalanceUpdateDta.LeverageRate">
             <summary>
             Leverage rate
             </summary>
         </member>
-        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedBalanceUpdateData.AdjustFactor">
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedBalanceUpdateDta.AdjustFactor">
             <summary>
             Adjust factor
             </summary>
         </member>
-        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedBalanceUpdateData.MarginAsset">
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedBalanceUpdateDta.MarginAsset">
             <summary>
             Margin asset
             </summary>
         </member>
-        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedBalanceUpdateData.MarginMode">
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedBalanceUpdateDta.MarginMode">
             <summary>
             Margin mode
             </summary>
         </member>
-        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedBalanceUpdateData.MarginAccount">
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedBalanceUpdateDta.MarginAccount">
             <summary>
             Margin account
             </summary>
         </member>
-        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedBalanceUpdateData.PositionMode">
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedBalanceUpdateDta.PositionMode">
             <summary>
             Position mode
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedPositionUpdate">
+            <summary>
+            Position data update
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedPositionUpdate.Timestamp">
+            <summary>
+            Data timestamp
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedPositionUpdate.Event">
+            <summary>
+            Event
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedPositionUpdate.Data">
+            <summary>
+            Data
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedPositionUpdate.UserId">
+            <summary>
+            User id
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedPositionUpdateData">
+            <summary>
+            Position data
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedPositionUpdateData.Symbol">
+            <summary>
+            Symbol
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedPositionUpdateData.ContractCode">
+            <summary>
+            Contract code
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedPositionUpdateData.Quantity">
+            <summary>
+            Quantity
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedPositionUpdateData.Available">
+            <summary>
+            Available
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedPositionUpdateData.Frozen">
+            <summary>
+            Frozen
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedPositionUpdateData.OpenPrice">
+            <summary>
+            Open price
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedPositionUpdateData.PositionPrice">
+            <summary>
+            Position price
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedPositionUpdateData.UnrealizedPnl">
+            <summary>
+            Unrealized profit and loss
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedPositionUpdateData.ProfitRate">
+            <summary>
+            Profit / loss ratio
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedPositionUpdateData.Pnl">
+            <summary>
+            Profit and loss
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedPositionUpdateData.PositionMargin">
+            <summary>
+            Position margin
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedPositionUpdateData.LeverageRate">
+            <summary>
+            Leverage rate
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedPositionUpdateData.OrderSide">
+            <summary>
+            Side
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedPositionUpdateData.LastPrice">
+            <summary>
+            Last price
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedPositionUpdateData.MarginAsset">
+            <summary>
+            Margin asset
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedPositionUpdateData.MarginMode">
+            <summary>
+            Margin mode
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedPositionUpdateData.MarginAccount">
+            <summary>
+            Margin account
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedPositionUpdateData.PositionMode">
+            <summary>
+            Position mode
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedPositionUpdateData.AdlRiskPercent">
+            <summary>
+            Adl risk percent
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedTradeUpdate">
+            <summary>
+            Order trade update
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedTradeUpdate.Timestamp">
+            <summary>
+            Timestamp
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedTradeUpdate.Symbol">
+            <summary>
+            Symbol
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedTradeUpdate.ContractCode">
+            <summary>
+            Contract code
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedTradeUpdate.Status">
+            <summary>
+            Status
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedTradeUpdate.OrderId">
+            <summary>
+            Order id
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedTradeUpdate.OrderIdStr">
+            <summary>
+            Order id string
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedTradeUpdate.ClientOrderId">
+            <summary>
+            Client order id
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedTradeUpdate.OrderType">
+            <summary>
+            Order type
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedTradeUpdate.CreateTime">
+            <summary>
+            Creation time
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedTradeUpdate.Trades">
+            <summary>
+            Trades
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedTradeUpdate.UserId">
+            <summary>
+            User id
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedTradeUpdate.Quantity">
+            <summary>
+            Quantity
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedTradeUpdate.QuantityFilled">
+            <summary>
+            Quantity filled
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedTradeUpdate.OrderSide">
+            <summary>
+            Order side
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedTradeUpdate.Offset">
+            <summary>
+            Offset
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedTradeUpdate.LeverageRate">
+            <summary>
+            Leverage rate
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedTradeUpdate.Price">
+            <summary>
+            Price
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedTradeUpdate.OrderSource">
+            <summary>
+            Order source
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedTradeUpdate.OrderPriceType">
+            <summary>
+            Order price type
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedTradeUpdate.MarginMode">
+            <summary>
+            Margin mode
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedTradeUpdate.MarginAccount">
+            <summary>
+            Margin account
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedTradeUpdate.IsTpsl">
+            <summary>
+            Is take profit / stop loss
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedTradeUpdate.ReduceOnly">
+            <summary>
+            Reduce only
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedTradeUpdateTrade">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedTradeUpdateTrade.TradeId">
+            <summary>
+            Trade id
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedTradeUpdateTrade.Id">
+            <summary>
+            Id
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedTradeUpdateTrade.Quantity">
+            <summary>
+            Quantity
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedTradeUpdateTrade.Price">
+            <summary>
+            Price
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedTradeUpdateTrade.Value">
+            <summary>
+            Value
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedTradeUpdateTrade.CreateTime">
+            <summary>
+            Creation time
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedTradeUpdateTrade.Role">
+            <summary>
+            Role
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedTriggerOrderUpdate">
+            <summary>
+            Trigger order update
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedTriggerOrderUpdate.Timestamp">
+            <summary>
+            Timestamp
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedTriggerOrderUpdate.EventOrderTrigger">
+            <summary>
+            Event
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedTriggerOrderUpdate.UserId">
+            <summary>
+            User id
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedTriggerOrderUpdate.Data">
+            <summary>
+            Data
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedTriggerOrderUpdateData">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedTriggerOrderUpdateData.Symbol">
+            <summary>
+            Symbol
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedTriggerOrderUpdateData.ContractCode">
+            <summary>
+            Contract code
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedTriggerOrderUpdateData.TriggerType">
+            <summary>
+            Trigger type
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedTriggerOrderUpdateData.Quantity">
+            <summary>
+            Quantity
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedTriggerOrderUpdateData.OrderType">
+            <summary>
+            Order type
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedTriggerOrderUpdateData.OrderSide">
+            <summary>
+            Side
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedTriggerOrderUpdateData.Offset">
+            <summary>
+            Offset
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedTriggerOrderUpdateData.LeverageRate">
+            <summary>
+            Leverage rate
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedTriggerOrderUpdateData.OrderId">
+            <summary>
+            Order id
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedTriggerOrderUpdateData.OrderIdStr">
+            <summary>
+            Order id string
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedTriggerOrderUpdateData.RelationOrderId">
+            <summary>
+            Relation order id
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedTriggerOrderUpdateData.OrderPriceType">
+            <summary>
+            Order price type
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedTriggerOrderUpdateData.OrderStatus">
+            <summary>
+            Status
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedTriggerOrderUpdateData.OrderSource">
+            <summary>
+            Order source
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedTriggerOrderUpdateData.TriggerPrice">
+            <summary>
+            Trigger price
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedTriggerOrderUpdateData.TriggeredPrice">
+            <summary>
+            Triggered price
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedTriggerOrderUpdateData.OrderPrice">
+            <summary>
+            Order price
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedTriggerOrderUpdateData.CreateTime">
+            <summary>
+            Creation time
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedTriggerOrderUpdateData.TriggerTime">
+            <summary>
+            Triggered time
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedTriggerOrderUpdateData.OrderInsertTime">
+            <summary>
+            Order insert time
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedTriggerOrderUpdateData.CancelTime">
+            <summary>
+            Cancel time
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedTriggerOrderUpdateData.MarginMode">
+            <summary>
+            Margin mode
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedTriggerOrderUpdateData.MarginAccount">
+            <summary>
+            Margin account
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedTriggerOrderUpdateData.FailCode">
+            <summary>
+            Fail code
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedTriggerOrderUpdateData.FailReason">
+            <summary>
+            Fail reason
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapIsolatedTriggerOrderUpdateData.ReduceOnly">
+            <summary>
+            Reduce only
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapLiquidationUpdate">
+            <summary>
+            Liquidation update
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapLiquidationUpdate.Timestamp">
+            <summary>
+            Timestamp
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapLiquidationUpdate.Data">
+            <summary>
+            Data
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapLiquidationUpdateData">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapLiquidationUpdateData.Symbol">
+            <summary>
+            Symbol
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapLiquidationUpdateData.ContractCode">
+            <summary>
+            Contract code
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapLiquidationUpdateData.OrderSide">
+            <summary>
+            Side
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapLiquidationUpdateData.Offset">
+            <summary>
+            Offset
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapLiquidationUpdateData.Volume">
+            <summary>
+            Volume
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapLiquidationUpdateData.Price">
+            <summary>
+            Price
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapLiquidationUpdateData.CreateTime">
+            <summary>
+            Creation time
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapLiquidationUpdateData.Quantity">
+            <summary>
+            Liquidation quantity
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapLiquidationUpdateData.TradeTurnover">
+            <summary>
+            Trade turnover
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapLiquidationUpdateData.ContractType">
+            <summary>
+            Contract type
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapLiquidationUpdateData.Pair">
+            <summary>
+            Pair
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapLiquidationUpdateData.BusinessType">
+            <summary>
+            Business type
             </summary>
         </member>
         <member name="T:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapOrderUpdate">
@@ -13678,6 +15113,181 @@
         <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTransferLimit.NetTransferOutMaxDaily">
             <summary>
             Net transfer out max daily
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTriggerOrderId">
+            <summary>
+            Order id
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTriggerOrderId.OrderIdStr">
+            <summary>
+            Order id string
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTriggerOrderId.OrderId">
+            <summary>
+            Order id
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTriggerOrderPage">
+            <summary>
+            Trigger order page
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTriggerOrderPage.Orders">
+            <summary>
+            Orders
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTriggerOrderPage.TotalPage">
+            <summary>
+            Total page
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTriggerOrderPage.CurrentPage">
+            <summary>
+            Current page
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTriggerOrderPage.Total">
+            <summary>
+            Total results
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTriggerOrder">
+            <summary>
+            Trigger order
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTriggerOrder.Symbol">
+            <summary>
+            Symbol
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTriggerOrder.ContractCode">
+            <summary>
+            Contract code
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTriggerOrder.TriggerType">
+            <summary>
+            Trigger type
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTriggerOrder.Quantity">
+            <summary>
+            Quantity
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTriggerOrder.OrderType">
+            <summary>
+            Order type
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTriggerOrder.OrderSide">
+            <summary>
+            Side
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTriggerOrder.Offset">
+            <summary>
+            Offset
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTriggerOrder.LeverageRate">
+            <summary>
+            Leverage rate
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTriggerOrder.OrderId">
+            <summary>
+            Order id
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTriggerOrder.OrderIdStr">
+            <summary>
+            Order id str
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTriggerOrder.OrderSource">
+            <summary>
+            Order source
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTriggerOrder.TriggerPrice">
+            <summary>
+            Trigger price
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTriggerOrder.OrderPrice">
+            <summary>
+            Order price
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTriggerOrder.CreateTime">
+            <summary>
+            Create time
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTriggerOrder.OrderPriceType">
+            <summary>
+            Order price type
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTriggerOrder.Status">
+            <summary>
+            Status
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTriggerOrder.MarginMode">
+            <summary>
+            Margin mode
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTriggerOrder.MarginAccount">
+            <summary>
+            Margin account
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTriggerOrder.ReduceOnly">
+            <summary>
+            Reduce only
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTriggerOrderResult">
+            <summary>
+            Trigger order operation result
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTriggerOrderResult.Errors">
+            <summary>
+            Errors
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTriggerOrderResult.Successes">
+            <summary>
+            Successful operations, comma seperated
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTriggerOrderResultError">
+            <summary>
+            Error info
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTriggerOrderResultError.OrderId">
+            <summary>
+            Order id
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTriggerOrderResultError.ErrorCode">
+            <summary>
+            Err code
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTriggerOrderResultError.ErrorMessage">
+            <summary>
+            Err msg
             </summary>
         </member>
         <member name="T:HTX.Net.Objects.Options.HTXOrderBookOptions">

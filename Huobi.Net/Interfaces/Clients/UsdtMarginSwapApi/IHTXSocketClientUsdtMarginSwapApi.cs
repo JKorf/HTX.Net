@@ -4,6 +4,7 @@ using CryptoExchange.Net.Objects.Sockets;
 using HTX.Net.Enums;
 using HTX.Net.Objects.Models;
 using HTX.Net.Objects.Models.Socket;
+using HTX.Net.Objects.Models.UsdtMarginSwap;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -153,5 +154,104 @@ namespace HTX.Net.Interfaces.Clients.UsdtMarginSwapApi
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<CallResult<UpdateSubscription>> SubscribeToIsolatedMarginBalanceUpdatesAsync(Action<DataEvent<HTXUsdtMarginSwapIsolatedBalanceUpdate>> onData, CancellationToken ct = default);
+
+        /// <summary>
+        /// Subscribe to cross margin balance updates
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7dcca-77b5-11ed-9966-0242ac110003" /></para>
+        /// </summary>
+        /// <param name="onData">Data handler</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<CallResult<UpdateSubscription>> SubscribeToCrossMarginBalanceUpdatesAsync(Action<DataEvent<HTXUsdtMarginSwapCrossBalanceUpdate>> onData, CancellationToken ct = default);
+
+        /// <summary>
+        /// Subscribe to isolated margin position updates
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7dbbb-77b5-11ed-9966-0242ac110003" /></para>
+        /// </summary>
+        /// <param name="onData">Data handler</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<CallResult<UpdateSubscription>> SubscribeToIsolatedMarginPositionUpdatesAsync(Action<DataEvent<HTXUsdtMarginSwapIsolatedPositionUpdate>> onData, CancellationToken ct = default);
+
+        /// <summary>
+        /// Subscribe to cross margin position updates
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7df0f-77b5-11ed-9966-0242ac110003" /></para>
+        /// </summary>
+        /// <param name="onData">Data handler</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<CallResult<UpdateSubscription>> SubscribeToCrossMarginPositionUpdatesAsync(Action<DataEvent<HTXUsdtMarginSwapCrossPositionUpdate>> onData, CancellationToken ct = default);
+
+        /// <summary>
+        /// Subscribe to isolated margin user trades
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7e05a-77b5-11ed-9966-0242ac110003" /></para>
+        /// </summary>
+        /// <param name="onData">Data handler</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<CallResult<UpdateSubscription>> SubscribeToIsolatedMarginUserTradeUpdatesAsync(Action<DataEvent<HTXUsdtMarginSwapIsolatedTradeUpdate>> onData, CancellationToken ct = default);
+
+        /// <summary>
+        /// Subscribe to cross margin user trades
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7e155-77b5-11ed-9966-0242ac110003" /></para>
+        /// </summary>
+        /// <param name="onData">Data handler</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<CallResult<UpdateSubscription>> SubscribeToCrossMarginUserTradeUpdatesAsync(Action<DataEvent<HTXUsdtMarginSwapCrossTradeUpdate>> onData, CancellationToken ct = default);
+
+        /// <summary>
+        /// Subscribe to liquidation order updates
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7e25d-77b5-11ed-9966-0242ac110003" /></para>
+        /// </summary>
+        /// <param name="onData">Data handler</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<CallResult<UpdateSubscription>> SubscribeToLiquidationUpdatesAsync(Action<DataEvent<HTXUsdtMarginSwapLiquidationUpdate>> onData, CancellationToken ct = default);
+
+        /// <summary>
+        /// Subscribe to funding rate updates
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7e3b0-77b5-11ed-9966-0242ac110003" /></para>
+        /// </summary>
+        /// <param name="onData">Data handler</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<CallResult<UpdateSubscription>> SubscribeToFundingRateUpdatesAsync(Action<DataEvent<IEnumerable<HTXUsdtMarginSwapFundingRateUpdate>>> onData, CancellationToken ct = default);
+
+        /// <summary>
+        /// Subscribe to contract info updates
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7e49a-77b5-11ed-9966-0242ac110003" /></para>
+        /// </summary>
+        /// <param name="onData">Data handler</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<CallResult<UpdateSubscription>> SubscribeToContractUpdatesAsync(Action<DataEvent<IEnumerable<HTXUsdtMarginSwapContractUpdate>>> onData, CancellationToken ct = default);
+
+        /// <summary>
+        /// Subscribe to contract element updates. Only changed properties are send after the initial update, other properties will be `null`.
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb89359-77b5-11ed-9966-18ef15d1f28" /></para>
+        /// </summary>
+        /// <param name="onData">Data handler</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<CallResult<UpdateSubscription>> SubscribeToContractElementsUpdatesAsync(Action<DataEvent<IEnumerable<HTXUsdtMarginSwapContractElementsUpdate>>> onData, CancellationToken ct = default);
+
+        /// <summary>
+        /// Subscribe to isolated margin trigger order updates
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7e5fc-77b5-11ed-9966-0242ac110003" /></para>
+        /// </summary>
+        /// <param name="onData">Data handler</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<CallResult<UpdateSubscription>> SubscribeToIsolatedMarginTriggerOrderUpdatesAsync(Action<DataEvent<HTXUsdtMarginSwapIsolatedTriggerOrderUpdate>> onData, CancellationToken ct = default);
+
+        /// <summary>
+        /// Subscribe to cross margin trigger order updates
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7e753-77b5-11ed-9966-0242ac110003" /></para>
+        /// </summary>
+        /// <param name="onData">Data handler</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<CallResult<UpdateSubscription>> SubscribeToCrossMarginTriggerOrderUpdatesAsync(Action<DataEvent<HTXUsdtMarginSwapCrossTriggerOrderUpdate>> onData, CancellationToken ct = default);
     }
 }

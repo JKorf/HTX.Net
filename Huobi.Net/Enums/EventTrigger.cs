@@ -6,9 +6,9 @@ using System.Text;
 namespace HTX.Net.Enums
 {
     /// <summary>
-    /// Order event
+    /// Event trigger
     /// </summary>
-    public enum BalanceEvent
+    public enum EventTrigger
     {
         /// <summary>
         /// Open order
@@ -56,10 +56,10 @@ namespace HTX.Net.Enums
         [Map("switch_lever_rate")]
         SwitchLeverageRate,
         /// <summary>
-        /// Initial margin
+        /// Initial update
         /// </summary>
         [Map("init")]
-        InitialMargin,
+        Initial,
         /// <summary>
         /// Snapshot
         /// </summary>

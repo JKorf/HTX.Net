@@ -2,6 +2,7 @@
 using HTX.Net.Enums;
 using HTX.Net.Objects.Models.UsdtMarginSwap;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -316,7 +317,107 @@ namespace HTX.Net.Interfaces.Clients.UsdtMarginSwapApi
         /// <param name="clientOrderId">Client order id</param>
         /// <param name="orderPriceType">Order price type</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<HTXClosePositionResult>> CloseCrossMarginPositionAsync(string contractCode, string pair, ContractType? contractType, OrderSide direction, long? clientOrderId = null, LightningPriceType? orderPriceType = null, CancellationToken ct = default);
+        Task<WebCallResult<HTXClosePositionResult>> CloseCrossMarginPositionAsync(OrderSide direction, string? contractCode = null, string? pair = null, ContractType? contractType = null, long? clientOrderId = null, LightningPriceType? orderPriceType = null, CancellationToken ct = default);
 
+        /// <summary>
+        /// Place a new isolated margin trigger order
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb86c95-77b5-11ed-9966-0242ac110003" /></para>
+        /// </summary>
+        /// <param name="contractCode">Contract code</param>
+        /// <param name="triggerType">Trigger type</param>
+        /// <param name="triggerPrice">Trigger price</param>
+        /// <param name="quantity">Order quantity</param>
+        /// <param name="side">Order side</param>
+        /// <param name="offset">Offset</param>
+        /// <param name="reduceOnly">Reduce only</param>
+        /// <param name="orderPrice">Order price</param>
+        /// <param name="orderPriceType">Order price type</param>
+        /// <param name="leverageRate">Leverage rate</param>
+        /// <param name="ct">Cancellation token</param>
+        Task<WebCallResult<HTXTriggerOrderId>> PlaceIsolatedMarginTriggerOrderAsync(string contractCode, TriggerType triggerType, decimal triggerPrice, decimal quantity, OrderSide side, Offset? offset = null, bool? reduceOnly = null, decimal? orderPrice = null, OrderPriceType? orderPriceType = null, int? leverageRate = null, CancellationToken ct = default);
+
+        /// <summary>
+        /// Place a new isolated margin trigger order
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb86dfe-77b5-11ed-9966-0242ac110003" /></para>
+        /// </summary>
+        /// <param name="contractCode">Contract code</param>
+        /// <param name="triggerType">Trigger type</param>
+        /// <param name="triggerPrice">Trigger price</param>
+        /// <param name="quantity">Order quantity</param>
+        /// <param name="side">Order side</param>
+        /// <param name="pair">Pair</param>
+        /// <param name="contractType">Contract type</param>
+        /// <param name="offset">Offset</param>
+        /// <param name="reduceOnly">Reduce only</param>
+        /// <param name="orderPrice">Order price</param>
+        /// <param name="orderPriceType">Order price type</param>
+        /// <param name="leverageRate">Leverage rate</param>
+        /// <param name="ct">Cancellation token</param>
+        Task<WebCallResult<HTXTriggerOrderId>> PlaceCrossMarginTriggerOrderAsync(TriggerType triggerType, decimal triggerPrice, decimal quantity, OrderSide side, string? contractCode = null, string? pair = null, ContractType? contractType = null, Offset? offset = null, bool? reduceOnly = null, decimal? orderPrice = null, OrderPriceType? orderPriceType = null, int? leverageRate = null, CancellationToken ct = default);
+
+        /// <summary>
+        /// Cancel isolated margin trigger order
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb86f61-77b5-11ed-9966-0242ac110003" /></para>
+        /// </summary>
+        /// <param name="contractCode">Contract code</param>
+        /// <param name="orderId">Order id</param>
+        /// <param name="ct">Cancellation token</param>
+        Task<WebCallResult<HTXTriggerOrderResult>> CancelIsolatedMarginTriggerOrderAsync(string contractCode, string orderId, CancellationToken ct = default);
+
+        /// <summary>
+        /// Cancel cross margin trigger order
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb87056-77b5-11ed-9966-0242ac110003" /></para>
+        /// </summary>
+        /// <param name="contractCode">Contract code</param>
+        /// <param name="pair">Pair</param>
+        /// <param name="contractType">Contract type</param>
+        /// <param name="orderId">Order id</param>
+        /// <param name="ct">Cancellation token</param>
+        Task<WebCallResult<HTXTriggerOrderResult>> CancelCrossMarginTriggerOrderAsync(string orderId, string? contractCode = null, string? pair = null, ContractType? contractType = null, CancellationToken ct = default);
+
+        /// <summary>
+        /// Cancel all isolated margin trigger orders matching the parameters
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb87161-77b5-11ed-9966-0242ac110003" /></para>
+        /// </summary>
+        /// <param name="contractCode">Contract code</param>
+        /// <param name="side">Filter by side</param>
+        /// <param name="offset">Filter by offset</param>
+        /// <param name="ct">Cancellation token</param>
+        Task<WebCallResult<HTXTriggerOrderResult>> CancelAllIsolatedMarginTriggerOrdersAsync(string contractCode, OrderSide? side = null, Offset? offset = null, CancellationToken ct = default);
+
+        /// <summary>
+        /// Cancel all cross margin trigger orders matching the parameters
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb872c3-77b5-11ed-9966-0242ac110003" /></para>
+        /// </summary>
+        /// <param name="contractCode">Contract code</param>
+        /// <param name="pair">Pair</param>
+        /// <param name="contractType">Contract type</param>
+        /// <param name="side">Filter by side</param>
+        /// <param name="offset">Filter by offset</param>
+        /// <param name="ct">Cancellation token</param>
+        Task<WebCallResult<HTXTriggerOrderResult>> CancelAllCrossMarginTriggerOrdersAsync(string? contractCode = null, string? pair = null, ContractType? contractType = null, OrderSide? side = null, Offset? offset = null, CancellationToken ct = default);
+
+        /// <summary>
+        /// Get isolated margin open trigger orders
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb873a8-77b5-11ed-9966-0242ac110003" /></para>
+        /// </summary>
+        /// <param name="contractCode">Contract code</param>
+        /// <param name="page">Page</param>
+        /// <param name="pageSize">Page size</param>
+        /// <param name="tradeType">Trade type</param>
+        /// <param name="ct">Cancellation token</param>
+        Task<WebCallResult<HTXTriggerOrderPage>> GetIsolatedMarginOpenTriggerOrdersAsync(string contractCode, int? page = null, int? pageSize = null, MarginTradeType? tradeType = null, CancellationToken ct = default);
+
+        /// <summary>
+        /// Get cross margin open trigger orders
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb874fd-77b5-11ed-9966-0242ac110003" /></para>
+        /// </summary>
+        /// <param name="contractCode">Contract code</param>
+        /// <param name="pair">Pair</param>
+        /// <param name="page">Page</param>
+        /// <param name="pageSize">Page size</param>
+        /// <param name="tradeType">Trade type</param>
+        /// <param name="ct">Cancellation token</param>
+        Task<WebCallResult<HTXCrossTriggerOrderPage>> GetCrossMarginOpenTriggerOrdersAsync(string? contractCode = null, string? pair = null, int? page = null, int? pageSize = null, Enums.MarginTradeType? tradeType = null, CancellationToken ct = default);
     }
 }

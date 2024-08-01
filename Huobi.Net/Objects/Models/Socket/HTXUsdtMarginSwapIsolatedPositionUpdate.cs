@@ -1,23 +1,23 @@
-﻿using HTX.Net.Objects.Sockets;
+﻿using HTX.Net.Enums;
+using HTX.Net.Objects.Sockets;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using HTX.Net.Enums;
 
 namespace HTX.Net.Objects.Models.Socket
 {
     /// <summary>
-    /// Isolated balance update
+    /// Position data update
     /// </summary>
-    public record HTXUsdtMarginSwapIsolatedBalanceUpdate: HTXOpMessage
+    public record HTXUsdtMarginSwapIsolatedPositionUpdate : HTXOpMessage
     {
         /// <summary>
-        /// Timestamp
+        /// Data timestamp
         /// </summary>
         [JsonPropertyName("ts")]
         public DateTime Timestamp { get; set; }
         /// <summary>
-        /// Event trigger
+        /// Event
         /// </summary>
         [JsonPropertyName("event")]
         public EventTrigger Event { get; set; }
@@ -25,7 +25,7 @@ namespace HTX.Net.Objects.Models.Socket
         /// Data
         /// </summary>
         [JsonPropertyName("data")]
-        public IEnumerable<HTXUsdtMarginSwapIsolatedBalanceUpdateDta> Data { get; set; } = Array.Empty<HTXUsdtMarginSwapIsolatedBalanceUpdateDta>();
+        public IEnumerable<HTXUsdtMarginSwapIsolatedPositionUpdateData> Data { get; set; } = Array.Empty<HTXUsdtMarginSwapIsolatedPositionUpdateData>();
         /// <summary>
         /// User id
         /// </summary>
@@ -34,80 +34,80 @@ namespace HTX.Net.Objects.Models.Socket
     }
 
     /// <summary>
-    /// Isolated margin balance update
+    /// Position data
     /// </summary>
-    public record HTXUsdtMarginSwapIsolatedBalanceUpdateDta
+    public record HTXUsdtMarginSwapIsolatedPositionUpdateData
     {
         /// <summary>
-        /// Asset
+        /// Symbol
         /// </summary>
         [JsonPropertyName("symbol")]
-        public string Asset { get; set; } = string.Empty;
+        public string Symbol { get; set; } = string.Empty;
         /// <summary>
         /// Contract code
         /// </summary>
         [JsonPropertyName("contract_code")]
         public string ContractCode { get; set; } = string.Empty;
         /// <summary>
-        /// Margin balance
+        /// Quantity
         /// </summary>
-        [JsonPropertyName("margin_balance")]
-        public decimal MarginBalance { get; set; }
+        [JsonPropertyName("volume")]
+        public decimal Quantity { get; set; }
         /// <summary>
-        /// Static equity
+        /// Available
         /// </summary>
-        [JsonPropertyName("margin_static")]
-        public decimal MarginStatic { get; set; }
+        [JsonPropertyName("available")]
+        public decimal Available { get; set; }
         /// <summary>
-        /// Margin position
+        /// Frozen
         /// </summary>
-        [JsonPropertyName("margin_position")]
-        public decimal MarginPosition { get; set; }
+        [JsonPropertyName("frozen")]
+        public decimal Frozen { get; set; }
         /// <summary>
-        /// Margin frozen
+        /// Open price
         /// </summary>
-        [JsonPropertyName("margin_frozen")]
-        public decimal MarginFrozen { get; set; }
+        [JsonPropertyName("cost_open")]
+        public decimal OpenPrice { get; set; }
         /// <summary>
-        /// Margin available
+        /// Position price
         /// </summary>
-        [JsonPropertyName("margin_available")]
-        public decimal MarginAvailable { get; set; }
+        [JsonPropertyName("cost_hold")]
+        public decimal PositionPrice { get; set; }
         /// <summary>
-        /// Realized profit and loss
-        /// </summary>
-        [JsonPropertyName("profit_real")]
-        public decimal RealizedPnl { get; set; }
-        /// <summary>
-        /// Unrealized proft and loss
+        /// Unrealized profit and loss
         /// </summary>
         [JsonPropertyName("profit_unreal")]
         public decimal UnrealizedPnl { get; set; }
         /// <summary>
-        /// Withdraw available
+        /// Profit / loss ratio
         /// </summary>
-        [JsonPropertyName("withdraw_available")]
-        public decimal WithdrawAvailable { get; set; }
+        [JsonPropertyName("profit_rate")]
+        public decimal ProfitRate { get; set; }
         /// <summary>
-        /// Risk rate
+        /// Profit and loss
         /// </summary>
-        [JsonPropertyName("risk_rate")]
-        public decimal RiskRate { get; set; }
+        [JsonPropertyName("profit")]
+        public decimal Pnl { get; set; }
         /// <summary>
-        /// Liquidation price
+        /// Position margin
         /// </summary>
-        [JsonPropertyName("liquidation_price")]
-        public decimal LiquidationPrice { get; set; }
+        [JsonPropertyName("position_margin")]
+        public decimal PositionMargin { get; set; }
         /// <summary>
         /// Leverage rate
         /// </summary>
         [JsonPropertyName("lever_rate")]
-        public decimal LeverageRate { get; set; }
+        public int LeverageRate { get; set; }
         /// <summary>
-        /// Adjust factor
+        /// Side
         /// </summary>
-        [JsonPropertyName("adjust_factor")]
-        public decimal AdjustFactor { get; set; }
+        [JsonPropertyName("direction")]
+        public OrderSide OrderSide { get; set; }
+        /// <summary>
+        /// Last price
+        /// </summary>
+        [JsonPropertyName("last_price")]
+        public decimal LastPrice { get; set; }
         /// <summary>
         /// Margin asset
         /// </summary>
@@ -128,6 +128,11 @@ namespace HTX.Net.Objects.Models.Socket
         /// </summary>
         [JsonPropertyName("position_mode")]
         public PositionMode PositionMode { get; set; }
+        /// <summary>
+        /// Adl risk percent
+        /// </summary>
+        [JsonPropertyName("adl_risk_percent")]
+        public decimal? AdlRiskPercent { get; set; }
     }
 
 

@@ -14,7 +14,7 @@ namespace HTX.Net.Enums
         /// Placing in book
         /// </summary>
         [Map("1", "2")]
-        Placing,
+        ReadyToPlace,
         /// <summary>
         /// Submitted orders
         /// </summary>
