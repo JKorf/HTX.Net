@@ -1,0 +1,19 @@
+GET
+/v2/point/account
+true
+{
+  "code": 200,
+  "data": {
+    "accountId": "14403739",
+    "groupIds": [
+      {
+        "groupId": 26,
+        "expiryDate": 1594396800000,
+        "remainAmt": "0.3"
+      }
+    ],
+    "acctBalance": "0.30000000",
+    "accountStatus": "working"
+  },
+  "success": true
+}

@@ -1,0 +1,7 @@
+GET
+/v2/user/uid
+true
+{
+  "code": 200,
+  "data": 63628520
+}

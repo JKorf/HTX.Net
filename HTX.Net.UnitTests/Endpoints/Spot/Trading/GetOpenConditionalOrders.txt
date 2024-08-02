@@ -1,0 +1,38 @@
+GET
+/v2/algo-orders/opening
+true
+{
+  "code": 200,
+  "data": [
+    {
+      "lastActTime": 1630657250326,
+      "orderOrigTime": 1630657250238,
+      "symbol": "adausdt",
+      "source": "api",
+      "clientOrderId": "123",
+      "orderSide": "buy",
+      "orderType": "limit",
+      "orderPrice": "0.1",
+      "orderSize": "100",
+      "accountId": 13496526,
+      "timeInForce": "gtc",
+      "stopPrice": "0.1",
+      "orderStatus": "created"
+    },
+    {
+      "lastActTime": 1630657243576,
+      "orderOrigTime": 1630657243534,
+      "symbol": "adausdt",
+      "source": "api",
+      "clientOrderId": "12",
+      "orderSide": "buy",
+      "orderType": "limit",
+      "orderPrice": "0.1",
+      "orderSize": "100",
+      "accountId": 13496526,
+      "timeInForce": "gtc",
+      "stopPrice": "0.1",
+      "orderStatus": "created"
+    }
+  ]
+}

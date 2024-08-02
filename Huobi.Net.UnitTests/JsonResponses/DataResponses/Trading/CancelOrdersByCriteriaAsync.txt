@@ -1,8 +1,0 @@
-{
-    "status":"ok",
-    "data":{
-        "success-count":2,
-        "failed-count":0,
-        "next-id":5454600
-    }
-}

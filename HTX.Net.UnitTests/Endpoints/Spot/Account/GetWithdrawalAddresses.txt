@@ -1,0 +1,16 @@
+GET
+/v2/account/withdraw/address
+true
+{
+  "code": 200,
+  "data": [
+    {
+      "currency": "usdt",
+      "chain": "hrc20usdt",
+      "note": "tom",
+      "addressTag": "",
+      "address": "0x3b994f25c4c25e99d4d26364ffc014cce64600ca"
+    }
+  ],
+  "next-id": 30137790
+}

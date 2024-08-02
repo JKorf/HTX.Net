@@ -1,0 +1,6 @@
+POST
+/v1/dw/withdraw-virtual/1/cancel
+true
+{
+  "data": 700
+}

@@ -1,0 +1,10 @@
+GET
+/v2/market-status
+false
+{
+  "code": 200,
+  "message": "success",
+  "data": {
+    "marketStatus": 1
+  }
+}

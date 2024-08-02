@@ -1,9 +1,0 @@
- {
-        "currency": "btc",
-        "accountId": 123456,
-        "balance": "23.111",
-        "changeType": "deposit",
-        "accountType":"trade",
-        "seqNum": 86872993928,
-        "changeTime": 1568601800000
-    }

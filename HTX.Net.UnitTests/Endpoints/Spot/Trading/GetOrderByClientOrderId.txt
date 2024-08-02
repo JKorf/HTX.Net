@@ -1,0 +1,23 @@
+GET
+/v1/order/orders/getClientOrder
+true
+{
+  "status": "ok",
+  "data": {
+    "id": 357632718898331,
+    "symbol": "adausdt",
+    "account-id": 13496526,
+    "client-order-id": "23456",
+    "amount": "5.000000000000000000",
+    "price": "1.000000000000000000",
+    "created-at": 1630649406687,
+    "type": "buy-limit-maker",
+    "field-amount": "0.0",
+    "field-cash-amount": "0.0",
+    "field-fees": "0.0",
+    "finished-at": 0,
+    "source": "spot-api",
+    "state": "submitted",
+    "canceled-at": 0
+  }
+}

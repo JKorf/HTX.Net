@@ -1,0 +1,29 @@
+GET
+/v1/account/history
+true
+{
+  "status": "ok",
+  "data": [
+    {
+      "account-id": 10000001,
+      "currency": "usdt",
+      "record-id": 359044707902783800,
+      "transact-amt": "-10.000000000000000000",
+      "transact-type": "other-types",
+      "avail-balance": "81.850043797676510303",
+      "acct-balance": "97.010043797676510318",
+      "transact-time": 1629882096557
+    },
+    {
+      "account-id": 10000001,
+      "currency": "usdt",
+      "record-id": 359044690723242100,
+      "transact-amt": "-10.000000000000000000",
+      "transact-type": "transfer",
+      "avail-balance": "81.850043797676510303",
+      "acct-balance": "87.010043797676510318",
+      "transact-time": 1629882096569
+    }
+  ],
+  "next-id": 47996522235
+}

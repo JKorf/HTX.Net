@@ -1,0 +1,26 @@
+GET
+/v1/account/accounts
+true
+{
+  "status": "ok",
+  "data": [
+    {
+      "id": 10000001,
+      "type": "spot",
+      "subtype": "",
+      "state": "working"
+    },
+    {
+      "id": 10000002,
+      "type": "otc",
+      "subtype": "",
+      "state": "working"
+    },
+    {
+      "id": 10000003,
+      "type": "point",
+      "subtype": "",
+      "state": "working"
+    }
+  ]
+}
