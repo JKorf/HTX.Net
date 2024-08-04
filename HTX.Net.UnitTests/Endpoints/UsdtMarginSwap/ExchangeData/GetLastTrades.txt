@@ -1,0 +1,25 @@
+GET
+/linear-swap-ex/market/trade
+false
+{
+  "ch": "market.*.trade.detail",
+  "status": "ok",
+  "tick": {
+    "data": [
+      {
+        "amount": "6",
+        "ts": 1603695230083,
+        "id": 1314755250000,
+        "price": "13083",
+        "direction": "buy",
+        "quantity": 0.006,
+        "contract_code": "BTC-USDT",
+        "business_type": "swap",
+        "trade_turnover": 78.498
+      }
+    ],
+    "id": 1603695235127,
+    "ts": 1603695235127
+  },
+  "ts": 1603695235127
+}

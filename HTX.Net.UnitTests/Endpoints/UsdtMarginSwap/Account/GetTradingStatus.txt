@@ -1,0 +1,31 @@
+GET
+/linear-swap-api/v1/swap_api_trading_status
+true
+{
+  "status": "ok",
+  "data": [
+    {
+      "is_disable": 1,
+      "order_price_types": "limit,post_only,FOK,IOC",
+      "disable_reason": "COR",
+      "disable_interval": 5,
+      "recovery_time": 1,
+      "COR": {
+        "orders_threshold": 150,
+        "orders": 150,
+        "invalid_cancel_orders": 150,
+        "cancel_ratio_threshold": 0.98,
+        "cancel_ratio": 0.98,
+        "is_trigger": 1,
+        "is_active": 1
+      },
+      "TDN": {
+        "disables_threshold": 3,
+        "disables": 3,
+        "is_trigger": 1,
+        "is_active": 1
+      }
+    }
+  ],
+  "ts": 158797866555
+}

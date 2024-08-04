@@ -1,10 +1,27 @@
-﻿namespace HTX.Net.Objects.Models.UsdtMarginSwap
+﻿using HTX.Net.Enums;
+
+namespace HTX.Net.Objects.Models.UsdtMarginSwap
 {
     /// <summary>
     /// Market data
     /// </summary>
     public record HTXTicker: HTXSymbolData
     {
+        /// <summary>
+        /// Open time
+        /// </summary>
+        [JsonPropertyName("id")]
+        public DateTime OpenTime { get; set; }
+        /// <summary>
+        /// Timestamp
+        /// </summary>
+        [JsonPropertyName("ts")]
+        public DateTime Timestamp { get; set; }
+        /// <summary>
+        /// Turnover, quantity * contract value * price
+        /// </summary>
+        [JsonPropertyName("trade_turnover")]
+        public decimal? Value { get; set; }
         /// <summary>
         /// Best ask
         /// </summary>
@@ -17,5 +34,28 @@
         [JsonConverter(typeof(ArrayConverter))]
         [JsonPropertyName("bid")]
         public HTXOrderBookEntry? Bid { get; set; }
+    }
+
+    /// <summary>
+    /// Ticker info
+    /// </summary>
+    public record HTXListTicker : HTXTicker
+    {
+        /// <summary>
+        /// Contract code
+        /// </summary>
+        [JsonPropertyName("contract_code")]
+        public string? ContractCode { get; set; }
+        /// <summary>
+        /// Business type
+        /// </summary>
+        [JsonPropertyName("business_type")]
+        public BusinessType? BusinessType { get; set; }
+
+        /// <summary>
+        /// Number of buys and sells in last 24h
+        /// </summary>
+        [JsonPropertyName("number_of")]
+        public int Trades { get; set; }
     }
 }

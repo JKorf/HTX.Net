@@ -16,9 +16,4 @@
     <ProjectReference Include="..\HTX.Net\HTX.Net.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Endpoints\Spot\SubAccount\" />
-    <Folder Include="Endpoints\Spot\Margin\" />
-  </ItemGroup>
-
 </Project>

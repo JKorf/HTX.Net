@@ -1,0 +1,28 @@
+GET
+/linear-swap-ex/market/detail/merged
+false
+{
+  "ch": "market.BTC-USDT.detail.merged",
+  "status": "ok",
+  "tick": {
+    "amount": "12.526",
+    "ask": [
+      13084.2,
+      131
+    ],
+    "bid": [
+      13082.9,
+      38
+    ],
+    "close": "13076.8",
+    "count": 2920,
+    "high": "13205.3",
+    "id": 1603695162,
+    "low": "12877.5",
+    "open": "12916.2",
+    "trade_turnover": "163247.3982",
+    "ts": 1603695162580,
+    "vol": "12526"
+  },
+  "ts": 1603695162580
+}

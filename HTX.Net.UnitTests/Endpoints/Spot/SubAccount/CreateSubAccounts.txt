@@ -1,0 +1,19 @@
+POST
+/v2/sub-user/creation
+true
+{
+  "code": 200,
+  "data": [
+    {
+      "userName": "test123",
+      "note": "HTX",
+      "uid": 123
+    },
+    {
+      "userName": "test456",
+      "note": "HTX two",
+      "errCode": "2002",
+      "errMessage": "value in user name duplicated with existing record"
+    }
+  ]
+}

@@ -16,6 +16,11 @@ namespace HTX.Net.Enums
         /// Cross margin
         /// </summary>
         [Map("cross-margin")]
-        CrossMargin
+        CrossMargin,
+        /// <summary>
+        /// Spot
+        /// </summary>
+        [Map("spot")]
+        Spot
     }
 }

@@ -1,0 +1,7 @@
+POST
+/v2/sub-user/api-key-deletion
+true
+{
+  "code": 200,
+  "data": null
+}

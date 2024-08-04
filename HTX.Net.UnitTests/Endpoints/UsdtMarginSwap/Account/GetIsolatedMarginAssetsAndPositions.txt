@@ -1,0 +1,57 @@
+POST
+/linear-swap-api/v1/swap_account_position_info
+true
+{
+  "status": "ok",
+  "data": [
+    {
+      "symbol": "BTC",
+      "contract_code": "BTC-USDT",
+      "margin_balance": 99.75173164,
+      "margin_position": 1.30699,
+      "margin_frozen": 12.73,
+      "margin_available": 85.71474164,
+      "profit_real": -0.0052272,
+      "profit_unreal": 0.0019,
+      "risk_rate": 7.0313477027482385,
+      "new_risk_rate": "",
+      "trade_partition": "",
+      "withdraw_available": 85.71284164,
+      "liquidation_price": null,
+      "lever_rate": 10,
+      "adjust_factor": 0.075,
+      "margin_static": 99.74983164,
+      "positions": [
+        {
+          "symbol": "BTC",
+          "new_risk_rate": "",
+          "trade_partition": "",
+          "contract_code": "BTC-USDT",
+          "volume": 1,
+          "available": 1,
+          "frozen": 0,
+          "cost_open": 13068,
+          "cost_hold": 13068,
+          "profit_unreal": 0.0019,
+          "profit_rate": 0.00145393327211509,
+          "lever_rate": 10,
+          "position_margin": 1.30699,
+          "direction": "buy",
+          "profit": 0.0019,
+          "last_price": 13069.9,
+          "margin_asset": "USDT",
+          "margin_mode": "isolated",
+          "margin_account": "BTC-USDT",
+          "position_mode": "dual_side",
+          "adl_risk_percent": "3"
+        }
+      ],
+      "margin_asset": "USDT",
+      "margin_mode": "isolated",
+      "margin_account": "BTC-USDT",
+      "position_mode": "dual_side",
+      "adl_risk_percent": "3"
+    }
+  ],
+  "ts": 1603697944138
+}

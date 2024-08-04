@@ -1,0 +1,10 @@
+POST
+/linear-swap-api/v1/swap_transfer_inner
+true
+{
+  "status": "ok",
+  "data": {
+    "order_id": "770321554893758464"
+  },
+  "ts": 1603700570600
+}

@@ -9,7 +9,7 @@
         /// Repayment id
         /// </summary>
         [JsonPropertyName("repayId")]
-        public string RepayId { get; set; } = string.Empty;
+        public long RepayId { get; set; }
         /// <summary>
         /// Repay time
         /// </summary>

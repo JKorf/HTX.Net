@@ -19,7 +19,7 @@
         /// Ip addresses, comma seperated
         /// </summary>
         [JsonPropertyName("ipAddresses")]
-        public decimal IpAddresses { get; set; }
+        public string IpAddresses { get; set; } = string.Empty;
     }
 
 

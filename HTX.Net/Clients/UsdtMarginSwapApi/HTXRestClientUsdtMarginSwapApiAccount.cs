@@ -71,12 +71,12 @@ namespace HTX.Net.Clients.UsdtMarginSwapApi
         #region Get Cross Margin Positions
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<HTXPosition>>> GetCrossMarginPositionsAsync(string? contractCode = null, CancellationToken ct = default)
+        public async Task<WebCallResult<IEnumerable<HTXCrossPosition>>> GetCrossMarginPositionsAsync(string? contractCode = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.AddOptionalParameter("contract_code", contractCode);
             var request = _definitions.GetOrCreate(HttpMethod.Post, "linear-swap-api/v1/swap_cross_position_info", HTXExchange.RateLimiter.EndpointLimit, 1, true);
-            return await _baseClient.SendBasicAsync<IEnumerable<HTXPosition>>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendBasicAsync<IEnumerable<HTXCrossPosition>>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -174,7 +174,7 @@ namespace HTX.Net.Clients.UsdtMarginSwapApi
             parameters.AddOptionalEnum("contract_type", contractType);
             parameters.AddOptionalEnum("business_type", businessType);
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/linear-swap-api/v1/swap_order_limit", HTXExchange.RateLimiter.EndpointLimit, 1, true);
-            var result = await _baseClient.SendAsync<HTXOrderLimit>(request, parameters, ct).ConfigureAwait(false);
+            var result = await _baseClient.SendBasicAsync<HTXOrderLimit>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
 
@@ -204,7 +204,7 @@ namespace HTX.Net.Clients.UsdtMarginSwapApi
             var parameters = new ParameterCollection();
             parameters.AddOptional("contract_code", contractCode);
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/linear-swap-api/v1/swap_transfer_limit", HTXExchange.RateLimiter.EndpointLimit, 1, true);
-            var result = await _baseClient.SendAsync<IEnumerable<HTXTransferLimit>>(request, parameters, ct).ConfigureAwait(false);
+            var result = await _baseClient.SendBasicAsync<IEnumerable<HTXTransferLimit>>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
 
@@ -218,7 +218,7 @@ namespace HTX.Net.Clients.UsdtMarginSwapApi
             var parameters = new ParameterCollection();
             parameters.AddOptional("margin_account", marginAccount);
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/linear-swap-api/v1/swap_cross_transfer_limit", HTXExchange.RateLimiter.EndpointLimit, 1, true);
-            var result = await _baseClient.SendAsync<IEnumerable<HTXCrossTransferLimit>>(request, parameters, ct).ConfigureAwait(false);
+            var result = await _baseClient.SendBasicAsync<IEnumerable<HTXCrossTransferLimit>>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
 
@@ -232,7 +232,7 @@ namespace HTX.Net.Clients.UsdtMarginSwapApi
             var parameters = new ParameterCollection();
             parameters.Add("contract_code", contractCode);
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/linear-swap-api/v1/swap_position_limit", HTXExchange.RateLimiter.EndpointLimit, 1, true);
-            var result = await _baseClient.SendAsync<IEnumerable<HTXPositionLimit>>(request, parameters, ct).ConfigureAwait(false);
+            var result = await _baseClient.SendBasicAsync<IEnumerable<HTXPositionLimit>>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
 
@@ -249,7 +249,7 @@ namespace HTX.Net.Clients.UsdtMarginSwapApi
             parameters.AddOptionalEnum("contract_type", contractType);
             parameters.AddOptionalEnum("business_type", businessType);
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/linear-swap-api/v1/swap_cross_position_limit", HTXExchange.RateLimiter.EndpointLimit, 1, true);
-            var result = await _baseClient.SendAsync<IEnumerable<HTXCrossMarginPositionLimit>>(request, parameters, ct).ConfigureAwait(false);
+            var result = await _baseClient.SendBasicAsync<IEnumerable<HTXCrossMarginPositionLimit>>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
 
@@ -264,7 +264,7 @@ namespace HTX.Net.Clients.UsdtMarginSwapApi
             parameters.AddOptional("contract_code", contractCode);
             parameters.AddOptional("lever_rate", leverageRate);
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/linear-swap-api/v1/swap_lever_position_limit", HTXExchange.RateLimiter.EndpointLimit, 1, true);
-            var result = await _baseClient.SendAsync<IEnumerable<HTXLeveragePositionLimit>>(request, parameters, ct).ConfigureAwait(false);
+            var result = await _baseClient.SendBasicAsync<IEnumerable<HTXLeveragePositionLimit>>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
 
@@ -278,7 +278,7 @@ namespace HTX.Net.Clients.UsdtMarginSwapApi
             var parameters = new ParameterCollection();
             parameters.AddEnum("business_type", businessType);
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/linear-swap-api/v1/swap_cross_lever_position_limit", HTXExchange.RateLimiter.EndpointLimit, 1, true);
-            var result = await _baseClient.SendAsync<IEnumerable<HTXCrossLeveragePositionLimit>>(request, parameters, ct).ConfigureAwait(false);
+            var result = await _baseClient.SendBasicAsync<IEnumerable<HTXCrossLeveragePositionLimit>>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
 
@@ -310,7 +310,7 @@ namespace HTX.Net.Clients.UsdtMarginSwapApi
         {
             var parameters = new ParameterCollection();
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/linear-swap-api/v1/swap_api_trading_status", HTXExchange.RateLimiter.EndpointLimit, 1, true);
-            var result = await _baseClient.SendAsync<IEnumerable<HTXTradingStatus>>(request, parameters, ct).ConfigureAwait(false);
+            var result = await _baseClient.SendBasicAsync<IEnumerable<HTXTradingStatus>>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
 
@@ -327,7 +327,8 @@ namespace HTX.Net.Clients.UsdtMarginSwapApi
                 { "position_mode", EnumConverter.GetString(positionMode) },
             };
             var request = _definitions.GetOrCreate(HttpMethod.Post, "linear-swap-api/v1/swap_switch_position_mode", HTXExchange.RateLimiter.EndpointLimit, 1, true);
-            return await _baseClient.SendBasicAsync<HTXPositionMode>(request, parameters, ct).ConfigureAwait(false);
+            var result = await _baseClient.SendBasicAsync<IEnumerable<HTXPositionMode>>(request, parameters, ct).ConfigureAwait(false);
+            return result.As<HTXPositionMode>(result.Data?.First());
         }
 
         #endregion
@@ -343,7 +344,8 @@ namespace HTX.Net.Clients.UsdtMarginSwapApi
                 { "position_mode", EnumConverter.GetString(positionMode) },
             };
             var request = _definitions.GetOrCreate(HttpMethod.Post, "linear-swap-api/v1/swap_cross_switch_position_mode", HTXExchange.RateLimiter.EndpointLimit, 1, true);
-            return await _baseClient.SendBasicAsync<HTXPositionMode>(request, parameters, ct).ConfigureAwait(false);
+            var result = await _baseClient.SendBasicAsync<IEnumerable<HTXPositionMode>>(request, parameters, ct).ConfigureAwait(false);
+            return result.As<HTXPositionMode>(result.Data?.First());
         }
 
         #endregion
@@ -356,7 +358,7 @@ namespace HTX.Net.Clients.UsdtMarginSwapApi
             var parameters = new ParameterCollection();
             parameters.Add("margin_account", marginAccount);
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/linear-swap-api/v1/swap_position_side", HTXExchange.RateLimiter.EndpointLimit, 1, true);
-            var result = await _baseClient.SendAsync<IEnumerable<HTXPositionMode>>(request, parameters, ct).ConfigureAwait(false);
+            var result = await _baseClient.SendBasicAsync<IEnumerable<HTXPositionMode>>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
 
@@ -370,7 +372,7 @@ namespace HTX.Net.Clients.UsdtMarginSwapApi
             var parameters = new ParameterCollection();
             parameters.Add("margin_account", marginAccount);
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/linear-swap-api/v1/swap_cross_position_side", HTXExchange.RateLimiter.EndpointLimit, 1, true);
-            var result = await _baseClient.SendAsync<IEnumerable<HTXPositionMode>>(request, parameters, ct).ConfigureAwait(false);
+            var result = await _baseClient.SendBasicAsync<IEnumerable<HTXPositionMode>>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
 
@@ -389,7 +391,7 @@ namespace HTX.Net.Clients.UsdtMarginSwapApi
             parameters.AddOptionalParameter("end_time", DateTimeConverter.ConvertToMilliseconds(endTime));
             parameters.AddOptionalParameter("page_index", page);
             parameters.AddOptionalParameter("page_size", pageSize);
-            var request = _definitions.GetOrCreate(HttpMethod.Post, "linear-swap-api/v1/swap_user_settlement_records", HTXExchange.RateLimiter.EndpointLimit, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "linear-swap-api/v1/swap_user_settlement_records", HTXExchange.RateLimiter.EndpointLimit, 1, true);
             return await _baseClient.SendBasicAsync<HTXIsolatedMarginUserSettlementRecordPage>(request, parameters, ct).ConfigureAwait(false);
         }
 
@@ -408,7 +410,7 @@ namespace HTX.Net.Clients.UsdtMarginSwapApi
             parameters.AddOptionalParameter("end_time", DateTimeConverter.ConvertToMilliseconds(endTime));
             parameters.AddOptionalParameter("page_index", page);
             parameters.AddOptionalParameter("page_size", pageSize);
-            var request = _definitions.GetOrCreate(HttpMethod.Post, "linear-swap-api/v1/swap_cross_user_settlement_records", HTXExchange.RateLimiter.EndpointLimit, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "linear-swap-api/v1/swap_cross_user_settlement_records", HTXExchange.RateLimiter.EndpointLimit, 1, true);
             return await _baseClient.SendBasicAsync<HTXCrossMarginUserSettlementRecordPage>(request, parameters, ct).ConfigureAwait(false);
         }
 

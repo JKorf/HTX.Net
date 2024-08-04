@@ -6,11 +6,6 @@
     public record HTXFundingRate
     {
         /// <summary>
-        /// Estimated rate
-        /// </summary>
-        [JsonPropertyName("estimated_rate")]
-        public decimal? EstimatedRate { get; set; }
-        /// <summary>
         /// Funding rate
         /// </summary>
         [JsonPropertyName("funding_rate")]
@@ -36,11 +31,5 @@
         [JsonPropertyName("funding_time")]
         [JsonConverter(typeof(DateTimeConverter))]
         public DateTime FundingTime { get; set; }
-        /// <summary>
-        /// Next funding time
-        /// </summary>
-        [JsonPropertyName("next_funding_time")]
-        [JsonConverter(typeof(DateTimeConverter))]
-        public DateTime NextFundingTime { get; set; }
     }
 }

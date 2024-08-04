@@ -1,0 +1,34 @@
+GET
+/linear-swap-api/v1/swap_insurance_fund
+false
+{
+  "status": "ok",
+  "data": {
+    "total_page": 1,
+    "current_page": 1,
+    "total_size": 4,
+    "symbol": "BTC",
+    "contract_code": "BTC-USDT-FUTURES",
+    "tick": [
+      {
+        "insurance_fund": 16174.621898868114,
+        "ts": 1638691200000
+      },
+      {
+        "insurance_fund": 130.91239886811348,
+        "ts": 1638604800000
+      },
+      {
+        "insurance_fund": 0.00286055422,
+        "ts": 1638518400000
+      },
+      {
+        "insurance_fund": 0,
+        "ts": 1638432000000
+      }
+    ],
+    "business_type": "futures",
+    "pair": "BTC-USDT"
+  },
+  "ts": 1638754881217
+}

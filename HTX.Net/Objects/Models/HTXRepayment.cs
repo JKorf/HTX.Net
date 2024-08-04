@@ -51,7 +51,7 @@
         /// <summary>
         /// Principal repaid
         /// </summary>
-        [JsonPropertyName("repaidPrincipal")]
+        [JsonPropertyName("repaidprincipal")]
         public decimal RepaidPrincipal { get; set; }
         /// <summary>
         /// Interest repaid

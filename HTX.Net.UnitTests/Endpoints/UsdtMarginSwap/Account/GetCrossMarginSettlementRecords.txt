@@ -1,0 +1,76 @@
+GET
+/linear-swap-api/v1/swap_cross_user_settlement_records
+true
+{
+  "status": "ok",
+  "data": {
+    "total_page": 2,
+    "current_page": 1,
+    "total_size": 13,
+    "settlement_records": [
+      {
+        "margin_mode": "cross",
+        "margin_account": "USDT",
+        "margin_balance_init": 5000,
+        "margin_balance": 5007.6708,
+        "settlement_profit_real": 7.6708,
+        "settlement_time": 1611051602040,
+        "clawback": 0,
+        "funding_fee": 0,
+        "offset_profitloss": 0,
+        "fee": 0.6708,
+        "fee_asset": "USDT",
+        "contract_detail": [
+          {
+            "symbol": "BTC",
+            "contract_code": "BTC-USDT",
+            "offset_profitloss": 0,
+            "fee": 0.6708,
+            "fee_asset": "USDT",
+            "positions": [
+              {
+                "symbol": "BTC-USDT",
+                "contract_code": "BTC-USDT",
+                "direction": "buy",
+                "volume": 9,
+                "cost_open": 27911.11111111111,
+                "cost_hold_pre": 27911.11111111111,
+                "cost_hold": 34361.25,
+                "settlement_profit_unreal": 580.5125,
+                "settlement_price": 34361.25,
+                "settlement_type": "settlement"
+              },
+              {
+                "symbol": "BTC-USDT",
+                "contract_code": "BTC-USDT",
+                "direction": "sell",
+                "volume": 9,
+                "cost_open": 27988.88888888889,
+                "cost_hold_pre": 27988.88888888889,
+                "cost_hold": 34361.25,
+                "settlement_profit_unreal": -573.5125,
+                "settlement_price": 34361.25,
+                "settlement_type": "settlement"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "margin_mode": "cross",
+        "margin_account": "USDT",
+        "margin_balance_init": 5000,
+        "margin_balance": 5000,
+        "settlement_profit_real": 0,
+        "settlement_time": 1611047654316,
+        "clawback": 0,
+        "funding_fee": 0,
+        "offset_profitloss": 0,
+        "fee": 0,
+        "fee_asset": "USDT",
+        "contract_detail": []
+      }
+    ]
+  },
+  "ts": 1611051729365
+}

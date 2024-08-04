@@ -1,0 +1,39 @@
+GET
+/linear-swap-api/v1/swap_adjustfactor
+false
+{
+  "status": "ok",
+  "data": [
+    {
+      "symbol": "BTC",
+      "contract_code": "BTC-USDT",
+      "margin_mode": "isolated",
+      "list": [
+        {
+          "lever_rate": 125,
+          "ladders": [
+            {
+              "ladder": 0,
+              "min_size": 0,
+              "max_size": 8999,
+              "adjust_factor": 0.65
+            },
+            {
+              "ladder": 1,
+              "min_size": 9000,
+              "max_size": 89999,
+              "adjust_factor": 0.8
+            },
+            {
+              "ladder": 2,
+              "min_size": 90000,
+              "max_size": null,
+              "adjust_factor": 0.85
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "ts": 1603695606565
+}

@@ -9,6 +9,6 @@
         /// Positions
         /// </summary>
         [JsonPropertyName("positions")]
-        public IEnumerable<HTXPosition>? Positions { get; set; } = Array.Empty<HTXPosition>();
+        public IEnumerable<HTXCrossPosition>? Positions { get; set; } = Array.Empty<HTXCrossPosition>();
     }
 }

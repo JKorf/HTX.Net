@@ -98,6 +98,11 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         [JsonPropertyName("cross_transfer_profit_ratio")]
         public decimal CrossTransferProfitRatio { get; set; }
         /// <summary>
+        /// Instrument types
+        /// </summary>
+        [JsonPropertyName("instrument_type")]
+        public IEnumerable<ElementInstrumentType> InstrumentTypes { get; set; } = Array.Empty<ElementInstrumentType>();
+        /// <summary>
         /// Price tick
         /// </summary>
         [JsonPropertyName("price_tick")]
@@ -229,7 +234,7 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// Delivery date
         /// </summary>
         [JsonPropertyName("delivery_date")]
-        public DateTime DeliveryDate { get; set; }
+        public DateTime? DeliveryDate { get; set; }
     }
 
 

@@ -77,6 +77,23 @@ namespace HTX.Net.UnitTests
                 opts.ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456");
             });
             var tester = new RestRequestValidator<HTXRestClient>(client, "Endpoints/Spot/Margin", "https://api.huobi.pro", IsAuthenticated, stjCompare: true, nestedPropertyForCompare: "data");
+            await tester.ValidateAsync(client => client.SpotApi.Margin.RepayLoanAsync("123", "ETH", 1), "RepayLoan");
+            await tester.ValidateAsync(client => client.SpotApi.Margin.TransferSpotToIsolatedMarginAsync("123", "ETH", 1), "TransferSpotToIsolatedMargin");
+            await tester.ValidateAsync(client => client.SpotApi.Margin.TransferIsolatedMarginToSpotAsync("123", "ETH", 1), "TransferIsolatedMarginToSpot");
+            await tester.ValidateAsync(client => client.SpotApi.Margin.GetIsolatedLoanInterestRateAndQuotaAsync(), "GetIsolatedLoanInterestRateAndQuota");
+            await tester.ValidateAsync(client => client.SpotApi.Margin.RequestIsolatedMarginLoanAsync("ETHUSDT", "ETH", 1), "RequestIsolatedMarginLoan");
+            await tester.ValidateAsync(client => client.SpotApi.Margin.RepayIsolatedMarginLoanAsync("123", 1), "RepayIsolatedMarginLoan");
+            await tester.ValidateAsync(client => client.SpotApi.Margin.GetIsolatedMarginClosedOrdersAsync("123"), "GetIsolatedMarginClosedOrders");
+            await tester.ValidateAsync(client => client.SpotApi.Margin.GetIsolatedMarginBalanceAsync("ETHUSDT"), "GetIsolatedMarginBalance");
+            await tester.ValidateAsync(client => client.SpotApi.Margin.TransferSpotToCrossMarginAsync("ETH", 1), "TransferSpotToCrossMargin");
+            await tester.ValidateAsync(client => client.SpotApi.Margin.TransferCrossMarginToSpotAsync("ETH", 1), "TransferCrossMarginToSpot");
+            await tester.ValidateAsync(client => client.SpotApi.Margin.GetCrossLoanInterestRateAndQuotaAsync(), "GetCrossLoanInterestRateAndQuota");
+            await tester.ValidateAsync(client => client.SpotApi.Margin.RequestCrossMarginLoanAsync("ETH", 1), "RequestCrossMarginLoan");
+            await tester.ValidateAsync(client => client.SpotApi.Margin.RepayCrossMarginLoanAsync("123", 1), "RepayCrossMarginLoan");
+            await tester.ValidateAsync(client => client.SpotApi.Margin.GetCrossMarginClosedOrdersAsync(), "GetCrossMarginClosedOrders");
+            await tester.ValidateAsync(client => client.SpotApi.Margin.GetCrossMarginBalanceAsync(), "GetCrossMarginBalance");
+            await tester.ValidateAsync(client => client.SpotApi.Margin.GetCrossMarginLimitAsync(), "GetCrossMarginLimit");
+            await tester.ValidateAsync(client => client.SpotApi.Margin.GetRepaymentHistoryAsync(), "GetRepaymentHistory");
         }
 
         [Test]
@@ -88,6 +105,22 @@ namespace HTX.Net.UnitTests
                 opts.ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456");
             });
             var tester = new RestRequestValidator<HTXRestClient>(client, "Endpoints/Spot/SubAccount", "https://api.huobi.pro", IsAuthenticated, stjCompare: true, nestedPropertyForCompare: "data");
+            await tester.ValidateAsync(client => client.SpotApi.SubAccount.SetDeductModeAsync(new[] { "1" }, Enums.DeductMode.Sub), "SetDeductMode");
+            await tester.ValidateAsync(client => client.SpotApi.SubAccount.CreateSubAccountsAsync(new[] { new HTXSubAccountRequest { UserName = "123" } }), "CreateSubAccounts");
+            await tester.ValidateAsync(client => client.SpotApi.SubAccount.GetSubUserListAsync(), "GetSubUserList");
+            await tester.ValidateAsync(client => client.SpotApi.SubAccount.SetLockAsync(1, Enums.LockAction.Normal), "SetLock");
+            await tester.ValidateAsync(client => client.SpotApi.SubAccount.GetSubUserAsync(1), "GetSubUser");
+            await tester.ValidateAsync(client => client.SpotApi.SubAccount.SetTradableMarketAsync(new[] { "1" }, Enums.SubAccountMarketType.IsolatedMargin, true), "SetTradableMarket");
+            await tester.ValidateAsync(client => client.SpotApi.SubAccount.SetAssetTransferPermissionsAsync(new[] { "1" }, true), "SetAssetTransferPermissions");
+            await tester.ValidateAsync(client => client.SpotApi.SubAccount.GetSubUserAccountsAsync(1), "GetSubUserAccounts");
+            await tester.ValidateAsync(client => client.SpotApi.SubAccount.CreateApiKeyAsync("1", 1, "123", new[] { "" }, new[] { "" }), "CreateApiKey");
+            await tester.ValidateAsync(client => client.SpotApi.SubAccount.EditApiKeyAsync(1, "123", "123", new[] {""}, new[] {""}), "EditApiKey");
+            await tester.ValidateAsync(client => client.SpotApi.SubAccount.DeleteApiKeyAsync(1, "123"), "DeleteApiKey");
+            await tester.ValidateAsync(client => client.SpotApi.SubAccount.TransferWithSubAccountAsync(1, "ETH", 1, Enums.TransferType.PointFromSubAccount), "TransferWithSubAccount");
+            await tester.ValidateAsync(client => client.SpotApi.SubAccount.GetDepositAddressAsync(1, "ETH"), "GetDepositAddress");
+            await tester.ValidateAsync(client => client.SpotApi.SubAccount.GetDepositHistoryAsync(1, "ETH"), "GetDepositHistory");
+            await tester.ValidateAsync(client => client.SpotApi.SubAccount.GetAggregateBalancesAsync(), "GetAggregateBalances");
+            await tester.ValidateAsync(client => client.SpotApi.SubAccount.GetBalancesAsync(1), "GetBalances", ignoreProperties: new List<string> { "debt", "available" });
         }
 
         [Test]
@@ -120,6 +153,88 @@ namespace HTX.Net.UnitTests
             await tester.ValidateAsync(client => client.SpotApi.Trading.GetConditionalOrderAsync("1"), "GetConditionalOrder");
         }
 
+        [Test]
+        public async Task ValidateUsdtMarginSwapAccountCalls()
+        {
+            var client = new HTXRestClient(opts =>
+            {
+                opts.AutoTimestamp = false;
+                opts.ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456");
+            });
+            var tester = new RestRequestValidator<HTXRestClient>(client, "Endpoints/UsdtMarginSwap/Account", "https://api.hbdm.com", IsAuthenticated, stjCompare: true, nestedPropertyForCompare: "data");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.Account.GetAssetValuationAsync(), "GetAssetValuation");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.Account.GetIsolatedMarginAccountInfoAsync(), "GetIsolatedMarginAccountInfo");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.Account.GetCrossMarginAccountInfoAsync(), "GetCrossMarginAccountInfo");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.Account.GetIsolatedMarginPositionsAsync(), "GetIsolatedMarginPositions");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.Account.GetCrossMarginPositionsAsync(), "GetCrossMarginPositions");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.Account.GetIsolatedMarginAssetsAndPositionsAsync("ETH-USDT"), "GetIsolatedMarginAssetsAndPositions");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.Account.GetCrossMarginAssetsAndPositionsAsync("ETH-USDT"), "GetCrossMarginAssetsAndPositions");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.Account.GetFinancialRecordsAsync("ETH-USDT"), "GetFinancialRecords");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.Account.GetIsolatedMarginAvailableLeverageAsync("ETH-USDT"), "GetIsolatedMarginAvailableLeverage");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.Account.GetCrossMarginAvailableLeverageAsync("ETH-USDT"), "GetCrossMarginAvailableLeverage");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.Account.GetOrderLimitsAsync(Enums.OrderPriceType.PostOnly), "GetOrderLimits");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.Account.GetTradingFeesAsync(), "GetTradingFees");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.Account.GetIsolatedMarginTransferLimitsAsync(), "GetIsolatedMarginTransferLimits");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.Account.GetCrossMarginTransferLimitsAsync(), "GetCrossMarginTransferLimits");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.Account.GetIsolatedMarginPositionLimitAsync("ETH-USDT"), "GetIsolatedMarginPositionLimit");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.Account.GetCrossMarginPositionLimitsAsync("ETH-USDT"), "GetCrossMarginPositionLimits");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.Account.GetIsolatedMarginLeveragePositionLimitsAsync("ETH-USDT"), "GetIsolatedMarginLeveragePositionLimits");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.Account.GetCrossMarginLeveragePositionLimitsAsync(Enums.BusinessType.Futures), "GetCrossMarginLeveragePositionLimits");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.Account.TransferMarginAccountsAsync("ETH", "123", "123", 1), "TransferMarginAccounts");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.Account.GetTradingStatusAsync(), "GetTradingStatus");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.Account.SetIsolatedMarginPositionModeAsync("ETH-USDT", Enums.PositionMode.SingleSide), "SetIsolatedMarginPositionMode");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.Account.SetCrossMarginPositionModeAsync("ETH-USDT", Enums.PositionMode.SingleSide), "SetCrossMarginPositionMode");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.Account.GetIsolatedMarginPositionModeAsync("ETH-USDT"), "GetIsolatedMarginPositionMode");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.Account.GetCrossMarginPositionModeAsync("ETH-USDT"), "GetCrossMarginPositionMode");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.Account.GetIsolatedMarginSettlementRecordsAsync("ETH-USDT"), "GetIsolatedMarginSettlementRecords");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.Account.GetCrossMarginSettlementRecordsAsync("ETH-USDT"), "GetCrossMarginSettlementRecords");
+        }
+
+        [Test]
+        public async Task ValidateUsdtMarginSwapExchangeDataCalls()
+        {
+            var client = new HTXRestClient(opts =>
+            {
+                opts.AutoTimestamp = false;
+                opts.ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456");
+            });
+            var tester = new RestRequestValidator<HTXRestClient>(client, "Endpoints/UsdtMarginSwap/ExchangeData", "https://api.hbdm.com", IsAuthenticated, stjCompare: true, nestedPropertyForCompare: "data");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.ExchangeData.GetFundingRateAsync("ETH-USDT"), "GetFundingRate");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.ExchangeData.GetFundingRatesAsync(), "GetFundingRates");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.ExchangeData.GetHistoricalFundingRatesAsync("ETH-USDT"), "GetHistoricalFundingRates");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.ExchangeData.GetLiquidationOrdersAsync("ETH-USDT", Enums.LiquidationTradeType.FullyFilledLiquidationOrders), "GetLiquidationOrders");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.ExchangeData.GetHistoricalSettlementRecordsAsync("ETH-USDT"), "GetHistoricalSettlementRecords");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.ExchangeData.GetTopTraderAccountSentimentAsync("ETH-USDT", Enums.Period.OneDay), "GetTopTraderAccountSentiment");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.ExchangeData.GetTopTraderPositionSentimentAsync("ETH-USDT", Enums.Period.OneDay), "GetTopTraderPositionSentiment");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.ExchangeData.GetIsolatedMarginStatusAsync("ETH-USDT"), "GetIsolatedMarginStatus");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.ExchangeData.GetCrossTieredMarginInfoAsync("ETH-USDT"), "GetCrossTieredMarginInfo");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.ExchangeData.GetIsolatedMarginTieredInfoAsync("ETH-USDT"), "GetIsolatedMarginTieredInfo");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.ExchangeData.GetEstimatedSettlementPriceAsync("ETH-USDT"), "GetEstimatedSettlementPrice");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.ExchangeData.GetIsolatedMarginAdjustFactorInfoAsync("ETH-USDT"), "GetIsolatedMarginAdjustFactorInfo");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.ExchangeData.GetCrossMarginAdjustFactorInfoAsync("ETH-USDT"), "GetCrossMarginAdjustFactorInfo");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.ExchangeData.GetInsuranceFundHistoryAsync("ETH-USDT"), "GetInsuranceFundHistory");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.ExchangeData.GetSwapRiskInfoAsync("ETH-USDT"), "GetSwapRiskInfo");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.ExchangeData.GetSwapPriceLimitationAsync("ETH-USDT"), "GetSwapPriceLimitation");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.ExchangeData.GetSwapOpenInterestAsync("ETH-USDT"), "GetSwapOpenInterest");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.ExchangeData.GetContractsAsync("ETH-USDT"), "GetContractInfo");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.ExchangeData.GetSwapIndexPriceAsync("ETH-USDT"), "GetSwapIndexPrice");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.ExchangeData.GetContractElementsAsync("ETH-USDT"), "GetContractElements");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.ExchangeData.GetOrderBookAsync("ETH-USDT"), "GetOrderBook", nestedJsonProperty: "tick", ignoreProperties: new List<string> { "ch", "id", "mrid" });
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.ExchangeData.GetBookTickerAsync("ETH-USDT"), "GetBookTicker", nestedJsonProperty: "ticks");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.ExchangeData.GetKlinesAsync("ETH-USDT", Enums.KlineInterval.OneDay), "GetKlines");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.ExchangeData.GetMarkPriceKlinesAsync("ETH-USDT", Enums.KlineInterval.OneDay, 10), "GetMarkPriceKlines");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.ExchangeData.GetTickerAsync("ETH-USDT"), "GetTicker", nestedJsonProperty: "tick");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.ExchangeData.GetTickersAsync("ETH-USDT"), "GetTickers", nestedJsonProperty: "ticks");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.ExchangeData.GetLastTradesAsync("ETH-USDT"), "GetLastTrades", nestedJsonProperty: "tick.data.0");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.ExchangeData.GetRecentTradesAsync("ETH-USDT", 10), "GetRecentTrades", "data.0.data");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.ExchangeData.GetOpenInterestHistoryAsync(Enums.InterestPeriod.OneDay, Enums.Unit.Cont), "GetOpenInterestHistory");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.ExchangeData.GetPremiumIndexKlinesAsync("ETH-USDT", Enums.KlineInterval.OneDay, 10), "GetPremiumIndexKlines");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.ExchangeData.GetEstimatedFundingRateKlinesAsync("ETH-USDT", Enums.KlineInterval.OneDay, 10), "GetEstimatedFundingRateKlines");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.ExchangeData.GetBasisDataAsync("ETH-USDT", Enums.KlineInterval.OneDay, 10), "GetBasisData");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.ExchangeData.GetCrossMarginTradeStatusAsync("ETH-USDT"), "GetCrossMarginTradeStatus");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.ExchangeData.GetCrossMarginTransferStatusAsync("ETH-USDT"), "GetCrossMarginTransferStatus");
+        }
+    
         private bool IsAuthenticated(WebCallResult result)
         {
             return result.RequestUrl.Contains("Signature");

@@ -1,0 +1,24 @@
+GET
+/linear-swap-api/v3/swap_liquidation_orders
+false
+{
+  "code": 200,
+  "msg": "",
+  "data": [
+    {
+      "query_id": 452057,
+      "contract_code": "BTC-USDT-211210",
+      "symbol": "USDT",
+      "direction": "sell",
+      "offset": "close",
+      "volume": 479,
+      "price": 51441.7,
+      "created_at": 1638593647864,
+      "amount": 0.479,
+      "trade_turnover": 24640.5743,
+      "business_type": "futures",
+      "pair": "BTC-USDT"
+    }
+  ],
+  "ts": 1604312615051
+}

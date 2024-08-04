@@ -140,7 +140,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4fd28-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<IEnumerable<HTXBalance>>> GetAggregateBalancesAsync(CancellationToken ct = default);
+        Task<WebCallResult<IEnumerable<HTXAggBalance>>> GetAggregateBalancesAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Gets a list of balances for a specific sub account
@@ -149,7 +149,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// <param name="subAccountId">The id of the sub account to get the balances for</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<HTXBalance>>> GetBalancesAsync(long subAccountId, CancellationToken ct = default);
+        Task<WebCallResult<IEnumerable<HTXAccountBalances>>> GetBalancesAsync(long subAccountId, CancellationToken ct = default);
 
         /// <summary>
         /// Transfer asset between parent and sub account

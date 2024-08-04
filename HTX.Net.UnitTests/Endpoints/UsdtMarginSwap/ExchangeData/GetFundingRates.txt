@@ -1,0 +1,23 @@
+GET
+/linear-swap-api/v1/swap_batch_funding_rate
+false
+{
+  "status": "ok",
+  "data": [
+    {
+      "funding_rate": "-0.007500000000000000",
+      "contract_code": "ETC-USDT",
+      "symbol": "ETC",
+      "fee_asset": "USDT",
+      "funding_time": "1613976000000"
+    },
+    {
+      "funding_rate": "-0.007500000000000000",
+      "contract_code": "ADA-USDT",
+      "symbol": "ADA",
+      "fee_asset": "USDT",
+      "funding_time": "1613976000000"
+    }
+  ],
+  "ts": 1614045373795
+}

@@ -58,7 +58,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtMarginSwapApi
         /// <param name="contractCode">Filter by contract code</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<HTXPosition>>> GetCrossMarginPositionsAsync(string? contractCode = null, CancellationToken ct = default);
+        Task<WebCallResult<IEnumerable<HTXCrossPosition>>> GetCrossMarginPositionsAsync(string? contractCode = null, CancellationToken ct = default);
         /// <summary>
         /// Get cross margin settlement records
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb82cf8-77b5-11ed-9966-0242ac110003" /></para>

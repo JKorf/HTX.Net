@@ -1,0 +1,61 @@
+GET
+/linear-swap-api/v1/swap_open_interest
+false
+{
+  "status": "ok",
+  "data": [
+    {
+      "volume": 78696,
+      "amount": 78.696,
+      "symbol": "BTC",
+      "value": 3823138.2456,
+      "contract_code": "BTC-USDT",
+      "trade_amount": 0,
+      "trade_volume": 0,
+      "trade_turnover": 0,
+      "business_type": "swap",
+      "pair": "BTC-USDT",
+      "contract_type": "swap"
+    },
+    {
+      "volume": 10925,
+      "amount": 10.925,
+      "symbol": "BTC",
+      "value": 530662.21,
+      "contract_code": "BTC-USDT-211217",
+      "trade_amount": 0,
+      "trade_volume": 0,
+      "trade_turnover": 0,
+      "business_type": "futures",
+      "pair": "BTC-USDT",
+      "contract_type": "next_week"
+    },
+    {
+      "volume": 27104,
+      "amount": 27.104,
+      "symbol": "BTC",
+      "value": 1316937.2832,
+      "contract_code": "BTC-USDT-211210",
+      "trade_amount": 0,
+      "trade_volume": 0,
+      "trade_turnover": 0,
+      "business_type": "futures",
+      "pair": "BTC-USDT",
+      "contract_type": "this_week"
+    },
+    {
+      "volume": 201143,
+      "amount": 201.143,
+      "symbol": "BTC",
+      "value": 9775067.0568,
+      "contract_code": "BTC-USDT-211231",
+      "trade_amount": 0,
+      "trade_volume": 0,
+      "trade_turnover": 0,
+      "business_type": "futures",
+      "pair": "BTC-USDT",
+      "contract_type": "quarter"
+    }
+  ],
+  "ts": 1638754059540
+}

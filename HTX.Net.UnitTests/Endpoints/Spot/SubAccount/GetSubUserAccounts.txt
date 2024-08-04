@@ -1,0 +1,31 @@
+GET
+/v2/sub-user/account-list
+true
+{
+  "code": 200,
+  "data": {
+    "uid": 132208121,
+    "deductMode": "sub",
+    "list": [
+      {
+        "accountType": "isolated-margin",
+        "activation": "activated"
+      },
+      {
+        "accountType": "cross-margin",
+        "activation": "deactivated"
+      },
+      {
+        "accountType": "spot",
+        "activation": "activated",
+        "transferrable": true,
+        "accountIds": [
+          {
+            "accountId": 12255180,
+            "accountStatus": "normal"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,19 @@
+POST
+/v2/sub-user/deduct-mode
+true
+{
+  "code": 200,
+  "data": [
+    {
+      "subUid": "158069153",
+      "deductMode": "master"
+    },
+    {
+      "subUid": "1461901631",
+      "deductMode": null,
+      "errCode": 1002,
+      "errMessage": "forbidden"
+    }
+  ],
+  "ok": true
+}

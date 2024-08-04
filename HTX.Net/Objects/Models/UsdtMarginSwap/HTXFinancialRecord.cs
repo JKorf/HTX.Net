@@ -3,37 +3,15 @@
 namespace HTX.Net.Objects.Models.UsdtMarginSwap
 {
     /// <summary>
-    /// Financial records page
-    /// </summary>
-    public record HTXFinancialRecordsPage
-    {
-        /// <summary>
-        /// Total amount of pages
-        /// </summary>
-        [JsonPropertyName("total_page")]
-        public int TotalPages { get; set; }
-        /// <summary>
-        /// Current page
-        /// </summary>
-        [JsonPropertyName("current_page")]
-        public int CurrentPage { get; set; }
-        /// <summary>
-        /// Total amount of records
-        /// </summary>
-        [JsonPropertyName("total_size")]
-        public int TotalRecords { get; set; }
-        /// <summary>
-        /// Data
-        /// </summary>
-        [JsonPropertyName("financial_record")]
-        public IEnumerable<HTXFinancialRecord> Records { get; set; } = Array.Empty<HTXFinancialRecord>();
-    }
-
-    /// <summary>
     /// Financial records
     /// </summary>
     public record HTXFinancialRecord
     {
+        /// <summary>
+        /// Query id
+        /// </summary>
+        [JsonPropertyName("query_id")]
+        public long QueryId { get; set; }
         /// <summary>
         /// Record id
         /// </summary>

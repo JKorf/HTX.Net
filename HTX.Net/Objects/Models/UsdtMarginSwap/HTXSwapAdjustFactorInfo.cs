@@ -61,7 +61,7 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// Lever rate
         /// </summary>
         [JsonPropertyName("lever_rate")]
-        public decimal LeverRate { get; set; }
+        public decimal LeverageRate { get; set; }
         /// <summary>
         /// Ladders
         /// </summary>

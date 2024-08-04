@@ -1,0 +1,11 @@
+POST
+/v2/sub-user/management
+true
+{
+  "code": 200,
+  "data": {
+    "subUid": 245686628,
+    "userState": "lock"
+  },
+  "ok": true
+}

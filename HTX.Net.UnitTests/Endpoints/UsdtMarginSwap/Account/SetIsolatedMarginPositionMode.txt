@@ -1,0 +1,13 @@
+POST
+/linear-swap-api/v1/swap_switch_position_mode
+true
+{
+  "status": "ok",
+  "data": [
+    {
+      "margin_account": "BTC-USDT",
+      "position_mode": "single_side"
+    }
+  ],
+  "ts": 1566899973811
+}

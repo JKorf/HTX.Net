@@ -1,0 +1,21 @@
+GET
+/index/market/history/linear_swap_estimated_rate_kline
+false
+{
+  "ch": "market.BTC-USDT.estimated_rate.1min",
+  "data": [
+    {
+      "amount": "0",
+      "close": "0.0001",
+      "count": "0",
+      "high": "0.0001",
+      "id": 1603697100,
+      "low": "0.0001",
+      "open": "0.0001",
+      "trade_turnover": "0",
+      "vol": "0"
+    }
+  ],
+  "status": "ok",
+  "ts": 1603697104902
+}

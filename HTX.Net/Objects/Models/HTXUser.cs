@@ -19,5 +19,15 @@ namespace HTX.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("userState"), JsonConverter(typeof(EnumConverter))]
         public UserStatus Status { get; set; }
+        /// <summary>
+        /// User name
+        /// </summary>
+        [JsonPropertyName("subUserName")]
+        public string UserName { get; set; } = string.Empty;
+        /// <summary>
+        /// User name
+        /// </summary>
+        [JsonPropertyName("note")]
+        public string? Note { get; set; }
     }
 }

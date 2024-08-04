@@ -10,7 +10,7 @@ namespace HTX.Net.Enums
         /// <summary>
         /// Working
         /// </summary>
-        [Map("working")]
+        [Map("working", "normal")]
         Working,
         /// <summary>
         /// Locked

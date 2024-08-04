@@ -1,0 +1,17 @@
+POST
+/linear-swap-api/v3/swap_financial_record
+true
+{
+  "code": 200,
+  "data": [{
+    "query_id": 123,
+    "id": 123,
+    "ts": 1614045417046,
+    "asset": "ETH",
+    "contract_code": "ETH-USDT",
+    "margin_account": "ETH-USDT",
+    "face_margin_account": "ETH-USDT",
+    "type": 3,
+    "amount": 10.2
+  }]
+}

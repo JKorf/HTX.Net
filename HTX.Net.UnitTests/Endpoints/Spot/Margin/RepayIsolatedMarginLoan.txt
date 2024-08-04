@@ -1,0 +1,6 @@
+POST
+/v1/margin/orders/123/repay
+true
+{
+  "data": 1000
+}

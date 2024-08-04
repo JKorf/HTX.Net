@@ -1,0 +1,32 @@
+GET
+/index/market/history/linear_swap_mark_price_kline
+false
+{
+  "ch": "market.BTC-USDT.mark_price.5min",
+  "data": [
+    {
+      "amount": "0",
+      "close": "31078.68",
+      "count": "0",
+      "high": "31078.68",
+      "id": 1611105300,
+      "low": "31078.68",
+      "open": "31078.68",
+      "trade_turnover": "0",
+      "vol": "0"
+    },
+    {
+      "amount": "0",
+      "close": "31078.68",
+      "count": "0",
+      "high": "31078.68",
+      "id": 1611105600,
+      "low": "31078.68",
+      "open": "31078.68",
+      "trade_turnover": "0",
+      "vol": "0"
+    }
+  ],
+  "status": "ok",
+  "ts": 1611106791703
+}

@@ -1,0 +1,23 @@
+GET
+/v1/subuser/aggregate-balance
+true
+{
+  "status": "ok",
+  "data": [
+    {
+      "currency": "hbpoint",
+      "balance": "10",
+      "type": "point"
+    },
+    {
+      "currency": "ada",
+      "balance": "0",
+      "type": "spot"
+    },
+    {
+      "currency": "usdt",
+      "balance": "8.08559165",
+      "type": "spot"
+    }
+  ]
+}

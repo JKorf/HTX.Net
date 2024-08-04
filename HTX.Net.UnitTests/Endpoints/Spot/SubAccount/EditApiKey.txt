@@ -1,0 +1,12 @@
+POST
+/v2/sub-user/api-key-modification
+true
+{
+  "code": 200,
+  "data": {
+    "note": "tom",
+    "permission": "trade,readOnly",
+    "ipAddresses": "192.168.1.1"
+  },
+  "ok": true
+}

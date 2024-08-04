@@ -10,5 +10,11 @@
         /// </summary>
         [JsonPropertyName("list")]
         public IEnumerable<HTXBalance> Data { get; set; } = Array.Empty<HTXBalance>();
+
+        /// <summary>
+        /// Symbol
+        /// </summary>
+        [JsonPropertyName("symbol")]
+        public string? Symbol { get; set; }
     }
 }

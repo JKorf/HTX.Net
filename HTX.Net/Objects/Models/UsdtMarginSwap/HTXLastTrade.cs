@@ -30,6 +30,11 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         [JsonPropertyName("quantity")]
         public decimal Quantity { get; set; }
         /// <summary>
+        /// Price
+        /// </summary>
+        [JsonPropertyName("price")]
+        public decimal Price { get; set; }
+        /// <summary>
         /// Timestamp
         /// </summary>
         [JsonConverter(typeof(DateTimeConverter))]

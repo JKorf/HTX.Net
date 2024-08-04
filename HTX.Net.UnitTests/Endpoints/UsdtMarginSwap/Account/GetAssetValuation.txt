@@ -1,0 +1,13 @@
+POST
+/linear-swap-api/v1/swap_balance_valuation
+true
+{
+  "status": "ok",
+  "data": [
+    {
+      "valuation_asset": "BTC",
+      "balance": "0.378256726579799383"
+    }
+  ],
+  "ts": 1614045417046
+}

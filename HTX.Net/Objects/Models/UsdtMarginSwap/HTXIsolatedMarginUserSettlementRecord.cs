@@ -69,7 +69,7 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// Settlement profit realized
         /// </summary>
         [JsonPropertyName("settlement_profit_real")]
-        public decimal SettlementProfitReal { get; set; }
+        public decimal SettlementRealizedPnl { get; set; }
         /// <summary>
         /// Settlement time
         /// </summary>
@@ -149,10 +149,10 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         [JsonPropertyName("cost_hold")]
         public decimal ColdHold { get; set; }
         /// <summary>
-        /// Settlement profit unreal
+        /// Settlement unrealized profit and loss
         /// </summary>
         [JsonPropertyName("settlement_profit_unreal")]
-        public decimal SettlementProfitUnreal { get; set; }
+        public decimal SettlementUnrealizedPnl { get; set; }
         /// <summary>
         /// Settlement price
         /// </summary>

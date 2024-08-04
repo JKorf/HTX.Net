@@ -1,0 +1,21 @@
+GET
+/index/market/history/linear_swap_premium_index_kline
+false
+{
+  "ch": "market.BTC-USDT.premium_index.1min",
+  "data": [
+    {
+      "amount": "0",
+      "close": "0.0000079166666666",
+      "count": "0",
+      "high": "0.0000079166666666",
+      "id": 1603696920,
+      "low": "0.0000079166666666",
+      "open": "0.0000079166666666",
+      "trade_turnover": "0",
+      "vol": "0"
+    }
+  ],
+  "status": "ok",
+  "ts": 1603696958348
+}

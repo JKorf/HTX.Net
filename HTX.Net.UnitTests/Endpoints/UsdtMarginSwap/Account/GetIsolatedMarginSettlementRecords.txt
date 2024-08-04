@@ -1,0 +1,55 @@
+GET
+/linear-swap-api/v1/swap_user_settlement_records
+true
+{
+  "status": "ok",
+  "data": {
+    "total_page": 1,
+    "current_page": 1,
+    "total_size": 13,
+    "settlement_records": [
+      {
+        "symbol": "BTC",
+        "contract_code": "BTC-USDT",
+        "margin_mode": "isolated",
+        "margin_account": "BTC-USDT",
+        "margin_balance_init": 5000,
+        "margin_balance": 4891.74704672,
+        "settlement_profit_real": -108.25295328,
+        "settlement_time": 1611040802012,
+        "clawback": 0,
+        "funding_fee": 0,
+        "offset_profitloss": 0,
+        "fee": -2.63615328,
+        "fee_asset": "USDT",
+        "positions": [
+          {
+            "symbol": "BTC",
+            "contract_code": "BTC-USDT",
+            "direction": "buy",
+            "volume": 12,
+            "cost_open": 27900,
+            "cost_hold_pre": 27900,
+            "cost_hold": 27459.93,
+            "settlement_profit_unreal": -52.8084,
+            "settlement_price": 27459.93,
+            "settlement_type": "settlement"
+          },
+          {
+            "symbol": "BTC",
+            "contract_code": "BTC-USDT",
+            "direction": "sell",
+            "volume": 12,
+            "cost_open": 27019.86,
+            "cost_hold_pre": 27019.86,
+            "cost_hold": 27459.93,
+            "settlement_profit_unreal": -52.8084,
+            "settlement_price": 27459.93,
+            "settlement_type": "settlement"
+          }
+        ]
+      }
+    ]
+  },
+  "ts": 1611052289681
+}

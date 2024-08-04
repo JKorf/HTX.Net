@@ -37,7 +37,7 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// <summary>
         /// Leverage rate
         /// </summary>
-        [JsonPropertyName("leverage_rate")]
+        [JsonPropertyName("lever_rate")]
         public int LeverageRate { get; set; }
         /// <summary>
         /// Buy limit value

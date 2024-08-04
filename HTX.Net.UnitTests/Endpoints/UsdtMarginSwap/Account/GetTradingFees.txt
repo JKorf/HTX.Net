@@ -1,0 +1,61 @@
+POST
+/linear-swap-api/v1/swap_fee
+true
+{
+  "status": "ok",
+  "data": [
+    {
+      "symbol": "BTC",
+      "contract_code": "BTC-USDT",
+      "open_maker_fee": "0.0002",
+      "open_taker_fee": "0.0004",
+      "close_maker_fee": "0.0002",
+      "close_taker_fee": "0.0004",
+      "fee_asset": "USDT",
+      "delivery_fee": "0",
+      "business_type": "swap",
+      "contract_type": "swap",
+      "pair": "BTC-USDT"
+    },
+    {
+      "symbol": "BTC",
+      "contract_code": "BTC-USDT-211217",
+      "open_maker_fee": "0.0002",
+      "open_taker_fee": "0.0005",
+      "close_maker_fee": "0.0002",
+      "close_taker_fee": "0.0005",
+      "fee_asset": "USDT",
+      "delivery_fee": "0.00015",
+      "business_type": "futures",
+      "contract_type": "next_week",
+      "pair": "BTC-USDT"
+    },
+    {
+      "symbol": "BTC",
+      "contract_code": "BTC-USDT-211210",
+      "open_maker_fee": "0.0002",
+      "open_taker_fee": "0.0005",
+      "close_maker_fee": "0.0002",
+      "close_taker_fee": "0.0005",
+      "fee_asset": "USDT",
+      "delivery_fee": "0.00015",
+      "business_type": "futures",
+      "contract_type": "this_week",
+      "pair": "BTC-USDT"
+    },
+    {
+      "symbol": "BTC",
+      "contract_code": "BTC-USDT-211231",
+      "open_maker_fee": "0.0002",
+      "open_taker_fee": "0.0005",
+      "close_maker_fee": "0.0002",
+      "close_taker_fee": "0.0005",
+      "fee_asset": "USDT",
+      "delivery_fee": "0.00015",
+      "business_type": "futures",
+      "contract_type": "quarter",
+      "pair": "BTC-USDT"
+    }
+  ],
+  "ts": 1638760715804
+}

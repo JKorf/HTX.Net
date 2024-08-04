@@ -11,7 +11,7 @@ namespace HTX.Net.Objects.Models
         /// Sub user id
         /// </summary>
         [JsonPropertyName("subUid")]
-        public long SubUserId { get; set; }
+        public string SubUserId { get; set; } = string.Empty;
         /// <summary>
         /// Account type
         /// </summary>
@@ -22,6 +22,17 @@ namespace HTX.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("activation")]
         public string Activation { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Error code
+        /// </summary>
+        [JsonPropertyName("errCode")]
+        public int? ErrorCode { get; set; }
+        /// <summary>
+        /// Error message
+        /// </summary>
+        [JsonPropertyName("errMessage")]
+        public string? ErrorMessage { get; set; }
     }
 
 

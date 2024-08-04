@@ -1,0 +1,41 @@
+GET
+/linear-swap-api/v1/swap_estimated_settlement_price
+false
+{
+  "status": "ok",
+  "data": [
+    {
+      "contract_code": "BTC-USDT-211210",
+      "estimated_settlement_price": null,
+      "settlement_type": "settlement",
+      "business_type": "futures",
+      "pair": "BTC-USDT",
+      "contract_type": "this_week"
+    },
+    {
+      "contract_code": "BTC-USDT-211217",
+      "estimated_settlement_price": null,
+      "settlement_type": "settlement",
+      "business_type": "futures",
+      "pair": "BTC-USDT",
+      "contract_type": "next_week"
+    },
+    {
+      "contract_code": "BTC-USDT-211231",
+      "estimated_settlement_price": null,
+      "settlement_type": "settlement",
+      "business_type": "futures",
+      "pair": "BTC-USDT",
+      "contract_type": "quarter"
+    },
+    {
+      "contract_code": "BTC-USDT",
+      "estimated_settlement_price": null,
+      "settlement_type": "settlement",
+      "business_type": "swap",
+      "pair": "BTC-USDT",
+      "contract_type": "swap"
+    }
+  ],
+  "ts": 1638755400222
+}

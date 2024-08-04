@@ -238,11 +238,11 @@ namespace HTX.Net.Clients.SpotApi
         #region Get Aggregate Balances
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<HTXBalance>>> GetAggregateBalancesAsync(CancellationToken ct = default)
+        public async Task<WebCallResult<IEnumerable<HTXAggBalance>>> GetAggregateBalancesAsync(CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/v1/subuser/aggregate-balance", HTXExchange.RateLimiter.EndpointLimit, 1, true);
-            var result = await _baseClient.SendBasicAsync<IEnumerable<HTXBalance>>(request, parameters, ct).ConfigureAwait(false);
+            var result = await _baseClient.SendBasicAsync<IEnumerable<HTXAggBalance>>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
 
@@ -251,14 +251,10 @@ namespace HTX.Net.Clients.SpotApi
         #region Get Balances
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<HTXBalance>>> GetBalancesAsync(long subAccountId, CancellationToken ct = default)
+        public async Task<WebCallResult<IEnumerable<HTXAccountBalances>>> GetBalancesAsync(long subAccountId, CancellationToken ct = default)
         {
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"v1/account/accounts/{subAccountId}", HTXExchange.RateLimiter.EndpointLimit, 1, true);
-            var result = await _baseClient.SendBasicAsync<IEnumerable<HTXAccountBalances>>(request, null, ct).ConfigureAwait(false);
-            if (!result)
-                return result.AsError<IEnumerable<HTXBalance>>(result.Error!);
-
-            return result.As(result.Data.First().Data);
+            return await _baseClient.SendBasicAsync<IEnumerable<HTXAccountBalances>>(request, null, ct).ConfigureAwait(false);
         }
 
         #endregion

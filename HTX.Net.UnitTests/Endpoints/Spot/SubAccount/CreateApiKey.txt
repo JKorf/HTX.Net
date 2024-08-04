@@ -1,0 +1,13 @@
+POST
+/v2/sub-user/api-key-generation
+true
+{
+  "code": 200,
+  "data": {
+    "accessKey": "2b55df29-vf25treb80-1535713d-8aea2",
+    "secretKey": "c405c550-6fa0583b-fb4bc38e-d317e",
+    "note": "62924133",
+    "permission": "trade,readOnly",
+    "ipAddresses": "192.168.0.1,192.168.1.1"
+  }
+}

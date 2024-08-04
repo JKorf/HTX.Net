@@ -1,0 +1,23 @@
+POST
+/linear-swap-api/v1/swap_transfer_limit
+true
+{
+  "status": "ok",
+  "data": [
+    {
+      "symbol": "BTC",
+      "contract_code": "BTC-USDT",
+      "margin_mode": "isolated",
+      "margin_account": "BTC-USDT",
+      "transfer_in_max_each": 100000000,
+      "transfer_in_min_each": 1,
+      "transfer_out_max_each": 10000000,
+      "transfer_out_min_each": 0.000001,
+      "transfer_in_max_daily": 1000000000,
+      "transfer_out_max_daily": 200000000,
+      "net_transfer_in_max_daily": 500000000,
+      "net_transfer_out_max_daily": 100000000
+    }
+  ],
+  "ts": 1603699803580
+}

@@ -1,0 +1,31 @@
+POST
+/linear-swap-api/v1/swap_account_info
+true
+{
+  "status": "ok",
+  "data": [
+    {
+      "symbol": "BTC",
+      "margin_balance": 99.75505884,
+      "margin_position": 0,
+      "margin_frozen": 12.73,
+      "margin_available": 87.02505884,
+      "profit_real": 0,
+      "profit_unreal": 0,
+      "risk_rate": 7.761218290652003,
+      "new_risk_rate": "",
+      "trade_partition": "",
+      "withdraw_available": 87.02505884,
+      "liquidation_price": null,
+      "lever_rate": 10,
+      "adjust_factor": 0.075,
+      "margin_static": 99.75505884,
+      "contract_code": "BTC-USDT",
+      "margin_asset": "USDT",
+      "margin_mode": "isolated",
+      "margin_account": "BTC-USDT",
+      "position_mode": "dual_side"
+    }
+  ],
+  "ts": 1603697381238
+}

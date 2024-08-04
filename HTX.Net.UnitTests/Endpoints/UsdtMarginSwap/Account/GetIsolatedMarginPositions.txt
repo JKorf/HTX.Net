@@ -1,0 +1,30 @@
+POST
+/linear-swap-api/v1/swap_position_info
+true
+{
+  "status": "ok",
+  "data": [
+    {
+      "symbol": "BTC",
+      "contract_code": "BTC-USDT",
+      "volume": 1,
+      "available": 1,
+      "frozen": 0,
+      "cost_open": 13068,
+      "cost_hold": 13068,
+      "profit_unreal": 0,
+      "profit_rate": 0,
+      "lever_rate": 10,
+      "position_margin": 1.3068,
+      "direction": "buy",
+      "profit": 0,
+      "last_price": 13068,
+      "margin_asset": "USDT",
+      "margin_mode": "isolated",
+      "margin_account": "BTC-USDT",
+      "position_mode": "dual_side",
+      "adl_risk_percent": "3"
+    }
+  ],
+  "ts": 1603697821846
+}

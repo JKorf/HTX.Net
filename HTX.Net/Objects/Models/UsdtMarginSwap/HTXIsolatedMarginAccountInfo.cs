@@ -37,17 +37,22 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// Profit real
         /// </summary>
         [JsonPropertyName("profit_real")]
-        public decimal ProfitReal { get; set; }
+        public decimal RealizedProfit { get; set; }
         /// <summary>
-        /// Profit unreal
+        /// Unrealized profit and loss
         /// </summary>
         [JsonPropertyName("profit_unreal")]
-        public decimal ProfitUnreal { get; set; }
+        public decimal UnrealizedPnl { get; set; }
         /// <summary>
         /// Risk rate
         /// </summary>
         [JsonPropertyName("risk_rate")]
         public decimal? RiskRate { get; set; }
+        /// <summary>
+        /// Risk rate
+        /// </summary>
+        [JsonPropertyName("new_risk_rate")]
+        public decimal? NewRiskRate { get; set; }
         /// <summary>
         /// Withdraw available
         /// </summary>
@@ -59,10 +64,10 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         [JsonPropertyName("liquidation_price")]
         public decimal? LiquidationPrice { get; set; }
         /// <summary>
-        /// Lever rate
+        /// Leverage rate
         /// </summary>
-        [JsonPropertyName("level_rate")]
-        public decimal LeverRate { get; set; }
+        [JsonPropertyName("lever_rate")]
+        public decimal LeverageRate { get; set; }
         /// <summary>
         /// Adjust factor
         /// </summary>
@@ -100,5 +105,15 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         [JsonPropertyName("position_mode")]
         [JsonConverter(typeof(EnumConverter))]
         public PositionMode PositionMode { get; set; }
+        /// <summary>
+        /// Trade partition
+        /// </summary>
+        [JsonPropertyName("trade_partition")]
+        public string TradePartition { get; set; } = string.Empty;
+        /// <summary>
+        /// ADL risk percentage
+        /// </summary>
+        [JsonPropertyName("adl_risk_percent")]
+        public decimal? AdlRiskPercentage { get; set; }
     }
 }

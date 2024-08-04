@@ -34,20 +34,25 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         [JsonPropertyName("margin_available")]
         public decimal MarginAvailable { get; set; }
         /// <summary>
-        /// Profit unreal
+        /// Unrealized profit and loss
         /// </summary>
         [JsonPropertyName("profit_unreal")]
-        public decimal ProfitUnreal { get; set; }
+        public decimal UnrealizedPnl { get; set; }
         /// <summary>
         /// Liquidation price
         /// </summary>
         [JsonPropertyName("liquidation_price")]
         public decimal? LiquidationPrice { get; set; }
         /// <summary>
-        /// Lever rate
+        /// Leverage rate
         /// </summary>
         [JsonPropertyName("lever_rate")]
-        public decimal LeverRate { get; set; }
+        public decimal LeverageRate { get; set; }
+        /// <summary>
+        /// Cross max available
+        /// </summary>
+        [JsonPropertyName("cross_max_available")]
+        public decimal? CrossMaxAvaialble { get; set; }
         /// <summary>
         /// Adjust factor
         /// </summary>

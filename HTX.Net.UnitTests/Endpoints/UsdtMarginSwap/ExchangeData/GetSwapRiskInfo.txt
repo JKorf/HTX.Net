@@ -1,0 +1,37 @@
+GET
+/linear-swap-api/v1/swap_risk_info
+false
+{
+  "status": "ok",
+  "data": [
+    {
+      "contract_code": "BTC-USDT",
+      "insurance_fund": 16174.621898868114,
+      "estimated_clawback": 0,
+      "business_type": "swap",
+      "pair": "BTC-USDT"
+    },
+    {
+      "contract_code": "BTC-USDT-FUTURES",
+      "insurance_fund": 16174.621898868114,
+      "estimated_clawback": 0,
+      "business_type": "futures",
+      "pair": "BTC-USDT"
+    },
+    {
+      "contract_code": "ETH-USDT",
+      "insurance_fund": 16174.621898868114,
+      "estimated_clawback": 0,
+      "business_type": "swap",
+      "pair": "ETH-USDT"
+    },
+    {
+      "contract_code": "ETH-USDT-FUTURES",
+      "insurance_fund": 16174.621898868114,
+      "estimated_clawback": 0,
+      "business_type": "futures",
+      "pair": "ETH-USDT"
+    }
+  ],
+  "ts": 1638754774555
+}

@@ -209,7 +209,7 @@ namespace HTX.Net.Clients.SpotApi
         public async Task<WebCallResult<IEnumerable<HTXLoanInfoAsset>>> GetCrossLoanInterestRateAndQuotaAsync(CancellationToken ct = default)
         {
             var request = _definitions.GetOrCreate(HttpMethod.Get, "v1/cross-margin/loan-info", HTXExchange.RateLimiter.EndpointLimit, 1, true);
-            return await _baseClient.SendBasicAsync<IEnumerable<HTXLoanInfoAsset>>(request, null, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<IEnumerable<HTXLoanInfoAsset>>(request, null, ct).ConfigureAwait(false);
         }
 
         #endregion

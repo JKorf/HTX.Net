@@ -19,10 +19,10 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         [JsonPropertyName("contract_code")]
         public string ContractCode { get; set; } = string.Empty;
         /// <summary>
-        /// Volume
+        /// Quantity
         /// </summary>
-        [JsonPropertyName("value")]
-        public decimal Volume { get; set; }
+        [JsonPropertyName("volume")]
+        public decimal Quantity { get; set; }
         /// <summary>
         /// Available
         /// </summary>
@@ -44,10 +44,10 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         [JsonPropertyName("cost_hold")]
         public decimal CostHold { get; set; }
         /// <summary>
-        /// Unrealized pnl
+        /// Unrealized profit and loss
         /// </summary>
         [JsonPropertyName("profit_unreal")]
-        public decimal ProfitUnreal { get; set; }
+        public decimal UnrealizedPnl { get; set; }
         /// <summary>
         /// Profit rate
         /// </summary>
@@ -57,7 +57,7 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// Leverage rate
         /// </summary>
         [JsonPropertyName("lever_rate")]
-        public decimal LeverRate { get; set; }
+        public decimal LeverageRate { get; set; }
         /// <summary>
         /// Position margin
         /// </summary>
@@ -78,6 +78,11 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// </summary>
         [JsonPropertyName("last_price")]
         public decimal LastPrice { get; set; }
+        /// <summary>
+        /// New risk rate
+        /// </summary>
+        [JsonPropertyName("new_risk_rate")]
+        public decimal? NewRiskRate { get; set; }
         /// <summary>
         /// Margin asset
         /// </summary>
@@ -100,5 +105,37 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         [JsonPropertyName("position_mode")]
         [JsonConverter(typeof(EnumConverter))]
         public PositionMode PositionMode { get; set; }
+        /// <summary>
+        /// ADL risk percentage
+        /// </summary>
+        [JsonPropertyName("adl_risk_percent")]
+        public decimal? AdlRiskPercentage { get; set; }
+        /// <summary>
+        /// Trade partition
+        /// </summary>
+        [JsonPropertyName("trade_partition")]
+        public string? TradePartition { get; set; }
+    }
+
+    /// <summary>
+    /// Cross margin position
+    /// </summary>
+    public record HTXCrossPosition : HTXPosition
+    {
+        /// <summary>
+        /// Contract type
+        /// </summary>
+        [JsonPropertyName("contract_type")]
+        public ContractType ContractType { get; set; }
+        /// <summary>
+        /// Business type
+        /// </summary>
+        [JsonPropertyName("business_type")]
+        public BusinessType BusinessType { get; set; }
+        /// <summary>
+        /// Pair
+        /// </summary>
+        [JsonPropertyName("pair")]
+        public string Pair { get; set; } = string.Empty;
     }
 }

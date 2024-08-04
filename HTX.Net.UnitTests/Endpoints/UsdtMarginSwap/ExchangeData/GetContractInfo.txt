@@ -1,0 +1,69 @@
+GET
+/linear-swap-api/v1/swap_contract_info
+false
+{
+  "status": "ok",
+  "data": [
+    {
+      "symbol": "BTC",
+      "contract_code": "BTC-USDT-211203",
+      "contract_size": 0.001,
+      "price_tick": 0.1,
+      "delivery_date": "20211203",
+      "delivery_time": "1638518400000",
+      "create_date": "20211202",
+      "contract_status": 1,
+      "settlement_date": "1638518400000",
+      "support_margin_mode": "cross",
+      "business_type": "futures",
+      "pair": "BTC-USDT",
+      "contract_type": "this_week"
+    },
+    {
+      "symbol": "BTC",
+      "contract_code": "BTC-USDT-211210",
+      "contract_size": 0.001,
+      "price_tick": 0.1,
+      "delivery_date": "20211210",
+      "delivery_time": "1639123200000",
+      "create_date": "20211202",
+      "contract_status": 1,
+      "settlement_date": "1638518400000",
+      "support_margin_mode": "cross",
+      "business_type": "futures",
+      "pair": "BTC-USDT",
+      "contract_type": "next_week"
+    },
+    {
+      "symbol": "BTC",
+      "contract_code": "BTC-USDT-211231",
+      "contract_size": 0.001,
+      "price_tick": 0.1,
+      "delivery_date": "20211231",
+      "delivery_time": "1640937600000",
+      "create_date": "20211202",
+      "contract_status": 1,
+      "settlement_date": "1638518400000",
+      "support_margin_mode": "cross",
+      "business_type": "futures",
+      "pair": "BTC-USDT",
+      "contract_type": "quarter"
+    },
+    {
+      "symbol": "BTC",
+      "contract_code": "BTC-USDT",
+      "contract_size": 0.001,
+      "price_tick": 0.1,
+      "delivery_date": "",
+      "delivery_time": "",
+      "create_date": "20211202",
+      "contract_status": 1,
+      "settlement_date": "1638518400000",
+      "support_margin_mode": "all",
+      "business_type": "swap",
+      "pair": "BTC-USDT",
+      "contract_type": "swap"
+    }
+  ],
+  "ts": 1638517765776
+}

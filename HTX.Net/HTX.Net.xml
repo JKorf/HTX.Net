@@ -755,7 +755,7 @@
         <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiExchangeData.GetSwapOpenInterestAsync(System.String,System.String,System.Nullable{HTX.Net.Enums.ContractType},System.Nullable{HTX.Net.Enums.BusinessType},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiExchangeData.GetContractInfoAsync(System.String,System.Nullable{HTX.Net.Enums.MarginMode},System.String,System.Nullable{HTX.Net.Enums.ContractType},System.Nullable{HTX.Net.Enums.BusinessType},System.Threading.CancellationToken)">
+        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiExchangeData.GetContractsAsync(System.String,System.Nullable{HTX.Net.Enums.MarginMode},System.String,System.Nullable{HTX.Net.Enums.ContractType},System.Nullable{HTX.Net.Enums.BusinessType},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiExchangeData.GetSwapIndexPriceAsync(System.String,System.Threading.CancellationToken)">
@@ -764,7 +764,7 @@
         <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiExchangeData.GetContractElementsAsync(System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiExchangeData.GetOrderBookAsync(System.String,System.String,System.Threading.CancellationToken)">
+        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiExchangeData.GetOrderBookAsync(System.String,System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiExchangeData.GetBookTickerAsync(System.String,System.Nullable{HTX.Net.Enums.BusinessType},System.Threading.CancellationToken)">
@@ -788,7 +788,7 @@
         <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiExchangeData.GetRecentTradesAsync(System.String,System.Int32,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiExchangeData.GetOpenInterestAsync(HTX.Net.Enums.InterestPeriod,HTX.Net.Enums.Unit,System.String,System.String,System.Nullable{HTX.Net.Enums.ContractType},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiExchangeData.GetOpenInterestHistoryAsync(HTX.Net.Enums.InterestPeriod,HTX.Net.Enums.Unit,System.String,System.String,System.Nullable{HTX.Net.Enums.ContractType},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiExchangeData.GetPremiumIndexKlinesAsync(System.String,HTX.Net.Enums.KlineInterval,System.Int32,System.Threading.CancellationToken)">
@@ -2711,6 +2711,11 @@
         <member name="F:HTX.Net.Enums.SubAccountMarketType.CrossMargin">
             <summary>
             Cross margin
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.SubAccountMarketType.Spot">
+            <summary>
+            Spot
             </summary>
         </member>
         <member name="T:HTX.Net.Enums.SwapDeliveryType">
@@ -4927,7 +4932,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:HTX.Net.Interfaces.Clients.UsdtMarginSwapApi.IHTXRestClientUsdtMarginSwapApiExchangeData.GetContractInfoAsync(System.String,System.Nullable{HTX.Net.Enums.MarginMode},System.String,System.Nullable{HTX.Net.Enums.ContractType},System.Nullable{HTX.Net.Enums.BusinessType},System.Threading.CancellationToken)">
+        <member name="M:HTX.Net.Interfaces.Clients.UsdtMarginSwapApi.IHTXRestClientUsdtMarginSwapApiExchangeData.GetContractsAsync(System.String,System.Nullable{HTX.Net.Enums.MarginMode},System.String,System.Nullable{HTX.Net.Enums.ContractType},System.Nullable{HTX.Net.Enums.BusinessType},System.Threading.CancellationToken)">
             <summary>
             Get contract info
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb8098e-77b5-11ed-9966-0242ac110003" /></para>
@@ -5142,7 +5147,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:HTX.Net.Interfaces.Clients.UsdtMarginSwapApi.IHTXRestClientUsdtMarginSwapApiExchangeData.GetOpenInterestAsync(HTX.Net.Enums.InterestPeriod,HTX.Net.Enums.Unit,System.String,System.String,System.Nullable{HTX.Net.Enums.ContractType},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:HTX.Net.Interfaces.Clients.UsdtMarginSwapApi.IHTXRestClientUsdtMarginSwapApiExchangeData.GetOpenInterestHistoryAsync(HTX.Net.Enums.InterestPeriod,HTX.Net.Enums.Unit,System.String,System.String,System.Nullable{HTX.Net.Enums.ContractType},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get open interest
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb8117d-77b5-11ed-9966-0242ac110003" /></para>
@@ -5156,13 +5161,13 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:HTX.Net.Interfaces.Clients.UsdtMarginSwapApi.IHTXRestClientUsdtMarginSwapApiExchangeData.GetOrderBookAsync(System.String,System.String,System.Threading.CancellationToken)">
+        <member name="M:HTX.Net.Interfaces.Clients.UsdtMarginSwapApi.IHTXRestClientUsdtMarginSwapApiExchangeData.GetOrderBookAsync(System.String,System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get order book
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb808ad-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
             <param name="contractCode">Contract code</param>
-            <param name="step">Merge step</param>
+            <param name="mergeStep">Merge step</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -5183,7 +5188,7 @@
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb81024-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
             <param name="contractCode">Contract code</param>
-            <param name="limit">Limit</param>
+            <param name="limit">Max number of results to return</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -6493,6 +6498,11 @@
             The list of balances
             </summary>
         </member>
+        <member name="P:HTX.Net.Objects.Models.HTXAccountBalances.Symbol">
+            <summary>
+            Symbol
+            </summary>
+        </member>
         <member name="T:HTX.Net.Objects.Models.HTXAccountHistory">
             <summary>
             Account history data
@@ -6551,6 +6561,26 @@
         <member name="P:HTX.Net.Objects.Models.HTXAccountValuation.Timestamp">
             <summary>
             Timestamp of the data
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Objects.Models.HTXAggBalance">
+            <summary>
+            HTX aggregated sub account balance
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXAggBalance.Asset">
+            <summary>
+            The asset
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXAggBalance.Type">
+            <summary>
+            The type of the balance
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXAggBalance.Balance">
+            <summary>
+            The balance
             </summary>
         </member>
         <member name="T:HTX.Net.Objects.Models.HTXApiKeyInfo">
@@ -8453,6 +8483,16 @@
             Activation
             </summary>
         </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSubMarketTradable.ErrorCode">
+            <summary>
+            Error code
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXSubMarketTradable.ErrorMessage">
+            <summary>
+            Error message
+            </summary>
+        </member>
         <member name="T:HTX.Net.Objects.Models.HTXSubTransferPermission">
             <summary>
             Transfer permission
@@ -8896,6 +8936,11 @@
         <member name="P:HTX.Net.Objects.Models.HTXKline.OpenTime">
             <summary>
             The start time of the kline
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXKline.Value">
+            <summary>
+            Turnover, quantity * contract value * price
             </summary>
         </member>
         <member name="T:HTX.Net.Objects.Models.HTXSymbolDetails">
@@ -9511,6 +9556,16 @@
         <member name="P:HTX.Net.Objects.Models.HTXUser.Status">
             <summary>
             The status of the user
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXUser.UserName">
+            <summary>
+            User name
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXUser.Note">
+            <summary>
+            User name
             </summary>
         </member>
         <member name="T:HTX.Net.Objects.Models.HTXWithdrawalAddress">
@@ -12153,6 +12208,11 @@
             Cross transfer profit ratio
             </summary>
         </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXContractElements.InstrumentTypes">
+            <summary>
+            Instrument types
+            </summary>
+        </member>
         <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXContractElements.PriceTick">
             <summary>
             Price tick
@@ -12528,9 +12588,9 @@
             Margin available
             </summary>
         </member>
-        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXCrossMarginAccountContract.ProfitUnreal">
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXCrossMarginAccountContract.UnrealizedPnl">
             <summary>
-            Profit unreal
+            Unrealized profit and loss
             </summary>
         </member>
         <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXCrossMarginAccountContract.LiquidationPrice">
@@ -12538,9 +12598,14 @@
             Liquidation price
             </summary>
         </member>
-        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXCrossMarginAccountContract.LeverRate">
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXCrossMarginAccountContract.LeverageRate">
             <summary>
-            Lever rate
+            Leverage rate
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXCrossMarginAccountContract.CrossMaxAvaialble">
+            <summary>
+            Cross max available
             </summary>
         </member>
         <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXCrossMarginAccountContract.AdjustFactor">
@@ -12593,14 +12658,14 @@
             Margin available
             </summary>
         </member>
-        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXCrossMarginAccountInfo.ProfitReal">
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXCrossMarginAccountInfo.RealizedPnl">
             <summary>
-            Profit real
+            Realized profit and loss
             </summary>
         </member>
-        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXCrossMarginAccountInfo.ProfitUnreal">
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXCrossMarginAccountInfo.UnrealizedPnl">
             <summary>
-            Profit unreal
+            Unrealized profit and loss
             </summary>
         </member>
         <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXCrossMarginAccountInfo.RiskRate">
@@ -12608,14 +12673,34 @@
             Risk rate
             </summary>
         </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXCrossMarginAccountInfo.NewRiskRate">
+            <summary>
+            New risk rate
+            </summary>
+        </member>
         <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXCrossMarginAccountInfo.WithdrawAvailable">
             <summary>
             Withdraw available
             </summary>
         </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXCrossMarginAccountInfo.MoneyIn">
+            <summary>
+            Money in
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXCrossMarginAccountInfo.MoneyOut">
+            <summary>
+            Money out
+            </summary>
+        </member>
         <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXCrossMarginAccountInfo.MarginStatic">
             <summary>
             Margin static
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXCrossMarginAccountInfo.CrossMaxAvailable">
+            <summary>
+            Cross max available
             </summary>
         </member>
         <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXCrossMarginAccountInfo.MarginAsset">
@@ -12636,6 +12721,11 @@
         <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXCrossMarginAccountInfo.PositionMode">
             <summary>
             Position mode
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXCrossMarginAccountInfo.AdlRiskPercentage">
+            <summary>
+            ADL risk percentage
             </summary>
         </member>
         <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXCrossMarginAccountInfo.ContractDetails">
@@ -12968,7 +13058,7 @@
             Margin balance
             </summary>
         </member>
-        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXCrossMarginUserSettlementRecord.SettlementProfitReal">
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXCrossMarginUserSettlementRecord.SettlementRealizedPnl">
             <summary>
             Settlement profit realized
             </summary>
@@ -13083,9 +13173,9 @@
             Cost hold after settlement
             </summary>
         </member>
-        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXSettlementPosition.SettlementProfitUnreal">
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXSettlementPosition.SettlementUnrealizedPnl">
             <summary>
-            Settlement profit unreal
+            Settlement profit unrealized
             </summary>
         </member>
         <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXSettlementPosition.SettlementPrice">
@@ -13438,34 +13528,14 @@
             Contract type
             </summary>
         </member>
-        <member name="T:HTX.Net.Objects.Models.UsdtMarginSwap.HTXFinancialRecordsPage">
-            <summary>
-            Financial records page
-            </summary>
-        </member>
-        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXFinancialRecordsPage.TotalPages">
-            <summary>
-            Total amount of pages
-            </summary>
-        </member>
-        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXFinancialRecordsPage.CurrentPage">
-            <summary>
-            Current page
-            </summary>
-        </member>
-        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXFinancialRecordsPage.TotalRecords">
-            <summary>
-            Total amount of records
-            </summary>
-        </member>
-        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXFinancialRecordsPage.Records">
-            <summary>
-            Data
-            </summary>
-        </member>
         <member name="T:HTX.Net.Objects.Models.UsdtMarginSwap.HTXFinancialRecord">
             <summary>
             Financial records
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXFinancialRecord.QueryId">
+            <summary>
+            Query id
             </summary>
         </member>
         <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXFinancialRecord.Id">
@@ -13513,11 +13583,6 @@
             Funding rate
             </summary>
         </member>
-        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXFundingRate.EstimatedRate">
-            <summary>
-            Estimated rate
-            </summary>
-        </member>
         <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXFundingRate.FundingRate">
             <summary>
             Funding rate
@@ -13541,11 +13606,6 @@
         <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXFundingRate.FundingTime">
             <summary>
             Funding rate
-            </summary>
-        </member>
-        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXFundingRate.NextFundingTime">
-            <summary>
-            Next funding time
             </summary>
         </member>
         <member name="T:HTX.Net.Objects.Models.UsdtMarginSwap.HTXFundingRatePage">
@@ -13703,17 +13763,22 @@
             Margin available
             </summary>
         </member>
-        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXIsolatedMarginAccountInfo.ProfitReal">
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXIsolatedMarginAccountInfo.RealizedProfit">
             <summary>
             Profit real
             </summary>
         </member>
-        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXIsolatedMarginAccountInfo.ProfitUnreal">
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXIsolatedMarginAccountInfo.UnrealizedPnl">
             <summary>
-            Profit unreal
+            Unrealized profit and loss
             </summary>
         </member>
         <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXIsolatedMarginAccountInfo.RiskRate">
+            <summary>
+            Risk rate
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXIsolatedMarginAccountInfo.NewRiskRate">
             <summary>
             Risk rate
             </summary>
@@ -13728,9 +13793,9 @@
             Liquidation price
             </summary>
         </member>
-        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXIsolatedMarginAccountInfo.LeverRate">
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXIsolatedMarginAccountInfo.LeverageRate">
             <summary>
-            Lever rate
+            Leverage rate
             </summary>
         </member>
         <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXIsolatedMarginAccountInfo.AdjustFactor">
@@ -13766,6 +13831,16 @@
         <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXIsolatedMarginAccountInfo.PositionMode">
             <summary>
             Position mode
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXIsolatedMarginAccountInfo.TradePartition">
+            <summary>
+            Trade partition
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXIsolatedMarginAccountInfo.AdlRiskPercentage">
+            <summary>
+            ADL risk percentage
             </summary>
         </member>
         <member name="T:HTX.Net.Objects.Models.UsdtMarginSwap.HTXIsolatedMarginAssetsAndPositions">
@@ -14103,7 +14178,7 @@
             Margin balance
             </summary>
         </member>
-        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXIsolatedMarginUserSettlementRecord.SettlementProfitReal">
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXIsolatedMarginUserSettlementRecord.SettlementRealizedPnl">
             <summary>
             Settlement profit realized
             </summary>
@@ -14183,9 +14258,9 @@
             Cost hold after settlement
             </summary>
         </member>
-        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXCrossSettlementPosition.SettlementProfitUnreal">
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXCrossSettlementPosition.SettlementUnrealizedPnl">
             <summary>
-            Settlement profit unreal
+            Settlement unrealized profit and loss
             </summary>
         </member>
         <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXCrossSettlementPosition.SettlementPrice">
@@ -14343,6 +14418,11 @@
             Quantity
             </summary>
         </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTrade.Price">
+            <summary>
+            Price
+            </summary>
+        </member>
         <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTrade.Timestamp">
             <summary>
             Timestamp
@@ -14466,6 +14546,11 @@
         <member name="T:HTX.Net.Objects.Models.UsdtMarginSwap.HTXLiquidationOrder">
             <summary>
             Liquidation order
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXLiquidationOrder.QueryId">
+            <summary>
+            Query id
             </summary>
         </member>
         <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXLiquidationOrder.ContractCode">
@@ -14913,9 +14998,9 @@
             Contract code
             </summary>
         </member>
-        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXPosition.Volume">
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXPosition.Quantity">
             <summary>
-            Volume
+            Quantity
             </summary>
         </member>
         <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXPosition.Available">
@@ -14938,9 +15023,9 @@
             Average price of position
             </summary>
         </member>
-        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXPosition.ProfitUnreal">
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXPosition.UnrealizedPnl">
             <summary>
-            Unrealized pnl
+            Unrealized profit and loss
             </summary>
         </member>
         <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXPosition.ProfitRate">
@@ -14948,7 +15033,7 @@
             Profit rate
             </summary>
         </member>
-        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXPosition.LeverRate">
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXPosition.LeverageRate">
             <summary>
             Leverage rate
             </summary>
@@ -14973,6 +15058,11 @@
             Last price
             </summary>
         </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXPosition.NewRiskRate">
+            <summary>
+            New risk rate
+            </summary>
+        </member>
         <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXPosition.MarginAsset">
             <summary>
             Margin asset
@@ -14991,6 +15081,36 @@
         <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXPosition.PositionMode">
             <summary>
             Position mode
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXPosition.AdlRiskPercentage">
+            <summary>
+            ADL risk percentage
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXPosition.TradePartition">
+            <summary>
+            Trade partition
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Objects.Models.UsdtMarginSwap.HTXCrossPosition">
+            <summary>
+            Cross margin position
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXCrossPosition.ContractType">
+            <summary>
+            Contract type
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXCrossPosition.BusinessType">
+            <summary>
+            Business type
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXCrossPosition.Pair">
+            <summary>
+            Pair
             </summary>
         </member>
         <member name="T:HTX.Net.Objects.Models.UsdtMarginSwap.HTXPositionLimit">
@@ -15688,7 +15808,7 @@
             Factor info
             </summary>
         </member>
-        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXFactorInfo.LeverRate">
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXFactorInfo.LeverageRate">
             <summary>
             Lever rate
             </summary>
@@ -15813,6 +15933,21 @@
             Market data
             </summary>
         </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTicker.OpenTime">
+            <summary>
+            Open time
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTicker.Timestamp">
+            <summary>
+            Timestamp
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTicker.Value">
+            <summary>
+            Turnover, quantity * contract value * price
+            </summary>
+        </member>
         <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTicker.Ask">
             <summary>
             Best ask
@@ -15821,6 +15956,26 @@
         <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTicker.Bid">
             <summary>
             Best bid
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Objects.Models.UsdtMarginSwap.HTXListTicker">
+            <summary>
+            Ticker info
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXListTicker.ContractCode">
+            <summary>
+            Contract code
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXListTicker.BusinessType">
+            <summary>
+            Business type
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXListTicker.Trades">
+            <summary>
+            Number of buys and sells in last 24h
             </summary>
         </member>
         <member name="T:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTieredMarginInfo">
@@ -15878,7 +16033,7 @@
             Margin rate
             </summary>
         </member>
-        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTieredMarginRate.LeverRate">
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTieredMarginRate.LeverageRate">
             <summary>
             Lever rate
             </summary>

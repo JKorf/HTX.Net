@@ -1,0 +1,7 @@
+POST
+/v1/cross-margin/orders
+true
+{
+  "status": "ok",
+  "data": 1000
+}

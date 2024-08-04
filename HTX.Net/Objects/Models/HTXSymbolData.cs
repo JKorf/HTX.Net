@@ -70,6 +70,12 @@
         [JsonConverter(typeof(DateTimeConverter))]
         [JsonPropertyName("id")]
         public DateTime OpenTime { get; set; }
+
+        /// <summary>
+        /// Turnover, quantity * contract value * price
+        /// </summary>
+        [JsonPropertyName("trade_turnover")]
+        public decimal? Value { get; set; }
     }
 
     /// <summary>

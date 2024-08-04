@@ -1,0 +1,21 @@
+POST
+/linear-swap-api/v1/swap_lever_position_limit
+true
+{
+  "status": "ok",
+  "data": [
+    {
+      "symbol": "BTC",
+      "contract_code": "BTC-USDT",
+      "margin_mode": "isolated",
+      "list": [
+        {
+          "lever_rate": 2,
+          "buy_limit_value": 50000000,
+          "sell_limit_value": 50000000
+        }
+      ]
+    }
+  ],
+  "ts": 1638769536897
+}

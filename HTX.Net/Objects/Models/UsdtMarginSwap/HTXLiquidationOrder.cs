@@ -8,6 +8,11 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
     public record HTXLiquidationOrder
     {
         /// <summary>
+        /// Query id
+        /// </summary>
+        [JsonPropertyName("query_id")]
+        public long QueryId { get; set; }
+        /// <summary>
         /// Contract code
         /// </summary>
         [JsonPropertyName("contract_code")]

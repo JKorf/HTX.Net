@@ -1,0 +1,21 @@
+GET
+/v2/margin/limit
+true
+{
+  "status": "ok",
+  "data": [
+    {
+      "currency": "btc",
+      "max-holdings": "-1"
+    },
+    {
+      "currency": "eth",
+      "max-holdings": "-1"
+    },
+    {
+      "currency": "ada",
+      "max-holdings": "3000000"
+    }
+  ],
+  "code": 200
+}

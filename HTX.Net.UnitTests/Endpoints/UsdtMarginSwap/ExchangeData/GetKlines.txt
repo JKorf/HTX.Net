@@ -1,0 +1,21 @@
+GET
+/linear-swap-ex/market/history/kline
+false
+{
+  "ch": "market.BTC-USDT.kline.1min",
+  "data": [
+    {
+      "amount": 0.004,
+      "close": 13076.8,
+      "count": 1,
+      "high": 13076.8,
+      "id": 1603695060,
+      "low": 13076.8,
+      "open": 13076.8,
+      "trade_turnover": 52.3072,
+      "vol": 4
+    }
+  ],
+  "status": "ok",
+  "ts": 1603695099234
+}

@@ -11,7 +11,7 @@ namespace HTX.Net.Objects.Models
         /// The type of the account
         /// </summary>
         [JsonPropertyName("accountType"), JsonConverter(typeof(EnumConverter))]
-        public AccountType Type { get; set; }
+        public SubAccountMarketType Type { get; set; }
         /// <summary>
         /// Whether the account is active of not
         /// </summary>

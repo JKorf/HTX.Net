@@ -40,7 +40,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtMarginSwapApi
         /// <param name="businessType">Business type</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<HTXContractInfo>>> GetContractInfoAsync(string? contractCode = null, MarginMode? supportMarginMode = null, string? symbol = null, ContractType? contractType = null, BusinessType? businessType = null, CancellationToken ct = default);
+        Task<WebCallResult<IEnumerable<HTXContractInfo>>> GetContractsAsync(string? contractCode = null, MarginMode? supportMarginMode = null, string? symbol = null, ContractType? contractType = null, BusinessType? businessType = null, CancellationToken ct = default);
         /// <summary>
         /// Get cross margin adjust factor info
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7fc0d-77b5-11ed-9966-0242ac110003" /></para>
@@ -230,7 +230,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtMarginSwapApi
         /// <param name="businessType">Business type</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<HTXTicker>>> GetTickersAsync(string? contractCode = null, BusinessType? businessType = null, CancellationToken ct = default);
+        Task<WebCallResult<IEnumerable<HTXListTicker>>> GetTickersAsync(string? contractCode = null, BusinessType? businessType = null, CancellationToken ct = default);
         /// <summary>
         /// Get open interest
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb8117d-77b5-11ed-9966-0242ac110003" /></para>
@@ -243,16 +243,16 @@ namespace HTX.Net.Interfaces.Clients.UsdtMarginSwapApi
         /// <param name="limit">Limit</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<HTXOpenInterestValue>> GetOpenInterestAsync(InterestPeriod period, Unit unit, string? contractCode = null, string? symbol = null, ContractType? type = null, int? limit = null, CancellationToken ct = default);
+        Task<WebCallResult<HTXOpenInterestValue>> GetOpenInterestHistoryAsync(InterestPeriod period, Unit unit, string? contractCode = null, string? symbol = null, ContractType? type = null, int? limit = null, CancellationToken ct = default);
         /// <summary>
         /// Get order book
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb808ad-77b5-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="contractCode">Contract code</param>
-        /// <param name="step">Merge step</param>
+        /// <param name="mergeStep">Merge step</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<HTXOrderBook>> GetOrderBookAsync(string contractCode, string step, CancellationToken ct = default);
+        Task<WebCallResult<HTXOrderBook>> GetOrderBookAsync(string contractCode, int? mergeStep = null, CancellationToken ct = default);
         /// <summary>
         /// Get premium index klines
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb81255-77b5-11ed-9966-0242ac110003" /></para>
@@ -268,7 +268,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtMarginSwapApi
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb81024-77b5-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="contractCode">Contract code</param>
-        /// <param name="limit">Limit</param>
+        /// <param name="limit">Max number of results to return</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<IEnumerable<HTXTrade>>> GetRecentTradesAsync(string contractCode, int limit, CancellationToken ct = default);

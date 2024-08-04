@@ -1,0 +1,31 @@
+GET
+/v1/margin/loan-orders
+true
+{
+  "status": "ok",
+  "data": [
+    {
+      "deduct-rate": "1",
+      "created-at": 1595831651478,
+      "updated-at": 1595832010845,
+      "accrued-at": 1595831651478,
+      "interest-amount": "0.004083000000000000",
+      "loan-amount": "100.000000000000000000",
+      "hour-interest-rate": "0.000040830000000000",
+      "loan-balance": "0.000000000000000000",
+      "interest-balance": "0.000000000000000000",
+      "paid-coin": "0.004083000000000000",
+      "day-interest-rate": "0.000980000000000000",
+      "interest-rate": "0.000040830000000000",
+      "user-id": 5574974,
+      "account-id": 5463409,
+      "currency": "usdt",
+      "symbol": "btcusdt",
+      "paid-point": "0.000000000000000000",
+      "deduct-currency": "",
+      "deduct-amount": "0",
+      "id": 7839857,
+      "state": "cleared"
+    }
+  ]
+}
