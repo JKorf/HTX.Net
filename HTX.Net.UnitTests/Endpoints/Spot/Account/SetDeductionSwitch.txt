@@ -2,7 +2,7 @@ POST
 /v1/account/fee/switch
 true
 {
-  "code": "200",
+  "code": 200,
   "data": {},
   "success": true
 }

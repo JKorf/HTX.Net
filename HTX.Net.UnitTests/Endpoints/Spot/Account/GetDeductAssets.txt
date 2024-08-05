@@ -2,7 +2,7 @@ GET
 /v1/account/overview/info
 true
 {
-  "code": "200",
+  "code": 200,
   "data": {
     "currency": "HTX,TRX"
   },
