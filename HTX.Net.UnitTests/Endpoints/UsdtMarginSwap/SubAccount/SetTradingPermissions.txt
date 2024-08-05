@@ -1,0 +1,17 @@
+POST
+/linear-swap-api/v1/swap_sub_auth
+true
+{
+  "status": "ok",
+  "data": {
+    "errors": [
+      {
+        "sub_uid": "1234567",
+        "err_code": 1010,
+        "err_msg": "Account doesnt exist."
+      }
+    ],
+    "successes": "123456789"
+  },
+  "ts": 1612504316476
+}

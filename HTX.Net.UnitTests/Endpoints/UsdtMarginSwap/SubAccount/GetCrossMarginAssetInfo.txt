@@ -1,0 +1,26 @@
+POST
+/linear-swap-api/v1/swap_cross_sub_account_info_list
+true
+{
+  "status": "ok",
+  "data": {
+    "total_page": 1,
+    "current_page": 1,
+    "total_size": 1,
+    "sub_list": [
+      {
+        "sub_uid": 12345678,
+        "account_info_list": [
+          {
+            "margin_balance": 2,
+            "risk_rate": null,
+            "margin_asset": "USDT",
+            "margin_mode": "cross",
+            "margin_account": "USDT"
+          }
+        ]
+      }
+    ]
+  },
+  "ts": 1612504845679
+}

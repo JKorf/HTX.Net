@@ -1,0 +1,13 @@
+> { "op": "sub", "cid": "|1|", "topic": "public.linear-swap.heartbeat" }
+< { "op": "sub", "cid": "|1|", "topic": "public.linear-swap.heartbeat", "ts": 1670903745088, "err-code": 0 }
+= 
+{
+  "op": "notify",
+  "topic": "public.linear-swap.heartbeat",
+  "event": "init",
+  "ts": 1580815422403,
+  "data": {
+    "heartbeat": 0,
+    "estimated_recovery_time": 1408076414000
+  }
+}

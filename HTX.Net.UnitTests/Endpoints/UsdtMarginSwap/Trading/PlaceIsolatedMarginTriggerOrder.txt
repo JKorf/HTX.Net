@@ -1,0 +1,11 @@
+POST
+/linear-swap-api/v1/swap_trigger_order
+true
+{
+  "status": "ok",
+  "data": {
+    "order_id": 35,
+    "order_id_str": "35"
+  },
+  "ts": 1547521135713
+}

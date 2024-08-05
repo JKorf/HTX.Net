@@ -1,0 +1,24 @@
+> { "action": "req", "ch": "auth", "params": { "authType":"api", "accessKey": "|1|", "signatureMethod": "HmacSHA256", "signatureVersion": "2.1", "timestamp": "|2|", "signature": "|3|" } }
+< { "action": "req", "code": 200, "ch": "auth", "data": {} }
+> { "action": "sub", "ch": "orders#*" }
+< { "action": "sub", "code": 200, "ch": "orders#*", "data": {}}
+= 
+{
+    "action":"push",
+    "ch":"orders#*",
+    "data":
+    {
+        "orderSize":"2.000000000000000000",
+        "orderCreateTime":1583853365586,
+        "accountId":992701,
+        "orderPrice":"77.000000000000000000",
+        "type":"sell-limit",
+        "orderId":27163533,
+        "clientOrderId":"abc123",
+        "orderSource":"spot-api",
+        "orderStatus":"submitted",
+        "symbol":"btcusdt",
+        "eventType":"creation"
+
+    }
+}

@@ -1,0 +1,11 @@
+POST
+/linear-swap-api/v1/swap_cross_lightning_close_position
+true
+{
+  "status": "ok",
+  "data": {
+    "order_id": 784063527799226400,
+    "order_id_str": "784063527799226368"
+  },
+  "ts": 1606976912267
+}

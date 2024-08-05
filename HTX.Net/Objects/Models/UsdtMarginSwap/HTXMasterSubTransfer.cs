@@ -1,7 +1,20 @@
 ﻿using HTX.Net.Enums;
 
 namespace HTX.Net.Objects.Models.UsdtMarginSwap
-{
+{ 
+    
+    /// <summary>
+    /// Sub transfer page
+    /// </summary>
+    public record HTXMasterSubTransferPage : HTXPage
+    {
+        /// <summary>
+        /// Transfers
+        /// </summary>
+        [JsonPropertyName("transfer_record")]
+        public IEnumerable<HTXMasterSubTransfer> Transfers { get; set; } = Array.Empty<HTXMasterSubTransfer>();
+    }
+
     /// <summary>
     /// Transfer between master and sub account
     /// </summary>
@@ -51,7 +64,7 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// <summary>
         /// Transfer type
         /// </summary>
-        [JsonPropertyName("tranfer_type")]
+        [JsonPropertyName("transfer_type")]
         [JsonConverter(typeof(EnumConverter))]
         public MasterSubTransferType Type { get; set; }
         /// <summary>

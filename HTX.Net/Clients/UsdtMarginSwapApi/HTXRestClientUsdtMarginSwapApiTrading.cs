@@ -34,7 +34,7 @@ namespace HTX.Net.Clients.UsdtMarginSwapApi
         #region Place Isolated Margin Order
 
         /// <inheritdoc />
-        public async Task<WebCallResult<HTXPlacedOrderId>> PlaceIsolatedMarginOrderAsync(
+        public async Task<WebCallResult<HTXOrderIds>> PlaceIsolatedMarginOrderAsync(
             string contractCode,
             decimal quantity,
             OrderSide side,
@@ -73,7 +73,7 @@ namespace HTX.Net.Clients.UsdtMarginSwapApi
             parameters.AddOptionalParameter("client_order_id", clientOrderId);
 
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/linear-swap-api/v1/swap_order", HTXExchange.RateLimiter.EndpointLimit, 1, true);
-            return await _baseClient.SendBasicAsync<HTXPlacedOrderId>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendBasicAsync<HTXOrderIds>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -81,7 +81,7 @@ namespace HTX.Net.Clients.UsdtMarginSwapApi
         #region Place Cross Margin Order
 
         /// <inheritdoc />
-        public async Task<WebCallResult<HTXPlacedOrderId>> PlaceCrossMarginOrderAsync(
+        public async Task<WebCallResult<HTXOrderIds>> PlaceCrossMarginOrderAsync(
             decimal quantity,
             OrderSide side,
             int leverageRate,
@@ -124,7 +124,7 @@ namespace HTX.Net.Clients.UsdtMarginSwapApi
             parameters.AddOptionalParameter("client_order_id", clientOrderId);
 
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/linear-swap-api/v1/swap_cross_order", HTXExchange.RateLimiter.EndpointLimit, 1, true);
-            return await _baseClient.SendBasicAsync<HTXPlacedOrderId>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendBasicAsync<HTXOrderIds>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -451,7 +451,7 @@ namespace HTX.Net.Clients.UsdtMarginSwapApi
             parameters.AddOptionalEnum("direct", direction);
             parameters.AddOptional("from_id", fromId);
             parameters.AddOptional("pair", pair);
-            var request = _definitions.GetOrCreate(HttpMethod.Post, "/linear-swap-api/v3/swap_hisorders", HTXExchange.RateLimiter.EndpointLimit, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, "/linear-swap-api/v3/swap_cross_hisorders", HTXExchange.RateLimiter.EndpointLimit, 1, true);
             var result = await _baseClient.SendAsync<IEnumerable<HTXCrossMarginOrder>>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -533,7 +533,7 @@ namespace HTX.Net.Clients.UsdtMarginSwapApi
             parameters.AddOptionalEnum("contractType", contractType);
             parameters.AddOptional("client_order_id", clientOrderId);
             parameters.AddOptionalEnum("order_price_type", orderPriceType);
-            var request = _definitions.GetOrCreate(HttpMethod.Post, "/linear-swap-api/v1/swap_lightning_close_position", HTXExchange.RateLimiter.EndpointLimit, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, "/linear-swap-api/v1/swap_cross_lightning_close_position ", HTXExchange.RateLimiter.EndpointLimit, 1, true);
             var result = await _baseClient.SendBasicAsync<HTXClosePositionResult>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -543,7 +543,7 @@ namespace HTX.Net.Clients.UsdtMarginSwapApi
         #region Place Isolated Margin Trigger Order
 
         /// <inheritdoc />
-        public async Task<WebCallResult<HTXTriggerOrderId>> PlaceIsolatedMarginTriggerOrderAsync(string contractCode, TriggerType triggerType, decimal triggerPrice, decimal quantity, OrderSide side, Offset? offset = null, bool? reduceOnly = null, decimal? orderPrice = null, OrderPriceType? orderPriceType = null, int? leverageRate = null, CancellationToken ct = default)
+        public async Task<WebCallResult<HTXOrderIds>> PlaceIsolatedMarginTriggerOrderAsync(string contractCode, TriggerType triggerType, decimal triggerPrice, decimal quantity, OrderSide side, Offset? offset = null, bool? reduceOnly = null, decimal? orderPrice = null, OrderPriceType? orderPriceType = null, int? leverageRate = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.Add("contract_code", contractCode);
@@ -557,7 +557,7 @@ namespace HTX.Net.Clients.UsdtMarginSwapApi
             parameters.AddOptionalEnum("order_price_type", orderPriceType);
             parameters.AddOptional("lever_rate", leverageRate);
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/linear-swap-api/v1/swap_trigger_order", HTXExchange.RateLimiter.EndpointLimit, 1, true);
-            var result = await _baseClient.SendAsync<HTXTriggerOrderId>(request, parameters, ct).ConfigureAwait(false);
+            var result = await _baseClient.SendBasicAsync<HTXOrderIds>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
 
@@ -566,7 +566,7 @@ namespace HTX.Net.Clients.UsdtMarginSwapApi
         #region Place Cross Margin Trigger Order
 
         /// <inheritdoc />
-        public async Task<WebCallResult<HTXTriggerOrderId>> PlaceCrossMarginTriggerOrderAsync(TriggerType triggerType, decimal triggerPrice, decimal quantity, OrderSide side, string? contractCode = null, string? pair = null, ContractType? contractType = null, Offset? offset = null, bool? reduceOnly = null, decimal? orderPrice = null, OrderPriceType? orderPriceType = null, int? leverageRate = null, CancellationToken ct = default)
+        public async Task<WebCallResult<HTXOrderIds>> PlaceCrossMarginTriggerOrderAsync(TriggerType triggerType, decimal triggerPrice, decimal quantity, OrderSide side, string? contractCode = null, string? pair = null, ContractType? contractType = null, Offset? offset = null, bool? reduceOnly = null, decimal? orderPrice = null, OrderPriceType? orderPriceType = null, int? leverageRate = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.AddOptional("contract_code", contractCode);
@@ -582,7 +582,7 @@ namespace HTX.Net.Clients.UsdtMarginSwapApi
             parameters.AddOptionalEnum("order_price_type", orderPriceType);
             parameters.AddOptional("lever_rate", leverageRate);
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/linear-swap-api/v1/swap_cross_trigger_order", HTXExchange.RateLimiter.EndpointLimit, 1, true);
-            var result = await _baseClient.SendAsync<HTXTriggerOrderId>(request, parameters, ct).ConfigureAwait(false);
+            var result = await _baseClient.SendBasicAsync<HTXOrderIds>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
 
@@ -597,7 +597,7 @@ namespace HTX.Net.Clients.UsdtMarginSwapApi
             parameters.Add("contract_code", contractCode);
             parameters.Add("order_id", orderId);
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/linear-swap-api/v1/swap_trigger_cancel", HTXExchange.RateLimiter.EndpointLimit, 1, true);
-            var result = await _baseClient.SendAsync<HTXTriggerOrderResult>(request, parameters, ct).ConfigureAwait(false);
+            var result = await _baseClient.SendBasicAsync<HTXTriggerOrderResult>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
 
@@ -692,7 +692,7 @@ namespace HTX.Net.Clients.UsdtMarginSwapApi
         #region Get Isolated Margin Trigger Order History
 
         /// <inheritdoc />
-        public async Task<WebCallResult<HTXTriggerOrderPage>> GetIsolatedMarginTriggerOrderHistoryAsync(string contractCode, MarginTradeType tradeType, int daysPast, OrderStatusFilter? status = null, int? page = null, int? pageIndex = null, string? sortBy = null, CancellationToken ct = default)
+        public async Task<WebCallResult<HTXClosedTriggerOrderPage>> GetIsolatedMarginTriggerOrderHistoryAsync(string contractCode, MarginTradeType tradeType, int daysPast, OrderStatusFilter? status = null, int? page = null, int? pageIndex = null, string? sortBy = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.Add("contract_code", contractCode);
@@ -703,7 +703,7 @@ namespace HTX.Net.Clients.UsdtMarginSwapApi
             parameters.AddOptional("page_size", pageIndex);
             parameters.AddOptional("sort_by", sortBy);
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/linear-swap-api/v1/swap_trigger_hisorders", HTXExchange.RateLimiter.EndpointLimit, 1, true);
-            var result = await _baseClient.SendBasicAsync<HTXTriggerOrderPage>(request, parameters, ct).ConfigureAwait(false);
+            var result = await _baseClient.SendBasicAsync<HTXClosedTriggerOrderPage>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
 
@@ -712,7 +712,7 @@ namespace HTX.Net.Clients.UsdtMarginSwapApi
         #region Get Cross Margin Trigger Order History
 
         /// <inheritdoc />
-        public async Task<WebCallResult<HTXCrossTriggerOrderPage>> GetCrossMarginTriggerOrderHistoryAsync(MarginTradeType tradeType, int daysPast, string? contractCode = null, string? pair = null, ContractType? contractType = null, OrderStatusFilter? status = null, int? page = null, int? pageIndex = null, string? sortBy = null, CancellationToken ct = default)
+        public async Task<WebCallResult<HTXClosedCrossTriggerOrderPage>> GetCrossMarginTriggerOrderHistoryAsync(MarginTradeType tradeType, int daysPast, string? contractCode = null, string? pair = null, ContractType? contractType = null, OrderStatusFilter? status = null, int? page = null, int? pageIndex = null, string? sortBy = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.AddOptional("contract_code", contractCode);
@@ -725,7 +725,7 @@ namespace HTX.Net.Clients.UsdtMarginSwapApi
             parameters.AddOptional("page_size", pageIndex);
             parameters.AddOptional("sort_by", sortBy);
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/linear-swap-api/v1/swap_cross_trigger_hisorders ", HTXExchange.RateLimiter.EndpointLimit, 1, true);
-            var result = await _baseClient.SendBasicAsync<HTXCrossTriggerOrderPage>(request, parameters, ct).ConfigureAwait(false);
+            var result = await _baseClient.SendBasicAsync<HTXClosedCrossTriggerOrderPage>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
 
@@ -747,7 +747,7 @@ namespace HTX.Net.Clients.UsdtMarginSwapApi
             parameters.AddOptional("sl_order_price", stopLossOrderPrice);
             parameters.AddOptionalEnum("sl_order_price_type", stopLossOrderPriceType);
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/linear-swap-api/v1/swap_tpsl_order", HTXExchange.RateLimiter.EndpointLimit, 1, true);
-            var result = await _baseClient.SendAsync<HTXTpSlResult>(request, parameters, ct).ConfigureAwait(false);
+            var result = await _baseClient.SendBasicAsync<HTXTpSlResult>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
 
@@ -771,7 +771,7 @@ namespace HTX.Net.Clients.UsdtMarginSwapApi
             parameters.AddOptional("sl_order_price", stopLossOrderPrice);
             parameters.AddOptionalEnum("sl_order_price_type", stopLossOrderPriceType);
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/linear-swap-api/v1/swap_cross_tpsl_order", HTXExchange.RateLimiter.EndpointLimit, 1, true);
-            var result = await _baseClient.SendAsync<HTXTpSlResult>(request, parameters, ct).ConfigureAwait(false);
+            var result = await _baseClient.SendBasicAsync<HTXTpSlResult>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
 
@@ -786,7 +786,7 @@ namespace HTX.Net.Clients.UsdtMarginSwapApi
             parameters.Add("contract_code", contractCode);
             parameters.Add("order_id", orderId);
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/linear-swap-api/v1/swap_tpsl_cancel", HTXExchange.RateLimiter.EndpointLimit, 1, true);
-            var result = await _baseClient.SendAsync<HTXTriggerOrderResult>(request, parameters, ct).ConfigureAwait(false);
+            var result = await _baseClient.SendBasicAsync<HTXTriggerOrderResult>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
 
@@ -803,7 +803,7 @@ namespace HTX.Net.Clients.UsdtMarginSwapApi
             parameters.AddOptionalEnum("contract_type", contractType);
             parameters.Add("order_id", orderId);
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/linear-swap-api/v1/swap_cross_tpsl_cancel", HTXExchange.RateLimiter.EndpointLimit, 1, true);
-            var result = await _baseClient.SendAsync<HTXTriggerOrderResult>(request, parameters, ct).ConfigureAwait(false);
+            var result = await _baseClient.SendBasicAsync<HTXTriggerOrderResult>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
 
@@ -818,7 +818,7 @@ namespace HTX.Net.Clients.UsdtMarginSwapApi
             parameters.Add("contract_code", contractCode);
             parameters.AddOptionalEnum("direction", side);
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/linear-swap-api/v1/swap_tpsl_cancelall", HTXExchange.RateLimiter.EndpointLimit, 1, true);
-            var result = await _baseClient.SendAsync<HTXTriggerOrderResult>(request, parameters, ct).ConfigureAwait(false);
+            var result = await _baseClient.SendBasicAsync<HTXTriggerOrderResult>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
 
@@ -835,7 +835,7 @@ namespace HTX.Net.Clients.UsdtMarginSwapApi
             parameters.AddOptionalEnum("contract_type", contractType);
             parameters.AddOptionalEnum("direction", side);
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/linear-swap-api/v1/swap_cross_tpsl_cancelall ", HTXExchange.RateLimiter.EndpointLimit, 1, true);
-            var result = await _baseClient.SendAsync<HTXTriggerOrderResult>(request, parameters, ct).ConfigureAwait(false);
+            var result = await _baseClient.SendBasicAsync<HTXTriggerOrderResult>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
 
@@ -852,7 +852,7 @@ namespace HTX.Net.Clients.UsdtMarginSwapApi
             parameters.AddOptional("page_size", pageSize);
             parameters.AddOptionalEnumAsInt("trade_type", tradeType);
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/linear-swap-api/v1/swap_tpsl_openorders", HTXExchange.RateLimiter.EndpointLimit, 1, true);
-            var result = await _baseClient.SendAsync<HTXTpSlOrderPage>(request, parameters, ct).ConfigureAwait(false);
+            var result = await _baseClient.SendBasicAsync<HTXTpSlOrderPage>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
 
@@ -870,7 +870,7 @@ namespace HTX.Net.Clients.UsdtMarginSwapApi
             parameters.AddOptional("page_size", pageSize);
             parameters.AddOptionalEnumAsInt("trade_type", tradeType);
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/linear-swap-api/v1/swap_cross_tpsl_openorders ", HTXExchange.RateLimiter.EndpointLimit, 1, true);
-            var result = await _baseClient.SendAsync<HTXCrossTpSlOrderPage>(request, parameters, ct).ConfigureAwait(false);
+            var result = await _baseClient.SendBasicAsync<HTXCrossTpSlOrderPage>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
 
@@ -889,7 +889,7 @@ namespace HTX.Net.Clients.UsdtMarginSwapApi
             parameters.AddOptional("page_size", pageSize);
             parameters.AddOptional("sort_by", sortBy);
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/linear-swap-api/v1/swap_tpsl_hisorders", HTXExchange.RateLimiter.EndpointLimit, 1, true);
-            var result = await _baseClient.SendAsync<HTXTpSlClosedOrderPage>(request, parameters, ct).ConfigureAwait(false);
+            var result = await _baseClient.SendBasicAsync<HTXTpSlClosedOrderPage>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
 
@@ -909,7 +909,7 @@ namespace HTX.Net.Clients.UsdtMarginSwapApi
             parameters.AddOptional("page_size", pageSize);
             parameters.AddOptional("sort_by", sortBy);
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/linear-swap-api/v1/swap_cross_tpsl_hisorders ", HTXExchange.RateLimiter.EndpointLimit, 1, true);
-            var result = await _baseClient.SendAsync<HTXCrossTpSlClosedOrderPage>(request, parameters, ct).ConfigureAwait(false);
+            var result = await _baseClient.SendBasicAsync<HTXCrossTpSlClosedOrderPage>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
 
@@ -924,7 +924,7 @@ namespace HTX.Net.Clients.UsdtMarginSwapApi
             parameters.Add("contract_code", contractCode);
             parameters.Add("order_id", orderId);
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/linear-swap-api/v1/swap_relation_tpsl_order", HTXExchange.RateLimiter.EndpointLimit, 1, true);
-            var result = await _baseClient.SendAsync<HTXPositionOpenTpSlOrders>(request, parameters, ct).ConfigureAwait(false);
+            var result = await _baseClient.SendBasicAsync<HTXPositionOpenTpSlOrders>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
 
@@ -940,7 +940,7 @@ namespace HTX.Net.Clients.UsdtMarginSwapApi
             parameters.AddOptional("contract_code", contractCode);
             parameters.Add("order_id", orderId);
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/linear-swap-api/v1/swap_cross_relation_tpsl_order", HTXExchange.RateLimiter.EndpointLimit, 1, true);
-            var result = await _baseClient.SendAsync<HTXCrossPositionOpenTpSlOrders>(request, parameters, ct).ConfigureAwait(false);
+            var result = await _baseClient.SendBasicAsync<HTXCrossPositionOpenTpSlOrders>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
 
@@ -949,7 +949,7 @@ namespace HTX.Net.Clients.UsdtMarginSwapApi
         #region Place Isolated Margin Trailing Order
 
         /// <inheritdoc />
-        public async Task<WebCallResult<HTXTriggerOrderId>> PlaceIsolatedMarginTrailingOrderAsync(string contractCode, bool reduceOnly, OrderSide side, Offset offset, int leverageRate, decimal quantity, decimal callbackRate, decimal activePrice, OrderPriceType orderPriceType, CancellationToken ct = default)
+        public async Task<WebCallResult<HTXOrderIds>> PlaceIsolatedMarginTrailingOrderAsync(string contractCode, bool reduceOnly, OrderSide side, Offset offset, int leverageRate, decimal quantity, decimal callbackRate, decimal activePrice, OrderPriceType orderPriceType, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.Add("contract_code", contractCode);
@@ -962,7 +962,7 @@ namespace HTX.Net.Clients.UsdtMarginSwapApi
             parameters.Add("active_price", activePrice);
             parameters.AddEnum("order_price_type", orderPriceType);
             var request = _definitions.GetOrCreate(HttpMethod.Post, "linear-swap-api/v1/swap_track_order", HTXExchange.RateLimiter.EndpointLimit, 1, true);
-            var result = await _baseClient.SendAsync<HTXTriggerOrderId>(request, parameters, ct).ConfigureAwait(false);
+            var result = await _baseClient.SendBasicAsync<HTXOrderIds>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
 
@@ -971,7 +971,7 @@ namespace HTX.Net.Clients.UsdtMarginSwapApi
         #region Place Cross Margin Trailing Order
 
         /// <inheritdoc />
-        public async Task<WebCallResult<HTXTriggerOrderId>> PlaceCrossMarginTrailingOrderAsync(OrderSide side, Offset offset, int leverageRate, decimal quantity, decimal callbackRate, decimal activePrice, OrderPriceType orderPriceType, string? contractCode = null, string? pair = null, ContractType? contractType = null, bool? reduceOnly = null, CancellationToken ct = default)
+        public async Task<WebCallResult<HTXOrderIds>> PlaceCrossMarginTrailingOrderAsync(OrderSide side, Offset offset, int leverageRate, decimal quantity, decimal callbackRate, decimal activePrice, OrderPriceType orderPriceType, string? contractCode = null, string? pair = null, ContractType? contractType = null, bool? reduceOnly = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.AddOptional("contract_code", contractCode);
@@ -986,8 +986,8 @@ namespace HTX.Net.Clients.UsdtMarginSwapApi
             parameters.Add("callback_rate", callbackRate);
             parameters.Add("active_price", activePrice);
             parameters.AddEnum("order_price_type", orderPriceType);
-            var request = _definitions.GetOrCreate(HttpMethod.Post, "linear-swap-api/v1/swap_track_order", HTXExchange.RateLimiter.EndpointLimit, 1, true);
-            var result = await _baseClient.SendAsync<HTXTriggerOrderId>(request, parameters, ct).ConfigureAwait(false);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, "linear-swap-api/v1/swap_cross_track_order", HTXExchange.RateLimiter.EndpointLimit, 1, true);
+            var result = await _baseClient.SendBasicAsync<HTXOrderIds>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
 
@@ -1002,7 +1002,7 @@ namespace HTX.Net.Clients.UsdtMarginSwapApi
             parameters.Add("contract_code", contractCode);
             parameters.Add("order_id", orderId);
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/linear-swap-api/v1/swap_track_cancel", HTXExchange.RateLimiter.EndpointLimit, 1, true);
-            var result = await _baseClient.SendAsync<HTXTriggerOrderResult>(request, parameters, ct).ConfigureAwait(false);
+            var result = await _baseClient.SendBasicAsync<HTXTriggerOrderResult>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
 
@@ -1019,7 +1019,7 @@ namespace HTX.Net.Clients.UsdtMarginSwapApi
             parameters.AddOptionalEnum("contract_type", contractType);
             parameters.Add("order_id", orderId);
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/linear-swap-api/v1/swap_cross_track_cancel", HTXExchange.RateLimiter.EndpointLimit, 1, true);
-            var result = await _baseClient.SendAsync<HTXTriggerOrderResult>(request, parameters, ct).ConfigureAwait(false);
+            var result = await _baseClient.SendBasicAsync<HTXTriggerOrderResult>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
 
@@ -1035,7 +1035,7 @@ namespace HTX.Net.Clients.UsdtMarginSwapApi
             parameters.AddOptionalEnum("direction", side);
             parameters.AddOptionalEnum("offset", offset);
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/linear-swap-api/v1/swap_track_cancelall", HTXExchange.RateLimiter.EndpointLimit, 1, true);
-            var result = await _baseClient.SendAsync<HTXTriggerOrderResult>(request, parameters, ct).ConfigureAwait(false);
+            var result = await _baseClient.SendBasicAsync<HTXTriggerOrderResult>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
 
@@ -1053,7 +1053,7 @@ namespace HTX.Net.Clients.UsdtMarginSwapApi
             parameters.AddOptionalEnum("direction", side);
             parameters.AddOptionalEnum("offset", offset);
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/linear-swap-api/v1/swap_cross_track_cancelall ", HTXExchange.RateLimiter.EndpointLimit, 1, true);
-            var result = await _baseClient.SendAsync<HTXTriggerOrderResult>(request, parameters, ct).ConfigureAwait(false);
+            var result = await _baseClient.SendBasicAsync<HTXTriggerOrderResult>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
 
@@ -1070,7 +1070,7 @@ namespace HTX.Net.Clients.UsdtMarginSwapApi
             parameters.AddOptional("page_index", page);
             parameters.AddOptional("page_size", pageSize);
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/linear-swap-api/v1/swap_track_openorders", HTXExchange.RateLimiter.EndpointLimit, 1, true);
-            var result = await _baseClient.SendAsync<HTXTrailingOrderPage>(request, parameters, ct).ConfigureAwait(false);
+            var result = await _baseClient.SendBasicAsync<HTXTrailingOrderPage>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
 
@@ -1089,7 +1089,7 @@ namespace HTX.Net.Clients.UsdtMarginSwapApi
             parameters.AddOptional("page_index", page);
             parameters.AddOptional("page_size", pageSize);
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/linear-swap-api/v1/swap_cross_track_openorders ", HTXExchange.RateLimiter.EndpointLimit, 1, true);
-            var result = await _baseClient.SendAsync<HTXCrossTrailingOrderPage>(request, parameters, ct).ConfigureAwait(false);
+            var result = await _baseClient.SendBasicAsync<HTXCrossTrailingOrderPage>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
 
@@ -1109,7 +1109,7 @@ namespace HTX.Net.Clients.UsdtMarginSwapApi
             parameters.AddOptional("page_size", pageSize);
             parameters.AddOptional("sort_by", sortBy);
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/linear-swap-api/v1/swap_track_hisorders", HTXExchange.RateLimiter.EndpointLimit, 1, true);
-            var result = await _baseClient.SendAsync<HTXTrailingClosedOrderPage>(request, parameters, ct).ConfigureAwait(false);
+            var result = await _baseClient.SendBasicAsync<HTXTrailingClosedOrderPage>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
 
@@ -1131,7 +1131,7 @@ namespace HTX.Net.Clients.UsdtMarginSwapApi
             parameters.AddOptional("page_size", pageSize);
             parameters.AddOptional("sort_by", sortBy);
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/linear-swap-api/v1/swap_cross_track_hisorders", HTXExchange.RateLimiter.EndpointLimit, 1, true);
-            var result = await _baseClient.SendAsync<HTXCrossTrailingClosedOrderPage>(request, parameters, ct).ConfigureAwait(false);
+            var result = await _baseClient.SendBasicAsync<HTXCrossTrailingClosedOrderPage>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
 

@@ -12,6 +12,12 @@ namespace HTX.Net.Objects.Models.Socket
         /// </summary>
         [JsonPropertyName("ts")]
         public DateTime Timestamp { get; set; }
+
+        /// <summary>
+        /// Event, init (initial) status or update
+        /// </summary>
+        [JsonPropertyName("event")]
+        public string Event { get; set; } = string.Empty;
         /// <summary>
         /// Data
         /// </summary>

@@ -22,7 +22,7 @@ namespace HTX.Net.Objects.Models.Socket
         /// Data
         /// </summary>
         [JsonPropertyName("data")]
-        public IEnumerable<HTXUsdtMarginSwapIsolatedBalanceUpdateDta> Data { get; set; } = Array.Empty<HTXUsdtMarginSwapIsolatedBalanceUpdateDta>();
+        public IEnumerable<HTXUsdtMarginSwapIsolatedBalanceUpdateData> Data { get; set; } = Array.Empty<HTXUsdtMarginSwapIsolatedBalanceUpdateData>();
         /// <summary>
         /// User id
         /// </summary>
@@ -33,7 +33,7 @@ namespace HTX.Net.Objects.Models.Socket
     /// <summary>
     /// Isolated margin balance update
     /// </summary>
-    public record HTXUsdtMarginSwapIsolatedBalanceUpdateDta
+    public record HTXUsdtMarginSwapIsolatedBalanceUpdateData
     {
         /// <summary>
         /// Asset

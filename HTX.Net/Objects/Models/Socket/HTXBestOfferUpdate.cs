@@ -27,5 +27,15 @@ namespace HTX.Net.Objects.Models.Socket
         /// </summary>
         [JsonPropertyName("ask")]
         public HTXOrderBookEntry Ask { get; set; } = null!;
+        /// <summary>
+        /// Timestamp
+        /// </summary>
+        [JsonPropertyName("ts")]
+        public DateTime Timestamp { get; set; }
+        /// <summary>
+        /// Version
+        /// </summary>
+        [JsonPropertyName("version")]
+        public long Version { get; set; }
     }
 }

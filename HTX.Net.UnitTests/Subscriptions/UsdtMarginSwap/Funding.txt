@@ -1,0 +1,19 @@
+> { "op": "sub", "cid": "|1|", "topic": "public.*.funding_rate" }
+< { "op": "sub", "cid": "|1|", "topic": "public.*.funding_rate", "ts": 1670903745088, "err-code": 0 }
+= 
+{
+  "op": "notify",
+  "topic": "public.*.funding_rate",
+  "ts": 1603778748166,
+  "data": [
+    {
+      "symbol": "BTC",
+      "contract_code": "BTC-USDT",
+      "fee_asset": "USDT",
+      "funding_time": "1603778700000",
+      "funding_rate": "-0.000220068774978695",
+      "settlement_time": "1603785600000",
+      "estimated_rate": null
+    }
+  ]
+}

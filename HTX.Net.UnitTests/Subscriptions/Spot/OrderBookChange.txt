@@ -1,0 +1,17 @@
+> { "sub": "market.ethusdt.mbp.5", "id": "|1|" }
+< { "id": "|1|", "status": "ok", "subbed": "market.ethusdt.mbp.5", "ts": 1489474081631 }
+= 
+{
+  "ch": "market.ethusdt.mbp.5",
+  "ts": 1573199608679,
+  "tick": {
+    "seqNum": 100020146795,
+    "prevSeqNum": 100020146794,
+    "asks": [
+      [
+        645.14,
+        26.75597395914065
+      ]
+    ]
+  }
+}

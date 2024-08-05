@@ -36,7 +36,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtMarginSwapApi
         /// <param name="pageSize">Page size</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<HTXMasterSubTransfer>> GetMasterSubTransferRecordsAsync(string marginAccount, int daysInHistory, MasterSubTransferType? type = null, int? page = null, int? pageSize = null, CancellationToken ct = default);
+        Task<WebCallResult<HTXMasterSubTransferPage>> GetMasterSubTransferRecordsAsync(string marginAccount, int daysInHistory, MasterSubTransferType? type = null, int? page = null, int? pageSize = null, CancellationToken ct = default);
 
         /// <summary>
         /// Set sub account trading permissions
@@ -67,13 +67,13 @@ namespace HTX.Net.Interfaces.Clients.UsdtMarginSwapApi
         /// Get sub accounts trade permissions
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb89359-77b5-11ed-9966-18d119ebd6b" /></para>
         /// </summary>
-        /// <param name="subUserIds">Filter by sub user ids</param>
+        /// <param name="subAccountUids">Filter by sub user ids</param>
         /// <param name="startTime">Filter by start time</param>
         /// <param name="endTime">Filter by end time</param>
         /// <param name="filterDirection">Filter direction</param>
         /// <param name="fromId">Return results after this id</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<HTXSubTradePermissions>> GetTradePermissionsAsync(string? subUserIds = null, DateTime? startTime = null, DateTime? endTime = null, FilterDirection? filterDirection = null, long? fromId = null, CancellationToken ct = default);
+        Task<WebCallResult<HTXSubTradePermissions>> GetTradePermissionsAsync(IEnumerable<string>? subAccountUids = null, DateTime? startTime = null, DateTime? endTime = null, FilterDirection? filterDirection = null, long? fromId = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get isolated margin asset information
@@ -113,7 +113,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtMarginSwapApi
         /// <param name="pair">Filter by pair</param>
         /// <param name="contractType">Filter by contract type</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<IEnumerable<HTXPosition>>> GetCrossMarginPositionsAsync(long subUserId, string? contractCode = null, string? pair = null, ContractType? contractType = null, CancellationToken ct = default);
+        Task<WebCallResult<IEnumerable<HTXCrossPosition>>> GetCrossMarginPositionsAsync(long subUserId, string? contractCode = null, string? pair = null, ContractType? contractType = null, CancellationToken ct = default);
 
     }
 }

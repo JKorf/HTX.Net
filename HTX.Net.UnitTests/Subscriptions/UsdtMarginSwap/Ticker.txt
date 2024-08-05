@@ -1,0 +1,27 @@
+> { "sub": "market.ETH-USDT.detail", "id": "|1|" }
+< { "id": "|1|", "status": "ok", "subbed": "market.ETH-USDT.detail", "ts": 1489474081631 }
+= 
+{
+  "ch": "market.ETH-USDT.detail",
+  "ts": 1603707870528,
+  "tick": {
+    "id": 1603707840,
+    "mrid": 131599205,
+    "open": 12916.2,
+    "close": 13065.8,
+    "high": 13205.3,
+    "low": 12852.8,
+    "amount": 30.316,
+    "vol": 30316,
+    "trade_turnover": 395073.4918,
+    "count": 2983,
+    "ask": [
+      13081.9,
+      206
+    ],
+    "bid": [
+      13071.9,
+      38
+    ]
+  }
+}

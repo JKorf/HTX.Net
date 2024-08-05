@@ -31,7 +31,7 @@
         /// Error code
         /// </summary>
         [JsonPropertyName("err_code")]
-        public string ErrorCode { get; set; } = string.Empty;
+        public int ErrorCode { get; set; }
         /// <summary>
         /// Error message
         /// </summary>

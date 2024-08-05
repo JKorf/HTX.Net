@@ -1,0 +1,35 @@
+POST
+/linear-swap-api/v1/swap_cross_sub_position_info
+true
+{
+  "status": "ok",
+  "data": [
+    {
+      "symbol": "BTC",
+      "contract_code": "BTC-USDT-211231",
+      "volume": 1,
+      "available": 1,
+      "frozen": 0,
+      "cost_open": 48886.7,
+      "cost_hold": 48886.7,
+      "profit_unreal": -0.0653,
+      "profit_rate": -0.00133574162297721,
+      "lever_rate": 1,
+      "position_margin": 48.952,
+      "direction": "sell",
+      "profit": -0.0653,
+      "last_price": 48952,
+      "margin_asset": "USDT",
+      "margin_mode": "cross",
+      "margin_account": "USDT",
+      "contract_type": "quarter",
+      "pair": "BTC-USDT",
+      "business_type": "futures",
+      "position_mode": "dual_side",
+      "adl_risk_percent": "3",
+      "new_risk_rate": "",
+      "trade_partition": ""
+    }
+  ],
+  "ts": 1638759509329
+}

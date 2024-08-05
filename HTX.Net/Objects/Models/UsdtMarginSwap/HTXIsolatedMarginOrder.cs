@@ -62,6 +62,11 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         [JsonPropertyName("order_id")]
         public long OrderId { get; set; }
         /// <summary>
+        /// Order id string
+        /// </summary>
+        [JsonPropertyName("order_id_str")]
+        public string OrderIdStr { get; set; } = string.Empty;
+        /// <summary>
         /// Client order id
         /// </summary>
         [JsonPropertyName("client_order_id")]
@@ -72,6 +77,13 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         [JsonPropertyName("created_at")]
         [JsonConverter(typeof(DateTimeConverter))]
         public DateTime CreateTime { get; set; }
+        [JsonInclude, JsonPropertyName("create_date")]
+        internal DateTime CreateTimeInt 
+        {
+            get => CreateTime;
+            set => CreateTime = value; 
+        }
+
         /// <summary>
         /// Cancel time
         /// </summary>
@@ -97,7 +109,7 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// Average fill price
         /// </summary>
         [JsonPropertyName("trade_avg_price")]
-        public decimal AverageFillPrice { get; set; }
+        public decimal? AverageFillPrice { get; set; }
         /// <summary>
         /// Margin frozen
         /// </summary>
@@ -133,7 +145,7 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// Liquidation type
         /// </summary>
         [JsonPropertyName("liquidation_type")]
-        public LiquidationType LiquidationType { get; set; }
+        public LiquidationType? LiquidationType { get; set; }
         /// <summary>
         /// Margin mode
         /// </summary>
@@ -150,15 +162,35 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         [JsonPropertyName("is_tpsl")]
         public bool IsTakeProfitStopLoss { get; set; }
         /// <summary>
-        /// Real profit
+        /// Realized profit and loss
         /// </summary>
         [JsonPropertyName("real_profit")]
-        public decimal RealProfit { get; set; }
+        public decimal RealizedPnl { get; set; }
         /// <summary>
         /// Reduce only
         /// </summary>
         [JsonPropertyName("reduce_only")]
         public bool ReduceOnly { get; set; }
+        /// <summary>
+        /// HTX fee quantity
+        /// </summary>
+        [JsonPropertyName("fee_amount")]
+        public decimal FeeQuantity { get; set; }
+        /// <summary>
+        /// HTX fee quote quantity
+        /// </summary>
+        [JsonPropertyName("fee_quote_amount")]
+        public decimal FeeQuoteQuantity { get; set; }
+        /// <summary>
+        /// Cancel source
+        /// </summary>
+        [JsonPropertyName("canceled_source")]
+        public string? CancelSource { get; set; }
+        /// <summary>
+        /// Update time
+        /// </summary>
+        [JsonPropertyName("update_time")]
+        public DateTime? UpdateTime { get; set; }
         /// <summary>
         /// Trades
         /// </summary>

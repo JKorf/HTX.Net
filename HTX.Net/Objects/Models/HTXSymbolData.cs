@@ -79,6 +79,18 @@
     }
 
     /// <summary>
+    /// Kline data
+    /// </summary>
+    public record HTXSwapKline : HTXKline
+    {
+        /// <summary>
+        /// Order id
+        /// </summary>
+        [JsonPropertyName("mrid")]
+        public long OrderId { get; set; }
+    }
+
+    /// <summary>
     /// Symbol details
     /// </summary>
     public record HTXSymbolDetails : HTXSymbolData

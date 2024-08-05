@@ -22,7 +22,7 @@ namespace HTX.Net.Objects.Models.Socket
         /// Data
         /// </summary>
         [JsonPropertyName("data")]
-        public IEnumerable<HTXUsdtMarginSwapIsolatedPositionUpdateData> Data { get; set; } = Array.Empty<HTXUsdtMarginSwapIsolatedPositionUpdateData>();
+        public IEnumerable<HTXUsdtMarginSwapCrossPositionUpdateData> Data { get; set; } = Array.Empty<HTXUsdtMarginSwapCrossPositionUpdateData>();
         /// <summary>
         /// User id
         /// </summary>

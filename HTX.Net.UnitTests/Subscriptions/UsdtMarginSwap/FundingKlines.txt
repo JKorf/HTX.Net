@@ -1,0 +1,18 @@
+> { "sub": "market.ETH-USDT.estimated_rate.1day", "id": "|1|" }
+< { "id": "|1|", "status": "ok", "subbed": "market.ETH-USDT.estimated_rate.1day", "ts": 1489474081631 }
+= 
+{
+  "ch": "market.ETH-USDT.estimated_rate.1day",
+  "ts": 1603708560233,
+  "tick": {
+    "id": 1603708560,
+    "open": "0.0001",
+    "close": "0.0001",
+    "high": "0.0001",
+    "low": "0.0001",
+    "amount": "0",
+    "vol": "0",
+    "count": "0",
+    "trade_turnover": "0"
+  }
+}

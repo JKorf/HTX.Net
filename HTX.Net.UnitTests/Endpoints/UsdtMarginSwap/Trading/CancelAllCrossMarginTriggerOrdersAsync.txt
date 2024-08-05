@@ -1,0 +1,11 @@
+POST
+/linear-swap-api/v1/swap_cross_trigger_cancelall
+true
+{
+  "status": "ok",
+  "data": {
+    "errors": [],
+    "successes": "1879,1878"
+  },
+  "ts": 1606977712328
+}

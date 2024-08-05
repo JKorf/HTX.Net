@@ -14,6 +14,6 @@
         /// Trigger time
         /// </summary>
         [JsonPropertyName("trigger_time")]
-        public DateTime TriggerTime { get; set; }
+        public DateTime? TriggerTime { get; set; }
     }
 }

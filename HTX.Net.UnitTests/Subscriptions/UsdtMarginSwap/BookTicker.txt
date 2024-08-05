@@ -1,0 +1,22 @@
+> { "sub": "market.ETH-USDT.bbo", "id": "|1|" }
+< { "id": "|1|", "status": "ok", "subbed": "market.ETH-USDT.bbo", "ts": 1489474081631 }
+= 
+{
+  "ch": "market.ETH-USDT.bbo",
+  "ts": 1603707934525,
+  "tick": {
+    "mrid": 131599726,
+    "id": 1603707934,
+    "bid": [
+      13064,
+      38
+    ],
+    "ask": [
+      13072.3,
+      205
+    ],
+    "ts": 1603707934525,
+    "version": 131599726,
+    "ch": "market.BTC-USDT.bbo"
+  }
+}

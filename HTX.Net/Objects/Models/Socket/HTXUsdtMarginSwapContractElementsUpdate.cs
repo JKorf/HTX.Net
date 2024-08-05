@@ -103,6 +103,12 @@ namespace HTX.Net.Objects.Models.Socket
         /// </summary>
         [JsonPropertyName("trade_limits")]
         public IEnumerable<HTXContractElementsLimit>? TradeLimits { get; set; }
+
+        /// <summary>
+        /// Instrument types
+        /// </summary>
+        [JsonPropertyName("instrument_type")]
+        public IEnumerable<ElementInstrumentType> InstrumentTypes { get; set; } = Array.Empty<ElementInstrumentType>();
         /// <summary>
         /// Real time settlement
         /// </summary>

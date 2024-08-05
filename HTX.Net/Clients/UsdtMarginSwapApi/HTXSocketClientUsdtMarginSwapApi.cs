@@ -103,23 +103,23 @@ namespace HTX.Net.Clients.SpotApi
             => new HTXAuthenticationProvider(credentials, false);
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToKlineUpdatesAsync(string contractCode, KlineInterval period, Action<DataEvent<HTXKline>> onData, CancellationToken ct = default)
+        public async Task<CallResult<UpdateSubscription>> SubscribeToKlineUpdatesAsync(string contractCode, KlineInterval period, Action<DataEvent<HTXSwapKline>> onData, CancellationToken ct = default)
         {
-            var subscription = new HTXSubscription<HTXKline>(_logger, $"market.{contractCode.ToUpperInvariant()}.kline.{EnumConverter.GetString(period)}", x => onData(x.WithSymbol(contractCode)), false);
+            var subscription = new HTXSubscription<HTXSwapKline>(_logger, $"market.{contractCode.ToUpperInvariant()}.kline.{EnumConverter.GetString(period)}", x => onData(x.WithSymbol(contractCode)), false);
             return await SubscribeAsync(BaseAddress.AppendPath("linear-swap-ws"), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToOrderBookUpdatesAsync(string contractCode, int mergeStep, Action<DataEvent<HTXUsdtMarginSwapIncementalOrderBook>> onData, CancellationToken ct = default)
+        public async Task<CallResult<UpdateSubscription>> SubscribeToOrderBookUpdatesAsync(string contractCode, int mergeStep, Action<DataEvent<HTXOrderBookUpdate>> onData, CancellationToken ct = default)
         {
-            var subscription = new HTXSubscription<HTXUsdtMarginSwapIncementalOrderBook>(_logger, $"market.{contractCode.ToUpperInvariant()}.depth.step" + mergeStep, x => onData(x.WithSymbol(contractCode)), false);
+            var subscription = new HTXSubscription<HTXOrderBookUpdate>(_logger, $"market.{contractCode.ToUpperInvariant()}.depth.step" + mergeStep, x => onData(x.WithSymbol(contractCode)), false);
             return await SubscribeAsync(BaseAddress.AppendPath("linear-swap-ws"), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToIncrementalOrderBookUpdatesAsync(string contractCode, bool snapshot, int limit, Action<DataEvent<HTXUsdtMarginSwapIncementalOrderBook>> onData, CancellationToken ct = default)
+        public async Task<CallResult<UpdateSubscription>> SubscribeToIncrementalOrderBookUpdatesAsync(string contractCode, bool snapshot, int limit, Action<DataEvent<HTXIncrementalOrderBookUpdate>> onData, CancellationToken ct = default)
         {
-            var subscription = new HTXSubscription<HTXUsdtMarginSwapIncementalOrderBook>(_logger, $"market.{contractCode.ToUpperInvariant()}.depth.size_{limit}.high_freq", x => onData(x.WithSymbol(contractCode)), false);
+            var subscription = new HTXSubscription<HTXIncrementalOrderBookUpdate>(_logger, $"market.{contractCode.ToUpperInvariant()}.depth.size_{limit}.high_freq", x => onData(x.WithSymbol(contractCode)), false);
             return await SubscribeAsync(BaseAddress.AppendPath("linear-swap-ws"), subscription, ct).ConfigureAwait(false);
         }
 
@@ -277,7 +277,7 @@ namespace HTX.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToCrossMarginTriggerOrderUpdatesAsync(Action<DataEvent<HTXUsdtMarginSwapCrossTriggerOrderUpdate>> onData, CancellationToken ct = default)
         {
-            var subscription = new HTXOpSubscription<HTXUsdtMarginSwapCrossTriggerOrderUpdate>(_logger, "trigger_order_cross", "trigger_order_cross.*", onData, true);
+            var subscription = new HTXOpSubscription<HTXUsdtMarginSwapCrossTriggerOrderUpdate>(_logger, "trigger_order_cross.*", "trigger_order_cross.*", onData, true);
             return await SubscribeAsync(BaseAddress.AppendPath("linear-swap-notification"), subscription, ct).ConfigureAwait(false);
         }
     }

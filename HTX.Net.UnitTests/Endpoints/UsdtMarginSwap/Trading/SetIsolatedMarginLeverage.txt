@@ -1,0 +1,12 @@
+POST
+/linear-swap-api/v1/swap_switch_lever_rate
+true
+{
+    "status": "ok",
+    "data": {
+        "contract_code": "btc-usdt",
+        "margin_mode": "isolated",
+        "lever_rate": 10
+    },
+    "ts": 1603699417036
+}

@@ -1,0 +1,45 @@
+> {"op": "auth","type": "api","AccessKeyId": "|1|","SignatureMethod": "HmacSHA256","SignatureVersion": "2","Timestamp": "|2|","Signature": "|3|"}
+< { "op": "auth", "type":"api", "ts": 1489474081631, "err-code": 0, "data": { "user-id": "12345678" } }
+> { "op": "sub", "cid": "|4|", "topic": "trigger_order_cross.*" }
+< { "op": "sub", "cid": "|4|", "topic": "trigger_order_cross.*", "ts": 1670903745088, "err-code": 0 }
+= 
+{
+  "op": "notify",
+  "topic": "trigger_order_cross.*",
+  "ts": 1639123353369,
+  "event": "order",
+  "uid": "123456789",
+  "data": [
+    {
+      "contract_type": "swap",
+      "pair": "BTC-USDT",
+      "business_type": "swap",
+      "symbol": "BTC",
+      "contract_code": "BTC-USDT",
+      "trigger_type": "le",
+      "volume": 1,
+      "order_type": 1,
+      "direction": "buy",
+      "offset": "open",
+      "lever_rate": 1,
+      "order_id": 918895474461802500,
+      "order_id_str": "918895474461802496",
+      "relation_order_id": "-1",
+      "order_price_type": "limit",
+      "status": 2,
+      "order_source": "api",
+      "trigger_price": 40000,
+      "triggered_price": null,
+      "order_price": 40000,
+      "created_at": 1639123353364,
+      "triggered_at": 0,
+      "order_insert_at": 0,
+      "canceled_at": 0,
+      "fail_code": null,
+      "fail_reason": null,
+      "margin_mode": "cross",
+      "margin_account": "USDT",
+      "reduce_only": 0
+    }
+  ]
+}

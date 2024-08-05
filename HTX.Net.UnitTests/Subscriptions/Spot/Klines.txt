@@ -1,0 +1,17 @@
+> { "sub": "market.ethusdt.kline.1day", "id": "|1|" }
+< { "id": "|1|", "status": "ok", "subbed": "market.ethusdt.kline.1day", "ts": 1489474081631 }
+= 
+{
+  "ch": "market.ethusdt.kline.1day",
+  "ts": 1630981694370,
+  "tick": {
+    "id": 1630981680,
+    "open": 0.074849,
+    "close": 0.074848,
+    "low": 0.074848,
+    "high": 0.074849,
+    "amount": 2.4448,
+    "vol": 0.1829884187,
+    "count": 3
+  }
+}

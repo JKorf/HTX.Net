@@ -1,0 +1,42 @@
+> {"op": "auth","type": "api","AccessKeyId": "|1|","SignatureMethod": "HmacSHA256","SignatureVersion": "2","Timestamp": "|2|","Signature": "|3|"}
+< { "op": "auth", "type":"api", "ts": 1489474081631, "err-code": 0, "data": { "user-id": "12345678" } }
+> { "op": "sub", "cid": "|4|", "topic": "matchOrders.*" }
+< { "op": "sub", "cid": "|4|", "topic": "matchOrders.*", "ts": 1670903745088, "err-code": 0 }
+= 
+{
+  "op": "notify",
+  "topic": "matchOrders",
+  "ts": 1600926986125,
+  "symbol": "BTC",
+  "contract_code": "BTC-USDT",
+  "status": 6,
+  "order_id": 758688290195656700,
+  "order_id_str": "758688290195656704",
+  "client_order_id": null,
+  "order_type": 1,
+  "created_at": 1600926984112,
+  "trade": [
+    {
+      "trade_id": 14470,
+      "id": "14470-758688290195656704-1",
+      "trade_volume": 1,
+      "trade_price": 10329.11,
+      "trade_turnover": 103.2911,
+      "created_at": 1600926986046,
+      "role": "taker"
+    }
+  ],
+  "uid": "123456789",
+  "volume": 1,
+  "trade_volume": 1,
+  "direction": "buy",
+  "offset": "open",
+  "lever_rate": 5,
+  "price": 10329.11,
+  "order_source": "web",
+  "order_price_type": "opponent",
+  "margin_mode": "isolated",
+  "margin_account": "BTC-USDT",
+  "is_tpsl": 0,
+  "reduce_only": 0
+}

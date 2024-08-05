@@ -1,0 +1,17 @@
+POST
+/linear-swap-api/v1/swap_cancel
+true
+{
+  "status": "ok",
+  "data": {
+    "errors": [
+      {
+        "order_id": "770323133537685504",
+        "err_code": 1071,
+        "err_msg": "Repeated withdraw."
+      }
+    ],
+    "successes": "770323847022211072"
+  },
+  "ts": 1603701351602
+}

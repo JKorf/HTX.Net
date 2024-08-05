@@ -35,10 +35,10 @@ namespace HTX.Net.Clients.UsdtMarginSwapApi
         #region Get Trade Permissions
 
         /// <inheritdoc />
-        public async Task<WebCallResult<HTXSubTradePermissions>> GetTradePermissionsAsync(string? subUserIds = null, DateTime? startTime = null, DateTime? endTime = null, FilterDirection? filterDirection = null, long? fromId = null, CancellationToken ct = default)
+        public async Task<WebCallResult<HTXSubTradePermissions>> GetTradePermissionsAsync(IEnumerable<string>? subAccountUids = null, DateTime? startTime = null, DateTime? endTime = null, FilterDirection? filterDirection = null, long? fromId = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
-            parameters.AddOptional("sub_uid", subUserIds);
+            parameters.AddOptional("sub_uid", subAccountUids == null ? null : string.Join(",", subAccountUids));
             parameters.AddOptionalMillisecondsString("start_time", startTime);
             parameters.AddOptionalMillisecondsString("end_time", endTime);
             parameters.AddOptionalEnum("direction", filterDirection);
@@ -102,7 +102,7 @@ namespace HTX.Net.Clients.UsdtMarginSwapApi
             parameters.AddOptional("page_index", page);
             parameters.AddOptional("page_size", pageSize);
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/linear-swap-api/v1/swap_cross_sub_account_info_list", HTXExchange.RateLimiter.EndpointLimit, 1, true);
-            var result = await _baseClient.SendAsync<HTXSubAccountCrossAssetInfoPage>(request, parameters, ct).ConfigureAwait(false);
+            var result = await _baseClient.SendBasicAsync<HTXSubAccountCrossAssetInfoPage>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
 
@@ -120,7 +120,7 @@ namespace HTX.Net.Clients.UsdtMarginSwapApi
             parameters.Add("sub_uid", subUserId);
             parameters.AddOptional("contract_code", contractCode);
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/linear-swap-api/v1/swap_sub_position_info", HTXExchange.RateLimiter.EndpointLimit, 1, true);
-            var result = await _baseClient.SendAsync<IEnumerable<HTXPosition>>(request, parameters, ct).ConfigureAwait(false);
+            var result = await _baseClient.SendBasicAsync<IEnumerable<HTXPosition>>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
 
@@ -129,7 +129,7 @@ namespace HTX.Net.Clients.UsdtMarginSwapApi
         #region Get Cross Margin Positions
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<HTXPosition>>> GetCrossMarginPositionsAsync(long subUserId, string? contractCode = null, string? pair = null, ContractType? contractType = null, CancellationToken ct = default)
+        public async Task<WebCallResult<IEnumerable<HTXCrossPosition>>> GetCrossMarginPositionsAsync(long subUserId, string? contractCode = null, string? pair = null, ContractType? contractType = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.Add("sub_uid", subUserId);
@@ -137,7 +137,7 @@ namespace HTX.Net.Clients.UsdtMarginSwapApi
             parameters.AddOptional("pair", pair);
             parameters.AddOptionalEnum("contract_type", contractType);
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/linear-swap-api/v1/swap_cross_sub_position_info", HTXExchange.RateLimiter.EndpointLimit, 1, true);
-            var result = await _baseClient.SendAsync<IEnumerable<HTXPosition>>(request, parameters, ct).ConfigureAwait(false);
+            var result = await _baseClient.SendBasicAsync<IEnumerable<HTXCrossPosition>>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
 
@@ -167,7 +167,7 @@ namespace HTX.Net.Clients.UsdtMarginSwapApi
         #region Get Master Sub Transfer Records
 
         /// <inheritdoc />
-        public async Task<WebCallResult<HTXMasterSubTransfer>> GetMasterSubTransferRecordsAsync(string marginAccount, int daysInHistory, MasterSubTransferType? type = null, int? page = null, int? pageSize = null, CancellationToken ct = default)
+        public async Task<WebCallResult<HTXMasterSubTransferPage>> GetMasterSubTransferRecordsAsync(string marginAccount, int daysInHistory, MasterSubTransferType? type = null, int? page = null, int? pageSize = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection()
             {
@@ -178,7 +178,7 @@ namespace HTX.Net.Clients.UsdtMarginSwapApi
             parameters.AddOptionalParameter("page_index", page);
             parameters.AddOptionalParameter("page_size", pageSize);
             var request = _definitions.GetOrCreate(HttpMethod.Post, "linear-swap-api/v1/swap_master_sub_transfer_record", HTXExchange.RateLimiter.EndpointLimit, 1, true);
-            return await _baseClient.SendBasicAsync<HTXMasterSubTransfer>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendBasicAsync<HTXMasterSubTransferPage>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion

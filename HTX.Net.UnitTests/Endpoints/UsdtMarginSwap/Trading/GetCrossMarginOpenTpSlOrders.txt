@@ -1,0 +1,62 @@
+POST
+/linear-swap-api/v1/swap_cross_tpsl_openorders
+true
+{
+  "status": "ok",
+  "data": {
+    "orders": [
+      {
+        "contract_type": "this_week",
+        "business_type": "futures",
+        "pair": "BTC-USDT",
+        "symbol": "BTC",
+        "contract_code": "BTC-USDT-211210",
+        "margin_mode": "cross",
+        "margin_account": "USDT",
+        "volume": 1,
+        "order_type": 1,
+        "direction": "sell",
+        "order_id": 918816985859559400,
+        "order_id_str": "918816985859559425",
+        "order_source": "api",
+        "trigger_type": "le",
+        "trigger_price": 40000,
+        "order_price": 0,
+        "created_at": 1639104640223,
+        "order_price_type": "optimal_5",
+        "status": 2,
+        "tpsl_order_type": "sl",
+        "source_order_id": null,
+        "relation_tpsl_order_id": "918816985859559424"
+      },
+      {
+        "contract_type": "this_week",
+        "business_type": "futures",
+        "pair": "BTC-USDT",
+        "symbol": "BTC",
+        "contract_code": "BTC-USDT-211210",
+        "margin_mode": "cross",
+        "margin_account": "USDT",
+        "volume": 1,
+        "order_type": 1,
+        "direction": "sell",
+        "order_id": 918816985859559400,
+        "order_id_str": "918816985859559424",
+        "order_source": "api",
+        "trigger_type": "ge",
+        "trigger_price": 50000,
+        "order_price": 0,
+        "created_at": 1639104640223,
+        "order_price_type": "optimal_5",
+        "status": 2,
+        "tpsl_order_type": "tp",
+        "source_order_id": null,
+        "relation_tpsl_order_id": "918816985859559425"
+      }
+    ],
+    "total_page": 1,
+    "current_page": 1,
+    "total_size": 2
+  },
+  "ts": 1639104794491
+}

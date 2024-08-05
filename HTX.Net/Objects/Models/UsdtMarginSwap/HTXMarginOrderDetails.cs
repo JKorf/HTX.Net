@@ -9,7 +9,7 @@
         /// Instrument price
         /// </summary>
         [JsonPropertyName("instrument_price")]
-        public decimal IntrumentPrice { get; set; }
+        public decimal InstrumentPrice { get; set; }
         /// <summary>
         /// Final interest
         /// </summary>

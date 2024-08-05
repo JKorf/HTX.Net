@@ -21,7 +21,7 @@ namespace HTX.Net.Objects.Models.Socket
         /// Turnover
         /// </summary>
         [JsonPropertyName("trade_turnover")]
-        public long TradeTurnover { get; set; }
+        public decimal TradeTurnover { get; set; }
         /// <summary>
         /// Best bid
         /// </summary>

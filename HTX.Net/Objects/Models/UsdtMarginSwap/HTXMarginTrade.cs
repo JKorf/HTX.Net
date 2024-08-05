@@ -60,9 +60,9 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         [JsonPropertyName("profit")]
         public decimal Profit { get; set; }
         /// <summary>
-        /// Real profit
+        /// Real pnl
         /// </summary>
         [JsonPropertyName("real_profit")]
-        public decimal RealProfit { get; set; }
+        public decimal RealizedPnl { get; set; }
     }
 }

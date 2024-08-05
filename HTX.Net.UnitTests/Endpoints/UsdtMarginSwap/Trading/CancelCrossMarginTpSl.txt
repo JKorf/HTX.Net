@@ -1,0 +1,17 @@
+POST
+/linear-swap-api/v1/swap_cross_tpsl_cancel
+true
+{
+  "status": "ok",
+  "data": {
+    "errors": [
+      {
+        "order_id": "795714078698749956",
+        "err_code": 1061,
+        "err_msg": "This order doesnt exist."
+      }
+    ],
+    "successes": "795714078698749952"
+  },
+  "ts": 1609754775942
+}

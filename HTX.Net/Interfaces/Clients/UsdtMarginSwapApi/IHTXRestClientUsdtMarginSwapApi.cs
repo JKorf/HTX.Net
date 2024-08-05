@@ -14,6 +14,10 @@
         /// </summary>
         IHTXRestClientUsdtMarginSwapApiExchangeData ExchangeData { get; }
         /// <summary>
+        /// Endpoints related to sub accounts
+        /// </summary>
+        IHTXRestClientUsdtMarginSwapApiSubAccount SubAccount { get; }
+        /// <summary>
         /// Endpoints related to orders and trades
         /// </summary>
         IHTXRestClientUsdtMarginSwapApiTrading Trading { get; }

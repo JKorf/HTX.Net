@@ -1,0 +1,43 @@
+POST
+/linear-swap-api/v1/swap_trigger_hisorders
+true
+{
+  "status": "ok",
+  "data": {
+    "orders": [
+      {
+        "symbol": "BTC",
+        "contract_code": "BTC-USDT",
+        "trigger_type": "ge",
+        "volume": 1,
+        "order_type": 1,
+        "direction": "sell",
+        "offset": "open",
+        "lever_rate": 10,
+        "order_id": 3,
+        "order_id_str": "3",
+        "relation_order_id": "-1",
+        "order_price_type": "limit",
+        "status": 6,
+        "order_source": "api",
+        "trigger_price": 13900,
+        "triggered_price": null,
+        "order_price": 13900,
+        "created_at": 1603705155231,
+        "triggered_at": null,
+        "order_insert_at": 0,
+        "canceled_at": 1603705159520,
+        "update_time": 1603705159520,
+        "fail_code": null,
+        "fail_reason": null,
+        "margin_mode": "isolated",
+        "margin_account": "BTC-USDT",
+        "reduce_only": 0
+      }
+    ],
+    "total_page": 3,
+    "current_page": 1,
+    "total_size": 3
+  },
+  "ts": 1603705603369
+}

@@ -1,0 +1,21 @@
+> { "sub": "market.ethusdt.trade.detail", "id": "|1|" }
+< { "id": "|1|", "status": "ok", "subbed": "market.ethusdt.trade.detail", "ts": 1489474081631 }
+= 
+{
+  "ch": "market.ethusdt.trade.detail",
+  "ts": 1630994963175,
+  "tick": {
+    "id": 137005445109,
+    "ts": 1630994963173,
+    "data": [
+      {
+        "id": 1.3700544510935929e+26,
+        "ts": 1630994963173,
+        "tradeId": 102523573486,
+        "amount": 0.006754,
+        "price": 52648.62,
+        "direction": "buy"
+      }
+    ]
+  }
+}

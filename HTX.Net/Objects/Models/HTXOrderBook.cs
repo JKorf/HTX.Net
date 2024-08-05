@@ -15,6 +15,13 @@
         /// </summary>
         [JsonPropertyName("version")]
         public long Version { get; set; }
+        [JsonInclude, JsonPropertyName("seqNum")]
+        internal long SequenceNumber
+        {
+            get => Version;
+            set => Version = value;
+        }
+
         /// <summary>
         /// List of bids
         /// </summary>

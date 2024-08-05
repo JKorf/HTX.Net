@@ -1,0 +1,35 @@
+> { "sub": "market.ETH-USDT.depth.size_20.high_freq", "id": "|1|" }
+< { "id": "|1|", "status": "ok", "subbed": "market.ETH-USDT.depth.size_20.high_freq", "ts": 1489474081631 }
+= 
+{
+  "ch": "market.ETH-USDT.depth.size_20.high_freq",
+  "tick": {
+    "asks": [
+      [
+        13081.9,
+        206
+      ],
+      [
+        13099.7,
+        371
+      ]
+    ],
+    "bids": [
+      [
+        13071.9,
+        38
+      ],
+      [
+        13060,
+        400
+      ]
+    ],
+    "ch": "market.BTC-USDT.depth.size_20.high_freq",
+    "event": "snapshot",
+    "id": 131597620,
+    "mrid": 131597620,
+    "ts": 1603707712356,
+    "version": 1512467
+  },
+  "ts": 1603707712357
+}

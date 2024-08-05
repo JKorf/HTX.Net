@@ -1,0 +1,18 @@
+> { "sub": "market.ETH-USDT.mark_price.1day", "id": "|1|" }
+< { "id": "|1|", "status": "ok", "subbed": "market.ETH-USDT.mark_price.1day", "ts": 1489474081631 }
+= 
+{
+  "ch": "market.ETH-USDT.mark_price.1day",
+  "ts": 1489474082831,
+  "tick": {
+    "vol": "0",
+    "close": "9800.12",
+    "count": "0",
+    "high": "9800.12",
+    "id": 1529898780,
+    "low": "9800.12",
+    "open": "9800.12",
+    "trade_turnover": "0",
+    "amount": "0"
+  }
+}

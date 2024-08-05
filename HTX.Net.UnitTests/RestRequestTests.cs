@@ -3,6 +3,7 @@ using CryptoExchange.Net.Testing;
 using HTX.Net.Clients;
 using HTX.Net.Objects.Models;
 using NUnit.Framework;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -234,7 +235,96 @@ namespace HTX.Net.UnitTests
             await tester.ValidateAsync(client => client.UsdtMarginSwapApi.ExchangeData.GetCrossMarginTradeStatusAsync("ETH-USDT"), "GetCrossMarginTradeStatus");
             await tester.ValidateAsync(client => client.UsdtMarginSwapApi.ExchangeData.GetCrossMarginTransferStatusAsync("ETH-USDT"), "GetCrossMarginTransferStatus");
         }
-    
+
+        [Test]
+        public async Task ValidateUsdtMarginSwapSubAccountCalls()
+        {
+            var client = new HTXRestClient(opts =>
+            {
+                opts.AutoTimestamp = false;
+                opts.ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456");
+            });
+            var tester = new RestRequestValidator<HTXRestClient>(client, "Endpoints/UsdtMarginSwap/SubAccount", "https://api.hbdm.com", IsAuthenticated, stjCompare: true, nestedPropertyForCompare: "data");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.SubAccount.SetTradingPermissionsAsync(new[] { "1" }, true), "SetTradingPermissions");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.SubAccount.GetTradePermissionsAsync(new[] { "1" }), "GetTradePermissions");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.SubAccount.GetIsolatedMarginAssetsAsync(), "GetIsolatedMarginAssets");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.SubAccount.GetCrossMarginAssetsAsync(), "GetCrossMarginAssets");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.SubAccount.GetIsolatedMarginAssetInfoAsync(), "GetIsolatedMarginAssetInfo");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.SubAccount.GetCrossMarginAssetInfoAsync(), "GetCrossMarginAssetInfo");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.SubAccount.GetIsolatedMarginPositionsAsync(1), "GetIsolatedMarginPositions");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.SubAccount.GetCrossMarginPositionsAsync(1), "GetCrossMarginPositions");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.SubAccount.TransferMasterSubAsync("1", "ETH", "1", "2", 1, Enums.MasterSubTransferType.MasterToSub), "TransferMasterSub");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.SubAccount.GetMasterSubTransferRecordsAsync("1", 90), "GetMasterSubTransferRecords");
+        }
+
+        [Test]
+        public async Task ValidateUsdtMarginSwapTradingCalls()
+        {
+            var client = new HTXRestClient(opts =>
+            {
+                opts.AutoTimestamp = false;
+                opts.ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456");
+            });
+            var tester = new RestRequestValidator<HTXRestClient>(client, "Endpoints/UsdtMarginSwap/Trading", "https://api.hbdm.com", IsAuthenticated, stjCompare: true, nestedPropertyForCompare: "data");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.Trading.CancelOrdersAfterAsync(true, TimeSpan.FromSeconds(10)), "CancelOrdersAfter");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.Trading.PlaceIsolatedMarginOrderAsync("ETH-USDT", 1, Enums.OrderSide.Buy, 1), "PlaceIsolatedMarginOrder");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.Trading.PlaceCrossMarginOrderAsync(1, Enums.OrderSide.Sell, 1), "PlaceCrossMarginOrder");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.Trading.CancelIsolatedMarginOrderAsync("ETH-USDT", 1), "CancelIsolatedMarginOrder");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.Trading.CancelCrossMarginOrderAsync(1), "CancelCrossMarginOrder");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.Trading.CancelIsolatedMarginOrdersAsync("ETH-USDT", new[] { 1L }, new[] { 1L }), "CancelIsolatedMarginOrders");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.Trading.CancelCrossMarginOrdersAsync(new[] { 1L }, new[] { 1L }), "CancelCrossMarginOrders");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.Trading.CancelAllIsolatedMarginOrdersAsync("ETH-USDT"), "CancelAllIsolatedMarginOrders");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.Trading.CancelAllCrossMarginOrdersAsync("ETH-USDT"), "CancelAllCrossMarginOrders");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.Trading.SetIsolatedMarginLeverageAsync("ETH-USDT", 1), "SetIsolatedMarginLeverage");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.Trading.SetCrossMarginLeverageAsync(1), "SetCrossMarginLeverage");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.Trading.GetIsolatedMarginOrderAsync("ETH-USDT"), "GetIsolatedMarginOrder");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.Trading.GetCrossMarginOrderAsync("ETH-USDT"), "GetCrossMarginOrder");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.Trading.GetIsolatedMarginOrdersAsync("ETH-USDT", new[] { 1L }, new[] { 1L }), "GetIsolatedMarginOrders");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.Trading.GetCrossMarginOrdersAsync(new[] { 1L }, new[] { 1L }), "GetCrossMarginOrders");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.Trading.GetIsolatedMarginOrderDetailsAsync("ETH-USDT", 1), "GetIsolatedMarginOrderDetails", ignoreProperties: new List<string> { "price" });
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.Trading.GetCrossMarginOrderDetailsAsync("ETH-USDT", 1), "GetCrossMarginOrderDetails", ignoreProperties: new List<string> { "price" });
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.Trading.GetIsolatedMarginOpenOrdersAsync("ETH-USDT", 1), "GetIsolatedMarginOpenOrders");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.Trading.GetCrossMarginOpenOrdersAsync("ETH-USDT"), "GetCrossMarginOpenOrders");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.Trading.GetIsolatedMarginClosedOrdersAsync("ETH-USDT", Enums.MarginTradeType.LiquidateShort), "GetIsolatedMarginClosedOrders", ignoreProperties: new List<string> { "query_id" });
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.Trading.GetCrossMarginClosedOrdersAsync("ETH-USDT", Enums.MarginTradeType.LiquidateShort), "GetCrossMarginClosedOrders", ignoreProperties: new List<string> { "query_id" });
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.Trading.GetIsolatedMarginUserTradesAsync("ETH-USDT", Enums.MarginTradeType.LiquidateShort), "GetIsolatedMarginUserTrades");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.Trading.GetCrossMarginUserTradesAsync("ETH-USDT", Enums.MarginTradeType.LiquidateShort), "GetCrossMarginUserTrades");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.Trading.CloseIsolatedMarginPositionAsync("ETH-USDT", Enums.OrderSide.Sell), "CloseIsolatedMarginPosition");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.Trading.CloseCrossMarginPositionAsync(Enums.OrderSide.Sell), "CloseCrossMarginPosition");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.Trading.PlaceIsolatedMarginTriggerOrderAsync("ETH-USDT", Enums.TriggerType.LesserThanOrEqual, 1, 1, Enums.OrderSide.Buy), "PlaceIsolatedMarginTriggerOrder");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.Trading.PlaceCrossMarginTriggerOrderAsync(Enums.TriggerType.LesserThanOrEqual, 1, 1, Enums.OrderSide.Buy), "PlaceCrossMarginTriggerOrder");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.Trading.CancelIsolatedMarginTriggerOrderAsync("ETH-USDT", "1"), "CancelIsolatedMarginTriggerOrder");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.Trading.CancelCrossMarginTriggerOrderAsync("1"), "CancelCrossMarginTriggerOrder");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.Trading.CancelAllIsolatedMarginTriggerOrdersAsync("ETH-USDT"), "CancelAllIsolatedMarginTriggerOrders");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.Trading.CancelAllCrossMarginTriggerOrdersAsync("ETH-USDT"), "CancelAllCrossMarginTriggerOrdersAsync");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.Trading.GetIsolatedMarginOpenTriggerOrdersAsync("ETH-USDT"), "GetIsolatedMarginOpenTriggerOrders");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.Trading.GetCrossMarginOpenTriggerOrdersAsync("ETH-USDT"), "GetCrossMarginOpenTriggerOrders");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.Trading.GetIsolatedMarginTriggerOrderHistoryAsync("ETH-USDT", Enums.MarginTradeType.BuyShort, 90), "GetIsolatedMarginTriggerOrderHistory");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.Trading.GetCrossMarginTriggerOrderHistoryAsync(Enums.MarginTradeType.BuyShort, 90), "GetCrossMarginTriggerOrderHistory");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.Trading.SetIsolatedMarginTpSlAsync("ETH-USDT", Enums.OrderSide.Sell, 1), "SetIsolatedMarginTpSl");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.Trading.SetCrossMarginTpSlAsync(Enums.OrderSide.Sell, 1), "SetCrossMarginTpSl");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.Trading.CancelIsolatedMarginTpSlAsync("ETH-USDT", "1"), "CancelIsolatedMarginTpSl");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.Trading.CancelCrossMarginTpSlAsync("1"), "CancelCrossMarginTpSl");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.Trading.CancelAllIsolatedMarginTpSlAsync("ETH-USDT"), "CancelAllIsolatedMarginTpSl");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.Trading.CancelAllCrossMarginTpSlAsync("ETH-USDT"), "CancelAllCrossMarginTpSl");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.Trading.GetIsolatedMarginOpenTpSlOrdersAsync("ETH-USDT"), "GetIsolatedMarginOpenTpSlOrders");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.Trading.GetCrossMarginOpenTpSlOrdersAsync("ETH-USDT"), "GetCrossMarginOpenTpSlOrders");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.Trading.GetIsolatedMarginTpSlHistoryAsync("ETH-USDT", new[] { Enums.TpSlStatus.Canceled }, 90), "GetIsolatedMarginTpSlHistory");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.Trading.GetCrossMarginTpSlHistoryAsync(new[] { Enums.TpSlStatus.Canceled }, 90), "GetCrossMarginTpSlHistory");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.Trading.GetIsolatedMarginPositionOpenTpSlInfoAsync("ETH-UST", 1), "GetIsolatedMarginPositionOpenTpSlInfo");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.Trading.GetCrossMarginPositionOpenTpSlInfoAsync(1), "GetCrossMarginPositionOpenTpSlInfo");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.Trading.PlaceIsolatedMarginTrailingOrderAsync("ETH-USDT", false, Enums.OrderSide.Sell, Enums.Offset.Open, 1, 1, 1, 1, Enums.OrderPriceType.Limit), "PlaceIsolatedMarginTrailingOrder");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.Trading.PlaceCrossMarginTrailingOrderAsync(Enums.OrderSide.Sell, Enums.Offset.Open, 1, 1, 1, 1, Enums.OrderPriceType.Limit), "PlaceCrossMarginTrailingOrder");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.Trading.CancelIsolatedMarginTrailingOrderAsync("ETH-USDT", "1"), "CancelIsolatedMarginTrailingOrder");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.Trading.CancelCrossMarginTrailingOrderAsync("1"), "CancelCrossMarginTrailingOrder");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.Trading.CancelAllIsolatedMarginTrailingOrdersAsync("ETH-USDT"), "CancelAllIsolatedMarginTrailingOrders");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.Trading.CancelAllCrossMarginTrailingOrdersAsync("ETH-USDT"), "CancelAllCrossMarginTrailingOrders");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.Trading.GetOpenIsolatedMarginTrailingOrdersAsync("ETH-USDT"), "GetOpenIsolatedMarginTrailingOrders");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.Trading.GetOpenCrossMarginTrailingOrdersAsync("ETH-USDT"), "GetOpenCrossMarginTrailingOrders");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.Trading.GetClosedIsolatedMarginTrailingOrdersAsync("ETH-USDT", new[] { Enums.TpSlStatus.Canceled }, Enums.MarginTradeType.BuyShort, 90), "GetClosedIsolatedMarginTrailingOrders");
+            await tester.ValidateAsync(client => client.UsdtMarginSwapApi.Trading.GetClosedCrossMarginTrailingOrdersAsync(new[] { Enums.TpSlStatus.Canceled }, Enums.MarginTradeType.BuyShort, 90), "GetClosedCrossMarginTrailingOrders");
+        }
+
         private bool IsAuthenticated(WebCallResult result)
         {
             return result.RequestUrl.Contains("Signature");

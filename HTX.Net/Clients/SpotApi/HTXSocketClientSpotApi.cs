@@ -57,7 +57,7 @@ namespace HTX.Net.Clients.SpotApi
             if (string.Equals(action, "ping", StringComparison.Ordinal))
                 return "pingV2";
 
-            var ping = message.GetValue<string>(_pingPath);
+            var ping = message.GetValue<long?>(_pingPath);
             if (ping != null)
                 return "pingV3";
 
@@ -213,6 +213,7 @@ namespace HTX.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(string symbol, Action<DataEvent<HTXSymbolTick>> onData, CancellationToken ct = default)
         {
+            symbol = symbol.ToLowerInvariant();
             var subscription = new HTXSubscription<HTXSymbolTick>(_logger, $"market.{symbol}.ticker", x => onData(x.WithSymbol(symbol)), false);
             return await SubscribeAsync(BaseAddress.AppendPath("ws"), subscription, ct).ConfigureAwait(false);
         }
@@ -220,6 +221,7 @@ namespace HTX.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToBookTickerUpdatesAsync(string symbol, Action<DataEvent<HTXBestOffer>> onData, CancellationToken ct = default)
         {
+            symbol = symbol.ToLowerInvariant();
             var subscription = new HTXSubscription<HTXBestOffer>(_logger, $"market.{symbol}.bbo", x => onData(x.WithSymbol(symbol)), false);
             return await SubscribeAsync(BaseAddress.AppendPath("ws"), subscription, ct).ConfigureAwait(false);
         }

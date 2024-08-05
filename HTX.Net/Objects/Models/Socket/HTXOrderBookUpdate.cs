@@ -1,9 +1,9 @@
 ﻿namespace HTX.Net.Objects.Models.Socket
 {
     /// <summary>
-    /// Incremental order book update
+    /// Order book update
     /// </summary>
-    public record HTXUsdtMarginSwapIncementalOrderBook
+    public record HTXOrderBookUpdate
     {
         /// <summary>
         /// Order id
@@ -15,6 +15,11 @@
         /// </summary>
         [JsonPropertyName("id")]
         public long Id { get; set; }
+        /// <summary>
+        /// Version
+        /// </summary>
+        [JsonPropertyName("version")]
+        public long? Version { get; set; }
         /// <summary>
         /// List of changed bids
         /// </summary>

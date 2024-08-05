@@ -1,0 +1,47 @@
+POST
+/linear-swap-api/v1/swap_openorders
+true
+{
+  "status": "ok",
+  "data": {
+    "orders": [
+      {
+        "symbol": "BTC",
+        "contract_code": "BTC-USDT",
+        "volume": 1,
+        "price": 13329,
+        "order_price_type": "limit",
+        "order_type": 1,
+        "direction": "sell",
+        "offset": "open",
+        "lever_rate": 10,
+        "order_id": 770326042832437200,
+        "client_order_id": 57012021028,
+        "created_at": 1603701640576,
+        "trade_volume": 0,
+        "trade_turnover": 0,
+        "fee": 0,
+        "trade_avg_price": null,
+        "margin_frozen": 1.3329,
+        "profit": 0,
+        "status": 3,
+        "order_source": "api",
+        "order_id_str": "770326042832437248",
+        "fee_asset": "USDT",
+        "liquidation_type": null,
+        "canceled_at": null,
+        "margin_asset": "USDT",
+        "margin_mode": "isolated",
+        "margin_account": "BTC-USDT",
+        "is_tpsl": 0,
+        "update_time": 1606975980467,
+        "real_profit": 0,
+        "reduce_only": 0
+      }
+    ],
+    "total_page": 2,
+    "current_page": 1,
+    "total_size": 2
+  },
+  "ts": 1603703993952
+}

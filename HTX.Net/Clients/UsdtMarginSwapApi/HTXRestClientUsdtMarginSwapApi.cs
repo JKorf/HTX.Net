@@ -27,6 +27,8 @@ namespace HTX.Net.Clients.FuturesApi
         /// <inheritdoc />
         public IHTXRestClientUsdtMarginSwapApiExchangeData ExchangeData { get; }
         /// <inheritdoc />
+        public IHTXRestClientUsdtMarginSwapApiSubAccount SubAccount { get; }
+        /// <inheritdoc />
         public IHTXRestClientUsdtMarginSwapApiTrading Trading { get; }
 
         #endregion
@@ -37,6 +39,7 @@ namespace HTX.Net.Clients.FuturesApi
         {
             Account = new HTXRestClientUsdtMarginSwapApiAccount(this);
             ExchangeData = new HTXRestClientUsdtMarginSwapApiExchangeData(this);
+            SubAccount = new HTXRestClientUsdtMarginSwapApiSubAccount(this);
             Trading = new HTXRestClientUsdtMarginSwapApiTrading(this);
 
             _brokerId = !string.IsNullOrEmpty(options.BrokerId) ? options.BrokerId! : "AA1ef14811";

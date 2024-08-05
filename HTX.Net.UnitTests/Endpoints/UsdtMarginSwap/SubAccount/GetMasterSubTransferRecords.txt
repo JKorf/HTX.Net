@@ -1,0 +1,26 @@
+POST
+/linear-swap-api/v1/swap_master_sub_transfer_record
+true
+{
+  "status": "ok",
+  "data": {
+    "total_page": 2,
+    "current_page": 1,
+    "total_size": 2,
+    "transfer_record": [
+      {
+        "id": 57920,
+        "transfer_type": 34,
+        "amount": -10,
+        "ts": 1603700211125,
+        "sub_uid": "123436789",
+        "sub_account_name": "tom",
+        "margin_account": "BTC-USDT",
+        "asset": "USDT",
+        "to_margin_account": "BTC-USDT",
+        "from_margin_account": "BTC-USDT"
+      }
+    ]
+  },
+  "ts": 1603700414957
+}

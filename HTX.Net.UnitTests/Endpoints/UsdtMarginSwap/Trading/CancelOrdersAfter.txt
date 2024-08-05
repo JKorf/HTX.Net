@@ -1,0 +1,11 @@
+POST
+/linear-swap-api/v1/linear-cancel-after
+true
+{
+  "code": 200,
+  "data": {
+    "current_time": 1566899973811,
+    "trigger_time": 1566899973811
+  },
+  "ts": 1566899973811
+}

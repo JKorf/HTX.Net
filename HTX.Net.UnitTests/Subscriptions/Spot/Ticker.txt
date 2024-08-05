@@ -1,0 +1,22 @@
+> { "sub": "market.ethusdt.ticker", "id": "|1|" }
+< { "id": "|1|", "status": "ok", "subbed": "market.ethusdt.ticker", "ts": 1489474081631 }
+= 
+{
+  "ch": "market.ethusdt.ticker",
+  "ts": 1630982370526,
+  "tick": {
+    "open": 51732,
+    "high": 52785.64,
+    "low": 51000,
+    "close": 52735.63,
+    "amount": 13259.24137056181,
+    "vol": 687640987.4125315,
+    "count": 448737,
+    "bid": 52732.88,
+    "bidSize": 0.036,
+    "ask": 52732.89,
+    "askSize": 0.583653,
+    "lastPrice": 52735.63,
+    "lastSize": 0.03
+  }
+}
