@@ -159,7 +159,7 @@ namespace HTX.Net.Clients.SpotApi
             parameters.Add("currency", asset);
             parameters.AddString("amount", quantity);
             parameters.Add("margin-account", marginAccount);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/v2/account/transfer", HTXExchange.RateLimiter.EndpointLimit, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, "/v2/account/transfer", HTXExchange.RateLimiter.EndpointLimit, 1, true);
             var result = await _baseClient.SendAsync<long>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }

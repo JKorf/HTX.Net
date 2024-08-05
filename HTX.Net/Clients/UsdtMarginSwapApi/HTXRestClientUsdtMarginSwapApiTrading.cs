@@ -36,12 +36,12 @@ namespace HTX.Net.Clients.UsdtMarginSwapApi
         /// <inheritdoc />
         public async Task<WebCallResult<HTXOrderIds>> PlaceIsolatedMarginOrderAsync(
             string contractCode,
-            decimal quantity,
+            long quantity,
             OrderSide side,
             int leverageRate,
+            OrderPriceType orderPriceType,
             decimal? price = null,
             Offset? offset = null,
-            OrderPriceType? orderPriceType = null,
             decimal? takeProfitTriggerPrice = null,
             decimal? takeProfitOrderPrice = null,
             OrderPriceType? takeProfitOrderPriceType = null,
@@ -55,14 +55,14 @@ namespace HTX.Net.Clients.UsdtMarginSwapApi
             var parameters = new ParameterCollection()
             {
                 { "contract_code", contractCode },
-                { "volume", quantity.ToString(CultureInfo.InvariantCulture) },
+                { "volume", quantity },
                 { "direction", EnumConverter.GetString(side) },
                 { "lever_rate", leverageRate },
-                { "channel_code", _baseClient._brokerId }
+                { "channel_code", _baseClient._brokerId },
+                { "order_price_type", EnumConverter.GetString(orderPriceType) }
             };
             parameters.AddOptionalParameter("price", price?.ToString(CultureInfo.InvariantCulture));
             parameters.AddOptionalParameter("offset", EnumConverter.GetString(offset));
-            parameters.AddOptionalParameter("order_price_type", EnumConverter.GetString(orderPriceType));
             parameters.AddOptionalParameter("tp_trigger_price", takeProfitTriggerPrice);
             parameters.AddOptionalParameter("tp_order_price", takeProfitOrderPrice);
             parameters.AddOptionalParameter("tp_order_price_type", EnumConverter.GetString(takeProfitOrderPriceType));
@@ -82,15 +82,15 @@ namespace HTX.Net.Clients.UsdtMarginSwapApi
 
         /// <inheritdoc />
         public async Task<WebCallResult<HTXOrderIds>> PlaceCrossMarginOrderAsync(
-            decimal quantity,
+            long quantity,
             OrderSide side,
             int leverageRate,
+            OrderPriceType orderPriceType,
             string? contractCode = null,
             string? symbol = null,
             ContractType? contractType = null,
             decimal? price = null,
             Offset? offset = null,
-            OrderPriceType? orderPriceType = null,
             decimal? takeProfitTriggerPrice = null,
             decimal? takeProfitOrderPrice = null,
             OrderPriceType? takeProfitOrderPriceType = null,
@@ -103,17 +103,17 @@ namespace HTX.Net.Clients.UsdtMarginSwapApi
         {
             var parameters = new ParameterCollection()
             {
-                { "volume", quantity.ToString(CultureInfo.InvariantCulture) },
+                { "volume", quantity },
                 { "direction", EnumConverter.GetString(side) },
                 { "lever_rate", leverageRate },
-                { "channel_code", _baseClient._brokerId }
+                { "channel_code", _baseClient._brokerId },
+                { "order_price_type", EnumConverter.GetString(orderPriceType) }
             };
             parameters.AddOptionalParameter("contract_code", contractCode);
             parameters.AddOptionalParameter("pair", symbol);
             parameters.AddOptionalParameter("contract_type", EnumConverter.GetString(contractType));
             parameters.AddOptionalParameter("price", price?.ToString(CultureInfo.InvariantCulture));
             parameters.AddOptionalParameter("offset", EnumConverter.GetString(offset));
-            parameters.AddOptionalParameter("order_price_type", EnumConverter.GetString(orderPriceType));
             parameters.AddOptionalParameter("tp_trigger_price", takeProfitTriggerPrice);
             parameters.AddOptionalParameter("tp_order_price", takeProfitOrderPrice);
             parameters.AddOptionalParameter("tp_order_price_type", EnumConverter.GetString(takeProfitOrderPriceType));
@@ -416,14 +416,13 @@ namespace HTX.Net.Clients.UsdtMarginSwapApi
         #region Get Isolated Margin Closed Orders
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<HTXIsolatedMarginOrder>>> GetIsolatedMarginClosedOrdersAsync(string contractCode, MarginTradeType tradeType, bool? allOrders = null, IEnumerable<OrderStatusFilter>? status = null, DateTime? startTime = null, DateTime? endTime = null, FilterDirection? direction = null, long? fromId = null, CancellationToken ct = default)
+        public async Task<WebCallResult<IEnumerable<HTXIsolatedMarginOrder>>> GetIsolatedMarginClosedOrdersAsync(string contractCode, MarginTradeType tradeType, bool allOrders, IEnumerable<OrderStatusFilter>? status = null, DateTime? startTime = null, DateTime? endTime = null, FilterDirection? direction = null, long? fromId = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.Add("contract", contractCode);
             parameters.AddEnumAsInt("trade_type", tradeType);
-            if (allOrders.HasValue)
-                parameters.AddOptionalString("type", allOrders.Value ? 1 : 2);
-            parameters.AddOptional("status", status?.Any() == true ? string.Join(",", status.Select(EnumConverter.GetString)) : null);
+            parameters.Add("type", allOrders ? 1 : 2);
+            parameters.Add("status", string.Join(",", status.Select(EnumConverter.GetString)));
             parameters.AddOptionalMilliseconds("start_time", startTime);
             parameters.AddOptionalMilliseconds("end_time", endTime);
             parameters.AddOptionalEnum("direct", direction);
@@ -438,13 +437,22 @@ namespace HTX.Net.Clients.UsdtMarginSwapApi
         #region Get Cross Margin Closed Orders
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<HTXCrossMarginOrder>>> GetCrossMarginClosedOrdersAsync(string contractCode, MarginTradeType tradeType, string? pair = null, bool? allOrders = null, IEnumerable<OrderStatusFilter>? status = null, DateTime? startTime = null, DateTime? endTime = null, FilterDirection? direction = null, long? fromId = null, CancellationToken ct = default)
+        public async Task<WebCallResult<IEnumerable<HTXCrossMarginOrder>>> GetCrossMarginClosedOrdersAsync(
+            string contractCode, 
+            MarginTradeType tradeType, 
+            bool allOrders,
+            IEnumerable<OrderStatusFilter> status,
+            string? pair = null,  
+            DateTime? startTime = null,
+            DateTime? endTime = null, 
+            FilterDirection? direction = null, 
+            long? fromId = null, 
+            CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.Add("contract", contractCode);
             parameters.AddEnumAsInt("trade_type", tradeType);
-            if (allOrders.HasValue)
-                parameters.AddOptionalString("type", allOrders.Value ? 1 : 2);
+            parameters.Add("type", allOrders ? 1 : 2);
             parameters.AddOptional("status", status?.Any() == true ? string.Join(",", status.Select(EnumConverter.GetString)) : null);
             parameters.AddOptionalMilliseconds("start_time", startTime);
             parameters.AddOptionalMilliseconds("end_time", endTime);

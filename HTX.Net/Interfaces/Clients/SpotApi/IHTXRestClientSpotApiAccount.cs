@@ -93,7 +93,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// <param name="toAccount">Target account type</param>
         /// <param name="asset">The asset</param>
         /// <param name="quantity">Quantity</param>
-        /// <param name="marginAccount">Margin account</param>
+        /// <param name="marginAccount">Margin account. Use `USDT` for cross margin</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<long>> TransferAsync(TransferAccount fromAccount, TransferAccount toAccount, string asset, decimal quantity, string marginAccount, CancellationToken ct = default);
 

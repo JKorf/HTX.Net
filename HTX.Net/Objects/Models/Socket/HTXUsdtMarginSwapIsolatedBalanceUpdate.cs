@@ -89,12 +89,12 @@ namespace HTX.Net.Objects.Models.Socket
         /// Risk rate
         /// </summary>
         [JsonPropertyName("risk_rate")]
-        public decimal RiskRate { get; set; }
+        public decimal? RiskRate { get; set; }
         /// <summary>
         /// Liquidation price
         /// </summary>
         [JsonPropertyName("liquidation_price")]
-        public decimal LiquidationPrice { get; set; }
+        public decimal? LiquidationPrice { get; set; }
         /// <summary>
         /// Leverage rate
         /// </summary>

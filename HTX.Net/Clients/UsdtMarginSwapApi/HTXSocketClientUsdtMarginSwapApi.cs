@@ -91,6 +91,14 @@ namespace HTX.Net.Clients.SpotApi
                     topic = "public.*.liquidation_orders";
                 if (topic.EndsWith(".funding_rate"))
                     topic = "public.*.funding_rate";
+                if (topic.StartsWith("accounts."))
+                    topic = "accounts";
+                if (topic.StartsWith("orders."))
+                    topic = "orders";
+                if (topic.StartsWith("accounts_cross."))
+                    topic = "accounts_cross";
+                if (topic.StartsWith("orders_cross."))
+                    topic = "orders_cross";
 
                 return topic;
             }

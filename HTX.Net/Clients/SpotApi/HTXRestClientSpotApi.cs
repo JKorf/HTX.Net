@@ -171,13 +171,17 @@ namespace HTX.Net.Clients.SpotApi
             if (!accessor.IsJson)
                 return new ServerError(accessor.GetOriginalString());
 
-            var code = accessor.GetValue<string>(MessagePath.Get().Property("err-code"));
-            var msg = accessor.GetValue<string>(MessagePath.Get().Property("err-msg"));
+            var code = accessor.GetValue<int?>(MessagePath.Get().Property("code"));
+            var errCode = accessor.GetValue<string>(MessagePath.Get().Property("err-code"));
+            var msg = accessor.GetValue<string>(MessagePath.Get().Property("message")) ?? accessor.GetValue<string>(MessagePath.Get().Property("err-msg"));
 
-            if (code == null && msg == null)
-                return null;
+            if (code > 0 && code != 200)
+                return new ServerError(code!.Value, msg!);
 
-            return new ServerError($"{code}, {msg}");
+            if (!string.IsNullOrEmpty(errCode))
+                return new ServerError($"{errCode}: {msg}");
+
+            return null;
         }
 
         internal void InvokeOrderPlaced(OrderId id)

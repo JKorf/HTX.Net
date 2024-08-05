@@ -162,7 +162,7 @@ namespace HTX.Net.Objects.Models.Socket
         /// Profit and loss
         /// </summary>
         [JsonPropertyName("real_profit")]
-        public decimal Pnl { get; set; }
+        public decimal RealizedPnl { get; set; }
         /// <summary>
         /// Reduce only
         /// </summary>

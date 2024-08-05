@@ -108,7 +108,6 @@ namespace HTX.Net.Clients.FuturesApi
             return result.As(result.Data.Data);
         }
 
-
         /// <inheritdoc />
         protected override Error ParseErrorResponse(int httpStatusCode, IEnumerable<KeyValuePair<string, IEnumerable<string>>> responseHeaders, IMessageAccessor accessor)
         {

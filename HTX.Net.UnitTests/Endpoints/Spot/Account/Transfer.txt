@@ -1,4 +1,4 @@
-GET
+POST
 /v2/account/transfer
 true
 {

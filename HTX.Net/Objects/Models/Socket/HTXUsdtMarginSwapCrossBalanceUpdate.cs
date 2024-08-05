@@ -146,7 +146,7 @@ namespace HTX.Net.Objects.Models.Socket
         /// Liquidation price
         /// </summary>
         [JsonPropertyName("liquidation_price")]
-        public decimal LiquidationPrice { get; set; }
+        public decimal? LiquidationPrice { get; set; }
         /// <summary>
         /// Leverage rate
         /// </summary>
@@ -213,7 +213,7 @@ namespace HTX.Net.Objects.Models.Socket
         /// Liquidation price
         /// </summary>
         [JsonPropertyName("liquidation_price")]
-        public decimal LiquidationPrice { get; set; }
+        public decimal? LiquidationPrice { get; set; }
         /// <summary>
         /// Leverage rate
         /// </summary>

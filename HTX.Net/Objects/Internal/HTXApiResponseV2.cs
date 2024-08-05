@@ -4,7 +4,7 @@
     {
         [JsonPropertyName("code")]
         public int Code { get; set; }
-        [JsonPropertyName("message")]
+        [JsonPropertyName("msg")]
         public string Message { get; set; } = string.Empty;
 #pragma warning disable 8618
         [JsonPropertyName("data")]

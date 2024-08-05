@@ -848,10 +848,10 @@
         <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiTrading.CancelOrdersAfterAsync(System.Boolean,System.Nullable{System.TimeSpan},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiTrading.PlaceIsolatedMarginOrderAsync(System.String,System.Decimal,HTX.Net.Enums.OrderSide,System.Int32,System.Nullable{System.Decimal},System.Nullable{HTX.Net.Enums.Offset},System.Nullable{HTX.Net.Enums.OrderPriceType},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{HTX.Net.Enums.OrderPriceType},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{HTX.Net.Enums.OrderPriceType},System.Nullable{System.Boolean},System.Nullable{System.Int64},System.Threading.CancellationToken)">
+        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiTrading.PlaceIsolatedMarginOrderAsync(System.String,System.Int64,HTX.Net.Enums.OrderSide,System.Int32,HTX.Net.Enums.OrderPriceType,System.Nullable{System.Decimal},System.Nullable{HTX.Net.Enums.Offset},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{HTX.Net.Enums.OrderPriceType},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{HTX.Net.Enums.OrderPriceType},System.Nullable{System.Boolean},System.Nullable{System.Int64},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiTrading.PlaceCrossMarginOrderAsync(System.Decimal,HTX.Net.Enums.OrderSide,System.Int32,System.String,System.String,System.Nullable{HTX.Net.Enums.ContractType},System.Nullable{System.Decimal},System.Nullable{HTX.Net.Enums.Offset},System.Nullable{HTX.Net.Enums.OrderPriceType},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{HTX.Net.Enums.OrderPriceType},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{HTX.Net.Enums.OrderPriceType},System.Nullable{System.Boolean},System.Nullable{System.Int64},System.Threading.CancellationToken)">
+        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiTrading.PlaceCrossMarginOrderAsync(System.Int64,HTX.Net.Enums.OrderSide,System.Int32,HTX.Net.Enums.OrderPriceType,System.String,System.String,System.Nullable{HTX.Net.Enums.ContractType},System.Nullable{System.Decimal},System.Nullable{HTX.Net.Enums.Offset},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{HTX.Net.Enums.OrderPriceType},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{HTX.Net.Enums.OrderPriceType},System.Nullable{System.Boolean},System.Nullable{System.Int64},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiTrading.CancelIsolatedMarginOrderAsync(System.String,System.Nullable{System.Int64},System.Nullable{System.Int64},System.Threading.CancellationToken)">
@@ -902,10 +902,10 @@
         <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiTrading.GetCrossMarginOpenOrdersAsync(System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,System.Nullable{HTX.Net.Enums.MarginTradeType},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiTrading.GetIsolatedMarginClosedOrdersAsync(System.String,HTX.Net.Enums.MarginTradeType,System.Nullable{System.Boolean},System.Collections.Generic.IEnumerable{HTX.Net.Enums.OrderStatusFilter},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{HTX.Net.Enums.FilterDirection},System.Nullable{System.Int64},System.Threading.CancellationToken)">
+        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiTrading.GetIsolatedMarginClosedOrdersAsync(System.String,HTX.Net.Enums.MarginTradeType,System.Boolean,System.Collections.Generic.IEnumerable{HTX.Net.Enums.OrderStatusFilter},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{HTX.Net.Enums.FilterDirection},System.Nullable{System.Int64},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiTrading.GetCrossMarginClosedOrdersAsync(System.String,HTX.Net.Enums.MarginTradeType,System.String,System.Nullable{System.Boolean},System.Collections.Generic.IEnumerable{HTX.Net.Enums.OrderStatusFilter},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{HTX.Net.Enums.FilterDirection},System.Nullable{System.Int64},System.Threading.CancellationToken)">
+        <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiTrading.GetCrossMarginClosedOrdersAsync(System.String,HTX.Net.Enums.MarginTradeType,System.Boolean,System.Collections.Generic.IEnumerable{HTX.Net.Enums.OrderStatusFilter},System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{HTX.Net.Enums.FilterDirection},System.Nullable{System.Int64},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:HTX.Net.Clients.UsdtMarginSwapApi.HTXRestClientUsdtMarginSwapApiTrading.GetIsolatedMarginUserTradesAsync(System.String,HTX.Net.Enums.MarginTradeType,System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{HTX.Net.Enums.FilterDirection},System.Nullable{System.Int64},System.Threading.CancellationToken)">
@@ -3576,7 +3576,7 @@
             <param name="toAccount">Target account type</param>
             <param name="asset">The asset</param>
             <param name="quantity">Quantity</param>
-            <param name="marginAccount">Margin account</param>
+            <param name="marginAccount">Margin account. Use `USDT` for cross margin</param>
             <param name="ct">Cancellation token</param>
         </member>
         <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiAccount.GetDepositAddressesAsync(System.String,System.Threading.CancellationToken)">
@@ -5499,7 +5499,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:HTX.Net.Interfaces.Clients.UsdtMarginSwapApi.IHTXRestClientUsdtMarginSwapApiTrading.GetCrossMarginClosedOrdersAsync(System.String,HTX.Net.Enums.MarginTradeType,System.String,System.Nullable{System.Boolean},System.Collections.Generic.IEnumerable{HTX.Net.Enums.OrderStatusFilter},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{HTX.Net.Enums.FilterDirection},System.Nullable{System.Int64},System.Threading.CancellationToken)">
+        <member name="M:HTX.Net.Interfaces.Clients.UsdtMarginSwapApi.IHTXRestClientUsdtMarginSwapApiTrading.GetCrossMarginClosedOrdersAsync(System.String,HTX.Net.Enums.MarginTradeType,System.Boolean,System.Collections.Generic.IEnumerable{HTX.Net.Enums.OrderStatusFilter},System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{HTX.Net.Enums.FilterDirection},System.Nullable{System.Int64},System.Threading.CancellationToken)">
             <summary>
             Get cross margin closed orders
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb85ba1-77b5-11ed-9966-0242ac110003" /></para>
@@ -5591,7 +5591,7 @@
             <param name="fromId">Return results after this id</param>
             <param name="ct">Cancellation token</param>
         </member>
-        <member name="M:HTX.Net.Interfaces.Clients.UsdtMarginSwapApi.IHTXRestClientUsdtMarginSwapApiTrading.GetIsolatedMarginClosedOrdersAsync(System.String,HTX.Net.Enums.MarginTradeType,System.Nullable{System.Boolean},System.Collections.Generic.IEnumerable{HTX.Net.Enums.OrderStatusFilter},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{HTX.Net.Enums.FilterDirection},System.Nullable{System.Int64},System.Threading.CancellationToken)">
+        <member name="M:HTX.Net.Interfaces.Clients.UsdtMarginSwapApi.IHTXRestClientUsdtMarginSwapApiTrading.GetIsolatedMarginClosedOrdersAsync(System.String,HTX.Net.Enums.MarginTradeType,System.Boolean,System.Collections.Generic.IEnumerable{HTX.Net.Enums.OrderStatusFilter},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{HTX.Net.Enums.FilterDirection},System.Nullable{System.Int64},System.Threading.CancellationToken)">
             <summary>
             Get isolated margin closed orders
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb85a53-77b5-11ed-9966-0242ac110003" /></para>
@@ -5651,7 +5651,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:HTX.Net.Interfaces.Clients.UsdtMarginSwapApi.IHTXRestClientUsdtMarginSwapApiTrading.PlaceCrossMarginOrderAsync(System.Decimal,HTX.Net.Enums.OrderSide,System.Int32,System.String,System.String,System.Nullable{HTX.Net.Enums.ContractType},System.Nullable{System.Decimal},System.Nullable{HTX.Net.Enums.Offset},System.Nullable{HTX.Net.Enums.OrderPriceType},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{HTX.Net.Enums.OrderPriceType},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{HTX.Net.Enums.OrderPriceType},System.Nullable{System.Boolean},System.Nullable{System.Int64},System.Threading.CancellationToken)">
+        <member name="M:HTX.Net.Interfaces.Clients.UsdtMarginSwapApi.IHTXRestClientUsdtMarginSwapApiTrading.PlaceCrossMarginOrderAsync(System.Int64,HTX.Net.Enums.OrderSide,System.Int32,HTX.Net.Enums.OrderPriceType,System.String,System.String,System.Nullable{HTX.Net.Enums.ContractType},System.Nullable{System.Decimal},System.Nullable{HTX.Net.Enums.Offset},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{HTX.Net.Enums.OrderPriceType},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{HTX.Net.Enums.OrderPriceType},System.Nullable{System.Boolean},System.Nullable{System.Int64},System.Threading.CancellationToken)">
             <summary>
             Place a new cross margin order
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb84611-77b5-11ed-9966-0242ac110003" /></para>
@@ -5676,7 +5676,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:HTX.Net.Interfaces.Clients.UsdtMarginSwapApi.IHTXRestClientUsdtMarginSwapApiTrading.PlaceIsolatedMarginOrderAsync(System.String,System.Decimal,HTX.Net.Enums.OrderSide,System.Int32,System.Nullable{System.Decimal},System.Nullable{HTX.Net.Enums.Offset},System.Nullable{HTX.Net.Enums.OrderPriceType},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{HTX.Net.Enums.OrderPriceType},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{HTX.Net.Enums.OrderPriceType},System.Nullable{System.Boolean},System.Nullable{System.Int64},System.Threading.CancellationToken)">
+        <member name="M:HTX.Net.Interfaces.Clients.UsdtMarginSwapApi.IHTXRestClientUsdtMarginSwapApiTrading.PlaceIsolatedMarginOrderAsync(System.String,System.Int64,HTX.Net.Enums.OrderSide,System.Int32,HTX.Net.Enums.OrderPriceType,System.Nullable{System.Decimal},System.Nullable{HTX.Net.Enums.Offset},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{HTX.Net.Enums.OrderPriceType},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{HTX.Net.Enums.OrderPriceType},System.Nullable{System.Boolean},System.Nullable{System.Int64},System.Threading.CancellationToken)">
             <summary>
             Place a new isolated margin order
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb844bb-77b5-11ed-9966-0242ac110003" /></para>
@@ -11851,7 +11851,7 @@
             Is take profit / stop loss
             </summary>
         </member>
-        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapOrderUpdate.Pnl">
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapOrderUpdate.RealizedPnl">
             <summary>
             Profit and loss
             </summary>
