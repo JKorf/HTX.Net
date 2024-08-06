@@ -1,10 +1,10 @@
-﻿using HTX.Net.Clients.FuturesApi;
-using HTX.Net.Clients.SpotApi;
+﻿using HTX.Net.Clients.SpotApi;
 using HTX.Net.Interfaces.Clients;
 using HTX.Net.Interfaces.Clients.SpotApi;
-using HTX.Net.Interfaces.Clients.UsdtMarginSwapApi;
 using HTX.Net.Objects.Options;
 using CryptoExchange.Net.Clients;
+using HTX.Net.Interfaces.Clients.UsdtFuturesApi;
+using HTX.Net.Clients.UsdtFutures;
 
 namespace HTX.Net.Clients
 {
@@ -17,7 +17,7 @@ namespace HTX.Net.Clients
         public IHTXRestClientSpotApi SpotApi { get; }
 
         /// <inheritdoc />
-        public IHTXRestClientUsdtMarginSwapApi UsdtMarginSwapApi { get; }
+        public IHTXRestClientUsdtFuturesApi UsdtFuturesApi { get; }
 
         #endregion
 
@@ -45,7 +45,7 @@ namespace HTX.Net.Clients
             Initialize(options);
 
             SpotApi = AddApiClient(new HTXRestClientSpotApi(_logger, httpClient, options));
-            UsdtMarginSwapApi = AddApiClient(new HTXRestClientUsdtMarginSwapApi(_logger, httpClient, options));
+            UsdtFuturesApi = AddApiClient(new HTXRestClientUsdtFuturesApi(_logger, httpClient, options));
         }
         #endregion
 
@@ -65,7 +65,7 @@ namespace HTX.Net.Clients
         public void SetApiCredentials(ApiCredentials apiCredentials)
         {
             SpotApi.SetApiCredentials(apiCredentials);
-            UsdtMarginSwapApi.SetApiCredentials(apiCredentials);
+            UsdtFuturesApi.SetApiCredentials(apiCredentials);
         }
         #endregion
     }

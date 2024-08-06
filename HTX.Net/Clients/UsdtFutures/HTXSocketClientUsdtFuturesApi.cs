@@ -4,7 +4,7 @@ using CryptoExchange.Net.Converters.MessageParsing;
 using CryptoExchange.Net.Objects.Sockets;
 using CryptoExchange.Net.Sockets;
 using HTX.Net.Enums;
-using HTX.Net.Interfaces.Clients.UsdtMarginSwapApi;
+using HTX.Net.Interfaces.Clients.UsdtFuturesApi;
 using HTX.Net.Objects.Models;
 using HTX.Net.Objects.Models.Socket;
 using HTX.Net.Objects.Options;
@@ -12,10 +12,10 @@ using HTX.Net.Objects.Sockets.Queries;
 using HTX.Net.Objects.Sockets.Subscriptions;
 
 
-namespace HTX.Net.Clients.SpotApi
+namespace HTX.Net.Clients.UsdtFutures
 {
     /// <inheritdoc />
-    internal class HTXSocketClientUsdtMarginSwapApi : SocketApiClient, IHTXSocketClientUsdtMarginSwapApi
+    internal class HTXSocketClientUsdtFuturesApi : SocketApiClient, IHTXSocketClientUsdtFuturesApi
     {
         private static readonly MessagePath _idPath = MessagePath.Get().Property("id");
         private static readonly MessagePath _actionPath = MessagePath.Get().Property("action");
@@ -28,7 +28,7 @@ namespace HTX.Net.Clients.SpotApi
         private static readonly MessagePath _topicPath = MessagePath.Get().Property("topic");
 
         #region ctor
-        internal HTXSocketClientUsdtMarginSwapApi(ILogger logger, HTXSocketOptions options)
+        internal HTXSocketClientUsdtFuturesApi(ILogger logger, HTXSocketOptions options)
             : base(logger, options.Environment.UsdtMarginSwapSocketBaseAddress, options, options.UsdtMarginSwapOptions)
         {
             KeepAliveInterval = TimeSpan.Zero;
@@ -87,7 +87,7 @@ namespace HTX.Net.Clients.SpotApi
                 return action + channel;
 
             var topic = message.GetValue<string>(_topicPath);
-            if (topic != null) 
+            if (topic != null)
             {
                 if (topic.EndsWith(".liquidation_orders"))
                     topic = "public.*.liquidation_orders";
@@ -225,12 +225,12 @@ namespace HTX.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(Enums.MarginMode mode, Action<DataEvent<HTXUsdtMarginSwapOrderUpdate>> onData, CancellationToken ct = default)
+        public async Task<CallResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(MarginMode mode, Action<DataEvent<HTXUsdtMarginSwapOrderUpdate>> onData, CancellationToken ct = default)
         {
             if (mode == MarginMode.All)
                 throw new ArgumentException("Mode should be either Cross or Isolated", nameof(mode));
 
-            var topic = mode == MarginMode.Cross ? "orders_cross" : "orders"; 
+            var topic = mode == MarginMode.Cross ? "orders_cross" : "orders";
             var subscription = new HTXOpSubscription<HTXUsdtMarginSwapOrderUpdate>(_logger, topic, topic + ".*", onData, true);
             return await SubscribeAsync(BaseAddress.AppendPath("linear-swap-notification"), subscription, ct).ConfigureAwait(false);
         }

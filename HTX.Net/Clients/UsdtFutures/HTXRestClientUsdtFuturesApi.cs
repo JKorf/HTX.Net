@@ -1,14 +1,13 @@
 ﻿using CryptoExchange.Net.Clients;
 using CryptoExchange.Net.Converters.MessageParsing;
-using HTX.Net.Clients.UsdtMarginSwapApi;
-using HTX.Net.Interfaces.Clients.UsdtMarginSwapApi;
+using HTX.Net.Interfaces.Clients.UsdtFuturesApi;
 using HTX.Net.Objects.Internal;
 using HTX.Net.Objects.Options;
 
-namespace HTX.Net.Clients.FuturesApi
+namespace HTX.Net.Clients.UsdtFutures
 {
     /// <inheritdoc />
-    internal class HTXRestClientUsdtMarginSwapApi : RestApiClient, IHTXRestClientUsdtMarginSwapApi
+    internal class HTXRestClientUsdtFuturesApi : RestApiClient, IHTXRestClientUsdtFuturesApi
     {
         /// <inheritdoc />
         public new HTXRestOptions ClientOptions => (HTXRestOptions)base.ClientOptions;
@@ -23,24 +22,24 @@ namespace HTX.Net.Clients.FuturesApi
         #region Api clients
 
         /// <inheritdoc />
-        public IHTXRestClientUsdtMarginSwapApiAccount Account { get; }
+        public IHTXRestClientUsdtFuturesApiAccount Account { get; }
         /// <inheritdoc />
-        public IHTXRestClientUsdtMarginSwapApiExchangeData ExchangeData { get; }
+        public IHTXRestClientUsdtFuturesApiExchangeData ExchangeData { get; }
         /// <inheritdoc />
-        public IHTXRestClientUsdtMarginSwapApiSubAccount SubAccount { get; }
+        public IHTXRestClientUsdtFuturesApiSubAccount SubAccount { get; }
         /// <inheritdoc />
-        public IHTXRestClientUsdtMarginSwapApiTrading Trading { get; }
+        public IHTXRestClientUsdtFuturesApiTrading Trading { get; }
 
         #endregion
 
         #region constructor/destructor
-        internal HTXRestClientUsdtMarginSwapApi(ILogger log, HttpClient? httpClient, HTXRestOptions options)
+        internal HTXRestClientUsdtFuturesApi(ILogger log, HttpClient? httpClient, HTXRestOptions options)
             : base(log, httpClient, options.Environment.UsdtMarginSwapRestBaseAddress, options, options.UsdtMarginSwapOptions)
         {
             Account = new HTXRestClientUsdtMarginSwapApiAccount(this);
-            ExchangeData = new HTXRestClientUsdtMarginSwapApiExchangeData(this);
-            SubAccount = new HTXRestClientUsdtMarginSwapApiSubAccount(this);
-            Trading = new HTXRestClientUsdtMarginSwapApiTrading(this);
+            ExchangeData = new HTXRestClientUsdtFuturesApiExchangeData(this);
+            SubAccount = new HTXRestClientUsdtFuturesApiSubAccount(this);
+            Trading = new HTXRestClientUsdtFuturesApiTrading(this);
 
             _brokerId = !string.IsNullOrEmpty(options.BrokerId) ? options.BrokerId! : "AA1ef14811";
         }
@@ -145,7 +144,7 @@ namespace HTX.Net.Clients.FuturesApi
 
         /// <inheritdoc />
         public override TimeSyncInfo? GetTimeSyncInfo()
-            => new TimeSyncInfo(_logger, (ApiOptions.AutoTimestamp ?? ClientOptions.AutoTimestamp), (ApiOptions.TimestampRecalculationInterval ?? ClientOptions.TimestampRecalculationInterval), _timeSyncState);
+            => new TimeSyncInfo(_logger, ApiOptions.AutoTimestamp ?? ClientOptions.AutoTimestamp, ApiOptions.TimestampRecalculationInterval ?? ClientOptions.TimestampRecalculationInterval, _timeSyncState);
 
         /// <inheritdoc />
         public override TimeSpan? GetTimeOffset()

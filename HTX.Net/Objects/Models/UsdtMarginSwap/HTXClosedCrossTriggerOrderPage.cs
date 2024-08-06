@@ -1,6 +1,4 @@
-﻿using HTX.Net.Enums;
-
-namespace HTX.Net.Objects.Models.UsdtMarginSwap
+﻿namespace HTX.Net.Objects.Models.UsdtMarginSwap
 {
     /// <summary>
     /// Trigger order page

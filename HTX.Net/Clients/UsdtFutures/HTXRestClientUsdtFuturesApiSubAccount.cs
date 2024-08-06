@@ -1,17 +1,16 @@
-﻿using HTX.Net.Clients.FuturesApi;
-using HTX.Net.Objects.Models.UsdtMarginSwap;
+﻿using HTX.Net.Objects.Models.UsdtMarginSwap;
 using HTX.Net.Enums;
-using HTX.Net.Interfaces.Clients.UsdtMarginSwapApi;
+using HTX.Net.Interfaces.Clients.UsdtFuturesApi;
 
-namespace HTX.Net.Clients.UsdtMarginSwapApi
+namespace HTX.Net.Clients.UsdtFutures
 {
     /// <inheritdoc />
-    internal class HTXRestClientUsdtMarginSwapApiSubAccount : IHTXRestClientUsdtMarginSwapApiSubAccount
+    internal class HTXRestClientUsdtFuturesApiSubAccount : IHTXRestClientUsdtFuturesApiSubAccount
     {
         private static readonly RequestDefinitionCache _definitions = new RequestDefinitionCache();
-        private readonly HTXRestClientUsdtMarginSwapApi _baseClient;
+        private readonly HTXRestClientUsdtFuturesApi _baseClient;
 
-        internal HTXRestClientUsdtMarginSwapApiSubAccount(HTXRestClientUsdtMarginSwapApi baseClient)
+        internal HTXRestClientUsdtFuturesApiSubAccount(HTXRestClientUsdtFuturesApi baseClient)
         {
             _baseClient = baseClient;
         }
@@ -81,7 +80,7 @@ namespace HTX.Net.Clients.UsdtMarginSwapApi
         /// <inheritdoc />
         public async Task<WebCallResult<HTXSubAccountAssetInfoPage>> GetIsolatedMarginAssetInfoAsync(string? contractCode = null, int? page = null, int? pageSize = null, CancellationToken ct = default)
         {
-            var parameters = new ParameterCollection(); 
+            var parameters = new ParameterCollection();
             parameters.AddOptional("contract_code", contractCode);
             parameters.AddOptional("page_index", page);
             parameters.AddOptional("page_size", pageSize);

@@ -1,12 +1,12 @@
 ﻿using HTX.Net.Enums;
 using HTX.Net.Objects.Models.UsdtMarginSwap;
 
-namespace HTX.Net.Interfaces.Clients.UsdtMarginSwapApi
+namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
 {
     /// <summary>
-    /// HTX usdt margin swap trading endpoints, placing and mananging orders.
+    /// HTX usdt futures trading endpoints, placing and mananging orders.
     /// </summary>
-    public interface IHTXRestClientUsdtMarginSwapApiTrading
+    public interface IHTXRestClientUsdtFuturesApiTrading
     {
         /// <summary>
         /// Cancel all cross margin orders fitting the parameters
@@ -416,7 +416,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtMarginSwapApi
         /// <param name="pageSize">Page size</param>
         /// <param name="tradeType">Trade type</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<HTXCrossTriggerOrderPage>> GetCrossMarginOpenTriggerOrdersAsync(string? contractCode = null, string? pair = null, int? page = null, int? pageSize = null, Enums.MarginTradeType? tradeType = null, CancellationToken ct = default);
+        Task<WebCallResult<HTXCrossTriggerOrderPage>> GetCrossMarginOpenTriggerOrdersAsync(string? contractCode = null, string? pair = null, int? page = null, int? pageSize = null, MarginTradeType? tradeType = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get isolated margin trigger order history

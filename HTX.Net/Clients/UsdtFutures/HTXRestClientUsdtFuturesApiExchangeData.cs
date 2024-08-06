@@ -1,18 +1,17 @@
-﻿using HTX.Net.Clients.FuturesApi;
-using HTX.Net.Enums;
-using HTX.Net.Interfaces.Clients.UsdtMarginSwapApi;
+﻿using HTX.Net.Enums;
+using HTX.Net.Interfaces.Clients.UsdtFuturesApi;
 using HTX.Net.Objects.Models;
 using HTX.Net.Objects.Models.UsdtMarginSwap;
 
-namespace HTX.Net.Clients.UsdtMarginSwapApi
+namespace HTX.Net.Clients.UsdtFutures
 {
     /// <inheritdoc />
-    internal class HTXRestClientUsdtMarginSwapApiExchangeData : IHTXRestClientUsdtMarginSwapApiExchangeData
+    internal class HTXRestClientUsdtFuturesApiExchangeData : IHTXRestClientUsdtFuturesApiExchangeData
     {
         private static readonly RequestDefinitionCache _definitions = new RequestDefinitionCache();
-        private readonly HTXRestClientUsdtMarginSwapApi _baseClient;
+        private readonly HTXRestClientUsdtFuturesApi _baseClient;
 
-        internal HTXRestClientUsdtMarginSwapApiExchangeData(HTXRestClientUsdtMarginSwapApi baseClient)
+        internal HTXRestClientUsdtFuturesApiExchangeData(HTXRestClientUsdtFuturesApi baseClient)
         {
             _baseClient = baseClient;
         }
@@ -465,7 +464,7 @@ namespace HTX.Net.Clients.UsdtMarginSwapApi
 
             var request = _definitions.GetOrCreate(HttpMethod.Get, "linear-swap-ex/market/history/trade", HTXExchange.RateLimiter.PublicMarket, 1, false);
             var result = await _baseClient.SendBasicAsync<IEnumerable<HTXTradeWrapper>>(request, parameters, ct).ConfigureAwait(false);
-            return result.As<IEnumerable<HTXTrade>>(result.Data?.SelectMany(d => d.Data)!);
+            return result.As(result.Data?.SelectMany(d => d.Data)!);
         }
 
         #endregion

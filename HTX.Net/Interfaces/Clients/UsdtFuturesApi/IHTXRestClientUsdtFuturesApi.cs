@@ -1,25 +1,25 @@
-﻿namespace HTX.Net.Interfaces.Clients.UsdtMarginSwapApi
+﻿namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
 {
     /// <summary>
-    /// Usdt margin swap api endpoints
+    /// Usdt futures api endpoints
     /// </summary>
-    public interface IHTXRestClientUsdtMarginSwapApi : IRestApiClient
+    public interface IHTXRestClientUsdtFuturesApi : IRestApiClient
     {
         /// <summary>
         /// Endpoints related to account settings, info or actions
         /// </summary>
-        IHTXRestClientUsdtMarginSwapApiAccount Account { get; }
+        IHTXRestClientUsdtFuturesApiAccount Account { get; }
         /// <summary>
         /// Endpoints related to retrieving market and system data
         /// </summary>
-        IHTXRestClientUsdtMarginSwapApiExchangeData ExchangeData { get; }
+        IHTXRestClientUsdtFuturesApiExchangeData ExchangeData { get; }
         /// <summary>
         /// Endpoints related to sub accounts
         /// </summary>
-        IHTXRestClientUsdtMarginSwapApiSubAccount SubAccount { get; }
+        IHTXRestClientUsdtFuturesApiSubAccount SubAccount { get; }
         /// <summary>
         /// Endpoints related to orders and trades
         /// </summary>
-        IHTXRestClientUsdtMarginSwapApiTrading Trading { get; }
+        IHTXRestClientUsdtFuturesApiTrading Trading { get; }
     }
 }

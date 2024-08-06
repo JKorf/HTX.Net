@@ -1,12 +1,12 @@
 ﻿using HTX.Net.Enums;
 using HTX.Net.Objects.Models.UsdtMarginSwap;
 
-namespace HTX.Net.Interfaces.Clients.UsdtMarginSwapApi
+namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
 {
     /// <summary>
-    /// HTX usdt swap account endpoints
+    /// HTX usdt futures sub account endpoints
     /// </summary>
-    public interface IHTXRestClientUsdtMarginSwapApiSubAccount
+    public interface IHTXRestClientUsdtFuturesApiSubAccount
     {
         /// <summary>
         /// Get cross margin sub account assets

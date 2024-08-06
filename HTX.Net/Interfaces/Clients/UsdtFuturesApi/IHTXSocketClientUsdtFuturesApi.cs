@@ -3,12 +3,12 @@ using HTX.Net.Enums;
 using HTX.Net.Objects.Models;
 using HTX.Net.Objects.Models.Socket;
 
-namespace HTX.Net.Interfaces.Clients.UsdtMarginSwapApi
+namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
 {
     /// <summary>
-    /// Usdt margin swap streams
+    /// Usdt futures streams
     /// </summary>
-    public interface IHTXSocketClientUsdtMarginSwapApi : ISocketApiClient
+    public interface IHTXSocketClientUsdtFuturesApi : ISocketApiClient
     {
         /// <summary>
         /// Subscribe to basis updates
@@ -138,7 +138,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtMarginSwapApi
         /// <param name="onData">Data handler</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(Enums.MarginMode mode, Action<DataEvent<HTXUsdtMarginSwapOrderUpdate>> onData, CancellationToken ct = default);
+        Task<CallResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(MarginMode mode, Action<DataEvent<HTXUsdtMarginSwapOrderUpdate>> onData, CancellationToken ct = default);
 
         /// <summary>
         /// Subscribe to isolated margin balance updates

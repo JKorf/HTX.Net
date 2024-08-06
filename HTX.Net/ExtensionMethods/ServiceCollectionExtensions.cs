@@ -41,7 +41,8 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddHttpClient<IHTXRestClient, HTXRestClient>(options =>
             {
                 options.Timeout = restOptions.RequestTimeout;
-            }).ConfigurePrimaryHttpMessageHandler(() => {
+            }).ConfigurePrimaryHttpMessageHandler(() =>
+            {
                 var handler = new HttpClientHandler();
                 if (restOptions.Proxy != null)
                 {

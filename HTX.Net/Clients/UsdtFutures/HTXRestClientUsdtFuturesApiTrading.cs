@@ -1,17 +1,16 @@
-﻿using HTX.Net.Clients.FuturesApi;
-using HTX.Net.Enums;
-using HTX.Net.Interfaces.Clients.UsdtMarginSwapApi;
+﻿using HTX.Net.Enums;
+using HTX.Net.Interfaces.Clients.UsdtFuturesApi;
 using HTX.Net.Objects.Models.UsdtMarginSwap;
 
-namespace HTX.Net.Clients.UsdtMarginSwapApi
+namespace HTX.Net.Clients.UsdtFutures
 {
     /// <inheritdoc />
-    internal class HTXRestClientUsdtMarginSwapApiTrading : IHTXRestClientUsdtMarginSwapApiTrading
+    internal class HTXRestClientUsdtFuturesApiTrading : IHTXRestClientUsdtFuturesApiTrading
     {
         private static readonly RequestDefinitionCache _definitions = new RequestDefinitionCache();
-        private readonly HTXRestClientUsdtMarginSwapApi _baseClient;
+        private readonly HTXRestClientUsdtFuturesApi _baseClient;
 
-        internal HTXRestClientUsdtMarginSwapApiTrading(HTXRestClientUsdtMarginSwapApi baseClient)
+        internal HTXRestClientUsdtFuturesApiTrading(HTXRestClientUsdtFuturesApi baseClient)
         {
             _baseClient = baseClient;
         }
@@ -438,15 +437,15 @@ namespace HTX.Net.Clients.UsdtMarginSwapApi
 
         /// <inheritdoc />
         public async Task<WebCallResult<IEnumerable<HTXCrossMarginOrder>>> GetCrossMarginClosedOrdersAsync(
-            string contractCode, 
-            MarginTradeType tradeType, 
+            string contractCode,
+            MarginTradeType tradeType,
             bool allOrders,
             IEnumerable<OrderStatusFilter> status,
-            string? pair = null,  
+            string? pair = null,
             DateTime? startTime = null,
-            DateTime? endTime = null, 
-            FilterDirection? direction = null, 
-            long? fromId = null, 
+            DateTime? endTime = null,
+            FilterDirection? direction = null,
+            long? fromId = null,
             CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
@@ -665,7 +664,7 @@ namespace HTX.Net.Clients.UsdtMarginSwapApi
         #region Get Isolated Margin Open Trigger Orders
 
         /// <inheritdoc />
-        public async Task<WebCallResult<HTXTriggerOrderPage>> GetIsolatedMarginOpenTriggerOrdersAsync(string contractCode, int? page = null, int? pageSize = null, Enums.MarginTradeType? tradeType = null, CancellationToken ct = default)
+        public async Task<WebCallResult<HTXTriggerOrderPage>> GetIsolatedMarginOpenTriggerOrdersAsync(string contractCode, int? page = null, int? pageSize = null, MarginTradeType? tradeType = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.Add("contract_code", contractCode);
@@ -682,7 +681,7 @@ namespace HTX.Net.Clients.UsdtMarginSwapApi
         #region Get Isolated Margin Open Trigger Orders
 
         /// <inheritdoc />
-        public async Task<WebCallResult<HTXCrossTriggerOrderPage>> GetCrossMarginOpenTriggerOrdersAsync(string? contractCode = null, string? pair = null, int? page = null, int? pageSize = null, Enums.MarginTradeType? tradeType = null, CancellationToken ct = default)
+        public async Task<WebCallResult<HTXCrossTriggerOrderPage>> GetCrossMarginOpenTriggerOrdersAsync(string? contractCode = null, string? pair = null, int? page = null, int? pageSize = null, MarginTradeType? tradeType = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.AddOptional("contract_code", contractCode);
@@ -803,7 +802,7 @@ namespace HTX.Net.Clients.UsdtMarginSwapApi
         #region Cancel Cross Margin Tp Sl
 
         /// <inheritdoc />
-        public async Task<WebCallResult<HTXTriggerOrderResult>> CancelCrossMarginTpSlAsync(string orderId, string? contractCode = null, string? pair = null, ContractType? contractType = null,  CancellationToken ct = default)
+        public async Task<WebCallResult<HTXTriggerOrderResult>> CancelCrossMarginTpSlAsync(string orderId, string? contractCode = null, string? pair = null, ContractType? contractType = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.AddOptional("contract_code", contractCode);

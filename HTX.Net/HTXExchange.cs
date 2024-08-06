@@ -1,5 +1,4 @@
 ﻿using CryptoExchange.Net.RateLimiting;
-using CryptoExchange.Net.RateLimiting.Filters;
 using CryptoExchange.Net.RateLimiting.Guards;
 using CryptoExchange.Net.RateLimiting.Interfaces;
 

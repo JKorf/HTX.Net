@@ -2,12 +2,12 @@
 using HTX.Net.Objects.Models;
 using HTX.Net.Objects.Models.UsdtMarginSwap;
 
-namespace HTX.Net.Interfaces.Clients.UsdtMarginSwapApi
+namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
 {
     /// <summary>
-    /// HTX usdt margin swap exchange data endpoints. Exchange data includes market data (tickers, order books, etc) and system status.
+    /// HTX usdt futures exchange data endpoints. Exchange data includes market data (tickers, order books, etc) and system status.
     /// </summary>
-    public interface IHTXRestClientUsdtMarginSwapApiExchangeData
+    public interface IHTXRestClientUsdtFuturesApiExchangeData
     {
         /// <summary>
         /// Get basis data

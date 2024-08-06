@@ -1,12 +1,12 @@
 ﻿using HTX.Net.Enums;
 using HTX.Net.Objects.Models.UsdtMarginSwap;
 
-namespace HTX.Net.Interfaces.Clients.UsdtMarginSwapApi
+namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
 {
     /// <summary>
-    /// HTX usdt swap account endpoints
+    /// HTX usdt futures endpoints
     /// </summary>
-    public interface IHTXRestClientUsdtMarginSwapApiAccount
+    public interface IHTXRestClientUsdtFuturesApiAccount
     {
         /// <summary>
         /// Get asset valuation
@@ -220,7 +220,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtMarginSwapApi
         /// <param name="leverageRate">Leverage rate</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<IEnumerable<HTXLeveragePositionLimit>>> GetIsolatedMarginLeveragePositionLimitsAsync(string? contractCode = null, int? leverageRate = null, CancellationToken ct = default);
-        
+
         /// <summary>
         /// Get cross margin leverage position limits
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb839e5-77b5-11ed-9966-0242ac110003" /></para>

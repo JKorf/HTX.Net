@@ -1,17 +1,16 @@
-﻿using HTX.Net.Clients.FuturesApi;
-using HTX.Net.Objects.Models.UsdtMarginSwap;
+﻿using HTX.Net.Objects.Models.UsdtMarginSwap;
 using HTX.Net.Enums;
-using HTX.Net.Interfaces.Clients.UsdtMarginSwapApi;
+using HTX.Net.Interfaces.Clients.UsdtFuturesApi;
 
-namespace HTX.Net.Clients.UsdtMarginSwapApi
+namespace HTX.Net.Clients.UsdtFutures
 {
     /// <inheritdoc />
-    internal class HTXRestClientUsdtMarginSwapApiAccount : IHTXRestClientUsdtMarginSwapApiAccount
+    internal class HTXRestClientUsdtMarginSwapApiAccount : IHTXRestClientUsdtFuturesApiAccount
     {
         private static readonly RequestDefinitionCache _definitions = new RequestDefinitionCache();
-        private readonly HTXRestClientUsdtMarginSwapApi _baseClient;
+        private readonly HTXRestClientUsdtFuturesApi _baseClient;
 
-        internal HTXRestClientUsdtMarginSwapApiAccount(HTXRestClientUsdtMarginSwapApi baseClient)
+        internal HTXRestClientUsdtMarginSwapApiAccount(HTXRestClientUsdtFuturesApi baseClient)
         {
             _baseClient = baseClient;
         }

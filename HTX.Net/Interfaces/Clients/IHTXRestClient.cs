@@ -1,5 +1,5 @@
 ﻿using HTX.Net.Interfaces.Clients.SpotApi;
-using HTX.Net.Interfaces.Clients.UsdtMarginSwapApi;
+using HTX.Net.Interfaces.Clients.UsdtFuturesApi;
 
 namespace HTX.Net.Interfaces.Clients
 {
@@ -13,9 +13,9 @@ namespace HTX.Net.Interfaces.Clients
         /// </summary>
         IHTXRestClientSpotApi SpotApi { get; }
         /// <summary>
-        /// Usdt margin swap endpoints
+        /// Usdt futures endpoints
         /// </summary>
-        IHTXRestClientUsdtMarginSwapApi UsdtMarginSwapApi { get; }
+        IHTXRestClientUsdtFuturesApi UsdtFuturesApi { get; }
 
         /// <summary>
         /// Set the API credentials for this client. All Api clients in this client will use the new credentials, regardless of earlier set options.
