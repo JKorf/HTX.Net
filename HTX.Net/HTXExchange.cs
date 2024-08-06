@@ -69,6 +69,14 @@ namespace HTX.Net
             UsdtConnection = new RateLimitGate("USDT-M Connection Messages")
                                             .AddGuard(new RateLimitGuard(RateLimitGuard.PerEndpoint, new IGuardFilter[] { }, 40, TimeSpan.FromSeconds(1), RateLimitWindowType.Fixed)); // 40 requests per second per connection
 
+            EndpointLimit.RateLimitTriggered += RateLimitTriggered;
+            SpotMarketLimit.RateLimitTriggered += RateLimitTriggered;
+            SpotConnection.RateLimitTriggered += RateLimitTriggered;
+            UsdtTrade.RateLimitTriggered += RateLimitTriggered;
+            UsdtRead.RateLimitTriggered += RateLimitTriggered;
+            PublicMarket.RateLimitTriggered += RateLimitTriggered;
+            UsdtPublicReference.RateLimitTriggered += RateLimitTriggered;
+            UsdtConnection.RateLimitTriggered += RateLimitTriggered;
         }
 
         internal IRateLimitGate EndpointLimit { get; private set; }

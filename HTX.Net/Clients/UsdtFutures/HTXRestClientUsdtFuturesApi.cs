@@ -86,7 +86,7 @@ namespace HTX.Net.Clients.UsdtFutures
                 return result.AsDatalessError(result.Error!);
 
             if (!string.IsNullOrEmpty(result.Data.ErrorCode))
-                return result.AsDatalessError(new ServerError(result.Data.ErrorCode, result.Data.ErrorMessage!));
+                return result.AsDatalessError(new ServerError(result.Data.ErrorCode!, result.Data.ErrorMessage!));
 
             return result.AsDataless();
 
@@ -102,7 +102,7 @@ namespace HTX.Net.Clients.UsdtFutures
                 return result.AsError<T>(result.Error!);
 
             if (!string.IsNullOrEmpty(result.Data.ErrorCode))
-                return result.AsError<T>(new ServerError(result.Data.ErrorCode, result.Data.ErrorMessage!));
+                return result.AsError<T>(new ServerError(result.Data.ErrorCode!, result.Data.ErrorMessage!));
 
             return result.As(result.Data.Data);
         }
