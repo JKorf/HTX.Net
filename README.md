@@ -98,10 +98,9 @@ A Discord server is available [here](https://discord.gg/MSpeEtSY8t). Feel free t
 |Market Data|✓|`restClient.SpotApi.ExchangeData`|
 |Account|✓|`restClient.SpotApi.Account`|
 |Wallet|✓|`restClient.SpotApi.Account`|
-|Sub user management|Partial|`restClient.SpotApi.Account`|
+|Sub user management|✓|`restClient.SpotApi.SubAccount`|
 |Trading|✓|`restClient.SpotApi.Trading`|
 |Conditional Order|✓|`restClient.SpotApi.Trading`|
-|Margin Loan|✓|`restClient.SpotApi.Account`|
 |Margin Loan|✓|`restClient.SpotApi.Account`|
 |Websocket Market Data|✓|`socketClient.SpotApi`|
 |Websocket Account and Order|✓|`socketClient.SpotApi`|
