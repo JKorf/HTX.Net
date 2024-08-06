@@ -105,16 +105,6 @@ A Discord server is available [here](https://discord.gg/MSpeEtSY8t). Feel free t
 |Websocket Market Data|✓|`socketClient.SpotApi`|
 |Websocket Account and Order|✓|`socketClient.SpotApi`|
 
-### Coin-M Futures Api
-|API|Supported|Location|
-|--|--:|--|
-|*|X||
-
-### Coin-M Swap Api
-|API|Supported|Location|
-|--|--:|--|
-|*|X||
-
 ### USDT-M Api
 |API|Supported|Location|
 |--|--:|--|
@@ -128,6 +118,16 @@ A Discord server is available [here](https://discord.gg/MSpeEtSY8t). Feel free t
 |Websocket Index and Basis Interface|✓|`socketClient.UsdtMarginSwapApi`|
 |Orders And Account WebSocket|X||
 |WebSocket System updates|X||
+
+### Coin-M Futures Api
+|API|Supported|Location|
+|--|--:|--|
+|*|X||
+
+### Coin-M Swap Api
+|API|Supported|Location|
+|--|--:|--|
+|*|X||
 
 ## Support the project
 I develop and maintain this package on my own for free in my spare time, any support is greatly appreciated.
