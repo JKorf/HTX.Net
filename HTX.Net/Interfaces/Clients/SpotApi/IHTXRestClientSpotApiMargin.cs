@@ -13,7 +13,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec5037d-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="accountId">Account id</param>
-        /// <param name="asset">Asset to repay</param>
+        /// <param name="asset">Asset to repay, for example `ETH`</param>
         /// <param name="quantity">Quantity to repay</param>
         /// <param name="transactionId">Loan transaction ID</param>
         /// <param name="ct">Cancellation token</param>
@@ -24,8 +24,8 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// Transfer asset from spot account to isolated margin account
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4c545-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
-        /// <param name="symbol">Trading symbol</param>
-        /// <param name="asset">Asset to transfer</param>
+        /// <param name="symbol">Trading symbol, for example `ETHUSDT`</param>
+        /// <param name="asset">Asset to transfer, for example `ETH`</param>
         /// <param name="quantity">Quantity to transfer</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>Transfer id</returns>
@@ -35,8 +35,8 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// Transfer asset from isolated margin to spot account
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4cb3f-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
-        /// <param name="symbol">Trading symbol</param>
-        /// <param name="asset">Asset to transfer</param>
+        /// <param name="symbol">Trading symbol, for example `ETHUSDT`</param>
+        /// <param name="asset">Asset to transfer, for example `ETH`</param>
         /// <param name="quantity">Quantity to transfer</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>Transfer id</returns>
@@ -46,7 +46,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// Get isolated loan interest rate and quotas
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4d178-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
-        /// <param name="symbols">Filter on symbols</param>
+        /// <param name="symbols">Filter on symbol, for example `ETHUSDT`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<IEnumerable<HTXLoanInfo>>> GetIsolatedLoanInterestRateAndQuotaAsync(IEnumerable<string>? symbols = null, CancellationToken ct = default);
@@ -55,8 +55,8 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// Request a loan on isolated margin
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4d587-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
-        /// <param name="symbol">The symbol</param>
-        /// <param name="asset">The asset</param>
+        /// <param name="symbol">The symbol, for example `ETHUSDT`</param>
+        /// <param name="asset">The asset, for example `ETH`</param>
         /// <param name="quantity">The quantity</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>Order id</returns>
@@ -76,7 +76,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// Get isolated margin orders history
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4d423-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
-        /// <param name="symbol">The symbol to get history for</param>
+        /// <param name="symbol">The symbol to get history for, for example `ETHUSDT`</param>
         /// <param name="states">Filter by states</param>
         /// <param name="startDate">Filter by start date</param>
         /// <param name="endDate">Filter by end date</param>
@@ -101,7 +101,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// Get isolated margin account balance
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4d015-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
-        /// <param name="symbol">The symbol</param>
+        /// <param name="symbol">The symbol, for example `ETHUSDT`</param>
         /// <param name="subUserId">Sub user id</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -111,7 +111,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// Transfer from spot account to cross margin account
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4c32c-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
-        /// <param name="asset">The asset to transfer</param>
+        /// <param name="asset">The asset to transfer, for example `ETH`</param>
         /// <param name="quantity">Quantity to transfer</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -121,7 +121,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// Transfer from cross margin account to spot account
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4c47a-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
-        /// <param name="asset">The asset to transfer</param>
+        /// <param name="asset">The asset to transfer, for example `ETH`</param>
         /// <param name="quantity">Quantity to transfer</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -131,7 +131,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// Get cross margin interest rates and quotas
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4bef5-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
-        /// <param name="ct"></param>
+        /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<IEnumerable<HTXLoanInfoAsset>>> GetCrossLoanInterestRateAndQuotaAsync(CancellationToken ct = default);
 
@@ -139,7 +139,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// Request a loan on cross margin
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4c1ac-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
-        /// <param name="asset">The asset</param>
+        /// <param name="asset">The asset, for example `ETH`</param>
         /// <param name="quantity">The quantity</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>Order id</returns>
@@ -159,7 +159,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// Get cross margin order history
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4c055-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
-        /// <param name="asset">Filter by asset</param>
+        /// <param name="asset">Filter by asset, for example `ETH`</param>
         /// <param name="status">Filter by status</param>
         /// <param name="startDate">Filter by start date</param>
         /// <param name="endDate">Filter by end date</param>
@@ -193,7 +193,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// Get cross margin limits
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec512ec-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
-        /// <param name="asset">The asset</param>
+        /// <param name="asset">The asset, for example `ETH`</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<IEnumerable<HTXMaxHolding>>> GetCrossMarginLimitAsync(string? asset = null, CancellationToken ct = default);
 
@@ -203,7 +203,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <param name="repayId">Filter by repay id</param>
         /// <param name="accountId">Filter by account id</param>
-        /// <param name="asset">Filter by asset</param>
+        /// <param name="asset">Filter by asset, for example `ETH`</param>
         /// <param name="startTime">Only show records after this</param>
         /// <param name="endTime">Only show records before this</param>
         /// <param name="sort">Sort direction</param>

@@ -644,7 +644,7 @@
         <member name="M:HTX.Net.Clients.UsdtFutures.HTXRestClientUsdtFuturesApiExchangeData.GetIsolatedMarginStatusAsync(System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:HTX.Net.Clients.UsdtFutures.HTXRestClientUsdtFuturesApiExchangeData.GetCrossTieredMarginInfoAsync(System.String,System.String,System.Nullable{HTX.Net.Enums.ContractType},System.Threading.CancellationToken)">
+        <member name="M:HTX.Net.Clients.UsdtFutures.HTXRestClientUsdtFuturesApiExchangeData.GetCrossTieredMarginInfoAsync(System.String,System.String,System.Nullable{HTX.Net.Enums.ContractType},System.Nullable{HTX.Net.Enums.BusinessType},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:HTX.Net.Clients.UsdtFutures.HTXRestClientUsdtFuturesApiExchangeData.GetIsolatedMarginTieredInfoAsync(System.String,System.Threading.CancellationToken)">
@@ -656,7 +656,7 @@
         <member name="M:HTX.Net.Clients.UsdtFutures.HTXRestClientUsdtFuturesApiExchangeData.GetIsolatedMarginAdjustFactorInfoAsync(System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:HTX.Net.Clients.UsdtFutures.HTXRestClientUsdtFuturesApiExchangeData.GetCrossMarginAdjustFactorInfoAsync(System.String,System.String,System.Nullable{HTX.Net.Enums.ContractType},System.Threading.CancellationToken)">
+        <member name="M:HTX.Net.Clients.UsdtFutures.HTXRestClientUsdtFuturesApiExchangeData.GetCrossMarginAdjustFactorInfoAsync(System.String,System.String,System.Nullable{HTX.Net.Enums.ContractType},System.Nullable{HTX.Net.Enums.BusinessType},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:HTX.Net.Clients.UsdtFutures.HTXRestClientUsdtFuturesApiExchangeData.GetInsuranceFundHistoryAsync(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
@@ -716,7 +716,7 @@
         <member name="M:HTX.Net.Clients.UsdtFutures.HTXRestClientUsdtFuturesApiExchangeData.GetBasisDataAsync(System.String,HTX.Net.Enums.KlineInterval,System.Int32,System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:HTX.Net.Clients.UsdtFutures.HTXRestClientUsdtFuturesApiExchangeData.GetCrossMarginTradeStatusAsync(System.String,System.String,System.Nullable{HTX.Net.Enums.ContractType},System.Threading.CancellationToken)">
+        <member name="M:HTX.Net.Clients.UsdtFutures.HTXRestClientUsdtFuturesApiExchangeData.GetCrossMarginTradeStatusAsync(System.String,System.String,System.Nullable{HTX.Net.Enums.ContractType},System.Nullable{HTX.Net.Enums.BusinessType},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:HTX.Net.Clients.UsdtFutures.HTXRestClientUsdtFuturesApiExchangeData.GetCrossMarginTransferStatusAsync(System.String,System.Threading.CancellationToken)">
@@ -3534,7 +3534,7 @@
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4ff6d-7773-11ed-9966-0242ac110003" /></para>
             </summary>
             <param name="accountType">Type of account to valuate</param>
-            <param name="valuationCurrency">The currency to get the value in</param>
+            <param name="valuationAsset">The asset to get the value in</param>
             <param name="subUserId">The id of the sub user</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -3545,7 +3545,7 @@
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4b85b-7773-11ed-9966-0242ac110003" /></para>
             </summary>
             <param name="accountId">The id of the account to get the balances for</param>
-            <param name="asset">Asset name</param>
+            <param name="asset">Asset name, for example `ETH`</param>
             <param name="transactionTypes">Blance change types</param>
             <param name="startTime">Far point of time of the query window. The maximum size of the query window is 1 hour. The query window can be shifted within 30 days</param>
             <param name="endTime">Near point of time of the query window. The maximum size of the query window is 1 hour. The query window can be shifted within 30 days</param>
@@ -3560,7 +3560,7 @@
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec501f7-7773-11ed-9966-0242ac110003" /></para>
             </summary>
             <param name="accountId">The id of the account to get the ledger for</param>
-            <param name="asset">Asset name</param>
+            <param name="asset">Asset name, for example `ETH`</param>
             <param name="transactionTypes">Blanace change types</param>
             <param name="startTime">Far point of time of the query window. The maximum size of the query window is 10 days. The query window can be shifted within 30 days</param>
             <param name="endTime">Near point of time of the query window. The maximum size of the query window is 10 days. The query window can be shifted within 30 days</param>
@@ -3577,7 +3577,7 @@
             </summary>
             <param name="fromAccount">Source account type</param>
             <param name="toAccount">Target account type</param>
-            <param name="asset">The asset</param>
+            <param name="asset">The asset, for example `ETH`</param>
             <param name="quantity">Quantity</param>
             <param name="marginAccount">Margin account. Use `USDT` for cross margin</param>
             <param name="ct">Cancellation token</param>
@@ -3587,7 +3587,7 @@
             Parent user and sub user could query deposit address of corresponding chain, for a specific crypto currency (except IOTA).
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec50029-7773-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="asset">Asset</param>
+            <param name="asset">Asset, for example `ETH`</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -3597,7 +3597,7 @@
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4cc41-7773-11ed-9966-0242ac110003" /></para>
             </summary>
             <param name="address">The desination address of this withdraw</param>
-            <param name="asset">Asset</param>
+            <param name="asset">Asset, for example `ETH`</param>
             <param name="quantity">The quantity of asset to withdraw</param>
             <param name="fee">The fee to pay with this withdraw</param>
             <param name="network">Set as "usdt" to withdraw USDT to OMNI, set as "trc20usdt" to withdraw USDT to TRX</param>
@@ -3612,7 +3612,7 @@
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4f050-7773-11ed-9966-0242ac110003" /></para>
             </summary>
             <param name="type">Define transfer type to search</param>
-            <param name="asset">The asset to withdraw</param>
+            <param name="asset">The asset to withdraw, for example `ETH`</param>
             <param name="from">The transfer id to begin search</param>
             <param name="size">The number of items to return</param>
             <param name="direction">the order of response</param>
@@ -3624,7 +3624,7 @@
             Get current trading fees
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec51870-7773-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="symbols">Filter on symbols</param>
+            <param name="symbols">Filter on symbol, for example `ETHUSDT`</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -3675,7 +3675,7 @@
             Get withdrawal quota
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec50799-7773-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="asset">Filter by asse</param>
+            <param name="asset">Filter by asset, for example `ETH`</param>
             <param name="ct">Cancellation token</param>
         </member>
         <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiAccount.GetWithdrawalAddressesAsync(System.String,System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.Int64},System.Threading.CancellationToken)">
@@ -3683,7 +3683,7 @@
             Get withdrawal addresses
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec50654-7773-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="asset">The asset</param>
+            <param name="asset">The asset, for example `ETH`</param>
             <param name="network">Filter by network</param>
             <param name="note">Filter by note</param>
             <param name="limit">Max number of results</param>
@@ -3726,7 +3726,7 @@
             <param name="toUserId">To user id</param>
             <param name="toAccountType">To account type</param>
             <param name="toAccountId">To account id</param>
-            <param name="asset">Asset to transfer</param>
+            <param name="asset">Asset to transfer, for example `ETH`</param>
             <param name="quantity">Amount to transfer</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -3762,7 +3762,7 @@
             Get symbol trading configuration
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4f5d6-7773-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="symbols">Filter by symbols</param>
+            <param name="symbols">Filter by symbols, for example `ETHUSDT`</param>
             <param name="ct">Cancellation token</param>
         </member>
         <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiExchangeData.GetAssetsAndNetworksAsync(System.String,System.Threading.CancellationToken)">
@@ -3770,7 +3770,7 @@
             Get assets and network information
             <para><a href="https://www.htx.com/en-in/opend/newApiPages/?id=7ec516fc-7773-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="asset">Filter by asset</param>
+            <param name="asset">Filter by asset, for example `ETH`</param>
             <param name="ct">Cancellation token</param>
         </member>
         <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiExchangeData.GetTickersAsync(System.Threading.CancellationToken)">
@@ -3786,7 +3786,7 @@
             Gets the ticker, including the best bid / best ask for a symbol
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4a3b6-7773-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="symbol">The symbol to get the ticker for</param>
+            <param name="symbol">The symbol to get the ticker for, for example `ETHUSDT`</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -3795,7 +3795,7 @@
             Get candlestick data for a symbol
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4a4da-7773-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="symbol">The symbol to get the data for</param>
+            <param name="symbol">The symbol to get the data for, for example `ETHUSDT`</param>
             <param name="period">The period of a single candlestick</param>
             <param name="limit">The amount of candlesticks</param>
             <param name="ct">Cancellation token</param>
@@ -3806,7 +3806,7 @@
             Gets the order book for a symbol
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4a0fc-7773-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="symbol">The symbol to request for</param>
+            <param name="symbol">The symbol to request for, for example `ETHUSDT`</param>
             <param name="mergeStep">The way the results will be merged together</param>
             <param name="limit">The depth of the book</param>
             <param name="ct">Cancellation token</param>
@@ -3817,7 +3817,7 @@
             Gets the last trade for a symbol
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4aa2b-7773-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="symbol">The symbol to request for</param>
+            <param name="symbol">The symbol to request for, for example `ETHUSDT`</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -3826,7 +3826,7 @@
             Get the last x trades for a symbol
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4a59d-7773-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="symbol">The symbol to get trades for</param>
+            <param name="symbol">The symbol to get trades for, for example `ETHUSDT`</param>
             <param name="limit">The max number of results</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -3836,7 +3836,7 @@
             Gets 24h stats for a symbol
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4a2cd-7773-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="symbol">The symbol to get the data for</param>
+            <param name="symbol">The symbol to get the data for, for example `ETHUSDT`</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -3867,7 +3867,7 @@
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec5037d-7773-11ed-9966-0242ac110003" /></para>
             </summary>
             <param name="accountId">Account id</param>
-            <param name="asset">Asset to repay</param>
+            <param name="asset">Asset to repay, for example `ETH`</param>
             <param name="quantity">Quantity to repay</param>
             <param name="transactionId">Loan transaction ID</param>
             <param name="ct">Cancellation token</param>
@@ -3878,8 +3878,8 @@
             Transfer asset from spot account to isolated margin account
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4c545-7773-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="symbol">Trading symbol</param>
-            <param name="asset">Asset to transfer</param>
+            <param name="symbol">Trading symbol, for example `ETHUSDT`</param>
+            <param name="asset">Asset to transfer, for example `ETH`</param>
             <param name="quantity">Quantity to transfer</param>
             <param name="ct">Cancellation token</param>
             <returns>Transfer id</returns>
@@ -3889,8 +3889,8 @@
             Transfer asset from isolated margin to spot account
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4cb3f-7773-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="symbol">Trading symbol</param>
-            <param name="asset">Asset to transfer</param>
+            <param name="symbol">Trading symbol, for example `ETHUSDT`</param>
+            <param name="asset">Asset to transfer, for example `ETH`</param>
             <param name="quantity">Quantity to transfer</param>
             <param name="ct">Cancellation token</param>
             <returns>Transfer id</returns>
@@ -3900,7 +3900,7 @@
             Get isolated loan interest rate and quotas
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4d178-7773-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="symbols">Filter on symbols</param>
+            <param name="symbols">Filter on symbol, for example `ETHUSDT`</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -3909,8 +3909,8 @@
             Request a loan on isolated margin
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4d587-7773-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="symbol">The symbol</param>
-            <param name="asset">The asset</param>
+            <param name="symbol">The symbol, for example `ETHUSDT`</param>
+            <param name="asset">The asset, for example `ETH`</param>
             <param name="quantity">The quantity</param>
             <param name="ct">Cancellation token</param>
             <returns>Order id</returns>
@@ -3930,7 +3930,7 @@
             Get isolated margin orders history
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4d423-7773-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="symbol">The symbol to get history for</param>
+            <param name="symbol">The symbol to get history for, for example `ETHUSDT`</param>
             <param name="states">Filter by states</param>
             <param name="startDate">Filter by start date</param>
             <param name="endDate">Filter by end date</param>
@@ -3946,7 +3946,7 @@
             Get isolated margin account balance
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4d015-7773-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="symbol">The symbol</param>
+            <param name="symbol">The symbol, for example `ETHUSDT`</param>
             <param name="subUserId">Sub user id</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -3956,7 +3956,7 @@
             Transfer from spot account to cross margin account
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4c32c-7773-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="asset">The asset to transfer</param>
+            <param name="asset">The asset to transfer, for example `ETH`</param>
             <param name="quantity">Quantity to transfer</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -3966,7 +3966,7 @@
             Transfer from cross margin account to spot account
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4c47a-7773-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="asset">The asset to transfer</param>
+            <param name="asset">The asset to transfer, for example `ETH`</param>
             <param name="quantity">Quantity to transfer</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -3976,7 +3976,7 @@
             Get cross margin interest rates and quotas
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4bef5-7773-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="ct"></param>
+            <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
         <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiMargin.RequestCrossMarginLoanAsync(System.String,System.Decimal,System.Threading.CancellationToken)">
@@ -3984,7 +3984,7 @@
             Request a loan on cross margin
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4c1ac-7773-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="asset">The asset</param>
+            <param name="asset">The asset, for example `ETH`</param>
             <param name="quantity">The quantity</param>
             <param name="ct">Cancellation token</param>
             <returns>Order id</returns>
@@ -4004,7 +4004,7 @@
             Get cross margin order history
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4c055-7773-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="asset">Filter by asset</param>
+            <param name="asset">Filter by asset, for example `ETH`</param>
             <param name="status">Filter by status</param>
             <param name="startDate">Filter by start date</param>
             <param name="endDate">Filter by end date</param>
@@ -4029,7 +4029,7 @@
             Get cross margin limits
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec512ec-7773-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="asset">The asset</param>
+            <param name="asset">The asset, for example `ETH`</param>
             <param name="ct">Cancellation token</param>
         </member>
         <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiMargin.GetRepaymentHistoryAsync(System.Nullable{System.Int64},System.Nullable{System.Int64},System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.String,System.Nullable{System.Int32},System.Nullable{System.Int64},System.Threading.CancellationToken)">
@@ -4039,7 +4039,7 @@
             </summary>
             <param name="repayId">Filter by repay id</param>
             <param name="accountId">Filter by account id</param>
-            <param name="asset">Filter by asset</param>
+            <param name="asset">Filter by asset, for example `ETH`</param>
             <param name="startTime">Only show records after this</param>
             <param name="endTime">Only show records before this</param>
             <param name="sort">Sort direction</param>
@@ -4163,7 +4163,7 @@
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec5255a-7773-11ed-9966-0242ac110003" /></para>
             </summary>
             <param name="subUserId">Sub user id</param>
-            <param name="asset">The asset</param>
+            <param name="asset">The asset, for example `ETH`</param>
             <param name="ct">Cancellation token</param>
         </member>
         <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiSubAccount.GetDepositHistoryAsync(System.Int64,System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{HTX.Net.Enums.SortingType},System.Nullable{System.Int32},System.Nullable{System.Int64},System.Threading.CancellationToken)">
@@ -4172,7 +4172,7 @@
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec5278c-7773-11ed-9966-0242ac110003" /></para>
             </summary>
             <param name="subUserId">Sub user id</param>
-            <param name="asset">Filter by asset</param>
+            <param name="asset">Filter by asset, for example `ETH`</param>
             <param name="startTime">Filter by start time</param>
             <param name="endTime">Filter by end time</param>
             <param name="sort">Sort</param>
@@ -4202,7 +4202,7 @@
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4feac-7773-11ed-9966-0242ac110003" /></para>
             </summary>
             <param name="subAccountId">The target sub account id to transfer to or from</param>
-            <param name="asset">The asset to transfer</param>
+            <param name="asset">The asset to transfer, for example `ETH`</param>
             <param name="quantity">The quantity of asset to transfer</param>
             <param name="transferType">The type of transfer</param>
             <param name="ct">Cancellation token</param>
@@ -4219,7 +4219,7 @@
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4ee16-7773-11ed-9966-0242ac110003" /></para>
             </summary>
             <param name="accountId">The account to place the order for</param>
-            <param name="symbol">The symbol to place the order for</param>
+            <param name="symbol">The symbol to place the order for, for example `ETHUSDT`</param>
             <param name="side">The side of the order</param>
             <param name="type">The type of the order</param>
             <param name="quantity">The quantity of the order</param>
@@ -4246,7 +4246,7 @@
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=10000066-77b7-11ed-9966-0242ac110003" /></para>
             </summary>
             <param name="accountId">The account to place the order for</param>
-            <param name="symbol">The symbol to place the order for</param>
+            <param name="symbol">The symbol to place the order for, for example `ETHUSDT`</param>
             <param name="side">The side of the order</param>
             <param name="type">The type of the order</param>
             <param name="purpose">Transaction purpose</param>
@@ -4266,7 +4266,7 @@
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4e04b-7773-11ed-9966-0242ac110003" /></para>
             </summary>
             <param name="accountId">The account id for which to get the orders for</param>
-            <param name="symbol">The symbol for which to get the orders for</param>
+            <param name="symbol">The symbol for which to get the orders for, for example `ETHUSDT`</param>
             <param name="side">Only get buy or sell orders</param>
             <param name="limit">The max number of results</param>
             <param name="ct">Cancellation token</param>
@@ -4344,7 +4344,7 @@
             Gets a list of orders
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4e1c4-7773-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="symbol">The symbol to get orders for</param>
+            <param name="symbol">The symbol to get orders for, for example `ETHUSDT`</param>
             <param name="states">The states of orders to return</param>
             <param name="types">The types of orders to return</param>
             <param name="startTime">Only get orders after this date</param>
@@ -4360,7 +4360,7 @@
             Gets a list of trades for a specific symbol
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4de21-7773-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="symbol">The symbol to retrieve trades for</param>
+            <param name="symbol">The symbol to retrieve trades for, for example `ETHUSDT`</param>
             <param name="types">The type of orders to return</param>
             <param name="startTime">Only get orders after this date</param>
             <param name="endTime">Only get orders before this date</param>
@@ -4375,7 +4375,7 @@
             Gets a list of history orders
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4db3d-7773-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="symbol">The symbol to get orders for</param>
+            <param name="symbol">The symbol to get orders for, for example `ETHUSDT`</param>
             <param name="startTime">Only get orders after this date</param>
             <param name="endTime">Only get orders before this date</param>
             <param name="direction">Direction of the results to return</param>
@@ -4389,7 +4389,7 @@
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec50918-7773-11ed-9966-0242ac110003" /></para>
             </summary>
             <param name="accountId">The account the order should be placed from</param>
-            <param name="symbol">The symbol the order is for</param>
+            <param name="symbol">The symbol the order is for, for example `ETHUSDT`</param>
             <param name="side">Side of the order</param>
             <param name="type">Type of the order</param>
             <param name="stopPrice">Stop price of the order</param>
@@ -4417,7 +4417,7 @@
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec51082-7773-11ed-9966-0242ac110003" /></para>
             </summary>
             <param name="accountId">Filter by account id</param>
-            <param name="symbol">Filter by symbol</param>
+            <param name="symbol">Filter by symbol, for example `ETHUSDT`</param>
             <param name="side">Filter by side</param>
             <param name="type">Filter by type</param>
             <param name="sort">Sort direction</param>
@@ -4432,7 +4432,7 @@
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec50dcf-7773-11ed-9966-0242ac110003" /></para>
             </summary>
             <param name="accountId">Filter by account id</param>
-            <param name="symbol">Filter by symbol</param>
+            <param name="symbol">Filter by symbol, for example `ETHUSDT`</param>
             <param name="side">Filter by side</param>
             <param name="type">Filter by type</param>
             <param name="sort">Sort direction</param>
@@ -4463,7 +4463,7 @@
             Gets candlestick data for a symbol
             <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-latest-tickers-for-all-pairs" /></para>
             </summary>
-            <param name="symbol">The symbol to get the data for</param>
+            <param name="symbol">The symbol to get the data for, for example `ETHUSDT`</param>
             <param name="period">The period of a single candlestick</param>
             <returns></returns>
         </member>
@@ -4472,7 +4472,7 @@
             Subscribes to candlestick updates for a symbol
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec53241-7773-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="symbol">The symbol to subscribe to</param>
+            <param name="symbol">The symbol to subscribe to, for example `ETHUSDT`</param>
             <param name="period">The period of a single candlestick</param>
             <param name="onData">The handler for updates</param>
             <param name="ct">Cancellation token for closing this subscription</param>
@@ -4483,7 +4483,7 @@
             Gets the current order book for a symbol
             <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#market-depth" /></para>
             </summary>
-            <param name="symbol">The symbol to get the data for</param>
+            <param name="symbol">The symbol to get the data for, for example `ETHUSDT`</param>
             <param name="mergeStep">The way the results will be merged together</param>
             <returns></returns>
         </member>
@@ -4492,7 +4492,7 @@
             Gets the current order book for a symbol
             <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#market-by-price-incremental-update" /></para>
             </summary>
-            <param name="symbol">The symbol to get the data for</param>
+            <param name="symbol">The symbol to get the data for, for example `ETHUSDT`</param>
             <param name="levels">The amount of rows. 5, 20, 150 or 400</param>
             <returns></returns>
         </member>
@@ -4501,7 +4501,7 @@
             Subscribes to order book updates for a symbol
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec5378b-7773-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="symbol">The symbol to subscribe to</param>
+            <param name="symbol">The symbol to subscribe to, for example `ETHUSDT`</param>
             <param name="levels">The number of price levels. 5, 10 or 20</param>
             <param name="onData">The handler for updates</param>
             <param name="ct">Cancellation token for closing this subscription</param>
@@ -4512,7 +4512,7 @@
             Subscribes to order book updates for a symbol
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec5342e-7773-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="symbol">The symbol to subscribe to</param>
+            <param name="symbol">The symbol to subscribe to, for example `ETHUSDT`</param>
             <param name="mergeStep">The way the results will be merged together</param>
             <param name="onData">The handler for updates</param>
             <param name="ct">Cancellation token for closing this subscription</param>
@@ -4523,7 +4523,7 @@
             Subscribes to order book updates for a symbol, 
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec5362b-7773-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="symbol">The symbol to subscribe to</param>
+            <param name="symbol">The symbol to subscribe to, for example `ETHUSDT`</param>
             <param name="levels">The number of price levels. 5, 20, 150 or 400</param>
             <param name="onData">The handler for updates</param>
             <param name="ct">Cancellation token for closing this subscription</param>
@@ -4534,7 +4534,7 @@
             Gets a list of trades for a symbol
             <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#trade-detail" /></para>
             </summary>
-            <param name="symbol">The symbol to get trades for</param>
+            <param name="symbol">The symbol to get trades for, for example `ETHUSDT`</param>
             <returns></returns>
         </member>
         <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXSocketClientSpotApi.SubscribeToTradeUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{HTX.Net.Objects.Models.HTXSymbolTrade}},System.Threading.CancellationToken)">
@@ -4542,7 +4542,7 @@
             Subscribes to trade updates for a symbol
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec53b69-7773-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="symbol">The symbol to subscribe to</param>
+            <param name="symbol">The symbol to subscribe to, for example `ETHUSDT`</param>
             <param name="onData">The handler for updates</param>
             <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
@@ -4552,7 +4552,7 @@
             Gets details for a symbol
             <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#market-details" /></para>
             </summary>
-            <param name="symbol">The symbol to get data for</param>
+            <param name="symbol">The symbol to get data for, for example `ETHUSDT`</param>
             <returns></returns>
         </member>
         <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXSocketClientSpotApi.SubscribeToSymbolDetailUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{HTX.Net.Objects.Models.HTXSymbolDetails}},System.Threading.CancellationToken)">
@@ -4560,7 +4560,7 @@
             Subscribes to symbol detail updates for a symbol
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec53561-7773-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="symbol">The symbol to subscribe to</param>
+            <param name="symbol">The symbol to subscribe to, for example `ETHUSDT`</param>
             <param name="onData">The handler for updates</param>
             <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
@@ -4570,7 +4570,7 @@
             Subscribes to updates for a symbol
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec538cf-7773-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="symbol">The symbol to subscribe</param>
+            <param name="symbol">The symbol to subscribe, for example `ETHUSDT`</param>
             <param name="onData">The handler for updates</param>
             <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
@@ -4589,7 +4589,7 @@
             Subscribe to changes of a symbol's best ask/bid
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec5333f-7773-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="symbol">Symbol to subscribe to</param>
+            <param name="symbol">Symbol to subscribe to, for example `ETHUSDT`</param>
             <param name="onData">Data handler</param>
             <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
@@ -4623,7 +4623,7 @@
             Subscribe to detailed order matched/canceled updates
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec53dd5-7773-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="symbol">Subscribe to a specific symbol</param>
+            <param name="symbol">Subscribe to a specific symbol, for example `ETHUSDT`</param>
             <param name="onOrderMatch">Event handler for the order matched event</param>
             <param name="onOrderCancel">Event handler for the order canceled event</param>
             <param name="ct">Cancellation token for closing this subscription</param>
@@ -4664,7 +4664,7 @@
             Get asset valuation
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb8172e-77b5-11ed-9966-0242ac110003"/></para>
             </summary>
-            <param name="asset">The asset</param>
+            <param name="asset">The asset, for example `ETH`</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -4673,7 +4673,7 @@
             Get isolated margin account info
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb81843-77b5-11ed-9966-0242ac110003"/></para>
             </summary>
-            <param name="contractCode">Optional contract code filter</param>
+            <param name="contractCode">Optional contract code filter, for example `USDT`</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -4682,7 +4682,7 @@
             Get cross margin account info
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb819b6-77b5-11ed-9966-0242ac110003"/></para>
             </summary>
-            <param name="marginAccount">Optional margin account filter</param>
+            <param name="marginAccount">Optional margin account filter, for example `USDT`</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -4691,7 +4691,7 @@
             Get cross margin assets and positions
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb81e77-77b5-11ed-9966-0242ac110003"/></para>
             </summary>
-            <param name="marginAccount">Margin account</param>
+            <param name="marginAccount">Margin account, for example `USDT`</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -4700,8 +4700,8 @@
             Get cross margin available leverage
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb82f42-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="contractCode">Contract code</param>
-            <param name="symbol">Symbol</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
+            <param name="pair">Pair, for example `ETH-USDT`</param>
             <param name="contractType">Contract type</param>
             <param name="businessType">Business type</param>
             <param name="ct">Cancellation token</param>
@@ -4712,7 +4712,7 @@
             Get cross margin positions
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb81c49-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="contractCode">Filter by contract code</param>
+            <param name="contractCode">Filter by contract code, for example `ETH-USDT`</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -4721,7 +4721,7 @@
             Get cross margin settlement records
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb82cf8-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="marginAccount">Margin account</param>
+            <param name="marginAccount">Margin account, for example `USDT`</param>
             <param name="startTime">Filter by start time</param>
             <param name="endTime">Filter by end time</param>
             <param name="page">Page</param>
@@ -4734,8 +4734,8 @@
             Get financial records
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb82988-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="marginAccount">Margin account</param>
-            <param name="contractCode">Contract code</param>
+            <param name="marginAccount">Margin account, for example `USDT`</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
             <param name="types">Filter by type</param>
             <param name="startTime">Filter by start time</param>
             <param name="endTime">Filter by end time</param>
@@ -4749,7 +4749,7 @@
             Get isolated margin assets and positisons
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb81d85-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="contractCode">Contract code</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -4758,7 +4758,7 @@
             Get isolated margin available leverage
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb82e6c-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="contractCode">Contract code</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -4767,7 +4767,7 @@
             Get isolated margin position info
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb81b5a-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="contractCode">Contract code</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -4776,7 +4776,7 @@
             Get isolated margin settlement records
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb82ba7-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="contractCode">Contract code</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
             <param name="startTime">Filter by start time</param>
             <param name="endTime">Filter by end time</param>
             <param name="page">Page</param>
@@ -4789,8 +4789,8 @@
             Get trading fees
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb831de-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="contractCode">Contract code</param>
-            <param name="symbol">Symbol</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
+            <param name="pair">Pair, for example `ETH-USDT`</param>
             <param name="contractType">Contract type</param>
             <param name="businessType">Business tpye</param>
             <param name="ct">Cancellation token</param>
@@ -4801,7 +4801,7 @@
             Switch cross margin position mode
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb843e0-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="marginAccount">Margin account</param>
+            <param name="marginAccount">Margin account, for example `USDT`</param>
             <param name="positionMode">Position mode</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -4811,7 +4811,7 @@
             Switch isolated margin position mode
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb842fe-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="marginAccount">Margin account</param>
+            <param name="marginAccount">Margin account, for example `USDT`</param>
             <param name="positionMode">Position mode</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -4821,7 +4821,7 @@
             Transfer between margin accounts
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb83f97-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="asset">Asset to transfer</param>
+            <param name="asset">Asset to transfer, for example `USDT`</param>
             <param name="fromMarginAccount">From account</param>
             <param name="toMarginAccount">To account</param>
             <param name="quantity">Quantity to transfer</param>
@@ -4835,8 +4835,8 @@
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb83090-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
             <param name="orderType">The order type</param>
-            <param name="contractCode">Filter by contract code</param>
-            <param name="pair">Filter by pair</param>
+            <param name="contractCode">Filter by contract code, for example `ETH-USDT`</param>
+            <param name="pair">Filter by pair, for example `ETH-USDT`</param>
             <param name="contractType">Filter by contract type</param>
             <param name="businessType">Filter by businessType</param>
             <param name="ct">Cancellation token</param>
@@ -4846,7 +4846,7 @@
             Get isolated margin transfer limits
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb83330-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="contractCode">Contract code</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
             <param name="ct">Cancellation token</param>
         </member>
         <member name="M:HTX.Net.Interfaces.Clients.UsdtFuturesApi.IHTXRestClientUsdtFuturesApiAccount.GetCrossMarginTransferLimitsAsync(System.String,System.Threading.CancellationToken)">
@@ -4854,7 +4854,7 @@
             Get cross margin transfer limits
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb83475-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="marginAccount">Margin account</param>
+            <param name="marginAccount">Margin account, for example `USDT`</param>
             <param name="ct">Cancellation token</param>
         </member>
         <member name="M:HTX.Net.Interfaces.Clients.UsdtFuturesApi.IHTXRestClientUsdtFuturesApiAccount.GetIsolatedMarginPositionLimitAsync(System.String,System.Threading.CancellationToken)">
@@ -4862,7 +4862,7 @@
             Get isolated margin position limits
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb835b7-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="contractCode">Contract code</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
             <param name="ct">Cancellation token</param>
         </member>
         <member name="M:HTX.Net.Interfaces.Clients.UsdtFuturesApi.IHTXRestClientUsdtFuturesApiAccount.GetCrossMarginPositionLimitsAsync(System.String,System.String,System.Nullable{HTX.Net.Enums.ContractType},System.String,System.Threading.CancellationToken)">
@@ -4870,8 +4870,8 @@
             Get cross margin position limits
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb836ae-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="contractCode">Contract code</param>
-            <param name="pair">Pair</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
+            <param name="pair">Pair, for example `ETH-USDT`</param>
             <param name="contractType">Contract type</param>
             <param name="businessType">Business type</param>
             <param name="ct">Cancellation token</param>
@@ -4881,7 +4881,7 @@
             Get isolated margin leverage position limits
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb838ef-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="contractCode">Contract code</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
             <param name="leverageRate">Leverage rate</param>
             <param name="ct">Cancellation token</param>
         </member>
@@ -4905,7 +4905,7 @@
             Get isolated margin position mode
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=10000088-77b7-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="marginAccount">Margin account</param>
+            <param name="marginAccount">Margin account, for example `USDT`</param>
             <param name="ct">Cancellation token</param>
         </member>
         <member name="M:HTX.Net.Interfaces.Clients.UsdtFuturesApi.IHTXRestClientUsdtFuturesApiAccount.GetCrossMarginPositionModeAsync(System.String,System.Threading.CancellationToken)">
@@ -4913,7 +4913,7 @@
             Get cross margin position mode
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=10000090-77b7-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="marginAccount">Margin account</param>
+            <param name="marginAccount">Margin account, for example `USDT`</param>
             <param name="ct">Cancellation token</param>
         </member>
         <member name="T:HTX.Net.Interfaces.Clients.UsdtFuturesApi.IHTXRestClientUsdtFuturesApiExchangeData">
@@ -4926,7 +4926,7 @@
             Get basis data
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb8147e-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="contractCode">Contract code</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
             <param name="interval">Kline interval</param>
             <param name="limit">Limit</param>
             <param name="basisPriceType">Price type (open, close, high, low, average)</param>
@@ -4938,7 +4938,7 @@
             Get the best current offer
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb8098e-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="contractCode">Contract code</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
             <param name="type">Type</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -4946,35 +4946,37 @@
         <member name="M:HTX.Net.Interfaces.Clients.UsdtFuturesApi.IHTXRestClientUsdtFuturesApiExchangeData.GetContractsAsync(System.String,System.Nullable{HTX.Net.Enums.MarginMode},System.String,System.Nullable{HTX.Net.Enums.ContractType},System.Nullable{HTX.Net.Enums.BusinessType},System.Threading.CancellationToken)">
             <summary>
             Get contract info
-            <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb8098e-77b5-11ed-9966-0242ac110003" /></para>
+            <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb802c2-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="contractCode">Contract code</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
             <param name="supportMarginMode">Support margin mode</param>
-            <param name="symbol">Symbol</param>
+            <param name="pair">Pair, for example `ETH-USDT`</param>
             <param name="contractType">Contract type</param>
             <param name="businessType">Business type</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:HTX.Net.Interfaces.Clients.UsdtFuturesApi.IHTXRestClientUsdtFuturesApiExchangeData.GetCrossMarginAdjustFactorInfoAsync(System.String,System.String,System.Nullable{HTX.Net.Enums.ContractType},System.Threading.CancellationToken)">
+        <member name="M:HTX.Net.Interfaces.Clients.UsdtFuturesApi.IHTXRestClientUsdtFuturesApiExchangeData.GetCrossMarginAdjustFactorInfoAsync(System.String,System.String,System.Nullable{HTX.Net.Enums.ContractType},System.Nullable{HTX.Net.Enums.BusinessType},System.Threading.CancellationToken)">
             <summary>
             Get cross margin adjust factor info
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7fc0d-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="contractCode">Contract code</param>
-            <param name="asset">Asset</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
+            <param name="asset">Asset, for example `ETH`</param>
             <param name="contractType">Type</param>
+            <param name="businessType">Business type</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:HTX.Net.Interfaces.Clients.UsdtFuturesApi.IHTXRestClientUsdtFuturesApiExchangeData.GetCrossMarginTradeStatusAsync(System.String,System.String,System.Nullable{HTX.Net.Enums.ContractType},System.Threading.CancellationToken)">
+        <member name="M:HTX.Net.Interfaces.Clients.UsdtFuturesApi.IHTXRestClientUsdtFuturesApiExchangeData.GetCrossMarginTradeStatusAsync(System.String,System.String,System.Nullable{HTX.Net.Enums.ContractType},System.Nullable{HTX.Net.Enums.BusinessType},System.Threading.CancellationToken)">
             <summary>
             Get cross margin trade status
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb841ac-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="contractCode">Contract code</param>
-            <param name="symbol">Asset</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
+            <param name="pair">Pair, for example `ETH-USDT`</param>
             <param name="contractType">Type</param>
+            <param name="businessType">Business type</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -4983,18 +4985,19 @@
             Get cross margin transfer status
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb89abf-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="marginAccount">Margin account</param>
+            <param name="marginAccount">Margin account, for example `USDT`</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:HTX.Net.Interfaces.Clients.UsdtFuturesApi.IHTXRestClientUsdtFuturesApiExchangeData.GetCrossTieredMarginInfoAsync(System.String,System.String,System.Nullable{HTX.Net.Enums.ContractType},System.Threading.CancellationToken)">
+        <member name="M:HTX.Net.Interfaces.Clients.UsdtFuturesApi.IHTXRestClientUsdtFuturesApiExchangeData.GetCrossTieredMarginInfoAsync(System.String,System.String,System.Nullable{HTX.Net.Enums.ContractType},System.Nullable{HTX.Net.Enums.BusinessType},System.Threading.CancellationToken)">
             <summary>
             Get cross tiered margin info
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7f7a9-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="contractCode">Contract code</param>
-            <param name="symbol">Symbol</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
+            <param name="pair">Pair</param>
             <param name="contractType">Contract type</param>
+            <param name="businessType">Business type</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -5003,7 +5006,7 @@
             Get estimated funding rate kliens
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb813aa-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="contractCode">Contract code</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
             <param name="interval">Kline interval</param>
             <param name="limit">Limit</param>
             <param name="ct">Cancellation token</param>
@@ -5014,8 +5017,8 @@
             Get estimated settlement price
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7f9d4-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="contractCode">Contract code</param>
-            <param name="symbol">Symbol</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
+            <param name="pair">Pair, for example `ETH-USDT`</param>
             <param name="contractType">Contract type</param>
             <param name="businessType">Business type</param>
             <param name="ct">Cancellation token</param>
@@ -5026,7 +5029,7 @@
             Get funding rate
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7ec03-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="contractCode">Contract code</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -5035,7 +5038,7 @@
             Get funding rates
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7ed6a-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="contractCode">Contract code</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -5044,7 +5047,7 @@
             Get historical funding rates
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7ee4a-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="contractCode">Contract code</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
             <param name="page">Page</param>
             <param name="pageSize">Page size</param>
             <param name="ct">Cancellation token</param>
@@ -5055,7 +5058,7 @@
             Get historical settlement records
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7f323-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="contractCode">Contract code</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
             <param name="startTime">Filter by start time</param>
             <param name="endTime">Filter by end time</param>
             <param name="page">Page</param>
@@ -5068,7 +5071,7 @@
             Get insurance fund history
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7fd58-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="contractCode">Contract code</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
             <param name="page">Page</param>
             <param name="pageSize">Page size</param>
             <param name="ct">Cancellation token</param>
@@ -5079,7 +5082,7 @@
             Get isolated margin adjust factor info
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7fb2c-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="contractCode">Contract code</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -5088,7 +5091,7 @@
             Get isolated margin status
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7f665-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="contractCode">Contract code</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -5097,7 +5100,7 @@
             Get isolated margin tier info
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7f887-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="contractCode">Contract code</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -5106,7 +5109,7 @@
             Get klines
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb80aca-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="contractCode">Contract code</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
             <param name="interval">Kline interval</param>
             <param name="limit">Limit</param>
             <param name="from">Filter by start time</param>
@@ -5119,7 +5122,7 @@
             Get last trades
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb80f4c-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="contractCode">Contract code</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
             <param name="businessType">Business type</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -5130,8 +5133,8 @@
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7f19e-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
             <param name="tradeType">Trade type</param>
-            <param name="contractCode">Contract code</param>
-            <param name="symbol">Symbol</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
+            <param name="pair">Pair, for example `ETH-USDT`</param>
             <param name="startTime">Filter by start time</param>
             <param name="endTime">Filter by end time</param>
             <param name="direction">Result direction</param>
@@ -5144,7 +5147,7 @@
             Get ticker
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb80ce4-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="contractCode">Contract code</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -5153,7 +5156,7 @@
             Get tickers
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb80df2-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="contractCode">Contract code</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
             <param name="businessType">Business type</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -5165,7 +5168,7 @@
             </summary>
             <param name="period">Period</param>
             <param name="unit">Unit</param>
-            <param name="contractCode">Contract code</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
             <param name="symbol">Symbol</param>
             <param name="type">Type</param>
             <param name="limit">Limit</param>
@@ -5177,7 +5180,7 @@
             Get order book
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb808ad-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="contractCode">Contract code</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
             <param name="mergeStep">Merge step</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -5187,9 +5190,9 @@
             Get premium index klines
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb81255-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="contractCode">Contract code</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
             <param name="interval">Interval</param>
-            <param name="limit">Limit</param>
+            <param name="limit">Max number of results</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -5198,7 +5201,7 @@
             Get recent trades
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb81024-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="contractCode">Contract code</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
             <param name="limit">Max number of results to return</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -5216,7 +5219,7 @@
             Get swap index price
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb80424-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="contractCode">Contract code</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -5225,8 +5228,8 @@
             Get swap open interest
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb80166-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="contractCode">Contract code</param>
-            <param name="symbol">Symbol</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
+            <param name="pair">Pair, for example `ETH-USDT`</param>
             <param name="contractType">Contract type</param>
             <param name="businessType">Business tpye</param>
             <param name="ct">Cancellation token</param>
@@ -5237,8 +5240,8 @@
             Get swap price limitation
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb80013-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="contractCode">Contract code</param>
-            <param name="symbol">Symbol</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
+            <param name="pair">Pair, for example `ETH-USDT`</param>
             <param name="contractType">Contract tpye</param>
             <param name="businessType">Business type</param>
             <param name="ct">Cancellation token</param>
@@ -5249,7 +5252,7 @@
             Get swap risk info
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7feba-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="contractCode">Contract code</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
             <param name="businessType">Business type</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -5259,7 +5262,7 @@
             Get top trader account sentiment
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7f487-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="contractCode">Contract code</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
             <param name="period">Period</param>
             <param name="ct">Cancellation token</param>
         </member>
@@ -5268,7 +5271,7 @@
             Get top trader position sentiment
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7f568-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="contractCode">Contract code</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
             <param name="period">Period</param>
             <param name="ct">Cancellation token</param>
         </member>
@@ -5277,7 +5280,7 @@
             Get contract elements and info
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb89359-77b5-11ed-9966-18bd764260c" /></para>
             </summary>
-            <param name="contractCode">Filter by contract code</param>
+            <param name="contractCode">Filter by contract code, for example `ETH-USDT`</param>
             <param name="ct">Cancellation token</param>
         </member>
         <member name="M:HTX.Net.Interfaces.Clients.UsdtFuturesApi.IHTXRestClientUsdtFuturesApiExchangeData.GetMarkPriceKlinesAsync(System.String,HTX.Net.Enums.KlineInterval,System.Int32,System.Threading.CancellationToken)">
@@ -5285,7 +5288,7 @@
             Get mark price klines
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb80ba5-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="contractCode">Contract code</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
             <param name="klineInterval">Kline interval</param>
             <param name="limit">Max number of results</param>
             <param name="ct">Cancellation token</param>
@@ -5300,7 +5303,7 @@
             Get cross margin sub account assets
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb8243c-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="marginAccount">Margin account</param>
+            <param name="marginAccount">Margin account, for example `USDT`</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -5309,7 +5312,7 @@
             Get isolated margin sub account assets
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb822f5-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="contractCode">Contract code</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -5318,7 +5321,7 @@
             Get master sub account transfer records
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb83c2c-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="marginAccount">Margin account</param>
+            <param name="marginAccount">Margin account, for example `USDT`</param>
             <param name="daysInHistory">Days in history</param>
             <param name="type">Filter by type</param>
             <param name="page">Page</param>
@@ -5342,7 +5345,7 @@
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb83b3e-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
             <param name="subUid">Sub account uid</param>
-            <param name="asset">Asset to transfer</param>
+            <param name="asset">Asset to transfer, for example `ETH`</param>
             <param name="fromMarginAccount">From account</param>
             <param name="toMarginAccount">To account</param>
             <param name="quantity">Quantity to transfer</param>
@@ -5368,7 +5371,7 @@
             Get isolated margin asset information
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb822f5-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="contractCode">Contract code</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
             <param name="page">Page</param>
             <param name="pageSize">Page size</param>
             <param name="ct">Cancellation token</param>
@@ -5378,7 +5381,7 @@
             Get cross margin asset info
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb8243c-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="marginAccount">Margin account</param>
+            <param name="marginAccount">Margin account, for example `USDT`</param>
             <param name="page">Page</param>
             <param name="pageSize">Page size</param>
             <param name="ct">Cancellation token</param>
@@ -5389,7 +5392,7 @@
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb827d0-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
             <param name="subUserId">Sub user id</param>
-            <param name="contractCode">Filter by contract code</param>
+            <param name="contractCode">Filter by contract code, for example `ETH-USDT`</param>
             <param name="ct">Cancellation token</param>
         </member>
         <member name="M:HTX.Net.Interfaces.Clients.UsdtFuturesApi.IHTXRestClientUsdtFuturesApiSubAccount.GetCrossMarginPositionsAsync(System.Int64,System.String,System.String,System.Nullable{HTX.Net.Enums.ContractType},System.Threading.CancellationToken)">
@@ -5398,8 +5401,8 @@
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb827d0-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
             <param name="subUserId">Sub user id</param>
-            <param name="contractCode">Filter by contract code</param>
-            <param name="pair">Filter by pair</param>
+            <param name="contractCode">Filter by contract code, for example `ETH-USDT`</param>
+            <param name="pair">Filter by pair, for example `ETH-USDT`</param>
             <param name="contractType">Filter by contract type</param>
             <param name="ct">Cancellation token</param>
         </member>
@@ -5413,8 +5416,8 @@
             Cancel all cross margin orders fitting the parameters
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb84ea6-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="contractCode">Contract code</param>
-            <param name="symbol">Symbol</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
+            <param name="pair">Pair</param>
             <param name="contractType">Contract type</param>
             <param name="side">Side</param>
             <param name="offset">Offset</param>
@@ -5426,7 +5429,7 @@
             Cancel all isolated margin order fitting the parameters
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb84dae-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="contractCode">Contract code</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
             <param name="side">Side</param>
             <param name="offset">Offset</param>
             <param name="ct">Cancellation token</param>
@@ -5439,8 +5442,8 @@
             </summary>
             <param name="orderId">The order id</param>
             <param name="clientOrderId">The client order id</param>
-            <param name="contractCode">Contract code</param>
-            <param name="symbol">Symbol</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
+            <param name="pair">Pair</param>
             <param name="contractType">Contract type</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -5452,8 +5455,8 @@
             </summary>
             <param name="orderIds">Order ids</param>
             <param name="clientOrderIds">Client order ids</param>
-            <param name="contractCode">Contract code</param>
-            <param name="symbol">Symbol</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
+            <param name="pair">Pair</param>
             <param name="contractType">Contract type</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -5463,7 +5466,7 @@
             Cancel isolated margin order
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb84a62-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="contractCode">Contract code</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
             <param name="orderId">Order id</param>
             <param name="clientOrderId">Client order id</param>
             <param name="ct">Cancellation token</param>
@@ -5474,7 +5477,7 @@
             Cancel isolated margin orders
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb84a62-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="contractCode">Contract  code</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
             <param name="orderId">Order ids</param>
             <param name="clientOrderId">Client order ids</param>
             <param name="ct">Cancellation token</param>
@@ -5486,8 +5489,8 @@
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb850d7-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
             <param name="leverageRate">Leverage rate</param>
-            <param name="contractCode">Contract code</param>
-            <param name="symbol">Symbol</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
+            <param name="pair">Pair, for example `ETH-USDT`</param>
             <param name="contractType">Contract type</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -5497,7 +5500,7 @@
             Change isolated margin leverage
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb84ff2-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="contractCode">Contract code</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
             <param name="leverageRate">Leverage rate</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -5507,10 +5510,10 @@
             Get cross margin closed orders
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb85ba1-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="contractCode">Contract code</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
             <param name="tradeType">Trade type</param>
             <param name="allOrders">All orders (true), or only orders in finished status (false)</param>
-            <param name="pair">Filter by pair</param>
+            <param name="pair">Filter by pair, for example `ETH-USDT`</param>
             <param name="status">Filter by status</param>
             <param name="startTime">Filter by start time</param>
             <param name="endTime">Filter by end time</param>
@@ -5523,9 +5526,9 @@
             Get cross margin open orders
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb858fe-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="contractCode">Contract code</param>
-            <param name="symbol">Symbol</param>
-            <param name="page">Page</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
+            <param name="pair">Pair</param>
+            <param name="page">Pair, for example `ETH-USDT`</param>
             <param name="pageSize">Page size</param>
             <param name="sortBy">Sort by</param>
             <param name="tradeType">Trade type</param>
@@ -5537,8 +5540,8 @@
             Get cross margin order
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb85379-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="contractCode">Contract code</param>
-            <param name="symbol">Symbol</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
+            <param name="pair">Pair, for example `ETH-USDT`</param>
             <param name="orderId">Order id</param>
             <param name="clientOrderId">Client order id</param>
             <param name="ct">Cancellation token</param>
@@ -5549,7 +5552,7 @@
             Get cross margin order details
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb8562d-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="contractCode">Contract code</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
             <param name="orderId">Order id</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -5561,8 +5564,8 @@
             </summary>
             <param name="orderIds">Order ids</param>
             <param name="clientOrderIds">Client order ids</param>
-            <param name="contractCode">Contract code</param>
-            <param name="symbol">Symbol</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
+            <param name="pair">Pair</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -5571,8 +5574,8 @@
             Get isolated margin user trades
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb85fa3-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="contractCode">Contract code</param>
-            <param name="pair">Pair</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
+            <param name="pair">Pair, for example `ETH-USDT`</param>
             <param name="tradeType">Trade type</param>
             <param name="startTime">Filter by start time</param>
             <param name="endTime">Filter by end time</param>
@@ -5585,8 +5588,8 @@
             Get isolated margin user trades
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb86121-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="contractCode">Contract code</param>
-            <param name="pair">Pair</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
+            <param name="pair">Pair, for example `ETH-USDT`</param>
             <param name="tradeType">Trade type</param>
             <param name="startTime">Filter by start time</param>
             <param name="endTime">Filter by end time</param>
@@ -5599,7 +5602,7 @@
             Get isolated margin closed orders
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb85a53-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="contractCode">Contract code</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
             <param name="tradeType">Trade type</param>
             <param name="allOrders">All orders (true), or only orders in finished status (false)</param>
             <param name="status">Filter by status</param>
@@ -5614,7 +5617,7 @@
             Get isolated margin open orders
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb85791-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="contractCode">Contract code</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
             <param name="page">Page</param>
             <param name="pageSize">Page size</param>
             <param name="sortBy">Sort by</param>
@@ -5627,7 +5630,7 @@
             Get isoalted margin order
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb85222-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="contractCode">Contract code</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
             <param name="orderId">Order id</param>
             <param name="clientOrderId">Client order id</param>
             <param name="ct">Cancellation token</param>
@@ -5638,7 +5641,7 @@
             Get isolated margin order details
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb854d2-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="contractCode">Contract code</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
             <param name="orderId">Order id</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -5648,7 +5651,7 @@
             Get isolated margin orders
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb85222-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="contractCode">Contract code</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
             <param name="orderIds">Order ids</param>
             <param name="clientOrderIds">Client order ids</param>
             <param name="ct">Cancellation token</param>
@@ -5662,8 +5665,8 @@
             <param name="quantity">Order quantity</param>
             <param name="side">Order side</param>
             <param name="leverageRate">Leverage rate</param>
-            <param name="contractCode">Contract code</param>
-            <param name="symbol">Symbol</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
+            <param name="pair">Pair, for example `ETH-USDT`</param>
             <param name="contractType">Contract type</param>
             <param name="price">Price</param>
             <param name="offset">Offset</param>
@@ -5684,7 +5687,7 @@
             Place a new isolated margin order
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb844bb-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="contractCode">Contract code</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
             <param name="quantity">Quantity</param>
             <param name="side">Order side</param>
             <param name="leverageRate">Leverage rate</param>
@@ -5716,7 +5719,7 @@
             Lightning close position
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb86944-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="contractCode">Contract code</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
             <param name="direction">Direction</param>
             <param name="clientOrderId">Client order id</param>
             <param name="orderPriceType">Order price type</param>
@@ -5727,9 +5730,9 @@
             Lightning close position
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb86944-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="contractCode">Contract code</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
             <param name="direction">Direction</param>
-            <param name="pair">Pair</param>
+            <param name="pair">Pair, for example `ETH-USDT`</param>
             <param name="contractType">Contract type</param>
             <param name="clientOrderId">Client order id</param>
             <param name="orderPriceType">Order price type</param>
@@ -5740,7 +5743,7 @@
             Place a new isolated margin trigger order
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb86c95-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="contractCode">Contract code</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
             <param name="triggerType">Trigger type</param>
             <param name="triggerPrice">Trigger price</param>
             <param name="quantity">Order quantity</param>
@@ -5757,12 +5760,12 @@
             Place a new isolated margin trigger order
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb86dfe-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="contractCode">Contract code</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
             <param name="triggerType">Trigger type</param>
             <param name="triggerPrice">Trigger price</param>
             <param name="quantity">Order quantity</param>
             <param name="side">Order side</param>
-            <param name="pair">Pair</param>
+            <param name="pair">Pair, for example `ETH-USDT`</param>
             <param name="contractType">Contract type</param>
             <param name="offset">Offset</param>
             <param name="reduceOnly">Reduce only</param>
@@ -5776,7 +5779,7 @@
             Cancel isolated margin trigger order
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb86f61-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="contractCode">Contract code</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
             <param name="orderId">Order id</param>
             <param name="ct">Cancellation token</param>
         </member>
@@ -5785,8 +5788,8 @@
             Cancel cross margin trigger order
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb87056-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="contractCode">Contract code</param>
-            <param name="pair">Pair</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
+            <param name="pair">Pair, for example `ETH-USDT`</param>
             <param name="contractType">Contract type</param>
             <param name="orderId">Order id</param>
             <param name="ct">Cancellation token</param>
@@ -5796,7 +5799,7 @@
             Cancel all isolated margin trigger orders matching the parameters
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb87161-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="contractCode">Contract code</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
             <param name="side">Filter by side</param>
             <param name="offset">Filter by offset</param>
             <param name="ct">Cancellation token</param>
@@ -5806,8 +5809,8 @@
             Cancel all cross margin trigger orders matching the parameters
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb872c3-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="contractCode">Contract code</param>
-            <param name="pair">Pair</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
+            <param name="pair">Pair, for example `ETH-USDT`</param>
             <param name="contractType">Contract type</param>
             <param name="side">Filter by side</param>
             <param name="offset">Filter by offset</param>
@@ -5818,7 +5821,7 @@
             Get isolated margin open trigger orders
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb873a8-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="contractCode">Contract code</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
             <param name="page">Page</param>
             <param name="pageSize">Page size</param>
             <param name="tradeType">Trade type</param>
@@ -5829,8 +5832,8 @@
             Get cross margin open trigger orders
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb874fd-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="contractCode">Contract code</param>
-            <param name="pair">Pair</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
+            <param name="pair">Pair, for example `ETH-USDT`</param>
             <param name="page">Page</param>
             <param name="pageSize">Page size</param>
             <param name="tradeType">Trade type</param>
@@ -5841,7 +5844,7 @@
             Get isolated margin trigger order history
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb87658-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="contractCode">Contract code</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
             <param name="tradeType">Trade type</param>
             <param name="daysPast">Amount of days ago. Max 90</param>
             <param name="status">Status</param>
@@ -5857,8 +5860,8 @@
             </summary>
             <param name="tradeType">Trade type</param>
             <param name="daysPast">Amount of days ago. Max 90</param>
-            <param name="contractCode">Contract code</param>
-            <param name="pair">Pair</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
+            <param name="pair">Pair, for example `ETH-USDT`</param>
             <param name="contractType">Contract type</param>
             <param name="status">Status</param>
             <param name="page">Page</param>
@@ -5871,7 +5874,7 @@
             Set isolated margin order take profit / stop loss for an existing position
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb87911-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="contractCode">Contract code</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
             <param name="side">Order side</param>
             <param name="quantity">Quantity</param>
             <param name="takeProfitTriggerPrice">Take profit trigger price</param>
@@ -5887,8 +5890,8 @@
             Set cross margin order take profit / stop loss for an existing position
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb87a6f-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="contractCode">Contract code</param>
-            <param name="pair">Pair</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
+            <param name="pair">Pair, for example `ETH-USDT`</param>
             <param name="contractType">Contract type</param>
             <param name="side">Order side</param>
             <param name="quantity">Quantity</param>
@@ -5905,7 +5908,7 @@
             Cancel isolated margin take profit / stop loss orders for an existing position
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb87bc0-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="contractCode">Contract code</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
             <param name="orderId">Order id</param>
             <param name="ct">Cancellation token</param>
         </member>
@@ -5914,8 +5917,8 @@
             Cancel isolated margin take profit / stop loss orders for an existing position
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb87bc0-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="contractCode">Contract code</param>
-            <param name="pair">Pair</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
+            <param name="pair">Pair, for example `ETH-USDT`</param>
             <param name="contractType">Contract type</param>
             <param name="orderId">Order id</param>
             <param name="ct">Cancellation token</param>
@@ -5925,7 +5928,7 @@
             Cancel all isolated margin take profit / stop loss orders
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb87d94-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="contractCode">Contract code</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
             <param name="side">Side</param>
             <param name="ct">Cancellation token</param>
         </member>
@@ -5934,8 +5937,8 @@
             Cancel all cross margin take profit / stop loss orders
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb87edb-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="contractCode">Contract code</param>
-            <param name="pair">Pair</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
+            <param name="pair">Pair, for example `ETH-USDT`</param>
             <param name="contractType">Contract type</param>
             <param name="side">Side</param>
             <param name="ct">Cancellation token</param>
@@ -5945,7 +5948,7 @@
             Get open isolated margin take profit / stop loss orders
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb87fb0-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="contractCode">Contract code</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
             <param name="page">Page index</param>
             <param name="pageSize">Page size</param>
             <param name="tradeType">Trade type</param>
@@ -5955,8 +5958,8 @@
             <summary>
             Get open cross margin take profit / stop loss orders
             </summary>
-            <param name="contractCode">Contract code</param>
-            <param name="pair">Pair</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
+            <param name="pair">Pair, for example `ETH-USDT`</param>
             <param name="page">Page index</param>
             <param name="pageSize">Page size</param>
             <param name="tradeType">Trade type</param>
@@ -5967,7 +5970,7 @@
             Get isolated margin take profit / stop loss order history
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb88253-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="contractCode">Contract code</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
             <param name="tpSlOrderStatus">Status</param>
             <param name="daysPast">Amount of days ago. Max 90</param>
             <param name="page">Page</param>
@@ -5980,8 +5983,8 @@
             Get cross maring take profit / stop loss order history
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb883a0-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="contractCode">Contract code</param>
-            <param name="pair">Pair</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
+            <param name="pair">Pair, for example `ETH-USDT`</param>
             <param name="tpSlOrderStatus">Status</param>
             <param name="daysPast">Amount of days ago. Max 90</param>
             <param name="page">Page</param>
@@ -5994,7 +5997,7 @@
             Get isolated margin position open info with attached tp/sl orders
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb884f1-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="contractCode">Contract code</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
             <param name="orderId">Order id</param>
             <param name="ct">Cancellation token</param>
         </member>
@@ -6004,7 +6007,7 @@
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb8864d-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
             <param name="orderId">Order id</param>
-            <param name="contractCode">Contract code</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
             <param name="pair">Pair</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -6014,7 +6017,7 @@
             Place isolated margin trailing order
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb88960-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="contractCode">Contract code</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
             <param name="reduceOnly">Reduce only</param>
             <param name="side">Side</param>
             <param name="offset">Offset</param>
@@ -6037,8 +6040,8 @@
             <param name="callbackRate">Callback rate, 0.01 means 1%</param>
             <param name="activePrice">Active price</param>
             <param name="orderPriceType">Price type</param>
-            <param name="contractCode">Contract code</param>
-            <param name="pair">Pair</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
+            <param name="pair">Pair, for example `ETH-USDT`</param>
             <param name="contractType">Contract type</param>
             <param name="reduceOnly">Reduce only</param>
             <param name="ct">Cancellation token</param>
@@ -6049,7 +6052,7 @@
             Cancel an isolated margin trailing order
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb88f2c-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="contractCode">Contract code</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
             <param name="orderId">Order id</param>
             <param name="ct">Cancellation token</param>
         </member>
@@ -6058,8 +6061,8 @@
             Cancel a cross margin trailing order
             </summary>
             <param name="orderId">Order id</param>
-            <param name="contractCode">Contract code</param>
-            <param name="pair">Pair</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
+            <param name="pair">Pair, for example `ETH-USDT`</param>
             <param name="contractType">Contract type</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -6069,7 +6072,7 @@
             Cancel all open isolated margin trailing orders
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb8924f-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="contractCode">Contract code</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
             <param name="side">Filter by side</param>
             <param name="offset">Filter by offset</param>
             <param name="ct">Cancellation token</param>
@@ -6079,8 +6082,8 @@
             Cancel all open cross margin trailing orders
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb89359-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="contractCode">Contract code</param>
-            <param name="pair">Pair</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
+            <param name="pair">Pair, for example `ETH-USDT`</param>
             <param name="contractType">Contract type</param>
             <param name="side">Filter by side</param>
             <param name="offset">Filter by offset</param>
@@ -6092,7 +6095,7 @@
             Get open isolated margin trailing orders
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb894b7-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="contractCode">Contract code</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
             <param name="tradeType">Trade type</param>
             <param name="page">Page</param>
             <param name="pageSize">Page size</param>
@@ -6103,8 +6106,8 @@
             Get open cross margin trailing orders
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb89614-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="contractCode">Contract code</param>
-            <param name="pair">Pair</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
+            <param name="pair">Pair, for example `ETH-USDT`</param>
             <param name="contractType">Contract type</param>
             <param name="tradeType">Trade type</param>
             <param name="page">Page</param>
@@ -6116,7 +6119,7 @@
             Get isolated margin trailing order history
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb89781-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="contractCode">Contract code</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
             <param name="tpSlOrderStatus">Status</param>
             <param name="tradeType">Trade type</param>
             <param name="daysPast">Amount of days ago. Max 90</param>
@@ -6134,8 +6137,8 @@
             <param name="tpSlOrderStatus">Status</param>
             <param name="tradeType">Trade type</param>
             <param name="daysPast">Amount of days ago. Max 90</param>
-            <param name="contractCode"></param>
-            <param name="pair">Pair</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
+            <param name="pair">Pair, for example `ETH-USDT`</param>
             <param name="contractType">Contract type</param>
             <param name="page">Page</param>
             <param name="pageSize">Page size</param>
@@ -6153,7 +6156,7 @@
             Subscribe to basis updates
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7d374-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="contractCode">Contract code</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
             <param name="period">Period</param>
             <param name="priceType">Price type</param>
             <param name="onData">Data handler</param>
@@ -6165,7 +6168,7 @@
             Subscribe to best offer updates
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7c802-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="contractCode">Contract code</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
             <param name="onData">Data handler</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -6175,7 +6178,7 @@
             Subscribe to estimated funding rate kline updates
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7d138-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="contractCode">Contract code</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
             <param name="period">Period</param>
             <param name="onData">Data handler</param>
             <param name="ct">Cancellation token</param>
@@ -6186,7 +6189,7 @@
             Subscribe to incremental order book updates
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7c51d-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="contractCode">Contract code</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
             <param name="snapshot">Snapshot or incremental</param>
             <param name="limit">Depth</param>
             <param name="onData">Data handler</param>
@@ -6198,7 +6201,7 @@
             Subscribe to index kline updates
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7cc15-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="contractCode">Contract code</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
             <param name="period">Period</param>
             <param name="onData">Data handler</param>
             <param name="ct">Cancellation token</param>
@@ -6209,7 +6212,7 @@
             Subscribe to kline updates
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7bf6d-77b5-11ed-9966-0242ac110003" /></para >
             </summary >
-            <param name="contractCode">Contract code</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
             <param name="period">Period</param>
             <param name="onData">Data handler</param>
             <param name="ct">Cancellation token</param>
@@ -6220,7 +6223,7 @@
             Subscribe to mark price updates
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7d626-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="contractCode">Contract code</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
             <param name="period">Period</param>
             <param name="onData">Data handler</param>
             <param name="ct">Cancellation token</param>
@@ -6231,7 +6234,7 @@
             Subscribe to order book updates
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7c385-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="contractCode">Contract code</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
             <param name="mergeStep">Merge step</param>
             <param name="onData">Data handler</param>
             <param name="ct">Cancellation token</param>
@@ -6242,7 +6245,7 @@
             Subscribe to premium index kline updates
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7cecd-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="contractCode">Contract code</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
             <param name="period">Period</param>
             <param name="onData">Data handler</param>
             <param name="ct">Cancellation token</param>
@@ -6253,7 +6256,7 @@
             Subscribe to symbol ticker updates
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7c694-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="contractCode">Contract code</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
             <param name="onData">Data handler</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -6263,7 +6266,7 @@
             Subscribe to symbol trade updates
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7cab7-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="contractCode">Contract code</param>
+            <param name="contractCode">Contract code, for example `ETH-USDT`</param>
             <param name="onData">Data handler</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>

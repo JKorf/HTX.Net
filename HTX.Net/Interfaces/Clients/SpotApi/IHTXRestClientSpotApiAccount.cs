@@ -48,18 +48,18 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4ff6d-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="accountType">Type of account to valuate</param>
-        /// <param name="valuationCurrency">The currency to get the value in</param>
+        /// <param name="valuationAsset">The asset to get the value in</param>
         /// <param name="subUserId">The id of the sub user</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<HTXAccountValuation>> GetAssetValuationAsync(AccountType accountType, string? valuationCurrency = null, long? subUserId = null, CancellationToken ct = default);
+        Task<WebCallResult<HTXAccountValuation>> GetAssetValuationAsync(AccountType accountType, string? valuationAsset = null, long? subUserId = null, CancellationToken ct = default);
 
         /// <summary>
         /// Gets a list of balance changes of specified user's account
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4b85b-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="accountId">The id of the account to get the balances for</param>
-        /// <param name="asset">Asset name</param>
+        /// <param name="asset">Asset name, for example `ETH`</param>
         /// <param name="transactionTypes">Blance change types</param>
         /// <param name="startTime">Far point of time of the query window. The maximum size of the query window is 1 hour. The query window can be shifted within 30 days</param>
         /// <param name="endTime">Near point of time of the query window. The maximum size of the query window is 1 hour. The query window can be shifted within 30 days</param>
@@ -74,7 +74,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec501f7-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="accountId">The id of the account to get the ledger for</param>
-        /// <param name="asset">Asset name</param>
+        /// <param name="asset">Asset name, for example `ETH`</param>
         /// <param name="transactionTypes">Blanace change types</param>
         /// <param name="startTime">Far point of time of the query window. The maximum size of the query window is 10 days. The query window can be shifted within 30 days</param>
         /// <param name="endTime">Near point of time of the query window. The maximum size of the query window is 10 days. The query window can be shifted within 30 days</param>
@@ -91,7 +91,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <param name="fromAccount">Source account type</param>
         /// <param name="toAccount">Target account type</param>
-        /// <param name="asset">The asset</param>
+        /// <param name="asset">The asset, for example `ETH`</param>
         /// <param name="quantity">Quantity</param>
         /// <param name="marginAccount">Margin account. Use `USDT` for cross margin</param>
         /// <param name="ct">Cancellation token</param>
@@ -101,7 +101,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// Parent user and sub user could query deposit address of corresponding chain, for a specific crypto currency (except IOTA).
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec50029-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
-        /// <param name="asset">Asset</param>
+        /// <param name="asset">Asset, for example `ETH`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<IEnumerable<HTXDepositAddress>>> GetDepositAddressesAsync(string asset, CancellationToken ct = default);
@@ -111,7 +111,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4cc41-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="address">The desination address of this withdraw</param>
-        /// <param name="asset">Asset</param>
+        /// <param name="asset">Asset, for example `ETH`</param>
         /// <param name="quantity">The quantity of asset to withdraw</param>
         /// <param name="fee">The fee to pay with this withdraw</param>
         /// <param name="network">Set as "usdt" to withdraw USDT to OMNI, set as "trc20usdt" to withdraw USDT to TRX</param>
@@ -126,7 +126,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4f050-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="type">Define transfer type to search</param>
-        /// <param name="asset">The asset to withdraw</param>
+        /// <param name="asset">The asset to withdraw, for example `ETH`</param>
         /// <param name="from">The transfer id to begin search</param>
         /// <param name="size">The number of items to return</param>
         /// <param name="direction">the order of response</param>
@@ -138,7 +138,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// Get current trading fees
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec51870-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
-        /// <param name="symbols">Filter on symbols</param>
+        /// <param name="symbols">Filter on symbol, for example `ETHUSDT`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<IEnumerable<HTXFeeRate>>> GetTradingFeesAsync(IEnumerable<string> symbols,
@@ -190,7 +190,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// Get withdrawal quota
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec50799-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
-        /// <param name="asset">Filter by asse</param>
+        /// <param name="asset">Filter by asset, for example `ETH`</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<HTXWithdrawalQuota>> GetWithdrawalQuotasAsync(string? asset = null, CancellationToken ct = default);
 
@@ -198,7 +198,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// Get withdrawal addresses
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec50654-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
-        /// <param name="asset">The asset</param>
+        /// <param name="asset">The asset, for example `ETH`</param>
         /// <param name="network">Filter by network</param>
         /// <param name="note">Filter by note</param>
         /// <param name="limit">Max number of results</param>
@@ -241,7 +241,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// <param name="toUserId">To user id</param>
         /// <param name="toAccountType">To account type</param>
         /// <param name="toAccountId">To account id</param>
-        /// <param name="asset">Asset to transfer</param>
+        /// <param name="asset">Asset to transfer, for example `ETH`</param>
         /// <param name="quantity">Amount to transfer</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>

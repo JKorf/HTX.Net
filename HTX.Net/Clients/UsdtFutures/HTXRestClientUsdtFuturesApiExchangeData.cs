@@ -165,12 +165,13 @@ namespace HTX.Net.Clients.UsdtFutures
         #region Get Cross Tiered Margin Info
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<HTXTieredCrossMarginInfo>>> GetCrossTieredMarginInfoAsync(string? contractCode = null, string? symbol = null, ContractType? contractType = null, CancellationToken ct = default)
+        public async Task<WebCallResult<IEnumerable<HTXTieredCrossMarginInfo>>> GetCrossTieredMarginInfoAsync(string? contractCode = null, string? symbol = null, ContractType? contractType = null, BusinessType? businessType = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.AddOptionalParameter("contract_code", contractCode);
             parameters.AddOptionalParameter("pair", symbol);
             parameters.AddOptionalParameter("contract_type", EnumConverter.GetString(contractType));
+            parameters.AddOptionalParameter("business_type", EnumConverter.GetString(businessType));
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/linear-swap-api/v1/swap_cross_ladder_margin", HTXExchange.RateLimiter.UsdtPublicReference, 1, false);
             return await _baseClient.SendBasicAsync<IEnumerable<HTXTieredCrossMarginInfo>>(request, parameters, ct).ConfigureAwait(false);
         }
@@ -222,12 +223,13 @@ namespace HTX.Net.Clients.UsdtFutures
         #region Get Cross Margin Adjust Factor Info
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<HTXCrossSwapAdjustFactorInfo>>> GetCrossMarginAdjustFactorInfoAsync(string? contractCode = null, string? asset = null, ContractType? type = null, CancellationToken ct = default)
+        public async Task<WebCallResult<IEnumerable<HTXCrossSwapAdjustFactorInfo>>> GetCrossMarginAdjustFactorInfoAsync(string? contractCode = null, string? asset = null, ContractType? type = null, BusinessType? businessType = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.AddOptionalParameter("contract_code", contractCode);
             parameters.AddOptionalParameter("pair", asset);
             parameters.AddOptionalParameter("contract_type", EnumConverter.GetString(type));
+            parameters.AddOptionalParameter("business_type", EnumConverter.GetString(businessType));
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/linear-swap-api/v1/swap_cross_adjustfactor", HTXExchange.RateLimiter.UsdtPublicReference, 1, false);
             return await _baseClient.SendBasicAsync<IEnumerable<HTXCrossSwapAdjustFactorInfo>>(request, parameters, ct).ConfigureAwait(false);
         }
@@ -544,12 +546,13 @@ namespace HTX.Net.Clients.UsdtFutures
         #region Get Cross Margin Trade Status 
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<HTXCrossMarginTradeStatus>>> GetCrossMarginTradeStatusAsync(string? contractCode = null, string? symbol = null, ContractType? contractType = null, CancellationToken ct = default)
+        public async Task<WebCallResult<IEnumerable<HTXCrossMarginTradeStatus>>> GetCrossMarginTradeStatusAsync(string? contractCode = null, string? symbol = null, ContractType? contractType = null, BusinessType? businessType = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.AddOptionalParameter("contract_code", contractCode);
             parameters.AddOptionalParameter("pair", symbol);
             parameters.AddOptionalParameter("contract_type", EnumConverter.GetString(contractType));
+            parameters.AddOptionalParameter("business_type", EnumConverter.GetString(businessType));
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/linear-swap-api/v1/swap_cross_trade_state", HTXExchange.RateLimiter.UsdtRead, 1, false);
             return await _baseClient.SendBasicAsync<IEnumerable<HTXCrossMarginTradeStatus>>(request, parameters, ct).ConfigureAwait(false);
         }

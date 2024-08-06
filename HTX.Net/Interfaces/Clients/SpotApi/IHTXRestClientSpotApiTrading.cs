@@ -13,7 +13,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4ee16-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="accountId">The account to place the order for</param>
-        /// <param name="symbol">The symbol to place the order for</param>
+        /// <param name="symbol">The symbol to place the order for, for example `ETHUSDT`</param>
         /// <param name="side">The side of the order</param>
         /// <param name="type">The type of the order</param>
         /// <param name="quantity">The quantity of the order</param>
@@ -42,7 +42,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=10000066-77b7-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="accountId">The account to place the order for</param>
-        /// <param name="symbol">The symbol to place the order for</param>
+        /// <param name="symbol">The symbol to place the order for, for example `ETHUSDT`</param>
         /// <param name="side">The side of the order</param>
         /// <param name="type">The type of the order</param>
         /// <param name="purpose">Transaction purpose</param>
@@ -75,7 +75,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4e04b-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="accountId">The account id for which to get the orders for</param>
-        /// <param name="symbol">The symbol for which to get the orders for</param>
+        /// <param name="symbol">The symbol for which to get the orders for, for example `ETHUSDT`</param>
         /// <param name="side">Only get buy or sell orders</param>
         /// <param name="limit">The max number of results</param>
         /// <param name="ct">Cancellation token</param>
@@ -153,7 +153,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// Gets a list of orders
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4e1c4-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
-        /// <param name="symbol">The symbol to get orders for</param>
+        /// <param name="symbol">The symbol to get orders for, for example `ETHUSDT`</param>
         /// <param name="states">The states of orders to return</param>
         /// <param name="types">The types of orders to return</param>
         /// <param name="startTime">Only get orders after this date</param>
@@ -169,7 +169,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// Gets a list of trades for a specific symbol
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4de21-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
-        /// <param name="symbol">The symbol to retrieve trades for</param>
+        /// <param name="symbol">The symbol to retrieve trades for, for example `ETHUSDT`</param>
         /// <param name="types">The type of orders to return</param>
         /// <param name="startTime">Only get orders after this date</param>
         /// <param name="endTime">Only get orders before this date</param>
@@ -184,7 +184,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// Gets a list of history orders
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4db3d-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
-        /// <param name="symbol">The symbol to get orders for</param>
+        /// <param name="symbol">The symbol to get orders for, for example `ETHUSDT`</param>
         /// <param name="startTime">Only get orders after this date</param>
         /// <param name="endTime">Only get orders before this date</param>
         /// <param name="direction">Direction of the results to return</param>
@@ -198,7 +198,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec50918-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="accountId">The account the order should be placed from</param>
-        /// <param name="symbol">The symbol the order is for</param>
+        /// <param name="symbol">The symbol the order is for, for example `ETHUSDT`</param>
         /// <param name="side">Side of the order</param>
         /// <param name="type">Type of the order</param>
         /// <param name="stopPrice">Stop price of the order</param>
@@ -238,7 +238,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec51082-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="accountId">Filter by account id</param>
-        /// <param name="symbol">Filter by symbol</param>
+        /// <param name="symbol">Filter by symbol, for example `ETHUSDT`</param>
         /// <param name="side">Filter by side</param>
         /// <param name="type">Filter by type</param>
         /// <param name="sort">Sort direction</param>
@@ -253,7 +253,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec50dcf-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="accountId">Filter by account id</param>
-        /// <param name="symbol">Filter by symbol</param>
+        /// <param name="symbol">Filter by symbol, for example `ETHUSDT`</param>
         /// <param name="side">Filter by side</param>
         /// <param name="type">Filter by type</param>
         /// <param name="sort">Sort direction</param>

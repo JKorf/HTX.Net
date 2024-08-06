@@ -552,7 +552,10 @@ namespace HTX.Net.Clients.UsdtFutures
         /// <inheritdoc />
         public async Task<WebCallResult<HTXOrderIds>> PlaceIsolatedMarginTriggerOrderAsync(string contractCode, TriggerType triggerType, decimal triggerPrice, decimal quantity, OrderSide side, Offset? offset = null, bool? reduceOnly = null, decimal? orderPrice = null, OrderPriceType? orderPriceType = null, int? leverageRate = null, CancellationToken ct = default)
         {
-            var parameters = new ParameterCollection();
+            var parameters = new ParameterCollection()
+            {
+                { "channel_code", _baseClient._brokerId }
+            };
             parameters.Add("contract_code", contractCode);
             parameters.AddEnum("trigger_type", triggerType);
             parameters.Add("trigger_price", triggerPrice);
@@ -575,7 +578,10 @@ namespace HTX.Net.Clients.UsdtFutures
         /// <inheritdoc />
         public async Task<WebCallResult<HTXOrderIds>> PlaceCrossMarginTriggerOrderAsync(TriggerType triggerType, decimal triggerPrice, decimal quantity, OrderSide side, string? contractCode = null, string? pair = null, ContractType? contractType = null, Offset? offset = null, bool? reduceOnly = null, decimal? orderPrice = null, OrderPriceType? orderPriceType = null, int? leverageRate = null, CancellationToken ct = default)
         {
-            var parameters = new ParameterCollection();
+            var parameters = new ParameterCollection()
+            {
+                { "channel_code", _baseClient._brokerId }
+            };
             parameters.AddOptional("contract_code", contractCode);
             parameters.AddEnum("trigger_type", triggerType);
             parameters.Add("trigger_price", triggerPrice);
@@ -958,7 +964,10 @@ namespace HTX.Net.Clients.UsdtFutures
         /// <inheritdoc />
         public async Task<WebCallResult<HTXOrderIds>> PlaceIsolatedMarginTrailingOrderAsync(string contractCode, bool reduceOnly, OrderSide side, Offset offset, int leverageRate, decimal quantity, decimal callbackRate, decimal activePrice, OrderPriceType orderPriceType, CancellationToken ct = default)
         {
-            var parameters = new ParameterCollection();
+            var parameters = new ParameterCollection()
+            {
+                { "channel_code", _baseClient._brokerId }
+            };
             parameters.Add("contract_code", contractCode);
             parameters.Add("reduce_only", reduceOnly ? 1 : 0);
             parameters.AddEnum("direction", side);
@@ -980,7 +989,10 @@ namespace HTX.Net.Clients.UsdtFutures
         /// <inheritdoc />
         public async Task<WebCallResult<HTXOrderIds>> PlaceCrossMarginTrailingOrderAsync(OrderSide side, Offset offset, int leverageRate, decimal quantity, decimal callbackRate, decimal activePrice, OrderPriceType orderPriceType, string? contractCode = null, string? pair = null, ContractType? contractType = null, bool? reduceOnly = null, CancellationToken ct = default)
         {
-            var parameters = new ParameterCollection();
+            var parameters = new ParameterCollection()
+            {
+                { "channel_code", _baseClient._brokerId }
+            };
             parameters.AddOptional("contract_code", contractCode);
             parameters.AddOptional("pair", pair);
             parameters.AddOptionalEnum("contract_type", contractType);

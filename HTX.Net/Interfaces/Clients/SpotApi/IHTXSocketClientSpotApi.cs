@@ -14,7 +14,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// Gets candlestick data for a symbol
         /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-latest-tickers-for-all-pairs" /></para>
         /// </summary>
-        /// <param name="symbol">The symbol to get the data for</param>
+        /// <param name="symbol">The symbol to get the data for, for example `ETHUSDT`</param>
         /// <param name="period">The period of a single candlestick</param>
         /// <returns></returns>
         Task<CallResult<IEnumerable<HTXKline>>> GetKlinesAsync(string symbol, KlineInterval period);
@@ -23,7 +23,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// Subscribes to candlestick updates for a symbol
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec53241-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
-        /// <param name="symbol">The symbol to subscribe to</param>
+        /// <param name="symbol">The symbol to subscribe to, for example `ETHUSDT`</param>
         /// <param name="period">The period of a single candlestick</param>
         /// <param name="onData">The handler for updates</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
@@ -34,7 +34,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// Gets the current order book for a symbol
         /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#market-depth" /></para>
         /// </summary>
-        /// <param name="symbol">The symbol to get the data for</param>
+        /// <param name="symbol">The symbol to get the data for, for example `ETHUSDT`</param>
         /// <param name="mergeStep">The way the results will be merged together</param>
         /// <returns></returns>
         Task<CallResult<HTXOrderBook>> GetOrderBookWithMergeStepAsync(string symbol, int mergeStep);
@@ -43,7 +43,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// Gets the current order book for a symbol
         /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#market-by-price-incremental-update" /></para>
         /// </summary>
-        /// <param name="symbol">The symbol to get the data for</param>
+        /// <param name="symbol">The symbol to get the data for, for example `ETHUSDT`</param>
         /// <param name="levels">The amount of rows. 5, 20, 150 or 400</param>
         /// <returns></returns>
         Task<CallResult<HTXIncementalOrderBook>> GetOrderBookAsync(string symbol, int levels);
@@ -52,7 +52,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// Subscribes to order book updates for a symbol
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec5378b-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
-        /// <param name="symbol">The symbol to subscribe to</param>
+        /// <param name="symbol">The symbol to subscribe to, for example `ETHUSDT`</param>
         /// <param name="levels">The number of price levels. 5, 10 or 20</param>
         /// <param name="onData">The handler for updates</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
@@ -63,7 +63,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// Subscribes to order book updates for a symbol
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec5342e-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
-        /// <param name="symbol">The symbol to subscribe to</param>
+        /// <param name="symbol">The symbol to subscribe to, for example `ETHUSDT`</param>
         /// <param name="mergeStep">The way the results will be merged together</param>
         /// <param name="onData">The handler for updates</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
@@ -74,7 +74,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// Subscribes to order book updates for a symbol, 
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec5362b-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
-        /// <param name="symbol">The symbol to subscribe to</param>
+        /// <param name="symbol">The symbol to subscribe to, for example `ETHUSDT`</param>
         /// <param name="levels">The number of price levels. 5, 20, 150 or 400</param>
         /// <param name="onData">The handler for updates</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
@@ -85,7 +85,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// Gets a list of trades for a symbol
         /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#trade-detail" /></para>
         /// </summary>
-        /// <param name="symbol">The symbol to get trades for</param>
+        /// <param name="symbol">The symbol to get trades for, for example `ETHUSDT`</param>
         /// <returns></returns>
         Task<CallResult<IEnumerable<HTXSymbolTradeDetails>>> GetTradeHistoryAsync(string symbol);
 
@@ -93,7 +93,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// Subscribes to trade updates for a symbol
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec53b69-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
-        /// <param name="symbol">The symbol to subscribe to</param>
+        /// <param name="symbol">The symbol to subscribe to, for example `ETHUSDT`</param>
         /// <param name="onData">The handler for updates</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
@@ -103,7 +103,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// Gets details for a symbol
         /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#market-details" /></para>
         /// </summary>
-        /// <param name="symbol">The symbol to get data for</param>
+        /// <param name="symbol">The symbol to get data for, for example `ETHUSDT`</param>
         /// <returns></returns>
         Task<CallResult<HTXSymbolDetails>> GetSymbolDetailsAsync(string symbol);
 
@@ -111,7 +111,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// Subscribes to symbol detail updates for a symbol
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec53561-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
-        /// <param name="symbol">The symbol to subscribe to</param>
+        /// <param name="symbol">The symbol to subscribe to, for example `ETHUSDT`</param>
         /// <param name="onData">The handler for updates</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
@@ -121,7 +121,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// Subscribes to updates for a symbol
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec538cf-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
-        /// <param name="symbol">The symbol to subscribe</param>
+        /// <param name="symbol">The symbol to subscribe, for example `ETHUSDT`</param>
         /// <param name="onData">The handler for updates</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
@@ -140,7 +140,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// Subscribe to changes of a symbol's best ask/bid
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec5333f-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
-        /// <param name="symbol">Symbol to subscribe to</param>
+        /// <param name="symbol">Symbol to subscribe to, for example `ETHUSDT`</param>
         /// <param name="onData">Data handler</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
@@ -181,7 +181,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// Subscribe to detailed order matched/canceled updates
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec53dd5-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
-        /// <param name="symbol">Subscribe to a specific symbol</param>
+        /// <param name="symbol">Subscribe to a specific symbol, for example `ETHUSDT`</param>
         /// <param name="onOrderMatch">Event handler for the order matched event</param>
         /// <param name="onOrderCancel">Event handler for the order canceled event</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>

@@ -117,7 +117,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec5255a-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="subUserId">Sub user id</param>
-        /// <param name="asset">The asset</param>
+        /// <param name="asset">The asset, for example `ETH`</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<IEnumerable<HTXDepositAddress>>> GetDepositAddressAsync(long subUserId, string asset, CancellationToken ct = default);
 
@@ -126,7 +126,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec5278c-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="subUserId">Sub user id</param>
-        /// <param name="asset">Filter by asset</param>
+        /// <param name="asset">Filter by asset, for example `ETH`</param>
         /// <param name="startTime">Filter by start time</param>
         /// <param name="endTime">Filter by end time</param>
         /// <param name="sort">Sort</param>
@@ -156,7 +156,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4feac-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="subAccountId">The target sub account id to transfer to or from</param>
-        /// <param name="asset">The asset to transfer</param>
+        /// <param name="asset">The asset to transfer, for example `ETH`</param>
         /// <param name="quantity">The quantity of asset to transfer</param>
         /// <param name="transferType">The type of transfer</param>
         /// <param name="ct">Cancellation token</param>

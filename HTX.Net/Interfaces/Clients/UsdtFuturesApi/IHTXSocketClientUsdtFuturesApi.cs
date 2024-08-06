@@ -14,7 +14,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// Subscribe to basis updates
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7d374-77b5-11ed-9966-0242ac110003" /></para>
         /// </summary>
-        /// <param name="contractCode">Contract code</param>
+        /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="period">Period</param>
         /// <param name="priceType">Price type</param>
         /// <param name="onData">Data handler</param>
@@ -25,7 +25,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// Subscribe to best offer updates
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7c802-77b5-11ed-9966-0242ac110003" /></para>
         /// </summary>
-        /// <param name="contractCode">Contract code</param>
+        /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="onData">Data handler</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -34,7 +34,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// Subscribe to estimated funding rate kline updates
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7d138-77b5-11ed-9966-0242ac110003" /></para>
         /// </summary>
-        /// <param name="contractCode">Contract code</param>
+        /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="period">Period</param>
         /// <param name="onData">Data handler</param>
         /// <param name="ct">Cancellation token</param>
@@ -44,7 +44,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// Subscribe to incremental order book updates
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7c51d-77b5-11ed-9966-0242ac110003" /></para>
         /// </summary>
-        /// <param name="contractCode">Contract code</param>
+        /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="snapshot">Snapshot or incremental</param>
         /// <param name="limit">Depth</param>
         /// <param name="onData">Data handler</param>
@@ -55,7 +55,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// Subscribe to index kline updates
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7cc15-77b5-11ed-9966-0242ac110003" /></para>
         /// </summary>
-        /// <param name="contractCode">Contract code</param>
+        /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="period">Period</param>
         /// <param name="onData">Data handler</param>
         /// <param name="ct">Cancellation token</param>
@@ -65,7 +65,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// Subscribe to kline updates
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7bf6d-77b5-11ed-9966-0242ac110003" /></para >
         /// </summary >
-        /// <param name="contractCode">Contract code</param>
+        /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="period">Period</param>
         /// <param name="onData">Data handler</param>
         /// <param name="ct">Cancellation token</param>
@@ -75,7 +75,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// Subscribe to mark price updates
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7d626-77b5-11ed-9966-0242ac110003" /></para>
         /// </summary>
-        /// <param name="contractCode">Contract code</param>
+        /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="period">Period</param>
         /// <param name="onData">Data handler</param>
         /// <param name="ct">Cancellation token</param>
@@ -85,7 +85,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// Subscribe to order book updates
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7c385-77b5-11ed-9966-0242ac110003" /></para>
         /// </summary>
-        /// <param name="contractCode">Contract code</param>
+        /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="mergeStep">Merge step</param>
         /// <param name="onData">Data handler</param>
         /// <param name="ct">Cancellation token</param>
@@ -95,7 +95,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// Subscribe to premium index kline updates
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7cecd-77b5-11ed-9966-0242ac110003" /></para>
         /// </summary>
-        /// <param name="contractCode">Contract code</param>
+        /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="period">Period</param>
         /// <param name="onData">Data handler</param>
         /// <param name="ct">Cancellation token</param>
@@ -105,7 +105,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// Subscribe to symbol ticker updates
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7c694-77b5-11ed-9966-0242ac110003" /></para>
         /// </summary>
-        /// <param name="contractCode">Contract code</param>
+        /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="onData">Data handler</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -114,7 +114,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// Subscribe to symbol trade updates
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7cab7-77b5-11ed-9966-0242ac110003" /></para>
         /// </summary>
-        /// <param name="contractCode">Contract code</param>
+        /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="onData">Data handler</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>

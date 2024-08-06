@@ -12,19 +12,19 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// Cancel all cross margin orders fitting the parameters
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb84ea6-77b5-11ed-9966-0242ac110003" /></para>
         /// </summary>
-        /// <param name="contractCode">Contract code</param>
-        /// <param name="symbol">Symbol</param>
+        /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
+        /// <param name="pair">Pair</param>
         /// <param name="contractType">Contract type</param>
         /// <param name="side">Side</param>
         /// <param name="offset">Offset</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<HTXBatchResult>> CancelAllCrossMarginOrdersAsync(string? contractCode = null, string? symbol = null, ContractType? contractType = null, OrderSide? side = null, Offset? offset = null, CancellationToken ct = default);
+        Task<WebCallResult<HTXBatchResult>> CancelAllCrossMarginOrdersAsync(string? contractCode = null, string? pair = null, ContractType? contractType = null, OrderSide? side = null, Offset? offset = null, CancellationToken ct = default);
         /// <summary>
         /// Cancel all isolated margin order fitting the parameters
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb84dae-77b5-11ed-9966-0242ac110003" /></para>
         /// </summary>
-        /// <param name="contractCode">Contract code</param>
+        /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="side">Side</param>
         /// <param name="offset">Offset</param>
         /// <param name="ct">Cancellation token</param>
@@ -36,29 +36,29 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// </summary>
         /// <param name="orderId">The order id</param>
         /// <param name="clientOrderId">The client order id</param>
-        /// <param name="contractCode">Contract code</param>
-        /// <param name="symbol">Symbol</param>
+        /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
+        /// <param name="pair">Pair</param>
         /// <param name="contractType">Contract type</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<HTXBatchResult>> CancelCrossMarginOrderAsync(long? orderId = null, long? clientOrderId = null, string? contractCode = null, string? symbol = null, ContractType? contractType = null, CancellationToken ct = default);
+        Task<WebCallResult<HTXBatchResult>> CancelCrossMarginOrderAsync(long? orderId = null, long? clientOrderId = null, string? contractCode = null, string? pair = null, ContractType? contractType = null, CancellationToken ct = default);
         /// <summary>
         /// Cancel cross margin orders
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb84bb2-77b5-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="orderIds">Order ids</param>
         /// <param name="clientOrderIds">Client order ids</param>
-        /// <param name="contractCode">Contract code</param>
-        /// <param name="symbol">Symbol</param>
+        /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
+        /// <param name="pair">Pair</param>
         /// <param name="contractType">Contract type</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<HTXBatchResult>> CancelCrossMarginOrdersAsync(IEnumerable<long> orderIds, IEnumerable<long> clientOrderIds, string? contractCode = null, string? symbol = null, ContractType? contractType = null, CancellationToken ct = default);
+        Task<WebCallResult<HTXBatchResult>> CancelCrossMarginOrdersAsync(IEnumerable<long> orderIds, IEnumerable<long> clientOrderIds, string? contractCode = null, string? pair = null, ContractType? contractType = null, CancellationToken ct = default);
         /// <summary>
         /// Cancel isolated margin order
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb84a62-77b5-11ed-9966-0242ac110003" /></para>
         /// </summary>
-        /// <param name="contractCode">Contract code</param>
+        /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="orderId">Order id</param>
         /// <param name="clientOrderId">Client order id</param>
         /// <param name="ct">Cancellation token</param>
@@ -68,7 +68,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// Cancel isolated margin orders
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb84a62-77b5-11ed-9966-0242ac110003" /></para>
         /// </summary>
-        /// <param name="contractCode">Contract  code</param>
+        /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="orderId">Order ids</param>
         /// <param name="clientOrderId">Client order ids</param>
         /// <param name="ct">Cancellation token</param>
@@ -79,17 +79,17 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb850d7-77b5-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="leverageRate">Leverage rate</param>
-        /// <param name="contractCode">Contract code</param>
-        /// <param name="symbol">Symbol</param>
+        /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
+        /// <param name="pair">Pair, for example `ETH-USDT`</param>
         /// <param name="contractType">Contract type</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<HTXCrossMarginLeverageRate>> SetCrossMarginLeverageAsync(int leverageRate, string? contractCode = null, string? symbol = null, ContractType? contractType = null, CancellationToken ct = default);
+        Task<WebCallResult<HTXCrossMarginLeverageRate>> SetCrossMarginLeverageAsync(int leverageRate, string? contractCode = null, string? pair = null, ContractType? contractType = null, CancellationToken ct = default);
         /// <summary>
         /// Change isolated margin leverage
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb84ff2-77b5-11ed-9966-0242ac110003" /></para>
         /// </summary>
-        /// <param name="contractCode">Contract code</param>
+        /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="leverageRate">Leverage rate</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -98,10 +98,10 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// Get cross margin closed orders
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb85ba1-77b5-11ed-9966-0242ac110003" /></para>
         /// </summary>
-        /// <param name="contractCode">Contract code</param>
+        /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="tradeType">Trade type</param>
         /// <param name="allOrders">All orders (true), or only orders in finished status (false)</param>
-        /// <param name="pair">Filter by pair</param>
+        /// <param name="pair">Filter by pair, for example `ETH-USDT`</param>
         /// <param name="status">Filter by status</param>
         /// <param name="startTime">Filter by start time</param>
         /// <param name="endTime">Filter by end time</param>
@@ -113,31 +113,31 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// Get cross margin open orders
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb858fe-77b5-11ed-9966-0242ac110003" /></para>
         /// </summary>
-        /// <param name="contractCode">Contract code</param>
-        /// <param name="symbol">Symbol</param>
-        /// <param name="page">Page</param>
+        /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
+        /// <param name="pair">Pair</param>
+        /// <param name="page">Pair, for example `ETH-USDT`</param>
         /// <param name="pageSize">Page size</param>
         /// <param name="sortBy">Sort by</param>
         /// <param name="tradeType">Trade type</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<HTXCrossMarginOrderPage>> GetCrossMarginOpenOrdersAsync(string? contractCode = null, string? symbol = null, int? page = null, int? pageSize = null, string? sortBy = null, MarginTradeType? tradeType = null, CancellationToken ct = default);
+        Task<WebCallResult<HTXCrossMarginOrderPage>> GetCrossMarginOpenOrdersAsync(string? contractCode = null, string? pair = null, int? page = null, int? pageSize = null, string? sortBy = null, MarginTradeType? tradeType = null, CancellationToken ct = default);
         /// <summary>
         /// Get cross margin order
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb85379-77b5-11ed-9966-0242ac110003" /></para>
         /// </summary>
-        /// <param name="contractCode">Contract code</param>
-        /// <param name="symbol">Symbol</param>
+        /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
+        /// <param name="pair">Pair, for example `ETH-USDT`</param>
         /// <param name="orderId">Order id</param>
         /// <param name="clientOrderId">Client order id</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<HTXCrossMarginOrder>>> GetCrossMarginOrderAsync(string? contractCode = null, string? symbol = null, long? orderId = null, long? clientOrderId = null, CancellationToken ct = default);
+        Task<WebCallResult<IEnumerable<HTXCrossMarginOrder>>> GetCrossMarginOrderAsync(string? contractCode = null, string? pair = null, long? orderId = null, long? clientOrderId = null, CancellationToken ct = default);
         /// <summary>
         /// Get cross margin order details
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb8562d-77b5-11ed-9966-0242ac110003" /></para>
         /// </summary>
-        /// <param name="contractCode">Contract code</param>
+        /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="orderId">Order id</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -148,17 +148,17 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// </summary>
         /// <param name="orderIds">Order ids</param>
         /// <param name="clientOrderIds">Client order ids</param>
-        /// <param name="contractCode">Contract code</param>
-        /// <param name="symbol">Symbol</param>
+        /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
+        /// <param name="pair">Pair</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<HTXCrossMarginOrder>>> GetCrossMarginOrdersAsync(IEnumerable<long> orderIds, IEnumerable<long> clientOrderIds, string? contractCode = null, string? symbol = null, CancellationToken ct = default);
+        Task<WebCallResult<IEnumerable<HTXCrossMarginOrder>>> GetCrossMarginOrdersAsync(IEnumerable<long> orderIds, IEnumerable<long> clientOrderIds, string? contractCode = null, string? pair = null, CancellationToken ct = default);
         /// <summary>
         /// Get isolated margin user trades
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb85fa3-77b5-11ed-9966-0242ac110003" /></para>
         /// </summary>
-        /// <param name="contractCode">Contract code</param>
-        /// <param name="pair">Pair</param>
+        /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
+        /// <param name="pair">Pair, for example `ETH-USDT`</param>
         /// <param name="tradeType">Trade type</param>
         /// <param name="startTime">Filter by start time</param>
         /// <param name="endTime">Filter by end time</param>
@@ -171,8 +171,8 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// Get isolated margin user trades
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb86121-77b5-11ed-9966-0242ac110003" /></para>
         /// </summary>
-        /// <param name="contractCode">Contract code</param>
-        /// <param name="pair">Pair</param>
+        /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
+        /// <param name="pair">Pair, for example `ETH-USDT`</param>
         /// <param name="tradeType">Trade type</param>
         /// <param name="startTime">Filter by start time</param>
         /// <param name="endTime">Filter by end time</param>
@@ -185,7 +185,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// Get isolated margin closed orders
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb85a53-77b5-11ed-9966-0242ac110003" /></para>
         /// </summary>
-        /// <param name="contractCode">Contract code</param>
+        /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="tradeType">Trade type</param>
         /// <param name="allOrders">All orders (true), or only orders in finished status (false)</param>
         /// <param name="status">Filter by status</param>
@@ -200,7 +200,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// Get isolated margin open orders
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb85791-77b5-11ed-9966-0242ac110003" /></para>
         /// </summary>
-        /// <param name="contractCode">Contract code</param>
+        /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="page">Page</param>
         /// <param name="pageSize">Page size</param>
         /// <param name="sortBy">Sort by</param>
@@ -212,7 +212,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// Get isoalted margin order
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb85222-77b5-11ed-9966-0242ac110003" /></para>
         /// </summary>
-        /// <param name="contractCode">Contract code</param>
+        /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="orderId">Order id</param>
         /// <param name="clientOrderId">Client order id</param>
         /// <param name="ct">Cancellation token</param>
@@ -222,7 +222,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// Get isolated margin order details
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb854d2-77b5-11ed-9966-0242ac110003" /></para>
         /// </summary>
-        /// <param name="contractCode">Contract code</param>
+        /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="orderId">Order id</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -231,7 +231,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// Get isolated margin orders
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb85222-77b5-11ed-9966-0242ac110003" /></para>
         /// </summary>
-        /// <param name="contractCode">Contract code</param>
+        /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="orderIds">Order ids</param>
         /// <param name="clientOrderIds">Client order ids</param>
         /// <param name="ct">Cancellation token</param>
@@ -244,8 +244,8 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// <param name="quantity">Order quantity</param>
         /// <param name="side">Order side</param>
         /// <param name="leverageRate">Leverage rate</param>
-        /// <param name="contractCode">Contract code</param>
-        /// <param name="symbol">Symbol</param>
+        /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
+        /// <param name="pair">Pair, for example `ETH-USDT`</param>
         /// <param name="contractType">Contract type</param>
         /// <param name="price">Price</param>
         /// <param name="offset">Offset</param>
@@ -260,12 +260,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// <param name="clientOrderId">Client order id</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<HTXOrderIds>> PlaceCrossMarginOrderAsync(long quantity, OrderSide side, int leverageRate, OrderPriceType orderPriceType, string? contractCode = null, string? symbol = null, ContractType? contractType = null, decimal? price = null, Offset? offset = null, decimal? takeProfitTriggerPrice = null, decimal? takeProfitOrderPrice = null, OrderPriceType? takeProfitOrderPriceType = null, decimal? stopLossTriggerPrice = null, decimal? stopLossOrderPrice = null, OrderPriceType? stopLossOrderPriceType = null, bool? reduceOnly = null, long? clientOrderId = null, CancellationToken ct = default);
+        Task<WebCallResult<HTXOrderIds>> PlaceCrossMarginOrderAsync(long quantity, OrderSide side, int leverageRate, OrderPriceType orderPriceType, string? contractCode = null, string? pair = null, ContractType? contractType = null, decimal? price = null, Offset? offset = null, decimal? takeProfitTriggerPrice = null, decimal? takeProfitOrderPrice = null, OrderPriceType? takeProfitOrderPriceType = null, decimal? stopLossTriggerPrice = null, decimal? stopLossOrderPrice = null, OrderPriceType? stopLossOrderPriceType = null, bool? reduceOnly = null, long? clientOrderId = null, CancellationToken ct = default);
         /// <summary>
         /// Place a new isolated margin order
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb844bb-77b5-11ed-9966-0242ac110003" /></para>
         /// </summary>
-        /// <param name="contractCode">Contract code</param>
+        /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="quantity">Quantity</param>
         /// <param name="side">Order side</param>
         /// <param name="leverageRate">Leverage rate</param>
@@ -297,7 +297,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// Lightning close position
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb86944-77b5-11ed-9966-0242ac110003" /></para>
         /// </summary>
-        /// <param name="contractCode">Contract code</param>
+        /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="direction">Direction</param>
         /// <param name="clientOrderId">Client order id</param>
         /// <param name="orderPriceType">Order price type</param>
@@ -308,9 +308,9 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// Lightning close position
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb86944-77b5-11ed-9966-0242ac110003" /></para>
         /// </summary>
-        /// <param name="contractCode">Contract code</param>
+        /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="direction">Direction</param>
-        /// <param name="pair">Pair</param>
+        /// <param name="pair">Pair, for example `ETH-USDT`</param>
         /// <param name="contractType">Contract type</param>
         /// <param name="clientOrderId">Client order id</param>
         /// <param name="orderPriceType">Order price type</param>
@@ -321,7 +321,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// Place a new isolated margin trigger order
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb86c95-77b5-11ed-9966-0242ac110003" /></para>
         /// </summary>
-        /// <param name="contractCode">Contract code</param>
+        /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="triggerType">Trigger type</param>
         /// <param name="triggerPrice">Trigger price</param>
         /// <param name="quantity">Order quantity</param>
@@ -338,12 +338,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// Place a new isolated margin trigger order
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb86dfe-77b5-11ed-9966-0242ac110003" /></para>
         /// </summary>
-        /// <param name="contractCode">Contract code</param>
+        /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="triggerType">Trigger type</param>
         /// <param name="triggerPrice">Trigger price</param>
         /// <param name="quantity">Order quantity</param>
         /// <param name="side">Order side</param>
-        /// <param name="pair">Pair</param>
+        /// <param name="pair">Pair, for example `ETH-USDT`</param>
         /// <param name="contractType">Contract type</param>
         /// <param name="offset">Offset</param>
         /// <param name="reduceOnly">Reduce only</param>
@@ -357,7 +357,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// Cancel isolated margin trigger order
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb86f61-77b5-11ed-9966-0242ac110003" /></para>
         /// </summary>
-        /// <param name="contractCode">Contract code</param>
+        /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="orderId">Order id</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<HTXTriggerOrderResult>> CancelIsolatedMarginTriggerOrderAsync(string contractCode, string orderId, CancellationToken ct = default);
@@ -366,8 +366,8 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// Cancel cross margin trigger order
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb87056-77b5-11ed-9966-0242ac110003" /></para>
         /// </summary>
-        /// <param name="contractCode">Contract code</param>
-        /// <param name="pair">Pair</param>
+        /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
+        /// <param name="pair">Pair, for example `ETH-USDT`</param>
         /// <param name="contractType">Contract type</param>
         /// <param name="orderId">Order id</param>
         /// <param name="ct">Cancellation token</param>
@@ -377,7 +377,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// Cancel all isolated margin trigger orders matching the parameters
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb87161-77b5-11ed-9966-0242ac110003" /></para>
         /// </summary>
-        /// <param name="contractCode">Contract code</param>
+        /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="side">Filter by side</param>
         /// <param name="offset">Filter by offset</param>
         /// <param name="ct">Cancellation token</param>
@@ -387,8 +387,8 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// Cancel all cross margin trigger orders matching the parameters
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb872c3-77b5-11ed-9966-0242ac110003" /></para>
         /// </summary>
-        /// <param name="contractCode">Contract code</param>
-        /// <param name="pair">Pair</param>
+        /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
+        /// <param name="pair">Pair, for example `ETH-USDT`</param>
         /// <param name="contractType">Contract type</param>
         /// <param name="side">Filter by side</param>
         /// <param name="offset">Filter by offset</param>
@@ -399,7 +399,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// Get isolated margin open trigger orders
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb873a8-77b5-11ed-9966-0242ac110003" /></para>
         /// </summary>
-        /// <param name="contractCode">Contract code</param>
+        /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="page">Page</param>
         /// <param name="pageSize">Page size</param>
         /// <param name="tradeType">Trade type</param>
@@ -410,8 +410,8 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// Get cross margin open trigger orders
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb874fd-77b5-11ed-9966-0242ac110003" /></para>
         /// </summary>
-        /// <param name="contractCode">Contract code</param>
-        /// <param name="pair">Pair</param>
+        /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
+        /// <param name="pair">Pair, for example `ETH-USDT`</param>
         /// <param name="page">Page</param>
         /// <param name="pageSize">Page size</param>
         /// <param name="tradeType">Trade type</param>
@@ -422,7 +422,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// Get isolated margin trigger order history
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb87658-77b5-11ed-9966-0242ac110003" /></para>
         /// </summary>
-        /// <param name="contractCode">Contract code</param>
+        /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="tradeType">Trade type</param>
         /// <param name="daysPast">Amount of days ago. Max 90</param>
         /// <param name="status">Status</param>
@@ -438,8 +438,8 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// </summary>
         /// <param name="tradeType">Trade type</param>
         /// <param name="daysPast">Amount of days ago. Max 90</param>
-        /// <param name="contractCode">Contract code</param>
-        /// <param name="pair">Pair</param>
+        /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
+        /// <param name="pair">Pair, for example `ETH-USDT`</param>
         /// <param name="contractType">Contract type</param>
         /// <param name="status">Status</param>
         /// <param name="page">Page</param>
@@ -452,7 +452,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// Set isolated margin order take profit / stop loss for an existing position
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb87911-77b5-11ed-9966-0242ac110003" /></para>
         /// </summary>
-        /// <param name="contractCode">Contract code</param>
+        /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="side">Order side</param>
         /// <param name="quantity">Quantity</param>
         /// <param name="takeProfitTriggerPrice">Take profit trigger price</param>
@@ -468,8 +468,8 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// Set cross margin order take profit / stop loss for an existing position
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb87a6f-77b5-11ed-9966-0242ac110003" /></para>
         /// </summary>
-        /// <param name="contractCode">Contract code</param>
-        /// <param name="pair">Pair</param>
+        /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
+        /// <param name="pair">Pair, for example `ETH-USDT`</param>
         /// <param name="contractType">Contract type</param>
         /// <param name="side">Order side</param>
         /// <param name="quantity">Quantity</param>
@@ -486,7 +486,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// Cancel isolated margin take profit / stop loss orders for an existing position
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb87bc0-77b5-11ed-9966-0242ac110003" /></para>
         /// </summary>
-        /// <param name="contractCode">Contract code</param>
+        /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="orderId">Order id</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<HTXTriggerOrderResult>> CancelIsolatedMarginTpSlAsync(string contractCode, string orderId, CancellationToken ct = default);
@@ -495,8 +495,8 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// Cancel isolated margin take profit / stop loss orders for an existing position
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb87bc0-77b5-11ed-9966-0242ac110003" /></para>
         /// </summary>
-        /// <param name="contractCode">Contract code</param>
-        /// <param name="pair">Pair</param>
+        /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
+        /// <param name="pair">Pair, for example `ETH-USDT`</param>
         /// <param name="contractType">Contract type</param>
         /// <param name="orderId">Order id</param>
         /// <param name="ct">Cancellation token</param>
@@ -506,7 +506,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// Cancel all isolated margin take profit / stop loss orders
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb87d94-77b5-11ed-9966-0242ac110003" /></para>
         /// </summary>
-        /// <param name="contractCode">Contract code</param>
+        /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="side">Side</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<HTXTriggerOrderResult>> CancelAllIsolatedMarginTpSlAsync(string contractCode, OrderSide? side = null, CancellationToken ct = default);
@@ -515,8 +515,8 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// Cancel all cross margin take profit / stop loss orders
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb87edb-77b5-11ed-9966-0242ac110003" /></para>
         /// </summary>
-        /// <param name="contractCode">Contract code</param>
-        /// <param name="pair">Pair</param>
+        /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
+        /// <param name="pair">Pair, for example `ETH-USDT`</param>
         /// <param name="contractType">Contract type</param>
         /// <param name="side">Side</param>
         /// <param name="ct">Cancellation token</param>
@@ -526,7 +526,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// Get open isolated margin take profit / stop loss orders
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb87fb0-77b5-11ed-9966-0242ac110003" /></para>
         /// </summary>
-        /// <param name="contractCode">Contract code</param>
+        /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="page">Page index</param>
         /// <param name="pageSize">Page size</param>
         /// <param name="tradeType">Trade type</param>
@@ -536,8 +536,8 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// <summary>
         /// Get open cross margin take profit / stop loss orders
         /// </summary>
-        /// <param name="contractCode">Contract code</param>
-        /// <param name="pair">Pair</param>
+        /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
+        /// <param name="pair">Pair, for example `ETH-USDT`</param>
         /// <param name="page">Page index</param>
         /// <param name="pageSize">Page size</param>
         /// <param name="tradeType">Trade type</param>
@@ -548,7 +548,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// Get isolated margin take profit / stop loss order history
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb88253-77b5-11ed-9966-0242ac110003" /></para>
         /// </summary>
-        /// <param name="contractCode">Contract code</param>
+        /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="tpSlOrderStatus">Status</param>
         /// <param name="daysPast">Amount of days ago. Max 90</param>
         /// <param name="page">Page</param>
@@ -561,8 +561,8 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// Get cross maring take profit / stop loss order history
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb883a0-77b5-11ed-9966-0242ac110003" /></para>
         /// </summary>
-        /// <param name="contractCode">Contract code</param>
-        /// <param name="pair">Pair</param>
+        /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
+        /// <param name="pair">Pair, for example `ETH-USDT`</param>
         /// <param name="tpSlOrderStatus">Status</param>
         /// <param name="daysPast">Amount of days ago. Max 90</param>
         /// <param name="page">Page</param>
@@ -575,7 +575,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// Get isolated margin position open info with attached tp/sl orders
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb884f1-77b5-11ed-9966-0242ac110003" /></para>
         /// </summary>
-        /// <param name="contractCode">Contract code</param>
+        /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="orderId">Order id</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<HTXPositionOpenTpSlOrders>> GetIsolatedMarginPositionOpenTpSlInfoAsync(string contractCode, long orderId, CancellationToken ct = default);
@@ -585,7 +585,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb8864d-77b5-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="orderId">Order id</param>
-        /// <param name="contractCode">Contract code</param>
+        /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="pair">Pair</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -595,7 +595,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// Place isolated margin trailing order
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb88960-77b5-11ed-9966-0242ac110003" /></para>
         /// </summary>
-        /// <param name="contractCode">Contract code</param>
+        /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="reduceOnly">Reduce only</param>
         /// <param name="side">Side</param>
         /// <param name="offset">Offset</param>
@@ -618,8 +618,8 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// <param name="callbackRate">Callback rate, 0.01 means 1%</param>
         /// <param name="activePrice">Active price</param>
         /// <param name="orderPriceType">Price type</param>
-        /// <param name="contractCode">Contract code</param>
-        /// <param name="pair">Pair</param>
+        /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
+        /// <param name="pair">Pair, for example `ETH-USDT`</param>
         /// <param name="contractType">Contract type</param>
         /// <param name="reduceOnly">Reduce only</param>
         /// <param name="ct">Cancellation token</param>
@@ -630,7 +630,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// Cancel an isolated margin trailing order
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb88f2c-77b5-11ed-9966-0242ac110003" /></para>
         /// </summary>
-        /// <param name="contractCode">Contract code</param>
+        /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="orderId">Order id</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<HTXTriggerOrderResult>> CancelIsolatedMarginTrailingOrderAsync(string contractCode, string orderId, CancellationToken ct = default);
@@ -639,8 +639,8 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// Cancel a cross margin trailing order
         /// </summary>
         /// <param name="orderId">Order id</param>
-        /// <param name="contractCode">Contract code</param>
-        /// <param name="pair">Pair</param>
+        /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
+        /// <param name="pair">Pair, for example `ETH-USDT`</param>
         /// <param name="contractType">Contract type</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -650,7 +650,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// Cancel all open isolated margin trailing orders
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb8924f-77b5-11ed-9966-0242ac110003" /></para>
         /// </summary>
-        /// <param name="contractCode">Contract code</param>
+        /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="side">Filter by side</param>
         /// <param name="offset">Filter by offset</param>
         /// <param name="ct">Cancellation token</param>
@@ -660,8 +660,8 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// Cancel all open cross margin trailing orders
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb89359-77b5-11ed-9966-0242ac110003" /></para>
         /// </summary>
-        /// <param name="contractCode">Contract code</param>
-        /// <param name="pair">Pair</param>
+        /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
+        /// <param name="pair">Pair, for example `ETH-USDT`</param>
         /// <param name="contractType">Contract type</param>
         /// <param name="side">Filter by side</param>
         /// <param name="offset">Filter by offset</param>
@@ -673,7 +673,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// Get open isolated margin trailing orders
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb894b7-77b5-11ed-9966-0242ac110003" /></para>
         /// </summary>
-        /// <param name="contractCode">Contract code</param>
+        /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="tradeType">Trade type</param>
         /// <param name="page">Page</param>
         /// <param name="pageSize">Page size</param>
@@ -684,8 +684,8 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// Get open cross margin trailing orders
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb89614-77b5-11ed-9966-0242ac110003" /></para>
         /// </summary>
-        /// <param name="contractCode">Contract code</param>
-        /// <param name="pair">Pair</param>
+        /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
+        /// <param name="pair">Pair, for example `ETH-USDT`</param>
         /// <param name="contractType">Contract type</param>
         /// <param name="tradeType">Trade type</param>
         /// <param name="page">Page</param>
@@ -697,7 +697,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// Get isolated margin trailing order history
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb89781-77b5-11ed-9966-0242ac110003" /></para>
         /// </summary>
-        /// <param name="contractCode">Contract code</param>
+        /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="tpSlOrderStatus">Status</param>
         /// <param name="tradeType">Trade type</param>
         /// <param name="daysPast">Amount of days ago. Max 90</param>
@@ -715,8 +715,8 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// <param name="tpSlOrderStatus">Status</param>
         /// <param name="tradeType">Trade type</param>
         /// <param name="daysPast">Amount of days ago. Max 90</param>
-        /// <param name="contractCode"></param>
-        /// <param name="pair">Pair</param>
+        /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
+        /// <param name="pair">Pair, for example `ETH-USDT`</param>
         /// <param name="contractType">Contract type</param>
         /// <param name="page">Page</param>
         /// <param name="pageSize">Page size</param>
