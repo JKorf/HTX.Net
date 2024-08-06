@@ -5,7 +5,7 @@
 = 
 {
   "op": "notify",
-  "topic": "orders.*",
+  "topic": "orders.BTC-USDT",
   "ts": 1489474082831,
   "uid": "123456789",
   "symbol": "BTC",

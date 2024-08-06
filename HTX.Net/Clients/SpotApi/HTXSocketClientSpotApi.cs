@@ -35,6 +35,8 @@ namespace HTX.Net.Clients.SpotApi
 
             AddSystemSubscription(new HTXSpotPingSubscription(_logger));
             AddSystemSubscription(new HTXPingSubscription(_logger));
+
+            RateLimiter = HTXExchange.RateLimiter.SpotConnection;
         }
 
         #endregion

@@ -2,11 +2,12 @@
 
 [![.NET](https://img.shields.io/github/actions/workflow/status/JKorf/HTX.Net/dotnet.yml?style=for-the-badge)](https://github.com/JKorf/HTX.Net/actions/workflows/dotnet.yml) ![License](https://img.shields.io/github/license/JKorf/HTX.Net?style=for-the-badge)
 
-HTX.Net is a strongly typed client library for accessing the [HTX REST and Websocket API](https://github.com/huobiapi).
+HTX.Net is a strongly typed client library for accessing the [HTX REST and Websocket API](https://www.htx.com/en-us/opend/).
 ## Features
 * Response data is mapped to descriptive models
 * Input parameters and response values are mapped to discriptive enum values where possible
 * Automatic websocket (re)connection management 
+* Client side rate limiting 
 * Cient side order book implementation
 * Extensive logging
 * Support for different environments
@@ -55,7 +56,7 @@ var lastPrice = tickerResult.Data.ClosePrice;
 ```csharp
 // Subscribe to ETH/USDT ticker updates via the websocket API
 var socketClient = new HTXSocketClient();
-var tickerSubscriptionResult = socketClient.SpotApi.SubscribeToTickerUpdatesAsync("ethusdt", (update) =>
+var tickerSubscriptionResult = socketClient.SpotApi.SubscribeToTickerUpdatesAsync("ETHUSDT", (update) =>
 {
 	var lastPrice = update.Data.ClosePrice;
 });

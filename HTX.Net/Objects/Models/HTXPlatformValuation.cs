@@ -16,7 +16,7 @@ namespace HTX.Net.Objects.Models
         /// Today profit rate
         /// </summary>
         [JsonPropertyName("todayProfitRate")]
-        public decimal TodayProfitRate { get; set; }
+        public decimal? TodayProfitRate { get; set; }
         /// <summary>
         /// Total balance
         /// </summary>
@@ -26,7 +26,7 @@ namespace HTX.Net.Objects.Models
         /// Todays profit
         /// </summary>
         [JsonPropertyName("todayProfit")]
-        public decimal TodayProfit { get; set; }
+        public decimal? TodayProfit { get; set; }
         /// <summary>
         /// Account balance list
         /// </summary>

@@ -128,8 +128,8 @@ namespace HTX.Net.Clients.SpotApi
             if (!result || result.Data == null)
                 return result.AsDatalessError(result.Error!);
 
-            if (result.Data.ErrorCode != null)
-                return result.AsDatalessError(new ServerError(result.Data.ErrorCode.Value, result.Data.ErrorMessage!));
+            if (!string.IsNullOrEmpty(result.Data.ErrorCode))
+                return result.AsDatalessError(new ServerError(result.Data.ErrorCode, result.Data.ErrorMessage!));
 
             return result.AsDataless();
 
@@ -144,8 +144,8 @@ namespace HTX.Net.Clients.SpotApi
             if (!result || result.Data == null)
                 return result.AsError<T>(result.Error!);
 
-            if (result.Data.ErrorCode != null)
-                return result.AsError<T>(new ServerError(result.Data.ErrorCode.Value, result.Data.ErrorMessage!));
+            if (!string.IsNullOrEmpty(result.Data.ErrorCode))
+                    return result.AsError<T>(new ServerError(result.Data.ErrorCode, result.Data.ErrorMessage!));
 
             return result.As(result.Data.Data);
         }

@@ -14,16 +14,16 @@
             get => ErrorMessage;
             set => ErrorMessage = value;
         }
-        [JsonInclude, JsonPropertyName("err-code")]
-        internal int? ErrorCode { get; set; }
-        [JsonInclude, JsonPropertyName("err_code")]
-        private int? ErrorCodeInternal
+        [JsonInclude, JsonPropertyName("err-code"), JsonConverter(typeof(NumberStringConverter))]
+        internal string? ErrorCode { get; set; }
+        [JsonInclude, JsonPropertyName("err_code"), JsonConverter(typeof(NumberStringConverter))]
+        private string? ErrorCodeInternal
         {
             get => ErrorCode;
             set => ErrorCode = value;
         }
-        [JsonInclude, JsonPropertyName("code")]
-        private int? ErrorCodeInternal2
+        [JsonInclude, JsonPropertyName("code"), JsonConverter(typeof(NumberStringConverter))]
+        private string? ErrorCodeInternal2
         {
             get => ErrorCode;
             set => ErrorCode = value;

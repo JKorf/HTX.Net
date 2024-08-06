@@ -2,6 +2,7 @@
 using HTX.Net.Objects.Models;
 using HTX.Net.Interfaces.Clients.SpotApi;
 using CryptoExchange.Net.CommonObjects;
+using CryptoExchange.Net.RateLimiting.Guards;
 
 namespace HTX.Net.Clients.SpotApi
 {
@@ -54,7 +55,8 @@ namespace HTX.Net.Clients.SpotApi
             parameters.AddOptionalEnum("operator", stopOperator);
             parameters.AddOptionalString("price", price);
 
-            var request = _definitions.GetOrCreate(HttpMethod.Post, "v1/order/orders/place", HTXExchange.RateLimiter.EndpointLimit, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, "v1/order/orders/place", HTXExchange.RateLimiter.EndpointLimit, 1, true,
+                new SingleLimitGuard(100, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             var result = await _baseClient.SendBasicAsync<long>(request, parameters, ct).ConfigureAwait(false);
             if (result)
                 _baseClient.InvokeOrderPlaced(new OrderId { SourceObject = result.Data, Id = result.Data.ToString(CultureInfo.InvariantCulture) });
@@ -95,7 +97,8 @@ namespace HTX.Net.Clients.SpotApi
             var orderParameters = new ParameterCollection();
             orderParameters.SetBody(data);
 
-            var request = _definitions.GetOrCreate(HttpMethod.Post, "v1/order/batch-orders", HTXExchange.RateLimiter.EndpointLimit, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, "v1/order/batch-orders", HTXExchange.RateLimiter.EndpointLimit, 1, true,
+                new SingleLimitGuard(20, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             var result = await _baseClient.SendBasicAsync<IEnumerable<HTXBatchPlaceResult>>(request, orderParameters, ct).ConfigureAwait(false);
             if (result.Success)
             {
@@ -147,7 +150,8 @@ namespace HTX.Net.Clients.SpotApi
             parameters.AddOptionalString("stop-price", stopPrice);
             parameters.AddOptionalEnum("operator", stopOperator);
 
-            var request = _definitions.GetOrCreate(HttpMethod.Post, "v1/order/auto/place", HTXExchange.RateLimiter.EndpointLimit, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, "v1/order/auto/place", HTXExchange.RateLimiter.EndpointLimit, 1, true,
+                new SingleLimitGuard(100, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             var result = await _baseClient.SendAsync<HTXOrderId>(request, parameters, ct).ConfigureAwait(false);
             if (result)
                 _baseClient.InvokeOrderPlaced(new OrderId { SourceObject = result.Data, Id = result.Data.OrderId.ToString(CultureInfo.InvariantCulture) });
@@ -161,7 +165,8 @@ namespace HTX.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<WebCallResult<long>> CancelOrderAsync(long orderId, CancellationToken ct = default)
         {
-            var request = _definitions.GetOrCreate(HttpMethod.Post, $"v1/order/orders/{orderId}/submitcancel", HTXExchange.RateLimiter.EndpointLimit, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, $"v1/order/orders/{orderId}/submitcancel", HTXExchange.RateLimiter.EndpointLimit, 1, true,
+                new SingleLimitGuard(100, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             var result = await _baseClient.SendBasicAsync<long>(request, null, ct).ConfigureAwait(false);
             if (result)
                 _baseClient.InvokeOrderCanceled(new OrderId { SourceObject = result.Data, Id = result.Data.ToString(CultureInfo.InvariantCulture) });
@@ -180,7 +185,8 @@ namespace HTX.Net.Clients.SpotApi
                 { "client-order-id", clientOrderId }
             };
 
-            var request = _definitions.GetOrCreate(HttpMethod.Post, "v1/order/orders/submitCancelClientOrder", HTXExchange.RateLimiter.EndpointLimit, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, "v1/order/orders/submitCancelClientOrder", HTXExchange.RateLimiter.EndpointLimit, 1, true,
+                new SingleLimitGuard(100, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             return await _baseClient.SendBasicAsync<long>(request, parameters, ct).ConfigureAwait(false);
         }
 
@@ -199,7 +205,8 @@ namespace HTX.Net.Clients.SpotApi
             parameters.AddOptionalEnum("side", side);
             parameters.AddOptionalParameter("size", limit);
 
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "v1/order/openOrders", HTXExchange.RateLimiter.EndpointLimit, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "v1/order/openOrders", HTXExchange.RateLimiter.EndpointLimit, 1, true,
+                new SingleLimitGuard(50, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             return await _baseClient.SendBasicAsync<IEnumerable<HTXOpenOrder>>(request, parameters, ct).ConfigureAwait(false);
         }
 
@@ -216,7 +223,8 @@ namespace HTX.Net.Clients.SpotApi
             parameters.AddOptionalEnum("side", side);
             parameters.AddOptionalParameter("size", limit);
 
-            var request = _definitions.GetOrCreate(HttpMethod.Post, "v1/order/orders/batchCancelOpenOrders", HTXExchange.RateLimiter.EndpointLimit, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, "v1/order/orders/batchCancelOpenOrders", HTXExchange.RateLimiter.EndpointLimit, 1, true,
+                new SingleLimitGuard(50, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             return await _baseClient.SendBasicAsync<HTXByCriteriaCancelResult>(request, parameters, ct).ConfigureAwait(false);
         }
 
@@ -234,7 +242,8 @@ namespace HTX.Net.Clients.SpotApi
             parameters.AddOptionalParameter("order-ids", orderIds?.Select(s => s.ToString(CultureInfo.InvariantCulture)));
             parameters.AddOptionalParameter("client-order-ids", clientOrderIds?.Select(s => s.ToString(CultureInfo.InvariantCulture)));
 
-            var request = _definitions.GetOrCreate(HttpMethod.Post, "v1/order/orders/batchcancel", HTXExchange.RateLimiter.EndpointLimit, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, "v1/order/orders/batchcancel", HTXExchange.RateLimiter.EndpointLimit, 1, true,
+                new SingleLimitGuard(50, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             return await _baseClient.SendBasicAsync<HTXBatchCancelResult>(request, parameters, ct).ConfigureAwait(false);
         }
 
@@ -247,7 +256,8 @@ namespace HTX.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<WebCallResult<HTXOrder>> GetOrderAsync(long orderId, CancellationToken ct = default)
         {
-            var request = _definitions.GetOrCreate(HttpMethod.Get, $"v1/order/orders/{orderId}", HTXExchange.RateLimiter.EndpointLimit, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"v1/order/orders/{orderId}", HTXExchange.RateLimiter.EndpointLimit, 1, true,
+                new SingleLimitGuard(50, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             return await _baseClient.SendBasicAsync<HTXOrder>(request, null, ct).ConfigureAwait(false);
         }
 
@@ -263,7 +273,8 @@ namespace HTX.Net.Clients.SpotApi
                 { "clientOrderId", clientOrderId }
             };
 
-            var request = _definitions.GetOrCreate(HttpMethod.Get, $"v1/order/orders/getClientOrder", HTXExchange.RateLimiter.EndpointLimit, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"v1/order/orders/getClientOrder", HTXExchange.RateLimiter.EndpointLimit, 1, true,
+                new SingleLimitGuard(50, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             return await _baseClient.SendBasicAsync<HTXOrder>(request, parameters, ct).ConfigureAwait(false);
         }
 
@@ -274,7 +285,8 @@ namespace HTX.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<WebCallResult<IEnumerable<HTXOrderTrade>>> GetOrderTradesAsync(long orderId, CancellationToken ct = default)
         {
-            var request = _definitions.GetOrCreate(HttpMethod.Get, $"v1/order/orders/{orderId}/matchresults", HTXExchange.RateLimiter.EndpointLimit, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"v1/order/orders/{orderId}/matchresults", HTXExchange.RateLimiter.EndpointLimit, 1, true,
+                new SingleLimitGuard(50, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             return await _baseClient.SendBasicAsync<IEnumerable<HTXOrderTrade>>(request, null, ct).ConfigureAwait(false);
         }
 
@@ -301,7 +313,8 @@ namespace HTX.Net.Clients.SpotApi
             parameters.AddOptionalEnum("direct", direction);
             parameters.AddOptionalParameter("size", limit);
 
-            var request = _definitions.GetOrCreate(HttpMethod.Get, $"v1/order/orders", HTXExchange.RateLimiter.EndpointLimit, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"v1/order/orders", HTXExchange.RateLimiter.EndpointLimit, 1, true,
+                new SingleLimitGuard(50, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             return await _baseClient.SendBasicAsync<IEnumerable<HTXOrder>>(request, parameters, ct).ConfigureAwait(false);
         }
 
@@ -320,7 +333,8 @@ namespace HTX.Net.Clients.SpotApi
             parameters.AddOptionalEnum("direct", direction);
             parameters.AddOptionalParameter("size", limit);
 
-            var request = _definitions.GetOrCreate(HttpMethod.Get, $"v1/order/history", HTXExchange.RateLimiter.EndpointLimit, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"v1/order/history", HTXExchange.RateLimiter.EndpointLimit, 1, true,
+                new SingleLimitGuard(20, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             return await _baseClient.SendBasicAsync<IEnumerable<HTXOrder>>(request, parameters, ct).ConfigureAwait(false);
         }
 
@@ -341,7 +355,8 @@ namespace HTX.Net.Clients.SpotApi
             parameters.AddOptionalEnum("direct", direction);
             parameters.AddOptionalParameter("size", limit);
 
-            var request = _definitions.GetOrCreate(HttpMethod.Get, $"v1/order/matchresults", HTXExchange.RateLimiter.EndpointLimit, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"v1/order/matchresults", HTXExchange.RateLimiter.EndpointLimit, 1, true,
+                new SingleLimitGuard(20, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             return await _baseClient.SendBasicAsync<IEnumerable<HTXOrderTrade>>(request, parameters, ct).ConfigureAwait(false);
         }
 
@@ -380,7 +395,8 @@ namespace HTX.Net.Clients.SpotApi
             parameters.AddOptionalEnum("timeInForce", timeInForce);
             parameters.AddOptionalString("trailingRate", trailingRate);
 
-            var request = _definitions.GetOrCreate(HttpMethod.Post, $"v2/algo-orders", HTXExchange.RateLimiter.EndpointLimit, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, $"v2/algo-orders", HTXExchange.RateLimiter.EndpointLimit, 1, true,
+                new SingleLimitGuard(20, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             return await _baseClient.SendAsync<HTXPlacedConditionalOrder>(request, parameters, ct).ConfigureAwait(false);
         }
 
@@ -396,7 +412,8 @@ namespace HTX.Net.Clients.SpotApi
                 { "clientOrderIds", clientOrderIds }
             };
 
-            var request = _definitions.GetOrCreate(HttpMethod.Post, $"v2/algo-orders/cancellation", HTXExchange.RateLimiter.EndpointLimit, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, $"v2/algo-orders/cancellation", HTXExchange.RateLimiter.EndpointLimit, 1, true,
+                new SingleLimitGuard(20, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             return await _baseClient.SendAsync<HTXConditionalOrderCancelResult>(request, parameters, ct).ConfigureAwait(false);
         }
 
@@ -416,7 +433,8 @@ namespace HTX.Net.Clients.SpotApi
             parameters.AddOptionalParameter("limit", limit);
             parameters.AddOptionalParameter("fromId", fromId);
 
-            var request = _definitions.GetOrCreate(HttpMethod.Get, $"v2/algo-orders/opening", HTXExchange.RateLimiter.EndpointLimit, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"v2/algo-orders/opening", HTXExchange.RateLimiter.EndpointLimit, 1, true,
+                new SingleLimitGuard(20, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             return await _baseClient.SendAsync<IEnumerable<HTXConditionalOrder>>(request, parameters, ct).ConfigureAwait(false);
         }
 
@@ -452,7 +470,8 @@ namespace HTX.Net.Clients.SpotApi
             parameters.AddOptionalParameter("limit", limit);
             parameters.AddOptionalParameter("fromId", fromId);
 
-            var request = _definitions.GetOrCreate(HttpMethod.Get, $"v2/algo-orders/history", HTXExchange.RateLimiter.EndpointLimit, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"v2/algo-orders/history", HTXExchange.RateLimiter.EndpointLimit, 1, true,
+                new SingleLimitGuard(20, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             return await _baseClient.SendAsync<IEnumerable<HTXConditionalOrder>>(request, parameters, ct).ConfigureAwait(false);
         }
 
@@ -467,7 +486,8 @@ namespace HTX.Net.Clients.SpotApi
             {
                 { "clientOrderId", clientOrderId }
             };
-            var request = _definitions.GetOrCreate(HttpMethod.Get, $"v2/algo-orders/specific", HTXExchange.RateLimiter.EndpointLimit, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, $"v2/algo-orders/specific", HTXExchange.RateLimiter.EndpointLimit, 1, true,
+                new SingleLimitGuard(20, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             return await _baseClient.SendAsync<HTXConditionalOrder>(request, parameters, ct).ConfigureAwait(false);
         }
 

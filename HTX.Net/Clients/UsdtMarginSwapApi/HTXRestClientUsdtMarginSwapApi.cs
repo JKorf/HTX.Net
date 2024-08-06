@@ -86,8 +86,8 @@ namespace HTX.Net.Clients.FuturesApi
             if (!result || result.Data == null)
                 return result.AsDatalessError(result.Error!);
 
-            if (result.Data.ErrorCode != null)
-                return result.AsDatalessError(new ServerError(result.Data.ErrorCode.Value, result.Data.ErrorMessage!));
+            if (!string.IsNullOrEmpty(result.Data.ErrorCode))
+                return result.AsDatalessError(new ServerError(result.Data.ErrorCode, result.Data.ErrorMessage!));
 
             return result.AsDataless();
 
@@ -102,8 +102,8 @@ namespace HTX.Net.Clients.FuturesApi
             if (!result || result.Data == null)
                 return result.AsError<T>(result.Error!);
 
-            if (result.Data.ErrorCode != null)
-                return result.AsError<T>(new ServerError(result.Data.ErrorCode.Value, result.Data.ErrorMessage!));
+            if (!string.IsNullOrEmpty(result.Data.ErrorCode))
+                return result.AsError<T>(new ServerError(result.Data.ErrorCode, result.Data.ErrorMessage!));
 
             return result.As(result.Data.Data);
         }
@@ -114,7 +114,7 @@ namespace HTX.Net.Clients.FuturesApi
             if (!accessor.IsJson)
                 return new ServerError(accessor.GetOriginalString());
 
-            var code = accessor.GetValue<int?>(MessagePath.Get().Property("err-code"));
+            var code = accessor.GetValue<string?>(MessagePath.Get().Property("err-code"));
             var msg = accessor.GetValue<string>(MessagePath.Get().Property("err-msg"));
 
             if (code == null || msg == null)
@@ -122,6 +122,21 @@ namespace HTX.Net.Clients.FuturesApi
 
 
             return new ServerError($"{code}, {msg}");
+        }
+
+        /// <inheritdoc />
+        protected override ServerError? TryParseError(IMessageAccessor accessor)
+        {
+            if (!accessor.IsJson)
+                return new ServerError(accessor.GetOriginalString());
+
+            var errCode = accessor.GetValue<string>(MessagePath.Get().Property("err-code"));
+            var msg = accessor.GetValue<string>(MessagePath.Get().Property("err-msg"));
+
+            if (!string.IsNullOrEmpty(errCode))
+                return new ServerError($"{errCode}: {msg}");
+
+            return null;
         }
 
         /// <inheritdoc />

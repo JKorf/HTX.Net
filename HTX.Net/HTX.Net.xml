@@ -611,6 +611,9 @@
         <member name="M:HTX.Net.Clients.FuturesApi.HTXRestClientUsdtMarginSwapApi.ParseErrorResponse(System.Int32,System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{System.String,System.Collections.Generic.IEnumerable{System.String}}},CryptoExchange.Net.Interfaces.IMessageAccessor)">
             <inheritdoc />
         </member>
+        <member name="M:HTX.Net.Clients.FuturesApi.HTXRestClientUsdtMarginSwapApi.TryParseError(CryptoExchange.Net.Interfaces.IMessageAccessor)">
+            <inheritdoc />
+        </member>
         <member name="M:HTX.Net.Clients.FuturesApi.HTXRestClientUsdtMarginSwapApi.GetServerTimestampAsync">
             <inheritdoc />
         </member>
