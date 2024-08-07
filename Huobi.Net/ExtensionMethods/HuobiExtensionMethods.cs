@@ -20,5 +20,25 @@ namespace Huobi.Net.ExtensionMethods
             symbolString = symbolString.ToLower(CultureInfo.InvariantCulture);
             return symbolString;
         }
+
+        /// <summary>
+        /// Fill parameters in a path. Parameters are specified by '{}' and should be specified in occuring sequence
+        /// </summary>
+        /// <param name="path">The total path string</param>
+        /// <param name="values">The values to fill</param>
+        /// <returns></returns>
+        public static string FillPathParameters(this string path, params string[] values)
+        {
+            foreach (var value in values)
+            {
+                var index = path.IndexOf("{}", StringComparison.Ordinal);
+                if (index >= 0)
+                {
+                    path = path.Remove(index, 2);
+                    path = path.Insert(index, value);
+                }
+            }
+            return path;
+        }
     }
 }

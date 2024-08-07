@@ -2237,6 +2237,14 @@
             </summary>
             <param name="symbolString">string to validate</param>
         </member>
+        <member name="M:Huobi.Net.ExtensionMethods.HuobiExtensionMethods.FillPathParameters(System.String,System.String[])">
+            <summary>
+            Fill parameters in a path. Parameters are specified by '{}' and should be specified in occuring sequence
+            </summary>
+            <param name="path">The total path string</param>
+            <param name="values">The values to fill</param>
+            <returns></returns>
+        </member>
         <member name="T:Huobi.Net.HuobiEnvironment">
             <summary>
             Huobi environments
