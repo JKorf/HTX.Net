@@ -88,7 +88,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         Task<WebCallResult<IEnumerable<HTXFinancialRecord>>> GetFinancialRecordsAsync(string marginAccount, string? contractCode = null, IEnumerable<FinancialRecordType>? types = null, DateTime? startTime = null, DateTime? endTime = null, FilterDirection? direction = null, long? fromId = null, CancellationToken ct = default);
 
         /// <summary>
-        /// Get isolated margin assets and positisons
+        /// Get isolated margin assets and positions
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb81d85-77b5-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
@@ -135,7 +135,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// <returns></returns>
         Task<WebCallResult<IEnumerable<HTXTradingFee>>> GetTradingFeesAsync(string? contractCode = null, string? pair = null, ContractType? contractType = null, BusinessType? businessType = null, CancellationToken ct = default);
         /// <summary>
-        /// Switch cross margin position mode
+        /// Set cross margin position mode
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb843e0-77b5-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="marginAccount">Margin account, for example `USDT`</param>
@@ -144,7 +144,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// <returns></returns>
         Task<WebCallResult<HTXPositionMode>> SetCrossMarginPositionModeAsync(string marginAccount, PositionMode positionMode, CancellationToken ct = default);
         /// <summary>
-        /// Switch isolated margin position mode
+        /// Set isolated margin position mode
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb842fe-77b5-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="marginAccount">Margin account, for example `USDT`</param>

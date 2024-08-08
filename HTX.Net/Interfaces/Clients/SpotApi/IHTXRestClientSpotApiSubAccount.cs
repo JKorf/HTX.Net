@@ -26,7 +26,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         Task<WebCallResult<IEnumerable<HTXSubAccountInfo>>> CreateSubAccountsAsync(IEnumerable<HTXSubAccountRequest> accounts, CancellationToken ct = default);
 
         /// <summary>
-        /// Gets a list of users associated with the apikey/secret
+        /// Get a list of users associated with the apikey/secret
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec52a87-7773-11ed-9966-0242ac110003"/></para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
@@ -143,7 +143,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         Task<WebCallResult<IEnumerable<HTXAggBalance>>> GetAggregateBalancesAsync(CancellationToken ct = default);
 
         /// <summary>
-        /// Gets a list of balances for a specific sub account
+        /// Get a list of balances for a specific sub account
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4b62b-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="subAccountId">The id of the sub account to get the balances for</param>

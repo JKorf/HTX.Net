@@ -129,12 +129,12 @@ namespace HTX.Net.Clients.UsdtFutures
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToIncrementalOrderBookUpdatesAsync(string contractCode, bool snapshot, int limit, Action<DataEvent<HTXIncrementalOrderBookUpdate>> onData, CancellationToken ct = default)
         {
-            var subscription = new HTXSubscription<HTXIncrementalOrderBookUpdate>(_logger, $"market.{contractCode.ToUpperInvariant()}.depth.size_{limit}.high_freq", x => onData(x.WithSymbol(contractCode)), false);
+            var subscription = new HTXIncrementalOrderBookSubscription(_logger, snapshot, $"market.{contractCode.ToUpperInvariant()}.depth.size_{limit}.high_freq", x => onData(x.WithSymbol(contractCode)));
             return await SubscribeAsync(BaseAddress.AppendPath("linear-swap-ws"), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToSymbolTickerUpdatesAsync(string contractCode, Action<DataEvent<HTXSymbolTickUpdate>> onData, CancellationToken ct = default)
+        public async Task<CallResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(string contractCode, Action<DataEvent<HTXSymbolTickUpdate>> onData, CancellationToken ct = default)
         {
             var subscription = new HTXSubscription<HTXSymbolTickUpdate>(_logger, $"market.{contractCode.ToUpperInvariant()}.detail", x => onData(x.WithSymbol(contractCode)), false);
             return await SubscribeAsync(BaseAddress.AppendPath("linear-swap-ws"), subscription, ct).ConfigureAwait(false);

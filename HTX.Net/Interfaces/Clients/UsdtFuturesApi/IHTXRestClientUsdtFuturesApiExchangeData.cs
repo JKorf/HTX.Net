@@ -21,7 +21,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// <returns></returns>
         Task<WebCallResult<IEnumerable<HTXBasisData>>> GetBasisDataAsync(string contractCode, KlineInterval interval, int limit, string? basisPriceType = null, CancellationToken ct = default);
         /// <summary>
-        /// Get the best current offer
+        /// Get the current best bid/ask values
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb8098e-77b5-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
@@ -83,7 +83,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// <returns></returns>
         Task<WebCallResult<IEnumerable<HTXTieredCrossMarginInfo>>> GetCrossTieredMarginInfoAsync(string? contractCode = null, string? pair = null, ContractType? contractType = null, BusinessType? businessType = null, CancellationToken ct = default);
         /// <summary>
-        /// Get estimated funding rate kliens
+        /// Get estimated funding rate klines
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb813aa-77b5-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
@@ -182,11 +182,11 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="interval">Kline interval</param>
         /// <param name="limit">Limit</param>
-        /// <param name="from">Filter by start time</param>
-        /// <param name="to">Filter by end time</param>
+        /// <param name="startTime">Filter by start time</param>
+        /// <param name="endTime">Filter by end time</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<HTXKline>>> GetKlinesAsync(string contractCode, KlineInterval interval, int? limit = null, DateTime? from = null, DateTime? to = null, CancellationToken ct = default);
+        Task<WebCallResult<IEnumerable<HTXKline>>> GetKlinesAsync(string contractCode, KlineInterval interval, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default);
         /// <summary>
         /// Get last trades
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb80f4c-77b5-11ed-9966-0242ac110003" /></para>

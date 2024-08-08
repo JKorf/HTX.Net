@@ -84,6 +84,8 @@ namespace HTX.Net.Clients.SpotApi
         public async Task<WebCallResult<HTXTransactionResult>> InternalTransferAsync(long fromUserId, AccountType fromAccountType, long fromAccountId,
             long toUserId, AccountType toAccountType, long toAccountId, string asset, decimal quantity, CancellationToken ct = default)
         {
+            asset = asset.ToLowerInvariant();
+
             var parameters = new ParameterCollection()
             {
                 { "from-account-id", fromAccountId.ToString(CultureInfo.InvariantCulture)},
@@ -109,6 +111,7 @@ namespace HTX.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<WebCallResult<IEnumerable<HTXAccountHistory>>> GetAccountHistoryAsync(long accountId, string? asset = null, IEnumerable<TransactionType>? transactionTypes = null, DateTime? startTime = null, DateTime? endTime = null, SortingType? sort = null, int? limit = null, CancellationToken ct = default)
         {
+            asset = asset?.ToLowerInvariant();
             limit?.ValidateIntBetween(nameof(limit), 1, 500);
 
             var parameters = new ParameterCollection()
@@ -134,6 +137,7 @@ namespace HTX.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<WebCallResult<IEnumerable<HTXLedgerEntry>>> GetAccountLedgerAsync(long accountId, string? asset = null, IEnumerable<TransactionType>? transactionTypes = null, DateTime? startTime = null, DateTime? endTime = null, SortingType? sort = null, int? limit = null, long? fromId = null, CancellationToken ct = default)
         {
+            asset = asset?.ToLowerInvariant();
             limit?.ValidateIntBetween(nameof(limit), 1, 500);
 
             var parameters = new ParameterCollection()
@@ -160,6 +164,8 @@ namespace HTX.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<WebCallResult<long>> TransferAsync(TransferAccount fromAccount, TransferAccount toAccount, string asset, decimal quantity, string marginAccount, CancellationToken ct = default)
         {
+            asset = asset.ToLowerInvariant();
+
             var parameters = new ParameterCollection();
             parameters.AddEnum("from", fromAccount);
             parameters.AddEnum("to", toAccount);
@@ -256,6 +262,8 @@ namespace HTX.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<WebCallResult<IEnumerable<HTXDepositAddress>>> GetDepositAddressesAsync(string asset, CancellationToken ct = default)
         {
+            asset = asset.ToLowerInvariant();
+
             var parameters = new ParameterCollection() { { "currency", asset } };
 
             var request = _definitions.GetOrCreate(HttpMethod.Get, "v2/account/deposit/address", HTXExchange.RateLimiter.EndpointLimit, 1, true,
@@ -270,6 +278,8 @@ namespace HTX.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<WebCallResult<HTXWithdrawalQuota>> GetWithdrawalQuotasAsync(string? asset = null, CancellationToken ct = default)
         {
+            asset = asset?.ToLowerInvariant();
+
             var parameters = new ParameterCollection();
             parameters.AddOptional("currency", asset);
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/v2/account/withdraw/quota", HTXExchange.RateLimiter.EndpointLimit, 1, true,
@@ -285,6 +295,8 @@ namespace HTX.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<WebCallResult<IEnumerable<HTXWithdrawalAddress>>> GetWithdrawalAddressesAsync(string asset, string? network = null, string? note = null, int? limit = null, long? fromId = null, CancellationToken ct = default)
         {
+            asset = asset?.ToLowerInvariant();
+
             var parameters = new ParameterCollection();
             parameters.Add("currency", asset);
             parameters.AddOptional("chain", network);
@@ -304,6 +316,8 @@ namespace HTX.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<WebCallResult<long>> WithdrawAsync(string address, string asset, decimal quantity, decimal fee, string? network = null, string? addressTag = null, string? clientOrderId = null, CancellationToken ct = default)
         {
+            asset = asset.ToLowerInvariant();
+
             var parameters = new ParameterCollection()
             {
                 { "address", address },
@@ -354,11 +368,13 @@ namespace HTX.Net.Clients.SpotApi
 
         #endregion
 
-        #region Get Withdraw Deposit
+        #region Get Withdraw Deposit History
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<HTXWithdrawDeposit>>> GetWithdrawDepositAsync(WithdrawDepositType type, string? asset = null, int? from = null, int? size = null, FilterDirection? direction = null, CancellationToken ct = default)
+        public async Task<WebCallResult<IEnumerable<HTXWithdrawDeposit>>> GetWithdrawDepositHistoryAsync(WithdrawDepositType type, string? asset = null, int? from = null, int? size = null, FilterDirection? direction = null, CancellationToken ct = default)
         {
+            asset = asset?.ToLowerInvariant();
+
             var parameters = new ParameterCollection();
             parameters.AddEnum("type", type);
             parameters.AddOptionalParameter("currency", asset);
@@ -379,11 +395,11 @@ namespace HTX.Net.Clients.SpotApi
             CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
-            parameters.AddOptionalParameter("symbols", string.Join(",", symbols));
+            parameters.AddParameter("symbols", string.Join(",", symbols.Select(s => s.ToLowerInvariant())));
 
             var request = _definitions.GetOrCreate(HttpMethod.Get, "v2/reference/transact-fee-rate", HTXExchange.RateLimiter.EndpointLimit, 1, true,
                 new SingleLimitGuard(50, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
-            return await _baseClient.SendAsync<IEnumerable<HTXFeeRate>>(request, null, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<IEnumerable<HTXFeeRate>>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion

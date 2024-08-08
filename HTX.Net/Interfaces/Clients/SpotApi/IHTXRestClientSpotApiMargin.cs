@@ -63,7 +63,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         Task<WebCallResult<long>> RequestIsolatedMarginLoanAsync(string symbol, string asset, decimal quantity, CancellationToken ct = default);
 
         /// <summary>
-        /// Repay a isolated margin loan
+        /// Repay an isolated margin loan
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4d7f0-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="orderId">Id to repay</param>
@@ -73,7 +73,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         Task<WebCallResult<long>> RepayIsolatedMarginLoanAsync(string orderId, decimal quantity, CancellationToken ct = default);
 
         /// <summary>
-        /// Get isolated margin orders history
+        /// Get isolated margin order history
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4d423-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="symbol">The symbol to get history for, for example `ETHUSDT`</param>

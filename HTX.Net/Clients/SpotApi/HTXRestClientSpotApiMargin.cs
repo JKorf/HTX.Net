@@ -21,6 +21,8 @@ namespace HTX.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<WebCallResult<IEnumerable<HTXRepaymentResult>>> RepayLoanAsync(string accountId, string asset, decimal quantity, string? transactionId = null, CancellationToken ct = default)
         {
+            asset = asset.ToLowerInvariant();
+
             var parameters = new ParameterCollection()
             {
                 { "accountId", accountId },
@@ -41,6 +43,9 @@ namespace HTX.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<WebCallResult<long>> TransferSpotToIsolatedMarginAsync(string symbol, string asset, decimal quantity, CancellationToken ct = default)
         {
+            symbol = symbol.ToLowerInvariant();
+            asset = asset.ToLowerInvariant();
+
             var parameters = new ParameterCollection()
             {
                 { "symbol", symbol },
@@ -60,6 +65,9 @@ namespace HTX.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<WebCallResult<long>> TransferIsolatedMarginToSpotAsync(string symbol, string asset, decimal quantity, CancellationToken ct = default)
         {
+            symbol = symbol.ToLowerInvariant();
+            asset = asset.ToLowerInvariant();
+
             var parameters = new ParameterCollection()
             {
                 { "symbol", symbol },
@@ -80,7 +88,7 @@ namespace HTX.Net.Clients.SpotApi
         public async Task<WebCallResult<IEnumerable<HTXLoanInfo>>> GetIsolatedLoanInterestRateAndQuotaAsync(IEnumerable<string>? symbols = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
-            parameters.AddOptionalParameter("symbols", symbols == null? null: string.Join(",", symbols));
+            parameters.AddOptionalParameter("symbols", symbols == null? null: string.Join(",", symbols.Select(s => s.ToLowerInvariant())));
 
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"v1/margin/loan-info", HTXExchange.RateLimiter.EndpointLimit, 1, true,
                 new SingleLimitGuard(20, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
@@ -94,6 +102,9 @@ namespace HTX.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<WebCallResult<long>> RequestIsolatedMarginLoanAsync(string symbol, string asset, decimal quantity, CancellationToken ct = default)
         {
+            asset = asset.ToLowerInvariant();
+            symbol = symbol.ToLowerInvariant();
+
             var parameters = new ParameterCollection()
             {
                 { "symbol", symbol },
@@ -139,6 +150,8 @@ namespace HTX.Net.Clients.SpotApi
             int? subUserId = null, 
             CancellationToken ct = default)
         {
+            symbol = symbol.ToLowerInvariant();
+
             var parameters = new ParameterCollection()
             {
                 { "symbol", symbol }
@@ -164,6 +177,8 @@ namespace HTX.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<WebCallResult<IEnumerable<HTXMarginBalances>>> GetIsolatedMarginBalanceAsync(string symbol, int? subUserId = null, CancellationToken ct = default)
         {
+            symbol = symbol.ToLowerInvariant();
+
             var parameters = new ParameterCollection()
             {
                 { "symbol", symbol }
@@ -183,6 +198,8 @@ namespace HTX.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<WebCallResult<long>> TransferSpotToCrossMarginAsync(string asset, decimal quantity, CancellationToken ct = default)
         {
+            asset = asset.ToLowerInvariant();
+
             var parameters = new ParameterCollection()
             {
                 { "currency", asset },
@@ -201,6 +218,8 @@ namespace HTX.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<WebCallResult<long>> TransferCrossMarginToSpotAsync(string asset, decimal quantity, CancellationToken ct = default)
         {
+            asset = asset.ToLowerInvariant();
+
             var parameters = new ParameterCollection()
             {
                 { "currency", asset },
@@ -231,6 +250,8 @@ namespace HTX.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<WebCallResult<long>> RequestCrossMarginLoanAsync(string asset, decimal quantity, CancellationToken ct = default)
         {
+            asset = asset.ToLowerInvariant();
+
             var parameters = new ParameterCollection()
             {
                 { "currency", asset },
@@ -275,6 +296,8 @@ namespace HTX.Net.Clients.SpotApi
             int? subUserId = null,
             CancellationToken ct = default)
         {
+            asset = asset?.ToLowerInvariant();
+
             var parameters = new ParameterCollection();
             parameters.AddOptionalParameter("currency", asset);
             parameters.AddOptionalParameter("state", EnumConverter.GetString(state));
@@ -312,6 +335,8 @@ namespace HTX.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<WebCallResult<IEnumerable<HTXMaxHolding>>> GetCrossMarginLimitAsync(string? asset = null, CancellationToken ct = default)
         {
+            asset = asset?.ToLowerInvariant();
+
             var parameters = new ParameterCollection();
             parameters.AddOptional("currency", asset);
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/v2/margin/limit", HTXExchange.RateLimiter.EndpointLimit, 1, true,
@@ -327,6 +352,8 @@ namespace HTX.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<WebCallResult<IEnumerable<HTXRepayment>>> GetRepaymentHistoryAsync(long? repayId = null, long? accountId =null, string? asset =null, DateTime? startTime = null, DateTime? endTime = null, string? sort = null, int? limit = null, long? fromId = null, CancellationToken ct = default)
         {
+            asset = asset?.ToLowerInvariant();
+
             var parameters = new ParameterCollection();
             parameters.AddOptionalParameter("repayId", repayId);
             parameters.AddOptionalParameter("accountId", accountId);

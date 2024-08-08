@@ -75,7 +75,7 @@ namespace HTX.Net.Clients.SpotApi
         public async Task<WebCallResult<IEnumerable<HTXSymbolConfig>>> GetSymbolConfigAsync(IEnumerable<string>? symbols = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
-            parameters.AddOptional("symbols", symbols == null ? null : string.Join(",", symbols));
+            parameters.AddOptional("symbols", symbols == null ? null : string.Join(",", symbols.Select(s => s.ToLowerInvariant())));
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/v1/settings/common/market-symbols", HTXExchange.RateLimiter.EndpointLimit, 1, false,
                 new SingleLimitGuard(100, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding));
             var result = await _baseClient.SendBasicAsync<IEnumerable<HTXSymbolConfig>>(request, parameters, ct).ConfigureAwait(false);
@@ -89,6 +89,8 @@ namespace HTX.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<WebCallResult<IEnumerable<HTXAssetNetworks>>> GetAssetsAndNetworksAsync(string? asset = null, CancellationToken ct = default)
         {
+            asset = asset?.ToLowerInvariant();
+
             var parameters = new ParameterCollection();
             parameters.AddOptional("currency", asset);
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/v2/reference/currencies", HTXExchange.RateLimiter.EndpointLimit, 1, false,
@@ -106,10 +108,10 @@ namespace HTX.Net.Clients.SpotApi
         {
             var request = _definitions.GetOrCreate(HttpMethod.Get, "v1/common/timestamp", HTXExchange.RateLimiter.EndpointLimit, 1, false, preventCaching: true,
                 limitGuard: new SingleLimitGuard(100, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding));
-            var result = await _baseClient.SendBasicAsync<string>(request, null, ct).ConfigureAwait(false);
+            var result = await _baseClient.SendBasicAsync<long>(request, null, ct).ConfigureAwait(false);
             if (!result)
                 return result.AsError<DateTime>(result.Error!);
-            var time = DateTimeConverter.ParseFromString(result.Data)!;
+            var time = DateTimeConverter.ParseFromDouble(result.Data)!;
             return result.As(time);
         }
 

@@ -198,6 +198,8 @@ namespace HTX.Net.Clients.SpotApi
         public async Task<WebCallResult<long>> TransferWithSubAccountAsync(long subAccountId, string asset, decimal quantity, TransferType transferType, CancellationToken ct = default)
         {
             asset.ValidateNotNull(nameof(asset));
+            asset = asset.ToLowerInvariant();
+
             var parameters = new ParameterCollection()
             {
                 { "sub-uid", subAccountId },
@@ -218,6 +220,8 @@ namespace HTX.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<WebCallResult<IEnumerable<HTXDepositAddress>>> GetDepositAddressAsync(long subUserId, string asset, CancellationToken ct = default)
         {
+            asset = asset.ToLowerInvariant();
+
             var parameters = new ParameterCollection();
             parameters.Add("subUid", subUserId);
             parameters.Add("currency", asset);
@@ -234,6 +238,8 @@ namespace HTX.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<WebCallResult<IEnumerable<HTXSubDeposit>>> GetDepositHistoryAsync(long subUserId, string? asset = null, DateTime? startTime = null, DateTime? endTime = null, SortingType? sort = null, int? limit = null, long? fromId = null, CancellationToken ct = default)
         {
+            asset = asset?.ToLowerInvariant();
+
             var parameters = new ParameterCollection();
             parameters.Add("subUid", subUserId);
             parameters.AddOptional("currency", asset);

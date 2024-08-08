@@ -257,6 +257,8 @@ namespace HTX.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToOrderDetailsUpdatesAsync(string? symbol = null, Action<DataEvent<HTXTradeUpdate>>? onOrderMatch = null, Action<DataEvent<HTXOrderCancelationUpdate>>? onOrderCancel = null, CancellationToken ct = default)
         {
+            symbol = symbol?.ToLowerInvariant();
+
             var subscription = new HTXOrderDetailsSubscription(_logger, symbol, onOrderMatch, onOrderCancel);
             return await SubscribeAsync(BaseAddress.AppendPath("ws/v2"), subscription, ct).ConfigureAwait(false);
         }

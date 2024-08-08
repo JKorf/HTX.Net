@@ -7,7 +7,7 @@ namespace HTX.Net.Objects.Sockets.Queries
     {
         public override HashSet<string> ListenerIdentifiers { get; set; }
 
-        public HTXSubscribeQuery(string topic, bool authenticated, int weight = 1) : base(new HTXSubscribeRequest() { Id = ExchangeHelpers.NextId().ToString(), Topic = topic }, authenticated, weight)
+        public HTXSubscribeQuery(string topic, bool authenticated, int weight = 1, string? dataType = null) : base(new HTXSubscribeRequest() { Id = ExchangeHelpers.NextId().ToString(), Topic = topic, DataType = dataType }, authenticated, weight)
         {
             ListenerIdentifiers = new HashSet<string> { ((HTXSubscribeRequest)Request).Id };
         }

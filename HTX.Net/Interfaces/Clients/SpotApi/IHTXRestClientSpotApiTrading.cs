@@ -12,7 +12,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// Places an order
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4ee16-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
-        /// <param name="accountId">The account to place the order for</param>
+        /// <param name="accountId">The account to place the order for, account ids can be retrieved with <see cref="IHTXRestClientSpotApiAccount.GetAccountsAsync">SpotApi.Account.GetAccountsAsync</see>.</param>
         /// <param name="symbol">The symbol to place the order for, for example `ETHUSDT`</param>
         /// <param name="side">The side of the order</param>
         /// <param name="type">The type of the order</param>
@@ -41,7 +41,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// Place a new margin order
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=10000066-77b7-11ed-9966-0242ac110003" /></para>
         /// </summary>
-        /// <param name="accountId">The account to place the order for</param>
+        /// <param name="accountId">The account to place the order for, account ids can be retrieved with <see cref="IHTXRestClientSpotApiAccount.GetAccountsAsync">SpotApi.Account.GetAccountsAsync</see>.</param>
         /// <param name="symbol">The symbol to place the order for, for example `ETHUSDT`</param>
         /// <param name="side">The side of the order</param>
         /// <param name="type">The type of the order</param>
@@ -71,10 +71,10 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
             CancellationToken ct = default);
 
         /// <summary>
-        /// Gets a list of open orders
+        /// Get a list of open orders
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4e04b-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
-        /// <param name="accountId">The account id for which to get the orders for</param>
+        /// <param name="accountId">The account id for which to get the orders for, account ids can be retrieved with <see cref="IHTXRestClientSpotApiAccount.GetAccountsAsync">SpotApi.Account.GetAccountsAsync</see>.</param>
         /// <param name="symbol">The symbol for which to get the orders for, for example `ETHUSDT`</param>
         /// <param name="side">Only get buy or sell orders</param>
         /// <param name="limit">The max number of results</param>
@@ -83,7 +83,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         Task<WebCallResult<IEnumerable<HTXOpenOrder>>> GetOpenOrdersAsync(long? accountId = null, string? symbol = null, OrderSide? side = null, int? limit = null, CancellationToken ct = default);
 
         /// <summary>
-        /// Cancels an open order
+        /// Cancel an open order
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4e938-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="orderId">The id of the order to cancel</param>
@@ -92,7 +92,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         Task<WebCallResult<long>> CancelOrderAsync(long orderId, CancellationToken ct = default);
 
         /// <summary>
-        /// Cancels an open order
+        /// Cancel an open order
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4ef06-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="clientOrderId">The client id of the order to cancel</param>
@@ -141,7 +141,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         Task<WebCallResult<HTXOrder>> GetOrderByClientOrderIdAsync(string clientOrderId, CancellationToken ct = default);
 
         /// <summary>
-        /// Gets a list of trades made for a specific order
+        /// Get a list of trades made for a specific order
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4e708-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="orderId">The id of the order to get trades for</param>
@@ -150,7 +150,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         Task<WebCallResult<IEnumerable<HTXOrderTrade>>> GetOrderTradesAsync(long orderId, CancellationToken ct = default);
 
         /// <summary>
-        /// Gets a list of orders
+        /// Get a list of orders
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4e1c4-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="symbol">The symbol to get orders for, for example `ETHUSDT`</param>
@@ -166,7 +166,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         Task<WebCallResult<IEnumerable<HTXOrder>>> GetClosedOrdersAsync(string symbol, IEnumerable<OrderStatus>? states = null, IEnumerable<OrderType>? types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, FilterDirection? direction = null, int? limit = null, CancellationToken ct = default);
 
         /// <summary>
-        /// Gets a list of trades for a specific symbol
+        /// Get a list of user trades
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4de21-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="symbol">The symbol to retrieve trades for, for example `ETHUSDT`</param>
@@ -181,7 +181,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         Task<WebCallResult<IEnumerable<HTXOrderTrade>>> GetUserTradesAsync(string? symbol = null, IEnumerable<OrderType>? types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, FilterDirection? direction = null, int? limit = null, CancellationToken ct = default);
 
         /// <summary>
-        /// Gets a list of history orders
+        /// Get order history
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4db3d-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="symbol">The symbol to get orders for, for example `ETHUSDT`</param>
@@ -197,7 +197,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// Place a new conditional order
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec50918-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
-        /// <param name="accountId">The account the order should be placed from</param>
+        /// <param name="accountId">The account the order should be placed from, account ids can be retrieved with <see cref="IHTXRestClientSpotApiAccount.GetAccountsAsync">SpotApi.Account.GetAccountsAsync</see>.</param>
         /// <param name="symbol">The symbol the order is for, for example `ETHUSDT`</param>
         /// <param name="side">Side of the order</param>
         /// <param name="type">Type of the order</param>
@@ -237,7 +237,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// Get open conditional orders based on the parameters
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec51082-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
-        /// <param name="accountId">Filter by account id</param>
+        /// <param name="accountId">Filter by account id, account ids can be retrieved with <see cref="IHTXRestClientSpotApiAccount.GetAccountsAsync">SpotApi.Account.GetAccountsAsync</see>.</param>
         /// <param name="symbol">Filter by symbol, for example `ETHUSDT`</param>
         /// <param name="side">Filter by side</param>
         /// <param name="type">Filter by type</param>
@@ -252,7 +252,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// Get closed conditional orders
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec50dcf-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
-        /// <param name="accountId">Filter by account id</param>
+        /// <param name="accountId">Filter by account id, account ids can be retrieved with <see cref="IHTXRestClientSpotApiAccount.GetAccountsAsync">SpotApi.Account.GetAccountsAsync</see>.</param>
         /// <param name="symbol">Filter by symbol, for example `ETHUSDT`</param>
         /// <param name="side">Filter by side</param>
         /// <param name="type">Filter by type</param>

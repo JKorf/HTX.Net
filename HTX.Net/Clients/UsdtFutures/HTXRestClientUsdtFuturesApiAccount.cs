@@ -80,7 +80,7 @@ namespace HTX.Net.Clients.UsdtFutures
 
         #endregion
 
-        #region Get Isoalted Margin Assets And Positions
+        #region Get Isolated Margin Assets And Positions
 
         /// <inheritdoc />
         public async Task<WebCallResult<IEnumerable<HTXIsolatedMarginAssetsAndPositions>>> GetIsolatedMarginAssetsAndPositionsAsync(string contractCode, CancellationToken ct = default)

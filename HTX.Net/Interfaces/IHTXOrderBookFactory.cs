@@ -11,6 +11,10 @@ namespace HTX.Net.Interfaces
         /// Spot order book factory methods
         /// </summary>
         public IOrderBookFactory<HTXOrderBookOptions> Spot { get; }
+        /// <summary>
+        /// Usdt futures order book factory methods
+        /// </summary>
+        public IOrderBookFactory<HTXOrderBookOptions> UsdtFutures { get; }
 
         /// <summary>
         /// Create a SymbolOrderBook for the Spot API
@@ -19,5 +23,13 @@ namespace HTX.Net.Interfaces
         /// <param name="options">Order book options</param>
         /// <returns></returns>
         ISymbolOrderBook CreateSpot(string symbol, Action<HTXOrderBookOptions>? options = null);
+
+        /// <summary>
+        /// Create a SymbolOrderBook for the Usdt futures API
+        /// </summary>
+        /// <param name="symbol">The symbol</param>
+        /// <param name="options">Order book options</param>
+        /// <returns></returns>
+        ISymbolOrderBook CreateUsdtFutures(string symbol, Action<HTXOrderBookOptions>? options = null);
     }
 }

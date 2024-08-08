@@ -22,7 +22,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// <returns></returns>
         Task<CallResult<UpdateSubscription>> SubscribeToBasisUpdatesAsync(string contractCode, KlineInterval period, string priceType, Action<DataEvent<HTXUsdtMarginSwapBasisUpdate>> onData, CancellationToken ct = default);
         /// <summary>
-        /// Subscribe to best offer updates
+        /// Subscribe to best bid/ask updates
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7c802-77b5-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
@@ -72,7 +72,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// <returns></returns>
         Task<CallResult<UpdateSubscription>> SubscribeToKlineUpdatesAsync(string contractCode, KlineInterval period, Action<DataEvent<HTXSwapKline>> onData, CancellationToken ct = default);
         /// <summary>
-        /// Subscribe to mark price updates
+        /// Subscribe to mark price kline updates
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7d626-77b5-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
@@ -109,7 +109,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// <param name="onData">Data handler</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToSymbolTickerUpdatesAsync(string contractCode, Action<DataEvent<HTXSymbolTickUpdate>> onData, CancellationToken ct = default);
+        Task<CallResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(string contractCode, Action<DataEvent<HTXSymbolTickUpdate>> onData, CancellationToken ct = default);
         /// <summary>
         /// Subscribe to symbol trade updates
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7cab7-77b5-11ed-9966-0242ac110003" /></para>

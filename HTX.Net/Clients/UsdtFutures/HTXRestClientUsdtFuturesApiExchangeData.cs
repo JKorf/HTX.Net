@@ -352,7 +352,7 @@ namespace HTX.Net.Clients.UsdtFutures
             var parameters = new ParameterCollection()
             {
                 { "contract_code", contractCode },
-                { "type", "step" +mergeStep },
+                { "type", "step" + (mergeStep ?? 0) },
             };
             var request = _definitions.GetOrCreate(HttpMethod.Get, "linear-swap-ex/market/depth", HTXExchange.RateLimiter.PublicMarket, 1, false);
             return await _baseClient.SendBasicAsync<HTXOrderBook>(request, parameters, ct).ConfigureAwait(false);
@@ -377,16 +377,19 @@ namespace HTX.Net.Clients.UsdtFutures
         #region Get Klines
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<HTXKline>>> GetKlinesAsync(string contractCode, KlineInterval interval, int? limit = null, DateTime? from = null, DateTime? to = null, CancellationToken ct = default)
+        public async Task<WebCallResult<IEnumerable<HTXKline>>> GetKlinesAsync(string contractCode, KlineInterval interval, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default)
         {
+            if (startTime == null && endTime == null && limit == null)
+                limit = 100; // Limit is required if no time is given
+
             var parameters = new ParameterCollection()
             {
                 { "contract_code", contractCode },
                 { "period", EnumConverter.GetString(interval) }
             };
             parameters.AddOptionalParameter("size", limit);
-            parameters.AddOptionalParameter("from", DateTimeConverter.ConvertToSeconds(from));
-            parameters.AddOptionalParameter("to", DateTimeConverter.ConvertToSeconds(to));
+            parameters.AddOptionalParameter("from", DateTimeConverter.ConvertToSeconds(startTime));
+            parameters.AddOptionalParameter("to", DateTimeConverter.ConvertToSeconds(endTime));
             var request = _definitions.GetOrCreate(HttpMethod.Get, "linear-swap-ex/market/history/kline", HTXExchange.RateLimiter.PublicMarket, 1, false);
             return await _baseClient.SendBasicAsync<IEnumerable<HTXKline>>(request, parameters, ct).ConfigureAwait(false);
         }

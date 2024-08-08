@@ -684,7 +684,7 @@ namespace HTX.Net.Clients.UsdtFutures
 
         #endregion
 
-        #region Get Isolated Margin Open Trigger Orders
+        #region Get Cross Margin Open Trigger Orders
 
         /// <inheritdoc />
         public async Task<WebCallResult<HTXCrossTriggerOrderPage>> GetCrossMarginOpenTriggerOrdersAsync(string? contractCode = null, string? pair = null, int? page = null, int? pageSize = null, MarginTradeType? tradeType = null, CancellationToken ct = default)
@@ -705,13 +705,13 @@ namespace HTX.Net.Clients.UsdtFutures
         #region Get Isolated Margin Trigger Order History
 
         /// <inheritdoc />
-        public async Task<WebCallResult<HTXClosedTriggerOrderPage>> GetIsolatedMarginTriggerOrderHistoryAsync(string contractCode, MarginTradeType tradeType, int daysPast, OrderStatusFilter? status = null, int? page = null, int? pageIndex = null, string? sortBy = null, CancellationToken ct = default)
+        public async Task<WebCallResult<HTXClosedTriggerOrderPage>> GetIsolatedMarginTriggerOrderHistoryAsync(string contractCode, MarginTradeType tradeType, int daysPast, OrderStatusFilter status, int? page = null, int? pageIndex = null, string? sortBy = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.Add("contract_code", contractCode);
             parameters.AddEnumAsInt("trade_type", tradeType);
             parameters.Add("create_date", daysPast);
-            parameters.AddOptionalEnum("status", status);
+            parameters.AddEnum("status", status);
             parameters.AddOptional("page_index", page);
             parameters.AddOptional("page_size", pageIndex);
             parameters.AddOptional("sort_by", sortBy);
@@ -725,7 +725,7 @@ namespace HTX.Net.Clients.UsdtFutures
         #region Get Cross Margin Trigger Order History
 
         /// <inheritdoc />
-        public async Task<WebCallResult<HTXClosedCrossTriggerOrderPage>> GetCrossMarginTriggerOrderHistoryAsync(MarginTradeType tradeType, int daysPast, string? contractCode = null, string? pair = null, ContractType? contractType = null, OrderStatusFilter? status = null, int? page = null, int? pageIndex = null, string? sortBy = null, CancellationToken ct = default)
+        public async Task<WebCallResult<HTXClosedCrossTriggerOrderPage>> GetCrossMarginTriggerOrderHistoryAsync(MarginTradeType tradeType, int daysPast, OrderStatusFilter status, string? contractCode = null, string? pair = null, ContractType? contractType = null, int? page = null, int? pageIndex = null, string? sortBy = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.AddOptional("contract_code", contractCode);
@@ -733,7 +733,7 @@ namespace HTX.Net.Clients.UsdtFutures
             parameters.AddOptionalEnum("contract_type", contractType);
             parameters.AddEnumAsInt("trade_type", tradeType);
             parameters.Add("create_date", daysPast);
-            parameters.AddOptionalEnum("status", status);
+            parameters.AddEnum("status", status);
             parameters.AddOptional("page_index", page);
             parameters.AddOptional("page_size", pageIndex);
             parameters.AddOptional("sort_by", sortBy);

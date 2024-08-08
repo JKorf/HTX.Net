@@ -17,7 +17,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         Task<WebCallResult<long>> GetUserIdAsync(CancellationToken ct = default);
 
         /// <summary>
-        /// Gets a list of accounts associated with the apikey/secret
+        /// Get a list of accounts associated with the apikey/secret
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4b291-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
@@ -25,10 +25,10 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         Task<WebCallResult<IEnumerable<HTXAccount>>> GetAccountsAsync(CancellationToken ct = default);
 
         /// <summary>
-        /// Gets a list of balances for a specific account
+        /// Get a list of balances for a specific account
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4b429-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
-        /// <param name="accountId">The id of the account to get the balances for</param>
+        /// <param name="accountId">The id of the account to get the balances for, account ids can be retrieved with <see cref="GetAccountsAsync">GetAccountsAsync</see>.</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<IEnumerable<HTXBalance>>> GetBalancesAsync(long accountId, CancellationToken ct = default);
@@ -44,7 +44,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         Task<WebCallResult<HTXPlatformValuation>> GetPlatformValuationAsync(AccountType? accountType = null, string? valuationAsset = null, CancellationToken ct = default);
 
         /// <summary>
-        /// Gets the valuation of all assets
+        /// Get the valuation of all assets
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4ff6d-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="accountType">Type of account to valuate</param>
@@ -55,10 +55,10 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         Task<WebCallResult<HTXAccountValuation>> GetAssetValuationAsync(AccountType accountType, string? valuationAsset = null, long? subUserId = null, CancellationToken ct = default);
 
         /// <summary>
-        /// Gets a list of balance changes of specified user's account
+        /// Get a list of balance changes of specified user's account
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4b85b-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
-        /// <param name="accountId">The id of the account to get the balances for</param>
+        /// <param name="accountId">The id of the account to get the account history for, account ids can be retrieved with <see cref="GetAccountsAsync">GetAccountsAsync</see>.</param>
         /// <param name="asset">Asset name, for example `ETH`</param>
         /// <param name="transactionTypes">Blance change types</param>
         /// <param name="startTime">Far point of time of the query window. The maximum size of the query window is 1 hour. The query window can be shifted within 30 days</param>
@@ -70,10 +70,10 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         Task<WebCallResult<IEnumerable<HTXAccountHistory>>> GetAccountHistoryAsync(long accountId, string? asset = null, IEnumerable<TransactionType>? transactionTypes = null, DateTime? startTime = null, DateTime? endTime = null, SortingType? sort = null, int? limit = null, CancellationToken ct = default);
 
         /// <summary>
-        /// This endpoint returns the balance changes of specified user's account.
+        /// Get the balance changes of specified user's account.
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec501f7-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
-        /// <param name="accountId">The id of the account to get the ledger for</param>
+        /// <param name="accountId">The id of the account to get the ledger for, account ids can be retrieved with <see cref="GetAccountsAsync">GetAccountsAsync</see>.</param>
         /// <param name="asset">Asset name, for example `ETH`</param>
         /// <param name="transactionTypes">Blanace change types</param>
         /// <param name="startTime">Far point of time of the query window. The maximum size of the query window is 10 days. The query window can be shifted within 30 days</param>
@@ -98,7 +98,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         Task<WebCallResult<long>> TransferAsync(TransferAccount fromAccount, TransferAccount toAccount, string asset, decimal quantity, string marginAccount, CancellationToken ct = default);
 
         /// <summary>
-        /// Parent user and sub user could query deposit address of corresponding chain, for a specific crypto currency (except IOTA).
+        /// Get the deposit addresses for an asset
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec50029-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="asset">Asset, for example `ETH`</param>
@@ -107,7 +107,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         Task<WebCallResult<IEnumerable<HTXDepositAddress>>> GetDepositAddressesAsync(string asset, CancellationToken ct = default);
 
         /// <summary>
-        /// Parent user creates a withdraw request from spot account to an external address (exists in your withdraw address list), which doesn't require two-factor-authentication.
+        /// Withdraw an asset from the account to an address
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4cc41-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="address">The desination address of this withdraw</param>
@@ -122,20 +122,20 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         Task<WebCallResult<long>> WithdrawAsync(string address, string asset, decimal quantity, decimal fee, string? network = null, string? addressTag = null, string? clientOrderId = null, CancellationToken ct = default);
 
         /// <summary>
-        /// Parent user and sub user searche for all existed withdraws and deposits and return their latest status.
+        /// Get withdrawal/deposit history
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4f050-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
-        /// <param name="type">Define transfer type to search</param>
+        /// <param name="type">Transfer type to search</param>
         /// <param name="asset">The asset to withdraw, for example `ETH`</param>
         /// <param name="from">The transfer id to begin search</param>
         /// <param name="size">The number of items to return</param>
         /// <param name="direction">the order of response</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<HTXWithdrawDeposit>>> GetWithdrawDepositAsync(WithdrawDepositType type, string? asset = null, int? from = null, int? size = null, FilterDirection? direction = null, CancellationToken ct = default);
+        Task<WebCallResult<IEnumerable<HTXWithdrawDeposit>>> GetWithdrawDepositHistoryAsync(WithdrawDepositType type, string? asset = null, int? from = null, int? size = null, FilterDirection? direction = null, CancellationToken ct = default);
 
         /// <summary>
-        /// Get current trading fees
+        /// Get current trading fees for symbols
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec51870-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="symbols">Filter on symbol, for example `ETHUSDT`</param>
@@ -229,7 +229,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// <param name="userId">User id</param>
         /// <param name="apiKey">The API key</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<IEnumerable<HTXApiKeyInfo>>> GetApiKeyInfoAsync(long userId, string ? apiKey = null, CancellationToken ct = default);
+        Task<WebCallResult<IEnumerable<HTXApiKeyInfo>>> GetApiKeyInfoAsync(long userId, string? apiKey = null, CancellationToken ct = default);
 
         /// <summary>
         /// Transfer assets between accounts

@@ -38,12 +38,12 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// Max open order limit
         /// </summary>
         [JsonPropertyName("open_limit")]
-        public int OpenLimit { get; set; }
+        public decimal? OpenLimit { get; set; }
         /// <summary>
         /// Max close order limit
         /// </summary>
         [JsonPropertyName("close_limit")]
-        public int CloseLimit { get; set; }
+        public decimal? CloseLimit { get; set; }
         /// <summary>
         /// Business type
         /// </summary>

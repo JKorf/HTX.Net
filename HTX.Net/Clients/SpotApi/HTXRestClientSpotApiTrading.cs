@@ -80,7 +80,7 @@ namespace HTX.Net.Clients.SpotApi
                 var parameters = new ParameterCollection()
                 {
                     { "account-id", order.AccountId },
-                    { "symbol", order.Symbol },
+                    { "symbol", order.Symbol.ToLowerInvariant() },
                     { "type", orderType }
                 };
                 parameters.AddString("amount", order.Quantity);
@@ -219,7 +219,7 @@ namespace HTX.Net.Clients.SpotApi
         {
             var parameters = new ParameterCollection();
             parameters.AddOptionalParameter("account-id", accountId?.ToString(CultureInfo.InvariantCulture));
-            parameters.AddOptionalParameter("symbol", symbols == null ? null : string.Join(",", symbols));
+            parameters.AddOptionalParameter("symbol", symbols == null ? null : string.Join(",", symbols.Select(x => x.ToLowerInvariant())));
             parameters.AddOptionalEnum("side", side);
             parameters.AddOptionalParameter("size", limit);
 
@@ -379,6 +379,8 @@ namespace HTX.Net.Clients.SpotApi
             string? clientOrderId = null, 
             CancellationToken ct = default)
         {
+            symbol = symbol.ToLowerInvariant();
+
             var parameters = new ParameterCollection()
             {
                 { "accountId", accountId },
@@ -424,6 +426,8 @@ namespace HTX.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<WebCallResult<IEnumerable<HTXConditionalOrder>>> GetOpenConditionalOrdersAsync(long? accountId = null, string? symbol = null, OrderSide? side = null, ConditionalOrderType? type = null, string? sort = null, int? limit = null, long? fromId = null, CancellationToken ct = default)
         {
+            symbol = symbol?.ToLowerInvariant();
+
             var parameters = new ParameterCollection();
             parameters.AddOptionalParameter("accountId", accountId);
             parameters.AddOptionalParameter("symbol", symbol);
@@ -456,6 +460,8 @@ namespace HTX.Net.Clients.SpotApi
             long? fromId = null,
             CancellationToken ct = default)
         {
+            symbol = symbol.ToLowerInvariant();
+
             var parameters = new ParameterCollection()
             {
                 { "symbol", symbol },

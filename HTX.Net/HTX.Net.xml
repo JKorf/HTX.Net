@@ -200,7 +200,7 @@
         <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiAccount.CancelWithdrawalAsync(System.Int64,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiAccount.GetWithdrawDepositAsync(HTX.Net.Enums.WithdrawDepositType,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{HTX.Net.Enums.FilterDirection},System.Threading.CancellationToken)">
+        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiAccount.GetWithdrawDepositHistoryAsync(HTX.Net.Enums.WithdrawDepositType,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{HTX.Net.Enums.FilterDirection},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiAccount.GetTradingFeesAsync(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
@@ -686,7 +686,7 @@
         <member name="M:HTX.Net.Clients.UsdtFutures.HTXRestClientUsdtFuturesApiExchangeData.GetBookTickerAsync(System.String,System.Nullable{HTX.Net.Enums.BusinessType},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:HTX.Net.Clients.UsdtFutures.HTXRestClientUsdtFuturesApiExchangeData.GetKlinesAsync(System.String,HTX.Net.Enums.KlineInterval,System.Nullable{System.Int32},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Threading.CancellationToken)">
+        <member name="M:HTX.Net.Clients.UsdtFutures.HTXRestClientUsdtFuturesApiExchangeData.GetKlinesAsync(System.String,HTX.Net.Enums.KlineInterval,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:HTX.Net.Clients.UsdtFutures.HTXRestClientUsdtFuturesApiExchangeData.GetMarkPriceKlinesAsync(System.String,HTX.Net.Enums.KlineInterval,System.Int32,System.Threading.CancellationToken)">
@@ -857,10 +857,10 @@
         <member name="M:HTX.Net.Clients.UsdtFutures.HTXRestClientUsdtFuturesApiTrading.GetCrossMarginOpenTriggerOrdersAsync(System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{HTX.Net.Enums.MarginTradeType},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:HTX.Net.Clients.UsdtFutures.HTXRestClientUsdtFuturesApiTrading.GetIsolatedMarginTriggerOrderHistoryAsync(System.String,HTX.Net.Enums.MarginTradeType,System.Int32,System.Nullable{HTX.Net.Enums.OrderStatusFilter},System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,System.Threading.CancellationToken)">
+        <member name="M:HTX.Net.Clients.UsdtFutures.HTXRestClientUsdtFuturesApiTrading.GetIsolatedMarginTriggerOrderHistoryAsync(System.String,HTX.Net.Enums.MarginTradeType,System.Int32,HTX.Net.Enums.OrderStatusFilter,System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:HTX.Net.Clients.UsdtFutures.HTXRestClientUsdtFuturesApiTrading.GetCrossMarginTriggerOrderHistoryAsync(HTX.Net.Enums.MarginTradeType,System.Int32,System.String,System.String,System.Nullable{HTX.Net.Enums.ContractType},System.Nullable{HTX.Net.Enums.OrderStatusFilter},System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,System.Threading.CancellationToken)">
+        <member name="M:HTX.Net.Clients.UsdtFutures.HTXRestClientUsdtFuturesApiTrading.GetCrossMarginTriggerOrderHistoryAsync(HTX.Net.Enums.MarginTradeType,System.Int32,HTX.Net.Enums.OrderStatusFilter,System.String,System.String,System.Nullable{HTX.Net.Enums.ContractType},System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:HTX.Net.Clients.UsdtFutures.HTXRestClientUsdtFuturesApiTrading.SetIsolatedMarginTpSlAsync(System.String,HTX.Net.Enums.OrderSide,System.Decimal,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{HTX.Net.Enums.OrderPriceType},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{HTX.Net.Enums.OrderPriceType},System.Threading.CancellationToken)">
@@ -953,7 +953,7 @@
         <member name="M:HTX.Net.Clients.UsdtFutures.HTXSocketClientUsdtFuturesApi.SubscribeToIncrementalOrderBookUpdatesAsync(System.String,System.Boolean,System.Int32,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{HTX.Net.Objects.Models.Socket.HTXIncrementalOrderBookUpdate}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:HTX.Net.Clients.UsdtFutures.HTXSocketClientUsdtFuturesApi.SubscribeToSymbolTickerUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{HTX.Net.Objects.Models.Socket.HTXSymbolTickUpdate}},System.Threading.CancellationToken)">
+        <member name="M:HTX.Net.Clients.UsdtFutures.HTXSocketClientUsdtFuturesApi.SubscribeToTickerUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{HTX.Net.Objects.Models.Socket.HTXSymbolTickUpdate}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:HTX.Net.Clients.UsdtFutures.HTXSocketClientUsdtFuturesApi.SubscribeToBookTickerUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{HTX.Net.Objects.Models.Socket.HTXBestOfferUpdate}},System.Threading.CancellationToken)">
@@ -3503,7 +3503,7 @@
         </member>
         <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiAccount.GetAccountsAsync(System.Threading.CancellationToken)">
             <summary>
-            Gets a list of accounts associated with the apikey/secret
+            Get a list of accounts associated with the apikey/secret
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4b291-7773-11ed-9966-0242ac110003" /></para>
             </summary>
             <param name="ct">Cancellation token</param>
@@ -3511,10 +3511,10 @@
         </member>
         <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiAccount.GetBalancesAsync(System.Int64,System.Threading.CancellationToken)">
             <summary>
-            Gets a list of balances for a specific account
+            Get a list of balances for a specific account
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4b429-7773-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="accountId">The id of the account to get the balances for</param>
+            <param name="accountId">The id of the account to get the balances for, account ids can be retrieved with <see cref="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiAccount.GetAccountsAsync(System.Threading.CancellationToken)">GetAccountsAsync</see>.</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -3530,7 +3530,7 @@
         </member>
         <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiAccount.GetAssetValuationAsync(HTX.Net.Enums.AccountType,System.String,System.Nullable{System.Int64},System.Threading.CancellationToken)">
             <summary>
-            Gets the valuation of all assets
+            Get the valuation of all assets
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4ff6d-7773-11ed-9966-0242ac110003" /></para>
             </summary>
             <param name="accountType">Type of account to valuate</param>
@@ -3541,10 +3541,10 @@
         </member>
         <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiAccount.GetAccountHistoryAsync(System.Int64,System.String,System.Collections.Generic.IEnumerable{HTX.Net.Enums.TransactionType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{HTX.Net.Enums.SortingType},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
-            Gets a list of balance changes of specified user's account
+            Get a list of balance changes of specified user's account
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4b85b-7773-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="accountId">The id of the account to get the balances for</param>
+            <param name="accountId">The id of the account to get the account history for, account ids can be retrieved with <see cref="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiAccount.GetAccountsAsync(System.Threading.CancellationToken)">GetAccountsAsync</see>.</param>
             <param name="asset">Asset name, for example `ETH`</param>
             <param name="transactionTypes">Blance change types</param>
             <param name="startTime">Far point of time of the query window. The maximum size of the query window is 1 hour. The query window can be shifted within 30 days</param>
@@ -3556,10 +3556,10 @@
         </member>
         <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiAccount.GetAccountLedgerAsync(System.Int64,System.String,System.Collections.Generic.IEnumerable{HTX.Net.Enums.TransactionType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{HTX.Net.Enums.SortingType},System.Nullable{System.Int32},System.Nullable{System.Int64},System.Threading.CancellationToken)">
             <summary>
-            This endpoint returns the balance changes of specified user's account.
+            Get the balance changes of specified user's account.
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec501f7-7773-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="accountId">The id of the account to get the ledger for</param>
+            <param name="accountId">The id of the account to get the ledger for, account ids can be retrieved with <see cref="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiAccount.GetAccountsAsync(System.Threading.CancellationToken)">GetAccountsAsync</see>.</param>
             <param name="asset">Asset name, for example `ETH`</param>
             <param name="transactionTypes">Blanace change types</param>
             <param name="startTime">Far point of time of the query window. The maximum size of the query window is 10 days. The query window can be shifted within 30 days</param>
@@ -3584,7 +3584,7 @@
         </member>
         <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiAccount.GetDepositAddressesAsync(System.String,System.Threading.CancellationToken)">
             <summary>
-            Parent user and sub user could query deposit address of corresponding chain, for a specific crypto currency (except IOTA).
+            Get the deposit addresses for an asset
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec50029-7773-11ed-9966-0242ac110003" /></para>
             </summary>
             <param name="asset">Asset, for example `ETH`</param>
@@ -3593,7 +3593,7 @@
         </member>
         <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiAccount.WithdrawAsync(System.String,System.String,System.Decimal,System.Decimal,System.String,System.String,System.String,System.Threading.CancellationToken)">
             <summary>
-            Parent user creates a withdraw request from spot account to an external address (exists in your withdraw address list), which doesn't require two-factor-authentication.
+            Withdraw an asset from the account to an address
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4cc41-7773-11ed-9966-0242ac110003" /></para>
             </summary>
             <param name="address">The desination address of this withdraw</param>
@@ -3606,12 +3606,12 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiAccount.GetWithdrawDepositAsync(HTX.Net.Enums.WithdrawDepositType,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{HTX.Net.Enums.FilterDirection},System.Threading.CancellationToken)">
+        <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiAccount.GetWithdrawDepositHistoryAsync(HTX.Net.Enums.WithdrawDepositType,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{HTX.Net.Enums.FilterDirection},System.Threading.CancellationToken)">
             <summary>
-            Parent user and sub user searche for all existed withdraws and deposits and return their latest status.
+            Get withdrawal/deposit history
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4f050-7773-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="type">Define transfer type to search</param>
+            <param name="type">Transfer type to search</param>
             <param name="asset">The asset to withdraw, for example `ETH`</param>
             <param name="from">The transfer id to begin search</param>
             <param name="size">The number of items to return</param>
@@ -3621,7 +3621,7 @@
         </member>
         <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiAccount.GetTradingFeesAsync(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
             <summary>
-            Get current trading fees
+            Get current trading fees for symbols
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec51870-7773-11ed-9966-0242ac110003" /></para>
             </summary>
             <param name="symbols">Filter on symbol, for example `ETHUSDT`</param>
@@ -3792,7 +3792,7 @@
         </member>
         <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiExchangeData.GetKlinesAsync(System.String,HTX.Net.Enums.KlineInterval,System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
-            Get candlestick data for a symbol
+            Get kline/candlestick data for a symbol
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4a4da-7773-11ed-9966-0242ac110003" /></para>
             </summary>
             <param name="symbol">The symbol to get the data for, for example `ETHUSDT`</param>
@@ -3803,7 +3803,7 @@
         </member>
         <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiExchangeData.GetOrderBookAsync(System.String,System.Int32,System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
-            Gets the order book for a symbol
+            Get the order book for a symbol
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4a0fc-7773-11ed-9966-0242ac110003" /></para>
             </summary>
             <param name="symbol">The symbol to request for, for example `ETHUSDT`</param>
@@ -3814,7 +3814,7 @@
         </member>
         <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiExchangeData.GetLastTradeAsync(System.String,System.Threading.CancellationToken)">
             <summary>
-            Gets the last trade for a symbol
+            Get the last trade for a symbol
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4aa2b-7773-11ed-9966-0242ac110003" /></para>
             </summary>
             <param name="symbol">The symbol to request for, for example `ETHUSDT`</param>
@@ -3833,7 +3833,7 @@
         </member>
         <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiExchangeData.GetSymbolDetails24HAsync(System.String,System.Threading.CancellationToken)">
             <summary>
-            Gets 24h stats for a symbol
+            Get 24h stats for a symbol
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4a2cd-7773-11ed-9966-0242ac110003" /></para>
             </summary>
             <param name="symbol">The symbol to get the data for, for example `ETHUSDT`</param>
@@ -3842,7 +3842,7 @@
         </member>
         <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiExchangeData.GetSymbolStatusAsync(System.Threading.CancellationToken)">
             <summary>
-            Gets the current market status
+            Get the current market status
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec513b1-7773-11ed-9966-0242ac110003" /></para>
             </summary>
             <param name="ct">Cancellation token</param>
@@ -3850,7 +3850,7 @@
         </member>
         <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiExchangeData.GetServerTimeAsync(System.Threading.CancellationToken)">
             <summary>
-            Gets the server time
+            Get the server time
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4bb2c-7773-11ed-9966-0242ac110003" /></para>
             </summary>
             <param name="ct">Cancellation token</param>
@@ -3917,7 +3917,7 @@
         </member>
         <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiMargin.RepayIsolatedMarginLoanAsync(System.String,System.Decimal,System.Threading.CancellationToken)">
             <summary>
-            Repay a isolated margin loan
+            Repay an isolated margin loan
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4d7f0-7773-11ed-9966-0242ac110003" /></para>
             </summary>
             <param name="orderId">Id to repay</param>
@@ -3927,7 +3927,7 @@
         </member>
         <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiMargin.GetIsolatedMarginClosedOrdersAsync(System.String,System.Collections.Generic.IEnumerable{HTX.Net.Enums.MarginOrderStatus},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.String,System.Nullable{HTX.Net.Enums.FilterDirection},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
-            Get isolated margin orders history
+            Get isolated margin order history
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4d423-7773-11ed-9966-0242ac110003" /></para>
             </summary>
             <param name="symbol">The symbol to get history for, for example `ETHUSDT`</param>
@@ -4072,7 +4072,7 @@
         </member>
         <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiSubAccount.GetSubUserListAsync(System.Threading.CancellationToken)">
             <summary>
-            Gets a list of users associated with the apikey/secret
+            Get a list of users associated with the apikey/secret
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec52a87-7773-11ed-9966-0242ac110003"/></para>
             </summary>
             <param name="ct">Cancellation token</param>
@@ -4189,7 +4189,7 @@
         </member>
         <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiSubAccount.GetBalancesAsync(System.Int64,System.Threading.CancellationToken)">
             <summary>
-            Gets a list of balances for a specific sub account
+            Get a list of balances for a specific sub account
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4b62b-7773-11ed-9966-0242ac110003" /></para>
             </summary>
             <param name="subAccountId">The id of the sub account to get the balances for</param>
@@ -4218,7 +4218,7 @@
             Places an order
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4ee16-7773-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="accountId">The account to place the order for</param>
+            <param name="accountId">The account to place the order for, account ids can be retrieved with <see cref="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiAccount.GetAccountsAsync(System.Threading.CancellationToken)">SpotApi.Account.GetAccountsAsync</see>.</param>
             <param name="symbol">The symbol to place the order for, for example `ETHUSDT`</param>
             <param name="side">The side of the order</param>
             <param name="type">The type of the order</param>
@@ -4245,7 +4245,7 @@
             Place a new margin order
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=10000066-77b7-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="accountId">The account to place the order for</param>
+            <param name="accountId">The account to place the order for, account ids can be retrieved with <see cref="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiAccount.GetAccountsAsync(System.Threading.CancellationToken)">SpotApi.Account.GetAccountsAsync</see>.</param>
             <param name="symbol">The symbol to place the order for, for example `ETHUSDT`</param>
             <param name="side">The side of the order</param>
             <param name="type">The type of the order</param>
@@ -4262,10 +4262,10 @@
         </member>
         <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiTrading.GetOpenOrdersAsync(System.Nullable{System.Int64},System.String,System.Nullable{HTX.Net.Enums.OrderSide},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
-            Gets a list of open orders
+            Get a list of open orders
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4e04b-7773-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="accountId">The account id for which to get the orders for</param>
+            <param name="accountId">The account id for which to get the orders for, account ids can be retrieved with <see cref="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiAccount.GetAccountsAsync(System.Threading.CancellationToken)">SpotApi.Account.GetAccountsAsync</see>.</param>
             <param name="symbol">The symbol for which to get the orders for, for example `ETHUSDT`</param>
             <param name="side">Only get buy or sell orders</param>
             <param name="limit">The max number of results</param>
@@ -4274,7 +4274,7 @@
         </member>
         <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiTrading.CancelOrderAsync(System.Int64,System.Threading.CancellationToken)">
             <summary>
-            Cancels an open order
+            Cancel an open order
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4e938-7773-11ed-9966-0242ac110003" /></para>
             </summary>
             <param name="orderId">The id of the order to cancel</param>
@@ -4283,7 +4283,7 @@
         </member>
         <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiTrading.CancelOrderByClientOrderIdAsync(System.String,System.Threading.CancellationToken)">
             <summary>
-            Cancels an open order
+            Cancel an open order
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4ef06-7773-11ed-9966-0242ac110003" /></para>
             </summary>
             <param name="clientOrderId">The client id of the order to cancel</param>
@@ -4332,7 +4332,7 @@
         </member>
         <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiTrading.GetOrderTradesAsync(System.Int64,System.Threading.CancellationToken)">
             <summary>
-            Gets a list of trades made for a specific order
+            Get a list of trades made for a specific order
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4e708-7773-11ed-9966-0242ac110003" /></para>
             </summary>
             <param name="orderId">The id of the order to get trades for</param>
@@ -4341,7 +4341,7 @@
         </member>
         <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiTrading.GetClosedOrdersAsync(System.String,System.Collections.Generic.IEnumerable{HTX.Net.Enums.OrderStatus},System.Collections.Generic.IEnumerable{HTX.Net.Enums.OrderType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int64},System.Nullable{HTX.Net.Enums.FilterDirection},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
-            Gets a list of orders
+            Get a list of orders
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4e1c4-7773-11ed-9966-0242ac110003" /></para>
             </summary>
             <param name="symbol">The symbol to get orders for, for example `ETHUSDT`</param>
@@ -4357,7 +4357,7 @@
         </member>
         <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiTrading.GetUserTradesAsync(System.String,System.Collections.Generic.IEnumerable{HTX.Net.Enums.OrderType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int64},System.Nullable{HTX.Net.Enums.FilterDirection},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
-            Gets a list of trades for a specific symbol
+            Get a list of user trades
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4de21-7773-11ed-9966-0242ac110003" /></para>
             </summary>
             <param name="symbol">The symbol to retrieve trades for, for example `ETHUSDT`</param>
@@ -4372,7 +4372,7 @@
         </member>
         <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiTrading.GetHistoricalOrdersAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{HTX.Net.Enums.FilterDirection},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
-            Gets a list of history orders
+            Get order history
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4db3d-7773-11ed-9966-0242ac110003" /></para>
             </summary>
             <param name="symbol">The symbol to get orders for, for example `ETHUSDT`</param>
@@ -4388,7 +4388,7 @@
             Place a new conditional order
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec50918-7773-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="accountId">The account the order should be placed from</param>
+            <param name="accountId">The account the order should be placed from, account ids can be retrieved with <see cref="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiAccount.GetAccountsAsync(System.Threading.CancellationToken)">SpotApi.Account.GetAccountsAsync</see>.</param>
             <param name="symbol">The symbol the order is for, for example `ETHUSDT`</param>
             <param name="side">Side of the order</param>
             <param name="type">Type of the order</param>
@@ -4416,7 +4416,7 @@
             Get open conditional orders based on the parameters
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec51082-7773-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="accountId">Filter by account id</param>
+            <param name="accountId">Filter by account id, account ids can be retrieved with <see cref="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiAccount.GetAccountsAsync(System.Threading.CancellationToken)">SpotApi.Account.GetAccountsAsync</see>.</param>
             <param name="symbol">Filter by symbol, for example `ETHUSDT`</param>
             <param name="side">Filter by side</param>
             <param name="type">Filter by type</param>
@@ -4431,7 +4431,7 @@
             Get closed conditional orders
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec50dcf-7773-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="accountId">Filter by account id</param>
+            <param name="accountId">Filter by account id, account ids can be retrieved with <see cref="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiAccount.GetAccountsAsync(System.Threading.CancellationToken)">SpotApi.Account.GetAccountsAsync</see>.</param>
             <param name="symbol">Filter by symbol, for example `ETHUSDT`</param>
             <param name="side">Filter by side</param>
             <param name="type">Filter by type</param>
@@ -4460,7 +4460,7 @@
         </member>
         <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXSocketClientSpotApi.GetKlinesAsync(System.String,HTX.Net.Enums.KlineInterval)">
             <summary>
-            Gets candlestick data for a symbol
+            Get kline/candlestick data for a symbol
             <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-latest-tickers-for-all-pairs" /></para>
             </summary>
             <param name="symbol">The symbol to get the data for, for example `ETHUSDT`</param>
@@ -4469,7 +4469,7 @@
         </member>
         <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXSocketClientSpotApi.SubscribeToKlineUpdatesAsync(System.String,HTX.Net.Enums.KlineInterval,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{HTX.Net.Objects.Models.HTXKline}},System.Threading.CancellationToken)">
             <summary>
-            Subscribes to candlestick updates for a symbol
+            Subscribes to kline/candlestick updates for a symbol
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec53241-7773-11ed-9966-0242ac110003" /></para>
             </summary>
             <param name="symbol">The symbol to subscribe to, for example `ETHUSDT`</param>
@@ -4480,7 +4480,7 @@
         </member>
         <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXSocketClientSpotApi.GetOrderBookWithMergeStepAsync(System.String,System.Int32)">
             <summary>
-            Gets the current order book for a symbol
+            Get the current order book for a symbol
             <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#market-depth" /></para>
             </summary>
             <param name="symbol">The symbol to get the data for, for example `ETHUSDT`</param>
@@ -4489,7 +4489,7 @@
         </member>
         <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXSocketClientSpotApi.GetOrderBookAsync(System.String,System.Int32)">
             <summary>
-            Gets the current order book for a symbol
+            Get the current order book for a symbol
             <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#market-by-price-incremental-update" /></para>
             </summary>
             <param name="symbol">The symbol to get the data for, for example `ETHUSDT`</param>
@@ -4531,7 +4531,7 @@
         </member>
         <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXSocketClientSpotApi.GetTradeHistoryAsync(System.String)">
             <summary>
-            Gets a list of trades for a symbol
+            Get a list of trades for a symbol
             <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#trade-detail" /></para>
             </summary>
             <param name="symbol">The symbol to get trades for, for example `ETHUSDT`</param>
@@ -4549,7 +4549,7 @@
         </member>
         <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXSocketClientSpotApi.GetSymbolDetailsAsync(System.String)">
             <summary>
-            Gets details for a symbol
+            Get details for a symbol
             <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#market-details" /></para>
             </summary>
             <param name="symbol">The symbol to get data for, for example `ETHUSDT`</param>
@@ -4746,7 +4746,7 @@
         </member>
         <member name="M:HTX.Net.Interfaces.Clients.UsdtFuturesApi.IHTXRestClientUsdtFuturesApiAccount.GetIsolatedMarginAssetsAndPositionsAsync(System.String,System.Threading.CancellationToken)">
             <summary>
-            Get isolated margin assets and positisons
+            Get isolated margin assets and positions
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb81d85-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
             <param name="contractCode">Contract code, for example `ETH-USDT`</param>
@@ -4798,7 +4798,7 @@
         </member>
         <member name="M:HTX.Net.Interfaces.Clients.UsdtFuturesApi.IHTXRestClientUsdtFuturesApiAccount.SetCrossMarginPositionModeAsync(System.String,HTX.Net.Enums.PositionMode,System.Threading.CancellationToken)">
             <summary>
-            Switch cross margin position mode
+            Set cross margin position mode
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb843e0-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
             <param name="marginAccount">Margin account, for example `USDT`</param>
@@ -4808,7 +4808,7 @@
         </member>
         <member name="M:HTX.Net.Interfaces.Clients.UsdtFuturesApi.IHTXRestClientUsdtFuturesApiAccount.SetIsolatedMarginPositionModeAsync(System.String,HTX.Net.Enums.PositionMode,System.Threading.CancellationToken)">
             <summary>
-            Switch isolated margin position mode
+            Set isolated margin position mode
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb842fe-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
             <param name="marginAccount">Margin account, for example `USDT`</param>
@@ -4935,7 +4935,7 @@
         </member>
         <member name="M:HTX.Net.Interfaces.Clients.UsdtFuturesApi.IHTXRestClientUsdtFuturesApiExchangeData.GetBookTickerAsync(System.String,System.Nullable{HTX.Net.Enums.BusinessType},System.Threading.CancellationToken)">
             <summary>
-            Get the best current offer
+            Get the current best bid/ask values
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb8098e-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
             <param name="contractCode">Contract code, for example `ETH-USDT`</param>
@@ -5003,7 +5003,7 @@
         </member>
         <member name="M:HTX.Net.Interfaces.Clients.UsdtFuturesApi.IHTXRestClientUsdtFuturesApiExchangeData.GetEstimatedFundingRateKlinesAsync(System.String,HTX.Net.Enums.KlineInterval,System.Int32,System.Threading.CancellationToken)">
             <summary>
-            Get estimated funding rate kliens
+            Get estimated funding rate klines
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb813aa-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
             <param name="contractCode">Contract code, for example `ETH-USDT`</param>
@@ -5104,7 +5104,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:HTX.Net.Interfaces.Clients.UsdtFuturesApi.IHTXRestClientUsdtFuturesApiExchangeData.GetKlinesAsync(System.String,HTX.Net.Enums.KlineInterval,System.Nullable{System.Int32},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Threading.CancellationToken)">
+        <member name="M:HTX.Net.Interfaces.Clients.UsdtFuturesApi.IHTXRestClientUsdtFuturesApiExchangeData.GetKlinesAsync(System.String,HTX.Net.Enums.KlineInterval,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get klines
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb80aca-77b5-11ed-9966-0242ac110003" /></para>
@@ -5112,8 +5112,8 @@
             <param name="contractCode">Contract code, for example `ETH-USDT`</param>
             <param name="interval">Kline interval</param>
             <param name="limit">Limit</param>
-            <param name="from">Filter by start time</param>
-            <param name="to">Filter by end time</param>
+            <param name="startTime">Filter by start time</param>
+            <param name="endTime">Filter by end time</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -5408,7 +5408,7 @@
         </member>
         <member name="T:HTX.Net.Interfaces.Clients.UsdtFuturesApi.IHTXRestClientUsdtFuturesApiTrading">
             <summary>
-            HTX usdt futures trading endpoints, placing and mananging orders.
+            HTX usdt futures trading endpoints, placing and managing orders.
             </summary>
         </member>
         <member name="M:HTX.Net.Interfaces.Clients.UsdtFuturesApi.IHTXRestClientUsdtFuturesApiTrading.CancelAllCrossMarginOrdersAsync(System.String,System.String,System.Nullable{HTX.Net.Enums.ContractType},System.Nullable{HTX.Net.Enums.OrderSide},System.Nullable{HTX.Net.Enums.Offset},System.Threading.CancellationToken)">
@@ -5426,7 +5426,7 @@
         </member>
         <member name="M:HTX.Net.Interfaces.Clients.UsdtFuturesApi.IHTXRestClientUsdtFuturesApiTrading.CancelAllIsolatedMarginOrdersAsync(System.String,System.Nullable{HTX.Net.Enums.OrderSide},System.Nullable{HTX.Net.Enums.Offset},System.Threading.CancellationToken)">
             <summary>
-            Cancel all isolated margin order fitting the parameters
+            Cancel all isolated margin orders fitting the parameters
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb84dae-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
             <param name="contractCode">Contract code, for example `ETH-USDT`</param>
@@ -5437,7 +5437,7 @@
         </member>
         <member name="M:HTX.Net.Interfaces.Clients.UsdtFuturesApi.IHTXRestClientUsdtFuturesApiTrading.CancelCrossMarginOrderAsync(System.Nullable{System.Int64},System.Nullable{System.Int64},System.String,System.String,System.Nullable{HTX.Net.Enums.ContractType},System.Threading.CancellationToken)">
             <summary>
-            Cancel cross margin order
+            Cancel a cross margin order
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb84bb2-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
             <param name="orderId">The order id</param>
@@ -5463,7 +5463,7 @@
         </member>
         <member name="M:HTX.Net.Interfaces.Clients.UsdtFuturesApi.IHTXRestClientUsdtFuturesApiTrading.CancelIsolatedMarginOrderAsync(System.String,System.Nullable{System.Int64},System.Nullable{System.Int64},System.Threading.CancellationToken)">
             <summary>
-            Cancel isolated margin order
+            Cancel an isolated margin order
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb84a62-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
             <param name="contractCode">Contract code, for example `ETH-USDT`</param>
@@ -5485,7 +5485,7 @@
         </member>
         <member name="M:HTX.Net.Interfaces.Clients.UsdtFuturesApi.IHTXRestClientUsdtFuturesApiTrading.SetCrossMarginLeverageAsync(System.Int32,System.String,System.String,System.Nullable{HTX.Net.Enums.ContractType},System.Threading.CancellationToken)">
             <summary>
-            Change cross margin leverage
+            Set cross margin leverage
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb850d7-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
             <param name="leverageRate">Leverage rate</param>
@@ -5497,7 +5497,7 @@
         </member>
         <member name="M:HTX.Net.Interfaces.Clients.UsdtFuturesApi.IHTXRestClientUsdtFuturesApiTrading.SetIsolatedMarginLeverageAsync(System.String,System.Int32,System.Threading.CancellationToken)">
             <summary>
-            Change isolated margin leverage
+            Set isolated margin leverage
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb84ff2-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
             <param name="contractCode">Contract code, for example `ETH-USDT`</param>
@@ -5585,7 +5585,7 @@
         </member>
         <member name="M:HTX.Net.Interfaces.Clients.UsdtFuturesApi.IHTXRestClientUsdtFuturesApiTrading.GetCrossMarginUserTradesAsync(System.String,HTX.Net.Enums.MarginTradeType,System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{HTX.Net.Enums.FilterDirection},System.Nullable{System.Int64},System.Threading.CancellationToken)">
             <summary>
-            Get isolated margin user trades
+            Get cross margin user trades
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb86121-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
             <param name="contractCode">Contract code, for example `ETH-USDT`</param>
@@ -5627,7 +5627,7 @@
         </member>
         <member name="M:HTX.Net.Interfaces.Clients.UsdtFuturesApi.IHTXRestClientUsdtFuturesApiTrading.GetIsolatedMarginOrderAsync(System.String,System.Nullable{System.Int64},System.Nullable{System.Int64},System.Threading.CancellationToken)">
             <summary>
-            Get isoalted margin order
+            Get an isolated margin order
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb85222-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
             <param name="contractCode">Contract code, for example `ETH-USDT`</param>
@@ -5716,7 +5716,7 @@
         </member>
         <member name="M:HTX.Net.Interfaces.Clients.UsdtFuturesApi.IHTXRestClientUsdtFuturesApiTrading.CloseIsolatedMarginPositionAsync(System.String,HTX.Net.Enums.OrderSide,System.Nullable{System.Int64},System.Nullable{HTX.Net.Enums.LightningPriceType},System.Threading.CancellationToken)">
             <summary>
-            Lightning close position
+            Lightning close isolated margin position
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb86944-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
             <param name="contractCode">Contract code, for example `ETH-USDT`</param>
@@ -5727,7 +5727,7 @@
         </member>
         <member name="M:HTX.Net.Interfaces.Clients.UsdtFuturesApi.IHTXRestClientUsdtFuturesApiTrading.CloseCrossMarginPositionAsync(HTX.Net.Enums.OrderSide,System.String,System.String,System.Nullable{HTX.Net.Enums.ContractType},System.Nullable{System.Int64},System.Nullable{HTX.Net.Enums.LightningPriceType},System.Threading.CancellationToken)">
             <summary>
-            Lightning close position
+            Lightning close cross margin position
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb86944-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
             <param name="contractCode">Contract code, for example `ETH-USDT`</param>
@@ -5757,7 +5757,7 @@
         </member>
         <member name="M:HTX.Net.Interfaces.Clients.UsdtFuturesApi.IHTXRestClientUsdtFuturesApiTrading.PlaceCrossMarginTriggerOrderAsync(HTX.Net.Enums.TriggerType,System.Decimal,System.Decimal,HTX.Net.Enums.OrderSide,System.String,System.String,System.Nullable{HTX.Net.Enums.ContractType},System.Nullable{HTX.Net.Enums.Offset},System.Nullable{System.Boolean},System.Nullable{System.Decimal},System.Nullable{HTX.Net.Enums.OrderPriceType},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
-            Place a new isolated margin trigger order
+            Place a new cross margin trigger order
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb86dfe-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
             <param name="contractCode">Contract code, for example `ETH-USDT`</param>
@@ -5839,7 +5839,7 @@
             <param name="tradeType">Trade type</param>
             <param name="ct">Cancellation token</param>
         </member>
-        <member name="M:HTX.Net.Interfaces.Clients.UsdtFuturesApi.IHTXRestClientUsdtFuturesApiTrading.GetIsolatedMarginTriggerOrderHistoryAsync(System.String,HTX.Net.Enums.MarginTradeType,System.Int32,System.Nullable{HTX.Net.Enums.OrderStatusFilter},System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,System.Threading.CancellationToken)">
+        <member name="M:HTX.Net.Interfaces.Clients.UsdtFuturesApi.IHTXRestClientUsdtFuturesApiTrading.GetIsolatedMarginTriggerOrderHistoryAsync(System.String,HTX.Net.Enums.MarginTradeType,System.Int32,HTX.Net.Enums.OrderStatusFilter,System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,System.Threading.CancellationToken)">
             <summary>
             Get isolated margin trigger order history
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb87658-77b5-11ed-9966-0242ac110003" /></para>
@@ -5853,7 +5853,7 @@
             <param name="sortBy">Sort by; 'created_at' or 'update_time'</param>
             <param name="ct">Cancellation token</param>
         </member>
-        <member name="M:HTX.Net.Interfaces.Clients.UsdtFuturesApi.IHTXRestClientUsdtFuturesApiTrading.GetCrossMarginTriggerOrderHistoryAsync(HTX.Net.Enums.MarginTradeType,System.Int32,System.String,System.String,System.Nullable{HTX.Net.Enums.ContractType},System.Nullable{HTX.Net.Enums.OrderStatusFilter},System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,System.Threading.CancellationToken)">
+        <member name="M:HTX.Net.Interfaces.Clients.UsdtFuturesApi.IHTXRestClientUsdtFuturesApiTrading.GetCrossMarginTriggerOrderHistoryAsync(HTX.Net.Enums.MarginTradeType,System.Int32,HTX.Net.Enums.OrderStatusFilter,System.String,System.String,System.Nullable{HTX.Net.Enums.ContractType},System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,System.Threading.CancellationToken)">
             <summary>
             Get cross margin trigger order history
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb877ac-77b5-11ed-9966-0242ac110003" /></para>
@@ -5914,7 +5914,7 @@
         </member>
         <member name="M:HTX.Net.Interfaces.Clients.UsdtFuturesApi.IHTXRestClientUsdtFuturesApiTrading.CancelCrossMarginTpSlAsync(System.String,System.String,System.String,System.Nullable{HTX.Net.Enums.ContractType},System.Threading.CancellationToken)">
             <summary>
-            Cancel isolated margin take profit / stop loss orders for an existing position
+            Cancel cross margin take profit / stop loss orders for an existing position
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb87bc0-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
             <param name="contractCode">Contract code, for example `ETH-USDT`</param>
@@ -6069,7 +6069,7 @@
         </member>
         <member name="M:HTX.Net.Interfaces.Clients.UsdtFuturesApi.IHTXRestClientUsdtFuturesApiTrading.CancelAllIsolatedMarginTrailingOrdersAsync(System.String,System.Nullable{HTX.Net.Enums.OrderSide},System.Nullable{HTX.Net.Enums.Offset},System.Threading.CancellationToken)">
             <summary>
-            Cancel all open isolated margin trailing orders
+            Cancel all open isolated margin trailing orders on a symbol
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb8924f-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
             <param name="contractCode">Contract code, for example `ETH-USDT`</param>
@@ -6165,7 +6165,7 @@
         </member>
         <member name="M:HTX.Net.Interfaces.Clients.UsdtFuturesApi.IHTXSocketClientUsdtFuturesApi.SubscribeToBookTickerUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{HTX.Net.Objects.Models.Socket.HTXBestOfferUpdate}},System.Threading.CancellationToken)">
             <summary>
-            Subscribe to best offer updates
+            Subscribe to best bid/ask updates
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7c802-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
             <param name="contractCode">Contract code, for example `ETH-USDT`</param>
@@ -6220,7 +6220,7 @@
         </member>
         <member name="M:HTX.Net.Interfaces.Clients.UsdtFuturesApi.IHTXSocketClientUsdtFuturesApi.SubscribeToMarkPriceKlineUpdatesAsync(System.String,HTX.Net.Enums.KlineInterval,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{HTX.Net.Objects.Models.HTXKline}},System.Threading.CancellationToken)">
             <summary>
-            Subscribe to mark price updates
+            Subscribe to mark price kline updates
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7d626-77b5-11ed-9966-0242ac110003" /></para>
             </summary>
             <param name="contractCode">Contract code, for example `ETH-USDT`</param>
@@ -6251,7 +6251,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:HTX.Net.Interfaces.Clients.UsdtFuturesApi.IHTXSocketClientUsdtFuturesApi.SubscribeToSymbolTickerUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{HTX.Net.Objects.Models.Socket.HTXSymbolTickUpdate}},System.Threading.CancellationToken)">
+        <member name="M:HTX.Net.Interfaces.Clients.UsdtFuturesApi.IHTXSocketClientUsdtFuturesApi.SubscribeToTickerUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{HTX.Net.Objects.Models.Socket.HTXSymbolTickUpdate}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to symbol ticker updates
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7c694-77b5-11ed-9966-0242ac110003" /></para>
@@ -6409,9 +6409,22 @@
             Spot order book factory methods
             </summary>
         </member>
+        <member name="P:HTX.Net.Interfaces.IHTXOrderBookFactory.UsdtFutures">
+            <summary>
+            Usdt futures order book factory methods
+            </summary>
+        </member>
         <member name="M:HTX.Net.Interfaces.IHTXOrderBookFactory.CreateSpot(System.String,System.Action{HTX.Net.Objects.Options.HTXOrderBookOptions})">
             <summary>
             Create a SymbolOrderBook for the Spot API
+            </summary>
+            <param name="symbol">The symbol</param>
+            <param name="options">Order book options</param>
+            <returns></returns>
+        </member>
+        <member name="M:HTX.Net.Interfaces.IHTXOrderBookFactory.CreateUsdtFutures(System.String,System.Action{HTX.Net.Objects.Options.HTXOrderBookOptions})">
+            <summary>
+            Create a SymbolOrderBook for the Usdt futures API
             </summary>
             <param name="symbol">The symbol</param>
             <param name="options">Order book options</param>
@@ -17228,6 +17241,9 @@
         <member name="P:HTX.Net.SymbolOrderBooks.HTXOrderBookFactory.Spot">
             <inheritdoc />
         </member>
+        <member name="P:HTX.Net.SymbolOrderBooks.HTXOrderBookFactory.UsdtFutures">
+            <inheritdoc />
+        </member>
         <member name="M:HTX.Net.SymbolOrderBooks.HTXOrderBookFactory.#ctor(System.IServiceProvider)">
             <summary>
             ctor
@@ -17235,6 +17251,9 @@
             <param name="serviceProvider">Service provider for resolving logging and clients</param>
         </member>
         <member name="M:HTX.Net.SymbolOrderBooks.HTXOrderBookFactory.CreateSpot(System.String,System.Action{HTX.Net.Objects.Options.HTXOrderBookOptions})">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.SymbolOrderBooks.HTXOrderBookFactory.CreateUsdtFutures(System.String,System.Action{HTX.Net.Objects.Options.HTXOrderBookOptions})">
             <inheritdoc />
         </member>
         <member name="T:HTX.Net.SymbolOrderBooks.HTXSpotSymbolOrderBook">
@@ -17265,6 +17284,36 @@
             <inheritdoc />
         </member>
         <member name="M:HTX.Net.SymbolOrderBooks.HTXSpotSymbolOrderBook.Dispose(System.Boolean)">
+            <inheritdoc />
+        </member>
+        <member name="T:HTX.Net.SymbolOrderBooks.HTXUsdtFuturesSymbolOrderBook">
+            <summary>
+            HTX order book implementation
+            </summary>
+        </member>
+        <member name="M:HTX.Net.SymbolOrderBooks.HTXUsdtFuturesSymbolOrderBook.#ctor(System.String,System.Action{HTX.Net.Objects.Options.HTXOrderBookOptions})">
+            <summary>
+            Create a new order book instance
+            </summary>
+            <param name="symbol">The symbol the order book is for</param>
+            <param name="optionsDelegate">Option configuration delegate</param>
+        </member>
+        <member name="M:HTX.Net.SymbolOrderBooks.HTXUsdtFuturesSymbolOrderBook.#ctor(System.String,System.Action{HTX.Net.Objects.Options.HTXOrderBookOptions},Microsoft.Extensions.Logging.ILoggerFactory,HTX.Net.Interfaces.Clients.IHTXSocketClient)">
+            <summary>
+            Create a new order book instance
+            </summary>
+            <param name="symbol">The symbol the order book is for</param>
+            <param name="optionsDelegate">Option configuration delegate</param>
+            <param name="logger">Logger</param>
+            <param name="socketClient">Socket client instance</param>
+        </member>
+        <member name="M:HTX.Net.SymbolOrderBooks.HTXUsdtFuturesSymbolOrderBook.DoStartAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.SymbolOrderBooks.HTXUsdtFuturesSymbolOrderBook.DoResyncAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.SymbolOrderBooks.HTXUsdtFuturesSymbolOrderBook.Dispose(System.Boolean)">
             <inheritdoc />
         </member>
         <member name="T:CryptoExchange.Net.Interfaces.CryptoClientExtensions">

@@ -11,7 +11,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
     public interface IHTXSocketClientSpotApi : ISocketApiClient, IDisposable
     {
         /// <summary>
-        /// Gets candlestick data for a symbol
+        /// Get kline/candlestick data for a symbol
         /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-latest-tickers-for-all-pairs" /></para>
         /// </summary>
         /// <param name="symbol">The symbol to get the data for, for example `ETHUSDT`</param>
@@ -20,7 +20,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         Task<CallResult<IEnumerable<HTXKline>>> GetKlinesAsync(string symbol, KlineInterval period);
 
         /// <summary>
-        /// Subscribes to candlestick updates for a symbol
+        /// Subscribes to kline/candlestick updates for a symbol
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec53241-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="symbol">The symbol to subscribe to, for example `ETHUSDT`</param>
@@ -31,7 +31,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         Task<CallResult<UpdateSubscription>> SubscribeToKlineUpdatesAsync(string symbol, KlineInterval period, Action<DataEvent<HTXKline>> onData, CancellationToken ct = default);
 
         /// <summary>
-        /// Gets the current order book for a symbol
+        /// Get the current order book for a symbol
         /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#market-depth" /></para>
         /// </summary>
         /// <param name="symbol">The symbol to get the data for, for example `ETHUSDT`</param>
@@ -40,7 +40,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         Task<CallResult<HTXOrderBook>> GetOrderBookWithMergeStepAsync(string symbol, int mergeStep);
 
         /// <summary>
-        /// Gets the current order book for a symbol
+        /// Get the current order book for a symbol
         /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#market-by-price-incremental-update" /></para>
         /// </summary>
         /// <param name="symbol">The symbol to get the data for, for example `ETHUSDT`</param>
@@ -82,7 +82,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         Task<CallResult<UpdateSubscription>> SubscribeToOrderBookChangeUpdatesAsync(string symbol, int levels, Action<DataEvent<HTXIncementalOrderBook>> onData, CancellationToken ct = default);
 
         /// <summary>
-        /// Gets a list of trades for a symbol
+        /// Get a list of trades for a symbol
         /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#trade-detail" /></para>
         /// </summary>
         /// <param name="symbol">The symbol to get trades for, for example `ETHUSDT`</param>
@@ -100,7 +100,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         Task<CallResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(string symbol, Action<DataEvent<HTXSymbolTrade>> onData, CancellationToken ct = default);
 
         /// <summary>
-        /// Gets details for a symbol
+        /// Get details for a symbol
         /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#market-details" /></para>
         /// </summary>
         /// <param name="symbol">The symbol to get data for, for example `ETHUSDT`</param>

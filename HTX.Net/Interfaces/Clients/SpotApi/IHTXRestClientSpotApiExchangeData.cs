@@ -63,7 +63,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         Task<WebCallResult<HTXSymbolTickMerged>> GetTickerAsync(string symbol, CancellationToken ct = default);
 
         /// <summary>
-        /// Get candlestick data for a symbol
+        /// Get kline/candlestick data for a symbol
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4a4da-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="symbol">The symbol to get the data for, for example `ETHUSDT`</param>
@@ -74,7 +74,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         Task<WebCallResult<IEnumerable<HTXKline>>> GetKlinesAsync(string symbol, KlineInterval period, int? limit = null, CancellationToken ct = default);
 
         /// <summary>
-        /// Gets the order book for a symbol
+        /// Get the order book for a symbol
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4a0fc-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="symbol">The symbol to request for, for example `ETHUSDT`</param>
@@ -85,7 +85,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         Task<WebCallResult<HTXOrderBook>> GetOrderBookAsync(string symbol, int mergeStep, int? limit = null, CancellationToken ct = default);
 
         /// <summary>
-        /// Gets the last trade for a symbol
+        /// Get the last trade for a symbol
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4aa2b-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="symbol">The symbol to request for, for example `ETHUSDT`</param>
@@ -104,7 +104,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         Task<WebCallResult<IEnumerable<HTXSymbolTrade>>> GetTradeHistoryAsync(string symbol, int? limit = null, CancellationToken ct = default);
 
         /// <summary>
-        /// Gets 24h stats for a symbol
+        /// Get 24h stats for a symbol
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4a2cd-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="symbol">The symbol to get the data for, for example `ETHUSDT`</param>
@@ -113,7 +113,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         Task<WebCallResult<HTXSymbolDetails>> GetSymbolDetails24HAsync(string symbol, CancellationToken ct = default);
 
         /// <summary>
-        /// Gets the current market status
+        /// Get the current market status
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec513b1-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
@@ -121,7 +121,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         Task<WebCallResult<HTXSymbolStatus>> GetSymbolStatusAsync(CancellationToken ct = default);
 
         /// <summary>
-        /// Gets the server time
+        /// Get the server time
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4bb2c-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>

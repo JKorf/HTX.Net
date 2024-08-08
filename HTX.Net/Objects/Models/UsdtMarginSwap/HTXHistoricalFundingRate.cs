@@ -46,7 +46,7 @@
         /// Realized rate
         /// </summary>
         [JsonPropertyName("realized_rate")]
-        public decimal RealizedRate { get; set; }
+        public decimal? RealizedRate { get; set; }
         /// <summary>
         /// Funding time
         /// </summary>
