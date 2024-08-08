@@ -143,6 +143,22 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 6.0.0 - 08 Aug 2024
+    * Renamed library from Huobi.Net to HTX.Net, following the renaming of the exchange
+    * Renamed all models and references from Huobi... to HTX...
+    * Renamed UsdtMarginSwapApi to UsdtFuturesApi
+    * Renamed some endpoints to match standardized endpoint names
+    * Split Margin and SubAccount endpoints into separate topics in the rest SpotApi
+    * Split SubAccount endpoints into separate topics in the rest FuturesApi
+    * Added UsdtFuturesSymbolOrderBook implementation
+    * Added client side ratelimiting
+    * Added various missing endpoints
+    * Added Usdt Futures API account websocket streams
+    * Updated from Newtonsoft.Json to System.Text.Json for json handling
+    * Updated code xml comments
+    * Updated API documentation references
+    * Fixed a large number of bugs
+
 * Version 5.7.0 - 07 Aug 2024
     * Updated CryptoExchange.Net to version 7.11.0, see https://github.com/JKorf/CryptoExchange.Net/releases/tag/7.11.0
 
