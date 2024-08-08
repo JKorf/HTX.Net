@@ -1,0 +1,35 @@
+GET
+/linear-swap-ex/market/depth
+false
+{
+  "ch": "market.BTC-USDT-CQ.depth.step6",
+  "status": "ok",
+  "tick": {
+    "asks": [
+      [
+        48611.5,
+        741
+      ],
+      [
+        48635.2,
+        792
+      ]
+    ],
+    "bids": [
+      [
+        48596.4,
+        90
+      ],
+      [
+        48585.7,
+        180
+      ]
+    ],
+    "ch": "market.BTC-USDT-CQ.depth.step6",
+    "id": 1638754215,
+    "mrid": 1250406,
+    "ts": 1638754215640,
+    "version": 1638754215
+  },
+  "ts": 1638754216092
+}

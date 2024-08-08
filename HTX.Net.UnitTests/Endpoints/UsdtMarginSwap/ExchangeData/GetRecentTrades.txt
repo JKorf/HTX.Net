@@ -1,0 +1,25 @@
+GET
+/linear-swap-ex/market/history/trade
+false
+{
+  "ch": "market.BTC-USDT.trade.detail",
+  "data": [
+    {
+      "data": [
+        {
+          "amount": 2,
+          "direction": "buy",
+          "id": 1314767870000,
+          "price": 13081.3,
+          "ts": 1603695383124,
+          "quantity": 0.002,
+          "trade_turnover": 26.1626
+        }
+      ],
+      "id": 131476787,
+      "ts": 1603695383124
+    }
+  ],
+  "status": "ok",
+  "ts": 1603695388965
+}

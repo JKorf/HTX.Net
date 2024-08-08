@@ -1,0 +1,38 @@
+GET
+/v2/settings/common/currencies
+false
+{
+  "status": "ok",
+  "data": [
+    {
+      "tags": "",
+      "cawt": false,
+      "fc": 12,
+      "sc": 12,
+      "dma": "1",
+      "wma": "10",
+      "ft": "eth",
+      "whe": false,
+      "cd": false,
+      "qc": true,
+      "sp": "8",
+      "wp": 6,
+      "fn": "Tether USDT",
+      "at": 1,
+      "cc": "usdt",
+      "v": true,
+      "de": true,
+      "wed": true,
+      "w": 10006,
+      "state": "online",
+      "dn": "USDT",
+      "dd": "Please don’t deposit any other digital assets except USDT to the above address. Otherwise, you may lose your assets permanently. !>_<!Depositing to the above address requires confirmations of the entire network. It will arrive after 12 confirmations, and it will be available to withdraw after 12 confirmations. !>_<!Minimum deposit amount: 1 USDT. Any deposits less than the minimum will not be credited or refunded.!>_<!Your deposit address won’t change often. If there are any changes, we will notify you via announcement or email.!>_<!Please make sure that your computer and browser are secure and your information is protected from being tampered or leaked.",
+      "svd": null,
+      "swd": null,
+      "sdd": null,
+      "wd": "Minimum withdrawal amount: 10 USDT (ERC20). !>_<!To ensure the safety of your funds, your withdrawal request will be manually reviewed if your security strategy or password is changed. Please wait for phone calls or emails from our staff.!>_<!Please make sure that your computer and browser are secure and your information is protected from being tampered or leaked."
+    }
+  ],
+  "ts": "1641869938436",
+  "full": 1
+}

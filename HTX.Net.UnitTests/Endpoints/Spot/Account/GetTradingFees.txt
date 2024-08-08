@@ -1,0 +1,30 @@
+GET
+/v2/reference/transact-fee-rate
+true
+{
+  "code": 200,
+  "data": [
+    {
+      "symbol": "btcusdt",
+      "actualMakerRate": "0.002",
+      "actualTakerRate": "0.002",
+      "takerFeeRate": "0.002",
+      "makerFeeRate": "0.002"
+    },
+    {
+      "symbol": "apnusdt",
+      "actualMakerRate": "0.002",
+      "actualTakerRate": "0.002",
+      "takerFeeRate": "0.002",
+      "makerFeeRate": "0.002"
+    },
+    {
+      "symbol": "htusdt",
+      "actualMakerRate": "0.002",
+      "actualTakerRate": "0.002",
+      "takerFeeRate": "0.002",
+      "makerFeeRate": "0.002"
+    }
+  ],
+  "success": true
+}

@@ -1,0 +1,34 @@
+> { "sub": "market.ETH-USDT.depth.step0", "id": "|1|" }
+< { "id": "|1|", "status": "ok", "subbed": "market.ETH-USDT.depth.step0", "ts": 1489474081631 }
+= 
+{
+  "ch": "market.ETH-USDT.depth.step0",
+  "ts": 1603707576468,
+  "tick": {
+    "mrid": 131596447,
+    "id": 1603707576,
+    "bids": [
+      [
+        13071.9,
+        38
+      ],
+      [
+        13068,
+        5
+      ]
+    ],
+    "asks": [
+      [
+        13081.9,
+        197
+      ],
+      [
+        13099.7,
+        371
+      ]
+    ],
+    "ts": 1603707576467,
+    "version": 1603707576,
+    "ch": "market.BTC-USDT.depth.step6"
+  }
+}

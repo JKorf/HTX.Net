@@ -1,0 +1,25 @@
+GET
+/v1/order/orders
+true
+{
+  "status": "ok",
+  "data": [
+    {
+      "id": 345487249132375,
+      "symbol": "polyusdt",
+      "account-id": 13496526,
+      "client-order-id": "",
+      "amount": "50.000000000000000000",
+      "price": "0.0",
+      "created-at": 1629443051822,
+      "type": "buy-market",
+      "field-amount": "147.928994082840236000",
+      "field-cash-amount": "49.999999999999999768",
+      "field-fees": "0.295857988165680472",
+      "finished-at": 1629443051838,
+      "source": "spot-web",
+      "state": "filled",
+      "canceled-at": 0
+    }
+  ]
+}

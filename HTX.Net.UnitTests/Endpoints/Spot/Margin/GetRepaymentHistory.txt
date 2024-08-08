@@ -1,0 +1,22 @@
+GET
+/v2/account/repayment
+true
+{
+  "code": 200,
+  "data": [
+    {
+      "repayId": 1174413,
+      "repayTime": 1600747389111,
+      "accountId": 1266826,
+      "currency": "btc",
+      "repaidAmount": "0.00200083",
+      "transactIds": {
+        "transactId": 502,
+        "repaidprincipal": "0.00199666",
+        "repaidInterest": "0.00000417",
+        "paidHt": "0",
+        "paidPoint": "0"
+      }
+    }
+  ]
+}

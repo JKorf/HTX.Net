@@ -1,0 +1,51 @@
+GET
+/v2/account/withdraw/quota
+true
+{
+  "code": 200,
+  "data": {
+    "currency": "usdt",
+    "chains": [
+      {
+        "chain": "hrc20usdt",
+        "maxWithdrawAmt": "2000000.000000000000000000",
+        "withdrawQuotaPerDay": "4845303.99999991",
+        "remainWithdrawQuotaPerDay": "4845303.99999991",
+        "withdrawQuotaPerYear": "-1",
+        "remainWithdrawQuotaPerYear": "-1",
+        "withdrawQuotaTotal": "-1",
+        "remainWithdrawQuotaTotal": "-1"
+      },
+      {
+        "chain": "trc20usdt",
+        "maxWithdrawAmt": "1000000.000000000000000000",
+        "withdrawQuotaPerDay": "4845303.99999991",
+        "remainWithdrawQuotaPerDay": "4845303.99999991",
+        "withdrawQuotaPerYear": "-1",
+        "remainWithdrawQuotaPerYear": "-1",
+        "withdrawQuotaTotal": "-1",
+        "remainWithdrawQuotaTotal": "-1"
+      },
+      {
+        "chain": "usdt",
+        "maxWithdrawAmt": "600000.000000000000000000",
+        "withdrawQuotaPerDay": "4845303.99999991",
+        "remainWithdrawQuotaPerDay": "4845303.99999991",
+        "withdrawQuotaPerYear": "-1",
+        "remainWithdrawQuotaPerYear": "-1",
+        "withdrawQuotaTotal": "-1",
+        "remainWithdrawQuotaTotal": "-1"
+      },
+      {
+        "chain": "usdterc20",
+        "maxWithdrawAmt": "1000000.000000000000000000",
+        "withdrawQuotaPerDay": "4845303.99999991",
+        "remainWithdrawQuotaPerDay": "4845303.99999991",
+        "withdrawQuotaPerYear": "-1",
+        "remainWithdrawQuotaPerYear": "-1",
+        "withdrawQuotaTotal": "-1",
+        "remainWithdrawQuotaTotal": "-1"
+      }
+    ]
+  }
+}

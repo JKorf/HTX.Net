@@ -1,0 +1,4 @@
+> { "sub": "market.ETH-USDT.trade.detail", "id": "|1|" }
+< { "id": "|1|", "status": "ok", "subbed": "market.ETH-USDT.trade.detail", "ts": 1489474081631 }
+= 
+{"ch":"market.ETH-USDT.trade.detail","ts":1722863196449,"tick":{"id":100021951274748,"ts":1722863196444,"data":[{"amount":196,"quantity":1.96,"trade_turnover":4403.1204,"ts":1722863196444,"id":1000219512747480000,"price":2246.49,"direction":"sell"}]}}

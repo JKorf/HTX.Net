@@ -1,0 +1,74 @@
+POST
+/linear-swap-api/v1/swap_relation_tpsl_order
+true
+{
+  "status": "ok",
+  "data": {
+    "symbol": "BTC",
+    "contract_code": "BTC-USDT",
+    "margin_mode": "isolated",
+    "margin_account": "BTC-USDT",
+    "volume": 1,
+    "price": 29999,
+    "order_price_type": "opponent",
+    "direction": "buy",
+    "offset": "open",
+    "lever_rate": 75,
+    "order_id": 795947785812557800,
+    "order_id_str": "795947785812557824",
+    "client_order_id": null,
+    "created_at": 1609810340126,
+    "trade_volume": 1,
+    "trade_turnover": 29.999,
+    "fee": -0.01619946,
+    "trade_avg_price": 29999,
+    "margin_frozen": 0,
+    "profit": 0,
+    "status": 6,
+    "order_type": 1,
+    "order_source": "api",
+    "fee_asset": "USDT",
+    "canceled_at": 0,
+    "tpsl_order_info": [
+      {
+        "volume": 1,
+        "direction": "sell",
+        "tpsl_order_type": "tp",
+        "order_id": 795947785820946400,
+        "order_id_str": "795947785820946432",
+        "trigger_type": "ge",
+        "trigger_price": 31000,
+        "order_price": 0,
+        "created_at": 1609810340134,
+        "order_price_type": "optimal_5",
+        "relation_tpsl_order_id": "795947785820946433",
+        "status": 1,
+        "canceled_at": 0,
+        "fail_code": null,
+        "fail_reason": null,
+        "triggered_price": null,
+        "relation_order_id": "-1"
+      },
+      {
+        "volume": 1,
+        "direction": "sell",
+        "tpsl_order_type": "sl",
+        "order_id": 795947785820946400,
+        "order_id_str": "795947785820946433",
+        "trigger_type": "le",
+        "trigger_price": 29100,
+        "order_price": 0,
+        "created_at": 1609810340134,
+        "order_price_type": "optimal_5",
+        "relation_tpsl_order_id": "795947785820946432",
+        "status": 1,
+        "canceled_at": 0,
+        "fail_code": null,
+        "fail_reason": null,
+        "triggered_price": null,
+        "relation_order_id": "-1"
+      }
+    ]
+  },
+  "ts": 1609810352828
+}

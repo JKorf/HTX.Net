@@ -1,0 +1,29 @@
+GET
+/v2/sub-user/deposit-address
+true
+{
+  "code": 200,
+  "data": [
+    {
+      "userId": 12345678,
+      "currency": "btc",
+      "address": "0x4efee1ca7fc887d921f4bbcc444fbc12c464d87f",
+      "addressTag": "",
+      "chain": "hbtc"
+    },
+    {
+      "userId": 12345678,
+      "currency": "btc",
+      "address": "1C4o8WmACM8yHBbJjbdzLbc9ei7WFLFoMk",
+      "addressTag": "",
+      "chain": "btc"
+    },
+    {
+      "userId": 12345678,
+      "currency": "btc",
+      "address": "0x4efee1ca7fc887d921f4bbcc444fbc12c464d87f",
+      "addressTag": "",
+      "chain": "hrc20btc"
+    }
+  ]
+}

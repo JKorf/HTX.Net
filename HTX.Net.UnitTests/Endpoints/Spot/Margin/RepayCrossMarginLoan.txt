@@ -1,0 +1,7 @@
+POST
+/v1/cross-margin/orders/123/repay
+true
+{
+  "status": "ok",
+  "data": null
+}

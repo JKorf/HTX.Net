@@ -1,0 +1,13 @@
+GET
+/linear-swap-api/v1/swap_cross_position_side
+true
+{
+  "status": "ok",
+  "data": [
+    {
+      "margin_account": "USDT",
+      "position_mode": "single_side"
+    }
+  ],
+  "ts": 1566899973811
+}

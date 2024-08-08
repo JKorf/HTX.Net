@@ -1,0 +1,19 @@
+> { "sub": "market.ETH-USDT.kline.1day", "id": "|1|" }
+< { "id": "|1|", "status": "ok", "subbed": "market.ETH-USDT.kline.1day", "ts": 1489474081631 }
+= 
+{
+  "ch": "market.ETH-USDT.kline.1day",
+  "ts": 1603707124366,
+  "tick": {
+    "id": 1603707120,
+    "mrid": 131592424,
+    "open": 13067.7,
+    "close": 13067.7,
+    "high": 13067.7,
+    "low": 13067.7,
+    "amount": 0.004,
+    "vol": 4,
+    "trade_turnover": 52.2708,
+    "count": 1
+  }
+}

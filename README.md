@@ -1,12 +1,13 @@
-# ![.Huobi.Net](https://github.com/JKorf/Huobi.Net/blob/master/Huobi.Net/Icon/icon.png?raw=true) Huobi.Net
+# ![.HTX.Net](https://github.com/JKorf/HTX.Net/blob/master/HTX.Net/Icon/icon.png?raw=true) HTX.Net
 
-[![.NET](https://img.shields.io/github/actions/workflow/status/JKorf/Huobi.Net/dotnet.yml?style=for-the-badge)](https://github.com/JKorf/Huobi.Net/actions/workflows/dotnet.yml) ![License](https://img.shields.io/github/license/JKorf/Huobi.Net?style=for-the-badge)
+[![.NET](https://img.shields.io/github/actions/workflow/status/JKorf/HTX.Net/dotnet.yml?style=for-the-badge)](https://github.com/JKorf/HTX.Net/actions/workflows/dotnet.yml) ![License](https://img.shields.io/github/license/JKorf/HTX.Net?style=for-the-badge)
 
-Huobi.Net is a strongly typed client library for accessing the [Huobi REST and Websocket API](https://github.com/huobiapi).
+HTX.Net, previously known as Huobi.Net, is a strongly typed client library for accessing the [HTX REST and Websocket API](https://www.htx.com/en-us/opend/).
 ## Features
 * Response data is mapped to descriptive models
 * Input parameters and response values are mapped to discriptive enum values where possible
 * Automatic websocket (re)connection management 
+* Client side rate limiting 
 * Cient side order book implementation
 * Extensive logging
 * Support for different environments
@@ -28,24 +29,24 @@ The library is targeting both `.NET Standard 2.0` and `.NET Standard 2.1` for op
 ## Install the library
 
 ### NuGet 
-[![NuGet version](https://img.shields.io/nuget/v/Huobi.net.svg?style=for-the-badge)](https://www.nuget.org/packages/Huobi.Net)  [![Nuget downloads](https://img.shields.io/nuget/dt/Huobi.Net.svg?style=for-the-badge)](https://www.nuget.org/packages/Huobi.Net)
+[![NuGet version](https://img.shields.io/nuget/v/HTX.net.svg?style=for-the-badge)](https://www.nuget.org/packages/HTX.Net)  [![Nuget downloads](https://img.shields.io/nuget/dt/HTX.Net.svg?style=for-the-badge)](https://www.nuget.org/packages/HTX.Net)
 
-	dotnet add package Huobi.Net
+	dotnet add package HTX.Net
 	
 ### GitHub packages
-Huobi.Net is available on [GitHub packages](https://github.com/JKorf/Huobi.Net/pkgs/nuget/Huobi.Net). You'll need to add `https://nuget.pkg.github.com/JKorf/index.json` as a NuGet package source.
+HTX.Net is available on [GitHub packages](https://github.com/JKorf/HTX.Net/pkgs/nuget/HTX.Net). You'll need to add `https://nuget.pkg.github.com/JKorf/index.json` as a NuGet package source.
 
 ### Download release
-[![GitHub Release](https://img.shields.io/github/v/release/JKorf/Huobi.Net?style=for-the-badge&label=GitHub)](https://github.com/JKorf/Huobi.Net/releases)
+[![GitHub Release](https://img.shields.io/github/v/release/JKorf/HTX.Net?style=for-the-badge&label=GitHub)](https://github.com/JKorf/HTX.Net/releases)
 
-The NuGet package files are added along side the source with the latest GitHub release which can found [here](https://github.com/JKorf/Huobi.Net/releases).
+The NuGet package files are added along side the source with the latest GitHub release which can found [here](https://github.com/JKorf/HTX.Net/releases).
 
 ## How to use
 *REST Endpoints* 
  
 ```csharp
 // Get the ETH/USDT ticker via rest request
-var restClient = new HuobiRestClient();
+var restClient = new HTXRestClient();
 var tickerResult = await restClient.SpotApi.ExchangeData.GetTickerAsync("ETHUSDT");
 var lastPrice = tickerResult.Data.ClosePrice;
 ```
@@ -54,17 +55,17 @@ var lastPrice = tickerResult.Data.ClosePrice;
 
 ```csharp
 // Subscribe to ETH/USDT ticker updates via the websocket API
-var socketClient = new HuobiSocketClient();
-var tickerSubscriptionResult = socketClient.SpotApi.SubscribeToTickerUpdatesAsync("ethusdt", (update) =>
+var socketClient = new HTXSocketClient();
+var tickerSubscriptionResult = socketClient.SpotApi.SubscribeToTickerUpdatesAsync("ETHUSDT", (update) =>
 {
 	var lastPrice = update.Data.ClosePrice;
 });
 ```
 
-For information on the clients, dependency injection, response processing and more see the [Huobi.Net documentation](https://jkorf.github.io/Huobi.Net), [CryptoExchange.Net documentation](https://jkorf.github.io/CryptoExchange.Net), or have a look at the examples [here](https://github.com/JKorf/Huobi.Net/tree/master/Examples) or [here](https://github.com/JKorf/CryptoExchange.Net/tree/master/Examples).
+For information on the clients, dependency injection, response processing and more see the [HTX.Net documentation](https://jkorf.github.io/HTX.Net), [CryptoExchange.Net documentation](https://jkorf.github.io/CryptoExchange.Net), or have a look at the examples [here](https://github.com/JKorf/HTX.Net/tree/master/Examples) or [here](https://github.com/JKorf/CryptoExchange.Net/tree/master/Examples).
 
 ## CryptoExchange.Net
-Huobi.Net is based on the [CryptoExchange.Net](https://github.com/JKorf/CryptoExchange.Net) base library. Other exchange API implementations based on the CryptoExchange.Net base library are available and follow the same logic.
+HTX.Net is based on the [CryptoExchange.Net](https://github.com/JKorf/CryptoExchange.Net) base library. Other exchange API implementations based on the CryptoExchange.Net base library are available and follow the same logic.
 
 CryptoExchange.Net also allows for [easy access to different exchange API's](https://jkorf.github.io/CryptoExchange.Net#idocs_common).
 
@@ -97,23 +98,12 @@ A Discord server is available [here](https://discord.gg/MSpeEtSY8t). Feel free t
 |Market Data|✓|`restClient.SpotApi.ExchangeData`|
 |Account|✓|`restClient.SpotApi.Account`|
 |Wallet|✓|`restClient.SpotApi.Account`|
-|Sub user management|Partial|`restClient.SpotApi.Account`|
+|Sub user management|✓|`restClient.SpotApi.SubAccount`|
 |Trading|✓|`restClient.SpotApi.Trading`|
 |Conditional Order|✓|`restClient.SpotApi.Trading`|
 |Margin Loan|✓|`restClient.SpotApi.Account`|
-|Margin Loan|✓|`restClient.SpotApi.Account`|
 |Websocket Market Data|✓|`socketClient.SpotApi`|
 |Websocket Account and Order|✓|`socketClient.SpotApi`|
-
-### Coin-M Futures Api
-|API|Supported|Location|
-|--|--:|--|
-|*|X||
-
-### Coin-M Swap Api
-|API|Supported|Location|
-|--|--:|--|
-|*|X||
 
 ### USDT-M Api
 |API|Supported|Location|
@@ -128,6 +118,16 @@ A Discord server is available [here](https://discord.gg/MSpeEtSY8t). Feel free t
 |Websocket Index and Basis Interface|✓|`socketClient.UsdtMarginSwapApi`|
 |Orders And Account WebSocket|X||
 |WebSocket System updates|X||
+
+### Coin-M Futures Api
+|API|Supported|Location|
+|--|--:|--|
+|*|X||
+
+### Coin-M Swap Api
+|API|Supported|Location|
+|--|--:|--|
+|*|X||
 
 ## Support the project
 I develop and maintain this package on my own for free in my spare time, any support is greatly appreciated.

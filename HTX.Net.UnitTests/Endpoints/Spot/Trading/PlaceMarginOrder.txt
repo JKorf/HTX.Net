@@ -1,0 +1,11 @@
+POST
+/v1/order/auto/place
+true
+{
+  "code": 200,
+  "data": {
+    "order-id": 912928425935415
+  },
+  "message": null,
+  "success": true
+}

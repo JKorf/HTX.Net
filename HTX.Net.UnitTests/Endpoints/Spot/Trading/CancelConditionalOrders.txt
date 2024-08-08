@@ -1,0 +1,13 @@
+POST
+/v2/algo-orders/cancellation
+true
+{
+  "code": 200,
+  "data": {
+    "accepted": [
+      "zy0002",
+      "zy0003"
+    ],
+    "rejected": []
+  }
+}

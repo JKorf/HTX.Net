@@ -1,0 +1,22 @@
+GET
+/linear-swap-api/v1/swap_historical_funding_rate
+false
+{
+  "status": "ok",
+  "data": {
+    "total_page": 14,
+    "current_page": 1,
+    "total_size": 14,
+    "data": [
+      {
+        "avg_premium_index": "0.000049895833333333",
+        "funding_rate": "0.000100000000000000",
+        "funding_time": "1603670400000",
+        "contract_code": "BTC-USDT",
+        "symbol": "BTC",
+        "fee_asset": "USDT"
+      }
+    ]
+  },
+  "ts": 1603696680599
+}

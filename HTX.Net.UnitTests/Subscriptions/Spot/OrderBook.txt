@@ -1,0 +1,31 @@
+> { "sub": "market.ethusdt.depth.step0", "id": "|1|" }
+< { "id": "|1|", "status": "ok", "subbed": "market.ethusdt.depth.step0", "ts": 1489474081631 }
+= 
+{
+  "ch": "market.ethusdt.depth.step0",
+  "ts": 1630983549503,
+  "tick": {
+    "bids": [
+      [
+        52690.69,
+        0.36281
+      ],
+      [
+        52690.68,
+        0.2
+      ]
+    ],
+    "asks": [
+      [
+        52690.7,
+        0.372591
+      ],
+      [
+        52691.26,
+        0.13
+      ]
+    ],
+    "version": 136998124622,
+    "ts": 1630983549500
+  }
+}

@@ -1,0 +1,30 @@
+GET
+/v2/user/api-key
+true
+{
+  "code": 200,
+  "message": "success",
+  "data": [
+    {
+      "accessKey": "160bb889-b7XXXXbe-e0XXXXf5-ghxertfvbf",
+      "status": "normal",
+      "note": "host",
+      "permission": "trade,readOnly",
+      "ipAddresses": "192.168.0.1,192.168.1.1",
+      "validDays": -1,
+      "createTime": 1615192704000,
+      "updateTime": 1623030338000
+    },
+    {
+      "accessKey": "5000d371-edXXXXf5tf-40XXXX8b-ab8e5",
+      "status": "normal",
+      "note": "host two",
+      "permission": "readOnly,trade,withdraw",
+      "ipAddresses": "",
+      "validDays": 7,
+      "createTime": 1623158078000,
+      "updateTime": 1629875976000
+    }
+  ],
+  "ok": true
+}

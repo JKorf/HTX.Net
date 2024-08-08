@@ -1,0 +1,65 @@
+GET
+/linear-swap-ex/market/bbo
+false
+{
+  "status": "ok",
+  "ticks": [
+    {
+      "business_type": "futures",
+      "contract_code": "BTC-USDT-CW",
+      "ask": [
+        48637.3,
+        746
+      ],
+      "bid": [
+        48482.5,
+        385
+      ],
+      "mrid": 1251224,
+      "ts": 1638754357868
+    },
+    {
+      "business_type": "futures",
+      "contract_code": "BTC-USDT-NW",
+      "ask": [
+        48620.1,
+        1000
+      ],
+      "bid": [
+        48461,
+        524
+      ],
+      "mrid": 1251162,
+      "ts": 1638754344746
+    },
+    {
+      "business_type": "futures",
+      "contract_code": "BTC-USDT-CQ",
+      "ask": [
+        48630.9,
+        868
+      ],
+      "bid": [
+        48577.1,
+        63
+      ],
+      "mrid": 1251236,
+      "ts": 1638754359301
+    },
+    {
+      "business_type": "swap",
+      "contract_code": "BTC-USDT",
+      "ask": [
+        48511.6,
+        91
+      ],
+      "bid": [
+        48508.9,
+        95
+      ],
+      "mrid": 334931,
+      "ts": 1638754361719
+    }
+  ],
+  "ts": 1638754363648
+}

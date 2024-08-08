@@ -1,0 +1,14 @@
+> { "sub": "market.ETH-USDT.basis.1day.open", "id": "|1|" }
+< { "id": "|1|", "status": "ok", "subbed": "market.ETH-USDT.basis.1day.open", "ts": 1489474081631 }
+= 
+{
+  "ch": "market.ETH-USDT.basis.1day.open",
+  "ts": 1617164081549,
+  "tick": {
+    "id": 1617164040,
+    "index_price": "58686.78333333333",
+    "contract_price": "58765",
+    "basis": "78.21666666667",
+    "basis_rate": "0.0013327816285723049700163397705562309"
+  }
+}

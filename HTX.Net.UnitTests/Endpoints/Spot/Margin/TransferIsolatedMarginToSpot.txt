@@ -1,0 +1,8 @@
+POST
+/v1/dw/transfer-out/margin
+true
+{
+  "status": "ok",
+  "data": 46971504,
+  "code": 200
+}

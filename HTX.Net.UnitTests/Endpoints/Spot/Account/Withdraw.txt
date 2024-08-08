@@ -1,0 +1,6 @@
+POST
+/v1/dw/withdraw/api/create
+true
+{
+  "data": 700
+}

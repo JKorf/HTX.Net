@@ -1,0 +1,28 @@
+GET
+/linear-swap-api/v1/swap_sub_auth_list
+true
+{
+  "status": "ok",
+  "data": {
+    "errors": [
+      {
+        "sub_uid": "117196834",
+        "err_code": 1010,
+        "err_msg": ""
+      }
+    ],
+    "successes": [
+      {
+        "query_id": 23512591,
+        "sub_uid": "441618222",
+        "sub_auth": 1
+      },
+      {
+        "query_id": 25460798,
+        "sub_uid": "462826107",
+        "sub_auth": 1
+      }
+    ]
+  },
+  "ts": 1705391607255
+}

@@ -1,0 +1,42 @@
+> {"op": "auth","type": "api","AccessKeyId": "|1|","SignatureMethod": "HmacSHA256","SignatureVersion": "2","Timestamp": "|2|","Signature": "|3|"}
+< { "op": "auth", "type":"api", "ts": 1489474081631, "err-code": 0, "data": { "user-id": "12345678" } }
+> { "op": "sub", "cid": "|4|", "topic": "trigger_order.*" }
+< { "op": "sub", "cid": "|4|", "topic": "trigger_order.*", "ts": 1670903745088, "err-code": 0 }
+= 
+{
+  "op": "notify",
+  "topic": "trigger_order",
+  "ts": 1603778055069,
+  "event": "order",
+  "uid": "123456789",
+  "data": [
+    {
+      "symbol": "BTC-USDT",
+      "contract_code": "BTC-USDT",
+      "trigger_type": "ge",
+      "volume": 1,
+      "order_type": 1,
+      "direction": "sell",
+      "offset": "open",
+      "lever_rate": 10,
+      "order_id": 5,
+      "order_id_str": "5",
+      "relation_order_id": "-1",
+      "order_price_type": "limit",
+      "status": 2,
+      "order_source": "web",
+      "trigger_price": 15000,
+      "triggered_price": null,
+      "order_price": 15000,
+      "created_at": 1603778055064,
+      "triggered_at": 0,
+      "order_insert_at": 0,
+      "canceled_at": 0,
+      "margin_mode": "isolated",
+      "margin_account": "BTC-USDT",
+      "fail_code": null,
+      "fail_reason": null,
+      "reduce_only": 0
+    }
+  ]
+}

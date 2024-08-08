@@ -1,0 +1,14 @@
+GET
+/linear-swap-api/v1/swap_index
+false
+{
+  "status": "ok",
+  "data": [
+    {
+      "index_price": 13076.32986568,
+      "index_ts": 1603694592011,
+      "contract_code": "BTC-USDT"
+    }
+  ],
+  "ts": 1603694596400
+}

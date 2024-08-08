@@ -1,0 +1,58 @@
+> {"op": "auth","type": "api","AccessKeyId": "|1|","SignatureMethod": "HmacSHA256","SignatureVersion": "2","Timestamp": "|2|","Signature": "|3|"}
+< { "op": "auth", "type":"api", "ts": 1489474081631, "err-code": 0, "data": { "user-id": "12345678" } }
+> { "op": "sub", "cid": "|4|", "topic": "orders.*" }
+< { "op": "sub", "cid": "|4|", "topic": "orders.*", "ts": 1670903745088, "err-code": 0 }
+= 
+{
+  "op": "notify",
+  "topic": "orders.BTC-USDT",
+  "ts": 1489474082831,
+  "uid": "123456789",
+  "symbol": "BTC",
+  "contract_code": "BTC-USDT",
+  "volume": 111,
+  "price": 1111,
+  "order_price_type": "limit",
+  "direction": "buy",
+  "offset": "open",
+  "status": 6,
+  "lever_rate": 10,
+  "order_id": 758684042347171800,
+  "order_id_str": "758684042347171840",
+  "client_order_id": 10683,
+  "order_source": "web",
+  "order_type": 1,
+  "created_at": 1408076414000,
+  "trade_volume": 1,
+  "trade_turnover": 1200,
+  "fee": 0,
+  "liquidation_type": "0",
+  "trade_avg_price": 10,
+  "margin_asset": "USDT",
+  "margin_frozen": 10,
+  "profit": 2,
+  "canceled_at": 1408076414000,
+  "fee_asset": "USDT",
+  "margin_mode": "isolated",
+  "margin_account": "BTC-USDT",
+  "is_tpsl": 0,
+  "real_profit": 0,
+  "reduce_only": 0,
+  "canceled_source": "timeout-canceled-order",
+  "trade": [
+    {
+      "trade_id": 14469,
+      "id": "14469-758684042347171840-1",
+      "trade_volume": 1,
+      "trade_price": 123.4555,
+      "trade_fee": 0.234,
+      "fee_asset": "USDT",
+      "price": "",
+      "trade_turnover": 34.123,
+      "created_at": 1490759594752,
+      "role": "maker",
+      "profit": 2,
+      "real_profit": 0
+    }
+  ]
+}

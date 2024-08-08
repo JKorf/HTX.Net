@@ -1,0 +1,22 @@
+GET
+/linear-swap-api/v1/swap_his_open_interest
+false
+{
+  "status": "ok",
+  "data": {
+    "symbol": "BTC",
+    "tick": [
+      {
+        "volume": 27112,
+        "amount_type": 1,
+        "ts": 1638720000000,
+        "value": 1321498.5264
+      }
+    ],
+    "contract_code": "BTC-USDT-211210",
+    "business_type": "futures",
+    "pair": "BTC-USDT",
+    "contract_type": "this_week"
+  },
+  "ts": 1638755582116
+}

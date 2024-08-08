@@ -1,0 +1,155 @@
+GET
+/linear-swap-api/v1/swap_query_elements
+false
+{
+  "status": "ok",
+  "data": [
+    {
+      "contract_code": "BTC-USDT",
+      "funding_rate_cap": "0.003750000000000000",
+      "funding_rate_floor": "-0.003750000000000000",
+      "mode_type": 2,
+      "swap_delivery_type": 3,
+      "settle_period": 8,
+      "instrument_index_code": "BTC-USDT",
+      "price_ticks": [
+        {
+          "business_type": 1,
+          "price": "0.001000000000000000"
+        },
+        {
+          "business_type": 2,
+          "price": "0.100000000000000000"
+        }
+      ],
+      "instrument_values": [
+        {
+          "business_type": 1,
+          "price": "0.001000000000000000"
+        },
+        {
+          "business_type": 2,
+          "price": "0.001000000000000000"
+        }
+      ],
+      "min_level": "1",
+      "max_level": "200",
+      "order_limits": [
+        {
+          "open_after_closing": "99999999.000000000000000000",
+          "instrument_type": 0,
+          "open": "99999999.000000000000000000",
+          "close": "99999999.000000000000000000"
+        },
+        {
+          "open_after_closing": "99999999.000000000000000000",
+          "instrument_type": 1,
+          "open": "99999999.000000000000000000",
+          "close": "99999999.000000000000000000"
+        },
+        {
+          "open_after_closing": "170000.000000000000000000",
+          "instrument_type": 2,
+          "open": "170000.000000000000000000",
+          "close": "170000.000000000000000000"
+        }
+      ],
+      "normal_limits": [
+        {
+          "instrument_type": 0,
+          "open": "999999.990000000000000000",
+          "close": "999999.990000000000000000"
+        },
+        {
+          "instrument_type": 1,
+          "open": "999999.990000000000000000",
+          "close": "999999.990000000000000000"
+        },
+        {
+          "instrument_type": 2,
+          "open": "999999.990000000000000000",
+          "close": "999999.990000000000000000"
+        }
+      ],
+      "open_limits": [
+        {
+          "instrument_type": 0,
+          "open": "999999.990000000000000000",
+          "close": "999999.990000000000000000"
+        },
+        {
+          "instrument_type": 1,
+          "open": "999999.990000000000000000",
+          "close": "999999.990000000000000000"
+        },
+        {
+          "instrument_type": 2,
+          "open": "999999.990000000000000000",
+          "close": "999999.990000000000000000"
+        }
+      ],
+      "trade_limits": [
+        {
+          "instrument_type": 0,
+          "open": "999999.990000000000000000",
+          "close": "999999.990000000000000000"
+        },
+        {
+          "instrument_type": 1,
+          "open": "999999.990000000000000000",
+          "close": "999999.990000000000000000"
+        },
+        {
+          "instrument_type": 2,
+          "open": "999999.990000000000000000",
+          "close": "999999.990000000000000000"
+        }
+      ],
+      "real_time_settlement": 1,
+      "transfer_profit_ratio": 1,
+      "cross_transfer_profit_ratio": 1,
+      "instrument_type": [
+        1,
+        2,
+        0
+      ],
+      "price_tick": "0.001000000000000000",
+      "instrument_value": "0.001000000000000000",
+      "trade_partition": "USDT",
+      "open_order_limit": "99999999.000000000000000000",
+      "offset_order_limit": "99999999.000000000000000000",
+      "long_position_limit": "200000000.000000000000000000",
+      "short_position_limit": "200000000.000000000000000000",
+      "contract_infos": [
+        {
+          "contract_code": "BTC-USDT-231222",
+          "instrument_type": 1,
+          "settlement_date": "1703232000000",
+          "delivery_time": "1703232000000",
+          "create_date": "20231208",
+          "contract_status": 1,
+          "delivery_date": "20231222"
+        },
+        {
+          "contract_code": "BTC-USDT-231229",
+          "instrument_type": 2,
+          "settlement_date": "1703836800000",
+          "delivery_time": "1703836800000",
+          "create_date": "20230915",
+          "contract_status": 1,
+          "delivery_date": "20231229"
+        },
+        {
+          "contract_code": "BTC-USDT",
+          "instrument_type": 0,
+          "settlement_date": "1703232000000",
+          "delivery_time": "",
+          "create_date": "20230905",
+          "contract_status": 1,
+          "delivery_date": ""
+        }
+      ]
+    }
+  ],
+  "ts": 1703217085568
+}

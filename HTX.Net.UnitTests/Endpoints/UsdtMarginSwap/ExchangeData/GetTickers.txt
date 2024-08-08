@@ -1,0 +1,31 @@
+GET
+/v2/linear-swap-ex/market/detail/batch_merged
+false
+{
+  "status": "ok",
+  "ticks": [
+    {
+      "id": 1650792083,
+      "ts": 1650792083179,
+      "ask": [
+        39736.6,
+        1285
+      ],
+      "bid": [
+        39736.5,
+        6070
+      ],
+      "business_type": "swap",
+      "contract_code": "BTC-USDT",
+      "open": "39760",
+      "close": "39736.6",
+      "low": "39316.3",
+      "high": "39971.2",
+      "amount": "6891.566",
+      "count": 48262,
+      "vol": "273472535.834",
+      "number_of": "6891566"
+    }
+  ],
+  "ts": 1650792083179
+}

@@ -1,0 +1,18 @@
+> { "action": "req", "ch": "auth", "params": { "authType":"api", "accessKey": "|1|", "signatureMethod": "HmacSHA256", "signatureVersion": "2.1", "timestamp": "|2|", "signature": "|3|" } }
+< { "action": "req", "code": 200, "ch": "auth", "data": {} }
+> { "action": "sub", "ch": "accounts.update#1" }
+< { "action": "sub", "code": 200, "ch": "accounts.update#1", "data": {}}
+= 
+{
+    "action": "push",
+    "ch": "accounts.update#1",
+    "data": {
+        "currency": "btc",
+        "accountId": 33385,
+        "available": "2028.699426619837209087",
+        "changeType": "order.match",
+        "accountType":"trade",
+        "seqNum": "86872993928",
+        "changeTime": 1574393385167
+    }
+}

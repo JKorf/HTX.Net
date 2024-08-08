@@ -1,0 +1,35 @@
+POST
+/linear-swap-api/v1/swap_tpsl_openorders
+true
+{
+  "status": "ok",
+  "data": {
+    "orders": [
+      {
+        "symbol": "BTC",
+        "contract_code": "BTC-USDT",
+        "margin_mode": "isolated",
+        "margin_account": "BTC-USDT",
+        "volume": 1,
+        "order_type": 1,
+        "direction": "buy",
+        "order_id": 795715396674895900,
+        "order_id_str": "795715396674895872",
+        "order_source": "api",
+        "trigger_type": "le",
+        "trigger_price": 27000,
+        "order_price": 0,
+        "created_at": 1609754934244,
+        "order_price_type": "optimal_5",
+        "status": 2,
+        "tpsl_order_type": "tp",
+        "source_order_id": "795715396666507264",
+        "relation_tpsl_order_id": "795715396674895873"
+      }
+    ],
+    "total_page": 4,
+    "current_page": 1,
+    "total_size": 4
+  },
+  "ts": 1609755183516
+}

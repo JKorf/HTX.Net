@@ -1,0 +1,24 @@
+GET
+/v2/account/valuation
+true
+{
+  "code": 200,
+  "data": {
+    "updated": {
+      "success": true,
+      "time": 1629916724000
+    },
+    "todayProfitRate": "0.004638293764657609",
+    "totalBalance": "0.06276321",
+    "todayProfit": "0.00028977",
+    "profitAccountBalanceList": [
+      {
+        "distributionType": "11",
+        "balance": 0.05728808,
+        "success": true,
+        "accountBalance": "0.05728808"
+      }
+    ]
+  },
+  "success": true
+}

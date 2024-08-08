@@ -1,0 +1,15 @@
+POST
+/linear-swap-api/v1/swap_cross_switch_lever_rate
+true
+{
+  "status": "ok",
+  "data": {
+    "contract_type": "swap",
+    "pair": "BTC-USDT",
+    "business_type": "swap",
+    "contract_code": "BTC-USDT",
+    "lever_rate": 2,
+    "margin_mode": "cross"
+  },
+  "ts": 1639099382678
+}

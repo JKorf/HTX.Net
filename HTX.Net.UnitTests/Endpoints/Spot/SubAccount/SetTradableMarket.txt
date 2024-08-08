@@ -1,0 +1,20 @@
+POST
+/v2/sub-user/tradable-market
+true
+{
+  "code": 200,
+  "data": [
+    {
+      "subUid": "12345678",
+      "accountType": "isolated-margin",
+      "activation": "activated"
+    },
+    {
+      "subUid": "123456781",
+      "accountType": "isolated-margin",
+      "errCode": 1002,
+      "errMessage": "forbidden"
+    }
+  ],
+  "ok": true
+}

@@ -1,0 +1,23 @@
+GET
+/linear-swap-api/v1/swap_cross_transfer_state
+false
+{
+  "status": "ok",
+  "data": [
+    {
+      "margin_mode": "cross",
+      "margin_account": "USDT",
+      "transfer_in": 1,
+      "transfer_out": 1,
+      "master_transfer_sub": 1,
+      "sub_transfer_master": 1,
+      "master_transfer_sub_inner_in": 1,
+      "master_transfer_sub_inner_out": 1,
+      "sub_transfer_master_inner_in": 1,
+      "sub_transfer_master_inner_out": 1,
+      "transfer_inner_in": 1,
+      "transfer_inner_out": 1
+    }
+  ],
+  "ts": 1606905619516
+}

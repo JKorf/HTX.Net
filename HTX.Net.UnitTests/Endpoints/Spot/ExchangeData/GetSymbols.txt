@@ -1,0 +1,43 @@
+GET
+/v2/settings/common/symbols
+false
+{
+  "status": "ok",
+  "data": [
+    {
+      "tags": "",
+      "state": "online",
+      "wr": "1.5",
+      "sc": "ethusdt",
+      "p": [
+        {
+          "id": 9,
+          "name": "Grayscale",
+          "weight": 91
+        }
+      ],
+      "bcdn": "ETH",
+      "qcdn": "USDT",
+      "elr": null,
+      "tpp": 2,
+      "tap": 4,
+      "fp": 8,
+      "smlr": null,
+      "flr": null,
+      "whe": false,
+      "cd": false,
+      "te": true,
+      "sp": "main",
+      "d": null,
+      "bc": "eth",
+      "qc": "usdt",
+      "toa": 1514779200000,
+      "ttp": 8,
+      "w": 999400000,
+      "lr": 5,
+      "dn": "ETH/USDT"
+    }
+  ],
+  "ts": "1641870869718",
+  "full": 1
+}

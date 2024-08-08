@@ -1,0 +1,186 @@
+> { "op": "sub", "cid": "|1|", "topic": "public.*.contract_elements" }
+< { "op": "sub", "cid": "|1|", "topic": "public.*.contract_elements", "ts": 1670903745088, "err-code": 0 }
+= 
+{
+  "op": "notify",
+  "event": "init",
+  "topic": "public.*.contract_elements",
+  "ts": 1712804933421,
+  "data": [{
+    "contract_code": "DOSE-USDT",
+    "funding_rate_cap": "0.007800000000000000",
+    "funding_rate_floor": "-0.007600000000000000",
+    "mode_type": 2,
+    "swap_delivery_type": 3,
+    "settle_period": 4,
+    "instrument_index_code": "DOSE-USDT",
+    "price_ticks": [
+      {
+        "business_type": 2,
+        "price": "0.000010000000000000"
+      },
+      {
+        "business_type": 1,
+        "price": "0.000000000100000000"
+      }
+    ],
+    "instrument_values": [
+      {
+        "business_type": 2,
+        "price": "0.000010000000000000"
+      },
+      {
+        "business_type": 1,
+        "price": "0.000010000000000000"
+      }
+    ],
+    "min_level": "1",
+    "max_level": "74",
+    "order_limits": [
+      {
+        "open_after_closing": "500000000000.000000000000000000",
+        "instrument_type": 1,
+        "open": "500000000000.000000000000000000",
+        "close": "500000000000.000000000000000000"
+      },
+      {
+        "open_after_closing": "500000000000.000000000000000000",
+        "instrument_type": 2,
+        "open": "500000000000.000000000000000000",
+        "close": "500000000000.000000000000000000"
+      },
+      {
+        "open_after_closing": "500000000000.000000000000000000",
+        "instrument_type": 3,
+        "open": "500000000000.000000000000000000",
+        "close": "500000000000.000000000000000000"
+      },
+      {
+        "open_after_closing": "500000000003.000000000000000000",
+        "instrument_type": 0,
+        "open": "500000000001.000000000000000000",
+        "close": "10005000000002.000000000000000000"
+      }
+    ],
+    "normal_limits": [
+      {
+        "instrument_type": 1,
+        "open": "999999.910000000000000000",
+        "close": "999999.920000000000000000"
+      },
+      {
+        "instrument_type": 2,
+        "open": "999999.990000000000000000",
+        "close": "999999.990000000000000000"
+      },
+      {
+        "instrument_type": 3,
+        "open": "999999.990000000000000000",
+        "close": "999999.990000000000000000"
+      },
+      {
+        "instrument_type": 0,
+        "open": "999999.910000000000000000",
+        "close": "999999.920000000000000000"
+      }
+    ],
+    "open_limits": [
+      {
+        "instrument_type": 1,
+        "open": "999999.930000000000000000",
+        "close": "999999.940000000000000000"
+      },
+      {
+        "instrument_type": 2,
+        "open": "999999.990000000000000000",
+        "close": "999999.990000000000000000"
+      },
+      {
+        "instrument_type": 3,
+        "open": "999999.990000000000000000",
+        "close": "999999.990000000000000000"
+      },
+      {
+        "instrument_type": 0,
+        "open": "999999.930000000000000000",
+        "close": "999999.940000000000000000"
+      }
+    ],
+    "trade_limits": [
+      {
+        "instrument_type": 1,
+        "open": "999999.950000000000000000",
+        "close": "999999.960000000000000000"
+      },
+      {
+        "instrument_type": 2,
+        "open": "999999.990000000000000000",
+        "close": "999999.990000000000000000"
+      },
+      {
+        "instrument_type": 3,
+        "open": "999999.990000000000000000",
+        "close": "999999.990000000000000000"
+      },
+      {
+        "instrument_type": 0,
+        "open": "999999.950000000000000000",
+        "close": "999999.960000000000000000"
+      }
+    ],
+    "real_time_settlement": 0,
+    "transfer_profit_ratio": 0,
+    "cross_transfer_profit_ratio": 1,
+    "instrument_type": [
+      1,
+      2,
+      3,
+      0
+    ],
+    "price_tick": "0.000000000100000000",
+    "instrument_value": "0.000010000000000000",
+    "trade_partition": "USDT",
+    "open_order_limit": "500000000001.000000000000000000",
+    "offset_order_limit": "10005000000002.000000000000000000",
+    "long_position_limit": "4000001.000000000000000000",
+    "short_position_limit": "4000002.000000000000000000",
+    "contract_infos": [
+      {
+        "contract_code": "DOSE-USDT-231027",
+        "instrument_type": 1,
+        "settlement_date": "1694592000000",
+        "delivery_time": "1698393600000",
+        "create_date": "20231024",
+        "contract_status": 1,
+        "delivery_date": "20231027"
+      },
+      {
+        "contract_code": "DOSE-USDT-231103",
+        "instrument_type": 2,
+        "settlement_date": "1694592000000",
+        "delivery_time": "1698998400000",
+        "create_date": "20231024",
+        "contract_status": 1,
+        "delivery_date": "20231103"
+      },
+      {
+        "contract_code": "DOSE-USDT-231229",
+        "instrument_type": 3,
+        "settlement_date": "1694592000000",
+        "delivery_time": "1703836800000",
+        "create_date": "20231024",
+        "contract_status": 1,
+        "delivery_date": "20231229"
+      },
+      {
+        "contract_code": "DOSE-USDT",
+        "instrument_type": 0,
+        "settlement_date": "1712822400000",
+        "delivery_time": "",
+        "create_date": "20231024",
+        "contract_status": 1,
+        "delivery_date": ""
+      }
+    ]
+  }]
+}

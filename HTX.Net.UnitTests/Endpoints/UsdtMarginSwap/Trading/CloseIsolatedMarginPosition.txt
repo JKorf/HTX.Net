@@ -1,0 +1,12 @@
+POST
+/linear-swap-api/v1/swap_lightning_close_position
+true
+{
+  "status": "ok",
+  "data": {
+    "order_id": 9861634,
+    "order_id_str": "9861634",
+    "client_order_id": 9086
+  },
+  "ts": 158797866555
+}

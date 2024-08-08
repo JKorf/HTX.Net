@@ -1,0 +1,11 @@
+POST
+/linear-swap-api/v1/swap_cancelall
+true
+{
+  "status": "ok",
+  "data": {
+    "errors": [],
+    "successes": "768883002062282752,770325103371542528,770325103388319744"
+  },
+  "ts": 1603701437838
+}

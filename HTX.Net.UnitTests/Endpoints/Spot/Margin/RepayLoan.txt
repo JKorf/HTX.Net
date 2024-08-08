@@ -1,0 +1,12 @@
+POST
+/v2/account/repayment
+true
+{
+  "code": 200,
+  "data": [
+    {
+      "repayId": 1174424,
+      "repayTime": 1600747722018
+    }
+  ]
+}

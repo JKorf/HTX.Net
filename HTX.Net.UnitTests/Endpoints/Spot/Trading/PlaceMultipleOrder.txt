@@ -1,0 +1,17 @@
+POST
+/v1/order/batch-orders
+true
+{
+  "status": "ok",
+  "data": [
+    {
+      "order-id": 361560582529749,
+      "client-order-id": "2345"
+    },
+    {
+      "client-order-id": "23456",
+      "err-code": "order-value-min-error",
+      "err-msg": "Order total cannot be lower than: 5 USDT"
+    }
+  ]
+}

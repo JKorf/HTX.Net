@@ -1,0 +1,11 @@
+POST
+/linear-swap-api/v1/swap_cross_track_cancelall
+true
+{
+  "status": "ok",
+  "data": {
+    "errors": [],
+    "successes": "826054813483597824,826054818734866432,826054867657228288"
+  },
+  "ts": 1616988442893
+}

@@ -1,0 +1,20 @@
+POST
+/v1/order/orders/batchcancel
+true
+{
+  "status": "ok",
+  "data": {
+    "success": [
+      "12345"
+    ],
+    "failed": [
+      {
+        "err-msg": "Incorrect order state",
+        "order-state": 7,
+        "order-id": "357631450723117",
+        "err-code": "order-orderstate-error",
+        "client-order-id": "123456"
+      }
+    ]
+  }
+}

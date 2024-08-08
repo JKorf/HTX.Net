@@ -1,0 +1,12 @@
+GET
+/v1/account/switch/user/info
+true
+{
+  "code": 200,
+  "data": {
+    "pointSwitch": "1",
+    "htxSwitch": "0",
+    "currency": "HTX"
+  },
+  "success": true
+}

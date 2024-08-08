@@ -1,0 +1,34 @@
+> {"op": "auth","type": "api","AccessKeyId": "|1|","SignatureMethod": "HmacSHA256","SignatureVersion": "2","Timestamp": "|2|","Signature": "|3|"}
+< { "op": "auth", "type":"api", "ts": 1489474081631, "err-code": 0, "data": { "user-id": "12345678" } }
+> { "op": "sub", "cid": "|4|", "topic": "accounts.*" }
+< { "op": "sub", "cid": "|4|", "topic": "accounts.*", "ts": 1670903745088, "err-code": 0 }
+= 
+{
+  "op": "notify",
+  "topic": "accounts",
+  "ts": 1603711370689,
+  "event": "order.open",
+  "data": [
+    {
+      "symbol": "BTC",
+      "contract_code": "BTC-USDT",
+      "margin_balance": 79.72434662,
+      "margin_static": 79.79484662,
+      "margin_position": 1.31303,
+      "margin_frozen": 4.0662,
+      "margin_available": 74.34511662,
+      "profit_real": 0.03405608,
+      "profit_unreal": -0.0705,
+      "withdraw_available": 74.34511662,
+      "risk_rate": 14.745772976801513,
+      "liquidation_price": 92163.42096277916,
+      "lever_rate": 10,
+      "adjust_factor": 0.075,
+      "margin_asset": "USDT",
+      "margin_mode": "isolated",
+      "margin_account": "BTC-USDT",
+      "position_mode": "dual_side"
+    }
+  ],
+  "uid": "123456789"
+}

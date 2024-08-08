@@ -1,0 +1,24 @@
+GET
+/v2/algo-orders/history
+true
+{
+  "code": 200,
+  "data": [
+    {
+      "orderOrigTime": 1630656758442,
+      "lastActTime": 1630656880512,
+      "symbol": "adausdt",
+      "source": "api",
+      "clientOrderId": "1234567",
+      "orderSide": "buy",
+      "orderType": "limit",
+      "orderPrice": "0.1",
+      "orderSize": "100",
+      "accountId": 13496526,
+      "timeInForce": "gtc",
+      "stopPrice": "0.1",
+      "orderStatus": "canceled"
+    }
+  ],
+  "nextId": 9585084
+}

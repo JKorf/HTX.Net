@@ -1,0 +1,7 @@
+POST
+/v1/margin/orders
+true
+{
+  "status": "ok",
+  "data": 1000
+}

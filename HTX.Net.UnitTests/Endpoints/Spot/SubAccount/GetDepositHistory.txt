@@ -1,0 +1,20 @@
+GET
+/v2/sub-user/query-deposit
+true
+{
+  "code": 200,
+  "data": [
+    {
+      "id": 33419472,
+      "currency": "ltc",
+      "chain": "ltc",
+      "amount": 0.001,
+      "address": "LUuuPs5C5Ph3cZz76ZLN1AMLSstqG5PbAz",
+      "state": "safe",
+      "txHash": "847601d249861da56022323514870ddb96456ec9579526233d53e690264605a7",
+      "addressTag": "",
+      "createTime": 1587033225787,
+      "updateTime": 1587033716616
+    }
+  ]
+}

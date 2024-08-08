@@ -1,0 +1,26 @@
+GET
+/v1/order/matchresults
+true
+{
+  "status": "ok",
+  "data": [
+    {
+      "symbol": "polyusdt",
+      "fee-currency": "poly",
+      "source": "spot-web",
+      "price": "0.338",
+      "created-at": 1629443051839,
+      "role": "taker",
+      "order-id": 345487249132375,
+      "match-id": 5014,
+      "trade-id": 1085,
+      "filled-amount": "147.928994082840236",
+      "filled-fees": "0",
+      "filled-points": "0.1",
+      "fee-deduct-currency": "hbpoint",
+      "fee-deduct-state": "done",
+      "id": 313288753120940,
+      "type": "buy-market"
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+> {"op": "auth","type": "api","AccessKeyId": "|1|","SignatureMethod": "HmacSHA256","SignatureVersion": "2","Timestamp": "|2|","Signature": "|3|"}
+< { "op": "auth", "type":"api", "ts": 1489474081631, "err-code": 0, "data": { "user-id": "12345678" } }
+> { "op": "sub", "cid": "|4|", "topic": "accounts_cross.*" }
+< { "op": "sub", "cid": "|4|", "topic": "accounts_cross.*", "ts": 1670903745088, "err-code": 0 }
+= 
+{
+  "op": "notify",
+  "topic": "accounts_cross",
+  "ts": 1640756528985,
+  "event": "snapshot",
+  "data": [
+    {
+      "margin_mode": "cross",
+      "margin_account": "USDT",
+      "margin_asset": "USDT",
+      "margin_balance": 20.603401615553835,
+      "margin_static": 20.475701615553835,
+      "margin_position": 19.30352,
+      "margin_frozen": 0,
+      "profit_real": -0.01911684,
+      "profit_unreal": 0.1277,
+      "withdraw_available": 1.1721816155538354,
+      "risk_rate": 25.68347743773394,
+      "position_mode": "dual_side",
+      "contract_detail": [
+        {
+          "symbol": "BTC",
+          "contract_code": "BTC-USDT",
+          "margin_position": 9.55638,
+          "margin_frozen": 0,
+          "margin_available": 1.2998816155538353,
+          "profit_unreal": -0.0102,
+          "liquidation_price": 27790.709661740086,
+          "lever_rate": 5,
+          "adjust_factor": 0.04,
+          "contract_type": "swap",
+          "pair": "BTC-USDT",
+          "business_type": "swap"
+        }
+      ],
+      "futures_contract_detail": [
+        {
+          "symbol": "BTC",
+          "contract_code": "BTC-USDT-220325",
+          "margin_position": 9.74714,
+          "margin_frozen": 0,
+          "margin_available": 1.2998816155538353,
+          "profit_unreal": 0.1379,
+          "liquidation_price": 28744.509661740085,
+          "lever_rate": 5,
+          "adjust_factor": 0.04,
+          "contract_type": "quarter",
+          "pair": "BTC-USDT",
+          "business_type": "futures"
+        }
+      ]
+    }
+  ],
+  "uid": "123456789"
+}

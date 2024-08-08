@@ -1,0 +1,20 @@
+POST
+/v2/sub-user/transferability
+true
+{
+  "code": 200,
+  "data": [
+    {
+      "accountType": "spot",
+      "transferrable": true,
+      "subUid": 245686628
+    },
+    {
+      "accountType": "spot",
+      "subUid": 2215699261,
+      "errCode": 2002,
+      "errMessage": "invalid field value in `2,215,699,261`"
+    }
+  ],
+  "ok": true
+}

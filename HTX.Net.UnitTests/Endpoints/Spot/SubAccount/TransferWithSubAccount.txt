@@ -1,0 +1,7 @@
+POST
+/v1/subuser/transfer
+true
+{
+  "data": 123456,
+  "status": "ok"
+}

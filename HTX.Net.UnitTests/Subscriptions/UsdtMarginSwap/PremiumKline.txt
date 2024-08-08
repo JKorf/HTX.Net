@@ -1,0 +1,17 @@
+> { "sub": "market.ETH-USDT.premium_index.1day", "id": "|1|" }
+< { "id": "|1|", "status": "ok", "subbed": "market.ETH-USDT.premium_index.1day", "ts": 1489474081631 }
+= 
+{
+  "ch": "market.ETH-USDT.premium_index.1day",
+  "ts": 1603708380380,
+  "tick": {
+    "id": 1603708380,
+    "open": "0.000068125",
+    "close": "0.000068125",
+    "high": "0.000068125",
+    "low": "0.000068125",
+    "amount": "0",
+    "vol": "0",
+    "count": "0"
+  }
+}

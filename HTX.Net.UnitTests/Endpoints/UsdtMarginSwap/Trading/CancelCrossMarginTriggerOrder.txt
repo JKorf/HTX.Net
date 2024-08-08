@@ -1,0 +1,17 @@
+POST
+/linear-swap-api/v1/swap_cross_trigger_cancel
+true
+{
+  "status": "ok",
+  "data": {
+    "errors": [
+      {
+        "order_id": "1888",
+        "err_code": 1061,
+        "err_msg": "This order doesnt exist."
+      }
+    ],
+    "successes": "1880"
+  },
+  "ts": 1606977508308
+}

@@ -1,0 +1,17 @@
+POST
+/linear-swap-api/v1/swap_track_cancel
+true
+{
+  "status": "ok",
+  "data": {
+    "errors": [
+      {
+        "order_id": "826052268312821761",
+        "err_code": 1061,
+        "err_msg": "This order doesnt exist."
+      }
+    ],
+    "successes": "826052268312821760"
+  },
+  "ts": 1616988039695
+}

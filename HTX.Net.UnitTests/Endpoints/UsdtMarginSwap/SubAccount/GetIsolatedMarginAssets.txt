@@ -1,0 +1,24 @@
+POST
+/linear-swap-api/v1/swap_sub_account_list
+true
+{
+  "status": "ok",
+  "data": [
+    {
+      "sub_uid": 123456789,
+      "list": [
+        {
+          "symbol": "BTC",
+          "margin_balance": 20,
+          "liquidation_price": null,
+          "risk_rate": null,
+          "contract_code": "BTC-USDT",
+          "margin_asset": "USDT",
+          "margin_mode": "isolated",
+          "margin_account": "BTC-USDT"
+        }
+      ]
+    }
+  ],
+  "ts": 1603698380336
+}

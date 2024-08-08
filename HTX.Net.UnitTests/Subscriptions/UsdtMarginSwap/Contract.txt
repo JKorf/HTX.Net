@@ -1,0 +1,41 @@
+> { "op": "sub", "cid": "|1|", "topic": "public.*.contract_info" }
+< { "op": "sub", "cid": "|1|", "topic": "public.*.contract_info", "ts": 1670903745088, "err-code": 0 }
+= 
+{
+  "op": "notify",
+  "topic": "public.*.contract_info",
+  "ts": 1639122053894,
+  "event": "init",
+  "data": [
+    {
+      "symbol": "MANA",
+      "contract_code": "MANA-USDT",
+      "contract_size": 10,
+      "price_tick": 0.0001,
+      "settlement_date": "1639123200000",
+      "create_date": "20210129",
+      "contract_status": 1,
+      "support_margin_mode": "all",
+      "delivery_time": "",
+      "contract_type": "swap",
+      "business_type": "swap",
+      "pair": "MANA-USDT",
+      "delivery_date": ""
+    },
+    {
+      "symbol": "NKN",
+      "contract_code": "NKN-USDT",
+      "contract_size": 10,
+      "price_tick": 0.00001,
+      "settlement_date": "1639123200000",
+      "create_date": "20210810",
+      "contract_status": 1,
+      "support_margin_mode": "all",
+      "delivery_time": "",
+      "contract_type": "swap",
+      "business_type": "swap",
+      "pair": "NKN-USDT",
+      "delivery_date": ""
+    }
+  ]
+}

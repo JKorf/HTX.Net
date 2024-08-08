@@ -1,0 +1,17 @@
+POST
+/linear-swap-api/v1/swap_cross_tpsl_order
+true
+{
+  "status": "ok",
+  "data": {
+    "tp_order": {
+      "order_id": 795714078698750000,
+      "order_id_str": "795714078698749952"
+    },
+    "sl_order": {
+      "order_id": 795714078698750000,
+      "order_id_str": "795714078698749953"
+    }
+  },
+  "ts": 1609754620038
+}

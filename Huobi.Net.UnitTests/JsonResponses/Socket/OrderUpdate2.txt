@@ -1,9 +1,0 @@
-
-    {
-        "orderSide":"buy",
-        "lastActTime":1583853365586,
-        "clientOrderId":"abc123",
-        "orderStatus":"canceled",
-        "symbol":"btcusdt",
-        "eventType":"deletion"
-    }

@@ -1,0 +1,17 @@
+GET
+/index/market/history/linear_swap_basis
+false
+{
+  "ch": "market.BTC-USDT.basis.1min.open",
+  "data": [
+    {
+      "basis": "15.29074235666667",
+      "basis_rate": "0.001170582317307796",
+      "contract_price": "13077.8",
+      "id": 1603697160,
+      "index_price": "13062.509257643333"
+    }
+  ],
+  "status": "ok",
+  "ts": 1603697170804
+}

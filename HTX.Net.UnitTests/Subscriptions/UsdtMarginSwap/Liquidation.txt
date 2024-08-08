@@ -1,0 +1,24 @@
+> { "op": "sub", "cid": "|1|", "topic": "public.*.liquidation_orders" }
+< { "op": "sub", "cid": "|1|", "topic": "public.*.liquidation_orders", "ts": 1670903745088, "err-code": 0 }
+= 
+{
+  "op": "notify",
+  "topic": "public.*.liquidation_orders",
+  "ts": 1639122193214,
+  "data": [
+    {
+      "symbol": "O3",
+      "contract_code": "O3-USDT",
+      "direction": "sell",
+      "offset": "close",
+      "volume": 432,
+      "price": 0.7858,
+      "created_at": 1639122193172,
+      "amount": 432,
+      "trade_turnover": 339.4656,
+      "contract_type": "swap",
+      "pair": "O3-USDT",
+      "business_type": "swap"
+    }
+  ]
+}

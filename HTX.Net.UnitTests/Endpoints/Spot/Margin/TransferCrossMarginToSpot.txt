@@ -1,0 +1,7 @@
+POST
+/v1/cross-margin/transfer-out
+true
+{
+  "status": "ok",
+  "data": 1000
+}

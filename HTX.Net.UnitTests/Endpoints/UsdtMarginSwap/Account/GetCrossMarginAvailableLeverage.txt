@@ -1,0 +1,41 @@
+POST
+/linear-swap-api/v1/swap_cross_available_level_rate
+true
+{
+  "status": "ok",
+  "data": [
+    {
+      "contract_code": "ETH-USDT",
+      "available_level_rate": "1,2,3,5",
+      "margin_mode": "cross",
+      "contract_type": "swap",
+      "pair": "ETH-USDT",
+      "business_type": "swap"
+    },
+    {
+      "contract_code": "ETH-USDT-211210",
+      "available_level_rate": "1,2,3,5",
+      "margin_mode": "cross",
+      "contract_type": "this_week",
+      "pair": "ETH-USDT",
+      "business_type": "futures"
+    },
+    {
+      "contract_code": "ETH-USDT-211217",
+      "available_level_rate": "1,2,3,5",
+      "margin_mode": "cross",
+      "contract_type": "next_week",
+      "pair": "ETH-USDT",
+      "business_type": "futures"
+    },
+    {
+      "contract_code": "ETH-USDT-211231",
+      "available_level_rate": "1,2,3,5",
+      "margin_mode": "cross",
+      "contract_type": "quarter",
+      "pair": "ETH-USDT",
+      "business_type": "futures"
+    }
+  ],
+  "ts": 1638760001689
+}

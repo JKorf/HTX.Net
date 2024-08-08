@@ -1,0 +1,65 @@
+POST
+/linear-swap-api/v1/swap_cross_position_limit
+true
+{
+  "status": "ok",
+  "data": [
+    {
+      "symbol": "BTC",
+      "contract_code": "BTC-USDT",
+      "margin_mode": "cross",
+      "buy_limit": 1021671,
+      "sell_limit": 1021671,
+      "business_type": "swap",
+      "contract_type": "swap",
+      "pair": "BTC-USDT",
+      "lever_rate": 5,
+      "buy_limit_value": 50000000,
+      "sell_limit_value": 50000000,
+      "mark_price": 48939.4
+    },
+    {
+      "symbol": "BTC",
+      "contract_code": "BTC-USDT-211217",
+      "margin_mode": "cross",
+      "buy_limit": 1021865,
+      "sell_limit": 1021865,
+      "business_type": "futures",
+      "contract_type": "next_week",
+      "pair": "BTC-USDT",
+      "lever_rate": 5,
+      "buy_limit_value": 50000000,
+      "sell_limit_value": 50000000,
+      "mark_price": 48930.1
+    },
+    {
+      "symbol": "BTC",
+      "contract_code": "BTC-USDT-211210",
+      "margin_mode": "cross",
+      "buy_limit": 1023478,
+      "sell_limit": 1023478,
+      "business_type": "futures",
+      "contract_type": "this_week",
+      "pair": "BTC-USDT",
+      "lever_rate": 5,
+      "buy_limit_value": 50000000,
+      "sell_limit_value": 50000000,
+      "mark_price": 48853
+    },
+    {
+      "symbol": "BTC",
+      "contract_code": "BTC-USDT-211231",
+      "margin_mode": "cross",
+      "buy_limit": 1021867,
+      "sell_limit": 1021867,
+      "business_type": "futures",
+      "contract_type": "quarter",
+      "pair": "BTC-USDT",
+      "lever_rate": 1,
+      "buy_limit_value": 50000000,
+      "sell_limit_value": 50000000,
+      "mark_price": 48930
+    }
+  ],
+  "ts": 1638760890261
+}

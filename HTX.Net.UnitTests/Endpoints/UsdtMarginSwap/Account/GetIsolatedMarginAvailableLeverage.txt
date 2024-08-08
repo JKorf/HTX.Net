@@ -1,0 +1,14 @@
+POST
+/linear-swap-api/v1/swap_available_level_rate
+true
+{
+  "status": "ok",
+  "data": [
+    {
+      "contract_code": "BTC-USDT",
+      "margin_mode": "isolated",
+      "available_level_rate": "1,2,3,5"
+    }
+  ],
+  "ts": 1603699467348
+}

@@ -1,0 +1,34 @@
+GET
+/linear-swap-api/v1/swap_settlement_records
+false
+{
+  "status": "ok",
+  "data": {
+    "total_page": 1,
+    "current_page": 1,
+    "total_size": 12,
+    "settlement_record": [
+      {
+        "symbol": "BTC",
+        "contract_code": "BTC-USDT-211203",
+        "settlement_time": 1638518400000,
+        "clawback_ratio": 0,
+        "settlement_price": 56792.3,
+        "settlement_type": "delivery",
+        "business_type": "futures",
+        "pair": "BTC-USDT"
+      },
+      {
+        "symbol": "BTC",
+        "contract_code": "BTC-USDT-211203",
+        "settlement_time": 1638489600000,
+        "clawback_ratio": 0,
+        "settlement_price": 57028.6,
+        "settlement_type": "settlement",
+        "business_type": "futures",
+        "pair": "BTC-USDT"
+      }
+    ]
+  },
+  "ts": 1638756873768
+}

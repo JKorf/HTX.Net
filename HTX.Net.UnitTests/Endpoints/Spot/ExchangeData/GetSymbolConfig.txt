@@ -1,0 +1,43 @@
+GET
+/v1/settings/common/market-symbols
+false
+{
+  "status": "ok",
+  "data": [
+    {
+      "symbol": "btc3lusdt",
+      "state": "online",
+      "bc": "btc3l",
+      "qc": "usdt",
+      "pp": 4,
+      "ap": 4,
+      "sp": "main",
+      "vp": 8,
+      "minoa": 0.01,
+      "maxoa": 199.0515,
+      "minov": 5,
+      "lominoa": 0.01,
+      "lomaxoa": 199.0515,
+      "lomaxba": 199.0515,
+      "lomaxsa": 199.0515,
+      "smminoa": 0.01,
+      "blmlt": 1.1,
+      "slmgt": 0.9,
+      "smmaxoa": 199.0515,
+      "bmmaxov": 2500,
+      "msormlt": 0.1,
+      "mbormlt": 0.1,
+      "maxov": 2500,
+      "u": "btcusdt",
+      "mfr": 0.035,
+      "ct": "23:55:00",
+      "rt": "00:00:00",
+      "rthr": 4,
+      "in": 16.3568,
+      "at": "enabled",
+      "tags": "etp,nav,holdinglimit,activities"
+    }
+  ],
+  "ts": "1641880897191",
+  "full": 1
+}

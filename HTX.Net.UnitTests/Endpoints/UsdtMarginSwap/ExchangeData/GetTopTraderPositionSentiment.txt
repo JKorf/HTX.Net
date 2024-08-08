@@ -1,0 +1,20 @@
+GET
+/linear-swap-api/v1/swap_elite_position_ratio
+false
+{
+  "status": "ok",
+  "data": {
+    "list": [
+      {
+        "buy_ratio": 0.5,
+        "sell_ratio": 0.5,
+        "ts": 1638460800000
+      }
+    ],
+    "symbol": "BTC",
+    "contract_code": "BTC-USDT-FUTURES",
+    "business_type": "futures",
+    "pair": "BTC-USDT"
+  },
+  "ts": 1638756121395
+}

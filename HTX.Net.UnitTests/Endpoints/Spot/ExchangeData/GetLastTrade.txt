@@ -1,0 +1,30 @@
+GET
+/market/trade
+false
+{
+  "ch": "market.btcusdt.trade.detail",
+  "status": "ok",
+  "ts": 1629792192037,
+  "tick": {
+    "id": 136107843051,
+    "ts": 1629792191928,
+    "data": [
+      {
+        "id": 1.361078430513484e+26,
+        "ts": 1629792191928,
+        "trade-id": 102517374388,
+        "amount": 0.028416,
+        "price": 49806,
+        "direction": "buy"
+      },
+      {
+        "id": 1.361078430513484e+26,
+        "ts": 1629792191928,
+        "trade-id": 102517374387,
+        "amount": 0.025794,
+        "price": 49806,
+        "direction": "buy"
+      }
+    ]
+  }
+}

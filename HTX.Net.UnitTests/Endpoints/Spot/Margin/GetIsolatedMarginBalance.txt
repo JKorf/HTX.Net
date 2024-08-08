@@ -1,0 +1,48 @@
+GET
+/v1/margin/accounts/balance
+true
+{
+  "data": [
+    {
+      "id": 18264,
+      "type": "margin",
+      "state": "working",
+      "symbol": "btcusdt",
+      "fl-price": "0",
+      "fl-type": "safe",
+      "risk-rate": "475.952571086994250554",
+      "list": [
+        {
+          "currency": "btc",
+          "type": "trade",
+          "balance": "1168.533000000000000000"
+        },
+        {
+          "currency": "btc",
+          "type": "frozen",
+          "balance": "0.000000000000000000"
+        },
+        {
+          "currency": "btc",
+          "type": "loan",
+          "balance": "-2.433000000000000000"
+        },
+        {
+          "currency": "btc",
+          "type": "interest",
+          "balance": "-0.000533000000000000"
+        },
+        {
+          "currency": "btc",
+          "type": "transfer-out-available",
+          "balance": "1163.872174670000000000"
+        },
+        {
+          "currency": "btc",
+          "type": "loan-available",
+          "balance": "8161.876538350676000000"
+        }
+      ]
+    }
+  ]
+}

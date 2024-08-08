@@ -1,0 +1,20 @@
+GET
+/v2/sub-user/user-list
+true
+{
+  "code": 200,
+  "data": [
+    {
+      "uid": 63628520,
+      "userState": "normal",
+      "subUserName": "",
+      "note": ""
+    },
+    {
+      "uid": 132208121,
+      "userState": "normal",
+      "subUserName": "",
+      "note": ""
+    }
+  ]
+}

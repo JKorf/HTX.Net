@@ -1,0 +1,4 @@
+> { "sub": "market.tickers", "id": "|1|" }
+< { "id": "|1|", "status": "ok", "subbed": "market.tickers", "ts": 1489474081631 }
+= 
+{"ch":"market.tickers","status":"ok","ts":1722857569936,"data":[{"symbol":"sylousdt","open":9.7E-4,"high":0.001055,"low":8.29E-4,"close":8.97E-4,"amount":6.033648738732E8,"vol":566666.2460002552,"count":12651}]}

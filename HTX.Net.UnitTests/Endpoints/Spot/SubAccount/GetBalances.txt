@@ -1,0 +1,36 @@
+GET
+/v1/account/accounts/1
+true
+{
+  "status": "ok",
+  "data": [
+    {
+      "id": 13704588,
+      "type": "spot",
+      "state": "working",
+      "list": [
+        {
+          "currency": "usdt",
+          "type": "trade",
+          "balance": "8.0855916572",
+          "debt": "invalid",
+          "available": "invalid"
+        }
+      ],
+      "symbol": ""
+    },
+    {
+      "id": 24994285,
+      "type": "point",
+      "state": "working",
+      "list": [
+        {
+          "currency": "hbpoint",
+          "type": "trade",
+          "balance": "10"
+        }
+      ],
+      "symbol": ""
+    }
+  ]
+}

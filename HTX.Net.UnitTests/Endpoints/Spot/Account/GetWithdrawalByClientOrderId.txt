@@ -1,0 +1,23 @@
+GET
+/v1/query/withdraw/client-order-id
+true
+{
+  "status": "ok",
+  "data": {
+    "id": 101123262,
+    "client-order-id": "1113",
+    "type": "withdraw",
+    "sub-type": "FAST",
+    "currency": "usdt",
+    "chain": "usdt",
+    "tx-hash": "",
+    "amount": 1.2,
+    "from-addr-tag": "",
+    "address": "1PL24EbWrNNrnMKw1cxAHPsebUz7DdhWTx",
+    "address-tag": "",
+    "fee": 0,
+    "state": "confirmed",
+    "created-at": 1637758163686,
+    "updated-at": 1637758251559
+  }
+}

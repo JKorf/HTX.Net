@@ -1,0 +1,27 @@
+GET
+/market/detail/merged
+false
+{
+  "ch": "market.btcusdt.detail.merged",
+  "status": "ok",
+  "ts": 1629788763750,
+  "tick": {
+    "id": 272156789143,
+    "version": 272156789143,
+    "open": 50080,
+    "close": 49820.92,
+    "low": 48767,
+    "high": 50500,
+    "amount": 12055.365781937457,
+    "vol": 598561868.5709001,
+    "count": 420573,
+    "bid": [
+      49819.48,
+      2.58112
+    ],
+    "ask": [
+      49819.49,
+      0.002411
+    ]
+  }
+}

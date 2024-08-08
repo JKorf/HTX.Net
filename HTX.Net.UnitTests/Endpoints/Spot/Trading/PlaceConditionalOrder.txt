@@ -1,0 +1,9 @@
+POST
+/v2/algo-orders
+true
+{
+  "code": 200,
+  "data": {
+    "clientOrderId": "a001"
+  }
+}

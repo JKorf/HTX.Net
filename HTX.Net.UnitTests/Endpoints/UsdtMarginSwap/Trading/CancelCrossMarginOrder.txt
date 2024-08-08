@@ -1,0 +1,17 @@
+POST
+/linear-swap-api/v1/swap_cross_cancel
+true
+{
+  "status": "ok",
+  "data": {
+    "errors": [
+      {
+        "order_id": "784054331179532288",
+        "err_code": 1062,
+        "err_msg": "Cancelling. Please be patient."
+      }
+    ],
+    "successes": "784054331179532288"
+  },
+  "ts": 1606974744952
+}

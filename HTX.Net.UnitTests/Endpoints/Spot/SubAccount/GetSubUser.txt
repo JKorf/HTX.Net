@@ -1,0 +1,10 @@
+GET
+/v2/sub-user/user-state
+true
+{
+  "code": 200,
+  "data": {
+    "uid": 132208121,
+    "userState": "normal"
+  }
+}

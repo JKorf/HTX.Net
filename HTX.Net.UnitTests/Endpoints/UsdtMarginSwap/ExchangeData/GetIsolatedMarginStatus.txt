@@ -1,0 +1,28 @@
+GET
+/linear-swap-api/v1/swap_api_state
+false
+{
+  "status": "ok",
+  "data": [
+    {
+      "symbol": "BTC",
+      "contract_code": "BTC-USDT",
+      "margin_mode": "isolated",
+      "margin_account": "BTC-USDT",
+      "open": 1,
+      "close": 1,
+      "cancel": 1,
+      "transfer_in": 1,
+      "transfer_out": 1,
+      "master_transfer_sub": 1,
+      "sub_transfer_master": 1,
+      "master_transfer_sub_inner_in": 1,
+      "master_transfer_sub_inner_out": 1,
+      "sub_transfer_master_inner_in": 1,
+      "sub_transfer_master_inner_out": 1,
+      "transfer_inner_in": 1,
+      "transfer_inner_out": 1
+    }
+  ],
+  "ts": 1603696366019
+}

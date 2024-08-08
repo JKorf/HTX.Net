@@ -1,0 +1,7 @@
+POST
+/v1/order/orders/place
+true
+{
+  "status": "ok",
+  "data": "356501383558845"
+}

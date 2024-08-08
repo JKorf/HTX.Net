@@ -1,0 +1,35 @@
+POST
+/linear-swap-api/v1/swap_track_openorders
+true
+{
+  "status": "ok",
+  "data": {
+    "orders": [
+      {
+        "symbol": "BTC",
+        "contract_code": "BTC-USDT",
+        "volume": 1,
+        "order_type": 1,
+        "direction": "buy",
+        "offset": "open",
+        "lever_rate": 5,
+        "order_id": 826055066114916400,
+        "order_id_str": "826055066114916352",
+        "order_source": "api",
+        "created_at": 1616988475122,
+        "order_price_type": "formula_price",
+        "status": 2,
+        "callback_rate": 0.03,
+        "active_price": 48888,
+        "is_active": 0,
+        "margin_mode": "isolated",
+        "margin_account": "BTC-USDT",
+        "reduce_only": 0
+      }
+    ],
+    "total_page": 1,
+    "current_page": 1,
+    "total_size": 1
+  },
+  "ts": 1616988497109
+}

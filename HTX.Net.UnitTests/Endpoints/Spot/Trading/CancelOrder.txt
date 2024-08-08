@@ -1,0 +1,7 @@
+POST
+/v1/order/orders/1/submitcancel
+true
+{
+  "status": "ok",
+  "data": "356501495694025"
+}

@@ -1,0 +1,12 @@
+POST
+/linear-swap-api/v1/swap_order
+true
+{
+  "status": "ok",
+  "data": {
+    "order_id": 770323133537685500,
+    "client_order_id": 57012021022,
+    "order_id_str": "770323133537685504"
+  },
+  "ts": 1603700946949
+}

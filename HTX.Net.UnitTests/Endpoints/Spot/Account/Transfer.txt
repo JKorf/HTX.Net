@@ -1,0 +1,9 @@
+POST
+/v2/account/transfer
+true
+{
+  "code": 200,
+  "data": 176104252,
+  "message": "Succeed",
+  "success": true
+}

@@ -1,0 +1,11 @@
+POST
+/linear-swap-api/v1/swap_cross_track_order
+true
+{
+  "status": "ok",
+  "data": {
+    "order_id": 826052906719445000,
+    "order_id_str": "826052906719444992"
+  },
+  "ts": 1616987960287
+}

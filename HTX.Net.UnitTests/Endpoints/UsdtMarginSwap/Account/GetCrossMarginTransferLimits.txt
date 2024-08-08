@@ -1,0 +1,21 @@
+POST
+/linear-swap-api/v1/swap_cross_transfer_limit
+true
+{
+  "status": "ok",
+  "data": [
+    {
+      "transfer_in_max_each": 1000000000000000000,
+      "transfer_in_min_each": 0.0001,
+      "transfer_out_max_each": 1000000000000000000,
+      "transfer_out_min_each": 0.0001,
+      "transfer_in_max_daily": 900000001000000000,
+      "transfer_out_max_daily": 900000100000000000,
+      "net_transfer_in_max_daily": 900000000100000000,
+      "net_transfer_out_max_daily": 123456789012345680,
+      "margin_account": "USDT",
+      "margin_mode": "cross"
+    }
+  ],
+  "ts": 1606964432217
+}

@@ -1,0 +1,11 @@
+POST
+/v2/point/transfer
+true
+{
+  "code": 200,
+  "data": {
+    "transactId": "74",
+    "transactTime": 1594370136458
+  },
+  "success": true
+}

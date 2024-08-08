@@ -1,0 +1,77 @@
+POST
+/linear-swap-api/v1/swap_cross_relation_tpsl_order
+true
+{
+  "status": "ok",
+  "data": {
+    "contract_type": "this_week",
+    "business_type": "futures",
+    "pair": "BTC-USDT",
+    "symbol": "BTC",
+    "contract_code": "BTC-USDT-211210",
+    "margin_mode": "cross",
+    "margin_account": "USDT",
+    "volume": 1,
+    "price": 48592.2,
+    "order_price_type": "opponent",
+    "direction": "buy",
+    "offset": "open",
+    "lever_rate": 5,
+    "order_id": 918819004716982300,
+    "order_id_str": "918819004716982272",
+    "client_order_id": null,
+    "created_at": 1639105121550,
+    "trade_volume": 1,
+    "trade_turnover": 48.5922,
+    "fee": -0.0242961,
+    "trade_avg_price": 48592.2,
+    "margin_frozen": 0,
+    "profit": 0,
+    "status": 6,
+    "order_type": 1,
+    "order_source": "api",
+    "fee_asset": "USDT",
+    "canceled_at": 0,
+    "tpsl_order_info": [
+      {
+        "volume": 1,
+        "direction": "sell",
+        "tpsl_order_type": "tp",
+        "order_id": 918819004746342400,
+        "order_id_str": "918819004746342400",
+        "trigger_type": "ge",
+        "trigger_price": 50000,
+        "order_price": 0,
+        "created_at": 1639105121563,
+        "order_price_type": "optimal_5",
+        "relation_tpsl_order_id": "918819004750536704",
+        "status": 2,
+        "canceled_at": 0,
+        "fail_code": null,
+        "fail_reason": null,
+        "triggered_price": null,
+        "relation_order_id": "-1"
+      },
+      {
+        "volume": 1,
+        "direction": "sell",
+        "tpsl_order_type": "sl",
+        "order_id": 918819004750536700,
+        "order_id_str": "918819004750536704",
+        "trigger_type": "le",
+        "trigger_price": 40000,
+        "order_price": 0,
+        "created_at": 1639105121564,
+        "order_price_type": "optimal_5",
+        "relation_tpsl_order_id": "918819004746342400",
+        "status": 2,
+        "canceled_at": 0,
+        "fail_code": null,
+        "fail_reason": null,
+        "triggered_price": null,
+        "relation_order_id": "-1"
+      }
+    ]
+  },
+  "ts": 1639105149621
+}

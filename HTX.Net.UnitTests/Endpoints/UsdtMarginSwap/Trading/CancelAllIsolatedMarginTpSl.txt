@@ -1,0 +1,11 @@
+POST
+/linear-swap-api/v1/swap_tpsl_cancelall
+true
+{
+  "status": "ok",
+  "data": {
+    "errors": [],
+    "successes": "795713650665832448,795714964661583872,795714964661583873"
+  },
+  "ts": 1609754843671
+}
