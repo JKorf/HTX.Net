@@ -2,7 +2,7 @@
 
 [![.NET](https://img.shields.io/github/actions/workflow/status/JKorf/HTX.Net/dotnet.yml?style=for-the-badge)](https://github.com/JKorf/HTX.Net/actions/workflows/dotnet.yml) ![License](https://img.shields.io/github/license/JKorf/HTX.Net?style=for-the-badge)
 
-HTX.Net is a strongly typed client library for accessing the [HTX REST and Websocket API](https://www.htx.com/en-us/opend/).
+HTX.Net, previously known as Huobi.Net, is a strongly typed client library for accessing the [HTX REST and Websocket API](https://www.htx.com/en-us/opend/).
 ## Features
 * Response data is mapped to descriptive models
 * Input parameters and response values are mapped to discriptive enum values where possible
@@ -170,9 +170,9 @@ Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/s
     * Updated CryptoExchange.Net to v7.5.0, see https://github.com/JKorf/CryptoExchange.Net?tab=readme-ov-file#release-notes for release notes
 
 * Version 5.2.6 - 28 Apr 2024
-    * Added HTXExchange static info class
-    * Added HTXOrderBookFactory book creation method
-    * Fixed HTXOrderBookFactory injection issue
+    * Added HuobiExchange static info class
+    * Added HuobiOrderBookFactory book creation method
+    * Fixed HuobiOrderBookFactory injection issue
     * Fixed result checking on common spot GetTickerAsync endpoint
     * Updated CryptoExchange.Net to v7.4.0, see https://github.com/JKorf/CryptoExchange.Net?tab=readme-ov-file#release-notes for release notes
 
@@ -202,7 +202,7 @@ Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/s
 * Version 5.1.0 - 25 Feb 2024
     * Updated CryptoExchange.Net and implemented reworked websocket message handling. For release notes for the CryptoExchange.Net base library see: https://github.com/JKorf/CryptoExchange.Net?tab=readme-ov-file#release-notes
     * Fixed issue in DI registration causing http client to not be correctly injected
-    * Removed redundant HTXRestClient constructor overload
+    * Removed redundant HuobiRestClient constructor overload
     * Updated some namespaces
 
 * Version 5.0.5 - 03 Dec 2023
@@ -223,11 +223,11 @@ Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/s
 
 * Version 5.0.0 - 25 Jun 2023
     * Updated CryptoExchange.Net to version 6.0.0
-    * Renamed HTXClient to HTXRestClient
-    * Renamed **Streams to **Api on the HTXSocketClient
+    * Renamed HuobiClient to HuobiRestClient
+    * Renamed **Streams to **Api on the HuobiSocketClient
     * Updated endpoints to consistently use a base url without any path as basis to make switching environments/base urls clearer
-    * Added IHTXOrderBookFactory and implementation for creating order books
-    * Updated dependency injection register method (AddHTX)
+    * Added IHuobiOrderBookFactory and implementation for creating order books
+    * Updated dependency injection register method (AddHuobi)
 
 * Version 4.2.4 - 18 Mar 2023
     * Updated CryptoExchange.Net
@@ -312,9 +312,9 @@ Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/s
     * Updated CryptoExchange.Net
 
 * Version 4.0.0 - 18 Feb 2022
-	* Added Github.io page for documentation: https://jkorf.github.io/HTX.Net/
+	* Added Github.io page for documentation: https://jkorf.github.io/Huobi.Net/
 	* Added unit tests for parsing the returned JSON for each endpoint and subscription
-	* Added AddHTX extension method on IServiceCollection for easy dependency injection
+	* Added AddHuobi extension method on IServiceCollection for easy dependency injection
 	* Added URL reference to API endpoint documentation for each endpoint
 	* Added default rate limiter
 
@@ -326,7 +326,7 @@ Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/s
 	* Fixed various models
 
 	* Updated CryptoExchange.Net, see https://github.com/JKorf/CryptoExchange.Net#release-notes
-	* See https://jkorf.github.io/HTX.Net/MigrationGuide.html for additional notes for updating from V3 to V4
+	* See https://jkorf.github.io/Huobi.Net/MigrationGuide.html for additional notes for updating from V3 to V4
 
 * Version 3.2.4 - 03 Nov 2021
     * Fix for invalid check in SubscribeToOrderDetailsUpdatesAsync
@@ -336,7 +336,7 @@ Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/s
 
 * Version 3.2.2 - 06 Oct 2021
     * Updated CryptoExchange.Net, fixing socket issue when calling from .Net Framework
-    * Fixed issue in HTXSymbolOrderBook syncing
+    * Fixed issue in HuobiSymbolOrderBook syncing
 
 * Version 3.2.1 - 05 Oct 2021
     * Fixed incorrect sanity check in SubscribeToOrderUpdatesAsync
@@ -424,7 +424,7 @@ Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/s
     * Added Withdraw endpoint
     * Fix ClientOrderId deserialization on order
     * Added NextTime property for pagination on GetHistoryOrders
-    * Updated HTXOrderTrade model
+    * Updated HuobiOrderTrade model
     * Fixed ticker models
 
 * Version 2.2.0 - 21 dec 2020
@@ -511,13 +511,13 @@ Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/s
     * Added HistoryOrders endpoint, made symbol parameter optional for order retrieving methods
 
 * Version 1.1.5 - 09 jul 2019
-	* Updated HTXSymbolOrderBook
+	* Updated HuobiSymbolOrderBook
 
 * Version 1.1.4 - 27 jun 2019
-	* Added Loan and Interest to HTXBalanceTypes enum, fixing deserialization issue
+	* Added Loan and Interest to HuobiBalanceTypes enum, fixing deserialization issue
 
 * Version 1.1.3 - 24 jun 2019
-	* Extended HTXSymbol object
+	* Extended HuobiSymbol object
 
 * Version 1.1.2 - 17 may 2019
 	* Fix for deserializing stop-orders created on the website

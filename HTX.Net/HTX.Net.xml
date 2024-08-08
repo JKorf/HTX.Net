@@ -17342,7 +17342,7 @@
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions.AddHTX(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{HTX.Net.Objects.Options.HTXRestOptions},System.Action{HTX.Net.Objects.Options.HTXSocketOptions},System.Nullable{Microsoft.Extensions.DependencyInjection.ServiceLifetime})">
             <summary>
-            Add the IHTXClient and IHTXSocketClient to the sevice collection so they can be injected
+            Add the IRestHTXClient and IHTXSocketClient to the sevice collection so they can be injected
             </summary>
             <param name="services">The service collection</param>
             <param name="defaultRestOptionsDelegate">Set default options for the rest client</param>
