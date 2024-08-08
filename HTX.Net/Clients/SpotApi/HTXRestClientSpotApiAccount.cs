@@ -295,7 +295,7 @@ namespace HTX.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<WebCallResult<IEnumerable<HTXWithdrawalAddress>>> GetWithdrawalAddressesAsync(string asset, string? network = null, string? note = null, int? limit = null, long? fromId = null, CancellationToken ct = default)
         {
-            asset = asset?.ToLowerInvariant();
+            asset = asset.ToLowerInvariant();
 
             var parameters = new ParameterCollection();
             parameters.Add("currency", asset);
