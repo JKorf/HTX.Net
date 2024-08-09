@@ -1,4 +1,4 @@
-using Huobi.Net.Interfaces.Clients;
+using HTX.Net.Interfaces.Clients;
 using CryptoExchange.Net.Authentication;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,11 +8,11 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // Add the Bitget services
-builder.Services.AddHuobi();
+builder.Services.AddHTX();
 
 // OR to provide API credentials for accessing private endpoints, or setting other options:
 /*
-builder.Services.AddHuobi(restOptions =>
+builder.Services.AddHTX(restOptions =>
 {
     restOptions.ApiCredentials = new ApiCredentials("<APIKEY>", "<APISECRET>");
     restOptions.RequestTimeout = TimeSpan.FromSeconds(5);
@@ -27,18 +27,18 @@ app.UseSwagger();
 app.UseSwaggerUI();
 app.UseHttpsRedirection();
 
-// Map the endpoints and inject the Huobi rest client
-app.MapGet("/{Symbol}", async ([FromServices] IHuobiRestClient client, string symbol) =>
+// Map the endpoints and inject the HTX rest client
+app.MapGet("/{Symbol}", async ([FromServices] IHTXRestClient client, string symbol) =>
 {
     var result = await client.SpotApi.ExchangeData.GetTickerAsync(symbol);
     return (object)(result.Success ? result.Data : result.Error!);
 })
 .WithOpenApi();
 
-app.MapGet("/Balances", async ([FromServices] IHuobiRestClient client) =>
+app.MapGet("/Balances", async ([FromServices] IHTXRestClient client) =>
 {
     var account = await client.SpotApi.Account.GetAccountsAsync();
-    var result = await client.SpotApi.Account.GetBalancesAsync(account.Data.Single(d => d.Type == Huobi.Net.Enums.AccountType.Spot).Id);
+    var result = await client.SpotApi.Account.GetBalancesAsync(account.Data.Single(d => d.Type == HTX.Net.Enums.AccountType.Spot).Id);
     return (object)(result.Success ? result.Data : result.Error!);
 })
 .WithOpenApi();

@@ -1,1 +1,1 @@
-Source for https://jkorf.github.io/Huobi.Net
+Source for https://jkorf.github.io/HTX.Net

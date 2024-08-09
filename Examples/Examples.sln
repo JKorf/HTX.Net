@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Huobi.Examples.Api", "Huobi.Examples.Api\Huobi.Examples.Api.csproj", "{ECA139DF-CA98-4E98-89DA-C594FEBC0865}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HTX.Examples.Api", "HTX.Examples.Api\HTX.Examples.Api.csproj", "{ECA139DF-CA98-4E98-89DA-C594FEBC0865}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Huobi.Examples.Console", "Huobi.Examples.Console\Huobi.Examples.Console.csproj", "{FD4F95C8-D9B7-4F81-9245-4CE667DFD421}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HTX.Examples.Console", "HTX.Examples.Console\HTX.Examples.Console.csproj", "{FD4F95C8-D9B7-4F81-9245-4CE667DFD421}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

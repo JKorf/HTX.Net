@@ -1,7 +1,7 @@
 # Examples
 
-### Huobi.Examples.Api
-A minimal API showing how to integrate Huobi.Net in a web API project
+### HTX.Examples.Api
+A minimal API showing how to integrate HTX.Net in a web API project
 
-### Huobi.Examples.Console
+### HTX.Examples.Console
 A simple console client demonstrating basic usage
