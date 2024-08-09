@@ -107,7 +107,7 @@
         <member name="P:HTX.Net.Clients.SpotApi.HTXRestClientSpotApi.Trading">
             <inheritdoc />
         </member>
-        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApi.FormatSymbol(System.String,System.String)">
+        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApi.FormatSymbol(System.String,System.String,System.Nullable{CryptoExchange.Net.Objects.FuturesType})">
             <inheritdoc />
         </member>
         <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApi.CreateAuthenticationProvider(CryptoExchange.Net.Authentication.ApiCredentials)">
@@ -425,7 +425,7 @@
         <member name="T:HTX.Net.Clients.SpotApi.HTXSocketClientSpotApi">
             <inheritdoc />
         </member>
-        <member name="M:HTX.Net.Clients.SpotApi.HTXSocketClientSpotApi.FormatSymbol(System.String,System.String)">
+        <member name="M:HTX.Net.Clients.SpotApi.HTXSocketClientSpotApi.FormatSymbol(System.String,System.String,System.Nullable{CryptoExchange.Net.Objects.FuturesType})">
             <inheritdoc />
         </member>
         <member name="M:HTX.Net.Clients.SpotApi.HTXSocketClientSpotApi.GetListenerIdentifier(CryptoExchange.Net.Interfaces.IMessageAccessor)">
@@ -512,7 +512,7 @@
         <member name="P:HTX.Net.Clients.UsdtFutures.HTXRestClientUsdtFuturesApi.Trading">
             <inheritdoc />
         </member>
-        <member name="M:HTX.Net.Clients.UsdtFutures.HTXRestClientUsdtFuturesApi.FormatSymbol(System.String,System.String)">
+        <member name="M:HTX.Net.Clients.UsdtFutures.HTXRestClientUsdtFuturesApi.FormatSymbol(System.String,System.String,System.Nullable{CryptoExchange.Net.Objects.FuturesType})">
             <inheritdoc />
         </member>
         <member name="M:HTX.Net.Clients.UsdtFutures.HTXRestClientUsdtFuturesApi.CreateAuthenticationProvider(CryptoExchange.Net.Authentication.ApiCredentials)">
@@ -932,7 +932,7 @@
         <member name="T:HTX.Net.Clients.UsdtFutures.HTXSocketClientUsdtFuturesApi">
             <inheritdoc />
         </member>
-        <member name="M:HTX.Net.Clients.UsdtFutures.HTXSocketClientUsdtFuturesApi.FormatSymbol(System.String,System.String)">
+        <member name="M:HTX.Net.Clients.UsdtFutures.HTXSocketClientUsdtFuturesApi.FormatSymbol(System.String,System.String,System.Nullable{CryptoExchange.Net.Objects.FuturesType})">
             <inheritdoc />
         </member>
         <member name="M:HTX.Net.Clients.UsdtFutures.HTXSocketClientUsdtFuturesApi.PreprocessStreamMessage(CryptoExchange.Net.Sockets.SocketConnection,System.Net.WebSockets.WebSocketMessageType,System.ReadOnlyMemory{System.Byte})">
