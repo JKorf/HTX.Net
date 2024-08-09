@@ -46,7 +46,7 @@ namespace HTX.Net.Clients.SpotApi
         protected override IByteMessageAccessor CreateAccessor() => new SystemTextJsonByteMessageAccessor();
 
         /// <inheritdoc />
-        public override string FormatSymbol(string baseAsset, string quoteAsset, FuturesType? futuresType = null) => $"{baseAsset.ToLowerInvariant()}{quoteAsset.ToLowerInvariant()}";
+        public override string FormatSymbol(string baseAsset, string quoteAsset, ApiType? futuresType = null) => $"{baseAsset.ToLowerInvariant()}{quoteAsset.ToLowerInvariant()}";
 
         /// <inheritdoc />
         public override string? GetListenerIdentifier(IMessageAccessor message)
