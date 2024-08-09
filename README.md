@@ -143,6 +143,9 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 6.0.1 - 09 Aug 2024
+    * Fixed websocket SpotApi queries (GetXX methods)
+
 * Version 6.0.0 - 08 Aug 2024
     * Renamed library from Huobi.Net to HTX.Net, following the renaming of the exchange
     * Renamed all models and references from Huobi... to HTX...
