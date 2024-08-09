@@ -29,12 +29,12 @@ The library is targeting both `.NET Standard 2.0` and `.NET Standard 2.1` for op
 ## Install the library
 
 ### NuGet 
-[![NuGet version](https://img.shields.io/nuget/v/HTX.net.svg?style=for-the-badge)](https://www.nuget.org/packages/HTX.Net)  [![Nuget downloads](https://img.shields.io/nuget/dt/HTX.Net.svg?style=for-the-badge)](https://www.nuget.org/packages/HTX.Net)
+[![NuGet version](https://img.shields.io/nuget/v/JKorf.HTX.net.svg?style=for-the-badge)](https://www.nuget.org/packages/JKorf.HTX.Net)  [![Nuget downloads](https://img.shields.io/nuget/dt/JKorf.HTX.Net.svg?style=for-the-badge)](https://www.nuget.org/packages/JKorf.HTX.Net)
 
-	dotnet add package HTX.Net
+	dotnet add package JKorf.HTX.Net
 	
 ### GitHub packages
-HTX.Net is available on [GitHub packages](https://github.com/JKorf/HTX.Net/pkgs/nuget/HTX.Net). You'll need to add `https://nuget.pkg.github.com/JKorf/index.json` as a NuGet package source.
+HTX.Net is available on [GitHub packages](https://github.com/JKorf/HTX.Net/pkgs/nuget/JKorf.HTX.Net). You'll need to add `https://nuget.pkg.github.com/JKorf/index.json` as a NuGet package source.
 
 ### Download release
 [![GitHub Release](https://img.shields.io/github/v/release/JKorf/HTX.Net?style=for-the-badge&label=GitHub)](https://github.com/JKorf/HTX.Net/releases)
