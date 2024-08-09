@@ -15,7 +15,8 @@ namespace HTX.Net.Objects.Internal
     internal class HTXSocketResponse<T>: HTXResponse
     {
         internal override bool IsSuccessful => string.Equals(Status, "ok", StringComparison.Ordinal);
-        [JsonPropertyName("status")] internal string Status { get; set; } = string.Empty;
+        [JsonInclude, JsonPropertyName("status")] 
+        internal string Status { get; set; } = string.Empty;
         
         /// <summary>
         /// The timestamp of the data
