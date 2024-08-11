@@ -1,4 +1,5 @@
 ﻿using CryptoExchange.Net.Objects.Sockets;
+using CryptoExchange.Net.SharedApis.Interfaces;
 using HTX.Net.Enums;
 using HTX.Net.Objects.Models;
 using HTX.Net.Objects.Models.Socket;
@@ -10,6 +11,8 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
     /// </summary>
     public interface IHTXSocketClientSpotApi : ISocketApiClient, IDisposable
     {
+        public IHTXSocketClientSpotApiShared SharedClient { get; }
+
         /// <summary>
         /// Get kline/candlestick data for a symbol
         /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-latest-tickers-for-all-pairs" /></para>
@@ -188,5 +191,6 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
         Task<CallResult<UpdateSubscription>> SubscribeToOrderDetailsUpdatesAsync(string? symbol = null,
             Action<DataEvent<HTXTradeUpdate>>? onOrderMatch = null, Action<DataEvent<HTXOrderCancelationUpdate>>? onOrderCancel = null, CancellationToken ct = default);
+
     }
 }

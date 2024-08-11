@@ -2,6 +2,7 @@
 using CryptoExchange.Net.CommonObjects;
 using CryptoExchange.Net.Converters.MessageParsing;
 using CryptoExchange.Net.Interfaces.CommonClients;
+using CryptoExchange.Net.SharedApis.Interfaces;
 using HTX.Net.Enums;
 using HTX.Net.Interfaces.Clients.SpotApi;
 using HTX.Net.Objects.Internal;
@@ -10,7 +11,7 @@ using HTX.Net.Objects.Options;
 namespace HTX.Net.Clients.SpotApi
 {
     /// <inheritdoc />
-    internal class HTXRestClientSpotApi : RestApiClient, IHTXRestClientSpotApi, ISpotClient
+    internal partial class HTXRestClientSpotApi : RestApiClient, IHTXRestClientSpotApi, ISpotClient
     {
         /// <inheritdoc />
         public new HTXRestOptions ClientOptions => (HTXRestOptions)base.ClientOptions;
@@ -529,5 +530,6 @@ namespace HTX.Net.Clients.SpotApi
         /// <inheritdoc />
         /// TODO make this take an accountId param so we don't need it in the interface?
         public ISpotClient CommonSpotClient => this;
+        public ISharedClient SharedClient => this;
     }
 }

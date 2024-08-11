@@ -2,6 +2,7 @@
 using CryptoExchange.Net.Clients;
 using CryptoExchange.Net.Converters.MessageParsing;
 using CryptoExchange.Net.Objects.Sockets;
+using CryptoExchange.Net.SharedApis.Interfaces;
 using CryptoExchange.Net.Sockets;
 using HTX.Net.Enums;
 using HTX.Net.Interfaces.Clients.SpotApi;
@@ -17,7 +18,7 @@ using HTXOrderUpdate = HTX.Net.Objects.Models.Socket.HTXOrderUpdate;
 namespace HTX.Net.Clients.SpotApi
 {
     /// <inheritdoc />
-    internal class HTXSocketClientSpotApi : SocketApiClient, IHTXSocketClientSpotApi
+    internal partial class HTXSocketClientSpotApi : SocketApiClient, IHTXSocketClientSpotApi
     {
         private static readonly MessagePath _idPath = MessagePath.Get().Property("id");
         private static readonly MessagePath _actionPath = MessagePath.Get().Property("action");
@@ -44,6 +45,8 @@ namespace HTX.Net.Clients.SpotApi
         protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer();
 
         protected override IByteMessageAccessor CreateAccessor() => new SystemTextJsonByteMessageAccessor();
+
+        public IHTXSocketClientSpotApiShared SharedClient => this;
 
         /// <inheritdoc />
         public override string FormatSymbol(string baseAsset, string quoteAsset, ApiType? futuresType = null) => $"{baseAsset.ToLowerInvariant()}{quoteAsset.ToLowerInvariant()}";
@@ -78,6 +81,7 @@ namespace HTX.Net.Clients.SpotApi
 
             return data.DecompressGzip();
         }
+
 
         /// <inheritdoc />
         protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
