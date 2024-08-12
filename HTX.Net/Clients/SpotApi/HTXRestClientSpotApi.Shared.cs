@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using CryptoExchange.Net.SharedApis.Enums;
+using CryptoExchange.Net.SharedApis.Models.Rest;
 
 namespace HTX.Net.Clients.SpotApi
 {
@@ -39,15 +40,7 @@ namespace HTX.Net.Clients.SpotApi
             if (!result)
                 return result.As<IEnumerable<SharedKline>>(default);
 
-            return result.As(result.Data.Select(x => new SharedKline
-            {
-                BaseVolume = x.Volume!.Value,
-                ClosePrice = x.ClosePrice!.Value,
-                HighPrice = x.HighPrice!.Value,
-                LowPrice = x.LowPrice!.Value,
-                OpenPrice = x.OpenPrice!.Value,
-                OpenTime = x.OpenTime
-            }));
+            return result.As(result.Data.Select(x => new SharedKline(x.OpenTime, x.ClosePrice!.Value, x.HighPrice!.Value, x.LowPrice!.Value, x.OpenPrice!.Value, x.Volume!.Value)));
         }
 
         async Task<WebCallResult<IEnumerable<SharedSpotSymbol>>> ISpotSymbolRestClient.GetSymbolsAsync(SharedRequest request, CancellationToken ct)
@@ -56,11 +49,8 @@ namespace HTX.Net.Clients.SpotApi
             if (!result)
                 return result.As<IEnumerable<SharedSpotSymbol>>(default);
 
-            return result.As(result.Data.Select(s => new SharedSpotSymbol
+            return result.As(result.Data.Select(s => new SharedSpotSymbol(s.BaseAsset, s.QuoteAsset, s.Name)
             {
-                BaseAsset = s.BaseAsset,
-                QuoteAsset = s.QuoteAsset,
-                Name = s.Name,
                 QuantityDecimals = (int)s.QuantityPrecision,
                 PriceDecimals = (int)s.PricePrecision
             }));
@@ -73,12 +63,7 @@ namespace HTX.Net.Clients.SpotApi
             if (!result)
                 return result.As<IEnumerable<SharedTicker>>(default);
 
-            return result.As(result.Data.Ticks.Select(x => new SharedTicker
-            {
-                HighPrice = x.HighPrice ?? 0,
-                LastPrice = x.LastTradePrice,
-                LowPrice = x.LowPrice ?? 0,
-            }));
+            return result.As(result.Data.Ticks.Select(x => new SharedTicker(x.Symbol, x.LastTradePrice, x.HighPrice ?? 0, x.LowPrice ?? 0)));
         }
 
         async Task<WebCallResult<SharedTicker>> ITickerRestClient.GetTickerAsync(GetTickerRequest request, CancellationToken ct)
@@ -90,13 +75,7 @@ namespace HTX.Net.Clients.SpotApi
             if (!result)
                 return result.As<SharedTicker>(default);
 
-            return result.As(new SharedTicker
-            {
-                Symbol = symbol,
-                HighPrice = result.Data.HighPrice ?? 0,
-                LastPrice = result.Data.ClosePrice ?? 0,
-                LowPrice = result.Data.LowPrice ?? 0,
-            });
+            return result.As(new SharedTicker(symbol, result.Data.ClosePrice ?? 0, result.Data.HighPrice ?? 0, result.Data.LowPrice ?? 0));
         }
 
         async Task<WebCallResult<IEnumerable<SharedTrade>>> ITradeRestClient.GetTradesAsync(GetTradesRequest request, CancellationToken ct)
@@ -108,12 +87,7 @@ namespace HTX.Net.Clients.SpotApi
             if (!result)
                 return result.As<IEnumerable<SharedTrade>>(default);
 
-            return result.As(result.Data.SelectMany(x => x.Details.Select(x => new SharedTrade
-            {
-                Price = x.Price,
-                Quantity = x.Quantity,
-                Timestamp = x.Timestamp
-            })));
+            return result.As(result.Data.SelectMany(x => x.Details.Select(x => new SharedTrade(x.Quantity, x.Price, x.Timestamp))));
         }
 
          async Task<WebCallResult<SharedOrderId>> ISpotOrderRestClient.PlaceOrderAsync(PlaceSpotPlaceOrderRequest request, CancellationToken ct)
@@ -131,17 +105,14 @@ namespace HTX.Net.Clients.SpotApi
             if (!result)
                 return result.As<SharedOrderId>(default);
 
-            return result.As(new SharedOrderId
-            {
-                OrderId = result.Data.ToString()
-            });
+            return result.As(new SharedOrderId(result.Data.ToString()));
         }
 
         public Task<WebCallResult<SharedSpotOrder>> GetOrderAsync(GetOrderRequest request, CancellationToken ct = default) => throw new NotImplementedException();
         public Task<WebCallResult<IEnumerable<SharedSpotOrder>>> GetOpenOrdersAsync(GetOpenOrdersRequest request, CancellationToken ct = default) => throw new NotImplementedException();
         public Task<WebCallResult<IEnumerable<SharedSpotOrder>>> GetClosedOrdersAsync(GetClosedOrdersRequest request, CancellationToken ct = default) => throw new NotImplementedException();
         public Task<WebCallResult<IEnumerable<SharedUserTrade>>> GetUserTradesAsync(GetUserTradesRequest request, CancellationToken ct = default) => throw new NotImplementedException();
-        public Task<WebCallResult<SharedOrderId>> CancelOrderAsync(SpotCancelOrderRequest request, CancellationToken ct = default) => throw new NotImplementedException();
+        public Task<WebCallResult<SharedOrderId>> CancelOrderAsync(CancelOrderRequest request, CancellationToken ct = default) => throw new NotImplementedException();
         public Task<WebCallResult<IEnumerable<SharedTicker>>> GetTickersAsync(CancellationToken ct = default) => throw new NotImplementedException();
     }
 }

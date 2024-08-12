@@ -1,4 +1,5 @@
-﻿using HTX.Net.Enums;
+﻿using CryptoExchange.Net.SharedApis.ResponseModels;
+using HTX.Net.Enums;
 
 
 namespace HTX.Net.Objects.Models
@@ -23,6 +24,11 @@ namespace HTX.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("data")]
         public IEnumerable<HTXSymbolTradeDetails> Details { get; set; } = Array.Empty<HTXSymbolTradeDetails>();
+
+        internal IEnumerable<SharedTrade> Select(Func<object, SharedTrade> value)
+        {
+            throw new NotImplementedException();
+        }
     }
 
     /// <summary>
