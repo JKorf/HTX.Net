@@ -10,6 +10,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         ISpotSymbolRestClient,
         IKlineRestClient,
         ITradeRestClient,
+        IBalanceRestClient,
         ISpotOrderRestClient
     {
     }

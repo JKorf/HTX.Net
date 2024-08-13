@@ -530,6 +530,6 @@ namespace HTX.Net.Clients.SpotApi
         /// <inheritdoc />
         /// TODO make this take an accountId param so we don't need it in the interface?
         public ISpotClient CommonSpotClient => this;
-        public ISharedClient SharedClient => this;
+        public IHTXRestClientSpotApiShared SharedClient => this;
     }
 }

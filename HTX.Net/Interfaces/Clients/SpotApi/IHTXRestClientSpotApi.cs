@@ -36,6 +36,6 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <returns></returns>
         public ISpotClient CommonSpotClient { get; }
-        public ISharedClient SharedClient { get; }
+        public IHTXRestClientSpotApiShared SharedClient { get; }
     }
 }

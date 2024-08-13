@@ -73,6 +73,28 @@ namespace HTX.Net.Clients.SpotApi
             return result;
         }
 
+        async Task<CallResult<UpdateSubscription>> ISpotUserTradeSocketClient.SubscribeToUserTradeUpdatesAsync(SharedRequest request, Action<DataEvent<IEnumerable<SharedUserTrade>>> handler, CancellationToken ct)
+        {
+            var result = await SubscribeToOrderDetailsUpdatesAsync(
+                null,
+                update => handler(update.As<IEnumerable<SharedUserTrade>>(new[] {
+                    new SharedUserTrade(
+                        update.Data.OrderId.ToString(),
+                        update.Data.Id.ToString(),
+                        update.Data.Quantity,
+                        update.Data.Price,
+                        update.Data.Timestamp)
+                    {
+                        Role = update.Data.IsTaker ? SharedRole.Taker : SharedRole.Maker,
+                        Fee = update.Data.TransactionFee,
+                        FeeAsset = update.Data.FeeAsset
+                    }
+                })),
+                ct: ct).ConfigureAwait(false);
+
+            return result;
+        }
+
         public SharedSpotOrder ParseOrder(HTXOrderUpdate orderUpdate)
         {
             if (orderUpdate is HTXSubmittedOrderUpdate update)
@@ -101,7 +123,7 @@ namespace HTX.Net.Clients.SpotApi
                             matchUpdate.OrderId.ToString(),
                             matchUpdate.Type == Enums.OrderType.Limit ? CryptoExchange.Net.SharedApis.Enums.SharedOrderType.Limit : matchUpdate.Type == Enums.OrderType.Market ? CryptoExchange.Net.SharedApis.Enums.SharedOrderType.Market : CryptoExchange.Net.SharedApis.Enums.SharedOrderType.Other,
                             matchUpdate.Side == Enums.OrderSide.Buy ? CryptoExchange.Net.SharedApis.Enums.SharedOrderSide.Buy : CryptoExchange.Net.SharedApis.Enums.SharedOrderSide.Sell,
-                            matchUpdate.QuantityRemaining == 0 ? SharedOrderStatus.Filled : matchUpdate.QuantityFilled > 0 ? SharedOrderStatus.PartiallyFilled : SharedOrderStatus.Open,
+                            matchUpdate.QuantityRemaining == 0 ? SharedOrderStatus.Filled : SharedOrderStatus.Open,
                             null)
                 {
                     ClientOrderId = matchUpdate.ClientOrderId,
@@ -110,7 +132,11 @@ namespace HTX.Net.Clients.SpotApi
                     QuoteQuantity = matchUpdate.Type == Enums.OrderType.Market && matchUpdate.Side == Enums.OrderSide.Buy ? matchUpdate.Quantity : null,
                     QuoteQuantityFilled = matchUpdate.Type == Enums.OrderType.Market && matchUpdate.Side == Enums.OrderSide.Buy ? matchUpdate.Quantity - matchUpdate.QuantityRemaining : null,
                     UpdateTime = matchUpdate.UpdateTime,
-                    Price = matchUpdate.Price
+                    Price = matchUpdate.Price,
+                    LastTrade = new SharedUserTrade(matchUpdate.OrderId.ToString(), matchUpdate.TradeId.ToString(), matchUpdate.TradeQuantity, matchUpdate.TradePrice, matchUpdate.TradeTime)
+                    {
+                        Role = matchUpdate.IsTaker ? SharedRole.Taker : SharedRole.Maker
+                    }
                 };
             }
 

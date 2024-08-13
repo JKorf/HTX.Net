@@ -17,6 +17,8 @@ namespace HTX.Net.Clients.SpotApi
 {
     internal partial class HTXRestClientSpotApi : IHTXRestClientSpotApiShared
     {
+        private long? _accountId;
+
         public string Exchange => HTXExchange.ExchangeName;
 
         public IEnumerable<SharedOrderType> SupportedOrderType => throw new NotImplementedException();
@@ -90,11 +92,46 @@ namespace HTX.Net.Clients.SpotApi
             return result.As(result.Data.SelectMany(x => x.Details.Select(x => new SharedTrade(x.Quantity, x.Price, x.Timestamp))));
         }
 
-         async Task<WebCallResult<SharedOrderId>> ISpotOrderRestClient.PlaceOrderAsync(PlaceSpotPlaceOrderRequest request, CancellationToken ct)
+        async Task<WebCallResult<IEnumerable<SharedBalance>>> IBalanceRestClient.GetBalancesAsync(SharedRequest request, CancellationToken ct)
         {
-            var accountId = request.GetAdditionalParameter<long>(Exchange, "accountId");
+            var accountId = await GetAccountId(request, ct).ConfigureAwait(false);
+            if (accountId == null)
+                return new WebCallResult<IEnumerable<SharedBalance>>(new ServerError("Failed to retrieve account id"));
+
+            var result = await Account.GetBalancesAsync(accountId.Value, ct: ct).ConfigureAwait(false);
+            if (!result)
+                return result.As<IEnumerable<SharedBalance>>(default);
+
+            var resp = new List<SharedBalance>();
+            foreach(var balance in result.Data)
+            {
+                var asset = resp.SingleOrDefault(x => x.Asset == balance.Asset);
+                if (asset == null)
+                {
+                    asset = new SharedBalance(balance.Asset.ToUpperInvariant(), 0, 0);
+                    resp.Add(asset);
+                }
+
+                if (balance.Type == Enums.BalanceType.Trade)
+                {
+                    asset.Available = balance.Balance;
+                    asset.Total += balance.Balance;
+                }
+                else if (balance.Type == Enums.BalanceType.Frozen)
+                    asset.Total += balance.Balance;
+            }
+
+            return result.As<IEnumerable<SharedBalance>>(resp);
+        }
+
+        async Task<WebCallResult<SharedOrderId>> ISpotOrderRestClient.PlaceOrderAsync(PlaceSpotPlaceOrderRequest request, CancellationToken ct)
+        {
+            var accountId = await GetAccountId(request, ct).ConfigureAwait(false);
+            if (accountId == null)
+                return new WebCallResult<SharedOrderId>(new ServerError("Failed to retrieve account id"));
+
             var result = await Trading.PlaceOrderAsync(
-                accountId,
+                accountId.Value,
                 FormatSymbol(request.BaseAsset, request.QuoteAsset, request.ApiType),
                 request.Side == SharedOrderSide.Buy ? Enums.OrderSide.Buy : Enums.OrderSide.Sell,
                 request.OrderType == SharedOrderType.Limit ? Enums.OrderType.Limit : Enums.OrderType.Market,
@@ -114,5 +151,22 @@ namespace HTX.Net.Clients.SpotApi
         public Task<WebCallResult<IEnumerable<SharedUserTrade>>> GetUserTradesAsync(GetUserTradesRequest request, CancellationToken ct = default) => throw new NotImplementedException();
         public Task<WebCallResult<SharedOrderId>> CancelOrderAsync(CancelOrderRequest request, CancellationToken ct = default) => throw new NotImplementedException();
         public Task<WebCallResult<IEnumerable<SharedTicker>>> GetTickersAsync(CancellationToken ct = default) => throw new NotImplementedException();
+    
+        private async ValueTask<long?> GetAccountId(SharedRequest request, CancellationToken ct)
+        {
+            var accountId = request.GetAdditionalParameter<long?>(Exchange, "accountId");
+            if (accountId != null)
+                return accountId;
+
+            if (_accountId != null)
+                return _accountId;
+
+            var accounts = await Account.GetAccountsAsync(ct).ConfigureAwait(false);
+            if (!accounts)
+                return default;
+
+            _accountId = accounts.Data.First(f => f.Type == Enums.AccountType.Spot).Id;
+            return _accountId;
+        }
     }
 }
