@@ -132,7 +132,7 @@ namespace HTX.Net.Clients.SpotApi
             return result.As<IEnumerable<SharedBalance>>(resp);
         }
 
-        async Task<WebCallResult<SharedOrderId>> ISpotOrderRestClient.PlaceOrderAsync(PlaceSpotPlaceOrderRequest request, CancellationToken ct)
+        async Task<WebCallResult<SharedOrderId>> ISpotOrderRestClient.PlaceOrderAsync(PlaceSpotOrderRequest request, CancellationToken ct)
         {
             var accountId = await GetAccountId(request, ct).ConfigureAwait(false);
             if (accountId == null)
@@ -185,7 +185,7 @@ namespace HTX.Net.Clients.SpotApi
             });
         }
 
-        async Task<WebCallResult<IEnumerable<SharedSpotOrder>>> ISpotOrderRestClient.GetOpenOrdersAsync(GetOpenOrdersRequest request, CancellationToken ct = default)
+        async Task<WebCallResult<IEnumerable<SharedSpotOrder>>> ISpotOrderRestClient.GetOpenOrdersAsync(GetSpotOpenOrdersRequest request, CancellationToken ct = default)
         {
             string? symbol = null;
             if (request.BaseAsset != null && request.QuoteAsset != null)
@@ -214,7 +214,7 @@ namespace HTX.Net.Clients.SpotApi
             }));
         }
 
-        async Task<WebCallResult<IEnumerable<SharedSpotOrder>>> ISpotOrderRestClient.GetClosedOrdersAsync(GetClosedOrdersRequest request, CancellationToken ct = default)
+        async Task<WebCallResult<IEnumerable<SharedSpotOrder>>> ISpotOrderRestClient.GetClosedOrdersAsync(GetSpotClosedOrdersRequest request, CancellationToken ct = default)
         {
             var order = await Trading.GetClosedOrdersAsync(
                 FormatSymbol(request.BaseAsset, request.QuoteAsset, request.ApiType),

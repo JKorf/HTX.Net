@@ -79,6 +79,7 @@ namespace HTX.Net.Clients.SpotApi
                 null,
                 update => handler(update.As<IEnumerable<SharedUserTrade>>(new[] {
                     new SharedUserTrade(
+                        update.Data.Symbol,
                         update.Data.OrderId.ToString(),
                         update.Data.Id.ToString(),
                         update.Data.Quantity,
@@ -133,7 +134,7 @@ namespace HTX.Net.Clients.SpotApi
                     QuoteQuantityFilled = matchUpdate.Type == Enums.OrderType.Market && matchUpdate.Side == Enums.OrderSide.Buy ? matchUpdate.Quantity - matchUpdate.QuantityRemaining : null,
                     UpdateTime = matchUpdate.UpdateTime,
                     Price = matchUpdate.Price,
-                    LastTrade = new SharedUserTrade(matchUpdate.OrderId.ToString(), matchUpdate.TradeId.ToString(), matchUpdate.TradeQuantity, matchUpdate.TradePrice, matchUpdate.TradeTime)
+                    LastTrade = new SharedUserTrade(matchUpdate.Symbol, matchUpdate.OrderId.ToString(), matchUpdate.TradeId.ToString(), matchUpdate.TradeQuantity, matchUpdate.TradePrice, matchUpdate.TradeTime)
                     {
                         Role = matchUpdate.IsTaker ? SharedRole.Taker : SharedRole.Maker
                     }
