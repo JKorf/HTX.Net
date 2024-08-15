@@ -89,7 +89,7 @@ namespace HTX.Net.Clients.SpotApi
             return result.AsExchangeResult(Exchange, new SharedTicker(symbol, result.Data.ClosePrice ?? 0, result.Data.HighPrice ?? 0, result.Data.LowPrice ?? 0));
         }
 
-        async Task<ExchangeWebResult<IEnumerable<SharedTrade>>> ITradeRestClient.GetTradesAsync(GetTradesRequest request, CancellationToken ct)
+        async Task<ExchangeWebResult<IEnumerable<SharedTrade>>> IRecentTradeRestClient.GetRecentTradesAsync(GetRecentTradesRequest request, CancellationToken ct)
         {
             var result = await ExchangeData.GetTradeHistoryAsync(
                 FormatSymbol(request.BaseAsset, request.QuoteAsset, request.ApiType),
@@ -267,15 +267,27 @@ namespace HTX.Net.Clients.SpotApi
             }));
         }
 
-        async Task<ExchangeWebResult<IEnumerable<SharedUserTrade>>> ISpotOrderRestClient.GetUserTradesAsync(GetUserTradesRequest request, CancellationToken ct = default)
+        async Task<ExchangeWebResult<IEnumerable<SharedUserTrade>>> ISpotOrderRestClient.GetUserTradesAsync(GetUserTradesRequest request, INextPageToken? pageToken, CancellationToken ct)
         {
+            // Determine page token
+            long? fromId = null;
+            if (pageToken is FromIdToken fromIdToken)
+                fromId = long.Parse(fromIdToken.FromToken);
+
+            // Get data
             var order = await Trading.GetUserTradesAsync(
                 FormatSymbol(request.BaseAsset, request.QuoteAsset, request.ApiType),
                 startTime: request.StartTime,
                 endTime: request.EndTime,
+                fromId: fromId,
                 limit: request.Limit).ConfigureAwait(false);
             if (!order)
                 return order.AsExchangeResult<IEnumerable<SharedUserTrade>>(Exchange, default);
+
+            // Get next token
+            FromIdToken? nextToken = null;
+            if (order.Data.Count() == (request.Limit ?? 100))
+                nextToken = new FromIdToken(order.Data.Max(o => o.TradeId).ToString());
 
             return order.AsExchangeResult(Exchange, order.Data.Select(x => new SharedUserTrade(
                 x.Symbol,
@@ -288,7 +300,7 @@ namespace HTX.Net.Clients.SpotApi
                 Fee = x.Fee,
                 FeeAsset = x.FeeAsset,
                 Role = x.Role == OrderRole.Taker ? SharedRole.Taker: SharedRole.Maker
-            }));
+            }), nextToken);
         }
 
         async Task<ExchangeWebResult<SharedOrderId>> ISpotOrderRestClient.CancelOrderAsync(CancelOrderRequest request, CancellationToken ct = default)
