@@ -36,22 +36,48 @@ namespace HTX.Net.Clients.SpotApi
                 SharedQuantityType.QuoteAssetQuantity,
                 SharedQuantityType.BaseAssetQuantity);
 
-        async Task<ExchangeWebResult<IEnumerable<SharedKline>>> IKlineRestClient.GetKlinesAsync(GetKlinesRequest request, CancellationToken ct)
+        async Task<ExchangeWebResult<IEnumerable<SharedKline>>> IKlineRestClient.GetKlinesAsync(GetKlinesRequest request, INextPageToken? pageToken, CancellationToken ct)
         {
             var interval = (Enums.KlineInterval)request.Interval;
             if (!Enum.IsDefined(typeof(Enums.KlineInterval), interval))
                 return new ExchangeWebResult<IEnumerable<SharedKline>>(Exchange, new ArgumentError("Interval not supported"));
 
+            // Determine the amount of data points we need to match the requested time
+            var apiLimit = 2000;
+            int limit = request.Filter?.Limit ?? apiLimit;
+            if (request.Filter?.StartTime.HasValue == true)
+                limit = (int)Math.Ceiling((DateTime.UtcNow - request.Filter.StartTime!.Value).TotalSeconds / (int)request.Interval);
+
+            if (limit > apiLimit)
+            {
+                // Not available via the API
+                var cutoff = DateTime.UtcNow.AddSeconds(-(int)request.Interval * apiLimit);
+                return new ExchangeWebResult<IEnumerable<SharedKline>>(Exchange, new ArgumentError($"Time filter outside of supported range. Can only request the most recent {apiLimit} klines i.e. data later than {cutoff} at this interval"));
+            }
+
+            // Pagination not supported, no time filter available
+
+            // Get data
             var result = await ExchangeData.GetKlinesAsync(
-                FormatSymbol(request.BaseAsset, request.QuoteAsset, request.ApiType),
+                request.GetSymbol(FormatSymbol),
                 interval,
-                request.Limit,
+                limit,
                 ct: ct
                 ).ConfigureAwait(false);
             if (!result)
                 return result.AsExchangeResult<IEnumerable<SharedKline>>(Exchange, default);
 
-            return result.AsExchangeResult(Exchange, result.Data.Select(x => new SharedKline(x.OpenTime, x.ClosePrice!.Value, x.HighPrice!.Value, x.LowPrice!.Value, x.OpenPrice!.Value, x.Volume!.Value)));
+            // Filter the data based on requested timestamps
+            var data = result.Data;
+            if (request.Filter?.StartTime.HasValue == true)
+                data = data.Where(d => d.OpenTime >= request.Filter.StartTime.Value);
+            if (request.Filter?.EndTime.HasValue == true)
+                data = data.Where(d => d.OpenTime < request.Filter.EndTime.Value);
+            data = data.Reverse();
+            if (request.Filter?.Limit.HasValue == true)
+                data = data.Take(request.Filter.Limit.Value);
+
+            return result.AsExchangeResult(Exchange, data.Select(x => new SharedKline(x.OpenTime, x.ClosePrice!.Value, x.HighPrice!.Value, x.LowPrice!.Value, x.OpenPrice!.Value, x.Volume!.Value)));
         }
 
         async Task<ExchangeWebResult<IEnumerable<SharedSpotSymbol>>> ISpotSymbolRestClient.GetSymbolsAsync(SharedRequest request, CancellationToken ct)
@@ -79,7 +105,7 @@ namespace HTX.Net.Clients.SpotApi
 
         async Task<ExchangeWebResult<SharedTicker>> ITickerRestClient.GetTickerAsync(GetTickerRequest request, CancellationToken ct)
         {
-            var symbol = FormatSymbol(request.BaseAsset, request.QuoteAsset, request.ApiType);
+            var symbol = request.GetSymbol(FormatSymbol);
             var result = await ExchangeData.GetTickerAsync(
                 symbol,
                 ct).ConfigureAwait(false);
@@ -92,7 +118,7 @@ namespace HTX.Net.Clients.SpotApi
         async Task<ExchangeWebResult<IEnumerable<SharedTrade>>> IRecentTradeRestClient.GetRecentTradesAsync(GetRecentTradesRequest request, CancellationToken ct)
         {
             var result = await ExchangeData.GetTradeHistoryAsync(
-                FormatSymbol(request.BaseAsset, request.QuoteAsset, request.ApiType),
+                request.GetSymbol(FormatSymbol),
                 limit: request.Limit,
                 ct: ct).ConfigureAwait(false);
             if (!result)
@@ -145,7 +171,7 @@ namespace HTX.Net.Clients.SpotApi
 
             var result = await Trading.PlaceOrderAsync(
                 accountId.Value,
-                FormatSymbol(request.BaseAsset, request.QuoteAsset, request.ApiType),
+                request.GetSymbol(FormatSymbol),
                 request.Side == SharedOrderSide.Buy ? Enums.OrderSide.Buy : Enums.OrderSide.Sell,
                 GetPlaceOrderType(request.OrderType, request.TimeInForce),
                 quantity,
@@ -158,7 +184,7 @@ namespace HTX.Net.Clients.SpotApi
             return result.AsExchangeResult(Exchange, new SharedOrderId(result.Data.ToString()));
         }
 
-        async Task<ExchangeWebResult<SharedSpotOrder>> ISpotOrderRestClient.GetOrderAsync(GetOrderRequest request, CancellationToken ct = default)
+        async Task<ExchangeWebResult<SharedSpotOrder>> ISpotOrderRestClient.GetOrderAsync(GetOrderRequest request, CancellationToken ct)
         {
             if (!long.TryParse(request.OrderId, out var orderId))
                 return new ExchangeWebResult<SharedSpotOrder>(Exchange, new ArgumentError("Invalid order id"));
@@ -186,7 +212,7 @@ namespace HTX.Net.Clients.SpotApi
             });
         }
 
-        async Task<ExchangeWebResult<IEnumerable<SharedSpotOrder>>> ISpotOrderRestClient.GetOpenOrdersAsync(GetSpotOpenOrdersRequest request, CancellationToken ct = default)
+        async Task<ExchangeWebResult<IEnumerable<SharedSpotOrder>>> ISpotOrderRestClient.GetOpenOrdersAsync(GetSpotOpenOrdersRequest request, CancellationToken ct)
         {
             string? symbol = null;
             if (request.BaseAsset != null && request.QuoteAsset != null)
@@ -215,13 +241,13 @@ namespace HTX.Net.Clients.SpotApi
             }));
         }
 
-        async Task<ExchangeWebResult<IEnumerable<SharedSpotOrder>>> ISpotOrderRestClient.GetClosedOrdersAsync(GetSpotClosedOrdersRequest request, CancellationToken ct = default)
+        async Task<ExchangeWebResult<IEnumerable<SharedSpotOrder>>> ISpotOrderRestClient.GetClosedOrdersAsync(GetSpotClosedOrdersRequest request, INextPageToken? pageToken, CancellationToken ct)
         {
             var order = await Trading.GetClosedOrdersAsync(
-                FormatSymbol(request.BaseAsset, request.QuoteAsset, request.ApiType),
-                startTime: request.StartTime,
-                endTime: request.EndTime,
-                limit: request.Limit).ConfigureAwait(false);
+                request.GetSymbol(FormatSymbol),
+                startTime: request.Filter?.StartTime,
+                endTime: request.Filter?.EndTime,
+                limit: request.Filter?.Limit).ConfigureAwait(false);
             if (!order)
                 return order.AsExchangeResult<IEnumerable<SharedSpotOrder>>(Exchange, default);
 
@@ -244,7 +270,7 @@ namespace HTX.Net.Clients.SpotApi
             }));
         }
 
-        async Task<ExchangeWebResult<IEnumerable<SharedUserTrade>>> ISpotOrderRestClient.GetOrderTradesAsync(GetOrderTradesRequest request, CancellationToken ct = default)
+        async Task<ExchangeWebResult<IEnumerable<SharedUserTrade>>> ISpotOrderRestClient.GetOrderTradesAsync(GetOrderTradesRequest request, CancellationToken ct)
         {
             if (!long.TryParse(request.OrderId, out var orderId))
                 return new ExchangeWebResult<IEnumerable<SharedUserTrade>>(Exchange, new ArgumentError("Invalid order id"));
@@ -276,17 +302,17 @@ namespace HTX.Net.Clients.SpotApi
 
             // Get data
             var order = await Trading.GetUserTradesAsync(
-                FormatSymbol(request.BaseAsset, request.QuoteAsset, request.ApiType),
-                startTime: request.StartTime,
-                endTime: request.EndTime,
+                request.GetSymbol(FormatSymbol),
+                startTime: request.Filter?.StartTime,
+                endTime: request.Filter?.EndTime,
                 fromId: fromId,
-                limit: request.Limit).ConfigureAwait(false);
+                limit: request.Filter?.Limit).ConfigureAwait(false);
             if (!order)
                 return order.AsExchangeResult<IEnumerable<SharedUserTrade>>(Exchange, default);
 
             // Get next token
             FromIdToken? nextToken = null;
-            if (order.Data.Count() == (request.Limit ?? 100))
+            if (order.Data.Count() == (request.Filter?.Limit ?? 100))
                 nextToken = new FromIdToken(order.Data.Max(o => o.TradeId).ToString());
 
             return order.AsExchangeResult(Exchange, order.Data.Select(x => new SharedUserTrade(
@@ -303,7 +329,7 @@ namespace HTX.Net.Clients.SpotApi
             }), nextToken);
         }
 
-        async Task<ExchangeWebResult<SharedOrderId>> ISpotOrderRestClient.CancelOrderAsync(CancelOrderRequest request, CancellationToken ct = default)
+        async Task<ExchangeWebResult<SharedOrderId>> ISpotOrderRestClient.CancelOrderAsync(CancelOrderRequest request, CancellationToken ct)
         {
             if (!long.TryParse(request.OrderId, out var orderId))
                 return new ExchangeWebResult<SharedOrderId>(Exchange, new ArgumentError("Invalid order id"));
