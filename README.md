@@ -143,6 +143,9 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 6.0.2 - 18 Aug 2024
+    * Fix deserialization undocumented canceled-source field value
+
 * Version 6.0.1 - 09 Aug 2024
     * Fixed websocket SpotApi queries (GetXX methods)
 
