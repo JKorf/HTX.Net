@@ -184,7 +184,7 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// <summary>
         /// Cancel source
         /// </summary>
-        [JsonPropertyName("canceled_source")]
+        [JsonPropertyName("canceled_source"), JsonConverter(typeof(NumberStringConverter))]
         public string? CancelSource { get; set; }
         /// <summary>
         /// Update time
