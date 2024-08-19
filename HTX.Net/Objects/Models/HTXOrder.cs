@@ -108,7 +108,7 @@ namespace HTX.Net.Objects.Models
         /// <summary>
         /// Source of cancelation
         /// </summary>
-        [JsonPropertyName("canceled-source")]
+        [JsonPropertyName("canceled-source"), JsonConverter(typeof(NumberStringConverter))]
         public string? CancelSource { get; set; }
     }
 }

@@ -171,7 +171,7 @@ namespace HTX.Net.Objects.Models.Socket
         /// <summary>
         /// Canceled source
         /// </summary>
-        [JsonPropertyName("canceled_source")]
+        [JsonPropertyName("canceled_source"), JsonConverter(typeof(NumberStringConverter))]
         public string? CanceledSource { get; set; }
         /// <summary>
         /// Trade info

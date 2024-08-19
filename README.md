@@ -8,7 +8,7 @@ HTX.Net, previously known as Huobi.Net, is a strongly typed client library for a
 * Input parameters and response values are mapped to discriptive enum values where possible
 * Automatic websocket (re)connection management 
 * Client side rate limiting 
-* Cient side order book implementation
+* Client side order book implementation
 * Extensive logging
 * Support for different environments
 * Easy integration with other exchange client based on the CryptoExchange.Net base library
@@ -143,6 +143,12 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 6.0.2 - 18 Aug 2024
+    * Fix deserialization undocumented canceled-source field value
+
+* Version 6.0.1 - 09 Aug 2024
+    * Fixed websocket SpotApi queries (GetXX methods)
+
 * Version 6.0.0 - 08 Aug 2024
     * Renamed library from Huobi.Net to HTX.Net, following the renaming of the exchange
     * Renamed all models and references from Huobi... to HTX...
