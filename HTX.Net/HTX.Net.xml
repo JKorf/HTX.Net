@@ -200,7 +200,7 @@
         <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiAccount.CancelWithdrawalAsync(System.Int64,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiAccount.GetWithdrawDepositHistoryAsync(HTX.Net.Enums.WithdrawDepositType,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{HTX.Net.Enums.FilterDirection},System.Threading.CancellationToken)">
+        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiAccount.GetWithdrawDepositHistoryAsync(HTX.Net.Enums.WithdrawDepositType,System.String,System.Nullable{System.Int64},System.Nullable{System.Int32},System.Nullable{HTX.Net.Enums.FilterDirection},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiAccount.GetTradingFeesAsync(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
@@ -3606,7 +3606,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiAccount.GetWithdrawDepositHistoryAsync(HTX.Net.Enums.WithdrawDepositType,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{HTX.Net.Enums.FilterDirection},System.Threading.CancellationToken)">
+        <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiAccount.GetWithdrawDepositHistoryAsync(HTX.Net.Enums.WithdrawDepositType,System.String,System.Nullable{System.Int64},System.Nullable{System.Int32},System.Nullable{HTX.Net.Enums.FilterDirection},System.Threading.CancellationToken)">
             <summary>
             Get withdrawal/deposit history
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4f050-7773-11ed-9966-0242ac110003" /></para>
