@@ -16,7 +16,7 @@ namespace HTX.Net.UnitTests
     [NonParallelizable]
     internal class HTXRestIntegrationTests : RestIntergrationTest<HTXRestClient>
     {
-        public override bool Run { get; set; } = true;
+        public override bool Run { get; set; }
 
         public HTXRestIntegrationTests()
         {
@@ -26,9 +26,6 @@ namespace HTX.Net.UnitTests
         {
             var key = Environment.GetEnvironmentVariable("APIKEY");
             var sec = Environment.GetEnvironmentVariable("APISECRET");
-
-            key = "1c8706b1-ed2htwf5tf-c1f359fd-2559d";
-            sec = "20c4ff8b-7c9a2297-d231b3a4-2f8b5";
 
             Authenticated = key != null && sec != null;
             return new HTXRestClient(null, loggerFactory, opts =>
