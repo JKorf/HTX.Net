@@ -6,7 +6,7 @@ using System.Text;
 namespace HTX.Net.Interfaces.Clients.SpotApi
 {
     public interface IHTXRestClientSpotApiShared :
-        IAssetRestClient,
+        IAssetsRestClient,
         IBalanceRestClient,
         IDepositRestClient,
         IKlineRestClient,
