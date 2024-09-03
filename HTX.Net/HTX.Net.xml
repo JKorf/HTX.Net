@@ -2479,6 +2479,11 @@
             Order status filter
             </summary>
         </member>
+        <member name="F:HTX.Net.Enums.OrderStatusFilter.All">
+            <summary>
+            Order statuses
+            </summary>
+        </member>
         <member name="F:HTX.Net.Enums.OrderStatusFilter.ReadyToPlace">
             <summary>
             Placing in book
@@ -14930,7 +14935,7 @@
             Trade role
             </summary>
         </member>
-        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXMarginTrade.FeeAssset">
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXMarginTrade.FeeAsset">
             <summary>
             Fee asset
             </summary>

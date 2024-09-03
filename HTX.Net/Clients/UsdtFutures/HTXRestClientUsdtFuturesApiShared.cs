@@ -10,6 +10,7 @@ using CryptoExchange.Net.SharedApis.Models.FilterOptions;
 using CryptoExchange.Net.SharedApis.Interfaces.Rest.Spot;
 using System.Linq;
 using CryptoExchange.Net.SharedApis.Interfaces.Rest.Futures;
+using CryptoExchange.Net.SharedApis.Models.EndpointOptions;
 
 namespace HTX.Net.Clients.UsdtFutures
 {
@@ -133,7 +134,6 @@ namespace HTX.Net.Clients.UsdtFutures
         }
 
         #endregion
-
 
         #region Futures Order Client
 
@@ -778,6 +778,207 @@ namespace HTX.Net.Clients.UsdtFutures
             if (side == OrderSide.Sell) return SharedPositionSide.Long;
             return SharedPositionSide.Short;
         }
+        #endregion
+
+        #region Klines client
+
+        GetKlinesOptions IKlineRestClient.GetKlinesOptions { get; } = new GetKlinesOptions(true, false)
+        {
+            MaxRequestDataPoints = 1000
+        };
+
+        async Task<ExchangeWebResult<IEnumerable<SharedKline>>> IKlineRestClient.GetKlinesAsync(GetKlinesRequest request, INextPageToken? pageToken, ExchangeParameters? exchangeParameters, CancellationToken ct)
+        {
+            var interval = (Enums.KlineInterval)request.Interval;
+            if (!Enum.IsDefined(typeof(Enums.KlineInterval), interval))
+                return new ExchangeWebResult<IEnumerable<SharedKline>>(Exchange, new ArgumentError("Interval not supported"));
+
+            var validationError = ((IKlineRestClient)this).GetKlinesOptions.ValidateRequest(Exchange, request, exchangeParameters);
+            if (validationError != null)
+                return new ExchangeWebResult<IEnumerable<SharedKline>>(Exchange, validationError);
+
+            // Determine page token
+            DateTime? fromTimestamp = null;
+            if (pageToken is DateTimeToken dateTimeToken)
+                fromTimestamp = dateTimeToken.LastTime;
+
+            var result = await ExchangeData.GetKlinesAsync(
+                request.Symbol.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset, request.ApiType)),
+                interval,
+                fromTimestamp ?? request.Filter?.StartTime,
+                request.Filter?.EndTime,
+                request.Filter?.Limit ?? 1000,
+                ct: ct
+                ).ConfigureAwait(false);
+            if (!result)
+                return result.AsExchangeResult<IEnumerable<SharedKline>>(Exchange, default);
+
+            // Get next token
+            DateTimeToken? nextToken = null;
+            if (request.Filter?.StartTime != null && result.Data.Any())
+            {
+                var maxOpenTime = result.Data.Max(x => x.OpenTime);
+                if (maxOpenTime < request.Filter.EndTime!.Value.AddSeconds(-(int)request.Interval))
+                    nextToken = new DateTimeToken(maxOpenTime.AddSeconds((int)interval));
+            }
+
+            return result.AsExchangeResult(Exchange, result.Data.Select(x => new SharedKline(x.OpenTime, x.ClosePrice ?? 0, x.HighPrice ?? 0, x.LowPrice ?? 0, x.OpenPrice ?? 0, x.Volume ?? 0)), nextToken);
+        }
+
+        #endregion
+
+        #region Mark Klines client
+
+        GetKlinesOptions IMarkPriceKlineRestClient.GetMarkPriceKlinesOptions { get; } = new GetKlinesOptions(false, false)
+        {
+            MaxTotalDataPoints = 2000
+        };
+
+        async Task<ExchangeWebResult<IEnumerable<SharedMarkKline>>> IMarkPriceKlineRestClient.GetMarkPriceKlinesAsync(GetKlinesRequest request, INextPageToken? pageToken, ExchangeParameters? exchangeParameters, CancellationToken ct)
+        {
+            var interval = (Enums.KlineInterval)request.Interval;
+            if (!Enum.IsDefined(typeof(Enums.KlineInterval), interval))
+                return new ExchangeWebResult<IEnumerable<SharedMarkKline>>(Exchange, new ArgumentError("Interval not supported"));
+
+            var validationError = ((IMarkPriceKlineRestClient)this).GetMarkPriceKlinesOptions.ValidateRequest(Exchange, request, exchangeParameters);
+            if (validationError != null)
+                return new ExchangeWebResult<IEnumerable<SharedMarkKline>>(Exchange, validationError);
+
+            var result = await ExchangeData.GetMarkPriceKlinesAsync(
+                request.Symbol.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset)),
+                interval,
+                request.Filter?.Limit ?? 2000,
+                ct: ct
+                ).ConfigureAwait(false);
+            if (!result)
+                return result.AsExchangeResult<IEnumerable<SharedMarkKline>>(Exchange, default);
+
+            return result.AsExchangeResult(Exchange, result.Data.Select(x => new SharedMarkKline(x.OpenTime, x.ClosePrice ?? 0, x.HighPrice ?? 0, x.LowPrice ?? 0, x.OpenPrice ?? 0)));
+        }
+
+        #endregion
+
+        #region Index Klines client
+
+        GetKlinesOptions IIndexPriceKlineRestClient.GetIndexPriceKlinesOptions { get; } = new GetKlinesOptions(false, false)
+        {
+            MaxTotalDataPoints = 2000
+        };
+
+        async Task<ExchangeWebResult<IEnumerable<SharedMarkKline>>> IIndexPriceKlineRestClient.GetIndexPriceKlinesAsync(GetKlinesRequest request, INextPageToken? pageToken, ExchangeParameters? exchangeParameters, CancellationToken ct)
+        {
+            var interval = (Enums.KlineInterval)request.Interval;
+            if (!Enum.IsDefined(typeof(Enums.KlineInterval), interval))
+                return new ExchangeWebResult<IEnumerable<SharedMarkKline>>(Exchange, new ArgumentError("Interval not supported"));
+
+            var validationError = ((IIndexPriceKlineRestClient)this).GetIndexPriceKlinesOptions.ValidateRequest(Exchange, request, exchangeParameters);
+            if (validationError != null)
+                return new ExchangeWebResult<IEnumerable<SharedMarkKline>>(Exchange, validationError);
+
+            var result = await ExchangeData.GetMarkPriceKlinesAsync(
+                request.Symbol.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset)),
+                interval,
+                request.Filter?.Limit ?? 2000,
+                ct: ct
+                ).ConfigureAwait(false);
+            if (!result)
+                return result.AsExchangeResult<IEnumerable<SharedMarkKline>>(Exchange, default);
+
+            return result.AsExchangeResult(Exchange, result.Data.Select(x => new SharedMarkKline(x.OpenTime, x.ClosePrice ?? 0, x.HighPrice ?? 0, x.LowPrice ?? 0, x.OpenPrice ?? 0)));
+        }
+
+        #endregion
+
+        #region Order Book client
+        GetOrderBookOptions IOrderBookRestClient.GetOrderBookOptions { get; } = new GetOrderBookOptions(new[] { 150 }, false);
+        async Task<ExchangeWebResult<SharedOrderBook>> IOrderBookRestClient.GetOrderBookAsync(GetOrderBookRequest request, ExchangeParameters? exchangeParameters, CancellationToken ct)
+        {
+            var validationError = ((IOrderBookRestClient)this).GetOrderBookOptions.ValidateRequest(Exchange, request, exchangeParameters);
+            if (validationError != null)
+                return new ExchangeWebResult<SharedOrderBook>(Exchange, validationError);
+
+            var result = await ExchangeData.GetOrderBookAsync(
+                request.Symbol.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset)),
+                ct: ct).ConfigureAwait(false);
+            if (!result)
+                return result.AsExchangeResult<SharedOrderBook>(Exchange, default);
+
+            return result.AsExchangeResult(Exchange, new SharedOrderBook(result.Data.Asks, result.Data.Bids));
+        }
+
+        #endregion
+
+        #region Recent Trade client
+
+        GetRecentTradesOptions IRecentTradeRestClient.GetRecentTradesOptions { get; } = new GetRecentTradesOptions(2000, false);
+        async Task<ExchangeWebResult<IEnumerable<SharedTrade>>> IRecentTradeRestClient.GetRecentTradesAsync(GetRecentTradesRequest request, ExchangeParameters? exchangeParameters, CancellationToken ct)
+        {
+            var validationError = ((IRecentTradeRestClient)this).GetRecentTradesOptions.ValidateRequest(Exchange, request, exchangeParameters);
+            if (validationError != null)
+                return new ExchangeWebResult<IEnumerable<SharedTrade>>(Exchange, validationError);
+
+            var result = await ExchangeData.GetRecentTradesAsync(
+                request.Symbol.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset, request.ApiType)),
+                limit: request.Limit ?? 1000,
+                ct: ct).ConfigureAwait(false);
+            if (!result)
+                return result.AsExchangeResult<IEnumerable<SharedTrade>>(Exchange, default);
+
+            return result.AsExchangeResult(Exchange, result.Data.Select(x => new SharedTrade(x.Quantity, x.Price, x.Timestamp)));
+        }
+
+        #endregion
+
+        #region Funding Rate client
+        GetFundingRateHistoryOptions IFundingRateRestClient.GetFundingRateHistoryOptions { get; } = new GetFundingRateHistoryOptions(false, false);
+
+        async Task<ExchangeWebResult<IEnumerable<SharedFundingRate>>> IFundingRateRestClient.GetFundingRateHistoryAsync(GetFundingRateHistoryRequest request, INextPageToken? pageToken, ExchangeParameters? exchangeParameters, CancellationToken ct)
+        {
+            var validationError = ((IFundingRateRestClient)this).GetFundingRateHistoryOptions.ValidateRequest(Exchange, request, exchangeParameters);
+            if (validationError != null)
+                return new ExchangeWebResult<IEnumerable<SharedFundingRate>>(Exchange, validationError);
+
+            int page = 1;
+            int pageSize = 50;
+            if (pageToken is PageToken token)
+            {
+                page = token.Page;
+                pageSize = token.PageSize;
+            }
+
+            // Get data
+            var result = await ExchangeData.GetHistoricalFundingRatesAsync(
+                request.Symbol.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset)),
+                page: page,
+                pageSize: pageSize,
+                ct: ct).ConfigureAwait(false);
+            if (!result)
+                return result.AsExchangeResult<IEnumerable<SharedFundingRate>>(Exchange, default);
+
+            var nextToken = new PageToken(page + 1, pageSize);
+
+            // Return
+            return result.AsExchangeResult(Exchange, result.Data.Rates.Select(x => new SharedFundingRate(x.FundingRate, x.FundingTime)), nextToken);
+        }
+        #endregion
+
+        #region Open Interest client
+
+        EndpointOptions<GetOpenInterestRequest> IOpenInterestRestClient.GetOpenInterestOptions { get; } = new EndpointOptions<GetOpenInterestRequest>(true);
+        async Task<ExchangeWebResult<SharedOpenInterest>> IOpenInterestRestClient.GetOpenInterestAsync(GetOpenInterestRequest request, ExchangeParameters? exchangeParameters, CancellationToken ct)
+        {
+            var validationError = ((IOpenInterestRestClient)this).GetOpenInterestOptions.ValidateRequest(Exchange, request, exchangeParameters);
+            if (validationError != null)
+                return new ExchangeWebResult<SharedOpenInterest>(Exchange, validationError);
+
+            var result = await ExchangeData.GetSwapOpenInterestAsync(request.Symbol.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset)), ct: ct).ConfigureAwait(false);
+            if (!result)
+                return result.AsExchangeResult<SharedOpenInterest>(Exchange, default);
+
+#warning what value do we always return from this? Contracts or quantity?
+            return result.AsExchangeResult(Exchange, new SharedOpenInterest(result.Data.Single().Volume));
+        }
+
         #endregion
     }
 }

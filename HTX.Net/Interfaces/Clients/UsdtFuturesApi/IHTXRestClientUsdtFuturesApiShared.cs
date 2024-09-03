@@ -11,7 +11,14 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         IBalanceRestClient,
         IFuturesTickerRestClient,
         IFuturesSymbolRestClient,
-        IFuturesOrderRestClient
+        IFuturesOrderRestClient,
+        IKlineRestClient,
+        IMarkPriceKlineRestClient,
+        IIndexPriceKlineRestClient,
+        IOrderBookRestClient,
+        IRecentTradeRestClient,
+        IFundingRateRestClient,
+        IOpenInterestRestClient
     {
     }
 }
