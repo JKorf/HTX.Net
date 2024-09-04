@@ -97,7 +97,7 @@ namespace HTX.Net.Clients.SpotApi
         #region Ticker client
 
         EndpointOptions ISpotTickerRestClient.GetSpotTickersOptions { get; } = new EndpointOptions("GetTickersRequest", false);
-        async Task<ExchangeWebResult<IEnumerable<SharedSpotTicker>>> ISpotTickerRestClient.GetSpotTickersAsync(ApiType? apiType, ExchangeParameters? exchangeParameters, CancellationToken ct)
+        async Task<ExchangeWebResult<IEnumerable<SharedSpotTicker>>> ISpotTickerRestClient.GetSpotTickersAsync(ExchangeParameters? exchangeParameters, CancellationToken ct)
         {
             var validationError = ((ISpotTickerRestClient)this).GetSpotTickersOptions.ValidateRequest(Exchange, exchangeParameters);
             if (validationError != null)
@@ -541,7 +541,7 @@ namespace HTX.Net.Clients.SpotApi
             if (!depositAddresses)
                 return depositAddresses.AsExchangeResult<IEnumerable<SharedDepositAddress>>(Exchange, default);
 
-            return depositAddresses.AsExchangeResult<IEnumerable<SharedDepositAddress>>(Exchange, depositAddresses.Data.Where(x => request.Network == null ? true : x.Network == request.Network).Select(x => new SharedDepositAddress(x.Asset, x.Address)
+            return depositAddresses.AsExchangeResult<IEnumerable<SharedDepositAddress>>(Exchange, depositAddresses.Data.Where(x => request.Network == null ? true : x.Network == request.Network).Select(x => new SharedDepositAddress(x.Asset.ToUpperInvariant(), x.Address)
             {
                 Tag = x.AddressTag
             }
@@ -575,7 +575,7 @@ namespace HTX.Net.Clients.SpotApi
             if (deposits.Data.Count() == (request.Filter?.Limit ?? 100))
                 nextToken = new FromIdToken(deposits.Data.Min(x => x.Id).ToString());
 
-            return deposits.AsExchangeResult(Exchange, deposits.Data.Select(x => new SharedDeposit(x.Asset!, x.Quantity, x.Status == WithdrawDepositStatus.Confirmed, x.CreateTime)
+            return deposits.AsExchangeResult(Exchange, deposits.Data.Select(x => new SharedDeposit(x.Asset!.ToUpperInvariant(), x.Quantity, x.Status == WithdrawDepositStatus.Confirmed, x.CreateTime)
             {
                 Network = x.Network,
                 TransactionId = x.TransactionHash,
@@ -635,7 +635,7 @@ namespace HTX.Net.Clients.SpotApi
             if (deposits.Data.Count() == (request.Filter?.Limit ?? 100))
                 nextToken = new FromIdToken(deposits.Data.Min(x => x.Id).ToString());
 
-            return deposits.AsExchangeResult(Exchange, deposits.Data.Select(x => new SharedWithdrawal(x.Asset!, x.Address!, x.Quantity, x.Status == WithdrawDepositStatus.Confirmed, x.CreateTime)
+            return deposits.AsExchangeResult(Exchange, deposits.Data.Select(x => new SharedWithdrawal(x.Asset!.ToUpperInvariant(), x.Address!, x.Quantity, x.Status == WithdrawDepositStatus.Confirmed, x.CreateTime)
             {
                 Network = x.Network,
                 TransactionId = x.TransactionHash,

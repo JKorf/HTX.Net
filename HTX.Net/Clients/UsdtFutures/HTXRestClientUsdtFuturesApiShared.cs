@@ -124,7 +124,9 @@ namespace HTX.Net.Clients.UsdtFutures
             if (!result)
                 return result.AsExchangeResult<IEnumerable<SharedFuturesSymbol>>(Exchange, default);
 
-            return result.AsExchangeResult(Exchange, result.Data.Select(s => new SharedFuturesSymbol(s.Asset, "USDT", s.Symbol)
+            return result.AsExchangeResult(Exchange, result.Data.Select(s => new SharedFuturesSymbol(
+                s.BusinessType == BusinessType.Futures ? SharedSymbolType.DeliveryLinear : SharedSymbolType.PerpetualLinear,
+                s.Asset, "USDT", s.Symbol)
             {
                 PriceStep = s.PriceTick,
                 ContractSize = s.ContractSize,
