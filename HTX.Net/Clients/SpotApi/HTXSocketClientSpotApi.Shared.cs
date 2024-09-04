@@ -22,6 +22,7 @@ namespace HTX.Net.Clients.SpotApi
     internal partial class HTXSocketClientSpotApi : IHTXSocketClientSpotApiShared
     {
         public string Exchange => HTXExchange.ExchangeName;
+        public ApiType[] SupportedApiTypes { get; } = new[] { ApiType.Spot };
 
         async Task<ExchangeResult<UpdateSubscription>> ITickersSocketClient.SubscribeToAllTickerUpdatesAsync(ApiType? apiType, Action<DataEvent<IEnumerable<SharedSpotTicker>>> handler, CancellationToken ct)
         {
