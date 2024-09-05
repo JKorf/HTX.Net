@@ -352,12 +352,12 @@ namespace HTX.Net.Clients.UsdtFutures
         #region Get Isolated Margin Position Mode
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<HTXPositionMode>>> GetIsolatedMarginPositionModeAsync(string marginAccount, CancellationToken ct = default)
+        public async Task<WebCallResult<HTXPositionMode>> GetIsolatedMarginPositionModeAsync(string marginAccount, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.Add("margin_account", marginAccount);
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/linear-swap-api/v1/swap_position_side", HTXExchange.RateLimiter.EndpointLimit, 1, true);
-            var result = await _baseClient.SendBasicAsync<IEnumerable<HTXPositionMode>>(request, parameters, ct).ConfigureAwait(false);
+            var result = await _baseClient.SendBasicAsync<HTXPositionMode>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
 
@@ -366,12 +366,12 @@ namespace HTX.Net.Clients.UsdtFutures
         #region Get Cross Margin Position Mode
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<HTXPositionMode>>> GetCrossMarginPositionModeAsync(string marginAccount, CancellationToken ct = default)
+        public async Task<WebCallResult<HTXPositionMode>> GetCrossMarginPositionModeAsync(string marginAccount, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.Add("margin_account", marginAccount);
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/linear-swap-api/v1/swap_cross_position_side", HTXExchange.RateLimiter.EndpointLimit, 1, true);
-            var result = await _baseClient.SendBasicAsync<IEnumerable<HTXPositionMode>>(request, parameters, ct).ConfigureAwait(false);
+            var result = await _baseClient.SendBasicAsync<HTXPositionMode>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
 

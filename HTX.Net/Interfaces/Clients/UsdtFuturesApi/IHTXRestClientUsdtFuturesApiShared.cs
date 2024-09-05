@@ -18,7 +18,8 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         IOrderBookRestClient,
         IRecentTradeRestClient,
         IFundingRateRestClient,
-        IOpenInterestRestClient
+        IOpenInterestRestClient,
+        IPositionModeRestClient
     {
     }
 }

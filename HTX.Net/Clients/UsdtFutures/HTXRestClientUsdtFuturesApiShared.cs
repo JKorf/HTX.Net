@@ -391,8 +391,8 @@ namespace HTX.Net.Clients.UsdtFutures
                     MarginTradeType.All,
                     allOrders: false,
                     new[] { OrderStatusFilter.All },
-                    startTime: request.Filter?.StartTime,
-                    endTime: request.Filter?.EndTime,
+                    startTime: request.StartTime,
+                    endTime: request.EndTime,
                     fromId: fromId,
                     ct: ct).ConfigureAwait(false);
                 if (!orders)
@@ -433,8 +433,8 @@ namespace HTX.Net.Clients.UsdtFutures
                     MarginTradeType.All, 
                     allOrders: false, 
                     new[] { OrderStatusFilter.All },
-                    startTime: request.Filter?.StartTime,
-                    endTime: request.Filter?.EndTime,
+                    startTime: request.StartTime,
+                    endTime: request.EndTime,
                     fromId: fromId,
                     ct: ct).ConfigureAwait(false);
                 if (!orders)
@@ -557,8 +557,8 @@ namespace HTX.Net.Clients.UsdtFutures
                 var orders = await Trading.GetCrossMarginUserTradesAsync(
                     symbol,
                     MarginTradeType.All,
-                    startTime: request.Filter?.StartTime,
-                    endTime: request.Filter?.EndTime,
+                    startTime: request.StartTime,
+                    endTime: request.EndTime,
                     fromId: fromId).ConfigureAwait(false);
                 if (!orders)
                     return orders.AsExchangeResult<IEnumerable<SharedUserTrade>>(Exchange, default);
@@ -587,8 +587,8 @@ namespace HTX.Net.Clients.UsdtFutures
             {
                 var orders = await Trading.GetIsolatedMarginUserTradesAsync(symbol,
                     MarginTradeType.All,
-                    startTime: request.Filter?.StartTime,
-                    endTime: request.Filter?.EndTime,
+                    startTime: request.StartTime,
+                    endTime: request.EndTime,
                     fromId: fromId).ConfigureAwait(false);
                 if (!orders)
                     return orders.AsExchangeResult<IEnumerable<SharedUserTrade>>(Exchange, default);
@@ -674,7 +674,7 @@ namespace HTX.Net.Clients.UsdtFutures
                     UnrealizedPnl = x.UnrealizedPnl,
                     AverageEntryPrice = x.CostOpen,
                     Leverage = x.LeverageRate,
-                    PositionSide = x.PositionMode == PositionMode.SingleSide ? SharedPositionSide.Both : x.Side == OrderSide.Sell ? SharedPositionSide.Short : SharedPositionSide.Long
+                    PositionSide = x.Side == OrderSide.Sell ? SharedPositionSide.Short : SharedPositionSide.Long
                 }).ToList());
             }
             else
@@ -688,7 +688,7 @@ namespace HTX.Net.Clients.UsdtFutures
                     UnrealizedPnl = x.UnrealizedPnl,
                     AverageEntryPrice = x.CostOpen,
                     Leverage = x.LeverageRate,
-                    PositionSide = x.PositionMode == PositionMode.SingleSide ? SharedPositionSide.Both : x.Side == OrderSide.Sell ? SharedPositionSide.Short : SharedPositionSide.Long
+                    PositionSide = x.Side == OrderSide.Sell ? SharedPositionSide.Short : SharedPositionSide.Long
                 }).ToList());
             }
         }
@@ -742,8 +742,11 @@ namespace HTX.Net.Clients.UsdtFutures
             return OrderPriceType.Limit;
         }
 
-        private Offset GetOffset(SharedOrderSide side, SharedPositionSide posSide)
+        private Offset? GetOffset(SharedOrderSide side, SharedPositionSide? posSide)
         {
+            if (posSide == null)
+                return null;
+
             if (posSide == SharedPositionSide.Long)
             {
                 if (side == SharedOrderSide.Buy) return Offset.Open;
@@ -780,6 +783,9 @@ namespace HTX.Net.Clients.UsdtFutures
 
         private SharedPositionSide? ParsePositionSide(Offset offset, OrderSide side)
         {
+            if (offset == Offset.Both)
+                return null;
+
             if (offset == Offset.Open)
             {
                 if (side == OrderSide.Buy) return SharedPositionSide.Long;
@@ -816,9 +822,9 @@ namespace HTX.Net.Clients.UsdtFutures
             var result = await ExchangeData.GetKlinesAsync(
                 request.Symbol.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset, request.ApiType)),
                 interval,
-                fromTimestamp ?? request.Filter?.StartTime,
-                request.Filter?.EndTime,
-                request.Filter?.Limit ?? 1000,
+                fromTimestamp ?? request.StartTime,
+                request.EndTime,
+                request.Limit ?? 1000,
                 ct: ct
                 ).ConfigureAwait(false);
             if (!result)
@@ -826,10 +832,10 @@ namespace HTX.Net.Clients.UsdtFutures
 
             // Get next token
             DateTimeToken? nextToken = null;
-            if (request.Filter?.StartTime != null && result.Data.Any())
+            if (request.StartTime != null && result.Data.Any())
             {
                 var maxOpenTime = result.Data.Max(x => x.OpenTime);
-                if (maxOpenTime < request.Filter.EndTime!.Value.AddSeconds(-(int)request.Interval))
+                if (maxOpenTime < request.EndTime!.Value.AddSeconds(-(int)request.Interval))
                     nextToken = new DateTimeToken(maxOpenTime.AddSeconds((int)interval));
             }
 
@@ -858,7 +864,7 @@ namespace HTX.Net.Clients.UsdtFutures
             var result = await ExchangeData.GetMarkPriceKlinesAsync(
                 request.Symbol.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset)),
                 interval,
-                request.Filter?.Limit ?? 2000,
+                request.Limit ?? 2000,
                 ct: ct
                 ).ConfigureAwait(false);
             if (!result)
@@ -889,7 +895,7 @@ namespace HTX.Net.Clients.UsdtFutures
             var result = await ExchangeData.GetMarkPriceKlinesAsync(
                 request.Symbol.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset)),
                 interval,
-                request.Filter?.Limit ?? 2000,
+                request.Limit ?? 2000,
                 ct: ct
                 ).ConfigureAwait(false);
             if (!result)
@@ -990,6 +996,73 @@ namespace HTX.Net.Clients.UsdtFutures
             return result.AsExchangeResult(Exchange, new SharedOpenInterest(result.Data.Single().Volume));
         }
 
+        #endregion
+
+        #region Position Mode client
+
+        GetPositionModeOptions IPositionModeRestClient.GetPositionModeOptions { get; } = new GetPositionModeOptions(false)
+        {
+            RequiredExchangeParameters = new List<ParameterDescription>
+            {
+                new ParameterDescription("MarginMode", typeof(SharedMarginMode), "Margin mode to get position mode for", SharedMarginMode.Cross)
+            }
+        };
+        async Task<ExchangeWebResult<SharedPositionModeResult>> IPositionModeRestClient.GetPositionModeAsync(GetPositionModeRequest request, ExchangeParameters? exchangeParameters, CancellationToken ct)
+        {
+            var validationError = ((IPositionModeRestClient)this).GetPositionModeOptions.ValidateRequest(Exchange, request, exchangeParameters, request.ApiType, SupportedApiTypes);
+            if (validationError != null)
+                return new ExchangeWebResult<SharedPositionModeResult>(Exchange, validationError);
+
+            var marginMode = exchangeParameters.GetValue<SharedMarginMode>(Exchange, "MarginMode");
+            if (marginMode == SharedMarginMode.Cross)
+            {
+                var result = await Account.GetCrossMarginPositionModeAsync("USDT", ct: ct).ConfigureAwait(false);
+                if (!result)
+                    return result.AsExchangeResult<SharedPositionModeResult>(Exchange, default);
+
+                return result.AsExchangeResult(Exchange, new SharedPositionModeResult(result.Data.PositionMode == PositionMode.DualSide ? SharedPositionMode.LongShort : SharedPositionMode.OneWay));
+            }
+            else
+            {
+                var result = await Account.GetIsolatedMarginPositionModeAsync(request.Symbol?.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset)), ct: ct).ConfigureAwait(false);
+                if (!result)
+                    return result.AsExchangeResult<SharedPositionModeResult>(Exchange, default);
+
+                return result.AsExchangeResult(Exchange, new SharedPositionModeResult(result.Data.PositionMode == PositionMode.DualSide ? SharedPositionMode.LongShort : SharedPositionMode.OneWay));
+            }
+        }
+
+        SetPositionModeOptions IPositionModeRestClient.SetPositionModeOptions { get; } = new SetPositionModeOptions(true, true, false)
+        {
+            RequiredExchangeParameters = new List<ParameterDescription>
+            {
+                new ParameterDescription("MarginMode", typeof(SharedMarginMode), "Margin mode to get position mode for", SharedMarginMode.Cross)
+            }
+        };
+        async Task<ExchangeWebResult<SharedPositionModeResult>> IPositionModeRestClient.SetPositionModeAsync(SetPositionModeRequest request, ExchangeParameters? exchangeParameters, CancellationToken ct)
+        {
+            var validationError = ((IPositionModeRestClient)this).SetPositionModeOptions.ValidateRequest(Exchange, request, exchangeParameters, request.ApiType, SupportedApiTypes);
+            if (validationError != null)
+                return new ExchangeWebResult<SharedPositionModeResult>(Exchange, validationError);
+
+            var marginMode = exchangeParameters.GetValue<SharedMarginMode>(Exchange, "MarginMode");
+            if (marginMode == SharedMarginMode.Cross)
+            {
+                var result = await Account.SetCrossMarginPositionModeAsync("USDT", request.Mode == SharedPositionMode.LongShort ? PositionMode.DualSide : PositionMode.SingleSide, ct: ct).ConfigureAwait(false);
+                if (!result)
+                    return result.AsExchangeResult<SharedPositionModeResult>(Exchange, default);
+
+                return result.AsExchangeResult(Exchange, new SharedPositionModeResult(request.Mode));
+            }
+            else
+            {
+                var result = await Account.SetIsolatedMarginPositionModeAsync("USDT", request.Mode == SharedPositionMode.LongShort ? PositionMode.DualSide : PositionMode.SingleSide, ct: ct).ConfigureAwait(false);
+                if (!result)
+                    return result.AsExchangeResult<SharedPositionModeResult>(Exchange, default);
+
+                return result.AsExchangeResult(Exchange, new SharedPositionModeResult(request.Mode));
+            }
+        }
         #endregion
     }
 }

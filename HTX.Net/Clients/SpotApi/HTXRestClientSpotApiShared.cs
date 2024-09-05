@@ -36,9 +36,9 @@ namespace HTX.Net.Clients.SpotApi
 
             // Determine the amount of data points we need to match the requested time
             var apiLimit = 2000;
-            int limit = request.Filter?.Limit ?? apiLimit;
-            if (request.Filter?.StartTime.HasValue == true)
-                limit = (int)Math.Ceiling((DateTime.UtcNow - request.Filter.StartTime!.Value).TotalSeconds / (int)request.Interval);
+            int limit = request.Limit ?? apiLimit;
+            if (request.StartTime.HasValue == true)
+                limit = (int)Math.Ceiling((DateTime.UtcNow - request.StartTime!.Value).TotalSeconds / (int)request.Interval);
 
             if (limit > apiLimit)
             {
@@ -61,13 +61,13 @@ namespace HTX.Net.Clients.SpotApi
 
             // Filter the data based on requested timestamps
             var data = result.Data;
-            if (request.Filter?.StartTime.HasValue == true)
-                data = data.Where(d => d.OpenTime >= request.Filter.StartTime.Value);
-            if (request.Filter?.EndTime.HasValue == true)
-                data = data.Where(d => d.OpenTime < request.Filter.EndTime.Value);
+            if (request.StartTime.HasValue == true)
+                data = data.Where(d => d.OpenTime >= request.StartTime.Value);
+            if (request.EndTime.HasValue == true)
+                data = data.Where(d => d.OpenTime < request.EndTime.Value);
             data = data.Reverse();
-            if (request.Filter?.Limit.HasValue == true)
-                data = data.Take(request.Filter.Limit.Value);
+            if (request.Limit.HasValue == true)
+                data = data.Take(request.Limit.Value);
 
             return result.AsExchangeResult(Exchange, data.Select(x => new SharedKline(x.OpenTime, x.ClosePrice!.Value, x.HighPrice!.Value, x.LowPrice!.Value, x.OpenPrice!.Value, x.Volume!.Value)));
         }
@@ -324,9 +324,9 @@ namespace HTX.Net.Clients.SpotApi
 
             var order = await Trading.GetClosedOrdersAsync(
                 request.Symbol.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset, request.ApiType)),
-                startTime: request.Filter?.StartTime,
-                endTime: request.Filter?.EndTime,
-                limit: request.Filter?.Limit).ConfigureAwait(false);
+                startTime: request.StartTime,
+                endTime: request.EndTime,
+                limit: request.Limit).ConfigureAwait(false);
             if (!order)
                 return order.AsExchangeResult<IEnumerable<SharedSpotOrder>>(Exchange, default);
 
@@ -392,16 +392,16 @@ namespace HTX.Net.Clients.SpotApi
             // Get data
             var order = await Trading.GetUserTradesAsync(
                 request.Symbol.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset, request.ApiType)),
-                startTime: request.Filter?.StartTime,
-                endTime: request.Filter?.EndTime,
+                startTime: request.StartTime,
+                endTime: request.EndTime,
                 fromId: fromId,
-                limit: request.Filter?.Limit).ConfigureAwait(false);
+                limit: request.Limit).ConfigureAwait(false);
             if (!order)
                 return order.AsExchangeResult<IEnumerable<SharedUserTrade>>(Exchange, default);
 
             // Get next token
             FromIdToken? nextToken = null;
-            if (order.Data.Count() == (request.Filter?.Limit ?? 100))
+            if (order.Data.Count() == (request.Limit ?? 100))
                 nextToken = new FromIdToken(order.Data.Max(o => o.TradeId).ToString());
 
             return order.AsExchangeResult(Exchange, order.Data.Select(x => new SharedUserTrade(
@@ -570,14 +570,14 @@ namespace HTX.Net.Clients.SpotApi
                 WithdrawDepositType.Deposit,
                 request.Asset,
                 from: from,
-                size: request.Filter?.Limit ?? 100,
+                size: request.Limit ?? 100,
                 ct: ct).ConfigureAwait(false);
             if (!deposits)
                 return deposits.AsExchangeResult<IEnumerable<SharedDeposit>>(Exchange, default);
 
             // Determine next token
             FromIdToken? nextToken = null;
-            if (deposits.Data.Count() == (request.Filter?.Limit ?? 100))
+            if (deposits.Data.Count() == (request.Limit ?? 100))
                 nextToken = new FromIdToken(deposits.Data.Min(x => x.Id).ToString());
 
             return deposits.AsExchangeResult(Exchange, deposits.Data.Select(x => new SharedDeposit(x.Asset!.ToUpperInvariant(), x.Quantity, x.Status == WithdrawDepositStatus.Confirmed, x.CreateTime)
@@ -630,14 +630,14 @@ namespace HTX.Net.Clients.SpotApi
                 WithdrawDepositType.Withdraw,
                 request.Asset,
                 from: from,
-                size: request.Filter?.Limit ?? 100,
+                size: request.Limit ?? 100,
                 ct: ct).ConfigureAwait(false);
             if (!deposits)
                 return deposits.AsExchangeResult<IEnumerable<SharedWithdrawal>>(Exchange, default);
 
             // Determine next token
             FromIdToken? nextToken = null;
-            if (deposits.Data.Count() == (request.Filter?.Limit ?? 100))
+            if (deposits.Data.Count() == (request.Limit ?? 100))
                 nextToken = new FromIdToken(deposits.Data.Min(x => x.Id).ToString());
 
             return deposits.AsExchangeResult(Exchange, deposits.Data.Select(x => new SharedWithdrawal(x.Asset!.ToUpperInvariant(), x.Address!, x.Quantity, x.Status == WithdrawDepositStatus.Confirmed, x.CreateTime)
