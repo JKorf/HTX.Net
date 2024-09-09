@@ -3,17 +3,16 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace HTX.Net.Interfaces.Clients.SpotApi
+namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
 {
-    public interface IHTXSocketClientSpotApiShared :
+    public interface IHTXSocketClientUsdtFuturesApiShared :
         ITickerSocketClient,
-        ITickersSocketClient,
         ITradeSocketClient,
         IBookTickerSocketClient,
         IKlineSocketClient,
         IOrderBookSocketClient,
         IBalanceSocketClient,
-        ISpotOrderSocketClient,
+        IFuturesOrderSocketClient,
         IUserTradeSocketClient
     {
     }

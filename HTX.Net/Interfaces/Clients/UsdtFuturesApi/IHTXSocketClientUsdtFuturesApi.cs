@@ -10,6 +10,8 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
     /// </summary>
     public interface IHTXSocketClientUsdtFuturesApi : ISocketApiClient
     {
+        IHTXSocketClientUsdtFuturesApiShared SharedClient { get; }
+
         /// <summary>
         /// Subscribe to basis updates
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7d374-77b5-11ed-9966-0242ac110003" /></para>
