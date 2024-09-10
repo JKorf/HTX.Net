@@ -52,7 +52,10 @@ namespace HTX.Net.Clients.UsdtFutures
 
         public IHTXRestClientUsdtFuturesApiShared SharedClient => this;
         /// <inheritdoc />
-        public override string FormatSymbol(string baseAsset, string quoteAsset, ApiType? futuresType = null) => $"{baseAsset.ToUpperInvariant()}-{quoteAsset.ToUpperInvariant()}";
+        public override string FormatSymbol(string baseAsset, string quoteAsset, ApiType apiType, DateTime? deliverTime = null)
+        {
+            return $"{baseAsset.ToUpperInvariant()}-{quoteAsset.ToUpperInvariant()}" + (!deliverTime.HasValue ? string.Empty: ("-" + deliverTime.Value.ToString("yyMMdd")));
+        } 
 
         /// <inheritdoc />
         protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)

@@ -67,10 +67,10 @@ namespace HTX.Net.Clients.UsdtFutures
             if (validationError != null)
                 return new ExchangeWebResult<SharedFuturesTicker>(Exchange, validationError);
 
-            var symbol = request.Symbol.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset, request.ApiType));
+            var symbol = request.Symbol.GetSymbol((baseAsset, quoteAsset, deliverDate) => FormatSymbol(baseAsset, quoteAsset, request.ApiType, deliverDate));
             var resultTicker = ExchangeData.GetTickerAsync(symbol, ct);
             var resultIndex = ExchangeData.GetSwapIndexPriceAsync(symbol, ct);
-            var resultFunding = ExchangeData.GetFundingRateAsync(request.Symbol.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset, request.ApiType)), ct);
+            var resultFunding = ExchangeData.GetFundingRateAsync(request.Symbol.GetSymbol((baseAsset, quoteAsset, deliverDate) => FormatSymbol(baseAsset, quoteAsset, request.ApiType, deliverDate)), ct);
             await Task.WhenAll(resultTicker, resultFunding, resultIndex).ConfigureAwait(false);
 
             if (!resultTicker.Result)
@@ -182,7 +182,7 @@ namespace HTX.Net.Clients.UsdtFutures
             {
 #warning is this correct for contractcode/pair/type?
                 var result = await Trading.PlaceCrossMarginOrderAsync(
-                    contractCode: request.Symbol.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset, request.ApiType)),
+                    contractCode: request.Symbol.GetSymbol((baseAsset, quoteAsset, deliverDate) => FormatSymbol(baseAsset, quoteAsset, request.ApiType, deliverDate)),
                     quantity: (long)(request.Quantity ?? 0),
                     side: request.Side == SharedOrderSide.Buy ? Enums.OrderSide.Buy : Enums.OrderSide.Sell,
                     leverageRate: (int)(request.Leverage ?? 0),
@@ -201,7 +201,7 @@ namespace HTX.Net.Clients.UsdtFutures
             else
             {
                 var result = await Trading.PlaceIsolatedMarginOrderAsync(
-                    request.Symbol.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset, request.ApiType)),
+                    request.Symbol.GetSymbol((baseAsset, quoteAsset, deliverDate) => FormatSymbol(baseAsset, quoteAsset, request.ApiType, deliverDate)),
                     quantity: (long)(request.Quantity ?? 0),
                     side: request.Side == SharedOrderSide.Buy ? Enums.OrderSide.Buy : Enums.OrderSide.Sell,
                     leverageRate: (int)(request.Leverage ?? 0),
@@ -238,7 +238,7 @@ namespace HTX.Net.Clients.UsdtFutures
             var marginMode = exchangeParameters.GetValue<SharedMarginMode>(Exchange, "MarginMode");
             if (marginMode == SharedMarginMode.Cross)
             {
-                var orders = await Trading.GetCrossMarginOrderAsync(request.Symbol.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset, request.ApiType)), orderId: orderId).ConfigureAwait(false);
+                var orders = await Trading.GetCrossMarginOrderAsync(request.Symbol.GetSymbol((baseAsset, quoteAsset, deliverDate) => FormatSymbol(baseAsset, quoteAsset, request.ApiType, deliverDate)), orderId: orderId).ConfigureAwait(false);
                 if (!orders)
                     return orders.AsExchangeResult<SharedFuturesOrder>(Exchange, default);
 
@@ -265,7 +265,7 @@ namespace HTX.Net.Clients.UsdtFutures
             }
             else
             {
-                var orders = await Trading.GetIsolatedMarginOrderAsync(request.Symbol.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset, request.ApiType)), orderId: orderId).ConfigureAwait(false);
+                var orders = await Trading.GetIsolatedMarginOrderAsync(request.Symbol.GetSymbol((baseAsset, quoteAsset, deliverDate) => FormatSymbol(baseAsset, quoteAsset, request.ApiType, deliverDate)), orderId: orderId).ConfigureAwait(false);
                 if (!orders)
                     return orders.AsExchangeResult<SharedFuturesOrder>(Exchange, default);
 
@@ -308,7 +308,7 @@ namespace HTX.Net.Clients.UsdtFutures
             var marginMode = exchangeParameters.GetValue<SharedMarginMode>(Exchange, "MarginMode");
             if (marginMode == SharedMarginMode.Cross)
             {
-                var symbol = request.Symbol?.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset, request.ApiType));
+                var symbol = request.Symbol?.GetSymbol((baseAsset, quoteAsset, deliverDate) => FormatSymbol(baseAsset, quoteAsset, request.ApiType, deliverDate));
                 var orders = await Trading.GetCrossMarginOpenOrdersAsync(symbol, ct: ct).ConfigureAwait(false);
                 if (!orders)
                     return orders.AsExchangeResult<IEnumerable<SharedFuturesOrder>>(Exchange, default);
@@ -335,7 +335,7 @@ namespace HTX.Net.Clients.UsdtFutures
             }
             else
             {
-                var symbol = request.Symbol?.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset, request.ApiType));
+                var symbol = request.Symbol?.GetSymbol((baseAsset, quoteAsset, deliverDate) => FormatSymbol(baseAsset, quoteAsset, request.ApiType, deliverDate));
 #warning required symbol, only for isolated
                 var orders = await Trading.GetIsolatedMarginOpenOrdersAsync(symbol, ct: ct).ConfigureAwait(false);
                 if (!orders)
@@ -385,7 +385,7 @@ namespace HTX.Net.Clients.UsdtFutures
             var marginMode = exchangeParameters.GetValue<SharedMarginMode>(Exchange, "MarginMode");
             if (marginMode == SharedMarginMode.Cross)
             {
-                var symbol = request.Symbol.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset, request.ApiType));
+                var symbol = request.Symbol.GetSymbol((baseAsset, quoteAsset, deliverDate) => FormatSymbol(baseAsset, quoteAsset, request.ApiType, deliverDate));
                 var orders = await Trading.GetCrossMarginClosedOrdersAsync(
                     symbol,
                     MarginTradeType.All,
@@ -427,7 +427,7 @@ namespace HTX.Net.Clients.UsdtFutures
             }
             else
             {
-                var symbol = request.Symbol.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset, request.ApiType));
+                var symbol = request.Symbol.GetSymbol((baseAsset, quoteAsset, deliverDate) => FormatSymbol(baseAsset, quoteAsset, request.ApiType, deliverDate));
                 var orders = await Trading.GetIsolatedMarginClosedOrdersAsync(
                     symbol,
                     MarginTradeType.All, 
@@ -486,7 +486,7 @@ namespace HTX.Net.Clients.UsdtFutures
             if (!long.TryParse(request.OrderId, out var orderId))
                 return new ExchangeWebResult<IEnumerable<SharedUserTrade>>(Exchange, new ArgumentError("Invalid order id"));
 
-            var symbol = request.Symbol.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset, request.ApiType));
+            var symbol = request.Symbol.GetSymbol((baseAsset, quoteAsset, deliverDate) => FormatSymbol(baseAsset, quoteAsset, request.ApiType, deliverDate));
             var marginMode = exchangeParameters.GetValue<SharedMarginMode>(Exchange, "MarginMode");
             if (marginMode == SharedMarginMode.Cross)
             {
@@ -550,7 +550,7 @@ namespace HTX.Net.Clients.UsdtFutures
             if (pageToken is FromIdToken fromIdToken)
                 fromId = long.Parse(fromIdToken.FromToken);
 
-            var symbol = request.Symbol.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset, request.ApiType));
+            var symbol = request.Symbol.GetSymbol((baseAsset, quoteAsset, deliverDate) => FormatSymbol(baseAsset, quoteAsset, request.ApiType, deliverDate));
             var marginMode = exchangeParameters.GetValue<SharedMarginMode>(Exchange, "MarginMode");
             if (marginMode == SharedMarginMode.Cross)
             {
@@ -634,7 +634,7 @@ namespace HTX.Net.Clients.UsdtFutures
             var marginMode = exchangeParameters.GetValue<SharedMarginMode>(Exchange, "MarginMode");
             if (marginMode == SharedMarginMode.Cross)
             {
-                var order = await Trading.CancelCrossMarginOrderAsync(contractCode: request.Symbol.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset, request.ApiType)), orderId: orderId).ConfigureAwait(false);
+                var order = await Trading.CancelCrossMarginOrderAsync(contractCode: request.Symbol.GetSymbol((baseAsset, quoteAsset, deliverDate) => FormatSymbol(baseAsset, quoteAsset, request.ApiType, deliverDate)), orderId: orderId).ConfigureAwait(false);
                 if (!order)
                     return order.AsExchangeResult<SharedId>(Exchange, default);
 
@@ -642,7 +642,7 @@ namespace HTX.Net.Clients.UsdtFutures
             }
             else
             {
-                var order = await Trading.CancelIsolatedMarginOrderAsync(contractCode: request.Symbol.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset, request.ApiType)), orderId: orderId).ConfigureAwait(false);
+                var order = await Trading.CancelIsolatedMarginOrderAsync(contractCode: request.Symbol.GetSymbol((baseAsset, quoteAsset, deliverDate) => FormatSymbol(baseAsset, quoteAsset, request.ApiType, deliverDate)), orderId: orderId).ConfigureAwait(false);
                 if (!order)
                     return order.AsExchangeResult<SharedId>(Exchange, default);
 
@@ -665,7 +665,7 @@ namespace HTX.Net.Clients.UsdtFutures
             var marginMode = exchangeParameters.GetValue<SharedMarginMode>(Exchange, "MarginMode");
             if (marginMode == SharedMarginMode.Cross)
             {
-                var result = await Account.GetCrossMarginPositionsAsync(contractCode: request.Symbol?.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset)), ct: ct).ConfigureAwait(false);
+                var result = await Account.GetCrossMarginPositionsAsync(contractCode: request.Symbol?.GetSymbol((baseAsset, quoteAsset, deliverDate) => FormatSymbol(baseAsset, quoteAsset, request.ApiType, deliverDate)), ct: ct).ConfigureAwait(false);
                 if (!result)
                     return result.AsExchangeResult<IEnumerable<SharedPosition>>(Exchange, default);
 
@@ -679,7 +679,7 @@ namespace HTX.Net.Clients.UsdtFutures
             }
             else
             {
-                var result = await Account.GetIsolatedMarginPositionsAsync(contractCode: request.Symbol?.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset)), ct: ct).ConfigureAwait(false);
+                var result = await Account.GetIsolatedMarginPositionsAsync(contractCode: request.Symbol?.GetSymbol((baseAsset, quoteAsset, deliverDate) => FormatSymbol(baseAsset, quoteAsset, request.ApiType, deliverDate)), ct: ct).ConfigureAwait(false);
                 if (!result)
                     return result.AsExchangeResult<IEnumerable<SharedPosition>>(Exchange, default);
 
@@ -711,7 +711,7 @@ namespace HTX.Net.Clients.UsdtFutures
             {
                 var result = await Trading.CloseCrossMarginPositionAsync(
                     request.PositionSide == SharedPositionSide.Short ? OrderSide.Sell : OrderSide.Buy,
-                    contractCode: request.Symbol.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset)),
+                    contractCode: request.Symbol.GetSymbol((baseAsset, quoteAsset, deliverDate) => FormatSymbol(baseAsset, quoteAsset, request.ApiType, deliverDate)),
                     ct: ct).ConfigureAwait(false);
                 if (!result)
                     return result.AsExchangeResult<SharedId>(Exchange, default);
@@ -722,7 +722,7 @@ namespace HTX.Net.Clients.UsdtFutures
             {
                 var result = await Trading.CloseIsolatedMarginPositionAsync(
                     direction: request.PositionSide == SharedPositionSide.Short ? OrderSide.Sell : OrderSide.Buy,
-                    contractCode: request.Symbol.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset)),
+                    contractCode: request.Symbol.GetSymbol((baseAsset, quoteAsset, deliverDate) => FormatSymbol(baseAsset, quoteAsset, request.ApiType, deliverDate)),
                     ct: ct).ConfigureAwait(false);
                 if (!result)
                     return result.AsExchangeResult<SharedId>(Exchange, default);
@@ -820,7 +820,7 @@ namespace HTX.Net.Clients.UsdtFutures
                 fromTimestamp = dateTimeToken.LastTime;
 
             var result = await ExchangeData.GetKlinesAsync(
-                request.Symbol.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset, request.ApiType)),
+                request.Symbol.GetSymbol((baseAsset, quoteAsset, deliverDate) => FormatSymbol(baseAsset, quoteAsset, request.ApiType, deliverDate)),
                 interval,
                 fromTimestamp ?? request.StartTime,
                 request.EndTime,
@@ -862,7 +862,7 @@ namespace HTX.Net.Clients.UsdtFutures
                 return new ExchangeWebResult<IEnumerable<SharedMarkKline>>(Exchange, validationError);
 
             var result = await ExchangeData.GetMarkPriceKlinesAsync(
-                request.Symbol.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset)),
+                request.Symbol.GetSymbol((baseAsset, quoteAsset, deliverDate) => FormatSymbol(baseAsset, quoteAsset, request.ApiType, deliverDate)),
                 interval,
                 request.Limit ?? 2000,
                 ct: ct
@@ -893,7 +893,7 @@ namespace HTX.Net.Clients.UsdtFutures
                 return new ExchangeWebResult<IEnumerable<SharedMarkKline>>(Exchange, validationError);
 
             var result = await ExchangeData.GetMarkPriceKlinesAsync(
-                request.Symbol.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset)),
+                request.Symbol.GetSymbol((baseAsset, quoteAsset, deliverDate) => FormatSymbol(baseAsset, quoteAsset, request.ApiType, deliverDate)),
                 interval,
                 request.Limit ?? 2000,
                 ct: ct
@@ -915,7 +915,7 @@ namespace HTX.Net.Clients.UsdtFutures
                 return new ExchangeWebResult<SharedOrderBook>(Exchange, validationError);
 
             var result = await ExchangeData.GetOrderBookAsync(
-                request.Symbol.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset)),
+                request.Symbol.GetSymbol((baseAsset, quoteAsset, deliverDate) => FormatSymbol(baseAsset, quoteAsset, request.ApiType, deliverDate)),
                 ct: ct).ConfigureAwait(false);
             if (!result)
                 return result.AsExchangeResult<SharedOrderBook>(Exchange, default);
@@ -935,7 +935,7 @@ namespace HTX.Net.Clients.UsdtFutures
                 return new ExchangeWebResult<IEnumerable<SharedTrade>>(Exchange, validationError);
 
             var result = await ExchangeData.GetRecentTradesAsync(
-                request.Symbol.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset, request.ApiType)),
+                request.Symbol.GetSymbol((baseAsset, quoteAsset, deliverDate) => FormatSymbol(baseAsset, quoteAsset, request.ApiType, deliverDate)),
                 limit: request.Limit ?? 1000,
                 ct: ct).ConfigureAwait(false);
             if (!result)
@@ -965,7 +965,7 @@ namespace HTX.Net.Clients.UsdtFutures
 
             // Get data
             var result = await ExchangeData.GetHistoricalFundingRatesAsync(
-                request.Symbol.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset)),
+                request.Symbol.GetSymbol((baseAsset, quoteAsset, deliverDate) => FormatSymbol(baseAsset, quoteAsset, request.ApiType, deliverDate)),
                 page: page,
                 pageSize: pageSize,
                 ct: ct).ConfigureAwait(false);
@@ -988,7 +988,7 @@ namespace HTX.Net.Clients.UsdtFutures
             if (validationError != null)
                 return new ExchangeWebResult<SharedOpenInterest>(Exchange, validationError);
 
-            var result = await ExchangeData.GetSwapOpenInterestAsync(request.Symbol.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset)), ct: ct).ConfigureAwait(false);
+            var result = await ExchangeData.GetSwapOpenInterestAsync(request.Symbol.GetSymbol((baseAsset, quoteAsset, deliverDate) => FormatSymbol(baseAsset, quoteAsset, request.ApiType, deliverDate)), ct: ct).ConfigureAwait(false);
             if (!result)
                 return result.AsExchangeResult<SharedOpenInterest>(Exchange, default);
 
@@ -1024,7 +1024,7 @@ namespace HTX.Net.Clients.UsdtFutures
             }
             else
             {
-                var result = await Account.GetIsolatedMarginPositionModeAsync(request.Symbol?.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset)), ct: ct).ConfigureAwait(false);
+                var result = await Account.GetIsolatedMarginPositionModeAsync(request.Symbol?.GetSymbol((baseAsset, quoteAsset, deliverDate) => FormatSymbol(baseAsset, quoteAsset, request.ApiType, deliverDate)), ct: ct).ConfigureAwait(false);
                 if (!result)
                     return result.AsExchangeResult<SharedPositionModeResult>(Exchange, default);
 

@@ -67,7 +67,10 @@ namespace HTX.Net.Clients.SpotApi
 
 
         /// <inheritdoc />
-        public override string FormatSymbol(string baseAsset, string quoteAsset, ApiType? futuresType = null) => $"{baseAsset.ToLowerInvariant()}{quoteAsset.ToLowerInvariant()}";
+        public override string FormatSymbol(string baseAsset, string quoteAsset, ApiType apiType, DateTime? deliverTime = null)
+        {
+            return $"{baseAsset.ToLowerInvariant()}{quoteAsset.ToLowerInvariant()}";
+        }
 
         /// <inheritdoc />
         protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
