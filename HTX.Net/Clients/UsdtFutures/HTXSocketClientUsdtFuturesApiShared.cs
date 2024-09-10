@@ -11,6 +11,7 @@ using CryptoExchange.Net.SharedApis.Models;
 using CryptoExchange.Net.SharedApis.Models.FilterOptions;
 using HTX.Net.Interfaces.Clients.UsdtFuturesApi;
 using HTX.Net.Enums;
+using CryptoExchange.Net.SharedApis.Interfaces.Socket.Futures;
 
 namespace HTX.Net.Clients.UsdtFutures
 {
@@ -65,7 +66,6 @@ namespace HTX.Net.Clients.UsdtFutures
             return new ExchangeResult<UpdateSubscription>(Exchange, result);
         }
         #endregion
-
 
         #region Kline client
         SubscribeKlineOptions IKlineSocketClient.SubscribeKlineOptions { get; } = new SubscribeKlineOptions(false);
@@ -290,6 +290,45 @@ namespace HTX.Net.Clients.UsdtFutures
                 return new ExchangeResult<UpdateSubscription>(Exchange, result);
             }
         }
+        #endregion
+
+        #region Position client
+        SubscriptionOptions IPositionSocketClient.SubscribePositionOptions { get; } = new SubscriptionOptions("SubscribePositionRequest", true);
+        async Task<ExchangeResult<UpdateSubscription>> IPositionSocketClient.SubscribeToPositionUpdatesAsync(Action<ExchangeEvent<IEnumerable<SharedPosition>>> handler, ApiType? apiType, ExchangeParameters? exchangeParameters, CancellationToken ct)
+        {
+            var validationError = ((IUserTradeSocketClient)this).SubscribeUserTradeOptions.ValidateRequest(Exchange, exchangeParameters, ApiType.Spot, SupportedApiTypes);
+            if (validationError != null)
+                return new ExchangeResult<UpdateSubscription>(Exchange, validationError);
+
+            var marginMode = exchangeParameters.GetValue<SharedMarginMode>(Exchange, "MarginMode");
+            if (marginMode == SharedMarginMode.Cross)
+            {
+                var result = await SubscribeToCrossMarginPositionUpdatesAsync(
+                update => handler(update.AsExchangeEvent(Exchange, update.Data.Data.Select(x => new SharedPosition(x.Symbol, x.Quantity, update.Data.Timestamp)
+                {
+                    AverageEntryPrice = x.PositionPrice,
+                    PositionSide = x.OrderSide == Enums.OrderSide.Sell ? SharedPositionSide.Short : SharedPositionSide.Long,
+                    Leverage = x.LeverageRate,
+                    UnrealizedPnl = x.UnrealizedPnl
+                }))),
+                ct: ct).ConfigureAwait(false);
+                return new ExchangeResult<UpdateSubscription>(Exchange, result);
+            }
+            else
+            {
+                var result = await SubscribeToIsolatedMarginPositionUpdatesAsync(
+                update => handler(update.AsExchangeEvent(Exchange, update.Data.Data.Select(x => new SharedPosition(x.Symbol, x.Quantity, update.Data.Timestamp)
+                {
+                    AverageEntryPrice = x.PositionPrice,
+                    PositionSide = x.OrderSide == Enums.OrderSide.Sell ? SharedPositionSide.Short : SharedPositionSide.Long,
+                    Leverage = x.LeverageRate,
+                    UnrealizedPnl = x.UnrealizedPnl
+                }))),
+                ct: ct).ConfigureAwait(false);
+                return new ExchangeResult<UpdateSubscription>(Exchange, result);
+            }
+        }
+
         #endregion
     }
 }
