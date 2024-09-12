@@ -20,7 +20,7 @@ namespace HTX.Net.Clients.UsdtFutures
         public ApiType[] SupportedApiTypes { get; } = new[] { ApiType.PerpetualLinear, ApiType.DeliveryLinear };
 
         #region Balance Client
-        EndpointOptions IBalanceRestClient.GetBalancesOptions { get; } = new EndpointOptions("GetBalancesRequest", true)
+        EndpointOptions<GetBalancesRequest> IBalanceRestClient.GetBalancesOptions { get; } = new EndpointOptions<GetBalancesRequest>(true)
         {
             RequiredExchangeParameters = new List<ParameterDescription>
             {
@@ -28,9 +28,9 @@ namespace HTX.Net.Clients.UsdtFutures
             }
         };
 
-        async Task<ExchangeWebResult<IEnumerable<SharedBalance>>> IBalanceRestClient.GetBalancesAsync(ApiType? apiType, ExchangeParameters? exchangeParameters, CancellationToken ct)
+        async Task<ExchangeWebResult<IEnumerable<SharedBalance>>> IBalanceRestClient.GetBalancesAsync(GetBalancesRequest request, ExchangeParameters? exchangeParameters, CancellationToken ct)
         {
-            var validationError = ((IBalanceRestClient)this).GetBalancesOptions.ValidateRequest(Exchange, exchangeParameters, apiType, SupportedApiTypes);
+            var validationError = ((IBalanceRestClient)this).GetBalancesOptions.ValidateRequest(Exchange, exchangeParameters, request.ApiType, SupportedApiTypes);
             if (validationError != null)
                 return new ExchangeWebResult<IEnumerable<SharedBalance>>(Exchange, validationError);
 
@@ -80,7 +80,7 @@ namespace HTX.Net.Clients.UsdtFutures
             if (!resultIndex.Result)
                 return resultIndex.Result.AsExchangeResult<SharedFuturesTicker>(Exchange, default);
 
-            return resultTicker.Result.AsExchangeResult(Exchange, new SharedFuturesTicker(symbol, resultTicker.Result.Data.ClosePrice ?? 0, resultTicker.Result.Data.HighPrice ?? 0, resultTicker.Result.Data.LowPrice ?? 0, resultTicker.Result.Data.Volume ?? 0)
+            return resultTicker.Result.AsExchangeResult(Exchange, new SharedFuturesTicker(symbol, resultTicker.Result.Data.ClosePrice ?? 0, resultTicker.Result.Data.HighPrice ?? 0, resultTicker.Result.Data.LowPrice ?? 0, resultTicker.Result.Data.Volume ?? 0, resultTicker.Result.Data.OpenPrice == null ? null : Math.Round(resultTicker.Result.Data.ClosePrice ?? 0 / resultTicker.Result.Data.OpenPrice.Value * 100, 2))
             {
                 IndexPrice = resultIndex.Result.Data.Single().IndexPrice,
                 FundingRate = resultFunding.Result.Data.FundingRate,
@@ -88,10 +88,10 @@ namespace HTX.Net.Clients.UsdtFutures
             });
         }
 
-        EndpointOptions IFuturesTickerRestClient.GetFuturesTickersOptions { get; } = new EndpointOptions("GetTickersRequest", false);
-        async Task<ExchangeWebResult<IEnumerable<SharedFuturesTicker>>> IFuturesTickerRestClient.GetFuturesTickersAsync(ApiType? apiType, ExchangeParameters? exchangeParameters, CancellationToken ct)
+        EndpointOptions<GetTickersRequest> IFuturesTickerRestClient.GetFuturesTickersOptions { get; } = new EndpointOptions<GetTickersRequest>(false);
+        async Task<ExchangeWebResult<IEnumerable<SharedFuturesTicker>>> IFuturesTickerRestClient.GetFuturesTickersAsync(GetTickersRequest request, ExchangeParameters? exchangeParameters, CancellationToken ct)
         {
-            var validationError = ((IFuturesTickerRestClient)this).GetFuturesTickerOptions.ValidateRequest(Exchange, exchangeParameters, apiType, SupportedApiTypes);
+            var validationError = ((IFuturesTickerRestClient)this).GetFuturesTickerOptions.ValidateRequest(Exchange, exchangeParameters, request.ApiType, SupportedApiTypes);
             if (validationError != null)
                 return new ExchangeWebResult<IEnumerable<SharedFuturesTicker>>(Exchange, validationError);
 
@@ -106,7 +106,7 @@ namespace HTX.Net.Clients.UsdtFutures
             return resultTickers.Result.AsExchangeResult<IEnumerable<SharedFuturesTicker>>(Exchange, resultTickers.Result.Data.Select(x =>
             {
                 var funding = resultFunding.Result.Data.SingleOrDefault(p => p.ContractCode == x.ContractCode);
-                return new SharedFuturesTicker(x.ContractCode!, x.ClosePrice ?? 0, x.HighPrice ?? 0, x.LowPrice ?? 0, x.Volume ?? 0)
+                return new SharedFuturesTicker(x.ContractCode!, x.ClosePrice ?? 0, x.HighPrice ?? 0, x.LowPrice ?? 0, x.Volume ?? 0, x.OpenPrice == null ? null : Math.Round(x.ClosePrice ?? 0 / x.OpenPrice.Value * 100, 2))
                 {
                     FundingRate = funding?.FundingRate,
                     NextFundingTime = funding?.FundingTime
@@ -118,10 +118,10 @@ namespace HTX.Net.Clients.UsdtFutures
 
         #region Futures Symbol client
 
-        EndpointOptions IFuturesSymbolRestClient.GetFuturesSymbolsOptions { get; } = new EndpointOptions("GetFuturesSymbolsRequest", false);
-        async Task<ExchangeWebResult<IEnumerable<SharedFuturesSymbol>>> IFuturesSymbolRestClient.GetFuturesSymbolsAsync(ApiType? apiType, ExchangeParameters? exchangeParameters, CancellationToken ct)
+        EndpointOptions<GetFuturesSymbolsRequest> IFuturesSymbolRestClient.GetFuturesSymbolsOptions { get; } = new EndpointOptions<GetFuturesSymbolsRequest>(false);
+        async Task<ExchangeWebResult<IEnumerable<SharedFuturesSymbol>>> IFuturesSymbolRestClient.GetFuturesSymbolsAsync(GetFuturesSymbolsRequest request, ExchangeParameters? exchangeParameters, CancellationToken ct)
         {
-            var validationError = ((IFuturesSymbolRestClient)this).GetFuturesSymbolsOptions.ValidateRequest(Exchange, exchangeParameters, apiType, SupportedApiTypes);
+            var validationError = ((IFuturesSymbolRestClient)this).GetFuturesSymbolsOptions.ValidateRequest(Exchange, exchangeParameters, request.ApiType, SupportedApiTypes);
             if (validationError != null)
                 return new ExchangeWebResult<IEnumerable<SharedFuturesSymbol>>(Exchange, validationError);
 
@@ -129,7 +129,9 @@ namespace HTX.Net.Clients.UsdtFutures
             if (!result)
                 return result.AsExchangeResult<IEnumerable<SharedFuturesSymbol>>(Exchange, default);
 
-            var data = result.Data.Where(x => apiType == ApiType.PerpetualLinear ? x.BusinessType == BusinessType.Swap : x.BusinessType == BusinessType.Futures);
+            var data = result.Data;
+            if (request.ApiType.HasValue)
+                data = data.Where(x => request.ApiType == ApiType.PerpetualLinear ? x.BusinessType == BusinessType.Swap : x.BusinessType == BusinessType.Futures);
             return result.AsExchangeResult(Exchange, data.Select(s => new SharedFuturesSymbol(
                 s.BusinessType == BusinessType.Futures ? SharedSymbolType.DeliveryLinear : SharedSymbolType.PerpetualLinear,
                 s.Asset,
@@ -363,7 +365,7 @@ namespace HTX.Net.Clients.UsdtFutures
             }
         }
 
-        PaginatedEndpointOptions<GetClosedOrdersRequest> IFuturesOrderRestClient.GetClosedFuturesOrdersOptions { get; } = new PaginatedEndpointOptions<GetClosedOrdersRequest>(true, true)
+        PaginatedEndpointOptions<GetClosedOrdersRequest> IFuturesOrderRestClient.GetClosedFuturesOrdersOptions { get; } = new PaginatedEndpointOptions<GetClosedOrdersRequest>(SharedPaginationType.Ascending, true)
         {
             RequiredExchangeParameters = new List<ParameterDescription>
             {
@@ -532,7 +534,7 @@ namespace HTX.Net.Clients.UsdtFutures
             }
         }
 
-        PaginatedEndpointOptions<GetUserTradesRequest> IFuturesOrderRestClient.GetFuturesUserTradesOptions { get; } = new PaginatedEndpointOptions<GetUserTradesRequest>(true, true)
+        PaginatedEndpointOptions<GetUserTradesRequest> IFuturesOrderRestClient.GetFuturesUserTradesOptions { get; } = new PaginatedEndpointOptions<GetUserTradesRequest>(SharedPaginationType.Ascending, true)
         {
             RequiredExchangeParameters = new List<ParameterDescription>
             {
@@ -799,7 +801,7 @@ namespace HTX.Net.Clients.UsdtFutures
 
         #region Klines client
 
-        GetKlinesOptions IKlineRestClient.GetKlinesOptions { get; } = new GetKlinesOptions(true, false)
+        GetKlinesOptions IKlineRestClient.GetKlinesOptions { get; } = new GetKlinesOptions(SharedPaginationType.Descending, false)
         {
             MaxRequestDataPoints = 1000
         };
@@ -846,7 +848,7 @@ namespace HTX.Net.Clients.UsdtFutures
 
         #region Mark Klines client
 
-        GetKlinesOptions IMarkPriceKlineRestClient.GetMarkPriceKlinesOptions { get; } = new GetKlinesOptions(false, false)
+        GetKlinesOptions IMarkPriceKlineRestClient.GetMarkPriceKlinesOptions { get; } = new GetKlinesOptions(SharedPaginationType.Ascending, false)
         {
             MaxTotalDataPoints = 2000
         };
@@ -877,7 +879,7 @@ namespace HTX.Net.Clients.UsdtFutures
 
         #region Index Klines client
 
-        GetKlinesOptions IIndexPriceKlineRestClient.GetIndexPriceKlinesOptions { get; } = new GetKlinesOptions(false, false)
+        GetKlinesOptions IIndexPriceKlineRestClient.GetIndexPriceKlinesOptions { get; } = new GetKlinesOptions(SharedPaginationType.Descending, false)
         {
             MaxTotalDataPoints = 2000
         };
@@ -947,7 +949,7 @@ namespace HTX.Net.Clients.UsdtFutures
         #endregion
 
         #region Funding Rate client
-        GetFundingRateHistoryOptions IFundingRateRestClient.GetFundingRateHistoryOptions { get; } = new GetFundingRateHistoryOptions(false, false);
+        GetFundingRateHistoryOptions IFundingRateRestClient.GetFundingRateHistoryOptions { get; } = new GetFundingRateHistoryOptions(false);
 
         async Task<ExchangeWebResult<IEnumerable<SharedFundingRate>>> IFundingRateRestClient.GetFundingRateHistoryAsync(GetFundingRateHistoryRequest request, INextPageToken? pageToken, ExchangeParameters? exchangeParameters, CancellationToken ct)
         {
@@ -1064,5 +1066,6 @@ namespace HTX.Net.Clients.UsdtFutures
             }
         }
         #endregion
+
     }
 }
