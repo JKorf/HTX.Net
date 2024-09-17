@@ -548,7 +548,7 @@ namespace HTX.Net.Clients.SpotApi
 
             return depositAddresses.AsExchangeResult<IEnumerable<SharedDepositAddress>>(Exchange, depositAddresses.Data.Where(x => request.Network == null ? true : x.Network == request.Network).Select(x => new SharedDepositAddress(x.Asset.ToUpperInvariant(), x.Address)
             {
-                Tag = x.AddressTag
+                TagOrMemo = x.AddressTag
             }
             ));
         }
