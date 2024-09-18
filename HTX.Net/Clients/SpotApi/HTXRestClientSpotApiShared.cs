@@ -18,8 +18,11 @@ namespace HTX.Net.Clients.SpotApi
         public string Exchange => HTXExchange.ExchangeName;
         public ApiType[] SupportedApiTypes { get; } = new[] { ApiType.Spot };
 
+        public void SetDefaultExchangeParameter(string key, object value) => ExchangeParameters.SetStaticParameter(Exchange, key, value);
+        public void ResetDefaultExchangeParameters() => ExchangeParameters.ResetStaticParameters();
+
         #region Kline client
-        GetKlinesOptions IKlineRestClient.GetKlinesOptions { get; } = new GetKlinesOptions(SharedPaginationType.Descending, false)
+        GetKlinesOptions IKlineRestClient.GetKlinesOptions { get; } = new GetKlinesOptions(SharedPaginationType.NotSupported, false)
         {
             MaxTotalDataPoints = 2000
         };
@@ -69,7 +72,7 @@ namespace HTX.Net.Clients.SpotApi
             if (request.Limit.HasValue == true)
                 data = data.Take(request.Limit.Value);
 
-            return result.AsExchangeResult(Exchange, data.Select(x => new SharedKline(x.OpenTime, x.ClosePrice!.Value, x.HighPrice!.Value, x.LowPrice!.Value, x.OpenPrice!.Value, x.Volume!.Value)));
+            return result.AsExchangeResult<IEnumerable<SharedKline>>(Exchange, data.Select(x => new SharedKline(x.OpenTime, x.ClosePrice!.Value, x.HighPrice!.Value, x.LowPrice!.Value, x.OpenPrice!.Value, x.Volume!.Value)).ToArray());
         }
         #endregion
 
@@ -82,19 +85,22 @@ namespace HTX.Net.Clients.SpotApi
             if (validationError != null)
                 return new ExchangeWebResult<IEnumerable<SharedSpotSymbol>>(Exchange, validationError);
 
-            var result = await ExchangeData.GetSymbolsAsync(ct: ct).ConfigureAwait(false);
+            var result = await ExchangeData.GetSymbolConfigAsync(ct: ct).ConfigureAwait(false);
             if (!result)
                 return result.AsExchangeResult<IEnumerable<SharedSpotSymbol>>(Exchange, default);
 
-            return result.AsExchangeResult(Exchange, result.Data.Select(s => new SharedSpotSymbol(
+            return result.AsExchangeResult<IEnumerable<SharedSpotSymbol>>(Exchange, result.Data.Select(s => new SharedSpotSymbol(
                 s.BaseAsset.ToUpperInvariant(),
                 s.QuoteAsset.ToUpperInvariant(),
-                s.Name.ToUpperInvariant(),
-                s.SymbolStatus == SymbolStatus.Online)
+                s.Symbol.ToUpperInvariant(),
+                s.Status == SymbolStatus.Online)
             {
-                QuantityDecimals = (int)s.QuantityPrecision,
-                PriceDecimals = (int)s.PricePrecision
-            }));
+                QuantityDecimals = s.QuantityPrecision,
+                PriceDecimals = s.PricePrecision,
+                MinNotionalValue = s.MinOrderValue,
+                MinTradeQuantity = s.MinOrderQuantity,
+                MaxTradeQuantity = s.MaxOrderQuantity
+            }).ToArray());
         }
 
         #endregion
@@ -113,7 +119,7 @@ namespace HTX.Net.Clients.SpotApi
             if (!result)
                 return result.AsExchangeResult<IEnumerable<SharedSpotTicker>>(Exchange, default);
 
-            return result.AsExchangeResult(Exchange, result.Data.Ticks.Select(x => new SharedSpotTicker(x.Symbol, x.LastTradePrice, x.HighPrice ?? 0, x.LowPrice ?? 0, x.Volume ?? 0, x.OpenPrice == null ? null : Math.Round(x.ClosePrice ?? 0 / x.OpenPrice.Value * 100, 2))));
+            return result.AsExchangeResult<IEnumerable<SharedSpotTicker>>(Exchange, result.Data.Ticks.Select(x => new SharedSpotTicker(x.Symbol.ToUpperInvariant(), x.LastTradePrice, x.HighPrice ?? 0, x.LowPrice ?? 0, x.Volume ?? 0, x.OpenPrice == null ? null : Math.Round((x.ClosePrice ?? 0 / x.OpenPrice.Value) * 100 - 100, 2))).ToArray());
         }
 
         EndpointOptions<GetTickerRequest> ISpotTickerRestClient.GetSpotTickerOptions { get; } = new EndpointOptions<GetTickerRequest>(false);
@@ -130,7 +136,7 @@ namespace HTX.Net.Clients.SpotApi
             if (!result)
                 return result.AsExchangeResult<SharedSpotTicker>(Exchange, default);
 
-            return result.AsExchangeResult(Exchange, new SharedSpotTicker(symbol, result.Data.ClosePrice ?? 0, result.Data.HighPrice ?? 0, result.Data.LowPrice ?? 0, result.Data.Volume ?? 0, result.Data.OpenPrice == null ? null : Math.Round(result.Data.ClosePrice ?? 0 / result.Data.OpenPrice.Value * 100, 2)));
+            return result.AsExchangeResult(Exchange, new SharedSpotTicker(symbol.ToUpperInvariant(), result.Data.ClosePrice ?? 0, result.Data.HighPrice ?? 0, result.Data.LowPrice ?? 0, result.Data.Volume ?? 0, result.Data.OpenPrice == null ? null : Math.Round((result.Data.ClosePrice ?? 0) / result.Data.OpenPrice.Value * 100 - 100, 2)));
         }
 
         #endregion
@@ -146,18 +152,24 @@ namespace HTX.Net.Clients.SpotApi
 
             var result = await ExchangeData.GetTradeHistoryAsync(
                 request.Symbol.GetSymbol(FormatSymbol),
-                limit: request.Limit,
+                limit: request.Limit ?? 100,
                 ct: ct).ConfigureAwait(false);
             if (!result)
                 return result.AsExchangeResult<IEnumerable<SharedTrade>>(Exchange, default);
 
-            return result.AsExchangeResult(Exchange, result.Data.SelectMany(x => x.Details.Select(x => new SharedTrade(x.Quantity, x.Price, x.Timestamp))));
+            return result.AsExchangeResult<IEnumerable<SharedTrade>>(Exchange, result.Data.SelectMany(x => x.Details.Select(x => new SharedTrade(x.Quantity, x.Price, x.Timestamp))).ToArray());
         }
 
         #endregion
 
         #region Balance client
-        EndpointOptions<GetBalancesRequest> IBalanceRestClient.GetBalancesOptions { get; } = new EndpointOptions<GetBalancesRequest>(true);
+        EndpointOptions<GetBalancesRequest> IBalanceRestClient.GetBalancesOptions { get; } = new EndpointOptions<GetBalancesRequest>(true)
+        {
+            RequiredExchangeParameters = new List<ParameterDescription>
+            {
+                new ParameterDescription("AccountId", typeof(long), "Account id of the user", 123123123L)
+            }
+        };
 
         async Task<ExchangeWebResult<IEnumerable<SharedBalance>>> IBalanceRestClient.GetBalancesAsync(GetBalancesRequest request, CancellationToken ct)
         {
@@ -166,17 +178,14 @@ namespace HTX.Net.Clients.SpotApi
                 return new ExchangeWebResult<IEnumerable<SharedBalance>>(Exchange, validationError);
 
             var accountId = await GetAccountId(request.ExchangeParameters, ct).ConfigureAwait(false);
-            if (accountId == null)
-                return new ExchangeWebResult<IEnumerable<SharedBalance>>(Exchange, new ServerError("Failed to retrieve account id"));
-
-            var result = await Account.GetBalancesAsync(accountId.Value, ct: ct).ConfigureAwait(false);
+            var result = await Account.GetBalancesAsync(accountId, ct: ct).ConfigureAwait(false);
             if (!result)
                 return result.AsExchangeResult<IEnumerable<SharedBalance>>(Exchange, default);
 
             var resp = new List<SharedBalance>();
             foreach(var balance in result.Data)
             {
-                var asset = resp.SingleOrDefault(x => x.Asset == balance.Asset);
+                var asset = resp.SingleOrDefault(x => x.Asset == balance.Asset.ToUpperInvariant());
                 if (asset == null)
                 {
                     asset = new SharedBalance(balance.Asset.ToUpperInvariant(), 0, 0);
@@ -220,6 +229,9 @@ namespace HTX.Net.Clients.SpotApi
                 SharedQuantityType.QuoteAsset,
                 SharedQuantityType.BaseAsset));
 
+        SharedFeeDeductionType ISpotOrderRestClient.SpotFeeDeductionType => SharedFeeDeductionType.DeductFromOutput;
+        SharedFeeAssetType ISpotOrderRestClient.SpotFeeAssetType => SharedFeeAssetType.OutputAsset;
+
         async Task<ExchangeWebResult<SharedId>> ISpotOrderRestClient.PlaceSpotOrderAsync(PlaceSpotOrderRequest request, CancellationToken ct)
         {
             var validationError = ((ISpotOrderRestClient)this).PlaceSpotOrderOptions.ValidateRequest(Exchange, request, request.Symbol.ApiType, SupportedApiTypes);
@@ -227,15 +239,13 @@ namespace HTX.Net.Clients.SpotApi
                 return new ExchangeWebResult<SharedId>(Exchange, validationError);
 
             var accountId = await GetAccountId(request.ExchangeParameters, ct).ConfigureAwait(false);
-            if (accountId == null)
-                return new ExchangeWebResult<SharedId>(Exchange, new ServerError("Failed to retrieve account id"));
 
             var quantity = request.Quantity ?? 0;
             if (request.OrderType == SharedOrderType.Market && request.Side == SharedOrderSide.Buy)
                 quantity = request.QuoteQuantity ?? 0;
 
             var result = await Trading.PlaceOrderAsync(
-                accountId.Value,
+                accountId,
                 request.Symbol.GetSymbol(FormatSymbol),
                 request.Side == SharedOrderSide.Buy ? Enums.OrderSide.Buy : Enums.OrderSide.Sell,
                 GetPlaceOrderType(request.OrderType, request.TimeInForce),
@@ -294,7 +304,7 @@ namespace HTX.Net.Clients.SpotApi
             if (!order)
                 return order.AsExchangeResult<IEnumerable<SharedSpotOrder>>(Exchange, default);
 
-            return order.AsExchangeResult(Exchange, order.Data.Select(x => new SharedSpotOrder(
+            return order.AsExchangeResult<IEnumerable<SharedSpotOrder>>(Exchange, order.Data.Select(x => new SharedSpotOrder(
                 x.Symbol,
                 x.Id.ToString(),
                 ParseOrderType(x.Type),
@@ -310,7 +320,7 @@ namespace HTX.Net.Clients.SpotApi
                 QuoteQuantity = x.Type == OrderType.Market && x.Side == OrderSide.Buy ? x.Quantity : null,
                 QuoteQuantityFilled = x.QuoteQuantityFilled,
                 TimeInForce = ParseTimeInForce(x.Type)
-            }));
+            }).ToArray());
         }
 
         PaginatedEndpointOptions<GetClosedOrdersRequest> ISpotOrderRestClient.GetClosedSpotOrdersOptions { get; } = new PaginatedEndpointOptions<GetClosedOrdersRequest>(SharedPaginationType.Ascending, true);
@@ -330,7 +340,7 @@ namespace HTX.Net.Clients.SpotApi
             if (!order)
                 return order.AsExchangeResult<IEnumerable<SharedSpotOrder>>(Exchange, default);
 
-            return order.AsExchangeResult(Exchange, order.Data.Select(x => new SharedSpotOrder(
+            return order.AsExchangeResult<IEnumerable<SharedSpotOrder>>(Exchange, order.Data.Select(x => new SharedSpotOrder(
                 x.Symbol,
                 x.Id.ToString(),
                 ParseOrderType(x.Type),
@@ -346,7 +356,7 @@ namespace HTX.Net.Clients.SpotApi
                 QuoteQuantity = x.Type == OrderType.Market && x.Side == OrderSide.Buy ? x.Quantity : null,
                 QuoteQuantityFilled = x.QuoteQuantityFilled,
                 TimeInForce = ParseTimeInForce(x.Type)
-            }));
+            }).ToArray());
         }
 
         EndpointOptions<GetOrderTradesRequest> ISpotOrderRestClient.GetSpotOrderTradesOptions { get; } = new EndpointOptions<GetOrderTradesRequest>(true);
@@ -363,7 +373,7 @@ namespace HTX.Net.Clients.SpotApi
             if (!order)
                 return order.AsExchangeResult<IEnumerable<SharedUserTrade>>(Exchange, default);
 
-            return order.AsExchangeResult(Exchange, order.Data.Select(x => new SharedUserTrade(
+            return order.AsExchangeResult<IEnumerable<SharedUserTrade>>(Exchange, order.Data.Select(x => new SharedUserTrade(
                 x.Symbol,
                 x.OrderId.ToString(),
                 x.Id.ToString(),
@@ -374,7 +384,7 @@ namespace HTX.Net.Clients.SpotApi
                 Fee = x.Fee,
                 FeeAsset = x.FeeAsset,
                 Role = x.Role == OrderRole.Taker ? SharedRole.Taker : SharedRole.Maker
-            }));
+            }).ToArray());
         }
 
         PaginatedEndpointOptions<GetUserTradesRequest> ISpotOrderRestClient.GetSpotUserTradesOptions { get; } = new PaginatedEndpointOptions<GetUserTradesRequest>(SharedPaginationType.Ascending, true);
@@ -404,7 +414,7 @@ namespace HTX.Net.Clients.SpotApi
             if (order.Data.Count() == (request.Limit ?? 100))
                 nextToken = new FromIdToken(order.Data.Max(o => o.TradeId).ToString());
 
-            return order.AsExchangeResult(Exchange, order.Data.Select(x => new SharedUserTrade(
+            return order.AsExchangeResult<IEnumerable<SharedUserTrade>>(Exchange, order.Data.Select(x => new SharedUserTrade(
                 x.Symbol,
                 x.OrderId.ToString(),
                 x.Id.ToString(),
@@ -415,7 +425,7 @@ namespace HTX.Net.Clients.SpotApi
                 Fee = x.Fee,
                 FeeAsset = x.FeeAsset,
                 Role = x.Role == OrderRole.Taker ? SharedRole.Taker: SharedRole.Maker
-            }), nextToken);
+            }).ToArray(), nextToken);
         }
 
         EndpointOptions<CancelOrderRequest> ISpotOrderRestClient.CancelSpotOrderOptions { get; } = new EndpointOptions<CancelOrderRequest>(true);
@@ -501,7 +511,7 @@ namespace HTX.Net.Clients.SpotApi
                     MaxWithdrawQuantity = x.MaxWithdrawQuantity,
                     WithdrawEnabled = x.WithdrawStatus == NetworkStatus.Allowed,
                     WithdrawFee = x.FixedWithdrawFee
-                })
+                }).ToArray()
             });
         }
 
@@ -516,7 +526,7 @@ namespace HTX.Net.Clients.SpotApi
             if (!assets)
                 return assets.AsExchangeResult<IEnumerable<SharedAsset>>(Exchange, default);
 
-            return assets.AsExchangeResult(Exchange, assets.Data.Select(x => new SharedAsset(x.Asset.ToUpperInvariant())
+            return assets.AsExchangeResult<IEnumerable<SharedAsset>>(Exchange, assets.Data.Select(x => new SharedAsset(x.Asset.ToUpperInvariant())
             {
                 Networks = x.Networks.Select(x => new SharedAssetNetwork(x.Network)
                 {
@@ -527,8 +537,8 @@ namespace HTX.Net.Clients.SpotApi
                     MaxWithdrawQuantity = x.MaxWithdrawQuantity,
                     WithdrawEnabled = x.WithdrawStatus == NetworkStatus.Allowed,
                     WithdrawFee = x.FixedWithdrawFee
-                })
-            }));
+                }).ToArray()
+            }).ToArray());
         }
 
         #endregion
@@ -548,9 +558,10 @@ namespace HTX.Net.Clients.SpotApi
 
             return depositAddresses.AsExchangeResult<IEnumerable<SharedDepositAddress>>(Exchange, depositAddresses.Data.Where(x => request.Network == null ? true : x.Network == request.Network).Select(x => new SharedDepositAddress(x.Asset.ToUpperInvariant(), x.Address)
             {
+                Network = x.Network,
                 TagOrMemo = x.AddressTag
             }
-            ));
+            ).ToArray());
         }
 
         GetDepositsOptions IDepositRestClient.GetDepositsOptions { get; } = new GetDepositsOptions(SharedPaginationType.Descending, false);
@@ -571,6 +582,7 @@ namespace HTX.Net.Clients.SpotApi
                 request.Asset,
                 from: from,
                 size: request.Limit ?? 100,
+                direction: FilterDirection.Next,
                 ct: ct).ConfigureAwait(false);
             if (!deposits)
                 return deposits.AsExchangeResult<IEnumerable<SharedDeposit>>(Exchange, default);
@@ -578,14 +590,15 @@ namespace HTX.Net.Clients.SpotApi
             // Determine next token
             FromIdToken? nextToken = null;
             if (deposits.Data.Count() == (request.Limit ?? 100))
-                nextToken = new FromIdToken(deposits.Data.Min(x => x.Id).ToString());
+                nextToken = new FromIdToken(deposits.Data.Min(x => x.Id - 1).ToString());
 
-            return deposits.AsExchangeResult(Exchange, deposits.Data.Select(x => new SharedDeposit(x.Asset!.ToUpperInvariant(), x.Quantity, x.Status == WithdrawDepositStatus.Confirmed, x.CreateTime)
+            return deposits.AsExchangeResult<IEnumerable<SharedDeposit>>(Exchange, deposits.Data.Select(x => new SharedDeposit(x.Asset!.ToUpperInvariant(), x.Quantity, x.Status == WithdrawDepositStatus.Confirmed, x.CreateTime)
             {
+                Id = x.Id.ToString(),
                 Network = x.Network,
                 TransactionId = x.TransactionHash,
                 Tag = x.AddressTag
-            }), nextToken);
+            }).ToArray(), nextToken);
         }
 
         #endregion
@@ -631,6 +644,7 @@ namespace HTX.Net.Clients.SpotApi
                 request.Asset,
                 from: from,
                 size: request.Limit ?? 100,
+                direction: FilterDirection.Next,
                 ct: ct).ConfigureAwait(false);
             if (!deposits)
                 return deposits.AsExchangeResult<IEnumerable<SharedWithdrawal>>(Exchange, default);
@@ -638,15 +652,16 @@ namespace HTX.Net.Clients.SpotApi
             // Determine next token
             FromIdToken? nextToken = null;
             if (deposits.Data.Count() == (request.Limit ?? 100))
-                nextToken = new FromIdToken(deposits.Data.Min(x => x.Id).ToString());
+                nextToken = new FromIdToken(deposits.Data.Min(x => x.Id - 1).ToString());
 
-            return deposits.AsExchangeResult(Exchange, deposits.Data.Select(x => new SharedWithdrawal(x.Asset!.ToUpperInvariant(), x.Address!, x.Quantity, x.Status == WithdrawDepositStatus.Confirmed, x.CreateTime)
+            return deposits.AsExchangeResult<IEnumerable<SharedWithdrawal>>(Exchange, deposits.Data.Select(x => new SharedWithdrawal(x.Asset!.ToUpperInvariant(), x.Address!, x.Quantity, x.Status == WithdrawDepositStatus.Confirmed, x.CreateTime)
             {
+                Id = x.Id.ToString(),
                 Network = x.Network,
                 TransactionId = x.TransactionHash,
                 Tag = x.AddressTag,
                 Fee = x.Fee
-            }), nextToken);
+            }).ToArray(), nextToken);
         }
 
         #endregion
@@ -682,21 +697,7 @@ namespace HTX.Net.Clients.SpotApi
 
         #endregion
 
-        private async ValueTask<long?> GetAccountId(ExchangeParameters? exchangeParameters, CancellationToken ct)
-        {
-            var accountId = exchangeParameters?.GetValue<long?>(Exchange, "accountId");
-            if (accountId != null)
-                return accountId;
-
-            if (_accountId != null)
-                return _accountId;
-
-            var accounts = await Account.GetAccountsAsync(ct).ConfigureAwait(false);
-            if (!accounts)
-                return default;
-
-            _accountId = accounts.Data.First(f => f.Type == Enums.AccountType.Spot).Id;
-            return _accountId;
-        }
+        private async ValueTask<long> GetAccountId(ExchangeParameters? exchangeParameters, CancellationToken ct)
+            => ExchangeParameters.GetValue<long>(exchangeParameters, Exchange, "AccountId");
     }
 }

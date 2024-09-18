@@ -20,6 +20,9 @@ namespace HTX.Net.Clients.UsdtFutures
         public string Exchange => HTXExchange.ExchangeName;
         public ApiType[] SupportedApiTypes { get; } = new[] { ApiType.PerpetualLinear, ApiType.DeliveryLinear };
 
+        public void SetDefaultExchangeParameter(string key, object value) => ExchangeParameters.SetStaticParameter(Exchange, key, value);
+        public void ResetDefaultExchangeParameters() => ExchangeParameters.ResetStaticParameters();
+
         #region Ticker client
         SubscriptionOptions<SubscribeTickerRequest> ITickerSocketClient.SubscribeTickerOptions { get; } = new SubscriptionOptions<SubscribeTickerRequest>(false);
         async Task<ExchangeResult<UpdateSubscription>> ITickerSocketClient.SubscribeToTickerUpdatesAsync(SubscribeTickerRequest request, Action<ExchangeEvent<SharedSpotTicker>> handler, CancellationToken ct)
@@ -116,7 +119,7 @@ namespace HTX.Net.Clients.UsdtFutures
             if (validationError != null)
                 return new ExchangeResult<UpdateSubscription>(Exchange, validationError);
 
-            var marginMode = request.ExchangeParameters.GetValue<SharedMarginMode>(Exchange, "MarginMode");
+            var marginMode = ExchangeParameters.GetValue<SharedMarginMode>(request.ExchangeParameters, Exchange, "MarginMode");
             if (marginMode == SharedMarginMode.Cross)
             {
                 var result = await SubscribeToCrossMarginBalanceUpdatesAsync(
@@ -153,7 +156,7 @@ namespace HTX.Net.Clients.UsdtFutures
             if (validationError != null)
                 return new ExchangeResult<UpdateSubscription>(Exchange, validationError);
 
-            var marginMode = request.ExchangeParameters.GetValue<SharedMarginMode>(Exchange, "MarginMode");
+            var marginMode = ExchangeParameters.GetValue<SharedMarginMode>(request.ExchangeParameters, Exchange, "MarginMode");
             var result = await SubscribeToOrderUpdatesAsync(marginMode == SharedMarginMode.Cross ? MarginMode.Cross : MarginMode.Isolated,
                 update => {
                     var lastTrade = update.Data.Trade?.OrderByDescending(x => x.TradeId).FirstOrDefault();
@@ -245,7 +248,7 @@ namespace HTX.Net.Clients.UsdtFutures
             if (validationError != null)
                 return new ExchangeResult<UpdateSubscription>(Exchange, validationError);
 
-            var marginMode = request.ExchangeParameters.GetValue<SharedMarginMode>(Exchange, "MarginMode");
+            var marginMode = ExchangeParameters.GetValue<SharedMarginMode>(request.ExchangeParameters, Exchange, "MarginMode");
             if (marginMode == SharedMarginMode.Cross)
             {
                 var result = await SubscribeToCrossMarginUserTradeUpdatesAsync(
@@ -301,7 +304,7 @@ namespace HTX.Net.Clients.UsdtFutures
             if (validationError != null)
                 return new ExchangeResult<UpdateSubscription>(Exchange, validationError);
 
-            var marginMode = request.ExchangeParameters.GetValue<SharedMarginMode>(Exchange, "MarginMode");
+            var marginMode = ExchangeParameters.GetValue<SharedMarginMode>(request.ExchangeParameters, Exchange, "MarginMode");
             if (marginMode == SharedMarginMode.Cross)
             {
                 var result = await SubscribeToCrossMarginPositionUpdatesAsync(
