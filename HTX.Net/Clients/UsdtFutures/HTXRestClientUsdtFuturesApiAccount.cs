@@ -326,8 +326,7 @@ namespace HTX.Net.Clients.UsdtFutures
                 { "position_mode", EnumConverter.GetString(positionMode) },
             };
             var request = _definitions.GetOrCreate(HttpMethod.Post, "linear-swap-api/v1/swap_switch_position_mode", HTXExchange.RateLimiter.EndpointLimit, 1, true);
-            var result = await _baseClient.SendBasicAsync<IEnumerable<HTXPositionMode>>(request, parameters, ct).ConfigureAwait(false);
-            return result.As<HTXPositionMode>(result.Data?.First());
+            return await _baseClient.SendBasicAsync<HTXPositionMode>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -343,8 +342,7 @@ namespace HTX.Net.Clients.UsdtFutures
                 { "position_mode", EnumConverter.GetString(positionMode) },
             };
             var request = _definitions.GetOrCreate(HttpMethod.Post, "linear-swap-api/v1/swap_cross_switch_position_mode", HTXExchange.RateLimiter.EndpointLimit, 1, true);
-            var result = await _baseClient.SendBasicAsync<IEnumerable<HTXPositionMode>>(request, parameters, ct).ConfigureAwait(false);
-            return result.As<HTXPositionMode>(result.Data?.First());
+            return await _baseClient.SendBasicAsync<HTXPositionMode>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion

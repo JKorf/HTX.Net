@@ -274,7 +274,7 @@ namespace HTX.Net.Clients.SpotApi
                 return order.AsExchangeResult<SharedSpotOrder>(Exchange, default);
 
             return order.AsExchangeResult(Exchange, new SharedSpotOrder(
-                order.Data.Symbol,
+                order.Data.Symbol.ToUpperInvariant(),
                 order.Data.Id.ToString(),
                 ParseOrderType(order.Data.Type),
                 order.Data.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
@@ -305,7 +305,7 @@ namespace HTX.Net.Clients.SpotApi
                 return order.AsExchangeResult<IEnumerable<SharedSpotOrder>>(Exchange, default);
 
             return order.AsExchangeResult<IEnumerable<SharedSpotOrder>>(Exchange, order.Data.Select(x => new SharedSpotOrder(
-                x.Symbol,
+                x.Symbol.ToUpperInvariant(),
                 x.Id.ToString(),
                 ParseOrderType(x.Type),
                 x.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
@@ -323,25 +323,35 @@ namespace HTX.Net.Clients.SpotApi
             }).ToArray());
         }
 
-        PaginatedEndpointOptions<GetClosedOrdersRequest> ISpotOrderRestClient.GetClosedSpotOrdersOptions { get; } = new PaginatedEndpointOptions<GetClosedOrdersRequest>(SharedPaginationType.Ascending, true);
+        PaginatedEndpointOptions<GetClosedOrdersRequest> ISpotOrderRestClient.GetClosedSpotOrdersOptions { get; } = new PaginatedEndpointOptions<GetClosedOrdersRequest>(SharedPaginationType.Descending, true);
         async Task<ExchangeWebResult<IEnumerable<SharedSpotOrder>>> ISpotOrderRestClient.GetClosedSpotOrdersAsync(GetClosedOrdersRequest request, INextPageToken? pageToken, CancellationToken ct)
         {
             var validationError = ((ISpotOrderRestClient)this).GetClosedSpotOrdersOptions.ValidateRequest(Exchange, request, request.Symbol.ApiType, SupportedApiTypes);
             if (validationError != null)
                 return new ExchangeWebResult<IEnumerable<SharedSpotOrder>>(Exchange, validationError);
 
-#warning pagination?
+            long? fromId = null;
+            if (pageToken is FromIdToken fromToken)
+                fromId = long.Parse(fromToken.FromToken);
 
+            var limit = request.Limit ?? 100;
             var order = await Trading.GetClosedOrdersAsync(
                 request.Symbol.GetSymbol(FormatSymbol),
                 startTime: request.StartTime,
                 endTime: request.EndTime,
-                limit: request.Limit).ConfigureAwait(false);
+                direction: FilterDirection.Next,
+                fromId: fromId,
+                limit: limit).ConfigureAwait(false);
             if (!order)
                 return order.AsExchangeResult<IEnumerable<SharedSpotOrder>>(Exchange, default);
 
-            return order.AsExchangeResult<IEnumerable<SharedSpotOrder>>(Exchange, order.Data.Select(x => new SharedSpotOrder(
-                x.Symbol,
+            var data = order.Data.Where(x => x.Id != long.Parse((pageToken as FromIdToken)?.FromToken ?? "0"));
+            FromIdToken? nextToken = null;
+            if (order.Data.Count() == limit)
+                nextToken = new FromIdToken(data.Min(x => x.Id).ToString());
+
+            return order.AsExchangeResult<IEnumerable<SharedSpotOrder>>(Exchange, data.Select(x => new SharedSpotOrder(
+                x.Symbol.ToUpperInvariant(),
                 x.Id.ToString(),
                 ParseOrderType(x.Type),
                 x.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
@@ -356,7 +366,7 @@ namespace HTX.Net.Clients.SpotApi
                 QuoteQuantity = x.Type == OrderType.Market && x.Side == OrderSide.Buy ? x.Quantity : null,
                 QuoteQuantityFilled = x.QuoteQuantityFilled,
                 TimeInForce = ParseTimeInForce(x.Type)
-            }).ToArray());
+            }).ToArray(), nextToken);
         }
 
         EndpointOptions<GetOrderTradesRequest> ISpotOrderRestClient.GetSpotOrderTradesOptions { get; } = new EndpointOptions<GetOrderTradesRequest>(true);
@@ -374,7 +384,7 @@ namespace HTX.Net.Clients.SpotApi
                 return order.AsExchangeResult<IEnumerable<SharedUserTrade>>(Exchange, default);
 
             return order.AsExchangeResult<IEnumerable<SharedUserTrade>>(Exchange, order.Data.Select(x => new SharedUserTrade(
-                x.Symbol,
+                x.Symbol.ToUpperInvariant(),
                 x.OrderId.ToString(),
                 x.Id.ToString(),
                 x.Quantity,
@@ -400,24 +410,27 @@ namespace HTX.Net.Clients.SpotApi
                 fromId = long.Parse(fromIdToken.FromToken);
 
             // Get data
+            var limit = request.Limit ?? 100;
             var order = await Trading.GetUserTradesAsync(
                 request.Symbol.GetSymbol(FormatSymbol),
                 startTime: request.StartTime,
                 endTime: request.EndTime,
                 fromId: fromId,
-                limit: request.Limit).ConfigureAwait(false);
+                direction: FilterDirection.Next,
+                limit: limit).ConfigureAwait(false);
             if (!order)
                 return order.AsExchangeResult<IEnumerable<SharedUserTrade>>(Exchange, default);
 
             // Get next token
+            var data = order.Data.Where(x => x.Id != long.Parse((pageToken as FromIdToken)?.FromToken ?? "0"));
             FromIdToken? nextToken = null;
-            if (order.Data.Count() == (request.Limit ?? 100))
-                nextToken = new FromIdToken(order.Data.Max(o => o.TradeId).ToString());
+            if (order.Data.Count() == limit)
+                nextToken = new FromIdToken(data.Min(o => o.Id).ToString());
 
-            return order.AsExchangeResult<IEnumerable<SharedUserTrade>>(Exchange, order.Data.Select(x => new SharedUserTrade(
-                x.Symbol,
+            return order.AsExchangeResult<IEnumerable<SharedUserTrade>>(Exchange, data.Select(x => new SharedUserTrade(
+                x.Symbol.ToUpperInvariant(),
                 x.OrderId.ToString(),
-                x.Id.ToString(),
+                x.TradeId.ToString(),
                 x.Quantity,
                 x.Price,
                 x.Timestamp)

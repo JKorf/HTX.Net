@@ -124,7 +124,7 @@ namespace HTX.Net.Clients.SpotApi
                 return new ExchangeResult<UpdateSubscription>(Exchange, validationError);
 
             var result = await SubscribeToAccountUpdatesAsync(
-                update => handler(update.AsExchangeEvent<IEnumerable<SharedBalance>>(Exchange, new[] { new SharedBalance(update.Data.Asset, update.Data.Available ?? 0, update.Data.Balance ?? 0) })),
+                update => handler(update.AsExchangeEvent<IEnumerable<SharedBalance>>(Exchange, new[] { new SharedBalance(update.Data.Asset, update.Data.Available ?? 0, update.Data.Balance ?? update.Data.Available ?? 0) })),
                 ct: ct).ConfigureAwait(false);
 
             return new ExchangeResult<UpdateSubscription>(Exchange, result);
@@ -161,7 +161,7 @@ namespace HTX.Net.Clients.SpotApi
                 null,
                 update => handler(update.AsExchangeEvent<IEnumerable<SharedUserTrade>>(Exchange, new[] {
                     new SharedUserTrade(
-                        update.Data.Symbol,
+                        update.Data.Symbol.ToUpperInvariant(),
                         update.Data.OrderId.ToString(),
                         update.Data.Id.ToString(),
                         update.Data.Quantity,
@@ -184,7 +184,7 @@ namespace HTX.Net.Clients.SpotApi
             if (orderUpdate is HTXSubmittedOrderUpdate update)
             {
                 return new SharedSpotOrder(
-                            update.Symbol,
+                            update.Symbol.ToUpperInvariant(),
                             update.OrderId.ToString(),
                             update.Type == Enums.OrderType.Limit ? CryptoExchange.Net.SharedApis.Enums.SharedOrderType.Limit : update.Type == Enums.OrderType.Market ? CryptoExchange.Net.SharedApis.Enums.SharedOrderType.Market : CryptoExchange.Net.SharedApis.Enums.SharedOrderType.Other,
                             update.Side == Enums.OrderSide.Buy ? CryptoExchange.Net.SharedApis.Enums.SharedOrderSide.Buy : CryptoExchange.Net.SharedApis.Enums.SharedOrderSide.Sell,
@@ -194,6 +194,7 @@ namespace HTX.Net.Clients.SpotApi
                     ClientOrderId = update.ClientOrderId,
                     Quantity = update.Quantity,
                     QuantityFilled = 0,
+                    QuoteQuantity = update.QuoteQuantity,
                     QuoteQuantityFilled = 0,
                     UpdateTime = update.UpdateTime,
                     Price = update.Price,
@@ -203,7 +204,7 @@ namespace HTX.Net.Clients.SpotApi
             if (orderUpdate is HTXMatchedOrderUpdate matchUpdate)
             {
                 return new SharedSpotOrder(
-                            matchUpdate.Symbol,
+                            matchUpdate.Symbol.ToUpperInvariant(),
                             matchUpdate.OrderId.ToString(),
                             matchUpdate.Type == Enums.OrderType.Limit ? CryptoExchange.Net.SharedApis.Enums.SharedOrderType.Limit : matchUpdate.Type == Enums.OrderType.Market ? CryptoExchange.Net.SharedApis.Enums.SharedOrderType.Market : CryptoExchange.Net.SharedApis.Enums.SharedOrderType.Other,
                             matchUpdate.Side == Enums.OrderSide.Buy ? CryptoExchange.Net.SharedApis.Enums.SharedOrderSide.Buy : CryptoExchange.Net.SharedApis.Enums.SharedOrderSide.Sell,
@@ -212,12 +213,12 @@ namespace HTX.Net.Clients.SpotApi
                 {
                     ClientOrderId = matchUpdate.ClientOrderId,
                     Quantity = matchUpdate.Type == Enums.OrderType.Market && matchUpdate.Side == Enums.OrderSide.Buy ? null : matchUpdate.Quantity,
-                    QuantityFilled = matchUpdate.Type == Enums.OrderType.Market && matchUpdate.Side == Enums.OrderSide.Buy ? null : matchUpdate.Quantity - matchUpdate.QuantityRemaining,
-                    QuoteQuantity = matchUpdate.Type == Enums.OrderType.Market && matchUpdate.Side == Enums.OrderSide.Buy ? matchUpdate.Quantity : null,
-                    QuoteQuantityFilled = matchUpdate.Type == Enums.OrderType.Market && matchUpdate.Side == Enums.OrderSide.Buy ? matchUpdate.Quantity - matchUpdate.QuantityRemaining : null,
+                    QuantityFilled = matchUpdate.Type == Enums.OrderType.Market && matchUpdate.Side == Enums.OrderSide.Buy ? null : matchUpdate.QuantityFilled,
+                    QuoteQuantity = matchUpdate.QuoteQuantity,
+                    QuoteQuantityFilled = matchUpdate.Type == Enums.OrderType.Market && matchUpdate.Side == Enums.OrderSide.Buy ? matchUpdate.QuantityFilled : null,
                     UpdateTime = matchUpdate.UpdateTime,
                     Price = matchUpdate.Price,
-                    LastTrade = new SharedUserTrade(matchUpdate.Symbol, matchUpdate.OrderId.ToString(), matchUpdate.TradeId.ToString(), matchUpdate.TradeQuantity, matchUpdate.TradePrice, matchUpdate.TradeTime)
+                    LastTrade = new SharedUserTrade(matchUpdate.Symbol.ToUpperInvariant(), matchUpdate.OrderId.ToString(), matchUpdate.TradeId.ToString(), matchUpdate.TradeQuantity, matchUpdate.TradePrice, matchUpdate.TradeTime)
                     {
                         Role = matchUpdate.IsTaker ? SharedRole.Taker : SharedRole.Maker
                     }
@@ -227,7 +228,7 @@ namespace HTX.Net.Clients.SpotApi
             if (orderUpdate is HTXCanceledOrderUpdate cancelUpdate)
             {
                 return new SharedSpotOrder(
-                            cancelUpdate.Symbol,
+                            cancelUpdate.Symbol.ToUpperInvariant(),
                             cancelUpdate.OrderId.ToString(),
                             cancelUpdate.Type == Enums.OrderType.Limit ? CryptoExchange.Net.SharedApis.Enums.SharedOrderType.Limit : cancelUpdate.Type == Enums.OrderType.Market ? CryptoExchange.Net.SharedApis.Enums.SharedOrderType.Market : CryptoExchange.Net.SharedApis.Enums.SharedOrderType.Other,
                             cancelUpdate.Side == Enums.OrderSide.Buy ? CryptoExchange.Net.SharedApis.Enums.SharedOrderSide.Buy : CryptoExchange.Net.SharedApis.Enums.SharedOrderSide.Sell,

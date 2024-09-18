@@ -10150,6 +10150,11 @@
             Order source
             </summary>
         </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXMatchedOrderUpdate.QuoteQuantity">
+            <summary>
+            Value of the order
+            </summary>
+        </member>
         <member name="T:HTX.Net.Objects.Models.Socket.HTXCanceledOrderUpdate">
             <summary>
             Canceled order update

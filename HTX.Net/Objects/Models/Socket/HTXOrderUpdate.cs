@@ -176,6 +176,11 @@ namespace HTX.Net.Objects.Models.Socket
         /// </summary>
         [JsonPropertyName("orderSource")]
         public string OrderSource { get; set; } = string.Empty;
+        /// <summary>
+        /// Value of the order
+        /// </summary>
+        [JsonPropertyName("orderValue")]
+        public decimal? QuoteQuantity { get; set; }
     }
 
     /// <summary>

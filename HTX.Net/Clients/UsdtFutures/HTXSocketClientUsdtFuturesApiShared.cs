@@ -32,7 +32,7 @@ namespace HTX.Net.Clients.UsdtFutures
                 return new ExchangeResult<UpdateSubscription>(Exchange, validationError);
 
             var symbol = request.Symbol.GetSymbol(FormatSymbol);
-            var result = await SubscribeToTickerUpdatesAsync(symbol, update => handler(update.AsExchangeEvent(Exchange, new SharedSpotTicker(symbol, update.Data.ClosePrice, update.Data.HighPrice ?? 0, update.Data.LowPrice ?? 0, update.Data.Volume ?? 0, update.Data.OpenPrice == null ? null : Math.Round(update.Data.ClosePrice ?? 0 / update.Data.OpenPrice.Value * 100, 2))))).ConfigureAwait(false);
+            var result = await SubscribeToTickerUpdatesAsync(symbol, update => handler(update.AsExchangeEvent(Exchange, new SharedSpotTicker(symbol, update.Data.ClosePrice, update.Data.HighPrice ?? 0, update.Data.LowPrice ?? 0, update.Data.Volume ?? 0, update.Data.OpenPrice == null ? null : Math.Round((update.Data.ClosePrice ?? 0) / update.Data.OpenPrice.Value * 100 - 100, 2))))).ConfigureAwait(false);
 
             return new ExchangeResult<UpdateSubscription>(Exchange, result);
         }
@@ -123,16 +123,15 @@ namespace HTX.Net.Clients.UsdtFutures
             if (marginMode == SharedMarginMode.Cross)
             {
                 var result = await SubscribeToCrossMarginBalanceUpdatesAsync(
-                    update => handler(update.AsExchangeEvent<IEnumerable<SharedBalance>>(Exchange, update.Data.Data.Select(x => new SharedBalance(x.MarginAsset, x.MarginBalance, x.MarginBalance + x.MarginFrozen) ))),
+                    update => handler(update.AsExchangeEvent<IEnumerable<SharedBalance>>(Exchange, update.Data.Data.Select(x => new SharedBalance(x.MarginAsset, x.MarginBalance - x.MarginFrozen, x.MarginBalance) ).ToArray())),
                     ct: ct).ConfigureAwait(false);
 
                 return new ExchangeResult<UpdateSubscription>(Exchange, result);
             }
             else
             {
-#warning This uses Asset instead of MarginAsset for cross, correct?
                 var result = await SubscribeToIsolatedMarginBalanceUpdatesAsync(
-                    update => handler(update.AsExchangeEvent<IEnumerable<SharedBalance>>(Exchange, update.Data.Data.Select(x => new SharedBalance(x.Asset, x.MarginBalance, x.MarginBalance + x.MarginFrozen)))),
+                    update => handler(update.AsExchangeEvent<IEnumerable<SharedBalance>>(Exchange, update.Data.Data.Select(x => new SharedBalance(x.Asset, x.MarginBalance - x.MarginFrozen, x.MarginBalance) { IsolatedMarginAsset = x.MarginAccount }).ToArray())),
                     ct: ct).ConfigureAwait(false);
 
                 return new ExchangeResult<UpdateSubscription>(Exchange, result);
