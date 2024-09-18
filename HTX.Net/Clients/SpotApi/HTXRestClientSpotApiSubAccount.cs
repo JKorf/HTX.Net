@@ -210,7 +210,7 @@ namespace HTX.Net.Clients.SpotApi
 
             var request = _definitions.GetOrCreate(HttpMethod.Post, $"v1/subuser/transfer", HTXExchange.RateLimiter.EndpointLimit, 1, true,
                 new SingleLimitGuard(2, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
-            return await _baseClient.SendBasicAsync<long>(request, null, ct).ConfigureAwait(false);
+            return await _baseClient.SendBasicAsync<long>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
