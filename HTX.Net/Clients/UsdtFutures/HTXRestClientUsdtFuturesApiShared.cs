@@ -172,7 +172,7 @@ namespace HTX.Net.Clients.UsdtFutures
                 SharedQuantityType.BaseAsset,
                 SharedQuantityType.BaseAsset))
         {
-            ExchangeRequestInfo = "ClientOrderId can only be an integer",
+            RequestNotes = "ClientOrderId can only be an integer",
             RequiredExchangeParameters = new List<ParameterDescription>
             {
                 new ParameterDescription(nameof(PlaceFuturesOrderRequest.MarginMode), typeof(SharedMarginMode), "The margin mode", SharedMarginMode.Cross)
@@ -1056,7 +1056,7 @@ namespace HTX.Net.Clients.UsdtFutures
                 if (!result)
                     return result.AsExchangeResult<SharedPositionModeResult>(Exchange, default);
 
-                return result.AsExchangeResult(Exchange, new SharedPositionModeResult(result.Data.PositionMode == PositionMode.DualSide ? SharedPositionMode.LongShort : SharedPositionMode.OneWay));
+                return result.AsExchangeResult(Exchange, new SharedPositionModeResult(result.Data.PositionMode == PositionMode.DualSide ? SharedPositionMode.HedgeMode : SharedPositionMode.OneWay));
             }
             else
             {
@@ -1067,7 +1067,7 @@ namespace HTX.Net.Clients.UsdtFutures
                 if (!result)
                     return result.AsExchangeResult<SharedPositionModeResult>(Exchange, default);
 
-                return result.AsExchangeResult(Exchange, new SharedPositionModeResult(result.Data.PositionMode == PositionMode.DualSide ? SharedPositionMode.LongShort : SharedPositionMode.OneWay));
+                return result.AsExchangeResult(Exchange, new SharedPositionModeResult(result.Data.PositionMode == PositionMode.DualSide ? SharedPositionMode.HedgeMode : SharedPositionMode.OneWay));
             }
         }
 
@@ -1087,7 +1087,7 @@ namespace HTX.Net.Clients.UsdtFutures
             var marginMode = ExchangeParameters.GetValue<SharedMarginMode>(request.ExchangeParameters, Exchange, "MarginMode");
             if (marginMode == SharedMarginMode.Cross)
             {
-                var result = await Account.SetCrossMarginPositionModeAsync("USDT", request.Mode == SharedPositionMode.LongShort ? PositionMode.DualSide : PositionMode.SingleSide, ct: ct).ConfigureAwait(false);
+                var result = await Account.SetCrossMarginPositionModeAsync("USDT", request.Mode == SharedPositionMode.HedgeMode ? PositionMode.DualSide : PositionMode.SingleSide, ct: ct).ConfigureAwait(false);
                 if (!result)
                     return result.AsExchangeResult<SharedPositionModeResult>(Exchange, default);
 
@@ -1098,7 +1098,7 @@ namespace HTX.Net.Clients.UsdtFutures
                 if (request.Symbol == null)
                     return new ExchangeWebResult<SharedPositionModeResult>(Exchange, new ArgumentError("Symbol parameter required for isolated mode"));
 
-                var result = await Account.SetIsolatedMarginPositionModeAsync(request.Symbol.GetSymbol(FormatSymbol), request.Mode == SharedPositionMode.LongShort ? PositionMode.DualSide : PositionMode.SingleSide, ct: ct).ConfigureAwait(false);
+                var result = await Account.SetIsolatedMarginPositionModeAsync(request.Symbol.GetSymbol(FormatSymbol), request.Mode == SharedPositionMode.HedgeMode ? PositionMode.DualSide : PositionMode.SingleSide, ct: ct).ConfigureAwait(false);
                 if (!result)
                     return result.AsExchangeResult<SharedPositionModeResult>(Exchange, default);
 
