@@ -6,7 +6,6 @@ using CryptoExchange.Net.Objects.Sockets;
 using CryptoExchange.Net.SharedApis.Models.Socket;
 using CryptoExchange.Net.SharedApis.Interfaces.Socket;
 using CryptoExchange.Net.SharedApis.SubscribeModels;
-using HTX.Net.Objects.Models.Socket;
 using CryptoExchange.Net.SharedApis.Models;
 using CryptoExchange.Net.SharedApis.Models.FilterOptions;
 using HTX.Net.Interfaces.Clients.UsdtFuturesApi;
@@ -18,7 +17,7 @@ namespace HTX.Net.Clients.UsdtFutures
     internal partial class HTXSocketClientUsdtFuturesApi : IHTXSocketClientUsdtFuturesApiShared
     {
         public string Exchange => HTXExchange.ExchangeName;
-        public ApiType[] SupportedApiTypes { get; } = new[] { ApiType.PerpetualLinear, ApiType.DeliveryLinear };
+        public TradingMode[] SupportedApiTypes { get; } = new[] { TradingMode.PerpetualLinear, TradingMode.DeliveryLinear };
 
         public void SetDefaultExchangeParameter(string key, object value) => ExchangeParameters.SetStaticParameter(Exchange, key, value);
         public void ResetDefaultExchangeParameters() => ExchangeParameters.ResetStaticParameters();
@@ -131,7 +130,7 @@ namespace HTX.Net.Clients.UsdtFutures
             else
             {
                 var result = await SubscribeToIsolatedMarginBalanceUpdatesAsync(
-                    update => handler(update.AsExchangeEvent<IEnumerable<SharedBalance>>(Exchange, update.Data.Data.Select(x => new SharedBalance(x.Asset, x.MarginBalance - x.MarginFrozen, x.MarginBalance) { IsolatedMarginAsset = x.MarginAccount }).ToArray())),
+                    update => handler(update.AsExchangeEvent<IEnumerable<SharedBalance>>(Exchange, update.Data.Data.Select(x => new SharedBalance(x.Asset, x.MarginBalance - x.MarginFrozen, x.MarginBalance) { IsolatedMarginSymbol = x.MarginAccount }).ToArray())),
                     ct: ct).ConfigureAwait(false);
 
                 return new ExchangeResult<UpdateSubscription>(Exchange, result);

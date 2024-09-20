@@ -49,7 +49,7 @@ namespace HTX.Net.Clients.SpotApi
         public IHTXSocketClientSpotApiShared SharedClient => this;
 
         /// <inheritdoc />
-        public override string FormatSymbol(string baseAsset, string quoteAsset, ApiType apiType, DateTime? deliverTime = null) => $"{baseAsset.ToLowerInvariant()}{quoteAsset.ToLowerInvariant()}";
+        public override string FormatSymbol(string baseAsset, string quoteAsset, TradingMode apiType, DateTime? deliverTime = null) => $"{baseAsset.ToLowerInvariant()}{quoteAsset.ToLowerInvariant()}";
 
         /// <inheritdoc />
         public override string? GetListenerIdentifier(IMessageAccessor message)
