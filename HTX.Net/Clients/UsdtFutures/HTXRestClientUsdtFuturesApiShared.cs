@@ -66,7 +66,7 @@ namespace HTX.Net.Clients.UsdtFutures
         EndpointOptions<GetTickerRequest> IFuturesTickerRestClient.GetFuturesTickerOptions { get; } = new EndpointOptions<GetTickerRequest>(false);
         async Task<ExchangeWebResult<SharedFuturesTicker>> IFuturesTickerRestClient.GetFuturesTickerAsync(GetTickerRequest request, CancellationToken ct)
         {
-            var validationError = ((IFuturesTickerRestClient)this).GetFuturesTickerOptions.ValidateRequest(Exchange, request, request.Symbol.ApiType, SupportedTradingModes);
+            var validationError = ((IFuturesTickerRestClient)this).GetFuturesTickerOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
             if (validationError != null)
                 return new ExchangeWebResult<SharedFuturesTicker>(Exchange, validationError);
 
@@ -83,7 +83,7 @@ namespace HTX.Net.Clients.UsdtFutures
             if (!resultIndex.Result)
                 return resultIndex.Result.AsExchangeResult<SharedFuturesTicker>(Exchange, null, default);
 
-            return resultTicker.Result.AsExchangeResult(Exchange, request.Symbol.ApiType, new SharedFuturesTicker(symbol, resultTicker.Result.Data.ClosePrice ?? 0, resultTicker.Result.Data.HighPrice ?? 0, resultTicker.Result.Data.LowPrice ?? 0, resultTicker.Result.Data.Volume ?? 0, resultTicker.Result.Data.OpenPrice == null ? null : Math.Round((resultTicker.Result.Data.ClosePrice ?? 0) / resultTicker.Result.Data.OpenPrice.Value * 100 - 100, 2))
+            return resultTicker.Result.AsExchangeResult(Exchange, request.Symbol.TradingMode, new SharedFuturesTicker(symbol, resultTicker.Result.Data.ClosePrice ?? 0, resultTicker.Result.Data.HighPrice ?? 0, resultTicker.Result.Data.LowPrice ?? 0, resultTicker.Result.Data.Volume ?? 0, resultTicker.Result.Data.OpenPrice == null ? null : Math.Round((resultTicker.Result.Data.ClosePrice ?? 0) / resultTicker.Result.Data.OpenPrice.Value * 100 - 100, 2))
             {
                 IndexPrice = resultIndex.Result.Data.Single().IndexPrice,
                 FundingRate = resultFunding.Result.Data.FundingRate,
@@ -106,7 +106,11 @@ namespace HTX.Net.Clients.UsdtFutures
             if (!resultFunding.Result)
                 return resultFunding.Result.AsExchangeResult<IEnumerable<SharedFuturesTicker>>(Exchange, null, default);
 
-            return resultTickers.Result.AsExchangeResult<IEnumerable<SharedFuturesTicker>>(Exchange, SupportedTradingModes, resultTickers.Result.Data.Select(x =>
+            var data = resultTickers.Result.Data;
+            if (request.TradingMode != null)
+                data = data.Where(x => request.TradingMode == TradingMode.PerpetualLinear ? x.ContractCode.Count(x => x == '-') == 1 : x.ContractCode.Count(x => x == '-') == 2);
+
+            return resultTickers.Result.AsExchangeResult<IEnumerable<SharedFuturesTicker>>(Exchange, SupportedTradingModes, data.Select(x =>
             {
                 var funding = resultFunding.Result.Data.SingleOrDefault(p => p.ContractCode == x.ContractCode);
                 return new SharedFuturesTicker(x.ContractCode!, x.ClosePrice ?? 0, x.HighPrice ?? 0, x.LowPrice ?? 0, x.Volume ?? 0, x.OpenPrice == null ? null : Math.Round((x.ClosePrice ?? 0) / x.OpenPrice.Value * 100 - 100, 2))
@@ -184,7 +188,7 @@ namespace HTX.Net.Clients.UsdtFutures
             var validationError = ((IFuturesOrderRestClient)this).PlaceFuturesOrderOptions.ValidateRequest(
                 Exchange,
                 request,
-                request.Symbol.ApiType,
+                request.Symbol.TradingMode,
                 SupportedTradingModes,
                 ((ISpotOrderRestClient)this).SpotSupportedOrderTypes,
                 ((ISpotOrderRestClient)this).SpotSupportedTimeInForce,
@@ -210,7 +214,7 @@ namespace HTX.Net.Clients.UsdtFutures
                 if (!result)
                     return result.AsExchangeResult<SharedId>(Exchange, null, default);
 
-                return result.AsExchangeResult(Exchange, request.Symbol.ApiType, new SharedId(result.Data.OrderId.ToString()));
+                return result.AsExchangeResult(Exchange, request.Symbol.TradingMode, new SharedId(result.Data.OrderId.ToString()));
             }
             else
             {
@@ -229,7 +233,7 @@ namespace HTX.Net.Clients.UsdtFutures
                 if (!result)
                     return result.AsExchangeResult<SharedId>(Exchange, null, default);
 
-                return result.AsExchangeResult(Exchange, request.Symbol.ApiType, new SharedId(result.Data.OrderId.ToString()));
+                return result.AsExchangeResult(Exchange, request.Symbol.TradingMode, new SharedId(result.Data.OrderId.ToString()));
             }
         }
 
@@ -242,7 +246,7 @@ namespace HTX.Net.Clients.UsdtFutures
         };
         async Task<ExchangeWebResult<SharedFuturesOrder>> IFuturesOrderRestClient.GetFuturesOrderAsync(GetOrderRequest request, CancellationToken ct)
         {
-            var validationError = ((IFuturesOrderRestClient)this).GetFuturesOrderOptions.ValidateRequest(Exchange, request, request.Symbol.ApiType, SupportedTradingModes);
+            var validationError = ((IFuturesOrderRestClient)this).GetFuturesOrderOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
             if (validationError != null)
                 return new ExchangeWebResult<SharedFuturesOrder>(Exchange, validationError);
 
@@ -257,7 +261,7 @@ namespace HTX.Net.Clients.UsdtFutures
                     return orders.AsExchangeResult<SharedFuturesOrder>(Exchange, null, default);
 
                 var order = orders.Data.Single();
-                return orders.AsExchangeResult(Exchange, request.Symbol.ApiType, new SharedFuturesOrder(
+                return orders.AsExchangeResult(Exchange, request.Symbol.TradingMode, new SharedFuturesOrder(
                     order.ContractCode,
                     order.OrderId.ToString(),
                     ParseOrderType(order.OrderPriceType),
@@ -285,7 +289,7 @@ namespace HTX.Net.Clients.UsdtFutures
                     return orders.AsExchangeResult<SharedFuturesOrder>(Exchange, null, default);
 
                 var order = orders.Data.Single();
-                return orders.AsExchangeResult(Exchange, request.Symbol.ApiType, new SharedFuturesOrder(
+                return orders.AsExchangeResult(Exchange, request.Symbol.TradingMode, new SharedFuturesOrder(
                     order.ContractCode,
                     order.OrderId.ToString(),
                     ParseOrderType(order.OrderPriceType),
@@ -317,7 +321,7 @@ namespace HTX.Net.Clients.UsdtFutures
         };
         async Task<ExchangeWebResult<IEnumerable<SharedFuturesOrder>>> IFuturesOrderRestClient.GetOpenFuturesOrdersAsync(GetOpenOrdersRequest request, CancellationToken ct)
         {
-            var validationError = ((IFuturesOrderRestClient)this).GetOpenFuturesOrdersOptions.ValidateRequest(Exchange, request, request.Symbol?.ApiType ?? request.TradingMode, SupportedTradingModes);
+            var validationError = ((IFuturesOrderRestClient)this).GetOpenFuturesOrdersOptions.ValidateRequest(Exchange, request, request.Symbol?.TradingMode ?? request.TradingMode, SupportedTradingModes);
             if (validationError != null)
                 return new ExchangeWebResult<IEnumerable<SharedFuturesOrder>>(Exchange, validationError);
 
@@ -329,7 +333,7 @@ namespace HTX.Net.Clients.UsdtFutures
                 if (!orders)
                     return orders.AsExchangeResult<IEnumerable<SharedFuturesOrder>>(Exchange, null, default);
 
-                return orders.AsExchangeResult<IEnumerable<SharedFuturesOrder>>(Exchange, SupportedTradingModes ,orders.Data.Orders.Select(x => new SharedFuturesOrder(
+                return orders.AsExchangeResult<IEnumerable<SharedFuturesOrder>>(Exchange, request.Symbol == null ? SupportedTradingModes : new[] { request.Symbol.TradingMode }, orders.Data.Orders.Select(x => new SharedFuturesOrder(
                     x.ContractCode,
                     x.OrderId.ToString(),
                     ParseOrderType(x.OrderPriceType),
@@ -390,7 +394,7 @@ namespace HTX.Net.Clients.UsdtFutures
         };
         async Task<ExchangeWebResult<IEnumerable<SharedFuturesOrder>>> IFuturesOrderRestClient.GetClosedFuturesOrdersAsync(GetClosedOrdersRequest request, INextPageToken? pageToken, CancellationToken ct)
         {
-            var validationError = ((IFuturesOrderRestClient)this).GetClosedFuturesOrdersOptions.ValidateRequest(Exchange, request, request.Symbol.ApiType, SupportedTradingModes);
+            var validationError = ((IFuturesOrderRestClient)this).GetClosedFuturesOrdersOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
             if (validationError != null)
                 return new ExchangeWebResult<IEnumerable<SharedFuturesOrder>>(Exchange, validationError);
 
@@ -443,7 +447,7 @@ namespace HTX.Net.Clients.UsdtFutures
                 if (orders.Data.Any())
                     nextToken = new FromIdToken(orders.Data.Min(x => x.OrderIdStr));
 
-                return orders.AsExchangeResult<IEnumerable<SharedFuturesOrder>>(Exchange, request.Symbol.ApiType, result, nextToken);
+                return orders.AsExchangeResult<IEnumerable<SharedFuturesOrder>>(Exchange, request.Symbol.TradingMode, result, nextToken);
             }
             else
             {
@@ -487,7 +491,7 @@ namespace HTX.Net.Clients.UsdtFutures
                 if (orders.Data.Any())
                     nextToken = new FromIdToken(orders.Data.Max(x => x.OrderIdStr));
 
-                return orders.AsExchangeResult<IEnumerable<SharedFuturesOrder>>(Exchange, request.Symbol.ApiType, result, nextToken);
+                return orders.AsExchangeResult<IEnumerable<SharedFuturesOrder>>(Exchange, request.Symbol.TradingMode, result, nextToken);
             }
 
         }
@@ -501,7 +505,7 @@ namespace HTX.Net.Clients.UsdtFutures
         };
         async Task<ExchangeWebResult<IEnumerable<SharedUserTrade>>> IFuturesOrderRestClient.GetFuturesOrderTradesAsync(GetOrderTradesRequest request, CancellationToken ct)
         {
-            var validationError = ((IFuturesOrderRestClient)this).GetFuturesOrderTradesOptions.ValidateRequest(Exchange, request, request.Symbol.ApiType, SupportedTradingModes);
+            var validationError = ((IFuturesOrderRestClient)this).GetFuturesOrderTradesOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
             if (validationError != null)
                 return new ExchangeWebResult<IEnumerable<SharedUserTrade>>(Exchange, validationError);
 
@@ -516,7 +520,7 @@ namespace HTX.Net.Clients.UsdtFutures
                 if (!orders)
                     return orders.AsExchangeResult<IEnumerable<SharedUserTrade>>(Exchange, null, default);
 
-                return orders.AsExchangeResult<IEnumerable<SharedUserTrade>>(Exchange, request.Symbol.ApiType,orders.Data.Trades.Select(x => new SharedUserTrade(
+                return orders.AsExchangeResult<IEnumerable<SharedUserTrade>>(Exchange, request.Symbol.TradingMode,orders.Data.Trades.Select(x => new SharedUserTrade(
                     symbol,
                     request.OrderId,
                     x.Id.ToString(),
@@ -537,7 +541,7 @@ namespace HTX.Net.Clients.UsdtFutures
                 if (!orders)
                     return orders.AsExchangeResult<IEnumerable<SharedUserTrade>>(Exchange, null, default);
 
-                return orders.AsExchangeResult<IEnumerable<SharedUserTrade>>(Exchange, request.Symbol.ApiType,orders.Data.Trades.Select(x => new SharedUserTrade(
+                return orders.AsExchangeResult<IEnumerable<SharedUserTrade>>(Exchange, request.Symbol.TradingMode,orders.Data.Trades.Select(x => new SharedUserTrade(
                     symbol,
                     request.OrderId,
                     x.Id.ToString(),
@@ -563,7 +567,7 @@ namespace HTX.Net.Clients.UsdtFutures
         };
         async Task<ExchangeWebResult<IEnumerable<SharedUserTrade>>> IFuturesOrderRestClient.GetFuturesUserTradesAsync(GetUserTradesRequest request, INextPageToken? pageToken, CancellationToken ct)
         {
-            var validationError = ((IFuturesOrderRestClient)this).GetFuturesUserTradesOptions.ValidateRequest(Exchange, request, request.Symbol.ApiType, SupportedTradingModes);
+            var validationError = ((IFuturesOrderRestClient)this).GetFuturesUserTradesOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
             if (validationError != null)
                 return new ExchangeWebResult<IEnumerable<SharedUserTrade>>(Exchange, validationError);
 
@@ -591,7 +595,7 @@ namespace HTX.Net.Clients.UsdtFutures
                 if (orders.Data.Any())
                     nextToken = new FromIdToken(orders.Data.Min(o => o.Id).ToString());
 
-                return orders.AsExchangeResult<IEnumerable<SharedUserTrade>>(Exchange, request.Symbol.ApiType,orders.Data.Select(x => new SharedUserTrade(
+                return orders.AsExchangeResult<IEnumerable<SharedUserTrade>>(Exchange, request.Symbol.TradingMode,orders.Data.Select(x => new SharedUserTrade(
                     symbol,
                     x.OrderIdStr,
                     x.Id.ToString(),
@@ -622,7 +626,7 @@ namespace HTX.Net.Clients.UsdtFutures
                 if (orders.Data.Any())
                     nextToken = new FromIdToken(orders.Data.Max(o => o.Id).ToString());
 
-                return orders.AsExchangeResult<IEnumerable<SharedUserTrade>>(Exchange, request.Symbol.ApiType,orders.Data.Select(x => new SharedUserTrade(
+                return orders.AsExchangeResult<IEnumerable<SharedUserTrade>>(Exchange, request.Symbol.TradingMode,orders.Data.Select(x => new SharedUserTrade(
                     symbol,
                     x.OrderIdStr,
                     x.Id.ToString(),
@@ -648,7 +652,7 @@ namespace HTX.Net.Clients.UsdtFutures
         };
         async Task<ExchangeWebResult<SharedId>> IFuturesOrderRestClient.CancelFuturesOrderAsync(CancelOrderRequest request, CancellationToken ct)
         {
-            var validationError = ((IFuturesOrderRestClient)this).CancelFuturesOrderOptions.ValidateRequest(Exchange, request, request.Symbol.ApiType, SupportedTradingModes);
+            var validationError = ((IFuturesOrderRestClient)this).CancelFuturesOrderOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
             if (validationError != null)
                 return new ExchangeWebResult<SharedId>(Exchange, validationError);
 
@@ -662,7 +666,7 @@ namespace HTX.Net.Clients.UsdtFutures
                 if (!order)
                     return order.AsExchangeResult<SharedId>(Exchange, null, default);
 
-                return order.AsExchangeResult(Exchange, request.Symbol.ApiType, new SharedId(request.OrderId));
+                return order.AsExchangeResult(Exchange, request.Symbol.TradingMode, new SharedId(request.OrderId));
             }
             else
             {
@@ -670,7 +674,7 @@ namespace HTX.Net.Clients.UsdtFutures
                 if (!order)
                     return order.AsExchangeResult<SharedId>(Exchange, null, default);
 
-                return order.AsExchangeResult(Exchange, request.Symbol.ApiType, new SharedId(request.OrderId));
+                return order.AsExchangeResult(Exchange, request.Symbol.TradingMode, new SharedId(request.OrderId));
             }
         }
 
@@ -683,7 +687,7 @@ namespace HTX.Net.Clients.UsdtFutures
         };
         async Task<ExchangeWebResult<IEnumerable<SharedPosition>>> IFuturesOrderRestClient.GetPositionsAsync(GetPositionsRequest request, CancellationToken ct)
         {
-            var validationError = ((IFuturesOrderRestClient)this).GetPositionsOptions.ValidateRequest(Exchange, request, request.Symbol?.ApiType ?? request.TradingMode, SupportedTradingModes);
+            var validationError = ((IFuturesOrderRestClient)this).GetPositionsOptions.ValidateRequest(Exchange, request, request.Symbol?.TradingMode ?? request.TradingMode, SupportedTradingModes);
             if (validationError != null)
                 return new ExchangeWebResult<IEnumerable<SharedPosition>>(Exchange, validationError);
             var marginMode = ExchangeParameters.GetValue<SharedMarginMode>(request.ExchangeParameters, Exchange, "MarginMode");
@@ -693,7 +697,7 @@ namespace HTX.Net.Clients.UsdtFutures
                 if (!result)
                     return result.AsExchangeResult<IEnumerable<SharedPosition>>(Exchange, null, default);
 
-                return result.AsExchangeResult<IEnumerable<SharedPosition>>(Exchange, request.Symbol == null ? SupportedTradingModes : new[] { request.Symbol.ApiType }, result.Data.Select(x => new SharedPosition(x.ContractCode, x.Quantity, default)
+                return result.AsExchangeResult<IEnumerable<SharedPosition>>(Exchange, request.Symbol == null ? SupportedTradingModes : new[] { request.Symbol.TradingMode }, result.Data.Select(x => new SharedPosition(x.ContractCode, x.Quantity, default)
                 {
                     UnrealizedPnl = x.UnrealizedPnl,
                     AverageOpenPrice = x.CostOpen,
@@ -707,7 +711,7 @@ namespace HTX.Net.Clients.UsdtFutures
                 if (!result)
                     return result.AsExchangeResult<IEnumerable<SharedPosition>>(Exchange, null, default);
 
-                return result.AsExchangeResult<IEnumerable<SharedPosition>>(Exchange, request.Symbol == null ? SupportedTradingModes : new[] { request.Symbol.ApiType }, result.Data.Select(x => new SharedPosition(x.ContractCode, x.Quantity, default)
+                return result.AsExchangeResult<IEnumerable<SharedPosition>>(Exchange, request.Symbol == null ? SupportedTradingModes : new[] { request.Symbol.TradingMode }, result.Data.Select(x => new SharedPosition(x.ContractCode, x.Quantity, default)
                 {
                     UnrealizedPnl = x.UnrealizedPnl,
                     AverageOpenPrice = x.CostOpen,
@@ -726,7 +730,7 @@ namespace HTX.Net.Clients.UsdtFutures
         };
         async Task<ExchangeWebResult<SharedId>> IFuturesOrderRestClient.ClosePositionAsync(ClosePositionRequest request, CancellationToken ct)
         {
-            var validationError = ((IFuturesOrderRestClient)this).ClosePositionOptions.ValidateRequest(Exchange, request, request.Symbol.ApiType, SupportedTradingModes);
+            var validationError = ((IFuturesOrderRestClient)this).ClosePositionOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
             if (validationError != null)
                 return new ExchangeWebResult<SharedId>(Exchange, validationError);
 
@@ -740,7 +744,7 @@ namespace HTX.Net.Clients.UsdtFutures
                 if (!result)
                     return result.AsExchangeResult<SharedId>(Exchange, null, default);
 
-                return result.AsExchangeResult(Exchange, request.Symbol.ApiType, new SharedId(result.Data.OrderId.ToString()));
+                return result.AsExchangeResult(Exchange, request.Symbol.TradingMode, new SharedId(result.Data.OrderId.ToString()));
             }
             else
             {
@@ -751,7 +755,7 @@ namespace HTX.Net.Clients.UsdtFutures
                 if (!result)
                     return result.AsExchangeResult<SharedId>(Exchange, null, default);
 
-                return result.AsExchangeResult(Exchange, request.Symbol.ApiType, new SharedId(result.Data.OrderId.ToString()));
+                return result.AsExchangeResult(Exchange, request.Symbol.TradingMode, new SharedId(result.Data.OrderId.ToString()));
             }
         }
 
@@ -834,7 +838,7 @@ namespace HTX.Net.Clients.UsdtFutures
             if (!Enum.IsDefined(typeof(Enums.KlineInterval), interval))
                 return new ExchangeWebResult<IEnumerable<SharedKline>>(Exchange, new ArgumentError("Interval not supported"));
 
-            var validationError = ((IKlineRestClient)this).GetKlinesOptions.ValidateRequest(Exchange, request, request.Symbol.ApiType, SupportedTradingModes);
+            var validationError = ((IKlineRestClient)this).GetKlinesOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
             if (validationError != null)
                 return new ExchangeWebResult<IEnumerable<SharedKline>>(Exchange, validationError);
 
@@ -875,7 +879,7 @@ namespace HTX.Net.Clients.UsdtFutures
                     nextToken = new DateTimeToken(minOpenTime.AddSeconds(-(int)(interval - 1)));
             }
 
-            return result.AsExchangeResult<IEnumerable<SharedKline>>(Exchange, request.Symbol.ApiType, result.Data.Reverse().Select(x => new SharedKline(x.OpenTime, x.ClosePrice ?? 0, x.HighPrice ?? 0, x.LowPrice ?? 0, x.OpenPrice ?? 0, x.Volume ?? 0)).ToArray(), nextToken);
+            return result.AsExchangeResult<IEnumerable<SharedKline>>(Exchange, request.Symbol.TradingMode, result.Data.Reverse().Select(x => new SharedKline(x.OpenTime, x.ClosePrice ?? 0, x.HighPrice ?? 0, x.LowPrice ?? 0, x.OpenPrice ?? 0, x.Volume ?? 0)).ToArray(), nextToken);
         }
 
         #endregion
@@ -893,7 +897,7 @@ namespace HTX.Net.Clients.UsdtFutures
             if (!Enum.IsDefined(typeof(Enums.KlineInterval), interval))
                 return new ExchangeWebResult<IEnumerable<SharedFuturesKline>>(Exchange, new ArgumentError("Interval not supported"));
 
-            var validationError = ((IMarkPriceKlineRestClient)this).GetMarkPriceKlinesOptions.ValidateRequest(Exchange, request, request.Symbol.ApiType, SupportedTradingModes);
+            var validationError = ((IMarkPriceKlineRestClient)this).GetMarkPriceKlinesOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
             if (validationError != null)
                 return new ExchangeWebResult<IEnumerable<SharedFuturesKline>>(Exchange, validationError);
 
@@ -906,7 +910,7 @@ namespace HTX.Net.Clients.UsdtFutures
             if (!result)
                 return result.AsExchangeResult<IEnumerable<SharedFuturesKline>>(Exchange, null, default);
 
-            return result.AsExchangeResult<IEnumerable<SharedFuturesKline>>(Exchange, request.Symbol.ApiType, result.Data.Select(x => new SharedFuturesKline(x.OpenTime, x.ClosePrice ?? 0, x.HighPrice ?? 0, x.LowPrice ?? 0, x.OpenPrice ?? 0)).ToArray());
+            return result.AsExchangeResult<IEnumerable<SharedFuturesKline>>(Exchange, request.Symbol.TradingMode, result.Data.Reverse().Select(x => new SharedFuturesKline(x.OpenTime, x.ClosePrice ?? 0, x.HighPrice ?? 0, x.LowPrice ?? 0, x.OpenPrice ?? 0)).ToArray());
         }
 
         #endregion
@@ -924,7 +928,7 @@ namespace HTX.Net.Clients.UsdtFutures
             if (!Enum.IsDefined(typeof(Enums.KlineInterval), interval))
                 return new ExchangeWebResult<IEnumerable<SharedFuturesKline>>(Exchange, new ArgumentError("Interval not supported"));
 
-            var validationError = ((IIndexPriceKlineRestClient)this).GetIndexPriceKlinesOptions.ValidateRequest(Exchange, request, request.Symbol.ApiType, SupportedTradingModes);
+            var validationError = ((IIndexPriceKlineRestClient)this).GetIndexPriceKlinesOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
             if (validationError != null)
                 return new ExchangeWebResult<IEnumerable<SharedFuturesKline>>(Exchange, validationError);
 
@@ -937,7 +941,7 @@ namespace HTX.Net.Clients.UsdtFutures
             if (!result)
                 return result.AsExchangeResult<IEnumerable<SharedFuturesKline>>(Exchange, null, default);
 
-            return result.AsExchangeResult<IEnumerable<SharedFuturesKline>>(Exchange, request.Symbol.ApiType, result.Data.Select(x => new SharedFuturesKline(x.OpenTime, x.ClosePrice ?? 0, x.HighPrice ?? 0, x.LowPrice ?? 0, x.OpenPrice ?? 0)).ToArray());
+            return result.AsExchangeResult<IEnumerable<SharedFuturesKline>>(Exchange, request.Symbol.TradingMode, result.Data.Reverse().Select(x => new SharedFuturesKline(x.OpenTime, x.ClosePrice ?? 0, x.HighPrice ?? 0, x.LowPrice ?? 0, x.OpenPrice ?? 0)).ToArray());
         }
 
         #endregion
@@ -946,7 +950,7 @@ namespace HTX.Net.Clients.UsdtFutures
         GetOrderBookOptions IOrderBookRestClient.GetOrderBookOptions { get; } = new GetOrderBookOptions(new[] { 150 }, false);
         async Task<ExchangeWebResult<SharedOrderBook>> IOrderBookRestClient.GetOrderBookAsync(GetOrderBookRequest request, CancellationToken ct)
         {
-            var validationError = ((IOrderBookRestClient)this).GetOrderBookOptions.ValidateRequest(Exchange, request, request.Symbol.ApiType, SupportedTradingModes);
+            var validationError = ((IOrderBookRestClient)this).GetOrderBookOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
             if (validationError != null)
                 return new ExchangeWebResult<SharedOrderBook>(Exchange, validationError);
 
@@ -956,7 +960,7 @@ namespace HTX.Net.Clients.UsdtFutures
             if (!result)
                 return result.AsExchangeResult<SharedOrderBook>(Exchange, null, default);
 
-            return result.AsExchangeResult(Exchange, request.Symbol.ApiType, new SharedOrderBook(result.Data.Asks, result.Data.Bids));
+            return result.AsExchangeResult(Exchange, request.Symbol.TradingMode, new SharedOrderBook(result.Data.Asks, result.Data.Bids));
         }
 
         #endregion
@@ -966,7 +970,7 @@ namespace HTX.Net.Clients.UsdtFutures
         GetRecentTradesOptions IRecentTradeRestClient.GetRecentTradesOptions { get; } = new GetRecentTradesOptions(2000, false);
         async Task<ExchangeWebResult<IEnumerable<SharedTrade>>> IRecentTradeRestClient.GetRecentTradesAsync(GetRecentTradesRequest request, CancellationToken ct)
         {
-            var validationError = ((IRecentTradeRestClient)this).GetRecentTradesOptions.ValidateRequest(Exchange, request, request.Symbol.ApiType, SupportedTradingModes);
+            var validationError = ((IRecentTradeRestClient)this).GetRecentTradesOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
             if (validationError != null)
                 return new ExchangeWebResult<IEnumerable<SharedTrade>>(Exchange, validationError);
 
@@ -977,7 +981,7 @@ namespace HTX.Net.Clients.UsdtFutures
             if (!result)
                 return result.AsExchangeResult<IEnumerable<SharedTrade>>(Exchange, null, default);
 
-            return result.AsExchangeResult<IEnumerable<SharedTrade>>(Exchange, request.Symbol.ApiType, result.Data.Select(x => new SharedTrade(x.Quantity, x.Price, x.Timestamp)).ToArray());
+            return result.AsExchangeResult<IEnumerable<SharedTrade>>(Exchange, request.Symbol.TradingMode, result.Data.Reverse().Select(x => new SharedTrade(x.Quantity, x.Price, x.Timestamp)).ToArray());
         }
 
         #endregion
@@ -987,7 +991,7 @@ namespace HTX.Net.Clients.UsdtFutures
 
         async Task<ExchangeWebResult<IEnumerable<SharedFundingRate>>> IFundingRateRestClient.GetFundingRateHistoryAsync(GetFundingRateHistoryRequest request, INextPageToken? pageToken, CancellationToken ct)
         {
-            var validationError = ((IFundingRateRestClient)this).GetFundingRateHistoryOptions.ValidateRequest(Exchange, request, request.Symbol.ApiType, SupportedTradingModes);
+            var validationError = ((IFundingRateRestClient)this).GetFundingRateHistoryOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
             if (validationError != null)
                 return new ExchangeWebResult<IEnumerable<SharedFundingRate>>(Exchange, validationError);
 
@@ -1008,10 +1012,12 @@ namespace HTX.Net.Clients.UsdtFutures
             if (!result)
                 return result.AsExchangeResult<IEnumerable<SharedFundingRate>>(Exchange, null, default);
 
-            var nextToken = new PageToken(page + 1, pageSize);
+            PageToken? nextToken = null;
+            if (result.Data.Rates.Any())
+                nextToken = new PageToken(page + 1, pageSize);
 
             // Return
-            return result.AsExchangeResult<IEnumerable<SharedFundingRate>>(Exchange, request.Symbol.ApiType,result.Data.Rates.Select(x => new SharedFundingRate(x.FundingRate, x.FundingTime)).ToArray(), nextToken);
+            return result.AsExchangeResult<IEnumerable<SharedFundingRate>>(Exchange, request.Symbol.TradingMode,result.Data.Rates.Select(x => new SharedFundingRate(x.FundingRate, x.FundingTime)).ToArray(), nextToken);
         }
         #endregion
 
@@ -1020,7 +1026,7 @@ namespace HTX.Net.Clients.UsdtFutures
         EndpointOptions<GetOpenInterestRequest> IOpenInterestRestClient.GetOpenInterestOptions { get; } = new EndpointOptions<GetOpenInterestRequest>(true);
         async Task<ExchangeWebResult<SharedOpenInterest>> IOpenInterestRestClient.GetOpenInterestAsync(GetOpenInterestRequest request, CancellationToken ct)
         {
-            var validationError = ((IOpenInterestRestClient)this).GetOpenInterestOptions.ValidateRequest(Exchange, request, request.Symbol.ApiType, SupportedTradingModes);
+            var validationError = ((IOpenInterestRestClient)this).GetOpenInterestOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
             if (validationError != null)
                 return new ExchangeWebResult<SharedOpenInterest>(Exchange, validationError);
 
@@ -1028,7 +1034,7 @@ namespace HTX.Net.Clients.UsdtFutures
             if (!result)
                 return result.AsExchangeResult<SharedOpenInterest>(Exchange, null, default);
 
-            return result.AsExchangeResult(Exchange, request.Symbol.ApiType, new SharedOpenInterest(result.Data.Single().Volume));
+            return result.AsExchangeResult(Exchange, request.Symbol.TradingMode, new SharedOpenInterest(result.Data.Single().Volume));
         }
 
         #endregion
@@ -1045,7 +1051,7 @@ namespace HTX.Net.Clients.UsdtFutures
         };
         async Task<ExchangeWebResult<SharedPositionModeResult>> IPositionModeRestClient.GetPositionModeAsync(GetPositionModeRequest request, CancellationToken ct)
         {
-            var validationError = ((IPositionModeRestClient)this).GetPositionModeOptions.ValidateRequest(Exchange, request, request.Symbol?.ApiType ?? request.TradingMode, SupportedTradingModes);
+            var validationError = ((IPositionModeRestClient)this).GetPositionModeOptions.ValidateRequest(Exchange, request, request.Symbol?.TradingMode ?? request.TradingMode, SupportedTradingModes);
             if (validationError != null)
                 return new ExchangeWebResult<SharedPositionModeResult>(Exchange, validationError);
 
@@ -1067,7 +1073,7 @@ namespace HTX.Net.Clients.UsdtFutures
                 if (!result)
                     return result.AsExchangeResult<SharedPositionModeResult>(Exchange, null, default);
 
-                return result.AsExchangeResult(Exchange, request.Symbol.ApiType, new SharedPositionModeResult(result.Data.PositionMode == PositionMode.DualSide ? SharedPositionMode.HedgeMode : SharedPositionMode.OneWay));
+                return result.AsExchangeResult(Exchange, request.Symbol.TradingMode, new SharedPositionModeResult(result.Data.PositionMode == PositionMode.DualSide ? SharedPositionMode.HedgeMode : SharedPositionMode.OneWay));
             }
         }
 
@@ -1080,7 +1086,7 @@ namespace HTX.Net.Clients.UsdtFutures
         };
         async Task<ExchangeWebResult<SharedPositionModeResult>> IPositionModeRestClient.SetPositionModeAsync(SetPositionModeRequest request, CancellationToken ct)
         {
-            var validationError = ((IPositionModeRestClient)this).SetPositionModeOptions.ValidateRequest(Exchange, request, request.Symbol?.ApiType ?? request.TradingMode, SupportedTradingModes);
+            var validationError = ((IPositionModeRestClient)this).SetPositionModeOptions.ValidateRequest(Exchange, request, request.Symbol?.TradingMode ?? request.TradingMode, SupportedTradingModes);
             if (validationError != null)
                 return new ExchangeWebResult<SharedPositionModeResult>(Exchange, validationError);
 
@@ -1102,7 +1108,7 @@ namespace HTX.Net.Clients.UsdtFutures
                 if (!result)
                     return result.AsExchangeResult<SharedPositionModeResult>(Exchange, null, default);
 
-                return result.AsExchangeResult(Exchange, request.Symbol.ApiType, new SharedPositionModeResult(request.PositionMode));
+                return result.AsExchangeResult(Exchange, request.Symbol.TradingMode, new SharedPositionModeResult(request.PositionMode));
             }
         }
         #endregion
