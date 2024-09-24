@@ -1,16 +1,7 @@
-﻿using HTX.Net.Interfaces.Clients.SpotApi;
-using CryptoExchange.Net.SharedApis.ResponseModels;
-using CryptoExchange.Net.SharedApis.Enums;
+﻿using CryptoExchange.Net.SharedApis;
 using CryptoExchange.Net.Objects.Sockets;
-using CryptoExchange.Net.SharedApis.Models.Socket;
-using CryptoExchange.Net.SharedApis.Interfaces.Socket;
-using CryptoExchange.Net.SharedApis.Models;
 using HTX.Net.Interfaces.Clients.UsdtFuturesApi;
 using HTX.Net.Enums;
-using CryptoExchange.Net.SharedApis.Interfaces.Socket.Futures;
-using CryptoExchange.Net.SharedApis.Models.Options.Endpoints;
-using CryptoExchange.Net.SharedApis.Models.Options.Subscriptions;
-using CryptoExchange.Net.SharedApis.Models.Options;
 
 namespace HTX.Net.Clients.UsdtFutures
 {
@@ -89,14 +80,13 @@ namespace HTX.Net.Clients.UsdtFutures
         #endregion
 
         #region Order Book client
-        SubscribeOrderBookOptions IOrderBookSocketClient.SubscribeOrderBookOptions { get; } = new SubscribeOrderBookOptions(false, new[] { 0 });
+        SubscribeOrderBookOptions IOrderBookSocketClient.SubscribeOrderBookOptions { get; } = new SubscribeOrderBookOptions(false, new[] { 150 });
         async Task<ExchangeResult<UpdateSubscription>> IOrderBookSocketClient.SubscribeToOrderBookUpdatesAsync(SubscribeOrderBookRequest request, Action<ExchangeEvent<SharedOrderBook>> handler, CancellationToken ct)
         {
             var validationError = ((IOrderBookSocketClient)this).SubscribeOrderBookOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
             if (validationError != null)
                 return new ExchangeResult<UpdateSubscription>(Exchange, validationError);
 
-#warning which limit does this use?
             var symbol = request.Symbol.GetSymbol(FormatSymbol);
             var result = await SubscribeToOrderBookUpdatesAsync(symbol, 0, update => handler(update.AsExchangeEvent(Exchange, new SharedOrderBook(update.Data.Asks, update.Data.Bids))), ct).ConfigureAwait(false);
 
@@ -179,7 +169,7 @@ namespace HTX.Net.Clients.UsdtFutures
                         ReduceOnly = update.Data.ReduceOnly,
                         Fee = update.Data.Fee,
                         FeeAsset = update.Data.FeeAsset,
-                        LastTrade = update.Data.Trade?.Any() != true ? null : new SharedUserTrade(update.Data.Symbol, update.Data.OrderIdStr, lastTrade.TradeId.ToString(), lastTrade.Quantity, lastTrade.Price, update.Data.Timestamp)
+                        LastTrade = update.Data.Trade?.Any() != true ? null : new SharedUserTrade(update.Data.Symbol, update.Data.OrderIdStr, lastTrade!.TradeId.ToString(), update.Data.OrderSide == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell, lastTrade.Quantity, lastTrade.Price, update.Data.Timestamp)
                         {
                             Fee = lastTrade.Fee,
                             FeeAsset = lastTrade.FeeAsset,
@@ -251,20 +241,19 @@ namespace HTX.Net.Clients.UsdtFutures
             {
                 var result = await SubscribeToCrossMarginUserTradeUpdatesAsync(
                 update => {
-#warning correct..?
-                    var lastTrade = update.Data.Trades.Last();
-                    handler(update.AsExchangeEvent<IEnumerable<SharedUserTrade>>(Exchange, new[] {
+                    handler(update.AsExchangeEvent<IEnumerable<SharedUserTrade>>(Exchange, update.Data.Trades.Select(x =>
                                     new SharedUserTrade(
                                         update.Data.Symbol,
                                         update.Data.OrderId.ToString(),
-                                        lastTrade.ToString(),
-                                        lastTrade.Quantity,
-                                        lastTrade.Price,
-                                        lastTrade.CreateTime)
+                                        x.ToString(),
+                                        update.Data.OrderSide == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
+                                        x.Quantity,
+                                        x.Price,
+                                        x.CreateTime)
                                     {
-                                        Role = lastTrade.Role == Enums.OrderRole.Taker ? SharedRole.Taker : SharedRole.Maker,
+                                        Role = x.Role == Enums.OrderRole.Taker ? SharedRole.Taker : SharedRole.Maker,
                                     }
-                    }));
+                    ).ToArray()));
                 },
                 ct: ct).ConfigureAwait(false);
                 return new ExchangeResult<UpdateSubscription>(Exchange, result);
@@ -273,20 +262,19 @@ namespace HTX.Net.Clients.UsdtFutures
             {
                 var result = await SubscribeToIsolatedMarginUserTradeUpdatesAsync(
                 update => {
-#warning correct..?
-                    var lastTrade = update.Data.Trades.Last();
-                    handler(update.AsExchangeEvent<IEnumerable<SharedUserTrade>>(Exchange, new[] {
+                    handler(update.AsExchangeEvent<IEnumerable<SharedUserTrade>>(Exchange, update.Data.Trades.Select(x =>
                                     new SharedUserTrade(
                                         update.Data.Symbol,
                                         update.Data.OrderId.ToString(),
-                                        lastTrade.ToString(),
-                                        lastTrade.Quantity,
-                                        lastTrade.Price,
-                                        lastTrade.CreateTime)
+                                        x.ToString(),
+                                        update.Data.OrderSide == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
+                                        x.Quantity,
+                                        x.Price,
+                                        x.CreateTime)
                                     {
-                                        Role = lastTrade.Role == Enums.OrderRole.Taker ? SharedRole.Taker : SharedRole.Maker,
+                                        Role = x.Role == Enums.OrderRole.Taker ? SharedRole.Taker : SharedRole.Maker,
                                     }
-                    }));
+                    ).ToArray()));
                 },
                 ct: ct).ConfigureAwait(false);
                 return new ExchangeResult<UpdateSubscription>(Exchange, result);

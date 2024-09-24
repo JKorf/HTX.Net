@@ -2,7 +2,6 @@
 using CryptoExchange.Net.CommonObjects;
 using CryptoExchange.Net.Converters.MessageParsing;
 using CryptoExchange.Net.Interfaces.CommonClients;
-using CryptoExchange.Net.SharedApis.Interfaces;
 using HTX.Net.Enums;
 using HTX.Net.Interfaces.Clients.SpotApi;
 using HTX.Net.Objects.Internal;

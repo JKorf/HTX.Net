@@ -1,5 +1,4 @@
 ﻿using CryptoExchange.Net.Objects.Sockets;
-using CryptoExchange.Net.SharedApis.Interfaces;
 using HTX.Net.Enums;
 using HTX.Net.Objects.Models;
 using HTX.Net.Objects.Models.Socket;
@@ -11,6 +10,9 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
     /// </summary>
     public interface IHTXSocketClientSpotApi : ISocketApiClient, IDisposable
     {
+        /// <summary>
+        /// Get the shared socket subscription client
+        /// </summary>
         public IHTXSocketClientSpotApiShared SharedClient { get; }
 
         /// <summary>

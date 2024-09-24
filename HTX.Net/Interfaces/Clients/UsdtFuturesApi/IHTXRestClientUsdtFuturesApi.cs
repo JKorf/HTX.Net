@@ -24,6 +24,9 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// </summary>
         IHTXRestClientUsdtFuturesApiTrading Trading { get; }
 
+        /// <summary>
+        /// Get the shared rest requests client
+        /// </summary>
         public IHTXRestClientUsdtFuturesApiShared SharedClient { get; }
     }
 }

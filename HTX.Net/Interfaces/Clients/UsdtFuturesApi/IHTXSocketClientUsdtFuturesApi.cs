@@ -10,6 +10,9 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
     /// </summary>
     public interface IHTXSocketClientUsdtFuturesApi : ISocketApiClient
     {
+        /// <summary>
+        /// Get the shared socket subscription client
+        /// </summary>
         IHTXSocketClientUsdtFuturesApiShared SharedClient { get; }
 
         /// <summary>

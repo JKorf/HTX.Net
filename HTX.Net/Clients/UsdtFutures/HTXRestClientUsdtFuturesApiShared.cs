@@ -1,16 +1,6 @@
 ﻿using HTX.Net.Interfaces.Clients.SpotApi;
-using CryptoExchange.Net.SharedApis.Interfaces;
-using CryptoExchange.Net.SharedApis.ResponseModels;
-using CryptoExchange.Net.SharedApis.Enums;
-using CryptoExchange.Net.SharedApis.Models.Rest;
+using CryptoExchange.Net.SharedApis;
 using HTX.Net.Enums;
-using CryptoExchange.Net.SharedApis.Models;
-using CryptoExchange.Net.SharedApis.Interfaces.Rest.Spot;
-using System.Linq;
-using CryptoExchange.Net.SharedApis.Interfaces.Rest.Futures;
-using CryptoExchange.Net.SharedApis.Models.Options.Endpoints;
-using CryptoExchange.Net.SharedApis.Interfaces.Rest;
-using CryptoExchange.Net.SharedApis.Models.Options;
 
 namespace HTX.Net.Clients.UsdtFutures
 {
@@ -356,8 +346,10 @@ namespace HTX.Net.Clients.UsdtFutures
             }
             else
             {
-                var symbol = request.Symbol?.GetSymbol(FormatSymbol);
-#warning required symbol, only for isolated
+                if (request.Symbol == null)
+                    return new ExchangeWebResult<IEnumerable<SharedFuturesOrder>>(Exchange, new ArgumentError("Symbol parameter required for isolated margin request"));
+
+                var symbol = request.Symbol.GetSymbol(FormatSymbol);
                 var orders = await Trading.GetIsolatedMarginOpenOrdersAsync(symbol, ct: ct).ConfigureAwait(false);
                 if (!orders)
                     return orders.AsExchangeResult<IEnumerable<SharedFuturesOrder>>(Exchange, null, default);
@@ -524,6 +516,7 @@ namespace HTX.Net.Clients.UsdtFutures
                     symbol,
                     request.OrderId,
                     x.Id.ToString(),
+                    orders.Data.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
                     x.Quantity,
                     x.Price,
                     x.CreateTime)
@@ -545,6 +538,7 @@ namespace HTX.Net.Clients.UsdtFutures
                     symbol,
                     request.OrderId,
                     x.Id.ToString(),
+                    orders.Data.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
                     x.Quantity,
                     x.Price,
                     x.CreateTime)
@@ -599,6 +593,7 @@ namespace HTX.Net.Clients.UsdtFutures
                     symbol,
                     x.OrderIdStr,
                     x.Id.ToString(),
+                    x.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
                     x.Quantity,
                     x.Price,
                     x.CreateTime)
@@ -630,6 +625,7 @@ namespace HTX.Net.Clients.UsdtFutures
                     symbol,
                     x.OrderIdStr,
                     x.Id.ToString(),
+                    x.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
                     x.Quantity,
                     x.Price,
                     x.CreateTime)

@@ -3,11 +3,11 @@ GET
 true
 {
   "status": "ok",
-  "data": [
+  "data": 
     {
       "margin_account": "USDT",
       "position_mode": "single_side"
     }
-  ],
+  ,
   "ts": 1566899973811
 }

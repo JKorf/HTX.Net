@@ -3,11 +3,11 @@ POST
 true
 {
   "status": "ok",
-  "data": [
+  "data": 
     {
       "margin_account": "BTC-USDT",
       "position_mode": "single_side"
     }
-  ],
+  ,
   "ts": 1566899973811
 }

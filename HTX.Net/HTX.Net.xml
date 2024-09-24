@@ -3493,6 +3493,11 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="P:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApi.SharedClient">
+            <summary>
+            Get the shared rest requests client
+            </summary>
+        </member>
         <member name="T:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiAccount">
             <summary>
             HTX account endpoints. Account endpoints include balance info, withdraw/deposit info and requesting and account settings
@@ -4053,6 +4058,11 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
+        <member name="T:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiShared">
+            <summary>
+            Shared interface for Spot rest API usage
+            </summary>
+        </member>
         <member name="T:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiSubAccount">
             <summary>
             HTX sub-account endpoints.
@@ -4463,6 +4473,11 @@
             Spot streams
             </summary>
         </member>
+        <member name="P:HTX.Net.Interfaces.Clients.SpotApi.IHTXSocketClientSpotApi.SharedClient">
+            <summary>
+            Get the shared socket subscription client
+            </summary>
+        </member>
         <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXSocketClientSpotApi.GetKlinesAsync(System.String,HTX.Net.Enums.KlineInterval)">
             <summary>
             Get kline/candlestick data for a symbol
@@ -4634,6 +4649,16 @@
             <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
         </member>
+        <member name="T:HTX.Net.Interfaces.Clients.SpotApi.IHTXSocketClientSpotApiShared">
+            <summary>
+            Shared interface for Spot socket API usage
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientUsdtFuturesApiShared">
+            <summary>
+            Shared interface for Usdt futures rest API usage
+            </summary>
+        </member>
         <member name="T:HTX.Net.Interfaces.Clients.UsdtFuturesApi.IHTXRestClientUsdtFuturesApi">
             <summary>
             Usdt futures api endpoints
@@ -4657,6 +4682,11 @@
         <member name="P:HTX.Net.Interfaces.Clients.UsdtFuturesApi.IHTXRestClientUsdtFuturesApi.Trading">
             <summary>
             Endpoints related to orders and trades
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Interfaces.Clients.UsdtFuturesApi.IHTXRestClientUsdtFuturesApi.SharedClient">
+            <summary>
+            Get the shared rest requests client
             </summary>
         </member>
         <member name="T:HTX.Net.Interfaces.Clients.UsdtFuturesApi.IHTXRestClientUsdtFuturesApiAccount">
@@ -6156,6 +6186,11 @@
             Usdt futures streams
             </summary>
         </member>
+        <member name="P:HTX.Net.Interfaces.Clients.UsdtFuturesApi.IHTXSocketClientUsdtFuturesApi.SharedClient">
+            <summary>
+            Get the shared socket subscription client
+            </summary>
+        </member>
         <member name="M:HTX.Net.Interfaces.Clients.UsdtFuturesApi.IHTXSocketClientUsdtFuturesApi.SubscribeToBasisUpdatesAsync(System.String,HTX.Net.Enums.KlineInterval,System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapBasisUpdate}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to basis updates
@@ -6403,6 +6438,11 @@
             <param name="onData">Data handler</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
+        </member>
+        <member name="T:HTX.Net.Interfaces.Clients.UsdtFuturesApi.IHTXSocketClientUsdtFuturesApiShared">
+            <summary>
+            Shared interface for Usdt futures socket API usage
+            </summary>
         </member>
         <member name="T:HTX.Net.Interfaces.IHTXOrderBookFactory">
             <summary>
