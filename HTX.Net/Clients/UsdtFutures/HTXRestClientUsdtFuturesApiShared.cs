@@ -155,10 +155,10 @@ namespace HTX.Net.Clients.UsdtFutures
         IEnumerable<SharedOrderType> IFuturesOrderRestClient.FuturesSupportedOrderTypes { get; } = new[] { SharedOrderType.Limit, SharedOrderType.Market };
         IEnumerable<SharedTimeInForce> IFuturesOrderRestClient.FuturesSupportedTimeInForce { get; } = new[] { SharedTimeInForce.GoodTillCanceled, SharedTimeInForce.ImmediateOrCancel, SharedTimeInForce.FillOrKill };
         SharedQuantitySupport IFuturesOrderRestClient.FuturesSupportedOrderQuantity { get; } = new SharedQuantitySupport(
-                SharedQuantityType.BaseAsset,
-                SharedQuantityType.BaseAsset,
-                SharedQuantityType.BaseAsset,
-                SharedQuantityType.BaseAsset);
+                SharedQuantityType.Contracts,
+                SharedQuantityType.Contracts,
+                SharedQuantityType.Contracts,
+                SharedQuantityType.Contracts);
 
         PlaceFuturesOrderOptions IFuturesOrderRestClient.PlaceFuturesOrderOptions { get; } = new PlaceFuturesOrderOptions()
         {

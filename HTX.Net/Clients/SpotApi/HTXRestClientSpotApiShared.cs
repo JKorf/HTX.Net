@@ -83,7 +83,7 @@ namespace HTX.Net.Clients.SpotApi
             return result.AsExchangeResult<IEnumerable<SharedSpotSymbol>>(Exchange, TradingMode.Spot, result.Data.Select(s => new SharedSpotSymbol(
                 s.BaseAsset.ToUpperInvariant(),
                 s.QuoteAsset.ToUpperInvariant(),
-                s.Symbol.ToUpperInvariant(),
+                s.Symbol,
                 s.Status == SymbolStatus.Online)
             {
                 QuantityDecimals = s.QuantityPrecision,
@@ -110,7 +110,7 @@ namespace HTX.Net.Clients.SpotApi
             if (!result)
                 return result.AsExchangeResult<IEnumerable<SharedSpotTicker>>(Exchange, null, default);
 
-            return result.AsExchangeResult<IEnumerable<SharedSpotTicker>>(Exchange, TradingMode.Spot, result.Data.Ticks.Select(x => new SharedSpotTicker(x.Symbol.ToUpperInvariant(), x.LastTradePrice, x.HighPrice, x.LowPrice, x.Volume ?? 0, x.OpenPrice == null || x.OpenPrice == 0 ? null : Math.Round(((x.ClosePrice ?? 0) / x.OpenPrice.Value) * 100 - 100, 2))).ToArray());
+            return result.AsExchangeResult<IEnumerable<SharedSpotTicker>>(Exchange, TradingMode.Spot, result.Data.Ticks.Select(x => new SharedSpotTicker(x.Symbol, x.LastTradePrice, x.HighPrice, x.LowPrice, x.Volume ?? 0, x.OpenPrice == null || x.OpenPrice == 0 ? null : Math.Round(((x.ClosePrice ?? 0) / x.OpenPrice.Value) * 100 - 100, 2))).ToArray());
         }
 
         EndpointOptions<GetTickerRequest> ISpotTickerRestClient.GetSpotTickerOptions { get; } = new EndpointOptions<GetTickerRequest>(false);
@@ -127,7 +127,7 @@ namespace HTX.Net.Clients.SpotApi
             if (!result)
                 return result.AsExchangeResult<SharedSpotTicker>(Exchange, null, default);
 
-            return result.AsExchangeResult(Exchange, TradingMode.Spot, new SharedSpotTicker(symbol.ToUpperInvariant(), result.Data.ClosePrice, result.Data.HighPrice, result.Data.LowPrice, result.Data.Volume ?? 0, result.Data.OpenPrice == null || result.Data.OpenPrice == 0 ? null : Math.Round((result.Data.ClosePrice ?? 0) / result.Data.OpenPrice.Value * 100 - 100, 2)));
+            return result.AsExchangeResult(Exchange, TradingMode.Spot, new SharedSpotTicker(symbol, result.Data.ClosePrice, result.Data.HighPrice, result.Data.LowPrice, result.Data.Volume ?? 0, result.Data.OpenPrice == null || result.Data.OpenPrice == 0 ? null : Math.Round((result.Data.ClosePrice ?? 0) / result.Data.OpenPrice.Value * 100 - 100, 2)));
         }
 
         #endregion
@@ -268,7 +268,7 @@ namespace HTX.Net.Clients.SpotApi
                 return order.AsExchangeResult<SharedSpotOrder>(Exchange, null, default);
 
             return order.AsExchangeResult(Exchange, TradingMode.Spot, new SharedSpotOrder(
-                order.Data.Symbol.ToUpperInvariant(),
+                order.Data.Symbol,
                 order.Data.Id.ToString(),
                 ParseOrderType(order.Data.Type),
                 order.Data.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
@@ -299,7 +299,7 @@ namespace HTX.Net.Clients.SpotApi
                 return order.AsExchangeResult<IEnumerable<SharedSpotOrder>>(Exchange, null, default);
 
             return order.AsExchangeResult<IEnumerable<SharedSpotOrder>>(Exchange, TradingMode.Spot, order.Data.Select(x => new SharedSpotOrder(
-                x.Symbol.ToUpperInvariant(),
+                x.Symbol,
                 x.Id.ToString(),
                 ParseOrderType(x.Type),
                 x.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
@@ -345,7 +345,7 @@ namespace HTX.Net.Clients.SpotApi
                 nextToken = new FromIdToken(data.Min(x => x.Id).ToString());
 
             return order.AsExchangeResult<IEnumerable<SharedSpotOrder>>(Exchange, TradingMode.Spot, data.Select(x => new SharedSpotOrder(
-                x.Symbol.ToUpperInvariant(),
+                x.Symbol,
                 x.Id.ToString(),
                 ParseOrderType(x.Type),
                 x.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
@@ -378,7 +378,7 @@ namespace HTX.Net.Clients.SpotApi
                 return order.AsExchangeResult<IEnumerable<SharedUserTrade>>(Exchange, null, default);
 
             return order.AsExchangeResult<IEnumerable<SharedUserTrade>>(Exchange, TradingMode.Spot, order.Data.Select(x => new SharedUserTrade(
-                x.Symbol.ToUpperInvariant(),
+                x.Symbol,
                 x.OrderId.ToString(),
                 x.Id.ToString(),
                 x.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
@@ -423,7 +423,7 @@ namespace HTX.Net.Clients.SpotApi
                 nextToken = new FromIdToken(data.Min(o => o.Id).ToString());
 
             return order.AsExchangeResult<IEnumerable<SharedUserTrade>>(Exchange, TradingMode.Spot, data.Select(x => new SharedUserTrade(
-                x.Symbol.ToUpperInvariant(),
+                x.Symbol,
                 x.OrderId.ToString(),
                 x.TradeId.ToString(),
                 x.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
@@ -677,7 +677,13 @@ namespace HTX.Net.Clients.SpotApi
 
         #region Withdraw client
 
-        WithdrawOptions IWithdrawRestClient.WithdrawOptions { get; } = new WithdrawOptions();
+        WithdrawOptions IWithdrawRestClient.WithdrawOptions { get; } = new WithdrawOptions()
+        {
+            RequiredExchangeParameters = new List<ParameterDescription>
+            {
+                new ParameterDescription("withdrawFee", typeof(decimal), "Fee to use for the withdrawal", 0.001m)
+            }
+        };
 
         async Task<ExchangeWebResult<SharedId>> IWithdrawRestClient.WithdrawAsync(WithdrawRequest request, CancellationToken ct)
         {
@@ -685,7 +691,7 @@ namespace HTX.Net.Clients.SpotApi
             if (validationError != null)
                 return new ExchangeWebResult<SharedId>(Exchange, validationError);
 
-            var fee = request.ExchangeParameters?.GetValue<decimal?>(Exchange, "fee");
+            var fee = ExchangeParameters.GetValue<decimal?>(request.ExchangeParameters, Exchange, "withdrawFee");
             if (fee == null)
                 return new ExchangeWebResult<SharedId>(Exchange, new ArgumentError("HTX requires withdrawal fee parameter. Please pass it as exchangeParameter `fee`"));
 

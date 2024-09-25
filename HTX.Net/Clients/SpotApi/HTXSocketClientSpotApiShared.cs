@@ -22,7 +22,7 @@ namespace HTX.Net.Clients.SpotApi
             if (validationError != null)
                 return new ExchangeResult<UpdateSubscription>(Exchange, validationError);
 
-            var result = await SubscribeToTickerUpdatesAsync(update => handler(update.AsExchangeEvent<IEnumerable<SharedSpotTicker>>(Exchange, update.Data.Select(x => new SharedSpotTicker(x.Symbol.ToUpperInvariant(), x.ClosePrice ?? 0, x.HighPrice ?? 0, x.LowPrice ?? 0, x.Volume ?? 0, x.OpenPrice == null ? null : Math.Round((x.ClosePrice ?? 0) / x.OpenPrice.Value * 100 - 100, 2))).ToArray()))).ConfigureAwait(false);
+            var result = await SubscribeToTickerUpdatesAsync(update => handler(update.AsExchangeEvent<IEnumerable<SharedSpotTicker>>(Exchange, update.Data.Select(x => new SharedSpotTicker(x.Symbol, x.ClosePrice ?? 0, x.HighPrice ?? 0, x.LowPrice ?? 0, x.Volume ?? 0, x.OpenPrice == null ? null : Math.Round((x.ClosePrice ?? 0) / x.OpenPrice.Value * 100 - 100, 2))).ToArray()))).ConfigureAwait(false);
 
             return new ExchangeResult<UpdateSubscription>(Exchange, result);
         }
@@ -37,7 +37,7 @@ namespace HTX.Net.Clients.SpotApi
                 return new ExchangeResult<UpdateSubscription>(Exchange, validationError);
 
             var symbol = request.Symbol.GetSymbol(FormatSymbol);
-            var result = await SubscribeToTickerUpdatesAsync(symbol, update => handler(update.AsExchangeEvent(Exchange, new SharedSpotTicker(symbol.ToUpperInvariant(), update.Data.LastTradePrice, update.Data.HighPrice ?? 0, update.Data.LowPrice ?? 0, update.Data.Volume ?? 0, update.Data.OpenPrice == null ? null : Math.Round((update.Data.ClosePrice ?? 0) / update.Data.OpenPrice.Value * 100 - 100, 2))))).ConfigureAwait(false);
+            var result = await SubscribeToTickerUpdatesAsync(symbol, update => handler(update.AsExchangeEvent(Exchange, new SharedSpotTicker(symbol, update.Data.LastTradePrice, update.Data.HighPrice ?? 0, update.Data.LowPrice ?? 0, update.Data.Volume ?? 0, update.Data.OpenPrice == null ? null : Math.Round((update.Data.ClosePrice ?? 0) / update.Data.OpenPrice.Value * 100 - 100, 2))))).ConfigureAwait(false);
 
             return new ExchangeResult<UpdateSubscription>(Exchange, result);
         }
@@ -155,7 +155,7 @@ namespace HTX.Net.Clients.SpotApi
                 null,
                 update => handler(update.AsExchangeEvent<IEnumerable<SharedUserTrade>>(Exchange, new[] {
                     new SharedUserTrade(
-                        update.Data.Symbol.ToUpperInvariant(),
+                        update.Data.Symbol,
                         update.Data.OrderId.ToString(),
                         update.Data.Id.ToString(),
                         update.Data.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
@@ -179,7 +179,7 @@ namespace HTX.Net.Clients.SpotApi
             if (orderUpdate is HTXSubmittedOrderUpdate update)
             {
                 return new SharedSpotOrder(
-                            update.Symbol.ToUpperInvariant(),
+                            update.Symbol,
                             update.OrderId.ToString(),
                             update.Type == Enums.OrderType.Limit ? SharedOrderType.Limit : update.Type == Enums.OrderType.Market ? SharedOrderType.Market : SharedOrderType.Other,
                             update.Side == Enums.OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
@@ -199,7 +199,7 @@ namespace HTX.Net.Clients.SpotApi
             if (orderUpdate is HTXMatchedOrderUpdate matchUpdate)
             {
                 return new SharedSpotOrder(
-                            matchUpdate.Symbol.ToUpperInvariant(),
+                            matchUpdate.Symbol,
                             matchUpdate.OrderId.ToString(),
                             matchUpdate.Type == Enums.OrderType.Limit ? SharedOrderType.Limit : matchUpdate.Type == Enums.OrderType.Market ? SharedOrderType.Market : SharedOrderType.Other,
                             matchUpdate.Side == Enums.OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
@@ -213,7 +213,7 @@ namespace HTX.Net.Clients.SpotApi
                     QuoteQuantityFilled = matchUpdate.Type == Enums.OrderType.Market && matchUpdate.Side == Enums.OrderSide.Buy ? matchUpdate.QuantityFilled : null,
                     UpdateTime = matchUpdate.UpdateTime,
                     OrderPrice = matchUpdate.Price,
-                    LastTrade = new SharedUserTrade(matchUpdate.Symbol.ToUpperInvariant(), matchUpdate.OrderId.ToString(), matchUpdate.TradeId.ToString(), matchUpdate.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell, matchUpdate.TradeQuantity, matchUpdate.TradePrice, matchUpdate.TradeTime)
+                    LastTrade = new SharedUserTrade(matchUpdate.Symbol, matchUpdate.OrderId.ToString(), matchUpdate.TradeId.ToString(), matchUpdate.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell, matchUpdate.TradeQuantity, matchUpdate.TradePrice, matchUpdate.TradeTime)
                     {
                         Role = matchUpdate.IsTaker ? SharedRole.Taker : SharedRole.Maker
                     }
@@ -223,7 +223,7 @@ namespace HTX.Net.Clients.SpotApi
             if (orderUpdate is HTXCanceledOrderUpdate cancelUpdate)
             {
                 return new SharedSpotOrder(
-                            cancelUpdate.Symbol.ToUpperInvariant(),
+                            cancelUpdate.Symbol,
                             cancelUpdate.OrderId.ToString(),
                             cancelUpdate.Type == Enums.OrderType.Limit ? SharedOrderType.Limit : cancelUpdate.Type == Enums.OrderType.Market ? SharedOrderType.Market : SharedOrderType.Other,
                             cancelUpdate.Side == Enums.OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
