@@ -101,7 +101,7 @@ namespace HTX.Net.Clients.SpotApi
             parameters.AddEnum("to-account-type", toAccountType);
 
             var request = _definitions.GetOrCreate(HttpMethod.Post, $"v1/account/transfer", HTXExchange.RateLimiter.EndpointLimit, 1, true);
-            return await _baseClient.SendBasicAsync<HTXTransactionResult>(request, null, ct).ConfigureAwait(false);
+            return await _baseClient.SendBasicAsync<HTXTransactionResult>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -127,7 +127,7 @@ namespace HTX.Net.Clients.SpotApi
 
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"v1/account/history", HTXExchange.RateLimiter.EndpointLimit, 1, true,
                 new SingleLimitGuard(5, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
-            return await _baseClient.SendBasicAsync<IEnumerable<HTXAccountHistory>>(request, null, ct).ConfigureAwait(false);
+            return await _baseClient.SendBasicAsync<IEnumerable<HTXAccountHistory>>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
