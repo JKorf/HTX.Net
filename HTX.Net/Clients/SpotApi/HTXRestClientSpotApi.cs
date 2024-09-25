@@ -66,7 +66,7 @@ namespace HTX.Net.Clients.SpotApi
 
 
         /// <inheritdoc />
-        public override string FormatSymbol(string baseAsset, string quoteAsset, TradingMode apiType, DateTime? deliverTime = null)
+        public override string FormatSymbol(string baseAsset, string quoteAsset, TradingMode tradingMode, DateTime? deliverTime = null)
         {
             return $"{baseAsset.ToLowerInvariant()}{quoteAsset.ToLowerInvariant()}";
         }
