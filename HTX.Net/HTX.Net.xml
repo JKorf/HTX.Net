@@ -3489,12 +3489,12 @@
         </member>
         <member name="P:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApi.CommonSpotClient">
             <summary>
-            DEPRECATED; use <see cref="T:CryptoExchange.Net.SharedApis.ISharedClient" /> instead for common/shared functionality. See <see href="SHAREDDOCSURL" /> for more info.
+            DEPRECATED; use <see cref="T:CryptoExchange.Net.SharedApis.ISharedClient" /> instead for common/shared functionality. See <see href="https://jkorf.github.io/CryptoExchange.Net/docs/index.html#shared" /> for more info.
             </summary>
         </member>
         <member name="P:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApi.SharedClient">
             <summary>
-            Get the shared rest requests client
+            Get the shared rest requests client. This interface is shared with other exhanges to allow for a common implementation for different exchanges.
             </summary>
         </member>
         <member name="T:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiAccount">
@@ -4474,7 +4474,7 @@
         </member>
         <member name="P:HTX.Net.Interfaces.Clients.SpotApi.IHTXSocketClientSpotApi.SharedClient">
             <summary>
-            Get the shared socket subscription client
+            Get the shared socket subscription client. This interface is shared with other exhanges to allow for a common implementation for different exchanges.
             </summary>
         </member>
         <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXSocketClientSpotApi.GetKlinesAsync(System.String,HTX.Net.Enums.KlineInterval)">
@@ -4685,7 +4685,7 @@
         </member>
         <member name="P:HTX.Net.Interfaces.Clients.UsdtFuturesApi.IHTXRestClientUsdtFuturesApi.SharedClient">
             <summary>
-            Get the shared rest requests client
+            Get the shared rest requests client. This interface is shared with other exhanges to allow for a common implementation for different exchanges.
             </summary>
         </member>
         <member name="T:HTX.Net.Interfaces.Clients.UsdtFuturesApi.IHTXRestClientUsdtFuturesApiAccount">
@@ -6187,7 +6187,7 @@
         </member>
         <member name="P:HTX.Net.Interfaces.Clients.UsdtFuturesApi.IHTXSocketClientUsdtFuturesApi.SharedClient">
             <summary>
-            Get the shared socket subscription client
+            Get the shared socket subscription client. This interface is shared with other exhanges to allow for a common implementation for different exchanges.
             </summary>
         </member>
         <member name="M:HTX.Net.Interfaces.Clients.UsdtFuturesApi.IHTXSocketClientUsdtFuturesApi.SubscribeToBasisUpdatesAsync(System.String,HTX.Net.Enums.KlineInterval,System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapBasisUpdate}},System.Threading.CancellationToken)">
