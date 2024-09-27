@@ -143,6 +143,17 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 6.1.0 - 27 Sep 2024
+    * Updated CryptoExchange.Net to version 8.0.0, see https://github.com/JKorf/CryptoExchange.Net/releases/tag/8.0.0
+    * Added Shared client interfaces implementation for Spot and UsdtFuturesApi Rest and Socket clients
+    * Added QuoteQuantity property to HTXOrderUpdate model
+    * Updated from parameter type from int? to long? on SpotApi.Account.GetWithdrawalDepositHistoryAsync
+    * Updated Status property type from string to SymbolStatus on HTXSymbolConfig model
+    * Updated OrderSide property type from string to OrderSide on HTXUsdtMarginSwapOrderUpdate
+    * Updated Sourcelink package version
+    * Fixed UsdtFuturesApi.Account.SetIsolatedMarginPositionModeAsync, SetCrossmarginPositionModeAsync, GetIsolatedMarginPositionModeAsync and GetCrossMarginPositionMode response deserialization
+    * Marked ISpotClient references as deprecated
+
 * Version 6.0.2 - 18 Aug 2024
     * Fix deserialization undocumented canceled-source field value
 
