@@ -53,7 +53,7 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// Fee asset
         /// </summary>
         [JsonPropertyName("fee_asset")]
-        public string FeeAssset { get; set; } = string.Empty;
+        public string FeeAsset { get; set; } = string.Empty;
         /// <summary>
         /// Profit
         /// </summary>

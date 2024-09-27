@@ -2,6 +2,7 @@
 using CryptoExchange.Net.Clients;
 using CryptoExchange.Net.Converters.MessageParsing;
 using CryptoExchange.Net.Objects.Sockets;
+using CryptoExchange.Net.SharedApis;
 using CryptoExchange.Net.Sockets;
 using HTX.Net.Enums;
 using HTX.Net.Interfaces.Clients.UsdtFuturesApi;
@@ -15,7 +16,7 @@ using HTX.Net.Objects.Sockets.Subscriptions;
 namespace HTX.Net.Clients.UsdtFutures
 {
     /// <inheritdoc />
-    internal class HTXSocketClientUsdtFuturesApi : SocketApiClient, IHTXSocketClientUsdtFuturesApi
+    internal partial class HTXSocketClientUsdtFuturesApi : SocketApiClient, IHTXSocketClientUsdtFuturesApi
     {
         private static readonly MessagePath _idPath = MessagePath.Get().Property("id");
         private static readonly MessagePath _actionPath = MessagePath.Get().Property("action");
@@ -45,8 +46,14 @@ namespace HTX.Net.Clients.UsdtFutures
 
         protected override IByteMessageAccessor CreateAccessor() => new SystemTextJsonByteMessageAccessor();
 
+        public IHTXSocketClientUsdtFuturesApiShared SharedClient => this;
+
         /// <inheritdoc />
-        public override string FormatSymbol(string baseAsset, string quoteAsset) => $"{baseAsset.ToUpperInvariant()}-{quoteAsset.ToUpperInvariant()}";
+        public override string FormatSymbol(string baseAsset, string quoteAsset, TradingMode tradingMode, DateTime? deliverTime = null)
+        {
+            return $"{baseAsset.ToUpperInvariant()}-{quoteAsset.ToUpperInvariant()}" + (!deliverTime.HasValue ? string.Empty : ("-" + deliverTime.Value.ToString("yyMMdd")));
+        }
+
 
         /// <inheritdoc />
         public override ReadOnlyMemory<byte> PreprocessStreamMessage(SocketConnection connection, WebSocketMessageType type, ReadOnlyMemory<byte> data)

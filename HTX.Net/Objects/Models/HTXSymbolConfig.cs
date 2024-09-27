@@ -1,4 +1,6 @@
-﻿namespace HTX.Net.Objects.Models
+﻿using HTX.Net.Enums;
+
+namespace HTX.Net.Objects.Models
 {
     /// <summary>
     /// Symbol configuration
@@ -14,7 +16,7 @@
         /// Status
         /// </summary>
         [JsonPropertyName("state")]
-        public string Status { get; set; } = string.Empty;
+        public SymbolStatus Status { get; set; }
         /// <summary>
         /// Base asset
         /// </summary>

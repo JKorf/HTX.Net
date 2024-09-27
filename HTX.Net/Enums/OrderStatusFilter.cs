@@ -8,6 +8,11 @@ namespace HTX.Net.Enums
     public enum OrderStatusFilter
     {
         /// <summary>
+        /// Order statuses
+        /// </summary>
+        [Map("0")]
+        All,
+        /// <summary>
         /// Placing in book
         /// </summary>
         [Map("1", "2")]

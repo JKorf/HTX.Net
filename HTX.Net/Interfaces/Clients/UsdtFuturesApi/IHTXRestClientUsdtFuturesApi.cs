@@ -1,4 +1,6 @@
-﻿namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
+﻿using HTX.Net.Interfaces.Clients.SpotApi;
+
+namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
 {
     /// <summary>
     /// Usdt futures api endpoints
@@ -21,5 +23,10 @@
         /// Endpoints related to orders and trades
         /// </summary>
         IHTXRestClientUsdtFuturesApiTrading Trading { get; }
+
+        /// <summary>
+        /// Get the shared rest requests client. This interface is shared with other exhanges to allow for a common implementation for different exchanges.
+        /// </summary>
+        public IHTXRestClientUsdtFuturesApiShared SharedClient { get; }
     }
 }

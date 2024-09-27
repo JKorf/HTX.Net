@@ -11,6 +11,11 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
     public interface IHTXSocketClientSpotApi : ISocketApiClient, IDisposable
     {
         /// <summary>
+        /// Get the shared socket subscription client. This interface is shared with other exhanges to allow for a common implementation for different exchanges.
+        /// </summary>
+        public IHTXSocketClientSpotApiShared SharedClient { get; }
+
+        /// <summary>
         /// Get kline/candlestick data for a symbol
         /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-latest-tickers-for-all-pairs" /></para>
         /// </summary>
@@ -188,5 +193,6 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
         Task<CallResult<UpdateSubscription>> SubscribeToOrderDetailsUpdatesAsync(string? symbol = null,
             Action<DataEvent<HTXTradeUpdate>>? onOrderMatch = null, Action<DataEvent<HTXOrderCancelationUpdate>>? onOrderCancel = null, CancellationToken ct = default);
+
     }
 }

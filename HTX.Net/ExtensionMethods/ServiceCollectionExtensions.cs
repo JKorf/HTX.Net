@@ -58,6 +58,12 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddTransient<ICryptoRestClient, CryptoRestClient>();
             services.AddTransient<ICryptoSocketClient, CryptoSocketClient>();
             services.AddTransient<IHTXOrderBookFactory, HTXOrderBookFactory>();
+
+            services.RegisterSharedRestInterfaces(x => x.GetRequiredService<IHTXRestClient>().SpotApi.SharedClient);
+            services.RegisterSharedSocketInterfaces(x => x.GetRequiredService<IHTXSocketClient>().SpotApi.SharedClient);
+            services.RegisterSharedRestInterfaces(x => x.GetRequiredService<IHTXRestClient>().UsdtFuturesApi.SharedClient);
+            services.RegisterSharedSocketInterfaces(x => x.GetRequiredService<IHTXSocketClient>().UsdtFuturesApi.SharedClient);
+
             services.AddTransient(x => x.GetRequiredService<IHTXRestClient>().SpotApi.CommonSpotClient);
             if (socketClientLifeTime == null)
                 services.AddSingleton<IHTXSocketClient, HTXSocketClient>();

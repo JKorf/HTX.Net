@@ -47,7 +47,7 @@ namespace HTX.Net.Objects.Models.Socket
         /// Order side
         /// </summary>
         [JsonPropertyName("direction")]
-        public string OrderSide { get; set; } = string.Empty;
+        public OrderSide OrderSide { get; set; }
         /// <summary>
         /// Offset
         /// </summary>

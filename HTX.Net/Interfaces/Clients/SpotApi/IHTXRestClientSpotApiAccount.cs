@@ -132,7 +132,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// <param name="direction">the order of response</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<HTXWithdrawDeposit>>> GetWithdrawDepositHistoryAsync(WithdrawDepositType type, string? asset = null, int? from = null, int? size = null, FilterDirection? direction = null, CancellationToken ct = default);
+        Task<WebCallResult<IEnumerable<HTXWithdrawDeposit>>> GetWithdrawDepositHistoryAsync(WithdrawDepositType type, string? asset = null, long? from = null, int? size = null, FilterDirection? direction = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get current trading fees for symbols

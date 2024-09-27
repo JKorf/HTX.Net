@@ -371,7 +371,7 @@ namespace HTX.Net.Clients.SpotApi
         #region Get Withdraw Deposit History
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<HTXWithdrawDeposit>>> GetWithdrawDepositHistoryAsync(WithdrawDepositType type, string? asset = null, int? from = null, int? size = null, FilterDirection? direction = null, CancellationToken ct = default)
+        public async Task<WebCallResult<IEnumerable<HTXWithdrawDeposit>>> GetWithdrawDepositHistoryAsync(WithdrawDepositType type, string? asset = null, long? from = null, int? size = null, FilterDirection? direction = null, CancellationToken ct = default)
         {
             asset = asset?.ToLowerInvariant();
 

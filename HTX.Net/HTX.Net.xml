@@ -107,7 +107,7 @@
         <member name="P:HTX.Net.Clients.SpotApi.HTXRestClientSpotApi.Trading">
             <inheritdoc />
         </member>
-        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApi.FormatSymbol(System.String,System.String)">
+        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApi.FormatSymbol(System.String,System.String,CryptoExchange.Net.SharedApis.TradingMode,System.Nullable{System.DateTime})">
             <inheritdoc />
         </member>
         <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApi.CreateAuthenticationProvider(CryptoExchange.Net.Authentication.ApiCredentials)">
@@ -200,7 +200,7 @@
         <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiAccount.CancelWithdrawalAsync(System.Int64,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiAccount.GetWithdrawDepositHistoryAsync(HTX.Net.Enums.WithdrawDepositType,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{HTX.Net.Enums.FilterDirection},System.Threading.CancellationToken)">
+        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiAccount.GetWithdrawDepositHistoryAsync(HTX.Net.Enums.WithdrawDepositType,System.String,System.Nullable{System.Int64},System.Nullable{System.Int32},System.Nullable{HTX.Net.Enums.FilterDirection},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiAccount.GetTradingFeesAsync(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
@@ -425,7 +425,7 @@
         <member name="T:HTX.Net.Clients.SpotApi.HTXSocketClientSpotApi">
             <inheritdoc />
         </member>
-        <member name="M:HTX.Net.Clients.SpotApi.HTXSocketClientSpotApi.FormatSymbol(System.String,System.String)">
+        <member name="M:HTX.Net.Clients.SpotApi.HTXSocketClientSpotApi.FormatSymbol(System.String,System.String,CryptoExchange.Net.SharedApis.TradingMode,System.Nullable{System.DateTime})">
             <inheritdoc />
         </member>
         <member name="M:HTX.Net.Clients.SpotApi.HTXSocketClientSpotApi.GetListenerIdentifier(CryptoExchange.Net.Interfaces.IMessageAccessor)">
@@ -512,7 +512,7 @@
         <member name="P:HTX.Net.Clients.UsdtFutures.HTXRestClientUsdtFuturesApi.Trading">
             <inheritdoc />
         </member>
-        <member name="M:HTX.Net.Clients.UsdtFutures.HTXRestClientUsdtFuturesApi.FormatSymbol(System.String,System.String)">
+        <member name="M:HTX.Net.Clients.UsdtFutures.HTXRestClientUsdtFuturesApi.FormatSymbol(System.String,System.String,CryptoExchange.Net.SharedApis.TradingMode,System.Nullable{System.DateTime})">
             <inheritdoc />
         </member>
         <member name="M:HTX.Net.Clients.UsdtFutures.HTXRestClientUsdtFuturesApi.CreateAuthenticationProvider(CryptoExchange.Net.Authentication.ApiCredentials)">
@@ -932,7 +932,7 @@
         <member name="T:HTX.Net.Clients.UsdtFutures.HTXSocketClientUsdtFuturesApi">
             <inheritdoc />
         </member>
-        <member name="M:HTX.Net.Clients.UsdtFutures.HTXSocketClientUsdtFuturesApi.FormatSymbol(System.String,System.String)">
+        <member name="M:HTX.Net.Clients.UsdtFutures.HTXSocketClientUsdtFuturesApi.FormatSymbol(System.String,System.String,CryptoExchange.Net.SharedApis.TradingMode,System.Nullable{System.DateTime})">
             <inheritdoc />
         </member>
         <member name="M:HTX.Net.Clients.UsdtFutures.HTXSocketClientUsdtFuturesApi.PreprocessStreamMessage(CryptoExchange.Net.Sockets.SocketConnection,System.Net.WebSockets.WebSocketMessageType,System.ReadOnlyMemory{System.Byte})">
@@ -2479,6 +2479,11 @@
             Order status filter
             </summary>
         </member>
+        <member name="F:HTX.Net.Enums.OrderStatusFilter.All">
+            <summary>
+            Order statuses
+            </summary>
+        </member>
         <member name="F:HTX.Net.Enums.OrderStatusFilter.ReadyToPlace">
             <summary>
             Placing in book
@@ -3484,9 +3489,13 @@
         </member>
         <member name="P:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApi.CommonSpotClient">
             <summary>
-            Get the ISpotClient for this client. This is a common interface which allows for some basic operations without knowing any details of the exchange.
+            DEPRECATED; use <see cref="T:CryptoExchange.Net.SharedApis.ISharedClient" /> instead for common/shared functionality. See <see href="https://jkorf.github.io/CryptoExchange.Net/docs/index.html#shared" /> for more info.
             </summary>
-            <returns></returns>
+        </member>
+        <member name="P:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApi.SharedClient">
+            <summary>
+            Get the shared rest requests client. This interface is shared with other exhanges to allow for a common implementation for different exchanges.
+            </summary>
         </member>
         <member name="T:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiAccount">
             <summary>
@@ -3606,7 +3615,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiAccount.GetWithdrawDepositHistoryAsync(HTX.Net.Enums.WithdrawDepositType,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{HTX.Net.Enums.FilterDirection},System.Threading.CancellationToken)">
+        <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiAccount.GetWithdrawDepositHistoryAsync(HTX.Net.Enums.WithdrawDepositType,System.String,System.Nullable{System.Int64},System.Nullable{System.Int32},System.Nullable{HTX.Net.Enums.FilterDirection},System.Threading.CancellationToken)">
             <summary>
             Get withdrawal/deposit history
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4f050-7773-11ed-9966-0242ac110003" /></para>
@@ -4048,6 +4057,11 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
+        <member name="T:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiShared">
+            <summary>
+            Shared interface for Spot rest API usage
+            </summary>
+        </member>
         <member name="T:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiSubAccount">
             <summary>
             HTX sub-account endpoints.
@@ -4458,6 +4472,11 @@
             Spot streams
             </summary>
         </member>
+        <member name="P:HTX.Net.Interfaces.Clients.SpotApi.IHTXSocketClientSpotApi.SharedClient">
+            <summary>
+            Get the shared socket subscription client. This interface is shared with other exhanges to allow for a common implementation for different exchanges.
+            </summary>
+        </member>
         <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXSocketClientSpotApi.GetKlinesAsync(System.String,HTX.Net.Enums.KlineInterval)">
             <summary>
             Get kline/candlestick data for a symbol
@@ -4629,6 +4648,16 @@
             <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
         </member>
+        <member name="T:HTX.Net.Interfaces.Clients.SpotApi.IHTXSocketClientSpotApiShared">
+            <summary>
+            Shared interface for Spot socket API usage
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientUsdtFuturesApiShared">
+            <summary>
+            Shared interface for Usdt futures rest API usage
+            </summary>
+        </member>
         <member name="T:HTX.Net.Interfaces.Clients.UsdtFuturesApi.IHTXRestClientUsdtFuturesApi">
             <summary>
             Usdt futures api endpoints
@@ -4652,6 +4681,11 @@
         <member name="P:HTX.Net.Interfaces.Clients.UsdtFuturesApi.IHTXRestClientUsdtFuturesApi.Trading">
             <summary>
             Endpoints related to orders and trades
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Interfaces.Clients.UsdtFuturesApi.IHTXRestClientUsdtFuturesApi.SharedClient">
+            <summary>
+            Get the shared rest requests client. This interface is shared with other exhanges to allow for a common implementation for different exchanges.
             </summary>
         </member>
         <member name="T:HTX.Net.Interfaces.Clients.UsdtFuturesApi.IHTXRestClientUsdtFuturesApiAccount">
@@ -6151,6 +6185,11 @@
             Usdt futures streams
             </summary>
         </member>
+        <member name="P:HTX.Net.Interfaces.Clients.UsdtFuturesApi.IHTXSocketClientUsdtFuturesApi.SharedClient">
+            <summary>
+            Get the shared socket subscription client. This interface is shared with other exhanges to allow for a common implementation for different exchanges.
+            </summary>
+        </member>
         <member name="M:HTX.Net.Interfaces.Clients.UsdtFuturesApi.IHTXSocketClientUsdtFuturesApi.SubscribeToBasisUpdatesAsync(System.String,HTX.Net.Enums.KlineInterval,System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapBasisUpdate}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to basis updates
@@ -6398,6 +6437,11 @@
             <param name="onData">Data handler</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
+        </member>
+        <member name="T:HTX.Net.Interfaces.Clients.UsdtFuturesApi.IHTXSocketClientUsdtFuturesApiShared">
+            <summary>
+            Shared interface for Usdt futures socket API usage
+            </summary>
         </member>
         <member name="T:HTX.Net.Interfaces.IHTXOrderBookFactory">
             <summary>
@@ -10143,6 +10187,11 @@
         <member name="P:HTX.Net.Objects.Models.Socket.HTXMatchedOrderUpdate.OrderSource">
             <summary>
             Order source
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXMatchedOrderUpdate.QuoteQuantity">
+            <summary>
+            Value of the order
             </summary>
         </member>
         <member name="T:HTX.Net.Objects.Models.Socket.HTXCanceledOrderUpdate">
@@ -14930,7 +14979,7 @@
             Trade role
             </summary>
         </member>
-        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXMarginTrade.FeeAssset">
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXMarginTrade.FeeAsset">
             <summary>
             Fee asset
             </summary>

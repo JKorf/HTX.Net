@@ -242,7 +242,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// </summary>
         /// <param name="marginAccount">Margin account, for example `USDT`</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<IEnumerable<HTXPositionMode>>> GetIsolatedMarginPositionModeAsync(string marginAccount, CancellationToken ct = default);
+        Task<WebCallResult<HTXPositionMode>> GetIsolatedMarginPositionModeAsync(string marginAccount, CancellationToken ct = default);
 
         /// <summary>
         /// Get cross margin position mode
@@ -250,7 +250,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// </summary>
         /// <param name="marginAccount">Margin account, for example `USDT`</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<IEnumerable<HTXPositionMode>>> GetCrossMarginPositionModeAsync(string marginAccount, CancellationToken ct = default);
+        Task<WebCallResult<HTXPositionMode>> GetCrossMarginPositionModeAsync(string marginAccount, CancellationToken ct = default);
 
     }
 }
