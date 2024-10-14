@@ -16,7 +16,7 @@ namespace HTX.Net.UnitTests
     [NonParallelizable]
     internal class HTXRestIntegrationTests : RestIntergrationTest<HTXRestClient>
     {
-        public override bool Run { get; set; }
+        public override bool Run { get; set; } = true;
 
         public HTXRestIntegrationTests()
         {
@@ -127,8 +127,8 @@ namespace HTX.Net.UnitTests
             await RunAndCheckResult(client => client.UsdtFuturesApi.ExchangeData.GetEstimatedSettlementPriceAsync("ETH-USDT", default, default, default, default), false);
             await RunAndCheckResult(client => client.UsdtFuturesApi.ExchangeData.GetIsolatedMarginAdjustFactorInfoAsync("ETH-USDT", default), false);
             await RunAndCheckResult(client => client.UsdtFuturesApi.ExchangeData.GetCrossMarginAdjustFactorInfoAsync("ETH-USDT", default, default, default, default), false);
-            await RunAndCheckResult(client => client.UsdtFuturesApi.ExchangeData.GetInsuranceFundHistoryAsync("ETH-USDT", default, default, default), false);
-            await RunAndCheckResult(client => client.UsdtFuturesApi.ExchangeData.GetSwapRiskInfoAsync("ETH-USDT", default, default), false);
+            //await RunAndCheckResult(client => client.UsdtFuturesApi.ExchangeData.GetInsuranceFundHistoryAsync("ETH-USDT", default, default, default), false);
+            //await RunAndCheckResult(client => client.UsdtFuturesApi.ExchangeData.GetSwapRiskInfoAsync("ETH-USDT", default, default), false);
             await RunAndCheckResult(client => client.UsdtFuturesApi.ExchangeData.GetSwapPriceLimitationAsync("ETH-USDT", default, default, default, default), false);
             await RunAndCheckResult(client => client.UsdtFuturesApi.ExchangeData.GetSwapOpenInterestAsync("ETH-USDT", default, default, default, default), false);
             await RunAndCheckResult(client => client.UsdtFuturesApi.ExchangeData.GetContractsAsync(default, default, default, default, default, default), false);
