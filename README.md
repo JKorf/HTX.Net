@@ -144,6 +144,9 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 6.1.2 - 14 Oct 2024
+    * Fixed cancellation token not being passed to subscribe method in Shared client
+
 * Version 6.1.1 - 08 Oct 2024
     * Fixed LastPrice value on SpotTicker Shared implementation
 
