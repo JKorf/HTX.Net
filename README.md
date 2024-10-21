@@ -144,6 +144,10 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 6.2.0 - 21 Oct 2024
+    * Added socketClient.SpotApi Order management requests
+    * Added restClient.UsdtFuturesApi.ExchangeData.GetInsuranceFundInfoAsync endpoint
+
 * Version 6.1.3 - 14 Oct 2024
     * Updated CryptoExchange.Net to version 8.0.3, see https://github.com/JKorf/CryptoExchange.Net/releases/tag/8.0.3
     * Fixed TypeLoadException during initialization
