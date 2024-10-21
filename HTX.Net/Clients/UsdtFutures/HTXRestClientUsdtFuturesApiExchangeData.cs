@@ -253,6 +253,18 @@ namespace HTX.Net.Clients.UsdtFutures
 
         #endregion
 
+        #region Get Insurance Fund Info
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<HTXTotalInsuranceInfo>> GetInsuranceFundInfoAsync(CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "v1/insurance_fund_info", HTXExchange.RateLimiter.UsdtPublicReference, 1, false);
+            return await _baseClient.SendBasicAsync<HTXTotalInsuranceInfo>(request, parameters, ct).ConfigureAwait(false);
+        }
+
+        #endregion
+
         #region Get Swap Risk Info
 
         /// <inheritdoc />

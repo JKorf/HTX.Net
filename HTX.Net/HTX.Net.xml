@@ -662,6 +662,9 @@
         <member name="M:HTX.Net.Clients.UsdtFutures.HTXRestClientUsdtFuturesApiExchangeData.GetInsuranceFundHistoryAsync(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
+        <member name="M:HTX.Net.Clients.UsdtFutures.HTXRestClientUsdtFuturesApiExchangeData.GetInsuranceFundInfoAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
         <member name="M:HTX.Net.Clients.UsdtFutures.HTXRestClientUsdtFuturesApiExchangeData.GetSwapRiskInfoAsync(System.String,System.Nullable{HTX.Net.Enums.BusinessType},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
@@ -5109,6 +5112,14 @@
             <param name="page">Page</param>
             <param name="pageSize">Page size</param>
             <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:HTX.Net.Interfaces.Clients.UsdtFuturesApi.IHTXRestClientUsdtFuturesApiExchangeData.GetInsuranceFundInfoAsync(System.Threading.CancellationToken)">
+            <summary>
+            Get the total amount of risk funds for all current business lines, priced in USDT.
+            <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb89359-77b5-11ed-9966-192412eef1f" /></para>
+            </summary>
+            <param name="ct"></param>
             <returns></returns>
         </member>
         <member name="M:HTX.Net.Interfaces.Clients.UsdtFuturesApi.IHTXRestClientUsdtFuturesApiExchangeData.GetIsolatedMarginAdjustFactorInfoAsync(System.String,System.Threading.CancellationToken)">
@@ -16382,6 +16393,21 @@
         <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTieredMarginLadder.MaxMarginAvailable">
             <summary>
             Max margin available
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTotalInsuranceInfo">
+            <summary>
+            Insurance value
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTotalInsuranceInfo.InsuranceFund">
+            <summary>
+            Insurance fund
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTotalInsuranceInfo.Asset">
+            <summary>
+            Quote asset
             </summary>
         </member>
         <member name="T:HTX.Net.Objects.Models.UsdtMarginSwap.HTXTpSlClosedOrderPage">
