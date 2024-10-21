@@ -17,6 +17,11 @@ namespace HTX.Net.Objects.Options
         };
 
         /// <summary>
+        /// Broker id
+        /// </summary>
+        public string? BrokerId { get; set; }
+
+        /// <summary>
         /// Spot API options
         /// </summary>
         public SocketApiOptions SpotOptions { get; private set; } = new SocketApiOptions();
@@ -29,6 +34,7 @@ namespace HTX.Net.Objects.Options
         internal HTXSocketOptions Copy()
         {
             var options = Copy<HTXSocketOptions>();
+            options.BrokerId = BrokerId;
             options.SpotOptions = SpotOptions.Copy<SocketApiOptions>();
             options.UsdtMarginSwapOptions = UsdtMarginSwapOptions.Copy<SocketApiOptions>();
             return options;

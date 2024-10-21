@@ -491,6 +491,21 @@
         <member name="M:HTX.Net.Clients.SpotApi.HTXSocketClientSpotApi.SubscribeToOrderDetailsUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{HTX.Net.Objects.Models.Socket.HTXTradeUpdate}},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{HTX.Net.Objects.Models.Socket.HTXOrderCancelationUpdate}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
+        <member name="M:HTX.Net.Clients.SpotApi.HTXSocketClientSpotApi.PlaceOrderAsync(System.Int64,System.String,HTX.Net.Enums.OrderSide,HTX.Net.Enums.OrderType,System.Decimal,System.Nullable{System.Decimal},System.String,System.Nullable{HTX.Net.Enums.SourceType},System.Nullable{System.Decimal},System.Nullable{HTX.Net.Enums.Operator},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.SpotApi.HTXSocketClientSpotApi.PlaceMultipleOrdersAsync(System.Collections.Generic.IEnumerable{HTX.Net.Objects.Models.HTXOrderRequest},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.SpotApi.HTXSocketClientSpotApi.PlaceMarginOrderAsync(System.Int64,System.String,HTX.Net.Enums.OrderSide,HTX.Net.Enums.OrderType,HTX.Net.Enums.MarginPurpose,HTX.Net.Enums.SourceType,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{HTX.Net.Enums.Operator},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.SpotApi.HTXSocketClientSpotApi.CancelAllOrdersAsync(System.Int64,System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.SpotApi.HTXSocketClientSpotApi.CancelOrdersAsync(System.Collections.Generic.IEnumerable{System.String},System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
         <member name="T:HTX.Net.Clients.UsdtFutures.HTXRestClientUsdtFuturesApi">
             <inheritdoc />
         </member>
@@ -4650,6 +4665,82 @@
             <param name="onOrderCancel">Event handler for the order canceled event</param>
             <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        </member>
+        <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXSocketClientSpotApi.PlaceOrderAsync(System.Int64,System.String,HTX.Net.Enums.OrderSide,HTX.Net.Enums.OrderType,System.Decimal,System.Nullable{System.Decimal},System.String,System.Nullable{HTX.Net.Enums.SourceType},System.Nullable{System.Decimal},System.Nullable{HTX.Net.Enums.Operator},System.Threading.CancellationToken)">
+            <summary>
+            Place a new order
+            <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb89359-77b5-11ed-9966-1928f079ab6" /></para>
+            </summary>
+            <param name="accountId"></param>
+            <param name="symbol"></param>
+            <param name="side"></param>
+            <param name="type"></param>
+            <param name="quantity"></param>
+            <param name="price"></param>
+            <param name="clientOrderId"></param>
+            <param name="source"></param>
+            <param name="stopPrice"></param>
+            <param name="stopOperator"></param>
+            <param name="ct"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXSocketClientSpotApi.PlaceMultipleOrdersAsync(System.Collections.Generic.IEnumerable{HTX.Net.Objects.Models.HTXOrderRequest},System.Threading.CancellationToken)">
+            <summary>
+            Place multiple orders in a single call. Make sure to check each order response to see if placement succeeded.
+            <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb89359-77b5-11ed-9966-1928f115372" /></para>
+            </summary>
+            <param name="orders"></param>
+            <param name="ct"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXSocketClientSpotApi.PlaceMarginOrderAsync(System.Int64,System.String,HTX.Net.Enums.OrderSide,HTX.Net.Enums.OrderType,HTX.Net.Enums.MarginPurpose,HTX.Net.Enums.SourceType,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{HTX.Net.Enums.Operator},System.Threading.CancellationToken)">
+            <summary>
+            Place a new margin order
+            <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb89359-77b5-11ed-9966-1928f216d9e" /></para>
+            </summary>
+            <param name="accountId">The account to place the order for, account ids can be retrieved with <see cref="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiAccount.GetAccountsAsync(System.Threading.CancellationToken)">SpotApi.Account.GetAccountsAsync</see>.</param>
+            <param name="symbol">The symbol to place the order for, for example `ETHUSDT`</param>
+            <param name="side">The side of the order</param>
+            <param name="type">The type of the order</param>
+            <param name="purpose">Transaction purpose</param>
+            <param name="quantity">The quantity of the order in base asset</param>
+            <param name="quoteQuantity">The quantity of the order in quote asset</param>
+            <param name="borrowQuantity">The quantity that needs to be borrowed</param>
+            <param name="price">The price of the order. Should be omitted for market orders</param>
+            <param name="source">Source</param>
+            <param name="stopPrice">Stop price</param>
+            <param name="stopOperator">Operator of the stop price</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXSocketClientSpotApi.CancelAllOrdersAsync(System.Int64,System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
+            <summary>
+            Cancel all orders
+            <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb89359-77b5-11ed-9966-1928f2962a5" /></para>
+            </summary>
+            <param name="accountId">The account to place the order for, account ids can be retrieved with <see cref="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiAccount.GetAccountsAsync(System.Threading.CancellationToken)">SpotApi.Account.GetAccountsAsync</see>.</param>
+            <param name="symbols">Filter by symbols</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXSocketClientSpotApi.CancelOrdersAsync(System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Cancel an order
+            </summary>
+            <param name="orderId">Order id, either this or clientOrderId should be provided</param>
+            <param name="clientOrderId">Client order id, either this or orderId should be provided</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXSocketClientSpotApi.CancelOrdersAsync(System.Collections.Generic.IEnumerable{System.String},System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
+            <summary>
+            Cancel orders
+            <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb89359-77b5-11ed-9966-1928f2fa07f" /></para>
+            </summary>
+            <param name="orderIds">Order ids to cancel</param>
+            <param name="clientOrderIds">Client order ids to cancel</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
         </member>
         <member name="T:HTX.Net.Interfaces.Clients.SpotApi.IHTXSocketClientSpotApiShared">
             <summary>
@@ -17278,6 +17369,11 @@
         <member name="P:HTX.Net.Objects.Options.HTXSocketOptions.Default">
             <summary>
             Default options for the HTXSocketClient
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Options.HTXSocketOptions.BrokerId">
+            <summary>
+            Broker id
             </summary>
         </member>
         <member name="P:HTX.Net.Objects.Options.HTXSocketOptions.SpotOptions">

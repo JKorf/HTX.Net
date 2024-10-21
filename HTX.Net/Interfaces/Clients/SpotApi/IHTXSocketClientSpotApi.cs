@@ -194,5 +194,112 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         Task<CallResult<UpdateSubscription>> SubscribeToOrderDetailsUpdatesAsync(string? symbol = null,
             Action<DataEvent<HTXTradeUpdate>>? onOrderMatch = null, Action<DataEvent<HTXOrderCancelationUpdate>>? onOrderCancel = null, CancellationToken ct = default);
 
+        /// <summary>
+        /// Place a new order
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb89359-77b5-11ed-9966-1928f079ab6" /></para>
+        /// </summary>
+        /// <param name="accountId"></param>
+        /// <param name="symbol"></param>
+        /// <param name="side"></param>
+        /// <param name="type"></param>
+        /// <param name="quantity"></param>
+        /// <param name="price"></param>
+        /// <param name="clientOrderId"></param>
+        /// <param name="source"></param>
+        /// <param name="stopPrice"></param>
+        /// <param name="stopOperator"></param>
+        /// <param name="ct"></param>
+        /// <returns></returns>
+        Task<CallResult<string>> PlaceOrderAsync(
+            long accountId,
+            string symbol,
+            Enums.OrderSide side,
+            Enums.OrderType type,
+            decimal quantity,
+            decimal? price = null,
+            string? clientOrderId = null,
+            SourceType? source = null,
+            decimal? stopPrice = null,
+            Operator? stopOperator = null,
+            CancellationToken ct = default);
+
+        /// <summary>
+        /// Place multiple orders in a single call. Make sure to check each order response to see if placement succeeded.
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb89359-77b5-11ed-9966-1928f115372" /></para>
+        /// </summary>
+        /// <param name="orders"></param>
+        /// <param name="ct"></param>
+        /// <returns></returns>
+        Task<CallResult<IEnumerable<HTXBatchPlaceResult>>> PlaceMultipleOrdersAsync(
+            IEnumerable<HTXOrderRequest> orders,
+            CancellationToken ct = default);
+
+        /// <summary>
+        /// Place a new margin order
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb89359-77b5-11ed-9966-1928f216d9e" /></para>
+        /// </summary>
+        /// <param name="accountId">The account to place the order for, account ids can be retrieved with <see cref="IHTXRestClientSpotApiAccount.GetAccountsAsync">SpotApi.Account.GetAccountsAsync</see>.</param>
+        /// <param name="symbol">The symbol to place the order for, for example `ETHUSDT`</param>
+        /// <param name="side">The side of the order</param>
+        /// <param name="type">The type of the order</param>
+        /// <param name="purpose">Transaction purpose</param>
+        /// <param name="quantity">The quantity of the order in base asset</param>
+        /// <param name="quoteQuantity">The quantity of the order in quote asset</param>
+        /// <param name="borrowQuantity">The quantity that needs to be borrowed</param>
+        /// <param name="price">The price of the order. Should be omitted for market orders</param>
+        /// <param name="source">Source</param>
+        /// <param name="stopPrice">Stop price</param>
+        /// <param name="stopOperator">Operator of the stop price</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<CallResult<HTXOrderId>> PlaceMarginOrderAsync(
+            long accountId,
+            string symbol,
+            Enums.OrderSide side,
+            Enums.OrderType type,
+            Enums.MarginPurpose purpose,
+            SourceType source,
+            decimal? quantity = null,
+            decimal? quoteQuantity = null,
+            decimal? borrowQuantity = null,
+            decimal? price = null,
+            decimal? stopPrice = null,
+            Operator? stopOperator = null,
+            CancellationToken ct = default);
+
+        /// <summary>
+        /// Cancel all orders
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb89359-77b5-11ed-9966-1928f2962a5" /></para>
+        /// </summary>
+        /// <param name="accountId">The account to place the order for, account ids can be retrieved with <see cref="IHTXRestClientSpotApiAccount.GetAccountsAsync">SpotApi.Account.GetAccountsAsync</see>.</param>
+        /// <param name="symbols">Filter by symbols</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<CallResult<HTXByCriteriaCancelResult>> CancelAllOrdersAsync(
+           long accountId,
+           IEnumerable<string>? symbols = null,
+           CancellationToken ct = default);
+
+        /// <summary>
+        /// Cancel an order
+        /// </summary>
+        /// <param name="orderId">Order id, either this or clientOrderId should be provided</param>
+        /// <param name="clientOrderId">Client order id, either this or orderId should be provided</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<CallResult> CancelOrdersAsync(string? orderId = null, string? clientOrderId = null, CancellationToken ct = default);
+
+        /// <summary>
+        /// Cancel orders
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb89359-77b5-11ed-9966-1928f2fa07f" /></para>
+        /// </summary>
+        /// <param name="orderIds">Order ids to cancel</param>
+        /// <param name="clientOrderIds">Client order ids to cancel</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<CallResult<HTXBatchCancelResult>> CancelOrdersAsync(
+            IEnumerable<string>? orderIds = null,
+            IEnumerable<string>? clientOrderIds = null,
+            CancellationToken ct = default);
     }
 }

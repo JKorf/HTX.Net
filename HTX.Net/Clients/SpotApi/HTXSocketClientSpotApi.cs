@@ -1,4 +1,5 @@
-﻿using System.Net.WebSockets;
+﻿using System.Diagnostics;
+using System.Net.WebSockets;
 using CryptoExchange.Net.Clients;
 using CryptoExchange.Net.Converters.MessageParsing;
 using CryptoExchange.Net.Objects.Sockets;
@@ -6,6 +7,7 @@ using CryptoExchange.Net.SharedApis;
 using CryptoExchange.Net.Sockets;
 using HTX.Net.Enums;
 using HTX.Net.Interfaces.Clients.SpotApi;
+using HTX.Net.Objects.Internal;
 using HTX.Net.Objects.Models;
 using HTX.Net.Objects.Models.Socket;
 using HTX.Net.Objects.Options;
@@ -21,11 +23,13 @@ namespace HTX.Net.Clients.SpotApi
     internal partial class HTXSocketClientSpotApi : SocketApiClient, IHTXSocketClientSpotApi
     {
         private static readonly MessagePath _idPath = MessagePath.Get().Property("id");
+        private static readonly MessagePath _idPath2 = MessagePath.Get().Property("cid");
         private static readonly MessagePath _actionPath = MessagePath.Get().Property("action");
         private static readonly MessagePath _channelPath = MessagePath.Get().Property("ch");
         private static readonly MessagePath _pingPath = MessagePath.Get().Property("ping");
 
         #region fields
+        internal readonly string _brokerId;
         #endregion
 
         #region ctor
@@ -38,6 +42,10 @@ namespace HTX.Net.Clients.SpotApi
             AddSystemSubscription(new HTXPingSubscription(_logger));
 
             RateLimiter = HTXExchange.RateLimiter.SpotConnection;
+
+            _brokerId = !string.IsNullOrEmpty(options.BrokerId) ? options.BrokerId! : "AA1ef14811";
+
+            SetDedicatedConnection(options.Environment.SocketBaseAddress.AppendPath("ws/trade"), true);
         }
 
         #endregion
@@ -54,7 +62,7 @@ namespace HTX.Net.Clients.SpotApi
         /// <inheritdoc />
         public override string? GetListenerIdentifier(IMessageAccessor message)
         {
-            var id = message.GetValue<string>(_idPath);
+            var id = message.GetValue<string>(_idPath) ?? message.GetValue<string>(_idPath2);
             if (id != null)
                 return id;
 
@@ -90,11 +98,13 @@ namespace HTX.Net.Clients.SpotApi
         /// <inheritdoc />
         protected override Query GetAuthenticationRequest(SocketConnection connection)
         {
+            var path = connection.ConnectionUri;
+
             return new HTXAuthQuery(new HTXAuthRequest<HTXAuthParams>
             {
                 Action = "req",
                 Channel = "auth",
-                Params = ((HTXAuthenticationProvider)AuthenticationProvider!).GetWebsocketAuthentication(new Uri(BaseAddress.AppendPath("ws/v2")))
+                Params = ((HTXAuthenticationProvider)AuthenticationProvider!).GetWebsocketAuthentication(path)
             });
         }
 
@@ -265,6 +275,187 @@ namespace HTX.Net.Clients.SpotApi
 
             var subscription = new HTXOrderDetailsSubscription(_logger, symbol, onOrderMatch, onOrderCancel);
             return await SubscribeAsync(BaseAddress.AppendPath("ws/v2"), subscription, ct).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public async Task<CallResult<string>> PlaceOrderAsync(
+            long accountId,
+            string symbol,
+            Enums.OrderSide side,
+            Enums.OrderType type,
+            decimal quantity,
+            decimal? price = null,
+            string? clientOrderId = null,
+            SourceType? source = null,
+            decimal? stopPrice = null,
+            Operator? stopOperator = null,
+            CancellationToken ct = default)
+        {
+            symbol = symbol.ToLowerInvariant();
+
+            var orderType = EnumConverter.GetString(side) + "-" + EnumConverter.GetString(type);
+
+            var request = new HTXSocketPlaceOrderRequest()
+            {
+                AccountId = accountId,
+                ClientOrderId = clientOrderId ?? ExchangeHelpers.AppendRandomString(_brokerId, 64),
+                Price = price,
+                Type = orderType,
+                Quantity = quantity,
+                SourceType = source,
+                StopOperator = stopOperator,
+                StopPrice = stopPrice,
+                Symbol = symbol
+            };
+
+            var query = new HTXOrderQuery<HTXSocketPlaceOrderRequest, string>(new HTXSocketOrderRequest<HTXSocketPlaceOrderRequest>
+            {
+                Channel = "create-order",
+                RequestId = ExchangeHelpers.NextId().ToString(),
+                Params = request
+            });
+            var result = await QueryAsync(BaseAddress.AppendPath("ws/trade"), query, ct).ConfigureAwait(false);
+            return result.As<string>(result.Data?.Data);
+        }
+
+        /// <inheritdoc />
+        public async Task<CallResult<IEnumerable<HTXBatchPlaceResult>>> PlaceMultipleOrdersAsync(
+            IEnumerable<HTXOrderRequest> orders,
+            CancellationToken ct = default)
+        {
+            var data = new List<HTXSocketPlaceOrderRequest>();
+            foreach (var order in orders)
+            {
+                var orderType = EnumConverter.GetString(order.Side) + "-" + EnumConverter.GetString(order.Type);
+                order.Symbol = order.Symbol.ToLowerInvariant();
+
+                var parameters = new HTXSocketPlaceOrderRequest()
+                {
+                    AccountId = long.Parse(order.AccountId),
+                    ClientOrderId = order.ClientOrderId ?? ExchangeHelpers.AppendRandomString(_brokerId, 64),
+                    Price = order.Price,
+                    Type = orderType,
+                    Quantity = order.Quantity,
+                    SourceType = order.Source,
+                    StopOperator = order.StopOperator,
+                    StopPrice = order.StopPrice,
+                    Symbol = order.Symbol
+                };
+
+                data.Add(parameters);
+            }
+
+            var query = new HTXOrderQuery<List<HTXSocketPlaceOrderRequest>, IEnumerable<HTXBatchPlaceResult>>(new HTXSocketOrderRequest<List<HTXSocketPlaceOrderRequest>>
+            {
+                Channel = "create-batchorder",
+                RequestId = ExchangeHelpers.NextId().ToString(),
+                Params = data
+            });
+            var result = await QueryAsync(BaseAddress.AppendPath("ws/trade"), query, ct).ConfigureAwait(false);
+            return result.As<IEnumerable<HTXBatchPlaceResult>>(result.Data?.Data);
+        }
+
+        /// <inheritdoc />
+        public async Task<CallResult<HTXOrderId>> PlaceMarginOrderAsync(
+            long accountId,
+            string symbol,
+            Enums.OrderSide side,
+            Enums.OrderType type,
+            Enums.MarginPurpose purpose,
+            SourceType source,
+            decimal? quantity = null,
+            decimal? quoteQuantity = null,
+            decimal? borrowQuantity = null,
+            decimal? price = null,
+            decimal? stopPrice = null,
+            Operator? stopOperator = null,
+            CancellationToken ct = default)
+        {
+            symbol = symbol.ToLowerInvariant();
+
+            var orderType = EnumConverter.GetString(side) + "-" + EnumConverter.GetString(type);
+
+            var parameters = new ParameterCollection()
+            {
+                { "account-id", accountId },
+                { "symbol", symbol },
+                { "type", orderType }
+            };
+            parameters.AddEnum("trade-purpose", purpose);
+            parameters.AddEnum("source", source);
+
+            parameters.AddOptionalString("amount", quantity);
+            parameters.AddOptionalString("market-amount", quoteQuantity);
+            parameters.AddOptionalString("borrow-amount", borrowQuantity);
+            parameters.AddOptionalString("price", price);
+            parameters.AddOptionalString("stop-price", stopPrice);
+            parameters.AddOptionalEnum("operator", stopOperator);
+
+            var query = new HTXOrderQuery<ParameterCollection, HTXOrderId>(new HTXSocketOrderRequest<ParameterCollection>
+            {
+                Channel = "create-margin-order",
+                RequestId = ExchangeHelpers.NextId().ToString(),
+                Params = parameters
+            });
+            var result = await QueryAsync(BaseAddress.AppendPath("ws/trade"), query, ct).ConfigureAwait(false);
+            return result.As<HTXOrderId>(result.Data?.Data);
+        }
+
+        /// <inheritdoc />
+        public async Task<CallResult<HTXByCriteriaCancelResult>> CancelAllOrdersAsync(
+            long accountId,
+            IEnumerable<string>? symbols = null,
+            CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection()
+            {
+                { "account-id", accountId }
+            };
+            parameters.AddOptional("symbol", symbols == null ? null : string.Join(",", symbols));
+
+            var query = new HTXOrderQuery<ParameterCollection, HTXByCriteriaCancelResult>(new HTXSocketOrderRequest<ParameterCollection>
+            {
+                Channel = "cancelall",
+                RequestId = ExchangeHelpers.NextId().ToString(),
+                Params = parameters
+            });
+            var result = await QueryAsync(BaseAddress.AppendPath("ws/trade"), query, ct).ConfigureAwait(false);
+            return result.As<HTXByCriteriaCancelResult>(result.Data?.Data);
+        }
+
+        public async Task<CallResult> CancelOrdersAsync(
+            string? orderId = null,
+            string? clientOrderId = null,
+            CancellationToken ct = default)
+        {
+            var result = await CancelOrdersAsync(orderId == null ? null : [orderId], clientOrderId == null ? null : [clientOrderId], ct).ConfigureAwait(false);
+            if (!result)
+                return result.AsDataless();
+
+            if (result.Data.Successful.Contains(orderId ?? clientOrderId))
+                return result.AsDataless();
+
+            return result.AsDatalessError(new ServerError("Cancel failed"));
+        }
+
+        /// <inheritdoc />
+        public async Task<CallResult<HTXBatchCancelResult>> CancelOrdersAsync(
+            IEnumerable<string>? orderIds = null,
+            IEnumerable<string>? clientOrderIds = null,
+            CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.AddOptional("order-ids", orderIds);
+            parameters.AddOptional("client-order-ids", clientOrderIds);
+
+            var query = new HTXOrderQuery<ParameterCollection, HTXBatchCancelResult>(new HTXSocketOrderRequest<ParameterCollection>
+            {
+                Channel = "cancel",
+                RequestId = ExchangeHelpers.NextId().ToString(),
+                Params = parameters
+            });
+            var result = await QueryAsync(BaseAddress.AppendPath("ws/trade"), query, ct).ConfigureAwait(false);
+            return result.As<HTXBatchCancelResult>(result.Data?.Data);
         }
     }
 }
