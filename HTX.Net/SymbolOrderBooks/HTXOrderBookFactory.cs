@@ -1,4 +1,5 @@
 ﻿using CryptoExchange.Net.OrderBook;
+using CryptoExchange.Net.SharedApis;
 using HTX.Net.Interfaces;
 using HTX.Net.Interfaces.Clients;
 using HTX.Net.Objects.Options;
@@ -24,8 +25,22 @@ namespace HTX.Net.SymbolOrderBooks
         {
             _serviceProvider = serviceProvider;
 
-            Spot = new OrderBookFactory<HTXOrderBookOptions>((symbol, options) => CreateSpot(symbol, options), (baseAsset, quoteAsset, options) => CreateSpot(baseAsset.ToLowerInvariant() + quoteAsset.ToLowerInvariant(), options));
-            UsdtFutures = new OrderBookFactory<HTXOrderBookOptions>((symbol, options) => CreateUsdtFutures(symbol, options), (baseAsset, quoteAsset, options) => CreateUsdtFutures(baseAsset.ToLowerInvariant() + "-" + quoteAsset.ToLowerInvariant(), options));
+            Spot = new OrderBookFactory<HTXOrderBookOptions>(
+                CreateSpot,
+                (sharedSymbol, options) => CreateSpot(HTXExchange.FormatSymbol(sharedSymbol.BaseAsset, sharedSymbol.QuoteAsset, sharedSymbol.TradingMode, sharedSymbol.DeliverTime), options));
+            UsdtFutures = new OrderBookFactory<HTXOrderBookOptions>(
+                CreateUsdtFutures,
+                (sharedSymbol, options) => CreateUsdtFutures(HTXExchange.FormatSymbol(sharedSymbol.BaseAsset, sharedSymbol.QuoteAsset, sharedSymbol.TradingMode, sharedSymbol.DeliverTime), options));
+        }
+
+        /// <inheritdoc />
+        public ISymbolOrderBook Create(SharedSymbol symbol, Action<HTXOrderBookOptions>? options = null)
+        {
+            var symbolName = HTXExchange.FormatSymbol(symbol.BaseAsset, symbol.QuoteAsset, symbol.TradingMode, symbol.DeliverTime);
+            if (symbol.TradingMode == TradingMode.Spot)
+                return CreateSpot(symbolName, options);
+
+            return CreateUsdtFutures(symbolName, options);
         }
 
         /// <inheritdoc />

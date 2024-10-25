@@ -1,6 +1,7 @@
 ﻿using CryptoExchange.Net.RateLimiting;
 using CryptoExchange.Net.RateLimiting.Guards;
 using CryptoExchange.Net.RateLimiting.Interfaces;
+using CryptoExchange.Net.SharedApis;
 
 namespace HTX.Net
 {
@@ -25,6 +26,22 @@ namespace HTX.Net
         public static string[] ApiDocsUrl { get; } = new[] {
             "https://www.htx.com/en-us/opend/newApiPages/"
             };
+
+        /// <summary>
+        /// Format a base and quote asset to an HTX recognized symbol 
+        /// </summary>
+        /// <param name="baseAsset">Base asset</param>
+        /// <param name="quoteAsset">Quote asset</param>
+        /// <param name="tradingMode">Trading mode</param>
+        /// <param name="deliverTime">Delivery time for delivery futures</param>
+        /// <returns></returns>
+        public static string FormatSymbol(string baseAsset, string quoteAsset, TradingMode tradingMode, DateTime? deliverTime = null)
+        {
+            if (tradingMode == TradingMode.Spot)
+                return $"{baseAsset.ToLowerInvariant()}{quoteAsset.ToLowerInvariant()}";
+
+            return $"{baseAsset.ToUpperInvariant()}-{quoteAsset.ToUpperInvariant()}" + (!deliverTime.HasValue ? string.Empty : ("-" + deliverTime.Value.ToString("yyMMdd")));
+        }
 
         /// <summary>
         /// Rate limiter configuration for the HTX API

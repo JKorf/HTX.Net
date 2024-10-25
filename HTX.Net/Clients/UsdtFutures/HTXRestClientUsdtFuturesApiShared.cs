@@ -73,7 +73,7 @@ namespace HTX.Net.Clients.UsdtFutures
             if (!resultIndex.Result)
                 return resultIndex.Result.AsExchangeResult<SharedFuturesTicker>(Exchange, null, default);
 
-            return resultTicker.Result.AsExchangeResult(Exchange, request.Symbol.TradingMode, new SharedFuturesTicker(symbol, resultTicker.Result.Data.ClosePrice ?? 0, resultTicker.Result.Data.HighPrice ?? 0, resultTicker.Result.Data.LowPrice ?? 0, resultTicker.Result.Data.Volume ?? 0, resultTicker.Result.Data.OpenPrice == null ? null : Math.Round((resultTicker.Result.Data.ClosePrice ?? 0) / resultTicker.Result.Data.OpenPrice.Value * 100 - 100, 2))
+            return resultTicker.Result.AsExchangeResult(Exchange, request.Symbol.TradingMode, new SharedFuturesTicker(symbol, resultTicker.Result.Data.ClosePrice, resultTicker.Result.Data.HighPrice, resultTicker.Result.Data.LowPrice, resultTicker.Result.Data.Volume ?? 0, resultTicker.Result.Data.OpenPrice == null ? null : Math.Round((resultTicker.Result.Data.ClosePrice ?? 0) / resultTicker.Result.Data.OpenPrice.Value * 100 - 100, 2))
             {
                 IndexPrice = resultIndex.Result.Data.Single().IndexPrice,
                 FundingRate = resultFunding.Result.Data.FundingRate,
@@ -103,7 +103,7 @@ namespace HTX.Net.Clients.UsdtFutures
             return resultTickers.Result.AsExchangeResult<IEnumerable<SharedFuturesTicker>>(Exchange, SupportedTradingModes, data.Select(x =>
             {
                 var funding = resultFunding.Result.Data.SingleOrDefault(p => p.ContractCode == x.ContractCode);
-                return new SharedFuturesTicker(x.ContractCode!, x.ClosePrice ?? 0, x.HighPrice ?? 0, x.LowPrice ?? 0, x.Volume ?? 0, x.OpenPrice == null ? null : Math.Round((x.ClosePrice ?? 0) / x.OpenPrice.Value * 100 - 100, 2))
+                return new SharedFuturesTicker(x.ContractCode!, x.ClosePrice, x.HighPrice, x.LowPrice, x.Volume ?? 0, x.OpenPrice == null ? null : Math.Round((x.ClosePrice ?? 0) / x.OpenPrice.Value * 100 - 100, 2))
                 {
                     FundingRate = funding?.FundingRate,
                     NextFundingTime = funding?.FundingTime
@@ -977,7 +977,10 @@ namespace HTX.Net.Clients.UsdtFutures
             if (!result)
                 return result.AsExchangeResult<IEnumerable<SharedTrade>>(Exchange, null, default);
 
-            return result.AsExchangeResult<IEnumerable<SharedTrade>>(Exchange, request.Symbol.TradingMode, result.Data.Reverse().Select(x => new SharedTrade(x.Quantity, x.Price, x.Timestamp)).ToArray());
+            return result.AsExchangeResult<IEnumerable<SharedTrade>>(Exchange, request.Symbol.TradingMode, result.Data.Reverse().Select(x => new SharedTrade(x.Quantity, x.Price, x.Timestamp)
+            {
+                Side = x.Direction == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell
+            }).ToArray());
         }
 
         #endregion

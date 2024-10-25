@@ -1,4 +1,5 @@
-﻿using HTX.Net.Objects.Options;
+﻿using CryptoExchange.Net.SharedApis;
+using HTX.Net.Objects.Options;
 
 namespace HTX.Net.Interfaces
 {
@@ -15,6 +16,14 @@ namespace HTX.Net.Interfaces
         /// Usdt futures order book factory methods
         /// </summary>
         public IOrderBookFactory<HTXOrderBookOptions> UsdtFutures { get; }
+
+        /// <summary>
+        /// Create a SymbolOrderBook for the symbol
+        /// </summary>
+        /// <param name="symbol">The symbol</param>
+        /// <param name="options">Book options</param>
+        /// <returns></returns>
+        ISymbolOrderBook Create(SharedSymbol symbol, Action<HTXOrderBookOptions>? options = null);
 
         /// <summary>
         /// Create a SymbolOrderBook for the Spot API

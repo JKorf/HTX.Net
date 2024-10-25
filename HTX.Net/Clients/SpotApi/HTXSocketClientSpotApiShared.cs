@@ -53,7 +53,10 @@ namespace HTX.Net.Clients.SpotApi
                 return new ExchangeResult<UpdateSubscription>(Exchange, validationError);
 
             var symbol = request.Symbol.GetSymbol(FormatSymbol);
-            var result = await SubscribeToTradeUpdatesAsync(symbol, update => handler(update.AsExchangeEvent(Exchange, update.Data.Details.Select(x => new SharedTrade(x.Quantity, x.Price, x.Timestamp)))), ct).ConfigureAwait(false);
+            var result = await SubscribeToTradeUpdatesAsync(symbol, update => handler(update.AsExchangeEvent(Exchange, update.Data.Details.Select(x => new SharedTrade(x.Quantity, x.Price, x.Timestamp)
+            {
+                Side = x.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell
+            }))), ct).ConfigureAwait(false);
 
             return new ExchangeResult<UpdateSubscription>(Exchange, result);
         }

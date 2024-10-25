@@ -65,12 +65,9 @@ namespace HTX.Net.Clients.SpotApi
 
         protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer();
 
-
         /// <inheritdoc />
         public override string FormatSymbol(string baseAsset, string quoteAsset, TradingMode tradingMode, DateTime? deliverTime = null)
-        {
-            return $"{baseAsset.ToLowerInvariant()}{quoteAsset.ToLowerInvariant()}";
-        }
+                => HTXExchange.FormatSymbol(baseAsset, quoteAsset, tradingMode, deliverTime);
 
         /// <inheritdoc />
         protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)

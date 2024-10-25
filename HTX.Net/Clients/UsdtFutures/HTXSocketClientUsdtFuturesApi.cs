@@ -50,10 +50,7 @@ namespace HTX.Net.Clients.UsdtFutures
 
         /// <inheritdoc />
         public override string FormatSymbol(string baseAsset, string quoteAsset, TradingMode tradingMode, DateTime? deliverTime = null)
-        {
-            return $"{baseAsset.ToUpperInvariant()}-{quoteAsset.ToUpperInvariant()}" + (!deliverTime.HasValue ? string.Empty : ("-" + deliverTime.Value.ToString("yyMMdd")));
-        }
-
+                => HTXExchange.FormatSymbol(baseAsset, quoteAsset, tradingMode, deliverTime);
 
         /// <inheritdoc />
         public override ReadOnlyMemory<byte> PreprocessStreamMessage(SocketConnection connection, WebSocketMessageType type, ReadOnlyMemory<byte> data)
