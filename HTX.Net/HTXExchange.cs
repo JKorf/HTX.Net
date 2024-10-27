@@ -1,4 +1,5 @@
 ﻿using CryptoExchange.Net.RateLimiting;
+using CryptoExchange.Net.RateLimiting.Filters;
 using CryptoExchange.Net.RateLimiting.Guards;
 using CryptoExchange.Net.RateLimiting.Interfaces;
 using CryptoExchange.Net.SharedApis;
@@ -72,8 +73,8 @@ namespace HTX.Net
             SpotMarketLimit = new RateLimitGate("Spot Market Limit")
                                             .AddGuard(new RateLimitGuard(RateLimitGuard.PerEndpoint, new IGuardFilter[] { }, 10, TimeSpan.FromSeconds(1), RateLimitWindowType.Sliding));
             SpotConnection = new RateLimitGate("Spot Connection Messages")
-                                            .AddGuard(new RateLimitGuard(RateLimitGuard.PerEndpoint, new IGuardFilter[] { }, 50, TimeSpan.FromSeconds(1), RateLimitWindowType.Fixed)) // 50 requests per second per connection
-                                            .AddGuard(new RateLimitGuard(RateLimitGuard.PerHost, new IGuardFilter[] { }, 100, TimeSpan.FromSeconds(1), RateLimitWindowType.Fixed)); // 100 requests per second per IP
+                                            .AddGuard(new RateLimitGuard(RateLimitGuard.PerConnection, new IGuardFilter[] { new ExactPathFilter("/ws/v2"), new LimitItemTypeFilter(RateLimitItemType.Request) }, 50, TimeSpan.FromSeconds(1), RateLimitWindowType.Fixed)) // 50 requests per second per connection
+                                            .AddGuard(new RateLimitGuard(RateLimitGuard.PerHost, new IGuardFilter[] { new ExactPathFilter("/ws/v2"), new LimitItemTypeFilter(RateLimitItemType.Request) }, 100, TimeSpan.FromSeconds(1), RateLimitWindowType.Fixed)); // 100 requests per second per IP
 
             UsdtTrade = new RateLimitGate("USDT-M Trade")
                                             .AddGuard(new RateLimitGuard(RateLimitGuard.PerApiKeyPerEndpoint, new IGuardFilter[] { }, 72, TimeSpan.FromSeconds(3), RateLimitWindowType.Fixed));
@@ -84,7 +85,7 @@ namespace HTX.Net
             UsdtPublicReference = new RateLimitGate("USDT-M Public Reference")
                                             .AddGuard(new RateLimitGuard(RateLimitGuard.PerHost, new IGuardFilter[] { }, 240, TimeSpan.FromSeconds(1), RateLimitWindowType.Fixed));
             UsdtConnection = new RateLimitGate("USDT-M Connection Messages")
-                                            .AddGuard(new RateLimitGuard(RateLimitGuard.PerEndpoint, new IGuardFilter[] { }, 40, TimeSpan.FromSeconds(1), RateLimitWindowType.Fixed)); // 40 requests per second per connection
+                                            .AddGuard(new RateLimitGuard(RateLimitGuard.PerConnection, new IGuardFilter[] { new LimitItemTypeFilter(RateLimitItemType.Request) }, 40, TimeSpan.FromSeconds(1), RateLimitWindowType.Fixed)); // 40 requests per second per connection
 
             EndpointLimit.RateLimitTriggered += RateLimitTriggered;
             SpotMarketLimit.RateLimitTriggered += RateLimitTriggered;

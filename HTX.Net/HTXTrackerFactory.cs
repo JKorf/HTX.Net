@@ -1,6 +1,7 @@
 ﻿using CryptoExchange.Net.SharedApis;
 using CryptoExchange.Net.Trackers.Klines;
 using CryptoExchange.Net.Trackers.Trades;
+using HTX.Net.Clients;
 using HTX.Net.Interfaces;
 using HTX.Net.Interfaces.Clients;
 using Microsoft.Extensions.DependencyInjection;
@@ -10,7 +11,14 @@ namespace HTX.Net
     /// <inheritdoc />
     public class HTXTrackerFactory : IHTXTrackerFactory
     {
-        private readonly IServiceProvider _serviceProvider;
+        private readonly IServiceProvider? _serviceProvider;
+
+        /// <summary>
+        /// ctor
+        /// </summary>
+        public HTXTrackerFactory()
+        {
+        }
 
         /// <summary>
         /// ctor
@@ -24,23 +32,26 @@ namespace HTX.Net
         /// <inheritdoc />
         public IKlineTracker CreateKlineTracker(SharedSymbol symbol, SharedKlineInterval interval, int? limit = null, TimeSpan? period = null)
         {
-            IKlineRestClient restClient;
-            IKlineSocketClient socketClient;
+            var restClient = _serviceProvider?.GetRequiredService<IHTXRestClient>() ?? new HTXRestClient();
+            var socketClient = _serviceProvider?.GetRequiredService<IHTXSocketClient>() ?? new HTXSocketClient();
+
+            IKlineRestClient sharedRestClient;
+            IKlineSocketClient sharedSocketClient;
             if (symbol.TradingMode == TradingMode.Spot)
             {
-                restClient = _serviceProvider.GetRequiredService<IHTXRestClient>().SpotApi.SharedClient;
-                socketClient = _serviceProvider.GetRequiredService<IHTXSocketClient>().SpotApi.SharedClient;
+                sharedRestClient = restClient.SpotApi.SharedClient;
+                sharedSocketClient = socketClient.SpotApi.SharedClient;
             }
             else
             {
-                restClient = _serviceProvider.GetRequiredService<IHTXRestClient>().UsdtFuturesApi.SharedClient;
-                socketClient = _serviceProvider.GetRequiredService<IHTXSocketClient>().UsdtFuturesApi.SharedClient;
+                sharedRestClient = restClient.UsdtFuturesApi.SharedClient;
+                sharedSocketClient = socketClient.UsdtFuturesApi.SharedClient;
             }
 
             return new KlineTracker(
-                _serviceProvider.GetRequiredService<ILoggerFactory>().CreateLogger(restClient.Exchange),
-                restClient,
-                socketClient,
+                _serviceProvider?.GetRequiredService<ILoggerFactory>().CreateLogger(restClient.Exchange),
+                sharedRestClient,
+                sharedSocketClient,
                 symbol,
                 interval,
                 limit,
@@ -50,23 +61,27 @@ namespace HTX.Net
         /// <inheritdoc />
         public ITradeTracker CreateTradeTracker(SharedSymbol symbol, int? limit = null, TimeSpan? period = null)
         {
-            IRecentTradeRestClient? restClient = null;
-            ITradeSocketClient socketClient;
+            var restClient = _serviceProvider?.GetRequiredService<IHTXRestClient>() ?? new HTXRestClient();
+            var socketClient = _serviceProvider?.GetRequiredService<IHTXSocketClient>() ?? new HTXSocketClient();
+
+            IRecentTradeRestClient? sharedRestClient;
+            ITradeSocketClient sharedSocketClient;
             if (symbol.TradingMode == TradingMode.Spot)
             {
-                restClient = _serviceProvider.GetRequiredService<IHTXRestClient>().SpotApi.SharedClient;
-                socketClient = _serviceProvider.GetRequiredService<IHTXSocketClient>().SpotApi.SharedClient;
+                sharedRestClient = restClient.SpotApi.SharedClient;
+                sharedSocketClient = socketClient.SpotApi.SharedClient;
             }
             else
             {
-                restClient = _serviceProvider.GetRequiredService<IHTXRestClient>().UsdtFuturesApi.SharedClient;
-                socketClient = _serviceProvider.GetRequiredService<IHTXSocketClient>().UsdtFuturesApi.SharedClient;
+                sharedRestClient = restClient.UsdtFuturesApi.SharedClient;
+                sharedSocketClient = socketClient.UsdtFuturesApi.SharedClient;
             }
 
             return new TradeTracker(
-                _serviceProvider.GetRequiredService<ILoggerFactory>().CreateLogger(restClient.Exchange),
-                restClient,
-                socketClient,
+                _serviceProvider?.GetRequiredService<ILoggerFactory>().CreateLogger(restClient.Exchange),
+                sharedRestClient,
+                null,
+                sharedSocketClient,
                 symbol,
                 limit,
                 period
