@@ -145,6 +145,14 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 6.3.0 - 28 Oct 2024
+    * Updated CryptoExchange.Net to version 8.1.0, see https://github.com/JKorf/CryptoExchange.Net/releases/tag/8.1.0
+    * Moved FormatSymbol to HTXExchange class
+    * Added support Side setting on SharedTrade model
+    * Added HTXTrackerFactory for creating trackers
+    * Added overload to Create method on HTXOrderBookFactory support SharedSymbol parameter
+    * Fixed rate limiting incorrectly applied to websocket market data connections
+
 * Version 6.2.0 - 21 Oct 2024
     * Added socketClient.SpotApi Order management requests
     * Added restClient.UsdtFuturesApi.ExchangeData.GetInsuranceFundInfoAsync endpoint
