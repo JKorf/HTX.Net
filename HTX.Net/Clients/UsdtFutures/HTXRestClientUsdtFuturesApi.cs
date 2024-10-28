@@ -52,11 +52,10 @@ namespace HTX.Net.Clients.UsdtFutures
         protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer();
 
         public IHTXRestClientUsdtFuturesApiShared SharedClient => this;
+
         /// <inheritdoc />
         public override string FormatSymbol(string baseAsset, string quoteAsset, TradingMode tradingMode, DateTime? deliverTime = null)
-        {
-            return $"{baseAsset.ToUpperInvariant()}-{quoteAsset.ToUpperInvariant()}" + (!deliverTime.HasValue ? string.Empty: ("-" + deliverTime.Value.ToString("yyMMdd")));
-        } 
+                => HTXExchange.FormatSymbol(baseAsset, quoteAsset, tradingMode, deliverTime);
 
         /// <inheritdoc />
         protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)

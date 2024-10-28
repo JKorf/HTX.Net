@@ -1,4 +1,5 @@
 ﻿using CryptoExchange.Net.Clients;
+using HTX.Net;
 using HTX.Net.Clients;
 using HTX.Net.Interfaces;
 using HTX.Net.Interfaces.Clients;
@@ -58,6 +59,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddTransient<ICryptoRestClient, CryptoRestClient>();
             services.AddTransient<ICryptoSocketClient, CryptoSocketClient>();
             services.AddTransient<IHTXOrderBookFactory, HTXOrderBookFactory>();
+            services.AddTransient<IHTXTrackerFactory, HTXTrackerFactory>();
 
             services.RegisterSharedRestInterfaces(x => x.GetRequiredService<IHTXRestClient>().SpotApi.SharedClient);
             services.RegisterSharedSocketInterfaces(x => x.GetRequiredService<IHTXSocketClient>().SpotApi.SharedClient);
