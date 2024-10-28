@@ -3446,6 +3446,11 @@
         <member name="T:HTX.Net.HTXTrackerFactory">
             <inheritdoc />
         </member>
+        <member name="M:HTX.Net.HTXTrackerFactory.#ctor">
+            <summary>
+            ctor
+            </summary>
+        </member>
         <member name="M:HTX.Net.HTXTrackerFactory.#ctor(System.IServiceProvider)">
             <summary>
             ctor
