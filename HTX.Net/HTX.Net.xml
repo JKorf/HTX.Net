@@ -437,7 +437,7 @@
         <member name="M:HTX.Net.Clients.SpotApi.HTXSocketClientSpotApi.CreateAuthenticationProvider(CryptoExchange.Net.Authentication.ApiCredentials)">
             <inheritdoc />
         </member>
-        <member name="M:HTX.Net.Clients.SpotApi.HTXSocketClientSpotApi.GetAuthenticationRequest(CryptoExchange.Net.Sockets.SocketConnection)">
+        <member name="M:HTX.Net.Clients.SpotApi.HTXSocketClientSpotApi.GetAuthenticationRequestAsync(CryptoExchange.Net.Sockets.SocketConnection)">
             <inheritdoc />
         </member>
         <member name="M:HTX.Net.Clients.SpotApi.HTXSocketClientSpotApi.GetKlinesAsync(System.String,HTX.Net.Enums.KlineInterval)">

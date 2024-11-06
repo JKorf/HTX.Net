@@ -97,16 +97,16 @@ namespace HTX.Net.Clients.SpotApi
             => new HTXAuthenticationProvider(credentials, false);
 
         /// <inheritdoc />
-        protected override Query GetAuthenticationRequest(SocketConnection connection)
+        protected override Task<Query?> GetAuthenticationRequestAsync(SocketConnection connection)
         {
             var path = connection.ConnectionUri;
 
-            return new HTXAuthQuery(new HTXAuthRequest<HTXAuthParams>
+            return Task.FromResult<Query?>(new HTXAuthQuery(new HTXAuthRequest<HTXAuthParams>
             {
                 Action = "req",
                 Channel = "auth",
                 Params = ((HTXAuthenticationProvider)AuthenticationProvider!).GetWebsocketAuthentication(path)
-            });
+            }));
         }
 
         /// <inheritdoc />

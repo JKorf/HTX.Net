@@ -61,10 +61,10 @@ namespace HTX.Net.Clients.UsdtFutures
             return data.DecompressGzip();
         }
 
-        protected override Query? GetAuthenticationRequest(SocketConnection connection)
+        protected override Task<Query?> GetAuthenticationRequestAsync(SocketConnection connection)
         {
             var request = ((HTXAuthenticationProvider)AuthenticationProvider!).GetWebsocketAuthentication2(connection.ConnectionUri);
-            return new HTXOpAuthQuery(request);
+            return Task.FromResult<Query?>(new HTXOpAuthQuery(request));
         }
 
         /// <inheritdoc />
