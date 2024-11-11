@@ -56,6 +56,6 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// Number of buys and sells in last 24h
         /// </summary>
         [JsonPropertyName("number_of")]
-        public int Trades { get; set; }
+        public long? Trades { get; set; }
     }
 }
