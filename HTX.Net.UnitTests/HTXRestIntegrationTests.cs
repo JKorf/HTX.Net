@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using HTX.Net.Enums;
+using Microsoft.Extensions.Options;
 
 namespace HTX.Net.UnitTests
 {
@@ -28,11 +29,11 @@ namespace HTX.Net.UnitTests
             var sec = Environment.GetEnvironmentVariable("APISECRET");
 
             Authenticated = key != null && sec != null;
-            return new HTXRestClient(null, loggerFactory, opts =>
+            return new HTXRestClient(null, loggerFactory, Options.Create(new Objects.Options.HTXRestOptions
             {
-                opts.OutputOriginalData = true;
-                opts.ApiCredentials = Authenticated ? new ApiCredentials(key, sec) : null;
-            });
+                OutputOriginalData = true,
+                ApiCredentials = Authenticated ? new ApiCredentials(key, sec) : null
+            }));
         }
 
         [Test]

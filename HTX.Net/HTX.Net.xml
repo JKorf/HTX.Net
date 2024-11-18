@@ -19,11 +19,11 @@
             </summary>
             <param name="optionsDelegate">Option configuration delegate</param>
         </member>
-        <member name="M:HTX.Net.Clients.HTXRestClient.#ctor(System.Net.Http.HttpClient,Microsoft.Extensions.Logging.ILoggerFactory,System.Action{HTX.Net.Objects.Options.HTXRestOptions})">
+        <member name="M:HTX.Net.Clients.HTXRestClient.#ctor(System.Net.Http.HttpClient,Microsoft.Extensions.Logging.ILoggerFactory,Microsoft.Extensions.Options.IOptions{HTX.Net.Objects.Options.HTXRestOptions})">
             <summary>
             Create a new instance of the HTXRestClient
             </summary>
-            <param name="optionsDelegate">Option configuration delegate</param>
+            <param name="options">Option configuration delegate</param>
             <param name="loggerFactory">The logger factory</param>
             <param name="httpClient">Http client for this client</param>
         </member>
@@ -45,24 +45,18 @@
         <member name="P:HTX.Net.Clients.HTXSocketClient.UsdtFuturesApi">
             <inheritdoc />
         </member>
-        <member name="M:HTX.Net.Clients.HTXSocketClient.#ctor(Microsoft.Extensions.Logging.ILoggerFactory)">
-            <summary>
-            Create a new instance of the HTXSocketClient
-            </summary>
-            <param name="loggerFactory">The logger factory</param>
-        </member>
         <member name="M:HTX.Net.Clients.HTXSocketClient.#ctor(System.Action{HTX.Net.Objects.Options.HTXSocketOptions})">
             <summary>
             Create a new instance of the HTXSocketClient
             </summary>
             <param name="optionsDelegate">Option configuration delegate</param>
         </member>
-        <member name="M:HTX.Net.Clients.HTXSocketClient.#ctor(System.Action{HTX.Net.Objects.Options.HTXSocketOptions},Microsoft.Extensions.Logging.ILoggerFactory)">
+        <member name="M:HTX.Net.Clients.HTXSocketClient.#ctor(Microsoft.Extensions.Options.IOptions{HTX.Net.Objects.Options.HTXSocketOptions},Microsoft.Extensions.Logging.ILoggerFactory)">
             <summary>
             Create a new instance of the HTXSocketClient
             </summary>
             <param name="loggerFactory">The logger factory</param>
-            <param name="optionsDelegate">Option configuration delegate</param>
+            <param name="options">Option configuration</param>
         </member>
         <member name="M:HTX.Net.Clients.HTXSocketClient.SetDefaultOptions(System.Action{HTX.Net.Objects.Options.HTXSocketOptions})">
             <summary>
@@ -3380,6 +3374,16 @@
         <member name="P:HTX.Net.HTXEnvironment.UsdtMarginSwapSocketBaseAddress">
             <summary>
             Socket base address for the USDT margin swap API
+            </summary>
+        </member>
+        <member name="M:HTX.Net.HTXEnvironment.#ctor">
+            <summary>
+            ctor for DI, use <see cref="M:HTX.Net.HTXEnvironment.CreateCustom(System.String,System.String,System.String,System.String,System.String)"/> for creating a custom environment
+            </summary>
+        </member>
+        <member name="M:HTX.Net.HTXEnvironment.GetEnvironmentByName(System.String)">
+            <summary>
+            Get the HTX environment by name
             </summary>
         </member>
         <member name="P:HTX.Net.HTXEnvironment.Live">
@@ -17368,6 +17372,36 @@
             Err msg
             </summary>
         </member>
+        <member name="T:HTX.Net.Objects.Options.HTXOptions">
+            <summary>
+            HTX options
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Options.HTXOptions.Rest">
+            <summary>
+            Rest client options
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Options.HTXOptions.Socket">
+            <summary>
+            Socket client options
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Options.HTXOptions.Environment">
+            <summary>
+            Trade environment. Contains info about URL's to use to connect to the API. Use `HTXEnvironment` to swap environment, for example `Environment = HTXEnvironment.Live`
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Options.HTXOptions.ApiCredentials">
+            <summary>
+            The api credentials used for signing requests.
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Options.HTXOptions.SocketClientLifeTime">
+            <summary>
+            The DI service lifetime for the IHTXSocketClient
+            </summary>
+        </member>
         <member name="T:HTX.Net.Objects.Options.HTXOrderBookOptions">
             <summary>
             Options for the HTX SymbolOrderBook
@@ -17403,6 +17437,11 @@
             Default options for the HTXRestClient
             </summary>
         </member>
+        <member name="M:HTX.Net.Objects.Options.HTXRestOptions.#ctor">
+            <summary>
+            ctor
+            </summary>
+        </member>
         <member name="P:HTX.Net.Objects.Options.HTXRestOptions.SignPublicRequests">
             <summary>
             Whether public requests should be signed if ApiCredentials are provided. Needed for accurate rate limiting.
@@ -17431,6 +17470,11 @@
         <member name="P:HTX.Net.Objects.Options.HTXSocketOptions.Default">
             <summary>
             Default options for the HTXSocketClient
+            </summary>
+        </member>
+        <member name="M:HTX.Net.Objects.Options.HTXSocketOptions.#ctor">
+            <summary>
+            ctor
             </summary>
         </member>
         <member name="P:HTX.Net.Objects.Options.HTXSocketOptions.BrokerId">
@@ -17576,15 +17620,26 @@
             Extensions for DI
             </summary>
         </member>
-        <member name="M:Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions.AddHTX(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{HTX.Net.Objects.Options.HTXRestOptions},System.Action{HTX.Net.Objects.Options.HTXSocketOptions},System.Nullable{Microsoft.Extensions.DependencyInjection.ServiceLifetime})">
+        <member name="M:Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions.AddHTX(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)">
             <summary>
-            Add the IRestHTXClient and IHTXSocketClient to the sevice collection so they can be injected
+            Add services such as the IHTXRestClient and IHTXSocketClient. Configures the services based on the provided configuration.
             </summary>
             <param name="services">The service collection</param>
-            <param name="defaultRestOptionsDelegate">Set default options for the rest client</param>
-            <param name="defaultSocketOptionsDelegate">Set default options for the socket client</param>
-            <param name="socketClientLifeTime">The lifetime of the IHTXSocketClient for the service collection. Defaults to Singleton.</param>
+            <param name="configuration">The configuration(section) containing the options</param>
             <returns></returns>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions.AddHTX(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{HTX.Net.Objects.Options.HTXOptions})">
+            <summary>
+            Add services such as the IHTXRestClient and IHTXSocketClient. Services will be configured based on the provided options.
+            </summary>
+            <param name="services">The service collection</param>
+            <param name="optionsDelegate">Set options for the HTX services</param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions.AddHTX(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{HTX.Net.Objects.Options.HTXRestOptions},System.Action{HTX.Net.Objects.Options.HTXSocketOptions},System.Nullable{Microsoft.Extensions.DependencyInjection.ServiceLifetime})">
+            <summary>
+            DEPRECATED; use <see cref="M:Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions.AddHTX(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{HTX.Net.Objects.Options.HTXOptions})" /> instead
+            </summary>
         </member>
     </members>
 </doc>
