@@ -146,6 +146,14 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 6.5.0 - 19 Nov 2024
+    * Updated CryptoExchange.Net to version 8.3.0
+    * Added support for loading client settings from IConfiguration
+    * Added DI registration method for configuring Rest and Socket options at the same time
+    * Added DisplayName and ImageUrl properties to HTXExchange class
+    * Updated client constructors to accept IOptions from DI
+    * Removed redundant HTXSocketClient constructor
+
 * Version 6.4.1 - 11 Nov 2024
     * Fixed deserialization issue in restClient.UsdtFuturesApi.ExchangeData.GetTickersAsync endpoint
 
