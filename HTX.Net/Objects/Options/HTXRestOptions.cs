@@ -10,10 +10,18 @@ namespace HTX.Net.Objects.Options
         /// <summary>
         /// Default options for the HTXRestClient
         /// </summary>
-        public static HTXRestOptions Default { get; set; } = new HTXRestOptions()
+        internal static HTXRestOptions Default { get; set; } = new HTXRestOptions()
         {
             Environment = HTXEnvironment.Live
         };
+
+        /// <summary>
+        /// ctor
+        /// </summary>
+        public HTXRestOptions()
+        {
+            Default?.Set(this);
+        }
 
         /// <summary>
         /// Whether public requests should be signed if ApiCredentials are provided. Needed for accurate rate limiting.
@@ -35,14 +43,14 @@ namespace HTX.Net.Objects.Options
         /// </summary>
         public RestApiOptions UsdtMarginSwapOptions { get; private set; } = new RestApiOptions();
 
-        internal HTXRestOptions Copy()
+        internal HTXRestOptions Set(HTXRestOptions targetOptions)
         {
-            var options = Copy<HTXRestOptions>();
-            options.SpotOptions = SpotOptions.Copy<RestApiOptions>();
-            options.UsdtMarginSwapOptions = UsdtMarginSwapOptions.Copy<RestApiOptions>();
-            options.SignPublicRequests = SignPublicRequests;
-            options.BrokerId = BrokerId;
-            return options;
+            targetOptions = base.Set<HTXRestOptions>(targetOptions);
+            targetOptions.SignPublicRequests = SignPublicRequests;
+            targetOptions.BrokerId = BrokerId;
+            targetOptions.SpotOptions = SpotOptions.Set(targetOptions.SpotOptions);
+            targetOptions.UsdtMarginSwapOptions = UsdtMarginSwapOptions.Set(targetOptions.UsdtMarginSwapOptions);
+            return targetOptions;
         }
     }
 }

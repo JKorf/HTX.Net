@@ -5,6 +5,7 @@ using HTX.Net.Objects.Options;
 using CryptoExchange.Net.Clients;
 using HTX.Net.Interfaces.Clients.UsdtFuturesApi;
 using HTX.Net.Clients.UsdtFutures;
+using Microsoft.Extensions.Options;
 
 namespace HTX.Net.Clients
 {
@@ -26,26 +27,24 @@ namespace HTX.Net.Clients
         /// Create a new instance of the HTXRestClient using provided options
         /// </summary>
         /// <param name="optionsDelegate">Option configuration delegate</param>
-        public HTXRestClient(Action<HTXRestOptions>? optionsDelegate = null) : this(null, null, optionsDelegate)
+        public HTXRestClient(Action<HTXRestOptions>? optionsDelegate = null)
+            : this(null, null, Options.Create(ApplyOptionsDelegate(optionsDelegate)))
         {
         }
 
         /// <summary>
         /// Create a new instance of the HTXRestClient
         /// </summary>
-        /// <param name="optionsDelegate">Option configuration delegate</param>
+        /// <param name="options">Option configuration delegate</param>
         /// <param name="loggerFactory">The logger factory</param>
         /// <param name="httpClient">Http client for this client</param>
-        public HTXRestClient(HttpClient? httpClient, ILoggerFactory? loggerFactory, Action<HTXRestOptions>? optionsDelegate = null)
+        public HTXRestClient(HttpClient? httpClient, ILoggerFactory? loggerFactory, IOptions<HTXRestOptions> options)
             : base(loggerFactory, "HTX")
         {
-            var options = HTXRestOptions.Default.Copy();
-            if (optionsDelegate != null)
-                optionsDelegate(options);
-            Initialize(options);
+            Initialize(options.Value);
 
-            SpotApi = AddApiClient(new HTXRestClientSpotApi(_logger, httpClient, options));
-            UsdtFuturesApi = AddApiClient(new HTXRestClientUsdtFuturesApi(_logger, httpClient, options));
+            SpotApi = AddApiClient(new HTXRestClientSpotApi(_logger, httpClient, options.Value));
+            UsdtFuturesApi = AddApiClient(new HTXRestClientUsdtFuturesApi(_logger, httpClient, options.Value));
         }
         #endregion
 
@@ -56,9 +55,7 @@ namespace HTX.Net.Clients
         /// <param name="optionsDelegate">Option configuration delegate</param>
         public static void SetDefaultOptions(Action<HTXRestOptions> optionsDelegate)
         {
-            var options = HTXRestOptions.Default.Copy();
-            optionsDelegate(options);
-            HTXRestOptions.Default = options;
+            HTXRestOptions.Default = ApplyOptionsDelegate(optionsDelegate);
         }
 
         /// <inheritdoc />

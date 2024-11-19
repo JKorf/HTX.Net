@@ -10,11 +10,19 @@ namespace HTX.Net.Objects.Options
         /// <summary>
         /// Default options for the HTXSocketClient
         /// </summary>
-        public static HTXSocketOptions Default { get; set; } = new HTXSocketOptions
+        internal static HTXSocketOptions Default { get; set; } = new HTXSocketOptions
         {
             Environment = HTXEnvironment.Live,
             SocketSubscriptionsCombineTarget = 10
         };
+
+        /// <summary>
+        /// ctor
+        /// </summary>
+        public HTXSocketOptions()
+        {
+            Default?.Set(this);
+        }
 
         /// <summary>
         /// Broker id
@@ -31,13 +39,13 @@ namespace HTX.Net.Objects.Options
         /// </summary>
         public SocketApiOptions UsdtMarginSwapOptions { get; private set; } = new SocketApiOptions();
 
-        internal HTXSocketOptions Copy()
+        internal HTXSocketOptions Set(HTXSocketOptions targetOptions)
         {
-            var options = Copy<HTXSocketOptions>();
-            options.BrokerId = BrokerId;
-            options.SpotOptions = SpotOptions.Copy<SocketApiOptions>();
-            options.UsdtMarginSwapOptions = UsdtMarginSwapOptions.Copy<SocketApiOptions>();
-            return options;
+            targetOptions = base.Set<HTXSocketOptions>(targetOptions);
+            targetOptions.BrokerId = BrokerId;
+            targetOptions.SpotOptions = SpotOptions.Set(targetOptions.SpotOptions);
+            targetOptions.UsdtMarginSwapOptions = UsdtMarginSwapOptions.Set(targetOptions.UsdtMarginSwapOptions);
+            return targetOptions;
         }
     }
 }

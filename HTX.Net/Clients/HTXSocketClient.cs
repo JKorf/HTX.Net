@@ -5,6 +5,7 @@ using HTX.Net.Interfaces.Clients;
 using HTX.Net.Interfaces.Clients.SpotApi;
 using HTX.Net.Interfaces.Clients.UsdtFuturesApi;
 using HTX.Net.Objects.Options;
+using Microsoft.Extensions.Options;
 
 namespace HTX.Net.Clients
 {
@@ -19,19 +20,13 @@ namespace HTX.Net.Clients
         #endregion
 
         #region ctor
-        /// <summary>
-        /// Create a new instance of the HTXSocketClient
-        /// </summary>
-        /// <param name="loggerFactory">The logger factory</param>
-        public HTXSocketClient(ILoggerFactory? loggerFactory = null) : this((x) => { }, loggerFactory)
-        {
-        }
 
         /// <summary>
         /// Create a new instance of the HTXSocketClient
         /// </summary>
         /// <param name="optionsDelegate">Option configuration delegate</param>
-        public HTXSocketClient(Action<HTXSocketOptions> optionsDelegate) : this(optionsDelegate, null)
+        public HTXSocketClient(Action<HTXSocketOptions>? optionsDelegate = null)
+            : this(Options.Create(ApplyOptionsDelegate(optionsDelegate)), null)
         {
         }
 
@@ -39,15 +34,13 @@ namespace HTX.Net.Clients
         /// Create a new instance of the HTXSocketClient
         /// </summary>
         /// <param name="loggerFactory">The logger factory</param>
-        /// <param name="optionsDelegate">Option configuration delegate</param>
-        public HTXSocketClient(Action<HTXSocketOptions> optionsDelegate, ILoggerFactory? loggerFactory = null) : base(loggerFactory, "HTX")
+        /// <param name="options">Option configuration</param>
+        public HTXSocketClient(IOptions<HTXSocketOptions> options, ILoggerFactory? loggerFactory = null) : base(loggerFactory, "HTX")
         {
-            var options = HTXSocketOptions.Default.Copy();
-            optionsDelegate(options);
-            Initialize(options);
+            Initialize(options.Value);
 
-            SpotApi = AddApiClient(new HTXSocketClientSpotApi(_logger, options));
-            UsdtFuturesApi = AddApiClient(new HTXSocketClientUsdtFuturesApi(_logger, options));
+            SpotApi = AddApiClient(new HTXSocketClientSpotApi(_logger, options.Value));
+            UsdtFuturesApi = AddApiClient(new HTXSocketClientUsdtFuturesApi(_logger, options.Value));
         }
         #endregion
 
@@ -58,9 +51,7 @@ namespace HTX.Net.Clients
         /// <param name="optionsDelegate">Option configuration delegate</param>
         public static void SetDefaultOptions(Action<HTXSocketOptions> optionsDelegate)
         {
-            var options = HTXSocketOptions.Default.Copy();
-            optionsDelegate(options);
-            HTXSocketOptions.Default = options;
+            HTXSocketOptions.Default = ApplyOptionsDelegate(optionsDelegate);
         }
 
         /// <inheritdoc />
