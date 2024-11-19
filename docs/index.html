@@ -190,8 +190,14 @@
           
 		  <p>HTX.Net can be configured using Dotnet dependency injection, after which the clients can be injected into your services. It also correctly configures logging and HttpClient usage.</p>
 		  
-		  <pre><code>builder.Services.AddHTX(options => {
-  // Options can be configured here, for example:
+		  <pre><code>// Configure options from config file
+// see https://github.com/JKorf/CryptoExchange.Net/tree/master/Examples/example-config.json for an example
+builder.Services.AddHTX(builder.Configuration.GetSection("HTX"));
+		  
+// OR
+		  
+ builder.Services.AddHTX(options => {
+  // Configure options in code
   options.ApiCredentials = new ApiCredentials("APIKEY", "APISECRET");
 });</code></pre>
 		  

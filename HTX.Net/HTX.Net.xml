@@ -3412,6 +3412,16 @@
             Exchange name
             </summary>
         </member>
+        <member name="P:HTX.Net.HTXExchange.DisplayName">
+            <summary>
+            Exchange name
+            </summary>
+        </member>
+        <member name="P:HTX.Net.HTXExchange.ImageUrl">
+            <summary>
+            Url to exchange image
+            </summary>
+        </member>
         <member name="P:HTX.Net.HTXExchange.Url">
             <summary>
             Url to the main website
