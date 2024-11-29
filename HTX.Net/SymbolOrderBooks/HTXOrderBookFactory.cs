@@ -25,18 +25,14 @@ namespace HTX.Net.SymbolOrderBooks
         {
             _serviceProvider = serviceProvider;
 
-            Spot = new OrderBookFactory<HTXOrderBookOptions>(
-                CreateSpot,
-                (sharedSymbol, options) => CreateSpot(HTXExchange.FormatSymbol(sharedSymbol.BaseAsset, sharedSymbol.QuoteAsset, sharedSymbol.TradingMode, sharedSymbol.DeliverTime), options));
-            UsdtFutures = new OrderBookFactory<HTXOrderBookOptions>(
-                CreateUsdtFutures,
-                (sharedSymbol, options) => CreateUsdtFutures(HTXExchange.FormatSymbol(sharedSymbol.BaseAsset, sharedSymbol.QuoteAsset, sharedSymbol.TradingMode, sharedSymbol.DeliverTime), options));
+            Spot = new OrderBookFactory<HTXOrderBookOptions>(CreateSpot, Create);
+            UsdtFutures = new OrderBookFactory<HTXOrderBookOptions>(CreateUsdtFutures, Create);
         }
 
         /// <inheritdoc />
         public ISymbolOrderBook Create(SharedSymbol symbol, Action<HTXOrderBookOptions>? options = null)
         {
-            var symbolName = HTXExchange.FormatSymbol(symbol.BaseAsset, symbol.QuoteAsset, symbol.TradingMode, symbol.DeliverTime);
+            var symbolName = symbol.GetSymbol(HTXExchange.FormatSymbol);
             if (symbol.TradingMode == TradingMode.Spot)
                 return CreateSpot(symbolName, options);
 
