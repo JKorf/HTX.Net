@@ -40,6 +40,7 @@ namespace Microsoft.Extensions.DependencyInjection
             var socketEnvName = options.Socket.Environment?.Name ?? options.Environment?.Name ?? HTXEnvironment.Live.Name;
             options.Rest.Environment = HTXEnvironment.GetEnvironmentByName(restEnvName) ?? options.Rest.Environment!;
             options.Rest.ApiCredentials = options.Rest.ApiCredentials ?? options.ApiCredentials;
+            options.Rest.AllowAppendingClientOrderId = options.Rest.AllowAppendingClientOrderId || options.AllowAppendingClientOrderId;
             options.Socket.Environment = HTXEnvironment.GetEnvironmentByName(socketEnvName) ?? options.Socket.Environment!;
             options.Socket.ApiCredentials = options.Socket.ApiCredentials ?? options.ApiCredentials;
 
@@ -70,6 +71,7 @@ namespace Microsoft.Extensions.DependencyInjection
 
             options.Rest.Environment = options.Rest.Environment ?? options.Environment ?? HTXEnvironment.Live;
             options.Rest.ApiCredentials = options.Rest.ApiCredentials ?? options.ApiCredentials;
+            options.Rest.AllowAppendingClientOrderId = options.Rest.AllowAppendingClientOrderId || options.AllowAppendingClientOrderId;
             options.Socket.Environment = options.Socket.Environment ?? options.Environment ?? HTXEnvironment.Live;
             options.Socket.ApiCredentials = options.Socket.ApiCredentials ?? options.ApiCredentials;
 
