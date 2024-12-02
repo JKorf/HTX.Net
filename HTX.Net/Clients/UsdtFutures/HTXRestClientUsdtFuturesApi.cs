@@ -19,8 +19,6 @@ namespace HTX.Net.Clients.UsdtFutures
         /// <inheritdoc />
         public string ExchangeName => "HTX";
 
-        internal readonly string _brokerId;
-
         #region Api clients
 
         /// <inheritdoc />
@@ -43,7 +41,6 @@ namespace HTX.Net.Clients.UsdtFutures
             SubAccount = new HTXRestClientUsdtFuturesApiSubAccount(this);
             Trading = new HTXRestClientUsdtFuturesApiTrading(this);
 
-            _brokerId = !string.IsNullOrEmpty(options.BrokerId) ? options.BrokerId! : "AA1ef14811";
         }
         #endregion
 

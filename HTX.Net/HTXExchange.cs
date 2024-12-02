@@ -38,6 +38,9 @@ namespace HTX.Net
             "https://www.htx.com/en-us/opend/newApiPages/"
             };
 
+        internal const string ClientOrderId = "AA1ef14811";
+        internal const string ClientOrderIdPrefix = ClientOrderId + LibraryHelpers.ClientOrderIdSeperator;
+
         /// <summary>
         /// Format a base and quote asset to an HTX recognized symbol 
         /// </summary>

@@ -14,6 +14,7 @@
         /// Client order id
         /// </summary>
         [JsonPropertyName("client-order-id")]
+        [JsonConverterCtor<ReplaceConverter>($"{HTXExchange.ClientOrderIdPrefix}->")]
         public string? ClientOrderId { get; set; }
         /// <summary>
         /// Whether the placement was successful

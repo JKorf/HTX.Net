@@ -47,7 +47,7 @@ namespace HTX.Net.Clients.SpotApi
             };
             parameters.AddString("amount", quantity);
 
-            clientOrderId ??= ExchangeHelpers.AppendRandomString(_baseClient._brokerId, 64);
+            clientOrderId = LibraryHelpers.ApplyBrokerId(clientOrderId, HTXExchange.ClientOrderId, 64, _baseClient.ClientOptions.AllowAppendingClientOrderId);
 
             parameters.AddOptionalParameter("client-order-id", clientOrderId);
             parameters.AddOptionalString("stop-price", stopPrice);
@@ -84,8 +84,8 @@ namespace HTX.Net.Clients.SpotApi
                     { "type", orderType }
                 };
                 parameters.AddString("amount", order.Quantity);
-                order.ClientOrderId ??= ExchangeHelpers.AppendRandomString(_baseClient._brokerId, 64);
-
+                order.ClientOrderId = LibraryHelpers.ApplyBrokerId(order.ClientOrderId, HTXExchange.ClientOrderId, 64, _baseClient.ClientOptions.AllowAppendingClientOrderId);
+                
                 parameters.AddOptionalParameter("client-order-id", order.ClientOrderId);
                 parameters.AddOptionalString("stop-price", order.StopPrice);
                 parameters.AddOptionalEnum("source", order.Source);
@@ -180,6 +180,8 @@ namespace HTX.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<WebCallResult<long>> CancelOrderByClientOrderIdAsync(string clientOrderId, CancellationToken ct = default)
         {
+            clientOrderId = LibraryHelpers.ApplyBrokerId(clientOrderId, HTXExchange.ClientOrderId, 64, _baseClient.ClientOptions.AllowAppendingClientOrderId);
+
             var parameters = new ParameterCollection()
             {
                 { "client-order-id", clientOrderId }
@@ -239,8 +241,8 @@ namespace HTX.Net.Clients.SpotApi
                 throw new ArgumentException("Either orderIds or clientOrderIds should be provided");
 
             var parameters = new ParameterCollection();
-            parameters.AddOptionalParameter("order-ids", orderIds?.Select(s => s.ToString(CultureInfo.InvariantCulture)));
-            parameters.AddOptionalParameter("client-order-ids", clientOrderIds?.Select(s => s.ToString(CultureInfo.InvariantCulture)));
+            parameters.AddOptionalParameter("order-ids", orderIds?.Select(s => s.ToString(CultureInfo.InvariantCulture)).ToArray());
+            parameters.AddOptionalParameter("client-order-ids", clientOrderIds?.Select(s => LibraryHelpers.ApplyBrokerId(s, HTXExchange.ClientOrderId, 64, _baseClient.ClientOptions.AllowAppendingClientOrderId).ToString(CultureInfo.InvariantCulture)).ToArray());
 
             var request = _definitions.GetOrCreate(HttpMethod.Post, "v1/order/orders/batchcancel", HTXExchange.RateLimiter.EndpointLimit, 1, true,
                 new SingleLimitGuard(50, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
@@ -268,6 +270,8 @@ namespace HTX.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<WebCallResult<HTXOrder>> GetOrderByClientOrderIdAsync(string clientOrderId, CancellationToken ct = default)
         {
+            clientOrderId = LibraryHelpers.ApplyBrokerId(clientOrderId, HTXExchange.ClientOrderId, 64, _baseClient.ClientOptions.AllowAppendingClientOrderId);
+
             var parameters = new ParameterCollection()
             {
                 { "clientOrderId", clientOrderId }
@@ -381,13 +385,14 @@ namespace HTX.Net.Clients.SpotApi
         {
             symbol = symbol.ToLowerInvariant();
 
+            clientOrderId = LibraryHelpers.ApplyBrokerId(clientOrderId, HTXExchange.ClientOrderId, 64, _baseClient.ClientOptions.AllowAppendingClientOrderId);
             var parameters = new ParameterCollection()
             {
                 { "accountId", accountId },
                 { "symbol", symbol },
                 { "orderSide", EnumConverter.GetString(side) },
                 { "orderType", EnumConverter.GetString(type) },
-                { "clientOrderId", clientOrderId ?? Guid.NewGuid().ToString() }
+                { "clientOrderId", clientOrderId }
             };
             parameters.AddString("stopPrice", stopPrice);
 
@@ -411,7 +416,7 @@ namespace HTX.Net.Clients.SpotApi
         {
             var parameters = new ParameterCollection()
             {
-                { "clientOrderIds", clientOrderIds }
+                { "clientOrderIds", clientOrderIds.Select(x => LibraryHelpers.ApplyBrokerId(x, HTXExchange.ClientOrderId, 64, _baseClient.ClientOptions.AllowAppendingClientOrderId)).ToArray() }
             };
 
             var request = _definitions.GetOrCreate(HttpMethod.Post, $"v2/algo-orders/cancellation", HTXExchange.RateLimiter.EndpointLimit, 1, true,
@@ -488,6 +493,8 @@ namespace HTX.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<WebCallResult<HTXConditionalOrder>> GetConditionalOrderAsync(string clientOrderId, CancellationToken ct = default)
         {
+            clientOrderId = LibraryHelpers.ApplyBrokerId(clientOrderId, HTXExchange.ClientOrderId, 64, _baseClient.ClientOptions.AllowAppendingClientOrderId);
+
             var parameters = new ParameterCollection()
             {
                 { "clientOrderId", clientOrderId }

@@ -106,6 +106,7 @@ namespace HTX.Net.Objects.Models.Socket
         /// Client order id
         /// </summary>
         [JsonPropertyName("clientOrderId")]
+        [JsonConverterCtor<ReplaceConverter>($"{HTXExchange.ClientOrderIdPrefix}->")]
         public string? ClientOrderId { get; set; }
         /// <summary>
         /// Stop price

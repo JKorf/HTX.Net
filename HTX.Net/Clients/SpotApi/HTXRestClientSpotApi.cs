@@ -30,8 +30,6 @@ namespace HTX.Net.Clients.SpotApi
         /// <inheritdoc />
         public string ExchangeName => "HTX";
 
-        internal readonly string _brokerId;
-
         #region Api clients
 
         /// <inheritdoc />
@@ -57,7 +55,6 @@ namespace HTX.Net.Clients.SpotApi
             Margin = new HTXRestClientSpotApiMargin(this);
             Trading = new HTXRestClientSpotApiTrading(this);
 
-            _brokerId = !string.IsNullOrEmpty(options.BrokerId) ? options.BrokerId! : "AA1ef14811";
         }
         #endregion
 

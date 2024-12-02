@@ -419,6 +419,9 @@
         <member name="T:HTX.Net.Clients.SpotApi.HTXSocketClientSpotApi">
             <inheritdoc />
         </member>
+        <member name="P:HTX.Net.Clients.SpotApi.HTXSocketClientSpotApi.ClientOptions">
+            <inheritdoc />
+        </member>
         <member name="M:HTX.Net.Clients.SpotApi.HTXSocketClientSpotApi.FormatSymbol(System.String,System.String,CryptoExchange.Net.SharedApis.TradingMode,System.Nullable{System.DateTime})">
             <inheritdoc />
         </member>
@@ -17387,6 +17390,16 @@
             HTX options
             </summary>
         </member>
+        <member name="P:HTX.Net.Objects.Options.HTXOptions.AllowAppendingClientOrderId">
+            <summary>
+            Whether to allow the client to adjust the clientOrderId parameter send by the user when placing orders to include a client reference. This reference is used by the exchange to allocate a small percentage of the paid trading fees to developer of this library. Defaults to false.<br />
+            Note that:<br />
+            * It does not impact the amount of fees a user pays in any way<br />
+            * It does not impact functionality. The reference is added just before sending the request and removed again during data deserialization<br />
+            * It does respect client order id field limitations. For example if the user provided client order id parameter is too long to fit the reference it will not be added<br />
+            * Toggling this option might fail operations using a clientOrderId parameter for pre-existing orders which were placed before the toggle. Operations on orders placed after the toggle will work as expected. It's adviced to toggle when there are no open orders
+            </summary>
+        </member>
         <member name="T:HTX.Net.Objects.Options.HTXOrderBookOptions">
             <summary>
             Options for the HTX SymbolOrderBook
@@ -17427,14 +17440,19 @@
             ctor
             </summary>
         </member>
+        <member name="P:HTX.Net.Objects.Options.HTXRestOptions.AllowAppendingClientOrderId">
+            <summary>
+            Whether to allow the client to adjust the clientOrderId parameter send by the user when placing orders to include a client reference. This reference is used by the exchange to allocate a small percentage of the paid trading fees to developer of this library. Defaults to false.<br />
+            Note that:<br />
+            * It does not impact the amount of fees a user pays in any way<br />
+            * It does not impact functionality. The reference is added just before sending the request and removed again during data deserialization<br />
+            * It does respect client order id field limitations. For example if the user provided client order id parameter is too long to fit the reference it will not be added<br />
+            * Toggling this option might fail operations using a clientOrderId parameter for pre-existing orders which were placed before the toggle. Operations on orders placed after the toggle will work as expected. It's adviced to toggle when there are no open orders
+            </summary>
+        </member>
         <member name="P:HTX.Net.Objects.Options.HTXRestOptions.SignPublicRequests">
             <summary>
             Whether public requests should be signed if ApiCredentials are provided. Needed for accurate rate limiting.
-            </summary>
-        </member>
-        <member name="P:HTX.Net.Objects.Options.HTXRestOptions.BrokerId">
-            <summary>
-            Broker id
             </summary>
         </member>
         <member name="P:HTX.Net.Objects.Options.HTXRestOptions.SpotOptions">
@@ -17462,9 +17480,14 @@
             ctor
             </summary>
         </member>
-        <member name="P:HTX.Net.Objects.Options.HTXSocketOptions.BrokerId">
+        <member name="P:HTX.Net.Objects.Options.HTXSocketOptions.AllowAppendingClientOrderId">
             <summary>
-            Broker id
+            Whether to allow the client to adjust the clientOrderId parameter send by the user when placing orders to include a client reference. This reference is used by the exchange to allocate a small percentage of the paid trading fees to developer of this library. Defaults to false.<br />
+            Note that:<br />
+            * It does not impact the amount of fees a user pays in any way<br />
+            * It does not impact functionality. The reference is added just before sending the request and removed again during data deserialization<br />
+            * It does respect client order id field limitations. For example if the user provided client order id parameter is too long to fit the reference it will not be added<br />
+            * Toggling this option might fail operations using a clientOrderId parameter for pre-existing orders which were placed before the toggle. Operations on orders placed after the toggle will work as expected. It's adviced to toggle when there are no open orders
             </summary>
         </member>
         <member name="P:HTX.Net.Objects.Options.HTXSocketOptions.SpotOptions">

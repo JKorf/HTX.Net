@@ -17,6 +17,7 @@ namespace HTX.Net.Objects.Models
         /// The order id as specified by the client
         /// </summary>
         [JsonPropertyName("client-order-id")]
+        [JsonConverterCtor<ReplaceConverter>($"{HTXExchange.ClientOrderIdPrefix}->")]
         public string ClientOrderId { get; set; } = string.Empty;
 
         /// <summary>

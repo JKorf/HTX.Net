@@ -28,9 +28,8 @@ namespace HTX.Net.Clients.SpotApi
         private static readonly MessagePath _channelPath = MessagePath.Get().Property("ch");
         private static readonly MessagePath _pingPath = MessagePath.Get().Property("ping");
 
-        #region fields
-        internal readonly string _brokerId;
-        #endregion
+        /// <inheritdoc />
+        public new HTXSocketOptions ClientOptions => (HTXSocketOptions)base.ClientOptions;
 
         #region ctor
         internal HTXSocketClientSpotApi(ILogger logger, HTXSocketOptions options)
@@ -42,8 +41,6 @@ namespace HTX.Net.Clients.SpotApi
             AddSystemSubscription(new HTXPingSubscription(_logger));
 
             RateLimiter = HTXExchange.RateLimiter.SpotConnection;
-
-            _brokerId = !string.IsNullOrEmpty(options.BrokerId) ? options.BrokerId! : "AA1ef14811";
 
             SetDedicatedConnection(options.Environment.SocketBaseAddress.AppendPath("ws/trade"), true);
         }
@@ -299,7 +296,7 @@ namespace HTX.Net.Clients.SpotApi
             var request = new HTXSocketPlaceOrderRequest()
             {
                 AccountId = accountId,
-                ClientOrderId = clientOrderId ?? ExchangeHelpers.AppendRandomString(_brokerId, 64),
+                ClientOrderId = LibraryHelpers.ApplyBrokerId(clientOrderId, HTXExchange.ClientOrderId, 64, ClientOptions.AllowAppendingClientOrderId),
                 Price = price,
                 Type = orderType,
                 Quantity = quantity,
@@ -333,7 +330,7 @@ namespace HTX.Net.Clients.SpotApi
                 var parameters = new HTXSocketPlaceOrderRequest()
                 {
                     AccountId = long.Parse(order.AccountId),
-                    ClientOrderId = order.ClientOrderId ?? ExchangeHelpers.AppendRandomString(_brokerId, 64),
+                    ClientOrderId = LibraryHelpers.ApplyBrokerId(order.ClientOrderId, HTXExchange.ClientOrderId, 64, ClientOptions.AllowAppendingClientOrderId),
                     Price = order.Price,
                     Type = orderType,
                     Quantity = order.Quantity,
@@ -429,6 +426,9 @@ namespace HTX.Net.Clients.SpotApi
             string? clientOrderId = null,
             CancellationToken ct = default)
         {
+            if (clientOrderId != null)
+                clientOrderId = LibraryHelpers.ApplyBrokerId(clientOrderId, HTXExchange.ClientOrderId, 64, ClientOptions.AllowAppendingClientOrderId);
+
             var result = await CancelOrdersAsync(orderId == null ? null : [orderId], clientOrderId == null ? null : [clientOrderId], ct).ConfigureAwait(false);
             if (!result)
                 return result.AsDataless();
@@ -445,9 +445,10 @@ namespace HTX.Net.Clients.SpotApi
             IEnumerable<string>? clientOrderIds = null,
             CancellationToken ct = default)
         {
+            
             var parameters = new ParameterCollection();
-            parameters.AddOptional("order-ids", orderIds);
-            parameters.AddOptional("client-order-ids", clientOrderIds);
+            parameters.AddOptional("order-ids", orderIds?.ToArray());
+            parameters.AddOptional("client-order-ids", clientOrderIds?.Select(x => LibraryHelpers.ApplyBrokerId(x, HTXExchange.ClientOrderId, 64, ClientOptions.AllowAppendingClientOrderId)).ToArray());
 
             var query = new HTXOrderQuery<ParameterCollection, HTXBatchCancelResult>(new HTXSocketOrderRequest<ParameterCollection>
             {
