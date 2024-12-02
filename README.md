@@ -146,6 +146,11 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 6.7.0 - 02 Dec 2024
+    * Added AllowAppendingClientOrderId option
+    * Updated client order id logic for client reference for the Spot API
+    * Fix for orderbook creation via HTXOrderBookFactory
+
 * Version 6.6.0 - 28 Nov 2024
     * Updated CryptoExchange.Net to version 8.4.0, see https://github.com/JKorf/CryptoExchange.Net/releases/tag/8.4.0
     * Added GetFeesAsync Shared REST client implementations
