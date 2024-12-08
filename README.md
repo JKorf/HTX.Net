@@ -151,6 +151,9 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 6.7.2 - 08 Dec 2024
+    * Updated CryptoExchange.Net to version 8.4.4 to fix deserialization error in .net framework
+
 * Version 6.7.1 - 03 Dec 2024
     * Updated CryptoExchange.Net to version 8.4.3, see https://github.com/JKorf/CryptoExchange.Net/releases/
     * Fix for AllowAppendingClientOrderId options setting
