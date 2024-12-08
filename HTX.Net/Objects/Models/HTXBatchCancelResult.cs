@@ -46,7 +46,7 @@
         /// The id of the failed order
         /// </summary>
         [JsonPropertyName("client-order-id")]
-        [JsonConverterCtor<ReplaceConverter>($"{HTXExchange.ClientOrderIdPrefix}->")]
+        [JsonConverterCtor(typeof(ReplaceConverter), $"{HTXExchange.ClientOrderIdPrefix}->")]
         public string? ClientOrderId { get; set; }
     }
 }
