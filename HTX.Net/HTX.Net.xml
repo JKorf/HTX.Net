@@ -27,6 +27,9 @@
             <param name="loggerFactory">The logger factory</param>
             <param name="httpClient">Http client for this client</param>
         </member>
+        <member name="M:HTX.Net.Clients.HTXRestClient.SetOptions(CryptoExchange.Net.Objects.Options.UpdateOptions)">
+            <inheritdoc />
+        </member>
         <member name="M:HTX.Net.Clients.HTXRestClient.SetDefaultOptions(System.Action{HTX.Net.Objects.Options.HTXRestOptions})">
             <summary>
             Set the default options to be used when creating new clients
@@ -57,6 +60,9 @@
             </summary>
             <param name="loggerFactory">The logger factory</param>
             <param name="options">Option configuration</param>
+        </member>
+        <member name="M:HTX.Net.Clients.HTXSocketClient.SetOptions(CryptoExchange.Net.Objects.Options.UpdateOptions)">
+            <inheritdoc />
         </member>
         <member name="M:HTX.Net.Clients.HTXSocketClient.SetDefaultOptions(System.Action{HTX.Net.Objects.Options.HTXSocketOptions})">
             <summary>
@@ -3495,6 +3501,12 @@
             Usdt futures endpoints
             </summary>
         </member>
+        <member name="M:HTX.Net.Interfaces.Clients.IHTXRestClient.SetOptions(CryptoExchange.Net.Objects.Options.UpdateOptions)">
+            <summary>
+            Update specific options
+            </summary>
+            <param name="options">Options to update. Only specific options are changable after the client has been created</param>
+        </member>
         <member name="M:HTX.Net.Interfaces.Clients.IHTXRestClient.SetApiCredentials(CryptoExchange.Net.Authentication.ApiCredentials)">
             <summary>
             Set the API credentials for this client. All Api clients in this client will use the new credentials, regardless of earlier set options.
@@ -3515,6 +3527,12 @@
             <summary>
             Usdt futures streams
             </summary>
+        </member>
+        <member name="M:HTX.Net.Interfaces.Clients.IHTXSocketClient.SetOptions(CryptoExchange.Net.Objects.Options.UpdateOptions)">
+            <summary>
+            Update specific options
+            </summary>
+            <param name="options">Options to update. Only specific options are changable after the client has been created</param>
         </member>
         <member name="M:HTX.Net.Interfaces.Clients.IHTXSocketClient.SetApiCredentials(CryptoExchange.Net.Authentication.ApiCredentials)">
             <summary>

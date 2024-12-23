@@ -9,7 +9,7 @@ using Newtonsoft.Json;
 
 namespace HTX.Net.UnitTests.TestImplementations
 {
-    public class TestSocket: IWebsocket
+    public class TestSocket : IWebsocket
     {
         public bool CanConnect { get; set; } = true;
         public bool Connected { get; set; }
@@ -120,5 +120,7 @@ namespace HTX.Net.UnitTests.TestImplementations
         {
             throw new NotImplementedException();
         }
+
+        public void UpdateProxy(ApiProxy proxy) => throw new NotImplementedException();
     }
 }

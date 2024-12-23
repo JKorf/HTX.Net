@@ -13,7 +13,8 @@ namespace HTX.Net.Objects.Options
         internal static HTXSocketOptions Default { get; set; } = new HTXSocketOptions
         {
             Environment = HTXEnvironment.Live,
-            SocketSubscriptionsCombineTarget = 10
+            SocketSubscriptionsCombineTarget = 10,
+            SocketNoDataTimeout = TimeSpan.FromSeconds(30)
         };
 
         /// <summary>

@@ -6,6 +6,7 @@ using CryptoExchange.Net.Clients;
 using HTX.Net.Interfaces.Clients.UsdtFuturesApi;
 using HTX.Net.Clients.UsdtFutures;
 using Microsoft.Extensions.Options;
+using CryptoExchange.Net.Objects.Options;
 
 namespace HTX.Net.Clients
 {
@@ -49,6 +50,14 @@ namespace HTX.Net.Clients
         #endregion
 
         #region methods
+
+        /// <inheritdoc />
+        public void SetOptions(UpdateOptions options)
+        {
+            SpotApi.SetOptions(options);
+            UsdtFuturesApi.SetOptions(options);
+        }
+
         /// <summary>
         /// Set the default options to be used when creating new clients
         /// </summary>
