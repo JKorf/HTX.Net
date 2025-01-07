@@ -38,6 +38,11 @@ namespace HTX.Net
             "https://www.htx.com/en-us/opend/newApiPages/"
             };
 
+        /// <summary>
+        /// Type of exchange
+        /// </summary>
+        public static ExchangeType Type { get; } = ExchangeType.CEX;
+
         internal const string ClientOrderId = "AA1ef14811";
         internal const string ClientOrderIdPrefix = ClientOrderId + LibraryHelpers.ClientOrderIdSeperator;
 
