@@ -38,6 +38,15 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         Task<WebCallResult<IEnumerable<HTXSymbolConfig>>> GetSymbolConfigAsync(IEnumerable<string>? symbols = null, CancellationToken ct = default);
 
         /// <summary>
+        /// Get information on networks
+        /// <para><a href="https://www.htx.com/en-in/opend/newApiPages/?id=7ec4f25c-7773-11ed-9966-0242ac110003" /></para>
+        /// </summary>
+        /// <param name="descFilter">Description filter</param>
+        /// <param name="asset">Filter by asset</param>
+        /// <param name="ct">Cancellation token</param>
+        Task<WebCallResult<IEnumerable<HTXAssetNetworkInfo>>> GetNetworksAsync(NetworkRequestFilter? descFilter = null, string? asset = null, CancellationToken ct = default);
+
+        /// <summary>
         /// Get assets and network information
         /// <para><a href="https://www.htx.com/en-in/opend/newApiPages/?id=7ec516fc-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>

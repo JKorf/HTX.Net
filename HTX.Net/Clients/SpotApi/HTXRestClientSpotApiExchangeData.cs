@@ -84,6 +84,22 @@ namespace HTX.Net.Clients.SpotApi
 
         #endregion
 
+        #region Get Networks
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<IEnumerable<HTXAssetNetworkInfo>>> GetNetworksAsync(NetworkRequestFilter? descFilter = null, string? asset = null, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.AddOptionalEnum("show-desc", descFilter);
+            parameters.AddOptional("currency", asset);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/v1/settings/common/chains", HTXExchange.RateLimiter.EndpointLimit, 1, false,
+                new SingleLimitGuard(100, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding));
+            var result = await _baseClient.SendBasicAsync<IEnumerable<HTXAssetNetworkInfo>>(request, parameters, ct).ConfigureAwait(false);
+            return result;
+        }
+
+        #endregion
+
         #region Get Assets And Networks
 
         /// <inheritdoc />

@@ -230,6 +230,9 @@
         <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiExchangeData.GetSymbolConfigAsync(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
+        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiExchangeData.GetNetworksAsync(System.Nullable{HTX.Net.Enums.NetworkRequestFilter},System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
         <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiExchangeData.GetAssetsAndNetworksAsync(System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
@@ -1390,6 +1393,21 @@
             Market order
             </summary>
         </member>
+        <member name="T:HTX.Net.Enums.ContractNetworkType">
+            <summary>
+            Contract network type
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.ContractNetworkType.Coin">
+            <summary>
+            Coin
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.ContractNetworkType.Token">
+            <summary>
+            Token
+            </summary>
+        </member>
         <member name="T:HTX.Net.Enums.ContractStatus">
             <summary>
             Contract status
@@ -2275,6 +2293,26 @@
             Transfer from sub to master
             </summary>
         </member>
+        <member name="T:HTX.Net.Enums.NetworkRequestFilter">
+            <summary>
+            GetNetworksAsync filter
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.NetworkRequestFilter.NoDescriptions">
+            <summary>
+            Do not return descriptions
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.NetworkRequestFilter.AllDescriptions">
+            <summary>
+            Include all descriptions
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.NetworkRequestFilter.SuspendedDescriptions">
+            <summary>
+            Only include suspended withdrawal/deposit descriptions
+            </summary>
+        </member>
         <member name="T:HTX.Net.Enums.NetworkStatus">
             <summary>
             Network action status
@@ -2288,6 +2326,41 @@
         <member name="F:HTX.Net.Enums.NetworkStatus.Prohibited">
             <summary>
             Prohibited
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Enums.NetworkType">
+            <summary>
+            Type of network
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.NetworkType.Plain">
+            <summary>
+            Plain
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.NetworkType.Live">
+            <summary>
+            Live
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.NetworkType.Old">
+            <summary>
+            Old
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.NetworkType.New">
+            <summary>
+            New
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.NetworkType.Legal">
+            <summary>
+            Legal
+            </summary>
+        </member>
+        <member name="F:HTX.Net.Enums.NetworkType.TooOld">
+            <summary>
+            Too old
             </summary>
         </member>
         <member name="T:HTX.Net.Enums.Offset">
@@ -3860,6 +3933,15 @@
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4f5d6-7773-11ed-9966-0242ac110003" /></para>
             </summary>
             <param name="symbols">Filter by symbols, for example `ETHUSDT`</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiExchangeData.GetNetworksAsync(System.Nullable{HTX.Net.Enums.NetworkRequestFilter},System.String,System.Threading.CancellationToken)">
+            <summary>
+            Get information on networks
+            <para><a href="https://www.htx.com/en-in/opend/newApiPages/?id=7ec4f25c-7773-11ed-9966-0242ac110003" /></para>
+            </summary>
+            <param name="descFilter">Description filter</param>
+            <param name="asset">Filter by asset</param>
             <param name="ct">Cancellation token</param>
         </member>
         <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiExchangeData.GetAssetsAndNetworksAsync(System.String,System.Threading.CancellationToken)">
@@ -7034,6 +7116,141 @@
             </summary>
         </member>
         <member name="P:HTX.Net.Objects.Models.HTXAsset.WithdrawDescription">
+            <summary>
+            Withdrawal description
+            </summary>
+        </member>
+        <member name="T:HTX.Net.Objects.Models.HTXAssetNetworkInfo">
+            <summary>
+            Network info
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXAssetNetworkInfo.Network">
+            <summary>
+            Network
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXAssetNetworkInfo.Asset">
+            <summary>
+            Asset
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXAssetNetworkInfo.Code">
+            <summary>
+            Code
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXAssetNetworkInfo.NetworkType">
+            <summary>
+            Network type
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXAssetNetworkInfo.ContractNetwork">
+            <summary>
+            Network of the contract
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXAssetNetworkInfo.Default">
+            <summary>
+            Whether this is the default network
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXAssetNetworkInfo.MinDeposit">
+            <summary>
+            Minimal deposit quantity
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXAssetNetworkInfo.MinWithdrawal">
+            <summary>
+            Minimal withdrawal quantity
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXAssetNetworkInfo.DepositEnabled">
+            <summary>
+            Is deposit enabled
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXAssetNetworkInfo.WithdrawalEnabled">
+            <summary>
+            Is withdrawal enabled
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXAssetNetworkInfo.WithdrawalPrecision">
+            <summary>
+            Withdrawal quantity precision
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXAssetNetworkInfo.FeeType">
+            <summary>
+            Fee asset type
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXAssetNetworkInfo.DisplayName">
+            <summary>
+            Display name
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXAssetNetworkInfo.FormalName">
+            <summary>
+            Formal name
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXAssetNetworkInfo.AddressWithdrawalTag">
+            <summary>
+            Withdrawal needs tag
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXAssetNetworkInfo.AddressDepositTag">
+            <summary>
+            Deposit needs tag
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXAssetNetworkInfo.AddressIsOneOff">
+            <summary>
+            Address is single use
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXAssetNetworkInfo.FastConfirms">
+            <summary>
+            FastConfirms
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXAssetNetworkInfo.SafeConfirms">
+            <summary>
+            SafeConfirms
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXAssetNetworkInfo.ContractAddress">
+            <summary>
+            Contract address
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXAssetNetworkInfo.ContractNetworkType">
+            <summary>
+            Contract network type
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXAssetNetworkInfo.Visible">
+            <summary>
+            Visible
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXAssetNetworkInfo.DepositSuspendAnnouncement">
+            <summary>
+            Suspend deposit announcement
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXAssetNetworkInfo.WithdrawalSuspendAnnouncement">
+            <summary>
+            Suspend withdrawal announcement
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXAssetNetworkInfo.DepositDescription">
+            <summary>
+            Deposit description
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXAssetNetworkInfo.WithdrawDescription">
             <summary>
             Withdrawal description
             </summary>
