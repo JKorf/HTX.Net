@@ -111,5 +111,10 @@ namespace HTX.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("canceled-source"), JsonConverter(typeof(NumberStringConverter))]
         public string? CancelSource { get; set; }
+        /// <summary>
+        /// The time the order was last updated
+        /// </summary>
+        [JsonPropertyName("updated-at"), JsonConverter(typeof(DateTimeConverter))]
+        public DateTime UpdateTime { get; set; }
     }
 }
