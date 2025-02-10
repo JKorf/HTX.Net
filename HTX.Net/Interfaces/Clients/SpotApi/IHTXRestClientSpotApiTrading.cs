@@ -111,6 +111,15 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         Task<WebCallResult<HTXBatchCancelResult>> CancelOrdersAsync(IEnumerable<long>? orderIds = null, IEnumerable<string>? clientOrderIds = null, CancellationToken ct = default);
 
         /// <summary>
+        /// Cancel all order
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4ef06-7773-11ed-9966-0242ac110003" /></para>
+        /// </summary>
+        /// <param name="symbol">Symbol</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult> CancelAllOrdersAsync(string? symbol = null, CancellationToken ct = default);
+
+        /// <summary>
         /// Cancel multiple open orders
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4eb66-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>

@@ -392,6 +392,9 @@
         <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiTrading.CancelOrdersAsync(System.Collections.Generic.IEnumerable{System.Int64},System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
+        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiTrading.CancelAllOrdersAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
         <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiTrading.GetOrderAsync(System.Int64,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
@@ -4481,6 +4484,15 @@
             </summary>
             <param name="orderIds">The ids of the orders to cancel</param>
             <param name="clientOrderIds">The client ids of the orders to cancel</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiTrading.CancelAllOrdersAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Cancel all order
+            <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4ef06-7773-11ed-9966-0242ac110003" /></para>
+            </summary>
+            <param name="symbol">Symbol</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>

@@ -251,6 +251,21 @@ namespace HTX.Net.Clients.SpotApi
 
         #endregion
 
+        #region Cancel All Orders
+
+        /// <inheritdoc />
+        public async Task<WebCallResult> CancelAllOrdersAsync(string? symbol = null, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.AddOptional("symbol", symbol);
+
+            var request = _definitions.GetOrCreate(HttpMethod.Post, "v1/order/cancel-all-orders", HTXExchange.RateLimiter.EndpointLimit, 1, true,
+                new SingleLimitGuard(1, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
+            var result = await _baseClient.SendBasicAsync<object>(request, parameters, ct).ConfigureAwait(false);
+            return result.AsDataless();
+        }
+
+        #endregion
         // /v2/algo-orders/cancel-all-after
 
         #region Get Order
