@@ -36,6 +36,11 @@ namespace HTX.Net.Objects.Models.Socket
         [JsonConverter(typeof(DateTimeConverter))]
         [JsonPropertyName("lastActTime")]
         public DateTime? UpdateTime { get; set; }
+        /// <summary>
+        /// Total trade quantity
+        /// </summary>
+        [JsonPropertyName("totalTradeAmount")]
+        public decimal? TotalTradeQuantity { get; set; }
     }
         
     /// <summary>

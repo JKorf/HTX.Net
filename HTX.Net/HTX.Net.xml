@@ -10500,6 +10500,11 @@
             Timestamp
             </summary>
         </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXOrderUpdate.TotalTradeQuantity">
+            <summary>
+            Total trade quantity
+            </summary>
+        </member>
         <member name="T:HTX.Net.Objects.Models.Socket.HTXSubmittedOrderUpdate">
             <summary>
             Submitted order update
