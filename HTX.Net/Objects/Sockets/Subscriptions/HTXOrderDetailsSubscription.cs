@@ -39,9 +39,9 @@ namespace HTX.Net.Objects.Sockets.Subscriptions
         {
             var data = message.Data;
             if (data is HTXDataEvent<HTXTradeUpdate> tradeEvent)
-                _onOrderMatch?.Invoke(message.As(tradeEvent.Data, tradeEvent.Channel, tradeEvent.Data.Symbol, SocketUpdateType.Update));
+                _onOrderMatch?.Invoke(message.As(tradeEvent.Data, tradeEvent.Channel, tradeEvent.Data.Symbol, SocketUpdateType.Update).WithDataTimestamp(tradeEvent.Timestamp));
             if (data is HTXDataEvent<HTXOrderCancelationUpdate> cancelEvent)
-                _onOrderCancel?.Invoke(message.As(cancelEvent.Data, cancelEvent.Channel, cancelEvent.Data.Symbol, SocketUpdateType.Update));
+                _onOrderCancel?.Invoke(message.As(cancelEvent.Data, cancelEvent.Channel, cancelEvent.Data.Symbol, SocketUpdateType.Update).WithDataTimestamp(cancelEvent.Timestamp));
             return new CallResult(null);
         }
 

@@ -31,7 +31,7 @@ namespace HTX.Net.Objects.Sockets.Subscriptions
         public override CallResult DoHandleMessage(SocketConnection connection, DataEvent<object> message)
         {
             var update = (HTXDataEvent<HTXAccountUpdate>)message.Data;
-            _handler.Invoke(message.As(update.Data, update.Channel, null, SocketUpdateType.Update));
+            _handler.Invoke(message.As(update.Data, update.Channel, null, SocketUpdateType.Update).WithDataTimestamp(update.Data.ChangeTime));
             return new CallResult(null);
         }
 

@@ -196,35 +196,35 @@ namespace HTX.Net.Clients.UsdtFutures
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToLiquidationUpdatesAsync(Action<DataEvent<HTXUsdtMarginSwapLiquidationUpdate>> onData, CancellationToken ct = default)
         {
-            var subscription = new HTXOpSubscription<HTXUsdtMarginSwapLiquidationUpdate>(_logger, "public.*.liquidation_orders", "public.*.liquidation_orders", onData, false);
+            var subscription = new HTXOpSubscription<HTXUsdtMarginSwapLiquidationUpdate>(_logger, "public.*.liquidation_orders", "public.*.liquidation_orders", x => onData(x.WithDataTimestamp(x.Data.Timestamp)), false);
             return await SubscribeAsync(BaseAddress.AppendPath("linear-swap-notification"), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToFundingRateUpdatesAsync(Action<DataEvent<IEnumerable<HTXUsdtMarginSwapFundingRateUpdate>>> onData, CancellationToken ct = default)
         {
-            var subscription = new HTXOpSubscription<HTXUsdtMarginSwapFundingRateUpdateWrapper>(_logger, "public.*.funding_rate", "public.*.funding_rate", x => onData(x.As(x.Data.Data)), false);
+            var subscription = new HTXOpSubscription<HTXUsdtMarginSwapFundingRateUpdateWrapper>(_logger, "public.*.funding_rate", "public.*.funding_rate", x => onData(x.As(x.Data.Data).WithDataTimestamp(x.Data.Timestamp)), false);
             return await SubscribeAsync(BaseAddress.AppendPath("linear-swap-notification"), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToContractUpdatesAsync(Action<DataEvent<IEnumerable<HTXUsdtMarginSwapContractUpdate>>> onData, CancellationToken ct = default)
         {
-            var subscription = new HTXOpSubscription<HTXUsdtMarginSwapContractUpdateWrapper>(_logger, "public.*.contract_info", "public.*.contract_info", x => onData(x.As(x.Data.Data)), false);
+            var subscription = new HTXOpSubscription<HTXUsdtMarginSwapContractUpdateWrapper>(_logger, "public.*.contract_info", "public.*.contract_info", x => onData(x.As(x.Data.Data).WithDataTimestamp(x.Data.Timestamp)), false);
             return await SubscribeAsync(BaseAddress.AppendPath("linear-swap-notification"), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToContractElementsUpdatesAsync(Action<DataEvent<IEnumerable<HTXUsdtMarginSwapContractElementsUpdate>>> onData, CancellationToken ct = default)
         {
-            var subscription = new HTXOpSubscription<HTXUsdtMarginSwapContractElementsUpdateWrapper>(_logger, "public.*.contract_elements", "public.*.contract_elements", x => onData(x.As(x.Data.Data)), false);
+            var subscription = new HTXOpSubscription<HTXUsdtMarginSwapContractElementsUpdateWrapper>(_logger, "public.*.contract_elements", "public.*.contract_elements", x => onData(x.As(x.Data.Data).WithDataTimestamp(x.Data.Timestamp)), false);
             return await SubscribeAsync(BaseAddress.AppendPath("linear-swap-notification"), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToSystemStatusUpdatesAsync(Action<DataEvent<HTXStatusUpdate>> onData, CancellationToken ct = default)
         {
-            var subscription = new HTXOpSubscription<HTXStatusUpdate>(_logger, "public.linear-swap.heartbeat", "public.linear-swap.heartbeat", onData, false);
+            var subscription = new HTXOpSubscription<HTXStatusUpdate>(_logger, "public.linear-swap.heartbeat", "public.linear-swap.heartbeat", x => onData(x.WithDataTimestamp(x.Data.Timestamp)), false);
             return await SubscribeAsync(BaseAddress.AppendPath("center-notification"), subscription, ct).ConfigureAwait(false);
         }
 
@@ -235,63 +235,63 @@ namespace HTX.Net.Clients.UsdtFutures
                 throw new ArgumentException("Mode should be either Cross or Isolated", nameof(mode));
 
             var topic = mode == MarginMode.Cross ? "orders_cross" : "orders";
-            var subscription = new HTXOpSubscription<HTXUsdtMarginSwapOrderUpdate>(_logger, topic, topic + ".*", onData, true);
+            var subscription = new HTXOpSubscription<HTXUsdtMarginSwapOrderUpdate>(_logger, topic, topic + ".*", x => onData(x.WithDataTimestamp(x.Data.Timestamp)), true);
             return await SubscribeAsync(BaseAddress.AppendPath("linear-swap-notification"), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToIsolatedMarginBalanceUpdatesAsync(Action<DataEvent<HTXUsdtMarginSwapIsolatedBalanceUpdate>> onData, CancellationToken ct = default)
         {
-            var subscription = new HTXOpSubscription<HTXUsdtMarginSwapIsolatedBalanceUpdate>(_logger, "accounts", "accounts.*", onData, true);
+            var subscription = new HTXOpSubscription<HTXUsdtMarginSwapIsolatedBalanceUpdate>(_logger, "accounts", "accounts.*", x => onData(x.WithDataTimestamp(x.Data.Timestamp)), true);
             return await SubscribeAsync(BaseAddress.AppendPath("linear-swap-notification"), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToCrossMarginBalanceUpdatesAsync(Action<DataEvent<HTXUsdtMarginSwapCrossBalanceUpdate>> onData, CancellationToken ct = default)
         {
-            var subscription = new HTXOpSubscription<HTXUsdtMarginSwapCrossBalanceUpdate>(_logger, "accounts_cross", "accounts_cross.*", onData, true);
+            var subscription = new HTXOpSubscription<HTXUsdtMarginSwapCrossBalanceUpdate>(_logger, "accounts_cross", "accounts_cross.*", x => onData(x.WithDataTimestamp(x.Data.Timestamp)), true);
             return await SubscribeAsync(BaseAddress.AppendPath("linear-swap-notification"), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToIsolatedMarginPositionUpdatesAsync(Action<DataEvent<HTXUsdtMarginSwapIsolatedPositionUpdate>> onData, CancellationToken ct = default)
         {
-            var subscription = new HTXOpSubscription<HTXUsdtMarginSwapIsolatedPositionUpdate>(_logger, "positions", "positions.*", onData, true);
+            var subscription = new HTXOpSubscription<HTXUsdtMarginSwapIsolatedPositionUpdate>(_logger, "positions", "positions.*", x => onData(x.WithDataTimestamp(x.Data.Timestamp)), true);
             return await SubscribeAsync(BaseAddress.AppendPath("linear-swap-notification"), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToCrossMarginPositionUpdatesAsync(Action<DataEvent<HTXUsdtMarginSwapCrossPositionUpdate>> onData, CancellationToken ct = default)
         {
-            var subscription = new HTXOpSubscription<HTXUsdtMarginSwapCrossPositionUpdate>(_logger, "positions_cross", "positions_cross.*", onData, true);
+            var subscription = new HTXOpSubscription<HTXUsdtMarginSwapCrossPositionUpdate>(_logger, "positions_cross", "positions_cross.*", x => onData(x.WithDataTimestamp(x.Data.Timestamp)), true);
             return await SubscribeAsync(BaseAddress.AppendPath("linear-swap-notification"), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToIsolatedMarginUserTradeUpdatesAsync(Action<DataEvent<HTXUsdtMarginSwapIsolatedTradeUpdate>> onData, CancellationToken ct = default)
         {
-            var subscription = new HTXOpSubscription<HTXUsdtMarginSwapIsolatedTradeUpdate>(_logger, "matchOrders", "matchOrders.*", onData, true);
+            var subscription = new HTXOpSubscription<HTXUsdtMarginSwapIsolatedTradeUpdate>(_logger, "matchOrders", "matchOrders.*", x => onData(x.WithDataTimestamp(x.Data.Timestamp)), true);
             return await SubscribeAsync(BaseAddress.AppendPath("linear-swap-notification"), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToCrossMarginUserTradeUpdatesAsync(Action<DataEvent<HTXUsdtMarginSwapCrossTradeUpdate>> onData, CancellationToken ct = default)
         {
-            var subscription = new HTXOpSubscription<HTXUsdtMarginSwapCrossTradeUpdate>(_logger, "matchOrders_cross", "matchOrders_cross.*", onData, true);
+            var subscription = new HTXOpSubscription<HTXUsdtMarginSwapCrossTradeUpdate>(_logger, "matchOrders_cross", "matchOrders_cross.*", x => onData(x.WithDataTimestamp(x.Data.Timestamp)), true);
             return await SubscribeAsync(BaseAddress.AppendPath("linear-swap-notification"), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToIsolatedMarginTriggerOrderUpdatesAsync(Action<DataEvent<HTXUsdtMarginSwapIsolatedTriggerOrderUpdate>> onData, CancellationToken ct = default)
         {
-            var subscription = new HTXOpSubscription<HTXUsdtMarginSwapIsolatedTriggerOrderUpdate>(_logger, "trigger_order", "trigger_order.*", onData, true);
+            var subscription = new HTXOpSubscription<HTXUsdtMarginSwapIsolatedTriggerOrderUpdate>(_logger, "trigger_order", "trigger_order.*", x => onData(x.WithDataTimestamp(x.Data.Timestamp)), true);
             return await SubscribeAsync(BaseAddress.AppendPath("linear-swap-notification"), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToCrossMarginTriggerOrderUpdatesAsync(Action<DataEvent<HTXUsdtMarginSwapCrossTriggerOrderUpdate>> onData, CancellationToken ct = default)
         {
-            var subscription = new HTXOpSubscription<HTXUsdtMarginSwapCrossTriggerOrderUpdate>(_logger, "trigger_order_cross.*", "trigger_order_cross.*", onData, true);
+            var subscription = new HTXOpSubscription<HTXUsdtMarginSwapCrossTriggerOrderUpdate>(_logger, "trigger_order_cross.*", "trigger_order_cross.*", x => onData(x.WithDataTimestamp(x.Data.Timestamp)), true);
             return await SubscribeAsync(BaseAddress.AppendPath("linear-swap-notification"), subscription, ct).ConfigureAwait(false);
         }
     }

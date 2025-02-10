@@ -32,8 +32,8 @@ namespace HTX.Net.Objects.Sockets.Subscriptions
 
         public override CallResult DoHandleMessage(SocketConnection connection, DataEvent<object> message)
         {
-            var huobiEvent = (HTXDataEvent<T>)message.Data;
-            _handler.Invoke(message.As(huobiEvent.Data).WithStreamId(huobiEvent.Channel));
+            var htxEvent = (HTXDataEvent<T>)message.Data;
+            _handler.Invoke(message.As(htxEvent.Data).WithStreamId(htxEvent.Channel).WithDataTimestamp(htxEvent.Timestamp));
             return new CallResult(null);
         }
     }

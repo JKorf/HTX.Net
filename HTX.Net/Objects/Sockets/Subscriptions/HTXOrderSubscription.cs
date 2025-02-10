@@ -48,15 +48,15 @@ namespace HTX.Net.Objects.Sockets.Subscriptions
         {
             var data = message.Data;
             if (data is HTXDataEvent<HTXTriggerFailureOrderUpdate> triggerFailEvent)
-                _onConditionalOrderTriggerFailure?.Invoke(message.As(triggerFailEvent.Data, triggerFailEvent.Channel, triggerFailEvent.Data.Symbol, SocketUpdateType.Update));
+                _onConditionalOrderTriggerFailure?.Invoke(message.As(triggerFailEvent.Data, triggerFailEvent.Channel, triggerFailEvent.Data.Symbol, SocketUpdateType.Update).WithDataTimestamp(triggerFailEvent.Timestamp));
             if (data is HTXDataEvent<HTXOrderUpdate> orderEvent)
-                _onConditionalOrderCanceled?.Invoke(message.As(orderEvent.Data, orderEvent.Channel, orderEvent.Data.Symbol, SocketUpdateType.Update));
+                _onConditionalOrderCanceled?.Invoke(message.As(orderEvent.Data, orderEvent.Channel, orderEvent.Data.Symbol, SocketUpdateType.Update).WithDataTimestamp(orderEvent.Timestamp));
             if (data is HTXDataEvent<HTXSubmittedOrderUpdate> submitOrderEvent)
-                _onOrderSubmitted?.Invoke(message.As(submitOrderEvent.Data, submitOrderEvent.Channel, submitOrderEvent.Data.Symbol, SocketUpdateType.Update));
+                _onOrderSubmitted?.Invoke(message.As(submitOrderEvent.Data, submitOrderEvent.Channel, submitOrderEvent.Data.Symbol, SocketUpdateType.Update).WithDataTimestamp(submitOrderEvent.Timestamp));
             if (data is HTXDataEvent<HTXMatchedOrderUpdate> matchOrderEvent)
-                _onOrderMatched?.Invoke(message.As(matchOrderEvent.Data, matchOrderEvent.Channel, matchOrderEvent.Data.Symbol, SocketUpdateType.Update));
+                _onOrderMatched?.Invoke(message.As(matchOrderEvent.Data, matchOrderEvent.Channel, matchOrderEvent.Data.Symbol, SocketUpdateType.Update).WithDataTimestamp(matchOrderEvent.Timestamp));
             if (data is HTXDataEvent<HTXCanceledOrderUpdate> cancelOrderEvent)
-                _onOrderCancelation?.Invoke(message.As(cancelOrderEvent.Data, cancelOrderEvent.Channel, cancelOrderEvent.Data.Symbol, SocketUpdateType.Update));
+                _onOrderCancelation?.Invoke(message.As(cancelOrderEvent.Data, cancelOrderEvent.Channel, cancelOrderEvent.Data.Symbol, SocketUpdateType.Update).WithDataTimestamp(cancelOrderEvent.Timestamp));
             return new CallResult(null);
         }
 

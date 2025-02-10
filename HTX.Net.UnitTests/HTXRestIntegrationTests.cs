@@ -15,7 +15,7 @@ using Microsoft.Extensions.Options;
 namespace HTX.Net.UnitTests
 {
     [NonParallelizable]
-    internal class HTXRestIntegrationTests : RestIntergrationTest<HTXRestClient>
+    internal class HTXRestIntegrationTests : RestIntegrationTest<HTXRestClient>
     {
         public override bool Run { get; set; } = false;
 
