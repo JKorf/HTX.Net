@@ -197,7 +197,15 @@ namespace HTX.Net.Clients.SpotApi
         #region Get Open Orders
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<HTXOpenOrder>>> GetOpenOrdersAsync(long? accountId = null, string? symbol = null, Enums.OrderSide? side = null, int? limit = null, CancellationToken ct = default)
+        public async Task<WebCallResult<IEnumerable<HTXOpenOrder>>> GetOpenOrdersAsync(
+            long? accountId = null,
+            string? symbol = null,
+            OrderSide? side = null,
+            IEnumerable<OrderType>? orderTypes = null,
+            string? fromId = null,
+            FilterDirection? direction = null,
+            int? limit = null,
+            CancellationToken ct = default)
         {
             symbol = symbol?.ToLowerInvariant();
 
@@ -206,6 +214,9 @@ namespace HTX.Net.Clients.SpotApi
             parameters.AddOptionalParameter("symbol", symbol);
             parameters.AddOptionalEnum("side", side);
             parameters.AddOptionalParameter("size", limit);
+            parameters.AddOptional("types", orderTypes?.Any() != true ? null : string.Join(",", orderTypes.Select(EnumConverter.GetString)));
+            parameters.AddOptional("from", fromId);
+            parameters.AddOptionalEnum("direct", direction);
 
             var request = _definitions.GetOrCreate(HttpMethod.Get, "v1/order/openOrders", HTXExchange.RateLimiter.EndpointLimit, 1, true,
                 new SingleLimitGuard(50, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));

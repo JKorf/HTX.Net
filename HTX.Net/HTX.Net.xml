@@ -383,7 +383,7 @@
         <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiTrading.CancelOrderByClientOrderIdAsync(System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiTrading.GetOpenOrdersAsync(System.Nullable{System.Int64},System.String,System.Nullable{HTX.Net.Enums.OrderSide},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiTrading.GetOpenOrdersAsync(System.Nullable{System.Int64},System.String,System.Nullable{HTX.Net.Enums.OrderSide},System.Collections.Generic.IEnumerable{HTX.Net.Enums.OrderType},System.String,System.Nullable{HTX.Net.Enums.FilterDirection},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiTrading.CancelOrdersByCriteriaAsync(System.Nullable{System.Int64},System.Collections.Generic.IEnumerable{System.String},System.Nullable{HTX.Net.Enums.OrderSide},System.Nullable{System.Int32},System.Threading.CancellationToken)">
@@ -4447,7 +4447,7 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiTrading.GetOpenOrdersAsync(System.Nullable{System.Int64},System.String,System.Nullable{HTX.Net.Enums.OrderSide},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiTrading.GetOpenOrdersAsync(System.Nullable{System.Int64},System.String,System.Nullable{HTX.Net.Enums.OrderSide},System.Collections.Generic.IEnumerable{HTX.Net.Enums.OrderType},System.String,System.Nullable{HTX.Net.Enums.FilterDirection},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get a list of open orders
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4e04b-7773-11ed-9966-0242ac110003" /></para>
@@ -4455,6 +4455,9 @@
             <param name="accountId">The account id for which to get the orders for, account ids can be retrieved with <see cref="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiAccount.GetAccountsAsync(System.Threading.CancellationToken)">SpotApi.Account.GetAccountsAsync</see>.</param>
             <param name="symbol">The symbol for which to get the orders for, for example `ETHUSDT`</param>
             <param name="side">Only get buy or sell orders</param>
+            <param name="orderTypes">Filter by order types</param>
+            <param name="fromId">Return results after this id</param>
+            <param name="direction">Direction of results</param>
             <param name="limit">The max number of results</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>

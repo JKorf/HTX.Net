@@ -77,10 +77,21 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// <param name="accountId">The account id for which to get the orders for, account ids can be retrieved with <see cref="IHTXRestClientSpotApiAccount.GetAccountsAsync">SpotApi.Account.GetAccountsAsync</see>.</param>
         /// <param name="symbol">The symbol for which to get the orders for, for example `ETHUSDT`</param>
         /// <param name="side">Only get buy or sell orders</param>
+        /// <param name="orderTypes">Filter by order types</param>
+        /// <param name="fromId">Return results after this id</param>
+        /// <param name="direction">Direction of results</param>
         /// <param name="limit">The max number of results</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<HTXOpenOrder>>> GetOpenOrdersAsync(long? accountId = null, string? symbol = null, OrderSide? side = null, int? limit = null, CancellationToken ct = default);
+        Task<WebCallResult<IEnumerable<HTXOpenOrder>>> GetOpenOrdersAsync(
+            long? accountId = null,
+            string? symbol = null,
+            OrderSide? side = null,
+            IEnumerable<OrderType>? orderTypes = null,
+            string? fromId = null,
+            FilterDirection? direction = null,
+            int? limit = null,
+            CancellationToken ct = default);
 
         /// <summary>
         /// Cancel an open order
