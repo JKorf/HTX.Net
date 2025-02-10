@@ -122,6 +122,15 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         Task<WebCallResult<HTXSymbolDetails>> GetSymbolDetails24HAsync(string symbol, CancellationToken ct = default);
 
         /// <summary>
+        /// Get the full order book. Updated once per second and returns up to 5000 levels.
+        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb89359-77b5-11ed-9966-193426b1a86" /></para>
+        /// </summary>
+        /// <param name="symbol">The symbol to get the data for, for example `ETHUSDT`</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult<HTXOrderBook>> GetFullOrderBookAsync(string symbol, CancellationToken ct = default);
+
+        /// <summary>
         /// Get the current market status
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec513b1-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>

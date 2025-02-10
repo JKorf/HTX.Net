@@ -283,5 +283,28 @@ namespace HTX.Net.Clients.SpotApi
 
         #endregion
 
+        #region Get Full Order Book
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<HTXOrderBook>> GetFullOrderBookAsync(string symbol, CancellationToken ct = default)
+        {
+            symbol = symbol.ToLowerInvariant();
+
+            var parameters = new ParameterCollection()
+            {
+                { "symbol", symbol }
+            };
+
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "market/fullMbp ", HTXExchange.RateLimiter.SpotMarketLimit, 1, false,
+                new SingleLimitGuard(5, TimeSpan.FromSeconds(1), RateLimitWindowType.Sliding));
+            var result = await _baseClient.SendTimestampAsync<HTXOrderBook>(request, parameters, ct).ConfigureAwait(false);
+            if (!result)
+                return result.AsError<HTXOrderBook>(result.Error!);
+
+            return result.As(result.Data.Item1);
+        }
+
+        #endregion
+
     }
 }
