@@ -153,6 +153,17 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 6.9.0 - 11 Feb 2025
+    * Updated CryptoExchange.Net to version 8.8.0, see https://github.com/JKorf/CryptoExchange.Net/releases/
+    * Added support for more SharedKlineInterval values
+    * Added setting of DataTime value on websocket DataEvent updates
+    * Added UpdateTime to HTXOrder response model
+    * Added restClient.SpotApi.Trading.CancelAllOrdersAsync endpoint
+    * Added missing parameters to restClient.SpotApi.Trading.GetOpenOrdersAsync endpoint
+    * Added TotalTradeQuantity property to socketClient.SpotApi.SubscribeToOrderUpdatesAsync update model
+    * Added restClient.SpotApi.ExchangeData.GetFullOrderBookAsync endpoint
+    * Fix Mono runtime exception on rest client construction using DI
+
 * Version 6.8.2 - 22 Jan 2025
     * Added restClient.SpotApi.ExchangeData.GetNetworksAsync
 
