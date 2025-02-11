@@ -86,7 +86,7 @@ namespace HTX.Net.UnitTests
         [Test]
         public async Task TestSpotApiTrading()
         {
-            await RunAndCheckResult(client => client.SpotApi.Trading.GetOpenOrdersAsync(default, default, default, default, default), true);
+            await RunAndCheckResult(client => client.SpotApi.Trading.GetOpenOrdersAsync(default, default, default, default, default, default, default, default), true);
             await RunAndCheckResult(client => client.SpotApi.Trading.GetClosedOrdersAsync("ETHUSDT", default, default, default, default, default, default, default, default), true);
             await RunAndCheckResult(client => client.SpotApi.Trading.GetHistoricalOrdersAsync("ETHUSDT", default, default, default, default, default), true);
             await RunAndCheckResult(client => client.SpotApi.Trading.GetUserTradesAsync("ETHUSDT", default, default, default, default, default, default, default), true);
