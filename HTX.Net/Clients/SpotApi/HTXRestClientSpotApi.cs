@@ -91,18 +91,6 @@ namespace HTX.Net.Clients.SpotApi
             return result.As(result.Data.Data);
         }
 
-        internal async Task<WebCallResult<(T, DateTime)>> SendHTXTimestampRequest<T>(Uri uri, HttpMethod method, CancellationToken cancellationToken, Dictionary<string, object>? parameters = null, bool signed = false)
-        {
-            var result = await SendRequestAsync<HTXBasicResponse<T>>(uri, method, cancellationToken, parameters, signed, requestWeight: 0).ConfigureAwait(false);
-            if (!result || result.Data == null)
-                return result.AsError<(T, DateTime)>(result.Error!);
-
-            if (result.Data.ErrorCode != null)
-                return result.AsError<(T, DateTime)>(new ServerError($"{result.Data.ErrorCode}-{result.Data.ErrorMessage}"));
-
-            return result.As((result.Data.Data, result.Data.Timestamp));
-        }
-
         internal Task<WebCallResult<(T, DateTime)>> SendTimestampAsync<T>(RequestDefinition definition, ParameterCollection? parameters, CancellationToken cancellationToken, int? weight = null)
             => SendTimestampToAddressAsync<T>(BaseAddress, definition, parameters, cancellationToken, weight);
 
