@@ -1,8 +1,10 @@
-﻿namespace HTX.Net.Objects.Models.Socket
+using CryptoExchange.Net.Converters.SystemTextJson;
+namespace HTX.Net.Objects.Models.Socket
 {
     /// <summary>
     /// Order book update
     /// </summary>
+    [SerializationModel]
     public record HTXOrderBookUpdate
     {
         /// <summary>
@@ -24,11 +26,11 @@
         /// List of changed bids
         /// </summary>
         [JsonPropertyName("bids")]
-        public IEnumerable<HTXOrderBookEntry> Bids { get; set; } = Array.Empty<HTXOrderBookEntry>();
+        public HTXOrderBookEntry[] Bids { get; set; } = Array.Empty<HTXOrderBookEntry>();
         /// <summary>
         /// List of changed asks
         /// </summary>
         [JsonPropertyName("asks")]
-        public IEnumerable<HTXOrderBookEntry> Asks { get; set; } = Array.Empty<HTXOrderBookEntry>();
+        public HTXOrderBookEntry[] Asks { get; set; } = Array.Empty<HTXOrderBookEntry>();
     }
 }

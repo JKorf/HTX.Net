@@ -1,4 +1,4 @@
-﻿using HTX.Net.Enums;
+using HTX.Net.Enums;
 using HTX.Net.Objects.Models.UsdtMarginSwap;
 
 namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
@@ -108,7 +108,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// <param name="direction">Direction</param>
         /// <param name="fromId">Return results after this id</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<IEnumerable<HTXCrossMarginOrder>>> GetCrossMarginClosedOrdersAsync(string contractCode, MarginTradeType tradeType, bool allOrders, IEnumerable<OrderStatusFilter> status, string? pair = null, DateTime? startTime = null, DateTime? endTime = null, FilterDirection? direction = null, long? fromId = null, CancellationToken ct = default);
+        Task<WebCallResult<HTXCrossMarginOrder[]>> GetCrossMarginClosedOrdersAsync(string contractCode, MarginTradeType tradeType, bool allOrders, IEnumerable<OrderStatusFilter> status, string? pair = null, DateTime? startTime = null, DateTime? endTime = null, FilterDirection? direction = null, long? fromId = null, CancellationToken ct = default);
         /// <summary>
         /// Get cross margin open orders
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb858fe-77b5-11ed-9966-0242ac110003" /></para>
@@ -132,7 +132,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// <param name="clientOrderId">Client order id</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<HTXCrossMarginOrder>>> GetCrossMarginOrderAsync(string? contractCode = null, string? pair = null, long? orderId = null, long? clientOrderId = null, CancellationToken ct = default);
+        Task<WebCallResult<HTXCrossMarginOrder[]>> GetCrossMarginOrderAsync(string? contractCode = null, string? pair = null, long? orderId = null, long? clientOrderId = null, CancellationToken ct = default);
         /// <summary>
         /// Get cross margin order details
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb8562d-77b5-11ed-9966-0242ac110003" /></para>
@@ -152,7 +152,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// <param name="pair">Pair</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<HTXCrossMarginOrder>>> GetCrossMarginOrdersAsync(IEnumerable<long> orderIds, IEnumerable<long> clientOrderIds, string? contractCode = null, string? pair = null, CancellationToken ct = default);
+        Task<WebCallResult<HTXCrossMarginOrder[]>> GetCrossMarginOrdersAsync(IEnumerable<long> orderIds, IEnumerable<long> clientOrderIds, string? contractCode = null, string? pair = null, CancellationToken ct = default);
         /// <summary>
         /// Get isolated margin user trades
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb85fa3-77b5-11ed-9966-0242ac110003" /></para>
@@ -165,7 +165,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// <param name="filterDirection">Filter direction</param>
         /// <param name="fromId">Return results after this id</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<IEnumerable<HTXIsolatedMarginUserTrade>>> GetIsolatedMarginUserTradesAsync(string contractCode, MarginTradeType tradeType, string? pair = null, DateTime? startTime = null, DateTime? endTime = null, FilterDirection? filterDirection = null, long? fromId = null, CancellationToken ct = default);
+        Task<WebCallResult<HTXIsolatedMarginUserTrade[]>> GetIsolatedMarginUserTradesAsync(string contractCode, MarginTradeType tradeType, string? pair = null, DateTime? startTime = null, DateTime? endTime = null, FilterDirection? filterDirection = null, long? fromId = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get cross margin user trades
@@ -179,7 +179,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// <param name="filterDirection">Filter direction</param>
         /// <param name="fromId">Return results after this id</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<IEnumerable<HTXCrossMarginUserTrade>>> GetCrossMarginUserTradesAsync(string contractCode, MarginTradeType tradeType, string? pair = null, DateTime? startTime = null, DateTime? endTime = null, FilterDirection? filterDirection = null, long? fromId = null, CancellationToken ct = default);
+        Task<WebCallResult<HTXCrossMarginUserTrade[]>> GetCrossMarginUserTradesAsync(string contractCode, MarginTradeType tradeType, string? pair = null, DateTime? startTime = null, DateTime? endTime = null, FilterDirection? filterDirection = null, long? fromId = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get isolated margin closed orders
@@ -194,7 +194,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// <param name="direction">Direction</param>
         /// <param name="fromId">Return results after this id</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<IEnumerable<HTXIsolatedMarginOrder>>> GetIsolatedMarginClosedOrdersAsync(string contractCode, MarginTradeType tradeType, bool allOrders, IEnumerable<OrderStatusFilter> status, DateTime? startTime = null, DateTime? endTime = null, FilterDirection? direction = null, long? fromId = null, CancellationToken ct = default);
+        Task<WebCallResult<HTXIsolatedMarginOrder[]>> GetIsolatedMarginClosedOrdersAsync(string contractCode, MarginTradeType tradeType, bool allOrders, IEnumerable<OrderStatusFilter> status, DateTime? startTime = null, DateTime? endTime = null, FilterDirection? direction = null, long? fromId = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get isolated margin open orders
@@ -217,7 +217,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// <param name="clientOrderId">Client order id</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<HTXIsolatedMarginOrder>>> GetIsolatedMarginOrderAsync(string contractCode, long? orderId = null, long? clientOrderId = null, CancellationToken ct = default);
+        Task<WebCallResult<HTXIsolatedMarginOrder[]>> GetIsolatedMarginOrderAsync(string contractCode, long? orderId = null, long? clientOrderId = null, CancellationToken ct = default);
         /// <summary>
         /// Get isolated margin order details
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb854d2-77b5-11ed-9966-0242ac110003" /></para>
@@ -236,7 +236,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// <param name="clientOrderIds">Client order ids</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<HTXIsolatedMarginOrder>>> GetIsolatedMarginOrdersAsync(string contractCode, IEnumerable<long> orderIds, IEnumerable<long> clientOrderIds, CancellationToken ct = default);
+        Task<WebCallResult<HTXIsolatedMarginOrder[]>> GetIsolatedMarginOrdersAsync(string contractCode, IEnumerable<long> orderIds, IEnumerable<long> clientOrderIds, CancellationToken ct = default);
         /// <summary>
         /// Place a new cross margin order
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb84611-77b5-11ed-9966-0242ac110003" /></para>

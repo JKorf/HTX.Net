@@ -1,4 +1,5 @@
-﻿using HTX.Net.Enums;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using HTX.Net.Enums;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,6 +9,7 @@ namespace HTX.Net.Objects.Models
     /// <summary>
     /// Network info
     /// </summary>
+    [SerializationModel]
     public record HTXAssetNetworkInfo
     {
         /// <summary>

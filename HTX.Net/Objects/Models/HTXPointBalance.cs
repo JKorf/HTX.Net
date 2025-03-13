@@ -1,10 +1,12 @@
-﻿using HTX.Net.Enums;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using HTX.Net.Enums;
 
 namespace HTX.Net.Objects.Models
 {
     /// <summary>
     /// Point balance
     /// </summary>
+    [SerializationModel]
     public record HTXPointBalance
     {
         /// <summary>
@@ -16,7 +18,7 @@ namespace HTX.Net.Objects.Models
         /// Group ids
         /// </summary>
         [JsonPropertyName("groupIds")]
-        public IEnumerable<HTXPointBalanceGroup> GroupIds { get; set; } = Array.Empty<HTXPointBalanceGroup>();
+        public HTXPointBalanceGroup[] GroupIds { get; set; } = Array.Empty<HTXPointBalanceGroup>();
         /// <summary>
         /// Accountt balance
         /// </summary>
@@ -32,6 +34,7 @@ namespace HTX.Net.Objects.Models
     /// <summary>
     /// Group info
     /// </summary>
+    [SerializationModel]
     public record HTXPointBalanceGroup
     {
         /// <summary>

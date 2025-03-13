@@ -1,10 +1,12 @@
-﻿
+using CryptoExchange.Net.Converters.SystemTextJson;
+
 
 namespace HTX.Net.Objects.Models.UsdtMarginSwap
 {
     /// <summary>
     /// Asset valuation
     /// </summary>
+    [SerializationModel]
     public  record HTXAssetValue
     {
         /// <summary>

@@ -1,10 +1,12 @@
-﻿using HTX.Net.Enums;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using HTX.Net.Enums;
 
 namespace HTX.Net.Objects.Models.UsdtMarginSwap
 {
     /// <summary>
     /// Liquidation order
     /// </summary>
+    [SerializationModel]
     public record HTXLiquidationOrder
     {
         /// <summary>
@@ -25,13 +27,13 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// <summary>
         /// Direction
         /// </summary>
-        [JsonConverter(typeof(EnumConverter))]
+
         [JsonPropertyName("direction")]
         public OrderSide Direction { get; set; }
         /// <summary>
         /// Offset
         /// </summary>
-        [JsonConverter(typeof(EnumConverter))]
+
         [JsonPropertyName("offset")]
         public Offset Offset { get; set; }
         /// <summary>
@@ -64,7 +66,7 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// Business type
         /// </summary>
         [JsonPropertyName("business_type")]
-        [JsonConverter(typeof(EnumConverter))]
+
         public BusinessType BusinessType { get; set; }
         /// <summary>
         /// Symbol

@@ -1,16 +1,18 @@
-﻿using HTX.Net.Enums;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using HTX.Net.Enums;
 
 namespace HTX.Net.Objects.Models.UsdtMarginSwap
 {
     /// <summary>
     /// Best offer
     /// </summary>
+    [SerializationModel]
     public record HTXSwapBookTicker
     {
         /// <summary>
         /// Business type
         /// </summary>
-        [JsonConverter(typeof(EnumConverter))]
+
         [JsonPropertyName("business_type")]
         public BusinessType BusinessType { get; set; }
         /// <summary>

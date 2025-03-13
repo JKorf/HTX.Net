@@ -1,4 +1,5 @@
-﻿using HTX.Net.Enums;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using HTX.Net.Enums;
 
 
 namespace HTX.Net.Objects.Models.UsdtMarginSwap
@@ -6,6 +7,7 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
     /// <summary>
     /// Available leverage info
     /// </summary>
+    [SerializationModel]
     public record HTXIsolatedMarginLeverageAvailable
     {
         /// <summary>
@@ -17,7 +19,7 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// Margin mode
         /// </summary>
         [JsonPropertyName("margin_mode")]
-        [JsonConverter(typeof(EnumConverter))]
+
         public MarginMode MarginMode { get; set; }
         /// <summary>
         /// Available rates

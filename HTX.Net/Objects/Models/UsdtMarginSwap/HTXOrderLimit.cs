@@ -1,10 +1,12 @@
-﻿using HTX.Net.Enums;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using HTX.Net.Enums;
 
 namespace HTX.Net.Objects.Models.UsdtMarginSwap
 {
     /// <summary>
     /// Order limit info
     /// </summary>
+    [SerializationModel]
     public record HTXOrderLimit
     {
         /// <summary>
@@ -16,12 +18,13 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// Limits
         /// </summary>
         [JsonPropertyName("list")]
-        public IEnumerable<HTXOrderTypeLimit> Limits { get; set; } = Array.Empty<HTXOrderTypeLimit>();
+        public HTXOrderTypeLimit[] Limits { get; set; } = Array.Empty<HTXOrderTypeLimit>();
     }
 
     /// <summary>
     /// Limit info
     /// </summary>
+    [SerializationModel]
     public record HTXOrderTypeLimit
     {
         /// <summary>

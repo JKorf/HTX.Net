@@ -39,7 +39,7 @@ namespace HTX.Net.Objects.Sockets.Subscriptions
             _handler.Invoke(message.As(htxEvent.Data)
                 .WithStreamId(htxEvent.Channel).WithUpdateType(htxEvent.Data.Event == "snapshot" ? SocketUpdateType.Snapshot: SocketUpdateType.Update)
                 .WithDataTimestamp(htxEvent.Timestamp));
-            return new CallResult(null);
+            return CallResult.SuccessResult;
         }
     }
 }

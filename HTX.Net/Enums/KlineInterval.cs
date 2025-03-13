@@ -1,10 +1,13 @@
-﻿using CryptoExchange.Net.Attributes;
+using System.Text.Json.Serialization;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using CryptoExchange.Net.Attributes;
 
 namespace HTX.Net.Enums
 {
     /// <summary>
     /// Interval for klines, int value represent the time in seconds
     /// </summary>
+    [JsonConverter(typeof(EnumConverter<KlineInterval>))]
     public enum KlineInterval
     {
         /// <summary>

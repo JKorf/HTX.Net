@@ -1,4 +1,5 @@
-﻿using HTX.Net.Enums;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using HTX.Net.Enums;
 
 namespace HTX.Net.Objects.Models.UsdtMarginSwap
 { 
@@ -6,18 +7,20 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
     /// <summary>
     /// Sub transfer page
     /// </summary>
+    [SerializationModel]
     public record HTXMasterSubTransferPage : HTXPage
     {
         /// <summary>
         /// Transfers
         /// </summary>
         [JsonPropertyName("transfer_record")]
-        public IEnumerable<HTXMasterSubTransfer> Transfers { get; set; } = Array.Empty<HTXMasterSubTransfer>();
+        public HTXMasterSubTransfer[] Transfers { get; set; } = Array.Empty<HTXMasterSubTransfer>();
     }
 
     /// <summary>
     /// Transfer between master and sub account
     /// </summary>
+    [SerializationModel]
     public record HTXMasterSubTransfer
     {
         /// <summary>
@@ -65,7 +68,7 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// Transfer type
         /// </summary>
         [JsonPropertyName("transfer_type")]
-        [JsonConverter(typeof(EnumConverter))]
+
         public MasterSubTransferType Type { get; set; }
         /// <summary>
         /// Quantity

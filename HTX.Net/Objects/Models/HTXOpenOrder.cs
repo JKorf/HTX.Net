@@ -1,4 +1,6 @@
-﻿using HTX.Net.Enums;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using HTX.Net.Converters;
+using HTX.Net.Enums;
 
 
 namespace HTX.Net.Objects.Models
@@ -6,6 +8,7 @@ namespace HTX.Net.Objects.Models
     /// <summary>
     /// Open order
     /// </summary>
+    [SerializationModel]
     public record HTXOpenOrder
     {
         /// <summary>
@@ -18,7 +21,7 @@ namespace HTX.Net.Objects.Models
         /// The order id as specified by the client
         /// </summary>
         [JsonPropertyName("client-order-id")]
-        [JsonConverterCtor(typeof(ReplaceConverter), $"{HTXExchange.ClientOrderIdPrefix}->")]
+        [JsonConverter(typeof(ClientIdConverter))]
         public string? ClientOrderId { get; set; }
 
         /// <summary>
@@ -86,7 +89,7 @@ namespace HTX.Net.Objects.Models
         /// <summary>
         /// The state of the order
         /// </summary>
-        [JsonPropertyName("state"), JsonConverter(typeof(EnumConverter))]
+        [JsonPropertyName("state")]
         public OrderStatus Status { get; set; }
 
         /// <summary>

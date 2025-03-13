@@ -1,8 +1,10 @@
-﻿namespace HTX.Net.Objects.Models
+using CryptoExchange.Net.Converters.SystemTextJson;
+namespace HTX.Net.Objects.Models
 {
     /// <summary>
     /// Orders info
     /// </summary>
+    [SerializationModel]
     public record HTXOrders
 	{
         /// <summary>
@@ -14,6 +16,6 @@
         /// List of ticks for symbols
         /// </summary>
         [JsonPropertyName("orders")]
-        public IEnumerable<HTXOrder> Orders { get; set; } = Array.Empty<HTXOrder>();
+        public HTXOrder[] Orders { get; set; } = Array.Empty<HTXOrder>();
     }
 }

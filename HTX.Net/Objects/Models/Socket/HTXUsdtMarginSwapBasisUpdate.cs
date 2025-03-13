@@ -1,9 +1,11 @@
-﻿
+using CryptoExchange.Net.Converters.SystemTextJson;
+
 namespace HTX.Net.Objects.Models.Socket
 {
     /// <summary>
     /// Basis update
     /// </summary>
+    [SerializationModel]
     public record HTXUsdtMarginSwapBasisUpdate
     {
         /// <summary>

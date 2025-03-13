@@ -1,13 +1,13 @@
-﻿using CryptoExchange.Net.Attributes;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Text.Json.Serialization;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using CryptoExchange.Net.Attributes;
 
 namespace HTX.Net.Enums
 {
     /// <summary>
     /// Contract network type
     /// </summary>
+    [JsonConverter(typeof(EnumConverter<ContractNetworkType>))]
     public enum ContractNetworkType
     {
         /// <summary>

@@ -34,7 +34,7 @@ namespace HTX.Net.Objects.Sockets.Subscriptions
         {
             var htxEvent = (HTXDataEvent<T>)message.Data;
             _handler.Invoke(message.As(htxEvent.Data).WithStreamId(htxEvent.Channel).WithDataTimestamp(htxEvent.Timestamp));
-            return new CallResult(null);
+            return CallResult.SuccessResult;
         }
     }
 }

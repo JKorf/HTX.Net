@@ -1,10 +1,12 @@
-﻿using HTX.Net.Enums;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using HTX.Net.Enums;
 
 namespace HTX.Net.Objects.Models
 {
     /// <summary>
     /// Platform wide valuation
     /// </summary>
+    [SerializationModel]
     public record HTXPlatformValuation
     {
         /// <summary>
@@ -31,12 +33,13 @@ namespace HTX.Net.Objects.Models
         /// Account balance list
         /// </summary>
         [JsonPropertyName("profitAccountBalanceList")]
-        public IEnumerable<HTXPlatformValuationBalance> Balances { get; set; } = Array.Empty<HTXPlatformValuationBalance>();
+        public HTXPlatformValuationBalance[] Balances { get; set; } = Array.Empty<HTXPlatformValuationBalance>();
     }
 
     /// <summary>
     /// 
     /// </summary>
+    [SerializationModel]
     public record HTXPlatformValuationUpdate
     {
         /// <summary>
@@ -54,6 +57,7 @@ namespace HTX.Net.Objects.Models
     /// <summary>
     /// 
     /// </summary>
+    [SerializationModel]
     public record HTXPlatformValuationBalance
     {
         /// <summary>

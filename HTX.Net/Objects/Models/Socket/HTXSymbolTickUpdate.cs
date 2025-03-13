@@ -1,10 +1,12 @@
-﻿
+using CryptoExchange.Net.Converters.SystemTextJson;
+
 
 namespace HTX.Net.Objects.Models.Socket
 {
     /// <summary>
     /// Symbol update
     /// </summary>
+    [SerializationModel]
     public record HTXSymbolTickUpdate: HTXSymbolData
     {
         /// <summary>

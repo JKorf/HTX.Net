@@ -1,17 +1,19 @@
-﻿using HTX.Net.Enums;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using HTX.Net.Enums;
 
 namespace HTX.Net.Objects.Models
 {
     /// <summary>
     /// Asset info
     /// </summary>
+    [SerializationModel]
     public record HTXAssetNetworks
     {
         /// <summary>
         /// Networks
         /// </summary>
         [JsonPropertyName("chains")]
-        public IEnumerable<HTXAssetNetwork> Networks { get; set; } = Array.Empty<HTXAssetNetwork>();
+        public HTXAssetNetwork[] Networks { get; set; } = Array.Empty<HTXAssetNetwork>();
         /// <summary>
         /// Asset
         /// </summary>
@@ -27,6 +29,7 @@ namespace HTX.Net.Objects.Models
     /// <summary>
     /// Network info
     /// </summary>
+    [SerializationModel]
     public record HTXAssetNetwork
     {
         /// <summary>

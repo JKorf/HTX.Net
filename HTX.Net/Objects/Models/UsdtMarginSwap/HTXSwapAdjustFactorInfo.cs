@@ -1,10 +1,12 @@
-﻿using HTX.Net.Enums;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using HTX.Net.Enums;
 
 namespace HTX.Net.Objects.Models.UsdtMarginSwap
 {
     /// <summary>
     /// Adjust factor info
     /// </summary>
+    [SerializationModel]
     public record HTXSwapAdjustFactorInfo
     {
         /// <summary>
@@ -21,18 +23,19 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// Margin mode
         /// </summary>
         [JsonPropertyName("margin_mode")]
-        [JsonConverter(typeof(EnumConverter))]
+
         public MarginMode MarginMode { get; set; }
         /// <summary>
         /// list
         /// </summary>
         [JsonPropertyName("list")]
-        public IEnumerable<HTXFactorInfo> List { get; set; } = Array.Empty<HTXFactorInfo>();
+        public HTXFactorInfo[] List { get; set; } = Array.Empty<HTXFactorInfo>();
     }
 
     /// <summary>
     /// Cross margin adjust factor info
     /// </summary>
+    [SerializationModel]
     public record HTXCrossSwapAdjustFactorInfo: HTXSwapAdjustFactorInfo
     {
         /// <summary>
@@ -55,6 +58,7 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
     /// <summary>
     /// Factor info
     /// </summary>
+    [SerializationModel]
     public record HTXFactorInfo
     {
         /// <summary>
@@ -66,12 +70,13 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// Ladders
         /// </summary>
         [JsonPropertyName("ladders")]
-        public IEnumerable<HTXFactorEntry> Ladders { get; set; } = Array.Empty<HTXFactorEntry>();
+        public HTXFactorEntry[] Ladders { get; set; } = Array.Empty<HTXFactorEntry>();
     }
 
     /// <summary>
     /// Factor info
     /// </summary>
+    [SerializationModel]
     public record HTXFactorEntry
     {
         /// <summary>

@@ -1,17 +1,19 @@
-﻿using HTX.Net.Enums;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using HTX.Net.Enums;
 
 namespace HTX.Net.Objects.Models.UsdtMarginSwap
 {
     /// <summary>
     /// Take profit / stop loss order page
     /// </summary>
+    [SerializationModel]
     public record HTXCrossTpSlClosedOrderPage
     {
         /// <summary>
         /// Orders
         /// </summary>
         [JsonPropertyName("orders")]
-        public IEnumerable<HTXCrossTpSlClosedOrder> Orders { get; set; } = Array.Empty<HTXCrossTpSlClosedOrder>();
+        public HTXCrossTpSlClosedOrder[] Orders { get; set; } = Array.Empty<HTXCrossTpSlClosedOrder>();
         /// <summary>
         /// Total page
         /// </summary>
@@ -32,19 +34,20 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
     /// <summary>
     /// Tp/Sl order
     /// </summary>
+    [SerializationModel]
     public record HTXCrossTpSlClosedOrder: HTXTpSlClosedOrder
     {
         /// <summary>
         /// Contract type
         /// </summary>
         [JsonPropertyName("contract_type")]
-        [JsonConverter(typeof(EnumConverter))]
+
         public ContractType ContractType { get; set; }
         /// <summary>
         /// Business type
         /// </summary>
         [JsonPropertyName("business_type")]
-        [JsonConverter(typeof(EnumConverter))]
+
         public BusinessType BusinessType { get; set; }
         /// <summary>
         /// Pair

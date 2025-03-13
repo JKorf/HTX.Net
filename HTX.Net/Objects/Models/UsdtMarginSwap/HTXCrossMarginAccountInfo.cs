@@ -1,10 +1,12 @@
-﻿using HTX.Net.Enums;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using HTX.Net.Enums;
 
 namespace HTX.Net.Objects.Models.UsdtMarginSwap
 {
     /// <summary>
     /// Account info
     /// </summary>
+    [SerializationModel]
     public record HTXCrossMarginAccountInfo
     {
         /// <summary>
@@ -80,7 +82,7 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// <summary>
         /// Margin mode
         /// </summary>
-        [JsonConverter(typeof(EnumConverter))]
+
         [JsonPropertyName("margin_mode")]
         public MarginMode MarginMode { get; set; }
         /// <summary>
@@ -92,7 +94,7 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// Position mode
         /// </summary>
         [JsonPropertyName("position_mode")]
-        [JsonConverter(typeof(EnumConverter))]
+
         public PositionMode PositionMode { get; set; }
         /// <summary>
         /// ADL risk percentage
@@ -103,11 +105,11 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// Contract details
         /// </summary>
         [JsonPropertyName("contract_detail")]
-        public IEnumerable<HTXCrossMarginAccountContract> ContractDetails { get; set; } = Array.Empty<HTXCrossMarginAccountContract>();
+        public HTXCrossMarginAccountContract[] ContractDetails { get; set; } = Array.Empty<HTXCrossMarginAccountContract>();
         /// <summary>
         /// Futures contract details
         /// </summary>
         [JsonPropertyName("futures_contract_detail")]
-        public IEnumerable<HTXCrossMarginAccountContract> FuturesContractDetails { get; set; } = Array.Empty<HTXCrossMarginAccountContract>();
+        public HTXCrossMarginAccountContract[] FuturesContractDetails { get; set; } = Array.Empty<HTXCrossMarginAccountContract>();
     }
 }

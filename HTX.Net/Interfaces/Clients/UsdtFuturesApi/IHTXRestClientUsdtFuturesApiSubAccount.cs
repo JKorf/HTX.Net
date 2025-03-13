@@ -1,4 +1,4 @@
-﻿using HTX.Net.Enums;
+using HTX.Net.Enums;
 using HTX.Net.Objects.Models.UsdtMarginSwap;
 
 namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
@@ -15,7 +15,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// <param name="marginAccount">Margin account, for example `USDT`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<HTXIsolatedMarginSubAccountAssets>>> GetCrossMarginAssetsAsync(string? marginAccount = null, CancellationToken ct = default);
+        Task<WebCallResult<HTXIsolatedMarginSubAccountAssets[]>> GetCrossMarginAssetsAsync(string? marginAccount = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get isolated margin sub account assets
@@ -24,7 +24,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<HTXIsolatedMarginSubAccountAssets>>> GetIsolatedMarginAssetsAsync(string? contractCode = null, CancellationToken ct = default);
+        Task<WebCallResult<HTXIsolatedMarginSubAccountAssets[]>> GetIsolatedMarginAssetsAsync(string? contractCode = null, CancellationToken ct = default);
         /// <summary>
         /// Get master sub account transfer records
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb83c2c-77b5-11ed-9966-0242ac110003" /></para>
@@ -102,7 +102,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// <param name="subUserId">Sub user id</param>
         /// <param name="contractCode">Filter by contract code, for example `ETH-USDT`</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<IEnumerable<HTXPosition>>> GetIsolatedMarginPositionsAsync(long subUserId, string? contractCode = null, CancellationToken ct = default);
+        Task<WebCallResult<HTXPosition[]>> GetIsolatedMarginPositionsAsync(long subUserId, string? contractCode = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get isolated margin positions
@@ -113,7 +113,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// <param name="pair">Filter by pair, for example `ETH-USDT`</param>
         /// <param name="contractType">Filter by contract type</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<IEnumerable<HTXCrossPosition>>> GetCrossMarginPositionsAsync(long subUserId, string? contractCode = null, string? pair = null, ContractType? contractType = null, CancellationToken ct = default);
+        Task<WebCallResult<HTXCrossPosition[]>> GetCrossMarginPositionsAsync(long subUserId, string? contractCode = null, string? pair = null, ContractType? contractType = null, CancellationToken ct = default);
 
     }
 }

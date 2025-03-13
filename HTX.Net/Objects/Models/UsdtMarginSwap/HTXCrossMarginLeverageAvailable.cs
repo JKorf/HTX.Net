@@ -1,4 +1,5 @@
-﻿using HTX.Net.Enums;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using HTX.Net.Enums;
 
 
 namespace HTX.Net.Objects.Models.UsdtMarginSwap
@@ -6,13 +7,14 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
     /// <summary>
     /// Available leverage info
     /// </summary>
+    [SerializationModel]
     public record HTXCrossMarginLeverageAvailable: HTXIsolatedMarginLeverageAvailable
     {
         /// <summary>
         /// Contract type
         /// </summary>
         [JsonPropertyName("contract_type")]
-        [JsonConverter(typeof(EnumConverter))]
+
         public ContractType ContractType { get; set; }
         /// <summary>
         /// Symbol
@@ -23,7 +25,7 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// Business type
         /// </summary>
         [JsonPropertyName("business_type")]
-        [JsonConverter(typeof(EnumConverter))]
+
         public BusinessType BusinessType { get; set; }
     }
 }

@@ -1,10 +1,13 @@
-﻿using CryptoExchange.Net.Attributes;
+using System.Text.Json.Serialization;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using CryptoExchange.Net.Attributes;
 
 namespace HTX.Net.Enums
 {
     /// <summary>
     /// Time an order is active
     /// </summary>
+    [JsonConverter(typeof(EnumConverter<TimeInForce>))]
     public enum TimeInForce
     {
         /// <summary>

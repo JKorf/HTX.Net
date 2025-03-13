@@ -1,4 +1,5 @@
-﻿using HTX.Net.Enums;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using HTX.Net.Enums;
 
 
 namespace HTX.Net.Objects.Models
@@ -6,6 +7,7 @@ namespace HTX.Net.Objects.Models
     /// <summary>
     /// Trade info
     /// </summary>
+    [SerializationModel]
     public record HTXOrderTrade
     {
         /// <summary>
@@ -84,7 +86,7 @@ namespace HTX.Net.Objects.Models
         /// <summary>
         /// The role in the transaction: taker or maker
         /// </summary>
-        [JsonPropertyName("role"), JsonConverter(typeof(EnumConverter))]
+        [JsonPropertyName("role")]
         public OrderRole Role { get; set; }
         /// <summary>
         /// Asset of transaction fee or transaction fee rebate (transaction fee of buy order is based on base asset, transaction fee of sell order is based on quote asset; transaction fee rebate of buy order is based on quote asset, transaction fee rebate of sell order is based on base asset)
@@ -99,7 +101,7 @@ namespace HTX.Net.Objects.Models
         /// <summary>
         /// Fee deduction status.
         /// </summary>
-        [JsonPropertyName("fee-deduct-state"), JsonConverter(typeof(EnumConverter))]
+        [JsonPropertyName("fee-deduct-state")]
         public FeeDeductStatus FeeDeductStatus { get; set; }
     }
 }

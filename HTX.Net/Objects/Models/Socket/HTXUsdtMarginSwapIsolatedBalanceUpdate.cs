@@ -1,4 +1,5 @@
-﻿using HTX.Net.Objects.Sockets;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using HTX.Net.Objects.Sockets;
 using HTX.Net.Enums;
 
 namespace HTX.Net.Objects.Models.Socket
@@ -6,6 +7,7 @@ namespace HTX.Net.Objects.Models.Socket
     /// <summary>
     /// Isolated balance update
     /// </summary>
+    [SerializationModel]
     public record HTXUsdtMarginSwapIsolatedBalanceUpdate: HTXOpMessage
     {
         /// <summary>
@@ -22,7 +24,7 @@ namespace HTX.Net.Objects.Models.Socket
         /// Data
         /// </summary>
         [JsonPropertyName("data")]
-        public IEnumerable<HTXUsdtMarginSwapIsolatedBalanceUpdateData> Data { get; set; } = Array.Empty<HTXUsdtMarginSwapIsolatedBalanceUpdateData>();
+        public HTXUsdtMarginSwapIsolatedBalanceUpdateData[] Data { get; set; } = Array.Empty<HTXUsdtMarginSwapIsolatedBalanceUpdateData>();
         /// <summary>
         /// User id
         /// </summary>
@@ -33,6 +35,7 @@ namespace HTX.Net.Objects.Models.Socket
     /// <summary>
     /// Isolated margin balance update
     /// </summary>
+    [SerializationModel]
     public record HTXUsdtMarginSwapIsolatedBalanceUpdateData
     {
         /// <summary>

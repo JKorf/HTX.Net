@@ -1,4 +1,5 @@
-﻿using HTX.Net.Enums;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using HTX.Net.Enums;
 
 
 namespace HTX.Net.Objects.Models.UsdtMarginSwap
@@ -6,6 +7,7 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
     /// <summary>
     /// Account info
     /// </summary>
+    [SerializationModel]
     public record HTXIsolatedMarginAccountInfo
     {
         /// <summary>
@@ -91,7 +93,7 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// <summary>
         /// Margin mode
         /// </summary>
-        [JsonConverter(typeof(EnumConverter))]
+
         [JsonPropertyName("margin_mode")]
         public MarginMode MarginMode { get; set; }
         /// <summary>
@@ -103,7 +105,7 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// Position mode
         /// </summary>
         [JsonPropertyName("position_mode")]
-        [JsonConverter(typeof(EnumConverter))]
+
         public PositionMode PositionMode { get; set; }
         /// <summary>
         /// Trade partition

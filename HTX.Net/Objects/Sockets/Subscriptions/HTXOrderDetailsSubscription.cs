@@ -42,7 +42,7 @@ namespace HTX.Net.Objects.Sockets.Subscriptions
                 _onOrderMatch?.Invoke(message.As(tradeEvent.Data, tradeEvent.Channel, tradeEvent.Data.Symbol, SocketUpdateType.Update).WithDataTimestamp(tradeEvent.Timestamp));
             if (data is HTXDataEvent<HTXOrderCancelationUpdate> cancelEvent)
                 _onOrderCancel?.Invoke(message.As(cancelEvent.Data, cancelEvent.Channel, cancelEvent.Data.Symbol, SocketUpdateType.Update).WithDataTimestamp(cancelEvent.Timestamp));
-            return new CallResult(null);
+            return CallResult.SuccessResult;
         }
 
         public override Type? GetMessageType(IMessageAccessor message)

@@ -1,8 +1,10 @@
-﻿namespace HTX.Net.Objects.Models
+using CryptoExchange.Net.Converters.SystemTextJson;
+namespace HTX.Net.Objects.Models
 {
     /// <summary>
     /// Deduction info
     /// </summary>
+    [SerializationModel]
     public record HTXDeductInfo
     {
         /// <summary>

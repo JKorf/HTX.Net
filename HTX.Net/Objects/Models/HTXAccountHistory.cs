@@ -1,10 +1,12 @@
-﻿using HTX.Net.Enums;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using HTX.Net.Enums;
 
 namespace HTX.Net.Objects.Models
 {
     /// <summary>
     /// Account history data
     /// </summary>
+    [SerializationModel]
     public record HTXAccountHistory
     {
         /// <summary>
@@ -28,7 +30,7 @@ namespace HTX.Net.Objects.Models
         /// <summary>
         /// Blance change types
         /// </summary>
-        [JsonPropertyName("transact-type"), JsonConverter(typeof(EnumConverter))]
+        [JsonPropertyName("transact-type")]
         public TransactionType Type { get; set; }
 
         /// <summary>

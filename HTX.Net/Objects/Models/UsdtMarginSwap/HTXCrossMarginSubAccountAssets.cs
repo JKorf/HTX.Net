@@ -1,10 +1,12 @@
-﻿using HTX.Net.Enums;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using HTX.Net.Enums;
 
 namespace HTX.Net.Objects.Models.UsdtMarginSwap
 {
     /// <summary>
     /// Sub account assets info
     /// </summary>
+    [SerializationModel]
     public record HTXCrossMarginSubAccountAssets
     {
         /// <summary>
@@ -16,12 +18,13 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// Assets
         /// </summary>
         [JsonPropertyName("list")]
-        public IEnumerable<HTXCrossMarginSubAccountAsset> Assets { get; set; } = Array.Empty<HTXCrossMarginSubAccountAsset>();
+        public HTXCrossMarginSubAccountAsset[] Assets { get; set; } = Array.Empty<HTXCrossMarginSubAccountAsset>();
     }
 
     /// <summary>
     /// Sub account asset info
     /// </summary>
+    [SerializationModel]
     public record HTXCrossMarginSubAccountAsset
     {
         /// <summary>
@@ -43,7 +46,7 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// Margin mode
         /// </summary>
         [JsonPropertyName("margin_mode")]
-        [JsonConverter(typeof(EnumConverter))]
+
         public MarginMode MarginMode { get; set; }
         /// <summary>
         /// Margin account

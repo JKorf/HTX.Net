@@ -1,15 +1,17 @@
-﻿namespace HTX.Net.Objects.Models.UsdtMarginSwap
+using CryptoExchange.Net.Converters.SystemTextJson;
+namespace HTX.Net.Objects.Models.UsdtMarginSwap
 {
     /// <summary>
     /// Batch result
     /// </summary>
+    [SerializationModel]
     public record HTXBatchResult
     {
         /// <summary>
         /// Errors in the batch
         /// </summary>
         [JsonPropertyName("errors")]
-        public IEnumerable<HTXBatchError> Errors { get; set; } = new List<HTXBatchError>();
+        public HTXBatchError[] Errors { get; set; } = new List<HTXBatchError>();
         /// <summary>
         /// Success
         /// </summary>
@@ -20,6 +22,7 @@
     /// <summary>
     /// Batch operation error
     /// </summary>
+    [SerializationModel]
     public record HTXBatchError
     {
         /// <summary>

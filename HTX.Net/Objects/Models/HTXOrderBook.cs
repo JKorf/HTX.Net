@@ -1,8 +1,10 @@
-﻿namespace HTX.Net.Objects.Models
+using CryptoExchange.Net.Converters.SystemTextJson;
+namespace HTX.Net.Objects.Models
 {
     /// <summary>
     /// Order book
     /// </summary>
+    [SerializationModel]
     public record HTXOrderBook
     {
         /// <summary>
@@ -26,17 +28,18 @@
         /// List of bids
         /// </summary>
         [JsonPropertyName("bids")]
-        public IEnumerable<HTXOrderBookEntry> Bids { get; set; } = Array.Empty<HTXOrderBookEntry>();
+        public HTXOrderBookEntry[] Bids { get; set; } = Array.Empty<HTXOrderBookEntry>();
         /// <summary>
         /// List of asks
         /// </summary>
         [JsonPropertyName("asks")]
-        public IEnumerable<HTXOrderBookEntry> Asks { get; set; } = Array.Empty<HTXOrderBookEntry>();
+        public HTXOrderBookEntry[] Asks { get; set; } = Array.Empty<HTXOrderBookEntry>();
     }
 
     /// <summary>
     /// Incremental order book update
     /// </summary>
+    [SerializationModel]
     public record HTXIncementalOrderBook
     {
         /// <summary>
@@ -53,11 +56,11 @@
         /// List of changed bids
         /// </summary>
         [JsonPropertyName("bids")]
-        public IEnumerable<HTXOrderBookEntry> Bids { get; set; } = Array.Empty<HTXOrderBookEntry>();
+        public HTXOrderBookEntry[] Bids { get; set; } = Array.Empty<HTXOrderBookEntry>();
         /// <summary>
         /// List of changed asks
         /// </summary>
         [JsonPropertyName("asks")]
-        public IEnumerable<HTXOrderBookEntry> Asks { get; set; } = Array.Empty<HTXOrderBookEntry>();
+        public HTXOrderBookEntry[] Asks { get; set; } = Array.Empty<HTXOrderBookEntry>();
     }
 }

@@ -1,10 +1,12 @@
-﻿using HTX.Net.Enums;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using HTX.Net.Enums;
 
 namespace HTX.Net.Objects.Models.Socket
 {
     /// <summary>
     /// Cross margin trade update
     /// </summary>
+    [SerializationModel]
     public record HTXUsdtMarginSwapCrossTradeUpdate : HTXUsdtMarginSwapIsolatedTradeUpdate
     {
         /// <summary>

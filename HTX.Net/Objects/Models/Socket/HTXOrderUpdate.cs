@@ -1,4 +1,6 @@
-﻿using HTX.Net.Enums;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using HTX.Net.Converters;
+using HTX.Net.Enums;
 
 
 namespace HTX.Net.Objects.Models.Socket
@@ -6,6 +8,7 @@ namespace HTX.Net.Objects.Models.Socket
     /// <summary>
     /// Order update
     /// </summary>
+    [SerializationModel]
     public record HTXOrderUpdate
     {
         /// <summary>
@@ -23,12 +26,12 @@ namespace HTX.Net.Objects.Models.Socket
         /// Client order id
         /// </summary>
         [JsonPropertyName("clientOrderId")]
-        [JsonConverterCtor(typeof(ReplaceConverter), $"{HTXExchange.ClientOrderIdPrefix}->")]
+        [JsonConverter(typeof(ClientIdConverter))]
         public string? ClientOrderId { get; set; }
         /// <summary>
         /// Order status
         /// </summary>
-        [JsonPropertyName("orderStatus"), JsonConverter(typeof(EnumConverter))]
+        [JsonPropertyName("orderStatus")]
         public OrderStatus Status { get; set; }
         /// <summary>
         /// Timestamp
@@ -46,6 +49,7 @@ namespace HTX.Net.Objects.Models.Socket
     /// <summary>
     /// Submitted order update
     /// </summary>
+    [SerializationModel]
     public record HTXSubmittedOrderUpdate : HTXOrderUpdate
     {
         /// <summary>
@@ -107,6 +111,7 @@ namespace HTX.Net.Objects.Models.Socket
     /// <summary>
     /// Matched order update
     /// </summary>
+    [SerializationModel]
     public record HTXMatchedOrderUpdate : HTXOrderUpdate
     {
         /// <summary>
@@ -192,6 +197,7 @@ namespace HTX.Net.Objects.Models.Socket
     /// <summary>
     /// Canceled order update
     /// </summary>
+    [SerializationModel]
     public record HTXCanceledOrderUpdate : HTXOrderUpdate
     {
         /// <summary>
@@ -247,12 +253,13 @@ namespace HTX.Net.Objects.Models.Socket
     /// <summary>
     /// Info on a failed trigger for a conditional order
     /// </summary>
+    [SerializationModel]
     public record HTXTriggerFailureOrderUpdate : HTXOrderUpdate
     {
         /// <summary>
         /// Side of the order
         /// </summary>
-        [JsonPropertyName("orderSide"), JsonConverter(typeof(EnumConverter))]
+        [JsonPropertyName("orderSide")]
         public OrderSide Side { get; set; }
         /// <summary>
         /// The error code

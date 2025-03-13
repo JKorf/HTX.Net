@@ -1,15 +1,17 @@
-﻿namespace HTX.Net.Objects.Models.UsdtMarginSwap
+using CryptoExchange.Net.Converters.SystemTextJson;
+namespace HTX.Net.Objects.Models.UsdtMarginSwap
 {
     /// <summary>
     /// Trailing order page
     /// </summary>
+    [SerializationModel]
     public record HTXTrailingClosedOrderPage
     {
         /// <summary>
         /// Orders
         /// </summary>
         [JsonPropertyName("orders")]
-        public IEnumerable<HTXTrailingClosedOrder> Orders { get; set; } = Array.Empty<HTXTrailingClosedOrder>();
+        public HTXTrailingClosedOrder[] Orders { get; set; } = Array.Empty<HTXTrailingClosedOrder>();
         /// <summary>
         /// Total page
         /// </summary>
@@ -30,6 +32,7 @@
     /// <summary>
     /// Trailing order info
     /// </summary>
+    [SerializationModel]
     public record HTXTrailingClosedOrder : HTXTrailingOrder
     {
         /// <summary>

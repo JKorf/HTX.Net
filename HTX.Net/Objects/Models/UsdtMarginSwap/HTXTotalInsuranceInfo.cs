@@ -1,10 +1,12 @@
-﻿using HTX.Net.Enums;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using HTX.Net.Enums;
 
 namespace HTX.Net.Objects.Models.UsdtMarginSwap
 {
     /// <summary>
     /// Insurance value
     /// </summary>
+    [SerializationModel]
     public record HTXTotalInsuranceInfo
     {
         /// <summary>

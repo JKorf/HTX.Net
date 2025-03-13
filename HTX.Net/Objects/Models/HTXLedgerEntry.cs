@@ -1,4 +1,5 @@
-﻿using HTX.Net.Enums;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using HTX.Net.Enums;
 
 
 namespace HTX.Net.Objects.Models
@@ -6,6 +7,7 @@ namespace HTX.Net.Objects.Models
     /// <summary>
     /// Ledger entry
     /// </summary>
+    [SerializationModel]
     public record HTXLedgerEntry
     {
         /// <summary>

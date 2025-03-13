@@ -1,10 +1,12 @@
-﻿
+using CryptoExchange.Net.Converters.SystemTextJson;
+
 
 namespace HTX.Net.Objects.Models.Socket
 {
     /// <summary>
     /// Best offer update
     /// </summary>
+    [SerializationModel]
     public record HTXBestOfferUpdate
     {
         /// <summary>

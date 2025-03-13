@@ -1,9 +1,11 @@
-﻿using HTX.Net.Enums;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using HTX.Net.Enums;
 using HTX.Net.Objects.Models.UsdtMarginSwap;
 using HTX.Net.Objects.Sockets;
 
 namespace HTX.Net.Objects.Models.Socket
 {
+    [SerializationModel]
     internal record HTXUsdtMarginSwapContractElementsUpdateWrapper : HTXOpMessage
     {
         /// <summary>
@@ -20,12 +22,13 @@ namespace HTX.Net.Objects.Models.Socket
         /// Data
         /// </summary>
         [JsonPropertyName("data")]
-        public IEnumerable<HTXUsdtMarginSwapContractElementsUpdate> Data { get; set; } = Array.Empty<HTXUsdtMarginSwapContractElementsUpdate>();
+        public HTXUsdtMarginSwapContractElementsUpdate[] Data { get; set; } = Array.Empty<HTXUsdtMarginSwapContractElementsUpdate>();
     }
 
     /// <summary>
     /// Contract element info
     /// </summary>
+    [SerializationModel]
     public record HTXUsdtMarginSwapContractElementsUpdate
     {
         /// <summary>
@@ -67,12 +70,12 @@ namespace HTX.Net.Objects.Models.Socket
         /// Price ticks
         /// </summary>
         [JsonPropertyName("price_ticks")]
-        public IEnumerable<HTXContractElementsPriceTick>? PriceTicks { get; set; }
+        public HTXContractElementsPriceTick[]? PriceTicks { get; set; }
         /// <summary>
         /// Instrument values
         /// </summary>
         [JsonPropertyName("instrument_values")]
-        public IEnumerable<HTXContractElementsPriceTick>? InstrumentValues { get; set; }
+        public HTXContractElementsPriceTick[]? InstrumentValues { get; set; }
         /// <summary>
         /// Min level
         /// </summary>
@@ -87,28 +90,28 @@ namespace HTX.Net.Objects.Models.Socket
         /// Order limits
         /// </summary>
         [JsonPropertyName("order_limits")]
-        public IEnumerable<HTXContractElementsOrderLimit>? OrderLimits { get; set; }
+        public HTXContractElementsOrderLimit[]? OrderLimits { get; set; }
         /// <summary>
         /// Normal limits
         /// </summary>
         [JsonPropertyName("normal_limits")]
-        public IEnumerable<HTXContractElementsLimit>? NormalLimits { get; set; }
+        public HTXContractElementsLimit[]? NormalLimits { get; set; }
         /// <summary>
         /// Open limits
         /// </summary>
         [JsonPropertyName("open_limits")]
-        public IEnumerable<HTXContractElementsLimit>? OpenLimits { get; set; }
+        public HTXContractElementsLimit[]? OpenLimits { get; set; }
         /// <summary>
         /// Trade limits
         /// </summary>
         [JsonPropertyName("trade_limits")]
-        public IEnumerable<HTXContractElementsLimit>? TradeLimits { get; set; }
+        public HTXContractElementsLimit[]? TradeLimits { get; set; }
 
         /// <summary>
         /// Instrument types
         /// </summary>
         [JsonPropertyName("instrument_type")]
-        public IEnumerable<ElementInstrumentType> InstrumentTypes { get; set; } = Array.Empty<ElementInstrumentType>();
+        public ElementInstrumentType[] InstrumentTypes { get; set; } = Array.Empty<ElementInstrumentType>();
         /// <summary>
         /// Real time settlement
         /// </summary>
@@ -163,6 +166,6 @@ namespace HTX.Net.Objects.Models.Socket
         /// Contract infos
         /// </summary>
         [JsonPropertyName("contract_infos")]
-        public IEnumerable<HTXContractElementsContractInfo>? ContractInfos { get; set; }
+        public HTXContractElementsContractInfo[]? ContractInfos { get; set; }
     }
 }

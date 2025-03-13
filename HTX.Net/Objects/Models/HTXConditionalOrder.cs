@@ -1,10 +1,13 @@
-﻿using HTX.Net.Enums;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using HTX.Net.Converters;
+using HTX.Net.Enums;
 
 namespace HTX.Net.Objects.Models
 {
     /// <summary>
     /// Conditional order info
     /// </summary>
+    [SerializationModel]
     public record HTXConditionalOrder
     {
         /// <summary>
@@ -26,7 +29,7 @@ namespace HTX.Net.Objects.Models
         /// Client order id
         /// </summary>
         [JsonPropertyName("clientOrderId")]
-        [JsonConverterCtor(typeof(ReplaceConverter), $"{HTXExchange.ClientOrderIdPrefix}->")]
+        [JsonConverter(typeof(ClientIdConverter))]
         public string ClientOrderId { get; set; } = string.Empty;
         /// <summary>
         /// Symbol
@@ -52,18 +55,18 @@ namespace HTX.Net.Objects.Models
         /// Side
         /// </summary>
         [JsonPropertyName("orderSide")]
-        [JsonConverter(typeof(EnumConverter))]
+
         public OrderSide Side { get; set; }
         /// <summary>
         /// Time in force
         /// </summary>
-        [JsonConverter(typeof(EnumConverter))]
+
         [JsonPropertyName("timeInForce")]
         public TimeInForce TimeInForce { get; set; }
         /// <summary>
         /// Type
         /// </summary>
-        [JsonConverter(typeof(EnumConverter))]
+
         [JsonPropertyName("orderType")]
         public ConditionalOrderType Type { get; set; }
         /// <summary>
@@ -91,7 +94,7 @@ namespace HTX.Net.Objects.Models
         /// <summary>
         /// Status
         /// </summary>
-        [JsonConverter(typeof(EnumConverter))]
+
         [JsonPropertyName("orderStatus")]
         public ConditionalOrderStatus Status { get; set; }
         /// <summary>

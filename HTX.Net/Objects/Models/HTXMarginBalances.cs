@@ -1,10 +1,12 @@
-﻿using HTX.Net.Enums;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using HTX.Net.Enums;
 
 namespace HTX.Net.Objects.Models
 {
     /// <summary>
     /// Margin account balance
     /// </summary>
+    [SerializationModel]
     public record HTXMarginBalances
     {
         /// <summary>
@@ -56,12 +58,13 @@ namespace HTX.Net.Objects.Models
         /// Account details
         /// </summary>
         [JsonPropertyName("list")]
-        public IEnumerable<HTXIsolatedBalance> List { get; set; } = Array.Empty<HTXIsolatedBalance>();
+        public HTXIsolatedBalance[] List { get; set; } = Array.Empty<HTXIsolatedBalance>();
     }
 
     /// <summary>
     /// Balance info
     /// </summary>
+    [SerializationModel]
     public record HTXIsolatedBalance
     {
         /// <summary>
@@ -72,7 +75,7 @@ namespace HTX.Net.Objects.Models
         /// <summary>
         /// Balance type
         /// </summary>
-        [JsonConverter(typeof(EnumConverter))]
+
         [JsonPropertyName("type")]
         public BalanceType Type { get; set; }
         /// <summary>

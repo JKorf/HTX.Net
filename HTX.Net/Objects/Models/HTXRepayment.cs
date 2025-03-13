@@ -1,8 +1,10 @@
-﻿namespace HTX.Net.Objects.Models
+using CryptoExchange.Net.Converters.SystemTextJson;
+namespace HTX.Net.Objects.Models
 {
     /// <summary>
     /// Repayment info
     /// </summary>
+    [SerializationModel]
     public record HTXRepayment
     {
         /// <summary>
@@ -41,6 +43,7 @@
     /// <summary>
     /// Repayment transaction
     /// </summary>
+    [SerializationModel]
     public record HTXRepayTransaction
     {
         /// <summary>

@@ -1,10 +1,12 @@
-﻿using HTX.Net.Enums;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using HTX.Net.Enums;
 
 namespace HTX.Net.Objects.Models
 {
     /// <summary>
     /// HTX account info
     /// </summary>
+    [SerializationModel]
     public record HTXAccount
     {
         /// <summary>
@@ -15,13 +17,13 @@ namespace HTX.Net.Objects.Models
         /// <summary>
         /// The state of the account
         /// </summary>
-        [JsonConverter(typeof(EnumConverter))]
+
         [JsonPropertyName("state")]
         public AccountStatus Status { get; set; }
         /// <summary>
         /// The type of the account
         /// </summary>
-        [JsonConverter(typeof(EnumConverter))]
+
         [JsonPropertyName("type")]
         public AccountType Type { get; set; }
         /// <summary>

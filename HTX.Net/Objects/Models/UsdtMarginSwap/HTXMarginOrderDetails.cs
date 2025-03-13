@@ -1,8 +1,10 @@
-﻿namespace HTX.Net.Objects.Models.UsdtMarginSwap
+using CryptoExchange.Net.Converters.SystemTextJson;
+namespace HTX.Net.Objects.Models.UsdtMarginSwap
 {
     /// <summary>
     /// Isolated margin order info
     /// </summary>
+    [SerializationModel]
     public record HTXMarginOrderDetails : HTXIsolatedMarginOrder
     {
         /// <summary>
@@ -39,6 +41,6 @@
         /// Trades
         /// </summary>
         [JsonPropertyName("trades")]
-        public new IEnumerable<HTXMarginTrade> Trades { get; set; } = Array.Empty<HTXMarginTrade>();
+        public new HTXMarginTrade[] Trades { get; set; } = Array.Empty<HTXMarginTrade>();
     }
 }

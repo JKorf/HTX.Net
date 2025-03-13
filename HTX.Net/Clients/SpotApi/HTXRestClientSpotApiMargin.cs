@@ -1,4 +1,4 @@
-﻿using HTX.Net.Enums;
+using HTX.Net.Enums;
 using HTX.Net.Objects.Models;
 using HTX.Net.Interfaces.Clients.SpotApi;
 using CryptoExchange.Net.RateLimiting.Guards;
@@ -19,7 +19,7 @@ namespace HTX.Net.Clients.SpotApi
         #region Repay Loan
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<HTXRepaymentResult>>> RepayLoanAsync(string accountId, string asset, decimal quantity, string? transactionId = null, CancellationToken ct = default)
+        public async Task<WebCallResult<HTXRepaymentResult[]>> RepayLoanAsync(string accountId, string asset, decimal quantity, string? transactionId = null, CancellationToken ct = default)
         {
             asset = asset.ToLowerInvariant();
 
@@ -33,7 +33,7 @@ namespace HTX.Net.Clients.SpotApi
             parameters.AddOptionalParameter("transactId", transactionId);
             var request = _definitions.GetOrCreate(HttpMethod.Post, "v2/account/repayment", HTXExchange.RateLimiter.EndpointLimit, 1, true,
                 new SingleLimitGuard(2, TimeSpan.FromSeconds(1), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
-            return await _baseClient.SendAsync<IEnumerable<HTXRepaymentResult>>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<HTXRepaymentResult[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -85,14 +85,14 @@ namespace HTX.Net.Clients.SpotApi
         #region Get Isolated Loan Interest Rate And Quota
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<HTXLoanInfo>>> GetIsolatedLoanInterestRateAndQuotaAsync(IEnumerable<string>? symbols = null, CancellationToken ct = default)
+        public async Task<WebCallResult<HTXLoanInfo[]>> GetIsolatedLoanInterestRateAndQuotaAsync(IEnumerable<string>? symbols = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.AddOptionalParameter("symbols", symbols == null? null: string.Join(",", symbols.Select(s => s.ToLowerInvariant())));
 
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"v1/margin/loan-info", HTXExchange.RateLimiter.EndpointLimit, 1, true,
                 new SingleLimitGuard(20, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
-            return await _baseClient.SendBasicAsync<IEnumerable<HTXLoanInfo>>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendBasicAsync<HTXLoanInfo[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -139,7 +139,7 @@ namespace HTX.Net.Clients.SpotApi
         #region Get Isolated Margin Closed Orders
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<HTXMarginOrder>>> GetIsolatedMarginClosedOrdersAsync(
+        public async Task<WebCallResult<HTXMarginOrder[]>> GetIsolatedMarginClosedOrdersAsync(
             string symbol, 
             IEnumerable<MarginOrderStatus>? states = null, 
             DateTime? startDate = null, 
@@ -167,7 +167,7 @@ namespace HTX.Net.Clients.SpotApi
 
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"v1/margin/loan-orders", HTXExchange.RateLimiter.EndpointLimit, 1, true,
                 new SingleLimitGuard(100, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
-            return await _baseClient.SendBasicAsync<IEnumerable<HTXMarginOrder>>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendBasicAsync<HTXMarginOrder[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -175,7 +175,7 @@ namespace HTX.Net.Clients.SpotApi
         #region Get Isolated Margin Balance
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<HTXMarginBalances>>> GetIsolatedMarginBalanceAsync(string symbol, int? subUserId = null, CancellationToken ct = default)
+        public async Task<WebCallResult<HTXMarginBalances[]>> GetIsolatedMarginBalanceAsync(string symbol, int? subUserId = null, CancellationToken ct = default)
         {
             symbol = symbol.ToLowerInvariant();
 
@@ -188,7 +188,7 @@ namespace HTX.Net.Clients.SpotApi
 
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"v1/margin/accounts/balance", HTXExchange.RateLimiter.EndpointLimit, 1, true,
                 new SingleLimitGuard(100, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
-            return await _baseClient.SendBasicAsync<IEnumerable<HTXMarginBalances>>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendBasicAsync<HTXMarginBalances[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -236,11 +236,11 @@ namespace HTX.Net.Clients.SpotApi
         #region Get Cross Loan Interest Rate And Quota
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<HTXLoanInfoAsset>>> GetCrossLoanInterestRateAndQuotaAsync(CancellationToken ct = default)
+        public async Task<WebCallResult<HTXLoanInfoAsset[]>> GetCrossLoanInterestRateAndQuotaAsync(CancellationToken ct = default)
         {
             var request = _definitions.GetOrCreate(HttpMethod.Get, "v1/cross-margin/loan-info", HTXExchange.RateLimiter.EndpointLimit, 1, true,
                 new SingleLimitGuard(2, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
-            return await _baseClient.SendAsync<IEnumerable<HTXLoanInfoAsset>>(request, null, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<HTXLoanInfoAsset[]>(request, null, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -285,7 +285,7 @@ namespace HTX.Net.Clients.SpotApi
         #region Get Cross Margin Closed Orders
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<HTXMarginOrder>>> GetCrossMarginClosedOrdersAsync(
+        public async Task<WebCallResult<HTXMarginOrder[]>> GetCrossMarginClosedOrdersAsync(
             string? asset = null,
             MarginOrderStatus? state = null,
             DateTime? startDate = null,
@@ -310,7 +310,7 @@ namespace HTX.Net.Clients.SpotApi
 
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"v1/cross-margin/loan-orders", HTXExchange.RateLimiter.EndpointLimit, 1, true,
                 new SingleLimitGuard(10, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
-            return await _baseClient.SendBasicAsync<IEnumerable<HTXMarginOrder>>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendBasicAsync<HTXMarginOrder[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -333,7 +333,7 @@ namespace HTX.Net.Clients.SpotApi
         #region Get Cross Margin Limit
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<HTXMaxHolding>>> GetCrossMarginLimitAsync(string? asset = null, CancellationToken ct = default)
+        public async Task<WebCallResult<HTXMaxHolding[]>> GetCrossMarginLimitAsync(string? asset = null, CancellationToken ct = default)
         {
             asset = asset?.ToLowerInvariant();
 
@@ -341,7 +341,7 @@ namespace HTX.Net.Clients.SpotApi
             parameters.AddOptional("currency", asset);
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/v2/margin/limit", HTXExchange.RateLimiter.EndpointLimit, 1, true,
                 new SingleLimitGuard(100, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
-            var result = await _baseClient.SendAsync<IEnumerable<HTXMaxHolding>>(request, parameters, ct).ConfigureAwait(false);
+            var result = await _baseClient.SendAsync<HTXMaxHolding[]>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
 
@@ -350,7 +350,7 @@ namespace HTX.Net.Clients.SpotApi
         #region Get Repayment History
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<HTXRepayment>>> GetRepaymentHistoryAsync(long? repayId = null, long? accountId =null, string? asset =null, DateTime? startTime = null, DateTime? endTime = null, string? sort = null, int? limit = null, long? fromId = null, CancellationToken ct = default)
+        public async Task<WebCallResult<HTXRepayment[]>> GetRepaymentHistoryAsync(long? repayId = null, long? accountId =null, string? asset =null, DateTime? startTime = null, DateTime? endTime = null, string? sort = null, int? limit = null, long? fromId = null, CancellationToken ct = default)
         {
             asset = asset?.ToLowerInvariant();
 
@@ -366,7 +366,7 @@ namespace HTX.Net.Clients.SpotApi
 
             var request = _definitions.GetOrCreate(HttpMethod.Get, "v2/account/repayment", HTXExchange.RateLimiter.EndpointLimit, 1, true,
                 new SingleLimitGuard(100, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
-            return await _baseClient.SendAsync<IEnumerable<HTXRepayment>>(request, null, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<HTXRepayment[]>(request, null, ct).ConfigureAwait(false);
         }
 
         #endregion

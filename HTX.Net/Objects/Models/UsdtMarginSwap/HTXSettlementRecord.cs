@@ -1,10 +1,12 @@
-﻿using HTX.Net.Enums;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using HTX.Net.Enums;
 
 namespace HTX.Net.Objects.Models.UsdtMarginSwap
 {
     /// <summary>
     /// Settlement page
     /// </summary>
+    [SerializationModel]
     public record HTXSettlementPage
     {
         /// <summary>
@@ -27,12 +29,13 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// Records
         /// </summary>
         [JsonPropertyName("settlement_record")]
-        public IEnumerable<HTXSettlementRecord> Records { get; set; } = Array.Empty<HTXSettlementRecord>();
+        public HTXSettlementRecord[] Records { get; set; } = Array.Empty<HTXSettlementRecord>();
     }
 
     /// <summary>
     /// Settlement info
     /// </summary>
+    [SerializationModel]
     public record HTXSettlementRecord
     {
         /// <summary>
@@ -65,13 +68,13 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// Settlement type
         /// </summary>
         [JsonPropertyName("settlement_type")]
-        [JsonConverter(typeof(EnumConverter))]
+
         public SettlementType SettlementType { get; set; }
         /// <summary>
         /// Business type
         /// </summary>
         [JsonPropertyName("business_type")]
-        [JsonConverter(typeof(EnumConverter))]
+
         public BusinessType BusinessType { get; set; }
         /// <summary>
         /// Symbol

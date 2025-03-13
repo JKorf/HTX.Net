@@ -14,7 +14,7 @@ namespace HTX.Net.Objects.Sockets.Subscriptions
         public override CallResult HandleMessage(SocketConnection connection, DataEvent<HTXPingMessage> message)
         {
             connection.Send(ExchangeHelpers.NextId(), new HTXPongMessage() { Pong = message.Data.Ping }, 1);
-            return new CallResult(null);
+            return CallResult.SuccessResult;
         }
     }
 }

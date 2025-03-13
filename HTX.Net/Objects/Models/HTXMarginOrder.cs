@@ -1,10 +1,12 @@
-﻿using HTX.Net.Enums;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using HTX.Net.Enums;
 
 namespace HTX.Net.Objects.Models
 {
     /// <summary>
     /// Margin order info
     /// </summary>
+    [SerializationModel]
     public record HTXMarginOrder
     {
         /// <summary>
@@ -72,7 +74,7 @@ namespace HTX.Net.Objects.Models
         /// <summary>
         /// State
         /// </summary>
-        [JsonConverter(typeof(EnumConverter))]
+
         [JsonPropertyName("state")]
         public MarginOrderStatus Status { get; set; }
         /// <summary>

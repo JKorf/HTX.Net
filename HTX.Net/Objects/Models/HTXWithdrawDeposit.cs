@@ -1,10 +1,12 @@
-﻿using HTX.Net.Enums;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using HTX.Net.Enums;
 
 namespace HTX.Net.Objects.Models
 {
     /// <summary>
     /// Withdraw or Deposit
     /// </summary>
+    [SerializationModel]
     public record HTXWithdrawDeposit
 	{
 		/// <summary>
@@ -20,7 +22,7 @@ namespace HTX.Net.Objects.Models
         /// <summary>
         /// Define transfer type to search, possible values: [deposit, withdraw]
         /// </summary>
-        [JsonPropertyName("type"), JsonConverter(typeof(EnumConverter))]
+        [JsonPropertyName("type")]
 		public WithdrawDepositType Type { get; set; }
 		/// <summary>
 		/// Sub type
@@ -70,7 +72,7 @@ namespace HTX.Net.Objects.Models
         /// <summary>
         /// The status of this transfer
         /// </summary>
-        [JsonPropertyName("state"), JsonConverter(typeof(EnumConverter))]
+        [JsonPropertyName("state")]
 		public WithdrawDepositStatus Status { get; set; }
 		/// <summary>
 		/// Error code for withdrawal failure, only returned when the type is "withdraw" and the state is "reject", "wallet-reject" and "failed".

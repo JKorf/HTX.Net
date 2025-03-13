@@ -1,4 +1,6 @@
-﻿using CryptoExchange.Net.Converters;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using CryptoExchange.Net.Converters;
+using HTX.Net.Converters;
 
 
 namespace HTX.Net.Objects.Models
@@ -6,6 +8,7 @@ namespace HTX.Net.Objects.Models
     /// <summary>
     /// Symbol tick info
     /// </summary>
+    [SerializationModel]
     public record HTXSymbolTickMerged: HTXSymbolData
     {
         /// <summary>
@@ -35,7 +38,8 @@ namespace HTX.Net.Objects.Models
     /// <summary>
     /// Order book entry
     /// </summary>
-    [JsonConverter(typeof(ArrayConverter))]
+    [JsonConverter(typeof(ArrayConverter<HTXOrderBookEntry, HTXSourceGenerationContext>))]
+    [SerializationModel]
     public record HTXOrderBookEntry: ISymbolOrderBookEntry
     {
         /// <summary>

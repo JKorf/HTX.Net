@@ -1,8 +1,10 @@
-﻿namespace HTX.Net.Objects.Models.UsdtMarginSwap
+using CryptoExchange.Net.Converters.SystemTextJson;
+namespace HTX.Net.Objects.Models.UsdtMarginSwap
 {
     /// <summary>
     /// sub account results
     /// </summary>
+    [SerializationModel]
     public record HTXSubAccountResult
     {
         /// <summary>
@@ -14,12 +16,13 @@
         /// Errors
         /// </summary>
         [JsonPropertyName("errors")]
-        public IEnumerable<HTXSubAccountError> Errors { get; set; } = Array.Empty<HTXSubAccountError>();
+        public HTXSubAccountError[] Errors { get; set; } = Array.Empty<HTXSubAccountError>();
     }
 
     /// <summary>
     /// Sub account error info
     /// </summary>
+    [SerializationModel]
     public record HTXSubAccountError
     {
         /// <summary>

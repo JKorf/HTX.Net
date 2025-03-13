@@ -1,4 +1,5 @@
-﻿using HTX.Net.Enums;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using HTX.Net.Enums;
 
 
 namespace HTX.Net.Objects.Models.UsdtMarginSwap
@@ -6,6 +7,7 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
     /// <summary>
     /// Leverage rate
     /// </summary>
+    [SerializationModel]
     public record HTXIsolatedMarginLeverageRate
     {
         /// <summary>
@@ -17,7 +19,7 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// Margin mode
         /// </summary>
         [JsonPropertyName("margin_mode")]
-        [JsonConverter(typeof(EnumConverter))]
+
         public MarginMode Mode { get; set; }
         /// <summary>
         /// Leverage rate
@@ -29,6 +31,7 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
     /// <summary>
     /// Leverage rate
     /// </summary>
+    [SerializationModel]
     public record HTXCrossMarginLeverageRate: HTXIsolatedMarginLeverageRate
     {
         /// <summary>
@@ -40,13 +43,13 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// Business type
         /// </summary>
         [JsonPropertyName("business_type")]
-        [JsonConverter(typeof(EnumConverter))]
+
         public BusinessType BusinessType { get; set; }
         /// <summary>
         /// Contract type
         /// </summary>
         [JsonPropertyName("contract_type")]
-        [JsonConverter(typeof(EnumConverter))]
+
         public ContractType ContractType { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using HTX.Net.Objects.Sockets;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using HTX.Net.Objects.Sockets;
 using HTX.Net.Enums;
 
 namespace HTX.Net.Objects.Models.Socket
@@ -6,6 +7,7 @@ namespace HTX.Net.Objects.Models.Socket
     /// <summary>
     /// Cross margin balance update
     /// </summary>
+    [SerializationModel]
     public record HTXUsdtMarginSwapCrossBalanceUpdate : HTXOpMessage
     {
         /// <summary>
@@ -22,7 +24,7 @@ namespace HTX.Net.Objects.Models.Socket
         /// Data
         /// </summary>
         [JsonPropertyName("data")]
-        public IEnumerable<HTXUsdtMarginSwapCrossBalanceUpdateData> Data { get; set; } = Array.Empty<HTXUsdtMarginSwapCrossBalanceUpdateData>();
+        public HTXUsdtMarginSwapCrossBalanceUpdateData[] Data { get; set; } = Array.Empty<HTXUsdtMarginSwapCrossBalanceUpdateData>();
         /// <summary>
         /// User id
         /// </summary>
@@ -33,6 +35,7 @@ namespace HTX.Net.Objects.Models.Socket
     /// <summary>
     /// 
     /// </summary>
+    [SerializationModel]
     public record HTXUsdtMarginSwapCrossBalanceUpdateData
     {
         /// <summary>
@@ -99,17 +102,18 @@ namespace HTX.Net.Objects.Models.Socket
         /// Contract detail
         /// </summary>
         [JsonPropertyName("contract_detail")]
-        public IEnumerable<HTXUsdtMarginSwapCrossBalanceUpdateContract> ContractDetail { get; set; } = Array.Empty<HTXUsdtMarginSwapCrossBalanceUpdateContract>();
+        public HTXUsdtMarginSwapCrossBalanceUpdateContract[] ContractDetail { get; set; } = Array.Empty<HTXUsdtMarginSwapCrossBalanceUpdateContract>();
         /// <summary>
         /// Futures contract detail
         /// </summary>
         [JsonPropertyName("futures_contract_detail")]
-        public IEnumerable<HTXUsdtMarginSwapCrossBalanceUpdateFutures> FuturesContractDetail { get; set; } = Array.Empty<HTXUsdtMarginSwapCrossBalanceUpdateFutures>();
+        public HTXUsdtMarginSwapCrossBalanceUpdateFutures[] FuturesContractDetail { get; set; } = Array.Empty<HTXUsdtMarginSwapCrossBalanceUpdateFutures>();
     }
 
     /// <summary>
     /// Contract info
     /// </summary>
+    [SerializationModel]
     public record HTXUsdtMarginSwapCrossBalanceUpdateContract
     {
         /// <summary>
@@ -177,6 +181,7 @@ namespace HTX.Net.Objects.Models.Socket
     /// <summary>
     /// Futures contract
     /// </summary>
+    [SerializationModel]
     public record HTXUsdtMarginSwapCrossBalanceUpdateFutures
     {
         /// <summary>

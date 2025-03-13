@@ -1,4 +1,4 @@
-﻿using HTX.Net.Enums;
+using HTX.Net.Enums;
 using HTX.Net.Objects.Models;
 using HTX.Net.Interfaces.Clients.SpotApi;
 using CryptoExchange.Net.RateLimiting.Guards;
@@ -65,7 +65,7 @@ namespace HTX.Net.Clients.SpotApi
         #region Place Multiple Order
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<HTXBatchPlaceResult>>> PlaceMultipleOrderAsync(
+        public async Task<WebCallResult<HTXBatchPlaceResult[]>> PlaceMultipleOrderAsync(
             IEnumerable<HTXOrderRequest> orders,
             CancellationToken ct = default)
         {
@@ -96,7 +96,7 @@ namespace HTX.Net.Clients.SpotApi
 
             var request = _definitions.GetOrCreate(HttpMethod.Post, "v1/order/batch-orders", HTXExchange.RateLimiter.EndpointLimit, 1, true,
                 new SingleLimitGuard(20, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
-            var result = await _baseClient.SendBasicAsync<IEnumerable<HTXBatchPlaceResult>>(request, orderParameters, ct).ConfigureAwait(false);
+            var result = await _baseClient.SendBasicAsync<HTXBatchPlaceResult[]>(request, orderParameters, ct).ConfigureAwait(false);
             return result;
         }
 
@@ -185,7 +185,7 @@ namespace HTX.Net.Clients.SpotApi
         #region Get Open Orders
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<HTXOpenOrder>>> GetOpenOrdersAsync(
+        public async Task<WebCallResult<HTXOpenOrder[]>> GetOpenOrdersAsync(
             long? accountId = null,
             string? symbol = null,
             OrderSide? side = null,
@@ -301,11 +301,11 @@ namespace HTX.Net.Clients.SpotApi
         #region Get Order Trades
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<HTXOrderTrade>>> GetOrderTradesAsync(long orderId, CancellationToken ct = default)
+        public async Task<WebCallResult<HTXOrderTrade[]>> GetOrderTradesAsync(long orderId, CancellationToken ct = default)
         {
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"v1/order/orders/{orderId}/matchresults", HTXExchange.RateLimiter.EndpointLimit, 1, true,
                 new SingleLimitGuard(50, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
-            return await _baseClient.SendBasicAsync<IEnumerable<HTXOrderTrade>>(request, null, ct).ConfigureAwait(false);
+            return await _baseClient.SendBasicAsync<HTXOrderTrade[]>(request, null, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -313,7 +313,7 @@ namespace HTX.Net.Clients.SpotApi
         #region Get Closed Orders
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<HTXOrder>>> GetClosedOrdersAsync(string symbol, IEnumerable<OrderStatus>? states = null, IEnumerable<Enums.OrderType>? types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, FilterDirection? direction = null, int? limit = null, CancellationToken ct = default)
+        public async Task<WebCallResult<HTXOrder[]>> GetClosedOrdersAsync(string symbol, IEnumerable<OrderStatus>? states = null, IEnumerable<Enums.OrderType>? types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, FilterDirection? direction = null, int? limit = null, CancellationToken ct = default)
         {
             symbol = symbol.ToLowerInvariant();
 
@@ -333,7 +333,7 @@ namespace HTX.Net.Clients.SpotApi
 
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"v1/order/orders", HTXExchange.RateLimiter.EndpointLimit, 1, true,
                 new SingleLimitGuard(50, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
-            return await _baseClient.SendBasicAsync<IEnumerable<HTXOrder>>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendBasicAsync<HTXOrder[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -341,7 +341,7 @@ namespace HTX.Net.Clients.SpotApi
         #region Get Historical Orders
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<HTXOrder>>> GetHistoricalOrdersAsync(string? symbol = null, DateTime? startTime = null, DateTime? endTime = null, FilterDirection? direction = null, int? limit = null, CancellationToken ct = default)
+        public async Task<WebCallResult<HTXOrder[]>> GetHistoricalOrdersAsync(string? symbol = null, DateTime? startTime = null, DateTime? endTime = null, FilterDirection? direction = null, int? limit = null, CancellationToken ct = default)
         {
             symbol = symbol?.ToLowerInvariant();
             var parameters = new ParameterCollection();
@@ -353,7 +353,7 @@ namespace HTX.Net.Clients.SpotApi
 
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"v1/order/history", HTXExchange.RateLimiter.EndpointLimit, 1, true,
                 new SingleLimitGuard(20, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
-            return await _baseClient.SendBasicAsync<IEnumerable<HTXOrder>>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendBasicAsync<HTXOrder[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -361,7 +361,7 @@ namespace HTX.Net.Clients.SpotApi
         #region Get User Trades
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<HTXOrderTrade>>> GetUserTradesAsync(string? symbol = null, IEnumerable<Enums.OrderType>? types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, FilterDirection? direction = null, int? limit = null, CancellationToken ct = default)
+        public async Task<WebCallResult<HTXOrderTrade[]>> GetUserTradesAsync(string? symbol = null, IEnumerable<Enums.OrderType>? types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, FilterDirection? direction = null, int? limit = null, CancellationToken ct = default)
         {
             symbol = symbol?.ToLowerInvariant();
             var parameters = new ParameterCollection();
@@ -375,7 +375,7 @@ namespace HTX.Net.Clients.SpotApi
 
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"v1/order/matchresults", HTXExchange.RateLimiter.EndpointLimit, 1, true,
                 new SingleLimitGuard(20, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
-            return await _baseClient.SendBasicAsync<IEnumerable<HTXOrderTrade>>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendBasicAsync<HTXOrderTrade[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -443,7 +443,7 @@ namespace HTX.Net.Clients.SpotApi
         #region Get Open Conditional Orders
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<HTXConditionalOrder>>> GetOpenConditionalOrdersAsync(long? accountId = null, string? symbol = null, OrderSide? side = null, ConditionalOrderType? type = null, string? sort = null, int? limit = null, long? fromId = null, CancellationToken ct = default)
+        public async Task<WebCallResult<HTXConditionalOrder[]>> GetOpenConditionalOrdersAsync(long? accountId = null, string? symbol = null, OrderSide? side = null, ConditionalOrderType? type = null, string? sort = null, int? limit = null, long? fromId = null, CancellationToken ct = default)
         {
             symbol = symbol?.ToLowerInvariant();
 
@@ -458,7 +458,7 @@ namespace HTX.Net.Clients.SpotApi
 
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"v2/algo-orders/opening", HTXExchange.RateLimiter.EndpointLimit, 1, true,
                 new SingleLimitGuard(20, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
-            return await _baseClient.SendAsync<IEnumerable<HTXConditionalOrder>>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<HTXConditionalOrder[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -466,7 +466,7 @@ namespace HTX.Net.Clients.SpotApi
         #region Get Closed Conditional Orders
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<HTXConditionalOrder>>> GetClosedConditionalOrdersAsync(
+        public async Task<WebCallResult<HTXConditionalOrder[]>> GetClosedConditionalOrdersAsync(
             string symbol, 
             ConditionalOrderStatus status, 
             long? accountId = null, 
@@ -497,7 +497,7 @@ namespace HTX.Net.Clients.SpotApi
 
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"v2/algo-orders/history", HTXExchange.RateLimiter.EndpointLimit, 1, true,
                 new SingleLimitGuard(20, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
-            return await _baseClient.SendAsync<IEnumerable<HTXConditionalOrder>>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<HTXConditionalOrder[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion

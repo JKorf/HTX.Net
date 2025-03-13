@@ -1,21 +1,23 @@
-﻿using HTX.Net.Enums;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using HTX.Net.Enums;
 
 namespace HTX.Net.Objects.Models
 {
     /// <summary>
     /// HTX sub-user account info
     /// </summary>
+    [SerializationModel]
     public record HTXSubUserAccount
     {
         /// <summary>
         /// The type of the account
         /// </summary>
-        [JsonPropertyName("accountType"), JsonConverter(typeof(EnumConverter))]
+        [JsonPropertyName("accountType")]
         public SubAccountMarketType Type { get; set; }
         /// <summary>
         /// Whether the account is active of not
         /// </summary>
-        [JsonConverter(typeof(EnumConverter))]
+
         [JsonPropertyName("activation")]
         public AccountActivation Activation { get; set; }
         /// <summary>
@@ -27,6 +29,6 @@ namespace HTX.Net.Objects.Models
         /// Account ids
         /// </summary>
         [JsonPropertyName("accountIds")]
-        public IEnumerable<HTXSubUserAccountId> AccountIds { get; set; } = Array.Empty<HTXSubUserAccountId>();
+        public HTXSubUserAccountId[] AccountIds { get; set; } = Array.Empty<HTXSubUserAccountId>();
     }
 }

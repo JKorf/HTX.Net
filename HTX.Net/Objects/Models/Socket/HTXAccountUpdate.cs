@@ -1,4 +1,5 @@
-﻿using HTX.Net.Enums;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using HTX.Net.Enums;
 
 
 namespace HTX.Net.Objects.Models.Socket
@@ -6,6 +7,7 @@ namespace HTX.Net.Objects.Models.Socket
     /// <summary>
     /// Account update
     /// </summary>
+    [SerializationModel]
     public record HTXAccountUpdate
     {
         /// <summary>
@@ -31,13 +33,13 @@ namespace HTX.Net.Objects.Models.Socket
         /// <summary>
         /// Type of change
         /// </summary>
-        [JsonConverter(typeof(EnumConverter))]
+
         [JsonPropertyName("changeType")]
         public AccountEventType? ChangeType { get; set; }
         /// <summary>
         /// Account type
         /// </summary>
-        [JsonConverter(typeof(EnumConverter))]
+
         [JsonPropertyName("accountType")]
         public BalanceType AccountType { get; set; }
         /// <summary>
