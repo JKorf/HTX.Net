@@ -1,7 +1,6 @@
 ﻿using HTX.Net.Enums;
 using HTX.Net.Objects.Models;
 using HTX.Net.Interfaces.Clients.SpotApi;
-using CryptoExchange.Net.CommonObjects;
 using CryptoExchange.Net.RateLimiting.Guards;
 
 namespace HTX.Net.Clients.SpotApi
@@ -58,8 +57,6 @@ namespace HTX.Net.Clients.SpotApi
             var request = _definitions.GetOrCreate(HttpMethod.Post, "v1/order/orders/place", HTXExchange.RateLimiter.EndpointLimit, 1, true,
                 new SingleLimitGuard(100, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             var result = await _baseClient.SendBasicAsync<long>(request, parameters, ct).ConfigureAwait(false);
-            if (result)
-                _baseClient.InvokeOrderPlaced(new OrderId { SourceObject = result.Data, Id = result.Data.ToString(CultureInfo.InvariantCulture) });
             return result;
         }
 
@@ -100,11 +97,6 @@ namespace HTX.Net.Clients.SpotApi
             var request = _definitions.GetOrCreate(HttpMethod.Post, "v1/order/batch-orders", HTXExchange.RateLimiter.EndpointLimit, 1, true,
                 new SingleLimitGuard(20, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             var result = await _baseClient.SendBasicAsync<IEnumerable<HTXBatchPlaceResult>>(request, orderParameters, ct).ConfigureAwait(false);
-            if (result.Success)
-            {
-                foreach (var order in result.Data.Where(d => d.Success))
-                    _baseClient.InvokeOrderPlaced(new OrderId { SourceObject = order, Id = order.OrderId.ToString() });
-            }
             return result;
         }
 
@@ -153,8 +145,6 @@ namespace HTX.Net.Clients.SpotApi
             var request = _definitions.GetOrCreate(HttpMethod.Post, "v1/order/auto/place", HTXExchange.RateLimiter.EndpointLimit, 1, true,
                 new SingleLimitGuard(100, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             var result = await _baseClient.SendAsync<HTXOrderId>(request, parameters, ct).ConfigureAwait(false);
-            if (result)
-                _baseClient.InvokeOrderPlaced(new OrderId { SourceObject = result.Data, Id = result.Data.OrderId.ToString(CultureInfo.InvariantCulture) });
             return result;
         }
 
@@ -168,8 +158,6 @@ namespace HTX.Net.Clients.SpotApi
             var request = _definitions.GetOrCreate(HttpMethod.Post, $"v1/order/orders/{orderId}/submitcancel", HTXExchange.RateLimiter.EndpointLimit, 1, true,
                 new SingleLimitGuard(100, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             var result = await _baseClient.SendBasicAsync<long>(request, null, ct).ConfigureAwait(false);
-            if (result)
-                _baseClient.InvokeOrderCanceled(new OrderId { SourceObject = result.Data, Id = result.Data.ToString(CultureInfo.InvariantCulture) });
             return result;
         }
 

@@ -3,6 +3,7 @@ using CryptoExchange.Net.RateLimiting.Filters;
 using CryptoExchange.Net.RateLimiting.Guards;
 using CryptoExchange.Net.RateLimiting.Interfaces;
 using CryptoExchange.Net.SharedApis;
+using HTX.Net.Converters;
 
 namespace HTX.Net
 {
@@ -45,6 +46,8 @@ namespace HTX.Net
 
         internal const string ClientOrderId = "AA1ef14811";
         internal const string ClientOrderIdPrefix = ClientOrderId + LibraryHelpers.ClientOrderIdSeparator;
+
+        internal static JsonSerializerContext SerializerContext = new HTXSourceGenerationContext();
 
         /// <summary>
         /// Format a base and quote asset to an HTX recognized symbol 

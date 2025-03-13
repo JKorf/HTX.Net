@@ -16,6 +16,11 @@ namespace HTX.Net.Enums
         /// Swap
         /// </summary>
         [Map("swap")]
-        Swap
+        Swap,
+        /// <summary>
+        /// All (for filtering)
+        /// </summary>
+        [Map("all")]
+        All
     }
 }

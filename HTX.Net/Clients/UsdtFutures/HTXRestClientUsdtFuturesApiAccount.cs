@@ -240,7 +240,7 @@ namespace HTX.Net.Clients.UsdtFutures
         #region Get Cross Margin Position Limits
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<HTXCrossMarginPositionLimit>>> GetCrossMarginPositionLimitsAsync(string? contractCode = null, string? pair = null, ContractType? contractType = null, string? businessType = null, CancellationToken ct = default)
+        public async Task<WebCallResult<IEnumerable<HTXCrossMarginPositionLimit>>> GetCrossMarginPositionLimitsAsync(string? contractCode = null, string? pair = null, ContractType? contractType = null, BusinessType? businessType = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.AddOptional("contract_code", contractCode);

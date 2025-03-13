@@ -210,7 +210,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// <param name="contractType">Contract type</param>
         /// <param name="businessType">Business type</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<IEnumerable<HTXCrossMarginPositionLimit>>> GetCrossMarginPositionLimitsAsync(string? contractCode = null, string? pair = null, ContractType? contractType = null, string? businessType = null, CancellationToken ct = default);
+        Task<WebCallResult<IEnumerable<HTXCrossMarginPositionLimit>>> GetCrossMarginPositionLimitsAsync(string? contractCode = null, string? pair = null, ContractType? contractType = null, BusinessType? businessType = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get isolated margin leverage position limits

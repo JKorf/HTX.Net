@@ -42,9 +42,9 @@ namespace HTX.Net.Clients.UsdtFutures
 
         #endregion
 
-        protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer();
+        protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(HTXExchange.SerializerContext));
 
-        protected override IByteMessageAccessor CreateAccessor() => new SystemTextJsonByteMessageAccessor();
+        protected override IByteMessageAccessor CreateAccessor() => new SystemTextJsonByteMessageAccessor(SerializerOptions.WithConverters(HTXExchange.SerializerContext));
 
         public IHTXSocketClientUsdtFuturesApiShared SharedClient => this;
 

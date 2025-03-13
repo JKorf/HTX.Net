@@ -7,6 +7,7 @@ namespace HTX.Net.Clients.UsdtFutures
 {
     internal partial class HTXSocketClientUsdtFuturesApi : IHTXSocketClientUsdtFuturesApiShared
     {
+        private const string _topicId = "HTXFutures";
         public string Exchange => HTXExchange.ExchangeName;
         public TradingMode[] SupportedTradingModes { get; } = new[] { TradingMode.PerpetualLinear, TradingMode.DeliveryLinear };
 

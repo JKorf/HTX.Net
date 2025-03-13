@@ -8,6 +8,7 @@ namespace HTX.Net.Clients.SpotApi
 {
     internal partial class HTXSocketClientSpotApi : IHTXSocketClientSpotApiShared
     {
+        private const string _topicId = "HTXSpot";
         public string Exchange => HTXExchange.ExchangeName;
         public TradingMode[] SupportedTradingModes { get; } = new[] { TradingMode.Spot };
 

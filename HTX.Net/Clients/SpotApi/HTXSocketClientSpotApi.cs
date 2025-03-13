@@ -47,9 +47,9 @@ namespace HTX.Net.Clients.SpotApi
 
         #endregion
 
-        protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer();
+        protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(HTXExchange.SerializerContext));
 
-        protected override IByteMessageAccessor CreateAccessor() => new SystemTextJsonByteMessageAccessor();
+        protected override IByteMessageAccessor CreateAccessor() => new SystemTextJsonByteMessageAccessor(SerializerOptions.WithConverters(HTXExchange.SerializerContext));
 
         public IHTXSocketClientSpotApiShared SharedClient => this;
 

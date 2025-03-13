@@ -6,6 +6,8 @@ namespace HTX.Net.Clients.SpotApi
 {
     internal partial class HTXRestClientSpotApi : IHTXRestClientSpotApiShared
     {
+        private const string _topicId = "HTXSpot";
+
         public string Exchange => HTXExchange.ExchangeName;
         public TradingMode[] SupportedTradingModes { get; } = new[] { TradingMode.Spot };
 
@@ -86,7 +88,7 @@ namespace HTX.Net.Clients.SpotApi
             if (!result)
                 return result.AsExchangeResult<IEnumerable<SharedSpotSymbol>>(Exchange, null, default);
 
-            return result.AsExchangeResult<IEnumerable<SharedSpotSymbol>>(Exchange, TradingMode.Spot, result.Data.Select(s => new SharedSpotSymbol(
+            var response = result.AsExchangeResult<SharedSpotSymbol[]>(Exchange, TradingMode.Spot, result.Data.Select(s => new SharedSpotSymbol(
                 s.BaseAsset.ToUpperInvariant(),
                 s.QuoteAsset.ToUpperInvariant(),
                 s.Symbol,
@@ -98,6 +100,9 @@ namespace HTX.Net.Clients.SpotApi
                 MinTradeQuantity = s.MinOrderQuantity,
                 MaxTradeQuantity = s.MaxOrderQuantity
             }).ToArray());
+
+            ExchangeSymbolCache.UpdateSymbolInfo(_topicId, response.Data);
+            return response;
         }
 
         #endregion
