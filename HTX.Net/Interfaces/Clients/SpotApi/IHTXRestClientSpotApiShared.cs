@@ -18,7 +18,8 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         //ITradeHistoryRestClient
         IWithdrawalRestClient,
         IWithdrawRestClient,
-        IFeeRestClient
+        IFeeRestClient,
+        ISpotOrderClientIdClient
     {
     }
 }

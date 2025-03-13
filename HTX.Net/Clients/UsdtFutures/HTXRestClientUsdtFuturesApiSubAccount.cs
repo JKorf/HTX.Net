@@ -145,7 +145,7 @@ namespace HTX.Net.Clients.UsdtFutures
         #region Transfer Master Sub
 
         /// <inheritdoc />
-        public async Task<WebCallResult<HTXOrderId>> TransferMasterSubAsync(string subUid, string asset, string fromMarginAccount, string toMarginAccount, decimal quantity, MasterSubTransferType type, long? clientOrderId = null, CancellationToken ct = default)
+        public async Task<WebCallResult<HTXSwapOrderId>> TransferMasterSubAsync(string subUid, string asset, string fromMarginAccount, string toMarginAccount, decimal quantity, MasterSubTransferType type, long? clientOrderId = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection()
             {
@@ -158,7 +158,7 @@ namespace HTX.Net.Clients.UsdtFutures
             };
             parameters.AddOptionalParameter("client_order_id", clientOrderId);
             var request = _definitions.GetOrCreate(HttpMethod.Post, "linear-swap-api/v1/swap_master_sub_transfer", HTXExchange.RateLimiter.UsdtTrade, 1, true);
-            return await _baseClient.SendBasicAsync<HTXOrderId>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendBasicAsync<HTXSwapOrderId>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion

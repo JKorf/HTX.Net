@@ -839,6 +839,115 @@ namespace HTX.Net.Clients.UsdtFutures
         }
         #endregion
 
+        #region Futures Client Id Order Client
+
+        EndpointOptions<GetOrderRequest> IFuturesOrderClientIdClient.GetFuturesOrderByClientOrderIdOptions { get; } = new EndpointOptions<GetOrderRequest>(true)
+        {
+            RequiredExchangeParameters = new List<ParameterDescription>
+            {
+                new ParameterDescription("MarginMode", typeof(SharedMarginMode), "The margin mode", SharedMarginMode.Cross)
+            }
+        };
+        async Task<ExchangeWebResult<SharedFuturesOrder>> IFuturesOrderClientIdClient.GetFuturesOrderByClientOrderIdAsync(GetOrderRequest request, CancellationToken ct)
+        {
+            var validationError = ((IFuturesOrderRestClient)this).GetFuturesOrderOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
+            if (validationError != null)
+                return new ExchangeWebResult<SharedFuturesOrder>(Exchange, validationError);
+
+            var marginMode = ExchangeParameters.GetValue<SharedMarginMode>(request.ExchangeParameters, Exchange, "MarginMode");
+            if (marginMode == SharedMarginMode.Cross)
+            {
+                var orders = await Trading.GetCrossMarginOrderAsync(request.Symbol.GetSymbol(FormatSymbol), clientOrderId: long.Parse(request.OrderId)).ConfigureAwait(false);
+                if (!orders)
+                    return orders.AsExchangeResult<SharedFuturesOrder>(Exchange, null, default);
+
+                var order = orders.Data.Single();
+                return orders.AsExchangeResult(Exchange, request.Symbol.TradingMode, new SharedFuturesOrder(
+                    ExchangeSymbolCache.ParseSymbol(_topicId, order.ContractCode),
+                    order.ContractCode,
+                    order.OrderId.ToString(),
+                    ParseOrderType(order.OrderPriceType),
+                    order.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
+                    ParseOrderStatus(order.Status),
+                    order.CreateTime)
+                {
+                    ClientOrderId = order.ClientOrderId.ToString(),
+                    AveragePrice = order.AverageFillPrice,
+                    OrderPrice = order.Price,
+                    Quantity = order.Quantity,
+                    QuantityFilled = order.QuantityFilled,
+                    QuoteQuantityFilled = order.ValueFilled,
+                    TimeInForce = ParseTimeInForce(order.OrderPriceType),
+                    UpdateTime = order.UpdateTime,
+                    PositionSide = ParsePositionSide(order.Offset, order.Side),
+                    ReduceOnly = order.ReduceOnly,
+                    Leverage = order.LeverageRate
+                });
+            }
+            else
+            {
+                var orders = await Trading.GetIsolatedMarginOrderAsync(request.Symbol.GetSymbol(FormatSymbol), clientOrderId: long.Parse(request.OrderId)).ConfigureAwait(false);
+                if (!orders)
+                    return orders.AsExchangeResult<SharedFuturesOrder>(Exchange, null, default);
+
+                var order = orders.Data.Single();
+                return orders.AsExchangeResult(Exchange, request.Symbol.TradingMode, new SharedFuturesOrder(
+                    ExchangeSymbolCache.ParseSymbol(_topicId, order.ContractCode),
+                    order.ContractCode,
+                    order.OrderId.ToString(),
+                    ParseOrderType(order.OrderPriceType),
+                    order.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
+                    ParseOrderStatus(order.Status),
+                    order.CreateTime)
+                {
+                    ClientOrderId = order.ClientOrderId.ToString(),
+                    AveragePrice = order.AverageFillPrice,
+                    OrderPrice = order.Price,
+                    Quantity = order.Quantity,
+                    QuantityFilled = order.QuantityFilled,
+                    QuoteQuantityFilled = order.ValueFilled,
+                    TimeInForce = ParseTimeInForce(order.OrderPriceType),
+                    UpdateTime = order.UpdateTime,
+                    PositionSide = ParsePositionSide(order.Offset, order.Side),
+                    ReduceOnly = order.ReduceOnly,
+                    Leverage = order.LeverageRate
+                });
+            }
+        }
+
+        EndpointOptions<CancelOrderRequest> IFuturesOrderClientIdClient.CancelFuturesOrderByClientOrderIdOptions { get; } = new EndpointOptions<CancelOrderRequest>(true)
+        {
+            RequiredExchangeParameters = new List<ParameterDescription>
+            {
+                new ParameterDescription("MarginMode", typeof(SharedMarginMode), "The margin mode", SharedMarginMode.Cross)
+            }
+        };
+        async Task<ExchangeWebResult<SharedId>> IFuturesOrderClientIdClient.CancelFuturesOrderByClientOrderIdAsync(CancelOrderRequest request, CancellationToken ct)
+        {
+            var validationError = ((IFuturesOrderRestClient)this).CancelFuturesOrderOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
+            if (validationError != null)
+                return new ExchangeWebResult<SharedId>(Exchange, validationError);
+
+            var marginMode = ExchangeParameters.GetValue<SharedMarginMode>(request.ExchangeParameters, Exchange, "MarginMode");
+            if (marginMode == SharedMarginMode.Cross)
+            {
+                var order = await Trading.CancelCrossMarginOrderAsync(contractCode: request.Symbol.GetSymbol(FormatSymbol), clientOrderId: long.Parse(request.OrderId)).ConfigureAwait(false);
+                if (!order)
+                    return order.AsExchangeResult<SharedId>(Exchange, null, default);
+
+                return order.AsExchangeResult(Exchange, request.Symbol.TradingMode, new SharedId(request.OrderId));
+            }
+            else
+            {
+                var order = await Trading.CancelIsolatedMarginOrderAsync(contractCode: request.Symbol.GetSymbol(FormatSymbol), clientOrderId: long.Parse(request.OrderId)).ConfigureAwait(false);
+                if (!order)
+                    return order.AsExchangeResult<SharedId>(Exchange, null, default);
+
+                return order.AsExchangeResult(Exchange, request.Symbol.TradingMode, new SharedId(request.OrderId));
+            }
+        }
+        #endregion
+
         #region Klines client
 
         GetKlinesOptions IKlineRestClient.GetKlinesOptions { get; } = new GetKlinesOptions(SharedPaginationSupport.Descending, true, 1000, false,

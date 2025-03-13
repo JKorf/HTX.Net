@@ -286,7 +286,7 @@ namespace HTX.Net.Clients.UsdtFutures
         #region Transfer Margin Accounts
 
         /// <inheritdoc />
-        public async Task<WebCallResult<HTXOrderId>> TransferMarginAccountsAsync(string asset, string fromMarginAccount, string toMarginAccount, decimal quantity, long? clientOrderId = null, CancellationToken ct = default)
+        public async Task<WebCallResult<HTXSwapOrderId>> TransferMarginAccountsAsync(string asset, string fromMarginAccount, string toMarginAccount, decimal quantity, long? clientOrderId = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection()
             {
@@ -297,7 +297,7 @@ namespace HTX.Net.Clients.UsdtFutures
             };
             parameters.AddOptionalParameter("client_order_id", clientOrderId);
             var request = _definitions.GetOrCreate(HttpMethod.Post, "linear-swap-api/v1/swap_transfer_inner", HTXExchange.RateLimiter.EndpointLimit, 1, true);
-            return await _baseClient.SendBasicAsync<HTXOrderId>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendBasicAsync<HTXSwapOrderId>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion

@@ -46,7 +46,7 @@ namespace HTX.Net.Objects.Models
         public long TradeId { get; set; }
         // Rest uses trade-id, socket uses tradeId
         [JsonInclude, JsonPropertyName("tradeId")]
-        private long TradeIdInternal { get => TradeId; set => TradeId = value; }
+        internal long TradeIdInternal { get => TradeId; set => TradeId = value; }
         /// <summary>
         /// The price of the trade
         /// </summary>

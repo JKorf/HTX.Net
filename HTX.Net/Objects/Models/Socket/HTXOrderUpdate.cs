@@ -87,13 +87,13 @@ namespace HTX.Net.Objects.Models.Socket
         /// The type of the order
         /// </summary>
         [JsonIgnore]
-        public OrderType Type => EnumConverter.ParseString<OrderType>(RawType);
+        public OrderType Type => EnumConverter.ParseString<OrderType>(RawType)!.Value;
 
         /// <summary>
         /// The type of the order
         /// </summary>
         [JsonIgnore]
-        public OrderSide Side => EnumConverter.ParseString<OrderSide>(RawType);
+        public OrderSide Side => EnumConverter.ParseString<OrderSide>(RawType)!.Value;
         /// <summary>
         /// Creation time
         /// </summary>
@@ -139,13 +139,13 @@ namespace HTX.Net.Objects.Models.Socket
         /// The type of the order
         /// </summary>
         [JsonIgnore]
-        public OrderType Type => EnumConverter.ParseString<OrderType>(RawType);
+        public OrderType Type => EnumConverter.ParseString<OrderType>(RawType)!.Value;
 
         /// <summary>
         /// The type of the order
         /// </summary>
         [JsonIgnore]
-        public OrderSide Side => EnumConverter.ParseString<OrderSide>(RawType);
+        public OrderSide Side => EnumConverter.ParseString<OrderSide>(RawType)!.Value;
         /// <summary>
         /// Trade id
         /// </summary>
@@ -216,13 +216,13 @@ namespace HTX.Net.Objects.Models.Socket
         /// The type of the order
         /// </summary>
         [JsonIgnore]
-        public OrderType Type => EnumConverter.ParseString<OrderType>(RawType);
+        public OrderType Type => EnumConverter.ParseString<OrderType>(RawType)!.Value;
 
         /// <summary>
         /// The type of the order
         /// </summary>
         [JsonIgnore]
-        public OrderSide Side => EnumConverter.ParseString<OrderSide>(RawType);
+        public OrderSide Side => EnumConverter.ParseString<OrderSide>(RawType)!.Value;
         /// <summary>
         /// Remaining quantity
         /// </summary>

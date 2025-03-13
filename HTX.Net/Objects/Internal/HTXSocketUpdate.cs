@@ -24,6 +24,6 @@
         [JsonPropertyName("data")]
         public T Data { get; set; } = default!;
         [JsonInclude, JsonPropertyName("tick")]
-        private T Tick { set => Data = value; get => Data; }
+        internal T Tick { set => Data = value; get => Data; }
     }
 }

@@ -33,7 +33,6 @@ true
         "real_profit": 0,
         "profit": 0,
         "id": "131560927-770334322963152896-1",
-        "fee_asset": "",
         "price": ""
       }
     ],

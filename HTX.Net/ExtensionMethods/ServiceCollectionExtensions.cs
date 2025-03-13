@@ -137,8 +137,6 @@ namespace Microsoft.Extensions.DependencyInjection
             services.RegisterSharedSocketInterfaces(x => x.GetRequiredService<IHTXSocketClient>().SpotApi.SharedClient);
             services.RegisterSharedRestInterfaces(x => x.GetRequiredService<IHTXRestClient>().UsdtFuturesApi.SharedClient);
             services.RegisterSharedSocketInterfaces(x => x.GetRequiredService<IHTXSocketClient>().UsdtFuturesApi.SharedClient);
-
-            services.AddTransient(x => x.GetRequiredService<IHTXRestClient>().SpotApi.CommonSpotClient);
             return services;
         }
     }

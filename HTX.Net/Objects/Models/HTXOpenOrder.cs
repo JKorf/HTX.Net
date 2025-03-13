@@ -72,13 +72,13 @@ namespace HTX.Net.Objects.Models
         /// The type of the order
         /// </summary>
         [JsonIgnore]
-        public OrderType Type => EnumConverter.ParseString<OrderType>(RawType);
+        public OrderType Type => EnumConverter.ParseString<OrderType>(RawType)!.Value;
 
         /// <summary>
         /// The side of the order
         /// </summary>
         [JsonIgnore]
-        public OrderSide Side => EnumConverter.ParseString<OrderSide>(RawType);
+        public OrderSide Side => EnumConverter.ParseString<OrderSide>(RawType)!.Value;
 
         /// <summary>
         /// The source of the order

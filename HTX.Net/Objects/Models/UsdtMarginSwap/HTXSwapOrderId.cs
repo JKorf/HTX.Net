@@ -7,7 +7,7 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
     /// Order id
     /// </summary>
     [SerializationModel]
-    public record HTXOrderId
+    public record HTXSwapOrderId
     {
         /// <summary>
         /// Order id

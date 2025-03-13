@@ -11,7 +11,7 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// Errors in the batch
         /// </summary>
         [JsonPropertyName("errors")]
-        public HTXBatchError[] Errors { get; set; } = new List<HTXBatchError>();
+        public HTXBatchError[] Errors { get; set; } = [];
         /// <summary>
         /// Success
         /// </summary>

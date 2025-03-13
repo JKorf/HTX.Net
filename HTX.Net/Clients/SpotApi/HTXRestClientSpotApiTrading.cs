@@ -92,7 +92,7 @@ namespace HTX.Net.Clients.SpotApi
             }
 
             var orderParameters = new ParameterCollection();
-            orderParameters.SetBody(data);
+            orderParameters.SetBody(data.ToArray());
 
             var request = _definitions.GetOrCreate(HttpMethod.Post, "v1/order/batch-orders", HTXExchange.RateLimiter.EndpointLimit, 1, true,
                 new SingleLimitGuard(20, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
@@ -208,7 +208,7 @@ namespace HTX.Net.Clients.SpotApi
 
             var request = _definitions.GetOrCreate(HttpMethod.Get, "v1/order/openOrders", HTXExchange.RateLimiter.EndpointLimit, 1, true,
                 new SingleLimitGuard(50, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
-            return await _baseClient.SendBasicAsync<IEnumerable<HTXOpenOrder>>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendBasicAsync<HTXOpenOrder[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
