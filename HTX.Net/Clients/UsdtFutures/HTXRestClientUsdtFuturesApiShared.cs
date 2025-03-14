@@ -170,7 +170,7 @@ namespace HTX.Net.Clients.UsdtFutures
         PlaceFuturesOrderOptions IFuturesOrderRestClient.PlaceFuturesOrderOptions { get; } = new PlaceFuturesOrderOptions()
         {
             RequestNotes = "ClientOrderId can only be an integer",
-            RequiredExchangeParameters = new List<ParameterDescription>
+            OptionalExchangeParameters = new List<ParameterDescription>
             {
                 new ParameterDescription(nameof(PlaceFuturesOrderRequest.MarginMode), typeof(SharedMarginMode), "The margin mode", SharedMarginMode.Cross)
             },
