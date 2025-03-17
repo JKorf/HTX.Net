@@ -18,7 +18,6 @@ using HTX.Net.Interfaces.Clients;
 using HTX.Net.Objects.Options;
 using Microsoft.Extensions.Logging;
 using Moq;
-using Newtonsoft.Json;
 
 namespace HTX.Net.UnitTests.TestImplementations
 {
@@ -94,21 +93,6 @@ namespace HTX.Net.UnitTests.TestImplementations
         {
             var client = (HTXRestClient)CreateClient(x => { x.ApiCredentials = new ApiCredentials("Test", "test"); });
             SetResponse(client, response, statusCode);
-            return client;
-        }
-
-
-        public static IHTXRestClient CreateResponseClient(string response, Action<HTXRestOptions> options = null)
-        {
-            var client = (HTXRestClient)CreateClient(options);
-            SetResponse(client, response);
-            return client;
-        }
-
-        public static IHTXRestClient CreateResponseClient<T>(T response, Action<HTXRestOptions> options = null)
-        {
-            var client = (HTXRestClient)CreateClient(options);
-            SetResponse(client, JsonConvert.SerializeObject(response));
             return client;
         }
 

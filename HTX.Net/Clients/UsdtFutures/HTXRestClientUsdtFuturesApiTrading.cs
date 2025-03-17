@@ -421,7 +421,8 @@ namespace HTX.Net.Clients.UsdtFutures
             parameters.Add("contract", contractCode);
             parameters.AddEnumAsInt("trade_type", tradeType);
             parameters.Add("type", allOrders ? 1 : 2);
-            parameters.Add("status", string.Join(",", status.Select(EnumConverter.GetString)));
+            if (status?.Any() == true)
+                parameters.Add("status", string.Join(",", status.Select(EnumConverter.GetString)));
             parameters.AddOptionalMilliseconds("start_time", startTime);
             parameters.AddOptionalMilliseconds("end_time", endTime);
             parameters.AddOptionalEnum("direct", direction);

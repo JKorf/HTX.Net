@@ -100,7 +100,7 @@ namespace HTX.Net.Clients.UsdtFutures
 
             IEnumerable<HTXListTicker> data = resultTickers.Result.Data;
             if (request.TradingMode != null)
-                data = data.Where(x => request.TradingMode == TradingMode.PerpetualLinear ? x.ContractCode.Count(x => x == '-') == 1 : x.ContractCode.Count(x => x == '-') == 2);
+                data = data.Where(x => request.TradingMode == TradingMode.PerpetualLinear ? x.ContractCode!.Count(x => x == '-') == 1 : x.ContractCode!.Count(x => x == '-') == 2);
 
             return resultTickers.Result.AsExchangeResult<SharedFuturesTicker[]>(Exchange, SupportedTradingModes, data.Select(x =>
             {
@@ -449,7 +449,7 @@ namespace HTX.Net.Clients.UsdtFutures
                 // Get next token
                 FromIdToken? nextToken = null;
                 if (orders.Data.Any())
-                    nextToken = new FromIdToken(orders.Data.Min(x => x.OrderIdStr));
+                    nextToken = new FromIdToken(orders.Data.Min(x => x.OrderIdStr)!);
 
                 return orders.AsExchangeResult<SharedFuturesOrder[]>(Exchange, request.Symbol.TradingMode, result, nextToken);
             }
@@ -494,7 +494,7 @@ namespace HTX.Net.Clients.UsdtFutures
                 // Get next token
                 FromIdToken? nextToken = null;
                 if (orders.Data.Any())
-                    nextToken = new FromIdToken(orders.Data.Max(x => x.OrderIdStr));
+                    nextToken = new FromIdToken(orders.Data.Max(x => x.OrderIdStr)!);
 
                 return orders.AsExchangeResult<SharedFuturesOrder[]>(Exchange, request.Symbol.TradingMode, result, nextToken);
             }
@@ -603,7 +603,7 @@ namespace HTX.Net.Clients.UsdtFutures
                 // Get next token
                 FromIdToken? nextToken = null;
                 if (orders.Data.Any())
-                    nextToken = new FromIdToken(orders.Data.Min(o => o.Id).ToString());
+                    nextToken = new FromIdToken(orders.Data.Min(o => o.Id)!.ToString());
 
                 return orders.AsExchangeResult<SharedUserTrade[]>(Exchange, request.Symbol.TradingMode,orders.Data.Select(x => new SharedUserTrade(
                     ExchangeSymbolCache.ParseSymbol(_topicId, symbol), 
@@ -636,7 +636,7 @@ namespace HTX.Net.Clients.UsdtFutures
                 // Get next token
                 FromIdToken? nextToken = null;
                 if (orders.Data.Any())
-                    nextToken = new FromIdToken(orders.Data.Max(o => o.Id).ToString());
+                    nextToken = new FromIdToken(orders.Data.Max(o => o.Id)!.ToString());
 
                 return orders.AsExchangeResult<SharedUserTrade[]>(Exchange, request.Symbol.TradingMode,orders.Data.Select(x => new SharedUserTrade(
                     ExchangeSymbolCache.ParseSymbol(_topicId, symbol),
@@ -758,7 +758,7 @@ namespace HTX.Net.Clients.UsdtFutures
                 if (!result)
                     return result.AsExchangeResult<SharedId>(Exchange, null, default);
 
-                return result.AsExchangeResult(Exchange, request.Symbol.TradingMode, new SharedId(result.Data.OrderId.ToString()));
+                return result.AsExchangeResult(Exchange, request.Symbol.TradingMode, new SharedId(result.Data.OrderId.ToString()!));
             }
             else
             {
@@ -769,7 +769,7 @@ namespace HTX.Net.Clients.UsdtFutures
                 if (!result)
                     return result.AsExchangeResult<SharedId>(Exchange, null, default);
 
-                return result.AsExchangeResult(Exchange, request.Symbol.TradingMode, new SharedId(result.Data.OrderId.ToString()));
+                return result.AsExchangeResult(Exchange, request.Symbol.TradingMode, new SharedId(result.Data.OrderId.ToString()!));
             }
         }
 
