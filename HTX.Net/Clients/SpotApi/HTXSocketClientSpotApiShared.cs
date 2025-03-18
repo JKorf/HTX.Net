@@ -203,10 +203,8 @@ namespace HTX.Net.Clients.SpotApi
                             update.CreateTime)
                 {
                     ClientOrderId = update.ClientOrderId,
-                    Quantity = update.Quantity,
-                    QuantityFilled = 0,
-                    QuoteQuantity = update.QuoteQuantity,
-                    QuoteQuantityFilled = 0,
+                    OrderQuantity = new SharedOrderQuantity(update.Quantity, update.QuoteQuantity),
+                    QuantityFilled = new SharedOrderQuantity(0, 0),
                     UpdateTime = update.UpdateTime,
                     OrderPrice = update.Price,
                     Fee = 0
@@ -224,10 +222,8 @@ namespace HTX.Net.Clients.SpotApi
                             null)
                 {
                     ClientOrderId = matchUpdate.ClientOrderId,
-                    Quantity = matchUpdate.Type == Enums.OrderType.Market && matchUpdate.Side == Enums.OrderSide.Buy ? null : matchUpdate.Quantity,
-                    QuantityFilled = matchUpdate.Type == Enums.OrderType.Market && matchUpdate.Side == Enums.OrderSide.Buy ? null : matchUpdate.QuantityFilled,
-                    QuoteQuantity = matchUpdate.QuoteQuantity,
-                    QuoteQuantityFilled = matchUpdate.Type == Enums.OrderType.Market && matchUpdate.Side == Enums.OrderSide.Buy ? matchUpdate.QuantityFilled : null,
+                    OrderQuantity = new SharedOrderQuantity(matchUpdate.Type == Enums.OrderType.Market && matchUpdate.Side == Enums.OrderSide.Buy ? null : matchUpdate.Quantity, matchUpdate.QuoteQuantity),
+                    QuantityFilled = new SharedOrderQuantity(matchUpdate.Type == Enums.OrderType.Market && matchUpdate.Side == Enums.OrderSide.Buy ? null : matchUpdate.QuantityFilled, matchUpdate.Type == Enums.OrderType.Market && matchUpdate.Side == Enums.OrderSide.Buy ? matchUpdate.QuantityFilled : null),
                     UpdateTime = matchUpdate.UpdateTime,
                     OrderPrice = matchUpdate.Price,
                     LastTrade = new SharedUserTrade(ExchangeSymbolCache.ParseSymbol(_topicId, matchUpdate.Symbol), matchUpdate.Symbol, matchUpdate.OrderId.ToString(), matchUpdate.TradeId.ToString(), matchUpdate.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell, matchUpdate.TradeQuantity, matchUpdate.TradePrice, matchUpdate.TradeTime)
@@ -249,10 +245,8 @@ namespace HTX.Net.Clients.SpotApi
                             null)
                 {
                     ClientOrderId = cancelUpdate.ClientOrderId,
-                    Quantity = cancelUpdate.Type == Enums.OrderType.Market && cancelUpdate.Side == Enums.OrderSide.Buy ? null : cancelUpdate.Quantity,
-                    QuantityFilled = cancelUpdate.Type == Enums.OrderType.Market && cancelUpdate.Side == Enums.OrderSide.Buy ? null : cancelUpdate.Quantity - cancelUpdate.QuantityRemaining,
-                    QuoteQuantity = cancelUpdate.Type == Enums.OrderType.Market && cancelUpdate.Side == Enums.OrderSide.Buy ? cancelUpdate.Quantity : null,
-                    QuoteQuantityFilled = cancelUpdate.Type == Enums.OrderType.Market && cancelUpdate.Side == Enums.OrderSide.Buy ? cancelUpdate.Quantity - cancelUpdate.QuantityRemaining : null,
+                    OrderQuantity = new SharedOrderQuantity(cancelUpdate.Type == Enums.OrderType.Market && cancelUpdate.Side == Enums.OrderSide.Buy ? null : cancelUpdate.Quantity, cancelUpdate.Type == Enums.OrderType.Market && cancelUpdate.Side == Enums.OrderSide.Buy ? cancelUpdate.Quantity : null),
+                    QuantityFilled = new SharedOrderQuantity(cancelUpdate.Type == Enums.OrderType.Market && cancelUpdate.Side == Enums.OrderSide.Buy ? null : cancelUpdate.QuantityFilled, cancelUpdate.Type == Enums.OrderType.Market && cancelUpdate.Side == Enums.OrderSide.Buy ? cancelUpdate.QuantityFilled : null),
                     UpdateTime = cancelUpdate.UpdateTime,
                     OrderPrice = cancelUpdate.Price
                 };

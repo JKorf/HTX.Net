@@ -228,7 +228,7 @@ namespace HTX.Net.Clients.SpotApi
                 SharedQuantityType.QuoteAsset,
                 SharedQuantityType.BaseAsset);
 
-        string ISpotOrderRestClient.GenerateClientOrderId() => LibraryHelpers.ApplyBrokerId(string.Empty, HTXExchange.ClientOrderId, 64, true);
+        string ISpotOrderRestClient.GenerateClientOrderId() => ExchangeHelpers.RandomString(32);
 
         PlaceSpotOrderOptions ISpotOrderRestClient.PlaceSpotOrderOptions { get; } = new PlaceSpotOrderOptions()
         {
@@ -251,9 +251,9 @@ namespace HTX.Net.Clients.SpotApi
                 return new ExchangeWebResult<SharedId>(Exchange, validationError);
 
             var accountId = ExchangeParameters.GetValue<long>(request.ExchangeParameters, Exchange, "AccountId");
-            var quantity = request.Quantity ?? 0;
+            var quantity = request.Quantity?.QuantityInBaseAsset ?? 0;
             if (request.OrderType == SharedOrderType.Market && request.Side == SharedOrderSide.Buy)
-                quantity = request.QuoteQuantity ?? 0;
+                quantity = request.Quantity?.QuantityInQuoteAsset ?? 0;
 
             var result = await Trading.PlaceOrderAsync(
                 accountId,
@@ -297,10 +297,8 @@ namespace HTX.Net.Clients.SpotApi
                 ClientOrderId = order.Data.ClientOrderId,
                 Fee = order.Data.Fee,
                 OrderPrice = order.Data.Price,
-                Quantity = order.Data.Type == OrderType.Market && order.Data.Side == OrderSide.Buy ? null : order.Data.Quantity,
-                QuantityFilled = order.Data.QuantityFilled,
-                QuoteQuantity = order.Data.Type == OrderType.Market && order.Data.Side == OrderSide.Buy ? order.Data.Quantity : null,
-                QuoteQuantityFilled = order.Data.QuoteQuantityFilled,
+                OrderQuantity = new SharedOrderQuantity(order.Data.Type == OrderType.Market && order.Data.Side == OrderSide.Buy ? null : order.Data.Quantity, order.Data.Type == OrderType.Market && order.Data.Side == OrderSide.Buy ? order.Data.Quantity : null),
+                QuantityFilled = new SharedOrderQuantity(order.Data.QuantityFilled, order.Data.QuoteQuantityFilled),
                 TimeInForce = ParseTimeInForce(order.Data.Type)
             });
         }
@@ -329,10 +327,8 @@ namespace HTX.Net.Clients.SpotApi
                 ClientOrderId = x.ClientOrderId,
                 Fee = x.Fee,
                 OrderPrice = x.Price,
-                Quantity = x.Type == OrderType.Market && x.Side == OrderSide.Buy ? null : x.Quantity,
-                QuantityFilled = x.QuantityFilled,
-                QuoteQuantity = x.Type == OrderType.Market && x.Side == OrderSide.Buy ? x.Quantity : null,
-                QuoteQuantityFilled = x.QuoteQuantityFilled,
+                OrderQuantity = new SharedOrderQuantity(x.Type == OrderType.Market && x.Side == OrderSide.Buy ? null : x.Quantity, x.Type == OrderType.Market && x.Side == OrderSide.Buy ? x.Quantity : null),
+                QuantityFilled = new SharedOrderQuantity(x.QuantityFilled, x.QuoteQuantityFilled),
                 TimeInForce = ParseTimeInForce(x.Type)
             }).ToArray());
         }
@@ -377,10 +373,8 @@ namespace HTX.Net.Clients.SpotApi
                 ClientOrderId = x.ClientOrderId,
                 Fee = x.Fee,
                 OrderPrice = x.Price,
-                Quantity = x.Type == OrderType.Market && x.Side == OrderSide.Buy ? null : x.Quantity,
-                QuantityFilled = x.QuantityFilled,
-                QuoteQuantity = x.Type == OrderType.Market && x.Side == OrderSide.Buy ? x.Quantity : null,
-                QuoteQuantityFilled = x.QuoteQuantityFilled,
+                OrderQuantity = new SharedOrderQuantity(x.Type == OrderType.Market && x.Side == OrderSide.Buy ? null : x.Quantity, x.Type == OrderType.Market && x.Side == OrderSide.Buy ? x.Quantity : null),
+                QuantityFilled = new SharedOrderQuantity(x.QuantityFilled, x.QuoteQuantityFilled),
                 TimeInForce = ParseTimeInForce(x.Type)
             }).ToArray(), nextToken);
         }
@@ -543,10 +537,8 @@ namespace HTX.Net.Clients.SpotApi
                 ClientOrderId = order.Data.ClientOrderId,
                 Fee = order.Data.Fee,
                 OrderPrice = order.Data.Price,
-                Quantity = order.Data.Type == OrderType.Market && order.Data.Side == OrderSide.Buy ? null : order.Data.Quantity,
-                QuantityFilled = order.Data.QuantityFilled,
-                QuoteQuantity = order.Data.Type == OrderType.Market && order.Data.Side == OrderSide.Buy ? order.Data.Quantity : null,
-                QuoteQuantityFilled = order.Data.QuoteQuantityFilled,
+                OrderQuantity = new SharedOrderQuantity(order.Data.Type == OrderType.Market && order.Data.Side == OrderSide.Buy ? null : order.Data.Quantity, order.Data.Type == OrderType.Market && order.Data.Side == OrderSide.Buy ? order.Data.Quantity : null),
+                QuantityFilled = new SharedOrderQuantity(order.Data.QuantityFilled, order.Data.QuoteQuantityFilled),
                 TimeInForce = ParseTimeInForce(order.Data.Type)
             });
         }
