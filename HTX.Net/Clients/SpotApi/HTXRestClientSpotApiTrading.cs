@@ -33,9 +33,6 @@ namespace HTX.Net.Clients.SpotApi
             CancellationToken ct = default)
         {
             symbol = symbol.ToLowerInvariant();
-            if (type == Enums.OrderType.StopLimit)
-                throw new ArgumentException("Stop limit orders not supported by API");
-
             var orderType = EnumConverter.GetString(side) + "-" + EnumConverter.GetString(type);
 
             var parameters = new ParameterCollection()

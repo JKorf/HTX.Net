@@ -12669,6 +12669,16 @@
             The time the order was last updated
             </summary>
         </member>
+        <member name="P:HTX.Net.Objects.Models.HTXOrder.StopPrice">
+            <summary>
+            Stop price
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.HTXOrder.Operator">
+            <summary>
+            Stop operator
+            </summary>
+        </member>
         <member name="T:HTX.Net.Objects.Models.HTXOrderBook">
             <summary>
             Order book

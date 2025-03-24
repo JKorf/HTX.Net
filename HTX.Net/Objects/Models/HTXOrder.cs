@@ -119,5 +119,15 @@ namespace HTX.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("updated-at"), JsonConverter(typeof(DateTimeConverter))]
         public DateTime UpdateTime { get; set; }
+        /// <summary>
+        /// Stop price
+        /// </summary>
+        [JsonPropertyName("stop-price")]
+        public decimal? StopPrice { get; set; }
+        /// <summary>
+        /// Stop operator
+        /// </summary>
+        [JsonPropertyName("operator")]
+        public Operator? Operator { get; set; }
     }
 }
