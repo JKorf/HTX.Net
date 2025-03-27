@@ -5,11 +5,6 @@ true
   "status": "ok",
   "data": {
     "errors": [
-      {
-        "order_id": "34",
-        "err_code": 1061,
-        "err_msg": "This order doesnt exist."
-      }
     ],
     "successes": "1"
   },

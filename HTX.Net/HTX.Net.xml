@@ -10491,7 +10491,7 @@
             <param name="daysPast">Amount of days ago. Max 90</param>
             <param name="status">Status</param>
             <param name="page">Page</param>
-            <param name="pageIndex">Page index</param>
+            <param name="pageSize">Page size, max 50</param>
             <param name="sortBy">Sort by; 'created_at' or 'update_time'</param>
             <param name="ct">Cancellation token</param>
         </member>
@@ -10507,7 +10507,7 @@
             <param name="contractType">Contract type</param>
             <param name="status">Status</param>
             <param name="page">Page</param>
-            <param name="pageIndex">Page index</param>
+            <param name="pageSize">Page size</param>
             <param name="sortBy">Sort by; 'created_at' or 'update_time'</param>
             <param name="ct">Cancellation token</param>
         </member>

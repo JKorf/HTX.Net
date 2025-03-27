@@ -801,30 +801,32 @@ namespace HTX.Net.Clients.SpotApi
         #endregion
 
         #region Spot Trigger Order Client
-//        {
-//            RequiredExchangeParameters = new List<ParameterDescription>
-//            {
-//                new ParameterDescription("AccountId", typeof(long), "The id of the account", 123123123L)
-//            }
-//};
+        PlaceSpotTriggerOrderOptions ISpotTriggerOrderRestClient.PlaceSpotTriggerOrderOptions { get; } = new PlaceSpotTriggerOrderOptions(true)
+        {
+            RequiredExchangeParameters = new List<ParameterDescription>
+            {
+                new ParameterDescription("AccountId", typeof(long), "The id of the account", 123123123L)
+            }
+        };
         async Task<ExchangeWebResult<SharedId>> ISpotTriggerOrderRestClient.PlaceSpotTriggerOrderAsync(PlaceSpotTriggerOrderRequest request, CancellationToken ct)
         {
-            //var validationError = ((ISpotTriggerOrderRestClient)this).GetFeeOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
-            //if (validationError != null)
-            //    return new ExchangeWebResult<SharedFee>(Exchange, validationError);
+            var validationError = ((ISpotTriggerOrderRestClient)this).PlaceSpotTriggerOrderOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes, ((ISpotOrderRestClient)this).SpotSupportedOrderQuantity);
+            if (validationError != null)
+                return new ExchangeWebResult<SharedId>(Exchange, validationError);
 
             var accountId = ExchangeParameters.GetValue<long>(request.ExchangeParameters, Exchange, "AccountId");
             var quantity = request.Quantity?.QuantityInBaseAsset ?? 0;
-            if (request.OrderPrice == null && request.OrderDirection == SharedTriggerOrderDirection.Enter)
+            if (request.OrderPrice == null && request.OrderSide == SharedOrderSide.Buy)
                 quantity = request.Quantity?.QuantityInQuoteAsset ?? 0;
 
             var result = await Trading.PlaceOrderAsync(
                 accountId,
                 request.Symbol.GetSymbol(FormatSymbol),
-                request.OrderDirection == SharedTriggerOrderDirection.Enter ? OrderSide.Buy : OrderSide.Sell,
+                request.OrderSide == SharedOrderSide.Buy ? OrderSide.Buy : OrderSide.Sell,
                 request.OrderPrice == null ? OrderType.FillOrKillStopLimit : OrderType.StopLimit,
                 quantity,
                 request.OrderPrice,
+                clientOrderId: request.ClientOrderId,
                 stopPrice: request.TriggerPrice,
                 stopOperator: request.PriceDirection == SharedTriggerPriceDirection.PriceAbove ? Operator.GreaterThanOrEqual : Operator.LesserThanOrEqual,
                 ct: ct).ConfigureAwait(false);
@@ -858,16 +860,29 @@ namespace HTX.Net.Clients.SpotApi
                 order.Data.Id.ToString(),
                 order.Data.Type == OrderType.StopLimit ? SharedOrderType.Limit : SharedOrderType.Market,
                 order.Data.Side == OrderSide.Buy ? SharedTriggerOrderDirection.Enter: SharedTriggerOrderDirection.Exit,
-                ParseOrderStatus(order.Data.Status),
+                ParseTriggerOrderStatus(order.Data.Status),
                 order.Data.StopPrice ?? 0,
                 order.Data.CreateTime)
             {
+                PlacedOrderId = order.Data.Id.ToString(),
                 Fee = order.Data.Fee,
                 OrderPrice = order.Data.Price,
                 OrderQuantity = new SharedOrderQuantity(order.Data.Type == OrderType.Market && order.Data.Side == OrderSide.Buy ? null : order.Data.Quantity, order.Data.Type == OrderType.Market && order.Data.Side == OrderSide.Buy ? order.Data.Quantity : null),
                 QuantityFilled = new SharedOrderQuantity(order.Data.QuantityFilled, order.Data.QuoteQuantityFilled),
-                TimeInForce = ParseTimeInForce(order.Data.Type)
+                TimeInForce = ParseTimeInForce(order.Data.Type),
+                ClientOrderId = order.Data.ClientOrderId
             });
+        }
+
+        private SharedTriggerOrderStatus ParseTriggerOrderStatus(OrderStatus status)
+        {
+            if (status == OrderStatus.Filled)
+                return SharedTriggerOrderStatus.Filled;
+
+            if (status == OrderStatus.Canceled || status == OrderStatus.Rejected || status == OrderStatus.PartiallyCanceled)
+                return SharedTriggerOrderStatus.CanceledOrRejected;
+
+            return SharedTriggerOrderStatus.Active;
         }
 
         EndpointOptions<CancelOrderRequest> ISpotTriggerOrderRestClient.CancelSpotTriggerOrderOptions { get; } = new EndpointOptions<CancelOrderRequest>(true);

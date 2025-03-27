@@ -427,10 +427,10 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// <param name="daysPast">Amount of days ago. Max 90</param>
         /// <param name="status">Status</param>
         /// <param name="page">Page</param>
-        /// <param name="pageIndex">Page index</param>
+        /// <param name="pageSize">Page size, max 50</param>
         /// <param name="sortBy">Sort by; 'created_at' or 'update_time'</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<HTXClosedTriggerOrderPage>> GetIsolatedMarginTriggerOrderHistoryAsync(string contractCode, MarginTradeType tradeType, int daysPast, OrderStatusFilter status, int? page = null, int? pageIndex = null, string? sortBy = null, CancellationToken ct = default);
+        Task<WebCallResult<HTXClosedTriggerOrderPage>> GetIsolatedMarginTriggerOrderHistoryAsync(string contractCode, MarginTradeType tradeType, int daysPast, OrderStatusFilter status, int? page = null, int? pageSize = null, string? sortBy = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get cross margin trigger order history
@@ -443,10 +443,10 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// <param name="contractType">Contract type</param>
         /// <param name="status">Status</param>
         /// <param name="page">Page</param>
-        /// <param name="pageIndex">Page index</param>
+        /// <param name="pageSize">Page size</param>
         /// <param name="sortBy">Sort by; 'created_at' or 'update_time'</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<HTXClosedCrossTriggerOrderPage>> GetCrossMarginTriggerOrderHistoryAsync(MarginTradeType tradeType, int daysPast, OrderStatusFilter status, string? contractCode = null, string? pair = null, ContractType? contractType = null, int? page = null, int? pageIndex = null, string? sortBy = null, CancellationToken ct = default);
+        Task<WebCallResult<HTXClosedCrossTriggerOrderPage>> GetCrossMarginTriggerOrderHistoryAsync(MarginTradeType tradeType, int daysPast, OrderStatusFilter status, string? contractCode = null, string? pair = null, ContractType? contractType = null, int? page = null, int? pageSize = null, string? sortBy = null, CancellationToken ct = default);
 
         /// <summary>
         /// Set isolated margin order take profit / stop loss for an existing position

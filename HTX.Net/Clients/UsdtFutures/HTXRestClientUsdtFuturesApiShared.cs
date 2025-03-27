@@ -2,6 +2,7 @@ using HTX.Net.Interfaces.Clients.SpotApi;
 using CryptoExchange.Net.SharedApis;
 using HTX.Net.Enums;
 using HTX.Net.Objects.Models.UsdtMarginSwap;
+using System.Drawing;
 
 namespace HTX.Net.Clients.UsdtFutures
 {
@@ -1251,6 +1252,331 @@ namespace HTX.Net.Clients.UsdtFutures
 
             // Return
             return result.AsExchangeResult(Exchange, TradingMode.Spot, new SharedFee(fees.OpenMakerFee * 100, fees.OpenTakerFee * 100));
+        }
+        #endregion
+
+        #region Futures Trigger Order Client
+        PlaceFuturesTriggerOrderOptions IFuturesTriggerOrderRestClient.PlaceFuturesTriggerOrderOptions { get; } = new PlaceFuturesTriggerOrderOptions(false)
+        {
+            OptionalExchangeParameters = new List<ParameterDescription>
+            {
+                new ParameterDescription(nameof(PlaceFuturesTriggerOrderRequest.MarginMode), typeof(SharedMarginMode), "The margin mode", SharedMarginMode.Cross)
+            },
+            RequiredOptionalParameters = new List<ParameterDescription>
+            {
+                new ParameterDescription(nameof(PlaceFuturesTriggerOrderRequest.Leverage), typeof(int), "The leverage to use", 3),
+                new ParameterDescription(nameof(PlaceFuturesTriggerOrderRequest.PositionMode), typeof(SharedPositionMode), "Position mode the account is in", SharedPositionMode.OneWay)
+            }
+        };
+        async Task<ExchangeWebResult<SharedId>> IFuturesTriggerOrderRestClient.PlaceFuturesTriggerOrderAsync(PlaceFuturesTriggerOrderRequest request, CancellationToken ct)
+        {
+            var side = GetOrderSide(request);
+            var validationError = ((IFuturesTriggerOrderRestClient)this).PlaceFuturesTriggerOrderOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes, side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell, ((IFuturesOrderRestClient)this).FuturesSupportedOrderQuantity);
+            if (validationError != null)
+                return new ExchangeWebResult<SharedId>(Exchange, validationError);
+
+            var marginMode = request.MarginMode ?? ExchangeParameters.GetValue<SharedMarginMode>(request.ExchangeParameters, Exchange, "MarginMode");
+            if (marginMode == SharedMarginMode.Cross)
+            {
+                var result = await Trading.PlaceCrossMarginTriggerOrderAsync(
+                    request.PriceDirection == SharedTriggerPriceDirection.PriceAbove ? TriggerType.GreaterThanOrEqual : TriggerType.LesserThanOrEqual,
+                    request.TriggerPrice,
+                    request.Quantity.QuantityInContracts ?? 0,
+                    side,
+                    request.Symbol.GetSymbol(FormatSymbol),
+                    offset: GetOffset(request),
+                    reduceOnly: request.OrderDirection == SharedTriggerOrderDirection.Exit ? true: null,
+                    orderPrice: request.OrderPrice,
+                    orderPriceType: request.OrderPrice == null ? OrderPriceType.Market : OrderPriceType.Limit,
+                    leverageRate: (int)request.Leverage!.Value,
+                    ct: ct).ConfigureAwait(false);
+                if (!result)
+                    return result.AsExchangeResult<SharedId>(Exchange, null, default);
+
+                // Return
+                return result.AsExchangeResult(Exchange, request.Symbol.TradingMode, new SharedId(result.Data.OrderId.ToString()));
+            }
+            else
+            {
+                var result = await Trading.PlaceIsolatedMarginTriggerOrderAsync(
+                    request.Symbol.GetSymbol(FormatSymbol),
+                    request.PriceDirection == SharedTriggerPriceDirection.PriceAbove ? TriggerType.GreaterThanOrEqual : TriggerType.LesserThanOrEqual,
+                    request.TriggerPrice,
+                    request.Quantity.QuantityInContracts ?? 0,
+                    side,
+                    offset: GetOffset(request),
+                    reduceOnly: request.OrderDirection == SharedTriggerOrderDirection.Exit ? true : null,
+                    orderPrice: request.OrderPrice,
+                    orderPriceType: request.OrderPrice == null ? OrderPriceType.Market : OrderPriceType.Limit,
+                    leverageRate: (int)request.Leverage!.Value,
+                    ct: ct).ConfigureAwait(false);
+                if (!result)
+                    return result.AsExchangeResult<SharedId>(Exchange, null, default);
+
+                // Return
+                return result.AsExchangeResult(Exchange, request.Symbol.TradingMode, new SharedId(result.Data.OrderId.ToString()));
+            }
+        }
+
+        EndpointOptions<GetOrderRequest> IFuturesTriggerOrderRestClient.GetFuturesTriggerOrderOptions { get; } = new EndpointOptions<GetOrderRequest>(true)
+        {
+            OptionalExchangeParameters = new List<ParameterDescription>
+            {
+                new ParameterDescription("MarginMode", typeof(SharedMarginMode), "The margin mode", SharedMarginMode.Cross)
+            }
+        };
+        async Task<ExchangeWebResult<SharedFuturesTriggerOrder>> IFuturesTriggerOrderRestClient.GetFuturesTriggerOrderAsync(GetOrderRequest request, CancellationToken ct)
+        {
+            var validationError = ((IFuturesTriggerOrderRestClient)this).GetFuturesTriggerOrderOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
+            if (validationError != null)
+                return new ExchangeWebResult<SharedFuturesTriggerOrder>(Exchange, validationError);
+
+            var marginMode = ExchangeParameters.GetValue<SharedMarginMode>(request.ExchangeParameters, Exchange, "MarginMode");
+            if (marginMode == SharedMarginMode.Cross)
+            {
+                var orders = await Trading.GetCrossMarginOpenTriggerOrdersAsync(
+                    request.Symbol.GetSymbol(FormatSymbol),
+                    page: 1,
+                    pageSize: 50,
+                    ct: ct).ConfigureAwait(false);
+                if (!orders)
+                    return orders.AsExchangeResult<SharedFuturesTriggerOrder>(Exchange, null, default);
+
+                var triggerOrder = orders.Data.Orders.SingleOrDefault(x => x.OrderIdStr == request.OrderId);
+                if (triggerOrder != null)
+                {
+                    return orders.AsExchangeResult(Exchange, request.Symbol.TradingMode, new SharedFuturesTriggerOrder(
+                        ExchangeSymbolCache.ParseSymbol(_topicId, triggerOrder.Symbol),
+                        triggerOrder.Symbol,
+                        triggerOrder.OrderId.ToString(),
+                        triggerOrder.OrderPrice > 0 ? SharedOrderType.Limit : SharedOrderType.Market,
+                        triggerOrder.Offset == Offset.Open ? SharedTriggerOrderDirection.Enter : triggerOrder.Offset == Offset.Close? SharedTriggerOrderDirection.Exit: null,
+                        SharedTriggerOrderStatus.Active,
+                        triggerPrice: triggerOrder.TriggerPrice,
+                        null,
+                        triggerOrder.CreateTime)
+                    {
+                        OrderPrice = triggerOrder.OrderPrice,
+                        OrderQuantity = new SharedOrderQuantity(contractQuantity: triggerOrder.Quantity),
+                        QuantityFilled = new SharedOrderQuantity(contractQuantity: 0)
+                    });
+                }
+
+                var orderHist = await Trading.GetCrossMarginTriggerOrderHistoryAsync(                    
+                    MarginTradeType.All,
+                    90,
+                    OrderStatusFilter.All,
+                    contractCode: request.Symbol.GetSymbol(FormatSymbol),
+                    page: 1,
+                    pageSize: 50,
+                    ct: ct).ConfigureAwait(false);
+                if (!orderHist)
+                    return orderHist.AsExchangeResult<SharedFuturesTriggerOrder>(Exchange, null, default);
+
+                var closedOrder = orderHist.Data.Orders.SingleOrDefault(x => x.OrderIdStr == request.OrderId);
+                if (closedOrder == null)
+                    return orders.AsExchangeError<SharedFuturesTriggerOrder>(Exchange, new ServerError("Not found"));
+
+                if (string.IsNullOrEmpty(closedOrder.RelationOrderId) && closedOrder.RelationOrderId != "-1")
+                {
+                    return orders.AsExchangeResult(Exchange, request.Symbol.TradingMode, new SharedFuturesTriggerOrder(
+                        ExchangeSymbolCache.ParseSymbol(_topicId, closedOrder.Symbol),
+                        closedOrder.Symbol,
+                        closedOrder.OrderId.ToString(),
+                        closedOrder.OrderPrice > 0 ? SharedOrderType.Limit : SharedOrderType.Market,
+                        closedOrder.Offset == Offset.Open ? SharedTriggerOrderDirection.Enter : closedOrder.Offset == Offset.Close ? SharedTriggerOrderDirection.Exit : null,
+                        SharedTriggerOrderStatus.CanceledOrRejected,
+                        triggerPrice: closedOrder.TriggerPrice,
+                        null,
+                        closedOrder.CreateTime)
+                    {
+                        OrderPrice = closedOrder.OrderPrice,
+                        OrderQuantity = new SharedOrderQuantity(contractQuantity: closedOrder.Quantity),
+                        QuantityFilled = new SharedOrderQuantity(contractQuantity: 0)
+                    });
+                }
+
+                var placedOrderResult = await Trading.GetCrossMarginOrderAsync(contractCode: request.Symbol.GetSymbol(FormatSymbol), orderId: long.Parse(closedOrder.RelationOrderId!), ct: ct).ConfigureAwait(false);
+                if (!placedOrderResult)
+                    return placedOrderResult.AsExchangeResult<SharedFuturesTriggerOrder>(Exchange, null, default);
+
+                var placedOrder = placedOrderResult.Data.Single();
+                return orders.AsExchangeResult(Exchange, request.Symbol.TradingMode, new SharedFuturesTriggerOrder(
+                        ExchangeSymbolCache.ParseSymbol(_topicId, closedOrder.Symbol),
+                        closedOrder.Symbol,
+                        closedOrder.OrderId.ToString(),
+                        closedOrder.OrderPrice > 0 ? SharedOrderType.Limit : SharedOrderType.Market,
+                        closedOrder.Offset == Offset.Open ? SharedTriggerOrderDirection.Enter : closedOrder.Offset == Offset.Close ? SharedTriggerOrderDirection.Exit : null,
+                        ParseTriggerOrderStatus(placedOrder.Status),
+                        triggerPrice: closedOrder.TriggerPrice,
+                        null,
+                        closedOrder.CreateTime)
+                {
+                    PlacedOrderId = closedOrder.RelationOrderId,
+                    OrderPrice = closedOrder.OrderPrice,
+                    OrderQuantity = new SharedOrderQuantity(contractQuantity: closedOrder.Quantity),
+                    QuantityFilled = new SharedOrderQuantity(contractQuantity: placedOrder.QuantityFilled),
+                    Fee = placedOrder.Fee,
+                    FeeAsset = placedOrder.FeeAsset,
+                    AveragePrice = placedOrder.AverageFillPrice,
+                    UpdateTime = placedOrder.UpdateTime
+                });
+            }
+            else
+            {
+                var orders = await Trading.GetIsolatedMarginOpenTriggerOrdersAsync(
+                    request.Symbol.GetSymbol(FormatSymbol),
+                    page: 1,
+                    pageSize: 50,
+                    ct: ct).ConfigureAwait(false);
+                if (!orders)
+                    return orders.AsExchangeResult<SharedFuturesTriggerOrder>(Exchange, null, default);
+
+                var triggerOrder = orders.Data.Orders.SingleOrDefault(x => x.OrderIdStr == request.OrderId);
+                if (triggerOrder != null)
+                {
+                    return orders.AsExchangeResult(Exchange, request.Symbol.TradingMode, new SharedFuturesTriggerOrder(
+                        ExchangeSymbolCache.ParseSymbol(_topicId, triggerOrder.Symbol),
+                        triggerOrder.Symbol,
+                        triggerOrder.OrderId.ToString(),
+                        triggerOrder.OrderPrice > 0 ? SharedOrderType.Limit : SharedOrderType.Market,
+                        triggerOrder.Offset == Offset.Open ? SharedTriggerOrderDirection.Enter : triggerOrder.Offset == Offset.Close ? SharedTriggerOrderDirection.Exit : null,
+                        SharedTriggerOrderStatus.Active,
+                        triggerPrice: triggerOrder.TriggerPrice,
+                        null,
+                        triggerOrder.CreateTime)
+                    {
+                        OrderPrice = triggerOrder.OrderPrice,
+                        OrderQuantity = new SharedOrderQuantity(contractQuantity: triggerOrder.Quantity),
+                        QuantityFilled = new SharedOrderQuantity(contractQuantity: 0)
+                    });
+                }
+
+                var orderHist = await Trading.GetIsolatedMarginTriggerOrderHistoryAsync(
+                    contractCode: request.Symbol.GetSymbol(FormatSymbol),
+                    MarginTradeType.All,
+                    90,
+                    OrderStatusFilter.All,
+                    page: 1,
+                    pageSize: 50,
+                    ct: ct).ConfigureAwait(false);
+                if (!orderHist)
+                    return orderHist.AsExchangeResult<SharedFuturesTriggerOrder>(Exchange, null, default);
+
+                var closedOrder = orderHist.Data.Orders.SingleOrDefault(x => x.OrderIdStr == request.OrderId);
+                if (closedOrder == null)
+                    return orders.AsExchangeError<SharedFuturesTriggerOrder>(Exchange, new ServerError("Not found"));
+
+                if (string.IsNullOrEmpty(closedOrder.RelationOrderId) && closedOrder.RelationOrderId != "-1")
+                {
+                    return orders.AsExchangeResult(Exchange, request.Symbol.TradingMode, new SharedFuturesTriggerOrder(
+                        ExchangeSymbolCache.ParseSymbol(_topicId, closedOrder.Symbol),
+                        closedOrder.Symbol,
+                        closedOrder.OrderId.ToString(),
+                        closedOrder.OrderPrice > 0 ? SharedOrderType.Limit : SharedOrderType.Market,
+                        closedOrder.Offset == Offset.Open ? SharedTriggerOrderDirection.Enter : closedOrder.Offset == Offset.Close ? SharedTriggerOrderDirection.Exit : null,
+                        SharedTriggerOrderStatus.CanceledOrRejected,
+                        triggerPrice: closedOrder.TriggerPrice,
+                        null,
+                        closedOrder.CreateTime)
+                    {
+                        OrderPrice = closedOrder.OrderPrice,
+                        OrderQuantity = new SharedOrderQuantity(contractQuantity: closedOrder.Quantity),
+                        QuantityFilled = new SharedOrderQuantity(contractQuantity: 0)
+                    });
+                }
+
+                var placedOrderResult = await Trading.GetIsolatedMarginOrderAsync(contractCode: request.Symbol.GetSymbol(FormatSymbol), orderId: long.Parse(closedOrder.RelationOrderId!), ct: ct).ConfigureAwait(false);
+                if (!placedOrderResult)
+                    return placedOrderResult.AsExchangeResult<SharedFuturesTriggerOrder>(Exchange, null, default);
+
+                var placedOrder = placedOrderResult.Data.Single();
+                return orders.AsExchangeResult(Exchange, request.Symbol.TradingMode, new SharedFuturesTriggerOrder(
+                        ExchangeSymbolCache.ParseSymbol(_topicId, closedOrder.Symbol),
+                        closedOrder.Symbol,
+                        closedOrder.OrderId.ToString(),
+                        closedOrder.OrderPrice > 0 ? SharedOrderType.Limit : SharedOrderType.Market,
+                        closedOrder.Offset == Offset.Open ? SharedTriggerOrderDirection.Enter : closedOrder.Offset == Offset.Close ? SharedTriggerOrderDirection.Exit : null,
+                        ParseTriggerOrderStatus(placedOrder.Status),
+                        triggerPrice: closedOrder.TriggerPrice,
+                        null,
+                        closedOrder.CreateTime)
+                {
+                    PlacedOrderId = closedOrder.RelationOrderId,
+                    OrderPrice = closedOrder.OrderPrice,
+                    OrderQuantity = new SharedOrderQuantity(contractQuantity: closedOrder.Quantity),
+                    QuantityFilled = new SharedOrderQuantity(contractQuantity: placedOrder.QuantityFilled),
+                    Fee = placedOrder.Fee,
+                    FeeAsset = placedOrder.FeeAsset,
+                    AveragePrice = placedOrder.AverageFillPrice,
+                    UpdateTime = placedOrder.UpdateTime
+                });
+            }
+        }
+
+        private SharedTriggerOrderStatus ParseTriggerOrderStatus(SwapMarginOrderStatus status)
+        {
+            if (status == SwapMarginOrderStatus.Filled)
+                return SharedTriggerOrderStatus.Filled;
+
+            if (status == SwapMarginOrderStatus.Cancelled || status == SwapMarginOrderStatus.PartiallyCancelled)
+                return SharedTriggerOrderStatus.CanceledOrRejected;
+
+            return SharedTriggerOrderStatus.Active;
+        }
+
+        EndpointOptions<CancelOrderRequest> IFuturesTriggerOrderRestClient.CancelFuturesTriggerOrderOptions { get; } = new EndpointOptions<CancelOrderRequest>(true)
+        {
+            OptionalExchangeParameters = new List<ParameterDescription>
+            {
+                new ParameterDescription("MarginMode", typeof(SharedMarginMode), "The margin mode", SharedMarginMode.Cross)
+            }
+        };
+        async Task<ExchangeWebResult<SharedId>> IFuturesTriggerOrderRestClient.CancelFuturesTriggerOrderAsync(CancelOrderRequest request, CancellationToken ct)
+        {
+            var validationError = ((IFuturesTriggerOrderRestClient)this).CancelFuturesTriggerOrderOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
+            if (validationError != null)
+                return new ExchangeWebResult<SharedId>(Exchange, validationError);
+
+            var marginMode = ExchangeParameters.GetValue<SharedMarginMode>(request.ExchangeParameters, Exchange, "MarginMode");
+            if (marginMode == SharedMarginMode.Cross)
+            {
+                var order = await Trading.CancelCrossMarginTriggerOrderAsync(
+                request.OrderId,
+                contractCode: request.Symbol.GetSymbol(FormatSymbol),
+                ct: ct).ConfigureAwait(false);
+                if (!order)
+                    return order.AsExchangeResult<SharedId>(Exchange, null, default);
+
+                return order.AsExchangeResult(Exchange, request.Symbol.TradingMode, new SharedId(request.OrderId));
+            }
+            else
+            {
+                var order = await Trading.CancelIsolatedMarginTriggerOrderAsync(
+                request.Symbol.GetSymbol(FormatSymbol),
+                request.OrderId,
+                ct: ct).ConfigureAwait(false);
+                if (!order)
+                    return order.AsExchangeResult<SharedId>(Exchange, null, default);
+
+                return order.AsExchangeResult(Exchange, request.Symbol.TradingMode, new SharedId(request.OrderId));
+            }
+        }
+
+        private Offset? GetOffset(PlaceFuturesTriggerOrderRequest request)
+        {
+            if (request.PositionMode == SharedPositionMode.OneWay)
+                return null;
+
+            return request.OrderDirection == SharedTriggerOrderDirection.Enter ? Offset.Open : Offset.Close;
+        }
+
+        private OrderSide GetOrderSide(PlaceFuturesTriggerOrderRequest request)
+        {
+            if (request.PositionSide == SharedPositionSide.Long)
+                return request.OrderDirection == SharedTriggerOrderDirection.Enter ? OrderSide.Buy : OrderSide.Sell;
+
+            return request.OrderDirection == SharedTriggerOrderDirection.Enter ? OrderSide.Sell : OrderSide.Buy;
         }
         #endregion
     }

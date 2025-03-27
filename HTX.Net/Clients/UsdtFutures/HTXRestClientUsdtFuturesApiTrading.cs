@@ -563,7 +563,7 @@ namespace HTX.Net.Clients.UsdtFutures
             parameters.Add("volume", quantity);
             parameters.AddEnum("direction", side);
             parameters.AddOptionalEnum("offset", offset);
-            parameters.AddOptional("reduce_only", reduceOnly);
+            parameters.AddOptional("reduce_only", reduceOnly == null ? null : reduceOnly == true ? 1 : 0);
             parameters.AddOptional("order_price", orderPrice);
             parameters.AddOptionalEnum("order_price_type", orderPriceType);
             parameters.AddOptional("lever_rate", leverageRate);
@@ -591,7 +591,7 @@ namespace HTX.Net.Clients.UsdtFutures
             parameters.AddOptionalEnum("contract_type", contractType);
             parameters.AddOptionalEnum("offset", offset);
             parameters.AddOptional("pair", pair);
-            parameters.AddOptional("reduce_only", reduceOnly);
+            parameters.AddOptional("reduce_only", reduceOnly == null ? null : reduceOnly == true ? 1 : 0);
             parameters.AddOptional("order_price", orderPrice);
             parameters.AddOptionalEnum("order_price_type", orderPriceType);
             parameters.AddOptional("lever_rate", leverageRate);
@@ -612,6 +612,15 @@ namespace HTX.Net.Clients.UsdtFutures
             parameters.Add("order_id", orderId);
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/linear-swap-api/v1/swap_trigger_cancel", HTXExchange.RateLimiter.UsdtTrade, 1, true);
             var result = await _baseClient.SendBasicAsync<HTXTriggerOrderResult>(request, parameters, ct).ConfigureAwait(false);
+            if (!result)
+                return result;
+
+            if (result.Data.Errors.Any())
+            {
+                var error = result.Data.Errors.First();
+                return result.AsError<HTXTriggerOrderResult>(new ServerError(error.ErrorCode, error.ErrorMessage));
+            }
+
             return result;
         }
 
@@ -629,6 +638,15 @@ namespace HTX.Net.Clients.UsdtFutures
             parameters.AddOptionalEnum("contract_type", contractType);
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/linear-swap-api/v1/swap_cross_trigger_cancel", HTXExchange.RateLimiter.UsdtTrade, 1, true);
             var result = await _baseClient.SendBasicAsync<HTXTriggerOrderResult>(request, parameters, ct).ConfigureAwait(false);
+            if (!result)
+                return result;
+
+            if (result.Data.Errors.Any()) 
+            {
+                var error = result.Data.Errors.First();
+                return result.AsError<HTXTriggerOrderResult>(new ServerError(error.ErrorCode, error.ErrorMessage));
+            }
+
             return result;
         }
 
@@ -706,7 +724,7 @@ namespace HTX.Net.Clients.UsdtFutures
         #region Get Isolated Margin Trigger Order History
 
         /// <inheritdoc />
-        public async Task<WebCallResult<HTXClosedTriggerOrderPage>> GetIsolatedMarginTriggerOrderHistoryAsync(string contractCode, MarginTradeType tradeType, int daysPast, OrderStatusFilter status, int? page = null, int? pageIndex = null, string? sortBy = null, CancellationToken ct = default)
+        public async Task<WebCallResult<HTXClosedTriggerOrderPage>> GetIsolatedMarginTriggerOrderHistoryAsync(string contractCode, MarginTradeType tradeType, int daysPast, OrderStatusFilter status, int? page = null, int? pageSize = null, string? sortBy = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.Add("contract_code", contractCode);
@@ -714,7 +732,7 @@ namespace HTX.Net.Clients.UsdtFutures
             parameters.Add("create_date", daysPast);
             parameters.AddEnum("status", status);
             parameters.AddOptional("page_index", page);
-            parameters.AddOptional("page_size", pageIndex);
+            parameters.AddOptional("page_size", pageSize);
             parameters.AddOptional("sort_by", sortBy);
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/linear-swap-api/v1/swap_trigger_hisorders", HTXExchange.RateLimiter.UsdtRead, 1, true);
             var result = await _baseClient.SendBasicAsync<HTXClosedTriggerOrderPage>(request, parameters, ct).ConfigureAwait(false);
