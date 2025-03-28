@@ -154,6 +154,11 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 6.9.1 - 28 Mar 2025
+    * Added QuoteQuantity to socketClient.SpotApi.SubscribeToOrderUpdatesAsync canceled order update
+    * Fixed restClient.SpotApi.Trading.CancelAllOrdersAsync endpoint
+    * Fixed shared client balance subscription updates
+
 * Version 6.9.0 - 11 Feb 2025
     * Updated CryptoExchange.Net to version 8.8.0, see https://github.com/JKorf/CryptoExchange.Net/releases/
     * Added support for more SharedKlineInterval values
