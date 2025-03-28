@@ -10697,6 +10697,11 @@
             Quantity of the order
             </summary>
         </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXCanceledOrderUpdate.QuoteQuantity">
+            <summary>
+            Value of the order
+            </summary>
+        </member>
         <member name="P:HTX.Net.Objects.Models.Socket.HTXCanceledOrderUpdate.OrderSource">
             <summary>
             Order source

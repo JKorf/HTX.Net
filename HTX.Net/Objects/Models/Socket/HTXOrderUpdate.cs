@@ -238,6 +238,11 @@ namespace HTX.Net.Objects.Models.Socket
         [JsonPropertyName("orderSize")]
         public decimal? Quantity { get; set; }
         /// <summary>
+        /// Value of the order
+        /// </summary>
+        [JsonPropertyName("orderValue")]
+        public decimal? QuoteQuantity { get; set; }
+        /// <summary>
         /// Order source
         /// </summary>
         [JsonPropertyName("orderSource")]
