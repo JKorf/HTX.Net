@@ -168,7 +168,7 @@ namespace HTX.Net.Clients.UsdtFutures
 
         string IFuturesOrderRestClient.GenerateClientOrderId() => ExchangeHelpers.RandomLong(10).ToString();
 
-        PlaceFuturesOrderOptions IFuturesOrderRestClient.PlaceFuturesOrderOptions { get; } = new PlaceFuturesOrderOptions()
+        PlaceFuturesOrderOptions IFuturesOrderRestClient.PlaceFuturesOrderOptions { get; } = new PlaceFuturesOrderOptions(true)
         {
             RequestNotes = "ClientOrderId can only be an integer",
             OptionalExchangeParameters = new List<ParameterDescription>
@@ -207,6 +207,10 @@ namespace HTX.Net.Clients.UsdtFutures
                     offset: GetOffset(request.Side, request.PositionSide),
                     reduceOnly: request.ReduceOnly,
                     clientOrderId: request.ClientOrderId == null ? null : long.Parse(request.ClientOrderId),
+                    takeProfitTriggerPrice: request.TakeProfitPrice,
+                    takeProfitOrderPriceType: request.TakeProfitPrice == null ? null : OrderPriceType.Market,
+                    stopLossTriggerPrice: request.StopLossPrice,
+                    stopLossOrderPriceType: request.StopLossPrice == null ? null : OrderPriceType.Market,
                     ct: ct).ConfigureAwait(false);
 
                 if (!result)
@@ -226,6 +230,10 @@ namespace HTX.Net.Clients.UsdtFutures
                     offset: GetOffset(request.Side, request.PositionSide),
                     reduceOnly: request.ReduceOnly,
                     clientOrderId: request.ClientOrderId == null ? null :long.Parse(request.ClientOrderId),
+                    takeProfitTriggerPrice: request.TakeProfitPrice,
+                    takeProfitOrderPriceType: request.TakeProfitPrice == null ? null : OrderPriceType.Market,
+                    stopLossTriggerPrice: request.StopLossPrice,
+                    stopLossOrderPriceType: request.StopLossPrice == null ? null : OrderPriceType.Market,
                     ct: ct).ConfigureAwait(false);
 
                 if (!result)
@@ -254,7 +262,7 @@ namespace HTX.Net.Clients.UsdtFutures
             var marginMode = ExchangeParameters.GetValue<SharedMarginMode>(request.ExchangeParameters, Exchange, "MarginMode");
             if (marginMode == SharedMarginMode.Cross)
             {
-                var orders = await Trading.GetCrossMarginOrderAsync(request.Symbol.GetSymbol(FormatSymbol), orderId: orderId).ConfigureAwait(false);
+                var orders = await Trading.GetCrossMarginOrderAsync(request.Symbol.GetSymbol(FormatSymbol), orderId: orderId, ct: ct).ConfigureAwait(false);
                 if (!orders)
                     return orders.AsExchangeResult<SharedFuturesOrder>(Exchange, null, default);
 
@@ -1578,6 +1586,91 @@ namespace HTX.Net.Clients.UsdtFutures
 
             return request.OrderDirection == SharedTriggerOrderDirection.Enter ? OrderSide.Sell : OrderSide.Buy;
         }
+        #endregion
+
+        #region Tp/SL Client
+        EndpointOptions<SetTpSlRequest> IFuturesTpSlRestClient.SetTpSlOptions { get; } = new EndpointOptions<SetTpSlRequest>(true)
+        {
+            RequiredOptionalParameters = new List<ParameterDescription>
+            {
+                new ParameterDescription(nameof(SetTpSlRequest.PositionMode), typeof(SharedPositionMode), "Position mode the account is in", SharedPositionMode.OneWay),
+                new ParameterDescription(nameof(SetTpSlRequest.MarginMode), typeof(SharedMarginMode), "The margin mode", SharedMarginMode.Cross),
+                new ParameterDescription(nameof(SetTpSlRequest.Quantity), typeof(decimal), "The quantity to close", 0.123m)
+            }
+        };
+
+        async Task<ExchangeWebResult<SharedId>> IFuturesTpSlRestClient.SetTpSlAsync(SetTpSlRequest request, CancellationToken ct)
+        {
+            var validationError = ((IFuturesTpSlRestClient)this).SetTpSlOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
+            if (validationError != null)
+                return new ExchangeWebResult<SharedId>(Exchange, validationError);
+
+            WebCallResult<HTXTpSlResult> result;
+            if (request.MarginMode == SharedMarginMode.Cross)
+            {
+                result = await Trading.SetCrossMarginTpSlAsync(
+                    request.PositionSide == SharedPositionSide.Long ? OrderSide.Buy: OrderSide.Sell,
+                    ExchangeParameters.GetValue<decimal>(request.ExchangeParameters, Exchange, "Quantity"),
+                    request.Symbol.GetSymbol(FormatSymbol),
+                    takeProfitTriggerPrice: request.TpSlSide == SharedTpSlSide.TakeProfit ? request.TriggerPrice: null,
+                    stopLossTriggerPrice: request.TpSlSide == SharedTpSlSide.StopLoss ? request.TriggerPrice : null,
+                    ct: ct).ConfigureAwait(false);
+            }
+            else
+            {
+                result = await Trading.SetIsolatedMarginTpSlAsync(
+                    request.Symbol.GetSymbol(FormatSymbol),
+                    request.PositionSide == SharedPositionSide.Long ? OrderSide.Buy : OrderSide.Sell,
+                    ExchangeParameters.GetValue<decimal>(request.ExchangeParameters, Exchange, "Quantity"),
+                    takeProfitTriggerPrice: request.TpSlSide == SharedTpSlSide.TakeProfit ? request.TriggerPrice : null,
+                    stopLossTriggerPrice: request.TpSlSide == SharedTpSlSide.StopLoss ? request.TriggerPrice : null,
+                    ct: ct).ConfigureAwait(false);
+            }
+
+            if (!result)
+                return result.AsExchangeResult<SharedId>(Exchange, null, default);
+
+            // Return
+            return result.AsExchangeResult(Exchange, TradingMode.Spot, new SharedId(result.Data.TpOrder?.OrderIdStr ?? result.Data.SlOrder!.OrderIdStr));
+        }
+
+        EndpointOptions<CancelTpSlRequest> IFuturesTpSlRestClient.CancelTpSlOptions { get; } = new EndpointOptions<CancelTpSlRequest>(true)
+        {
+            RequiredOptionalParameters = new List<ParameterDescription>
+            {
+                new ParameterDescription(nameof(CancelTpSlRequest.OrderId), typeof(string), "Id of the tp/sl order", "123123"),
+                new ParameterDescription(nameof(SetTpSlRequest.MarginMode), typeof(SharedMarginMode), "The margin mode", SharedMarginMode.Cross)
+            }
+        };
+
+        async Task<ExchangeWebResult<bool>> IFuturesTpSlRestClient.CancelTpSlAsync(CancelTpSlRequest request, CancellationToken ct)
+        {
+            var validationError = ((IFuturesTpSlRestClient)this).CancelTpSlOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
+            if (validationError != null)
+                return new ExchangeWebResult<bool>(Exchange, validationError);
+
+            WebCallResult<HTXTriggerOrderResult> result;
+            if (request.MarginMode == SharedMarginMode.Cross)
+            {
+                result = await Trading.CancelCrossMarginTpSlAsync(
+                    request.OrderId!,
+                    request.Symbol.GetSymbol(FormatSymbol),
+                    ct: ct).ConfigureAwait(false);
+            }
+            else
+            {
+                result = await Trading.CancelIsolatedMarginTpSlAsync(
+                    request.Symbol.GetSymbol(FormatSymbol),
+                    request.OrderId!,
+                    ct: ct).ConfigureAwait(false);
+            }
+            if (!result)
+                return result.AsExchangeResult<bool>(Exchange, null, default);
+
+            // Return
+            return result.AsExchangeResult(Exchange, request.Symbol.TradingMode, true);
+        }
+
         #endregion
     }
 }

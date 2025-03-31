@@ -2,7 +2,6 @@ using HTX.Net.Interfaces.Clients.SpotApi;
 ﻿using CryptoExchange.Net.Objects.Sockets;
 using CryptoExchange.Net.SharedApis;
 using HTX.Net.Enums;
-using HTX.Net.Interfaces.Clients.SpotApi;
 using HTX.Net.Objects.Models.Socket;
 
 namespace HTX.Net.Clients.SpotApi
