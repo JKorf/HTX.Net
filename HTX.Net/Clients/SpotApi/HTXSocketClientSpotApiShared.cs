@@ -1,8 +1,9 @@
 using HTX.Net.Interfaces.Clients.SpotApi;
+﻿using CryptoExchange.Net.Objects.Sockets;
 using CryptoExchange.Net.SharedApis;
-using CryptoExchange.Net.Objects.Sockets;
-using HTX.Net.Objects.Models.Socket;
 using HTX.Net.Enums;
+using HTX.Net.Interfaces.Clients.SpotApi;
+using HTX.Net.Objects.Models.Socket;
 
 namespace HTX.Net.Clients.SpotApi
 {
@@ -133,7 +134,7 @@ namespace HTX.Net.Clients.SpotApi
 
             var result = await SubscribeToAccountUpdatesAsync(
                 update => handler(update.AsExchangeEvent<SharedBalance[]>(Exchange, new[] { new SharedBalance(update.Data.Asset, update.Data.Available ?? 0, update.Data.Balance ?? update.Data.Available ?? 0) })),
-                ct: ct).ConfigureAwait(false);
+                2, ct: ct).ConfigureAwait(false);
 
             return new ExchangeResult<UpdateSubscription>(Exchange, result);
         }

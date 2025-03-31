@@ -8834,7 +8834,7 @@
             Cancel all order
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4ef06-7773-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="symbol">Symbol</param>
+            <param name="symbol">Symbol, multiple symbols can be provided comma separated</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -15032,6 +15032,11 @@
         <member name="P:HTX.Net.Objects.Models.Socket.HTXCanceledOrderUpdate.Quantity">
             <summary>
             Quantity of the order
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Objects.Models.Socket.HTXCanceledOrderUpdate.QuoteQuantity">
+            <summary>
+            Value of the order
             </summary>
         </member>
         <member name="P:HTX.Net.Objects.Models.Socket.HTXCanceledOrderUpdate.OrderSource">
