@@ -151,6 +151,8 @@ namespace HTX.Net.Clients.SpotApi
                 update => handler(update.AsExchangeEvent<SharedSpotOrder[]>(Exchange, new[] { ParseOrder(update.Data) })),
                 update => handler(update.AsExchangeEvent<SharedSpotOrder[]>(Exchange, new[] { ParseOrder(update.Data) })),
                 update => handler(update.AsExchangeEvent<SharedSpotOrder[]>(Exchange, new[] { ParseOrder(update.Data) })),
+                update => handler(update.AsExchangeEvent<SharedSpotOrder[]>(Exchange, new[] { ParseOrder(update.Data) })),
+                update => handler(update.AsExchangeEvent<SharedSpotOrder[]>(Exchange, new[] { ParseOrder(update.Data) })),
                 ct: ct).ConfigureAwait(false);
 
             return new ExchangeResult<UpdateSubscription>(Exchange, result);
@@ -197,7 +199,7 @@ namespace HTX.Net.Clients.SpotApi
                             ExchangeSymbolCache.ParseSymbol(_topicId, update.Symbol),
                             update.Symbol,
                             update.OrderId.ToString(),
-                            update.Type == Enums.OrderType.Limit ? SharedOrderType.Limit : update.Type == Enums.OrderType.Market ? SharedOrderType.Market : SharedOrderType.Other,
+                            ParseOrderType(update.Type),
                             update.Side == Enums.OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
                             SharedOrderStatus.Open,
                             update.CreateTime)
@@ -207,6 +209,7 @@ namespace HTX.Net.Clients.SpotApi
                     QuantityFilled = new SharedOrderQuantity(0, 0),
                     UpdateTime = update.UpdateTime,
                     OrderPrice = update.Price,
+                    IsTriggerOrder = update.Type == OrderType.StopLimit,
                     Fee = 0
                 };
             }
@@ -216,7 +219,7 @@ namespace HTX.Net.Clients.SpotApi
                             ExchangeSymbolCache.ParseSymbol(_topicId, matchUpdate.Symbol),
                             matchUpdate.Symbol,
                             matchUpdate.OrderId.ToString(),
-                            matchUpdate.Type == Enums.OrderType.Limit ? SharedOrderType.Limit : matchUpdate.Type == Enums.OrderType.Market ? SharedOrderType.Market : SharedOrderType.Other,
+                            ParseOrderType(matchUpdate.Type),
                             matchUpdate.Side == Enums.OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
                             matchUpdate.QuantityRemaining == 0 ? SharedOrderStatus.Filled : SharedOrderStatus.Open,
                             null)
@@ -226,6 +229,7 @@ namespace HTX.Net.Clients.SpotApi
                     QuantityFilled = new SharedOrderQuantity(matchUpdate.Type == Enums.OrderType.Market && matchUpdate.Side == Enums.OrderSide.Buy ? null : matchUpdate.QuantityFilled, matchUpdate.Type == Enums.OrderType.Market && matchUpdate.Side == Enums.OrderSide.Buy ? matchUpdate.QuantityFilled : null),
                     UpdateTime = matchUpdate.UpdateTime,
                     OrderPrice = matchUpdate.Price,
+                    IsTriggerOrder = matchUpdate.Type == OrderType.StopLimit,
                     LastTrade = new SharedUserTrade(ExchangeSymbolCache.ParseSymbol(_topicId, matchUpdate.Symbol), matchUpdate.Symbol, matchUpdate.OrderId.ToString(), matchUpdate.TradeId.ToString(), matchUpdate.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell, matchUpdate.TradeQuantity, matchUpdate.TradePrice, matchUpdate.TradeTime)
                     {
                         Role = matchUpdate.IsTaker ? SharedRole.Taker : SharedRole.Maker
@@ -239,7 +243,7 @@ namespace HTX.Net.Clients.SpotApi
                             ExchangeSymbolCache.ParseSymbol(_topicId, cancelUpdate.Symbol),
                             cancelUpdate.Symbol,
                             cancelUpdate.OrderId.ToString(),
-                            cancelUpdate.Type == Enums.OrderType.Limit ? SharedOrderType.Limit : cancelUpdate.Type == Enums.OrderType.Market ? SharedOrderType.Market : SharedOrderType.Other,
+                            ParseOrderType(cancelUpdate.Type),
                             cancelUpdate.Side == Enums.OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
                             SharedOrderStatus.Canceled,
                             null)
@@ -248,11 +252,42 @@ namespace HTX.Net.Clients.SpotApi
                     OrderQuantity = new SharedOrderQuantity(cancelUpdate.Type == Enums.OrderType.Market && cancelUpdate.Side == Enums.OrderSide.Buy ? null : cancelUpdate.Quantity, cancelUpdate.Type == Enums.OrderType.Market && cancelUpdate.Side == Enums.OrderSide.Buy ? cancelUpdate.Quantity : null),
                     QuantityFilled = new SharedOrderQuantity(cancelUpdate.Type == Enums.OrderType.Market && cancelUpdate.Side == Enums.OrderSide.Buy ? null : cancelUpdate.QuantityFilled, cancelUpdate.Type == Enums.OrderType.Market && cancelUpdate.Side == Enums.OrderSide.Buy ? cancelUpdate.QuantityFilled : null),
                     UpdateTime = cancelUpdate.UpdateTime,
-                    OrderPrice = cancelUpdate.Price
+                    OrderPrice = cancelUpdate.Price,
+                    IsTriggerOrder = cancelUpdate.Type == OrderType.StopLimit
+                };
+            }
+
+            if (orderUpdate is HTXTriggerFailureOrderUpdate triggerFailUpdate)
+            {
+                return new SharedSpotOrder(
+                            ExchangeSymbolCache.ParseSymbol(_topicId, triggerFailUpdate.Symbol),
+                            triggerFailUpdate.Symbol,
+                            "", // Order id is not specified when trigger fails?
+                            SharedOrderType.Limit,
+                            triggerFailUpdate.Side == Enums.OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
+                            SharedOrderStatus.Canceled,
+                            null)
+                {
+                    ClientOrderId = triggerFailUpdate.ClientOrderId,
+                    OrderQuantity = new SharedOrderQuantity(triggerFailUpdate.TotalTradeQuantity),
+                    QuantityFilled = new SharedOrderQuantity(0),
+                    UpdateTime = triggerFailUpdate.UpdateTime,
+                    IsTriggerOrder = true
                 };
             }
 
             throw new Exception("Unknown order update type");
+        }
+
+        private SharedOrderType ParseOrderType(OrderType type)
+        {
+            if (type == OrderType.Market || type == OrderType.MarketGrid || type == OrderType.IOC)
+                return SharedOrderType.Market;
+
+            if (type == OrderType.Limit || type == OrderType.LimitMaker || type == OrderType.LimitGrid || type == OrderType.StopLimit || type == OrderType.FillOrKillLimit || type == OrderType.FillOrKillStopLimit)
+                return SharedOrderType.Limit;
+
+            return SharedOrderType.Other;
         }
     }
 }

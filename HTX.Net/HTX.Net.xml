@@ -5272,12 +5272,37 @@
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
         </member>
+        <member name="P:HTX.Net.Converters.HTXSourceGenerationContext.HTXPingMessage">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Converters.HTXSourceGenerationContext.HTXPongMessage">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
         <member name="P:HTX.Net.Converters.HTXSourceGenerationContext.HTXSocketAuthResponse">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
         </member>
         <member name="P:HTX.Net.Converters.HTXSourceGenerationContext.HTXSocketResponse">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Converters.HTXSourceGenerationContext.HTXSpotPingMessage">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Converters.HTXSourceGenerationContext.HTXSpotPingWrapper">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Converters.HTXSourceGenerationContext.HTXSpotPongMessage">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
@@ -8320,7 +8345,7 @@
             </summary>
             <param name="symbol">The symbol to request for, for example `ETHUSDT`</param>
             <param name="mergeStep">The way the results will be merged together</param>
-            <param name="limit">The depth of the book</param>
+            <param name="limit">The depth of the book, 5, 10 or 20</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>

@@ -20,7 +20,8 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         IWithdrawRestClient,
         IFeeRestClient,
         ISpotOrderClientIdClient,
-        ISpotTriggerOrderRestClient
+        ISpotTriggerOrderRestClient,
+        IBookTickerRestClient
     {
     }
 }

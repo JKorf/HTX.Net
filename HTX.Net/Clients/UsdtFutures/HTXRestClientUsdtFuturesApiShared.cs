@@ -116,6 +116,32 @@ namespace HTX.Net.Clients.UsdtFutures
 
         #endregion
 
+        #region Book Ticker client
+
+        EndpointOptions<GetBookTickerRequest> IBookTickerRestClient.GetBookTickerOptions { get; } = new EndpointOptions<GetBookTickerRequest>(false);
+        async Task<ExchangeWebResult<SharedBookTicker>> IBookTickerRestClient.GetBookTickerAsync(GetBookTickerRequest request, CancellationToken ct)
+        {
+            var validationError = ((IBookTickerRestClient)this).GetBookTickerOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
+            if (validationError != null)
+                return new ExchangeWebResult<SharedBookTicker>(Exchange, validationError);
+
+            var symbol = request.Symbol.GetSymbol(FormatSymbol);
+            var resultTicker = await ExchangeData.GetBookTickerAsync(symbol, ct: ct).ConfigureAwait(false);
+            if (!resultTicker)
+                return resultTicker.AsExchangeResult<SharedBookTicker>(Exchange, null, default);
+
+            var bookTicker = resultTicker.Data.Single();
+            return resultTicker.AsExchangeResult(Exchange, request.Symbol.TradingMode, new SharedBookTicker(
+                ExchangeSymbolCache.ParseSymbol(_topicId, symbol),
+                symbol,
+                bookTicker.Ask.Price,
+                bookTicker.Ask.Quantity,
+                bookTicker.Bid.Price,
+                bookTicker.Bid.Quantity));
+        }
+
+        #endregion
+
         #region Futures Symbol client
 
         EndpointOptions<GetSymbolsRequest> IFuturesSymbolRestClient.GetFuturesSymbolsOptions { get; } = new EndpointOptions<GetSymbolsRequest>(false);
@@ -1295,7 +1321,7 @@ namespace HTX.Net.Clients.UsdtFutures
                     offset: GetOffset(request),
                     reduceOnly: request.OrderDirection == SharedTriggerOrderDirection.Exit ? true: null,
                     orderPrice: request.OrderPrice,
-                    orderPriceType: request.OrderPrice == null ? OrderPriceType.Market : OrderPriceType.Limit,
+                    orderPriceType: request.OrderPrice == null ? OrderPriceType.Optimal20 : OrderPriceType.Limit,
                     leverageRate: (int)request.Leverage!.Value,
                     ct: ct).ConfigureAwait(false);
                 if (!result)
@@ -1315,7 +1341,7 @@ namespace HTX.Net.Clients.UsdtFutures
                     offset: GetOffset(request),
                     reduceOnly: request.OrderDirection == SharedTriggerOrderDirection.Exit ? true : null,
                     orderPrice: request.OrderPrice,
-                    orderPriceType: request.OrderPrice == null ? OrderPriceType.Market : OrderPriceType.Limit,
+                    orderPriceType: request.OrderPrice == null ? OrderPriceType.Optimal20 : OrderPriceType.Limit,
                     leverageRate: (int)request.Leverage!.Value,
                     ct: ct).ConfigureAwait(false);
                 if (!result)
@@ -1354,8 +1380,8 @@ namespace HTX.Net.Clients.UsdtFutures
                 if (triggerOrder != null)
                 {
                     return orders.AsExchangeResult(Exchange, request.Symbol.TradingMode, new SharedFuturesTriggerOrder(
-                        ExchangeSymbolCache.ParseSymbol(_topicId, triggerOrder.Symbol),
-                        triggerOrder.Symbol,
+                        ExchangeSymbolCache.ParseSymbol(_topicId, triggerOrder.ContractCode),
+                        triggerOrder.ContractCode,
                         triggerOrder.OrderId.ToString(),
                         triggerOrder.OrderPrice > 0 ? SharedOrderType.Limit : SharedOrderType.Market,
                         triggerOrder.Offset == Offset.Open ? SharedTriggerOrderDirection.Enter : triggerOrder.Offset == Offset.Close? SharedTriggerOrderDirection.Exit: null,
@@ -1364,9 +1390,9 @@ namespace HTX.Net.Clients.UsdtFutures
                         null,
                         triggerOrder.CreateTime)
                     {
-                        OrderPrice = triggerOrder.OrderPrice,
+                        OrderPrice = triggerOrder.OrderPrice == 0 ? null: triggerOrder.OrderPrice,
                         OrderQuantity = new SharedOrderQuantity(contractQuantity: triggerOrder.Quantity),
-                        QuantityFilled = new SharedOrderQuantity(contractQuantity: 0)
+                        QuantityFilled = new SharedOrderQuantity(contractQuantity: 0),
                     });
                 }
 
@@ -1388,8 +1414,8 @@ namespace HTX.Net.Clients.UsdtFutures
                 if (string.IsNullOrEmpty(closedOrder.RelationOrderId) && closedOrder.RelationOrderId != "-1")
                 {
                     return orders.AsExchangeResult(Exchange, request.Symbol.TradingMode, new SharedFuturesTriggerOrder(
-                        ExchangeSymbolCache.ParseSymbol(_topicId, closedOrder.Symbol),
-                        closedOrder.Symbol,
+                        ExchangeSymbolCache.ParseSymbol(_topicId, closedOrder.ContractCode),
+                        closedOrder.ContractCode,
                         closedOrder.OrderId.ToString(),
                         closedOrder.OrderPrice > 0 ? SharedOrderType.Limit : SharedOrderType.Market,
                         closedOrder.Offset == Offset.Open ? SharedTriggerOrderDirection.Enter : closedOrder.Offset == Offset.Close ? SharedTriggerOrderDirection.Exit : null,
@@ -1410,8 +1436,8 @@ namespace HTX.Net.Clients.UsdtFutures
 
                 var placedOrder = placedOrderResult.Data.Single();
                 return orders.AsExchangeResult(Exchange, request.Symbol.TradingMode, new SharedFuturesTriggerOrder(
-                        ExchangeSymbolCache.ParseSymbol(_topicId, closedOrder.Symbol),
-                        closedOrder.Symbol,
+                        ExchangeSymbolCache.ParseSymbol(_topicId, closedOrder.ContractCode),
+                        closedOrder.ContractCode,
                         closedOrder.OrderId.ToString(),
                         closedOrder.OrderPrice > 0 ? SharedOrderType.Limit : SharedOrderType.Market,
                         closedOrder.Offset == Offset.Open ? SharedTriggerOrderDirection.Enter : closedOrder.Offset == Offset.Close ? SharedTriggerOrderDirection.Exit : null,
@@ -1444,8 +1470,8 @@ namespace HTX.Net.Clients.UsdtFutures
                 if (triggerOrder != null)
                 {
                     return orders.AsExchangeResult(Exchange, request.Symbol.TradingMode, new SharedFuturesTriggerOrder(
-                        ExchangeSymbolCache.ParseSymbol(_topicId, triggerOrder.Symbol),
-                        triggerOrder.Symbol,
+                        ExchangeSymbolCache.ParseSymbol(_topicId, triggerOrder.ContractCode),
+                        triggerOrder.ContractCode,
                         triggerOrder.OrderId.ToString(),
                         triggerOrder.OrderPrice > 0 ? SharedOrderType.Limit : SharedOrderType.Market,
                         triggerOrder.Offset == Offset.Open ? SharedTriggerOrderDirection.Enter : triggerOrder.Offset == Offset.Close ? SharedTriggerOrderDirection.Exit : null,
@@ -1478,8 +1504,8 @@ namespace HTX.Net.Clients.UsdtFutures
                 if (string.IsNullOrEmpty(closedOrder.RelationOrderId) && closedOrder.RelationOrderId != "-1")
                 {
                     return orders.AsExchangeResult(Exchange, request.Symbol.TradingMode, new SharedFuturesTriggerOrder(
-                        ExchangeSymbolCache.ParseSymbol(_topicId, closedOrder.Symbol),
-                        closedOrder.Symbol,
+                        ExchangeSymbolCache.ParseSymbol(_topicId, closedOrder.ContractCode),
+                        closedOrder.ContractCode,
                         closedOrder.OrderId.ToString(),
                         closedOrder.OrderPrice > 0 ? SharedOrderType.Limit : SharedOrderType.Market,
                         closedOrder.Offset == Offset.Open ? SharedTriggerOrderDirection.Enter : closedOrder.Offset == Offset.Close ? SharedTriggerOrderDirection.Exit : null,
@@ -1500,8 +1526,8 @@ namespace HTX.Net.Clients.UsdtFutures
 
                 var placedOrder = placedOrderResult.Data.Single();
                 return orders.AsExchangeResult(Exchange, request.Symbol.TradingMode, new SharedFuturesTriggerOrder(
-                        ExchangeSymbolCache.ParseSymbol(_topicId, closedOrder.Symbol),
-                        closedOrder.Symbol,
+                        ExchangeSymbolCache.ParseSymbol(_topicId, closedOrder.ContractCode),
+                        closedOrder.ContractCode,
                         closedOrder.OrderId.ToString(),
                         closedOrder.OrderPrice > 0 ? SharedOrderType.Limit : SharedOrderType.Market,
                         closedOrder.Offset == Offset.Open ? SharedTriggerOrderDirection.Enter : closedOrder.Offset == Offset.Close ? SharedTriggerOrderDirection.Exit : null,

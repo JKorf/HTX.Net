@@ -16,7 +16,12 @@ namespace HTX.Net.Converters
     [JsonSerializable(typeof(long[]))]
     [JsonSerializable(typeof(ParameterCollection[]))]
     [JsonSerializable(typeof(HTXAuthRequest<HTXAuthParams>))]
-    
+    [JsonSerializable(typeof(HTXSpotPingWrapper))]
+    [JsonSerializable(typeof(HTXSpotPingMessage))]
+    [JsonSerializable(typeof(HTXPingMessage))]
+    [JsonSerializable(typeof(HTXSpotPongMessage))]
+    [JsonSerializable(typeof(HTXPongMessage))]
+
     // End manual defined attributes
 
     [JsonSerializable(typeof(HTXBasicResponse<IEnumerable<HTXOpenOrder>>))]

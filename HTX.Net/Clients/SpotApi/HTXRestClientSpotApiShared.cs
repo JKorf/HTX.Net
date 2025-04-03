@@ -144,6 +144,31 @@ namespace HTX.Net.Clients.SpotApi
 
         #endregion
 
+        #region Book Ticker client
+
+        EndpointOptions<GetBookTickerRequest> IBookTickerRestClient.GetBookTickerOptions { get; } = new EndpointOptions<GetBookTickerRequest>(false);
+        async Task<ExchangeWebResult<SharedBookTicker>> IBookTickerRestClient.GetBookTickerAsync(GetBookTickerRequest request, CancellationToken ct)
+        {
+            var validationError = ((IBookTickerRestClient)this).GetBookTickerOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
+            if (validationError != null)
+                return new ExchangeWebResult<SharedBookTicker>(Exchange, validationError);
+
+            var symbol = request.Symbol.GetSymbol(FormatSymbol);
+            var resultTicker = await ExchangeData.GetOrderBookAsync(symbol, 0, 5, ct: ct).ConfigureAwait(false);
+            if (!resultTicker)
+                return resultTicker.AsExchangeResult<SharedBookTicker>(Exchange, null, default);
+
+            return resultTicker.AsExchangeResult(Exchange, request.Symbol.TradingMode, new SharedBookTicker(
+                ExchangeSymbolCache.ParseSymbol(_topicId, symbol),
+                symbol,
+                resultTicker.Data.Asks[0].Price,
+                resultTicker.Data.Asks[0].Quantity,
+                resultTicker.Data.Bids[0].Price,
+                resultTicker.Data.Bids[0].Quantity));
+        }
+
+        #endregion
+
         #region Recent Trade client
 
         GetRecentTradesOptions IRecentTradeRestClient.GetRecentTradesOptions { get; } = new GetRecentTradesOptions(2000, false);
@@ -299,7 +324,8 @@ namespace HTX.Net.Clients.SpotApi
                 OrderPrice = order.Data.Price,
                 OrderQuantity = new SharedOrderQuantity(order.Data.Type == OrderType.Market && order.Data.Side == OrderSide.Buy ? null : order.Data.Quantity, order.Data.Type == OrderType.Market && order.Data.Side == OrderSide.Buy ? order.Data.Quantity : null),
                 QuantityFilled = new SharedOrderQuantity(order.Data.QuantityFilled, order.Data.QuoteQuantityFilled),
-                TimeInForce = ParseTimeInForce(order.Data.Type)
+                TimeInForce = ParseTimeInForce(order.Data.Type),
+                IsTriggerOrder = order.Data.Type == OrderType.StopLimit
             });
         }
 
@@ -329,7 +355,8 @@ namespace HTX.Net.Clients.SpotApi
                 OrderPrice = x.Price,
                 OrderQuantity = new SharedOrderQuantity(x.Type == OrderType.Market && x.Side == OrderSide.Buy ? null : x.Quantity, x.Type == OrderType.Market && x.Side == OrderSide.Buy ? x.Quantity : null),
                 QuantityFilled = new SharedOrderQuantity(x.QuantityFilled, x.QuoteQuantityFilled),
-                TimeInForce = ParseTimeInForce(x.Type)
+                TimeInForce = ParseTimeInForce(x.Type),
+                IsTriggerOrder = x.Type == OrderType.StopLimit
             }).ToArray());
         }
 
@@ -375,7 +402,8 @@ namespace HTX.Net.Clients.SpotApi
                 OrderPrice = x.Price,
                 OrderQuantity = new SharedOrderQuantity(x.Type == OrderType.Market && x.Side == OrderSide.Buy ? null : x.Quantity, x.Type == OrderType.Market && x.Side == OrderSide.Buy ? x.Quantity : null),
                 QuantityFilled = new SharedOrderQuantity(x.QuantityFilled, x.QuoteQuantityFilled),
-                TimeInForce = ParseTimeInForce(x.Type)
+                TimeInForce = ParseTimeInForce(x.Type),
+                IsTriggerOrder = x.Type == OrderType.StopLimit
             }).ToArray(), nextToken);
         }
 
@@ -539,7 +567,8 @@ namespace HTX.Net.Clients.SpotApi
                 OrderPrice = order.Data.Price,
                 OrderQuantity = new SharedOrderQuantity(order.Data.Type == OrderType.Market && order.Data.Side == OrderSide.Buy ? null : order.Data.Quantity, order.Data.Type == OrderType.Market && order.Data.Side == OrderSide.Buy ? order.Data.Quantity : null),
                 QuantityFilled = new SharedOrderQuantity(order.Data.QuantityFilled, order.Data.QuoteQuantityFilled),
-                TimeInForce = ParseTimeInForce(order.Data.Type)
+                TimeInForce = ParseTimeInForce(order.Data.Type),
+                IsTriggerOrder = order.Data.Type == OrderType.StopLimit
             });
         }
 
@@ -810,22 +839,26 @@ namespace HTX.Net.Clients.SpotApi
         };
         async Task<ExchangeWebResult<SharedId>> ISpotTriggerOrderRestClient.PlaceSpotTriggerOrderAsync(PlaceSpotTriggerOrderRequest request, CancellationToken ct)
         {
-            var validationError = ((ISpotTriggerOrderRestClient)this).PlaceSpotTriggerOrderOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes, ((ISpotOrderRestClient)this).SpotSupportedOrderQuantity);
+            var validationError = ((ISpotTriggerOrderRestClient)this).PlaceSpotTriggerOrderOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes, ((ISpotOrderRestClient)this).SpotSupportedOrderQuantity with { BuyMarket = SharedQuantityType.BaseAsset });
             if (validationError != null)
                 return new ExchangeWebResult<SharedId>(Exchange, validationError);
 
             var accountId = ExchangeParameters.GetValue<long>(request.ExchangeParameters, Exchange, "AccountId");
-            var quantity = request.Quantity?.QuantityInBaseAsset ?? 0;
-            if (request.OrderPrice == null && request.OrderSide == SharedOrderSide.Buy)
-                quantity = request.Quantity?.QuantityInQuoteAsset ?? 0;
+            var orderPrice = request.OrderPrice;
+            if (request.OrderPrice == null)
+            {
+                // There is no stop market order in the HTX API
+                var maxSlippage = 5;
+                orderPrice = request.OrderSide == SharedOrderSide.Buy ? request.TriggerPrice * (1 + maxSlippage / 100m) : request.TriggerPrice * (1 - maxSlippage / 100m);
+            }
 
             var result = await Trading.PlaceOrderAsync(
                 accountId,
                 request.Symbol.GetSymbol(FormatSymbol),
                 request.OrderSide == SharedOrderSide.Buy ? OrderSide.Buy : OrderSide.Sell,
-                request.OrderPrice == null ? OrderType.FillOrKillStopLimit : OrderType.StopLimit,
-                quantity,
-                request.OrderPrice,
+                OrderType.StopLimit,
+                request.Quantity.QuantityInBaseAsset ?? 0,
+                orderPrice,
                 clientOrderId: request.ClientOrderId,
                 stopPrice: request.TriggerPrice,
                 stopOperator: request.PriceDirection == SharedTriggerPriceDirection.PriceAbove ? Operator.GreaterThanOrEqual : Operator.LesserThanOrEqual,

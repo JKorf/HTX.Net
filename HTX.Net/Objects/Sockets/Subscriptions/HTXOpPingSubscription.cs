@@ -13,7 +13,7 @@ namespace HTX.Net.Objects.Sockets.Subscriptions
 
         public override CallResult HandleMessage(SocketConnection connection, DataEvent<HTXOpPingMessage> message)
         {
-            connection.Send(ExchangeHelpers.NextId(), new { op = "pong", ts = message.Data.Timestamp.ToString() }, 1);
+            connection.Send(ExchangeHelpers.NextId(), new HTXOpPingMessage { Operation = "pong", Timestamp = message.Data.Timestamp }, 1);
             return CallResult.SuccessResult;
         }
     }

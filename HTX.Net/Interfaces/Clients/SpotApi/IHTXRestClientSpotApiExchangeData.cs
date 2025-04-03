@@ -88,7 +88,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <param name="symbol">The symbol to request for, for example `ETHUSDT`</param>
         /// <param name="mergeStep">The way the results will be merged together</param>
-        /// <param name="limit">The depth of the book</param>
+        /// <param name="limit">The depth of the book, 5, 10 or 20</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<HTXOrderBook>> GetOrderBookAsync(string symbol, int mergeStep, int? limit = null, CancellationToken ct = default);

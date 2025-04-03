@@ -15,12 +15,12 @@ namespace HTX.Net.Objects.Sockets
         /// <summary>
         /// Request id
         /// </summary>
-        [JsonPropertyName("cid")]
+        [JsonPropertyName("cid"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public string? RequestId { get; set; }
         /// <summary>
         /// Topic
         /// </summary>
-        [JsonPropertyName("topic")]
+        [JsonPropertyName("topic"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public string Topic { get; set; } = string.Empty;
     }
 
