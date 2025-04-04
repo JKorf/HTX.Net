@@ -28,7 +28,7 @@ namespace Microsoft.Extensions.DependencyInjection
             IConfiguration configuration)
         {
             var options = new HTXOptions();
-            // Reset environment so we know if theyre overriden
+            // Reset environment so we know if they're overridden
             options.Rest.Environment = null!;
             options.Socket.Environment = null!;
             configuration.Bind(options);
@@ -62,7 +62,7 @@ namespace Microsoft.Extensions.DependencyInjection
             Action<HTXOptions>? optionsDelegate = null)
         {
             var options = new HTXOptions();
-            // Reset environment so we know if theyre overriden
+            // Reset environment so we know if they're overridden
             options.Rest.Environment = null!;
             options.Socket.Environment = null!;
             optionsDelegate?.Invoke(options);
@@ -79,21 +79,6 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddSingleton(x => Options.Options.Create(options.Socket));
 
             return AddHTXCore(services, options.SocketClientLifeTime);
-        }
-
-        /// <summary>
-        /// DEPRECATED; use <see cref="AddHTX(IServiceCollection, Action{HTXOptions}?)" /> instead
-        /// </summary>
-        public static IServiceCollection AddHTX(
-            this IServiceCollection services,
-            Action<HTXRestOptions> restDelegate,
-            Action<HTXSocketOptions>? socketDelegate = null,
-            ServiceLifetime? socketClientLifeTime = null)
-        {
-            services.Configure<HTXRestOptions>((x) => { restDelegate?.Invoke(x); });
-            services.Configure<HTXSocketOptions>((x) => { socketDelegate?.Invoke(x); });
-
-            return AddHTXCore(services, socketClientLifeTime);
         }
 
         private static IServiceCollection AddHTXCore(

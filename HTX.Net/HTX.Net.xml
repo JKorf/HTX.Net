@@ -22288,10 +22288,5 @@
             <param name="optionsDelegate">Set options for the HTX services</param>
             <returns></returns>
         </member>
-        <member name="M:Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions.AddHTX(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{HTX.Net.Objects.Options.HTXRestOptions},System.Action{HTX.Net.Objects.Options.HTXSocketOptions},System.Nullable{Microsoft.Extensions.DependencyInjection.ServiceLifetime})">
-            <summary>
-            DEPRECATED; use <see cref="M:Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions.AddHTX(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{HTX.Net.Objects.Options.HTXOptions})" /> instead
-            </summary>
-        </member>
     </members>
 </doc>

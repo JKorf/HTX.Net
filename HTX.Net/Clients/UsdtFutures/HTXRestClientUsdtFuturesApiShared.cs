@@ -1635,21 +1635,25 @@ namespace HTX.Net.Clients.UsdtFutures
             if (request.MarginMode == SharedMarginMode.Cross)
             {
                 result = await Trading.SetCrossMarginTpSlAsync(
-                    request.PositionSide == SharedPositionSide.Long ? OrderSide.Buy: OrderSide.Sell,
-                    ExchangeParameters.GetValue<decimal>(request.ExchangeParameters, Exchange, "Quantity"),
+                    request.PositionSide == SharedPositionSide.Long ? OrderSide.Sell: OrderSide.Buy,
+                    request.Quantity!.Value,
                     request.Symbol.GetSymbol(FormatSymbol),
-                    takeProfitTriggerPrice: request.TpSlSide == SharedTpSlSide.TakeProfit ? request.TriggerPrice: null,
+                    takeProfitTriggerPrice: request.TpSlSide == SharedTpSlSide.TakeProfit ? request.TriggerPrice : null,
+                    takeProfitOrderPriceType: request.TpSlSide == SharedTpSlSide.TakeProfit ? OrderPriceType.Optimal20 : null,
                     stopLossTriggerPrice: request.TpSlSide == SharedTpSlSide.StopLoss ? request.TriggerPrice : null,
+                    stopLossOrderPriceType: request.TpSlSide == SharedTpSlSide.StopLoss ? OrderPriceType.Optimal20 : null,
                     ct: ct).ConfigureAwait(false);
             }
             else
             {
                 result = await Trading.SetIsolatedMarginTpSlAsync(
                     request.Symbol.GetSymbol(FormatSymbol),
-                    request.PositionSide == SharedPositionSide.Long ? OrderSide.Buy : OrderSide.Sell,
-                    ExchangeParameters.GetValue<decimal>(request.ExchangeParameters, Exchange, "Quantity"),
+                    request.PositionSide == SharedPositionSide.Long ? OrderSide.Sell : OrderSide.Buy,
+                    request.Quantity!.Value,
                     takeProfitTriggerPrice: request.TpSlSide == SharedTpSlSide.TakeProfit ? request.TriggerPrice : null,
+                    takeProfitOrderPriceType: request.TpSlSide == SharedTpSlSide.TakeProfit ? OrderPriceType.Optimal20 : null,
                     stopLossTriggerPrice: request.TpSlSide == SharedTpSlSide.StopLoss ? request.TriggerPrice : null,
+                    stopLossOrderPriceType: request.TpSlSide == SharedTpSlSide.StopLoss ? OrderPriceType.Optimal20 : null,
                     ct: ct).ConfigureAwait(false);
             }
 

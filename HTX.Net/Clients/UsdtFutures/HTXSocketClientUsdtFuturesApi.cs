@@ -101,10 +101,14 @@ namespace HTX.Net.Clients.UsdtFutures
                     topic = "accounts";
                 if (topic.StartsWith("orders."))
                     topic = "orders";
+                if (topic.StartsWith("positions."))
+                    topic = "positions";
                 if (topic.StartsWith("accounts_cross."))
                     topic = "accounts_cross";
                 if (topic.StartsWith("orders_cross."))
                     topic = "orders_cross";
+                if (topic.StartsWith("positions_cross."))
+                    topic = "positions_cross";
 
                 return topic;
             }

@@ -181,11 +181,11 @@ namespace HTX.Net.Clients.UsdtFutures
                         UpdateTime = update.Data.Timestamp,
                         PositionSide = ParsePositionSide(update.Data.Offset, update.Data.OrderSide),
                         ReduceOnly = update.Data.ReduceOnly,
-                        Fee = update.Data.Fee,
+                        Fee = Math.Abs(update.Data.Fee),
                         FeeAsset = update.Data.FeeAsset,
                         LastTrade = update.Data.Trade?.Any() != true ? null : new SharedUserTrade(ExchangeSymbolCache.ParseSymbol(_topicId, update.Data.ContractCode), update.Data.ContractCode, update.Data.OrderIdStr, lastTrade!.TradeId.ToString(), update.Data.OrderSide == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell, lastTrade.Quantity, lastTrade.Price, update.Data.Timestamp)
                         {
-                            Fee = lastTrade.Fee,
+                            Fee = Math.Abs(lastTrade.Fee),
                             FeeAsset = lastTrade.FeeAsset,
                             Role = lastTrade.Role == OrderRole.Maker ? SharedRole.Maker : SharedRole.Taker
                         }
