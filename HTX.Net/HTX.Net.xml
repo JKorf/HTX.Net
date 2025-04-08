@@ -445,7 +445,7 @@
         <member name="M:HTX.Net.Clients.SpotApi.HTXSocketClientSpotApi.SubscribeToPartialOrderBookUpdates1SecondAsync(System.String,System.Int32,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{HTX.Net.Objects.Models.HTXOrderBook}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:HTX.Net.Clients.SpotApi.HTXSocketClientSpotApi.SubscribeToPartialOrderBookUpdates100MilisecondAsync(System.String,System.Int32,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{HTX.Net.Objects.Models.HTXOrderBook}},System.Threading.CancellationToken)">
+        <member name="M:HTX.Net.Clients.SpotApi.HTXSocketClientSpotApi.SubscribeToPartialOrderBookUpdates100MillisecondAsync(System.String,System.Int32,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{HTX.Net.Objects.Models.HTXOrderBook}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:HTX.Net.Clients.SpotApi.HTXSocketClientSpotApi.SubscribeToOrderBookChangeUpdatesAsync(System.String,System.Int32,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{HTX.Net.Objects.Models.HTXIncementalOrderBook}},System.Threading.CancellationToken)">
@@ -7936,17 +7936,19 @@
             <summary>
             Spot endpoints
             </summary>
+            <see cref="T:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApi"/>
         </member>
         <member name="P:HTX.Net.Interfaces.Clients.IHTXRestClient.UsdtFuturesApi">
             <summary>
             Usdt futures endpoints
             </summary>
+            <see cref="T:HTX.Net.Interfaces.Clients.UsdtFuturesApi.IHTXRestClientUsdtFuturesApi"/>
         </member>
         <member name="M:HTX.Net.Interfaces.Clients.IHTXRestClient.SetOptions(CryptoExchange.Net.Objects.Options.UpdateOptions)">
             <summary>
             Update specific options
             </summary>
-            <param name="options">Options to update. Only specific options are changable after the client has been created</param>
+            <param name="options">Options to update. Only specific options are changeable after the client has been created</param>
         </member>
         <member name="M:HTX.Net.Interfaces.Clients.IHTXRestClient.SetApiCredentials(CryptoExchange.Net.Authentication.ApiCredentials)">
             <summary>
@@ -7963,17 +7965,19 @@
             <summary>
             Spot streams
             </summary>
+            <see cref="T:HTX.Net.Interfaces.Clients.SpotApi.IHTXSocketClientSpotApi"/>
         </member>
         <member name="P:HTX.Net.Interfaces.Clients.IHTXSocketClient.UsdtFuturesApi">
             <summary>
             Usdt futures streams
             </summary>
+            <see cref="T:HTX.Net.Interfaces.Clients.UsdtFuturesApi.IHTXSocketClientUsdtFuturesApi"/>
         </member>
         <member name="M:HTX.Net.Interfaces.Clients.IHTXSocketClient.SetOptions(CryptoExchange.Net.Objects.Options.UpdateOptions)">
             <summary>
             Update specific options
             </summary>
-            <param name="options">Options to update. Only specific options are changable after the client has been created</param>
+            <param name="options">Options to update. Only specific options are changeable after the client has been created</param>
         </member>
         <member name="M:HTX.Net.Interfaces.Clients.IHTXSocketClient.SetApiCredentials(CryptoExchange.Net.Authentication.ApiCredentials)">
             <summary>
@@ -7990,26 +7994,31 @@
             <summary>
             Endpoints related to account settings, info or actions
             </summary>
+            <see cref="!:IHTXRestClientUsdtFuturesApiAccount"/>
         </member>
         <member name="P:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApi.ExchangeData">
             <summary>
             Endpoints related to retrieving market and system data
             </summary>
+            <see cref="T:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiExchangeData"/>
         </member>
         <member name="P:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApi.Margin">
             <summary>
             Endpoints related to margin
             </summary>
+            <see cref="T:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiMargin"/>
         </member>
         <member name="P:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApi.SubAccount">
             <summary>
             Endpoints related to sub-accounts
             </summary>
+            <see cref="T:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiSubAccount"/>
         </member>
         <member name="P:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApi.Trading">
             <summary>
             Endpoints related to orders and trades
             </summary>
+            <see cref="T:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiTrading"/>
         </member>
         <member name="P:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApi.SharedClient">
             <summary>
@@ -9023,7 +9032,7 @@
         </member>
         <member name="P:HTX.Net.Interfaces.Clients.SpotApi.IHTXSocketClientSpotApi.SharedClient">
             <summary>
-            Get the shared socket subscription client. This interface is shared with other exhanges to allow for a common implementation for different exchanges.
+            Get the shared socket subscription client. This interface is shared with other exchanges to allow for a common implementation for different exchanges.
             </summary>
         </member>
         <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXSocketClientSpotApi.GetKlinesAsync(System.String,HTX.Net.Enums.KlineInterval)">
@@ -9064,7 +9073,7 @@
             <param name="levels">The amount of rows. 5, 20, 150 or 400</param>
             <returns></returns>
         </member>
-        <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXSocketClientSpotApi.SubscribeToPartialOrderBookUpdates100MilisecondAsync(System.String,System.Int32,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{HTX.Net.Objects.Models.HTXOrderBook}},System.Threading.CancellationToken)">
+        <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXSocketClientSpotApi.SubscribeToPartialOrderBookUpdates100MillisecondAsync(System.String,System.Int32,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{HTX.Net.Objects.Models.HTXOrderBook}},System.Threading.CancellationToken)">
             <summary>
             Subscribes to order book updates for a symbol
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec5378b-7773-11ed-9966-0242ac110003" /></para>
@@ -9292,25 +9301,29 @@
             <summary>
             Endpoints related to account settings, info or actions
             </summary>
+            <see cref="T:HTX.Net.Interfaces.Clients.UsdtFuturesApi.IHTXRestClientUsdtFuturesApiAccount"/>
         </member>
         <member name="P:HTX.Net.Interfaces.Clients.UsdtFuturesApi.IHTXRestClientUsdtFuturesApi.ExchangeData">
             <summary>
             Endpoints related to retrieving market and system data
             </summary>
+            <see cref="T:HTX.Net.Interfaces.Clients.UsdtFuturesApi.IHTXRestClientUsdtFuturesApiExchangeData"/>
         </member>
         <member name="P:HTX.Net.Interfaces.Clients.UsdtFuturesApi.IHTXRestClientUsdtFuturesApi.SubAccount">
             <summary>
             Endpoints related to sub accounts
             </summary>
+            <see cref="T:HTX.Net.Interfaces.Clients.UsdtFuturesApi.IHTXRestClientUsdtFuturesApiSubAccount"/>
         </member>
         <member name="P:HTX.Net.Interfaces.Clients.UsdtFuturesApi.IHTXRestClientUsdtFuturesApi.Trading">
             <summary>
             Endpoints related to orders and trades
             </summary>
+            <see cref="T:HTX.Net.Interfaces.Clients.UsdtFuturesApi.IHTXRestClientUsdtFuturesApiTrading"/>
         </member>
         <member name="P:HTX.Net.Interfaces.Clients.UsdtFuturesApi.IHTXRestClientUsdtFuturesApi.SharedClient">
             <summary>
-            Get the shared rest requests client. This interface is shared with other exhanges to allow for a common implementation for different exchanges.
+            Get the shared rest requests client. This interface is shared with other exchanges to allow for a common implementation for different exchanges.
             </summary>
         </member>
         <member name="T:HTX.Net.Interfaces.Clients.UsdtFuturesApi.IHTXRestClientUsdtFuturesApiAccount">
@@ -10820,7 +10833,7 @@
         </member>
         <member name="P:HTX.Net.Interfaces.Clients.UsdtFuturesApi.IHTXSocketClientUsdtFuturesApi.SharedClient">
             <summary>
-            Get the shared socket subscription client. This interface is shared with other exhanges to allow for a common implementation for different exchanges.
+            Get the shared socket subscription client. This interface is shared with other exchanges to allow for a common implementation for different exchanges.
             </summary>
         </member>
         <member name="M:HTX.Net.Interfaces.Clients.UsdtFuturesApi.IHTXSocketClientUsdtFuturesApi.SubscribeToBasisUpdatesAsync(System.String,HTX.Net.Enums.KlineInterval,System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{HTX.Net.Objects.Models.Socket.HTXUsdtMarginSwapBasisUpdate}},System.Threading.CancellationToken)">

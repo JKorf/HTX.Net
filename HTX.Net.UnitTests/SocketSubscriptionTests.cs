@@ -21,7 +21,7 @@ namespace HTX.Net.UnitTests
             var tester = new SocketSubscriptionValidator<HTXSocketClient>(client, "Subscriptions/Spot", "wss://api.huobi.pro", "data");
             await tester.ValidateAsync<HTXKline>((client, handler) => client.SpotApi.SubscribeToKlineUpdatesAsync("ETHUSDT", Enums.KlineInterval.OneDay, handler), "Klines", nestedJsonProperty: "tick");
             await tester.ValidateAsync<HTXOrderBook>((client, handler) => client.SpotApi.SubscribeToPartialOrderBookUpdates1SecondAsync("ETHUSDT", 0, handler), "OrderBook", nestedJsonProperty: "tick");
-            await tester.ValidateAsync<HTXOrderBook>((client, handler) => client.SpotApi.SubscribeToPartialOrderBookUpdates100MilisecondAsync("ETHUSDT", 20, handler), "OrderBookMbp", nestedJsonProperty: "tick");
+            await tester.ValidateAsync<HTXOrderBook>((client, handler) => client.SpotApi.SubscribeToPartialOrderBookUpdates100MillisecondAsync("ETHUSDT", 20, handler), "OrderBookMbp", nestedJsonProperty: "tick");
             await tester.ValidateAsync<HTXIncementalOrderBook>((client, handler) => client.SpotApi.SubscribeToOrderBookChangeUpdatesAsync("ETHUSDT", 5, handler), "OrderBookChange", nestedJsonProperty: "tick");
             await tester.ValidateAsync<HTXSymbolTrade>((client, handler) => client.SpotApi.SubscribeToTradeUpdatesAsync("ETHUSDT", handler), "Trades", nestedJsonProperty: "tick");
             await tester.ValidateAsync<HTXSymbolDetails>((client, handler) => client.SpotApi.SubscribeToSymbolDetailUpdatesAsync("ETHUSDT", handler), "Symbols", nestedJsonProperty: "tick");

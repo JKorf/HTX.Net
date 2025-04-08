@@ -12,16 +12,18 @@ namespace HTX.Net.Interfaces.Clients
         /// <summary>
         /// Spot endpoints
         /// </summary>
+        /// <see cref="IHTXRestClientSpotApi"/>
         IHTXRestClientSpotApi SpotApi { get; }
         /// <summary>
         /// Usdt futures endpoints
         /// </summary>
+        /// <see cref="IHTXRestClientUsdtFuturesApi"/>
         IHTXRestClientUsdtFuturesApi UsdtFuturesApi { get; }
 
         /// <summary>
         /// Update specific options
         /// </summary>
-        /// <param name="options">Options to update. Only specific options are changable after the client has been created</param>
+        /// <param name="options">Options to update. Only specific options are changeable after the client has been created</param>
         void SetOptions(UpdateOptions options);
 
         /// <summary>
