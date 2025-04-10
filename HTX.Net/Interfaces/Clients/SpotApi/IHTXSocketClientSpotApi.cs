@@ -230,7 +230,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// <param name="orders"></param>
         /// <param name="ct"></param>
         /// <returns></returns>
-        Task<CallResult<HTXBatchPlaceResult[]>> PlaceMultipleOrdersAsync(
+        Task<CallResult<CallResult<HTXBatchPlaceResult>[]>> PlaceMultipleOrdersAsync(
             IEnumerable<HTXOrderRequest> orders,
             CancellationToken ct = default);
 
@@ -287,7 +287,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// <param name="clientOrderId">Client order id, either this or orderId should be provided</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<CallResult> CancelOrdersAsync(string? orderId = null, string? clientOrderId = null, CancellationToken ct = default);
+        Task<CallResult> CancelOrderAsync(string? orderId = null, string? clientOrderId = null, CancellationToken ct = default);
 
         /// <summary>
         /// Cancel orders

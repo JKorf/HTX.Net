@@ -317,7 +317,7 @@ namespace HTX.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<HTXBatchPlaceResult[]>> PlaceMultipleOrdersAsync(
+        public async Task<CallResult<CallResult<HTXBatchPlaceResult>[]>> PlaceMultipleOrdersAsync(
             IEnumerable<HTXOrderRequest> orders,
             CancellationToken ct = default)
         {
@@ -327,9 +327,12 @@ namespace HTX.Net.Clients.SpotApi
                 var orderType = EnumConverter.GetString(order.Side) + "-" + EnumConverter.GetString(order.Type);
                 order.Symbol = order.Symbol.ToLowerInvariant();
 
+                if (!long.TryParse(order.AccountId, out var accountId))
+                    return new CallResult<CallResult<HTXBatchPlaceResult>[]>(new ArgumentError("AccountId required on order"));
+
                 var parameters = new HTXSocketPlaceOrderRequest()
                 {
-                    AccountId = long.Parse(order.AccountId),
+                    AccountId = accountId,
                     ClientOrderId = LibraryHelpers.ApplyBrokerId(order.ClientOrderId, HTXExchange.ClientOrderId, 64, ClientOptions.AllowAppendingClientOrderId),
                     Price = order.Price,
                     Type = orderType,
@@ -349,8 +352,26 @@ namespace HTX.Net.Clients.SpotApi
                 RequestId = ExchangeHelpers.NextId().ToString(),
                 Params = data
             });
-            var result = await QueryAsync(BaseAddress.AppendPath("ws/trade"), query, ct).ConfigureAwait(false);
-            return result.As<HTXBatchPlaceResult[]>(result.Data?.Data);
+            var resultData = await QueryAsync(BaseAddress.AppendPath("ws/trade"), query, ct).ConfigureAwait(false);
+            if (!resultData)
+                return resultData.As<CallResult<HTXBatchPlaceResult>[]>(default);
+
+            if (!resultData.Data.Success && resultData.Data.Data?.Any() != true)
+                return resultData.AsError<CallResult<HTXBatchPlaceResult>[]>(new ServerError(resultData.Data.ErrorCode!, resultData.Data.ErrorMessage!));
+
+            var result = new List<CallResult<HTXBatchPlaceResult>>();
+            foreach (var item in resultData.Data.Data!)
+            {
+                if (!string.IsNullOrEmpty(item.ErrorCode))
+                    result.Add(new CallResult<HTXBatchPlaceResult>(new ServerError(item.ErrorCode + ": " + item.ErrorMessage)));
+                else
+                    result.Add(new CallResult<HTXBatchPlaceResult>(item));
+            }
+
+            if (result.All(x => !x.Success))
+                return resultData.AsErrorWithData(new ServerError("All orders failed"), result.ToArray());
+
+            return resultData.As(result.ToArray());
         }
 
         /// <inheritdoc />
@@ -421,7 +442,7 @@ namespace HTX.Net.Clients.SpotApi
             return result.As<HTXByCriteriaCancelResult>(result.Data?.Data);
         }
 
-        public async Task<CallResult> CancelOrdersAsync(
+        public async Task<CallResult> CancelOrderAsync(
             string? orderId = null,
             string? clientOrderId = null,
             CancellationToken ct = default)

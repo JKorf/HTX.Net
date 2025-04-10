@@ -25,6 +25,8 @@ namespace HTX.Net.Converters
     // End manual defined attributes
 
     [JsonSerializable(typeof(HTXBasicResponse<IEnumerable<HTXOpenOrder>>))]
+    [JsonSerializable(typeof(HTXSocketOrderResponse<HTXBatchCancelResult>))]
+    [JsonSerializable(typeof(HTXSocketOrderResponse<HTXBatchPlaceResult[]>))]
     [JsonSerializable(typeof(HTXSocketOrderResponse<List<HTXSocketPlaceOrderRequest>>))]
     [JsonSerializable(typeof(HTXSocketOrderRequest<List<HTXSocketPlaceOrderRequest>>))]
     [JsonSerializable(typeof(HTXApiResponseV2<HTXLedgerEntry[]>))]
