@@ -21,6 +21,9 @@ namespace HTX.Net.Converters
     [JsonSerializable(typeof(HTXPingMessage))]
     [JsonSerializable(typeof(HTXSpotPongMessage))]
     [JsonSerializable(typeof(HTXPongMessage))]
+    [JsonSerializable(typeof(HTXSocketOrderResponse<string>))]
+    [JsonSerializable(typeof(HTXSocketOrderResponse<HTXByCriteriaCancelResult>))]
+    [JsonSerializable(typeof(HTXSocketOrderResponse<HTXOrderId>))]
 
     // End manual defined attributes
 

@@ -12,5 +12,11 @@ namespace HTX.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("order-id")]
         public long OrderId { get; set; }
+        [JsonInclude, JsonPropertyName("orderId")]
+        internal long OrderIdInt
+        {
+            get => OrderId;
+            set => OrderId = value;
+        }
     }
 }

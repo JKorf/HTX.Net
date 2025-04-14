@@ -198,18 +198,17 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// Place a new order
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb89359-77b5-11ed-9966-1928f079ab6" /></para>
         /// </summary>
-        /// <param name="accountId"></param>
-        /// <param name="symbol"></param>
-        /// <param name="side"></param>
-        /// <param name="type"></param>
-        /// <param name="quantity"></param>
-        /// <param name="price"></param>
-        /// <param name="clientOrderId"></param>
-        /// <param name="source"></param>
-        /// <param name="stopPrice"></param>
-        /// <param name="stopOperator"></param>
-        /// <param name="ct"></param>
-        /// <returns></returns>
+        /// <param name="accountId">Id of the account</param>
+        /// <param name="symbol">Symbol, for example `ethusdt`</param>
+        /// <param name="side">Order side</param>
+        /// <param name="type">Order type</param>
+        /// <param name="quantity">Quantity of the order</param>
+        /// <param name="price">Limit price</param>
+        /// <param name="clientOrderId">Client order id</param>
+        /// <param name="source">Source</param>
+        /// <param name="stopPrice">Stop price</param>
+        /// <param name="stopOperator">Stop operator</param>
+        /// <param name="ct">Cancellation token</param>
         Task<CallResult<string>> PlaceOrderAsync(
             long accountId,
             string symbol,

@@ -2417,7 +2417,22 @@
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
         </member>
+        <member name="P:HTX.Net.Converters.HTXSourceGenerationContext.HTXSocketOrderResponseHTXByCriteriaCancelResult">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Converters.HTXSourceGenerationContext.HTXSocketOrderResponseHTXOrderId">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
         <member name="P:HTX.Net.Converters.HTXSourceGenerationContext.HTXSocketOrderResponseListHTXSocketPlaceOrderRequest">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Converters.HTXSourceGenerationContext.HTXSocketOrderResponseString">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
@@ -9221,18 +9236,17 @@
             Place a new order
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb89359-77b5-11ed-9966-1928f079ab6" /></para>
             </summary>
-            <param name="accountId"></param>
-            <param name="symbol"></param>
-            <param name="side"></param>
-            <param name="type"></param>
-            <param name="quantity"></param>
-            <param name="price"></param>
-            <param name="clientOrderId"></param>
-            <param name="source"></param>
-            <param name="stopPrice"></param>
-            <param name="stopOperator"></param>
-            <param name="ct"></param>
-            <returns></returns>
+            <param name="accountId">Id of the account</param>
+            <param name="symbol">Symbol, for example `ethusdt`</param>
+            <param name="side">Order side</param>
+            <param name="type">Order type</param>
+            <param name="quantity">Quantity of the order</param>
+            <param name="price">Limit price</param>
+            <param name="clientOrderId">Client order id</param>
+            <param name="source">Source</param>
+            <param name="stopPrice">Stop price</param>
+            <param name="stopOperator">Stop operator</param>
+            <param name="ct">Cancellation token</param>
         </member>
         <member name="M:HTX.Net.Interfaces.Clients.SpotApi.IHTXSocketClientSpotApi.PlaceMultipleOrdersAsync(System.Collections.Generic.IEnumerable{HTX.Net.Objects.Models.HTXOrderRequest},System.Threading.CancellationToken)">
             <summary>

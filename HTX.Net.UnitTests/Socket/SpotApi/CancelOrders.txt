@@ -1,0 +1,15 @@
+> {"params":{"authType":"api","accessKey":"ffb16b12-d0f774c0-7e5d3284-ez2xc4vb6n","signatureMethod":"HmacSHA256","signatureVersion":"2.1","timestamp":"2025-04-14T10:55:56","signature":"LCEbCWVDHwqHaJdgo4d\u002BvPXU2f9nNbHryX5UyWZ19vk="},"action":"req","ch":"auth"}
+< {"action":"req","code":200,"ch":"auth","data":{}}
+> {"ch":"cancel","params":{},"cid":"|1|"}
+=
+{
+  "status": "ok",
+  "data": {
+    "success": [
+      "1180298630694875",
+      "1180298630694876"
+    ],
+    "failed": []
+  },
+  "cid": "|1|"
+}
