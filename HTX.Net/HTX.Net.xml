@@ -7932,6 +7932,11 @@
             Event for when a rate limit is triggered
             </summary>
         </member>
+        <member name="E:HTX.Net.HTXRateLimiters.RateLimitUpdated">
+            <summary>
+            Event when the rate limit is updated. Note that it's only updated when a request is send, so there are no specific updates when the current usage is decaying.
+            </summary>
+        </member>
         <member name="T:HTX.Net.HTXTrackerFactory">
             <inheritdoc />
         </member>
