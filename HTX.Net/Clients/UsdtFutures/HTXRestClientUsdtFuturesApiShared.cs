@@ -1285,7 +1285,7 @@ namespace HTX.Net.Clients.UsdtFutures
             var fees = result.Data.First();
 
             // Return
-            return result.AsExchangeResult(Exchange, TradingMode.Spot, new SharedFee(fees.OpenMakerFee * 100, fees.OpenTakerFee * 100));
+            return result.AsExchangeResult(Exchange, request.Symbol.TradingMode, new SharedFee(fees.OpenMakerFee * 100, fees.OpenTakerFee * 100));
         }
         #endregion
 
@@ -1661,7 +1661,7 @@ namespace HTX.Net.Clients.UsdtFutures
                 return result.AsExchangeResult<SharedId>(Exchange, null, default);
 
             // Return
-            return result.AsExchangeResult(Exchange, TradingMode.Spot, new SharedId(result.Data.TpOrder?.OrderIdStr ?? result.Data.SlOrder!.OrderIdStr));
+            return result.AsExchangeResult(Exchange, request.Symbol.TradingMode, new SharedId(result.Data.TpOrder?.OrderIdStr ?? result.Data.SlOrder!.OrderIdStr));
         }
 
         EndpointOptions<CancelTpSlRequest> IFuturesTpSlRestClient.CancelFuturesTpSlOptions { get; } = new EndpointOptions<CancelTpSlRequest>(true)
