@@ -8,7 +8,7 @@
         /// <summary>
         /// Endpoints related to account settings, info or actions
         /// </summary>
-        /// <see cref="IHTXRestClientUsdtFuturesApiAccount"/>
+        /// <see cref="IHTXRestClientSpotApiAccount"/>
         IHTXRestClientSpotApiAccount Account { get; }
 
         /// <summary>

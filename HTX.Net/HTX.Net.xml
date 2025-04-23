@@ -8024,7 +8024,7 @@
             <summary>
             Endpoints related to account settings, info or actions
             </summary>
-            <see cref="!:IHTXRestClientUsdtFuturesApiAccount"/>
+            <see cref="T:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApiAccount"/>
         </member>
         <member name="P:HTX.Net.Interfaces.Clients.SpotApi.IHTXRestClientSpotApi.ExchangeData">
             <summary>
