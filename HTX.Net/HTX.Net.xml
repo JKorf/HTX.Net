@@ -7856,6 +7856,12 @@
             Get the HTX environment by name
             </summary>
         </member>
+        <member name="P:HTX.Net.HTXEnvironment.All">
+            <summary>
+            Available environment names
+            </summary>
+            <returns></returns>
+        </member>
         <member name="P:HTX.Net.HTXEnvironment.Live">
             <summary>
             Live environment
