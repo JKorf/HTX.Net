@@ -18,7 +18,7 @@ namespace HTX.Net.Objects.Sockets.Queries
             if (message.Data.IsSuccessful)
                 return new CallResult<HTXSocketResponse<T>>(message.Data, message.OriginalData, null);
 
-            return new CallResult<HTXSocketResponse<T>>(new ServerError(message.Data.ErrorCode!, message.Data.ErrorMessage));
+            return new CallResult<HTXSocketResponse<T>>(new ServerError($"{message.Data.ErrorCode}, {message.Data.ErrorMessage}"));
         }
     }
 }

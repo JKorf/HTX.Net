@@ -357,7 +357,7 @@ namespace HTX.Net.Clients.SpotApi
                 return resultData.As<CallResult<HTXBatchPlaceResult>[]>(default);
 
             if (!resultData.Data.Success && resultData.Data.Data?.Any() != true)
-                return resultData.AsError<CallResult<HTXBatchPlaceResult>[]>(new ServerError(resultData.Data.ErrorCode!, resultData.Data.ErrorMessage!));
+                return resultData.AsError<CallResult<HTXBatchPlaceResult>[]>(new ServerError($"{resultData.Data.ErrorCode}, {resultData.Data.ErrorMessage}"));
 
             var result = new List<CallResult<HTXBatchPlaceResult>>();
             foreach (var item in resultData.Data.Data!)
