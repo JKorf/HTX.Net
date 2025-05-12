@@ -34,7 +34,7 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// Margin available
         /// </summary>
         [JsonPropertyName("margin_available")]
-        public decimal MarginAvailable { get; set; }
+        public decimal? MarginAvailable { get; set; }
         /// <summary>
         /// Profit real
         /// </summary>
