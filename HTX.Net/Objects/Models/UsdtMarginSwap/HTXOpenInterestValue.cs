@@ -1,10 +1,12 @@
-﻿using HTX.Net.Enums;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using HTX.Net.Enums;
 
 namespace HTX.Net.Objects.Models.UsdtMarginSwap
 {
     /// <summary>
     /// Open interest value
     /// </summary>
+    [SerializationModel]
     public record HTXOpenInterestValue
     {
         /// <summary>
@@ -20,7 +22,7 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// <summary>
         /// Business type
         /// </summary>
-        [JsonConverter(typeof(EnumConverter))]
+
         [JsonPropertyName("business_type")]
         public BusinessType BusinessType { get; set; }
         /// <summary>
@@ -32,19 +34,20 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// Contract type
         /// </summary>
         [JsonPropertyName("contract_type")]
-        [JsonConverter(typeof(EnumConverter))]
+
         public ContractType ContractType { get; set; }
 
         /// <summary>
         /// Tick
         /// </summary>
         [JsonPropertyName("tick")]
-        public IEnumerable<HTXOpenInterestValueTick> Tick { get; set; } = Array.Empty<HTXOpenInterestValueTick>();
+        public HTXOpenInterestValueTick[] Tick { get; set; } = Array.Empty<HTXOpenInterestValueTick>();
     }
 
     /// <summary>
     /// Open interest value tick
     /// </summary>
+    [SerializationModel]
     public record HTXOpenInterestValueTick
     {
         /// <summary>
@@ -55,7 +58,7 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// <summary>
         /// Unit
         /// </summary>
-        [JsonConverter(typeof(EnumConverter))]
+
         [JsonPropertyName("amount_type")]
         public Unit Unit { get; set; }
         /// <summary>

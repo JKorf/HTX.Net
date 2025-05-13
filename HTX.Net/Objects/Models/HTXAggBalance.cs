@@ -1,10 +1,12 @@
-﻿using HTX.Net.Enums;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using HTX.Net.Enums;
 
 namespace HTX.Net.Objects.Models
 {
     /// <summary>
     /// HTX aggregated sub account balance
     /// </summary>
+    [SerializationModel]
     public record HTXAggBalance
     {
         /// <summary>
@@ -15,7 +17,7 @@ namespace HTX.Net.Objects.Models
         /// <summary>
         /// The type of the balance
         /// </summary>
-        [JsonConverter(typeof(EnumConverter))]
+
         [JsonPropertyName("type")]
         public AccountType Type { get; set; }
         /// <summary>

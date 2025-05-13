@@ -1,10 +1,12 @@
-﻿using HTX.Net.Enums;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using HTX.Net.Enums;
 
 namespace HTX.Net.Objects.Models.UsdtMarginSwap
 {
     /// <summary>
     /// Trade info
     /// </summary>
+    [SerializationModel]
     public record HTXMarginTrade
     {
         /// <summary>
@@ -46,7 +48,7 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// <summary>
         /// Trade role
         /// </summary>
-        [JsonConverter(typeof(EnumConverter))]
+
         [JsonPropertyName("role")]
         public OrderRole Role { get; set; }
         /// <summary>

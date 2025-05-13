@@ -32,7 +32,7 @@ namespace HTX.Net.Objects.Sockets.Subscriptions
         {
             var update = (HTXDataEvent<HTXAccountUpdate>)message.Data;
             _handler.Invoke(message.As(update.Data, update.Channel, null, SocketUpdateType.Update).WithDataTimestamp(update.Data.ChangeTime));
-            return new CallResult(null);
+            return CallResult.SuccessResult;
         }
 
         public override Type? GetMessageType(IMessageAccessor message) => typeof(HTXDataEvent<HTXAccountUpdate>);

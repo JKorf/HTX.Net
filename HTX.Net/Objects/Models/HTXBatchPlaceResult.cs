@@ -1,8 +1,11 @@
-﻿namespace HTX.Net.Objects.Models
+using CryptoExchange.Net.Converters.SystemTextJson;
+using HTX.Net.Converters;
+namespace HTX.Net.Objects.Models
 {
     /// <summary>
     /// Batch placement result
     /// </summary>
+    [SerializationModel]
     public record HTXBatchPlaceResult
     {
         /// <summary>
@@ -14,7 +17,7 @@
         /// Client order id
         /// </summary>
         [JsonPropertyName("client-order-id")]
-        [JsonConverterCtor(typeof(ReplaceConverter), $"{HTXExchange.ClientOrderIdPrefix}->")]
+        [JsonConverter(typeof(ClientIdConverter))]
         public string? ClientOrderId { get; set; }
         /// <summary>
         /// Whether the placement was successful

@@ -1,8 +1,10 @@
-﻿namespace HTX.Net.Objects.Models.UsdtMarginSwap
+using CryptoExchange.Net.Converters.SystemTextJson;
+namespace HTX.Net.Objects.Models.UsdtMarginSwap
 {
     /// <summary>
     /// Trading status
     /// </summary>
+    [SerializationModel]
     public record HTXTradingStatus
     {
         /// <summary>
@@ -45,6 +47,7 @@
     /// <summary>
     /// Cancel order ratio
     /// </summary>
+    [SerializationModel]
     public record HTXTradingStatusCor
     {
         /// <summary>
@@ -87,6 +90,7 @@
     /// <summary>
     /// Total disables
     /// </summary>
+    [SerializationModel]
     public record HTXTradingStatusTdn
     {
         /// <summary>

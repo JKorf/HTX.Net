@@ -1,10 +1,12 @@
-﻿using HTX.Net.Enums;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using HTX.Net.Enums;
 
 namespace HTX.Net.Objects.Models.UsdtMarginSwap
 {
     /// <summary>
     /// Tiered margin info
     /// </summary>
+    [SerializationModel]
     public record HTXTieredMarginInfo
     {
         /// <summary>
@@ -26,25 +28,26 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// Margin mode
         /// </summary>
         [JsonPropertyName("margin_mode")]
-        [JsonConverter(typeof(EnumConverter))]
+
         public MarginMode MarginMode { get; set; }
         /// <summary>
         /// List
         /// </summary>
         [JsonPropertyName("list")]
-        public IEnumerable<HTXTieredMarginRate> List { get; set; } = Array.Empty<HTXTieredMarginRate>();
+        public HTXTieredMarginRate[] List { get; set; } = Array.Empty<HTXTieredMarginRate>();
     }
 
     /// <summary>
     /// Tiered cross margin info
     /// </summary>
+    [SerializationModel]
     public record HTXTieredCrossMarginInfo: HTXTieredMarginInfo
     {
         /// <summary>
         /// Business type
         /// </summary>
         [JsonPropertyName("business_type")]
-        [JsonConverter(typeof(EnumConverter))]
+
         public BusinessType BusinessType { get;set; }
         /// <summary>
         /// Symbol
@@ -55,13 +58,14 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// Contract type
         /// </summary>
         [JsonPropertyName("contract_type")]
-        [JsonConverter(typeof(EnumConverter))]
+
         public ContractType ContractType { get; set; }
     }
 
     /// <summary>
     /// Margin rate
     /// </summary>
+    [SerializationModel]
     public record HTXTieredMarginRate
     {
         /// <summary>
@@ -73,12 +77,13 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// Ladders
         /// </summary>
         [JsonPropertyName("ladders")]
-        public IEnumerable<HTXTieredMarginLadder> Ladders { get; set; } = Array.Empty<HTXTieredMarginLadder>();
+        public HTXTieredMarginLadder[] Ladders { get; set; } = Array.Empty<HTXTieredMarginLadder>();
     }
 
     /// <summary>
     /// Ladder info
     /// </summary>
+    [SerializationModel]
     public record HTXTieredMarginLadder
     {
         /// <summary>

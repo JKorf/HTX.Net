@@ -1,8 +1,10 @@
-﻿namespace HTX.Net.Objects.Sockets
+using CryptoExchange.Net.Converters.SystemTextJson;
+namespace HTX.Net.Objects.Sockets
 {
     /// <summary>
     /// Message
     /// </summary>
+    [SerializationModel]
     public record HTXOpMessage
     {
         /// <summary>
@@ -13,21 +15,23 @@
         /// <summary>
         /// Request id
         /// </summary>
-        [JsonPropertyName("cid")]
+        [JsonPropertyName("cid"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public string? RequestId { get; set; }
         /// <summary>
         /// Topic
         /// </summary>
-        [JsonPropertyName("topic")]
+        [JsonPropertyName("topic"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public string Topic { get; set; } = string.Empty;
     }
 
+    [SerializationModel]
     internal record HTXOpPingMessage : HTXOpMessage
     {
         [JsonPropertyName("ts")]
         public long Timestamp { get; set; }
     }
 
+    [SerializationModel]
     internal record HTXOpResponse : HTXOpMessage
     {
         [JsonPropertyName("ts")]

@@ -1,4 +1,5 @@
-﻿using HTX.Net.Enums;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using HTX.Net.Enums;
 
 
 namespace HTX.Net.Objects.Models
@@ -6,6 +7,7 @@ namespace HTX.Net.Objects.Models
     /// <summary>
     /// Symbol trade
     /// </summary>
+    [SerializationModel]
     public record HTXSymbolTrade
     {
         /// <summary>
@@ -22,12 +24,13 @@ namespace HTX.Net.Objects.Models
         /// The details of the trade
         /// </summary>
         [JsonPropertyName("data")]
-        public IEnumerable<HTXSymbolTradeDetails> Details { get; set; } = Array.Empty<HTXSymbolTradeDetails>();
+        public HTXSymbolTradeDetails[] Details { get; set; } = Array.Empty<HTXSymbolTradeDetails>();
     }
 
     /// <summary>
     /// Symbol trade details
     /// </summary>
+    [SerializationModel]
     public record HTXSymbolTradeDetails
     {
         /// <summary>
@@ -43,7 +46,7 @@ namespace HTX.Net.Objects.Models
         public long TradeId { get; set; }
         // Rest uses trade-id, socket uses tradeId
         [JsonInclude, JsonPropertyName("tradeId")]
-        private long TradeIdInternal { get => TradeId; set => TradeId = value; }
+        internal long TradeIdInternal { get => TradeId; set => TradeId = value; }
         /// <summary>
         /// The price of the trade
         /// </summary>
@@ -57,7 +60,7 @@ namespace HTX.Net.Objects.Models
         /// <summary>
         /// The side of the trade
         /// </summary>
-        [JsonPropertyName("direction"), JsonConverter(typeof(EnumConverter))]        
+        [JsonPropertyName("direction")]
         public OrderSide Side { get; set; }
         /// <summary>
         /// The timestamp of the trade

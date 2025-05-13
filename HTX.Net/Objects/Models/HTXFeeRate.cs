@@ -1,8 +1,10 @@
-﻿namespace HTX.Net.Objects.Models
+using CryptoExchange.Net.Converters.SystemTextJson;
+namespace HTX.Net.Objects.Models
 {
     /// <summary>
     /// Current transaction fee rate applied to the user
     /// </summary>
+    [SerializationModel]
     public record HTXFeeRate
     {
         /// <summary>

@@ -1,4 +1,5 @@
-﻿using HTX.Net.Enums;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using HTX.Net.Enums;
 
 
 namespace HTX.Net.Objects.Models.UsdtMarginSwap
@@ -6,6 +7,7 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
     /// <summary>
     /// Cross margin account contract details
     /// </summary>
+    [SerializationModel]
     public record HTXCrossMarginAccountContract
     {
         /// <summary>
@@ -32,7 +34,7 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// Margin available
         /// </summary>
         [JsonPropertyName("margin_available")]
-        public decimal MarginAvailable { get; set; }
+        public decimal? MarginAvailable { get; set; }
         /// <summary>
         /// Unrealized profit and loss
         /// </summary>
@@ -62,7 +64,7 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// Contract type
         /// </summary>
         [JsonPropertyName("contract_type")]
-        [JsonConverter(typeof(EnumConverter))]
+
         public ContractType ContractType { get; set; }
         /// <summary>
         /// Symbol
@@ -73,7 +75,7 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// Business type
         /// </summary>
         [JsonPropertyName("business_type")]
-        [JsonConverter(typeof(EnumConverter))]
+
         public BusinessType BusinessType { get; set; }
         /// <summary>
         /// Trade partition

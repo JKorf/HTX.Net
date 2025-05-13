@@ -1,10 +1,13 @@
-﻿using HTX.Net.Enums;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using HTX.Net.Converters;
+using HTX.Net.Enums;
 
 namespace HTX.Net.Objects.Models.UsdtMarginSwap
 {
     /// <summary>
     /// Market data
     /// </summary>
+    [SerializationModel]
     public record HTXTicker: HTXSymbolData
     {
         /// <summary>
@@ -25,13 +28,13 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// <summary>
         /// Best ask
         /// </summary>
-        [JsonConverter(typeof(ArrayConverter))]
+        [JsonConverter(typeof(ArrayConverter<HTXOrderBookEntry>))]
         [JsonPropertyName("ask")]
         public HTXOrderBookEntry? Ask { get; set; }
         /// <summary>
         /// Best bid
         /// </summary>
-        [JsonConverter(typeof(ArrayConverter))]
+        [JsonConverter(typeof(ArrayConverter<HTXOrderBookEntry>))]
         [JsonPropertyName("bid")]
         public HTXOrderBookEntry? Bid { get; set; }
     }
@@ -39,6 +42,7 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
     /// <summary>
     /// Ticker info
     /// </summary>
+    [SerializationModel]
     public record HTXListTicker : HTXTicker
     {
         /// <summary>

@@ -1,15 +1,17 @@
-﻿namespace HTX.Net.Objects.Models
+using CryptoExchange.Net.Converters.SystemTextJson;
+namespace HTX.Net.Objects.Models
 {
     /// <summary>
     /// Account and balance info
     /// </summary>
+    [SerializationModel]
     public record HTXAccountBalances: HTXAccount
     {
         /// <summary>
         /// The list of balances
         /// </summary>
         [JsonPropertyName("list")]
-        public IEnumerable<HTXBalance> Data { get; set; } = Array.Empty<HTXBalance>();
+        public HTXBalance[] Data { get; set; } = Array.Empty<HTXBalance>();
 
         /// <summary>
         /// Symbol

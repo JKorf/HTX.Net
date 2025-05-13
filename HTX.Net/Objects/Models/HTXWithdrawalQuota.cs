@@ -1,8 +1,10 @@
-﻿namespace HTX.Net.Objects.Models
+using CryptoExchange.Net.Converters.SystemTextJson;
+namespace HTX.Net.Objects.Models
 {
     /// <summary>
     /// Asset quota
     /// </summary>
+    [SerializationModel]
     public record HTXWithdrawalQuota
     {
         /// <summary>
@@ -14,12 +16,13 @@
         /// Networks
         /// </summary>
         [JsonPropertyName("chains")]
-        public IEnumerable<HTXWithdrawalNetworkQuota> Networks { get; set; } = Array.Empty<HTXWithdrawalNetworkQuota>();
+        public HTXWithdrawalNetworkQuota[] Networks { get; set; } = Array.Empty<HTXWithdrawalNetworkQuota>();
     }
 
     /// <summary>
     /// Network quota
     /// </summary>
+    [SerializationModel]
     public record HTXWithdrawalNetworkQuota
     {
         /// <summary>

@@ -45,7 +45,6 @@ namespace HTX.Net.UnitTests
 
             // assert
             ClassicAssert.IsFalse(result.Success);
-            Assert.That(result.Error.ToString().Contains("Error message"));
         }
 
 

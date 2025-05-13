@@ -1,11 +1,13 @@
-﻿
+using CryptoExchange.Net.Converters.SystemTextJson;
+
 
 namespace HTX.Net.Objects.Models.UsdtMarginSwap
 {
     /// <summary>
     /// Order id
     /// </summary>
-    public record HTXOrderId
+    [SerializationModel]
+    public record HTXSwapOrderId
     {
         /// <summary>
         /// Order id

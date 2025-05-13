@@ -1,23 +1,25 @@
-﻿using HTX.Net.Enums;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using HTX.Net.Enums;
 
 namespace HTX.Net.Objects.Models.UsdtMarginSwap
 {
     /// <summary>
     /// Position open and tp/sl info
     /// </summary>
+    [SerializationModel]
     public record HTXCrossPositionOpenTpSlOrders : HTXPositionOpenTpSlOrders
     {
         /// <summary>
         /// Contract type
         /// </summary>
         [JsonPropertyName("contract_type")]
-        [JsonConverter(typeof(EnumConverter))]
+
         public ContractType ContractType { get; set; }
         /// <summary>
         /// Business type
         /// </summary>
         [JsonPropertyName("business_type")]
-        [JsonConverter(typeof(EnumConverter))]
+
         public BusinessType BusinessType { get; set; }
         /// <summary>
         /// Pair

@@ -35,7 +35,7 @@ namespace HTX.Net.Objects.Sockets.Subscriptions
             _handler.Invoke(message.As(htxEvent)
                 .WithUpdateType(SocketUpdateType.Update)
                 .WithStreamId(htxEvent.Topic));
-            return new CallResult(null);
+            return CallResult.SuccessResult;
         }
     }
 }

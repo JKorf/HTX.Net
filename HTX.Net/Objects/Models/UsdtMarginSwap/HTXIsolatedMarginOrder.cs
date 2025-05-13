@@ -1,10 +1,12 @@
-﻿using HTX.Net.Enums;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using HTX.Net.Enums;
 
 namespace HTX.Net.Objects.Models.UsdtMarginSwap
 {
     /// <summary>
     /// Isolated margin order info
     /// </summary>
+    [SerializationModel]
     public record HTXIsolatedMarginOrder
     {
         /// <summary>
@@ -31,24 +33,24 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// Order price type
         /// </summary>
         [JsonPropertyName("order_price_type")]
-        [JsonConverter(typeof(EnumConverter))]
+
         public OrderPriceType OrderPriceType { get; set; }
         /// <summary>
         /// Order type
         /// </summary>
         [JsonPropertyName("order_type")]
-        [JsonConverter(typeof(EnumConverter))]
+
         public MarginOrderType OrderType { get; set; }
         /// <summary>
         /// Direction
         /// </summary>
-        [JsonConverter(typeof(EnumConverter))]
+
         [JsonPropertyName("direction")]
         public OrderSide Side { get; set; }
         /// <summary>
         /// Offset
         /// </summary>
-        [JsonConverter(typeof(EnumConverter))]
+
         [JsonPropertyName("offset")]
         public Offset Offset { get; set; }
         /// <summary>
@@ -128,7 +130,7 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// <summary>
         /// Order status
         /// </summary>
-        [JsonConverter(typeof(EnumConverter))]
+
         [JsonPropertyName("status")]
         public SwapMarginOrderStatus Status { get; set; }
         /// <summary>
@@ -195,25 +197,24 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// Trades
         /// </summary>
         [JsonPropertyName("trade")]
-        public IEnumerable<HTXMarginTrade>? Trades { get; set; }
+        public HTXMarginTrade[]? Trades { get; set; }
     }
 
     /// <summary>
     /// Cross margin order info
     /// </summary>
+    [SerializationModel]
     public record HTXCrossMarginOrder : HTXIsolatedMarginOrder
     {
         /// <summary>
         /// Business type
         /// </summary>
         [JsonPropertyName("business_type")]
-        [JsonConverter(typeof (EnumConverter))]
         public BusinessType BusinessType { get; set; }
         /// <summary>
         /// Contract type
         /// </summary>
         [JsonPropertyName("contract_type")]
-        [JsonConverter(typeof (EnumConverter))]
         public ContractType ContractType { get; set; }
         /// <summary>
         /// Symbol

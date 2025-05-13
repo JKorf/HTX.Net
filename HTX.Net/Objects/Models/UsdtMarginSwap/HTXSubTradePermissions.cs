@@ -1,25 +1,28 @@
-﻿namespace HTX.Net.Objects.Models.UsdtMarginSwap
+using CryptoExchange.Net.Converters.SystemTextJson;
+namespace HTX.Net.Objects.Models.UsdtMarginSwap
 {
     /// <summary>
     /// Trade permissions result
     /// </summary>
+    [SerializationModel]
     public record HTXSubTradePermissions
     {
         /// <summary>
         /// Errors
         /// </summary>
         [JsonPropertyName("errors")]
-        public IEnumerable<HTXSubTradePermissionsError> Errors { get; set; } = Array.Empty<HTXSubTradePermissionsError>();
+        public HTXSubTradePermissionsError[] Errors { get; set; } = Array.Empty<HTXSubTradePermissionsError>();
         /// <summary>
         /// Successes
         /// </summary>
         [JsonPropertyName("successes")]
-        public IEnumerable<HTXSubTradePermissionsStatus> Successes { get; set; } = Array.Empty<HTXSubTradePermissionsStatus>();
+        public HTXSubTradePermissionsStatus[] Successes { get; set; } = Array.Empty<HTXSubTradePermissionsStatus>();
     }
 
     /// <summary>
     /// Error
     /// </summary>
+    [SerializationModel]
     public record HTXSubTradePermissionsError
     {
         /// <summary>
@@ -42,6 +45,7 @@
     /// <summary>
     /// Status
     /// </summary>
+    [SerializationModel]
     public record HTXSubTradePermissionsStatus
     {
         /// <summary>

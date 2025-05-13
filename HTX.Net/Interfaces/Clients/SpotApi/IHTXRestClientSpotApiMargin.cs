@@ -1,4 +1,4 @@
-﻿using HTX.Net.Enums;
+using HTX.Net.Enums;
 using HTX.Net.Objects.Models;
 
 namespace HTX.Net.Interfaces.Clients.SpotApi
@@ -18,7 +18,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// <param name="transactionId">Loan transaction ID</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<HTXRepaymentResult>>> RepayLoanAsync(string accountId, string asset, decimal quantity, string? transactionId = null, CancellationToken ct = default);
+        Task<WebCallResult<HTXRepaymentResult[]>> RepayLoanAsync(string accountId, string asset, decimal quantity, string? transactionId = null, CancellationToken ct = default);
 
         /// <summary>
         /// Transfer asset from spot account to isolated margin account
@@ -49,7 +49,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// <param name="symbols">Filter on symbol, for example `ETHUSDT`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<HTXLoanInfo>>> GetIsolatedLoanInterestRateAndQuotaAsync(IEnumerable<string>? symbols = null, CancellationToken ct = default);
+        Task<WebCallResult<HTXLoanInfo[]>> GetIsolatedLoanInterestRateAndQuotaAsync(IEnumerable<string>? symbols = null, CancellationToken ct = default);
 
         /// <summary>
         /// Request a loan on isolated margin
@@ -86,7 +86,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// <param name="subUserId">Sub user id</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<HTXMarginOrder>>> GetIsolatedMarginClosedOrdersAsync(
+        Task<WebCallResult<HTXMarginOrder[]>> GetIsolatedMarginClosedOrdersAsync(
             string symbol,
             IEnumerable<MarginOrderStatus>? states = null,
             DateTime? startDate = null,
@@ -105,7 +105,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// <param name="subUserId">Sub user id</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<HTXMarginBalances>>> GetIsolatedMarginBalanceAsync(string symbol, int? subUserId = null, CancellationToken ct = default);
+        Task<WebCallResult<HTXMarginBalances[]>> GetIsolatedMarginBalanceAsync(string symbol, int? subUserId = null, CancellationToken ct = default);
 
         /// <summary>
         /// Transfer from spot account to cross margin account
@@ -133,7 +133,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<HTXLoanInfoAsset>>> GetCrossLoanInterestRateAndQuotaAsync(CancellationToken ct = default);
+        Task<WebCallResult<HTXLoanInfoAsset[]>> GetCrossLoanInterestRateAndQuotaAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Request a loan on cross margin
@@ -169,7 +169,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// <param name="subUserId">Sub user id</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<HTXMarginOrder>>> GetCrossMarginClosedOrdersAsync(
+        Task<WebCallResult<HTXMarginOrder[]>> GetCrossMarginClosedOrdersAsync(
             string? asset = null,
             MarginOrderStatus? status = null,
             DateTime? startDate = null,
@@ -195,7 +195,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <param name="asset">The asset, for example `ETH`</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<IEnumerable<HTXMaxHolding>>> GetCrossMarginLimitAsync(string? asset = null, CancellationToken ct = default);
+        Task<WebCallResult<HTXMaxHolding[]>> GetCrossMarginLimitAsync(string? asset = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get repayment history
@@ -211,7 +211,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// <param name="fromId">Search id</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<HTXRepayment>>> GetRepaymentHistoryAsync(long? repayId = null, long? accountId = null, string? asset = null, DateTime? startTime = null, DateTime? endTime = null, string? sort = null, int? limit = null, long? fromId = null, CancellationToken ct = default);
+        Task<WebCallResult<HTXRepayment[]>> GetRepaymentHistoryAsync(long? repayId = null, long? accountId = null, string? asset = null, DateTime? startTime = null, DateTime? endTime = null, string? sort = null, int? limit = null, long? fromId = null, CancellationToken ct = default);
         
     }
 }

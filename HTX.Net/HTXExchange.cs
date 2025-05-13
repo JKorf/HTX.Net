@@ -1,8 +1,10 @@
-﻿using CryptoExchange.Net.RateLimiting;
+﻿using CryptoExchange.Net.Converters;
+using CryptoExchange.Net.RateLimiting;
 using CryptoExchange.Net.RateLimiting.Filters;
 using CryptoExchange.Net.RateLimiting.Guards;
 using CryptoExchange.Net.RateLimiting.Interfaces;
 using CryptoExchange.Net.SharedApis;
+using HTX.Net.Converters;
 
 namespace HTX.Net
 {
@@ -46,6 +48,8 @@ namespace HTX.Net
         internal const string ClientOrderId = "AA1ef14811";
         internal const string ClientOrderIdPrefix = ClientOrderId + LibraryHelpers.ClientOrderIdSeparator;
 
+        internal static JsonSerializerContext _serializerContext = JsonSerializerContextCache.GetOrCreate<HTXSourceGenerationContext>();
+
         /// <summary>
         /// Format a base and quote asset to an HTX recognized symbol 
         /// </summary>
@@ -78,6 +82,11 @@ namespace HTX.Net
         /// </summary>
         public event Action<RateLimitEvent> RateLimitTriggered;
 
+        /// <summary>
+        /// Event when the rate limit is updated. Note that it's only updated when a request is send, so there are no specific updates when the current usage is decaying.
+        /// </summary>
+        public event Action<RateLimitUpdateEvent> RateLimitUpdated;
+
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         internal HTXRateLimiters()
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
@@ -105,14 +114,22 @@ namespace HTX.Net
             UsdtConnection = new RateLimitGate("USDT-M Connection Messages")
                                             .AddGuard(new RateLimitGuard(RateLimitGuard.PerConnection, new IGuardFilter[] { new LimitItemTypeFilter(RateLimitItemType.Request) }, 40, TimeSpan.FromSeconds(1), RateLimitWindowType.Fixed)); // 40 requests per second per connection
 
-            EndpointLimit.RateLimitTriggered += RateLimitTriggered;
-            SpotMarketLimit.RateLimitTriggered += RateLimitTriggered;
-            SpotConnection.RateLimitTriggered += RateLimitTriggered;
-            UsdtTrade.RateLimitTriggered += RateLimitTriggered;
-            UsdtRead.RateLimitTriggered += RateLimitTriggered;
-            PublicMarket.RateLimitTriggered += RateLimitTriggered;
-            UsdtPublicReference.RateLimitTriggered += RateLimitTriggered;
-            UsdtConnection.RateLimitTriggered += RateLimitTriggered;
+            EndpointLimit.RateLimitTriggered += (x) => RateLimitTriggered?.Invoke(x);
+            EndpointLimit.RateLimitUpdated += (x) => RateLimitUpdated?.Invoke(x);
+            SpotMarketLimit.RateLimitTriggered += (x) => RateLimitTriggered?.Invoke(x);
+            SpotMarketLimit.RateLimitUpdated += (x) => RateLimitUpdated?.Invoke(x);
+            SpotConnection.RateLimitTriggered += (x) => RateLimitTriggered?.Invoke(x);
+            SpotConnection.RateLimitUpdated += (x) => RateLimitUpdated?.Invoke(x);
+            UsdtTrade.RateLimitTriggered += (x) => RateLimitTriggered?.Invoke(x);
+            UsdtTrade.RateLimitUpdated += (x) => RateLimitUpdated?.Invoke(x);
+            UsdtRead.RateLimitTriggered += (x) => RateLimitTriggered?.Invoke(x);
+            UsdtRead.RateLimitUpdated += (x) => RateLimitUpdated?.Invoke(x);
+            PublicMarket.RateLimitTriggered += (x) => RateLimitTriggered?.Invoke(x);
+            PublicMarket.RateLimitUpdated += (x) => RateLimitUpdated?.Invoke(x);
+            UsdtPublicReference.RateLimitTriggered += (x) => RateLimitTriggered?.Invoke(x);
+            UsdtPublicReference.RateLimitUpdated += (x) => RateLimitUpdated?.Invoke(x);
+            UsdtConnection.RateLimitTriggered += (x) => RateLimitTriggered?.Invoke(x);
+            UsdtConnection.RateLimitUpdated += (x) => RateLimitUpdated?.Invoke(x);
         }
 
         internal IRateLimitGate EndpointLimit { get; private set; }

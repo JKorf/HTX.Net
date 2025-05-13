@@ -1,4 +1,4 @@
-﻿using CryptoExchange.Net.Objects.Sockets;
+using CryptoExchange.Net.Objects.Sockets;
 using HTX.Net.Enums;
 using HTX.Net.Objects.Models;
 using HTX.Net.Objects.Models.Socket;
@@ -11,7 +11,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
     public interface IHTXSocketClientUsdtFuturesApi : ISocketApiClient
     {
         /// <summary>
-        /// Get the shared socket subscription client. This interface is shared with other exhanges to allow for a common implementation for different exchanges.
+        /// Get the shared socket subscription client. This interface is shared with other exchanges to allow for a common implementation for different exchanges.
         /// </summary>
         IHTXSocketClientUsdtFuturesApiShared SharedClient { get; }
 
@@ -215,7 +215,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// <param name="onData">Data handler</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToFundingRateUpdatesAsync(Action<DataEvent<IEnumerable<HTXUsdtMarginSwapFundingRateUpdate>>> onData, CancellationToken ct = default);
+        Task<CallResult<UpdateSubscription>> SubscribeToFundingRateUpdatesAsync(Action<DataEvent<HTXUsdtMarginSwapFundingRateUpdate[]>> onData, CancellationToken ct = default);
 
         /// <summary>
         /// Subscribe to contract info updates
@@ -224,7 +224,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// <param name="onData">Data handler</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToContractUpdatesAsync(Action<DataEvent<IEnumerable<HTXUsdtMarginSwapContractUpdate>>> onData, CancellationToken ct = default);
+        Task<CallResult<UpdateSubscription>> SubscribeToContractUpdatesAsync(Action<DataEvent<HTXUsdtMarginSwapContractUpdate[]>> onData, CancellationToken ct = default);
 
         /// <summary>
         /// Subscribe to contract element updates. Only changed properties are send after the initial update, other properties will be `null`.
@@ -233,7 +233,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// <param name="onData">Data handler</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToContractElementsUpdatesAsync(Action<DataEvent<IEnumerable<HTXUsdtMarginSwapContractElementsUpdate>>> onData, CancellationToken ct = default);
+        Task<CallResult<UpdateSubscription>> SubscribeToContractElementsUpdatesAsync(Action<DataEvent<HTXUsdtMarginSwapContractElementsUpdate[]>> onData, CancellationToken ct = default);
 
         /// <summary>
         /// Subscribe to isolated margin trigger order updates

@@ -1,15 +1,17 @@
-﻿namespace HTX.Net.Objects.Models.UsdtMarginSwap
+using CryptoExchange.Net.Converters.SystemTextJson;
+namespace HTX.Net.Objects.Models.UsdtMarginSwap
 {
     /// <summary>
     /// Take profit / stop loss order page
     /// </summary>
+    [SerializationModel]
     public record HTXTpSlClosedOrderPage
     {
         /// <summary>
         /// Orders
         /// </summary>
         [JsonPropertyName("orders")]
-        public IEnumerable<HTXTpSlClosedOrder> Orders { get; set; } = Array.Empty<HTXTpSlClosedOrder>();
+        public HTXTpSlClosedOrder[] Orders { get; set; } = Array.Empty<HTXTpSlClosedOrder>();
         /// <summary>
         /// Total page
         /// </summary>
@@ -30,6 +32,7 @@
     /// <summary>
     /// Tp/Sl order
     /// </summary>
+    [SerializationModel]
     public record HTXTpSlClosedOrder : HTXTpSlOrder
     {
         /// <summary>

@@ -1,15 +1,17 @@
-﻿namespace HTX.Net.Objects.Models.UsdtMarginSwap
+using CryptoExchange.Net.Converters.SystemTextJson;
+namespace HTX.Net.Objects.Models.UsdtMarginSwap
 {
     /// <summary>
     /// Trigger order page
     /// </summary>
+    [SerializationModel]
     public record HTXClosedCrossTriggerOrderPage
     {
         /// <summary>
         /// Orders
         /// </summary>
         [JsonPropertyName("orders")]
-        public IEnumerable<HTXClosedCrossTriggerOrder> Orders { get; set; } = Array.Empty<HTXClosedCrossTriggerOrder>();
+        public HTXClosedCrossTriggerOrder[] Orders { get; set; } = Array.Empty<HTXClosedCrossTriggerOrder>();
         /// <summary>
         /// Total page
         /// </summary>
@@ -30,6 +32,7 @@
     /// <summary>
     /// Trigger order
     /// </summary>
+    [SerializationModel]
     public record HTXClosedCrossTriggerOrder : HTXCrossTriggerOrder
     {
         /// <summary>

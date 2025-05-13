@@ -1,4 +1,4 @@
-﻿using HTX.Net.Enums;
+using HTX.Net.Enums;
 using HTX.Net.Objects.Models;
 using HTX.Net.Interfaces.Clients.SpotApi;
 using CryptoExchange.Net.RateLimiting.Guards;
@@ -44,12 +44,12 @@ namespace HTX.Net.Clients.SpotApi
         #region Get Symbols
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<HTXSymbol>>> GetSymbolsAsync(CancellationToken ct = default)
+        public async Task<WebCallResult<HTXSymbol[]>> GetSymbolsAsync(CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             var request = _definitions.GetOrCreate(HttpMethod.Get, "v2/settings/common/symbols", HTXExchange.RateLimiter.EndpointLimit, 1, false,
                 new SingleLimitGuard(100, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding));
-            var result = await _baseClient.SendBasicAsync<IEnumerable<HTXSymbol>>(request, parameters, ct).ConfigureAwait(false);
+            var result = await _baseClient.SendBasicAsync<HTXSymbol[]>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
 
@@ -58,12 +58,12 @@ namespace HTX.Net.Clients.SpotApi
         #region Get Assets
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<HTXAsset>>> GetAssetsAsync(CancellationToken ct = default)
+        public async Task<WebCallResult<HTXAsset[]>> GetAssetsAsync(CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/v2/settings/common/currencies", HTXExchange.RateLimiter.EndpointLimit, 1, false,
                 new SingleLimitGuard(100, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding));
-            var result = await _baseClient.SendBasicAsync<IEnumerable<HTXAsset>>(request, parameters, ct).ConfigureAwait(false);
+            var result = await _baseClient.SendBasicAsync<HTXAsset[]>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
 
@@ -72,13 +72,13 @@ namespace HTX.Net.Clients.SpotApi
         #region Get Symbol Config
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<HTXSymbolConfig>>> GetSymbolConfigAsync(IEnumerable<string>? symbols = null, CancellationToken ct = default)
+        public async Task<WebCallResult<HTXSymbolConfig[]>> GetSymbolConfigAsync(IEnumerable<string>? symbols = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.AddOptional("symbols", symbols == null ? null : string.Join(",", symbols.Select(s => s.ToLowerInvariant())));
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/v1/settings/common/market-symbols", HTXExchange.RateLimiter.EndpointLimit, 1, false,
                 new SingleLimitGuard(100, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding));
-            var result = await _baseClient.SendBasicAsync<IEnumerable<HTXSymbolConfig>>(request, parameters, ct).ConfigureAwait(false);
+            var result = await _baseClient.SendBasicAsync<HTXSymbolConfig[]>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
 
@@ -87,14 +87,14 @@ namespace HTX.Net.Clients.SpotApi
         #region Get Networks
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<HTXAssetNetworkInfo>>> GetNetworksAsync(NetworkRequestFilter? descFilter = null, string? asset = null, CancellationToken ct = default)
+        public async Task<WebCallResult<HTXAssetNetworkInfo[]>> GetNetworksAsync(NetworkRequestFilter? descFilter = null, string? asset = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.AddOptionalEnum("show-desc", descFilter);
             parameters.AddOptional("currency", asset);
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/v1/settings/common/chains", HTXExchange.RateLimiter.EndpointLimit, 1, false,
                 new SingleLimitGuard(100, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding));
-            var result = await _baseClient.SendBasicAsync<IEnumerable<HTXAssetNetworkInfo>>(request, parameters, ct).ConfigureAwait(false);
+            var result = await _baseClient.SendBasicAsync<HTXAssetNetworkInfo[]>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
 
@@ -103,7 +103,7 @@ namespace HTX.Net.Clients.SpotApi
         #region Get Assets And Networks
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<HTXAssetNetworks>>> GetAssetsAndNetworksAsync(string? asset = null, CancellationToken ct = default)
+        public async Task<WebCallResult<HTXAssetNetworks[]>> GetAssetsAndNetworksAsync(string? asset = null, CancellationToken ct = default)
         {
             asset = asset?.ToLowerInvariant();
 
@@ -111,7 +111,7 @@ namespace HTX.Net.Clients.SpotApi
             parameters.AddOptional("currency", asset);
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/v2/reference/currencies", HTXExchange.RateLimiter.EndpointLimit, 1, false,
                 new SingleLimitGuard(100, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding));
-            var result = await _baseClient.SendAsync<IEnumerable<HTXAssetNetworks>>(request, parameters, ct).ConfigureAwait(false);
+            var result = await _baseClient.SendAsync<HTXAssetNetworks[]>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
 
@@ -136,7 +136,7 @@ namespace HTX.Net.Clients.SpotApi
         #region Get Klines
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<HTXKline>>> GetKlinesAsync(string symbol, KlineInterval period, int? limit = null, CancellationToken ct = default)
+        public async Task<WebCallResult<HTXKline[]>> GetKlinesAsync(string symbol, KlineInterval period, int? limit = null, CancellationToken ct = default)
         {
             symbol = symbol.ToLowerInvariant();
             limit?.ValidateIntBetween(nameof(limit), 0, 2000);
@@ -150,7 +150,7 @@ namespace HTX.Net.Clients.SpotApi
 
             var request = _definitions.GetOrCreate(HttpMethod.Get, "market/history/kline", HTXExchange.RateLimiter.SpotMarketLimit, 1, false,
                 new SingleLimitGuard(4500, TimeSpan.FromMinutes(5), RateLimitWindowType.Sliding));
-            return await _baseClient.SendBasicAsync<IEnumerable<HTXKline>>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendBasicAsync<HTXKline[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -185,7 +185,7 @@ namespace HTX.Net.Clients.SpotApi
         {
             var request = _definitions.GetOrCreate(HttpMethod.Get, "market/tickers", HTXExchange.RateLimiter.SpotMarketLimit, 1, false,
                 new SingleLimitGuard(4500, TimeSpan.FromMinutes(5), RateLimitWindowType.Sliding));
-            var result = await _baseClient.SendTimestampAsync<IEnumerable<HTXSymbolTick>>(request, null, ct).ConfigureAwait(false);
+            var result = await _baseClient.SendTimestampAsync<HTXSymbolTick[]>(request, null, ct).ConfigureAwait(false);
             if (!result)
                 return result.AsError<HTXSymbolTicks>(result.Error!);
 
@@ -242,7 +242,7 @@ namespace HTX.Net.Clients.SpotApi
         #region Get Trade History
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<HTXSymbolTrade>>> GetTradeHistoryAsync(string symbol, int? limit = null, CancellationToken ct = default)
+        public async Task<WebCallResult<HTXSymbolTrade[]>> GetTradeHistoryAsync(string symbol, int? limit = null, CancellationToken ct = default)
         {
             symbol = symbol.ToLowerInvariant();
             limit?.ValidateIntBetween(nameof(limit), 0, 2000);
@@ -255,7 +255,7 @@ namespace HTX.Net.Clients.SpotApi
 
             var request = _definitions.GetOrCreate(HttpMethod.Get, "market/history/trade", HTXExchange.RateLimiter.SpotMarketLimit, 1, false,
                 new SingleLimitGuard(3000, TimeSpan.FromMinutes(5), RateLimitWindowType.Sliding));
-            return await _baseClient.SendBasicAsync<IEnumerable<HTXSymbolTrade>>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendBasicAsync<HTXSymbolTrade[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion

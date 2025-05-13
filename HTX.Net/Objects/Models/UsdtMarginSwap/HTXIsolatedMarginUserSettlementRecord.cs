@@ -1,10 +1,12 @@
-﻿using HTX.Net.Enums;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using HTX.Net.Enums;
 
 namespace HTX.Net.Objects.Models.UsdtMarginSwap
 {
     /// <summary>
     /// User settlement record page
     /// </summary>
+    [SerializationModel]
     public record HTXIsolatedMarginUserSettlementRecordPage
     {
         /// <summary>
@@ -26,12 +28,13 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// Records
         /// </summary>
         [JsonPropertyName("settlement_records")]
-        public IEnumerable<HTXIsolatedMarginUserSettlementRecord> Records { get; set; } = Array.Empty<HTXIsolatedMarginUserSettlementRecord>();
+        public HTXIsolatedMarginUserSettlementRecord[] Records { get; set; } = Array.Empty<HTXIsolatedMarginUserSettlementRecord>();
     }
 
     /// <summary>
     /// User settlement record
     /// </summary>
+    [SerializationModel]
     public record HTXIsolatedMarginUserSettlementRecord
     {
         /// <summary>
@@ -48,7 +51,7 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// Margin mode
         /// </summary>
         [JsonPropertyName("margin_mode")]
-        [JsonConverter(typeof(EnumConverter))]
+
         public MarginMode MarginMode { get; set; }
         /// <summary>
         /// Margin account
@@ -105,12 +108,13 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// Positions
         /// </summary>
         [JsonPropertyName("positions")]
-        public IEnumerable<HTXCrossSettlementPosition> Positions { get; set; } = Array.Empty<HTXCrossSettlementPosition>();
+        public HTXCrossSettlementPosition[] Positions { get; set; } = Array.Empty<HTXCrossSettlementPosition>();
     }
 
     /// <summary>
     /// Settlement position
     /// </summary>
+    [SerializationModel]
     public record HTXCrossSettlementPosition
     {
         /// <summary>
@@ -162,7 +166,7 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// Settlement type
         /// </summary>
         [JsonPropertyName("settlement_type")]
-        [JsonConverter(typeof(EnumConverter))]
+
         public SettlementType SettlementType { get; set; }
 
     }

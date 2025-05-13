@@ -1,10 +1,12 @@
-﻿using HTX.Net.Objects.Sockets;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using HTX.Net.Objects.Sockets;
 
 namespace HTX.Net.Objects.Models.Socket
 {
     /// <summary>
     /// System status update
     /// </summary>
+    [SerializationModel]
     public record HTXStatusUpdate : HTXOpMessage
     {
         /// <summary>
@@ -28,6 +30,7 @@ namespace HTX.Net.Objects.Models.Socket
     /// <summary>
     /// System status update
     /// </summary>
+    [SerializationModel]
     public record HTXStatus
     {
         /// <summary>

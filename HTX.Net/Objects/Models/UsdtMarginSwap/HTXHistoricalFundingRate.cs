@@ -1,8 +1,10 @@
-﻿namespace HTX.Net.Objects.Models.UsdtMarginSwap
+using CryptoExchange.Net.Converters.SystemTextJson;
+namespace HTX.Net.Objects.Models.UsdtMarginSwap
 {
     /// <summary>
     /// Funding rates page
     /// </summary>
+    [SerializationModel]
     public record HTXFundingRatePage
     {
         /// <summary>
@@ -24,12 +26,13 @@
         /// Rates
         /// </summary>
         [JsonPropertyName("data")]
-        public IEnumerable<HTXHistoricalFundingRate> Rates { get; set; } = Array.Empty<HTXHistoricalFundingRate>();
+        public HTXHistoricalFundingRate[] Rates { get; set; } = Array.Empty<HTXHistoricalFundingRate>();
     }
 
     /// <summary>
     /// Historical funding rate
     /// </summary>
+    [SerializationModel]
     public record HTXHistoricalFundingRate
     {
         /// <summary>

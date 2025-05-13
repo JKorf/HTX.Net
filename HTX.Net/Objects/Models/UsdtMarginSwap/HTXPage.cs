@@ -1,10 +1,12 @@
-﻿
+using CryptoExchange.Net.Converters.SystemTextJson;
+
 
 namespace HTX.Net.Objects.Models.UsdtMarginSwap
 {
     /// <summary>
     /// Page of data
     /// </summary>
+    [SerializationModel]
     public record HTXPage
     {
         /// <summary>

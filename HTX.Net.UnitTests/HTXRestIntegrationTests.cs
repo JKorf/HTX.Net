@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using HTX.Net.Enums;
 using Microsoft.Extensions.Options;
+using HTX.Net.SymbolOrderBooks;
 
 namespace HTX.Net.UnitTests
 {
@@ -173,5 +174,13 @@ namespace HTX.Net.UnitTests
             await RunAndCheckResult(client => client.UsdtFuturesApi.Trading.GetClosedIsolatedMarginTrailingOrdersAsync("ETH-USDT", new[] { TpSlStatus.Canceled }, MarginTradeType.BuyLong, 90, default, default, default, default), true);
             await RunAndCheckResult(client => client.UsdtFuturesApi.Trading.GetClosedCrossMarginTrailingOrdersAsync(new[] { TpSlStatus.Canceled }, MarginTradeType.BuyLong, 90, "ETH-USDT", default, default, default, default, default, default), true);
         }
+
+        [Test]
+        public async Task TestOrderBooks()
+        {
+            await TestOrderBook(new HTXSpotSymbolOrderBook("ETHUSDT"));
+            await TestOrderBook(new HTXUsdtFuturesSymbolOrderBook("ETH-USDT"));
+        }
+
     }
 }

@@ -1,4 +1,5 @@
-﻿using HTX.Net.Enums;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using HTX.Net.Enums;
 using HTX.Net.Objects.Sockets;
 
 namespace HTX.Net.Objects.Models.Socket
@@ -6,6 +7,7 @@ namespace HTX.Net.Objects.Models.Socket
     /// <summary>
     /// Cross margin position update
     /// </summary>
+    [SerializationModel]
     public record HTXUsdtMarginSwapCrossPositionUpdate : HTXOpMessage
     {
         /// <summary>
@@ -22,7 +24,7 @@ namespace HTX.Net.Objects.Models.Socket
         /// Data
         /// </summary>
         [JsonPropertyName("data")]
-        public IEnumerable<HTXUsdtMarginSwapCrossPositionUpdateData> Data { get; set; } = Array.Empty<HTXUsdtMarginSwapCrossPositionUpdateData>();
+        public HTXUsdtMarginSwapCrossPositionUpdateData[] Data { get; set; } = Array.Empty<HTXUsdtMarginSwapCrossPositionUpdateData>();
         /// <summary>
         /// User id
         /// </summary>
@@ -33,6 +35,7 @@ namespace HTX.Net.Objects.Models.Socket
     /// <summary>
     /// Cross margin position data
     /// </summary>
+    [SerializationModel]
     public record HTXUsdtMarginSwapCrossPositionUpdateData : HTXUsdtMarginSwapIsolatedPositionUpdateData
     {
         /// <summary>

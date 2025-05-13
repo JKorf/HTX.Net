@@ -1,8 +1,10 @@
-﻿namespace HTX.Net.Objects.Models.UsdtMarginSwap
+using CryptoExchange.Net.Converters.SystemTextJson;
+namespace HTX.Net.Objects.Models.UsdtMarginSwap
 {
     /// <summary>
     /// Close position result
     /// </summary>
+    [SerializationModel]
     public record HTXClosePositionResult
     {
         /// <summary>

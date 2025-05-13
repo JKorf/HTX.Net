@@ -1,10 +1,12 @@
-﻿
+using CryptoExchange.Net.Converters.SystemTextJson;
+
 
 namespace HTX.Net.Objects.Models
 {
 	/// <summary>
 	/// Result of Cancel Orders by Criteria
 	/// </summary>
+    [SerializationModel]
 	public record HTXByCriteriaCancelResult
 	{
 		/// <summary>

@@ -1,10 +1,12 @@
-﻿using HTX.Net.Enums;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using HTX.Net.Enums;
 
 namespace HTX.Net.Objects.Models.UsdtMarginSwap
 {
     /// <summary>
     /// User settlement record page
     /// </summary>
+    [SerializationModel]
     public record HTXCrossMarginUserSettlementRecordPage
     {
         /// <summary>
@@ -26,12 +28,13 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// Records
         /// </summary>
         [JsonPropertyName("settlement_records")]
-        public IEnumerable<HTXCrossMarginUserSettlementRecord> Records { get; set; } = Array.Empty<HTXCrossMarginUserSettlementRecord>();
+        public HTXCrossMarginUserSettlementRecord[] Records { get; set; } = Array.Empty<HTXCrossMarginUserSettlementRecord>();
     }
 
     /// <summary>
     /// User settlement record
     /// </summary>
+    [SerializationModel]
     public record HTXCrossMarginUserSettlementRecord
     {
         /// <summary>
@@ -43,7 +46,7 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// Margin mode
         /// </summary>
         [JsonPropertyName("margin_mode")]
-        [JsonConverter(typeof(EnumConverter))]
+
         public MarginMode MarginMode { get; set; }
         /// <summary>
         /// Margin balance init
@@ -95,13 +98,14 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// Contract details
         /// </summary>
         [JsonPropertyName("contract_detail")]
-        public IEnumerable<HTXCrossMarginSettlementAccountContract> ContractDetails { get; set; } = Array.Empty<HTXCrossMarginSettlementAccountContract>();
+        public HTXCrossMarginSettlementAccountContract[] ContractDetails { get; set; } = Array.Empty<HTXCrossMarginSettlementAccountContract>();
 
     }
 
     /// <summary>
     /// Settlement contract details
     /// </summary>
+    [SerializationModel]
     public record HTXCrossMarginSettlementAccountContract
     {
         /// <summary>
@@ -133,12 +137,13 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// Positions
         /// </summary>
         [JsonPropertyName("positions")]
-        public IEnumerable<HTXSettlementPosition> Positions { get; set; } = Array.Empty<HTXSettlementPosition>();
+        public HTXSettlementPosition[] Positions { get; set; } = Array.Empty<HTXSettlementPosition>();
     }
 
     /// <summary>
     /// Settlement position
     /// </summary>
+    [SerializationModel]
     public record HTXSettlementPosition
     {
         /// <summary>
@@ -190,7 +195,7 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// Settlement type
         /// </summary>
         [JsonPropertyName("settlement_type")]
-        [JsonConverter(typeof(EnumConverter))]
+
         public SettlementType SettlementType { get; set; }
 
     }

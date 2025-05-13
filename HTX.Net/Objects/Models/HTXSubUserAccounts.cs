@@ -1,8 +1,10 @@
-﻿namespace HTX.Net.Objects.Models
+using CryptoExchange.Net.Converters.SystemTextJson;
+namespace HTX.Net.Objects.Models
 {
     /// <summary>
     /// HTX sub-user account info
     /// </summary>
+    [SerializationModel]
     public record HTXSubUserAccounts
     {
         /// <summary>
@@ -21,6 +23,6 @@
         /// List of accounts for the sub-user
         /// </summary>
         [JsonPropertyName("list")]
-        public IEnumerable<HTXSubUserAccount> Accounts { get; set; } = Array.Empty<HTXSubUserAccount>();
+        public HTXSubUserAccount[] Accounts { get; set; } = Array.Empty<HTXSubUserAccount>();
     }
 }

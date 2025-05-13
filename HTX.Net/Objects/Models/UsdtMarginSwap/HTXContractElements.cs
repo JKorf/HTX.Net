@@ -1,10 +1,12 @@
-﻿using HTX.Net.Enums;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using HTX.Net.Enums;
 
 namespace HTX.Net.Objects.Models.UsdtMarginSwap
 {
     /// <summary>
     /// Contract element info
     /// </summary>
+    [SerializationModel]
     public record HTXContractElements
     {
         /// <summary>
@@ -46,12 +48,12 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// Price ticks
         /// </summary>
         [JsonPropertyName("price_ticks")]
-        public IEnumerable<HTXContractElementsPriceTick> PriceTicks { get; set; } = Array.Empty<HTXContractElementsPriceTick>();
+        public HTXContractElementsPriceTick[] PriceTicks { get; set; } = Array.Empty<HTXContractElementsPriceTick>();
         /// <summary>
         /// Instrument values
         /// </summary>
         [JsonPropertyName("instrument_values")]
-        public IEnumerable<HTXContractElementsPriceTick> InstrumentValues { get; set; } = Array.Empty<HTXContractElementsPriceTick>();
+        public HTXContractElementsPriceTick[] InstrumentValues { get; set; } = Array.Empty<HTXContractElementsPriceTick>();
         /// <summary>
         /// Min level
         /// </summary>
@@ -66,22 +68,22 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// Order limits
         /// </summary>
         [JsonPropertyName("order_limits")]
-        public IEnumerable<HTXContractElementsOrderLimit> OrderLimits { get; set; } = Array.Empty<HTXContractElementsOrderLimit>();
+        public HTXContractElementsOrderLimit[] OrderLimits { get; set; } = Array.Empty<HTXContractElementsOrderLimit>();
         /// <summary>
         /// Normal limits
         /// </summary>
         [JsonPropertyName("normal_limits")]
-        public IEnumerable<HTXContractElementsLimit> NormalLimits { get; set; } = Array.Empty<HTXContractElementsLimit>();
+        public HTXContractElementsLimit[] NormalLimits { get; set; } = Array.Empty<HTXContractElementsLimit>();
         /// <summary>
         /// Open limits
         /// </summary>
         [JsonPropertyName("open_limits")]
-        public IEnumerable<HTXContractElementsLimit> OpenLimits { get; set; } = Array.Empty<HTXContractElementsLimit>();
+        public HTXContractElementsLimit[] OpenLimits { get; set; } = Array.Empty<HTXContractElementsLimit>();
         /// <summary>
         /// Trade limits
         /// </summary>
         [JsonPropertyName("trade_limits")]
-        public IEnumerable<HTXContractElementsLimit> TradeLimits { get; set; } = Array.Empty<HTXContractElementsLimit>();
+        public HTXContractElementsLimit[] TradeLimits { get; set; } = Array.Empty<HTXContractElementsLimit>();
         /// <summary>
         /// Real time settlement
         /// </summary>
@@ -101,7 +103,7 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// Instrument types
         /// </summary>
         [JsonPropertyName("instrument_type")]
-        public IEnumerable<ElementInstrumentType> InstrumentTypes { get; set; } = Array.Empty<ElementInstrumentType>();
+        public ElementInstrumentType[] InstrumentTypes { get; set; } = Array.Empty<ElementInstrumentType>();
         /// <summary>
         /// Price tick
         /// </summary>
@@ -141,12 +143,13 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// Contract infos
         /// </summary>
         [JsonPropertyName("contract_infos")]
-        public IEnumerable<HTXContractElementsContractInfo> ContractInfos { get; set; } = Array.Empty<HTXContractElementsContractInfo>();
+        public HTXContractElementsContractInfo[] ContractInfos { get; set; } = Array.Empty<HTXContractElementsContractInfo>();
     }
 
     /// <summary>
     /// Price info
     /// </summary>
+    [SerializationModel]
     public record HTXContractElementsPriceTick
     {
         /// <summary>
@@ -164,6 +167,7 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
     /// <summary>
     /// Limit info
     /// </summary>
+    [SerializationModel]
     public record HTXContractElementsLimit
     {
         /// <summary>
@@ -186,6 +190,7 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
     /// <summary>
     /// Order limit
     /// </summary>
+    [SerializationModel]
     public record HTXContractElementsOrderLimit: HTXContractElementsLimit
     {
         /// <summary>
@@ -198,6 +203,7 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
     /// <summary>
     /// Contract info
     /// </summary>
+    [SerializationModel]
     public record HTXContractElementsContractInfo
     {
         /// <summary>

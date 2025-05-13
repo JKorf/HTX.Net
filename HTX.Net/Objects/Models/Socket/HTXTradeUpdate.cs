@@ -1,10 +1,13 @@
-﻿using HTX.Net.Enums;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using HTX.Net.Converters;
+using HTX.Net.Enums;
 
 namespace HTX.Net.Objects.Models.Socket
 {
     /// <summary>
     /// Trade update
     /// </summary>
+    [SerializationModel]
     public record HTXTradeUpdate
     {
         /// <summary>
@@ -36,12 +39,12 @@ namespace HTX.Net.Objects.Models.Socket
         /// <summary>
         /// Order side
         /// </summary>
-        [JsonPropertyName("orderSide"), JsonConverter(typeof(EnumConverter))]
+        [JsonPropertyName("orderSide")]
         public OrderSide Side { get; set; }
         /// <summary>
         /// Order type
         /// </summary>
-        [JsonPropertyName("orderType"), JsonConverter(typeof(EnumConverter))]
+        [JsonPropertyName("orderType")]
         public OrderType Type { get; set; }
         /// <summary>
         /// Is the taker
@@ -106,7 +109,7 @@ namespace HTX.Net.Objects.Models.Socket
         /// Client order id
         /// </summary>
         [JsonPropertyName("clientOrderId")]
-        [JsonConverterCtor(typeof(ReplaceConverter), $"{HTXExchange.ClientOrderIdPrefix}->")]
+        [JsonConverter(typeof(ClientIdConverter))]
         public string? ClientOrderId { get; set; }
         /// <summary>
         /// Stop price
@@ -127,7 +130,7 @@ namespace HTX.Net.Objects.Models.Socket
         /// <summary>
         /// Order status
         /// </summary>
-        [JsonConverter(typeof(EnumConverter))]
+
         [JsonPropertyName("orderStatus")]
         public OrderStatus OrderStatus { get; set; }
     }

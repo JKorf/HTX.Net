@@ -1,10 +1,12 @@
-﻿using HTX.Net.Enums;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using HTX.Net.Enums;
 
 namespace HTX.Net.Objects.Models.UsdtMarginSwap
 {
     /// <summary>
     /// Contract info
     /// </summary>
+    [SerializationModel]
     public record HTXContractInfo
     {
         /// <summary>
@@ -49,7 +51,7 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// Status
         /// </summary>
         [JsonPropertyName("contract_status")]
-        [JsonConverter(typeof(EnumConverter))]
+
         public ContractStatus Status { get; set; }
         /// <summary>
         /// Settlement date
@@ -61,13 +63,13 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// Margin mode
         /// </summary>
         [JsonPropertyName("support_margin_mode")]
-        [JsonConverter(typeof(EnumConverter))]
+
         public MarginMode MarginMode { get; set; }
         /// <summary>
         /// Business type
         /// </summary>
         [JsonPropertyName("business_type")]
-        [JsonConverter(typeof(EnumConverter))]
+
         public BusinessType BusinessType { get; set; }
         /// <summary>
         /// Symbol
@@ -77,7 +79,7 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// <summary>
         /// Contract type
         /// </summary>
-        [JsonConverter(typeof(EnumConverter))]
+
         [JsonPropertyName("contract_type")]
         public ContractType ContractType { get; set; }
     }

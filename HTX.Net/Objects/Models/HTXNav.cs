@@ -1,8 +1,10 @@
-﻿namespace HTX.Net.Objects.Models
+using CryptoExchange.Net.Converters.SystemTextJson;
+namespace HTX.Net.Objects.Models
 {
     /// <summary>
     /// NAV info for ETP
     /// </summary>
+    [SerializationModel]
     public record HTXNav
     {
         /// <summary>
@@ -30,7 +32,7 @@
         /// Baskets
         /// </summary>
         [JsonPropertyName("basket")]
-        public IEnumerable<HTXBasket> Basket { get; set; } = Array.Empty<HTXBasket>();
+        public HTXBasket[] Basket { get; set; } = Array.Empty<HTXBasket>();
         /// <summary>
         /// Actual leverage ratio
         /// </summary>
@@ -41,6 +43,7 @@
     /// <summary>
     /// Basket
     /// </summary>
+    [SerializationModel]
     public record HTXBasket
     {
         /// <summary>

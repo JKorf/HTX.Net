@@ -9,7 +9,7 @@
         [JsonInclude, JsonPropertyName("err-msg")]
         internal string? ErrorMessage { get; set; }
         [JsonInclude, JsonPropertyName("err_msg")]
-        private string? ErrorMessageInternal
+        internal string? ErrorMessageInternal
         {
             get => ErrorMessage;
             set => ErrorMessage = value;
@@ -17,13 +17,13 @@
         [JsonInclude, JsonPropertyName("err-code"), JsonConverter(typeof(NumberStringConverter))]
         internal string? ErrorCode { get; set; }
         [JsonInclude, JsonPropertyName("err_code"), JsonConverter(typeof(NumberStringConverter))]
-        private string? ErrorCodeInternal
+        internal string? ErrorCodeInternal
         {
             get => ErrorCode;
             set => ErrorCode = value;
         }
         [JsonInclude, JsonPropertyName("code"), JsonConverter(typeof(NumberStringConverter))]
-        private string? ErrorCodeInternal2
+        internal string? ErrorCodeInternal2
         {
             get => ErrorCode;
             set => ErrorCode = value;
@@ -37,7 +37,7 @@
         [JsonPropertyName("ch")]
         public string Channel { get; set; } = string.Empty;
         [JsonInclude, JsonPropertyName("next-time"), JsonConverter(typeof(DateTimeConverter))]
-        private DateTime NextTime { get => Timestamp; set => Timestamp = value; }
+        internal DateTime NextTime { get => Timestamp; set => Timestamp = value; }
     }
 
     internal class HTXBasicResponse<T> : HTXBasicResponse
@@ -45,8 +45,8 @@
         [JsonPropertyName("data")]
         public T Data { get; set; } = default!;
         [JsonInclude, JsonPropertyName("tick")]
-        private T Tick { set => Data = value; get => Data; }
+        internal T Tick { set => Data = value; get => Data; }
         [JsonInclude, JsonPropertyName("ticks")]
-        private T Ticks { set => Data = value; get => Data; }
+        internal T Ticks { set => Data = value; get => Data; }
     }
 }

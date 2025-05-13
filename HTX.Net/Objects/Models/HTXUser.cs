@@ -1,4 +1,5 @@
-﻿
+using CryptoExchange.Net.Converters.SystemTextJson;
+
 using HTX.Net.Enums;
 
 
@@ -7,6 +8,7 @@ namespace HTX.Net.Objects.Models
     /// <summary>
     /// HTX user info
     /// </summary>
+    [SerializationModel]
     public record HTXUser
     {
         /// <summary>
@@ -17,7 +19,7 @@ namespace HTX.Net.Objects.Models
         /// <summary>
         /// The status of the user
         /// </summary>
-        [JsonPropertyName("userState"), JsonConverter(typeof(EnumConverter))]
+        [JsonPropertyName("userState")]
         public UserStatus Status { get; set; }
         /// <summary>
         /// User name

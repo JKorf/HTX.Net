@@ -1,10 +1,12 @@
-﻿using HTX.Net.Enums;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using HTX.Net.Enums;
 
 namespace HTX.Net.Objects.Models
 {
     /// <summary>
     /// System status info
     /// </summary>
+    [SerializationModel]
     public record HTXSystemStatus
     {
         /// <summary>
@@ -16,17 +18,17 @@ namespace HTX.Net.Objects.Models
         /// Components
         /// </summary>
         [JsonPropertyName("components")]
-        public IEnumerable<HTXSystemComponent> Components { get; set; } = Array.Empty<HTXSystemComponent>();
+        public HTXSystemComponent[] Components { get; set; } = Array.Empty<HTXSystemComponent>();
         /// <summary>
         /// Incidents
         /// </summary>
         [JsonPropertyName("incidents")]
-        public IEnumerable<HTXSystemIncident> Incidents { get; set; } = Array.Empty<HTXSystemIncident>();
+        public HTXSystemIncident[] Incidents { get; set; } = Array.Empty<HTXSystemIncident>();
         /// <summary>
         /// Scheduled maintenances
         /// </summary>
         [JsonPropertyName("scheduled_maintenances")]
-        public IEnumerable<HTXSystemMaintenance> ScheduledMaintenances { get; set; } = Array.Empty<HTXSystemMaintenance>();
+        public HTXSystemMaintenance[] ScheduledMaintenances { get; set; } = Array.Empty<HTXSystemMaintenance>();
         /// <summary>
         /// Status
         /// </summary>
@@ -37,6 +39,7 @@ namespace HTX.Net.Objects.Models
     /// <summary>
     /// Page info
     /// </summary>
+    [SerializationModel]
     public record HTXPageInfo
     {
         /// <summary>
@@ -69,6 +72,7 @@ namespace HTX.Net.Objects.Models
     /// <summary>
     /// System component
     /// </summary>
+    [SerializationModel]
     public record HTXSystemComponent
     {
         /// <summary>
@@ -136,6 +140,7 @@ namespace HTX.Net.Objects.Models
     /// <summary>
     /// System incident
     /// </summary>
+    [SerializationModel]
     public record HTXSystemIncident
     {
         /// <summary>
@@ -197,17 +202,18 @@ namespace HTX.Net.Objects.Models
         /// Incident updates
         /// </summary>
         [JsonPropertyName("incident_updates")]
-        public IEnumerable<HTXSystemIncidentUpdate> IncidentUpdates { get; set; } = Array.Empty<HTXSystemIncidentUpdate>();
+        public HTXSystemIncidentUpdate[] IncidentUpdates { get; set; } = Array.Empty<HTXSystemIncidentUpdate>();
         /// <summary>
         /// Components
         /// </summary>
         [JsonPropertyName("components")]
-        public IEnumerable<HTXSystemComponent> Components { get; set; } = Array.Empty<HTXSystemComponent>();
+        public HTXSystemComponent[] Components { get; set; } = Array.Empty<HTXSystemComponent>();
     }
 
     /// <summary>
     /// System incident update
     /// </summary>
+    [SerializationModel]
     public record HTXSystemIncidentUpdate
     {
         /// <summary>
@@ -249,7 +255,7 @@ namespace HTX.Net.Objects.Models
         /// Affected components
         /// </summary>
         [JsonPropertyName("affected_components")]
-        public IEnumerable<HTXSystemIncidentComponent> AffectedComponents { get; set; } = Array.Empty<HTXSystemIncidentComponent>();
+        public HTXSystemIncidentComponent[] AffectedComponents { get; set; } = Array.Empty<HTXSystemIncidentComponent>();
         /// <summary>
         /// Deliver notifications
         /// </summary>
@@ -270,6 +276,7 @@ namespace HTX.Net.Objects.Models
     /// <summary>
     /// System incident affacted component
     /// </summary>
+    [SerializationModel]
     public record HTXSystemIncidentComponent
     {
         /// <summary>
@@ -297,6 +304,7 @@ namespace HTX.Net.Objects.Models
     /// <summary>
     /// 
     /// </summary>
+    [SerializationModel]
     public record HTXSystemMaintenance
     {
         /// <summary>
@@ -358,12 +366,12 @@ namespace HTX.Net.Objects.Models
         /// Incident updates
         /// </summary>
         [JsonPropertyName("incident_updates")]
-        public IEnumerable<HTXSystemIncidentUpdate> IncidentUpdates { get; set; } = Array.Empty<HTXSystemIncidentUpdate>();
+        public HTXSystemIncidentUpdate[] IncidentUpdates { get; set; } = Array.Empty<HTXSystemIncidentUpdate>();
         /// <summary>
         /// Components
         /// </summary>
         [JsonPropertyName("components")]
-        public IEnumerable<HTXSystemComponent> Components { get; set; } = Array.Empty<HTXSystemComponent>();
+        public HTXSystemComponent[] Components { get; set; } = Array.Empty<HTXSystemComponent>();
         /// <summary>
         /// Scheduled for
         /// </summary>
@@ -379,6 +387,7 @@ namespace HTX.Net.Objects.Models
     /// <summary>
     /// Indicator
     /// </summary>
+    [SerializationModel]
     public record HTXSystemStatusIndicator
     {
         /// <summary>

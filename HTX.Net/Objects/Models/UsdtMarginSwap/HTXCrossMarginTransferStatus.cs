@@ -1,4 +1,5 @@
-﻿using HTX.Net.Enums;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using HTX.Net.Enums;
 
 
 namespace HTX.Net.Objects.Models.UsdtMarginSwap
@@ -6,13 +7,14 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
     /// <summary>
     /// Cross margin transfer status
     /// </summary>
+    [SerializationModel]
     public record HTXCrossMarginTransferStatus
     {
         /// <summary>
         /// Margin mode
         /// </summary>
         [JsonPropertyName("margin_mode")]
-        [JsonConverter(typeof(EnumConverter))]
+
         public MarginMode MarginMode { get; set; }
         /// <summary>
         /// Margin account

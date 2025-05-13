@@ -1,10 +1,12 @@
-﻿using HTX.Net.Objects.Sockets;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using HTX.Net.Objects.Sockets;
 
 namespace HTX.Net.Objects.Models.Socket
 {
     /// <summary>
     /// 
     /// </summary>
+    [SerializationModel]
     internal record HTXUsdtMarginSwapFundingRateUpdateWrapper : HTXOpMessage
     {
         /// <summary>
@@ -16,12 +18,13 @@ namespace HTX.Net.Objects.Models.Socket
         /// Data
         /// </summary>
         [JsonPropertyName("data")]
-        public IEnumerable<HTXUsdtMarginSwapFundingRateUpdate> Data { get; set; } = Array.Empty<HTXUsdtMarginSwapFundingRateUpdate>();
+        public HTXUsdtMarginSwapFundingRateUpdate[] Data { get; set; } = Array.Empty<HTXUsdtMarginSwapFundingRateUpdate>();
     }
 
     /// <summary>
     /// Funding rate update
     /// </summary>
+    [SerializationModel]
     public record HTXUsdtMarginSwapFundingRateUpdate
     {
         /// <summary>

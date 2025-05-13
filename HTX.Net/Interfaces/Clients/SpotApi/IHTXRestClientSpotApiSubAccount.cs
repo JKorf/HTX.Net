@@ -1,4 +1,4 @@
-﻿using HTX.Net.Enums;
+using HTX.Net.Enums;
 using HTX.Net.Objects.Models;
 
 namespace HTX.Net.Interfaces.Clients.SpotApi
@@ -15,7 +15,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// <param name="subUserIds">Sub user ids</param>
         /// <param name="deductMode">Deduct from account</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<IEnumerable<HTXSubDeductMode>>> SetDeductModeAsync(IEnumerable<string> subUserIds, DeductMode deductMode, CancellationToken ct = default);
+        Task<WebCallResult<HTXSubDeductMode[]>> SetDeductModeAsync(IEnumerable<string> subUserIds, DeductMode deductMode, CancellationToken ct = default);
 
         /// <summary>
         /// Create new sub accounts
@@ -23,7 +23,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <param name="accounts">Accounts to create</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<IEnumerable<HTXSubAccountInfo>>> CreateSubAccountsAsync(IEnumerable<HTXSubAccountRequest> accounts, CancellationToken ct = default);
+        Task<WebCallResult<HTXSubAccountInfo[]>> CreateSubAccountsAsync(IEnumerable<HTXSubAccountRequest> accounts, CancellationToken ct = default);
 
         /// <summary>
         /// Get a list of users associated with the apikey/secret
@@ -31,7 +31,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<HTXUser>>> GetSubUserListAsync(CancellationToken ct = default);
+        Task<WebCallResult<HTXUser[]>> GetSubUserListAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Set (un)lock status on a sub account
@@ -59,7 +59,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// <param name="accountType">Account type</param>
         /// <param name="enabled">Enabled or not</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<IEnumerable<HTXSubMarketTradable>>> SetTradableMarketAsync(IEnumerable<string> subUserIds, SubAccountMarketType accountType, bool enabled, CancellationToken ct = default);
+        Task<WebCallResult<HTXSubMarketTradable[]>> SetTradableMarketAsync(IEnumerable<string> subUserIds, SubAccountMarketType accountType, bool enabled, CancellationToken ct = default);
 
         /// <summary>
         /// Set asset transfer permissions for sub accounts
@@ -68,7 +68,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// <param name="subUserIds">Sub user ids</param>
         /// <param name="enabled">Enabled</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<IEnumerable<HTXSubTransferPermission>>> SetAssetTransferPermissionsAsync(IEnumerable<string> subUserIds, bool enabled, CancellationToken ct = default);
+        Task<WebCallResult<HTXSubTransferPermission[]>> SetAssetTransferPermissionsAsync(IEnumerable<string> subUserIds, bool enabled, CancellationToken ct = default);
 
         /// <summary>
         /// Gets a list of sub-user accounts associated with the sub-user id
@@ -119,7 +119,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// <param name="subUserId">Sub user id</param>
         /// <param name="asset">The asset, for example `ETH`</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<IEnumerable<HTXDepositAddress>>> GetDepositAddressAsync(long subUserId, string asset, CancellationToken ct = default);
+        Task<WebCallResult<HTXDepositAddress[]>> GetDepositAddressAsync(long subUserId, string asset, CancellationToken ct = default);
 
         /// <summary>
         /// Get deposit history
@@ -133,14 +133,14 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// <param name="limit">Max number of results</param>
         /// <param name="fromId">Return results after this id</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<IEnumerable<HTXSubDeposit>>> GetDepositHistoryAsync(long subUserId, string? asset = null, DateTime? startTime = null, DateTime? endTime = null, SortingType? sort = null, int? limit = null, long? fromId = null, CancellationToken ct = default);
+        Task<WebCallResult<HTXSubDeposit[]>> GetDepositHistoryAsync(long subUserId, string? asset = null, DateTime? startTime = null, DateTime? endTime = null, SortingType? sort = null, int? limit = null, long? fromId = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get aggregate balances of all sub accounts
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4fd28-7773-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<IEnumerable<HTXAggBalance>>> GetAggregateBalancesAsync(CancellationToken ct = default);
+        Task<WebCallResult<HTXAggBalance[]>> GetAggregateBalancesAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get a list of balances for a specific sub account
@@ -149,7 +149,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// <param name="subAccountId">The id of the sub account to get the balances for</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<HTXAccountBalances>>> GetBalancesAsync(long subAccountId, CancellationToken ct = default);
+        Task<WebCallResult<HTXAccountBalances[]>> GetBalancesAsync(long subAccountId, CancellationToken ct = default);
 
         /// <summary>
         /// Transfer asset between parent and sub account

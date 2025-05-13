@@ -1,4 +1,4 @@
-﻿using HTX.Net.Enums;
+using HTX.Net.Enums;
 using HTX.Net.Objects.Models;
 
 namespace HTX.Net.Interfaces.Clients.SpotApi
@@ -33,7 +33,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// <param name="orders">Orders to place</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<HTXBatchPlaceResult>>> PlaceMultipleOrderAsync(
+        Task<WebCallResult<HTXBatchPlaceResult[]>> PlaceMultipleOrderAsync(
             IEnumerable<HTXOrderRequest> orders,
             CancellationToken ct = default);
 
@@ -83,7 +83,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// <param name="limit">The max number of results</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<HTXOpenOrder>>> GetOpenOrdersAsync(
+        Task<WebCallResult<HTXOpenOrder[]>> GetOpenOrdersAsync(
             long? accountId = null,
             string? symbol = null,
             OrderSide? side = null,
@@ -167,7 +167,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// <param name="orderId">The id of the order to get trades for</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<HTXOrderTrade>>> GetOrderTradesAsync(long orderId, CancellationToken ct = default);
+        Task<WebCallResult<HTXOrderTrade[]>> GetOrderTradesAsync(long orderId, CancellationToken ct = default);
 
         /// <summary>
         /// Get a list of orders
@@ -183,7 +183,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// <param name="limit">The max number of results</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<HTXOrder>>> GetClosedOrdersAsync(string symbol, IEnumerable<OrderStatus>? states = null, IEnumerable<OrderType>? types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, FilterDirection? direction = null, int? limit = null, CancellationToken ct = default);
+        Task<WebCallResult<HTXOrder[]>> GetClosedOrdersAsync(string symbol, IEnumerable<OrderStatus>? states = null, IEnumerable<OrderType>? types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, FilterDirection? direction = null, int? limit = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get a list of user trades
@@ -198,7 +198,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// <param name="limit">The max number of results</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<HTXOrderTrade>>> GetUserTradesAsync(string? symbol = null, IEnumerable<OrderType>? types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, FilterDirection? direction = null, int? limit = null, CancellationToken ct = default);
+        Task<WebCallResult<HTXOrderTrade[]>> GetUserTradesAsync(string? symbol = null, IEnumerable<OrderType>? types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, FilterDirection? direction = null, int? limit = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get order history
@@ -211,7 +211,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// <param name="limit">The max number of results</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<HTXOrder>>> GetHistoricalOrdersAsync(string? symbol = null, DateTime? startTime = null, DateTime? endTime = null, FilterDirection? direction = null, int? limit = null, CancellationToken ct = default);
+        Task<WebCallResult<HTXOrder[]>> GetHistoricalOrdersAsync(string? symbol = null, DateTime? startTime = null, DateTime? endTime = null, FilterDirection? direction = null, int? limit = null, CancellationToken ct = default);
 
         /// <summary>
         /// Place a new conditional order
@@ -266,7 +266,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// <param name="fromId">Ids after this</param>
         /// <param name="ct">Cancelation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<HTXConditionalOrder>>> GetOpenConditionalOrdersAsync(long? accountId = null, string? symbol = null, OrderSide? side = null, ConditionalOrderType? type = null, string? sort = null, int? limit = null, long? fromId = null, CancellationToken ct = default);
+        Task<WebCallResult<HTXConditionalOrder[]>> GetOpenConditionalOrdersAsync(long? accountId = null, string? symbol = null, OrderSide? side = null, ConditionalOrderType? type = null, string? sort = null, int? limit = null, long? fromId = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get closed conditional orders
@@ -284,7 +284,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// <param name="startTime">Return only entries after this time</param>
         /// <param name="endTime">Return only entries before this time</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<HTXConditionalOrder>>> GetClosedConditionalOrdersAsync(
+        Task<WebCallResult<HTXConditionalOrder[]>> GetClosedConditionalOrdersAsync(
             string symbol,
             ConditionalOrderStatus status,
             long? accountId = null,

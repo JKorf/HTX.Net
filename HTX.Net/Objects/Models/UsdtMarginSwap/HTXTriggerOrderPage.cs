@@ -1,17 +1,19 @@
-﻿using HTX.Net.Enums;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using HTX.Net.Enums;
 
 namespace HTX.Net.Objects.Models.UsdtMarginSwap
 {
     /// <summary>
     /// Trigger order page
     /// </summary>
+    [SerializationModel]
     public record HTXTriggerOrderPage
     {
         /// <summary>
         /// Orders
         /// </summary>
         [JsonPropertyName("orders")]
-        public IEnumerable<HTXTriggerOrder> Orders { get; set; } = Array.Empty<HTXTriggerOrder>();
+        public HTXTriggerOrder[] Orders { get; set; } = Array.Empty<HTXTriggerOrder>();
         /// <summary>
         /// Total page
         /// </summary>
@@ -32,6 +34,7 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
     /// <summary>
     /// Trigger order
     /// </summary>
+    [SerializationModel]
     public record HTXTriggerOrder
     {
         /// <summary>

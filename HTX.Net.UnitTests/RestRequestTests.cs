@@ -20,7 +20,7 @@ namespace HTX.Net.UnitTests
                 opts.AutoTimestamp = false;
                 opts.ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456");
             });
-            var tester = new RestRequestValidator<HTXRestClient>(client, "Endpoints/Spot/Account", "https://api.huobi.pro", IsAuthenticated, stjCompare: true, nestedPropertyForCompare: "data");
+            var tester = new RestRequestValidator<HTXRestClient>(client, "Endpoints/Spot/Account", "https://api.huobi.pro", IsAuthenticated, nestedPropertyForCompare: "data");
             await tester.ValidateAsync(client => client.SpotApi.Account.GetAccountsAsync(), "GetAccounts");
             await tester.ValidateAsync(client => client.SpotApi.Account.GetBalancesAsync(1), "GetBalances", "data.list", ignoreProperties: new List<string> { "debt", "available" });
             await tester.ValidateAsync(client => client.SpotApi.Account.GetPlatformValuationAsync(), "GetPlatformValuation");
@@ -54,7 +54,7 @@ namespace HTX.Net.UnitTests
                 opts.AutoTimestamp = false;
                 opts.ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456");
             });
-            var tester = new RestRequestValidator<HTXRestClient>(client, "Endpoints/Spot/ExchangeData", "https://api.huobi.pro", IsAuthenticated, stjCompare: true, nestedPropertyForCompare: "data");
+            var tester = new RestRequestValidator<HTXRestClient>(client, "Endpoints/Spot/ExchangeData", "https://api.huobi.pro", IsAuthenticated, nestedPropertyForCompare: "data");
             await tester.ValidateAsync(client => client.SpotApi.ExchangeData.GetSymbolStatusAsync(), "GetSymbolStatus");
             await tester.ValidateAsync(client => client.SpotApi.ExchangeData.GetSymbolsAsync(), "GetSymbols", ignoreProperties: new List<string> { "p" });
             await tester.ValidateAsync(client => client.SpotApi.ExchangeData.GetAssetsAsync(), "GetAssets");
@@ -77,7 +77,7 @@ namespace HTX.Net.UnitTests
                 opts.AutoTimestamp = false;
                 opts.ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456");
             });
-            var tester = new RestRequestValidator<HTXRestClient>(client, "Endpoints/Spot/Margin", "https://api.huobi.pro", IsAuthenticated, stjCompare: true, nestedPropertyForCompare: "data");
+            var tester = new RestRequestValidator<HTXRestClient>(client, "Endpoints/Spot/Margin", "https://api.huobi.pro", IsAuthenticated, nestedPropertyForCompare: "data");
             await tester.ValidateAsync(client => client.SpotApi.Margin.RepayLoanAsync("123", "ETH", 1), "RepayLoan");
             await tester.ValidateAsync(client => client.SpotApi.Margin.TransferSpotToIsolatedMarginAsync("123", "ETH", 1), "TransferSpotToIsolatedMargin");
             await tester.ValidateAsync(client => client.SpotApi.Margin.TransferIsolatedMarginToSpotAsync("123", "ETH", 1), "TransferIsolatedMarginToSpot");
@@ -105,7 +105,7 @@ namespace HTX.Net.UnitTests
                 opts.AutoTimestamp = false;
                 opts.ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456");
             });
-            var tester = new RestRequestValidator<HTXRestClient>(client, "Endpoints/Spot/SubAccount", "https://api.huobi.pro", IsAuthenticated, stjCompare: true, nestedPropertyForCompare: "data");
+            var tester = new RestRequestValidator<HTXRestClient>(client, "Endpoints/Spot/SubAccount", "https://api.huobi.pro", IsAuthenticated, nestedPropertyForCompare: "data");
             await tester.ValidateAsync(client => client.SpotApi.SubAccount.SetDeductModeAsync(new[] { "1" }, Enums.DeductMode.Sub), "SetDeductMode");
             await tester.ValidateAsync(client => client.SpotApi.SubAccount.CreateSubAccountsAsync(new[] { new HTXSubAccountRequest { UserName = "123" } }), "CreateSubAccounts");
             await tester.ValidateAsync(client => client.SpotApi.SubAccount.GetSubUserListAsync(), "GetSubUserList");
@@ -132,7 +132,7 @@ namespace HTX.Net.UnitTests
                 opts.AutoTimestamp = false;
                 opts.ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456");
             });
-            var tester = new RestRequestValidator<HTXRestClient>(client, "Endpoints/Spot/Trading", "https://api.huobi.pro", IsAuthenticated, stjCompare: true, nestedPropertyForCompare: "data");
+            var tester = new RestRequestValidator<HTXRestClient>(client, "Endpoints/Spot/Trading", "https://api.huobi.pro", IsAuthenticated, nestedPropertyForCompare: "data");
             await tester.ValidateAsync(client => client.SpotApi.Trading.PlaceOrderAsync(1, "ETHUSDT", Enums.OrderSide.Buy, Enums.OrderType.IOC, 1), "PlaceOrder");
             await tester.ValidateAsync(client => client.SpotApi.Trading.PlaceMultipleOrderAsync(new [] { new HTXOrderRequest { } }), "PlaceMultipleOrder");
             await tester.ValidateAsync(client => client.SpotApi.Trading.PlaceMarginOrderAsync(1, "ETHUSDT", Enums.OrderSide.Buy, Enums.OrderType.IOC, Enums.MarginPurpose.AutomaticLoan, Enums.SourceType.C2CMargin), "PlaceMarginOrder");
@@ -162,7 +162,7 @@ namespace HTX.Net.UnitTests
                 opts.AutoTimestamp = false;
                 opts.ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456");
             });
-            var tester = new RestRequestValidator<HTXRestClient>(client, "Endpoints/UsdtMarginSwap/Account", "https://api.hbdm.com", IsAuthenticated, stjCompare: true, nestedPropertyForCompare: "data");
+            var tester = new RestRequestValidator<HTXRestClient>(client, "Endpoints/UsdtMarginSwap/Account", "https://api.hbdm.com", IsAuthenticated, nestedPropertyForCompare: "data");
             await tester.ValidateAsync(client => client.UsdtFuturesApi.Account.GetAssetValuationAsync(), "GetAssetValuation");
             await tester.ValidateAsync(client => client.UsdtFuturesApi.Account.GetIsolatedMarginAccountInfoAsync(), "GetIsolatedMarginAccountInfo");
             await tester.ValidateAsync(client => client.UsdtFuturesApi.Account.GetCrossMarginAccountInfoAsync(), "GetCrossMarginAccountInfo");
@@ -199,7 +199,7 @@ namespace HTX.Net.UnitTests
                 opts.AutoTimestamp = false;
                 opts.ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456");
             });
-            var tester = new RestRequestValidator<HTXRestClient>(client, "Endpoints/UsdtMarginSwap/ExchangeData", "https://api.hbdm.com", IsAuthenticated, stjCompare: true, nestedPropertyForCompare: "data");
+            var tester = new RestRequestValidator<HTXRestClient>(client, "Endpoints/UsdtMarginSwap/ExchangeData", "https://api.hbdm.com", IsAuthenticated, nestedPropertyForCompare: "data");
             await tester.ValidateAsync(client => client.UsdtFuturesApi.ExchangeData.GetFundingRateAsync("ETH-USDT"), "GetFundingRate");
             await tester.ValidateAsync(client => client.UsdtFuturesApi.ExchangeData.GetFundingRatesAsync(), "GetFundingRates");
             await tester.ValidateAsync(client => client.UsdtFuturesApi.ExchangeData.GetHistoricalFundingRatesAsync("ETH-USDT"), "GetHistoricalFundingRates");
@@ -244,7 +244,7 @@ namespace HTX.Net.UnitTests
                 opts.AutoTimestamp = false;
                 opts.ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456");
             });
-            var tester = new RestRequestValidator<HTXRestClient>(client, "Endpoints/UsdtMarginSwap/SubAccount", "https://api.hbdm.com", IsAuthenticated, stjCompare: true, nestedPropertyForCompare: "data");
+            var tester = new RestRequestValidator<HTXRestClient>(client, "Endpoints/UsdtMarginSwap/SubAccount", "https://api.hbdm.com", IsAuthenticated, nestedPropertyForCompare: "data");
             await tester.ValidateAsync(client => client.UsdtFuturesApi.SubAccount.SetTradingPermissionsAsync(new[] { "1" }, true), "SetTradingPermissions");
             await tester.ValidateAsync(client => client.UsdtFuturesApi.SubAccount.GetTradePermissionsAsync(new[] { "1" }), "GetTradePermissions");
             await tester.ValidateAsync(client => client.UsdtFuturesApi.SubAccount.GetIsolatedMarginAssetsAsync(), "GetIsolatedMarginAssets");
@@ -265,7 +265,7 @@ namespace HTX.Net.UnitTests
                 opts.AutoTimestamp = false;
                 opts.ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456");
             });
-            var tester = new RestRequestValidator<HTXRestClient>(client, "Endpoints/UsdtMarginSwap/Trading", "https://api.hbdm.com", IsAuthenticated, stjCompare: true, nestedPropertyForCompare: "data");
+            var tester = new RestRequestValidator<HTXRestClient>(client, "Endpoints/UsdtMarginSwap/Trading", "https://api.hbdm.com", IsAuthenticated, nestedPropertyForCompare: "data");
             await tester.ValidateAsync(client => client.UsdtFuturesApi.Trading.CancelOrdersAfterAsync(true, TimeSpan.FromSeconds(10)), "CancelOrdersAfter");
             await tester.ValidateAsync(client => client.UsdtFuturesApi.Trading.PlaceIsolatedMarginOrderAsync("ETH-USDT", 1, Enums.OrderSide.Buy, 1, Enums.OrderPriceType.Limit), "PlaceIsolatedMarginOrder");
             await tester.ValidateAsync(client => client.UsdtFuturesApi.Trading.PlaceCrossMarginOrderAsync(1, Enums.OrderSide.Sell, 1, Enums.OrderPriceType.Limit), "PlaceCrossMarginOrder");

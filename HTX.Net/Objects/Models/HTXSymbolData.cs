@@ -1,8 +1,10 @@
-﻿namespace HTX.Net.Objects.Models
+using CryptoExchange.Net.Converters.SystemTextJson;
+namespace HTX.Net.Objects.Models
 {
     /// <summary>
     /// Symbol data
     /// </summary>
+    [SerializationModel]
     public record HTXSymbolData
     {
         /// <summary>
@@ -50,6 +52,7 @@
     /// <summary>
     /// Ticker data
     /// </summary>
+    [SerializationModel]
     public record HTXSymbolTicker : HTXSymbolData
     {
         /// <summary>
@@ -62,6 +65,7 @@
     /// <summary>
     /// Symbol kline data
     /// </summary>
+    [SerializationModel]
     public record HTXKline : HTXSymbolData
     {
         /// <summary>
@@ -81,6 +85,7 @@
     /// <summary>
     /// Kline data
     /// </summary>
+    [SerializationModel]
     public record HTXSwapKline : HTXKline
     {
         /// <summary>
@@ -93,6 +98,7 @@
     /// <summary>
     /// Symbol details
     /// </summary>
+    [SerializationModel]
     public record HTXSymbolDetails : HTXSymbolData
     {
         /// <summary>
@@ -111,6 +117,7 @@
     /// <summary>
     /// Symbol tick
     /// </summary>
+    [SerializationModel]
     public record HTXSymbolTick : HTXSymbolData
     {
         /// <summary>

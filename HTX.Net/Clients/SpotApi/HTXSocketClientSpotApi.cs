@@ -1,4 +1,4 @@
-﻿using System.Diagnostics;
+using System.Diagnostics;
 using System.Net.WebSockets;
 using CryptoExchange.Net.Clients;
 using CryptoExchange.Net.Converters.MessageParsing;
@@ -47,9 +47,9 @@ namespace HTX.Net.Clients.SpotApi
 
         #endregion
 
-        protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer();
+        protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(HTXExchange._serializerContext));
 
-        protected override IByteMessageAccessor CreateAccessor() => new SystemTextJsonByteMessageAccessor();
+        protected override IByteMessageAccessor CreateAccessor() => new SystemTextJsonByteMessageAccessor(SerializerOptions.WithConverters(HTXExchange._serializerContext));
 
         public IHTXSocketClientSpotApiShared SharedClient => this;
 
@@ -107,13 +107,13 @@ namespace HTX.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<IEnumerable<HTXKline>>> GetKlinesAsync(string symbol, KlineInterval period)
+        public async Task<CallResult<HTXKline[]>> GetKlinesAsync(string symbol, KlineInterval period)
         {
             symbol = symbol.ToLowerInvariant();
 
-            var query = new HTXQuery<IEnumerable<HTXKline>>($"market.{symbol}.kline.{EnumConverter.GetString(period)}", false);
+            var query = new HTXQuery<HTXKline[]>($"market.{symbol}.kline.{EnumConverter.GetString(period)}", false);
             var result = await QueryAsync(BaseAddress.AppendPath("ws"), query).ConfigureAwait(false);
-            return result ? result.As(result.Data.Data) : result.AsError<IEnumerable<HTXKline>>(result.Error!);
+            return result ? result.As(result.Data.Data) : result.AsError<HTXKline[]>(result.Error!);
         }
 
         /// <inheritdoc />
@@ -158,7 +158,7 @@ namespace HTX.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToPartialOrderBookUpdates100MilisecondAsync(string symbol, int levels, Action<DataEvent<HTXOrderBook>> onData, CancellationToken ct = default)
+        public async Task<CallResult<UpdateSubscription>> SubscribeToPartialOrderBookUpdates100MillisecondAsync(string symbol, int levels, Action<DataEvent<HTXOrderBook>> onData, CancellationToken ct = default)
         {
             symbol = symbol.ToLowerInvariant();
             levels.ValidateIntValues(nameof(levels), 5, 10, 20);
@@ -178,13 +178,13 @@ namespace HTX.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<IEnumerable<HTXSymbolTradeDetails>>> GetTradeHistoryAsync(string symbol)
+        public async Task<CallResult<HTXSymbolTradeDetails[]>> GetTradeHistoryAsync(string symbol)
         {
             symbol = symbol.ToLowerInvariant();
 
-            var query = new HTXQuery<IEnumerable<HTXSymbolTradeDetails>>($"market.{symbol}.trade.detail", false);
+            var query = new HTXQuery<HTXSymbolTradeDetails[]>($"market.{symbol}.trade.detail", false);
             var result = await QueryAsync(BaseAddress.AppendPath("ws"), query).ConfigureAwait(false);
-            return result ? result.As(result.Data.Data) : result.AsError<IEnumerable<HTXSymbolTradeDetails>>(result.Error!);
+            return result ? result.As(result.Data.Data) : result.AsError<HTXSymbolTradeDetails[]>(result.Error!);
         }
 
         /// <inheritdoc />
@@ -218,9 +218,9 @@ namespace HTX.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(Action<DataEvent<IEnumerable<HTXSymbolTicker>>> onData, CancellationToken ct = default)
+        public async Task<CallResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(Action<DataEvent<HTXSymbolTicker[]>> onData, CancellationToken ct = default)
         {
-            var subscription = new HTXSubscription<IEnumerable<HTXSymbolTicker>>(_logger, $"market.tickers", onData, false);
+            var subscription = new HTXSubscription<HTXSymbolTicker[]>(_logger, $"market.tickers", onData, false);
             return await SubscribeAsync(BaseAddress.AppendPath("ws"), subscription, ct).ConfigureAwait(false);
         }
 
@@ -317,7 +317,7 @@ namespace HTX.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<IEnumerable<HTXBatchPlaceResult>>> PlaceMultipleOrdersAsync(
+        public async Task<CallResult<CallResult<HTXBatchPlaceResult>[]>> PlaceMultipleOrdersAsync(
             IEnumerable<HTXOrderRequest> orders,
             CancellationToken ct = default)
         {
@@ -327,9 +327,12 @@ namespace HTX.Net.Clients.SpotApi
                 var orderType = EnumConverter.GetString(order.Side) + "-" + EnumConverter.GetString(order.Type);
                 order.Symbol = order.Symbol.ToLowerInvariant();
 
+                if (!long.TryParse(order.AccountId, out var accountId))
+                    return new CallResult<CallResult<HTXBatchPlaceResult>[]>(new ArgumentError("AccountId required on order"));
+
                 var parameters = new HTXSocketPlaceOrderRequest()
                 {
-                    AccountId = long.Parse(order.AccountId),
+                    AccountId = accountId,
                     ClientOrderId = LibraryHelpers.ApplyBrokerId(order.ClientOrderId, HTXExchange.ClientOrderId, 64, ClientOptions.AllowAppendingClientOrderId),
                     Price = order.Price,
                     Type = orderType,
@@ -343,14 +346,32 @@ namespace HTX.Net.Clients.SpotApi
                 data.Add(parameters);
             }
 
-            var query = new HTXOrderQuery<List<HTXSocketPlaceOrderRequest>, IEnumerable<HTXBatchPlaceResult>>(new HTXSocketOrderRequest<List<HTXSocketPlaceOrderRequest>>
+            var query = new HTXOrderQuery<List<HTXSocketPlaceOrderRequest>, HTXBatchPlaceResult[]>(new HTXSocketOrderRequest<List<HTXSocketPlaceOrderRequest>>
             {
                 Channel = "create-batchorder",
                 RequestId = ExchangeHelpers.NextId().ToString(),
                 Params = data
             });
-            var result = await QueryAsync(BaseAddress.AppendPath("ws/trade"), query, ct).ConfigureAwait(false);
-            return result.As<IEnumerable<HTXBatchPlaceResult>>(result.Data?.Data);
+            var resultData = await QueryAsync(BaseAddress.AppendPath("ws/trade"), query, ct).ConfigureAwait(false);
+            if (!resultData)
+                return resultData.As<CallResult<HTXBatchPlaceResult>[]>(default);
+
+            if (!resultData.Data.Success && resultData.Data.Data?.Any() != true)
+                return resultData.AsError<CallResult<HTXBatchPlaceResult>[]>(new ServerError($"{resultData.Data.ErrorCode}, {resultData.Data.ErrorMessage}"));
+
+            var result = new List<CallResult<HTXBatchPlaceResult>>();
+            foreach (var item in resultData.Data.Data!)
+            {
+                if (!string.IsNullOrEmpty(item.ErrorCode))
+                    result.Add(new CallResult<HTXBatchPlaceResult>(new ServerError(item.ErrorCode + ": " + item.ErrorMessage)));
+                else
+                    result.Add(new CallResult<HTXBatchPlaceResult>(item));
+            }
+
+            if (result.All(x => !x.Success))
+                return resultData.AsErrorWithData(new ServerError("All orders failed"), result.ToArray());
+
+            return resultData.As(result.ToArray());
         }
 
         /// <inheritdoc />
@@ -421,7 +442,7 @@ namespace HTX.Net.Clients.SpotApi
             return result.As<HTXByCriteriaCancelResult>(result.Data?.Data);
         }
 
-        public async Task<CallResult> CancelOrdersAsync(
+        public async Task<CallResult> CancelOrderAsync(
             string? orderId = null,
             string? clientOrderId = null,
             CancellationToken ct = default)

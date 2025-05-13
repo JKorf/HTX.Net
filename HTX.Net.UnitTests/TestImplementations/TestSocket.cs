@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Objects;
-using Newtonsoft.Json;
 
 namespace HTX.Net.UnitTests.TestImplementations
 {
@@ -102,7 +101,7 @@ namespace HTX.Net.UnitTests.TestImplementations
 
         public void InvokeMessage<T>(T data)
         {
-            OnStreamMessage?.Invoke(WebSocketMessageType.Text, new ReadOnlyMemory<byte>(Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(data))));
+            throw new NotImplementedException();
         }
 
         public void InvokeError(Exception error)

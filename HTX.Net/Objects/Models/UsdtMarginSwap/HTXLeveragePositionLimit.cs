@@ -1,10 +1,12 @@
-﻿using HTX.Net.Enums;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using HTX.Net.Enums;
 
 namespace HTX.Net.Objects.Models.UsdtMarginSwap
 {
     /// <summary>
     /// Leverage position limit info
     /// </summary>
+    [SerializationModel]
     public record HTXLeveragePositionLimit
     {
         /// <summary>
@@ -26,12 +28,13 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// Limits
         /// </summary>
         [JsonPropertyName("list")]
-        public IEnumerable<HTXLeveragePositionLeverageLimit> Limits { get; set; } = Array.Empty<HTXLeveragePositionLeverageLimit>();
+        public HTXLeveragePositionLeverageLimit[] Limits { get; set; } = Array.Empty<HTXLeveragePositionLeverageLimit>();
     }
 
     /// <summary>
     /// Leverage position limit
     /// </summary>
+    [SerializationModel]
     public record HTXLeveragePositionLeverageLimit
     {
         /// <summary>

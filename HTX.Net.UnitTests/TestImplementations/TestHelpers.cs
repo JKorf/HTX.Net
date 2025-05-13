@@ -18,7 +18,6 @@ using HTX.Net.Interfaces.Clients;
 using HTX.Net.Objects.Options;
 using Microsoft.Extensions.Logging;
 using Moq;
-using Newtonsoft.Json;
 
 namespace HTX.Net.UnitTests.TestImplementations
 {
@@ -97,21 +96,6 @@ namespace HTX.Net.UnitTests.TestImplementations
             return client;
         }
 
-
-        public static IHTXRestClient CreateResponseClient(string response, Action<HTXRestOptions> options = null)
-        {
-            var client = (HTXRestClient)CreateClient(options);
-            SetResponse(client, response);
-            return client;
-        }
-
-        public static IHTXRestClient CreateResponseClient<T>(T response, Action<HTXRestOptions> options = null)
-        {
-            var client = (HTXRestClient)CreateClient(options);
-            SetResponse(client, JsonConvert.SerializeObject(response));
-            return client;
-        }
-
         public static void SetResponse(HTXRestClient client, string responseData, HttpStatusCode statusCode = HttpStatusCode.OK)
         {
             var expectedBytes = Encoding.UTF8.GetBytes(responseData);
@@ -127,7 +111,7 @@ namespace HTX.Net.UnitTests.TestImplementations
             var request = new Mock<IRequest>();
             request.Setup(c => c.Uri).Returns(new Uri("http://www.test.com"));
             request.Setup(c => c.GetResponseAsync(It.IsAny<CancellationToken>())).Returns(Task.FromResult(response.Object));
-            request.Setup(c => c.GetHeaders()).Returns(new Dictionary<string, IEnumerable<string>>());
+            request.Setup(c => c.GetHeaders()).Returns(new KeyValuePair<string, string[]>[0]);
 
             var factory = Mock.Get(client.SpotApi.RequestFactory);
             factory.Setup(c => c.Create(It.IsAny<HttpMethod>(), It.IsAny<Uri>(), It.IsAny<int>()))

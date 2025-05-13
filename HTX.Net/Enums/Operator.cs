@@ -1,10 +1,13 @@
-﻿using CryptoExchange.Net.Attributes;
+using System.Text.Json.Serialization;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using CryptoExchange.Net.Attributes;
 
 namespace HTX.Net.Enums
 {
     /// <summary>
     /// Stop price operator
     /// </summary>
+    [JsonConverter(typeof(EnumConverter<Operator>))]
     public enum Operator
     {
         /// <summary>

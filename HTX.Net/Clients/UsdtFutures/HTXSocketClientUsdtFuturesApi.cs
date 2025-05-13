@@ -1,4 +1,4 @@
-﻿using System.Net.WebSockets;
+using System.Net.WebSockets;
 using CryptoExchange.Net.Clients;
 using CryptoExchange.Net.Converters.MessageParsing;
 using CryptoExchange.Net.Objects.Sockets;
@@ -42,9 +42,9 @@ namespace HTX.Net.Clients.UsdtFutures
 
         #endregion
 
-        protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer();
+        protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(HTXExchange._serializerContext));
 
-        protected override IByteMessageAccessor CreateAccessor() => new SystemTextJsonByteMessageAccessor();
+        protected override IByteMessageAccessor CreateAccessor() => new SystemTextJsonByteMessageAccessor(SerializerOptions.WithConverters(HTXExchange._serializerContext));
 
         public IHTXSocketClientUsdtFuturesApiShared SharedClient => this;
 
@@ -101,10 +101,14 @@ namespace HTX.Net.Clients.UsdtFutures
                     topic = "accounts";
                 if (topic.StartsWith("orders."))
                     topic = "orders";
+                if (topic.StartsWith("positions."))
+                    topic = "positions";
                 if (topic.StartsWith("accounts_cross."))
                     topic = "accounts_cross";
                 if (topic.StartsWith("orders_cross."))
                     topic = "orders_cross";
+                if (topic.StartsWith("positions_cross."))
+                    topic = "positions_cross";
 
                 return topic;
             }
@@ -201,21 +205,21 @@ namespace HTX.Net.Clients.UsdtFutures
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToFundingRateUpdatesAsync(Action<DataEvent<IEnumerable<HTXUsdtMarginSwapFundingRateUpdate>>> onData, CancellationToken ct = default)
+        public async Task<CallResult<UpdateSubscription>> SubscribeToFundingRateUpdatesAsync(Action<DataEvent<HTXUsdtMarginSwapFundingRateUpdate[]>> onData, CancellationToken ct = default)
         {
             var subscription = new HTXOpSubscription<HTXUsdtMarginSwapFundingRateUpdateWrapper>(_logger, "public.*.funding_rate", "public.*.funding_rate", x => onData(x.As(x.Data.Data).WithDataTimestamp(x.Data.Timestamp)), false);
             return await SubscribeAsync(BaseAddress.AppendPath("linear-swap-notification"), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToContractUpdatesAsync(Action<DataEvent<IEnumerable<HTXUsdtMarginSwapContractUpdate>>> onData, CancellationToken ct = default)
+        public async Task<CallResult<UpdateSubscription>> SubscribeToContractUpdatesAsync(Action<DataEvent<HTXUsdtMarginSwapContractUpdate[]>> onData, CancellationToken ct = default)
         {
             var subscription = new HTXOpSubscription<HTXUsdtMarginSwapContractUpdateWrapper>(_logger, "public.*.contract_info", "public.*.contract_info", x => onData(x.As(x.Data.Data).WithDataTimestamp(x.Data.Timestamp)), false);
             return await SubscribeAsync(BaseAddress.AppendPath("linear-swap-notification"), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToContractElementsUpdatesAsync(Action<DataEvent<IEnumerable<HTXUsdtMarginSwapContractElementsUpdate>>> onData, CancellationToken ct = default)
+        public async Task<CallResult<UpdateSubscription>> SubscribeToContractElementsUpdatesAsync(Action<DataEvent<HTXUsdtMarginSwapContractElementsUpdate[]>> onData, CancellationToken ct = default)
         {
             var subscription = new HTXOpSubscription<HTXUsdtMarginSwapContractElementsUpdateWrapper>(_logger, "public.*.contract_elements", "public.*.contract_elements", x => onData(x.As(x.Data.Data).WithDataTimestamp(x.Data.Timestamp)), false);
             return await SubscribeAsync(BaseAddress.AppendPath("linear-swap-notification"), subscription, ct).ConfigureAwait(false);

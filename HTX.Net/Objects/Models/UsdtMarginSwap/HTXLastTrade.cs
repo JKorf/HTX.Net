@@ -1,13 +1,16 @@
-﻿using HTX.Net.Enums;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using HTX.Net.Enums;
 
 namespace HTX.Net.Objects.Models.UsdtMarginSwap
 {
+    [SerializationModel]
     internal record HTXLastTradeWrapper
     {
         [JsonPropertyName("data")]
         public HTXLastTrade[] Data { get; set; } = Array.Empty<HTXLastTrade>();
     }
 
+    [SerializationModel]
     internal record HTXTradeWrapper
     {
         [JsonPropertyName("data")]
@@ -17,6 +20,7 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
     /// <summary>
     /// Last trade data
     /// </summary>
+    [SerializationModel]
     public record HTXTrade
     {
         /// <summary>
@@ -60,6 +64,7 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
     /// <summary>
     /// Last trade info
     /// </summary>
+    [SerializationModel]
     public record HTXLastTrade: HTXTrade
     {
         /// <summary>
@@ -70,7 +75,7 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// <summary>
         /// Business type
         /// </summary>
-        [JsonConverter(typeof(EnumConverter))]
+
         [JsonPropertyName("business_type")]
         public BusinessType BusinessType { get; set; }
     }

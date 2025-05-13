@@ -1,4 +1,4 @@
-﻿using CryptoExchange.Net.Objects.Sockets;
+using CryptoExchange.Net.Objects.Sockets;
 using HTX.Net.Enums;
 using HTX.Net.Objects.Models;
 using HTX.Net.Objects.Models.Socket;
@@ -11,7 +11,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
     public interface IHTXSocketClientSpotApi : ISocketApiClient, IDisposable
     {
         /// <summary>
-        /// Get the shared socket subscription client. This interface is shared with other exhanges to allow for a common implementation for different exchanges.
+        /// Get the shared socket subscription client. This interface is shared with other exchanges to allow for a common implementation for different exchanges.
         /// </summary>
         public IHTXSocketClientSpotApiShared SharedClient { get; }
 
@@ -22,7 +22,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// <param name="symbol">The symbol to get the data for, for example `ETHUSDT`</param>
         /// <param name="period">The period of a single candlestick</param>
         /// <returns></returns>
-        Task<CallResult<IEnumerable<HTXKline>>> GetKlinesAsync(string symbol, KlineInterval period);
+        Task<CallResult<HTXKline[]>> GetKlinesAsync(string symbol, KlineInterval period);
 
         /// <summary>
         /// Subscribes to kline/candlestick updates for a symbol
@@ -62,7 +62,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// <param name="onData">The handler for updates</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToPartialOrderBookUpdates100MilisecondAsync(string symbol, int levels, Action<DataEvent<HTXOrderBook>> onData, CancellationToken ct = default);
+        Task<CallResult<UpdateSubscription>> SubscribeToPartialOrderBookUpdates100MillisecondAsync(string symbol, int levels, Action<DataEvent<HTXOrderBook>> onData, CancellationToken ct = default);
 
         /// <summary>
         /// Subscribes to order book updates for a symbol
@@ -92,7 +92,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <param name="symbol">The symbol to get trades for, for example `ETHUSDT`</param>
         /// <returns></returns>
-        Task<CallResult<IEnumerable<HTXSymbolTradeDetails>>> GetTradeHistoryAsync(string symbol);
+        Task<CallResult<HTXSymbolTradeDetails[]>> GetTradeHistoryAsync(string symbol);
 
         /// <summary>
         /// Subscribes to trade updates for a symbol
@@ -139,7 +139,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// <param name="onData">The handler for updates</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(Action<DataEvent<IEnumerable<HTXSymbolTicker>>> onData, CancellationToken ct = default);
+        Task<CallResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(Action<DataEvent<HTXSymbolTicker[]>> onData, CancellationToken ct = default);
 
         /// <summary>
         /// Subscribe to changes of a symbol's best ask/bid
@@ -198,18 +198,17 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// Place a new order
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb89359-77b5-11ed-9966-1928f079ab6" /></para>
         /// </summary>
-        /// <param name="accountId"></param>
-        /// <param name="symbol"></param>
-        /// <param name="side"></param>
-        /// <param name="type"></param>
-        /// <param name="quantity"></param>
-        /// <param name="price"></param>
-        /// <param name="clientOrderId"></param>
-        /// <param name="source"></param>
-        /// <param name="stopPrice"></param>
-        /// <param name="stopOperator"></param>
-        /// <param name="ct"></param>
-        /// <returns></returns>
+        /// <param name="accountId">Id of the account</param>
+        /// <param name="symbol">Symbol, for example `ethusdt`</param>
+        /// <param name="side">Order side</param>
+        /// <param name="type">Order type</param>
+        /// <param name="quantity">Quantity of the order</param>
+        /// <param name="price">Limit price</param>
+        /// <param name="clientOrderId">Client order id</param>
+        /// <param name="source">Source</param>
+        /// <param name="stopPrice">Stop price</param>
+        /// <param name="stopOperator">Stop operator</param>
+        /// <param name="ct">Cancellation token</param>
         Task<CallResult<string>> PlaceOrderAsync(
             long accountId,
             string symbol,
@@ -230,7 +229,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// <param name="orders"></param>
         /// <param name="ct"></param>
         /// <returns></returns>
-        Task<CallResult<IEnumerable<HTXBatchPlaceResult>>> PlaceMultipleOrdersAsync(
+        Task<CallResult<CallResult<HTXBatchPlaceResult>[]>> PlaceMultipleOrdersAsync(
             IEnumerable<HTXOrderRequest> orders,
             CancellationToken ct = default);
 
@@ -287,7 +286,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// <param name="clientOrderId">Client order id, either this or orderId should be provided</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<CallResult> CancelOrdersAsync(string? orderId = null, string? clientOrderId = null, CancellationToken ct = default);
+        Task<CallResult> CancelOrderAsync(string? orderId = null, string? clientOrderId = null, CancellationToken ct = default);
 
         /// <summary>
         /// Cancel orders

@@ -1,8 +1,10 @@
-﻿namespace HTX.Net.Objects.Models.UsdtMarginSwap
+using CryptoExchange.Net.Converters.SystemTextJson;
+namespace HTX.Net.Objects.Models.UsdtMarginSwap
 {
     /// <summary>
     /// Tp/sl set result
     /// </summary>
+    [SerializationModel]
     public record HTXTpSlResult
     {
         /// <summary>
@@ -20,6 +22,7 @@
     /// <summary>
     /// Order info
     /// </summary>
+    [SerializationModel]
     public record HTXTpSlResultOrder
     {
         /// <summary>

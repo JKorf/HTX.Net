@@ -1,10 +1,13 @@
-﻿using CryptoExchange.Net.Attributes;
+using System.Text.Json.Serialization;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using CryptoExchange.Net.Attributes;
 
 namespace HTX.Net.Enums
 {
     /// <summary>
     /// Define transfer type
     /// </summary>
+    [JsonConverter(typeof(EnumConverter<WithdrawDepositType>))]
     public enum WithdrawDepositType
 	{
 		/// <summary>

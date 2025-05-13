@@ -1,4 +1,5 @@
-﻿
+using CryptoExchange.Net.Converters.SystemTextJson;
+
 using HTX.Net.Enums;
 
 
@@ -7,6 +8,7 @@ namespace HTX.Net.Objects.Models
     /// <summary>
     /// Balance data
     /// </summary>
+    [SerializationModel]
     public record HTXBalance
     {
         /// <summary>
@@ -17,7 +19,7 @@ namespace HTX.Net.Objects.Models
         /// <summary>
         /// The type of the balance
         /// </summary>
-        [JsonConverter(typeof(EnumConverter))]
+
         [JsonPropertyName("type")]
         public BalanceType Type { get; set; }
         /// <summary>

@@ -1,17 +1,19 @@
-﻿using HTX.Net.Enums;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using HTX.Net.Enums;
 
 namespace HTX.Net.Objects.Models.UsdtMarginSwap
 {
     /// <summary>
     /// Account sentiment
     /// </summary>
+    [SerializationModel]
     public record HTXAccountSentiment
     {
         /// <summary>
         /// List
         /// </summary>
         [JsonPropertyName("list")]
-        public IEnumerable<HTXAccountSentimentValue> List { get; set; } = Array.Empty<HTXAccountSentimentValue>();
+        public HTXAccountSentimentValue[] List { get; set; } = Array.Empty<HTXAccountSentimentValue>();
         /// <summary>
         /// Symbol
         /// </summary>
@@ -37,6 +39,7 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
     /// <summary>
     /// Sentiment value
     /// </summary>
+    [SerializationModel]
     public record HTXAccountSentimentValue
     {
         /// <summary>

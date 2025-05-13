@@ -1,10 +1,12 @@
-﻿using HTX.Net.Enums;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using HTX.Net.Enums;
 
 namespace HTX.Net.Objects.Models.UsdtMarginSwap
 {
     /// <summary>
     /// Insurance info
     /// </summary>
+    [SerializationModel]
     public record HTXInsuranceInfo
     {
         /// <summary>
@@ -46,12 +48,13 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// The history data
         /// </summary>
         [JsonPropertyName("tick")]
-        public IEnumerable<HTXInsuranceValue> History { get; set; } = Array.Empty<HTXInsuranceValue>();
+        public HTXInsuranceValue[] History { get; set; } = Array.Empty<HTXInsuranceValue>();
     }
 
     /// <summary>
     /// Insurance value
     /// </summary>
+    [SerializationModel]
     public record HTXInsuranceValue
     {
         /// <summary>

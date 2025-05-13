@@ -1,10 +1,12 @@
-﻿using HTX.Net.Enums;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using HTX.Net.Enums;
 
 namespace HTX.Net.Objects.Models
 {
     /// <summary>
     /// Status of the symbol
     /// </summary>
+    [SerializationModel]
     public record HTXSymbolStatus
     {
         /// <summary>

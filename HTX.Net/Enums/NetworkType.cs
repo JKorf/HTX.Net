@@ -1,13 +1,13 @@
-﻿using CryptoExchange.Net.Attributes;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Text.Json.Serialization;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using CryptoExchange.Net.Attributes;
 
 namespace HTX.Net.Enums
 {
     /// <summary>
     /// Type of network
     /// </summary>
+    [JsonConverter(typeof(EnumConverter<NetworkType>))]
     public enum NetworkType
     {
         /// <summary>

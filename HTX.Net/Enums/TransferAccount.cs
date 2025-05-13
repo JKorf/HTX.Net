@@ -1,10 +1,13 @@
-﻿using CryptoExchange.Net.Attributes;
+using System.Text.Json.Serialization;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using CryptoExchange.Net.Attributes;
 
 namespace HTX.Net.Enums
 {
     /// <summary>
     /// Account type for transfer
     /// </summary>
+    [JsonConverter(typeof(EnumConverter<TransferAccount>))]
     public enum TransferAccount
     {
         /// <summary>

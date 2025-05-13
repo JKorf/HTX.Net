@@ -14,7 +14,7 @@ namespace HTX.Net.Objects.Sockets.Subscriptions
         public override CallResult HandleMessage(SocketConnection connection, DataEvent<HTXAuthPingMessage> message)
         {
             connection.Send(ExchangeHelpers.NextId(), new HTXAuthPongMessage() { Action = "pong", Data = new HTXAuthPongMessageTimestamp { Pong = message.Data.Data.Ping } }, 1);
-            return new CallResult(null);
+            return CallResult.SuccessResult;
         }
     }
 }

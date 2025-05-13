@@ -1,10 +1,12 @@
-﻿
+using CryptoExchange.Net.Converters.SystemTextJson;
+
 
 namespace HTX.Net.Objects.Models
 {
     /// <summary>
     /// Deposit address info
     /// </summary>
+    [SerializationModel]
     public record HTXDepositAddress 
     {
         /// <summary>

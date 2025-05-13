@@ -1,8 +1,10 @@
-﻿namespace HTX.Net.Objects.Models
+using CryptoExchange.Net.Converters.SystemTextJson;
+namespace HTX.Net.Objects.Models
 {
     /// <summary>
     /// Loan info
     /// </summary>
+    [SerializationModel]
     public record HTXLoanInfo
     {
         /// <summary>
@@ -14,12 +16,13 @@
         /// Currencies
         /// </summary>
         [JsonPropertyName("currencies")]
-        public IEnumerable<HTXLoanInfoAsset> Assets { get; set; } = Array.Empty<HTXLoanInfoAsset>();
+        public HTXLoanInfoAsset[] Assets { get; set; } = Array.Empty<HTXLoanInfoAsset>();
     }
 
     /// <summary>
     /// Asset info
     /// </summary>
+    [SerializationModel]
     public record HTXLoanInfoAsset
     {
         /// <summary>

@@ -1,10 +1,12 @@
-﻿using HTX.Net.Enums;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using HTX.Net.Enums;
 
 namespace HTX.Net.Objects.Models.Socket
 {
     /// <summary>
     /// Trade info
     /// </summary>
+    [SerializationModel]
     public record HTXUsdtMarginSwapTradesUpdate
     {
         /// <summary>
@@ -22,12 +24,13 @@ namespace HTX.Net.Objects.Models.Socket
         /// Trades
         /// </summary>
         [JsonPropertyName("data")]
-        public IEnumerable<HTXUsdtMarginSwapTradeUpdate> Trades { get; set; } = Array.Empty<HTXUsdtMarginSwapTradeUpdate>();
+        public HTXUsdtMarginSwapTradeUpdate[] Trades { get; set; } = Array.Empty<HTXUsdtMarginSwapTradeUpdate>();
     }
 
     /// <summary>
     /// Trade info
     /// </summary>
+    [SerializationModel]
     public record HTXUsdtMarginSwapTradeUpdate
     {
         /// <summary>
@@ -55,7 +58,7 @@ namespace HTX.Net.Objects.Models.Socket
         /// Side
         /// </summary>
         [JsonPropertyName("direction")]
-        [JsonConverter(typeof(EnumConverter))]
+
         public OrderSide Side { get; set; }
         /// <summary>
         /// Quantity

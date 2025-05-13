@@ -1,10 +1,12 @@
-﻿
+using CryptoExchange.Net.Converters.SystemTextJson;
+
 
 namespace HTX.Net.Objects.Models
 {
     /// <summary>
     /// Transaction result
     /// </summary>
+    [SerializationModel]
     public record HTXTransactionResult
     {
         /// <summary>

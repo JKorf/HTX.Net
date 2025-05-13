@@ -1,10 +1,12 @@
-﻿using HTX.Net.Enums;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using HTX.Net.Enums;
 
 namespace HTX.Net.Objects.Models.UsdtMarginSwap
 {
     /// <summary>
     /// Position open and tp/sl info
     /// </summary>
+    [SerializationModel]
     public record HTXPositionOpenTpSlOrders
     {
         /// <summary>
@@ -136,12 +138,13 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// Tpsl order info
         /// </summary>
         [JsonPropertyName("tpsl_order_info")]
-        public IEnumerable<HTXPositionOpenTpSlOrdersSUB> TpslOrderInfo { get; set; } = Array.Empty<HTXPositionOpenTpSlOrdersSUB>();
+        public HTXPositionOpenTpSlOrdersSUB[] TpslOrderInfo { get; set; } = Array.Empty<HTXPositionOpenTpSlOrdersSUB>();
     }
 
     /// <summary>
     /// 
     /// </summary>
+    [SerializationModel]
     public record HTXPositionOpenTpSlOrdersSUB
     {
         /// <summary>

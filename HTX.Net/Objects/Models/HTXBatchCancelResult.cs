@@ -1,25 +1,29 @@
-﻿namespace HTX.Net.Objects.Models
+using CryptoExchange.Net.Converters.SystemTextJson;
+using HTX.Net.Converters;
+namespace HTX.Net.Objects.Models
 {
     /// <summary>
     /// Result of a batch cancel
     /// </summary>
+    [SerializationModel]
     public record HTXBatchCancelResult
     {
         /// <summary>
         /// Orders that were successfully canceled
         /// </summary>
         [JsonPropertyName("success")]
-        public IEnumerable<string> Successful { get; set; } = Array.Empty<string>();
+        public string[] Successful { get; set; } = Array.Empty<string>();
         /// <summary>
         /// Orders that failed to cancel
         /// </summary>
         [JsonPropertyName("failed")]
-        public IEnumerable<HTXFailedCancelResult> Failed { get; set; } = Array.Empty<HTXFailedCancelResult>();
+        public HTXFailedCancelResult[] Failed { get; set; } = Array.Empty<HTXFailedCancelResult>();
     }
 
     /// <summary>
     /// Cancel result
     /// </summary>
+    [SerializationModel]
     public record HTXFailedCancelResult
     {
         /// <summary>
@@ -46,7 +50,7 @@
         /// The id of the failed order
         /// </summary>
         [JsonPropertyName("client-order-id")]
-        [JsonConverterCtor(typeof(ReplaceConverter), $"{HTXExchange.ClientOrderIdPrefix}->")]
+        [JsonConverter(typeof(ClientIdConverter))]
         public string? ClientOrderId { get; set; }
     }
 }

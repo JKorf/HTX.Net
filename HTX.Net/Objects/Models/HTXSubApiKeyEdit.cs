@@ -1,8 +1,10 @@
-﻿namespace HTX.Net.Objects.Models
+using CryptoExchange.Net.Converters.SystemTextJson;
+namespace HTX.Net.Objects.Models
 {
     /// <summary>
     /// Edit result
     /// </summary>
+    [SerializationModel]
     public record HTXSubApiKeyEdit
     {
         /// <summary>

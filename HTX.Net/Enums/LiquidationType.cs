@@ -1,10 +1,13 @@
-﻿using CryptoExchange.Net.Attributes;
+using System.Text.Json.Serialization;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using CryptoExchange.Net.Attributes;
 
 namespace HTX.Net.Enums
 {
     /// <summary>
     /// Liquidation type
     /// </summary>
+    [JsonConverter(typeof(EnumConverter<LiquidationType>))]
     public enum LiquidationType
     {
         /// <summary>

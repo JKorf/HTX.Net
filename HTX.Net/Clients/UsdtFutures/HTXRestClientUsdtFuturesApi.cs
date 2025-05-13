@@ -44,9 +44,9 @@ namespace HTX.Net.Clients.UsdtFutures
         }
         #endregion
 
-        protected override IStreamMessageAccessor CreateAccessor() => new SystemTextJsonStreamMessageAccessor();
+        protected override IStreamMessageAccessor CreateAccessor() => new SystemTextJsonStreamMessageAccessor(SerializerOptions.WithConverters(HTXExchange._serializerContext));
 
-        protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer();
+        protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(HTXExchange._serializerContext));
 
         public IHTXRestClientUsdtFuturesApiShared SharedClient => this;
 
@@ -88,7 +88,7 @@ namespace HTX.Net.Clients.UsdtFutures
                 return result.AsDatalessError(result.Error!);
 
             if (!string.IsNullOrEmpty(result.Data.ErrorCode))
-                return result.AsDatalessError(new ServerError(result.Data.ErrorCode!, result.Data.ErrorMessage!));
+                return result.AsDatalessError(new ServerError($"{result.Data.ErrorCode}, {result.Data.ErrorMessage}"));
 
             return result.AsDataless();
 
@@ -104,29 +104,29 @@ namespace HTX.Net.Clients.UsdtFutures
                 return result.AsError<T>(result.Error!);
 
             if (!string.IsNullOrEmpty(result.Data.ErrorCode))
-                return result.AsError<T>(new ServerError(result.Data.ErrorCode!, result.Data.ErrorMessage!));
+                return result.AsError<T>(new ServerError($"{result.Data.ErrorCode}, {result.Data.ErrorMessage}"));
 
             return result.As(result.Data.Data);
         }
 
         /// <inheritdoc />
-        protected override Error ParseErrorResponse(int httpStatusCode, IEnumerable<KeyValuePair<string, IEnumerable<string>>> responseHeaders, IMessageAccessor accessor)
+        protected override Error ParseErrorResponse(int httpStatusCode, KeyValuePair<string, string[]>[] responseHeaders, IMessageAccessor accessor, Exception? exception)
         {
             if (!accessor.IsJson)
-                return new ServerError(accessor.GetOriginalString());
+                return new ServerError(null, "Unknown request error", exception: exception);
 
             var code = accessor.GetValue<string?>(MessagePath.Get().Property("err-code"));
             var msg = accessor.GetValue<string>(MessagePath.Get().Property("err-msg"));
 
             if (code == null || msg == null)
-                return new ServerError(accessor.GetOriginalString());
+                return new ServerError(null, "Unknown request error", exception: exception);
 
 
-            return new ServerError($"{code}, {msg}");
+            return new ServerError(null, $"{code}, {msg}", exception);
         }
 
         /// <inheritdoc />
-        protected override Error? TryParseError(IEnumerable<KeyValuePair<string, IEnumerable<string>>> responseHeaders, IMessageAccessor accessor)
+        protected override Error? TryParseError(KeyValuePair<string, string[]>[] responseHeaders, IMessageAccessor accessor)
         {
             if (!accessor.IsJson)
                 return new ServerError(accessor.GetOriginalString());

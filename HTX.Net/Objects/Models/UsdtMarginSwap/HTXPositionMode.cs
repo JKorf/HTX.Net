@@ -1,4 +1,5 @@
-﻿using HTX.Net.Enums;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using HTX.Net.Enums;
 
 
 namespace HTX.Net.Objects.Models.UsdtMarginSwap
@@ -6,6 +7,7 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
     /// <summary>
     /// Position mode
     /// </summary>
+    [SerializationModel]
     public record HTXPositionMode
     {
         /// <summary>
@@ -17,7 +19,7 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// Position mode
         /// </summary>
         [JsonPropertyName("position_mode")]
-        [JsonConverter(typeof(EnumConverter))]
+
         public PositionMode PositionMode { get; set; }
     }
 }

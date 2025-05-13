@@ -1,10 +1,12 @@
-﻿using HTX.Net.Enums;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using HTX.Net.Enums;
 
 namespace HTX.Net.Objects.Models.UsdtMarginSwap
 {
     /// <summary>
     /// Sub account asset info page
     /// </summary>
+    [SerializationModel]
     public record HTXSubAccountCrossAssetInfoPage
     {
         /// <summary>
@@ -26,12 +28,13 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// Sub accounts
         /// </summary>
         [JsonPropertyName("sub_list")]
-        public IEnumerable<HTXSubAccountCrossAssetInfo> SubAccounts { get; set; } = Array.Empty<HTXSubAccountCrossAssetInfo>();
+        public HTXSubAccountCrossAssetInfo[] SubAccounts { get; set; } = Array.Empty<HTXSubAccountCrossAssetInfo>();
     }
 
     /// <summary>
     /// Sub account asset info
     /// </summary>
+    [SerializationModel]
     public record HTXSubAccountCrossAssetInfo
     {
         /// <summary>
@@ -43,12 +46,13 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// Assets
         /// </summary>
         [JsonPropertyName("account_info_list")]
-        public IEnumerable<HTXSubAccountCrossAssetInfoAsset> Assets { get; set; } = Array.Empty<HTXSubAccountCrossAssetInfoAsset>();
+        public HTXSubAccountCrossAssetInfoAsset[] Assets { get; set; } = Array.Empty<HTXSubAccountCrossAssetInfoAsset>();
     }
 
     /// <summary>
     /// Sub account asset
     /// </summary>
+    [SerializationModel]
     public record HTXSubAccountCrossAssetInfoAsset
     {
         /// <summary>
