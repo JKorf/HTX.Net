@@ -38,7 +38,7 @@ namespace HTX.Net.Objects.Models
     /// <summary>
     /// Order book entry
     /// </summary>
-    [JsonConverter(typeof(ArrayConverter<HTXOrderBookEntry, HTXSourceGenerationContext>))]
+    [JsonConverter(typeof(ArrayConverter<HTXOrderBookEntry>))]
     [SerializationModel]
     public record HTXOrderBookEntry: ISymbolOrderBookEntry
     {
