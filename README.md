@@ -155,6 +155,35 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 7.0.0 - 13 May 2025
+    * Updated CryptoExchange.Net to version 9.0.0, see https://github.com/JKorf/CryptoExchange.Net/releases/
+    * Added support for Native AOT compilation
+    * Added RateLimitUpdated event
+    * Added SharedSymbol response property to all Shared interfaces response models returning a symbol name
+    * Added GenerateClientOrderId method to UsdtFuturesApi and Spot Shared clients
+    * Added IBookTickerRestClient implementation to SpotApi and UsdtFuturesApi Shared clients
+    * Added ISpotOrderClientIdClient implementation to SpotApi Shared client
+    * Added ISpotTriggerOrderRestClient implementation to SpotApi Shared client
+    * Added IFuturesOrderClientIdClient implementation to UsdtFuturesApi Shared client
+    * Added IFuturesTriggerOrderRestClient implementation to UsdtFuturesApi Shared client
+    * Added IFuturesTpSlRestClient implementation to UsdtFuturesApi Shared client
+    * Added takeProfitPrice, stopLossPrice parameter support for UsdtFuturesApi Shared PlaceFuturesOrderAsync endpoint
+    * Added IsTriggerOrder property to SharedSpotOrder model
+    * Added OptionalExchangeParameters and Supported properties to EndpointOptions
+    * Added QuoteVolume property mapping to SharedSpotTicker model
+    * Added All property to retrieve all available environment on HTXEnvironment
+    * Refactored Shared clients quantity parameters and responses to use SharedQuantity
+    * Updated all IEnumerable response and model types to array response types
+    * Removed Newtonsoft.Json dependency
+    * Removed legacy ISpotClient implementation
+    * Removed legacy AddHTX(restOptions, socketOptions) DI overload
+    * Fixed some typos
+    * Fixed deserialization error for restClient.UsdtFuturesApi.Account.GetIsolatedMarginAccountInfoAsync
+    * Fixed incorrect DataTradeMode on certain Shared interface responses
+    * Fixed restClient.UsdtFuturesApi.Trading.PlaceIsolatedMarginTriggerOrderAsync and PlaceCrossMarginTriggerOrderAsync reduceOnly parameter
+    * Fixed socketClient.UsdtFuturesApi.SubscribeToCrossMarginPositionUpdatesAsync updates
+    * Fixed incorrect Symbol returned in some UsdtFuturesApi Shared socket updates
+
 * Version 7.0.0-beta3 - 01 May 2025
     * Updated CryptoExchange.Net version to 9.0.0-beta5
     * Added property to retrieve all available API environments
