@@ -2,6 +2,7 @@
 using System.Net.WebSockets;
 using System.Security.Authentication;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Objects;
@@ -49,7 +50,7 @@ namespace HTX.Net.UnitTests.TestImplementations
         public TimeSpan KeepAliveInterval { get; set; }
         public Func<Task<Uri>> GetReconnectionUrl { get; set; }
 
-        public Task<CallResult> ConnectAsync()
+        public Task<CallResult> ConnectAsync(CancellationToken ct)
         {
             Connected = CanConnect;
             return Task.FromResult(CanConnect ? new CallResult(null) : new CallResult(new CantConnectError()));
