@@ -117,6 +117,12 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddTransient<ICryptoSocketClient, CryptoSocketClient>();
             services.AddTransient<IHTXOrderBookFactory, HTXOrderBookFactory>();
             services.AddTransient<IHTXTrackerFactory, HTXTrackerFactory>();
+            services.AddSingleton<IHTXUserClientProvider, HTXUserClientProvider>(x =>
+            new HTXUserClientProvider(
+                x.GetRequiredService<HttpClient>(),
+                x.GetRequiredService<ILoggerFactory>(),
+                x.GetRequiredService<IOptions<HTXRestOptions>>(),
+                x.GetRequiredService<IOptions<HTXSocketOptions>>()));
 
             services.RegisterSharedRestInterfaces(x => x.GetRequiredService<IHTXRestClient>().SpotApi.SharedClient);
             services.RegisterSharedSocketInterfaces(x => x.GetRequiredService<IHTXSocketClient>().SpotApi.SharedClient);
