@@ -129,7 +129,7 @@ namespace HTX.Net.Clients.SpotApi
         /// <inheritdoc />
         protected override Error ParseErrorResponse(int httpStatusCode, KeyValuePair<string, string[]>[] responseHeaders, IMessageAccessor accessor, Exception? exception)
         {
-            if (!accessor.IsJson)
+            if (!accessor.IsValid)
                 return new ServerError(null, "Unknown request error", exception: exception);
 
             var code = accessor.GetValue<string>(MessagePath.Get().Property("err-code"));
@@ -144,7 +144,7 @@ namespace HTX.Net.Clients.SpotApi
         /// <inheritdoc />
         protected override Error? TryParseError(KeyValuePair<string, string[]>[] responseHeaders, IMessageAccessor accessor)
         {
-            if (!accessor.IsJson)
+            if (!accessor.IsValid)
                 return new ServerError(accessor.GetOriginalString());
 
             var code = accessor.GetValue<int?>(MessagePath.Get().Property("code"));
