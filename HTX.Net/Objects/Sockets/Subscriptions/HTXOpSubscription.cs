@@ -9,13 +9,11 @@ namespace HTX.Net.Objects.Sockets.Subscriptions
         private string _topic;
         private Action<DataEvent<T>> _handler;
 
-        public override HashSet<string> ListenerIdentifiers { get; set; }
-
         public HTXOpSubscription(ILogger logger, string listenId, string topic, Action<DataEvent<T>> handler, bool authenticated) : base(logger, authenticated)
         {
             _handler = handler;
             _topic = topic;
-            ListenerIdentifiers = new HashSet<string>() { listenId };
+            MessageMatcher = MessageMatcher.Create<T>(listenId, DoHandleMessage);
         }
 
         public override Query? GetSubQuery(SocketConnection connection)
@@ -27,14 +25,11 @@ namespace HTX.Net.Objects.Sockets.Subscriptions
             return new HTXOpQuery(_topic, "unsub", Authenticated);
         }
 
-        public override Type? GetMessageType(IMessageAccessor message) => typeof(T);
-
-        public override CallResult DoHandleMessage(SocketConnection connection, DataEvent<object> message)
+        public CallResult DoHandleMessage(SocketConnection connection, DataEvent<T> message)
         {
-            var htxEvent = (T)message.Data;
-            _handler.Invoke(message.As(htxEvent)
+            _handler.Invoke(message.As(message.Data)
                 .WithUpdateType(SocketUpdateType.Update)
-                .WithStreamId(htxEvent.Topic));
+                .WithStreamId(message.Data.Topic));
             return CallResult.SuccessResult;
         }
     }

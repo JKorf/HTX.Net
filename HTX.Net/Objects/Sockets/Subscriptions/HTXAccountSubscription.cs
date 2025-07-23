@@ -11,13 +11,12 @@ namespace HTX.Net.Objects.Sockets.Subscriptions
         private string _topic;
         private Action<DataEvent<HTXAccountUpdate>> _handler;
 
-        public override HashSet<string> ListenerIdentifiers { get; set; }
-
         public HTXAccountSubscription(ILogger logger, string topic, Action<DataEvent<HTXAccountUpdate>> handler, bool authenticated) : base(logger, authenticated)
         {
             _handler = handler;
             _topic = topic;
-            ListenerIdentifiers = new HashSet<string>() { topic };
+
+            MessageMatcher = MessageMatcher.Create<HTXDataEvent<HTXAccountUpdate>>(topic, DoHandleMessage);
         }
 
         public override Query? GetSubQuery(SocketConnection connection)
@@ -28,13 +27,11 @@ namespace HTX.Net.Objects.Sockets.Subscriptions
         {
             return new HTXAuthQuery("unsub", _topic, Authenticated);
         }
-        public override CallResult DoHandleMessage(SocketConnection connection, DataEvent<object> message)
+
+        public CallResult DoHandleMessage(SocketConnection connection, DataEvent<HTXDataEvent<HTXAccountUpdate>> message)
         {
-            var update = (HTXDataEvent<HTXAccountUpdate>)message.Data;
-            _handler.Invoke(message.As(update.Data, update.Channel, null, SocketUpdateType.Update).WithDataTimestamp(update.Data.ChangeTime));
+            _handler.Invoke(message.As(message.Data.Data, message.Data.Channel, null, SocketUpdateType.Update).WithDataTimestamp(message.Data.Data.ChangeTime));
             return CallResult.SuccessResult;
         }
-
-        public override Type? GetMessageType(IMessageAccessor message) => typeof(HTXDataEvent<HTXAccountUpdate>);
     }
 }

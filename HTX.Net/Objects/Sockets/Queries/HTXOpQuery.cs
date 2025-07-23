@@ -5,14 +5,12 @@ namespace HTX.Net.Objects.Sockets.Queries
 {
     internal class HTXOpQuery : Query<HTXOpResponse>
     {
-        public override HashSet<string> ListenerIdentifiers { get; set; }
-
         public HTXOpQuery(string topic, string op, bool authenticated, int weight = 1) : base(new HTXOpMessage { RequestId = ExchangeHelpers.NextId().ToString(), Topic = topic, Operation = op }, authenticated, weight)
         {
-            ListenerIdentifiers = new HashSet<string> { ((HTXOpMessage)Request).RequestId! };
+            MessageMatcher = MessageMatcher.Create<HTXOpResponse>(((HTXOpMessage)Request).RequestId!, HandleMessage);
         }
 
-        public override CallResult<HTXOpResponse> HandleMessage(SocketConnection connection, DataEvent<HTXOpResponse> message)
+        public CallResult<HTXOpResponse> HandleMessage(SocketConnection connection, DataEvent<HTXOpResponse> message)
         {
             if (message.Data.ErrorCode == 0)
                 return message.ToCallResult(message.Data);

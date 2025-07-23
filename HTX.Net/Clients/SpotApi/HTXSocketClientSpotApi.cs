@@ -27,6 +27,7 @@ namespace HTX.Net.Clients.SpotApi
         private static readonly MessagePath _actionPath = MessagePath.Get().Property("action");
         private static readonly MessagePath _channelPath = MessagePath.Get().Property("ch");
         private static readonly MessagePath _pingPath = MessagePath.Get().Property("ping");
+        private static readonly MessagePath _eventTypePath = MessagePath.Get().Property("data").Property("eventType");
 
         /// <inheritdoc />
         public new HTXSocketOptions ClientOptions => (HTXSocketOptions)base.ClientOptions;
@@ -75,6 +76,13 @@ namespace HTX.Net.Clients.SpotApi
             var channel = message.GetValue<string>(_channelPath);
             if (action != null && action != "push")
                 return action + channel;
+
+            if (channel!.StartsWith("trade.clearing", StringComparison.Ordinal)
+                || channel!.StartsWith("orders#", StringComparison.Ordinal))
+            {
+                var eventType = message.GetValue<string>(_eventTypePath);
+                return channel + eventType;
+            }
 
             return channel;
         }

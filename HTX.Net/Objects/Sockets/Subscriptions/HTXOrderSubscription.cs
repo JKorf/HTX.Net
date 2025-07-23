@@ -16,8 +16,6 @@ namespace HTX.Net.Objects.Sockets.Subscriptions
         private Action<DataEvent<HTXTriggerFailureOrderUpdate>>? _onConditionalOrderTriggerFailure;
         private Action<DataEvent<HTXOrderUpdate>>? _onConditionalOrderCanceled;
 
-        public override HashSet<string> ListenerIdentifiers { get; set; }
-
         public HTXOrderSubscription(
             ILogger logger,
             string? symbol,
@@ -33,7 +31,14 @@ namespace HTX.Net.Objects.Sockets.Subscriptions
             _onOrderCancelation = onOrderCancelation;
             _onConditionalOrderTriggerFailure = onConditionalOrderTriggerFailure;
             _onConditionalOrderCanceled = onConditionalOrderCanceled;
-            ListenerIdentifiers = new HashSet<string>() { _topic };
+
+            MessageMatcher = MessageMatcher.Create([
+                new MessageHandlerLink<HTXDataEvent<HTXTriggerFailureOrderUpdate>>(_topic + "trigger", DoHandleMessage),
+                new MessageHandlerLink<HTXDataEvent<HTXOrderUpdate>>(_topic + "deletion", DoHandleMessage),
+                new MessageHandlerLink<HTXDataEvent<HTXSubmittedOrderUpdate>>(_topic + "creation", DoHandleMessage),
+                new MessageHandlerLink<HTXDataEvent<HTXMatchedOrderUpdate>>(_topic + "trade", DoHandleMessage),
+                new MessageHandlerLink<HTXDataEvent<HTXCanceledOrderUpdate>>(_topic + "cancellation", DoHandleMessage)
+                ]);
         }
 
         public override Query? GetSubQuery(SocketConnection connection)
@@ -44,38 +49,35 @@ namespace HTX.Net.Objects.Sockets.Subscriptions
         {
             return new HTXAuthQuery("unsub", _topic, Authenticated);
         }
-        public override CallResult DoHandleMessage(SocketConnection connection, DataEvent<object> message)
+
+        public CallResult DoHandleMessage(SocketConnection connection, DataEvent<HTXDataEvent<HTXTriggerFailureOrderUpdate>> message)
         {
-            var data = message.Data;
-            if (data is HTXDataEvent<HTXTriggerFailureOrderUpdate> triggerFailEvent)
-                _onConditionalOrderTriggerFailure?.Invoke(message.As(triggerFailEvent.Data, triggerFailEvent.Channel, triggerFailEvent.Data.Symbol, SocketUpdateType.Update).WithDataTimestamp(triggerFailEvent.Timestamp));
-            if (data is HTXDataEvent<HTXOrderUpdate> orderEvent)
-                _onConditionalOrderCanceled?.Invoke(message.As(orderEvent.Data, orderEvent.Channel, orderEvent.Data.Symbol, SocketUpdateType.Update).WithDataTimestamp(orderEvent.Timestamp));
-            if (data is HTXDataEvent<HTXSubmittedOrderUpdate> submitOrderEvent)
-                _onOrderSubmitted?.Invoke(message.As(submitOrderEvent.Data, submitOrderEvent.Channel, submitOrderEvent.Data.Symbol, SocketUpdateType.Update).WithDataTimestamp(submitOrderEvent.Timestamp));
-            if (data is HTXDataEvent<HTXMatchedOrderUpdate> matchOrderEvent)
-                _onOrderMatched?.Invoke(message.As(matchOrderEvent.Data, matchOrderEvent.Channel, matchOrderEvent.Data.Symbol, SocketUpdateType.Update).WithDataTimestamp(matchOrderEvent.Timestamp));
-            if (data is HTXDataEvent<HTXCanceledOrderUpdate> cancelOrderEvent)
-                _onOrderCancelation?.Invoke(message.As(cancelOrderEvent.Data, cancelOrderEvent.Channel, cancelOrderEvent.Data.Symbol, SocketUpdateType.Update).WithDataTimestamp(cancelOrderEvent.Timestamp));
+            _onConditionalOrderTriggerFailure?.Invoke(message.As(message.Data.Data, message.Data.Channel, message.Data.Data.Symbol, SocketUpdateType.Update).WithDataTimestamp(message.Data.Timestamp));
             return CallResult.SuccessResult;
         }
 
-        public override Type? GetMessageType(IMessageAccessor message)
+        public CallResult DoHandleMessage(SocketConnection connection, DataEvent<HTXDataEvent<HTXOrderUpdate>> message)
         {
-            var typePath = MessagePath.Get().Property("data").Property("eventType");
-            var eventType = message.GetValue<string>(typePath);
-            if (string.Equals(eventType, "trigger", StringComparison.Ordinal))
-                return typeof(HTXDataEvent<HTXTriggerFailureOrderUpdate>);
-            if (string.Equals(eventType, "deletion", StringComparison.Ordinal))
-                return typeof(HTXDataEvent<HTXOrderUpdate>);
-            if (string.Equals(eventType, "creation", StringComparison.Ordinal))
-                return typeof(HTXDataEvent<HTXSubmittedOrderUpdate>);
-            if (string.Equals(eventType, "trade", StringComparison.Ordinal))
-                return typeof(HTXDataEvent<HTXMatchedOrderUpdate>);
-            if (string.Equals(eventType, "cancellation", StringComparison.Ordinal))
-                return typeof(HTXDataEvent<HTXCanceledOrderUpdate>);
+            _onConditionalOrderCanceled?.Invoke(message.As(message.Data.Data, message.Data.Channel, message.Data.Data.Symbol, SocketUpdateType.Update).WithDataTimestamp(message.Data.Timestamp));
+            return CallResult.SuccessResult;
+        }
 
-            return null;
+        public CallResult DoHandleMessage(SocketConnection connection, DataEvent<HTXDataEvent<HTXSubmittedOrderUpdate>> message)
+        {
+            _onOrderSubmitted?.Invoke(message.As(message.Data.Data, message.Data.Channel, message.Data.Data.Symbol, SocketUpdateType.Update).WithDataTimestamp(message.Data.Timestamp));
+            return CallResult.SuccessResult;
+        }
+
+        public CallResult DoHandleMessage(SocketConnection connection, DataEvent<HTXDataEvent<HTXMatchedOrderUpdate>> message)
+        {
+            _onOrderMatched?.Invoke(message.As(message.Data.Data, message.Data.Channel, message.Data.Data.Symbol, SocketUpdateType.Update).WithDataTimestamp(message.Data.Timestamp));
+            return CallResult.SuccessResult;
+        }
+
+        public CallResult DoHandleMessage(SocketConnection connection, DataEvent<HTXDataEvent<HTXCanceledOrderUpdate>> message)
+        {
+            _onOrderCancelation?.Invoke(message.As(message.Data.Data, message.Data.Channel, message.Data.Data.Symbol, SocketUpdateType.Update).WithDataTimestamp(message.Data.Timestamp));
+            return CallResult.SuccessResult;
         }
     }
 }

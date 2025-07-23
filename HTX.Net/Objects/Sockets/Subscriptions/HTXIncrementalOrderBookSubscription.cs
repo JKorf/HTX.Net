@@ -12,14 +12,13 @@ namespace HTX.Net.Objects.Sockets.Subscriptions
         private bool _snapshots;
         private Action<DataEvent<HTXIncrementalOrderBookUpdate>> _handler;
 
-        public override HashSet<string> ListenerIdentifiers { get; set; }
-
         public HTXIncrementalOrderBookSubscription(ILogger logger, bool snapshots, string topic, Action<DataEvent<HTXIncrementalOrderBookUpdate>> handler) : base(logger, false)
         {
             _handler = handler;
             _snapshots = snapshots;
             _topic = topic;
-            ListenerIdentifiers = new HashSet<string>() { topic };
+
+            MessageMatcher = MessageMatcher.Create<HTXDataEvent<HTXIncrementalOrderBookUpdate>>(topic, DoHandleMessage);
         }
 
         public override Query? GetSubQuery(SocketConnection connection)
@@ -31,14 +30,11 @@ namespace HTX.Net.Objects.Sockets.Subscriptions
             return new HTXUnsubscribeQuery(_topic, Authenticated, dataType: _snapshots ? null : "incremental");
         }
 
-        public override Type? GetMessageType(IMessageAccessor message) => typeof(HTXDataEvent<HTXIncrementalOrderBookUpdate>);
-
-        public override CallResult DoHandleMessage(SocketConnection connection, DataEvent<object> message)
+        public CallResult DoHandleMessage(SocketConnection connection, DataEvent<HTXDataEvent<HTXIncrementalOrderBookUpdate>> message)
         {
-            var htxEvent = (HTXDataEvent<HTXIncrementalOrderBookUpdate>)message.Data;
-            _handler.Invoke(message.As(htxEvent.Data)
-                .WithStreamId(htxEvent.Channel).WithUpdateType(htxEvent.Data.Event == "snapshot" ? SocketUpdateType.Snapshot: SocketUpdateType.Update)
-                .WithDataTimestamp(htxEvent.Timestamp));
+            _handler.Invoke(message.As(message.Data.Data)
+                .WithStreamId(message.Data.Channel).WithUpdateType(message.Data.Data.Event == "snapshot" ? SocketUpdateType.Snapshot: SocketUpdateType.Update)
+                .WithDataTimestamp(message.Data.Timestamp));
             return CallResult.SuccessResult;
         }
     }

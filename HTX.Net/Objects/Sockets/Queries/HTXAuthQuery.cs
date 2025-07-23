@@ -5,22 +5,21 @@ namespace HTX.Net.Objects.Sockets.Queries
 {
     internal class HTXAuthQuery : Query<HTXSocketAuthResponse>
     {
-        public override HashSet<string> ListenerIdentifiers { get; set; }
         public HTXAuthQuery(string action, string topic, bool authenticated, int weight = 1) : base(new HTXAuthRequest() { Action = action, Channel = topic }, authenticated, weight)
         {
-            ListenerIdentifiers = new HashSet<string> { action + topic };
+            MessageMatcher = MessageMatcher.Create<HTXSocketAuthResponse>(action + topic, HandleMessage);
         }
         public HTXAuthQuery(HTXAuthRequest request) : base(request, true, 1)
         {
-            ListenerIdentifiers = new HashSet<string> { request.Action + request.Channel };
+            MessageMatcher = MessageMatcher.Create<HTXSocketAuthResponse>(request.Action + request.Channel, HandleMessage);
         }
 
-        public override CallResult<HTXSocketAuthResponse> HandleMessage(SocketConnection connection, DataEvent<HTXSocketAuthResponse> message)
+        public CallResult<HTXSocketAuthResponse> HandleMessage(SocketConnection connection, DataEvent<HTXSocketAuthResponse> message)
         {
             if (message.Data.Code != 200)
                 return new CallResult<HTXSocketAuthResponse>(new ServerError(message.Data.Code, message.Data.Message!));
 
-            return base.HandleMessage(connection, message);
+            return message.ToCallResult();
         }
     }
 }

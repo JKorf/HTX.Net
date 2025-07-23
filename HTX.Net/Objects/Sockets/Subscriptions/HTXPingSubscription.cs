@@ -3,15 +3,14 @@ using CryptoExchange.Net.Sockets;
 
 namespace HTX.Net.Objects.Sockets.Subscriptions
 {
-    internal class HTXPingSubscription : SystemSubscription<HTXPingMessage>
+    internal class HTXPingSubscription : SystemSubscription
     {
-        public override HashSet<string> ListenerIdentifiers { get; set; } = new HashSet<string>() { "pingV3" };
-
         public HTXPingSubscription(ILogger logger) : base(logger, false)
         {
+            MessageMatcher = MessageMatcher.Create<HTXPingMessage>("pingV3", HandleMessage);
         }
 
-        public override CallResult HandleMessage(SocketConnection connection, DataEvent<HTXPingMessage> message)
+        public CallResult HandleMessage(SocketConnection connection, DataEvent<HTXPingMessage> message)
         {
             connection.Send(ExchangeHelpers.NextId(), new HTXPongMessage() { Pong = message.Data.Ping }, 1);
             return CallResult.SuccessResult;
