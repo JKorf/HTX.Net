@@ -158,6 +158,9 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 7.3.1 - 01 Aug 2025
+    * Fixed Shared spot Ticker subscriptions throwing exception if open price is 0
+
 * Version 7.3.0 - 23 Jul 2025
     * Updated CryptoExchange.Net to version 9.3.0, see https://github.com/JKorf/CryptoExchange.Net/releases/
     * Updated websocket message matching
