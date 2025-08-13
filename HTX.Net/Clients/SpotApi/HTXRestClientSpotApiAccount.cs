@@ -3,6 +3,7 @@ using HTX.Net.Objects.Models;
 using HTX.Net.Interfaces.Clients.SpotApi;
 using HTX.Net.Objects.Internal;
 using CryptoExchange.Net.RateLimiting.Guards;
+using CryptoExchange.Net.Objects.Errors;
 
 namespace HTX.Net.Clients.SpotApi
 {
@@ -347,7 +348,7 @@ namespace HTX.Net.Clients.SpotApi
                 new SingleLimitGuard(20, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             var result = await _baseClient.SendBasicAsync<HTXWithdrawDeposit>(request, parameters, ct).ConfigureAwait(false);
             if (result.Data == null)
-                return new WebCallResult<HTXWithdrawDeposit>(new ServerError("Not found"));
+                return new WebCallResult<HTXWithdrawDeposit>(new ServerError(new ErrorInfo(ErrorType.Unknown, "Not found")));
 
             return result;
         }

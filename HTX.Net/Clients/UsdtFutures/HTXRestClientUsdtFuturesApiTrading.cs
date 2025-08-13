@@ -618,7 +618,7 @@ namespace HTX.Net.Clients.UsdtFutures
             if (result.Data.Errors.Any())
             {
                 var error = result.Data.Errors.First();
-                return result.AsError<HTXTriggerOrderResult>(new ServerError(error.ErrorCode, error.ErrorMessage));
+                return result.AsError<HTXTriggerOrderResult>(new ServerError(error.ErrorCode, _baseClient.GetErrorInfo(error.ErrorCode, error.ErrorMessage)));
             }
 
             return result;
@@ -644,7 +644,7 @@ namespace HTX.Net.Clients.UsdtFutures
             if (result.Data.Errors.Any()) 
             {
                 var error = result.Data.Errors.First();
-                return result.AsError<HTXTriggerOrderResult>(new ServerError(error.ErrorCode, error.ErrorMessage));
+                return result.AsError<HTXTriggerOrderResult>(new ServerError(error.ErrorCode, _baseClient.GetErrorInfo(error.ErrorCode, error.ErrorMessage)));
             }
 
             return result;

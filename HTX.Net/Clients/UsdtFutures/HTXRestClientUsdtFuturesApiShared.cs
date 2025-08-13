@@ -3,6 +3,7 @@ using CryptoExchange.Net.SharedApis;
 using HTX.Net.Enums;
 using HTX.Net.Objects.Models.UsdtMarginSwap;
 using System.Drawing;
+using CryptoExchange.Net.Objects.Errors;
 
 namespace HTX.Net.Clients.UsdtFutures
 {
@@ -283,7 +284,7 @@ namespace HTX.Net.Clients.UsdtFutures
                 return new ExchangeWebResult<SharedFuturesOrder>(Exchange, validationError);
 
             if (!long.TryParse(request.OrderId, out var orderId))
-                return new ExchangeWebResult<SharedFuturesOrder>(Exchange, new ArgumentError("Invalid order id"));
+                return new ExchangeWebResult<SharedFuturesOrder>(Exchange, ArgumentError.Invalid(nameof(GetOrderRequest.OrderId), "Invalid order id"));
 
             var marginMode = ExchangeParameters.GetValue<SharedMarginMode>(request.ExchangeParameters, Exchange, "MarginMode");
             if (marginMode == SharedMarginMode.Cross)
@@ -389,7 +390,7 @@ namespace HTX.Net.Clients.UsdtFutures
             else
             {
                 if (request.Symbol == null)
-                    return new ExchangeWebResult<SharedFuturesOrder[]>(Exchange, new ArgumentError("Symbol parameter required for isolated margin request"));
+                    return new ExchangeWebResult<SharedFuturesOrder[]>(Exchange, ArgumentError.Missing(nameof(GetOpenOrdersRequest.Symbol), "Symbol parameter required for isolated margin request"));
 
                 var symbol = request.Symbol.GetSymbol(FormatSymbol);
                 var orders = await Trading.GetIsolatedMarginOpenOrdersAsync(symbol, ct: ct).ConfigureAwait(false);
@@ -544,7 +545,7 @@ namespace HTX.Net.Clients.UsdtFutures
                 return new ExchangeWebResult<SharedUserTrade[]>(Exchange, validationError);
 
             if (!long.TryParse(request.OrderId, out var orderId))
-                return new ExchangeWebResult<SharedUserTrade[]>(Exchange, new ArgumentError("Invalid order id"));
+                return new ExchangeWebResult<SharedUserTrade[]>(Exchange, ArgumentError.Invalid(nameof(GetOrderTradesRequest.OrderId), "Invalid order id"));
 
             var symbol = request.Symbol!.GetSymbol(FormatSymbol);
             var marginMode = ExchangeParameters.GetValue<SharedMarginMode>(request.ExchangeParameters, Exchange, "MarginMode");
@@ -700,7 +701,7 @@ namespace HTX.Net.Clients.UsdtFutures
                 return new ExchangeWebResult<SharedId>(Exchange, validationError);
 
             if (!long.TryParse(request.OrderId, out var orderId))
-                return new ExchangeWebResult<SharedId>(Exchange, new ArgumentError("Invalid order id"));
+                return new ExchangeWebResult<SharedId>(Exchange, ArgumentError.Invalid(nameof(CancelOrderRequest.OrderId), "Invalid order id"));
 
             var marginMode = ExchangeParameters.GetValue<SharedMarginMode>(request.ExchangeParameters, Exchange, "MarginMode");
             if (marginMode == SharedMarginMode.Cross)
@@ -992,7 +993,7 @@ namespace HTX.Net.Clients.UsdtFutures
         {
             var interval = (Enums.KlineInterval)request.Interval;
             if (!Enum.IsDefined(typeof(Enums.KlineInterval), interval))
-                return new ExchangeWebResult<SharedKline[]>(Exchange, new ArgumentError("Interval not supported"));
+                return new ExchangeWebResult<SharedKline[]>(Exchange, ArgumentError.Invalid(nameof(GetKlinesRequest.Interval), "Interval not supported"));
 
             var validationError = ((IKlineRestClient)this).GetKlinesOptions.ValidateRequest(Exchange, request, request.TradingMode, SupportedTradingModes);
             if (validationError != null)
@@ -1048,7 +1049,7 @@ namespace HTX.Net.Clients.UsdtFutures
         {
             var interval = (Enums.KlineInterval)request.Interval;
             if (!Enum.IsDefined(typeof(Enums.KlineInterval), interval))
-                return new ExchangeWebResult<SharedFuturesKline[]>(Exchange, new ArgumentError("Interval not supported"));
+                return new ExchangeWebResult<SharedFuturesKline[]>(Exchange, ArgumentError.Invalid(nameof(GetKlinesRequest.Interval), "Interval not supported"));
 
             var validationError = ((IMarkPriceKlineRestClient)this).GetMarkPriceKlinesOptions.ValidateRequest(Exchange, request, request.TradingMode, SupportedTradingModes);
             if (validationError != null)
@@ -1076,7 +1077,7 @@ namespace HTX.Net.Clients.UsdtFutures
         {
             var interval = (Enums.KlineInterval)request.Interval;
             if (!Enum.IsDefined(typeof(Enums.KlineInterval), interval))
-                return new ExchangeWebResult<SharedFuturesKline[]>(Exchange, new ArgumentError("Interval not supported"));
+                return new ExchangeWebResult<SharedFuturesKline[]>(Exchange, ArgumentError.Invalid(nameof(GetKlinesRequest.Interval), "Interval not supported"));
 
             var validationError = ((IIndexPriceKlineRestClient)this).GetIndexPriceKlinesOptions.ValidateRequest(Exchange, request, request.TradingMode, SupportedTradingModes);
             if (validationError != null)
@@ -1220,7 +1221,7 @@ namespace HTX.Net.Clients.UsdtFutures
             else
             {
                 if (request.Symbol == null)
-                    return new ExchangeWebResult<SharedPositionModeResult>(Exchange, new ArgumentError("Symbol parameter required for isolated mode"));
+                    return new ExchangeWebResult<SharedPositionModeResult>(Exchange, ArgumentError.Missing(nameof(GetPositionModeRequest.Symbol), "Symbol parameter required for isolated mode"));
 
                 var result = await Account.GetIsolatedMarginPositionModeAsync(request.Symbol!.GetSymbol(FormatSymbol), ct: ct).ConfigureAwait(false);
                 if (!result)
@@ -1255,7 +1256,7 @@ namespace HTX.Net.Clients.UsdtFutures
             else
             {
                 if (request.Symbol == null)
-                    return new ExchangeWebResult<SharedPositionModeResult>(Exchange, new ArgumentError("Symbol parameter required for isolated mode"));
+                    return new ExchangeWebResult<SharedPositionModeResult>(Exchange, ArgumentError.Missing(nameof(SetPositionModeRequest.Symbol), "Symbol parameter required for isolated mode"));
 
                 var result = await Account.SetIsolatedMarginPositionModeAsync(request.Symbol.GetSymbol(FormatSymbol), request.PositionMode == SharedPositionMode.HedgeMode ? PositionMode.DualSide : PositionMode.SingleSide, ct: ct).ConfigureAwait(false);
                 if (!result)
@@ -1409,7 +1410,7 @@ namespace HTX.Net.Clients.UsdtFutures
 
                 var closedOrder = orderHist.Data.Orders.SingleOrDefault(x => x.OrderIdStr == request.OrderId);
                 if (closedOrder == null)
-                    return orders.AsExchangeError<SharedFuturesTriggerOrder>(Exchange, new ServerError("Not found"));
+                    return orders.AsExchangeError<SharedFuturesTriggerOrder>(Exchange, new ServerError(new ErrorInfo(ErrorType.UnknownOrder, "Not found")));
 
                 if (string.IsNullOrEmpty(closedOrder.RelationOrderId) && closedOrder.RelationOrderId != "-1")
                 {
@@ -1499,7 +1500,7 @@ namespace HTX.Net.Clients.UsdtFutures
 
                 var closedOrder = orderHist.Data.Orders.SingleOrDefault(x => x.OrderIdStr == request.OrderId);
                 if (closedOrder == null)
-                    return orders.AsExchangeError<SharedFuturesTriggerOrder>(Exchange, new ServerError("Not found"));
+                    return orders.AsExchangeError<SharedFuturesTriggerOrder>(Exchange, new ServerError(new ErrorInfo(ErrorType.UnknownOrder, "Not found")));
 
                 if (string.IsNullOrEmpty(closedOrder.RelationOrderId) && closedOrder.RelationOrderId != "-1")
                 {

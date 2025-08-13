@@ -1,5 +1,6 @@
 ﻿using CryptoExchange.Net.Clients;
 using CryptoExchange.Net.Converters.MessageParsing;
+using CryptoExchange.Net.Objects.Errors;
 using CryptoExchange.Net.SharedApis;
 using HTX.Net.Interfaces.Clients.SpotApi;
 using HTX.Net.Interfaces.Clients.UsdtFuturesApi;
@@ -15,6 +16,9 @@ namespace HTX.Net.Clients.UsdtFutures
         public new HTXRestOptions ClientOptions => (HTXRestOptions)base.ClientOptions;
 
         internal static TimeSyncState _timeSyncState = new TimeSyncState("Usdt Margin Swap Api");
+
+        protected override ErrorCollection ErrorMapping { get; } = HTXErrorMapping.FuturesMapping;
+
 
         /// <inheritdoc />
         public string ExchangeName => "HTX";
@@ -73,7 +77,7 @@ namespace HTX.Net.Clients.UsdtFutures
                 return result.AsError<T>(result.Error!);
 
             if (result.Data.Code != 200)
-                return result.AsError<T>(new ServerError(result.Data.Code, result.Data.Message));
+                return result.AsError<T>(new ServerError(result.Data.Code, GetErrorInfo(result.Data.Code, result.Data.Message)));
 
             return result.As(result.Data.Data);
         }
@@ -88,7 +92,7 @@ namespace HTX.Net.Clients.UsdtFutures
                 return result.AsDatalessError(result.Error!);
 
             if (!string.IsNullOrEmpty(result.Data.ErrorCode))
-                return result.AsDatalessError(new ServerError($"{result.Data.ErrorCode}, {result.Data.ErrorMessage}"));
+                return result.AsDatalessError(new ServerError(result.Data.ErrorCode!, GetErrorInfo(result.Data.ErrorCode!, result.Data.ErrorMessage)));
 
             return result.AsDataless();
 
@@ -104,7 +108,7 @@ namespace HTX.Net.Clients.UsdtFutures
                 return result.AsError<T>(result.Error!);
 
             if (!string.IsNullOrEmpty(result.Data.ErrorCode))
-                return result.AsError<T>(new ServerError($"{result.Data.ErrorCode}, {result.Data.ErrorMessage}"));
+                return result.AsError<T>(new ServerError(result.Data.ErrorCode!, GetErrorInfo(result.Data.ErrorCode!, result.Data.ErrorMessage)));
 
             return result.As(result.Data.Data);
         }
@@ -113,29 +117,29 @@ namespace HTX.Net.Clients.UsdtFutures
         protected override Error ParseErrorResponse(int httpStatusCode, KeyValuePair<string, string[]>[] responseHeaders, IMessageAccessor accessor, Exception? exception)
         {
             if (!accessor.IsValid)
-                return new ServerError(null, "Unknown request error", exception: exception);
+                return new ServerError(ErrorInfo.Unknown, exception: exception);
 
             var code = accessor.GetValue<string?>(MessagePath.Get().Property("err-code"));
             var msg = accessor.GetValue<string>(MessagePath.Get().Property("err-msg"));
 
             if (code == null || msg == null)
-                return new ServerError(null, "Unknown request error", exception: exception);
+                return new ServerError(ErrorInfo.Unknown, exception: exception);
 
 
-            return new ServerError(null, $"{code}, {msg}", exception);
+            return new ServerError(code, GetErrorInfo(code, msg), exception);
         }
 
         /// <inheritdoc />
         protected override Error? TryParseError(KeyValuePair<string, string[]>[] responseHeaders, IMessageAccessor accessor)
         {
             if (!accessor.IsValid)
-                return new ServerError(accessor.GetOriginalString());
+                return new ServerError(ErrorInfo.Unknown);
 
             var errCode = accessor.GetValue<string>(MessagePath.Get().Property("err-code"));
             var msg = accessor.GetValue<string>(MessagePath.Get().Property("err-msg"));
 
             if (!string.IsNullOrEmpty(errCode))
-                return new ServerError($"{errCode}: {msg}");
+                return new ServerError(errCode!, GetErrorInfo(errCode!, msg));
 
             return null;
         }
