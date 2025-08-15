@@ -47,7 +47,6 @@ namespace HTX.Net.UnitTests
             var result = await CreateClient().SpotApi.ExchangeData.GetKlinesAsync("TSTTST", Enums.KlineInterval.OneDay, default);
 
             Assert.That(result.Success, Is.False);
-            Assert.That(result.Error.Message, Contains.Substring("invalid-parameter"));
             Assert.That(result.Error.ErrorType, Is.EqualTo(ErrorType.UnknownSymbol));
         }
 

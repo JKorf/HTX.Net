@@ -30,7 +30,7 @@ namespace HTX.Net.Clients.SpotApi
         private static readonly MessagePath _pingPath = MessagePath.Get().Property("ping");
         private static readonly MessagePath _eventTypePath = MessagePath.Get().Property("data").Property("eventType");
 
-        protected override ErrorCollection ErrorMapping { get; } = HTXErrorMapping.SpotMapping;
+        protected override ErrorCollection ErrorMapping => HTXErrors.SpotMapping;
 
         /// <inheritdoc />
         public new HTXSocketOptions ClientOptions => (HTXSocketOptions)base.ClientOptions;

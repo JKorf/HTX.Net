@@ -17,7 +17,7 @@ namespace HTX.Net.Clients.UsdtFutures
 
         internal static TimeSyncState _timeSyncState = new TimeSyncState("Usdt Margin Swap Api");
 
-        protected override ErrorCollection ErrorMapping { get; } = HTXErrorMapping.FuturesMapping;
+        protected override ErrorCollection ErrorMapping => HTXErrors.FuturesMapping;
 
 
         /// <inheritdoc />

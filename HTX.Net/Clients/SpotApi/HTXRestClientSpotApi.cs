@@ -17,7 +17,7 @@ namespace HTX.Net.Clients.SpotApi
 
         internal static TimeSyncState _timeSyncState = new TimeSyncState("Spot Api");
 
-        protected override ErrorCollection ErrorMapping { get; } = HTXErrorMapping.SpotMapping;
+        protected override ErrorCollection ErrorMapping => HTXErrors.SpotMapping;
 
         /// <inheritdoc />
         public string ExchangeName => "HTX";
