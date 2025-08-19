@@ -87,7 +87,7 @@ namespace HTX.Net.Converters
     [JsonSerializable(typeof(HTXBasicResponse<HTXCrossMarginPositionLimit[]>))]
     [JsonSerializable(typeof(HTXBasicResponse<HTXLeveragePositionLimit[]>))]
     [JsonSerializable(typeof(HTXBasicResponse<HTXCrossLeveragePositionLimit[]>))]
-    [JsonSerializable(typeof(HTXBasicResponse<HTXTradingStatus[]>))]
+    [JsonSerializable(typeof(HTXBasicResponse<HTXTradingStatus>))]
     [JsonSerializable(typeof(HTXBasicResponse<HTXFundingRate[]>))]
     [JsonSerializable(typeof(HTXBasicResponse<HTXContractStatus[]>))]
     [JsonSerializable(typeof(HTXBasicResponse<HTXTieredCrossMarginInfo[]>))]

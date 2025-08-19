@@ -234,7 +234,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb840a5-77b5-11ed-9966-0242ac110003" /></para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<HTXTradingStatus[]>> GetTradingStatusAsync(CancellationToken ct = default);
+        Task<WebCallResult<HTXTradingStatus>> GetTradingStatusAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get isolated margin position mode

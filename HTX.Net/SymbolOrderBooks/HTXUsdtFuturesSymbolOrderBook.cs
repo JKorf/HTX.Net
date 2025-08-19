@@ -71,8 +71,9 @@ namespace HTX.Net.SymbolOrderBooks
                 if (!subResult)
                     return subResult;
 
-                if (!await WaitForSetOrderBookAsync(_initialDataTimeout, ct).ConfigureAwait(false))
-                    return new CallResult<UpdateSubscription>(new ServerError(new ErrorInfo(ErrorType.OrderBookTimeout, "No data received")));
+                var waitResult = await WaitForSetOrderBookAsync(_initialDataTimeout, ct).ConfigureAwait(false);
+                if (!waitResult)
+                    return waitResult.As<UpdateSubscription>(default);
 
                 return subResult;
             }
@@ -82,8 +83,9 @@ namespace HTX.Net.SymbolOrderBooks
                 if (!subResult)
                     return subResult;
 
-                if (!await WaitForSetOrderBookAsync(_initialDataTimeout, ct).ConfigureAwait(false))
-                    return new CallResult<UpdateSubscription>(new ServerError(new ErrorInfo(ErrorType.OrderBookTimeout, "No data received")));
+                var waitResult = await WaitForSetOrderBookAsync(_initialDataTimeout, ct).ConfigureAwait(false);
+                if (!waitResult)
+                    return waitResult.As<UpdateSubscription>(default);
 
                 return subResult;
             }

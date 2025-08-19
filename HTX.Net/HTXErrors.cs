@@ -4,7 +4,7 @@ namespace HTX.Net
 {
     internal static class HTXErrors
     {
-        internal static ErrorCollection SpotMapping { get; } = new ErrorCollection([
+        internal static ErrorMapping SpotMapping { get; } = new ErrorMapping([
 
                 new ErrorInfo(ErrorType.SystemError, false, "System error", "500"),
                 new ErrorInfo(ErrorType.SystemError, true, "System internal error", "base-system-error"),
@@ -14,6 +14,7 @@ namespace HTX.Net
                 new ErrorInfo(ErrorType.Unauthorized, false, "IP address not allowed", "2000"),
                 new ErrorInfo(ErrorType.Unauthorized, false, "Invalid signature", "1003"),
 
+                new ErrorInfo(ErrorType.InvalidParameter, false, "Parameter invalid", "validation-constraints-error"),
                 new ErrorInfo(ErrorType.InvalidParameter, false, "Parameter not supported", "base-argument-unsupported"),
                 new ErrorInfo(ErrorType.InvalidParameter, false, "Timestamp exceeds limit", "order-date-limit-error"),
                 new ErrorInfo(ErrorType.InvalidParameter, false, "Invalid startTime", "invalid-start-date", "invalid-start-time"),
@@ -139,15 +140,13 @@ namespace HTX.Net
                 })
                 ]);
 
-        internal static ErrorCollection FuturesMapping { get; } = new ErrorCollection([
+        internal static ErrorMapping FuturesMapping { get; } = new ErrorMapping([
 
                 new ErrorInfo(ErrorType.Unauthorized, true, "API key expired", "12004"),
                 new ErrorInfo(ErrorType.Unauthorized, true, "IP Address not allowed", "12005"),
                 new ErrorInfo(ErrorType.Unauthorized, true, "Incorrect public key", "12007"),
                 new ErrorInfo(ErrorType.Unauthorized, true, "Verification failed", "12008"),
-
-                new ErrorInfo(ErrorType.InvalidSignature, true, "Signature verification failed", "1253"),
-
+                new ErrorInfo(ErrorType.Unauthorized, true, "Signature verification failed", "1253"),
                 new ErrorInfo(ErrorType.Unauthorized, true, "API access disabled", "1084"),
                 new ErrorInfo(ErrorType.Unauthorized, true, "Contract trading disabled because of account balance", "1221"),
                 new ErrorInfo(ErrorType.Unauthorized, true, "Contract trading disabled because of account age", "1222"),

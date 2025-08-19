@@ -28,7 +28,7 @@ namespace HTX.Net.Clients.UsdtFutures
         private static readonly MessagePath _opPath = MessagePath.Get().Property("op");
         private static readonly MessagePath _topicPath = MessagePath.Get().Property("topic");
 
-        protected override ErrorCollection ErrorMapping => HTXErrors.FuturesMapping;
+        protected override ErrorMapping ErrorMapping => HTXErrors.FuturesMapping;
 
         #region ctor
         internal HTXSocketClientUsdtFuturesApi(ILogger logger, HTXSocketOptions options)

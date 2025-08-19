@@ -30,7 +30,7 @@ namespace HTX.Net.Clients.SpotApi
         private static readonly MessagePath _pingPath = MessagePath.Get().Property("ping");
         private static readonly MessagePath _eventTypePath = MessagePath.Get().Property("data").Property("eventType");
 
-        protected override ErrorCollection ErrorMapping => HTXErrors.SpotMapping;
+        protected override ErrorMapping ErrorMapping => HTXErrors.SpotMapping;
 
         /// <inheritdoc />
         public new HTXSocketOptions ClientOptions => (HTXSocketOptions)base.ClientOptions;
@@ -374,7 +374,7 @@ namespace HTX.Net.Clients.SpotApi
             foreach (var item in resultData.Data.Data!)
             {
                 if (!string.IsNullOrEmpty(item.ErrorCode))
-                    result.Add(new CallResult<HTXBatchPlaceResult>(new ServerError(item.ErrorCode!, GetErrorInfo(item.ErrorCode!, item.ErrorMessage))));
+                    result.Add(new CallResult<HTXBatchPlaceResult>(item, null, new ServerError(item.ErrorCode!, GetErrorInfo(item.ErrorCode!, item.ErrorMessage))));
                 else
                     result.Add(new CallResult<HTXBatchPlaceResult>(item));
             }
