@@ -1,4 +1,5 @@
-﻿using CryptoExchange.Net.Objects.Sockets;
+﻿using CryptoExchange.Net.Objects.Errors;
+using CryptoExchange.Net.Objects.Sockets;
 using CryptoExchange.Net.Sockets;
 
 namespace HTX.Net.Objects.Sockets.Queries
@@ -13,7 +14,7 @@ namespace HTX.Net.Objects.Sockets.Queries
         public CallResult<HTXSocketResponse> HandleMessage(SocketConnection connection, DataEvent<HTXSocketResponse> message)
         {
             if (message.Data.Status != "ok")
-                return new CallResult<HTXSocketResponse>(new ServerError(message.Data.ErrorMessage!));
+                return new CallResult<HTXSocketResponse>(new ServerError(ErrorInfo.Unknown with { Message = message.Data.ErrorMessage! }));
 
             return message.ToCallResult();
         }

@@ -2240,7 +2240,7 @@
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
         </member>
-        <member name="P:HTX.Net.Converters.HTXSourceGenerationContext.HTXBasicResponseHTXTradingStatusArray">
+        <member name="P:HTX.Net.Converters.HTXSourceGenerationContext.HTXBasicResponseHTXTradingStatus">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
@@ -5156,11 +5156,6 @@
             </summary>
         </member>
         <member name="P:HTX.Net.Converters.HTXSourceGenerationContext.HTXTradingStatus">
-            <summary>
-            Defines the source generated JSON serialization contract metadata for a given type.
-            </summary>
-        </member>
-        <member name="P:HTX.Net.Converters.HTXSourceGenerationContext.HTXTradingStatusArray">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>

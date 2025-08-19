@@ -1,4 +1,5 @@
-﻿using CryptoExchange.Net.Converters.MessageParsing;
+﻿using CryptoExchange.Net.Clients;
+using CryptoExchange.Net.Converters.MessageParsing;
 using CryptoExchange.Net.Objects.Sockets;
 using CryptoExchange.Net.Sockets;
 using HTX.Net.Objects.Internal;
@@ -9,16 +10,19 @@ namespace HTX.Net.Objects.Sockets.Subscriptions
 {
     internal class HTXOrderDetailsSubscription : Subscription<HTXSocketAuthResponse, HTXSocketAuthResponse>
     {
+        private readonly SocketApiClient _client;
         private string _topic;
         private Action<DataEvent<HTXTradeUpdate>>? _onOrderMatch;
         private Action<DataEvent<HTXOrderCancelationUpdate>>? _onOrderCancel;
 
         public HTXOrderDetailsSubscription(
             ILogger logger,
+            SocketApiClient client,
             string? symbol,
             Action<DataEvent<HTXTradeUpdate>>? onOrderMatch,
             Action<DataEvent<HTXOrderCancelationUpdate>>? onOrderCancel) : base(logger, true)
         {
+            _client = client;
             _topic = $"trade.clearing#{symbol ?? "*"}#1";
             _onOrderMatch = onOrderMatch;
             _onOrderCancel = onOrderCancel;
@@ -31,11 +35,11 @@ namespace HTX.Net.Objects.Sockets.Subscriptions
 
         public override Query? GetSubQuery(SocketConnection connection)
         {
-            return new HTXAuthQuery("sub", _topic, Authenticated);
+            return new HTXAuthQuery(_client, "sub", _topic, Authenticated);
         }
         public override Query? GetUnsubQuery()
         {
-            return new HTXAuthQuery("unsub", _topic, Authenticated);
+            return new HTXAuthQuery(_client, "unsub", _topic, Authenticated);
         }
 
         public CallResult DoHandleMessage(SocketConnection connection, DataEvent<HTXDataEvent<HTXOrderCancelationUpdate>> message)

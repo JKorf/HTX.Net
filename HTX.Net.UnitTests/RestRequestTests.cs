@@ -134,7 +134,7 @@ namespace HTX.Net.UnitTests
             });
             var tester = new RestRequestValidator<HTXRestClient>(client, "Endpoints/Spot/Trading", "https://api.huobi.pro", IsAuthenticated, nestedPropertyForCompare: "data");
             await tester.ValidateAsync(client => client.SpotApi.Trading.PlaceOrderAsync(1, "ETHUSDT", Enums.OrderSide.Buy, Enums.OrderType.IOC, 1), "PlaceOrder");
-            await tester.ValidateAsync(client => client.SpotApi.Trading.PlaceMultipleOrderAsync(new [] { new HTXOrderRequest { } }), "PlaceMultipleOrder");
+            await tester.ValidateAsync(client => client.SpotApi.Trading.PlaceMultipleOrderAsync(new [] { new HTXOrderRequest { } }), "PlaceMultipleOrder", skipResponseValidation: true);
             await tester.ValidateAsync(client => client.SpotApi.Trading.PlaceMarginOrderAsync(1, "ETHUSDT", Enums.OrderSide.Buy, Enums.OrderType.IOC, Enums.MarginPurpose.AutomaticLoan, Enums.SourceType.C2CMargin), "PlaceMarginOrder");
             await tester.ValidateAsync(client => client.SpotApi.Trading.CancelOrderAsync(1), "CancelOrder");
             await tester.ValidateAsync(client => client.SpotApi.Trading.CancelOrderByClientOrderIdAsync("1"), "CancelOrderByClientOrderId");

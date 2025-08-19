@@ -2,6 +2,7 @@ using System.Diagnostics;
 using System.Net.WebSockets;
 using CryptoExchange.Net.Clients;
 using CryptoExchange.Net.Converters.MessageParsing;
+using CryptoExchange.Net.Objects.Errors;
 using CryptoExchange.Net.Objects.Sockets;
 using CryptoExchange.Net.SharedApis;
 using CryptoExchange.Net.Sockets;
@@ -28,6 +29,8 @@ namespace HTX.Net.Clients.SpotApi
         private static readonly MessagePath _channelPath = MessagePath.Get().Property("ch");
         private static readonly MessagePath _pingPath = MessagePath.Get().Property("ping");
         private static readonly MessagePath _eventTypePath = MessagePath.Get().Property("data").Property("eventType");
+
+        protected override ErrorMapping ErrorMapping => HTXErrors.SpotMapping;
 
         /// <inheritdoc />
         public new HTXSocketOptions ClientOptions => (HTXSocketOptions)base.ClientOptions;
@@ -106,7 +109,7 @@ namespace HTX.Net.Clients.SpotApi
         {
             var path = connection.ConnectionUri;
 
-            return Task.FromResult<Query?>(new HTXAuthQuery(new HTXAuthRequest<HTXAuthParams>
+            return Task.FromResult<Query?>(new HTXAuthQuery(this, new HTXAuthRequest<HTXAuthParams>
             {
                 Action = "req",
                 Channel = "auth",
@@ -119,7 +122,7 @@ namespace HTX.Net.Clients.SpotApi
         {
             symbol = symbol.ToLowerInvariant();
 
-            var query = new HTXQuery<HTXKline[]>($"market.{symbol}.kline.{EnumConverter.GetString(period)}", false);
+            var query = new HTXQuery<HTXKline[]>(this, $"market.{symbol}.kline.{EnumConverter.GetString(period)}", false);
             var result = await QueryAsync(BaseAddress.AppendPath("ws"), query).ConfigureAwait(false);
             return result ? result.As(result.Data.Data) : result.AsError<HTXKline[]>(result.Error!);
         }
@@ -139,7 +142,7 @@ namespace HTX.Net.Clients.SpotApi
             symbol = symbol.ToLowerInvariant();
             mergeStep.ValidateIntBetween(nameof(mergeStep), 0, 5);
 
-            var query = new HTXQuery<HTXOrderBook>($"market.{symbol}.depth.step{mergeStep}", false);
+            var query = new HTXQuery<HTXOrderBook>(this, $"market.{symbol}.depth.step{mergeStep}", false);
             var result = await QueryAsync(BaseAddress.AppendPath("ws"), query).ConfigureAwait(false);
             return result ? result.As(result.Data.Data) : result.AsError<HTXOrderBook>(result.Error!);
         }
@@ -150,7 +153,7 @@ namespace HTX.Net.Clients.SpotApi
             symbol = symbol.ToLowerInvariant();
             levels.ValidateIntValues(nameof(levels), 5, 20, 150, 400);
 
-            var query = new HTXQuery<HTXIncementalOrderBook>($"market.{symbol}.mbp.{levels}", false);
+            var query = new HTXQuery<HTXIncementalOrderBook>(this, $"market.{symbol}.mbp.{levels}", false);
             var result = await QueryAsync(BaseAddress.AppendPath("feed"), query).ConfigureAwait(false);
             return result ? result.As(result.Data.Data) : result.AsError<HTXIncementalOrderBook>(result.Error!);
         }
@@ -190,7 +193,7 @@ namespace HTX.Net.Clients.SpotApi
         {
             symbol = symbol.ToLowerInvariant();
 
-            var query = new HTXQuery<HTXSymbolTradeDetails[]>($"market.{symbol}.trade.detail", false);
+            var query = new HTXQuery<HTXSymbolTradeDetails[]>(this, $"market.{symbol}.trade.detail", false);
             var result = await QueryAsync(BaseAddress.AppendPath("ws"), query).ConfigureAwait(false);
             return result ? result.As(result.Data.Data) : result.AsError<HTXSymbolTradeDetails[]>(result.Error!);
         }
@@ -208,7 +211,7 @@ namespace HTX.Net.Clients.SpotApi
         {
             symbol = symbol.ToLowerInvariant();
 
-            var query = new HTXQuery<HTXSymbolDetails>($"market.{symbol}.detail", false);
+            var query = new HTXQuery<HTXSymbolDetails>(this, $"market.{symbol}.detail", false);
             var result = await QueryAsync(BaseAddress.AppendPath("ws"), query).ConfigureAwait(false);
             if (!result)
                 return result.AsError<HTXSymbolDetails>(result.Error!);
@@ -260,7 +263,7 @@ namespace HTX.Net.Clients.SpotApi
         {
             symbol = symbol?.ToLowerInvariant();
 
-            var subscription = new HTXOrderSubscription(_logger, symbol, onOrderSubmitted, onOrderMatched, onOrderCancelation, onConditionalOrderTriggerFailure, onConditionalOrderCanceled);
+            var subscription = new HTXOrderSubscription(_logger, this, symbol, onOrderSubmitted, onOrderMatched, onOrderCancelation, onConditionalOrderTriggerFailure, onConditionalOrderCanceled);
             return await SubscribeAsync(BaseAddress.AppendPath("ws/v2"), subscription, ct).ConfigureAwait(false);
         }
 
@@ -270,7 +273,7 @@ namespace HTX.Net.Clients.SpotApi
             if (updateMode != null && (updateMode > 2 || updateMode < 0))
                 throw new ArgumentException("UpdateMode should be either 0, 1 or 2");
 
-            var subscription = new HTXAccountSubscription(_logger, "accounts.update#" + (updateMode ?? 1), onAccountUpdate, true);
+            var subscription = new HTXAccountSubscription(_logger, this, "accounts.update#" + (updateMode ?? 1), onAccountUpdate, true);
             return await SubscribeAsync(BaseAddress.AppendPath("ws/v2"), subscription, ct).ConfigureAwait(false);
         }
 
@@ -279,7 +282,7 @@ namespace HTX.Net.Clients.SpotApi
         {
             symbol = symbol?.ToLowerInvariant();
 
-            var subscription = new HTXOrderDetailsSubscription(_logger, symbol, onOrderMatch, onOrderCancel);
+            var subscription = new HTXOrderDetailsSubscription(_logger, this, symbol, onOrderMatch, onOrderCancel);
             return await SubscribeAsync(BaseAddress.AppendPath("ws/v2"), subscription, ct).ConfigureAwait(false);
         }
 
@@ -314,7 +317,7 @@ namespace HTX.Net.Clients.SpotApi
                 Symbol = symbol
             };
 
-            var query = new HTXOrderQuery<HTXSocketPlaceOrderRequest, string>(new HTXSocketOrderRequest<HTXSocketPlaceOrderRequest>
+            var query = new HTXOrderQuery<HTXSocketPlaceOrderRequest, string>(this, new HTXSocketOrderRequest<HTXSocketPlaceOrderRequest>
             {
                 Channel = "create-order",
                 RequestId = ExchangeHelpers.NextId().ToString(),
@@ -336,7 +339,7 @@ namespace HTX.Net.Clients.SpotApi
                 order.Symbol = order.Symbol.ToLowerInvariant();
 
                 if (!long.TryParse(order.AccountId, out var accountId))
-                    return new CallResult<CallResult<HTXBatchPlaceResult>[]>(new ArgumentError("AccountId required on order"));
+                    return new CallResult<CallResult<HTXBatchPlaceResult>[]>(ArgumentError.Invalid(nameof(HTXOrderRequest.AccountId), "AccountId required on order"));
 
                 var parameters = new HTXSocketPlaceOrderRequest()
                 {
@@ -354,7 +357,7 @@ namespace HTX.Net.Clients.SpotApi
                 data.Add(parameters);
             }
 
-            var query = new HTXOrderQuery<List<HTXSocketPlaceOrderRequest>, HTXBatchPlaceResult[]>(new HTXSocketOrderRequest<List<HTXSocketPlaceOrderRequest>>
+            var query = new HTXOrderQuery<List<HTXSocketPlaceOrderRequest>, HTXBatchPlaceResult[]>(this, new HTXSocketOrderRequest<List<HTXSocketPlaceOrderRequest>>
             {
                 Channel = "create-batchorder",
                 RequestId = ExchangeHelpers.NextId().ToString(),
@@ -365,19 +368,19 @@ namespace HTX.Net.Clients.SpotApi
                 return resultData.As<CallResult<HTXBatchPlaceResult>[]>(default);
 
             if (!resultData.Data.Success && resultData.Data.Data?.Any() != true)
-                return resultData.AsError<CallResult<HTXBatchPlaceResult>[]>(new ServerError($"{resultData.Data.ErrorCode}, {resultData.Data.ErrorMessage}"));
+                return resultData.AsError<CallResult<HTXBatchPlaceResult>[]>(new ServerError(resultData.Data.ErrorCode!, GetErrorInfo(resultData.Data.ErrorCode!, resultData.Data.ErrorMessage)));
 
             var result = new List<CallResult<HTXBatchPlaceResult>>();
             foreach (var item in resultData.Data.Data!)
             {
                 if (!string.IsNullOrEmpty(item.ErrorCode))
-                    result.Add(new CallResult<HTXBatchPlaceResult>(new ServerError(item.ErrorCode + ": " + item.ErrorMessage)));
+                    result.Add(new CallResult<HTXBatchPlaceResult>(item, null, new ServerError(item.ErrorCode!, GetErrorInfo(item.ErrorCode!, item.ErrorMessage))));
                 else
                     result.Add(new CallResult<HTXBatchPlaceResult>(item));
             }
 
             if (result.All(x => !x.Success))
-                return resultData.AsErrorWithData(new ServerError("All orders failed"), result.ToArray());
+                return resultData.AsErrorWithData(new ServerError(new ErrorInfo(ErrorType.AllOrdersFailed, "All orders failed")), result.ToArray());
 
             return resultData.As(result.ToArray());
         }
@@ -418,7 +421,7 @@ namespace HTX.Net.Clients.SpotApi
             parameters.AddOptionalString("stop-price", stopPrice);
             parameters.AddOptionalEnum("operator", stopOperator);
 
-            var query = new HTXOrderQuery<ParameterCollection, HTXOrderId>(new HTXSocketOrderRequest<ParameterCollection>
+            var query = new HTXOrderQuery<ParameterCollection, HTXOrderId>(this, new HTXSocketOrderRequest<ParameterCollection>
             {
                 Channel = "create-margin-order",
                 RequestId = ExchangeHelpers.NextId().ToString(),
@@ -440,7 +443,7 @@ namespace HTX.Net.Clients.SpotApi
             };
             parameters.AddOptional("symbol", symbols == null ? null : string.Join(",", symbols));
 
-            var query = new HTXOrderQuery<ParameterCollection, HTXByCriteriaCancelResult>(new HTXSocketOrderRequest<ParameterCollection>
+            var query = new HTXOrderQuery<ParameterCollection, HTXByCriteriaCancelResult>(this, new HTXSocketOrderRequest<ParameterCollection>
             {
                 Channel = "cancelall",
                 RequestId = ExchangeHelpers.NextId().ToString(),
@@ -465,7 +468,7 @@ namespace HTX.Net.Clients.SpotApi
             if (result.Data.Successful.Contains(orderId ?? clientOrderId))
                 return result.AsDataless();
 
-            return result.AsDatalessError(new ServerError("Cancel failed"));
+            return result.AsDatalessError(new ServerError(new ErrorInfo(ErrorType.Unknown, "Cancel failed")));
         }
 
         /// <inheritdoc />
@@ -479,7 +482,7 @@ namespace HTX.Net.Clients.SpotApi
             parameters.AddOptional("order-ids", orderIds?.ToArray());
             parameters.AddOptional("client-order-ids", clientOrderIds?.Select(x => LibraryHelpers.ApplyBrokerId(x, HTXExchange.ClientOrderId, 64, ClientOptions.AllowAppendingClientOrderId)).ToArray());
 
-            var query = new HTXOrderQuery<ParameterCollection, HTXBatchCancelResult>(new HTXSocketOrderRequest<ParameterCollection>
+            var query = new HTXOrderQuery<ParameterCollection, HTXBatchCancelResult>(this, new HTXSocketOrderRequest<ParameterCollection>
             {
                 Channel = "cancel",
                 RequestId = ExchangeHelpers.NextId().ToString(),

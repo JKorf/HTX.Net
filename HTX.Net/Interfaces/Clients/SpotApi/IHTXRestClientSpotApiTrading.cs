@@ -33,7 +33,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// <param name="orders">Orders to place</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<HTXBatchPlaceResult[]>> PlaceMultipleOrderAsync(
+        Task<WebCallResult<CallResult<HTXBatchPlaceResult>[]>> PlaceMultipleOrderAsync(
             IEnumerable<HTXOrderRequest> orders,
             CancellationToken ct = default);
 

@@ -502,7 +502,7 @@ namespace HTX.Net.Clients.UsdtFutures
             parameters.AddOptionalMilliseconds("end_time", endTime);
             parameters.AddOptionalEnum("direct", filterDirection);
             parameters.AddOptional("from_id", fromId);
-            var request = _definitions.GetOrCreate(HttpMethod.Post, "/linear-swap-api/v3/swap_cross_matchresults ", HTXExchange.RateLimiter.UsdtRead, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, "/linear-swap-api/v3/swap_cross_matchresults", HTXExchange.RateLimiter.UsdtRead, 1, true);
             var result = await _baseClient.SendAsync<HTXCrossMarginUserTrade[]>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -541,7 +541,7 @@ namespace HTX.Net.Clients.UsdtFutures
             parameters.AddOptionalEnum("contractType", contractType);
             parameters.AddOptional("client_order_id", clientOrderId);
             parameters.AddOptionalEnum("order_price_type", orderPriceType);
-            var request = _definitions.GetOrCreate(HttpMethod.Post, "/linear-swap-api/v1/swap_cross_lightning_close_position ", HTXExchange.RateLimiter.UsdtTrade, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, "/linear-swap-api/v1/swap_cross_lightning_close_position", HTXExchange.RateLimiter.UsdtTrade, 1, true);
             var result = await _baseClient.SendBasicAsync<HTXClosePositionResult>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -618,7 +618,7 @@ namespace HTX.Net.Clients.UsdtFutures
             if (result.Data.Errors.Any())
             {
                 var error = result.Data.Errors.First();
-                return result.AsError<HTXTriggerOrderResult>(new ServerError(error.ErrorCode, error.ErrorMessage));
+                return result.AsError<HTXTriggerOrderResult>(new ServerError(error.ErrorCode, _baseClient.GetErrorInfo(error.ErrorCode, error.ErrorMessage)));
             }
 
             return result;
@@ -644,7 +644,7 @@ namespace HTX.Net.Clients.UsdtFutures
             if (result.Data.Errors.Any()) 
             {
                 var error = result.Data.Errors.First();
-                return result.AsError<HTXTriggerOrderResult>(new ServerError(error.ErrorCode, error.ErrorMessage));
+                return result.AsError<HTXTriggerOrderResult>(new ServerError(error.ErrorCode, _baseClient.GetErrorInfo(error.ErrorCode, error.ErrorMessage)));
             }
 
             return result;
@@ -679,7 +679,7 @@ namespace HTX.Net.Clients.UsdtFutures
             parameters.AddOptionalEnum("contract_type", contractType);
             parameters.AddOptionalEnum("direction", side);
             parameters.AddOptionalEnum("offset", offset);
-            var request = _definitions.GetOrCreate(HttpMethod.Post, "/linear-swap-api/v1/swap_cross_trigger_cancelall ", HTXExchange.RateLimiter.UsdtTrade, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, "/linear-swap-api/v1/swap_cross_trigger_cancelall", HTXExchange.RateLimiter.UsdtTrade, 1, true);
             var result = await _baseClient.SendBasicAsync<HTXTriggerOrderResult>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -756,7 +756,7 @@ namespace HTX.Net.Clients.UsdtFutures
             parameters.AddOptional("page_index", page);
             parameters.AddOptional("page_size", pageIndex);
             parameters.AddOptional("sort_by", sortBy);
-            var request = _definitions.GetOrCreate(HttpMethod.Post, "/linear-swap-api/v1/swap_cross_trigger_hisorders ", HTXExchange.RateLimiter.UsdtRead, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, "/linear-swap-api/v1/swap_cross_trigger_hisorders", HTXExchange.RateLimiter.UsdtRead, 1, true);
             var result = await _baseClient.SendBasicAsync<HTXClosedCrossTriggerOrderPage>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -866,7 +866,7 @@ namespace HTX.Net.Clients.UsdtFutures
             parameters.AddOptional("contract_code", contractCode);
             parameters.AddOptionalEnum("contract_type", contractType);
             parameters.AddOptionalEnum("direction", side);
-            var request = _definitions.GetOrCreate(HttpMethod.Post, "/linear-swap-api/v1/swap_cross_tpsl_cancelall ", HTXExchange.RateLimiter.UsdtTrade, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, "/linear-swap-api/v1/swap_cross_tpsl_cancelall", HTXExchange.RateLimiter.UsdtTrade, 1, true);
             var result = await _baseClient.SendBasicAsync<HTXTriggerOrderResult>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -901,7 +901,7 @@ namespace HTX.Net.Clients.UsdtFutures
             parameters.AddOptional("page_index", page);
             parameters.AddOptional("page_size", pageSize);
             parameters.AddOptionalEnumAsInt("trade_type", tradeType);
-            var request = _definitions.GetOrCreate(HttpMethod.Post, "/linear-swap-api/v1/swap_cross_tpsl_openorders ", HTXExchange.RateLimiter.UsdtRead, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, "/linear-swap-api/v1/swap_cross_tpsl_openorders", HTXExchange.RateLimiter.UsdtRead, 1, true);
             var result = await _baseClient.SendBasicAsync<HTXCrossTpSlOrderPage>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -940,7 +940,7 @@ namespace HTX.Net.Clients.UsdtFutures
             parameters.AddOptional("page_index", page);
             parameters.AddOptional("page_size", pageSize);
             parameters.AddOptional("sort_by", sortBy);
-            var request = _definitions.GetOrCreate(HttpMethod.Post, "/linear-swap-api/v1/swap_cross_tpsl_hisorders ", HTXExchange.RateLimiter.UsdtRead, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, "/linear-swap-api/v1/swap_cross_tpsl_hisorders", HTXExchange.RateLimiter.UsdtRead, 1, true);
             var result = await _baseClient.SendBasicAsync<HTXCrossTpSlClosedOrderPage>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -1090,7 +1090,7 @@ namespace HTX.Net.Clients.UsdtFutures
             parameters.AddOptionalEnum("contract_type", contractType);
             parameters.AddOptionalEnum("direction", side);
             parameters.AddOptionalEnum("offset", offset);
-            var request = _definitions.GetOrCreate(HttpMethod.Post, "/linear-swap-api/v1/swap_cross_track_cancelall ", HTXExchange.RateLimiter.UsdtTrade, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, "/linear-swap-api/v1/swap_cross_track_cancelall", HTXExchange.RateLimiter.UsdtTrade, 1, true);
             var result = await _baseClient.SendBasicAsync<HTXTriggerOrderResult>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -1126,7 +1126,7 @@ namespace HTX.Net.Clients.UsdtFutures
             parameters.AddOptionalEnum("trade_type", tradeType);
             parameters.AddOptional("page_index", page);
             parameters.AddOptional("page_size", pageSize);
-            var request = _definitions.GetOrCreate(HttpMethod.Post, "/linear-swap-api/v1/swap_cross_track_openorders ", HTXExchange.RateLimiter.UsdtRead, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, "/linear-swap-api/v1/swap_cross_track_openorders", HTXExchange.RateLimiter.UsdtRead, 1, true);
             var result = await _baseClient.SendBasicAsync<HTXCrossTrailingOrderPage>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }

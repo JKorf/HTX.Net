@@ -5,6 +5,7 @@ using HTX.Net.Clients;
 using HTX.Net.Objects.Options;
 using CryptoExchange.Net.Objects.Sockets;
 using HTX.Net.Objects.Models.Socket;
+using CryptoExchange.Net.Objects.Errors;
 
 namespace HTX.Net.SymbolOrderBooks
 {
@@ -70,8 +71,9 @@ namespace HTX.Net.SymbolOrderBooks
                 if (!subResult)
                     return subResult;
 
-                if (!await WaitForSetOrderBookAsync(_initialDataTimeout, ct).ConfigureAwait(false))
-                    return new CallResult<UpdateSubscription>(new ServerError("No data received"));
+                var waitResult = await WaitForSetOrderBookAsync(_initialDataTimeout, ct).ConfigureAwait(false);
+                if (!waitResult)
+                    return waitResult.As<UpdateSubscription>(default);
 
                 return subResult;
             }
@@ -81,8 +83,9 @@ namespace HTX.Net.SymbolOrderBooks
                 if (!subResult)
                     return subResult;
 
-                if (!await WaitForSetOrderBookAsync(_initialDataTimeout, ct).ConfigureAwait(false))
-                    return new CallResult<UpdateSubscription>(new ServerError("No data received"));
+                var waitResult = await WaitForSetOrderBookAsync(_initialDataTimeout, ct).ConfigureAwait(false);
+                if (!waitResult)
+                    return waitResult.As<UpdateSubscription>(default);
 
                 return subResult;
             }

@@ -1,4 +1,5 @@
-﻿using CryptoExchange.Net.Converters.MessageParsing;
+﻿using CryptoExchange.Net.Clients;
+using CryptoExchange.Net.Converters.MessageParsing;
 using CryptoExchange.Net.Objects.Sockets;
 using CryptoExchange.Net.Sockets;
 using HTX.Net.Objects.Internal;
@@ -9,6 +10,7 @@ namespace HTX.Net.Objects.Sockets.Subscriptions
 {
     internal class HTXOrderSubscription : Subscription<HTXSocketAuthResponse, HTXSocketAuthResponse>
     {
+        private readonly SocketApiClient _client;
         private string _topic;
         private Action<DataEvent<HTXSubmittedOrderUpdate>>? _onOrderSubmitted;
         private Action<DataEvent<HTXMatchedOrderUpdate>>? _onOrderMatched;
@@ -18,6 +20,7 @@ namespace HTX.Net.Objects.Sockets.Subscriptions
 
         public HTXOrderSubscription(
             ILogger logger,
+            SocketApiClient client,
             string? symbol,
             Action<DataEvent<HTXSubmittedOrderUpdate>>? onOrderSubmitted,
             Action<DataEvent<HTXMatchedOrderUpdate>>? onOrderMatched,
@@ -25,6 +28,7 @@ namespace HTX.Net.Objects.Sockets.Subscriptions
             Action<DataEvent<HTXTriggerFailureOrderUpdate>>? onConditionalOrderTriggerFailure,
             Action<DataEvent<HTXOrderUpdate>>? onConditionalOrderCanceled) : base(logger, true)
         {
+            _client = client;
             _topic = $"orders#{symbol ?? "*"}";
             _onOrderSubmitted = onOrderSubmitted;
             _onOrderMatched = onOrderMatched;
@@ -43,11 +47,11 @@ namespace HTX.Net.Objects.Sockets.Subscriptions
 
         public override Query? GetSubQuery(SocketConnection connection)
         {
-            return new HTXAuthQuery("sub", _topic, Authenticated);
+            return new HTXAuthQuery(_client, "sub", _topic, Authenticated);
         }
         public override Query? GetUnsubQuery()
         {
-            return new HTXAuthQuery("unsub", _topic, Authenticated);
+            return new HTXAuthQuery(_client, "unsub", _topic, Authenticated);
         }
 
         public CallResult DoHandleMessage(SocketConnection connection, DataEvent<HTXDataEvent<HTXTriggerFailureOrderUpdate>> message)

@@ -3,7 +3,7 @@ GET
 true
 {
   "status": "ok",
-  "data": [
+  "data": 
     {
       "is_disable": 1,
       "order_price_types": "limit,post_only,FOK,IOC",
@@ -26,6 +26,6 @@ true
         "is_active": 1
       }
     }
-  ],
+  ,
   "ts": 158797866555
 }

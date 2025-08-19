@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using HTX.Net.Enums;
 using Microsoft.Extensions.Options;
 using HTX.Net.SymbolOrderBooks;
+using CryptoExchange.Net.Objects.Errors;
 
 namespace HTX.Net.UnitTests
 {
@@ -46,7 +47,7 @@ namespace HTX.Net.UnitTests
             var result = await CreateClient().SpotApi.ExchangeData.GetKlinesAsync("TSTTST", Enums.KlineInterval.OneDay, default);
 
             Assert.That(result.Success, Is.False);
-            Assert.That(result.Error.Message, Contains.Substring("invalid-parameter"));
+            Assert.That(result.Error.ErrorType, Is.EqualTo(ErrorType.UnknownSymbol));
         }
 
         [Test]

@@ -305,11 +305,11 @@ namespace HTX.Net.Clients.UsdtFutures
         #region Get Trading Status
 
         /// <inheritdoc />
-        public async Task<WebCallResult<HTXTradingStatus[]>> GetTradingStatusAsync(CancellationToken ct = default)
+        public async Task<WebCallResult<HTXTradingStatus>> GetTradingStatusAsync(CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/linear-swap-api/v1/swap_api_trading_status", HTXExchange.RateLimiter.EndpointLimit, 1, true);
-            var result = await _baseClient.SendBasicAsync<HTXTradingStatus[]>(request, parameters, ct).ConfigureAwait(false);
+            var result = await _baseClient.SendBasicAsync<HTXTradingStatus>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
 

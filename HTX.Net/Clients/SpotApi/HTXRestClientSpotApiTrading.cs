@@ -2,6 +2,7 @@ using HTX.Net.Enums;
 using HTX.Net.Objects.Models;
 using HTX.Net.Interfaces.Clients.SpotApi;
 using CryptoExchange.Net.RateLimiting.Guards;
+using CryptoExchange.Net.Objects.Errors;
 
 namespace HTX.Net.Clients.SpotApi
 {
@@ -62,7 +63,7 @@ namespace HTX.Net.Clients.SpotApi
         #region Place Multiple Order
 
         /// <inheritdoc />
-        public async Task<WebCallResult<HTXBatchPlaceResult[]>> PlaceMultipleOrderAsync(
+        public async Task<WebCallResult<CallResult<HTXBatchPlaceResult>[]>> PlaceMultipleOrderAsync(
             IEnumerable<HTXOrderRequest> orders,
             CancellationToken ct = default)
         {
@@ -93,8 +94,23 @@ namespace HTX.Net.Clients.SpotApi
 
             var request = _definitions.GetOrCreate(HttpMethod.Post, "v1/order/batch-orders", HTXExchange.RateLimiter.EndpointLimit, 1, true,
                 new SingleLimitGuard(20, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
-            var result = await _baseClient.SendBasicAsync<HTXBatchPlaceResult[]>(request, orderParameters, ct).ConfigureAwait(false);
-            return result;
+            var response = await _baseClient.SendBasicAsync<HTXBatchPlaceResult[]>(request, orderParameters, ct).ConfigureAwait(false);
+
+            if (!response.Success)
+                return response.As<CallResult<HTXBatchPlaceResult>[]>(default);
+
+            var result = new List<CallResult<HTXBatchPlaceResult>>();
+            foreach (var item in response.Data)
+            {
+                result.Add(!string.IsNullOrEmpty(item.ErrorCode)
+                    ? new CallResult<HTXBatchPlaceResult>(new ServerError(item.ErrorCode!, _baseClient.GetErrorInfo(item.ErrorCode!, item.ErrorMessage)))
+                    : new CallResult<HTXBatchPlaceResult>(item));
+            }
+
+            if (result.All(x => !x.Success))
+                return response.AsErrorWithData(new ServerError(new ErrorInfo(ErrorType.AllOrdersFailed, false, "All orders failed")), result.ToArray());
+
+            return response.As(result.ToArray());
         }
 
         #endregion

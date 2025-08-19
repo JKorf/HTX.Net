@@ -2,6 +2,7 @@ using HTX.Net.Interfaces.Clients.SpotApi;
 using CryptoExchange.Net.SharedApis;
 using HTX.Net.Enums;
 using HTX.Net.Objects.Models;
+using CryptoExchange.Net.Objects.Errors;
 
 namespace HTX.Net.Clients.SpotApi
 {
@@ -31,7 +32,7 @@ namespace HTX.Net.Clients.SpotApi
         {
             var interval = (Enums.KlineInterval)request.Interval;
             if (!Enum.IsDefined(typeof(Enums.KlineInterval), interval))
-                return new ExchangeWebResult<SharedKline[]>(Exchange, new ArgumentError("Interval not supported"));
+                return new ExchangeWebResult<SharedKline[]>(Exchange, ArgumentError.Invalid(nameof(GetKlinesRequest.Interval), "Interval not supported"));
 
             var validationError = ((IKlineRestClient)this).GetKlinesOptions.ValidateRequest(Exchange, request, request.TradingMode, SupportedTradingModes);
             if (validationError != null)
@@ -47,7 +48,7 @@ namespace HTX.Net.Clients.SpotApi
             {
                 // Not available via the API
                 var cutoff = DateTime.UtcNow.AddSeconds(-(int)request.Interval * apiLimit);
-                return new ExchangeWebResult<SharedKline[]>(Exchange, new ArgumentError($"Time filter outside of supported range. Can only request the most recent {apiLimit} klines i.e. data later than {cutoff} at this interval"));
+                return new ExchangeWebResult<SharedKline[]>(Exchange, ArgumentError.Invalid(nameof(GetKlinesRequest.Limit), $"Time filter outside of supported range. Can only request the most recent {apiLimit} klines i.e. data later than {cutoff} at this interval"));
             }
 
             // Pagination not supported, no time filter available
@@ -310,7 +311,7 @@ namespace HTX.Net.Clients.SpotApi
                 return new ExchangeWebResult<SharedSpotOrder>(Exchange, validationError);
 
             if (!long.TryParse(request.OrderId, out var orderId))
-                return new ExchangeWebResult<SharedSpotOrder>(Exchange, new ArgumentError("Invalid order id"));
+                return new ExchangeWebResult<SharedSpotOrder>(Exchange, ArgumentError.Invalid(nameof(GetOrderRequest), "Invalid order id"));
 
             var order = await Trading.GetOrderAsync(orderId).ConfigureAwait(false);
             if (!order)
@@ -421,7 +422,7 @@ namespace HTX.Net.Clients.SpotApi
                 return new ExchangeWebResult<SharedUserTrade[]>(Exchange, validationError);
 
             if (!long.TryParse(request.OrderId, out var orderId))
-                return new ExchangeWebResult<SharedUserTrade[]>(Exchange, new ArgumentError("Invalid order id"));
+                return new ExchangeWebResult<SharedUserTrade[]>(Exchange, ArgumentError.Invalid(nameof(GetOrderRequest), "Invalid order id"));
 
             var order = await Trading.GetOrderTradesAsync(orderId).ConfigureAwait(false);
             if (!order)
@@ -498,7 +499,7 @@ namespace HTX.Net.Clients.SpotApi
                 return new ExchangeWebResult<SharedId>(Exchange, validationError);
 
             if (!long.TryParse(request.OrderId, out var orderId))
-                return new ExchangeWebResult<SharedId>(Exchange, new ArgumentError("Invalid order id"));
+                return new ExchangeWebResult<SharedId>(Exchange, ArgumentError.Invalid(nameof(CancelOrderRequest), "Invalid order id"));
 
             var order = await Trading.CancelOrderAsync(orderId).ConfigureAwait(false);
             if (!order)
@@ -607,7 +608,7 @@ namespace HTX.Net.Clients.SpotApi
 
             var asset = assets.Data.SingleOrDefault();
             if (asset == null)
-                return assets.AsExchangeError<SharedAsset>(Exchange, new ServerError("Asset not found"));
+                return assets.AsExchangeError<SharedAsset>(Exchange, new ServerError(new ErrorInfo(ErrorType.UnknownAsset, "Asset not found")));
 
             return assets.AsExchangeResult(Exchange, TradingMode.Spot, new SharedAsset(asset.Asset.ToUpperInvariant())
             {
@@ -792,13 +793,11 @@ namespace HTX.Net.Clients.SpotApi
                 return new ExchangeWebResult<SharedId>(Exchange, validationError);
 
             var fee = ExchangeParameters.GetValue<decimal?>(request.ExchangeParameters, Exchange, "withdrawFee");
-            if (fee == null)
-                return new ExchangeWebResult<SharedId>(Exchange, new ArgumentError("HTX requires withdrawal fee parameter. Please pass it as exchangeParameter `fee`"));
 
             // Get data
             var withdrawal = await Account.WithdrawAsync(
                 asset: request.Asset,
-                fee: fee.Value,
+                fee: fee!.Value,
                 address: request.Address,
                 quantity: request.Quantity,
                 network: request.Network,
@@ -887,7 +886,7 @@ namespace HTX.Net.Clients.SpotApi
                 return new ExchangeWebResult<SharedSpotTriggerOrder>(Exchange, validationError);
 
             if (!long.TryParse(request.OrderId, out var orderId))
-                return new ExchangeWebResult<SharedSpotTriggerOrder>(Exchange, new ArgumentError("Invalid order id"));
+                return new ExchangeWebResult<SharedSpotTriggerOrder>(Exchange, ArgumentError.Invalid(nameof(GetOrderRequest), "Invalid order id"));
 
             var order = await Trading.GetOrderAsync(orderId, ct: ct).ConfigureAwait(false);
             if (!order)
@@ -932,7 +931,7 @@ namespace HTX.Net.Clients.SpotApi
                 return new ExchangeWebResult<SharedId>(Exchange, validationError);
 
             if (!long.TryParse(request.OrderId, out var orderId))
-                return new ExchangeWebResult<SharedId>(Exchange, new ArgumentError("Invalid order id"));
+                return new ExchangeWebResult<SharedId>(Exchange, ArgumentError.Invalid(nameof(CancelOrderRequest), "Invalid order id"));
 
             var order = await Trading.CancelOrderAsync(
                 orderId,
