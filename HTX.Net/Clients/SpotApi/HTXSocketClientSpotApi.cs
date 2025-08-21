@@ -132,7 +132,7 @@ namespace HTX.Net.Clients.SpotApi
         {
             symbol = symbol.ToLowerInvariant();
 
-            var subscription = new HTXSubscription<HTXKline>(_logger, $"market.{symbol}.kline.{EnumConverter.GetString(period)}", x => onData(x.WithSymbol(symbol)), false);
+            var subscription = new HTXSubscription<HTXKline>(_logger, this, $"market.{symbol}.kline.{EnumConverter.GetString(period)}", x => onData(x.WithSymbol(symbol)), false);
             return await SubscribeAsync(BaseAddress.AppendPath("ws"), subscription, ct).ConfigureAwait(false);
         }
 
@@ -164,7 +164,7 @@ namespace HTX.Net.Clients.SpotApi
             symbol = symbol.ToLowerInvariant();
             mergeStep.ValidateIntBetween(nameof(mergeStep), 0, 5);
 
-            var subscription = new HTXSubscription<HTXOrderBook>(_logger, $"market.{symbol}.depth.step{mergeStep}", x => onData(x.WithSymbol(symbol)), false);
+            var subscription = new HTXSubscription<HTXOrderBook>(_logger, this, $"market.{symbol}.depth.step{mergeStep}", x => onData(x.WithSymbol(symbol)), false);
             return await SubscribeAsync(BaseAddress.AppendPath("ws"), subscription, ct).ConfigureAwait(false);
         }
 
@@ -174,7 +174,7 @@ namespace HTX.Net.Clients.SpotApi
             symbol = symbol.ToLowerInvariant();
             levels.ValidateIntValues(nameof(levels), 5, 10, 20);
 
-            var subscription = new HTXSubscription<HTXOrderBook>(_logger, $"market.{symbol}.mbp.refresh.{levels}", x => onData(x.WithSymbol(symbol)), false);
+            var subscription = new HTXSubscription<HTXOrderBook>(_logger, this, $"market.{symbol}.mbp.refresh.{levels}", x => onData(x.WithSymbol(symbol)), false);
             return await SubscribeAsync(BaseAddress.AppendPath("ws"), subscription, ct).ConfigureAwait(false);
         }
 
@@ -184,7 +184,7 @@ namespace HTX.Net.Clients.SpotApi
             symbol = symbol.ToLowerInvariant();
             levels.ValidateIntValues(nameof(levels), 5, 20, 150, 400);
 
-            var subscription = new HTXSubscription<HTXIncementalOrderBook>(_logger, $"market.{symbol}.mbp.{levels}", x => onData(x.WithSymbol(symbol)), false);
+            var subscription = new HTXSubscription<HTXIncementalOrderBook>(_logger, this, $"market.{symbol}.mbp.{levels}", x => onData(x.WithSymbol(symbol)), false);
             return await SubscribeAsync(BaseAddress.AppendPath("feed"), subscription, ct).ConfigureAwait(false);
         }
 
@@ -202,7 +202,7 @@ namespace HTX.Net.Clients.SpotApi
         public async Task<CallResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(string symbol, Action<DataEvent<HTXSymbolTrade>> onData, CancellationToken ct = default)
         {
             symbol = symbol.ToLowerInvariant();
-            var subscription = new HTXSubscription<HTXSymbolTrade>(_logger, $"market.{symbol}.trade.detail", x => onData(x.WithSymbol(symbol)), false);
+            var subscription = new HTXSubscription<HTXSymbolTrade>(_logger, this, $"market.{symbol}.trade.detail", x => onData(x.WithSymbol(symbol)), false);
             return await SubscribeAsync(BaseAddress.AppendPath("ws"), subscription, ct).ConfigureAwait(false);
         }
 
@@ -224,14 +224,14 @@ namespace HTX.Net.Clients.SpotApi
         public async Task<CallResult<UpdateSubscription>> SubscribeToSymbolDetailUpdatesAsync(string symbol, Action<DataEvent<HTXSymbolDetails>> onData, CancellationToken ct = default)
         {
             symbol = symbol.ToLowerInvariant();
-            var subscription = new HTXSubscription<HTXSymbolDetails>(_logger, $"market.{symbol}.detail", x => onData(x.WithSymbol(symbol)), false);
+            var subscription = new HTXSubscription<HTXSymbolDetails>(_logger, this, $"market.{symbol}.detail", x => onData(x.WithSymbol(symbol)), false);
             return await SubscribeAsync(BaseAddress.AppendPath("ws"), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(Action<DataEvent<HTXSymbolTicker[]>> onData, CancellationToken ct = default)
         {
-            var subscription = new HTXSubscription<HTXSymbolTicker[]>(_logger, $"market.tickers", onData, false);
+            var subscription = new HTXSubscription<HTXSymbolTicker[]>(_logger, this, $"market.tickers", onData, false);
             return await SubscribeAsync(BaseAddress.AppendPath("ws"), subscription, ct).ConfigureAwait(false);
         }
 
@@ -239,7 +239,7 @@ namespace HTX.Net.Clients.SpotApi
         public async Task<CallResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(string symbol, Action<DataEvent<HTXSymbolTick>> onData, CancellationToken ct = default)
         {
             symbol = symbol.ToLowerInvariant();
-            var subscription = new HTXSubscription<HTXSymbolTick>(_logger, $"market.{symbol}.ticker", x => onData(x.WithSymbol(symbol)), false);
+            var subscription = new HTXSubscription<HTXSymbolTick>(_logger, this, $"market.{symbol}.ticker", x => onData(x.WithSymbol(symbol)), false);
             return await SubscribeAsync(BaseAddress.AppendPath("ws"), subscription, ct).ConfigureAwait(false);
         }
 
@@ -247,7 +247,7 @@ namespace HTX.Net.Clients.SpotApi
         public async Task<CallResult<UpdateSubscription>> SubscribeToBookTickerUpdatesAsync(string symbol, Action<DataEvent<HTXBestOffer>> onData, CancellationToken ct = default)
         {
             symbol = symbol.ToLowerInvariant();
-            var subscription = new HTXSubscription<HTXBestOffer>(_logger, $"market.{symbol}.bbo", x => onData(x.WithSymbol(symbol)), false);
+            var subscription = new HTXSubscription<HTXBestOffer>(_logger, this, $"market.{symbol}.bbo", x => onData(x.WithSymbol(symbol)), false);
             return await SubscribeAsync(BaseAddress.AppendPath("ws"), subscription, ct).ConfigureAwait(false);
         }
 

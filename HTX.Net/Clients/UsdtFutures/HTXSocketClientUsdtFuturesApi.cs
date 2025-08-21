@@ -125,77 +125,77 @@ namespace HTX.Net.Clients.UsdtFutures
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToKlineUpdatesAsync(string contractCode, KlineInterval period, Action<DataEvent<HTXSwapKline>> onData, CancellationToken ct = default)
         {
-            var subscription = new HTXSubscription<HTXSwapKline>(_logger, $"market.{contractCode.ToUpperInvariant()}.kline.{EnumConverter.GetString(period)}", x => onData(x.WithSymbol(contractCode)), false);
+            var subscription = new HTXSubscription<HTXSwapKline>(_logger, this, $"market.{contractCode.ToUpperInvariant()}.kline.{EnumConverter.GetString(period)}", x => onData(x.WithSymbol(contractCode)), false);
             return await SubscribeAsync(BaseAddress.AppendPath("linear-swap-ws"), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToOrderBookUpdatesAsync(string contractCode, int mergeStep, Action<DataEvent<HTXOrderBookUpdate>> onData, CancellationToken ct = default)
         {
-            var subscription = new HTXSubscription<HTXOrderBookUpdate>(_logger, $"market.{contractCode.ToUpperInvariant()}.depth.step" + mergeStep, x => onData(x.WithSymbol(contractCode)), false);
+            var subscription = new HTXSubscription<HTXOrderBookUpdate>(_logger, this, $"market.{contractCode.ToUpperInvariant()}.depth.step" + mergeStep, x => onData(x.WithSymbol(contractCode)), false);
             return await SubscribeAsync(BaseAddress.AppendPath("linear-swap-ws"), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToIncrementalOrderBookUpdatesAsync(string contractCode, bool snapshot, int limit, Action<DataEvent<HTXIncrementalOrderBookUpdate>> onData, CancellationToken ct = default)
         {
-            var subscription = new HTXIncrementalOrderBookSubscription(_logger, snapshot, $"market.{contractCode.ToUpperInvariant()}.depth.size_{limit}.high_freq", x => onData(x.WithSymbol(contractCode)));
+            var subscription = new HTXIncrementalOrderBookSubscription(_logger, this, snapshot, $"market.{contractCode.ToUpperInvariant()}.depth.size_{limit}.high_freq", x => onData(x.WithSymbol(contractCode)));
             return await SubscribeAsync(BaseAddress.AppendPath("linear-swap-ws"), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(string contractCode, Action<DataEvent<HTXSymbolTickUpdate>> onData, CancellationToken ct = default)
         {
-            var subscription = new HTXSubscription<HTXSymbolTickUpdate>(_logger, $"market.{contractCode.ToUpperInvariant()}.detail", x => onData(x.WithSymbol(contractCode)), false);
+            var subscription = new HTXSubscription<HTXSymbolTickUpdate>(_logger, this, $"market.{contractCode.ToUpperInvariant()}.detail", x => onData(x.WithSymbol(contractCode)), false);
             return await SubscribeAsync(BaseAddress.AppendPath("linear-swap-ws"), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToBookTickerUpdatesAsync(string contractCode, Action<DataEvent<HTXBestOfferUpdate>> onData, CancellationToken ct = default)
         {
-            var subscription = new HTXSubscription<HTXBestOfferUpdate>(_logger, $"market.{contractCode.ToUpperInvariant()}.bbo", x => onData(x.WithSymbol(contractCode)), false);
+            var subscription = new HTXSubscription<HTXBestOfferUpdate>(_logger, this, $"market.{contractCode.ToUpperInvariant()}.bbo", x => onData(x.WithSymbol(contractCode)), false);
             return await SubscribeAsync(BaseAddress.AppendPath("linear-swap-ws"), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(string contractCode, Action<DataEvent<HTXUsdtMarginSwapTradesUpdate>> onData, CancellationToken ct = default)
         {
-            var subscription = new HTXSubscription<HTXUsdtMarginSwapTradesUpdate>(_logger, $"market.{contractCode.ToUpperInvariant()}.trade.detail", x => onData(x.WithSymbol(contractCode)), false);
+            var subscription = new HTXSubscription<HTXUsdtMarginSwapTradesUpdate>(_logger, this, $"market.{contractCode.ToUpperInvariant()}.trade.detail", x => onData(x.WithSymbol(contractCode)), false);
             return await SubscribeAsync(BaseAddress.AppendPath("linear-swap-ws"), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToIndexKlineUpdatesAsync(string contractCode, KlineInterval period, Action<DataEvent<HTXKline>> onData, CancellationToken ct = default)
         {
-            var subscription = new HTXSubscription<HTXKline>(_logger, $"market.{contractCode.ToUpperInvariant()}.index.{EnumConverter.GetString(period)}", x => onData(x.WithSymbol(contractCode)), false);
+            var subscription = new HTXSubscription<HTXKline>(_logger, this, $"market.{contractCode.ToUpperInvariant()}.index.{EnumConverter.GetString(period)}", x => onData(x.WithSymbol(contractCode)), false);
             return await SubscribeAsync(BaseAddress.AppendPath("ws_index"), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToPremiumIndexKlineUpdatesAsync(string contractCode, KlineInterval period, Action<DataEvent<HTXKline>> onData, CancellationToken ct = default)
         {
-            var subscription = new HTXSubscription<HTXKline>(_logger, $"market.{contractCode.ToUpperInvariant()}.premium_index.{EnumConverter.GetString(period)}", x => onData(x.WithSymbol(contractCode)), false);
+            var subscription = new HTXSubscription<HTXKline>(_logger, this, $"market.{contractCode.ToUpperInvariant()}.premium_index.{EnumConverter.GetString(period)}", x => onData(x.WithSymbol(contractCode)), false);
             return await SubscribeAsync(BaseAddress.AppendPath("ws_index"), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToEstimatedFundingRateKlineUpdatesAsync(string contractCode, KlineInterval period, Action<DataEvent<HTXKline>> onData, CancellationToken ct = default)
         {
-            var subscription = new HTXSubscription<HTXKline>(_logger, $"market.{contractCode.ToUpperInvariant()}.estimated_rate.{EnumConverter.GetString(period)}", x => onData(x.WithSymbol(contractCode)), false);
+            var subscription = new HTXSubscription<HTXKline>(_logger, this, $"market.{contractCode.ToUpperInvariant()}.estimated_rate.{EnumConverter.GetString(period)}", x => onData(x.WithSymbol(contractCode)), false);
             return await SubscribeAsync(BaseAddress.AppendPath("ws_index"), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToBasisUpdatesAsync(string contractCode, KlineInterval period, string priceType, Action<DataEvent<HTXUsdtMarginSwapBasisUpdate>> onData, CancellationToken ct = default)
         {
-            var subscription = new HTXSubscription<HTXUsdtMarginSwapBasisUpdate>(_logger, $"market.{contractCode.ToUpperInvariant()}.basis.{EnumConverter.GetString(period)}.{priceType}", x => onData(x.WithSymbol(contractCode)), false);
+            var subscription = new HTXSubscription<HTXUsdtMarginSwapBasisUpdate>(_logger, this, $"market.{contractCode.ToUpperInvariant()}.basis.{EnumConverter.GetString(period)}.{priceType}", x => onData(x.WithSymbol(contractCode)), false);
             return await SubscribeAsync(BaseAddress.AppendPath("ws_index"), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToMarkPriceKlineUpdatesAsync(string contractCode, KlineInterval period, Action<DataEvent<HTXKline>> onData, CancellationToken ct = default)
         {
-            var subscription = new HTXSubscription<HTXKline>(_logger, $"market.{contractCode.ToUpperInvariant()}.mark_price.{EnumConverter.GetString(period)}", x => onData(x.WithSymbol(contractCode)), false);
+            var subscription = new HTXSubscription<HTXKline>(_logger, this, $"market.{contractCode.ToUpperInvariant()}.mark_price.{EnumConverter.GetString(period)}", x => onData(x.WithSymbol(contractCode)), false);
             return await SubscribeAsync(BaseAddress.AppendPath("ws_index"), subscription, ct).ConfigureAwait(false);
         }
 

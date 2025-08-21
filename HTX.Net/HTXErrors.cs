@@ -100,6 +100,9 @@ namespace HTX.Net
                     if (msg.Equals("request timeout"))
                         return new ErrorInfo(ErrorType.Timeout, true, "Request timeout", code);
 
+                    if (msg.StartsWith("invalid symbol "))
+                        return new ErrorInfo(ErrorType.UnknownSymbol, false, "Unknown symbol", code);
+
                     return new ErrorInfo(ErrorType.InvalidParameter, false, msg, code);
                 }),
 

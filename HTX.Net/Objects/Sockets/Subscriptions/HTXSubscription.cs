@@ -1,4 +1,5 @@
-﻿using CryptoExchange.Net.Objects.Sockets;
+﻿using CryptoExchange.Net.Clients;
+using CryptoExchange.Net.Objects.Sockets;
 using CryptoExchange.Net.Sockets;
 using HTX.Net.Objects.Internal;
 using HTX.Net.Objects.Sockets.Queries;
@@ -7,11 +8,13 @@ namespace HTX.Net.Objects.Sockets.Subscriptions
 {
     internal class HTXSubscription<T> : Subscription<HTXSocketResponse, HTXSocketResponse>
     {
+        private readonly SocketApiClient _client;
         private string _topic;
         private Action<DataEvent<T>> _handler;
 
-        public HTXSubscription(ILogger logger, string topic, Action<DataEvent<T>> handler, bool authenticated) : base(logger, authenticated)
+        public HTXSubscription(ILogger logger, SocketApiClient client, string topic, Action<DataEvent<T>> handler, bool authenticated) : base(logger, authenticated)
         {
+            _client = client;
             _handler = handler;
             _topic = topic;
             MessageMatcher = MessageMatcher.Create<HTXDataEvent<T>>(topic, DoHandleMessage);
@@ -19,7 +22,7 @@ namespace HTX.Net.Objects.Sockets.Subscriptions
 
         public override Query? GetSubQuery(SocketConnection connection)
         {
-            return new HTXSubscribeQuery(_topic, Authenticated);
+            return new HTXSubscribeQuery(_client, _topic, Authenticated);
         }
         public override Query? GetUnsubQuery()
         {
