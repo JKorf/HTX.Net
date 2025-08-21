@@ -37,7 +37,7 @@ namespace HTX.Net
 
                 new ErrorInfo(ErrorType.DuplicateClientOrderId, false, "Duplicate client order id", "invalid-client-order-id"),
 
-                new ErrorInfo(ErrorType.InsufficientBalance, false, "Insufficient balance", "order-accountbalance-error"),
+                new ErrorInfo(ErrorType.InsufficientBalance, false, "Insufficient balance", "order-accountbalance-error", "account-frozen-balance-insufficient-error"),
 
                 new ErrorInfo(ErrorType.RateLimitRequest, false, "Too many requests", "40403", "510", "1006"),
 
@@ -142,6 +142,7 @@ namespace HTX.Net
 
         internal static ErrorMapping FuturesMapping { get; } = new ErrorMapping([
 
+                new ErrorInfo(ErrorType.Unauthorized, true, "Unauthorized", "403"),
                 new ErrorInfo(ErrorType.Unauthorized, true, "API key expired", "12004"),
                 new ErrorInfo(ErrorType.Unauthorized, true, "IP Address not allowed", "12005"),
                 new ErrorInfo(ErrorType.Unauthorized, true, "Incorrect public key", "12007"),

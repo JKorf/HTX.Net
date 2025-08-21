@@ -119,8 +119,8 @@ namespace HTX.Net.Clients.UsdtFutures
             if (!accessor.IsValid)
                 return new ServerError(ErrorInfo.Unknown, exception: exception);
 
-            var code = accessor.GetValue<string?>(MessagePath.Get().Property("err-code"));
-            var msg = accessor.GetValue<string>(MessagePath.Get().Property("err-msg"));
+            var code = accessor.GetValue<string?>(MessagePath.Get().Property("err-code")) ?? accessor.GetValue<string>(MessagePath.Get().Property("err_code"));
+            var msg = accessor.GetValue<string>(MessagePath.Get().Property("err-msg")) ?? accessor.GetValue<string>(MessagePath.Get().Property("err_msg"));
 
             if (code == null || msg == null)
                 return new ServerError(ErrorInfo.Unknown, exception: exception);
@@ -135,8 +135,8 @@ namespace HTX.Net.Clients.UsdtFutures
             if (!accessor.IsValid)
                 return new ServerError(ErrorInfo.Unknown);
 
-            var errCode = accessor.GetValue<string>(MessagePath.Get().Property("err-code"));
-            var msg = accessor.GetValue<string>(MessagePath.Get().Property("err-msg"));
+            var errCode = accessor.GetValue<string>(MessagePath.Get().Property("err-code")) ?? accessor.GetValue<string>(MessagePath.Get().Property("err_code"));
+            var msg = accessor.GetValue<string>(MessagePath.Get().Property("err-msg")) ?? accessor.GetValue<string>(MessagePath.Get().Property("err_msg"));
 
             if (!string.IsNullOrEmpty(errCode))
                 return new ServerError(errCode!, GetErrorInfo(errCode!, msg));
