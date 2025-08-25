@@ -20,11 +20,11 @@ namespace HTX.Net.Objects.Sockets.Subscriptions
             MessageMatcher = MessageMatcher.Create<HTXDataEvent<T>>(topic, DoHandleMessage);
         }
 
-        public override Query? GetSubQuery(SocketConnection connection)
+        protected override Query? GetSubQuery(SocketConnection connection)
         {
             return new HTXSubscribeQuery(_client, _topic, Authenticated);
         }
-        public override Query? GetUnsubQuery()
+        protected override Query? GetUnsubQuery(SocketConnection connection)
         {
             return new HTXUnsubscribeQuery(_topic, Authenticated);
         }

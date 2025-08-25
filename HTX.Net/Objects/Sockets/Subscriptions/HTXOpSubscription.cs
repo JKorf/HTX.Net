@@ -19,11 +19,11 @@ namespace HTX.Net.Objects.Sockets.Subscriptions
             MessageMatcher = MessageMatcher.Create<T>(listenId, DoHandleMessage);
         }
 
-        public override Query? GetSubQuery(SocketConnection connection)
+        protected override Query? GetSubQuery(SocketConnection connection)
         {
             return new HTXOpQuery(_client, _topic, "sub", Authenticated);
         }
-        public override Query? GetUnsubQuery()
+        protected override Query? GetUnsubQuery(SocketConnection connection)
         {
             return new HTXOpQuery(_client, _topic, "unsub", Authenticated);
         }

@@ -45,11 +45,11 @@ namespace HTX.Net.Objects.Sockets.Subscriptions
                 ]);
         }
 
-        public override Query? GetSubQuery(SocketConnection connection)
+        protected override Query? GetSubQuery(SocketConnection connection)
         {
             return new HTXAuthQuery(_client, "sub", _topic, Authenticated);
         }
-        public override Query? GetUnsubQuery()
+        protected override Query? GetUnsubQuery(SocketConnection connection)
         {
             return new HTXAuthQuery(_client, "unsub", _topic, Authenticated);
         }
