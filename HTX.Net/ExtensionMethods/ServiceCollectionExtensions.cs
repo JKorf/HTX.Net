@@ -100,6 +100,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddTransient<ICryptoSocketClient, CryptoSocketClient>();
             services.AddTransient<IHTXOrderBookFactory, HTXOrderBookFactory>();
             services.AddTransient<IHTXTrackerFactory, HTXTrackerFactory>();
+            services.AddTransient<ITrackerFactory, HTXTrackerFactory>();
             services.AddSingleton<IHTXUserClientProvider, HTXUserClientProvider>(x =>
             new HTXUserClientProvider(
                 x.GetRequiredService<HttpClient>(),
