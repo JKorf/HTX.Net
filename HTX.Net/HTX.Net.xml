@@ -7794,7 +7794,7 @@
         </member>
         <member name="F:HTX.Net.Enums.WithdrawDepositStatus.ConfirmError">
             <summary>
-            On-chain transfer faied to get confirmation
+            On-chain transfer failed to get confirmation
             </summary>
         </member>
         <member name="F:HTX.Net.Enums.WithdrawDepositStatus.Repealed">

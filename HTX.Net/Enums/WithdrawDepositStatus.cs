@@ -66,7 +66,7 @@ namespace HTX.Net.Enums
         [Map("confirmed")]
 		Confirmed,
         /// <summary>
-        /// On-chain transfer faied to get confirmation
+        /// On-chain transfer failed to get confirmation
         /// </summary>
 		[Map("confirm-error")]
         ConfirmError,
