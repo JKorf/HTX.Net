@@ -89,10 +89,10 @@ namespace HTX.Net.Clients.SpotApi
 
             var parameters = new ParameterCollection()
             {
-                { "from-account-id", fromAccountId.ToString(CultureInfo.InvariantCulture)},
+                { "from-account", fromAccountId.ToString(CultureInfo.InvariantCulture)},
                 { "from-user", fromUserId.ToString(CultureInfo.InvariantCulture)},
 
-                { "to-account-id", toAccountId.ToString(CultureInfo.InvariantCulture)},
+                { "to-account", toAccountId.ToString(CultureInfo.InvariantCulture)},
                 { "to-user", toUserId.ToString(CultureInfo.InvariantCulture)},
 
                 { "currency", asset },
