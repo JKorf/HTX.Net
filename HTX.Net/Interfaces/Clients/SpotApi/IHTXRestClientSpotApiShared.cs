@@ -21,7 +21,8 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         IFeeRestClient,
         ISpotOrderClientIdRestClient,
         ISpotTriggerOrderRestClient,
-        IBookTickerRestClient
+        IBookTickerRestClient,
+        ITransferRestClient
     {
     }
 }

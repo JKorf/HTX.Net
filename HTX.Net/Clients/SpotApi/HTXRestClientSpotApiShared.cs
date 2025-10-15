@@ -201,7 +201,7 @@ namespace HTX.Net.Clients.SpotApi
         #endregion
 
         #region Balance client
-        EndpointOptions<GetBalancesRequest> IBalanceRestClient.GetBalancesOptions { get; } = new EndpointOptions<GetBalancesRequest>(true)
+        GetBalancesOptions IBalanceRestClient.GetBalancesOptions { get; } = new GetBalancesOptions(AccountTypeFilter.Spot)
         {
             RequiredExchangeParameters = new List<ParameterDescription>
             {
@@ -211,7 +211,7 @@ namespace HTX.Net.Clients.SpotApi
 
         async Task<ExchangeWebResult<SharedBalance[]>> IBalanceRestClient.GetBalancesAsync(GetBalancesRequest request, CancellationToken ct)
         {
-            var validationError = ((IBalanceRestClient)this).GetBalancesOptions.ValidateRequest(Exchange, request, request.TradingMode, SupportedTradingModes);
+            var validationError = ((IBalanceRestClient)this).GetBalancesOptions.ValidateRequest(Exchange, request, SupportedTradingModes);
             if (validationError != null)
                 return new ExchangeWebResult<SharedBalance[]>(Exchange, validationError);
 
@@ -424,7 +424,7 @@ namespace HTX.Net.Clients.SpotApi
             if (!long.TryParse(request.OrderId, out var orderId))
                 return new ExchangeWebResult<SharedUserTrade[]>(Exchange, ArgumentError.Invalid(nameof(GetOrderRequest), "Invalid order id"));
 
-            var order = await Trading.GetOrderTradesAsync(orderId).ConfigureAwait(false);
+            var order = await Trading.GetOrderTradesAsync(orderId, ct).ConfigureAwait(false);
             if (!order)
                 return order.AsExchangeResult<SharedUserTrade[]>(Exchange, null, default);
 
@@ -940,6 +940,56 @@ namespace HTX.Net.Clients.SpotApi
                 return order.AsExchangeResult<SharedId>(Exchange, null, default);
 
             return order.AsExchangeResult(Exchange, TradingMode.Spot, new SharedId(request.OrderId));
+        }
+
+        #endregion
+
+        #region Transfer client
+
+        TransferOptions ITransferRestClient.TransferOptions { get; } = new TransferOptions([
+            SharedAccountType.Spot,
+            SharedAccountType.PerpetualLinearFutures,
+            SharedAccountType.DeliveryLinearFutures,
+            SharedAccountType.PerpetualInverseFutures,
+            SharedAccountType.DeliveryInverseFutures
+            ])
+        {
+            OptionalExchangeParameters = new List<ParameterDescription>
+            {
+                new ParameterDescription("SettleAsset", typeof(string), "The settle asset for futures transfer", "usdt")
+            }
+        };
+        async Task<ExchangeWebResult<SharedId>> ITransferRestClient.TransferAsync(TransferRequest request, CancellationToken ct)
+        {
+            var validationError = ((ITransferRestClient)this).TransferOptions.ValidateRequest(Exchange, request, TradingMode.Spot, SupportedTradingModes);
+            if (validationError != null)
+                return new ExchangeWebResult<SharedId>(Exchange, validationError);
+
+            var fromType = GetTransferType(request.FromAccountType);
+            var toType = GetTransferType(request.ToAccountType);
+            if (fromType == null || toType == null)
+                return new ExchangeWebResult<SharedId>(Exchange, ArgumentError.Invalid("To/From AccountType", "invalid to/from account combination"));
+
+            // Get data
+            var transfer = await Account.TransferAsync(
+                fromType.Value,
+                toType.Value,
+                request.Asset,
+                request.Quantity,
+                "USDT",
+                ct: ct).ConfigureAwait(false);
+            if (!transfer)
+                return transfer.AsExchangeResult<SharedId>(Exchange, null, default);
+
+            return transfer.AsExchangeResult(Exchange, TradingMode.Spot, new SharedId(transfer.Data.ToString()));
+        }
+
+        private TransferAccount? GetTransferType(SharedAccountType type)
+        {
+            if (type == SharedAccountType.Spot) return TransferAccount.Spot;
+            if (type == SharedAccountType.DeliveryLinearFutures || type == SharedAccountType.PerpetualLinearFutures) return TransferAccount.LinearSwap;
+            if (type == SharedAccountType.PerpetualInverseFutures || type == SharedAccountType.DeliveryInverseFutures) return TransferAccount.Swap;
+            return null;
         }
 
         #endregion

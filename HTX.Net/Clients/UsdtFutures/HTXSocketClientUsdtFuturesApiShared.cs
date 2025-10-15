@@ -175,7 +175,7 @@ namespace HTX.Net.Clients.UsdtFutures
                         ParseOrderStatus(update.Data.OrderStatus),
                         update.Data.CreatedAt)
                     {
-                        ClientOrderId = update.Data.ClientOrderId.ToString(),
+                        ClientOrderId = update.Data.ClientOrderId?.ToString(),
                         AveragePrice = update.Data.AveragePrice,
                         OrderPrice = update.Data.Price,
                         OrderQuantity = new SharedOrderQuantity(contractQuantity: update.Data.Quantity),
@@ -188,6 +188,7 @@ namespace HTX.Net.Clients.UsdtFutures
                         FeeAsset = update.Data.FeeAsset,
                         LastTrade = update.Data.Trade?.Any() != true ? null : new SharedUserTrade(ExchangeSymbolCache.ParseSymbol(_topicId, update.Data.ContractCode), update.Data.ContractCode, update.Data.OrderIdStr, lastTrade!.TradeId.ToString(), update.Data.OrderSide == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell, lastTrade.Quantity, lastTrade.Price, update.Data.Timestamp)
                         {
+                            ClientOrderId = update.Data.ClientOrderId?.ToString(),
                             Fee = Math.Abs(lastTrade.Fee),
                             FeeAsset = lastTrade.FeeAsset,
                             Role = lastTrade.Role == OrderRole.Maker ? SharedRole.Maker : SharedRole.Taker

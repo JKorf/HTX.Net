@@ -186,6 +186,7 @@ namespace HTX.Net.Clients.SpotApi
                         update.Data.Price,
                         update.Data.Timestamp)
                     {
+                        ClientOrderId = update.Data.ClientOrderId,
                         Role = update.Data.IsTaker ? SharedRole.Taker : SharedRole.Maker,
                         Fee = update.Data.TransactionFee,
                         FeeAsset = update.Data.FeeAsset
@@ -238,6 +239,7 @@ namespace HTX.Net.Clients.SpotApi
                     IsTriggerOrder = matchUpdate.Type == OrderType.StopLimit,
                     LastTrade = new SharedUserTrade(ExchangeSymbolCache.ParseSymbol(_topicId, matchUpdate.Symbol), matchUpdate.Symbol, matchUpdate.OrderId.ToString(), matchUpdate.TradeId.ToString(), matchUpdate.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell, matchUpdate.TradeQuantity, matchUpdate.TradePrice, matchUpdate.TradeTime)
                     {
+                        ClientOrderId = matchUpdate.ClientOrderId,
                         Role = matchUpdate.IsTaker ? SharedRole.Taker : SharedRole.Maker
                     }
                 };
