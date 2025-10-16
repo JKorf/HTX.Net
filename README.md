@@ -160,6 +160,11 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 7.9.0 - 16 Oct 2025
+    * Updated CryptoExchange.Net version to 9.10.0, see https://github.com/JKorf/CryptoExchange.Net/releases/
+    * Added ClientOrderId mapping on SharedUserTrade models
+    * Added ITransferRestClient.TransferAsync implementation
+
 * Version 7.8.1 - 13 Oct 2025
     * Fixed restClient.SpotApi.Account.InternalTransferAsync from and to account parameters serialization
     * Fixed Shared IDepositRestClient.GetDepositsAsync Completed property parsing
