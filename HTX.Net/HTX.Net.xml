@@ -8230,7 +8230,7 @@
             Withdraw an asset from the account to an address
             <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4cc41-7773-11ed-9966-0242ac110003" /></para>
             </summary>
-            <param name="address">The destination address of this withdraw</param>
+            <param name="address">The desination address of this withdraw</param>
             <param name="asset">Asset, for example `ETH`</param>
             <param name="quantity">The quantity of asset to withdraw</param>
             <param name="fee">The fee to pay with this withdraw</param>
