@@ -57,7 +57,7 @@ namespace HTX.Net.Clients.UsdtFutures
                 { "volume", quantity },
                 { "direction", EnumConverter.GetString(side) },
                 { "lever_rate", leverageRate },
-                { "channel_code", HTXExchange.ClientOrderId },
+                { "channel_code", LibraryHelpers.GetClientReference(() => _baseClient.ClientOptions.BrokerId, _baseClient.Exchange) },
                 { "order_price_type", EnumConverter.GetString(orderPriceType) }
             };
             parameters.AddOptionalParameter("price", price?.ToString(CultureInfo.InvariantCulture));
@@ -105,7 +105,7 @@ namespace HTX.Net.Clients.UsdtFutures
                 { "volume", quantity },
                 { "direction", EnumConverter.GetString(side) },
                 { "lever_rate", leverageRate },
-                { "channel_code", HTXExchange.ClientOrderId },
+                { "channel_code", LibraryHelpers.GetClientReference(() => _baseClient.ClientOptions.BrokerId, _baseClient.Exchange) },
                 { "order_price_type", EnumConverter.GetString(orderPriceType) }
             };
             parameters.AddOptionalParameter("contract_code", contractCode);
@@ -555,7 +555,7 @@ namespace HTX.Net.Clients.UsdtFutures
         {
             var parameters = new ParameterCollection()
             {
-                { "channel_code", HTXExchange.ClientOrderId }
+                { "channel_code", LibraryHelpers.GetClientReference(() => _baseClient.ClientOptions.BrokerId, _baseClient.Exchange) }
             };
             parameters.Add("contract_code", contractCode);
             parameters.AddEnum("trigger_type", triggerType);
@@ -581,7 +581,7 @@ namespace HTX.Net.Clients.UsdtFutures
         {
             var parameters = new ParameterCollection()
             {
-                { "channel_code", HTXExchange.ClientOrderId }
+                { "channel_code", LibraryHelpers.GetClientReference(() => _baseClient.ClientOptions.BrokerId, _baseClient.Exchange) }
             };
             parameters.AddOptional("contract_code", contractCode);
             parameters.AddEnum("trigger_type", triggerType);
@@ -985,7 +985,7 @@ namespace HTX.Net.Clients.UsdtFutures
         {
             var parameters = new ParameterCollection()
             {
-                { "channel_code", HTXExchange.ClientOrderId }
+                { "channel_code", LibraryHelpers.GetClientReference(() => _baseClient.ClientOptions.BrokerId, _baseClient.Exchange) }
             };
             parameters.Add("contract_code", contractCode);
             parameters.Add("reduce_only", reduceOnly ? 1 : 0);
@@ -1010,7 +1010,7 @@ namespace HTX.Net.Clients.UsdtFutures
         {
             var parameters = new ParameterCollection()
             {
-                { "channel_code", HTXExchange.ClientOrderId }
+                { "channel_code", LibraryHelpers.GetClientReference(() => _baseClient.ClientOptions.BrokerId, _baseClient.Exchange) }
             };
             parameters.AddOptional("contract_code", contractCode);
             parameters.AddOptional("pair", pair);

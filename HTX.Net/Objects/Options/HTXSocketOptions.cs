@@ -36,6 +36,11 @@ namespace HTX.Net.Objects.Options
         public bool AllowAppendingClientOrderId { get; set; } = false;
 
         /// <summary>
+        /// Broker id
+        /// </summary>
+        public string? BrokerId { get; set; }
+
+        /// <summary>
         /// Spot API options
         /// </summary>
         public SocketApiOptions SpotOptions { get; private set; } = new SocketApiOptions();
@@ -49,6 +54,7 @@ namespace HTX.Net.Objects.Options
         {
             targetOptions = base.Set<HTXSocketOptions>(targetOptions);
             targetOptions.AllowAppendingClientOrderId = AllowAppendingClientOrderId;
+            targetOptions.BrokerId = BrokerId;
             targetOptions.SpotOptions = SpotOptions.Set(targetOptions.SpotOptions);
             targetOptions.UsdtMarginSwapOptions = UsdtMarginSwapOptions.Set(targetOptions.UsdtMarginSwapOptions);
             return targetOptions;

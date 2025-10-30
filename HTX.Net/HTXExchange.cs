@@ -45,9 +45,6 @@ namespace HTX.Net
         /// </summary>
         public static ExchangeType Type { get; } = ExchangeType.CEX;
 
-        internal const string ClientOrderId = "AA1ef14811";
-        internal const string ClientOrderIdPrefix = ClientOrderId + LibraryHelpers.ClientOrderIdSeparator;
-
         internal static JsonSerializerContext _serializerContext = JsonSerializerContextCache.GetOrCreate<HTXSourceGenerationContext>();
 
         /// <summary>

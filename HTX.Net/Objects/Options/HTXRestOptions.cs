@@ -34,6 +34,11 @@ namespace HTX.Net.Objects.Options
         public bool AllowAppendingClientOrderId { get; set; } = false;
 
         /// <summary>
+        /// Broker id
+        /// </summary>
+        public string? BrokerId { get; set; }
+
+        /// <summary>
         /// Whether public requests should be signed if ApiCredentials are provided. Needed for accurate rate limiting.
         /// </summary>
         public bool SignPublicRequests { get; set; } = false;
@@ -53,6 +58,7 @@ namespace HTX.Net.Objects.Options
             targetOptions = base.Set<HTXRestOptions>(targetOptions);
             targetOptions.AllowAppendingClientOrderId = AllowAppendingClientOrderId;
             targetOptions.SignPublicRequests = SignPublicRequests;
+            targetOptions.BrokerId = BrokerId;
             targetOptions.SpotOptions = SpotOptions.Set(targetOptions.SpotOptions);
             targetOptions.UsdtMarginSwapOptions = UsdtMarginSwapOptions.Set(targetOptions.UsdtMarginSwapOptions);
             return targetOptions;
