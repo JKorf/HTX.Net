@@ -48,6 +48,16 @@ namespace HTX.Net
         internal static JsonSerializerContext _serializerContext = JsonSerializerContextCache.GetOrCreate<HTXSourceGenerationContext>();
 
         /// <summary>
+        /// Aliases for HTX assets
+        /// </summary>
+        public static AssetAliasConfiguration AssetAliases { get; } = new AssetAliasConfiguration
+        {
+            Aliases = [
+                new AssetAlias("USDT", SharedSymbol.UsdOrStable.ToUpperInvariant(), AliasType.OnlyToExchange)
+            ]
+        };
+
+        /// <summary>
         /// Format a base and quote asset to an HTX recognized symbol 
         /// </summary>
         /// <param name="baseAsset">Base asset</param>
@@ -57,10 +67,13 @@ namespace HTX.Net
         /// <returns></returns>
         public static string FormatSymbol(string baseAsset, string quoteAsset, TradingMode tradingMode, DateTime? deliverTime = null)
         {
+            baseAsset = AssetAliases.CommonToExchangeName(baseAsset.ToUpperInvariant());
+            quoteAsset = AssetAliases.CommonToExchangeName(quoteAsset.ToUpperInvariant());
+
             if (tradingMode == TradingMode.Spot)
                 return $"{baseAsset.ToLowerInvariant()}{quoteAsset.ToLowerInvariant()}";
 
-            return $"{baseAsset.ToUpperInvariant()}-{quoteAsset.ToUpperInvariant()}" + (!deliverTime.HasValue ? string.Empty : ("-" + deliverTime.Value.ToString("yyMMdd")));
+            return $"{baseAsset}-{quoteAsset}" + (!deliverTime.HasValue ? string.Empty : ("-" + deliverTime.Value.ToString("yyMMdd")));
         }
 
         /// <summary>
