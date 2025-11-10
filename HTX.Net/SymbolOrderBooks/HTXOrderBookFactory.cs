@@ -13,6 +13,9 @@ namespace HTX.Net.SymbolOrderBooks
         private readonly IServiceProvider _serviceProvider;
 
         /// <inheritdoc />
+        public string ExchangeName => HTXExchange.ExchangeName;
+
+        /// <inheritdoc />
         public IOrderBookFactory<HTXOrderBookOptions> Spot { get; }
         /// <inheritdoc />
         public IOrderBookFactory<HTXOrderBookOptions> UsdtFutures { get; }

@@ -76,6 +76,9 @@
         <member name="T:HTX.Net.Clients.HTXUserClientProvider">
             <inheritdoc />
         </member>
+        <member name="P:HTX.Net.Clients.HTXUserClientProvider.ExchangeName">
+            <inheritdoc />
+        </member>
         <member name="M:HTX.Net.Clients.HTXUserClientProvider.#ctor(System.Action{HTX.Net.Objects.Options.HTXOptions})">
             <summary>
             ctor
@@ -22270,6 +22273,9 @@
             </summary>
         </member>
         <member name="T:HTX.Net.SymbolOrderBooks.HTXOrderBookFactory">
+            <inheritdoc />
+        </member>
+        <member name="P:HTX.Net.SymbolOrderBooks.HTXOrderBookFactory.ExchangeName">
             <inheritdoc />
         </member>
         <member name="P:HTX.Net.SymbolOrderBooks.HTXOrderBookFactory.Spot">

@@ -57,7 +57,7 @@ namespace HTX.Net.Clients.UsdtFutures
 
         #region Ticker client
 
-        EndpointOptions<GetTickerRequest> IFuturesTickerRestClient.GetFuturesTickerOptions { get; } = new EndpointOptions<GetTickerRequest>(false);
+        GetTickerOptions IFuturesTickerRestClient.GetFuturesTickerOptions { get; } = new GetTickerOptions();
         async Task<ExchangeWebResult<SharedFuturesTicker>> IFuturesTickerRestClient.GetFuturesTickerAsync(GetTickerRequest request, CancellationToken ct)
         {
             var validationError = ((IFuturesTickerRestClient)this).GetFuturesTickerOptions.ValidateRequest(Exchange, request, request.TradingMode, SupportedTradingModes);
@@ -85,7 +85,7 @@ namespace HTX.Net.Clients.UsdtFutures
             });
         }
 
-        EndpointOptions<GetTickersRequest> IFuturesTickerRestClient.GetFuturesTickersOptions { get; } = new EndpointOptions<GetTickersRequest>(false);
+        GetTickersOptions IFuturesTickerRestClient.GetFuturesTickersOptions { get; } = new GetTickersOptions();
         async Task<ExchangeWebResult<SharedFuturesTicker[]>> IFuturesTickerRestClient.GetFuturesTickersAsync(GetTickersRequest request, CancellationToken ct)
         {
             var validationError = ((IFuturesTickerRestClient)this).GetFuturesTickersOptions.ValidateRequest(Exchange, request, request.TradingMode, SupportedTradingModes);
@@ -1014,8 +1014,9 @@ namespace HTX.Net.Clients.UsdtFutures
             if (startTime < request.StartTime)
                 startTime = request.StartTime;
 
+            var symbol = request.Symbol!.GetSymbol(FormatSymbol);
             var result = await ExchangeData.GetKlinesAsync(
-                request.Symbol!.GetSymbol(FormatSymbol),
+                symbol,
                 interval,
                 startTime,
                 endTime,
@@ -1034,7 +1035,8 @@ namespace HTX.Net.Clients.UsdtFutures
                     nextToken = new DateTimeToken(minOpenTime.AddSeconds(-(int)(interval - 1)));
             }
 
-            return result.AsExchangeResult<SharedKline[]>(Exchange, request.Symbol.TradingMode, result.Data.Reverse().Select(x => new SharedKline(x.OpenTime, x.ClosePrice ?? 0, x.HighPrice ?? 0, x.LowPrice ?? 0, x.OpenPrice ?? 0, x.Volume ?? 0)).ToArray(), nextToken);
+            return result.AsExchangeResult<SharedKline[]>(Exchange, request.Symbol.TradingMode, result.Data.Reverse().Select(x => 
+                new SharedKline(request.Symbol, symbol, x.OpenTime, x.ClosePrice ?? 0, x.HighPrice ?? 0, x.LowPrice ?? 0, x.OpenPrice ?? 0, x.Volume ?? 0)).ToArray(), nextToken);
         }
 
         #endregion
@@ -1053,8 +1055,9 @@ namespace HTX.Net.Clients.UsdtFutures
             if (validationError != null)
                 return new ExchangeWebResult<SharedFuturesKline[]>(Exchange, validationError);
 
+            var symbol = request.Symbol!.GetSymbol(FormatSymbol);
             var result = await ExchangeData.GetMarkPriceKlinesAsync(
-                request.Symbol!.GetSymbol(FormatSymbol),
+                symbol,
                 interval,
                 request.Limit ?? 2000,
                 ct: ct
@@ -1062,7 +1065,8 @@ namespace HTX.Net.Clients.UsdtFutures
             if (!result)
                 return result.AsExchangeResult<SharedFuturesKline[]>(Exchange, null, default);
 
-            return result.AsExchangeResult<SharedFuturesKline[]>(Exchange, request.Symbol.TradingMode, result.Data.Reverse().Select(x => new SharedFuturesKline(x.OpenTime, x.ClosePrice ?? 0, x.HighPrice ?? 0, x.LowPrice ?? 0, x.OpenPrice ?? 0)).ToArray());
+            return result.AsExchangeResult<SharedFuturesKline[]>(Exchange, request.Symbol.TradingMode, result.Data.Reverse().Select(x =>
+                new SharedFuturesKline(request.Symbol, symbol, x.OpenTime, x.ClosePrice ?? 0, x.HighPrice ?? 0, x.LowPrice ?? 0, x.OpenPrice ?? 0)).ToArray());
         }
 
         #endregion
@@ -1081,8 +1085,9 @@ namespace HTX.Net.Clients.UsdtFutures
             if (validationError != null)
                 return new ExchangeWebResult<SharedFuturesKline[]>(Exchange, validationError);
 
+            var symbol = request.Symbol!.GetSymbol(FormatSymbol);
             var result = await ExchangeData.GetMarkPriceKlinesAsync(
-                request.Symbol!.GetSymbol(FormatSymbol),
+                symbol,
                 interval,
                 request.Limit ?? 2000,
                 ct: ct
@@ -1090,7 +1095,8 @@ namespace HTX.Net.Clients.UsdtFutures
             if (!result)
                 return result.AsExchangeResult<SharedFuturesKline[]>(Exchange, null, default);
 
-            return result.AsExchangeResult<SharedFuturesKline[]>(Exchange, request.Symbol.TradingMode, result.Data.Reverse().Select(x => new SharedFuturesKline(x.OpenTime, x.ClosePrice ?? 0, x.HighPrice ?? 0, x.LowPrice ?? 0, x.OpenPrice ?? 0)).ToArray());
+            return result.AsExchangeResult<SharedFuturesKline[]>(Exchange, request.Symbol.TradingMode, result.Data.Reverse().Select(x => 
+                new SharedFuturesKline(request.Symbol, symbol, x.OpenTime, x.ClosePrice ?? 0, x.HighPrice ?? 0, x.LowPrice ?? 0, x.OpenPrice ?? 0)).ToArray());
         }
 
         #endregion
@@ -1123,14 +1129,16 @@ namespace HTX.Net.Clients.UsdtFutures
             if (validationError != null)
                 return new ExchangeWebResult<SharedTrade[]>(Exchange, validationError);
 
+            var symbol = request.Symbol!.GetSymbol(FormatSymbol);
             var result = await ExchangeData.GetRecentTradesAsync(
-                request.Symbol!.GetSymbol(FormatSymbol),
+                symbol,
                 limit: request.Limit ?? 1000,
                 ct: ct).ConfigureAwait(false);
             if (!result)
                 return result.AsExchangeResult<SharedTrade[]>(Exchange, null, default);
 
-            return result.AsExchangeResult<SharedTrade[]>(Exchange, request.Symbol.TradingMode, result.Data.Reverse().Select(x => new SharedTrade(x.Quantity, x.Price, x.Timestamp)
+            return result.AsExchangeResult<SharedTrade[]>(Exchange, request.Symbol.TradingMode, result.Data.Reverse().Select(x => 
+            new SharedTrade(request.Symbol, symbol, x.Quantity, x.Price, x.Timestamp)
             {
                 Side = x.Direction == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell
             }).ToArray());

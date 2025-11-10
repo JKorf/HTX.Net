@@ -38,6 +38,7 @@ namespace HTX.Net.Clients.UsdtFutures
 
             AddSystemSubscription(new HTXPingSubscription(_logger));
             AddSystemSubscription(new HTXOpPingSubscription(_logger));
+            AddSystemSubscription(new HTXCloseSubscription(_logger));
 
             RateLimiter = HTXExchange.RateLimiter.UsdtConnection;
         }
@@ -80,12 +81,13 @@ namespace HTX.Net.Clients.UsdtFutures
             if (ping != null)
                 return "pingV3";
 
-            var opPing = message.GetValue<string>(_opPath);
-            if (string.Equals(opPing, "ping"))
-                return "ping";
-
-            if (string.Equals(opPing, "auth"))
-                return "auth";
+            var op = message.GetValue<string>(_opPath);
+            if (string.Equals(op, "ping")
+                || string.Equals(op, "close")
+                || string.Equals(op, "auth"))
+            {
+                return op;
+            }
 
             var channel = message.GetValue<string>(_channelPath);
             var action = message.GetValue<string>(_actionPath);

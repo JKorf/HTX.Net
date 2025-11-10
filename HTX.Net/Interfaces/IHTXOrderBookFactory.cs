@@ -6,7 +6,7 @@ namespace HTX.Net.Interfaces
     /// <summary>
     /// HTX order book factory
     /// </summary>
-    public interface IHTXOrderBookFactory
+    public interface IHTXOrderBookFactory : IExchangeService
     {
         /// <summary>
         /// Spot order book factory methods
