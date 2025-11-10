@@ -1546,7 +1546,27 @@
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
         </member>
+        <member name="P:HTX.Net.Converters.HTXSourceGenerationContext.HTXApiResponseV2HTXLoanInfoArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
         <member name="P:HTX.Net.Converters.HTXSourceGenerationContext.HTXApiResponseV2HTXLoanInfoAssetArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Converters.HTXSourceGenerationContext.HTXApiResponseV2HTXMarginBalancesArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Converters.HTXSourceGenerationContext.HTXApiResponseV2HTXMarginBalances">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:HTX.Net.Converters.HTXSourceGenerationContext.HTXApiResponseV2HTXMarginOrderArray">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>

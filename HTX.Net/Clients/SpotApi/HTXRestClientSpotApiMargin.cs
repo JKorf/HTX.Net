@@ -92,7 +92,7 @@ namespace HTX.Net.Clients.SpotApi
 
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"v1/margin/loan-info", HTXExchange.RateLimiter.EndpointLimit, 1, true,
                 new SingleLimitGuard(20, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
-            return await _baseClient.SendBasicAsync<HTXLoanInfo[]>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<HTXLoanInfo[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -167,7 +167,7 @@ namespace HTX.Net.Clients.SpotApi
 
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"v1/margin/loan-orders", HTXExchange.RateLimiter.EndpointLimit, 1, true,
                 new SingleLimitGuard(100, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
-            return await _baseClient.SendBasicAsync<HTXMarginOrder[]>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<HTXMarginOrder[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -188,7 +188,7 @@ namespace HTX.Net.Clients.SpotApi
 
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"v1/margin/accounts/balance", HTXExchange.RateLimiter.EndpointLimit, 1, true,
                 new SingleLimitGuard(100, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
-            return await _baseClient.SendBasicAsync<HTXMarginBalances[]>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<HTXMarginBalances[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -310,7 +310,7 @@ namespace HTX.Net.Clients.SpotApi
 
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"v1/cross-margin/loan-orders", HTXExchange.RateLimiter.EndpointLimit, 1, true,
                 new SingleLimitGuard(10, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
-            return await _baseClient.SendBasicAsync<HTXMarginOrder[]>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<HTXMarginOrder[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -325,7 +325,7 @@ namespace HTX.Net.Clients.SpotApi
 
             var request = _definitions.GetOrCreate(HttpMethod.Get, $"v1/cross-margin/accounts/balance", HTXExchange.RateLimiter.EndpointLimit, 1, true,
                 new SingleLimitGuard(100, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
-            return await _baseClient.SendBasicAsync<HTXMarginBalances>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<HTXMarginBalances>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion

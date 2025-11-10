@@ -40,6 +40,7 @@ namespace HTX.Net.Converters
     [JsonSerializable(typeof(HTXApiResponseV2<HTXAssetNetworks[]>))]
     [JsonSerializable(typeof(HTXApiResponseV2<HTXRepaymentResult[]>))]
     [JsonSerializable(typeof(HTXApiResponseV2<HTXLoanInfoAsset[]>))]
+    [JsonSerializable(typeof(HTXApiResponseV2<HTXLoanInfo[]>))]
     [JsonSerializable(typeof(HTXApiResponseV2<HTXMaxHolding[]>))]
     [JsonSerializable(typeof(HTXApiResponseV2<HTXRepayment[]>))]
     [JsonSerializable(typeof(HTXApiResponseV2<HTXSubDeductMode[]>))]
@@ -55,6 +56,10 @@ namespace HTX.Net.Converters
     [JsonSerializable(typeof(HTXApiResponseV2<HTXCrossMarginOrder[]>))]
     [JsonSerializable(typeof(HTXApiResponseV2<HTXIsolatedMarginUserTrade[]>))]
     [JsonSerializable(typeof(HTXApiResponseV2<HTXCrossMarginUserTrade[]>))]
+    [JsonSerializable(typeof(HTXApiResponseV2<HTXMarginOrder[]>))]
+    [JsonSerializable(typeof(HTXApiResponseV2<HTXMarginBalances>))]
+    [JsonSerializable(typeof(HTXApiResponseV2<HTXMarginBalances[]>))]
+
     [JsonSerializable(typeof(HTXBasicResponse<HTXAccount[]>))]
     [JsonSerializable(typeof(HTXBasicResponse<HTXAccountHistory[]>))]
     [JsonSerializable(typeof(HTXBasicResponse<HTXWithdrawDeposit[]>))]

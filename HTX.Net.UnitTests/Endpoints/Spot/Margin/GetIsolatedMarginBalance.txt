@@ -2,6 +2,7 @@ GET
 /v1/margin/accounts/balance
 true
 {
+  "code": 200,
   "data": [
     {
       "id": 18264,

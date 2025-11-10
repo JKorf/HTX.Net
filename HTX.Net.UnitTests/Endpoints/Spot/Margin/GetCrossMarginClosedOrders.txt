@@ -3,6 +3,7 @@ GET
 true
 {
   "status": "ok",
+  "code": 200,
   "data": [
     {
       "loan-balance": "0.100000000000000000",

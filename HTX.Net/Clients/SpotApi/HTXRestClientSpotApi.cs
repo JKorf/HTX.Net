@@ -124,7 +124,7 @@ namespace HTX.Net.Clients.SpotApi
                 return result.AsError<T>(result.Error!);
 
             if (!string.IsNullOrEmpty(result.Data.ErrorCode))
-                    return result.AsError<T>(new ServerError(result.Data.ErrorCode!, GetErrorInfo(result.Data.ErrorCode!, result.Data.ErrorMessage)));
+                return result.AsError<T>(new ServerError(result.Data.ErrorCode!, GetErrorInfo(result.Data.ErrorCode!, result.Data.ErrorMessage)));
 
             return result.As(result.Data.Data);
         }

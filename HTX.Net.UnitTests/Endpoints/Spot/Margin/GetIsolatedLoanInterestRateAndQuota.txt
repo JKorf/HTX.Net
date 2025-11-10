@@ -3,6 +3,7 @@ GET
 true
 {
   "status": "ok",
+  "code": 200,
   "data": [
     {
       "symbol": "btcusdt",
