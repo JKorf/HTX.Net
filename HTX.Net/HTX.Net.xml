@@ -7845,6 +7845,11 @@
             Confirmed but currently in an orphan branch
             </summary>
         </member>
+        <member name="F:HTX.Net.Enums.WithdrawDepositStatus.WaitingTinyAmount">
+            <summary>
+            Waiting tiny amount
+            </summary>
+        </member>
         <member name="T:HTX.Net.Enums.WithdrawDepositType">
             <summary>
             Define transfer type
