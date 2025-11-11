@@ -9,17 +9,17 @@ namespace HTX.Net.Enums
     /// </summary>
     [JsonConverter(typeof(EnumConverter<WithdrawDepositStatus>))]
     public enum WithdrawDepositStatus
-	{
-		/// <summary>
-		/// Awaiting verification
-		/// </summary>
-		[Map("verifying")]
-		Verifying,
-		/// <summary>
-		/// Verification failed
-		/// </summary>
-		[Map("failed")]
-		Failed,
+    {
+        /// <summary>
+        /// Awaiting verification
+        /// </summary>
+        [Map("verifying")]
+        Verifying,
+        /// <summary>
+        /// Verification failed
+        /// </summary>
+        [Map("failed")]
+        Failed,
         /// <summary>
         /// Withdraw request submitted successfully
         /// </summary>
@@ -29,42 +29,42 @@ namespace HTX.Net.Enums
         /// Under examination for withdraw validation
         /// </summary>
         [Map("reexamine")]
-		Reexamine,
+        Reexamine,
         /// <summary>
         /// Withdraw canceled by user
         /// </summary>
         [Map("canceled")]
-		Canceled,
+        Canceled,
         /// <summary>
         /// Withdraw validation passed
         /// </summary>
         [Map("pass")]
-		Pass,
+        Pass,
         /// <summary>
         /// Withdraw validation rejected
         /// </summary>
         [Map("reject")]
-		Reject,
+        Reject,
         /// <summary>
         /// Withdraw is about to be released
         /// </summary>
         [Map("pre-transfer")]
-		PreTransfer,
+        PreTransfer,
         /// <summary>
         /// On-chain transfer initiated
         /// </summary>
         [Map("wallet-transfer")]
-		WalletTransfer,
+        WalletTransfer,
         /// <summary>
         /// Transfer rejected by chain
         /// </summary>
         [Map("wallet-reject")]
-		WalletReject,
+        WalletReject,
         /// <summary>
         /// On-chain transfer completed with one confirmation for withdraw or for at least one block for deposit
         /// </summary>
         [Map("confirmed")]
-		Confirmed,
+        Confirmed,
         /// <summary>
         /// On-chain transfer failed to get confirmation
         /// </summary>
@@ -74,26 +74,31 @@ namespace HTX.Net.Enums
         /// Withdraw terminated by system
         /// </summary>
         [Map("repealed")]
-		Repealed,
+        Repealed,
         /// <summary>
         /// On-chain transfer has not been received
         /// </summary>
         [Map("unknown")]
-		Unknown,
+        Unknown,
         /// <summary>
         /// On-chain transfer waits for first confirmation
         /// </summary>
         [Map("confirming")]
-		Confirming,
+        Confirming,
         /// <summary>
         /// Multiple on-chain confirmation happened
         /// </summary>
         [Map("safe")]
-		Safe,
+        Safe,
         /// <summary>
         /// Confirmed but currently in an orphan branch
         /// </summary>
         [Map("orphan")]
-        Orphan
+        Orphan,
+        /// <summary>
+        /// Waiting tiny amount
+        /// </summary>
+        [Map("waiting-tiny-amount")]
+        WaitingTinyAmount
     }
 }
