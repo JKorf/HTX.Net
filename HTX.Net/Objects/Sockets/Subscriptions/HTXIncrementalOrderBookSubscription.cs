@@ -33,11 +33,15 @@ namespace HTX.Net.Objects.Sockets.Subscriptions
             return new HTXUnsubscribeQuery(_topic, Authenticated, dataType: _snapshots ? null : "incremental");
         }
 
-        public CallResult DoHandleMessage(SocketConnection connection, DataEvent<HTXDataEvent<HTXIncrementalOrderBookUpdate>> message)
+        public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, HTXDataEvent<HTXIncrementalOrderBookUpdate> message)
         {
-            _handler.Invoke(message.As(message.Data.Data)
-                .WithStreamId(message.Data.Channel).WithUpdateType(message.Data.Data.Event == "snapshot" ? SocketUpdateType.Snapshot: SocketUpdateType.Update)
-                .WithDataTimestamp(message.Data.Timestamp));
+            _handler.Invoke(
+                new DataEvent<HTXIncrementalOrderBookUpdate>(message.Data, receiveTime, originalData)
+                    .WithUpdateType(message.Data.Event == "snapshot" ? SocketUpdateType.Snapshot : SocketUpdateType.Update)
+                    .WithDataTimestamp(message.Timestamp)
+                    .WithStreamId(message.Channel)
+                );
+
             return CallResult.SuccessResult;
         }
     }

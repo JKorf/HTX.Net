@@ -10,9 +10,9 @@ namespace HTX.Net.Objects.Sockets.Subscriptions
             MessageMatcher = MessageMatcher.Create<HTXSpotPingWrapper>("pingV2", HandleMessage);
         }
 
-        public CallResult HandleMessage(SocketConnection connection, DataEvent<HTXSpotPingWrapper> message)
+        public CallResult HandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, HTXSpotPingWrapper message)
         {
-            connection.Send(ExchangeHelpers.NextId(), new HTXSpotPongMessage() { Pong = new HTXSpotPingMessage { Ping = message.Data.Data.Ping } }, 1);
+            _ = connection.SendAsync(ExchangeHelpers.NextId(), new HTXSpotPongMessage() { Pong = new HTXSpotPingMessage { Ping = message.Data.Ping } }, 1);
             return CallResult.SuccessResult;
         }
     }

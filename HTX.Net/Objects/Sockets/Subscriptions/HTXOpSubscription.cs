@@ -9,9 +9,9 @@ namespace HTX.Net.Objects.Sockets.Subscriptions
     {
         private readonly SocketApiClient _client;
         private string _topic;
-        private Action<DataEvent<T>> _handler;
+        private Action<DateTime, string?, T> _handler;
 
-        public HTXOpSubscription(ILogger logger, SocketApiClient client, string listenId, string topic, Action<DataEvent<T>> handler, bool authenticated) : base(logger, authenticated)
+        public HTXOpSubscription(ILogger logger, SocketApiClient client, string listenId, string topic, Action<DateTime, string?, T> handler, bool authenticated) : base(logger, authenticated)
         {
             _client = client;
             _handler = handler;
@@ -28,11 +28,12 @@ namespace HTX.Net.Objects.Sockets.Subscriptions
             return new HTXOpQuery(_client, _topic, "unsub", Authenticated);
         }
 
-        public CallResult DoHandleMessage(SocketConnection connection, DataEvent<T> message)
+        public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, T message)
         {
-            _handler.Invoke(message.As(message.Data)
-                .WithUpdateType(SocketUpdateType.Update)
-                .WithStreamId(message.Data.Topic));
+            _handler.Invoke(receiveTime, originalData, message);
+            //_handler.Invoke(message.As(message.Data)
+            //    .WithUpdateType(SocketUpdateType.Update)
+            //    .WithStreamId(message.Data.Topic));
             return CallResult.SuccessResult;
         }
     }

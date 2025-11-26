@@ -25,6 +25,7 @@ namespace HTX.Net
             if (!request.Authenticated && !_signPublicRequests)
                 return;
 
+            request.QueryParameters ??= new Dictionary<string, object>();
             request.QueryParameters.Add("AccessKeyId", _credentials.Key);
             request.QueryParameters.Add("SignatureMethod", "HmacSHA256");
             request.QueryParameters.Add("SignatureVersion", 2);

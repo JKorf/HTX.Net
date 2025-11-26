@@ -10,9 +10,9 @@ namespace HTX.Net.Objects.Sockets.Subscriptions
             MessageMatcher = MessageMatcher.Create<HTXPingMessage>("pingV3", HandleMessage);
         }
 
-        public CallResult HandleMessage(SocketConnection connection, DataEvent<HTXPingMessage> message)
+        public CallResult HandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, HTXPingMessage message)
         {
-            connection.Send(ExchangeHelpers.NextId(), new HTXPongMessage() { Pong = message.Data.Ping }, 1);
+            _ = connection.SendAsync(ExchangeHelpers.NextId(), new HTXPongMessage() { Pong = message.Ping }, 1);
             return CallResult.SuccessResult;
         }
     }

@@ -10,7 +10,7 @@ namespace HTX.Net.Objects.Sockets.Subscriptions
             MessageMatcher = MessageMatcher.Create<HTXOpPingMessage>("close");
         }
 
-        public CallResult HandleMessage(SocketConnection connection, DataEvent<HTXOpPingMessage> message)
+        public CallResult HandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, HTXOpPingMessage message)
         {
             _ = connection.TriggerReconnectAsync();
             return CallResult.SuccessResult;

@@ -20,12 +20,12 @@ namespace HTX.Net.Objects.Sockets.Queries
             MessageMatcher = MessageMatcher.Create<HTXSocketAuthResponse>(request.Action + request.Channel, HandleMessage);
         }
 
-        public CallResult<HTXSocketAuthResponse> HandleMessage(SocketConnection connection, DataEvent<HTXSocketAuthResponse> message)
+        public CallResult<HTXSocketAuthResponse> HandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, HTXSocketAuthResponse message)
         {
-            if (message.Data.Code != 200)
-                return new CallResult<HTXSocketAuthResponse>(new ServerError(message.Data.Code, _client.GetErrorInfo(message.Data.Code, message.Data.Message!)));
+            if (message.Code != 200)
+                return new CallResult<HTXSocketAuthResponse>(new ServerError(message.Code, _client.GetErrorInfo(message.Code, message.Message!)), originalData);
 
-            return message.ToCallResult();
+            return new CallResult<HTXSocketAuthResponse>(message, originalData, null);
         }
     }
 }

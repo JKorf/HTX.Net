@@ -132,10 +132,10 @@
         <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApi.CreateAuthenticationProvider(CryptoExchange.Net.Authentication.ApiCredentials)">
             <inheritdoc />
         </member>
-        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApi.ParseErrorResponse(System.Int32,System.Collections.Generic.KeyValuePair{System.String,System.String[]}[],CryptoExchange.Net.Interfaces.IMessageAccessor,System.Exception)">
+        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApi.ParseErrorResponse(System.Int32,System.Net.Http.Headers.HttpResponseHeaders,CryptoExchange.Net.Interfaces.IMessageAccessor,System.Exception)">
             <inheritdoc />
         </member>
-        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApi.TryParseError(CryptoExchange.Net.Objects.RequestDefinition,System.Collections.Generic.KeyValuePair{System.String,System.String[]}[],CryptoExchange.Net.Interfaces.IMessageAccessor)">
+        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApi.TryParseError(CryptoExchange.Net.Objects.RequestDefinition,System.Net.Http.Headers.HttpResponseHeaders,CryptoExchange.Net.Interfaces.IMessageAccessor)">
             <inheritdoc />
         </member>
         <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApi.GetServerTimestampAsync">
@@ -453,6 +453,9 @@
         <member name="M:HTX.Net.Clients.SpotApi.HTXSocketClientSpotApi.PreprocessStreamMessage(CryptoExchange.Net.Sockets.SocketConnection,System.Net.WebSockets.WebSocketMessageType,System.ReadOnlyMemory{System.Byte})">
             <inheritdoc />
         </member>
+        <member name="M:HTX.Net.Clients.SpotApi.HTXSocketClientSpotApi.PreprocessStreamMessage(CryptoExchange.Net.Sockets.SocketConnection,System.Net.WebSockets.WebSocketMessageType,System.ReadOnlySpan{System.Byte})">
+            <inheritdoc />
+        </member>
         <member name="M:HTX.Net.Clients.SpotApi.HTXSocketClientSpotApi.CreateAuthenticationProvider(CryptoExchange.Net.Authentication.ApiCredentials)">
             <inheritdoc />
         </member>
@@ -552,10 +555,10 @@
         <member name="M:HTX.Net.Clients.UsdtFutures.HTXRestClientUsdtFuturesApi.CreateAuthenticationProvider(CryptoExchange.Net.Authentication.ApiCredentials)">
             <inheritdoc />
         </member>
-        <member name="M:HTX.Net.Clients.UsdtFutures.HTXRestClientUsdtFuturesApi.ParseErrorResponse(System.Int32,System.Collections.Generic.KeyValuePair{System.String,System.String[]}[],CryptoExchange.Net.Interfaces.IMessageAccessor,System.Exception)">
+        <member name="M:HTX.Net.Clients.UsdtFutures.HTXRestClientUsdtFuturesApi.ParseErrorResponse(System.Int32,System.Net.Http.Headers.HttpResponseHeaders,CryptoExchange.Net.Interfaces.IMessageAccessor,System.Exception)">
             <inheritdoc />
         </member>
-        <member name="M:HTX.Net.Clients.UsdtFutures.HTXRestClientUsdtFuturesApi.TryParseError(CryptoExchange.Net.Objects.RequestDefinition,System.Collections.Generic.KeyValuePair{System.String,System.String[]}[],CryptoExchange.Net.Interfaces.IMessageAccessor)">
+        <member name="M:HTX.Net.Clients.UsdtFutures.HTXRestClientUsdtFuturesApi.TryParseError(CryptoExchange.Net.Objects.RequestDefinition,System.Net.Http.Headers.HttpResponseHeaders,CryptoExchange.Net.Interfaces.IMessageAccessor)">
             <inheritdoc />
         </member>
         <member name="M:HTX.Net.Clients.UsdtFutures.HTXRestClientUsdtFuturesApi.GetServerTimestampAsync">
@@ -973,6 +976,9 @@
             <inheritdoc />
         </member>
         <member name="M:HTX.Net.Clients.UsdtFutures.HTXSocketClientUsdtFuturesApi.PreprocessStreamMessage(CryptoExchange.Net.Sockets.SocketConnection,System.Net.WebSockets.WebSocketMessageType,System.ReadOnlyMemory{System.Byte})">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.Clients.UsdtFutures.HTXSocketClientUsdtFuturesApi.PreprocessStreamMessage(CryptoExchange.Net.Sockets.SocketConnection,System.Net.WebSockets.WebSocketMessageType,System.ReadOnlySpan{System.Byte})">
             <inheritdoc />
         </member>
         <member name="M:HTX.Net.Clients.UsdtFutures.HTXSocketClientUsdtFuturesApi.GetListenerIdentifier(CryptoExchange.Net.Interfaces.IMessageAccessor)">
@@ -22426,6 +22432,9 @@
         </member>
         <member name="M:Microsoft.Extensions.Configuration.Binder.SourceGeneration.BindingExtensions.Bind_HTXOptions(Microsoft.Extensions.Configuration.IConfiguration,System.Object)">
             <summary>Attempts to bind the given object instance to configuration values by matching property names against configuration keys recursively.</summary>
+        </member>
+        <member name="M:Microsoft.Extensions.Configuration.Binder.SourceGeneration.BindingExtensions.TryGetConfigurationValue(Microsoft.Extensions.Configuration.IConfiguration,System.String,System.String@)">
+            <summary>Tries to get the configuration value for the specified key.</summary>
         </member>
         <member name="M:Microsoft.Extensions.Configuration.Binder.SourceGeneration.BindingExtensions.ValidateConfigurationKeys(System.Type,System.Lazy{System.Collections.Generic.HashSet{System.String}},Microsoft.Extensions.Configuration.IConfiguration,Microsoft.Extensions.Configuration.BinderOptions)">
             <summary>If required by the binder options, validates that there are no unknown keys in the input configuration object.</summary>

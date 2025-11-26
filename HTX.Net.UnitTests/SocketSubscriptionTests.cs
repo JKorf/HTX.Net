@@ -5,19 +5,29 @@ using System.Threading.Tasks;
 using HTX.Net.Objects.Models;
 using System.Collections.Generic;
 using HTX.Net.Objects.Models.Socket;
+using Microsoft.Extensions.Logging;
+using CryptoExchange.Net.Objects;
+using HTX.Net.Objects.Options;
+using Microsoft.Extensions.Options;
 
 namespace HTX.Net.UnitTests
 {
     [TestFixture]
     public class SocketSubscriptionTests
     {
-        [Test]
-        public async Task ValidateSpotSubscriptions()
+        [TestCase(false)]
+        [TestCase(true)]
+        public async Task ValidateSpotSubscriptions(bool useUpdatedDeserialization)
         {
-            var client = new HTXSocketClient(opts =>
+            var loggerFactory = new LoggerFactory();
+            loggerFactory.AddProvider(new TraceLoggerProvider());
+
+            var client = new HTXSocketClient(Options.Create<HTXSocketOptions>(new HTXSocketOptions
             {
-                opts.ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456");
-            });
+                OutputOriginalData = true,
+                UseUpdatedDeserialization = useUpdatedDeserialization,
+                ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456")
+            }), loggerFactory);
             var tester = new SocketSubscriptionValidator<HTXSocketClient>(client, "Subscriptions/Spot", "wss://api.huobi.pro", "data");
             await tester.ValidateAsync<HTXKline>((client, handler) => client.SpotApi.SubscribeToKlineUpdatesAsync("ETHUSDT", Enums.KlineInterval.OneDay, handler), "Klines", nestedJsonProperty: "tick");
             await tester.ValidateAsync<HTXOrderBook>((client, handler) => client.SpotApi.SubscribeToPartialOrderBookUpdates1SecondAsync("ETHUSDT", 0, handler), "OrderBook", nestedJsonProperty: "tick");
@@ -33,12 +43,14 @@ namespace HTX.Net.UnitTests
             await tester.ValidateAsync<HTXTradeUpdate>((client, handler) => client.SpotApi.SubscribeToOrderDetailsUpdatesAsync(null, handler), "OrderTrade", nestedJsonProperty: "data");
         }
 
-        [Test]
-        public async Task ValidateUsdtMarginSwapSubscriptions()
+        [TestCase(false)]
+        [TestCase(true)]
+        public async Task ValidateUsdtMarginSwapSubscriptions(bool useUpdatedDeserialization)
         {
             var client = new HTXSocketClient(opts =>
             {
                 opts.ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456");
+                opts.UseUpdatedDeserialization = useUpdatedDeserialization;
             });
             var tester = new SocketSubscriptionValidator<HTXSocketClient>(client, "Subscriptions/UsdtMarginSwap", "wss://api.huobi.pro");
             await tester.ValidateAsync<HTXSwapKline>((client, handler) => client.UsdtFuturesApi.SubscribeToKlineUpdatesAsync("ETH-USDT", Enums.KlineInterval.OneDay, handler), "Klines", nestedJsonProperty: "tick");

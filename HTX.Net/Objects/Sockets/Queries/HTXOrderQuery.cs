@@ -18,12 +18,12 @@ namespace HTX.Net.Objects.Sockets.Queries
             MessageMatcher = MessageMatcher.Create<HTXSocketOrderResponse<T>>(request.RequestId, HandleMessage);
         }
 
-        public CallResult<HTXSocketOrderResponse<T>> HandleMessage(SocketConnection connection, DataEvent<HTXSocketOrderResponse<T>> message)
+        public CallResult<HTXSocketOrderResponse<T>> HandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, HTXSocketOrderResponse<T> message)
         {
-            if (!message.Data.Success)
-                return new CallResult<HTXSocketOrderResponse<T>>(new ServerError(message.Data.ErrorCode!, _client.GetErrorInfo(message.Data.ErrorCode!, message.Data.ErrorMessage)));
+            if (!message.Success)
+                return new CallResult<HTXSocketOrderResponse<T>>(new ServerError(message.ErrorCode!, _client.GetErrorInfo(message.ErrorCode!, message.ErrorMessage)));
 
-            return message.ToCallResult();
+            return new CallResult<HTXSocketOrderResponse<T>>(message, originalData, null);
         }
     }
 }

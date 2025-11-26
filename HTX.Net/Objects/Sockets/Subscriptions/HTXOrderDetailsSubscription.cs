@@ -42,15 +42,27 @@ namespace HTX.Net.Objects.Sockets.Subscriptions
             return new HTXAuthQuery(_client, "unsub", _topic, Authenticated);
         }
 
-        public CallResult DoHandleMessage(SocketConnection connection, DataEvent<HTXDataEvent<HTXOrderCancelationUpdate>> message)
+        public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, HTXDataEvent<HTXOrderCancelationUpdate> message)
         {
-            _onOrderCancel?.Invoke(message.As(message.Data.Data, message.Data.Channel, message.Data.Data.Symbol, SocketUpdateType.Update).WithDataTimestamp(message.Data.Timestamp));
+            _onOrderCancel?.Invoke(
+                new DataEvent<HTXOrderCancelationUpdate>(message.Data, receiveTime, originalData)
+                    .WithStreamId(message.Channel)
+                    .WithSymbol(message.Data.Symbol)
+                    .WithUpdateType(SocketUpdateType.Update)
+                    .WithDataTimestamp(message.Timestamp)
+                );
             return CallResult.SuccessResult;
         }
 
-        public CallResult DoHandleMessage(SocketConnection connection, DataEvent<HTXDataEvent<HTXTradeUpdate>> message)
+        public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, HTXDataEvent<HTXTradeUpdate> message)
         {
-            _onOrderMatch?.Invoke(message.As(message.Data.Data, message.Data.Channel, message.Data.Data.Symbol, SocketUpdateType.Update).WithDataTimestamp(message.Data.Timestamp));
+            _onOrderMatch?.Invoke(
+                new DataEvent<HTXTradeUpdate>(message.Data, receiveTime, originalData)
+                    .WithStreamId(message.Channel)
+                    .WithSymbol(message.Data.Symbol)
+                    .WithUpdateType(SocketUpdateType.Update)
+                    .WithDataTimestamp(message.Timestamp)
+                );
             return CallResult.SuccessResult;
         }
     }

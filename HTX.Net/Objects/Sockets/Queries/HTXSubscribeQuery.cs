@@ -15,12 +15,12 @@ namespace HTX.Net.Objects.Sockets.Queries
             MessageMatcher = MessageMatcher.Create<HTXSocketResponse>(((HTXSubscribeRequest)Request).Id, HandleMessage);
         }
 
-        public CallResult<HTXSocketResponse> HandleMessage(SocketConnection connection, DataEvent<HTXSocketResponse> message)
+        public CallResult<HTXSocketResponse> HandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, HTXSocketResponse message)
         {
-            if (message.Data.Status != "ok")
-                return new CallResult<HTXSocketResponse>(new ServerError(message.Data.ErrorCode!, _client.GetErrorInfo(message.Data.ErrorCode!, message.Data.ErrorMessage)));
+            if (message.Status != "ok")
+                return new CallResult<HTXSocketResponse>(new ServerError(message.ErrorCode!, _client.GetErrorInfo(message.ErrorCode!, message.ErrorMessage)));
 
-            return message.ToCallResult();
+            return new CallResult<HTXSocketResponse>(message, originalData, null);
         }
     }
 }

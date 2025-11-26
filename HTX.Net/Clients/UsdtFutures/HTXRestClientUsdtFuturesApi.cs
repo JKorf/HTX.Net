@@ -1,11 +1,14 @@
 ﻿using CryptoExchange.Net.Clients;
 using CryptoExchange.Net.Converters.MessageParsing;
+using CryptoExchange.Net.Converters.MessageParsing.DynamicConverters;
 using CryptoExchange.Net.Objects.Errors;
 using CryptoExchange.Net.SharedApis;
+using HTX.Net.Clients.MessageHandlers;
 using HTX.Net.Interfaces.Clients.SpotApi;
 using HTX.Net.Interfaces.Clients.UsdtFuturesApi;
 using HTX.Net.Objects.Internal;
 using HTX.Net.Objects.Options;
+using System.Net.Http.Headers;
 
 namespace HTX.Net.Clients.UsdtFutures
 {
@@ -19,6 +22,7 @@ namespace HTX.Net.Clients.UsdtFutures
 
         protected override ErrorMapping ErrorMapping => HTXErrors.FuturesMapping;
 
+        protected override IRestMessageHandler MessageHandler => new HTXRestMessageHandler(HTXErrors.FuturesMapping);
 
         /// <inheritdoc />
         public string ExchangeName => "HTX";
@@ -114,7 +118,7 @@ namespace HTX.Net.Clients.UsdtFutures
         }
 
         /// <inheritdoc />
-        protected override Error ParseErrorResponse(int httpStatusCode, KeyValuePair<string, string[]>[] responseHeaders, IMessageAccessor accessor, Exception? exception)
+        protected override Error ParseErrorResponse(int httpStatusCode, HttpResponseHeaders responseHeaders, IMessageAccessor accessor, Exception? exception)
         {
             if (!accessor.IsValid)
                 return new ServerError(ErrorInfo.Unknown, exception: exception);
@@ -130,7 +134,7 @@ namespace HTX.Net.Clients.UsdtFutures
         }
 
         /// <inheritdoc />
-        protected override Error? TryParseError(RequestDefinition request, KeyValuePair<string, string[]>[] responseHeaders, IMessageAccessor accessor)
+        protected override Error? TryParseError(RequestDefinition request, HttpResponseHeaders responseHeaders, IMessageAccessor accessor)
         {
             if (!accessor.IsValid)
                 return new ServerError(ErrorInfo.Unknown);

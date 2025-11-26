@@ -10,9 +10,9 @@ namespace HTX.Net.Objects.Sockets.Subscriptions
     {
         private readonly SocketApiClient _client;
         private string _topic;
-        private Action<DataEvent<T>> _handler;
+        private Action<DateTime, string?, HTXDataEvent<T>> _handler;
 
-        public HTXSubscription(ILogger logger, SocketApiClient client, string topic, Action<DataEvent<T>> handler, bool authenticated) : base(logger, authenticated)
+        public HTXSubscription(ILogger logger, SocketApiClient client, string topic, Action<DateTime, string?, HTXDataEvent<T>> handler, bool authenticated) : base(logger, authenticated)
         {
             _client = client;
             _handler = handler;
@@ -29,9 +29,10 @@ namespace HTX.Net.Objects.Sockets.Subscriptions
             return new HTXUnsubscribeQuery(_topic, Authenticated);
         }
 
-        public CallResult DoHandleMessage(SocketConnection connection, DataEvent<HTXDataEvent<T>> message)
+        public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, HTXDataEvent<T> message)
         {
-            _handler.Invoke(message.As(message.Data.Data).WithStreamId(message.Data.Channel).WithDataTimestamp(message.Data.Timestamp));
+            _handler.Invoke(receiveTime, originalData, message);
+            //_handler.Invoke(message.As(message.Data.Data).WithStreamId(message.Data.Channel).WithDataTimestamp(message.Data.Timestamp));
             return CallResult.SuccessResult;
         }
     }

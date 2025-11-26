@@ -31,9 +31,13 @@ namespace HTX.Net.Objects.Sockets.Subscriptions
             return new HTXAuthQuery(_client, "unsub", _topic, Authenticated);
         }
 
-        public CallResult DoHandleMessage(SocketConnection connection, DataEvent<HTXDataEvent<HTXAccountUpdate>> message)
+        public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, HTXDataEvent<HTXAccountUpdate> message)
         {
-            _handler.Invoke(message.As(message.Data.Data, message.Data.Channel, null, SocketUpdateType.Update).WithDataTimestamp(message.Data.Data.ChangeTime));
+            _handler.Invoke(
+                new DataEvent<HTXAccountUpdate>(message.Data, receiveTime, originalData)
+                    .WithStreamId(message.Channel)
+                    .WithDataTimestamp(message.Data.ChangeTime));
+
             return CallResult.SuccessResult;
         }
     }
