@@ -11,7 +11,7 @@ namespace HTX.Net.Clients.MessageHandlers
     {
         public override JsonSerializerOptions Options { get; } = SerializerOptions.WithConverters(HTXExchange._serializerContext);
 
-        protected override MessageEvaluator[] MessageEvaluators { get; } = [
+        protected override MessageEvaluator[] TypeEvaluators { get; } = [
 
             new MessageEvaluator {
                 Priority = 1,
