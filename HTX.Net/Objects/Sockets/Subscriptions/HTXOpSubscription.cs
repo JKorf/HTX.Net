@@ -16,7 +16,9 @@ namespace HTX.Net.Objects.Sockets.Subscriptions
             _client = client;
             _handler = handler;
             _topic = topic;
+
             MessageMatcher = MessageMatcher.Create<T>(listenId, DoHandleMessage);
+            MessageRouter = MessageRouter.Create<T>(listenId, DoHandleMessage);
         }
 
         protected override Query? GetSubQuery(SocketConnection connection)

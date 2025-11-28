@@ -8,6 +8,7 @@ namespace HTX.Net.Objects.Sockets.Subscriptions
         public HTXPingSubscription(ILogger logger) : base(logger, false)
         {
             MessageMatcher = MessageMatcher.Create<HTXPingMessage>("pingV3", HandleMessage);
+            MessageRouter = MessageRouter.Create<HTXPingMessage>("pingV3", HandleMessage);
         }
 
         public CallResult HandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, HTXPingMessage message)

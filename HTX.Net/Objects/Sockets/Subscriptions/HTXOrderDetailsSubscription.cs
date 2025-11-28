@@ -31,6 +31,10 @@ namespace HTX.Net.Objects.Sockets.Subscriptions
                 new MessageHandlerLink<HTXDataEvent<HTXTradeUpdate>>(_topic + "trade", DoHandleMessage),
                 new MessageHandlerLink<HTXDataEvent<HTXOrderCancelationUpdate>>(_topic + "cancellation", DoHandleMessage)
                 ]);
+            MessageRouter = MessageRouter.Create([
+                new MessageRoute<HTXDataEvent<HTXTradeUpdate>>(_topic + "trade", (string?)null, DoHandleMessage),
+                new MessageRoute<HTXDataEvent<HTXOrderCancelationUpdate>>(_topic + "cancellation", (string?)null, DoHandleMessage)
+                ]);
         }
 
         protected override Query? GetSubQuery(SocketConnection connection)

@@ -43,6 +43,14 @@ namespace HTX.Net.Objects.Sockets.Subscriptions
                 new MessageHandlerLink<HTXDataEvent<HTXMatchedOrderUpdate>>(_topic + "trade", DoHandleMessage),
                 new MessageHandlerLink<HTXDataEvent<HTXCanceledOrderUpdate>>(_topic + "cancellation", DoHandleMessage)
                 ]);
+
+            MessageRouter = MessageRouter.Create([
+                new MessageRoute<HTXDataEvent<HTXTriggerFailureOrderUpdate>>(_topic + "trigger", (string?)null, DoHandleMessage),
+                new MessageRoute<HTXDataEvent<HTXOrderUpdate>>(_topic + "deletion",  (string?)null,DoHandleMessage),
+                new MessageRoute<HTXDataEvent<HTXSubmittedOrderUpdate>>(_topic + "creation",  (string?)null,DoHandleMessage),
+                new MessageRoute<HTXDataEvent<HTXMatchedOrderUpdate>>(_topic + "trade",  (string?)null,DoHandleMessage),
+                new MessageRoute<HTXDataEvent<HTXCanceledOrderUpdate>>(_topic + "cancellation",  (string?)null,DoHandleMessage)
+                ]);
         }
 
         protected override Query? GetSubQuery(SocketConnection connection)
