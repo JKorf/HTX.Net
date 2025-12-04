@@ -16,7 +16,7 @@ namespace HTX.Net.Objects.Sockets.Queries
         {
             _client = client;
             MessageMatcher = MessageMatcher.Create<HTXSocketOrderResponse<T>>(request.RequestId, HandleMessage);
-            MessageRouter = MessageRouter.Create<HTXSocketOrderResponse<T>>(request.RequestId, HandleMessage);
+            MessageRouter = MessageRouter.CreateWithoutTopicFilter<HTXSocketOrderResponse<T>>(request.RequestId, HandleMessage);
         }
 
         public CallResult<HTXSocketOrderResponse<T>> HandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, HTXSocketOrderResponse<T> message)

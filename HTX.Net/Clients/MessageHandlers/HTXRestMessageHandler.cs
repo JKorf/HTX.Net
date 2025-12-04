@@ -41,9 +41,9 @@ namespace HTX.Net.Clients.MessageHandlers
             return null;
         }
 
-        public override async ValueTask<Error> ParseErrorResponse(int httpStatusCode, object? state, HttpResponseHeaders responseHeaders, Stream responseStream)
+        public override async ValueTask<Error> ParseErrorResponse(int httpStatusCode, HttpResponseHeaders responseHeaders, Stream responseStream)
         {
-            var (parseError, document) = await GetJsonDocument(responseStream, state).ConfigureAwait(false);
+            var (parseError, document) = await GetJsonDocument(responseStream).ConfigureAwait(false);
             if (parseError != null)
                 return parseError;
 

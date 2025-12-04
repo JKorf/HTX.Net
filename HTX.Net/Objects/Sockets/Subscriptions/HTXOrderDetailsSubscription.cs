@@ -8,7 +8,7 @@ using HTX.Net.Objects.Sockets.Queries;
 
 namespace HTX.Net.Objects.Sockets.Subscriptions
 {
-    internal class HTXOrderDetailsSubscription : Subscription<HTXSocketAuthResponse, HTXSocketAuthResponse>
+    internal class HTXOrderDetailsSubscription : Subscription
     {
         private readonly SocketApiClient _client;
         private string _topic;
@@ -32,8 +32,8 @@ namespace HTX.Net.Objects.Sockets.Subscriptions
                 new MessageHandlerLink<HTXDataEvent<HTXOrderCancelationUpdate>>(_topic + "cancellation", DoHandleMessage)
                 ]);
             MessageRouter = MessageRouter.Create([
-                new MessageRoute<HTXDataEvent<HTXTradeUpdate>>(_topic + "trade", (string?)null, DoHandleMessage),
-                new MessageRoute<HTXDataEvent<HTXOrderCancelationUpdate>>(_topic + "cancellation", (string?)null, DoHandleMessage)
+                MessageRoute<HTXDataEvent<HTXTradeUpdate>>.CreateWithoutTopicFilter(_topic + "trade", DoHandleMessage),
+                MessageRoute<HTXDataEvent<HTXOrderCancelationUpdate>>.CreateWithoutTopicFilter(_topic + "cancellation", DoHandleMessage)
                 ]);
         }
 

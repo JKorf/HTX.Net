@@ -7,7 +7,7 @@ using HTX.Net.Objects.Sockets.Queries;
 
 namespace HTX.Net.Objects.Sockets.Subscriptions
 {
-    internal class HTXAccountSubscription : Subscription<HTXSocketAuthResponse, HTXSocketAuthResponse>
+    internal class HTXAccountSubscription : Subscription
     {
         private readonly SocketApiClient _client;
         private string _topic;
@@ -20,7 +20,7 @@ namespace HTX.Net.Objects.Sockets.Subscriptions
             _topic = topic;
 
             MessageMatcher = MessageMatcher.Create<HTXDataEvent<HTXAccountUpdate>>(topic, DoHandleMessage);
-            MessageRouter = MessageRouter.Create<HTXDataEvent<HTXAccountUpdate>>(topic, DoHandleMessage);
+            MessageRouter = MessageRouter.CreateWithoutTopicFilter<HTXDataEvent<HTXAccountUpdate>>(topic, DoHandleMessage);
         }
 
         protected override Query? GetSubQuery(SocketConnection connection)

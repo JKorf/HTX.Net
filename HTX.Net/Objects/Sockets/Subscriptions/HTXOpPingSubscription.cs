@@ -7,8 +7,8 @@ namespace HTX.Net.Objects.Sockets.Subscriptions
     {
         public HTXOpPingSubscription(ILogger logger) : base(logger, false)
         {
-            MessageMatcher = MessageMatcher.Create<HTXOpPingMessage>("ping");
-            MessageRouter = MessageRouter.Create<HTXOpPingMessage>("ping");
+            MessageMatcher = MessageMatcher.Create<HTXOpPingMessage>("ping", HandleMessage);
+            MessageRouter = MessageRouter.CreateWithoutTopicFilter<HTXOpPingMessage>("ping", HandleMessage);
         }
 
         public CallResult HandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, HTXOpPingMessage message)

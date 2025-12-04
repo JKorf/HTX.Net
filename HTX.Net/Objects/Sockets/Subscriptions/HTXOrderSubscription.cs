@@ -8,7 +8,7 @@ using HTX.Net.Objects.Sockets.Queries;
 
 namespace HTX.Net.Objects.Sockets.Subscriptions
 {
-    internal class HTXOrderSubscription : Subscription<HTXSocketAuthResponse, HTXSocketAuthResponse>
+    internal class HTXOrderSubscription : Subscription
     {
         private readonly SocketApiClient _client;
         private string _topic;
@@ -45,11 +45,11 @@ namespace HTX.Net.Objects.Sockets.Subscriptions
                 ]);
 
             MessageRouter = MessageRouter.Create([
-                new MessageRoute<HTXDataEvent<HTXTriggerFailureOrderUpdate>>(_topic + "trigger", (string?)null, DoHandleMessage),
-                new MessageRoute<HTXDataEvent<HTXOrderUpdate>>(_topic + "deletion",  (string?)null,DoHandleMessage),
-                new MessageRoute<HTXDataEvent<HTXSubmittedOrderUpdate>>(_topic + "creation",  (string?)null,DoHandleMessage),
-                new MessageRoute<HTXDataEvent<HTXMatchedOrderUpdate>>(_topic + "trade",  (string?)null,DoHandleMessage),
-                new MessageRoute<HTXDataEvent<HTXCanceledOrderUpdate>>(_topic + "cancellation",  (string?)null,DoHandleMessage)
+                MessageRoute<HTXDataEvent<HTXTriggerFailureOrderUpdate>>.CreateWithoutTopicFilter(_topic + "trigger", DoHandleMessage),
+                MessageRoute<HTXDataEvent<HTXOrderUpdate>>.CreateWithoutTopicFilter(_topic + "deletion", DoHandleMessage),
+                MessageRoute<HTXDataEvent<HTXSubmittedOrderUpdate>>.CreateWithoutTopicFilter(_topic + "creation", DoHandleMessage),
+                MessageRoute<HTXDataEvent<HTXMatchedOrderUpdate>>.CreateWithoutTopicFilter(_topic + "trade", DoHandleMessage),
+                MessageRoute<HTXDataEvent<HTXCanceledOrderUpdate>>.CreateWithoutTopicFilter(_topic + "cancellation", DoHandleMessage)
                 ]);
         }
 

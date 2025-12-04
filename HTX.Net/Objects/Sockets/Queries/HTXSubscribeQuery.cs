@@ -13,7 +13,7 @@ namespace HTX.Net.Objects.Sockets.Queries
         {
             _client = client;
             MessageMatcher = MessageMatcher.Create<HTXSocketResponse>(((HTXSubscribeRequest)Request).Id, HandleMessage);
-            MessageRouter = MessageRouter.Create<HTXSocketResponse>(((HTXSubscribeRequest)Request).Id, HandleMessage);
+            MessageRouter = MessageRouter.CreateWithoutTopicFilter<HTXSocketResponse>(((HTXSubscribeRequest)Request).Id, HandleMessage);
         }
 
         public CallResult<HTXSocketResponse> HandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, HTXSocketResponse message)

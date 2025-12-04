@@ -5,7 +5,7 @@ using HTX.Net.Objects.Sockets.Queries;
 
 namespace HTX.Net.Objects.Sockets.Subscriptions
 {
-    internal class HTXOpSubscription<T> : Subscription<HTXOpResponse, HTXOpResponse> where T: HTXOpMessage
+    internal class HTXOpSubscription<T> : Subscription where T: HTXOpMessage
     {
         private readonly SocketApiClient _client;
         private string _topic;
@@ -18,7 +18,7 @@ namespace HTX.Net.Objects.Sockets.Subscriptions
             _topic = topic;
 
             MessageMatcher = MessageMatcher.Create<T>(listenId, DoHandleMessage);
-            MessageRouter = MessageRouter.Create<T>(listenId, DoHandleMessage);
+            MessageRouter = MessageRouter.CreateWithoutTopicFilter<T>(listenId, DoHandleMessage);
         }
 
         protected override Query? GetSubQuery(SocketConnection connection)
