@@ -11,28 +11,25 @@ namespace HTX.Net.Clients.MessageHandlers
     {
         public override JsonSerializerOptions Options { get; } = SerializerOptions.WithConverters(HTXExchange._serializerContext);
 
-        protected override MessageEvaluator[] TypeEvaluators { get; } = [
+        protected override MessageTypeDefinition[] TypeEvaluators { get; } = [
 
-            new MessageEvaluator {
-                Priority = 1,
+            new MessageTypeDefinition {
                 ForceIfFound = true,
                 Fields = [
                     new PropertyFieldReference("id"),
                 ],
-                IdentifyMessageCallback = x => x.FieldValue("id")!
+                TypeIdentifierCallback = x => x.FieldValue("id")!
             },
 
-            new MessageEvaluator {
-                Priority = 2,
+            new MessageTypeDefinition {
                 ForceIfFound = true,
                 Fields = [
                     new PropertyFieldReference("cid"),
                 ],
-                IdentifyMessageCallback = x => x.FieldValue("cid")!
+                TypeIdentifierCallback = x => x.FieldValue("cid")!
             },
 
-            new MessageEvaluator {
-                Priority = 3,
+            new MessageTypeDefinition {
                 ForceIfFound = true,
                 Fields = [
                     new PropertyFieldReference("ping"),
@@ -40,38 +37,34 @@ namespace HTX.Net.Clients.MessageHandlers
                 StaticIdentifier = "pingV3"
             },
 
-            new MessageEvaluator {
-                Priority = 4,
+            new MessageTypeDefinition {
                 Fields = [
-                    new PropertyFieldReference("action") { Constraint = x => x!.Equals("ping", StringComparison.Ordinal) },
+                    new PropertyFieldReference("action").WithEqualContstraint("ping"),
                 ],
                 StaticIdentifier = "pingV2"
             },
 
-            new MessageEvaluator {
-                Priority = 5,
+            new MessageTypeDefinition {
                 Fields = [
                     new PropertyFieldReference("ch"),
-                    new PropertyFieldReference("action") { Constraint = x => x != null && !x.Equals("push", StringComparison.Ordinal) }
+                    new PropertyFieldReference("action").WithNotEqualContstraint("push")
                 ],
-                IdentifyMessageCallback = x => $"{x.FieldValue("action")}{x.FieldValue("ch")}"
+                TypeIdentifierCallback = x => $"{x.FieldValue("action")}{x.FieldValue("ch")}"
             },
 
-            new MessageEvaluator {
-                Priority = 6,
+            new MessageTypeDefinition {
                 Fields = [
-                    new PropertyFieldReference("ch") { Constraint = x => x!.StartsWith("trade.clearing") || x.StartsWith("orders#") },
+                    new PropertyFieldReference("ch").WithStartsWithContstraints("trade.clearing", "orders#"),
                     new PropertyFieldReference("eventType") { Depth = 2 } 
                 ],
-                IdentifyMessageCallback = x => $"{x.FieldValue("ch")}{x.FieldValue("eventType")}"
+                TypeIdentifierCallback = x => $"{x.FieldValue("ch")}{x.FieldValue("eventType")}"
             },
 
-            new MessageEvaluator {
-                Priority = 7,
+            new MessageTypeDefinition {
                 Fields = [
                     new PropertyFieldReference("ch"),
                 ],
-                IdentifyMessageCallback = x => x.FieldValue("ch")!
+                TypeIdentifierCallback = x => x.FieldValue("ch")!
             },
         ];
     }

@@ -17,6 +17,26 @@ namespace HTX.Net.UnitTests
     {
         [TestCase(false)]
         [TestCase(true)]
+        public async Task ValidateConcurrentSpotSubscriptions(bool newDeserialization)
+        {
+            var logger = new LoggerFactory();
+            logger.AddProvider(new TraceLoggerProvider());
+
+            var client = new HTXSocketClient(Options.Create(new HTXSocketOptions
+            {
+                OutputOriginalData = true,
+                UseUpdatedDeserialization = newDeserialization
+            }), logger);
+
+            var tester = new SocketSubscriptionValidator<HTXSocketClient>(client, "Subscriptions/Spot", "wss://api.huobi.pro", "data");
+            await tester.ValidateConcurrentAsync<HTXKline>(
+                (client, handler) => client.SpotApi.SubscribeToKlineUpdatesAsync("ETHUSDT", Enums.KlineInterval.OneDay, handler),
+                (client, handler) => client.SpotApi.SubscribeToKlineUpdatesAsync("ETHUSDT", Enums.KlineInterval.OneHour, handler),
+                "Concurrent");
+        }
+
+        [TestCase(false)]
+        [TestCase(true)]
         public async Task ValidateSpotSubscriptions(bool useUpdatedDeserialization)
         {
             var loggerFactory = new LoggerFactory();
@@ -41,6 +61,26 @@ namespace HTX.Net.UnitTests
             await tester.ValidateAsync<HTXSubmittedOrderUpdate>((client, handler) => client.SpotApi.SubscribeToOrderUpdatesAsync(null, handler), "Order1", nestedJsonProperty: "data");
             await tester.ValidateAsync<HTXAccountUpdate>((client, handler) => client.SpotApi.SubscribeToAccountUpdatesAsync(handler, null), "Account", nestedJsonProperty: "data");
             await tester.ValidateAsync<HTXTradeUpdate>((client, handler) => client.SpotApi.SubscribeToOrderDetailsUpdatesAsync(null, handler), "OrderTrade", nestedJsonProperty: "data");
+        }
+
+        [TestCase(false)]
+        [TestCase(true)]
+        public async Task ValidateConcurrentUsdtMarginSwapSubscriptions(bool newDeserialization)
+        {
+            var logger = new LoggerFactory();
+            logger.AddProvider(new TraceLoggerProvider());
+
+            var client = new HTXSocketClient(Options.Create(new HTXSocketOptions
+            {
+                OutputOriginalData = true,
+                UseUpdatedDeserialization = newDeserialization
+            }), logger);
+
+            var tester = new SocketSubscriptionValidator<HTXSocketClient>(client, "Subscriptions/UsdtMarginSwap", "wss://api.huobi.pro", "data");
+            await tester.ValidateConcurrentAsync<HTXSwapKline>(
+                (client, handler) => client.UsdtFuturesApi.SubscribeToKlineUpdatesAsync("ETH-USDT", Enums.KlineInterval.OneDay, handler),
+                (client, handler) => client.UsdtFuturesApi.SubscribeToKlineUpdatesAsync("ETH-USDT", Enums.KlineInterval.OneHour, handler),
+                "Concurrent");
         }
 
         [TestCase(false)]

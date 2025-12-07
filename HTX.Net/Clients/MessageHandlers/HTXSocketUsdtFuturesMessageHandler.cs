@@ -9,7 +9,7 @@ namespace HTX.Net.Clients.MessageHandlers
 {
     internal class HTXSocketUsdtFuturesMessageHandler : JsonSocketMessageHandler
     {
-        private static readonly HashSet<string> _opStandalone = [
+        private static readonly HashSet<string?> _opStandalone = [
             "ping",
             "close",
             "auth"
@@ -33,28 +33,25 @@ namespace HTX.Net.Clients.MessageHandlers
 
         public override JsonSerializerOptions Options { get; } = SerializerOptions.WithConverters(HTXExchange._serializerContext);
 
-        protected override MessageEvaluator[] TypeEvaluators { get; } = [
+        protected override MessageTypeDefinition[] TypeEvaluators { get; } = [
 
-            new MessageEvaluator {
-                Priority = 1,
+            new MessageTypeDefinition {
                 ForceIfFound = true,
                 Fields = [
                     new PropertyFieldReference("id"),
                 ],
-                IdentifyMessageCallback = x => x.FieldValue("id")!
+                TypeIdentifierCallback = x => x.FieldValue("id")!
             },
 
-            new MessageEvaluator {
-                Priority = 2,
+            new MessageTypeDefinition {
                 ForceIfFound = true,
                 Fields = [
                     new PropertyFieldReference("cid"),
                 ],
-                IdentifyMessageCallback = x => x.FieldValue("cid")!
+                TypeIdentifierCallback = x => x.FieldValue("cid")!
             },
 
-            new MessageEvaluator {
-                Priority = 3,
+            new MessageTypeDefinition {
                 ForceIfFound = true,
                 Fields = [
                     new PropertyFieldReference("ping"),
@@ -62,29 +59,25 @@ namespace HTX.Net.Clients.MessageHandlers
                 StaticIdentifier = "pingV3"
             },
 
-            new MessageEvaluator {
-                Priority = 4,
+            new MessageTypeDefinition {
                 Fields = [
-                    new PropertyFieldReference("op") { Constraint = x => _opStandalone.Contains(x!) },
+                    new PropertyFieldReference("op").WithFilterContstraint(_opStandalone),
                 ],
-                IdentifyMessageCallback = x => x.FieldValue("op")!
+                TypeIdentifierCallback = x => x.FieldValue("op")!
             },
 
-            new MessageEvaluator {
-                Priority = 5,
+            new MessageTypeDefinition {
                 Fields = [
                     new PropertyFieldReference("ch"),
-                    new PropertyFieldReference("action") { Constraint = x => x != null && !x.Equals("push", StringComparison.Ordinal) },
+                    new PropertyFieldReference("action").WithNotEqualContstraint("push"),
                 ],
-                IdentifyMessageCallback = x => x.FieldValue("action") + x.FieldValue("ch")
+                TypeIdentifierCallback = x => x.FieldValue("action") + x.FieldValue("ch")
             },
 
-            new MessageEvaluator {
-                Priority = 6,
+            new MessageTypeDefinition {
                 Fields = [
-                    new PropertyFieldReference("topic") 
-                    { 
-                        Constraint = x =>
+                    new PropertyFieldReference("topic")
+                        .WithCustomContstraint(x =>
                         {
                             foreach(var item in _topicEndsWithReplacements){
                                 if (x!.EndsWith(item.Key))
@@ -98,9 +91,9 @@ namespace HTX.Net.Clients.MessageHandlers
 
                             return false;
                         }
-                    },
+                    )
                 ],
-                IdentifyMessageCallback = x =>
+                TypeIdentifierCallback = x =>
                 {
                     var value = x.FieldValue("topic");
                     foreach(var item in _topicEndsWithReplacements){
@@ -117,20 +110,18 @@ namespace HTX.Net.Clients.MessageHandlers
                 }
             },
 
-            new MessageEvaluator {
-                Priority = 7,
+            new MessageTypeDefinition {
                 Fields = [
                     new PropertyFieldReference("topic"),
                 ],
-                IdentifyMessageCallback = x => x.FieldValue("topic")!
+                TypeIdentifierCallback = x => x.FieldValue("topic")!
             },
 
-            new MessageEvaluator {
-                Priority = 8,
+            new MessageTypeDefinition {
                 Fields = [
                     new PropertyFieldReference("ch"),
                 ],
-                IdentifyMessageCallback = x => x.FieldValue("ch")!
+                TypeIdentifierCallback = x => x.FieldValue("ch")!
             },
         ];
     }

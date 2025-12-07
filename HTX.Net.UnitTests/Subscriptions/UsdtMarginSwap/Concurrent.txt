@@ -1,0 +1,7 @@
+>1 { "sub": "market.ETH-USDT.kline.1day", "id": "|*|" }
+>2 { "sub": "market.ETH-USDT.kline.60min", "id": "|*|" }
+<1 { "id": "|id|", "status": "ok", "subbed": "market.ETH-USDT.kline.1day", "ts": 1489474081631 }
+<2 { "id": "|id|", "status": "ok", "subbed": "market.ETH-USDT.kline.60min", "ts": 1489474081631 }
+=1 { "ch": "market.ETH-USDT.kline.60min", "ts": 1603707124366, "tick": { "id": 1603707120 }}
+=2 { "ch": "market.ETH-USDT.kline.1day", "ts": 1603707124366, "tick": { "id": 1603707120 }}
+
