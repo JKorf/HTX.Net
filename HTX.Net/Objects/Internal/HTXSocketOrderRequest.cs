@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace HTX.Net.Objects.Internal
+﻿namespace HTX.Net.Objects.Internal
 {
     internal class HTXSocketOrderRequest<T>
     {

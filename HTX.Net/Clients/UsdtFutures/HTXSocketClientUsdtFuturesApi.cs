@@ -5,6 +5,7 @@ using CryptoExchange.Net.Objects.Errors;
 using CryptoExchange.Net.Objects.Sockets;
 using CryptoExchange.Net.SharedApis;
 using CryptoExchange.Net.Sockets;
+using CryptoExchange.Net.Sockets.Default;
 using HTX.Net.Clients.MessageHandlers;
 using HTX.Net.Enums;
 using HTX.Net.Interfaces.Clients.UsdtFuturesApi;

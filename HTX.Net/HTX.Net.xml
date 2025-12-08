@@ -450,16 +450,16 @@
         <member name="M:HTX.Net.Clients.SpotApi.HTXSocketClientSpotApi.GetListenerIdentifier(CryptoExchange.Net.Interfaces.IMessageAccessor)">
             <inheritdoc />
         </member>
-        <member name="M:HTX.Net.Clients.SpotApi.HTXSocketClientSpotApi.PreprocessStreamMessage(CryptoExchange.Net.Sockets.SocketConnection,System.Net.WebSockets.WebSocketMessageType,System.ReadOnlyMemory{System.Byte})">
+        <member name="M:HTX.Net.Clients.SpotApi.HTXSocketClientSpotApi.PreprocessStreamMessage(CryptoExchange.Net.Sockets.Default.SocketConnection,System.Net.WebSockets.WebSocketMessageType,System.ReadOnlyMemory{System.Byte})">
             <inheritdoc />
         </member>
-        <member name="M:HTX.Net.Clients.SpotApi.HTXSocketClientSpotApi.PreprocessStreamMessage(CryptoExchange.Net.Sockets.SocketConnection,System.Net.WebSockets.WebSocketMessageType,System.ReadOnlySpan{System.Byte})">
+        <member name="M:HTX.Net.Clients.SpotApi.HTXSocketClientSpotApi.PreprocessStreamMessage(CryptoExchange.Net.Sockets.Default.SocketConnection,System.Net.WebSockets.WebSocketMessageType,System.ReadOnlySpan{System.Byte})">
             <inheritdoc />
         </member>
         <member name="M:HTX.Net.Clients.SpotApi.HTXSocketClientSpotApi.CreateAuthenticationProvider(CryptoExchange.Net.Authentication.ApiCredentials)">
             <inheritdoc />
         </member>
-        <member name="M:HTX.Net.Clients.SpotApi.HTXSocketClientSpotApi.GetAuthenticationRequestAsync(CryptoExchange.Net.Sockets.SocketConnection)">
+        <member name="M:HTX.Net.Clients.SpotApi.HTXSocketClientSpotApi.GetAuthenticationRequestAsync(CryptoExchange.Net.Sockets.Default.SocketConnection)">
             <inheritdoc />
         </member>
         <member name="M:HTX.Net.Clients.SpotApi.HTXSocketClientSpotApi.GetKlinesAsync(System.String,HTX.Net.Enums.KlineInterval)">
@@ -975,10 +975,10 @@
         <member name="M:HTX.Net.Clients.UsdtFutures.HTXSocketClientUsdtFuturesApi.FormatSymbol(System.String,System.String,CryptoExchange.Net.SharedApis.TradingMode,System.Nullable{System.DateTime})">
             <inheritdoc />
         </member>
-        <member name="M:HTX.Net.Clients.UsdtFutures.HTXSocketClientUsdtFuturesApi.PreprocessStreamMessage(CryptoExchange.Net.Sockets.SocketConnection,System.Net.WebSockets.WebSocketMessageType,System.ReadOnlyMemory{System.Byte})">
+        <member name="M:HTX.Net.Clients.UsdtFutures.HTXSocketClientUsdtFuturesApi.PreprocessStreamMessage(CryptoExchange.Net.Sockets.Default.SocketConnection,System.Net.WebSockets.WebSocketMessageType,System.ReadOnlyMemory{System.Byte})">
             <inheritdoc />
         </member>
-        <member name="M:HTX.Net.Clients.UsdtFutures.HTXSocketClientUsdtFuturesApi.PreprocessStreamMessage(CryptoExchange.Net.Sockets.SocketConnection,System.Net.WebSockets.WebSocketMessageType,System.ReadOnlySpan{System.Byte})">
+        <member name="M:HTX.Net.Clients.UsdtFutures.HTXSocketClientUsdtFuturesApi.PreprocessStreamMessage(CryptoExchange.Net.Sockets.Default.SocketConnection,System.Net.WebSockets.WebSocketMessageType,System.ReadOnlySpan{System.Byte})">
             <inheritdoc />
         </member>
         <member name="M:HTX.Net.Clients.UsdtFutures.HTXSocketClientUsdtFuturesApi.GetListenerIdentifier(CryptoExchange.Net.Interfaces.IMessageAccessor)">
@@ -22395,14 +22395,14 @@
             Extensions for the ICryptoRestClient and ICryptoSocketClient interfaces
             </summary>
         </member>
-        <member name="M:CryptoExchange.Net.Interfaces.CryptoClientExtensions.HTX(CryptoExchange.Net.Interfaces.ICryptoRestClient)">
+        <member name="M:CryptoExchange.Net.Interfaces.CryptoClientExtensions.HTX(CryptoExchange.Net.Interfaces.Clients.ICryptoRestClient)">
             <summary>
             Get the HTX REST Api client
             </summary>
             <param name="baseClient"></param>
             <returns></returns>
         </member>
-        <member name="M:CryptoExchange.Net.Interfaces.CryptoClientExtensions.HTX(CryptoExchange.Net.Interfaces.ICryptoSocketClient)">
+        <member name="M:CryptoExchange.Net.Interfaces.CryptoClientExtensions.HTX(CryptoExchange.Net.Interfaces.Clients.ICryptoSocketClient)">
             <summary>
             Get the HTX Websocket Api client
             </summary>

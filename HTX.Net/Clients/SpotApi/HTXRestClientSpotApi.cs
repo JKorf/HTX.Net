@@ -7,7 +7,6 @@ using HTX.Net.Clients.MessageHandlers;
 using HTX.Net.Interfaces.Clients.SpotApi;
 using HTX.Net.Objects.Internal;
 using HTX.Net.Objects.Options;
-using System;
 using System.Net.Http.Headers;
 
 namespace HTX.Net.Clients.SpotApi

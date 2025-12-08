@@ -1,13 +1,7 @@
 ﻿using HTX.Net.Interfaces.Clients;
 using HTX.Net.Objects.Options;
-using CryptoExchange.Net.Authentication;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using System;
 using System.Collections.Concurrent;
-using System.Net.Http;
-using System.Collections.Generic;
 
 namespace HTX.Net.Clients
 {

@@ -1,3 +1,4 @@
+using CryptoExchange.Net.Interfaces.Clients;
 using CryptoExchange.Net.Objects.Sockets;
 using HTX.Net.Enums;
 using HTX.Net.Objects.Models;

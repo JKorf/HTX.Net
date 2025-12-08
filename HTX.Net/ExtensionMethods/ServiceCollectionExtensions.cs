@@ -1,4 +1,5 @@
 ﻿using CryptoExchange.Net.Clients;
+using CryptoExchange.Net.Interfaces.Clients;
 using HTX.Net;
 using HTX.Net.Clients;
 using HTX.Net.Interfaces;
@@ -7,7 +8,6 @@ using HTX.Net.Objects.Options;
 using HTX.Net.SymbolOrderBooks;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
-using System.Net;
 
 namespace Microsoft.Extensions.DependencyInjection
 {

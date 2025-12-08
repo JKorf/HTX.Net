@@ -1,6 +1,4 @@
-﻿using CryptoExchange.Net.Authentication;
-
-namespace HTX.Net.Interfaces.Clients
+﻿namespace HTX.Net.Interfaces.Clients
 {
     /// <summary>
     /// Provider for clients with credentials for specific users

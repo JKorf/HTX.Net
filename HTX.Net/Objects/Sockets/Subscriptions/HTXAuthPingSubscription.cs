@@ -1,5 +1,5 @@
-﻿using CryptoExchange.Net.Objects.Sockets;
-using CryptoExchange.Net.Sockets;
+﻿using CryptoExchange.Net.Sockets;
+using CryptoExchange.Net.Sockets.Default;
 
 namespace HTX.Net.Objects.Sockets.Subscriptions
 {

@@ -1,6 +1,6 @@
 ﻿using CryptoExchange.Net.Clients;
-using CryptoExchange.Net.Objects.Sockets;
 using CryptoExchange.Net.Sockets;
+using CryptoExchange.Net.Sockets.Default;
 using HTX.Net.Objects.Internal;
 using HTX.Net.Objects.Sockets.Queries;
 

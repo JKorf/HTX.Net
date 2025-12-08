@@ -1,8 +1,5 @@
 ﻿using CryptoExchange.Net.Converters.MessageParsing.DynamicConverters;
-using CryptoExchange.Net.Converters.SystemTextJson;
-using HTX.Net;
-using System;
-using System.Linq;
+using CryptoExchange.Net.Converters.SystemTextJson.MessageHandlers;
 using System.Text.Json;
 
 namespace HTX.Net.Clients.MessageHandlers

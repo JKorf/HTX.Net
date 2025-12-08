@@ -1,4 +1,3 @@
-using CryptoExchange.Net.Converters.SystemTextJson;
 using HTX.Net.Converters;
 using HTX.Net.Enums;
 

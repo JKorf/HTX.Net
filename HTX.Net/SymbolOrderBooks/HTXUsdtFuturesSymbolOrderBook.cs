@@ -1,11 +1,9 @@
 ﻿using CryptoExchange.Net.OrderBook;
-using HTX.Net.Objects.Models;
 using HTX.Net.Interfaces.Clients;
 using HTX.Net.Clients;
 using HTX.Net.Objects.Options;
 using CryptoExchange.Net.Objects.Sockets;
 using HTX.Net.Objects.Models.Socket;
-using CryptoExchange.Net.Objects.Errors;
 
 namespace HTX.Net.SymbolOrderBooks
 {

@@ -1,4 +1,5 @@
-﻿using HTX.Net.Interfaces.Clients.SpotApi;
+﻿using CryptoExchange.Net.Interfaces.Clients;
+using HTX.Net.Interfaces.Clients.SpotApi;
 
 namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
 {

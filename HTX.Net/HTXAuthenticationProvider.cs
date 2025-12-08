@@ -1,7 +1,6 @@
 ﻿using CryptoExchange.Net.Clients;
 using HTX.Net.Objects.Internal;
 using HTX.Net.Objects.Sockets;
-using System;
 using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
