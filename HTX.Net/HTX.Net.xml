@@ -11505,7 +11505,7 @@
         </member>
         <member name="P:HTX.Net.Objects.Models.HTXAsset.AssetAddressTag">
             <summary>
-            Asset addrress with tag
+            Asset address with tag
             </summary>
         </member>
         <member name="P:HTX.Net.Objects.Models.HTXAsset.FastConfirms">

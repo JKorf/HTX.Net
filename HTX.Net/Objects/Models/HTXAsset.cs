@@ -14,7 +14,7 @@ namespace HTX.Net.Objects.Models
         [JsonPropertyName("tags")]
         public string? Tags { get; set; }
         /// <summary>
-        /// Asset addrress with tag
+        /// Asset address with tag
         /// </summary>
         [JsonPropertyName("cawt")]
         public bool AssetAddressTag { get; set; }
