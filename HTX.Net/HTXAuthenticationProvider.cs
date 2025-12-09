@@ -11,10 +11,12 @@ namespace HTX.Net
     {
         private readonly bool _signPublicRequests;
 
+        public override ApiCredentialsType[] SupportedCredentialTypes => [ApiCredentialsType.Hmac, ApiCredentialsType.Ed25519];
+
         public HTXAuthenticationProvider(ApiCredentials credentials, bool signPublicRequests) : base(credentials)
         {
-            if (credentials.CredentialType != ApiCredentialsType.Hmac)
-                throw new Exception("Only Hmac authentication is supported");
+            if (credentials.CredentialType != ApiCredentialsType.Hmac && credentials.CredentialType != ApiCredentialsType.Ed25519)
+                throw new Exception("Only Hmac or Ed25519 authentication is supported");
 
             _signPublicRequests = signPublicRequests;
         }
@@ -26,7 +28,10 @@ namespace HTX.Net
 
             request.QueryParameters ??= new Dictionary<string, object>();
             request.QueryParameters.Add("AccessKeyId", _credentials.Key);
-            request.QueryParameters.Add("SignatureMethod", "HmacSHA256");
+            if (_credentials.CredentialType == ApiCredentialsType.Hmac)
+                request.QueryParameters.Add("SignatureMethod", "HmacSHA256");
+            else if (_credentials.CredentialType == ApiCredentialsType.Ed25519)
+                request.QueryParameters.Add("SignatureMethod", "Ed25519");
             request.QueryParameters.Add("SignatureVersion", 2);
             request.QueryParameters.Add("Timestamp", GetTimestamp(apiClient).ToString("yyyy-MM-ddTHH:mm:ss", CultureInfo.InvariantCulture));
 
@@ -40,7 +45,7 @@ namespace HTX.Net
             var host = request.BaseAddress.Substring(request.BaseAddress.IndexOf("/") + 2);
             var signData = $"{request.Method}\n{host}\n{path}\n{paramString}";
 
-            var signature = SignHMACSHA256(signData, SignOutputType.Base64);
+            var signature = _credentials.CredentialType == ApiCredentialsType.Hmac ? SignHMACSHA256(signData, SignOutputType.Base64) : SignEd25519(signData, SignOutputType.Base64);
             request.QueryParameters.Add("Signature", signature);
             request.SetQueryString($"{paramString}&Signature={WebUtility.UrlEncode(signature)}");
         }
