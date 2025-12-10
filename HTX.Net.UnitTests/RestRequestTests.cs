@@ -12,14 +12,12 @@ namespace HTX.Net.UnitTests
     [TestFixture]
     public class RestRequestTests
     {
-        [TestCase(false)]
-        [TestCase(true)]
-        public async Task ValidateSpotAccountCalls(bool useUpdatedDeserialization)
+        [Test]
+        public async Task ValidateSpotAccountCalls()
         {
             var client = new HTXRestClient(opts =>
             {
                 opts.AutoTimestamp = false;
-                opts.UseUpdatedDeserialization = useUpdatedDeserialization;
                 opts.ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456");
             });
             var tester = new RestRequestValidator<HTXRestClient>(client, "Endpoints/Spot/Account", "https://api.huobi.pro", IsAuthenticated, nestedPropertyForCompare: "data");
@@ -48,13 +46,11 @@ namespace HTX.Net.UnitTests
             await tester.ValidateAsync(client => client.SpotApi.Account.GetUserIdAsync(), "GetUserId");
         }
 
-        [TestCase(false)]
-        [TestCase(true)]
-        public async Task ValidateSpotExchangeDataCalls(bool useUpdatedDeserialization)
+        [Test]
+        public async Task ValidateSpotExchangeDataCalls()
         {
             var client = new HTXRestClient(opts =>
             {
-                opts.UseUpdatedDeserialization = useUpdatedDeserialization;
                 opts.AutoTimestamp = false;
                 opts.ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456");
             });
@@ -73,13 +69,11 @@ namespace HTX.Net.UnitTests
             await tester.ValidateAsync(client => client.SpotApi.ExchangeData.GetSymbolDetails24HAsync("ETHUSDT"), "GetSymbolDetails24H", nestedJsonProperty: "tick");
         }
 
-        [TestCase(false)]
-        [TestCase(true)]
-        public async Task ValidateSpotMarginCalls(bool useUpdatedDeserialization)
+        [Test]
+        public async Task ValidateSpotMarginCalls()
         {
             var client = new HTXRestClient(opts =>
             {
-                opts.UseUpdatedDeserialization = useUpdatedDeserialization;
                 opts.AutoTimestamp = false;
                 opts.ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456");
             });
@@ -103,14 +97,12 @@ namespace HTX.Net.UnitTests
             await tester.ValidateAsync(client => client.SpotApi.Margin.GetRepaymentHistoryAsync(), "GetRepaymentHistory");
         }
 
-        [TestCase(false)]
-        [TestCase(true)]
-        public async Task ValidateSpotSubAccountCalls(bool useUpdatedDeserialization)
+        [Test]
+        public async Task ValidateSpotSubAccountCalls()
         {
             var client = new HTXRestClient(opts =>
             {
                 opts.AutoTimestamp = false;
-                opts.UseUpdatedDeserialization = useUpdatedDeserialization;
                 opts.ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456");
             });
             var tester = new RestRequestValidator<HTXRestClient>(client, "Endpoints/Spot/SubAccount", "https://api.huobi.pro", IsAuthenticated, nestedPropertyForCompare: "data");
@@ -132,13 +124,11 @@ namespace HTX.Net.UnitTests
             await tester.ValidateAsync(client => client.SpotApi.SubAccount.GetBalancesAsync(1), "GetBalances", ignoreProperties: new List<string> { "debt", "available" });
         }
 
-        [TestCase(false)]
-        [TestCase(true)]
-        public async Task ValidateSpotTradingCalls(bool useUpdatedDeserialization)
+        [Test]
+        public async Task ValidateSpotTradingCalls()
         {
             var client = new HTXRestClient(opts =>
             {
-                opts.UseUpdatedDeserialization = useUpdatedDeserialization;
                 opts.AutoTimestamp = false;
                 opts.ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456");
             });
@@ -164,13 +154,11 @@ namespace HTX.Net.UnitTests
             await tester.ValidateAsync(client => client.SpotApi.Trading.GetConditionalOrderAsync("1"), "GetConditionalOrder");
         }
 
-        [TestCase(false)]
-        [TestCase(true)]
-        public async Task ValidateUsdtMarginSwapAccountCalls(bool useUpdatedDeserialization)
+        [Test]
+        public async Task ValidateUsdtMarginSwapAccountCalls()
         {
             var client = new HTXRestClient(opts =>
             {
-                opts.UseUpdatedDeserialization = useUpdatedDeserialization;
                 opts.AutoTimestamp = false;
                 opts.ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456");
             });
@@ -203,13 +191,11 @@ namespace HTX.Net.UnitTests
             await tester.ValidateAsync(client => client.UsdtFuturesApi.Account.GetCrossMarginSettlementRecordsAsync("ETH-USDT"), "GetCrossMarginSettlementRecords");
         }
 
-        [TestCase(false)]
-        [TestCase(true)]
-        public async Task ValidateUsdtMarginSwapExchangeDataCalls(bool useUpdatedDeserialization)
+        [Test]
+        public async Task ValidateUsdtMarginSwapExchangeDataCalls()
         {
             var client = new HTXRestClient(opts =>
             {
-                opts.UseUpdatedDeserialization = useUpdatedDeserialization;
                 opts.AutoTimestamp = false;
                 opts.ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456");
             });
@@ -250,13 +236,11 @@ namespace HTX.Net.UnitTests
             await tester.ValidateAsync(client => client.UsdtFuturesApi.ExchangeData.GetCrossMarginTransferStatusAsync("ETH-USDT"), "GetCrossMarginTransferStatus");
         }
 
-        [TestCase(false)]
-        [TestCase(true)]
-        public async Task ValidateUsdtMarginSwapSubAccountCalls(bool useUpdatedDeserialization)
+        [Test]
+        public async Task ValidateUsdtMarginSwapSubAccountCalls()
         {
             var client = new HTXRestClient(opts =>
             {
-                opts.UseUpdatedDeserialization = useUpdatedDeserialization;
                 opts.AutoTimestamp = false;
                 opts.ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456");
             });
@@ -273,13 +257,11 @@ namespace HTX.Net.UnitTests
             await tester.ValidateAsync(client => client.UsdtFuturesApi.SubAccount.GetMasterSubTransferRecordsAsync("1", 90), "GetMasterSubTransferRecords");
         }
 
-        [TestCase(false)]
-        [TestCase(true)]
-        public async Task ValidateUsdtMarginSwapTradingCalls(bool useUpdatedDeserialization)
+        [Test]
+        public async Task ValidateUsdtMarginSwapTradingCalls()
         {
             var client = new HTXRestClient(opts =>
             {
-                opts.UseUpdatedDeserialization = useUpdatedDeserialization;
                 opts.AutoTimestamp = false;
                 opts.ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456");
             });

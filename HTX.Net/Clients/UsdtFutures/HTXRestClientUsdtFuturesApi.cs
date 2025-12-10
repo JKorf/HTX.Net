@@ -118,37 +118,6 @@ namespace HTX.Net.Clients.UsdtFutures
         }
 
         /// <inheritdoc />
-        protected override Error ParseErrorResponse(int httpStatusCode, HttpResponseHeaders responseHeaders, IMessageAccessor accessor, Exception? exception)
-        {
-            if (!accessor.IsValid)
-                return new ServerError(ErrorInfo.Unknown, exception: exception);
-
-            var code = accessor.GetValue<string?>(MessagePath.Get().Property("err-code")) ?? accessor.GetValue<string>(MessagePath.Get().Property("err_code"));
-            var msg = accessor.GetValue<string>(MessagePath.Get().Property("err-msg")) ?? accessor.GetValue<string>(MessagePath.Get().Property("err_msg"));
-
-            if (code == null || msg == null)
-                return new ServerError(ErrorInfo.Unknown, exception: exception);
-
-
-            return new ServerError(code, GetErrorInfo(code, msg), exception);
-        }
-
-        /// <inheritdoc />
-        protected override Error? TryParseError(RequestDefinition request, HttpResponseHeaders responseHeaders, IMessageAccessor accessor)
-        {
-            if (!accessor.IsValid)
-                return new ServerError(ErrorInfo.Unknown);
-
-            var errCode = accessor.GetValue<string>(MessagePath.Get().Property("err-code")) ?? accessor.GetValue<string>(MessagePath.Get().Property("err_code"));
-            var msg = accessor.GetValue<string>(MessagePath.Get().Property("err-msg")) ?? accessor.GetValue<string>(MessagePath.Get().Property("err_msg"));
-
-            if (!string.IsNullOrEmpty(errCode))
-                return new ServerError(errCode!, GetErrorInfo(errCode!, msg));
-
-            return null;
-        }
-
-        /// <inheritdoc />
         protected override Task<WebCallResult<DateTime>> GetServerTimestampAsync()
             => ExchangeData.GetServerTimeAsync();
 

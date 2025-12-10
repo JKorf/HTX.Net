@@ -133,40 +133,6 @@ namespace HTX.Net.Clients.SpotApi
             return result.As(result.Data.Data);
         }
 
-        /// <inheritdoc />
-        protected override Error ParseErrorResponse(int httpStatusCode, HttpResponseHeaders responseHeaders, IMessageAccessor accessor, Exception? exception)
-        {
-            if (!accessor.IsValid)
-                return new ServerError(ErrorInfo.Unknown, exception: exception);
-
-            var code = accessor.GetValue<string>(MessagePath.Get().Property("err-code"));
-            var msg = accessor.GetValue<string>(MessagePath.Get().Property("err-msg"));
-
-            if (code == null || msg == null)
-                return new ServerError(ErrorInfo.Unknown, exception: exception);
-
-            return new ServerError(code!, GetErrorInfo(code, msg), exception);
-        }
-
-        /// <inheritdoc />
-        protected override Error? TryParseError(RequestDefinition request, HttpResponseHeaders responseHeaders, IMessageAccessor accessor)
-        {
-            if (!accessor.IsValid)
-                return new ServerError(ErrorInfo.Unknown);
-
-            var code = accessor.GetValue<int?>(MessagePath.Get().Property("code"));
-            var errCode = accessor.GetValue<string>(MessagePath.Get().Property("err-code"));
-            var msg = accessor.GetValue<string>(MessagePath.Get().Property("message")) ?? accessor.GetValue<string>(MessagePath.Get().Property("err-msg"));
-
-            if (code > 0 && code != 200)
-                return new ServerError(code.Value!, GetErrorInfo(code.Value!, msg));
-
-            if (!string.IsNullOrEmpty(errCode))
-                return new ServerError(errCode!, GetErrorInfo(errCode!, msg));
-
-            return null;
-        }
-
         #endregion
 
         /// <inheritdoc />
