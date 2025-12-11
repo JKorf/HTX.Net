@@ -36,7 +36,7 @@ namespace HTX.Net.Clients.MessageHandlers
 
             new MessageTypeDefinition {
                 Fields = [
-                    new PropertyFieldReference("action").WithEqualContstraint("ping"),
+                    new PropertyFieldReference("action").WithEqualConstraint("ping"),
                 ],
                 StaticIdentifier = "pingV2"
             },
@@ -44,14 +44,14 @@ namespace HTX.Net.Clients.MessageHandlers
             new MessageTypeDefinition {
                 Fields = [
                     new PropertyFieldReference("ch"),
-                    new PropertyFieldReference("action").WithNotEqualContstraint("push")
+                    new PropertyFieldReference("action").WithNotEqualConstraint("push")
                 ],
                 TypeIdentifierCallback = x => $"{x.FieldValue("action")}{x.FieldValue("ch")}"
             },
 
             new MessageTypeDefinition {
                 Fields = [
-                    new PropertyFieldReference("ch").WithStartsWithContstraints("trade.clearing", "orders#"),
+                    new PropertyFieldReference("ch").WithStartsWithConstraints("trade.clearing", "orders#"),
                     new PropertyFieldReference("eventType") { Depth = 2 } 
                 ],
                 TypeIdentifierCallback = x => $"{x.FieldValue("ch")}{x.FieldValue("eventType")}"

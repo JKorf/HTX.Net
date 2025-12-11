@@ -58,7 +58,7 @@ namespace HTX.Net.Clients.MessageHandlers
 
             new MessageTypeDefinition {
                 Fields = [
-                    new PropertyFieldReference("op").WithFilterContstraint(_opStandalone),
+                    new PropertyFieldReference("op").WithFilterConstraint(_opStandalone),
                 ],
                 TypeIdentifierCallback = x => x.FieldValue("op")!
             },
@@ -66,7 +66,7 @@ namespace HTX.Net.Clients.MessageHandlers
             new MessageTypeDefinition {
                 Fields = [
                     new PropertyFieldReference("ch"),
-                    new PropertyFieldReference("action").WithNotEqualContstraint("push"),
+                    new PropertyFieldReference("action").WithNotEqualConstraint("push"),
                 ],
                 TypeIdentifierCallback = x => x.FieldValue("action") + x.FieldValue("ch")
             },
@@ -74,7 +74,7 @@ namespace HTX.Net.Clients.MessageHandlers
             new MessageTypeDefinition {
                 Fields = [
                     new PropertyFieldReference("topic")
-                        .WithCustomContstraint(x =>
+                        .WithCustomConstraint(x =>
                         {
                             foreach(var item in _topicEndsWithReplacements){
                                 if (x!.EndsWith(item.Key))
