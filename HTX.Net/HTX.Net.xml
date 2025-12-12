@@ -18808,7 +18808,7 @@
         </member>
         <member name="P:HTX.Net.Objects.Models.UsdtMarginSwap.HTXFundingRate.FundingTime">
             <summary>
-            Funding rate
+            Funding time
             </summary>
         </member>
         <member name="T:HTX.Net.Objects.Models.UsdtMarginSwap.HTXFundingRatePage">

@@ -17,6 +17,7 @@ namespace HTX.Net.Objects.Sockets.Subscriptions
             _client = client;
             _handler = handler;
             _topic = topic;
+
             MessageMatcher = MessageMatcher.Create<HTXDataEvent<T>>(topic, DoHandleMessage);
             MessageRouter = MessageRouter.CreateWithoutTopicFilter<HTXDataEvent<T>>(topic, DoHandleMessage);
         }
