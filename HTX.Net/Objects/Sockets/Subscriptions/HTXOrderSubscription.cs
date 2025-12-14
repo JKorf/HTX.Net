@@ -65,7 +65,7 @@ namespace HTX.Net.Objects.Sockets.Subscriptions
         public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, HTXDataEvent<HTXTriggerFailureOrderUpdate> message)
         {
             _onConditionalOrderTriggerFailure?.Invoke(
-                new DataEvent<HTXTriggerFailureOrderUpdate>(message.Data, receiveTime, originalData)
+                new DataEvent<HTXTriggerFailureOrderUpdate>(HTXExchange.ExchangeName, message.Data, receiveTime, originalData)
                     .WithStreamId(message.Channel)
                     .WithSymbol(message.Data.Symbol)
                     .WithUpdateType(SocketUpdateType.Update)
@@ -77,7 +77,7 @@ namespace HTX.Net.Objects.Sockets.Subscriptions
         public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, HTXDataEvent<HTXOrderUpdate> message)
         {
             _onConditionalOrderCanceled?.Invoke(
-                new DataEvent<HTXOrderUpdate>(message.Data, receiveTime, originalData)
+                new DataEvent<HTXOrderUpdate>(HTXExchange.ExchangeName, message.Data, receiveTime, originalData)
                     .WithStreamId(message.Channel)
                     .WithSymbol(message.Data.Symbol)
                     .WithUpdateType(SocketUpdateType.Update)
@@ -89,7 +89,7 @@ namespace HTX.Net.Objects.Sockets.Subscriptions
         public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, HTXDataEvent<HTXSubmittedOrderUpdate> message)
         {
             _onOrderSubmitted?.Invoke(
-                new DataEvent<HTXSubmittedOrderUpdate>(message.Data, receiveTime, originalData)
+                new DataEvent<HTXSubmittedOrderUpdate>(HTXExchange.ExchangeName, message.Data, receiveTime, originalData)
                     .WithStreamId(message.Channel)
                     .WithSymbol(message.Data.Symbol)
                     .WithUpdateType(SocketUpdateType.Update)
@@ -101,7 +101,7 @@ namespace HTX.Net.Objects.Sockets.Subscriptions
         public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, HTXDataEvent<HTXMatchedOrderUpdate> message)
         {
             _onOrderMatched?.Invoke(
-                new DataEvent<HTXMatchedOrderUpdate>(message.Data, receiveTime, originalData)
+                new DataEvent<HTXMatchedOrderUpdate>(HTXExchange.ExchangeName, message.Data, receiveTime, originalData)
                     .WithStreamId(message.Channel)
                     .WithSymbol(message.Data.Symbol)
                     .WithUpdateType(SocketUpdateType.Update)
@@ -113,7 +113,7 @@ namespace HTX.Net.Objects.Sockets.Subscriptions
         public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, HTXDataEvent<HTXCanceledOrderUpdate> message)
         {
             _onOrderCancelation?.Invoke(
-                new DataEvent<HTXCanceledOrderUpdate>(message.Data, receiveTime, originalData)
+                new DataEvent<HTXCanceledOrderUpdate>(HTXExchange.ExchangeName, message.Data, receiveTime, originalData)
                     .WithStreamId(message.Channel)
                     .WithSymbol(message.Data.Symbol)
                     .WithUpdateType(SocketUpdateType.Update)

@@ -49,7 +49,7 @@ namespace HTX.Net.Objects.Sockets.Subscriptions
         public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, HTXDataEvent<HTXOrderCancelationUpdate> message)
         {
             _onOrderCancel?.Invoke(
-                new DataEvent<HTXOrderCancelationUpdate>(message.Data, receiveTime, originalData)
+                new DataEvent<HTXOrderCancelationUpdate>(HTXExchange.ExchangeName, message.Data, receiveTime, originalData)
                     .WithStreamId(message.Channel)
                     .WithSymbol(message.Data.Symbol)
                     .WithUpdateType(SocketUpdateType.Update)
@@ -61,7 +61,7 @@ namespace HTX.Net.Objects.Sockets.Subscriptions
         public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, HTXDataEvent<HTXTradeUpdate> message)
         {
             _onOrderMatch?.Invoke(
-                new DataEvent<HTXTradeUpdate>(message.Data, receiveTime, originalData)
+                new DataEvent<HTXTradeUpdate>(HTXExchange.ExchangeName, message.Data, receiveTime, originalData)
                     .WithStreamId(message.Channel)
                     .WithSymbol(message.Data.Symbol)
                     .WithUpdateType(SocketUpdateType.Update)

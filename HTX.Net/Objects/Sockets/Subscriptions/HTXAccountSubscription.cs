@@ -36,7 +36,7 @@ namespace HTX.Net.Objects.Sockets.Subscriptions
         public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, HTXDataEvent<HTXAccountUpdate> message)
         {
             _handler.Invoke(
-                new DataEvent<HTXAccountUpdate>(message.Data, receiveTime, originalData)
+                new DataEvent<HTXAccountUpdate>(HTXExchange.ExchangeName, message.Data, receiveTime, originalData)
                     .WithStreamId(message.Channel)
                     .WithDataTimestamp(message.Data.ChangeTime));
 

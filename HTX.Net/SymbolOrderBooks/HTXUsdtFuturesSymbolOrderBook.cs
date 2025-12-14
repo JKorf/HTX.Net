@@ -105,21 +105,7 @@ namespace HTX.Net.SymbolOrderBooks
         /// <inheritdoc />
         protected override async Task<CallResult<bool>> DoResyncAsync(CancellationToken ct)
         {
-            if (_mergeStep != null)
-            {
-                return await WaitForSetOrderBookAsync(_initialDataTimeout, ct).ConfigureAwait(false);
-            }
-            else
-            {
-                // Wait a little so that the sequence number of the order book snapshot is higher than the first socket update sequence number
-                await Task.Delay(5000).ConfigureAwait(false);
-                var book = await _socketClient.SpotApi.GetOrderBookAsync(Symbol, _levels!.Value).ConfigureAwait(false);
-                if (!book)
-                    return new CallResult<bool>(book.Error!);
-
-                SetInitialOrderBook(book.Data.SequenceNumber, book.Data.Bids!, book.Data.Asks!);
-                return new CallResult<bool>(true);
-            }
+            return await WaitForSetOrderBookAsync(_initialDataTimeout, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />

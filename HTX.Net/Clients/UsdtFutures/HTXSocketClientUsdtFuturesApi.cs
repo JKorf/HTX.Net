@@ -144,7 +144,7 @@ namespace HTX.Net.Clients.UsdtFutures
             var internalHandler = new Action<DateTime, string?, HTXDataEvent<HTXSwapKline>>((receiveTime, originalData, data) =>
             {
                 onData(
-                    new DataEvent<HTXSwapKline>(data.Data, receiveTime, originalData)
+                    new DataEvent<HTXSwapKline>(HTXExchange.ExchangeName, data.Data, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithDataTimestamp(data.Timestamp)
                         .WithSymbol(contractCode)
@@ -162,7 +162,7 @@ namespace HTX.Net.Clients.UsdtFutures
             var internalHandler = new Action<DateTime, string?, HTXDataEvent<HTXOrderBookUpdate>>((receiveTime, originalData, data) =>
             {
                 onData(
-                    new DataEvent<HTXOrderBookUpdate>(data.Data, receiveTime, originalData)
+                    new DataEvent<HTXOrderBookUpdate>(HTXExchange.ExchangeName, data.Data, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithDataTimestamp(data.Timestamp)
                         .WithSymbol(contractCode)
@@ -187,7 +187,7 @@ namespace HTX.Net.Clients.UsdtFutures
             var internalHandler = new Action<DateTime, string?, HTXDataEvent<HTXSymbolTickUpdate>>((receiveTime, originalData, data) =>
             {
                 onData(
-                    new DataEvent<HTXSymbolTickUpdate>(data.Data, receiveTime, originalData)
+                    new DataEvent<HTXSymbolTickUpdate>(HTXExchange.ExchangeName, data.Data, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithDataTimestamp(data.Timestamp)
                         .WithSymbol(contractCode)
@@ -205,7 +205,7 @@ namespace HTX.Net.Clients.UsdtFutures
             var internalHandler = new Action<DateTime, string?, HTXDataEvent<HTXBestOfferUpdate>>((receiveTime, originalData, data) =>
             {
                 onData(
-                    new DataEvent<HTXBestOfferUpdate>(data.Data, receiveTime, originalData)
+                    new DataEvent<HTXBestOfferUpdate>(HTXExchange.ExchangeName, data.Data, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithDataTimestamp(data.Timestamp)
                         .WithSymbol(contractCode)
@@ -223,7 +223,7 @@ namespace HTX.Net.Clients.UsdtFutures
             var internalHandler = new Action<DateTime, string?, HTXDataEvent<HTXUsdtMarginSwapTradesUpdate>>((receiveTime, originalData, data) =>
             {
                 onData(
-                    new DataEvent<HTXUsdtMarginSwapTradesUpdate>(data.Data, receiveTime, originalData)
+                    new DataEvent<HTXUsdtMarginSwapTradesUpdate>(HTXExchange.ExchangeName, data.Data, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithDataTimestamp(data.Timestamp)
                         .WithSymbol(contractCode)
@@ -240,7 +240,7 @@ namespace HTX.Net.Clients.UsdtFutures
             var internalHandler = new Action<DateTime, string?, HTXDataEvent<HTXKline>>((receiveTime, originalData, data) =>
             {
                 onData(
-                    new DataEvent<HTXKline>(data.Data, receiveTime, originalData)
+                    new DataEvent<HTXKline>(HTXExchange.ExchangeName, data.Data, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithDataTimestamp(data.Timestamp)
                         .WithSymbol(contractCode)
@@ -257,7 +257,7 @@ namespace HTX.Net.Clients.UsdtFutures
             var internalHandler = new Action<DateTime, string?, HTXDataEvent<HTXKline>>((receiveTime, originalData, data) =>
             {
                 onData(
-                    new DataEvent<HTXKline>(data.Data, receiveTime, originalData)
+                    new DataEvent<HTXKline>(HTXExchange.ExchangeName, data.Data, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithDataTimestamp(data.Timestamp)
                         .WithSymbol(contractCode)
@@ -274,7 +274,7 @@ namespace HTX.Net.Clients.UsdtFutures
             var internalHandler = new Action<DateTime, string?, HTXDataEvent<HTXKline>>((receiveTime, originalData, data) =>
             {
                 onData(
-                    new DataEvent<HTXKline>(data.Data, receiveTime, originalData)
+                    new DataEvent<HTXKline>(HTXExchange.ExchangeName, data.Data, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithDataTimestamp(data.Timestamp)
                         .WithSymbol(contractCode)
@@ -291,7 +291,7 @@ namespace HTX.Net.Clients.UsdtFutures
             var internalHandler = new Action<DateTime, string?, HTXDataEvent<HTXUsdtMarginSwapBasisUpdate>>((receiveTime, originalData, data) =>
             {
                 onData(
-                    new DataEvent<HTXUsdtMarginSwapBasisUpdate>(data.Data, receiveTime, originalData)
+                    new DataEvent<HTXUsdtMarginSwapBasisUpdate>(HTXExchange.ExchangeName, data.Data, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithDataTimestamp(data.Timestamp)
                         .WithSymbol(contractCode)
@@ -308,7 +308,7 @@ namespace HTX.Net.Clients.UsdtFutures
             var internalHandler = new Action<DateTime, string?, HTXDataEvent<HTXKline>>((receiveTime, originalData, data) =>
             {
                 onData(
-                    new DataEvent<HTXKline>(data.Data, receiveTime, originalData)
+                    new DataEvent<HTXKline>(HTXExchange.ExchangeName, data.Data, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithDataTimestamp(data.Timestamp)
                         .WithSymbol(contractCode)
@@ -325,7 +325,7 @@ namespace HTX.Net.Clients.UsdtFutures
             var internalHandler = new Action<DateTime, string?, HTXUsdtMarginSwapLiquidationUpdate>((receiveTime, originalData, data) =>
             {
                 onData(
-                    new DataEvent<HTXUsdtMarginSwapLiquidationUpdate>(data, receiveTime, originalData)
+                    new DataEvent<HTXUsdtMarginSwapLiquidationUpdate>(HTXExchange.ExchangeName, data, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithDataTimestamp(data.Timestamp)
                         .WithStreamId(data.Topic)
@@ -341,7 +341,7 @@ namespace HTX.Net.Clients.UsdtFutures
             var internalHandler = new Action<DateTime, string?, HTXUsdtMarginSwapFundingRateUpdateWrapper>((receiveTime, originalData, data) =>
             {
                 onData(
-                    new DataEvent<HTXUsdtMarginSwapFundingRateUpdate[]>(data.Data, receiveTime, originalData)
+                    new DataEvent<HTXUsdtMarginSwapFundingRateUpdate[]>(HTXExchange.ExchangeName, data.Data, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithDataTimestamp(data.Timestamp)
                         .WithStreamId(data.Topic)
@@ -357,7 +357,7 @@ namespace HTX.Net.Clients.UsdtFutures
             var internalHandler = new Action<DateTime, string?, HTXUsdtMarginSwapContractUpdateWrapper>((receiveTime, originalData, data) =>
             {
                 onData(
-                    new DataEvent<HTXUsdtMarginSwapContractUpdate[]>(data.Data, receiveTime, originalData)
+                    new DataEvent<HTXUsdtMarginSwapContractUpdate[]>(HTXExchange.ExchangeName, data.Data, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithDataTimestamp(data.Timestamp)
                         .WithStreamId(data.Topic)
@@ -373,7 +373,7 @@ namespace HTX.Net.Clients.UsdtFutures
             var internalHandler = new Action<DateTime, string?, HTXUsdtMarginSwapContractElementsUpdateWrapper>((receiveTime, originalData, data) =>
             {
                 onData(
-                    new DataEvent<HTXUsdtMarginSwapContractElementsUpdate[]>(data.Data, receiveTime, originalData)
+                    new DataEvent<HTXUsdtMarginSwapContractElementsUpdate[]>(HTXExchange.ExchangeName, data.Data, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithDataTimestamp(data.Timestamp)
                         .WithStreamId(data.Topic)
@@ -389,7 +389,7 @@ namespace HTX.Net.Clients.UsdtFutures
             var internalHandler = new Action<DateTime, string?, HTXStatusUpdate>((receiveTime, originalData, data) =>
             {
                 onData(
-                    new DataEvent<HTXStatusUpdate>(data, receiveTime, originalData)
+                    new DataEvent<HTXStatusUpdate>(HTXExchange.ExchangeName, data, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithDataTimestamp(data.Timestamp)
                         .WithStreamId(data.Topic)
@@ -408,7 +408,7 @@ namespace HTX.Net.Clients.UsdtFutures
             var internalHandler = new Action<DateTime, string?, HTXUsdtMarginSwapOrderUpdate>((receiveTime, originalData, data) =>
             {
                 onData(
-                    new DataEvent<HTXUsdtMarginSwapOrderUpdate>(data, receiveTime, originalData)
+                    new DataEvent<HTXUsdtMarginSwapOrderUpdate>(HTXExchange.ExchangeName, data, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithDataTimestamp(data.Timestamp)
                         .WithStreamId(data.Topic)
@@ -426,7 +426,7 @@ namespace HTX.Net.Clients.UsdtFutures
             var internalHandler = new Action<DateTime, string?, HTXUsdtMarginSwapIsolatedBalanceUpdate>((receiveTime, originalData, data) =>
             {
                 onData(
-                    new DataEvent<HTXUsdtMarginSwapIsolatedBalanceUpdate>(data, receiveTime, originalData)
+                    new DataEvent<HTXUsdtMarginSwapIsolatedBalanceUpdate>(HTXExchange.ExchangeName, data, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithDataTimestamp(data.Timestamp)
                         .WithStreamId(data.Topic)
@@ -443,7 +443,7 @@ namespace HTX.Net.Clients.UsdtFutures
             var internalHandler = new Action<DateTime, string?, HTXUsdtMarginSwapCrossBalanceUpdate>((receiveTime, originalData, data) =>
             {
                 onData(
-                    new DataEvent<HTXUsdtMarginSwapCrossBalanceUpdate>(data, receiveTime, originalData)
+                    new DataEvent<HTXUsdtMarginSwapCrossBalanceUpdate>(HTXExchange.ExchangeName, data, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithDataTimestamp(data.Timestamp)
                         .WithStreamId(data.Topic)
@@ -460,7 +460,7 @@ namespace HTX.Net.Clients.UsdtFutures
             var internalHandler = new Action<DateTime, string?, HTXUsdtMarginSwapIsolatedPositionUpdate>((receiveTime, originalData, data) =>
             {
                 onData(
-                    new DataEvent<HTXUsdtMarginSwapIsolatedPositionUpdate>(data, receiveTime, originalData)
+                    new DataEvent<HTXUsdtMarginSwapIsolatedPositionUpdate>(HTXExchange.ExchangeName, data, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithDataTimestamp(data.Timestamp)
                         .WithStreamId(data.Topic)
@@ -477,7 +477,7 @@ namespace HTX.Net.Clients.UsdtFutures
             var internalHandler = new Action<DateTime, string?, HTXUsdtMarginSwapCrossPositionUpdate>((receiveTime, originalData, data) =>
             {
                 onData(
-                    new DataEvent<HTXUsdtMarginSwapCrossPositionUpdate>(data, receiveTime, originalData)
+                    new DataEvent<HTXUsdtMarginSwapCrossPositionUpdate>(HTXExchange.ExchangeName, data, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithDataTimestamp(data.Timestamp)
                         .WithStreamId(data.Topic)
@@ -494,7 +494,7 @@ namespace HTX.Net.Clients.UsdtFutures
             var internalHandler = new Action<DateTime, string?, HTXUsdtMarginSwapIsolatedTradeUpdate>((receiveTime, originalData, data) =>
             {
                 onData(
-                    new DataEvent<HTXUsdtMarginSwapIsolatedTradeUpdate>(data, receiveTime, originalData)
+                    new DataEvent<HTXUsdtMarginSwapIsolatedTradeUpdate>(HTXExchange.ExchangeName, data, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithDataTimestamp(data.Timestamp)
                         .WithStreamId(data.Topic)
@@ -511,7 +511,7 @@ namespace HTX.Net.Clients.UsdtFutures
             var internalHandler = new Action<DateTime, string?, HTXUsdtMarginSwapCrossTradeUpdate>((receiveTime, originalData, data) =>
             {
                 onData(
-                    new DataEvent<HTXUsdtMarginSwapCrossTradeUpdate>(data, receiveTime, originalData)
+                    new DataEvent<HTXUsdtMarginSwapCrossTradeUpdate>(HTXExchange.ExchangeName, data, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithDataTimestamp(data.Timestamp)
                         .WithStreamId(data.Topic)
@@ -528,7 +528,7 @@ namespace HTX.Net.Clients.UsdtFutures
             var internalHandler = new Action<DateTime, string?, HTXUsdtMarginSwapIsolatedTriggerOrderUpdate>((receiveTime, originalData, data) =>
             {
                 onData(
-                    new DataEvent<HTXUsdtMarginSwapIsolatedTriggerOrderUpdate>(data, receiveTime, originalData)
+                    new DataEvent<HTXUsdtMarginSwapIsolatedTriggerOrderUpdate>(HTXExchange.ExchangeName, data, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithDataTimestamp(data.Timestamp)
                         .WithStreamId(data.Topic)
@@ -545,7 +545,7 @@ namespace HTX.Net.Clients.UsdtFutures
             var internalHandler = new Action<DateTime, string?, HTXUsdtMarginSwapCrossTriggerOrderUpdate>((receiveTime, originalData, data) =>
             {
                 onData(
-                    new DataEvent<HTXUsdtMarginSwapCrossTriggerOrderUpdate>(data, receiveTime, originalData)
+                    new DataEvent<HTXUsdtMarginSwapCrossTriggerOrderUpdate>(HTXExchange.ExchangeName, data, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithDataTimestamp(data.Timestamp)
                         .WithStreamId(data.Topic)
