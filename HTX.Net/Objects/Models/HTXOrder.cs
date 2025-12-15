@@ -59,6 +59,11 @@ namespace HTX.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("finished-at"), JsonConverter(typeof(DateTimeConverter))]
         public DateTime CompleteTime { get; set; }
+        /// <summary>
+        /// Next query time. Note: Only when the total number of items in the search result exceeded the limitation defined in "limit", this field exists
+        /// </summary>
+        [JsonPropertyName("next-at"), JsonConverter(typeof(DateTimeConverter))]
+        public DateTime? NextTime { get; set; }
 
         /// <summary>
         /// The raw type string
