@@ -12761,6 +12761,11 @@
             The time the order was finished
             </summary>
         </member>
+        <member name="P:HTX.Net.Objects.Models.HTXOrder.NextTime">
+            <summary>
+            Next query time. Note: Only when the total number of items in the search result exceeded the limitation defined in "limit", this field exists
+            </summary>
+        </member>
         <member name="P:HTX.Net.Objects.Models.HTXOrder.RawType">
             <summary>
             The raw type string
