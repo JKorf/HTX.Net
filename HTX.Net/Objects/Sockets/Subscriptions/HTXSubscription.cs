@@ -34,7 +34,6 @@ namespace HTX.Net.Objects.Sockets.Subscriptions
         public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, HTXDataEvent<T> message)
         {
             _handler.Invoke(receiveTime, originalData, message);
-            //_handler.Invoke(message.As(message.Data.Data).WithStreamId(message.Data.Channel).WithDataTimestamp(message.Data.Timestamp));
             return CallResult.SuccessResult;
         }
     }
