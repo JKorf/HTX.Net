@@ -16,29 +16,31 @@ namespace HTX.Net.UnitTests
     [TestFixture]
     public class SocketRequestTests
     {
-        private HTXSocketClient CreateClient()
+        private HTXSocketClient CreateClient(bool useUpdatedDeserialization)
         {
             var fact = new LoggerFactory();
             fact.AddProvider(new TraceLoggerProvider());
             var client = new HTXSocketClient(Options.Create(new HTXSocketOptions
             {
                 OutputOriginalData = true,
+                UseUpdatedDeserialization = useUpdatedDeserialization,
                 RequestTimeout = TimeSpan.FromSeconds(5),
                 ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456")
             }), fact);
             return client;
         }
 
-        [Test]
-        public async Task ValidateExchangeApiCalls()
+        [TestCase(false)]
+        [TestCase(true)]
+        public async Task ValidateExchangeApiCalls(bool useUpdatedDeserialization)
         {
             var tester = new SocketRequestValidator<HTXSocketClient>("Socket/SpotApi");
 
-            await tester.ValidateAsync(CreateClient(), client => client.SpotApi.PlaceOrderAsync(123, "ETHUSDT", OrderSide.Buy, OrderType.Limit, 1), "PlaceOrder", nestedJsonProperty: "data", ignoreProperties: [ ]);
-            await tester.ValidateAsync(CreateClient(), client => client.SpotApi.PlaceMultipleOrdersAsync(new[] { new HTXOrderRequest() { AccountId = "123" } }), "PlaceMultipleOrders", nestedJsonProperty: "data", skipResponseValidation: true);
-            await tester.ValidateAsync(CreateClient(), client => client.SpotApi.PlaceMarginOrderAsync(123, "ETHUSDT", OrderSide.Buy, OrderType.Limit, MarginPurpose.AutomaticLoan, SourceType.Spot), "PlaceMarginOrder", nestedJsonProperty: "data");
-            await tester.ValidateAsync(CreateClient(), client => client.SpotApi.CancelAllOrdersAsync(123), "CancelAllOrders", nestedJsonProperty: "data");
-            await tester.ValidateAsync(CreateClient(), client => client.SpotApi.CancelOrdersAsync(["123"]), "CancelOrders", nestedJsonProperty: "data");
+            await tester.ValidateAsync(CreateClient(useUpdatedDeserialization), client => client.SpotApi.PlaceOrderAsync(123, "ETHUSDT", OrderSide.Buy, OrderType.Limit, 1), "PlaceOrder", nestedJsonProperty: "data", ignoreProperties: [ ]);
+            await tester.ValidateAsync(CreateClient(useUpdatedDeserialization), client => client.SpotApi.PlaceMultipleOrdersAsync(new[] { new HTXOrderRequest() { AccountId = "123" } }), "PlaceMultipleOrders", nestedJsonProperty: "data", skipResponseValidation: true);
+            await tester.ValidateAsync(CreateClient(useUpdatedDeserialization), client => client.SpotApi.PlaceMarginOrderAsync(123, "ETHUSDT", OrderSide.Buy, OrderType.Limit, MarginPurpose.AutomaticLoan, SourceType.Spot), "PlaceMarginOrder", nestedJsonProperty: "data");
+            await tester.ValidateAsync(CreateClient(useUpdatedDeserialization), client => client.SpotApi.CancelAllOrdersAsync(123), "CancelAllOrders", nestedJsonProperty: "data");
+            await tester.ValidateAsync(CreateClient(useUpdatedDeserialization), client => client.SpotApi.CancelOrdersAsync(["123"]), "CancelOrders", nestedJsonProperty: "data");
         }
     }
 }

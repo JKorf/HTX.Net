@@ -1,6 +1,6 @@
 ﻿using CryptoExchange.Net.Clients;
-using CryptoExchange.Net.Objects.Sockets;
 using CryptoExchange.Net.Sockets;
+using CryptoExchange.Net.Sockets.Default;
 using HTX.Net.Objects.Internal;
 
 namespace HTX.Net.Objects.Sockets.Queries
@@ -13,14 +13,15 @@ namespace HTX.Net.Objects.Sockets.Queries
         {
             _client = client;
             MessageMatcher = MessageMatcher.Create<HTXSocketResponse<T>>(((HTXSocketRequest)Request).Id, HandleMessage);
+            MessageRouter = MessageRouter.CreateWithoutTopicFilter<HTXSocketResponse<T>>(((HTXSocketRequest)Request).Id, HandleMessage);
         }
 
-        public CallResult<HTXSocketResponse<T>> HandleMessage(SocketConnection connection, DataEvent<HTXSocketResponse<T>> message)
+        public CallResult<HTXSocketResponse<T>> HandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, HTXSocketResponse<T> message)
         {
-            if (message.Data.IsSuccessful)
-                return message.ToCallResult();
+            if (message.IsSuccessful)
+                return new CallResult<HTXSocketResponse<T>>(message, originalData, null);
 
-            return new CallResult<HTXSocketResponse<T>>(new ServerError(message.Data.ErrorCode!, _client.GetErrorInfo(message.Data.ErrorCode!, message.Data.ErrorMessage)));
+            return new CallResult<HTXSocketResponse<T>>(new ServerError(message.ErrorCode!, _client.GetErrorInfo(message.ErrorCode!, message.ErrorMessage)));
         }
     }
 }

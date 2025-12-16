@@ -1,14 +1,14 @@
 ﻿using CryptoExchange.Net.Clients;
-using CryptoExchange.Net.Converters.MessageParsing;
 using CryptoExchange.Net.Objects.Sockets;
 using CryptoExchange.Net.Sockets;
+using CryptoExchange.Net.Sockets.Default;
 using HTX.Net.Objects.Internal;
 using HTX.Net.Objects.Models.Socket;
 using HTX.Net.Objects.Sockets.Queries;
 
 namespace HTX.Net.Objects.Sockets.Subscriptions
 {
-    internal class HTXOrderDetailsSubscription : Subscription<HTXSocketAuthResponse, HTXSocketAuthResponse>
+    internal class HTXOrderDetailsSubscription : Subscription
     {
         private readonly SocketApiClient _client;
         private string _topic;
@@ -31,6 +31,10 @@ namespace HTX.Net.Objects.Sockets.Subscriptions
                 new MessageHandlerLink<HTXDataEvent<HTXTradeUpdate>>(_topic + "trade", DoHandleMessage),
                 new MessageHandlerLink<HTXDataEvent<HTXOrderCancelationUpdate>>(_topic + "cancellation", DoHandleMessage)
                 ]);
+            MessageRouter = MessageRouter.Create([
+                MessageRoute<HTXDataEvent<HTXTradeUpdate>>.CreateWithoutTopicFilter(_topic + "trade", DoHandleMessage),
+                MessageRoute<HTXDataEvent<HTXOrderCancelationUpdate>>.CreateWithoutTopicFilter(_topic + "cancellation", DoHandleMessage)
+                ]);
         }
 
         protected override Query? GetSubQuery(SocketConnection connection)
@@ -42,15 +46,27 @@ namespace HTX.Net.Objects.Sockets.Subscriptions
             return new HTXAuthQuery(_client, "unsub", _topic, Authenticated);
         }
 
-        public CallResult DoHandleMessage(SocketConnection connection, DataEvent<HTXDataEvent<HTXOrderCancelationUpdate>> message)
+        public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, HTXDataEvent<HTXOrderCancelationUpdate> message)
         {
-            _onOrderCancel?.Invoke(message.As(message.Data.Data, message.Data.Channel, message.Data.Data.Symbol, SocketUpdateType.Update).WithDataTimestamp(message.Data.Timestamp));
+            _onOrderCancel?.Invoke(
+                new DataEvent<HTXOrderCancelationUpdate>(HTXExchange.ExchangeName, message.Data, receiveTime, originalData)
+                    .WithStreamId(message.Channel)
+                    .WithSymbol(message.Data.Symbol)
+                    .WithUpdateType(SocketUpdateType.Update)
+                    .WithDataTimestamp(message.Timestamp)
+                );
             return CallResult.SuccessResult;
         }
 
-        public CallResult DoHandleMessage(SocketConnection connection, DataEvent<HTXDataEvent<HTXTradeUpdate>> message)
+        public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, HTXDataEvent<HTXTradeUpdate> message)
         {
-            _onOrderMatch?.Invoke(message.As(message.Data.Data, message.Data.Channel, message.Data.Data.Symbol, SocketUpdateType.Update).WithDataTimestamp(message.Data.Timestamp));
+            _onOrderMatch?.Invoke(
+                new DataEvent<HTXTradeUpdate>(HTXExchange.ExchangeName, message.Data, receiveTime, originalData)
+                    .WithStreamId(message.Channel)
+                    .WithSymbol(message.Data.Symbol)
+                    .WithUpdateType(SocketUpdateType.Update)
+                    .WithDataTimestamp(message.Timestamp)
+                );
             return CallResult.SuccessResult;
         }
     }

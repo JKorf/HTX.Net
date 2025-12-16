@@ -1,5 +1,5 @@
-﻿using CryptoExchange.Net.Objects.Sockets;
-using CryptoExchange.Net.Sockets;
+﻿using CryptoExchange.Net.Sockets;
+using CryptoExchange.Net.Sockets.Default;
 
 namespace HTX.Net.Objects.Sockets.Subscriptions
 {
@@ -7,12 +7,13 @@ namespace HTX.Net.Objects.Sockets.Subscriptions
     {
         public HTXOpPingSubscription(ILogger logger) : base(logger, false)
         {
-            MessageMatcher = MessageMatcher.Create<HTXOpPingMessage>("ping");
+            MessageMatcher = MessageMatcher.Create<HTXOpPingMessage>("ping", HandleMessage);
+            MessageRouter = MessageRouter.CreateWithoutTopicFilter<HTXOpPingMessage>("ping", HandleMessage);
         }
 
-        public CallResult HandleMessage(SocketConnection connection, DataEvent<HTXOpPingMessage> message)
+        public CallResult HandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, HTXOpPingMessage message)
         {
-            connection.Send(ExchangeHelpers.NextId(), new HTXOpPingMessage { Operation = "pong", Timestamp = message.Data.Timestamp }, 1);
+            _ = connection.SendAsync(ExchangeHelpers.NextId(), new HTXOpPingMessage { Operation = "pong", Timestamp = message.Timestamp }, 1);
             return CallResult.SuccessResult;
         }
     }

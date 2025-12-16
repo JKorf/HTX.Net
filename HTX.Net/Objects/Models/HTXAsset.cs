@@ -1,4 +1,3 @@
-using CryptoExchange.Net.Converters.SystemTextJson;
 using HTX.Net.Enums;
 
 namespace HTX.Net.Objects.Models
@@ -15,7 +14,7 @@ namespace HTX.Net.Objects.Models
         [JsonPropertyName("tags")]
         public string? Tags { get; set; }
         /// <summary>
-        /// Asset addrress with tag
+        /// Asset address with tag
         /// </summary>
         [JsonPropertyName("cawt")]
         public bool AssetAddressTag { get; set; }

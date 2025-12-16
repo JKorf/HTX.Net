@@ -1,11 +1,13 @@
-using System.Diagnostics;
 using System.Net.WebSockets;
 using CryptoExchange.Net.Clients;
 using CryptoExchange.Net.Converters.MessageParsing;
+using CryptoExchange.Net.Converters.MessageParsing.DynamicConverters;
 using CryptoExchange.Net.Objects.Errors;
 using CryptoExchange.Net.Objects.Sockets;
 using CryptoExchange.Net.SharedApis;
 using CryptoExchange.Net.Sockets;
+using CryptoExchange.Net.Sockets.Default;
+using HTX.Net.Clients.MessageHandlers;
 using HTX.Net.Enums;
 using HTX.Net.Interfaces.Clients.SpotApi;
 using HTX.Net.Objects.Internal;
@@ -55,6 +57,8 @@ namespace HTX.Net.Clients.SpotApi
 
         protected override IByteMessageAccessor CreateAccessor(WebSocketMessageType type) => new SystemTextJsonByteMessageAccessor(SerializerOptions.WithConverters(HTXExchange._serializerContext));
 
+        public override ISocketMessageHandler CreateMessageConverter(WebSocketMessageType messageType) => new HTXSocketSpotMessageHandler();
+
         public IHTXSocketClientSpotApiShared SharedClient => this;
 
         /// <inheritdoc />
@@ -99,6 +103,14 @@ namespace HTX.Net.Clients.SpotApi
             return data.DecompressGzip();
         }
 
+        /// <inheritdoc />
+        public override ReadOnlySpan<byte> PreprocessStreamMessage(SocketConnection connection, WebSocketMessageType type, ReadOnlySpan<byte> data)
+        {
+            if (type != WebSocketMessageType.Binary)
+                return data;
+
+            return data.DecompressGzip();
+        }
 
         /// <inheritdoc />
         protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
@@ -132,7 +144,18 @@ namespace HTX.Net.Clients.SpotApi
         {
             symbol = symbol.ToLowerInvariant();
 
-            var subscription = new HTXSubscription<HTXKline>(_logger, this, $"market.{symbol}.kline.{EnumConverter.GetString(period)}", x => onData(x.WithSymbol(symbol)), false);
+            var internalHandler = new Action<DateTime, string?, HTXDataEvent<HTXKline>>((receiveTime, originalData, data) =>
+            {
+                onData(
+                    new DataEvent<HTXKline>(HTXExchange.ExchangeName, data.Data, receiveTime, originalData)
+                        .WithUpdateType(SocketUpdateType.Update)
+                        .WithDataTimestamp(data.Timestamp)
+                        .WithSymbol(symbol)
+                        .WithStreamId(data.Channel)
+                    );
+            });
+
+            var subscription = new HTXSubscription<HTXKline>(_logger, this, $"market.{symbol}.kline.{EnumConverter.GetString(period)}", internalHandler, false);
             return await SubscribeAsync(BaseAddress.AppendPath("ws"), subscription, ct).ConfigureAwait(false);
         }
 
@@ -164,7 +187,18 @@ namespace HTX.Net.Clients.SpotApi
             symbol = symbol.ToLowerInvariant();
             mergeStep.ValidateIntBetween(nameof(mergeStep), 0, 5);
 
-            var subscription = new HTXSubscription<HTXOrderBook>(_logger, this, $"market.{symbol}.depth.step{mergeStep}", x => onData(x.WithSymbol(symbol)), false);
+            var internalHandler = new Action<DateTime, string?, HTXDataEvent<HTXOrderBook>>((receiveTime, originalData, data) =>
+            {
+                onData(
+                    new DataEvent<HTXOrderBook>(HTXExchange.ExchangeName, data.Data, receiveTime, originalData)
+                        .WithUpdateType(SocketUpdateType.Update)
+                        .WithDataTimestamp(data.Timestamp)
+                        .WithSymbol(symbol)
+                        .WithStreamId(data.Channel)
+                    );
+            });
+
+            var subscription = new HTXSubscription<HTXOrderBook>(_logger, this, $"market.{symbol}.depth.step{mergeStep}", internalHandler, false);
             return await SubscribeAsync(BaseAddress.AppendPath("ws"), subscription, ct).ConfigureAwait(false);
         }
 
@@ -174,7 +208,17 @@ namespace HTX.Net.Clients.SpotApi
             symbol = symbol.ToLowerInvariant();
             levels.ValidateIntValues(nameof(levels), 5, 10, 20);
 
-            var subscription = new HTXSubscription<HTXOrderBook>(_logger, this, $"market.{symbol}.mbp.refresh.{levels}", x => onData(x.WithSymbol(symbol)), false);
+            var internalHandler = new Action<DateTime, string?, HTXDataEvent<HTXOrderBook>>((receiveTime, originalData, data) =>
+            {
+                onData(
+                    new DataEvent<HTXOrderBook>(HTXExchange.ExchangeName, data.Data, receiveTime, originalData)
+                        .WithUpdateType(SocketUpdateType.Update)
+                        .WithDataTimestamp(data.Timestamp)
+                        .WithSymbol(symbol)
+                        .WithStreamId(data.Channel)
+                    );
+            });
+            var subscription = new HTXSubscription<HTXOrderBook>(_logger, this, $"market.{symbol}.mbp.refresh.{levels}", internalHandler, false);
             return await SubscribeAsync(BaseAddress.AppendPath("ws"), subscription, ct).ConfigureAwait(false);
         }
 
@@ -184,7 +228,17 @@ namespace HTX.Net.Clients.SpotApi
             symbol = symbol.ToLowerInvariant();
             levels.ValidateIntValues(nameof(levels), 5, 20, 150, 400);
 
-            var subscription = new HTXSubscription<HTXIncementalOrderBook>(_logger, this, $"market.{symbol}.mbp.{levels}", x => onData(x.WithSymbol(symbol)), false);
+            var internalHandler = new Action<DateTime, string?, HTXDataEvent<HTXIncementalOrderBook>>((receiveTime, originalData, data) =>
+            {
+                onData(
+                    new DataEvent<HTXIncementalOrderBook>(HTXExchange.ExchangeName, data.Data, receiveTime, originalData)
+                        .WithUpdateType(SocketUpdateType.Update)
+                        .WithDataTimestamp(data.Timestamp)
+                        .WithSymbol(symbol)
+                        .WithStreamId(data.Channel)
+                    );
+            });
+            var subscription = new HTXSubscription<HTXIncementalOrderBook>(_logger, this, $"market.{symbol}.mbp.{levels}", internalHandler, false);
             return await SubscribeAsync(BaseAddress.AppendPath("feed"), subscription, ct).ConfigureAwait(false);
         }
 
@@ -201,8 +255,19 @@ namespace HTX.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(string symbol, Action<DataEvent<HTXSymbolTrade>> onData, CancellationToken ct = default)
         {
+            var internalHandler = new Action<DateTime, string?, HTXDataEvent<HTXSymbolTrade>>((receiveTime, originalData, data) =>
+            {
+                onData(
+                    new DataEvent<HTXSymbolTrade>(HTXExchange.ExchangeName, data.Data, receiveTime, originalData)
+                        .WithUpdateType(SocketUpdateType.Update)
+                        .WithDataTimestamp(data.Timestamp)
+                        .WithSymbol(symbol)
+                        .WithStreamId(data.Channel)
+                    );
+            });
+
             symbol = symbol.ToLowerInvariant();
-            var subscription = new HTXSubscription<HTXSymbolTrade>(_logger, this, $"market.{symbol}.trade.detail", x => onData(x.WithSymbol(symbol)), false);
+            var subscription = new HTXSubscription<HTXSymbolTrade>(_logger, this, $"market.{symbol}.trade.detail", internalHandler, false);
             return await SubscribeAsync(BaseAddress.AppendPath("ws"), subscription, ct).ConfigureAwait(false);
         }
 
@@ -223,31 +288,74 @@ namespace HTX.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToSymbolDetailUpdatesAsync(string symbol, Action<DataEvent<HTXSymbolDetails>> onData, CancellationToken ct = default)
         {
+            var internalHandler = new Action<DateTime, string?, HTXDataEvent<HTXSymbolDetails>>((receiveTime, originalData, data) =>
+            {
+                onData(
+                    new DataEvent<HTXSymbolDetails>(HTXExchange.ExchangeName, data.Data, receiveTime, originalData)
+                        .WithUpdateType(SocketUpdateType.Update)
+                        .WithDataTimestamp(data.Timestamp)
+                        .WithSymbol(symbol)
+                        .WithStreamId(data.Channel)
+                    );
+            });
+
             symbol = symbol.ToLowerInvariant();
-            var subscription = new HTXSubscription<HTXSymbolDetails>(_logger, this, $"market.{symbol}.detail", x => onData(x.WithSymbol(symbol)), false);
+            var subscription = new HTXSubscription<HTXSymbolDetails>(_logger, this, $"market.{symbol}.detail", internalHandler, false);
             return await SubscribeAsync(BaseAddress.AppendPath("ws"), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(Action<DataEvent<HTXSymbolTicker[]>> onData, CancellationToken ct = default)
         {
-            var subscription = new HTXSubscription<HTXSymbolTicker[]>(_logger, this, $"market.tickers", onData, false);
+            var internalHandler = new Action<DateTime, string?, HTXDataEvent<HTXSymbolTicker[]>>((receiveTime, originalData, data) =>
+            {
+                onData(
+                    new DataEvent<HTXSymbolTicker[]>(HTXExchange.ExchangeName, data.Data, receiveTime, originalData)
+                        .WithUpdateType(SocketUpdateType.Update)
+                        .WithDataTimestamp(data.Timestamp)
+                        .WithStreamId(data.Channel)
+                    );
+            });
+
+            var subscription = new HTXSubscription<HTXSymbolTicker[]>(_logger, this, $"market.tickers", internalHandler, false);
             return await SubscribeAsync(BaseAddress.AppendPath("ws"), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(string symbol, Action<DataEvent<HTXSymbolTick>> onData, CancellationToken ct = default)
         {
+            var internalHandler = new Action<DateTime, string?, HTXDataEvent<HTXSymbolTick>>((receiveTime, originalData, data) =>
+            {
+                onData(
+                    new DataEvent<HTXSymbolTick>(HTXExchange.ExchangeName, data.Data, receiveTime, originalData)
+                        .WithUpdateType(SocketUpdateType.Update)
+                        .WithDataTimestamp(data.Timestamp)
+                        .WithSymbol(symbol)
+                        .WithStreamId(data.Channel)
+                    );
+            });
+
             symbol = symbol.ToLowerInvariant();
-            var subscription = new HTXSubscription<HTXSymbolTick>(_logger, this, $"market.{symbol}.ticker", x => onData(x.WithSymbol(symbol)), false);
+            var subscription = new HTXSubscription<HTXSymbolTick>(_logger, this, $"market.{symbol}.ticker", internalHandler, false);
             return await SubscribeAsync(BaseAddress.AppendPath("ws"), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToBookTickerUpdatesAsync(string symbol, Action<DataEvent<HTXBestOffer>> onData, CancellationToken ct = default)
         {
+            var internalHandler = new Action<DateTime, string?, HTXDataEvent<HTXBestOffer>>((receiveTime, originalData, data) =>
+            {
+                onData(
+                    new DataEvent<HTXBestOffer>(HTXExchange.ExchangeName, data.Data, receiveTime, originalData)
+                        .WithUpdateType(SocketUpdateType.Update)
+                        .WithDataTimestamp(data.Timestamp)
+                        .WithSymbol(symbol)
+                        .WithStreamId(data.Channel)
+                    );
+            });
+
             symbol = symbol.ToLowerInvariant();
-            var subscription = new HTXSubscription<HTXBestOffer>(_logger, this, $"market.{symbol}.bbo", x => onData(x.WithSymbol(symbol)), false);
+            var subscription = new HTXSubscription<HTXBestOffer>(_logger, this, $"market.{symbol}.bbo", internalHandler, false);
             return await SubscribeAsync(BaseAddress.AppendPath("ws"), subscription, ct).ConfigureAwait(false);
         }
 

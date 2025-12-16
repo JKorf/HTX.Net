@@ -1,6 +1,4 @@
-using CryptoExchange.Net.Converters.SystemTextJson;
 using CryptoExchange.Net.Converters;
-using HTX.Net.Converters;
 
 
 namespace HTX.Net.Objects.Models

@@ -3,9 +3,6 @@ using HTX.Net.Objects.Models;
 using HTX.Net.Objects.Models.Socket;
 using HTX.Net.Objects.Models.UsdtMarginSwap;
 using HTX.Net.Objects.Sockets;
-using System;
-using System.Collections.Generic;
-using System.Text.Json.Serialization;
 
 namespace HTX.Net.Converters
 {

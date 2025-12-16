@@ -1,11 +1,13 @@
 ﻿using CryptoExchange.Net.Clients;
 using CryptoExchange.Net.Converters.MessageParsing;
+using CryptoExchange.Net.Converters.MessageParsing.DynamicConverters;
 using CryptoExchange.Net.Objects.Errors;
 using CryptoExchange.Net.SharedApis;
+using HTX.Net.Clients.MessageHandlers;
 using HTX.Net.Interfaces.Clients.SpotApi;
 using HTX.Net.Objects.Internal;
 using HTX.Net.Objects.Options;
-using System;
+using System.Net.Http.Headers;
 
 namespace HTX.Net.Clients.SpotApi
 {
@@ -18,6 +20,8 @@ namespace HTX.Net.Clients.SpotApi
         internal static TimeSyncState _timeSyncState = new TimeSyncState("Spot Api");
 
         protected override ErrorMapping ErrorMapping => HTXErrors.SpotMapping;
+
+        protected override IRestMessageHandler MessageHandler => new HTXRestMessageHandler(HTXErrors.SpotMapping);
 
         /// <inheritdoc />
         public string ExchangeName => "HTX";
@@ -127,40 +131,6 @@ namespace HTX.Net.Clients.SpotApi
                 return result.AsError<T>(new ServerError(result.Data.ErrorCode!, GetErrorInfo(result.Data.ErrorCode!, result.Data.ErrorMessage)));
 
             return result.As(result.Data.Data);
-        }
-
-        /// <inheritdoc />
-        protected override Error ParseErrorResponse(int httpStatusCode, KeyValuePair<string, string[]>[] responseHeaders, IMessageAccessor accessor, Exception? exception)
-        {
-            if (!accessor.IsValid)
-                return new ServerError(ErrorInfo.Unknown, exception: exception);
-
-            var code = accessor.GetValue<string>(MessagePath.Get().Property("err-code"));
-            var msg = accessor.GetValue<string>(MessagePath.Get().Property("err-msg"));
-
-            if (code == null || msg == null)
-                return new ServerError(ErrorInfo.Unknown, exception: exception);
-
-            return new ServerError(code!, GetErrorInfo(code, msg), exception);
-        }
-
-        /// <inheritdoc />
-        protected override Error? TryParseError(RequestDefinition request, KeyValuePair<string, string[]>[] responseHeaders, IMessageAccessor accessor)
-        {
-            if (!accessor.IsValid)
-                return new ServerError(ErrorInfo.Unknown);
-
-            var code = accessor.GetValue<int?>(MessagePath.Get().Property("code"));
-            var errCode = accessor.GetValue<string>(MessagePath.Get().Property("err-code"));
-            var msg = accessor.GetValue<string>(MessagePath.Get().Property("message")) ?? accessor.GetValue<string>(MessagePath.Get().Property("err-msg"));
-
-            if (code > 0 && code != 200)
-                return new ServerError(code.Value!, GetErrorInfo(code.Value!, msg));
-
-            if (!string.IsNullOrEmpty(errCode))
-                return new ServerError(errCode!, GetErrorInfo(errCode!, msg));
-
-            return null;
         }
 
         #endregion

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace HTX.Net.Converters
+﻿namespace HTX.Net.Converters
 {
     internal class ClientIdConverter : ReplaceConverter
     {

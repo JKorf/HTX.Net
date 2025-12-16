@@ -1,4 +1,3 @@
-using CryptoExchange.Net.Converters.SystemTextJson;
 namespace HTX.Net.Objects.Models.UsdtMarginSwap
 {
     /// <summary>
@@ -28,10 +27,10 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         [JsonPropertyName("fee_asset")]
         public string FeeAsset { get; set; } = string.Empty;
         /// <summary>
-        /// Funding rate
+        /// Funding time
         /// </summary>
         [JsonPropertyName("funding_time")]
         [JsonConverter(typeof(DateTimeConverter))]
-        public DateTime FundingTime { get; set; }
+        public DateTime? FundingTime { get; set; }
     }
 }

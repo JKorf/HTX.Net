@@ -1,11 +1,14 @@
 ﻿using CryptoExchange.Net.Clients;
 using CryptoExchange.Net.Converters.MessageParsing;
+using CryptoExchange.Net.Converters.MessageParsing.DynamicConverters;
 using CryptoExchange.Net.Objects.Errors;
 using CryptoExchange.Net.SharedApis;
+using HTX.Net.Clients.MessageHandlers;
 using HTX.Net.Interfaces.Clients.SpotApi;
 using HTX.Net.Interfaces.Clients.UsdtFuturesApi;
 using HTX.Net.Objects.Internal;
 using HTX.Net.Objects.Options;
+using System.Net.Http.Headers;
 
 namespace HTX.Net.Clients.UsdtFutures
 {
@@ -19,6 +22,7 @@ namespace HTX.Net.Clients.UsdtFutures
 
         protected override ErrorMapping ErrorMapping => HTXErrors.FuturesMapping;
 
+        protected override IRestMessageHandler MessageHandler => new HTXRestMessageHandler(HTXErrors.FuturesMapping);
 
         /// <inheritdoc />
         public string ExchangeName => "HTX";
@@ -111,37 +115,6 @@ namespace HTX.Net.Clients.UsdtFutures
                 return result.AsError<T>(new ServerError(result.Data.ErrorCode!, GetErrorInfo(result.Data.ErrorCode!, result.Data.ErrorMessage)));
 
             return result.As(result.Data.Data);
-        }
-
-        /// <inheritdoc />
-        protected override Error ParseErrorResponse(int httpStatusCode, KeyValuePair<string, string[]>[] responseHeaders, IMessageAccessor accessor, Exception? exception)
-        {
-            if (!accessor.IsValid)
-                return new ServerError(ErrorInfo.Unknown, exception: exception);
-
-            var code = accessor.GetValue<string?>(MessagePath.Get().Property("err-code")) ?? accessor.GetValue<string>(MessagePath.Get().Property("err_code"));
-            var msg = accessor.GetValue<string>(MessagePath.Get().Property("err-msg")) ?? accessor.GetValue<string>(MessagePath.Get().Property("err_msg"));
-
-            if (code == null || msg == null)
-                return new ServerError(ErrorInfo.Unknown, exception: exception);
-
-
-            return new ServerError(code, GetErrorInfo(code, msg), exception);
-        }
-
-        /// <inheritdoc />
-        protected override Error? TryParseError(RequestDefinition request, KeyValuePair<string, string[]>[] responseHeaders, IMessageAccessor accessor)
-        {
-            if (!accessor.IsValid)
-                return new ServerError(ErrorInfo.Unknown);
-
-            var errCode = accessor.GetValue<string>(MessagePath.Get().Property("err-code")) ?? accessor.GetValue<string>(MessagePath.Get().Property("err_code"));
-            var msg = accessor.GetValue<string>(MessagePath.Get().Property("err-msg")) ?? accessor.GetValue<string>(MessagePath.Get().Property("err_msg"));
-
-            if (!string.IsNullOrEmpty(errCode))
-                return new ServerError(errCode!, GetErrorInfo(errCode!, msg));
-
-            return null;
         }
 
         /// <inheritdoc />

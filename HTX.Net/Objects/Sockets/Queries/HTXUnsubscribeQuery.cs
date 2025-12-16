@@ -7,6 +7,7 @@ namespace HTX.Net.Objects.Sockets.Queries
         public HTXUnsubscribeQuery(string topic, bool authenticated, int weight = 1, string? dataType = null) : base(new HTXUnsubscribeRequest() { Id = ExchangeHelpers.NextId().ToString(), Topic = topic, DataType = dataType }, authenticated, weight)
         {
             MessageMatcher = MessageMatcher.Create<HTXSocketResponse>(((HTXUnsubscribeRequest)Request).Id);
+            MessageRouter = MessageRouter.CreateWithoutHandler<HTXSocketResponse>(((HTXUnsubscribeRequest)Request).Id);
         }
     }
 }

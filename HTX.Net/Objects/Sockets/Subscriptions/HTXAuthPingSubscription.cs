@@ -1,5 +1,5 @@
-﻿using CryptoExchange.Net.Objects.Sockets;
-using CryptoExchange.Net.Sockets;
+﻿using CryptoExchange.Net.Sockets;
+using CryptoExchange.Net.Sockets.Default;
 
 namespace HTX.Net.Objects.Sockets.Subscriptions
 {
@@ -8,11 +8,12 @@ namespace HTX.Net.Objects.Sockets.Subscriptions
         public HTXAuthPingSubscription(ILogger logger) : base(logger, false)
         {
             MessageMatcher = MessageMatcher.Create<HTXAuthPingMessage>("pingv2", HandleMessage);
+            MessageRouter = MessageRouter.CreateWithoutTopicFilter<HTXAuthPingMessage>("pingv2", HandleMessage);
         }
 
-        public CallResult HandleMessage(SocketConnection connection, DataEvent<HTXAuthPingMessage> message)
+        public CallResult HandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, HTXAuthPingMessage message)
         {
-            connection.Send(ExchangeHelpers.NextId(), new HTXAuthPongMessage() { Action = "pong", Data = new HTXAuthPongMessageTimestamp { Pong = message.Data.Data.Ping } }, 1);
+            _ = connection.SendAsync(ExchangeHelpers.NextId(), new HTXAuthPongMessage() { Action = "pong", Data = new HTXAuthPongMessageTimestamp { Pong = message.Data.Ping } }, 1);
             return CallResult.SuccessResult;
         }
     }

@@ -1,4 +1,3 @@
-using CryptoExchange.Net.Converters.SystemTextJson;
 namespace HTX.Net.Objects.Sockets
 {
     /// <summary>

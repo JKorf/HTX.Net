@@ -1,6 +1,6 @@
 ﻿using CryptoExchange.Net.Clients;
-using CryptoExchange.Net.Objects.Sockets;
 using CryptoExchange.Net.Sockets;
+using CryptoExchange.Net.Sockets.Default;
 
 namespace HTX.Net.Objects.Sockets.Queries
 {
@@ -12,20 +12,22 @@ namespace HTX.Net.Objects.Sockets.Queries
         {
             _client = client;
             MessageMatcher = MessageMatcher.Create<HTXSocketAuthResponse>(action + topic, HandleMessage);
+            MessageRouter = MessageRouter.CreateWithoutTopicFilter<HTXSocketAuthResponse>(action + topic, HandleMessage);
         }
 
         public HTXAuthQuery(SocketApiClient client, HTXAuthRequest request) : base(request, true, 1)
         {
             _client = client;
             MessageMatcher = MessageMatcher.Create<HTXSocketAuthResponse>(request.Action + request.Channel, HandleMessage);
+            MessageRouter = MessageRouter.CreateWithoutTopicFilter<HTXSocketAuthResponse>(request.Action + request.Channel, HandleMessage);
         }
 
-        public CallResult<HTXSocketAuthResponse> HandleMessage(SocketConnection connection, DataEvent<HTXSocketAuthResponse> message)
+        public CallResult<HTXSocketAuthResponse> HandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, HTXSocketAuthResponse message)
         {
-            if (message.Data.Code != 200)
-                return new CallResult<HTXSocketAuthResponse>(new ServerError(message.Data.Code, _client.GetErrorInfo(message.Data.Code, message.Data.Message!)));
+            if (message.Code != 200)
+                return new CallResult<HTXSocketAuthResponse>(new ServerError(message.Code, _client.GetErrorInfo(message.Code, message.Message!)), originalData);
 
-            return message.ToCallResult();
+            return new CallResult<HTXSocketAuthResponse>(message, originalData, null);
         }
     }
 }

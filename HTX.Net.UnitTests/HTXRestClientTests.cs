@@ -1,5 +1,4 @@
-﻿using HTX.Net.UnitTests.TestImplementations;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using System;
 using System.Threading.Tasks;
 using HTX.Net.Clients;
@@ -19,34 +18,6 @@ namespace HTX.Net.UnitTests
     [TestFixture]
     public class HTXRestClientTests
     {
-        [TestCase]
-        public async Task ReceivingErrorResponse_Should_FailCall()
-        {
-            // arrange
-            var client = TestHelpers.CreateAuthResponseClient("{\"status\": \"error\", \"err-code\": \"Error!\", \"err-msg\": \"ErrorMessage\"}");
-
-            // act
-            var result = await client.SpotApi.ExchangeData.GetAssetsAsync();
-
-            // assert
-            ClassicAssert.IsFalse(result.Success);
-            Assert.That(result.Error.ToString().Contains("Error!"));
-            Assert.That(result.Error.ToString().Contains("ErrorMessage"));
-        }
-
-        [TestCase]
-        public async Task ReceivingHttpErrorResponse_Should_FailCall()
-        {
-            // arrange
-            var client = TestHelpers.CreateAuthResponseClient("Error message", System.Net.HttpStatusCode.BadRequest);
-
-            // act
-            var result = await client.SpotApi.ExchangeData.GetAssetsAsync();
-
-            // assert
-            ClassicAssert.IsFalse(result.Success);
-        }
-
 
         public string SerializeExpected<T>(T data, bool tick)
         {

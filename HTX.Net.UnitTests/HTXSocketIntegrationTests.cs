@@ -20,7 +20,7 @@ namespace HTX.Net.UnitTests
         {
         }
 
-        public override HTXSocketClient GetClient(ILoggerFactory loggerFactory)
+        public override HTXSocketClient GetClient(ILoggerFactory loggerFactory, bool useUpdatedDeserialization)
         {
             var key = Environment.GetEnvironmentVariable("APIKEY");
             var sec = Environment.GetEnvironmentVariable("APISECRET");
@@ -29,18 +29,20 @@ namespace HTX.Net.UnitTests
             return new HTXSocketClient(Options.Create(new HTXSocketOptions
             {
                 OutputOriginalData = true,
+                UseUpdatedDeserialization = useUpdatedDeserialization,
                 ApiCredentials = Authenticated ? new CryptoExchange.Net.Authentication.ApiCredentials(key, sec) : null
             }), loggerFactory);
         }
 
-        [Test]
-        public async Task TestSubscriptions()
+        [TestCase(false)]
+        [TestCase(true)]
+        public async Task TestSubscriptions(bool useUpdatedDeserialization)
         {
-            await RunAndCheckUpdate<HTXSymbolTick>((client, updateHandler) => client.SpotApi.SubscribeToAccountUpdatesAsync(default , default, default), false, true);
-            await RunAndCheckUpdate<HTXSymbolTick>((client, updateHandler) => client.SpotApi.SubscribeToTickerUpdatesAsync("ETHUSDT", updateHandler, default), true, false);
+            await RunAndCheckUpdate<HTXAccountUpdate>(useUpdatedDeserialization, (client, updateHandler) => client.SpotApi.SubscribeToAccountUpdatesAsync(updateHandler, default, default), false, true);
+            await RunAndCheckUpdate<HTXSymbolTick>(useUpdatedDeserialization, (client, updateHandler) => client.SpotApi.SubscribeToTickerUpdatesAsync("ETHUSDT", updateHandler, default), true, false);
 
-            await RunAndCheckUpdate<HTXSymbolTick>((client, updateHandler) => client.UsdtFuturesApi.SubscribeToCrossMarginBalanceUpdatesAsync(default, default), false, true);
-            await RunAndCheckUpdate<HTXSymbolTickUpdate>((client, updateHandler) => client.UsdtFuturesApi.SubscribeToTickerUpdatesAsync("ETH-USDT", updateHandler, default), true, false);
+            await RunAndCheckUpdate<HTXUsdtMarginSwapCrossBalanceUpdate>(useUpdatedDeserialization, (client, updateHandler) => client.UsdtFuturesApi.SubscribeToCrossMarginBalanceUpdatesAsync(updateHandler, default), false, true);
+            await RunAndCheckUpdate<HTXSymbolTickUpdate>(useUpdatedDeserialization, (client, updateHandler) => client.UsdtFuturesApi.SubscribeToTickerUpdatesAsync("ETH-USDT", updateHandler, default), true, false);
         } 
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace HTX.Net.Interfaces.Clients.SpotApi
+﻿using CryptoExchange.Net.Interfaces.Clients;
+
+namespace HTX.Net.Interfaces.Clients.SpotApi
 {
     /// <summary>
     /// Spot API endpoints

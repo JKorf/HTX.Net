@@ -1,5 +1,5 @@
-﻿using CryptoExchange.Net.Objects.Sockets;
-using CryptoExchange.Net.Sockets;
+﻿using CryptoExchange.Net.Sockets;
+using CryptoExchange.Net.Sockets.Default;
 
 namespace HTX.Net.Objects.Sockets.Subscriptions
 {
@@ -7,10 +7,11 @@ namespace HTX.Net.Objects.Sockets.Subscriptions
     {
         public HTXCloseSubscription(ILogger logger) : base(logger, false)
         {
-            MessageMatcher = MessageMatcher.Create<HTXOpPingMessage>("close");
+            MessageMatcher = MessageMatcher.Create<HTXOpPingMessage>("close", HandleMessage);
+            MessageRouter = MessageRouter.CreateWithoutTopicFilter<HTXOpPingMessage>("close", HandleMessage);
         }
 
-        public CallResult HandleMessage(SocketConnection connection, DataEvent<HTXOpPingMessage> message)
+        public CallResult HandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, HTXOpPingMessage message)
         {
             _ = connection.TriggerReconnectAsync();
             return CallResult.SuccessResult;

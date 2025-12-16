@@ -1,0 +1,6 @@
+>1 { "sub": "market.ethusdt.kline.1day", "id": "|*|" }
+>2 { "sub": "market.ethusdt.kline.60min", "id": "|*|" }
+<1 { "id": "|id|", "status": "ok", "subbed": "market.ethusdt.kline.1day", "ts": 1489474081631 }
+<2 { "id": "|id|", "status": "ok", "subbed": "market.ethusdt.kline.60min", "ts": 1489474081631 }
+=1 { "ch": "market.ethusdt.kline.1day", "ts": 1630981694370, "tick": {  "id": 1630981680 } }
+=2 { "ch": "market.ethusdt.kline.60min", "ts": 1630981694370, "tick": {  "id": 1630981680 } }

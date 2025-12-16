@@ -1,13 +1,14 @@
 ﻿using CryptoExchange.Net.Clients;
 using CryptoExchange.Net.Objects.Sockets;
 using CryptoExchange.Net.Sockets;
+using CryptoExchange.Net.Sockets.Default;
 using HTX.Net.Objects.Internal;
 using HTX.Net.Objects.Models.Socket;
 using HTX.Net.Objects.Sockets.Queries;
 
 namespace HTX.Net.Objects.Sockets.Subscriptions
 {
-    internal class HTXIncrementalOrderBookSubscription : Subscription<HTXSocketResponse, HTXSocketResponse>
+    internal class HTXIncrementalOrderBookSubscription : Subscription
     {
         private readonly SocketApiClient _client;
         private string _topic;
@@ -22,6 +23,7 @@ namespace HTX.Net.Objects.Sockets.Subscriptions
             _topic = topic;
 
             MessageMatcher = MessageMatcher.Create<HTXDataEvent<HTXIncrementalOrderBookUpdate>>(topic, DoHandleMessage);
+            MessageRouter = MessageRouter.CreateWithoutTopicFilter<HTXDataEvent<HTXIncrementalOrderBookUpdate>>(topic, DoHandleMessage);
         }
 
         protected override Query? GetSubQuery(SocketConnection connection)
@@ -33,11 +35,15 @@ namespace HTX.Net.Objects.Sockets.Subscriptions
             return new HTXUnsubscribeQuery(_topic, Authenticated, dataType: _snapshots ? null : "incremental");
         }
 
-        public CallResult DoHandleMessage(SocketConnection connection, DataEvent<HTXDataEvent<HTXIncrementalOrderBookUpdate>> message)
+        public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, HTXDataEvent<HTXIncrementalOrderBookUpdate> message)
         {
-            _handler.Invoke(message.As(message.Data.Data)
-                .WithStreamId(message.Data.Channel).WithUpdateType(message.Data.Data.Event == "snapshot" ? SocketUpdateType.Snapshot: SocketUpdateType.Update)
-                .WithDataTimestamp(message.Data.Timestamp));
+            _handler.Invoke(
+                new DataEvent<HTXIncrementalOrderBookUpdate>(HTXExchange.ExchangeName, message.Data, receiveTime, originalData)
+                    .WithUpdateType(message.Data.Event == "snapshot" ? SocketUpdateType.Snapshot : SocketUpdateType.Update)
+                    .WithDataTimestamp(message.Timestamp)
+                    .WithStreamId(message.Channel)
+                );
+
             return CallResult.SuccessResult;
         }
     }
