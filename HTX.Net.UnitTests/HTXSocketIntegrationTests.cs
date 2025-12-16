@@ -14,7 +14,7 @@ namespace HTX.Net.UnitTests
     [NonParallelizable]
     internal class HTXSocketIntegrationTests : SocketIntegrationTest<HTXSocketClient>
     {
-        public override bool Run { get; set; } = true;
+        public override bool Run { get; set; } = false;
 
         public HTXSocketIntegrationTests()
         {
