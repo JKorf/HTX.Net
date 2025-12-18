@@ -10,6 +10,8 @@ namespace HTX.Net.Converters
     [JsonSerializable(typeof(HTXBasicResponse<HTXSymbolTick[]>))]
     [JsonSerializable(typeof(HTXBasicResponse<HTXOpenOrder[]>))]
     [JsonSerializable(typeof(HTXBasicResponse<HTXSymbolDetails>))]
+    [JsonSerializable(typeof(HTXBasicResponse<long?>))]
+    [JsonSerializable(typeof(HTXApiResponseV2<long?>))]
     [JsonSerializable(typeof(long[]))]
     [JsonSerializable(typeof(ParameterCollection[]))]
     [JsonSerializable(typeof(HTXAuthRequest<HTXAuthParams>))]

@@ -58,8 +58,8 @@ namespace HTX.Net.Clients.SpotApi
 
             var request = _definitions.GetOrCreate(HttpMethod.Post, "v1/order/orders/place", HTXExchange.RateLimiter.EndpointLimit, 1, true,
                 new SingleLimitGuard(100, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
-            var result = await _baseClient.SendBasicAsync<long>(request, parameters, ct).ConfigureAwait(false);
-            return result;
+            var result = await _baseClient.SendBasicAsync<long?>(request, parameters, ct).ConfigureAwait(false);
+            return result.As(result.Data ?? 0);
         }
 
         #endregion
@@ -178,8 +178,8 @@ namespace HTX.Net.Clients.SpotApi
         {
             var request = _definitions.GetOrCreate(HttpMethod.Post, $"v1/order/orders/{orderId}/submitcancel", HTXExchange.RateLimiter.EndpointLimit, 1, true,
                 new SingleLimitGuard(100, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
-            var result = await _baseClient.SendBasicAsync<long>(request, null, ct).ConfigureAwait(false);
-            return result;
+            var result = await _baseClient.SendBasicAsync<long?>(request, null, ct).ConfigureAwait(false);
+            return result.As(result.Data ?? 0);
         }
 
         #endregion
@@ -202,7 +202,8 @@ namespace HTX.Net.Clients.SpotApi
 
             var request = _definitions.GetOrCreate(HttpMethod.Post, "v1/order/orders/submitCancelClientOrder", HTXExchange.RateLimiter.EndpointLimit, 1, true,
                 new SingleLimitGuard(100, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
-            return await _baseClient.SendBasicAsync<long>(request, parameters, ct).ConfigureAwait(false);
+            var result = await _baseClient.SendBasicAsync<long?>(request, parameters, ct).ConfigureAwait(false);
+            return result.As(result.Data ?? 0);
         }
 
         #endregion

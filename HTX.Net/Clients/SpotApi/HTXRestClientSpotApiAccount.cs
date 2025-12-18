@@ -175,8 +175,8 @@ namespace HTX.Net.Clients.SpotApi
             parameters.Add("margin-account", marginAccount);
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/v2/account/transfer", HTXExchange.RateLimiter.EndpointLimit, 1, true,
                 new SingleLimitGuard(10, TimeSpan.FromSeconds(1), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
-            var result = await _baseClient.SendAsync<long>(request, parameters, ct).ConfigureAwait(false);
-            return result;
+            var result = await _baseClient.SendAsync<long?>(request, parameters, ct).ConfigureAwait(false);
+            return result.As(result.Data ?? 0);
         }
 
         #endregion
@@ -332,7 +332,8 @@ namespace HTX.Net.Clients.SpotApi
             parameters.AddOptionalParameter("client-order-id", clientOrderId);
             var request = _definitions.GetOrCreate(HttpMethod.Post, $"v1/dw/withdraw/api/create", HTXExchange.RateLimiter.EndpointLimit, 1, true,
                 new SingleLimitGuard(20, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
-            return await _baseClient.SendBasicAsync<long>(request, parameters, ct).ConfigureAwait(false);
+            var result = await _baseClient.SendBasicAsync<long?>(request, parameters, ct).ConfigureAwait(false);
+            return result.As(result.Data ?? 0);
         }
 
         #endregion
@@ -363,7 +364,7 @@ namespace HTX.Net.Clients.SpotApi
             var parameters = new ParameterCollection();
             var request = _definitions.GetOrCreate(HttpMethod.Post, $"/v1/dw/withdraw-virtual/{id}/cancel", HTXExchange.RateLimiter.EndpointLimit, 1, true,
                 new SingleLimitGuard(20, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
-            var result = await _baseClient.SendToAddressRawAsync<HTXApiResponseV2<long>>(_baseClient.BaseAddress, request, parameters, ct).ConfigureAwait(false);
+            var result = await _baseClient.SendToAddressRawAsync<HTXApiResponseV2<long?>>(_baseClient.BaseAddress, request, parameters, ct).ConfigureAwait(false);
             return result.As<long>(result.Data?.Data ?? default);
         }
 
@@ -428,7 +429,8 @@ namespace HTX.Net.Clients.SpotApi
         {
             var request = _definitions.GetOrCreate(HttpMethod.Get, "v2/user/uid", HTXExchange.RateLimiter.EndpointLimit, 1, true,
                 new SingleLimitGuard(20, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
-            return await _baseClient.SendAsync<long>(request, null, ct).ConfigureAwait(false);
+            var result = await _baseClient.SendAsync<long?>(request, null, ct).ConfigureAwait(false);
+            return result.As(result.Data ?? 0);
         }
 
         #endregion

@@ -124,10 +124,11 @@ namespace HTX.Net.Clients.SpotApi
         {
             var request = _definitions.GetOrCreate(HttpMethod.Get, "v1/common/timestamp", HTXExchange.RateLimiter.EndpointLimit, 1, false, preventCaching: true,
                 limitGuard: new SingleLimitGuard(100, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding));
-            var result = await _baseClient.SendBasicAsync<long>(request, null, ct).ConfigureAwait(false);
+            var result = await _baseClient.SendBasicAsync<long?>(request, null, ct).ConfigureAwait(false);
             if (!result)
                 return result.AsError<DateTime>(result.Error!);
-            var time = DateTimeConverter.ParseFromDouble(result.Data)!;
+
+            var time = DateTimeConverter.ParseFromDouble(result.Data!.Value)!;
             return result.As(time);
         }
 
