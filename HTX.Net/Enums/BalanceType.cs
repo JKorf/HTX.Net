@@ -57,6 +57,11 @@ namespace HTX.Net.Enums
         /// Loan available
         /// </summary>
         [Map("loan-available")]
-        LoanAvailable
+        LoanAvailable,
+        /// <summary>
+        /// Lending
+        /// </summary>
+        [Map("lending")]
+        Lending
     }
 }
