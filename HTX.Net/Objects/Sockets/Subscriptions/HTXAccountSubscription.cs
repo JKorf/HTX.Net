@@ -35,10 +35,13 @@ namespace HTX.Net.Objects.Sockets.Subscriptions
 
         public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, HTXDataEvent<HTXAccountUpdate> message)
         {
+            if (message.Data.ChangeTime != null)
+                _client.UpdateTimeOffset(message.Data.ChangeTime.Value);
+
             _handler.Invoke(
                 new DataEvent<HTXAccountUpdate>(HTXExchange.ExchangeName, message.Data, receiveTime, originalData)
                     .WithStreamId(message.Channel)
-                    .WithDataTimestamp(message.Data.ChangeTime));
+                    .WithDataTimestamp(message.Data.ChangeTime, _client.GetTimeOffset()));
 
             return CallResult.SuccessResult;
         }

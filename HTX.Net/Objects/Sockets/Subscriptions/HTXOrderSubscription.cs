@@ -64,60 +64,70 @@ namespace HTX.Net.Objects.Sockets.Subscriptions
 
         public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, HTXDataEvent<HTXTriggerFailureOrderUpdate> message)
         {
+            _client.UpdateTimeOffset(message.Timestamp);
+
             _onConditionalOrderTriggerFailure?.Invoke(
                 new DataEvent<HTXTriggerFailureOrderUpdate>(HTXExchange.ExchangeName, message.Data, receiveTime, originalData)
                     .WithStreamId(message.Channel)
                     .WithSymbol(message.Data.Symbol)
                     .WithUpdateType(SocketUpdateType.Update)
-                    .WithDataTimestamp(message.Timestamp)
+                    .WithDataTimestamp(message.Timestamp, _client.GetTimeOffset())
                 );
             return CallResult.SuccessResult;
         }
 
         public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, HTXDataEvent<HTXOrderUpdate> message)
         {
+            _client.UpdateTimeOffset(message.Timestamp);
+
             _onConditionalOrderCanceled?.Invoke(
                 new DataEvent<HTXOrderUpdate>(HTXExchange.ExchangeName, message.Data, receiveTime, originalData)
                     .WithStreamId(message.Channel)
                     .WithSymbol(message.Data.Symbol)
                     .WithUpdateType(SocketUpdateType.Update)
-                    .WithDataTimestamp(message.Timestamp)
+                    .WithDataTimestamp(message.Timestamp, _client.GetTimeOffset())
                 );
             return CallResult.SuccessResult;
         }
 
         public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, HTXDataEvent<HTXSubmittedOrderUpdate> message)
         {
+            _client.UpdateTimeOffset(message.Timestamp);
+
             _onOrderSubmitted?.Invoke(
                 new DataEvent<HTXSubmittedOrderUpdate>(HTXExchange.ExchangeName, message.Data, receiveTime, originalData)
                     .WithStreamId(message.Channel)
                     .WithSymbol(message.Data.Symbol)
                     .WithUpdateType(SocketUpdateType.Update)
-                    .WithDataTimestamp(message.Timestamp)
+                    .WithDataTimestamp(message.Timestamp, _client.GetTimeOffset())
                 );
             return CallResult.SuccessResult;
         }
 
         public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, HTXDataEvent<HTXMatchedOrderUpdate> message)
         {
+            _client.UpdateTimeOffset(message.Timestamp);
+
             _onOrderMatched?.Invoke(
                 new DataEvent<HTXMatchedOrderUpdate>(HTXExchange.ExchangeName, message.Data, receiveTime, originalData)
                     .WithStreamId(message.Channel)
                     .WithSymbol(message.Data.Symbol)
                     .WithUpdateType(SocketUpdateType.Update)
-                    .WithDataTimestamp(message.Timestamp)
+                    .WithDataTimestamp(message.Timestamp, _client.GetTimeOffset())
                 );
             return CallResult.SuccessResult;
         }
 
         public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, HTXDataEvent<HTXCanceledOrderUpdate> message)
         {
+            _client.UpdateTimeOffset(message.Timestamp);
+
             _onOrderCancelation?.Invoke(
                 new DataEvent<HTXCanceledOrderUpdate>(HTXExchange.ExchangeName, message.Data, receiveTime, originalData)
                     .WithStreamId(message.Channel)
                     .WithSymbol(message.Data.Symbol)
                     .WithUpdateType(SocketUpdateType.Update)
-                    .WithDataTimestamp(message.Timestamp)
+                    .WithDataTimestamp(message.Timestamp, _client.GetTimeOffset())
                 );
             return CallResult.SuccessResult;
         }

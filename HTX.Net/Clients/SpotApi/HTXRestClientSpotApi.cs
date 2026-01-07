@@ -17,8 +17,6 @@ namespace HTX.Net.Clients.SpotApi
         /// <inheritdoc />
         public new HTXRestOptions ClientOptions => (HTXRestOptions)base.ClientOptions;
 
-        internal static TimeSyncState _timeSyncState = new TimeSyncState("Spot Api");
-
         protected override ErrorMapping ErrorMapping => HTXErrors.SpotMapping;
 
         protected override IRestMessageHandler MessageHandler => new HTXRestMessageHandler(HTXErrors.SpotMapping);
@@ -138,14 +136,6 @@ namespace HTX.Net.Clients.SpotApi
         /// <inheritdoc />
         protected override Task<WebCallResult<DateTime>> GetServerTimestampAsync()
             => ExchangeData.GetServerTimeAsync();
-
-        /// <inheritdoc />
-        public override TimeSyncInfo? GetTimeSyncInfo()
-            => new TimeSyncInfo(_logger, ClientOptions.AutoTimestamp, ClientOptions.TimestampRecalculationInterval, _timeSyncState);
-
-        /// <inheritdoc />
-        public override TimeSpan? GetTimeOffset()
-            => _timeSyncState.TimeOffset;
 
         public IHTXRestClientSpotApiShared SharedClient => this;
     }

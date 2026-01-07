@@ -48,24 +48,28 @@ namespace HTX.Net.Objects.Sockets.Subscriptions
 
         public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, HTXDataEvent<HTXOrderCancelationUpdate> message)
         {
+            _client.UpdateTimeOffset(message.Timestamp);
+
             _onOrderCancel?.Invoke(
                 new DataEvent<HTXOrderCancelationUpdate>(HTXExchange.ExchangeName, message.Data, receiveTime, originalData)
                     .WithStreamId(message.Channel)
                     .WithSymbol(message.Data.Symbol)
                     .WithUpdateType(SocketUpdateType.Update)
-                    .WithDataTimestamp(message.Timestamp)
+                    .WithDataTimestamp(message.Timestamp, _client.GetTimeOffset())
                 );
             return CallResult.SuccessResult;
         }
 
         public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, HTXDataEvent<HTXTradeUpdate> message)
         {
+            _client.UpdateTimeOffset(message.Timestamp);
+
             _onOrderMatch?.Invoke(
                 new DataEvent<HTXTradeUpdate>(HTXExchange.ExchangeName, message.Data, receiveTime, originalData)
                     .WithStreamId(message.Channel)
                     .WithSymbol(message.Data.Symbol)
                     .WithUpdateType(SocketUpdateType.Update)
-                    .WithDataTimestamp(message.Timestamp)
+                    .WithDataTimestamp(message.Timestamp, _client.GetTimeOffset())
                 );
             return CallResult.SuccessResult;
         }

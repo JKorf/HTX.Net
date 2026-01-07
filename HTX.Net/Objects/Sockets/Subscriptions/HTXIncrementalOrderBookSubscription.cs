@@ -37,10 +37,12 @@ namespace HTX.Net.Objects.Sockets.Subscriptions
 
         public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, HTXDataEvent<HTXIncrementalOrderBookUpdate> message)
         {
+            _client.UpdateTimeOffset(message.Timestamp);
+
             _handler.Invoke(
                 new DataEvent<HTXIncrementalOrderBookUpdate>(HTXExchange.ExchangeName, message.Data, receiveTime, originalData)
                     .WithUpdateType(message.Data.Event == "snapshot" ? SocketUpdateType.Snapshot : SocketUpdateType.Update)
-                    .WithDataTimestamp(message.Timestamp)
+                    .WithDataTimestamp(message.Timestamp, _client.GetTimeOffset())
                     .WithStreamId(message.Channel)
                 );
 

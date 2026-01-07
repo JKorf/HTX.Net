@@ -117,19 +117,6 @@ namespace HTX.Net.Clients.SpotApi
             => new HTXAuthenticationProvider(credentials, false);
 
         /// <inheritdoc />
-        protected override Task<Query?> GetAuthenticationRequestAsync(SocketConnection connection)
-        {
-            var path = connection.ConnectionUri;
-
-            return Task.FromResult<Query?>(new HTXAuthQuery(this, new HTXAuthRequest<HTXAuthParams>
-            {
-                Action = "req",
-                Channel = "auth",
-                Params = ((HTXAuthenticationProvider)AuthenticationProvider!).GetWebsocketAuthentication(path)
-            }));
-        }
-
-        /// <inheritdoc />
         public async Task<CallResult<HTXKline[]>> GetKlinesAsync(string symbol, KlineInterval period)
         {
             symbol = symbol.ToLowerInvariant();
@@ -146,10 +133,12 @@ namespace HTX.Net.Clients.SpotApi
 
             var internalHandler = new Action<DateTime, string?, HTXDataEvent<HTXKline>>((receiveTime, originalData, data) =>
             {
+                UpdateTimeOffset(data.Timestamp);
+
                 onData(
                     new DataEvent<HTXKline>(HTXExchange.ExchangeName, data.Data, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
-                        .WithDataTimestamp(data.Timestamp)
+                        .WithDataTimestamp(data.Timestamp, GetTimeOffset())
                         .WithSymbol(symbol)
                         .WithStreamId(data.Channel)
                     );
@@ -189,10 +178,12 @@ namespace HTX.Net.Clients.SpotApi
 
             var internalHandler = new Action<DateTime, string?, HTXDataEvent<HTXOrderBook>>((receiveTime, originalData, data) =>
             {
+                UpdateTimeOffset(data.Timestamp);
+
                 onData(
                     new DataEvent<HTXOrderBook>(HTXExchange.ExchangeName, data.Data, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
-                        .WithDataTimestamp(data.Timestamp)
+                        .WithDataTimestamp(data.Timestamp, GetTimeOffset())
                         .WithSymbol(symbol)
                         .WithStreamId(data.Channel)
                     );
@@ -210,10 +201,12 @@ namespace HTX.Net.Clients.SpotApi
 
             var internalHandler = new Action<DateTime, string?, HTXDataEvent<HTXOrderBook>>((receiveTime, originalData, data) =>
             {
+                UpdateTimeOffset(data.Timestamp);
+
                 onData(
                     new DataEvent<HTXOrderBook>(HTXExchange.ExchangeName, data.Data, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
-                        .WithDataTimestamp(data.Timestamp)
+                        .WithDataTimestamp(data.Timestamp, GetTimeOffset())
                         .WithSymbol(symbol)
                         .WithStreamId(data.Channel)
                     );
@@ -230,10 +223,12 @@ namespace HTX.Net.Clients.SpotApi
 
             var internalHandler = new Action<DateTime, string?, HTXDataEvent<HTXIncementalOrderBook>>((receiveTime, originalData, data) =>
             {
+                UpdateTimeOffset(data.Timestamp);
+
                 onData(
                     new DataEvent<HTXIncementalOrderBook>(HTXExchange.ExchangeName, data.Data, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
-                        .WithDataTimestamp(data.Timestamp)
+                        .WithDataTimestamp(data.Timestamp, GetTimeOffset())
                         .WithSymbol(symbol)
                         .WithStreamId(data.Channel)
                     );
@@ -257,10 +252,12 @@ namespace HTX.Net.Clients.SpotApi
         {
             var internalHandler = new Action<DateTime, string?, HTXDataEvent<HTXSymbolTrade>>((receiveTime, originalData, data) =>
             {
+                UpdateTimeOffset(data.Timestamp);
+
                 onData(
                     new DataEvent<HTXSymbolTrade>(HTXExchange.ExchangeName, data.Data, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
-                        .WithDataTimestamp(data.Timestamp)
+                        .WithDataTimestamp(data.Timestamp, GetTimeOffset())
                         .WithSymbol(symbol)
                         .WithStreamId(data.Channel)
                     );
@@ -290,10 +287,12 @@ namespace HTX.Net.Clients.SpotApi
         {
             var internalHandler = new Action<DateTime, string?, HTXDataEvent<HTXSymbolDetails>>((receiveTime, originalData, data) =>
             {
+                UpdateTimeOffset(data.Timestamp);
+
                 onData(
                     new DataEvent<HTXSymbolDetails>(HTXExchange.ExchangeName, data.Data, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
-                        .WithDataTimestamp(data.Timestamp)
+                        .WithDataTimestamp(data.Timestamp, GetTimeOffset())
                         .WithSymbol(symbol)
                         .WithStreamId(data.Channel)
                     );
@@ -309,10 +308,12 @@ namespace HTX.Net.Clients.SpotApi
         {
             var internalHandler = new Action<DateTime, string?, HTXDataEvent<HTXSymbolTicker[]>>((receiveTime, originalData, data) =>
             {
+                UpdateTimeOffset(data.Timestamp);
+
                 onData(
                     new DataEvent<HTXSymbolTicker[]>(HTXExchange.ExchangeName, data.Data, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
-                        .WithDataTimestamp(data.Timestamp)
+                        .WithDataTimestamp(data.Timestamp, GetTimeOffset())
                         .WithStreamId(data.Channel)
                     );
             });
@@ -326,10 +327,12 @@ namespace HTX.Net.Clients.SpotApi
         {
             var internalHandler = new Action<DateTime, string?, HTXDataEvent<HTXSymbolTick>>((receiveTime, originalData, data) =>
             {
+                UpdateTimeOffset(data.Timestamp);
+
                 onData(
                     new DataEvent<HTXSymbolTick>(HTXExchange.ExchangeName, data.Data, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
-                        .WithDataTimestamp(data.Timestamp)
+                        .WithDataTimestamp(data.Timestamp, GetTimeOffset())
                         .WithSymbol(symbol)
                         .WithStreamId(data.Channel)
                     );
@@ -345,10 +348,12 @@ namespace HTX.Net.Clients.SpotApi
         {
             var internalHandler = new Action<DateTime, string?, HTXDataEvent<HTXBestOffer>>((receiveTime, originalData, data) =>
             {
+                UpdateTimeOffset(data.Timestamp);
+
                 onData(
                     new DataEvent<HTXBestOffer>(HTXExchange.ExchangeName, data.Data, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
-                        .WithDataTimestamp(data.Timestamp)
+                        .WithDataTimestamp(data.Timestamp, GetTimeOffset())
                         .WithSymbol(symbol)
                         .WithStreamId(data.Channel)
                     );

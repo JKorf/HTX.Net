@@ -1,6 +1,10 @@
 ﻿using CryptoExchange.Net.Clients;
+using CryptoExchange.Net.Sockets;
+using CryptoExchange.Net.Sockets.Default;
 using HTX.Net.Objects.Internal;
 using HTX.Net.Objects.Sockets;
+using HTX.Net.Objects.Sockets.Queries;
+using System;
 using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -50,38 +54,52 @@ namespace HTX.Net
             request.SetQueryString($"{paramString}&Signature={WebUtility.UrlEncode(signature)}");
         }
 
-        public HTXAuthParams GetWebsocketAuthentication(Uri uri)
+        public override Query? GetAuthenticationQuery(SocketApiClient apiClient, SocketConnection connection, Dictionary<string, object?>? context = null)
         {
-            var parameters = new ParameterCollection();
-            parameters.Add("accessKey", _credentials.Key);
-            parameters.Add("signatureMethod", "HmacSHA256");
-            parameters.Add("signatureVersion", 2.1);
-            parameters.Add("timestamp", DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm:ss", CultureInfo.InvariantCulture));
+            object? version = null;
+            context?.TryGetValue("version", out version);
 
-            var sortedParameters = parameters.OrderBy(kv => Encoding.UTF8.GetBytes(WebUtility.UrlEncode(kv.Key)!), new ByteOrderComparer());
-            var paramString = uri.SetParameters(sortedParameters, ArrayParametersSerialization.Array).Query.Replace("?", "");
-            paramString = new Regex(@"%[a-f0-9]{2}").Replace(paramString, m => m.Value.ToUpperInvariant()).Replace("%2C", ".");
-            var signData = $"GET\n{uri.Host}\n{uri.AbsolutePath}\n{paramString}";
-            var signature = SignHMACSHA256(signData, SignOutputType.Base64);
+            var uri = connection.ConnectionUri;
+            if ((string?)version == "2")
+            {
+                var parameters = new ParameterCollection();
+                parameters.Add("AccessKeyId", _credentials.Key);
+                parameters.Add("SignatureMethod", "HmacSHA256");
+                parameters.Add("SignatureVersion", 2);
+                parameters.Add("Timestamp", GetTimestamp(apiClient).ToString("yyyy-MM-ddTHH:mm:ss", CultureInfo.InvariantCulture));
 
-            return new HTXAuthParams { AccessKey = _credentials.Key, Timestamp = (string)parameters["timestamp"], Signature = signature };
-        }
+                var sortedParameters = parameters.OrderBy(kv => Encoding.UTF8.GetBytes(WebUtility.UrlEncode(kv.Key)!), new ByteOrderComparer());
+                var paramString = uri.SetParameters(sortedParameters, ArrayParametersSerialization.Array).Query.Replace("?", "");
+                paramString = new Regex(@"%[a-f0-9]{2}").Replace(paramString, m => m.Value.ToUpperInvariant()).Replace("%2C", ".");
+                var signData = $"GET\n{uri.Host}\n{uri.AbsolutePath}\n{paramString}";
+                var signature = SignHMACSHA256(signData, SignOutputType.Base64);
 
-        public HTXAuthenticationRequest2 GetWebsocketAuthentication2(Uri uri)
-        {
-            var parameters = new ParameterCollection();
-            parameters.Add("AccessKeyId", _credentials.Key);
-            parameters.Add("SignatureMethod", "HmacSHA256");
-            parameters.Add("SignatureVersion", 2);
-            parameters.Add("Timestamp", DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm:ss", CultureInfo.InvariantCulture));
+                var request = new HTXAuthenticationRequest2(_credentials.Key, (string)parameters["Timestamp"], signature);
+                return new HTXOpAuthQuery(apiClient, request);
+            }
+            else
+            {
+                var parameters = new ParameterCollection();
+                parameters.Add("accessKey", _credentials.Key);
+                parameters.Add("signatureMethod", "HmacSHA256");
+                parameters.Add("signatureVersion", 2.1);
+                parameters.Add("timestamp", GetTimestamp(apiClient).ToString("yyyy-MM-ddTHH:mm:ss", CultureInfo.InvariantCulture));
 
-            var sortedParameters = parameters.OrderBy(kv => Encoding.UTF8.GetBytes(WebUtility.UrlEncode(kv.Key)!), new ByteOrderComparer());
-            var paramString = uri.SetParameters(sortedParameters, ArrayParametersSerialization.Array).Query.Replace("?", "");
-            paramString = new Regex(@"%[a-f0-9]{2}").Replace(paramString, m => m.Value.ToUpperInvariant()).Replace("%2C", ".");
-            var signData = $"GET\n{uri.Host}\n{uri.AbsolutePath}\n{paramString}";
-            var signature = SignHMACSHA256(signData, SignOutputType.Base64);
+                var sortedParameters = parameters.OrderBy(kv => Encoding.UTF8.GetBytes(WebUtility.UrlEncode(kv.Key)!), new ByteOrderComparer());
+                var paramString = uri.SetParameters(sortedParameters, ArrayParametersSerialization.Array).Query.Replace("?", "");
+                paramString = new Regex(@"%[a-f0-9]{2}").Replace(paramString, m => m.Value.ToUpperInvariant()).Replace("%2C", ".");
+                var signData = $"GET\n{uri.Host}\n{uri.AbsolutePath}\n{paramString}";
+                var signature = SignHMACSHA256(signData, SignOutputType.Base64);
 
-            return new HTXAuthenticationRequest2(_credentials.Key, (string)parameters["Timestamp"], signature);
+                var authParams = new HTXAuthParams { AccessKey = _credentials.Key, Timestamp = (string)parameters["timestamp"], Signature = signature };
+
+                return new HTXAuthQuery(apiClient, new HTXAuthRequest<HTXAuthParams>
+                {
+                    Action = "req",
+                    Channel = "auth",
+                    Params = authParams
+                });
+            }
         }
     }
 }

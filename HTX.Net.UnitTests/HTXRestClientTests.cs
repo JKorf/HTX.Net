@@ -47,7 +47,7 @@ namespace HTX.Net.UnitTests
                 {
                     { "order-id", "1234567890" }
                 },
-                time: new DateTime(2017, 5, 11, 15, 19, 30, DateTimeKind.Utc),
+                time: new DateTime(2017, 5, 11, 15, 19, 31, DateTimeKind.Utc),
                 host: "https://api.huobi.pro");
         }
 

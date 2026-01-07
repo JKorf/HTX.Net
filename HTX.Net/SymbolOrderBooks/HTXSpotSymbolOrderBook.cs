@@ -117,14 +117,14 @@ namespace HTX.Net.SymbolOrderBooks
         private void HandleIncremental(DataEvent<HTXIncementalOrderBook> book)
         {
             if(book.Data.PreviousSequenceNumber != null)
-                UpdateOrderBook(book.Data.PreviousSequenceNumber.Value, book.Data.SequenceNumber, book.Data.Bids, book.Data.Asks);
+                UpdateOrderBook(book.Data.PreviousSequenceNumber.Value, book.Data.SequenceNumber, book.Data.Bids, book.Data.Asks, book.DataTime, book.DataTimeLocal);
             else
-                UpdateOrderBook(book.Data.SequenceNumber, book.Data.Bids, book.Data.Asks);
+                UpdateOrderBook(book.Data.SequenceNumber, book.Data.Bids, book.Data.Asks, book.DataTime, book.DataTimeLocal);
         }
 
         private void HandleUpdate(DataEvent<HTXOrderBook> data)
         {
-            SetInitialOrderBook(data.Data.Timestamp.Ticks, data.Data.Bids, data.Data.Asks);
+            SetInitialOrderBook(data.Data.Timestamp.Ticks, data.Data.Bids, data.Data.Asks, data.DataTime, data.DataTimeLocal);
         }
 
         /// <inheritdoc />

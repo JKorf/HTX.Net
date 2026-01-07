@@ -8,7 +8,6 @@ using HTX.Net.Interfaces.Clients.SpotApi;
 using HTX.Net.Interfaces.Clients.UsdtFuturesApi;
 using HTX.Net.Objects.Internal;
 using HTX.Net.Objects.Options;
-using System.Net.Http.Headers;
 
 namespace HTX.Net.Clients.UsdtFutures
 {
@@ -17,8 +16,6 @@ namespace HTX.Net.Clients.UsdtFutures
     {
         /// <inheritdoc />
         public new HTXRestOptions ClientOptions => (HTXRestOptions)base.ClientOptions;
-
-        internal static TimeSyncState _timeSyncState = new TimeSyncState("Usdt Margin Swap Api");
 
         protected override ErrorMapping ErrorMapping => HTXErrors.FuturesMapping;
 
@@ -120,13 +117,5 @@ namespace HTX.Net.Clients.UsdtFutures
         /// <inheritdoc />
         protected override Task<WebCallResult<DateTime>> GetServerTimestampAsync()
             => ExchangeData.GetServerTimeAsync();
-
-        /// <inheritdoc />
-        public override TimeSyncInfo? GetTimeSyncInfo()
-            => new TimeSyncInfo(_logger, ApiOptions.AutoTimestamp ?? ClientOptions.AutoTimestamp, ApiOptions.TimestampRecalculationInterval ?? ClientOptions.TimestampRecalculationInterval, _timeSyncState);
-
-        /// <inheritdoc />
-        public override TimeSpan? GetTimeOffset()
-            => _timeSyncState.TimeOffset;
     }
 }

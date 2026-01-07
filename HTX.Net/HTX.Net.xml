@@ -135,12 +135,6 @@
         <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApi.GetServerTimestampAsync">
             <inheritdoc />
         </member>
-        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApi.GetTimeSyncInfo">
-            <inheritdoc />
-        </member>
-        <member name="M:HTX.Net.Clients.SpotApi.HTXRestClientSpotApi.GetTimeOffset">
-            <inheritdoc />
-        </member>
         <member name="T:HTX.Net.Clients.SpotApi.HTXRestClientSpotApiAccount">
             <inheritdoc />
         </member>
@@ -453,9 +447,6 @@
         <member name="M:HTX.Net.Clients.SpotApi.HTXSocketClientSpotApi.CreateAuthenticationProvider(CryptoExchange.Net.Authentication.ApiCredentials)">
             <inheritdoc />
         </member>
-        <member name="M:HTX.Net.Clients.SpotApi.HTXSocketClientSpotApi.GetAuthenticationRequestAsync(CryptoExchange.Net.Sockets.Default.SocketConnection)">
-            <inheritdoc />
-        </member>
         <member name="M:HTX.Net.Clients.SpotApi.HTXSocketClientSpotApi.GetKlinesAsync(System.String,HTX.Net.Enums.KlineInterval)">
             <inheritdoc />
         </member>
@@ -550,12 +541,6 @@
             <inheritdoc />
         </member>
         <member name="M:HTX.Net.Clients.UsdtFutures.HTXRestClientUsdtFuturesApi.GetServerTimestampAsync">
-            <inheritdoc />
-        </member>
-        <member name="M:HTX.Net.Clients.UsdtFutures.HTXRestClientUsdtFuturesApi.GetTimeSyncInfo">
-            <inheritdoc />
-        </member>
-        <member name="M:HTX.Net.Clients.UsdtFutures.HTXRestClientUsdtFuturesApi.GetTimeOffset">
             <inheritdoc />
         </member>
         <member name="T:HTX.Net.Clients.UsdtFutures.HTXRestClientUsdtMarginSwapApiAccount">
