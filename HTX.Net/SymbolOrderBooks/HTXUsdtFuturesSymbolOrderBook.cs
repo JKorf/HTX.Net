@@ -92,14 +92,14 @@ namespace HTX.Net.SymbolOrderBooks
         private void HandleIncremental(DataEvent<HTXIncrementalOrderBookUpdate> book)
         {
             if (book.UpdateType == SocketUpdateType.Snapshot)
-                SetInitialOrderBook(book.Data.Version!.Value, book.Data.Bids, book.Data.Asks, book.DataTime, book.DataTimeLocal);
+                SetSnapshot(book.Data.Version!.Value, book.Data.Bids, book.Data.Asks, book.DataTime, book.DataTimeLocal);
             else
                 UpdateOrderBook(book.Data.Version!.Value, book.Data.Bids, book.Data.Asks, book.DataTime, book.DataTimeLocal);
         }
 
         private void HandleUpdate(DataEvent<HTXOrderBookUpdate> data)
         {
-            SetInitialOrderBook(data.Data.Version!.Value, data.Data.Bids, data.Data.Asks, data.DataTime, data.DataTimeLocal);
+            SetSnapshot(data.Data.Version!.Value, data.Data.Bids, data.Data.Asks, data.DataTime, data.DataTimeLocal);
         }
 
         /// <inheritdoc />
