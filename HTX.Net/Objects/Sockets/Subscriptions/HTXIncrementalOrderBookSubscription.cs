@@ -44,6 +44,7 @@ namespace HTX.Net.Objects.Sockets.Subscriptions
                     .WithUpdateType(message.Data.Event == "snapshot" ? SocketUpdateType.Snapshot : SocketUpdateType.Update)
                     .WithDataTimestamp(message.Timestamp, _client.GetTimeOffset())
                     .WithStreamId(message.Channel)
+                    .WithSequenceNumber(message.Data.Version)
                 );
 
             return CallResult.SuccessResult;

@@ -170,6 +170,7 @@ namespace HTX.Net.Clients.UsdtFutures
                         .WithDataTimestamp(data.Timestamp, GetTimeOffset())
                         .WithSymbol(contractCode)
                         .WithStreamId(data.Channel)
+                        .WithSequenceNumber(data.Data.Version)
                     );
             });
 
