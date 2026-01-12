@@ -48,7 +48,7 @@ namespace HTX.Net.SymbolOrderBooks
             _mergeStep = options?.MergeStep;
             _levels = options?.Levels;
             _strictLevels = false;
-            _sequencesAreConsecutive = _levels != null;
+            _sequencesAreConsecutive = true;
             _initialDataTimeout = options?.InitialDataTimeout ?? TimeSpan.FromSeconds(30);
 
             if (_levels != 150 && _mergeStep != null)
@@ -56,7 +56,6 @@ namespace HTX.Net.SymbolOrderBooks
 
             if (_levels == null && _mergeStep == null)
             {
-                _mergeStep = 0;
                 _levels = 150;
             }
             
@@ -100,7 +99,7 @@ namespace HTX.Net.SymbolOrderBooks
 
                 Status = OrderBookStatus.Syncing;
                 // Wait a little so that the sequence number of the order book snapshot is higher than the first socket update sequence number
-                await Task.Delay(500).ConfigureAwait(false);
+                await Task.Delay(1000).ConfigureAwait(false);
                 var book = await _socketClient.SpotApi.GetOrderBookAsync(Symbol, _levels.Value).ConfigureAwait(false);
                 if (!book)
                 {
@@ -109,7 +108,7 @@ namespace HTX.Net.SymbolOrderBooks
                     return new CallResult<UpdateSubscription>(book.Error!);
                 }
 
-                SetInitialOrderBook(book.Data.SequenceNumber, book.Data.Bids, book.Data.Asks);
+                SetSnapshot(book.Data.SequenceNumber, book.Data.Bids, book.Data.Asks);
                 return subResult;
             }
         }
@@ -117,14 +116,14 @@ namespace HTX.Net.SymbolOrderBooks
         private void HandleIncremental(DataEvent<HTXIncementalOrderBook> book)
         {
             if(book.Data.PreviousSequenceNumber != null)
-                UpdateOrderBook(book.Data.PreviousSequenceNumber.Value, book.Data.SequenceNumber, book.Data.Bids, book.Data.Asks, book.DataTime, book.DataTimeLocal);
+                UpdateOrderBook(book.Data.PreviousSequenceNumber.Value + 1, book.Data.SequenceNumber, book.Data.Bids, book.Data.Asks, book.DataTime, book.DataTimeLocal);
             else
                 UpdateOrderBook(book.Data.SequenceNumber, book.Data.Bids, book.Data.Asks, book.DataTime, book.DataTimeLocal);
         }
 
         private void HandleUpdate(DataEvent<HTXOrderBook> data)
         {
-            SetInitialOrderBook(data.Data.Timestamp.Ticks, data.Data.Bids, data.Data.Asks, data.DataTime, data.DataTimeLocal);
+            SetSnapshot(data.Data.Version, data.Data.Bids, data.Data.Asks, data.DataTime, data.DataTimeLocal);
         }
 
         /// <inheritdoc />
@@ -142,7 +141,7 @@ namespace HTX.Net.SymbolOrderBooks
                 if (!book)
                     return new CallResult<bool>(book.Error!);
 
-                SetInitialOrderBook(book.Data.SequenceNumber, book.Data.Bids!, book.Data.Asks!);
+                SetSnapshot(book.Data.SequenceNumber, book.Data.Bids!, book.Data.Asks!);
                 return new CallResult<bool>(true);
             }
         }

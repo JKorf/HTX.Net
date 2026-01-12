@@ -186,6 +186,7 @@ namespace HTX.Net.Clients.SpotApi
                         .WithDataTimestamp(data.Timestamp, GetTimeOffset())
                         .WithSymbol(symbol)
                         .WithStreamId(data.Channel)
+                        .WithSequenceNumber(data.Data.SequenceNumber)
                     );
             });
 
@@ -209,6 +210,7 @@ namespace HTX.Net.Clients.SpotApi
                         .WithDataTimestamp(data.Timestamp, GetTimeOffset())
                         .WithSymbol(symbol)
                         .WithStreamId(data.Channel)
+                        .WithSequenceNumber(data.Data.SequenceNumber)
                     );
             });
             var subscription = new HTXSubscription<HTXOrderBook>(_logger, this, $"market.{symbol}.mbp.refresh.{levels}", internalHandler, false);
@@ -231,6 +233,7 @@ namespace HTX.Net.Clients.SpotApi
                         .WithDataTimestamp(data.Timestamp, GetTimeOffset())
                         .WithSymbol(symbol)
                         .WithStreamId(data.Channel)
+                        .WithSequenceNumber(data.Data.SequenceNumber)
                     );
             });
             var subscription = new HTXSubscription<HTXIncementalOrderBook>(_logger, this, $"market.{symbol}.mbp.{levels}", internalHandler, false);
