@@ -973,6 +973,8 @@ namespace HTX.Net.Clients.SpotApi
             var toType = GetTransferType(request.ToAccountType);
             if (fromType == null || toType == null)
                 return new ExchangeWebResult<SharedId>(Exchange, ArgumentError.Invalid("To/From AccountType", "invalid to/from account combination"));
+            if(request.FromSymbol != null && request.ToSymbol != null)
+                return new ExchangeWebResult<SharedId>(Exchange, ArgumentError.Invalid("To/From Symbol", "Both fromSymbol and toSymbol cannot be set at the same time"));
 
             // Get data
             var transfer = await Account.TransferAsync(
@@ -980,7 +982,7 @@ namespace HTX.Net.Clients.SpotApi
                 toType.Value,
                 request.Asset,
                 request.Quantity,
-                "USDT",
+                request.ToSymbol ?? request.FromSymbol ?? "USDT",
                 ct: ct).ConfigureAwait(false);
             if (!transfer)
                 return transfer.AsExchangeResult<SharedId>(Exchange, null, default);
