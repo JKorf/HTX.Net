@@ -98,8 +98,10 @@ namespace HTX.Net.SymbolOrderBooks
                 }
 
                 Status = OrderBookStatus.Syncing;
-                // Wait a little so that the sequence number of the order book snapshot is higher than the first socket update sequence number
-                await Task.Delay(1000).ConfigureAwait(false);
+
+                // Wait up to 1s until the first update has been received
+                await WaitUntilFirstUpdateBufferedAsync(TimeSpan.FromMilliseconds(500), TimeSpan.FromMilliseconds(1000), ct).ConfigureAwait(false);
+
                 var book = await _socketClient.SpotApi.GetOrderBookAsync(Symbol, _levels.Value).ConfigureAwait(false);
                 if (!book)
                 {
@@ -135,8 +137,9 @@ namespace HTX.Net.SymbolOrderBooks
             }
             else
             {
-                // Wait a little so that the sequence number of the order book snapshot is higher than the first socket update sequence number
-                await Task.Delay(5000).ConfigureAwait(false);
+                // Wait up to 1s until the first update has been received
+                await WaitUntilFirstUpdateBufferedAsync(TimeSpan.FromMilliseconds(500), TimeSpan.FromMilliseconds(1000), ct).ConfigureAwait(false);
+
                 var book = await _socketClient.SpotApi.GetOrderBookAsync(Symbol, _levels!.Value).ConfigureAwait(false);
                 if (!book)
                     return new CallResult<bool>(book.Error!);
