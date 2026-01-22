@@ -7,7 +7,6 @@ namespace HTX.Net.Objects.Sockets.Subscriptions
     {
         public HTXSpotPingSubscription(ILogger logger) : base(logger, false)
         {
-            MessageMatcher = MessageMatcher.Create<HTXSpotPingWrapper>("pingV2", HandleMessage);
             MessageRouter = MessageRouter.CreateWithoutTopicFilter<HTXSpotPingWrapper>("pingV2", HandleMessage);
         }
 

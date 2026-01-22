@@ -27,10 +27,6 @@ namespace HTX.Net.Objects.Sockets.Subscriptions
             _onOrderMatch = onOrderMatch;
             _onOrderCancel = onOrderCancel;
 
-            MessageMatcher = MessageMatcher.Create([
-                new MessageHandlerLink<HTXDataEvent<HTXTradeUpdate>>(_topic + "trade", DoHandleMessage),
-                new MessageHandlerLink<HTXDataEvent<HTXOrderCancelationUpdate>>(_topic + "cancellation", DoHandleMessage)
-                ]);
             MessageRouter = MessageRouter.Create([
                 MessageRoute<HTXDataEvent<HTXTradeUpdate>>.CreateWithoutTopicFilter(_topic + "trade", DoHandleMessage),
                 MessageRoute<HTXDataEvent<HTXOrderCancelationUpdate>>.CreateWithoutTopicFilter(_topic + "cancellation", DoHandleMessage)

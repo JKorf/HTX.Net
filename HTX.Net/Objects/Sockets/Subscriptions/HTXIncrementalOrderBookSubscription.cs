@@ -22,7 +22,6 @@ namespace HTX.Net.Objects.Sockets.Subscriptions
             _snapshots = snapshots;
             _topic = topic;
 
-            MessageMatcher = MessageMatcher.Create<HTXDataEvent<HTXIncrementalOrderBookUpdate>>(topic, DoHandleMessage);
             MessageRouter = MessageRouter.CreateWithoutTopicFilter<HTXDataEvent<HTXIncrementalOrderBookUpdate>>(topic, DoHandleMessage);
         }
 

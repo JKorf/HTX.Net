@@ -36,14 +36,6 @@ namespace HTX.Net.Objects.Sockets.Subscriptions
             _onConditionalOrderTriggerFailure = onConditionalOrderTriggerFailure;
             _onConditionalOrderCanceled = onConditionalOrderCanceled;
 
-            MessageMatcher = MessageMatcher.Create([
-                new MessageHandlerLink<HTXDataEvent<HTXTriggerFailureOrderUpdate>>(_topic + "trigger", DoHandleMessage),
-                new MessageHandlerLink<HTXDataEvent<HTXOrderUpdate>>(_topic + "deletion", DoHandleMessage),
-                new MessageHandlerLink<HTXDataEvent<HTXSubmittedOrderUpdate>>(_topic + "creation", DoHandleMessage),
-                new MessageHandlerLink<HTXDataEvent<HTXMatchedOrderUpdate>>(_topic + "trade", DoHandleMessage),
-                new MessageHandlerLink<HTXDataEvent<HTXCanceledOrderUpdate>>(_topic + "cancellation", DoHandleMessage)
-                ]);
-
             MessageRouter = MessageRouter.Create([
                 MessageRoute<HTXDataEvent<HTXTriggerFailureOrderUpdate>>.CreateWithoutTopicFilter(_topic + "trigger", DoHandleMessage),
                 MessageRoute<HTXDataEvent<HTXOrderUpdate>>.CreateWithoutTopicFilter(_topic + "deletion", DoHandleMessage),

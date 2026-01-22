@@ -7,7 +7,6 @@ namespace HTX.Net.Objects.Sockets.Subscriptions
     {
         public HTXCloseSubscription(ILogger logger) : base(logger, false)
         {
-            MessageMatcher = MessageMatcher.Create<HTXOpPingMessage>("close", HandleMessage);
             MessageRouter = MessageRouter.CreateWithoutTopicFilter<HTXOpPingMessage>("close", HandleMessage);
         }
 

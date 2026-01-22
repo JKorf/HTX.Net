@@ -15,9 +15,8 @@ namespace HTX.Net.UnitTests
     [TestFixture]
     public class SocketSubscriptionTests
     {
-        [TestCase(false)]
-        [TestCase(true)]
-        public async Task ValidateConcurrentSpotSubscriptions(bool newDeserialization)
+        [Test]
+        public async Task ValidateConcurrentSpotSubscriptions()
         {
             var logger = new LoggerFactory();
             logger.AddProvider(new TraceLoggerProvider());
@@ -25,7 +24,6 @@ namespace HTX.Net.UnitTests
             var client = new HTXSocketClient(Options.Create(new HTXSocketOptions
             {
                 OutputOriginalData = true,
-                UseUpdatedDeserialization = newDeserialization
             }), logger);
 
             var tester = new SocketSubscriptionValidator<HTXSocketClient>(client, "Subscriptions/Spot", "wss://api.huobi.pro", "data");
@@ -35,9 +33,8 @@ namespace HTX.Net.UnitTests
                 "Concurrent");
         }
 
-        [TestCase(false)]
-        [TestCase(true)]
-        public async Task ValidateSpotSubscriptions(bool useUpdatedDeserialization)
+        [Test]
+        public async Task ValidateSpotSubscriptions()
         {
             var loggerFactory = new LoggerFactory();
             loggerFactory.AddProvider(new TraceLoggerProvider());
@@ -45,7 +42,6 @@ namespace HTX.Net.UnitTests
             var client = new HTXSocketClient(Options.Create<HTXSocketOptions>(new HTXSocketOptions
             {
                 OutputOriginalData = true,
-                UseUpdatedDeserialization = useUpdatedDeserialization,
                 ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456")
             }), loggerFactory);
             var tester = new SocketSubscriptionValidator<HTXSocketClient>(client, "Subscriptions/Spot", "wss://api.huobi.pro", "data");
@@ -63,9 +59,8 @@ namespace HTX.Net.UnitTests
             await tester.ValidateAsync<HTXTradeUpdate>((client, handler) => client.SpotApi.SubscribeToOrderDetailsUpdatesAsync(null, handler), "OrderTrade", nestedJsonProperty: "data");
         }
 
-        [TestCase(false)]
-        [TestCase(true)]
-        public async Task ValidateConcurrentUsdtMarginSwapSubscriptions(bool newDeserialization)
+        [Test]
+        public async Task ValidateConcurrentUsdtMarginSwapSubscriptions()
         {
             var logger = new LoggerFactory();
             logger.AddProvider(new TraceLoggerProvider());
@@ -73,7 +68,6 @@ namespace HTX.Net.UnitTests
             var client = new HTXSocketClient(Options.Create(new HTXSocketOptions
             {
                 OutputOriginalData = true,
-                UseUpdatedDeserialization = newDeserialization
             }), logger);
 
             var tester = new SocketSubscriptionValidator<HTXSocketClient>(client, "Subscriptions/UsdtMarginSwap", "wss://api.huobi.pro", "data");
@@ -83,14 +77,12 @@ namespace HTX.Net.UnitTests
                 "Concurrent");
         }
 
-        [TestCase(false)]
-        [TestCase(true)]
-        public async Task ValidateUsdtMarginSwapSubscriptions(bool useUpdatedDeserialization)
+        [Test]
+        public async Task ValidateUsdtMarginSwapSubscriptions()
         {
             var client = new HTXSocketClient(opts =>
             {
                 opts.ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456");
-                opts.UseUpdatedDeserialization = useUpdatedDeserialization;
             });
             var tester = new SocketSubscriptionValidator<HTXSocketClient>(client, "Subscriptions/UsdtMarginSwap", "wss://api.huobi.pro");
             await tester.ValidateAsync<HTXSwapKline>((client, handler) => client.UsdtFuturesApi.SubscribeToKlineUpdatesAsync("ETH-USDT", Enums.KlineInterval.OneDay, handler), "Klines", nestedJsonProperty: "tick");

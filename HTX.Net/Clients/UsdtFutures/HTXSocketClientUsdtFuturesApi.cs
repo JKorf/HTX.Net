@@ -23,15 +23,6 @@ namespace HTX.Net.Clients.UsdtFutures
     /// <inheritdoc />
     internal partial class HTXSocketClientUsdtFuturesApi : SocketApiClient, IHTXSocketClientUsdtFuturesApi
     {
-        private static readonly MessagePath _idPath = MessagePath.Get().Property("id");
-        private static readonly MessagePath _actionPath = MessagePath.Get().Property("action");
-        private static readonly MessagePath _channelPath = MessagePath.Get().Property("ch");
-        private static readonly MessagePath _pingPath = MessagePath.Get().Property("ping");
-
-        private static readonly MessagePath _cidPath = MessagePath.Get().Property("cid");
-        private static readonly MessagePath _opPath = MessagePath.Get().Property("op");
-        private static readonly MessagePath _topicPath = MessagePath.Get().Property("topic");
-
         protected override ErrorMapping ErrorMapping => HTXErrors.FuturesMapping;
 
         #region ctor
@@ -51,7 +42,6 @@ namespace HTX.Net.Clients.UsdtFutures
 
         protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(HTXExchange._serializerContext));
 
-        protected override IByteMessageAccessor CreateAccessor(WebSocketMessageType type) => new SystemTextJsonByteMessageAccessor(SerializerOptions.WithConverters(HTXExchange._serializerContext));
         public override ISocketMessageHandler CreateMessageConverter(WebSocketMessageType messageType) => new HTXSocketUsdtFuturesMessageHandler();
 
         public IHTXSocketClientUsdtFuturesApiShared SharedClient => this;
@@ -59,15 +49,6 @@ namespace HTX.Net.Clients.UsdtFutures
         /// <inheritdoc />
         public override string FormatSymbol(string baseAsset, string quoteAsset, TradingMode tradingMode, DateTime? deliverTime = null)
                 => HTXExchange.FormatSymbol(baseAsset, quoteAsset, tradingMode, deliverTime);
-
-        /// <inheritdoc />
-        public override ReadOnlyMemory<byte> PreprocessStreamMessage(SocketConnection connection, WebSocketMessageType type, ReadOnlyMemory<byte> data)
-        {
-            if (type != WebSocketMessageType.Binary)
-                return data;
-
-            return data.DecompressGzip();
-        }
 
         /// <inheritdoc />
         public override ReadOnlySpan<byte> PreprocessStreamMessage(SocketConnection connection, WebSocketMessageType type, ReadOnlySpan<byte> data)
@@ -81,56 +62,6 @@ namespace HTX.Net.Clients.UsdtFutures
         protected override Task<Query?> GetAuthenticationRequestAsync(SocketConnection connection)
         {
             return Task.FromResult(AuthenticationProvider!.GetAuthenticationQuery(this, connection, new Dictionary<string, object?> { { "version", "2" } }));
-        }
-
-        /// <inheritdoc />
-        public override string? GetListenerIdentifier(IMessageAccessor message)
-        {
-            var id = message.GetValue<string>(_idPath) ?? message.GetValue<string>(_cidPath);
-            if (id != null)
-                return id;
-
-            var ping = message.GetValue<long?>(_pingPath);
-            if (ping != null)
-                return "pingV3";
-
-            var op = message.GetValue<string>(_opPath);
-            if (string.Equals(op, "ping")
-                || string.Equals(op, "close")
-                || string.Equals(op, "auth"))
-            {
-                return op;
-            }
-
-            var channel = message.GetValue<string>(_channelPath);
-            var action = message.GetValue<string>(_actionPath);
-            if (action != null && action != "push")
-                return action + channel;
-
-            var topic = message.GetValue<string>(_topicPath);
-            if (topic != null)
-            {
-                if (topic.EndsWith(".liquidation_orders"))
-                    topic = "public.*.liquidation_orders";
-                if (topic.EndsWith(".funding_rate"))
-                    topic = "public.*.funding_rate";
-                if (topic.StartsWith("accounts."))
-                    topic = "accounts";
-                if (topic.StartsWith("orders."))
-                    topic = "orders";
-                if (topic.StartsWith("positions."))
-                    topic = "positions";
-                if (topic.StartsWith("accounts_cross."))
-                    topic = "accounts_cross";
-                if (topic.StartsWith("orders_cross."))
-                    topic = "orders_cross";
-                if (topic.StartsWith("positions_cross."))
-                    topic = "positions_cross";
-
-                return topic;
-            }
-
-            return channel;
         }
 
         /// <inheritdoc />

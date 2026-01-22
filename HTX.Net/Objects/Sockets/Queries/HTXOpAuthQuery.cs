@@ -12,7 +12,6 @@ namespace HTX.Net.Objects.Sockets.Queries
         public HTXOpAuthQuery(SocketApiClient client, HTXAuthenticationRequest2 request) : base(request, false, 1)
         {
             _client = client;
-            MessageMatcher = MessageMatcher.Create<HTXOpResponse>("auth", HandleMessage);
             MessageRouter = MessageRouter.CreateWithoutTopicFilter<HTXOpResponse>("auth", HandleMessage);
         }
 

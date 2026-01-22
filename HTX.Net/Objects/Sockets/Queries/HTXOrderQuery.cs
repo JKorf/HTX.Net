@@ -12,7 +12,6 @@ namespace HTX.Net.Objects.Sockets.Queries
         public HTXOrderQuery(SocketApiClient client, HTXSocketOrderRequest<TRequest> request) : base(request, true, 1)
         {
             _client = client;
-            MessageMatcher = MessageMatcher.Create<HTXSocketOrderResponse<T>>(request.RequestId, HandleMessage);
             MessageRouter = MessageRouter.CreateWithoutTopicFilter<HTXSocketOrderResponse<T>>(request.RequestId, HandleMessage);
         }
 

@@ -12,7 +12,6 @@ namespace HTX.Net.Objects.Sockets.Queries
         public HTXQuery(SocketApiClient client, string topic, bool authenticated, int weight = 1) : base(new HTXSocketRequest(ExchangeHelpers.NextId().ToString(), topic), authenticated, weight)
         {
             _client = client;
-            MessageMatcher = MessageMatcher.Create<HTXSocketResponse<T>>(((HTXSocketRequest)Request).Id, HandleMessage);
             MessageRouter = MessageRouter.CreateWithoutTopicFilter<HTXSocketResponse<T>>(((HTXSocketRequest)Request).Id, HandleMessage);
         }
 

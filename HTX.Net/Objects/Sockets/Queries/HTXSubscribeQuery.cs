@@ -11,7 +11,6 @@ namespace HTX.Net.Objects.Sockets.Queries
         public HTXSubscribeQuery(SocketApiClient client, string topic, bool authenticated, int weight = 1, string? dataType = null) : base(new HTXSubscribeRequest() { Id = ExchangeHelpers.NextId().ToString(), Topic = topic, DataType = dataType }, authenticated, weight)
         {
             _client = client;
-            MessageMatcher = MessageMatcher.Create<HTXSocketResponse>(((HTXSubscribeRequest)Request).Id, HandleMessage);
             MessageRouter = MessageRouter.CreateWithoutTopicFilter<HTXSocketResponse>(((HTXSubscribeRequest)Request).Id, HandleMessage);
         }
 

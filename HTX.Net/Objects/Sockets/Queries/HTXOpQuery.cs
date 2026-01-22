@@ -11,7 +11,6 @@ namespace HTX.Net.Objects.Sockets.Queries
         public HTXOpQuery(SocketApiClient client, string topic, string op, bool authenticated, int weight = 1) : base(new HTXOpMessage { RequestId = ExchangeHelpers.NextId().ToString(), Topic = topic, Operation = op }, authenticated, weight)
         {
             _client = client;
-            MessageMatcher = MessageMatcher.Create<HTXOpResponse>(((HTXOpMessage)Request).RequestId!, HandleMessage);
             MessageRouter = MessageRouter.CreateWithoutTopicFilter<HTXOpResponse>(((HTXOpMessage)Request).RequestId!, HandleMessage);
         }
 

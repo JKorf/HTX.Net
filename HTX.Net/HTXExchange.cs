@@ -14,6 +14,19 @@ namespace HTX.Net
     public static class HTXExchange
     {
         /// <summary>
+        /// Platform metadata
+        /// </summary>
+        public static PlatformInfo Metadata { get; } = new PlatformInfo(
+                "HTX",
+                "HTX",
+                "https://raw.githubusercontent.com/JKorf/HTX.Net/master/HTX.Net/Icon/icon.png",
+                "https://www.htx.com/",
+                ["https://www.htx.com/en-us/opend/newApiPages/"],
+                PlatformType.CryptoCurrencyExchange,
+                CentralizationType.Centralized
+                );
+
+        /// <summary>
         /// Exchange name
         /// </summary>
         public static string ExchangeName => "HTX";

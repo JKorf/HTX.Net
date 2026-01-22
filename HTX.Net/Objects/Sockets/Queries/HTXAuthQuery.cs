@@ -11,14 +11,12 @@ namespace HTX.Net.Objects.Sockets.Queries
         public HTXAuthQuery(SocketApiClient client, string action, string topic, bool authenticated, int weight = 1) : base(new HTXAuthRequest() { Action = action, Channel = topic }, authenticated, weight)
         {
             _client = client;
-            MessageMatcher = MessageMatcher.Create<HTXSocketAuthResponse>(action + topic, HandleMessage);
             MessageRouter = MessageRouter.CreateWithoutTopicFilter<HTXSocketAuthResponse>(action + topic, HandleMessage);
         }
 
         public HTXAuthQuery(SocketApiClient client, HTXAuthRequest request) : base(request, true, 1)
         {
             _client = client;
-            MessageMatcher = MessageMatcher.Create<HTXSocketAuthResponse>(request.Action + request.Channel, HandleMessage);
             MessageRouter = MessageRouter.CreateWithoutTopicFilter<HTXSocketAuthResponse>(request.Action + request.Channel, HandleMessage);
         }
 

@@ -25,13 +25,6 @@ namespace HTX.Net.Clients.SpotApi
     /// <inheritdoc />
     internal partial class HTXSocketClientSpotApi : SocketApiClient, IHTXSocketClientSpotApi
     {
-        private static readonly MessagePath _idPath = MessagePath.Get().Property("id");
-        private static readonly MessagePath _idPath2 = MessagePath.Get().Property("cid");
-        private static readonly MessagePath _actionPath = MessagePath.Get().Property("action");
-        private static readonly MessagePath _channelPath = MessagePath.Get().Property("ch");
-        private static readonly MessagePath _pingPath = MessagePath.Get().Property("ping");
-        private static readonly MessagePath _eventTypePath = MessagePath.Get().Property("data").Property("eventType");
-
         protected override ErrorMapping ErrorMapping => HTXErrors.SpotMapping;
 
         /// <inheritdoc />
@@ -55,8 +48,6 @@ namespace HTX.Net.Clients.SpotApi
 
         protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(HTXExchange._serializerContext));
 
-        protected override IByteMessageAccessor CreateAccessor(WebSocketMessageType type) => new SystemTextJsonByteMessageAccessor(SerializerOptions.WithConverters(HTXExchange._serializerContext));
-
         public override ISocketMessageHandler CreateMessageConverter(WebSocketMessageType messageType) => new HTXSocketSpotMessageHandler();
 
         public IHTXSocketClientSpotApiShared SharedClient => this;
@@ -64,44 +55,6 @@ namespace HTX.Net.Clients.SpotApi
         /// <inheritdoc />
         public override string FormatSymbol(string baseAsset, string quoteAsset, TradingMode tradingMode, DateTime? deliverTime = null)
                 => HTXExchange.FormatSymbol(baseAsset, quoteAsset, tradingMode, deliverTime);
-
-        /// <inheritdoc />
-        public override string? GetListenerIdentifier(IMessageAccessor message)
-        {
-            var id = message.GetValue<string>(_idPath) ?? message.GetValue<string>(_idPath2);
-            if (id != null)
-                return id;
-
-            var action = message.GetValue<string>(_actionPath);
-            if (string.Equals(action, "ping", StringComparison.Ordinal))
-                return "pingV2";
-
-            var ping = message.GetValue<long?>(_pingPath);
-            if (ping != null)
-                return "pingV3";
-
-            var channel = message.GetValue<string>(_channelPath);
-            if (action != null && action != "push")
-                return action + channel;
-
-            if (channel!.StartsWith("trade.clearing", StringComparison.Ordinal)
-                || channel!.StartsWith("orders#", StringComparison.Ordinal))
-            {
-                var eventType = message.GetValue<string>(_eventTypePath);
-                return channel + eventType;
-            }
-
-            return channel;
-        }
-
-        /// <inheritdoc />
-        public override ReadOnlyMemory<byte> PreprocessStreamMessage(SocketConnection connection, WebSocketMessageType type, ReadOnlyMemory<byte> data)
-        {
-            if (type != WebSocketMessageType.Binary)
-                return data;
-
-            return data.DecompressGzip();
-        }
 
         /// <inheritdoc />
         public override ReadOnlySpan<byte> PreprocessStreamMessage(SocketConnection connection, WebSocketMessageType type, ReadOnlySpan<byte> data)

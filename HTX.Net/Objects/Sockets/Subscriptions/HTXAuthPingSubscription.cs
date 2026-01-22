@@ -7,7 +7,6 @@ namespace HTX.Net.Objects.Sockets.Subscriptions
     {
         public HTXAuthPingSubscription(ILogger logger) : base(logger, false)
         {
-            MessageMatcher = MessageMatcher.Create<HTXAuthPingMessage>("pingv2", HandleMessage);
             MessageRouter = MessageRouter.CreateWithoutTopicFilter<HTXAuthPingMessage>("pingv2", HandleMessage);
         }
 

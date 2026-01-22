@@ -20,7 +20,6 @@ namespace HTX.Net.Objects.Sockets.Subscriptions
             _handler = handler;
             _topic = topic;
 
-            MessageMatcher = MessageMatcher.Create<HTXDataEvent<HTXAccountUpdate>>(topic, DoHandleMessage);
             MessageRouter = MessageRouter.CreateWithoutTopicFilter<HTXDataEvent<HTXAccountUpdate>>(topic, DoHandleMessage);
         }
 

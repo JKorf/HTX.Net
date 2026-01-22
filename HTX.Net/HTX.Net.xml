@@ -435,12 +435,6 @@
         <member name="M:HTX.Net.Clients.SpotApi.HTXSocketClientSpotApi.FormatSymbol(System.String,System.String,CryptoExchange.Net.SharedApis.TradingMode,System.Nullable{System.DateTime})">
             <inheritdoc />
         </member>
-        <member name="M:HTX.Net.Clients.SpotApi.HTXSocketClientSpotApi.GetListenerIdentifier(CryptoExchange.Net.Interfaces.IMessageAccessor)">
-            <inheritdoc />
-        </member>
-        <member name="M:HTX.Net.Clients.SpotApi.HTXSocketClientSpotApi.PreprocessStreamMessage(CryptoExchange.Net.Sockets.Default.SocketConnection,System.Net.WebSockets.WebSocketMessageType,System.ReadOnlyMemory{System.Byte})">
-            <inheritdoc />
-        </member>
         <member name="M:HTX.Net.Clients.SpotApi.HTXSocketClientSpotApi.PreprocessStreamMessage(CryptoExchange.Net.Sockets.Default.SocketConnection,System.Net.WebSockets.WebSocketMessageType,System.ReadOnlySpan{System.Byte})">
             <inheritdoc />
         </member>
@@ -948,13 +942,7 @@
         <member name="M:HTX.Net.Clients.UsdtFutures.HTXSocketClientUsdtFuturesApi.FormatSymbol(System.String,System.String,CryptoExchange.Net.SharedApis.TradingMode,System.Nullable{System.DateTime})">
             <inheritdoc />
         </member>
-        <member name="M:HTX.Net.Clients.UsdtFutures.HTXSocketClientUsdtFuturesApi.PreprocessStreamMessage(CryptoExchange.Net.Sockets.Default.SocketConnection,System.Net.WebSockets.WebSocketMessageType,System.ReadOnlyMemory{System.Byte})">
-            <inheritdoc />
-        </member>
         <member name="M:HTX.Net.Clients.UsdtFutures.HTXSocketClientUsdtFuturesApi.PreprocessStreamMessage(CryptoExchange.Net.Sockets.Default.SocketConnection,System.Net.WebSockets.WebSocketMessageType,System.ReadOnlySpan{System.Byte})">
-            <inheritdoc />
-        </member>
-        <member name="M:HTX.Net.Clients.UsdtFutures.HTXSocketClientUsdtFuturesApi.GetListenerIdentifier(CryptoExchange.Net.Interfaces.IMessageAccessor)">
             <inheritdoc />
         </member>
         <member name="M:HTX.Net.Clients.UsdtFutures.HTXSocketClientUsdtFuturesApi.CreateAuthenticationProvider(CryptoExchange.Net.Authentication.ApiCredentials)">
@@ -7864,6 +7852,15 @@
             Extension methods specific to using the HTX API
             </summary>
         </member>
+        <member name="M:HTX.Net.ExtensionMethods.HTXExtensionMethods.SetParameters(System.Uri,System.Linq.IOrderedEnumerable{System.Collections.Generic.KeyValuePair{System.String,System.Object}},CryptoExchange.Net.Objects.ArrayParametersSerialization)">
+            <summary>
+            Create a new uri with the provided parameters as query
+            </summary>
+            <param name="parameters"></param>
+            <param name="baseUri"></param>
+            <param name="arraySerialization"></param>
+            <returns></returns>
+        </member>
         <member name="T:HTX.Net.HTXEnvironment">
             <summary>
             HTX environments
@@ -7924,6 +7921,11 @@
         <member name="T:HTX.Net.HTXExchange">
             <summary>
             HTX exchange information and configuration
+            </summary>
+        </member>
+        <member name="P:HTX.Net.HTXExchange.Metadata">
+            <summary>
+            Platform metadata
             </summary>
         </member>
         <member name="P:HTX.Net.HTXExchange.ExchangeName">
