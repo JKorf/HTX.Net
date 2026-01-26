@@ -43,7 +43,7 @@ namespace HTX.Net.Objects.Models.Socket
         /// Client order id
         /// </summary>
         [JsonPropertyName("client_order_id")]
-        public string? ClientOrderId { get; set; }
+        public long? ClientOrderId { get; set; }
         /// <summary>
         /// Order type
         /// </summary>
