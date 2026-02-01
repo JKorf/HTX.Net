@@ -26,6 +26,7 @@ namespace HTX.Net.Clients.MessageHandlers
             { "accounts_cross.", "accounts_cross" },
             { "orders_cross.", "orders_cross" },
             { "positions_cross.", "positions_cross" },
+            { "matchOrders.", "matchOrders" }
         };
 
         public override JsonSerializerOptions Options { get; } = SerializerOptions.WithConverters(HTXExchange._serializerContext);
