@@ -326,6 +326,7 @@ namespace HTX.Net.Clients.UsdtFutures
                     ExchangeSymbolCache.ParseSymbol(_topicId, x.ContractCode), x.ContractCode, x.Quantity, update.Data.Timestamp)
                 {
                     AverageOpenPrice = x.PositionPrice,
+                    PositionMode = x.PositionMode == PositionMode.SingleSide ? SharedPositionMode.OneWay : SharedPositionMode.HedgeMode,
                     PositionSide = x.OrderSide == Enums.OrderSide.Sell ? SharedPositionSide.Short : SharedPositionSide.Long,
                     Leverage = x.LeverageRate,
                     UnrealizedPnl = x.UnrealizedPnl
@@ -339,6 +340,7 @@ namespace HTX.Net.Clients.UsdtFutures
                 update => handler(update.ToType(update.Data.Data.Select(x => new SharedPosition(ExchangeSymbolCache.ParseSymbol(_topicId, x.ContractCode), x.ContractCode, x.Quantity, update.Data.Timestamp)
                 {
                     AverageOpenPrice = x.PositionPrice,
+                    PositionMode = x.PositionMode == PositionMode.SingleSide ? SharedPositionMode.OneWay : SharedPositionMode.HedgeMode,
                     PositionSide = x.OrderSide == Enums.OrderSide.Sell ? SharedPositionSide.Short : SharedPositionSide.Long,
                     Leverage = x.LeverageRate,
                     UnrealizedPnl = x.UnrealizedPnl

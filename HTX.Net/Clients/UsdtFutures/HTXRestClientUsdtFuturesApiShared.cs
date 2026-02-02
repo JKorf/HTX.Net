@@ -780,6 +780,7 @@ namespace HTX.Net.Clients.UsdtFutures
                     UnrealizedPnl = x.UnrealizedPnl,
                     AverageOpenPrice = x.CostOpen,
                     Leverage = x.LeverageRate,
+                    PositionMode = x.PositionMode == PositionMode.SingleSide ? SharedPositionMode.OneWay : SharedPositionMode.HedgeMode,
                     PositionSide = x.Side == OrderSide.Sell ? SharedPositionSide.Short : SharedPositionSide.Long
                 }).ToArray());
             }
@@ -794,6 +795,7 @@ namespace HTX.Net.Clients.UsdtFutures
                     UnrealizedPnl = x.UnrealizedPnl,
                     AverageOpenPrice = x.CostOpen,
                     Leverage = x.LeverageRate,
+                    PositionMode = x.PositionMode == PositionMode.SingleSide ? SharedPositionMode.OneWay : SharedPositionMode.HedgeMode,
                     PositionSide = x.Side == OrderSide.Sell ? SharedPositionSide.Short : SharedPositionSide.Long
                 }).ToArray());
             }
