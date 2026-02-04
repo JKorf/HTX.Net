@@ -744,7 +744,15 @@ namespace HTX.Net.Clients.SpotApi
             if (deposits.Data.Count() == (request.Limit ?? 100))
                 nextToken = new FromIdToken(deposits.Data.Min(x => x.Id - 1).ToString());
 
-            return deposits.AsExchangeResult<SharedDeposit[]>(Exchange, TradingMode.Spot, deposits.Data.Select(x => new SharedDeposit(x.Asset!.ToUpperInvariant(), x.Quantity, x.Status == WithdrawDepositStatus.Safe, x.CreateTime)
+            return deposits.AsExchangeResult<SharedDeposit[]>(Exchange, TradingMode.Spot, deposits.Data.Select(x => 
+            new SharedDeposit(
+                x.Asset!.ToUpperInvariant(),
+                x.Quantity, 
+                x.Status == WithdrawDepositStatus.Safe,
+                x.CreateTime,
+                x.Status == WithdrawDepositStatus.Safe ? SharedTransferStatus.Completed
+                : x.Status == WithdrawDepositStatus.Repealed || x.Status == WithdrawDepositStatus.ConfirmError || x.Status == WithdrawDepositStatus.WalletReject || x.Status == WithdrawDepositStatus.Reject || x.Status == WithdrawDepositStatus.Canceled || x.Status == WithdrawDepositStatus.Failed ? SharedTransferStatus.Failed
+                : SharedTransferStatus.Failed)
             {
                 Id = x.Id.ToString(),
                 Network = x.Network,
