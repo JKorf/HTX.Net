@@ -6107,6 +6107,11 @@
             Snapshot
             </summary>
         </member>
+        <member name="F:HTX.Net.Enums.EventTrigger.Close">
+            <summary>
+            Close order
+            </summary>
+        </member>
         <member name="T:HTX.Net.Enums.FeeDeductStatus">
             <summary>
             Fee deduction status.
@@ -8018,6 +8023,37 @@
         </member>
         <member name="M:HTX.Net.HTXTrackerFactory.CreateTradeTracker(CryptoExchange.Net.SharedApis.SharedSymbol,System.Nullable{System.Int32},System.Nullable{System.TimeSpan})">
             <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.HTXTrackerFactory.CreateUserSpotDataTracker(CryptoExchange.Net.Trackers.UserData.Objects.SpotUserDataTrackerConfig)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.HTXTrackerFactory.CreateUserSpotDataTracker(System.String,CryptoExchange.Net.Trackers.UserData.Objects.SpotUserDataTrackerConfig,CryptoExchange.Net.Authentication.ApiCredentials,HTX.Net.HTXEnvironment)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.HTXTrackerFactory.CreateUserFuturesDataTracker(CryptoExchange.Net.Trackers.UserData.Objects.FuturesUserDataTrackerConfig,CryptoExchange.Net.SharedApis.SharedMarginMode)">
+            <inheritdoc />
+        </member>
+        <member name="M:HTX.Net.HTXTrackerFactory.CreateUserFuturesDataTracker(System.String,CryptoExchange.Net.Trackers.UserData.Objects.FuturesUserDataTrackerConfig,CryptoExchange.Net.Authentication.ApiCredentials,CryptoExchange.Net.SharedApis.SharedMarginMode,HTX.Net.HTXEnvironment)">
+            <inheritdoc />
+        </member>
+        <member name="T:HTX.Net.HTXUserSpotDataTracker">
+            <inheritdoc/>
+        </member>
+        <member name="M:HTX.Net.HTXUserSpotDataTracker.#ctor(Microsoft.Extensions.Logging.ILogger{HTX.Net.HTXUserSpotDataTracker},HTX.Net.Interfaces.Clients.IHTXRestClient,HTX.Net.Interfaces.Clients.IHTXSocketClient,System.String,CryptoExchange.Net.Trackers.UserData.Objects.SpotUserDataTrackerConfig)">
+            <summary>
+            ctor
+            </summary>
+        </member>
+        <member name="T:HTX.Net.HTXUserFuturesDataTracker">
+            <inheritdoc/>
+        </member>
+        <member name="P:HTX.Net.HTXUserFuturesDataTracker.WebsocketPositionUpdatesAreFullSnapshots">
+            <inheritdoc/>
+        </member>
+        <member name="M:HTX.Net.HTXUserFuturesDataTracker.#ctor(Microsoft.Extensions.Logging.ILogger{HTX.Net.HTXUserFuturesDataTracker},HTX.Net.Interfaces.Clients.IHTXRestClient,HTX.Net.Interfaces.Clients.IHTXSocketClient,System.String,CryptoExchange.Net.Trackers.UserData.Objects.FuturesUserDataTrackerConfig,CryptoExchange.Net.SharedApis.ExchangeParameters)">
+            <summary>
+            ctor
+            </summary>
         </member>
         <member name="T:HTX.Net.Interfaces.Clients.IHTXRestClient">
             <summary>
@@ -11257,6 +11293,38 @@
             <summary>
             Tracker factory
             </summary>
+        </member>
+        <member name="M:HTX.Net.Interfaces.IHTXTrackerFactory.CreateUserSpotDataTracker(System.String,CryptoExchange.Net.Trackers.UserData.Objects.SpotUserDataTrackerConfig,CryptoExchange.Net.Authentication.ApiCredentials,HTX.Net.HTXEnvironment)">
+            <summary>
+            Create a new Spot user data tracker
+            </summary>
+            <param name="userIdentifier">User identifier</param>
+            <param name="config">Configuration</param>
+            <param name="credentials">Credentials</param>
+            <param name="environment">Environment</param>
+        </member>
+        <member name="M:HTX.Net.Interfaces.IHTXTrackerFactory.CreateUserSpotDataTracker(CryptoExchange.Net.Trackers.UserData.Objects.SpotUserDataTrackerConfig)">
+            <summary>
+            Create a new spot user data tracker
+            </summary>
+            <param name="config">Configuration</param>
+        </member>
+        <member name="M:HTX.Net.Interfaces.IHTXTrackerFactory.CreateUserFuturesDataTracker(System.String,CryptoExchange.Net.Trackers.UserData.Objects.FuturesUserDataTrackerConfig,CryptoExchange.Net.Authentication.ApiCredentials,CryptoExchange.Net.SharedApis.SharedMarginMode,HTX.Net.HTXEnvironment)">
+            <summary>
+            Create a new futures user data tracker
+            </summary>
+            <param name="userIdentifier">User identifier</param>
+            <param name="config">Configuration</param>
+            <param name="credentials">Credentials</param>
+            <param name="marginMode">Margin mode</param>
+            <param name="environment">Environment</param>
+        </member>
+        <member name="M:HTX.Net.Interfaces.IHTXTrackerFactory.CreateUserFuturesDataTracker(CryptoExchange.Net.Trackers.UserData.Objects.FuturesUserDataTrackerConfig,CryptoExchange.Net.SharedApis.SharedMarginMode)">
+            <summary>
+            Create a new futures user data tracker
+            </summary>
+            <param name="config">Configuration</param>
+            <param name="marginMode">Margin mode</param>
         </member>
         <member name="T:HTX.Net.Objects.HTXApiAddresses">
             <summary>

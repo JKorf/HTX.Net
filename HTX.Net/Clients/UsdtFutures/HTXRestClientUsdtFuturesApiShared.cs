@@ -37,7 +37,7 @@ namespace HTX.Net.Clients.UsdtFutures
                 if (!result)
                     return result.AsExchangeResult<SharedBalance[]>(Exchange, null, default);
 
-                return result.AsExchangeResult<SharedBalance[]>(Exchange, SupportedTradingModes, result.Data.Select(x => new SharedBalance(x.MarginAsset, x.MarginBalance, x.MarginFrozen + x.MarginBalance)).ToArray());
+                return result.AsExchangeResult<SharedBalance[]>(Exchange, SupportedTradingModes, result.Data.Select(x => new SharedBalance(x.MarginAsset, x.WithdrawAvailable, x.MarginBalance)).ToArray());
             }
             else
             {
@@ -45,7 +45,7 @@ namespace HTX.Net.Clients.UsdtFutures
                 if (!result)
                     return result.AsExchangeResult<SharedBalance[]>(Exchange, null, default);
 
-                return result.AsExchangeResult<SharedBalance[]>(Exchange, SupportedTradingModes, result.Data.Select(x => new SharedBalance(x.MarginAsset, x.MarginBalance, x.MarginFrozen + x.MarginBalance)
+                return result.AsExchangeResult<SharedBalance[]>(Exchange, SupportedTradingModes, result.Data.Select(x => new SharedBalance("USDT", x.WithdrawAvailable, x.MarginBalance)
                 {
                     IsolatedMarginSymbol = x.ContractCode
                 }).ToArray());

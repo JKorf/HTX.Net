@@ -131,7 +131,7 @@ namespace HTX.Net.Clients.UsdtFutures
             if (marginMode == SharedMarginMode.Cross)
             {
                 var result = await SubscribeToCrossMarginBalanceUpdatesAsync(
-                    update => handler(update.ToType<SharedBalance[]>(update.Data.Data.Select(x => new SharedBalance(x.MarginAsset, x.MarginBalance - x.MarginFrozen, x.MarginBalance) ).ToArray())),
+                    update => handler(update.ToType<SharedBalance[]>(update.Data.Data.Select(x => new SharedBalance(x.MarginAsset, x.WithdrawAvailable, x.MarginBalance) ).ToArray())),
                     ct: ct).ConfigureAwait(false);
 
                 return new ExchangeResult<UpdateSubscription>(Exchange, result);
@@ -139,7 +139,7 @@ namespace HTX.Net.Clients.UsdtFutures
             else
             {
                 var result = await SubscribeToIsolatedMarginBalanceUpdatesAsync(
-                    update => handler(update.ToType<SharedBalance[]>(update.Data.Data.Select(x => new SharedBalance(x.Asset, x.MarginBalance - x.MarginFrozen, x.MarginBalance) { IsolatedMarginSymbol = x.MarginAccount }).ToArray())),
+                    update => handler(update.ToType<SharedBalance[]>(update.Data.Data.Select(x => new SharedBalance("USDT", x.WithdrawAvailable, x.MarginBalance) { IsolatedMarginSymbol = x.MarginAccount }).ToArray())),
                     ct: ct).ConfigureAwait(false);
 
                 return new ExchangeResult<UpdateSubscription>(Exchange, result);

@@ -62,6 +62,11 @@ namespace HTX.Net.Enums
         /// Snapshot
         /// </summary>
         [Map("snapshot")]
-        Snapshot
+        Snapshot,
+        /// <summary>
+        /// Close order
+        /// </summary>
+        [Map("order.close")]
+        Close
     }
 }
