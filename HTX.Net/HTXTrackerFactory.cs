@@ -102,7 +102,7 @@ namespace HTX.Net
                 );
         }
         /// <inheritdoc />
-        public IUserSpotDataTracker CreateUserSpotDataTracker(SpotUserDataTrackerConfig config)
+        public IUserSpotDataTracker CreateUserSpotDataTracker(SpotUserDataTrackerConfig? config = null)
         {
             var restClient = _serviceProvider?.GetRequiredService<IHTXRestClient>() ?? new HTXRestClient();
             var socketClient = _serviceProvider?.GetRequiredService<IHTXSocketClient>() ?? new HTXSocketClient();
@@ -116,7 +116,7 @@ namespace HTX.Net
         }
 
         /// <inheritdoc />
-        public IUserSpotDataTracker CreateUserSpotDataTracker(string userIdentifier, SpotUserDataTrackerConfig config, ApiCredentials credentials, HTXEnvironment? environment = null)
+        public IUserSpotDataTracker CreateUserSpotDataTracker(string userIdentifier, ApiCredentials credentials, SpotUserDataTrackerConfig? config = null, HTXEnvironment? environment = null)
         {
             var clientProvider = _serviceProvider?.GetRequiredService<IHTXUserClientProvider>() ?? new HTXUserClientProvider();
             var restClient = clientProvider.GetRestClient(userIdentifier, credentials, environment);
@@ -131,7 +131,7 @@ namespace HTX.Net
         }
 
         /// <inheritdoc />
-        public IUserFuturesDataTracker CreateUserFuturesDataTracker(FuturesUserDataTrackerConfig config, SharedMarginMode marginMode)
+        public IUserFuturesDataTracker CreateUserFuturesDataTracker(SharedMarginMode marginMode, FuturesUserDataTrackerConfig? config = null)
         {
             var exchangeParams = new ExchangeParameters(new ExchangeParameter("HTX", "MarginMode", marginMode));
 
@@ -148,7 +148,7 @@ namespace HTX.Net
         }
 
         /// <inheritdoc />
-        public IUserFuturesDataTracker CreateUserFuturesDataTracker(string userIdentifier, FuturesUserDataTrackerConfig config, ApiCredentials credentials, SharedMarginMode marginMode, HTXEnvironment? environment = null)
+        public IUserFuturesDataTracker CreateUserFuturesDataTracker(string userIdentifier, ApiCredentials credentials, SharedMarginMode marginMode, FuturesUserDataTrackerConfig? config = null, HTXEnvironment? environment = null)
         {
             var exchangeParams = new ExchangeParameters(new ExchangeParameter("HTX", "MarginMode", marginMode));
 

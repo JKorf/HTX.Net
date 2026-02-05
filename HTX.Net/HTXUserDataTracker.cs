@@ -17,7 +17,7 @@ namespace HTX.Net
             IHTXRestClient restClient,
             IHTXSocketClient socketClient,
             string? userIdentifier,
-            SpotUserDataTrackerConfig config) : base(
+            SpotUserDataTrackerConfig? config) : base(
                 logger,
                 restClient.SpotApi.SharedClient,
                 null,
@@ -27,7 +27,7 @@ namespace HTX.Net
                 socketClient.SpotApi.SharedClient,
                 socketClient.SpotApi.SharedClient,
                 userIdentifier,
-                config)
+                config ?? new SpotUserDataTrackerConfig())
         {
         }
     }
@@ -46,7 +46,7 @@ namespace HTX.Net
             IHTXRestClient restClient,
             IHTXSocketClient socketClient,
             string? userIdentifier,
-            FuturesUserDataTrackerConfig config,
+            FuturesUserDataTrackerConfig? config,
             ExchangeParameters? exchangeParameters) : base(logger,
                 restClient.UsdtFuturesApi.SharedClient,
                 null,
@@ -57,7 +57,7 @@ namespace HTX.Net
                 socketClient.UsdtFuturesApi.SharedClient,
                 socketClient.UsdtFuturesApi.SharedClient,
                 userIdentifier,
-                config,
+                config ?? new FuturesUserDataTrackerConfig(),
                 exchangeParameters: exchangeParameters)
         {
         }
