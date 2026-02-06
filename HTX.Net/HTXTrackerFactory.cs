@@ -1,10 +1,13 @@
 ﻿using CryptoExchange.Net.SharedApis;
 using CryptoExchange.Net.Trackers.Klines;
 using CryptoExchange.Net.Trackers.Trades;
+using CryptoExchange.Net.Trackers.UserData.Interfaces;
+using CryptoExchange.Net.Trackers.UserData.Objects;
 using HTX.Net.Clients;
 using HTX.Net.Interfaces;
 using HTX.Net.Interfaces.Clients;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging.Abstractions;
 
 namespace HTX.Net
 {
@@ -96,6 +99,69 @@ namespace HTX.Net
                 symbol,
                 limit,
                 period
+                );
+        }
+        /// <inheritdoc />
+        public IUserSpotDataTracker CreateUserSpotDataTracker(SpotUserDataTrackerConfig? config = null)
+        {
+            var restClient = _serviceProvider?.GetRequiredService<IHTXRestClient>() ?? new HTXRestClient();
+            var socketClient = _serviceProvider?.GetRequiredService<IHTXSocketClient>() ?? new HTXSocketClient();
+            return new HTXUserSpotDataTracker(
+                _serviceProvider?.GetRequiredService<ILogger<HTXUserSpotDataTracker>>() ?? new NullLogger<HTXUserSpotDataTracker>(),
+                restClient,
+                socketClient,
+                null,
+                config
+                );
+        }
+
+        /// <inheritdoc />
+        public IUserSpotDataTracker CreateUserSpotDataTracker(string userIdentifier, ApiCredentials credentials, SpotUserDataTrackerConfig? config = null, HTXEnvironment? environment = null)
+        {
+            var clientProvider = _serviceProvider?.GetRequiredService<IHTXUserClientProvider>() ?? new HTXUserClientProvider();
+            var restClient = clientProvider.GetRestClient(userIdentifier, credentials, environment);
+            var socketClient = clientProvider.GetSocketClient(userIdentifier, credentials, environment);
+            return new HTXUserSpotDataTracker(
+                _serviceProvider?.GetRequiredService<ILogger<HTXUserSpotDataTracker>>() ?? new NullLogger<HTXUserSpotDataTracker>(),
+                restClient,
+                socketClient,
+                userIdentifier,
+                config
+                );
+        }
+
+        /// <inheritdoc />
+        public IUserFuturesDataTracker CreateUserFuturesDataTracker(SharedMarginMode marginMode, FuturesUserDataTrackerConfig? config = null)
+        {
+            var exchangeParams = new ExchangeParameters(new ExchangeParameter("HTX", "MarginMode", marginMode));
+
+            var restClient = _serviceProvider?.GetRequiredService<IHTXRestClient>() ?? new HTXRestClient();
+            var socketClient = _serviceProvider?.GetRequiredService<IHTXSocketClient>() ?? new HTXSocketClient();
+            return new HTXUserFuturesDataTracker(
+                _serviceProvider?.GetRequiredService<ILogger<HTXUserFuturesDataTracker>>() ?? new NullLogger<HTXUserFuturesDataTracker>(),
+                restClient,
+                socketClient,
+                null,
+                config,
+                exchangeParams
+                );
+        }
+
+        /// <inheritdoc />
+        public IUserFuturesDataTracker CreateUserFuturesDataTracker(string userIdentifier, ApiCredentials credentials, SharedMarginMode marginMode, FuturesUserDataTrackerConfig? config = null, HTXEnvironment? environment = null)
+        {
+            var exchangeParams = new ExchangeParameters(new ExchangeParameter("HTX", "MarginMode", marginMode));
+
+            var clientProvider = _serviceProvider?.GetRequiredService<IHTXUserClientProvider>() ?? new HTXUserClientProvider();
+            var restClient = clientProvider.GetRestClient(userIdentifier, credentials, environment);
+            var socketClient = clientProvider.GetSocketClient(userIdentifier, credentials, environment);
+            return new HTXUserFuturesDataTracker(
+                _serviceProvider?.GetRequiredService<ILogger<HTXUserFuturesDataTracker>>() ?? new NullLogger<HTXUserFuturesDataTracker>(),
+                restClient,
+                socketClient,
+                userIdentifier,
+                config,
+                exchangeParams
                 );
         }
     }

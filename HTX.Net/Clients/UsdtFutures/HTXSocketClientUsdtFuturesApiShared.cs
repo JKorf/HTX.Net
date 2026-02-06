@@ -131,7 +131,7 @@ namespace HTX.Net.Clients.UsdtFutures
             if (marginMode == SharedMarginMode.Cross)
             {
                 var result = await SubscribeToCrossMarginBalanceUpdatesAsync(
-                    update => handler(update.ToType<SharedBalance[]>(update.Data.Data.Select(x => new SharedBalance(x.MarginAsset, x.MarginBalance - x.MarginFrozen, x.MarginBalance) ).ToArray())),
+                    update => handler(update.ToType<SharedBalance[]>(update.Data.Data.Select(x => new SharedBalance(x.MarginAsset, x.WithdrawAvailable, x.MarginBalance) ).ToArray())),
                     ct: ct).ConfigureAwait(false);
 
                 return new ExchangeResult<UpdateSubscription>(Exchange, result);
@@ -139,7 +139,7 @@ namespace HTX.Net.Clients.UsdtFutures
             else
             {
                 var result = await SubscribeToIsolatedMarginBalanceUpdatesAsync(
-                    update => handler(update.ToType<SharedBalance[]>(update.Data.Data.Select(x => new SharedBalance(x.Asset, x.MarginBalance - x.MarginFrozen, x.MarginBalance) { IsolatedMarginSymbol = x.MarginAccount }).ToArray())),
+                    update => handler(update.ToType<SharedBalance[]>(update.Data.Data.Select(x => new SharedBalance("USDT", x.WithdrawAvailable, x.MarginBalance) { IsolatedMarginSymbol = x.MarginAccount }).ToArray())),
                     ct: ct).ConfigureAwait(false);
 
                 return new ExchangeResult<UpdateSubscription>(Exchange, result);
@@ -326,6 +326,7 @@ namespace HTX.Net.Clients.UsdtFutures
                     ExchangeSymbolCache.ParseSymbol(_topicId, x.ContractCode), x.ContractCode, x.Quantity, update.Data.Timestamp)
                 {
                     AverageOpenPrice = x.PositionPrice,
+                    PositionMode = x.PositionMode == PositionMode.SingleSide ? SharedPositionMode.OneWay : SharedPositionMode.HedgeMode,
                     PositionSide = x.OrderSide == Enums.OrderSide.Sell ? SharedPositionSide.Short : SharedPositionSide.Long,
                     Leverage = x.LeverageRate,
                     UnrealizedPnl = x.UnrealizedPnl
@@ -339,6 +340,7 @@ namespace HTX.Net.Clients.UsdtFutures
                 update => handler(update.ToType(update.Data.Data.Select(x => new SharedPosition(ExchangeSymbolCache.ParseSymbol(_topicId, x.ContractCode), x.ContractCode, x.Quantity, update.Data.Timestamp)
                 {
                     AverageOpenPrice = x.PositionPrice,
+                    PositionMode = x.PositionMode == PositionMode.SingleSide ? SharedPositionMode.OneWay : SharedPositionMode.HedgeMode,
                     PositionSide = x.OrderSide == Enums.OrderSide.Sell ? SharedPositionSide.Short : SharedPositionSide.Long,
                     Leverage = x.LeverageRate,
                     UnrealizedPnl = x.UnrealizedPnl
