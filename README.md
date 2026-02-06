@@ -163,6 +163,19 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 8.4.0 - 06 Feb 2026
+    * Updated CryptoExchange.Net to version 10.4.0, see https://github.com/JKorf/CryptoExchange.Net/releases/ for full release notes
+    * Added HTXUserSpotDataTracker and HTXUserFuturesDataTracker
+    * Added additional methods for requesting supported symbols to Shared ISpotSymbolRestClient/IFuturesSymbolRestClient interfaces
+    * Added PositionMode mapping on SharedPosition models
+    * Added Status mapping for SharedDeposit models
+    * Added Close EventTrigger enum value
+    * Updated UsdtMarginSwapIsolatedTradeUpdate.ClientOrderId type from string to long
+    * Fixed UsdtFutures UserTradeUpdates message handling
+    * Fixed disposed clients getting returned from UserClientProvider
+    * Fixed websocket messages not matched for cross margin futures order updates
+    * Fixed Shared futures balance responses/updates
+
 * Version 8.3.0 - 22 Jan 2026
     * Updated CryptoExchange.Net to version 10.3.0, see https://github.com/JKorf/CryptoExchange.Net/releases/ for full release notes
     * Removed legacy websocket message handling and the corresponding UseUpdatedDeserialization client option
