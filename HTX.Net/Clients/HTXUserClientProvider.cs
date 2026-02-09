@@ -8,8 +8,8 @@ namespace HTX.Net.Clients
     /// <inheritdoc />
     public class HTXUserClientProvider : IHTXUserClientProvider
     {
-        private static ConcurrentDictionary<string, IHTXRestClient> _restClients = new ConcurrentDictionary<string, IHTXRestClient>();
-        private static ConcurrentDictionary<string, IHTXSocketClient> _socketClients = new ConcurrentDictionary<string, IHTXSocketClient>();
+        private ConcurrentDictionary<string, IHTXRestClient> _restClients = new ConcurrentDictionary<string, IHTXRestClient>();
+        private ConcurrentDictionary<string, IHTXSocketClient> _socketClients = new ConcurrentDictionary<string, IHTXSocketClient>();
 
         private readonly IOptions<HTXRestOptions> _restOptions;
         private readonly IOptions<HTXSocketOptions> _socketOptions;
