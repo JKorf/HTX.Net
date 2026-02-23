@@ -17,7 +17,7 @@ namespace HTX.Net.Clients.SpotApi
         public void ResetDefaultExchangeParameters() => ExchangeParameters.ResetStaticParameters();
 
         #region Kline client
-        GetKlinesOptions IKlineRestClient.GetKlinesOptions { get; } = new GetKlinesOptions(false, false, false, 2000, false,
+        GetKlinesOptions IKlineRestClient.GetKlinesOptions { get; } = new GetKlinesOptions(true, true, false, 2000, false,
             SharedKlineInterval.OneMinute,
             SharedKlineInterval.FiveMinutes,
             SharedKlineInterval.FifteenMinutes,
@@ -43,9 +43,7 @@ namespace HTX.Net.Clients.SpotApi
             if (request.StartTime.HasValue == true)
                 limit = (int)Math.Ceiling((DateTime.UtcNow - request.StartTime!.Value).TotalSeconds / (int)request.Interval);
 
-            var direction = DataDirection.Descending;
-            var pageParams = Pagination.GetPaginationParameters(direction, limit, request.StartTime, request.EndTime ?? DateTime.UtcNow, pageRequest, false);
-
+            var direction = request.Direction ?? DataDirection.Descending;
             if (limit > apiLimit)
             {
                 // Not available via the API
@@ -406,7 +404,10 @@ namespace HTX.Net.Clients.SpotApi
             }).ToArray());
         }
 
-        GetClosedOrdersOptions ISpotOrderRestClient.GetClosedSpotOrdersOptions { get; } = new GetClosedOrdersOptions(false, true, true, 100);
+        GetClosedOrdersOptions ISpotOrderRestClient.GetClosedSpotOrdersOptions { get; } = new GetClosedOrdersOptions(false, true, true, 100)
+        {
+            MaxAge = TimeSpan.FromDays(178)
+        };
         async Task<ExchangeWebResult<SharedSpotOrder[]>> ISpotOrderRestClient.GetClosedSpotOrdersAsync(GetClosedOrdersRequest request, PageRequest? pageRequest, CancellationToken ct)
         {
             var validationError = ((ISpotOrderRestClient)this).GetClosedSpotOrdersOptions.ValidateRequest(Exchange, request, request.TradingMode, SupportedTradingModes);
@@ -433,7 +434,8 @@ namespace HTX.Net.Clients.SpotApi
                      request.StartTime,
                      request.EndTime ?? DateTime.UtcNow,
                      pageParams,
-                     TimeSpan.FromDays(2));
+                     TimeSpan.FromDays(2),
+                     TimeSpan.FromDays(178));
 
             return result.AsExchangeResult(
                     Exchange,
@@ -488,7 +490,10 @@ namespace HTX.Net.Clients.SpotApi
             }).ToArray());
         }
 
-        GetUserTradesOptions ISpotOrderRestClient.GetSpotUserTradesOptions { get; } = new GetUserTradesOptions(false, true, true, 500);
+        GetUserTradesOptions ISpotOrderRestClient.GetSpotUserTradesOptions { get; } = new GetUserTradesOptions(false, true, true, 500)
+        {
+            MaxAge = TimeSpan.FromDays(118)
+        };
         async Task<ExchangeWebResult<SharedUserTrade[]>> ISpotOrderRestClient.GetSpotUserTradesAsync(GetUserTradesRequest request, PageRequest? pageRequest, CancellationToken ct)
         {
             var validationError = ((ISpotOrderRestClient)this).GetSpotUserTradesOptions.ValidateRequest(Exchange, request, request.TradingMode, SupportedTradingModes);
@@ -517,7 +522,8 @@ namespace HTX.Net.Clients.SpotApi
                      request.StartTime,
                      request.EndTime ?? DateTime.UtcNow,
                      pageParams,
-                     TimeSpan.FromDays(2));
+                     TimeSpan.FromDays(2),
+                     TimeSpan.FromDays(118));
 
             return result.AsExchangeResult(
                     Exchange,

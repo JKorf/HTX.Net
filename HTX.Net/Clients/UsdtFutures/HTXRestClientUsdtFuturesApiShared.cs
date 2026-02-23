@@ -458,6 +458,7 @@ namespace HTX.Net.Clients.UsdtFutures
 
         GetClosedOrdersOptions IFuturesOrderRestClient.GetClosedFuturesOrdersOptions { get; } = new GetClosedOrdersOptions(false, true, true, 1000)
         {
+            MaxAge = TimeSpan.FromDays(88),
             RequiredExchangeParameters = new List<ParameterDescription>
             {
                 new ParameterDescription("MarginMode", typeof(SharedMarginMode), "The margin mode", SharedMarginMode.Cross)
@@ -471,7 +472,7 @@ namespace HTX.Net.Clients.UsdtFutures
 
             int limit = request.Limit ?? 100;
             var direction = DataDirection.Descending;
-            var pageParams = Pagination.GetPaginationParameters(direction, limit, request.StartTime, request.EndTime ?? DateTime.UtcNow, pageRequest ,maxPeriod: TimeSpan.FromDays(2));
+            var pageParams = Pagination.GetPaginationParameters(direction, limit, request.StartTime, request.EndTime ?? DateTime.UtcNow, pageRequest, maxPeriod: TimeSpan.FromDays(2));
 
             // Get data
             var marginMode = ExchangeParameters.GetValue<SharedMarginMode>(request.ExchangeParameters, Exchange, "MarginMode");
@@ -498,7 +499,8 @@ namespace HTX.Net.Clients.UsdtFutures
                      request.StartTime,
                      request.EndTime ?? DateTime.UtcNow,
                      pageParams,
-                     TimeSpan.FromDays(2));
+                     TimeSpan.FromDays(2),
+                     TimeSpan.FromDays(88));
 
                 return result.AsExchangeResult(
                         Exchange,
@@ -550,7 +552,8 @@ namespace HTX.Net.Clients.UsdtFutures
                      request.StartTime,
                      request.EndTime ?? DateTime.UtcNow,
                      pageParams,
-                     TimeSpan.FromDays(2));
+                     TimeSpan.FromDays(2),
+                     TimeSpan.FromDays(88));
 
                 return result.AsExchangeResult(
                         Exchange,
@@ -647,6 +650,7 @@ namespace HTX.Net.Clients.UsdtFutures
 
         GetUserTradesOptions IFuturesOrderRestClient.GetFuturesUserTradesOptions { get; } = new GetUserTradesOptions(false, true, true, 1000)
         {
+            MaxAge = TimeSpan.FromDays(88),
             RequiredExchangeParameters = new List<ParameterDescription>
             {
                 new ParameterDescription("MarginMode", typeof(SharedMarginMode), "The margin mode", SharedMarginMode.Cross)
@@ -684,7 +688,9 @@ namespace HTX.Net.Clients.UsdtFutures
                      result.Data.Select(x => x.CreateTime),
                      request.StartTime,
                      request.EndTime ?? DateTime.UtcNow,
-                     pageParams);
+                     pageParams,
+                     TimeSpan.FromDays(2),
+                     TimeSpan.FromDays(88));
 
                 return result.AsExchangeResult(
                         Exchange,
@@ -727,7 +733,9 @@ namespace HTX.Net.Clients.UsdtFutures
                      result.Data.Select(x => x.CreateTime),
                      request.StartTime,
                      request.EndTime ?? DateTime.UtcNow,
-                     pageParams);
+                     pageParams,
+                     TimeSpan.FromDays(2),
+                     TimeSpan.FromDays(88));
 
                 return result.AsExchangeResult(
                         Exchange,
@@ -1105,7 +1113,7 @@ namespace HTX.Net.Clients.UsdtFutures
 
         #region Mark Klines client
 
-        GetKlinesOptions IMarkPriceKlineRestClient.GetMarkPriceKlinesOptions { get; } = new GetKlinesOptions(false, false, false, 2000, false);
+        GetKlinesOptions IMarkPriceKlineRestClient.GetMarkPriceKlinesOptions { get; } = new GetKlinesOptions(true, true, false, 2000, false);
 
         async Task<ExchangeWebResult<SharedFuturesKline[]>> IMarkPriceKlineRestClient.GetMarkPriceKlinesAsync(GetKlinesRequest request, PageRequest? pageRequest, CancellationToken ct)
         {
@@ -1122,8 +1130,7 @@ namespace HTX.Net.Clients.UsdtFutures
             if (request.StartTime.HasValue == true)
                 limit = (int)Math.Ceiling((DateTime.UtcNow - request.StartTime!.Value).TotalSeconds / (int)request.Interval);
 
-            var direction = DataDirection.Descending;
-            var pageParams = Pagination.GetPaginationParameters(direction, limit, request.StartTime, request.EndTime ?? DateTime.UtcNow, pageRequest, false);
+            var direction = request.Direction ?? DataDirection.Descending;
 
             if (limit > apiLimit)
             {
@@ -1136,7 +1143,7 @@ namespace HTX.Net.Clients.UsdtFutures
             var result = await ExchangeData.GetMarkPriceKlinesAsync(
                 symbol,
                 interval,
-                pageParams.Limit,
+                limit,
                 ct: ct
                 ).ConfigureAwait(false);
             if (!result)
@@ -1155,7 +1162,7 @@ namespace HTX.Net.Clients.UsdtFutures
 
         #region Index Klines client
 
-        GetKlinesOptions IIndexPriceKlineRestClient.GetIndexPriceKlinesOptions { get; } = new GetKlinesOptions(false, false, false, 2000, false);
+        GetKlinesOptions IIndexPriceKlineRestClient.GetIndexPriceKlinesOptions { get; } = new GetKlinesOptions(true, true, false, 2000, false);
 
         async Task<ExchangeWebResult<SharedFuturesKline[]>> IIndexPriceKlineRestClient.GetIndexPriceKlinesAsync(GetKlinesRequest request, PageRequest? pageRequest, CancellationToken ct)
         {
@@ -1172,9 +1179,7 @@ namespace HTX.Net.Clients.UsdtFutures
             if (request.StartTime.HasValue == true)
                 limit = (int)Math.Ceiling((DateTime.UtcNow - request.StartTime!.Value).TotalSeconds / (int)request.Interval);
 
-            var direction = DataDirection.Descending;
-            var pageParams = Pagination.GetPaginationParameters(direction, limit, request.StartTime, request.EndTime ?? DateTime.UtcNow, pageRequest, false);
-
+            var direction = request.Direction ?? DataDirection.Descending;
             if (limit > apiLimit)
             {
                 // Not available via the API
@@ -1186,7 +1191,7 @@ namespace HTX.Net.Clients.UsdtFutures
             var result = await ExchangeData.GetMarkPriceKlinesAsync(
                 symbol,
                 interval,
-                pageParams.Limit,
+                limit,
                 ct: ct
                 ).ConfigureAwait(false);
             if (!result)
