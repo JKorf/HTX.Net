@@ -10,7 +10,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
     {
         /// <summary>
         /// Places an order
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4ee16-7773-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4ee16-7773-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /v1/order/orders/place
+        /// </para>
         /// </summary>
         /// <param name="accountId">The account to place the order for, account ids can be retrieved with <see cref="IHTXRestClientSpotApiAccount.GetAccountsAsync">SpotApi.Account.GetAccountsAsync</see>.</param>
         /// <param name="symbol">The symbol to place the order for, for example `ETHUSDT`</param>
@@ -28,7 +33,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Place multiple orders in a single call
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4d8cc-7773-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4d8cc-7773-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /v1/order/batch-orders
+        /// </para>
         /// </summary>
         /// <param name="orders">Orders to place</param>
         /// <param name="ct">Cancellation token</param>
@@ -39,7 +49,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Place a new margin order
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=10000066-77b7-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=10000066-77b7-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /v1/order/auto/place
+        /// </para>
         /// </summary>
         /// <param name="accountId">The account to place the order for, account ids can be retrieved with <see cref="IHTXRestClientSpotApiAccount.GetAccountsAsync">SpotApi.Account.GetAccountsAsync</see>.</param>
         /// <param name="symbol">The symbol to place the order for, for example `ETHUSDT`</param>
@@ -72,7 +87,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get a list of open orders
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4e04b-7773-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4e04b-7773-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// GET /v1/order/openOrders
+        /// </para>
         /// </summary>
         /// <param name="accountId">The account id for which to get the orders for, account ids can be retrieved with <see cref="IHTXRestClientSpotApiAccount.GetAccountsAsync">SpotApi.Account.GetAccountsAsync</see>.</param>
         /// <param name="symbol">The symbol for which to get the orders for, for example `ETHUSDT`</param>
@@ -95,7 +115,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Cancel an open order
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4e938-7773-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4e938-7773-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /v1/order/orders/{orderId}/submitcancel
+        /// </para>
         /// </summary>
         /// <param name="orderId">The id of the order to cancel</param>
         /// <param name="ct">Cancellation token</param>
@@ -104,7 +129,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Cancel an open order
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4ef06-7773-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4ef06-7773-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /v1/order/orders/submitCancelClientOrder
+        /// </para>
         /// </summary>
         /// <param name="clientOrderId">The client id of the order to cancel</param>
         /// <param name="ct">Cancellation token</param>
@@ -113,7 +143,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Cancel multiple open orders
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4ea21-7773-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4ea21-7773-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /v1/order/orders/batchcancel
+        /// </para>
         /// </summary>
         /// <param name="orderIds">The ids of the orders to cancel</param>
         /// <param name="clientOrderIds">The client ids of the orders to cancel</param>
@@ -123,7 +158,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Cancel all order
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4ef06-7773-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4ef06-7773-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// GET /v1/order/cancelAllOrders
+        /// </para>
         /// </summary>
         /// <param name="symbol">Symbol, multiple symbols can be provided comma separated</param>
         /// <param name="ct">Cancellation token</param>
@@ -132,7 +172,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Cancel multiple open orders
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4eb66-7773-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4eb66-7773-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /v1/order/orders/batchCancelOpenOrders
+        /// </para>
         /// </summary>
         /// <param name="accountId">The account id used for this cancel</param>
         /// <param name="symbols">The trading symbol list (maximum 10 symbols, default value all symbols)</param>
@@ -144,7 +189,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get details of an order
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4e31c-7773-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4e31c-7773-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// GET /v1/order/orders/{orderId}
+        /// </para>
         /// </summary>
         /// <param name="orderId">The id of the order to retrieve</param>
         /// <param name="ct">Cancellation token</param>
@@ -153,7 +203,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get details of an order by client order id
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4ec26-7773-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4ec26-7773-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// GET /v1/order/orders/getClientOrder
+        /// </para>
         /// </summary>
         /// <param name="clientOrderId">The client id of the order to retrieve</param>
         /// <param name="ct">Cancellation token</param>
@@ -162,7 +217,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get a list of trades made for a specific order
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4e708-7773-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4e708-7773-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// GET /v1/order/orders/{orderId}/matchresults
+        /// </para>
         /// </summary>
         /// <param name="orderId">The id of the order to get trades for</param>
         /// <param name="ct">Cancellation token</param>
@@ -171,7 +231,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get a list of orders
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4e1c4-7773-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4e1c4-7773-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// GET /v1/order/orders
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol to get orders for, for example `ETHUSDT`</param>
         /// <param name="states">The states of orders to return</param>
@@ -187,7 +252,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get a list of user trades
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4de21-7773-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4de21-7773-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// GET /v1/order/matchresults
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol to retrieve trades for, for example `ETHUSDT`</param>
         /// <param name="types">The type of orders to return</param>
@@ -202,7 +272,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get order history
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4db3d-7773-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4db3d-7773-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// GET /v1/order/history
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol to get orders for, for example `ETHUSDT`</param>
         /// <param name="startTime">Only get orders after this date</param>
@@ -215,7 +290,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Place a new conditional order
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec50918-7773-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec50918-7773-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /v2/algo-orders
+        /// </para>
         /// </summary>
         /// <param name="accountId">The account the order should be placed from, account ids can be retrieved with <see cref="IHTXRestClientSpotApiAccount.GetAccountsAsync">SpotApi.Account.GetAccountsAsync</see>.</param>
         /// <param name="symbol">The symbol the order is for, for example `ETHUSDT`</param>
@@ -246,7 +326,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Cancel conditional orders
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec50be1-7773-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec50be1-7773-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /v2/algo-orders/cancellation
+        /// </para>
         /// </summary>
         /// <param name="clientOrderIds">Client order ids of the conditional orders to cancels</param>
         /// <param name="ct">Cancelation token</param>
@@ -255,7 +340,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get open conditional orders based on the parameters
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec51082-7773-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec51082-7773-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// GET /v2/algo-orders/opening
+        /// </para>
         /// </summary>
         /// <param name="accountId">Filter by account id, account ids can be retrieved with <see cref="IHTXRestClientSpotApiAccount.GetAccountsAsync">SpotApi.Account.GetAccountsAsync</see>.</param>
         /// <param name="symbol">Filter by symbol, for example `ETHUSDT`</param>
@@ -270,7 +360,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get closed conditional orders
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec50dcf-7773-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec50dcf-7773-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// GET /v2/algo-orders/history
+        /// </para>
         /// </summary>
         /// <param name="accountId">Filter by account id, account ids can be retrieved with <see cref="IHTXRestClientSpotApiAccount.GetAccountsAsync">SpotApi.Account.GetAccountsAsync</see>.</param>
         /// <param name="symbol">Filter by symbol, for example `ETHUSDT`</param>
@@ -299,7 +394,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get a conditional order by id
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec5121b-7773-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec5121b-7773-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// GET /v2/algo-orders/specific
+        /// </para>
         /// </summary>
         /// <param name="clientOrderId">Client order id</param>
         /// <param name="ct">Cancelation token</param>

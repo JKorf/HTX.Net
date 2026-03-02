@@ -10,7 +10,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
     {
         /// <summary>
         /// Repay a margin loan
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec5037d-7773-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec5037d-7773-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /v2/account/repayment
+        /// </para>
         /// </summary>
         /// <param name="accountId">Account id</param>
         /// <param name="asset">Asset to repay, for example `ETH`</param>
@@ -22,7 +27,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Transfer asset from spot account to isolated margin account
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4c545-7773-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4c545-7773-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /v1/dw/transfer-in/margin
+        /// </para>
         /// </summary>
         /// <param name="symbol">Trading symbol, for example `ETHUSDT`</param>
         /// <param name="asset">Asset to transfer, for example `ETH`</param>
@@ -33,7 +43,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Transfer asset from isolated margin to spot account
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4cb3f-7773-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4cb3f-7773-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /v1/dw/transfer-out/margin
+        /// </para>
         /// </summary>
         /// <param name="symbol">Trading symbol, for example `ETHUSDT`</param>
         /// <param name="asset">Asset to transfer, for example `ETH`</param>
@@ -44,7 +59,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get isolated loan interest rate and quotas
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4d178-7773-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4d178-7773-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// GET /v1/margin/loan-info
+        /// </para>
         /// </summary>
         /// <param name="symbols">Filter on symbol, for example `ETHUSDT`</param>
         /// <param name="ct">Cancellation token</param>
@@ -53,7 +73,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Request a loan on isolated margin
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4d587-7773-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4d587-7773-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /v1/margin/orders
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETHUSDT`</param>
         /// <param name="asset">The asset, for example `ETH`</param>
@@ -64,7 +89,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Repay an isolated margin loan
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4d7f0-7773-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4d7f0-7773-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /v1/margin/orders/{orderId}/repay
+        /// </para>
         /// </summary>
         /// <param name="orderId">Id to repay</param>
         /// <param name="quantity">Quantity</param>
@@ -74,7 +104,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get isolated margin order history
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4d423-7773-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4d423-7773-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// GET /v1/margin/loan-orders
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol to get history for, for example `ETHUSDT`</param>
         /// <param name="states">Filter by states</param>
@@ -99,7 +134,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get isolated margin account balance
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4d015-7773-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4d015-7773-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// GET /v1/margin/accounts/balance
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETHUSDT`</param>
         /// <param name="subUserId">Sub user id</param>
@@ -109,7 +149,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Transfer from spot account to cross margin account
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4c32c-7773-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4c32c-7773-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /v1/cross-margin/transfer-in
+        /// </para>
         /// </summary>
         /// <param name="asset">The asset to transfer, for example `ETH`</param>
         /// <param name="quantity">Quantity to transfer</param>
@@ -119,7 +164,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Transfer from cross margin account to spot account
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4c47a-7773-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4c47a-7773-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /v1/cross-margin/transfer-out
+        /// </para>
         /// </summary>
         /// <param name="asset">The asset to transfer, for example `ETH`</param>
         /// <param name="quantity">Quantity to transfer</param>
@@ -129,7 +179,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get cross margin interest rates and quotas
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4bef5-7773-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4bef5-7773-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// GET /v1/cross-margin/loan-info
+        /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -137,7 +192,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Request a loan on cross margin
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4c1ac-7773-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4c1ac-7773-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /v1/cross-margin/orders
+        /// </para>
         /// </summary>
         /// <param name="asset">The asset, for example `ETH`</param>
         /// <param name="quantity">The quantity</param>
@@ -147,7 +207,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Repay a isolated margin loan
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4c26f-7773-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4c26f-7773-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /v1/cross-margin/orders/{orderId}/repay
+        /// </para>
         /// </summary>
         /// <param name="orderId">Id to repay</param>
         /// <param name="quantity">Quantity</param>
@@ -157,7 +222,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get cross margin order history
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4c055-7773-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4c055-7773-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// GET /v1/cross-margin/loan-orders
+        /// </para>
         /// </summary>
         /// <param name="asset">Filter by asset, for example `ETH`</param>
         /// <param name="status">Filter by status</param>
@@ -182,7 +252,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get cross margin account balance
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4bca0-7773-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4bca0-7773-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// GET /v1/cross-margin/accounts/balance
+        /// </para>
         /// </summary>
         /// <param name="subUserId">Sub user id</param>
         /// <param name="ct">Cancellation token</param>
@@ -191,7 +266,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get cross margin limits
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec512ec-7773-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec512ec-7773-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// GET /v2/margin/limit
+        /// </para>
         /// </summary>
         /// <param name="asset">The asset, for example `ETH`</param>
         /// <param name="ct">Cancellation token</param>
@@ -199,7 +279,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get repayment history
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec50446-7773-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec50446-7773-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// GET /v2/account/repayment
+        /// </para>
         /// </summary>
         /// <param name="repayId">Filter by repay id</param>
         /// <param name="accountId">Filter by account id</param>

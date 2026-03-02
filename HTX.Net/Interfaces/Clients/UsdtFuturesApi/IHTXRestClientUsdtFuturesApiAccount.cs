@@ -10,7 +10,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
     {
         /// <summary>
         /// Get asset valuation
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb8172e-77b5-11ed-9966-0242ac110003"/></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb8172e-77b5-11ed-9966-0242ac110003"/><br />
+        /// Endpoint:<br />
+        /// POST /linear-swap-api/v1/swap_balance_valuation
+        /// </para>
         /// </summary>
         /// <param name="asset">The asset, for example `ETH`</param>
         /// <param name="ct">Cancellation token</param>
@@ -18,7 +23,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         Task<WebCallResult<HTXAssetValue[]>> GetAssetValuationAsync(string? asset = null, CancellationToken ct = default);
         /// <summary>
         /// Get isolated margin account info
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb81843-77b5-11ed-9966-0242ac110003"/></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb81843-77b5-11ed-9966-0242ac110003"/><br />
+        /// Endpoint:<br />
+        /// POST /linear-swap-api/v1/swap_account_info
+        /// </para>
         /// </summary>
         /// <param name="contractCode">Optional contract code filter, for example `USDT`</param>
         /// <param name="ct">Cancellation token</param>
@@ -26,7 +36,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         Task<WebCallResult<HTXIsolatedMarginAccountInfo[]>> GetIsolatedMarginAccountInfoAsync(string? contractCode = null, CancellationToken ct = default);
         /// <summary>
         /// Get cross margin account info
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb819b6-77b5-11ed-9966-0242ac110003"/></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb819b6-77b5-11ed-9966-0242ac110003"/><br />
+        /// Endpoint:<br />
+        /// POST /linear-swap-api/v1/swap_cross_account_info
+        /// </para>
         /// </summary>
         /// <param name="marginAccount">Optional margin account filter, for example `USDT`</param>
         /// <param name="ct">Cancellation token</param>
@@ -34,7 +49,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         Task<WebCallResult<HTXCrossMarginAccountInfo[]>> GetCrossMarginAccountInfoAsync(string? marginAccount = null, CancellationToken ct = default);
         /// <summary>
         /// Get cross margin assets and positions
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb81e77-77b5-11ed-9966-0242ac110003"/></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb81e77-77b5-11ed-9966-0242ac110003"/><br />
+        /// Endpoint:<br />
+        /// POST /linear-swap-api/v1/swap_cross_account_position_info
+        /// </para>
         /// </summary>
         /// <param name="marginAccount">Margin account, for example `USDT`</param>
         /// <param name="ct">Cancellation token</param>
@@ -42,7 +62,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         Task<WebCallResult<HTXCrossMarginAssetsAndPositions>> GetCrossMarginAssetsAndPositionsAsync(string marginAccount, CancellationToken ct = default);
         /// <summary>
         /// Get cross margin available leverage
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb82f42-77b5-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb82f42-77b5-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /linear-swap-api/v1/swap_cross_available_level_rate
+        /// </para>
         /// </summary>
         /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="pair">Pair, for example `ETH-USDT`</param>
@@ -53,7 +78,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         Task<WebCallResult<HTXCrossMarginLeverageAvailable[]>> GetCrossMarginAvailableLeverageAsync(string? contractCode = null, string? pair = null, ContractType? contractType = null, BusinessType? businessType = null, CancellationToken ct = default);
         /// <summary>
         /// Get cross margin positions
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb81c49-77b5-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb81c49-77b5-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /linear-swap-api/v1/swap_cross_position_info
+        /// </para>
         /// </summary>
         /// <param name="contractCode">Filter by contract code, for example `ETH-USDT`</param>
         /// <param name="ct">Cancellation token</param>
@@ -61,7 +91,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         Task<WebCallResult<HTXCrossPosition[]>> GetCrossMarginPositionsAsync(string? contractCode = null, CancellationToken ct = default);
         /// <summary>
         /// Get cross margin settlement records
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb82cf8-77b5-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb82cf8-77b5-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// GET /linear-swap-api/v1/swap_cross_user_settlement_records
+        /// </para>
         /// </summary>
         /// <param name="marginAccount">Margin account, for example `USDT`</param>
         /// <param name="startTime">Filter by start time</param>
@@ -74,7 +109,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
 
         /// <summary>
         /// Get financial records
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb82988-77b5-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb82988-77b5-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /linear-swap-api/v3/swap_financial_record
+        /// </para>
         /// </summary>
         /// <param name="marginAccount">Margin account, for example `USDT`</param>
         /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
@@ -89,7 +129,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
 
         /// <summary>
         /// Get isolated margin assets and positions
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb81d85-77b5-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb81d85-77b5-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /linear-swap-api/v1/swap_account_position_info
+        /// </para>
         /// </summary>
         /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="ct">Cancellation token</param>
@@ -97,7 +142,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         Task<WebCallResult<HTXIsolatedMarginAssetsAndPositions[]>> GetIsolatedMarginAssetsAndPositionsAsync(string contractCode, CancellationToken ct = default);
         /// <summary>
         /// Get isolated margin available leverage
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb82e6c-77b5-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb82e6c-77b5-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /linear-swap-api/v1/swap_available_level_rate
+        /// </para>
         /// </summary>
         /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="ct">Cancellation token</param>
@@ -105,7 +155,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         Task<WebCallResult<HTXIsolatedMarginLeverageAvailable[]>> GetIsolatedMarginAvailableLeverageAsync(string? contractCode = null, CancellationToken ct = default);
         /// <summary>
         /// Get isolated margin position info
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb81b5a-77b5-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb81b5a-77b5-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /linear-swap-api/v1/swap_position_info
+        /// </para>
         /// </summary>
         /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="ct">Cancellation token</param>
@@ -113,7 +168,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         Task<WebCallResult<HTXPosition[]>> GetIsolatedMarginPositionsAsync(string? contractCode = null, CancellationToken ct = default);
         /// <summary>
         /// Get isolated margin settlement records
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb82ba7-77b5-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb82ba7-77b5-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// GET /linear-swap-api/v1/swap_user_settlement_records
+        /// </para>
         /// </summary>
         /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="startTime">Filter by start time</param>
@@ -125,7 +185,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         Task<WebCallResult<HTXIsolatedMarginUserSettlementRecordPage>> GetIsolatedMarginSettlementRecordsAsync(string contractCode, DateTime? startTime = null, DateTime? endTime = null, int? page = null, int? pageSize = null, CancellationToken ct = default);
         /// <summary>
         /// Get trading fees
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb831de-77b5-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb831de-77b5-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /linear-swap-api/v1/swap_fee
+        /// </para>
         /// </summary>
         /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="pair">Pair, for example `ETH-USDT`</param>
@@ -136,7 +201,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         Task<WebCallResult<HTXTradingFee[]>> GetTradingFeesAsync(string? contractCode = null, string? pair = null, ContractType? contractType = null, BusinessType? businessType = null, CancellationToken ct = default);
         /// <summary>
         /// Set cross margin position mode
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb843e0-77b5-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb843e0-77b5-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /linear-swap-api/v1/swap_cross_switch_position_mode
+        /// </para>
         /// </summary>
         /// <param name="marginAccount">Margin account, for example `USDT`</param>
         /// <param name="positionMode">Position mode</param>
@@ -145,7 +215,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         Task<WebCallResult<HTXPositionMode>> SetCrossMarginPositionModeAsync(string marginAccount, PositionMode positionMode, CancellationToken ct = default);
         /// <summary>
         /// Set isolated margin position mode
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb842fe-77b5-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb842fe-77b5-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /linear-swap-api/v1/swap_switch_position_mode
+        /// </para>
         /// </summary>
         /// <param name="marginAccount">Margin account, for example `USDT`</param>
         /// <param name="positionMode">Position mode</param>
@@ -154,7 +229,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         Task<WebCallResult<HTXPositionMode>> SetIsolatedMarginPositionModeAsync(string marginAccount, PositionMode positionMode, CancellationToken ct = default);
         /// <summary>
         /// Transfer between margin accounts
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb83f97-77b5-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb83f97-77b5-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /linear-swap-api/v1/swap_transfer_inner
+        /// </para>
         /// </summary>
         /// <param name="asset">Asset to transfer, for example `USDT`</param>
         /// <param name="fromMarginAccount">From account</param>
@@ -167,7 +247,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
 
         /// <summary>
         /// Get order limits
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb83090-77b5-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb83090-77b5-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /linear-swap-api/v1/swap_order_limit
+        /// </para>
         /// </summary>
         /// <param name="orderType">The order type</param>
         /// <param name="contractCode">Filter by contract code, for example `ETH-USDT`</param>
@@ -179,7 +264,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
 
         /// <summary>
         /// Get isolated margin transfer limits
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb83330-77b5-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb83330-77b5-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /linear-swap-api/v1/swap_transfer_limit
+        /// </para>
         /// </summary>
         /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="ct">Cancellation token</param>
@@ -187,7 +277,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
 
         /// <summary>
         /// Get cross margin transfer limits
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb83475-77b5-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb83475-77b5-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /linear-swap-api/v1/swap_cross_transfer_limit
+        /// </para>
         /// </summary>
         /// <param name="marginAccount">Margin account, for example `USDT`</param>
         /// <param name="ct">Cancellation token</param>
@@ -195,7 +290,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
 
         /// <summary>
         /// Get isolated margin position limits
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb835b7-77b5-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb835b7-77b5-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /linear-swap-api/v1/swap_position_limit
+        /// </para>
         /// </summary>
         /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="ct">Cancellation token</param>
@@ -203,7 +303,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
 
         /// <summary>
         /// Get cross margin position limits
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb836ae-77b5-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb836ae-77b5-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /linear-swap-api/v1/swap_cross_position_limit
+        /// </para>
         /// </summary>
         /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="pair">Pair, for example `ETH-USDT`</param>
@@ -214,7 +319,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
 
         /// <summary>
         /// Get isolated margin leverage position limits
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb838ef-77b5-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb838ef-77b5-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /linear-swap-api/v1/swap_lever_position_limit
+        /// </para>
         /// </summary>
         /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="leverageRate">Leverage rate</param>
@@ -223,7 +333,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
 
         /// <summary>
         /// Get cross margin leverage position limits
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb839e5-77b5-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb839e5-77b5-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /linear-swap-api/v1/swap_cross_lever_position_limit
+        /// </para>
         /// </summary>
         /// <param name="businessType">Business type</param>
         /// <param name="ct">Cancellation token</param>
@@ -231,14 +346,24 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
 
         /// <summary>
         /// Get user trading status
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb840a5-77b5-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb840a5-77b5-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// GET /linear-swap-api/v1/swap_api_trading_status
+        /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<HTXTradingStatus>> GetTradingStatusAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get isolated margin position mode
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=10000088-77b7-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=10000088-77b7-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// GET /linear-swap-api/v1/swap_position_side
+        /// </para>
         /// </summary>
         /// <param name="marginAccount">Margin account, for example `USDT`</param>
         /// <param name="ct">Cancellation token</param>
@@ -246,7 +371,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
 
         /// <summary>
         /// Get cross margin position mode
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=10000090-77b7-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=10000090-77b7-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// GET /linear-swap-api/v1/swap_cross_position_side
+        /// </para>
         /// </summary>
         /// <param name="marginAccount">Margin account, for example `USDT`</param>
         /// <param name="ct">Cancellation token</param>

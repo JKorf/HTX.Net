@@ -18,7 +18,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
 
         /// <summary>
         /// Subscribe to basis updates
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7d374-77b5-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7d374-77b5-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// market.{contractCode}.basis.{period}.{priceType}
+        /// </para>
         /// </summary>
         /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="period">Period</param>
@@ -29,7 +34,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         Task<CallResult<UpdateSubscription>> SubscribeToBasisUpdatesAsync(string contractCode, KlineInterval period, string priceType, Action<DataEvent<HTXUsdtMarginSwapBasisUpdate>> onData, CancellationToken ct = default);
         /// <summary>
         /// Subscribe to best bid/ask updates
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7c802-77b5-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7c802-77b5-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// market.{contractCode}.bbo
+        /// </para>
         /// </summary>
         /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="onData">Data handler</param>
@@ -38,7 +48,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         Task<CallResult<UpdateSubscription>> SubscribeToBookTickerUpdatesAsync(string contractCode, Action<DataEvent<HTXBestOfferUpdate>> onData, CancellationToken ct = default);
         /// <summary>
         /// Subscribe to estimated funding rate kline updates
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7d138-77b5-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7d138-77b5-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// market.{contractCode}.estimated_rate.{period}
+        /// </para>
         /// </summary>
         /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="period">Period</param>
@@ -48,7 +63,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         Task<CallResult<UpdateSubscription>> SubscribeToEstimatedFundingRateKlineUpdatesAsync(string contractCode, KlineInterval period, Action<DataEvent<HTXKline>> onData, CancellationToken ct = default);
         /// <summary>
         /// Subscribe to incremental order book updates
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7c51d-77b5-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7c51d-77b5-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// market.{contractCode}.depth.size_{limit}.high_freq
+        /// </para>
         /// </summary>
         /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="snapshot">Snapshot or incremental</param>
@@ -59,7 +79,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         Task<CallResult<UpdateSubscription>> SubscribeToIncrementalOrderBookUpdatesAsync(string contractCode, bool snapshot, int limit, Action<DataEvent<HTXIncrementalOrderBookUpdate>> onData, CancellationToken ct = default);
         /// <summary>
         /// Subscribe to index kline updates
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7cc15-77b5-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7cc15-77b5-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// market.{contractCode}.index.{period}
+        /// </para>
         /// </summary>
         /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="period">Period</param>
@@ -69,7 +94,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         Task<CallResult<UpdateSubscription>> SubscribeToIndexKlineUpdatesAsync(string contractCode, KlineInterval period, Action<DataEvent<HTXKline>> onData, CancellationToken ct = default);
         /// <summary>
         /// Subscribe to kline updates
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7bf6d-77b5-11ed-9966-0242ac110003" /></para >
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7bf6d-77b5-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// market.{contractCode}.kline.{period}
+        /// </para>
         /// </summary >
         /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="period">Period</param>
@@ -79,7 +109,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         Task<CallResult<UpdateSubscription>> SubscribeToKlineUpdatesAsync(string contractCode, KlineInterval period, Action<DataEvent<HTXSwapKline>> onData, CancellationToken ct = default);
         /// <summary>
         /// Subscribe to mark price kline updates
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7d626-77b5-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7d626-77b5-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// market.{contractCode}.mark_price.{period}
+        /// </para>
         /// </summary>
         /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="period">Period</param>
@@ -89,7 +124,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         Task<CallResult<UpdateSubscription>> SubscribeToMarkPriceKlineUpdatesAsync(string contractCode, KlineInterval period, Action<DataEvent<HTXKline>> onData, CancellationToken ct = default);
         /// <summary>
         /// Subscribe to order book updates
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7c385-77b5-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7c385-77b5-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// market.{contractCode}.depth.step{mergeStep}
+        /// </para>
         /// </summary>
         /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="mergeStep">Merge step</param>
@@ -99,7 +139,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         Task<CallResult<UpdateSubscription>> SubscribeToOrderBookUpdatesAsync(string contractCode, int mergeStep, Action<DataEvent<HTXOrderBookUpdate>> onData, CancellationToken ct = default);
         /// <summary>
         /// Subscribe to premium index kline updates
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7cecd-77b5-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7cecd-77b5-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// market.{contractCode}.premium_index.{period}
+        /// </para>
         /// </summary>
         /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="period">Period</param>
@@ -109,7 +154,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         Task<CallResult<UpdateSubscription>> SubscribeToPremiumIndexKlineUpdatesAsync(string contractCode, KlineInterval period, Action<DataEvent<HTXKline>> onData, CancellationToken ct = default);
         /// <summary>
         /// Subscribe to symbol ticker updates
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7c694-77b5-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7c694-77b5-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// market.{contractCode}.detail
+        /// </para>
         /// </summary>
         /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="onData">Data handler</param>
@@ -118,7 +168,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         Task<CallResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(string contractCode, Action<DataEvent<HTXSymbolTickUpdate>> onData, CancellationToken ct = default);
         /// <summary>
         /// Subscribe to symbol trade updates
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7cab7-77b5-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7cab7-77b5-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// market.{contractCode}.trade.detail
+        /// </para>
         /// </summary>
         /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="onData">Data handler</param>
@@ -128,7 +183,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
 
         /// <summary>
         /// Subscribe to system status updates
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7e8d8-77b5-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7e8d8-77b5-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// public.linear-swap.heartbeat
+        /// </para>
         /// </summary>
         /// <param name="onData">Data handler</param>
         /// <param name="ct">Cancellation token</param>
@@ -137,8 +197,13 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
 
         /// <summary>
         /// Subscribe to order updates
-        /// <para><a href="https://www.htx.com/en-in/opend/newApiPages/?id=8cb7d8d9-77b5-11ed-9966-0242ac110003" /></para>
-        /// <para><a href="https://www.htx.com/en-in/opend/newApiPages/?id=8cb7da4b-77b5-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-in/opend/newApiPages/?id=8cb7d8d9-77b5-11ed-9966-0242ac110003" /><br />
+        /// <a href="https://www.htx.com/en-in/opend/newApiPages/?id=8cb7da4b-77b5-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// orders (isolated) / orders_cross (cross)
+        /// </para>
         /// </summary>
         /// <param name="mode">Margin mode</param>
         /// <param name="onData">Data handler</param>
@@ -148,7 +213,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
 
         /// <summary>
         /// Subscribe to isolated margin balance updates
-        /// <para><a href="https://www.htx.com/en-in/opend/newApiPages/?id=8cb7dbbb-77b5-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-in/opend/newApiPages/?id=8cb7dbbb-77b5-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// accounts
+        /// </para>
         /// </summary>
         /// <param name="onData">Data handler</param>
         /// <param name="ct">Cancellation token</param>
@@ -157,7 +227,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
 
         /// <summary>
         /// Subscribe to cross margin balance updates
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7dcca-77b5-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7dcca-77b5-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// accounts_cross
+        /// </para>
         /// </summary>
         /// <param name="onData">Data handler</param>
         /// <param name="ct">Cancellation token</param>
@@ -166,7 +241,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
 
         /// <summary>
         /// Subscribe to isolated margin position updates
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7dbbb-77b5-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7dbbb-77b5-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// positions
+        /// </para>
         /// </summary>
         /// <param name="onData">Data handler</param>
         /// <param name="ct">Cancellation token</param>
@@ -175,7 +255,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
 
         /// <summary>
         /// Subscribe to cross margin position updates
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7df0f-77b5-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7df0f-77b5-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// positions_cross
+        /// </para>
         /// </summary>
         /// <param name="onData">Data handler</param>
         /// <param name="ct">Cancellation token</param>
@@ -184,7 +269,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
 
         /// <summary>
         /// Subscribe to isolated margin user trades
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7e05a-77b5-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7e05a-77b5-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// matchOrders
+        /// </para>
         /// </summary>
         /// <param name="onData">Data handler</param>
         /// <param name="ct">Cancellation token</param>
@@ -193,7 +283,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
 
         /// <summary>
         /// Subscribe to cross margin user trades
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7e155-77b5-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7e155-77b5-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// matchOrders_cross
+        /// </para>
         /// </summary>
         /// <param name="onData">Data handler</param>
         /// <param name="ct">Cancellation token</param>
@@ -202,7 +297,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
 
         /// <summary>
         /// Subscribe to liquidation order updates
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7e25d-77b5-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7e25d-77b5-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// public.*.liquidation_orders
+        /// </para>
         /// </summary>
         /// <param name="onData">Data handler</param>
         /// <param name="ct">Cancellation token</param>
@@ -211,7 +311,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
 
         /// <summary>
         /// Subscribe to funding rate updates
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7e3b0-77b5-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7e3b0-77b5-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// public.*.funding_rate
+        /// </para>
         /// </summary>
         /// <param name="onData">Data handler</param>
         /// <param name="ct">Cancellation token</param>
@@ -220,7 +325,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
 
         /// <summary>
         /// Subscribe to contract info updates
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7e49a-77b5-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7e49a-77b5-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// public.*.contract_info
+        /// </para>
         /// </summary>
         /// <param name="onData">Data handler</param>
         /// <param name="ct">Cancellation token</param>
@@ -229,7 +339,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
 
         /// <summary>
         /// Subscribe to contract element updates. Only changed properties are send after the initial update, other properties will be `null`.
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb89359-77b5-11ed-9966-18ef15d1f28" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb89359-77b5-11ed-9966-18ef15d1f28" /><br />
+        /// Endpoint:<br />
+        /// public.*.contract_elements
+        /// </para>
         /// </summary>
         /// <param name="onData">Data handler</param>
         /// <param name="ct">Cancellation token</param>
@@ -238,7 +353,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
 
         /// <summary>
         /// Subscribe to isolated margin trigger order updates
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7e5fc-77b5-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7e5fc-77b5-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// trigger_order
+        /// </para>
         /// </summary>
         /// <param name="onData">Data handler</param>
         /// <param name="ct">Cancellation token</param>
@@ -247,7 +367,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
 
         /// <summary>
         /// Subscribe to cross margin trigger order updates
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7e753-77b5-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb7e753-77b5-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// trigger_order_cross.*
+        /// </para>
         /// </summary>
         /// <param name="onData">Data handler</param>
         /// <param name="ct">Cancellation token</param>

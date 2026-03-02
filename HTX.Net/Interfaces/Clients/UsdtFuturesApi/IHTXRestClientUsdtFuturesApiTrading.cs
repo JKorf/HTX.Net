@@ -10,7 +10,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
     {
         /// <summary>
         /// Cancel all cross margin orders fitting the parameters
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb84ea6-77b5-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb84ea6-77b5-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /linear-swap-api/v1/swap_cross_cancelall
+        /// </para>
         /// </summary>
         /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="pair">Pair</param>
@@ -22,7 +27,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         Task<WebCallResult<HTXBatchResult>> CancelAllCrossMarginOrdersAsync(string? contractCode = null, string? pair = null, ContractType? contractType = null, OrderSide? side = null, Offset? offset = null, CancellationToken ct = default);
         /// <summary>
         /// Cancel all isolated margin orders fitting the parameters
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb84dae-77b5-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb84dae-77b5-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /linear-swap-api/v1/swap_cancelall
+        /// </para>
         /// </summary>
         /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="side">Side</param>
@@ -32,7 +42,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         Task<WebCallResult<HTXBatchResult>> CancelAllIsolatedMarginOrdersAsync(string contractCode, OrderSide? side = null, Offset? offset = null, CancellationToken ct = default);
         /// <summary>
         /// Cancel a cross margin order
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb84bb2-77b5-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb84bb2-77b5-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /linear-swap-api/v1/swap_cross_cancel
+        /// </para>
         /// </summary>
         /// <param name="orderId">The order id</param>
         /// <param name="clientOrderId">The client order id</param>
@@ -44,7 +59,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         Task<WebCallResult<HTXBatchResult>> CancelCrossMarginOrderAsync(long? orderId = null, long? clientOrderId = null, string? contractCode = null, string? pair = null, ContractType? contractType = null, CancellationToken ct = default);
         /// <summary>
         /// Cancel cross margin orders
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb84bb2-77b5-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb84bb2-77b5-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /linear-swap-api/v1/swap_cross_cancel
+        /// </para>
         /// </summary>
         /// <param name="orderIds">Order ids</param>
         /// <param name="clientOrderIds">Client order ids</param>
@@ -56,7 +76,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         Task<WebCallResult<HTXBatchResult>> CancelCrossMarginOrdersAsync(IEnumerable<long> orderIds, IEnumerable<long> clientOrderIds, string? contractCode = null, string? pair = null, ContractType? contractType = null, CancellationToken ct = default);
         /// <summary>
         /// Cancel an isolated margin order
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb84a62-77b5-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb84a62-77b5-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /linear-swap-api/v1/swap_cancel
+        /// </para>
         /// </summary>
         /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="orderId">Order id</param>
@@ -66,7 +91,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         Task<WebCallResult<HTXBatchResult>> CancelIsolatedMarginOrderAsync(string contractCode, long? orderId = null, long? clientOrderId = null, CancellationToken ct = default);
         /// <summary>
         /// Cancel isolated margin orders
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb84a62-77b5-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb84a62-77b5-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /linear-swap-api/v1/swap_cancel
+        /// </para>
         /// </summary>
         /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="orderId">Order ids</param>
@@ -76,7 +106,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         Task<WebCallResult<HTXBatchResult>> CancelIsolatedMarginOrdersAsync(string contractCode, IEnumerable<long> orderId, IEnumerable<long> clientOrderId, CancellationToken ct = default);
         /// <summary>
         /// Set cross margin leverage
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb850d7-77b5-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb850d7-77b5-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /linear-swap-api/v1/swap_cross_switch_lever_rate
+        /// </para>
         /// </summary>
         /// <param name="leverageRate">Leverage rate</param>
         /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
@@ -87,7 +122,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         Task<WebCallResult<HTXCrossMarginLeverageRate>> SetCrossMarginLeverageAsync(int leverageRate, string? contractCode = null, string? pair = null, ContractType? contractType = null, CancellationToken ct = default);
         /// <summary>
         /// Set isolated margin leverage
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb84ff2-77b5-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb84ff2-77b5-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /linear-swap-api/v1/swap_switch_lever_rate
+        /// </para>
         /// </summary>
         /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="leverageRate">Leverage rate</param>
@@ -96,7 +136,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         Task<WebCallResult<HTXIsolatedMarginLeverageRate>> SetIsolatedMarginLeverageAsync(string contractCode, int leverageRate, CancellationToken ct = default);
         /// <summary>
         /// Get cross margin closed orders
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb85ba1-77b5-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb85ba1-77b5-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /linear-swap-api/v3/swap_cross_hisorders
+        /// </para>
         /// </summary>
         /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="tradeType">Trade type</param>
@@ -111,7 +156,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         Task<WebCallResult<HTXCrossMarginOrder[]>> GetCrossMarginClosedOrdersAsync(string contractCode, MarginTradeType tradeType, bool allOrders, IEnumerable<OrderStatusFilter> status, string? pair = null, DateTime? startTime = null, DateTime? endTime = null, FilterDirection? direction = null, long? fromId = null, CancellationToken ct = default);
         /// <summary>
         /// Get cross margin open orders
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb858fe-77b5-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb858fe-77b5-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /linear-swap-api/v1/swap_cross_openorders
+        /// </para>
         /// </summary>
         /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="pair">Pair</param>
@@ -124,7 +174,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         Task<WebCallResult<HTXCrossMarginOrderPage>> GetCrossMarginOpenOrdersAsync(string? contractCode = null, string? pair = null, int? page = null, int? pageSize = null, string? sortBy = null, MarginTradeType? tradeType = null, CancellationToken ct = default);
         /// <summary>
         /// Get cross margin order
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb85379-77b5-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb85379-77b5-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /linear-swap-api/v1/swap_cross_order_info
+        /// </para>
         /// </summary>
         /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="pair">Pair, for example `ETH-USDT`</param>
@@ -135,7 +190,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         Task<WebCallResult<HTXCrossMarginOrder[]>> GetCrossMarginOrderAsync(string? contractCode = null, string? pair = null, long? orderId = null, long? clientOrderId = null, CancellationToken ct = default);
         /// <summary>
         /// Get cross margin order details
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb8562d-77b5-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb8562d-77b5-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /linear-swap-api/v1/swap_cross_order_detail
+        /// </para>
         /// </summary>
         /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="orderId">Order id</param>
@@ -144,7 +204,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         Task<WebCallResult<HTXMarginOrderDetails>> GetCrossMarginOrderDetailsAsync(string contractCode, long orderId, CancellationToken ct = default);
         /// <summary>
         /// Get cross margin orders
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb85379-77b5-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb85379-77b5-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /linear-swap-api/v1/swap_cross_order_info
+        /// </para>
         /// </summary>
         /// <param name="orderIds">Order ids</param>
         /// <param name="clientOrderIds">Client order ids</param>
@@ -155,7 +220,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         Task<WebCallResult<HTXCrossMarginOrder[]>> GetCrossMarginOrdersAsync(IEnumerable<long> orderIds, IEnumerable<long> clientOrderIds, string? contractCode = null, string? pair = null, CancellationToken ct = default);
         /// <summary>
         /// Get isolated margin user trades
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb85fa3-77b5-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb85fa3-77b5-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /linear-swap-api/v3/swap_matchresults
+        /// </para>
         /// </summary>
         /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="pair">Pair, for example `ETH-USDT`</param>
@@ -169,7 +239,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
 
         /// <summary>
         /// Get cross margin user trades
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb86121-77b5-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb86121-77b5-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /linear-swap-api/v3/swap_cross_matchresults
+        /// </para>
         /// </summary>
         /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="pair">Pair, for example `ETH-USDT`</param>
@@ -183,7 +258,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
 
         /// <summary>
         /// Get isolated margin closed orders
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb85a53-77b5-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb85a53-77b5-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /linear-swap-api/v3/swap_hisorders
+        /// </para>
         /// </summary>
         /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="tradeType">Trade type</param>
@@ -198,7 +278,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
 
         /// <summary>
         /// Get isolated margin open orders
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb85791-77b5-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb85791-77b5-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /linear-swap-api/v1/swap_openorders
+        /// </para>
         /// </summary>
         /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="page">Page</param>
@@ -210,7 +295,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         Task<WebCallResult<HTXIsolatedMarginOrderPage>> GetIsolatedMarginOpenOrdersAsync(string contractCode, int? page = null, int? pageSize = null, string? sortBy = null, MarginTradeType? tradeType = null, CancellationToken ct = default);
         /// <summary>
         /// Get an isolated margin order
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb85222-77b5-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb85222-77b5-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /linear-swap-api/v1/swap_order_info
+        /// </para>
         /// </summary>
         /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="orderId">Order id</param>
@@ -220,7 +310,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         Task<WebCallResult<HTXIsolatedMarginOrder[]>> GetIsolatedMarginOrderAsync(string contractCode, long? orderId = null, long? clientOrderId = null, CancellationToken ct = default);
         /// <summary>
         /// Get isolated margin order details
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb854d2-77b5-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb854d2-77b5-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /linear-swap-api/v1/swap_order_detail
+        /// </para>
         /// </summary>
         /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="orderId">Order id</param>
@@ -229,7 +324,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         Task<WebCallResult<HTXMarginOrderDetails>> GetIsolatedMarginOrderDetailsAsync(string contractCode, long orderId, CancellationToken ct = default);
         /// <summary>
         /// Get isolated margin orders
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb85222-77b5-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb85222-77b5-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /linear-swap-api/v1/swap_order_info
+        /// </para>
         /// </summary>
         /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="orderIds">Order ids</param>
@@ -239,7 +339,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         Task<WebCallResult<HTXIsolatedMarginOrder[]>> GetIsolatedMarginOrdersAsync(string contractCode, IEnumerable<long> orderIds, IEnumerable<long> clientOrderIds, CancellationToken ct = default);
         /// <summary>
         /// Place a new cross margin order
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb84611-77b5-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb84611-77b5-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /linear-swap-api/v1/swap_cross_order
+        /// </para>
         /// </summary>
         /// <param name="quantity">Order quantity</param>
         /// <param name="side">Order side</param>
@@ -263,7 +368,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         Task<WebCallResult<HTXOrderIds>> PlaceCrossMarginOrderAsync(long quantity, OrderSide side, int leverageRate, OrderPriceType orderPriceType, string? contractCode = null, string? pair = null, ContractType? contractType = null, decimal? price = null, Offset? offset = null, decimal? takeProfitTriggerPrice = null, decimal? takeProfitOrderPrice = null, OrderPriceType? takeProfitOrderPriceType = null, decimal? stopLossTriggerPrice = null, decimal? stopLossOrderPrice = null, OrderPriceType? stopLossOrderPriceType = null, bool? reduceOnly = null, long? clientOrderId = null, CancellationToken ct = default);
         /// <summary>
         /// Place a new isolated margin order
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb844bb-77b5-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb844bb-77b5-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /linear-swap-api/v1/swap_order
+        /// </para>
         /// </summary>
         /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="quantity">Quantity</param>
@@ -286,7 +396,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
 
         /// <summary>
         /// Cancel all orders after the timeout elapses. Can be called again to extend the timeout. Set enable to false to disable the timeout
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=10000068-77b7-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=10000068-77b7-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /linear-swap-api/v1/linear-cancel-after
+        /// </para>
         /// </summary>
         /// <param name="enable">Enabled or disable cancelation</param>
         /// <param name="timeout">The timeout after which all order are canceled</param>
@@ -295,7 +410,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
 
         /// <summary>
         /// Lightning close isolated margin position
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb86944-77b5-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb86944-77b5-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /linear-swap-api/v1/swap_lightning_close_position
+        /// </para>
         /// </summary>
         /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="direction">Direction</param>
@@ -306,7 +426,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
 
         /// <summary>
         /// Lightning close cross margin position
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb86944-77b5-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb86944-77b5-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /linear-swap-api/v1/swap_cross_lightning_close_position
+        /// </para>
         /// </summary>
         /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="direction">Direction</param>
@@ -319,7 +444,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
 
         /// <summary>
         /// Place a new isolated margin trigger order
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb86c95-77b5-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb86c95-77b5-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /linear-swap-api/v1/swap_trigger_order
+        /// </para>
         /// </summary>
         /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="triggerType">Trigger type</param>
@@ -336,7 +466,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
 
         /// <summary>
         /// Place a new cross margin trigger order
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb86dfe-77b5-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb86dfe-77b5-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /linear-swap-api/v1/swap_cross_trigger_order
+        /// </para>
         /// </summary>
         /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="triggerType">Trigger type</param>
@@ -355,7 +490,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
 
         /// <summary>
         /// Cancel isolated margin trigger order
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb86f61-77b5-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb86f61-77b5-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /linear-swap-api/v1/swap_trigger_cancel
+        /// </para>
         /// </summary>
         /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="orderId">Order id</param>
@@ -364,7 +504,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
 
         /// <summary>
         /// Cancel cross margin trigger order
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb87056-77b5-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb87056-77b5-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /linear-swap-api/v1/swap_cross_trigger_cancel
+        /// </para>
         /// </summary>
         /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="pair">Pair, for example `ETH-USDT`</param>
@@ -375,7 +520,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
 
         /// <summary>
         /// Cancel all isolated margin trigger orders matching the parameters
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb87161-77b5-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb87161-77b5-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /linear-swap-api/v1/swap_trigger_cancelall
+        /// </para>
         /// </summary>
         /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="side">Filter by side</param>
@@ -385,7 +535,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
 
         /// <summary>
         /// Cancel all cross margin trigger orders matching the parameters
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb872c3-77b5-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb872c3-77b5-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /linear-swap-api/v1/swap_cross_trigger_cancelall
+        /// </para>
         /// </summary>
         /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="pair">Pair, for example `ETH-USDT`</param>
@@ -397,7 +552,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
 
         /// <summary>
         /// Get isolated margin open trigger orders
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb873a8-77b5-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb873a8-77b5-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /linear-swap-api/v1/swap_trigger_openorders
+        /// </para>
         /// </summary>
         /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="page">Page</param>
@@ -408,7 +568,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
 
         /// <summary>
         /// Get cross margin open trigger orders
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb874fd-77b5-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb874fd-77b5-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /linear-swap-api/v1/swap_cross_trigger_openorders
+        /// </para>
         /// </summary>
         /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="pair">Pair, for example `ETH-USDT`</param>
@@ -420,7 +585,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
 
         /// <summary>
         /// Get isolated margin trigger order history
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb87658-77b5-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb87658-77b5-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /linear-swap-api/v1/swap_trigger_hisorders
+        /// </para>
         /// </summary>
         /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="tradeType">Trade type</param>
@@ -434,7 +604,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
 
         /// <summary>
         /// Get cross margin trigger order history
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb877ac-77b5-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb877ac-77b5-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /linear-swap-api/v1/swap_cross_trigger_hisorders
+        /// </para>
         /// </summary>
         /// <param name="tradeType">Trade type</param>
         /// <param name="daysPast">Amount of days ago. Max 90</param>
@@ -450,7 +625,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
 
         /// <summary>
         /// Set isolated margin order take profit / stop loss for an existing position
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb87911-77b5-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb87911-77b5-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /linear-swap-api/v1/swap_tpsl_order
+        /// </para>
         /// </summary>
         /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="side">Order side</param>
@@ -466,7 +646,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
 
         /// <summary>
         /// Set cross margin order take profit / stop loss for an existing position
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb87a6f-77b5-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb87a6f-77b5-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /linear-swap-api/v1/swap_cross_tpsl_order
+        /// </para>
         /// </summary>
         /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="pair">Pair, for example `ETH-USDT`</param>
@@ -484,7 +669,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
 
         /// <summary>
         /// Cancel isolated margin take profit / stop loss orders for an existing position
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb87bc0-77b5-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb87bc0-77b5-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /linear-swap-api/v1/swap_tpsl_cancel
+        /// </para>
         /// </summary>
         /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="orderId">Order id</param>
@@ -493,7 +683,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
 
         /// <summary>
         /// Cancel cross margin take profit / stop loss orders for an existing position
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb87bc0-77b5-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb87bc0-77b5-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /linear-swap-api/v1/swap_cross_tpsl_cancel
+        /// </para>
         /// </summary>
         /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="pair">Pair, for example `ETH-USDT`</param>
@@ -504,7 +699,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
 
         /// <summary>
         /// Cancel all isolated margin take profit / stop loss orders
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb87d94-77b5-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb87d94-77b5-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /linear-swap-api/v1/swap_tpsl_cancelall
+        /// </para>
         /// </summary>
         /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="side">Side</param>
@@ -513,7 +713,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
 
         /// <summary>
         /// Cancel all cross margin take profit / stop loss orders
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb87edb-77b5-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb87edb-77b5-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /linear-swap-api/v1/swap_cross_tpsl_cancelall
+        /// </para>
         /// </summary>
         /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="pair">Pair, for example `ETH-USDT`</param>
@@ -524,7 +729,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
 
         /// <summary>
         /// Get open isolated margin take profit / stop loss orders
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb87fb0-77b5-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb87fb0-77b5-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /linear-swap-api/v1/swap_tpsl_openorders
+        /// </para>
         /// </summary>
         /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="page">Page index</param>
@@ -546,7 +756,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
 
         /// <summary>
         /// Get isolated margin take profit / stop loss order history
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb88253-77b5-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb88253-77b5-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /linear-swap-api/v1/swap_tpsl_hisorders
+        /// </para>
         /// </summary>
         /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="tpSlOrderStatus">Status</param>
@@ -559,7 +774,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
 
         /// <summary>
         /// Get cross maring take profit / stop loss order history
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb883a0-77b5-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb883a0-77b5-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /linear-swap-api/v1/swap_cross_tpsl_hisorders
+        /// </para>
         /// </summary>
         /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="pair">Pair, for example `ETH-USDT`</param>
@@ -573,7 +793,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
 
         /// <summary>
         /// Get isolated margin position open info with attached tp/sl orders
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb884f1-77b5-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb884f1-77b5-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /linear-swap-api/v1/swap_relation_tpsl_order
+        /// </para>
         /// </summary>
         /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="orderId">Order id</param>
@@ -582,7 +807,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
 
         /// <summary>
         /// Get cross margin position open info with attached tp/sl orders
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb8864d-77b5-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb8864d-77b5-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /linear-swap-api/v1/swap_cross_relation_tpsl_order
+        /// </para>
         /// </summary>
         /// <param name="orderId">Order id</param>
         /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
@@ -593,7 +823,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
 
         /// <summary>
         /// Place isolated margin trailing order
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb88960-77b5-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb88960-77b5-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /linear-swap-api/v1/swap_track_order
+        /// </para>
         /// </summary>
         /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="reduceOnly">Reduce only</param>
@@ -609,7 +844,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
 
         /// <summary>
         /// Place cross margin trailing order
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb88bb5-77b5-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb88bb5-77b5-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /linear-swap-api/v1/swap_cross_track_order
+        /// </para>
         /// </summary>
         /// <param name="side">Side</param>
         /// <param name="offset">Offset</param>
@@ -628,7 +868,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
 
         /// <summary>
         /// Cancel an isolated margin trailing order
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb88f2c-77b5-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb88f2c-77b5-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /linear-swap-api/v1/swap_track_cancel
+        /// </para>
         /// </summary>
         /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="orderId">Order id</param>
@@ -648,7 +893,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
 
         /// <summary>
         /// Cancel all open isolated margin trailing orders on a symbol
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb8924f-77b5-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb8924f-77b5-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /linear-swap-api/v1/swap_track_cancelall
+        /// </para>
         /// </summary>
         /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="side">Filter by side</param>
@@ -658,7 +908,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
 
         /// <summary>
         /// Cancel all open cross margin trailing orders
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb89359-77b5-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb89359-77b5-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /linear-swap-api/v1/swap_cross_track_cancelall
+        /// </para>
         /// </summary>
         /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="pair">Pair, for example `ETH-USDT`</param>
@@ -671,7 +926,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
 
         /// <summary>
         /// Get open isolated margin trailing orders
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb894b7-77b5-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb894b7-77b5-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /linear-swap-api/v1/swap_track_openorders
+        /// </para>
         /// </summary>
         /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="tradeType">Trade type</param>
@@ -682,7 +942,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
 
         /// <summary>
         /// Get open cross margin trailing orders
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb89614-77b5-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb89614-77b5-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /linear-swap-api/v1/swap_cross_track_openorders
+        /// </para>
         /// </summary>
         /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="pair">Pair, for example `ETH-USDT`</param>
@@ -695,7 +960,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
 
         /// <summary>
         /// Get isolated margin trailing order history
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb89781-77b5-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb89781-77b5-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /linear-swap-api/v1/swap_track_hisorders
+        /// </para>
         /// </summary>
         /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="tpSlOrderStatus">Status</param>
@@ -710,7 +980,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
 
         /// <summary>
         /// Get cross margin trailing order history
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb8996a-77b5-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb8996a-77b5-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /linear-swap-api/v1/swap_cross_track_hisorders
+        /// </para>
         /// </summary>
         /// <param name="tpSlOrderStatus">Status</param>
         /// <param name="tradeType">Trade type</param>

@@ -18,7 +18,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get kline/candlestick data for a symbol
-        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#get-latest-tickers-for-all-pairs" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://huobiapi.github.io/docs/spot/v1/en/#get-latest-tickers-for-all-pairs" /><br />
+        /// Endpoint:<br />
+        /// market.{symbol}.kline.{period}
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol to get the data for, for example `ETHUSDT`</param>
         /// <param name="period">The period of a single candlestick</param>
@@ -27,7 +32,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Subscribes to kline/candlestick updates for a symbol
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec53241-7773-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec53241-7773-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// market.{symbol}.kline.{period}
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol to subscribe to, for example `ETHUSDT`</param>
         /// <param name="period">The period of a single candlestick</param>
@@ -38,7 +48,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get the current order book for a symbol
-        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#market-depth" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://huobiapi.github.io/docs/spot/v1/en/#market-depth" /><br />
+        /// Endpoint:<br />
+        /// market.{symbol}.depth.step{mergeStep}
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol to get the data for, for example `ETHUSDT`</param>
         /// <param name="mergeStep">The way the results will be merged together</param>
@@ -47,7 +62,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get the current order book for a symbol
-        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#market-by-price-incremental-update" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://huobiapi.github.io/docs/spot/v1/en/#market-by-price-incremental-update" /><br />
+        /// Endpoint:<br />
+        /// market.{symbol}.mbp.{levels}
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol to get the data for, for example `ETHUSDT`</param>
         /// <param name="levels">The amount of rows. 5, 20, 150 or 400</param>
@@ -56,7 +76,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Subscribes to order book updates for a symbol
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec5378b-7773-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec5378b-7773-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// market.{symbol}.mbp.refresh.{levels}
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol to subscribe to, for example `ETHUSDT`</param>
         /// <param name="levels">The number of price levels. 5, 10 or 20</param>
@@ -67,7 +92,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Subscribes to order book updates for a symbol
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec5342e-7773-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec5342e-7773-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// market.{symbol}.depth.step{mergeStep}
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol to subscribe to, for example `ETHUSDT`</param>
         /// <param name="mergeStep">The way the results will be merged together</param>
@@ -78,7 +108,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Subscribes to order book updates for a symbol, 
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec5362b-7773-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec5362b-7773-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// market.{symbol}.mbp.{levels}
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol to subscribe to, for example `ETHUSDT`</param>
         /// <param name="levels">The number of price levels. 5, 20, 150 or 400</param>
@@ -89,7 +124,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get a list of trades for a symbol
-        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#trade-detail" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://huobiapi.github.io/docs/spot/v1/en/#trade-detail" /><br />
+        /// Endpoint:<br />
+        /// market.{symbol}.trade.detail
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol to get trades for, for example `ETHUSDT`</param>
         /// <returns></returns>
@@ -97,7 +137,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Subscribes to trade updates for a symbol
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec53b69-7773-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec53b69-7773-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// market.{symbol}.trade.detail
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol to subscribe to, for example `ETHUSDT`</param>
         /// <param name="onData">The handler for updates</param>
@@ -107,7 +152,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get details for a symbol
-        /// <para><a href="https://huobiapi.github.io/docs/spot/v1/en/#market-details" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://huobiapi.github.io/docs/spot/v1/en/#market-details" /><br />
+        /// Endpoint:<br />
+        /// market.{symbol}.detail
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol to get data for, for example `ETHUSDT`</param>
         /// <returns></returns>
@@ -115,7 +165,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Subscribes to symbol detail updates for a symbol
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec53561-7773-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec53561-7773-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// market.{symbol}.detail
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol to subscribe to, for example `ETHUSDT`</param>
         /// <param name="onData">The handler for updates</param>
@@ -125,7 +180,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Subscribes to updates for a symbol
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec538cf-7773-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec538cf-7773-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// market.{symbol}.ticker
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol to subscribe, for example `ETHUSDT`</param>
         /// <param name="onData">The handler for updates</param>
@@ -135,7 +195,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Subscribes to updates for all tickers
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec538cf-7773-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec538cf-7773-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// market.tickers
+        /// </para>
         /// </summary>
         /// <param name="onData">The handler for updates</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
@@ -144,7 +209,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Subscribe to changes of a symbol's best ask/bid
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec5333f-7773-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec5333f-7773-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// market.{symbol}.bbo
+        /// </para>
         /// </summary>
         /// <param name="symbol">Symbol to subscribe to, for example `ETHUSDT`</param>
         /// <param name="onData">Data handler</param>
@@ -154,7 +224,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Subscribe to updates of orders
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec53c8f-7773-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec53c8f-7773-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// orders#{symbol}
+        /// </para>
         /// </summary>
         /// <param name="symbol">Subscribe on a specific symbol</param>
         /// <param name="onOrderSubmitted">Event handler for the order submitted event</param>
@@ -175,7 +250,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Subscribe to updates of account balances
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec52e28-7773-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec52e28-7773-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// accounts.update#{updateMode}
+        /// </para>
         /// </summary>
         /// <param name="onAccountUpdate">Event handler</param>
         /// <param name="updateMode">The update mode. Defaults to 1, see API docs for more info</param>
@@ -185,7 +265,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Subscribe to detailed order matched/canceled updates
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec53dd5-7773-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec53dd5-7773-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// trade.clearing#{symbol}#1
+        /// </para>
         /// </summary>
         /// <param name="symbol">Subscribe to a specific symbol, for example `ETHUSDT`</param>
         /// <param name="onOrderMatch">Event handler for the order matched event</param>
@@ -197,7 +282,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Place a new order
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb89359-77b5-11ed-9966-1928f079ab6" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb89359-77b5-11ed-9966-1928f079ab6" /><br />
+        /// Endpoint:<br />
+        /// create-order
+        /// </para>
         /// </summary>
         /// <param name="accountId">Id of the account</param>
         /// <param name="symbol">Symbol, for example `ethusdt`</param>
@@ -225,7 +315,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Place multiple orders in a single call. Make sure to check each order response to see if placement succeeded.
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb89359-77b5-11ed-9966-1928f115372" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb89359-77b5-11ed-9966-1928f115372" /><br />
+        /// Endpoint:<br />
+        /// create-batchorder
+        /// </para>
         /// </summary>
         /// <param name="orders"></param>
         /// <param name="ct"></param>
@@ -236,7 +331,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Place a new margin order
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb89359-77b5-11ed-9966-1928f216d9e" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb89359-77b5-11ed-9966-1928f216d9e" /><br />
+        /// Endpoint:<br />
+        /// create-margin-order
+        /// </para>
         /// </summary>
         /// <param name="accountId">The account to place the order for, account ids can be retrieved with <see cref="IHTXRestClientSpotApiAccount.GetAccountsAsync">SpotApi.Account.GetAccountsAsync</see>.</param>
         /// <param name="symbol">The symbol to place the order for, for example `ETHUSDT`</param>
@@ -269,7 +369,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Cancel all orders
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb89359-77b5-11ed-9966-1928f2962a5" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb89359-77b5-11ed-9966-1928f2962a5" /><br />
+        /// Endpoint:<br />
+        /// cancelall
+        /// </para>
         /// </summary>
         /// <param name="accountId">The account to place the order for, account ids can be retrieved with <see cref="IHTXRestClientSpotApiAccount.GetAccountsAsync">SpotApi.Account.GetAccountsAsync</see>.</param>
         /// <param name="symbols">Filter by symbols</param>
@@ -291,7 +396,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Cancel orders
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb89359-77b5-11ed-9966-1928f2fa07f" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb89359-77b5-11ed-9966-1928f2fa07f" /><br />
+        /// Endpoint:<br />
+        /// cancel
+        /// </para>
         /// </summary>
         /// <param name="orderIds">Order ids to cancel</param>
         /// <param name="clientOrderIds">Client order ids to cancel</param>

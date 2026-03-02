@@ -10,28 +10,48 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
     {
         /// <summary>
         /// Get current system status and announcements
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec52f93-7773-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec52f93-7773-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v2/summary.json
+        /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<HTXSystemStatus>> GetSystemStatusAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get supported symbols
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec51cb5-7773-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec51cb5-7773-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// GET /v2/settings/common/symbols
+        /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<HTXSymbol[]>> GetSymbolsAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get supported assets
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec51aee-7773-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec51aee-7773-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// GET /v2/settings/common/currencies
+        /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<HTXAsset[]>> GetAssetsAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get symbol trading configuration
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4f5d6-7773-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4f5d6-7773-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// GET /v1/settings/common/market-symbols
+        /// </para>
         /// </summary>
         /// <param name="symbols">Filter by symbols, for example `ETHUSDT`</param>
         /// <param name="ct">Cancellation token</param>
@@ -39,7 +59,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get information on networks
-        /// <para><a href="https://www.htx.com/en-in/opend/newApiPages/?id=7ec4f25c-7773-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-in/opend/newApiPages/?id=7ec4f25c-7773-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// GET /v1/settings/common/chains
+        /// </para>
         /// </summary>
         /// <param name="descFilter">Description filter</param>
         /// <param name="asset">Filter by asset</param>
@@ -48,7 +73,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get assets and network information
-        /// <para><a href="https://www.htx.com/en-in/opend/newApiPages/?id=7ec516fc-7773-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-in/opend/newApiPages/?id=7ec516fc-7773-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// GET /v2/reference/currencies
+        /// </para>
         /// </summary>
         /// <param name="asset">Filter by asset, for example `ETH`</param>
         /// <param name="ct">Cancellation token</param>
@@ -56,7 +86,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Gets the latest ticker for all symbols
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4a808-7773-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4a808-7773-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// GET /market/tickers
+        /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -64,7 +99,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Gets the ticker, including the best bid / best ask for a symbol
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4a3b6-7773-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4a3b6-7773-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// GET /market/detail/merged
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol to get the ticker for, for example `ETHUSDT`</param>
         /// <param name="ct">Cancellation token</param>
@@ -73,7 +113,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get kline/candlestick data for a symbol
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4a4da-7773-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4a4da-7773-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// GET /market/history/kline
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol to get the data for, for example `ETHUSDT`</param>
         /// <param name="period">The period of a single candlestick</param>
@@ -84,7 +129,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get the order book for a symbol
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4a0fc-7773-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4a0fc-7773-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// GET /market/depth
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol to request for, for example `ETHUSDT`</param>
         /// <param name="mergeStep">The way the results will be merged together</param>
@@ -95,7 +145,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get the last trade for a symbol
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4aa2b-7773-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4aa2b-7773-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// GET /market/trade
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol to request for, for example `ETHUSDT`</param>
         /// <param name="ct">Cancellation token</param>
@@ -104,7 +159,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get the last x trades for a symbol
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4a59d-7773-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4a59d-7773-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// GET /market/history/trade
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol to get trades for, for example `ETHUSDT`</param>
         /// <param name="limit">The max number of results</param>
@@ -114,7 +174,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get 24h stats for a symbol
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4a2cd-7773-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4a2cd-7773-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// GET /market/detail
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol to get the data for, for example `ETHUSDT`</param>
         /// <param name="ct">Cancellation token</param>
@@ -123,7 +188,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get the full order book. Updated once per second and returns up to 5000 levels.
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb89359-77b5-11ed-9966-193426b1a86" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb89359-77b5-11ed-9966-193426b1a86" /><br />
+        /// Endpoint:<br />
+        /// GET /market/fullMbp
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol to get the data for, for example `ETHUSDT`</param>
         /// <param name="ct">Cancellation token</param>
@@ -132,7 +202,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get the current market status
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec513b1-7773-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec513b1-7773-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// GET /v2/market-status
+        /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -140,7 +215,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get the server time
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4bb2c-7773-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4bb2c-7773-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// GET /v1/common/timestamp
+        /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>

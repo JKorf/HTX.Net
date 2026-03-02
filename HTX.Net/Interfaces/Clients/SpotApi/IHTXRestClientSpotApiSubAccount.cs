@@ -10,7 +10,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
     {
         /// <summary>
         /// Set fee deduct mode for sub accounts
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec52497-7773-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec52497-7773-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /v2/sub-user/deduct-mode
+        /// </para>
         /// </summary>
         /// <param name="subUserIds">Sub user ids</param>
         /// <param name="deductMode">Deduct from account</param>
@@ -19,7 +24,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Create new sub accounts
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec52336-7773-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec52336-7773-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /v2/sub-user/creation
+        /// </para>
         /// </summary>
         /// <param name="accounts">Accounts to create</param>
         /// <param name="ct">Cancellation token</param>
@@ -27,7 +37,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get a list of users associated with the apikey/secret
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec52a87-7773-11ed-9966-0242ac110003"/></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec52a87-7773-11ed-9966-0242ac110003"/><br />
+        /// Endpoint:<br />
+        /// GET /v2/sub-user/user-list
+        /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -35,7 +50,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Set (un)lock status on a sub account
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec52620-7773-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec52620-7773-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /v2/sub-user/management
+        /// </para>
         /// </summary>
         /// <param name="subUserId">Sub user id</param>
         /// <param name="lockAction">Lock action</param>
@@ -44,7 +64,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get sub user by id
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec52b46-7773-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec52b46-7773-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// GET /v2/sub-user/user-state
+        /// </para>
         /// </summary>
         /// <param name="subUserId">Sub user id</param>
         /// <param name="ct">Cancellation token</param>
@@ -53,7 +78,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Set tradable market for sub accounts
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec52859-7773-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec52859-7773-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /v2/sub-user/tradable-market
+        /// </para>
         /// </summary>
         /// <param name="subUserIds">Sub user ids</param>
         /// <param name="accountType">Account type</param>
@@ -63,7 +93,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Set asset transfer permissions for sub accounts
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec529c3-7773-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec529c3-7773-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /v2/sub-user/transferability
+        /// </para>
         /// </summary>
         /// <param name="subUserIds">Sub user ids</param>
         /// <param name="enabled">Enabled</param>
@@ -72,7 +107,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Gets a list of sub-user accounts associated with the sub-user id
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec51da3-7773-11ed-9966-0242ac110003"/></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec51da3-7773-11ed-9966-0242ac110003"/><br />
+        /// Endpoint:<br />
+        /// GET /v2/sub-user/account-list
+        /// </para>
         /// </summary>
         /// <param name="subUserId">The if of the user to get accounts for</param>
         /// <param name="ct">Cancellation token</param>
@@ -81,7 +121,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Create a new API key
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec52185-7773-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec52185-7773-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /v2/sub-user/api-key-generation
+        /// </para>
         /// </summary>
         /// <param name="otpToken">Two factor authentication code</param>
         /// <param name="subUserId">Sub user id</param>
@@ -93,7 +138,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Edit an API key
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec52249-7773-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec52249-7773-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /v2/sub-user/api-key-modification
+        /// </para>
         /// </summary>
         /// <param name="subUserId">Sub user id</param>
         /// <param name="apiKey">Api key to edit</param>
@@ -105,7 +155,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Delete an API key
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec5208e-7773-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec5208e-7773-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /v2/sub-user/api-key-deletion
+        /// </para>
         /// </summary>
         /// <param name="subUserId">Sub user id</param>
         /// <param name="apiKey">Api key to remove</param>
@@ -114,7 +169,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get deposit address for a sub account
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec5255a-7773-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec5255a-7773-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// GET /v2/sub-user/deposit-address
+        /// </para>
         /// </summary>
         /// <param name="subUserId">Sub user id</param>
         /// <param name="asset">The asset, for example `ETH`</param>
@@ -123,7 +183,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get deposit history
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec5278c-7773-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec5278c-7773-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// GET /v2/sub-user/query-deposit
+        /// </para>
         /// </summary>
         /// <param name="subUserId">Sub user id</param>
         /// <param name="asset">Filter by asset, for example `ETH`</param>
@@ -137,14 +202,24 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get aggregate balances of all sub accounts
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4fd28-7773-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4fd28-7773-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// GET /v1/subuser/aggregate-balance
+        /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<HTXAggBalance[]>> GetAggregateBalancesAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get a list of balances for a specific sub account
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4b62b-7773-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4b62b-7773-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// GET /v1/account/accounts/{subAccountId}
+        /// </para>
         /// </summary>
         /// <param name="subAccountId">The id of the sub account to get the balances for</param>
         /// <param name="ct">Cancellation token</param>
@@ -153,7 +228,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Transfer asset between parent and sub account
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4feac-7773-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4feac-7773-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /v1/subuser/transfer
+        /// </para>
         /// </summary>
         /// <param name="subAccountId">The target sub account id to transfer to or from</param>
         /// <param name="asset">The asset to transfer, for example `ETH`</param>

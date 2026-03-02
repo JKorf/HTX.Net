@@ -10,7 +10,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
     {
         /// <summary>
         /// Get the user id associated with the apikey/secret
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec52d6c-7773-11ed-9966-0242ac110003"/></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec52d6c-7773-11ed-9966-0242ac110003"/><br />
+        /// Endpoint:<br />
+        /// GET /v2/user/uid
+        /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -18,7 +23,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get a list of accounts associated with the apikey/secret
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4b291-7773-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4b291-7773-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// GET /v1/account/accounts
+        /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -26,7 +36,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get a list of balances for a specific account
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4b429-7773-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4b429-7773-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// GET /v1/account/accounts/{accountId}/balance
+        /// </para>
         /// </summary>
         /// <param name="accountId">The id of the account to get the balances for, account ids can be retrieved with <see cref="GetAccountsAsync">GetAccountsAsync</see>.</param>
         /// <param name="ct">Cancellation token</param>
@@ -35,7 +50,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get platform asset valuation
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec5058c-7773-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec5058c-7773-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// GET /v2/account/valuation
+        /// </para>
         /// </summary>
         /// <param name="accountType">Filter by account type</param>
         /// <param name="valuationAsset">Valuation asset, only BTC supported at the moment</param>
@@ -45,7 +65,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get the valuation of all assets
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4ff6d-7773-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4ff6d-7773-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// GET /v2/account/asset-valuation
+        /// </para>
         /// </summary>
         /// <param name="accountType">Type of account to valuate</param>
         /// <param name="valuationAsset">The asset to get the value in</param>
@@ -56,7 +81,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get a list of balance changes of specified user's account
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4b85b-7773-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4b85b-7773-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// GET /v1/account/history
+        /// </para>
         /// </summary>
         /// <param name="accountId">The id of the account to get the account history for, account ids can be retrieved with <see cref="GetAccountsAsync">GetAccountsAsync</see>.</param>
         /// <param name="asset">Asset name, for example `ETH`</param>
@@ -71,7 +101,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get the balance changes of specified user's account.
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec501f7-7773-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec501f7-7773-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// GET /v2/account/ledger
+        /// </para>
         /// </summary>
         /// <param name="accountId">The id of the account to get the ledger for, account ids can be retrieved with <see cref="GetAccountsAsync">GetAccountsAsync</see>.</param>
         /// <param name="asset">Asset name, for example `ETH`</param>
@@ -87,7 +122,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Transfer asset between accounts
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=10000096-77b7-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=10000096-77b7-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /v2/account/transfer
+        /// </para>
         /// </summary>
         /// <param name="fromAccount">Source account type</param>
         /// <param name="toAccount">Target account type</param>
@@ -99,7 +139,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get the deposit addresses for an asset
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec50029-7773-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec50029-7773-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// GET /v2/account/deposit/address
+        /// </para>
         /// </summary>
         /// <param name="asset">Asset, for example `ETH`</param>
         /// <param name="ct">Cancellation token</param>
@@ -108,7 +153,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Withdraw an asset from the account to an address
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4cc41-7773-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4cc41-7773-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /v1/dw/withdraw/api/create
+        /// </para>
         /// </summary>
         /// <param name="address">The desination address of this withdraw</param>
         /// <param name="asset">Asset, for example `ETH`</param>
@@ -123,7 +173,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get withdrawal/deposit history
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4f050-7773-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4f050-7773-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// GET /v1/query/deposit-withdraw
+        /// </para>
         /// </summary>
         /// <param name="type">Transfer type to search</param>
         /// <param name="asset">The asset to withdraw, for example `ETH`</param>
@@ -136,7 +191,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get current trading fees for symbols
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec51870-7773-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec51870-7773-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// GET /v2/reference/transact-fee-rate
+        /// </para>
         /// </summary>
         /// <param name="symbols">Filter on symbol, for example `ETHUSDT`</param>
         /// <param name="ct">Cancellation token</param>
@@ -146,7 +206,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get point balance
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec514e2-7773-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec514e2-7773-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// GET /v2/point/account
+        /// </para>
         /// </summary>
         /// <param name="subUserId">Sub user id to request for</param>
         /// <param name="ct">Cancellation token</param>
@@ -154,7 +219,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Transfer points to another user
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec515bf-7773-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec515bf-7773-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /v2/point/transfer
+        /// </para>
         /// </summary>
         /// <param name="fromUserId">From user id</param>
         /// <param name="toUserId">To user id</param>
@@ -165,21 +235,36 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get user deduction info
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb89359-77b5-11ed-9966-18f7c48b051" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb89359-77b5-11ed-9966-18f7c48b051" /><br />
+        /// Endpoint:<br />
+        /// GET /v1/account/switch/user/info
+        /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<HTXDeductInfo>> GetUserDeductionInfoAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get deduction assets
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb89359-77b5-11ed-9966-18f7c4cea32" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb89359-77b5-11ed-9966-18f7c4cea32" /><br />
+        /// Endpoint:<br />
+        /// GET /v1/account/overview/info
+        /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<HTXDeductionAssets>> GetDeductAssetsAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Set deduction switch
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb89359-77b5-11ed-9966-18f7c4ff921" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb89359-77b5-11ed-9966-18f7c4ff921" /><br />
+        /// Endpoint:<br />
+        /// POST /v1/account/fee/switch
+        /// </para>
         /// </summary>
         /// <param name="switchType">Deduction switch type</param>
         /// <param name="deductionAsset">Asset</param>
@@ -188,7 +273,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get withdrawal quota
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec50799-7773-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec50799-7773-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// GET /v2/account/withdraw/quota
+        /// </para>
         /// </summary>
         /// <param name="asset">Filter by asset, for example `ETH`</param>
         /// <param name="ct">Cancellation token</param>
@@ -196,7 +286,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get withdrawal addresses
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec50654-7773-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec50654-7773-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// GET /v2/account/withdraw/address
+        /// </para>
         /// </summary>
         /// <param name="asset">The asset, for example `ETH`</param>
         /// <param name="network">Filter by network</param>
@@ -208,7 +303,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get a withdrawal by client order id
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4f198-7773-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4f198-7773-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// GET /v1/query/withdraw/client-order-id
+        /// </para>
         /// </summary>
         /// <param name="clientOrderId">The client order id</param>
         /// <param name="ct">Cancellation token</param>
@@ -216,7 +316,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Cancel a pending withdrawal
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4cda7-7773-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4cda7-7773-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /v1/dw/withdraw-virtual/{id}/cancel
+        /// </para>
         /// </summary>
         /// <param name="id">The withdrawal id</param>
         /// <param name="ct">Cancellation token</param>
@@ -224,7 +329,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get API key info
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec52c92-7773-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec52c92-7773-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// GET /v2/user/api-key
+        /// </para>
         /// </summary>
         /// <param name="userId">User id</param>
         /// <param name="apiKey">The API key</param>
@@ -233,7 +343,12 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Transfer assets between accounts
-        /// <para><a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4b9db-7773-11ed-9966-0242ac110003" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=7ec4b9db-7773-11ed-9966-0242ac110003" /><br />
+        /// Endpoint:<br />
+        /// POST /v1/account/transfer
+        /// </para>
         /// </summary>
         /// <param name="fromUserId">From user id</param>
         /// <param name="fromAccountType">From account type</param>
