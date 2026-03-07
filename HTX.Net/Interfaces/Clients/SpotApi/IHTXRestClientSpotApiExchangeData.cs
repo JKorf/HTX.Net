@@ -53,7 +53,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// GET /v1/settings/common/market-symbols
         /// </para>
         /// </summary>
-        /// <param name="symbols">Filter by symbols, for example `ETHUSDT`</param>
+        /// <param name="symbols">["<c>symbols</c>"] Filter by symbols, for example `ETHUSDT`</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<HTXSymbolConfig[]>> GetSymbolConfigAsync(IEnumerable<string>? symbols = null, CancellationToken ct = default);
 
@@ -66,8 +66,8 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// GET /v1/settings/common/chains
         /// </para>
         /// </summary>
-        /// <param name="descFilter">Description filter</param>
-        /// <param name="asset">Filter by asset</param>
+        /// <param name="descFilter">["<c>show-desc</c>"] Description filter</param>
+        /// <param name="asset">["<c>currency</c>"] Filter by asset</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<HTXAssetNetworkInfo[]>> GetNetworksAsync(NetworkRequestFilter? descFilter = null, string? asset = null, CancellationToken ct = default);
 
@@ -80,7 +80,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// GET /v2/reference/currencies
         /// </para>
         /// </summary>
-        /// <param name="asset">Filter by asset, for example `ETH`</param>
+        /// <param name="asset">["<c>currency</c>"] Filter by asset, for example `ETH`</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<HTXAssetNetworks[]>> GetAssetsAndNetworksAsync(string? asset = null, CancellationToken ct = default);
 
@@ -106,7 +106,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// GET /market/detail/merged
         /// </para>
         /// </summary>
-        /// <param name="symbol">The symbol to get the ticker for, for example `ETHUSDT`</param>
+        /// <param name="symbol">["<c>symbol</c>"] The symbol to get the ticker for, for example `ETHUSDT`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<HTXSymbolTickMerged>> GetTickerAsync(string symbol, CancellationToken ct = default);
@@ -120,9 +120,9 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// GET /market/history/kline
         /// </para>
         /// </summary>
-        /// <param name="symbol">The symbol to get the data for, for example `ETHUSDT`</param>
-        /// <param name="period">The period of a single candlestick</param>
-        /// <param name="limit">The amount of candlesticks</param>
+        /// <param name="symbol">["<c>symbol</c>"] The symbol to get the data for, for example `ETHUSDT`</param>
+        /// <param name="period">["<c>period</c>"] The period of a single candlestick</param>
+        /// <param name="limit">["<c>size</c>"] The amount of candlesticks</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<HTXKline[]>> GetKlinesAsync(string symbol, KlineInterval period, int? limit = null, CancellationToken ct = default);
@@ -136,9 +136,9 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// GET /market/depth
         /// </para>
         /// </summary>
-        /// <param name="symbol">The symbol to request for, for example `ETHUSDT`</param>
-        /// <param name="mergeStep">The way the results will be merged together</param>
-        /// <param name="limit">The depth of the book, 5, 10 or 20</param>
+        /// <param name="symbol">["<c>symbol</c>"] The symbol to request for, for example `ETHUSDT`</param>
+        /// <param name="mergeStep">["<c>type</c>"] The way the results will be merged together</param>
+        /// <param name="limit">["<c>depth</c>"] The depth of the book, 5, 10 or 20</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<HTXOrderBook>> GetOrderBookAsync(string symbol, int mergeStep, int? limit = null, CancellationToken ct = default);
@@ -152,7 +152,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// GET /market/trade
         /// </para>
         /// </summary>
-        /// <param name="symbol">The symbol to request for, for example `ETHUSDT`</param>
+        /// <param name="symbol">["<c>symbol</c>"] The symbol to request for, for example `ETHUSDT`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<HTXSymbolTrade>> GetLastTradeAsync(string symbol, CancellationToken ct = default);
@@ -166,8 +166,8 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// GET /market/history/trade
         /// </para>
         /// </summary>
-        /// <param name="symbol">The symbol to get trades for, for example `ETHUSDT`</param>
-        /// <param name="limit">The max number of results</param>
+        /// <param name="symbol">["<c>symbol</c>"] The symbol to get trades for, for example `ETHUSDT`</param>
+        /// <param name="limit">["<c>size</c>"] The max number of results</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<HTXSymbolTrade[]>> GetTradeHistoryAsync(string symbol, int? limit = null, CancellationToken ct = default);
@@ -181,7 +181,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// GET /market/detail
         /// </para>
         /// </summary>
-        /// <param name="symbol">The symbol to get the data for, for example `ETHUSDT`</param>
+        /// <param name="symbol">["<c>symbol</c>"] The symbol to get the data for, for example `ETHUSDT`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<HTXSymbolDetails>> GetSymbolDetails24HAsync(string symbol, CancellationToken ct = default);
@@ -195,7 +195,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// GET /market/fullMbp
         /// </para>
         /// </summary>
-        /// <param name="symbol">The symbol to get the data for, for example `ETHUSDT`</param>
+        /// <param name="symbol">["<c>symbol</c>"] The symbol to get the data for, for example `ETHUSDT`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<HTXOrderBook>> GetFullOrderBookAsync(string symbol, CancellationToken ct = default);

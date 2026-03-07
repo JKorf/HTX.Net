@@ -17,10 +17,10 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// POST /v2/account/repayment
         /// </para>
         /// </summary>
-        /// <param name="accountId">Account id</param>
-        /// <param name="asset">Asset to repay, for example `ETH`</param>
-        /// <param name="quantity">Quantity to repay</param>
-        /// <param name="transactionId">Loan transaction ID</param>
+        /// <param name="accountId">["<c>accountId</c>"] Account id</param>
+        /// <param name="asset">["<c>currency</c>"] Asset to repay, for example `ETH`</param>
+        /// <param name="quantity">["<c>amount</c>"] Quantity to repay</param>
+        /// <param name="transactionId">["<c>transactId</c>"] Loan transaction ID</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<HTXRepaymentResult[]>> RepayLoanAsync(string accountId, string asset, decimal quantity, string? transactionId = null, CancellationToken ct = default);
@@ -34,9 +34,9 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// POST /v1/dw/transfer-in/margin
         /// </para>
         /// </summary>
-        /// <param name="symbol">Trading symbol, for example `ETHUSDT`</param>
-        /// <param name="asset">Asset to transfer, for example `ETH`</param>
-        /// <param name="quantity">Quantity to transfer</param>
+        /// <param name="symbol">["<c>symbol</c>"] Trading symbol, for example `ETHUSDT`</param>
+        /// <param name="asset">["<c>currency</c>"] Asset to transfer, for example `ETH`</param>
+        /// <param name="quantity">["<c>amount</c>"] Quantity to transfer</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>Transfer id</returns>
         Task<WebCallResult<long>> TransferSpotToIsolatedMarginAsync(string symbol, string asset, decimal quantity, CancellationToken ct = default);
@@ -50,9 +50,9 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// POST /v1/dw/transfer-out/margin
         /// </para>
         /// </summary>
-        /// <param name="symbol">Trading symbol, for example `ETHUSDT`</param>
-        /// <param name="asset">Asset to transfer, for example `ETH`</param>
-        /// <param name="quantity">Quantity to transfer</param>
+        /// <param name="symbol">["<c>symbol</c>"] Trading symbol, for example `ETHUSDT`</param>
+        /// <param name="asset">["<c>currency</c>"] Asset to transfer, for example `ETH`</param>
+        /// <param name="quantity">["<c>amount</c>"] Quantity to transfer</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>Transfer id</returns>
         Task<WebCallResult<long>> TransferIsolatedMarginToSpotAsync(string symbol, string asset, decimal quantity, CancellationToken ct = default);
@@ -66,7 +66,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// GET /v1/margin/loan-info
         /// </para>
         /// </summary>
-        /// <param name="symbols">Filter on symbol, for example `ETHUSDT`</param>
+        /// <param name="symbols">["<c>symbols</c>"] Filter on symbol, for example `ETHUSDT`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<HTXLoanInfo[]>> GetIsolatedLoanInterestRateAndQuotaAsync(IEnumerable<string>? symbols = null, CancellationToken ct = default);
@@ -80,9 +80,9 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// POST /v1/margin/orders
         /// </para>
         /// </summary>
-        /// <param name="symbol">The symbol, for example `ETHUSDT`</param>
-        /// <param name="asset">The asset, for example `ETH`</param>
-        /// <param name="quantity">The quantity</param>
+        /// <param name="symbol">["<c>symbol</c>"] The symbol, for example `ETHUSDT`</param>
+        /// <param name="asset">["<c>currency</c>"] The asset, for example `ETH`</param>
+        /// <param name="quantity">["<c>amount</c>"] The quantity</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>Order id</returns>
         Task<WebCallResult<long>> RequestIsolatedMarginLoanAsync(string symbol, string asset, decimal quantity, CancellationToken ct = default);
@@ -97,7 +97,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// </para>
         /// </summary>
         /// <param name="orderId">Id to repay</param>
-        /// <param name="quantity">Quantity</param>
+        /// <param name="quantity">["<c>amount</c>"] Quantity</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>Order id</returns>
         Task<WebCallResult<long>> RepayIsolatedMarginLoanAsync(string orderId, decimal quantity, CancellationToken ct = default);
@@ -111,14 +111,14 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// GET /v1/margin/loan-orders
         /// </para>
         /// </summary>
-        /// <param name="symbol">The symbol to get history for, for example `ETHUSDT`</param>
-        /// <param name="states">Filter by states</param>
-        /// <param name="startDate">Filter by start date</param>
-        /// <param name="endDate">Filter by end date</param>
-        /// <param name="from">Start order id for use in combination with direction</param>
-        /// <param name="direction">Direction of results in combination with from parameter</param>
-        /// <param name="limit">Max amount of results</param>
-        /// <param name="subUserId">Sub user id</param>
+        /// <param name="symbol">["<c>symbol</c>"] The symbol to get history for, for example `ETHUSDT`</param>
+        /// <param name="states">["<c>states</c>"] Filter by states</param>
+        /// <param name="startDate">["<c>start-date</c>"] Filter by start date</param>
+        /// <param name="endDate">["<c>end-date</c>"] Filter by end date</param>
+        /// <param name="from">["<c>from</c>"] Start order id for use in combination with direction</param>
+        /// <param name="direction">["<c>direct</c>"] Direction of results in combination with from parameter</param>
+        /// <param name="limit">["<c>size</c>"] Max amount of results</param>
+        /// <param name="subUserId">["<c>sub-uid</c>"] Sub user id</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<HTXMarginOrder[]>> GetIsolatedMarginClosedOrdersAsync(
@@ -141,8 +141,8 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// GET /v1/margin/accounts/balance
         /// </para>
         /// </summary>
-        /// <param name="symbol">The symbol, for example `ETHUSDT`</param>
-        /// <param name="subUserId">Sub user id</param>
+        /// <param name="symbol">["<c>symbol</c>"] The symbol, for example `ETHUSDT`</param>
+        /// <param name="subUserId">["<c>sub-uid</c>"] Sub user id</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<HTXMarginBalances[]>> GetIsolatedMarginBalanceAsync(string symbol, int? subUserId = null, CancellationToken ct = default);
@@ -156,8 +156,8 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// POST /v1/cross-margin/transfer-in
         /// </para>
         /// </summary>
-        /// <param name="asset">The asset to transfer, for example `ETH`</param>
-        /// <param name="quantity">Quantity to transfer</param>
+        /// <param name="asset">["<c>currency</c>"] The asset to transfer, for example `ETH`</param>
+        /// <param name="quantity">["<c>amount</c>"] Quantity to transfer</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<long>> TransferSpotToCrossMarginAsync(string asset, decimal quantity, CancellationToken ct = default);
@@ -171,8 +171,8 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// POST /v1/cross-margin/transfer-out
         /// </para>
         /// </summary>
-        /// <param name="asset">The asset to transfer, for example `ETH`</param>
-        /// <param name="quantity">Quantity to transfer</param>
+        /// <param name="asset">["<c>currency</c>"] The asset to transfer, for example `ETH`</param>
+        /// <param name="quantity">["<c>amount</c>"] Quantity to transfer</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<long>> TransferCrossMarginToSpotAsync(string asset, decimal quantity, CancellationToken ct = default);
@@ -199,8 +199,8 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// POST /v1/cross-margin/orders
         /// </para>
         /// </summary>
-        /// <param name="asset">The asset, for example `ETH`</param>
-        /// <param name="quantity">The quantity</param>
+        /// <param name="asset">["<c>currency</c>"] The asset, for example `ETH`</param>
+        /// <param name="quantity">["<c>amount</c>"] The quantity</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns>Order id</returns>
         Task<WebCallResult<long>> RequestCrossMarginLoanAsync(string asset, decimal quantity, CancellationToken ct = default);
@@ -215,7 +215,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// </para>
         /// </summary>
         /// <param name="orderId">Id to repay</param>
-        /// <param name="quantity">Quantity</param>
+        /// <param name="quantity">["<c>amount</c>"] Quantity</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult> RepayCrossMarginLoanAsync(string orderId, decimal quantity, CancellationToken ct = default);
@@ -229,14 +229,14 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// GET /v1/cross-margin/loan-orders
         /// </para>
         /// </summary>
-        /// <param name="asset">Filter by asset, for example `ETH`</param>
-        /// <param name="status">Filter by status</param>
-        /// <param name="startDate">Filter by start date</param>
-        /// <param name="endDate">Filter by end date</param>
-        /// <param name="from">Start order id for use in combination with direction</param>
-        /// <param name="direction">Direction of results in combination with from parameter</param>
-        /// <param name="limit">Max amount of results</param>
-        /// <param name="subUserId">Sub user id</param>
+        /// <param name="asset">["<c>currency</c>"] Filter by asset, for example `ETH`</param>
+        /// <param name="status">["<c>state</c>"] Filter by status</param>
+        /// <param name="startDate">["<c>start-date</c>"] Filter by start date</param>
+        /// <param name="endDate">["<c>end-date</c>"] Filter by end date</param>
+        /// <param name="from">["<c>from</c>"] Start order id for use in combination with direction</param>
+        /// <param name="direction">["<c>direct</c>"] Direction of results in combination with from parameter</param>
+        /// <param name="limit">["<c>size</c>"] Max amount of results</param>
+        /// <param name="subUserId">["<c>sub-uid</c>"] Sub user id</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<HTXMarginOrder[]>> GetCrossMarginClosedOrdersAsync(
@@ -259,7 +259,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// GET /v1/cross-margin/accounts/balance
         /// </para>
         /// </summary>
-        /// <param name="subUserId">Sub user id</param>
+        /// <param name="subUserId">["<c>sub-uid</c>"] Sub user id</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<HTXMarginBalances>> GetCrossMarginBalanceAsync(int? subUserId = null, CancellationToken ct = default);
@@ -273,7 +273,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// GET /v2/margin/limit
         /// </para>
         /// </summary>
-        /// <param name="asset">The asset, for example `ETH`</param>
+        /// <param name="asset">["<c>currency</c>"] The asset, for example `ETH`</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<HTXMaxHolding[]>> GetCrossMarginLimitAsync(string? asset = null, CancellationToken ct = default);
 
@@ -286,14 +286,14 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// GET /v2/account/repayment
         /// </para>
         /// </summary>
-        /// <param name="repayId">Filter by repay id</param>
-        /// <param name="accountId">Filter by account id</param>
-        /// <param name="asset">Filter by asset, for example `ETH`</param>
-        /// <param name="startTime">Only show records after this</param>
-        /// <param name="endTime">Only show records before this</param>
-        /// <param name="sort">Sort direction</param>
-        /// <param name="limit">Result limit</param>
-        /// <param name="fromId">Search id</param>
+        /// <param name="repayId">["<c>repayId</c>"] Filter by repay id</param>
+        /// <param name="accountId">["<c>accountId</c>"] Filter by account id</param>
+        /// <param name="asset">["<c>currency</c>"] Filter by asset, for example `ETH`</param>
+        /// <param name="startTime">["<c>startTime</c>"] Only show records after this</param>
+        /// <param name="endTime">["<c>endTime</c>"] Only show records before this</param>
+        /// <param name="sort">["<c>sort</c>"] Sort direction</param>
+        /// <param name="limit">["<c>limit</c>"] Result limit</param>
+        /// <param name="fromId">["<c>fromId</c>"] Search id</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<HTXRepayment[]>> GetRepaymentHistoryAsync(long? repayId = null, long? accountId = null, string? asset = null, DateTime? startTime = null, DateTime? endTime = null, string? sort = null, int? limit = null, long? fromId = null, CancellationToken ct = default);

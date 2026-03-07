@@ -17,7 +17,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// POST /linear-swap-api/v1/swap_balance_valuation
         /// </para>
         /// </summary>
-        /// <param name="asset">The asset, for example `ETH`</param>
+        /// <param name="asset">["<c>valuation_asset</c>"] The asset, for example `ETH`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<HTXAssetValue[]>> GetAssetValuationAsync(string? asset = null, CancellationToken ct = default);
@@ -30,7 +30,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// POST /linear-swap-api/v1/swap_account_info
         /// </para>
         /// </summary>
-        /// <param name="contractCode">Optional contract code filter, for example `USDT`</param>
+        /// <param name="contractCode">["<c>contract_code</c>"] Optional contract code filter, for example `USDT`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<HTXIsolatedMarginAccountInfo[]>> GetIsolatedMarginAccountInfoAsync(string? contractCode = null, CancellationToken ct = default);
@@ -43,7 +43,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// POST /linear-swap-api/v1/swap_cross_account_info
         /// </para>
         /// </summary>
-        /// <param name="marginAccount">Optional margin account filter, for example `USDT`</param>
+        /// <param name="marginAccount">["<c>margin_account</c>"] Optional margin account filter, for example `USDT`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<HTXCrossMarginAccountInfo[]>> GetCrossMarginAccountInfoAsync(string? marginAccount = null, CancellationToken ct = default);
@@ -56,7 +56,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// POST /linear-swap-api/v1/swap_cross_account_position_info
         /// </para>
         /// </summary>
-        /// <param name="marginAccount">Margin account, for example `USDT`</param>
+        /// <param name="marginAccount">["<c>margin_account</c>"] Margin account, for example `USDT`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<HTXCrossMarginAssetsAndPositions>> GetCrossMarginAssetsAndPositionsAsync(string marginAccount, CancellationToken ct = default);
@@ -69,10 +69,10 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// POST /linear-swap-api/v1/swap_cross_available_level_rate
         /// </para>
         /// </summary>
-        /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
-        /// <param name="pair">Pair, for example `ETH-USDT`</param>
-        /// <param name="contractType">Contract type</param>
-        /// <param name="businessType">Business type</param>
+        /// <param name="contractCode">["<c>contract_code</c>"] Contract code, for example `ETH-USDT`</param>
+        /// <param name="pair">["<c>pair</c>"] Pair, for example `ETH-USDT`</param>
+        /// <param name="contractType">["<c>contract_type</c>"] Contract type</param>
+        /// <param name="businessType">["<c>business_type</c>"] Business type</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<HTXCrossMarginLeverageAvailable[]>> GetCrossMarginAvailableLeverageAsync(string? contractCode = null, string? pair = null, ContractType? contractType = null, BusinessType? businessType = null, CancellationToken ct = default);
@@ -85,7 +85,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// POST /linear-swap-api/v1/swap_cross_position_info
         /// </para>
         /// </summary>
-        /// <param name="contractCode">Filter by contract code, for example `ETH-USDT`</param>
+        /// <param name="contractCode">["<c>contract_code</c>"] Filter by contract code, for example `ETH-USDT`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<HTXCrossPosition[]>> GetCrossMarginPositionsAsync(string? contractCode = null, CancellationToken ct = default);
@@ -98,11 +98,11 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// GET /linear-swap-api/v1/swap_cross_user_settlement_records
         /// </para>
         /// </summary>
-        /// <param name="marginAccount">Margin account, for example `USDT`</param>
-        /// <param name="startTime">Filter by start time</param>
-        /// <param name="endTime">Filter by end time</param>
-        /// <param name="page">Page</param>
-        /// <param name="pageSize">Page size</param>
+        /// <param name="marginAccount">["<c>margin_account</c>"] Margin account, for example `USDT`</param>
+        /// <param name="startTime">["<c>start_time</c>"] Filter by start time</param>
+        /// <param name="endTime">["<c>end_time</c>"] Filter by end time</param>
+        /// <param name="page">["<c>page_index</c>"] Page</param>
+        /// <param name="pageSize">["<c>page_size</c>"] Page size</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<HTXCrossMarginUserSettlementRecordPage>> GetCrossMarginSettlementRecordsAsync(string marginAccount, DateTime? startTime = null, DateTime? endTime = null, int? page = null, int? pageSize = null, CancellationToken ct = default);
@@ -116,13 +116,13 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// POST /linear-swap-api/v3/swap_financial_record
         /// </para>
         /// </summary>
-        /// <param name="marginAccount">Margin account, for example `USDT`</param>
-        /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
-        /// <param name="types">Filter by type</param>
-        /// <param name="startTime">Filter by start time</param>
-        /// <param name="endTime">Filter by end time</param>
-        /// <param name="direction">Direction</param>
-        /// <param name="fromId">Return results after this id</param>
+        /// <param name="marginAccount">["<c>mar_acct</c>"] Margin account, for example `USDT`</param>
+        /// <param name="contractCode">["<c>contract</c>"] Contract code, for example `ETH-USDT`</param>
+        /// <param name="types">["<c>type</c>"] Filter by type</param>
+        /// <param name="startTime">["<c>start_time</c>"] Filter by start time</param>
+        /// <param name="endTime">["<c>end_time</c>"] Filter by end time</param>
+        /// <param name="direction">["<c>direct</c>"] Direction</param>
+        /// <param name="fromId">["<c>from_id</c>"] Return results after this id</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<HTXFinancialRecord[]>> GetFinancialRecordsAsync(string marginAccount, string? contractCode = null, IEnumerable<FinancialRecordType>? types = null, DateTime? startTime = null, DateTime? endTime = null, FilterDirection? direction = null, long? fromId = null, CancellationToken ct = default);
@@ -136,7 +136,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// POST /linear-swap-api/v1/swap_account_position_info
         /// </para>
         /// </summary>
-        /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
+        /// <param name="contractCode">["<c>contract_code</c>"] Contract code, for example `ETH-USDT`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<HTXIsolatedMarginAssetsAndPositions[]>> GetIsolatedMarginAssetsAndPositionsAsync(string contractCode, CancellationToken ct = default);
@@ -149,7 +149,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// POST /linear-swap-api/v1/swap_available_level_rate
         /// </para>
         /// </summary>
-        /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
+        /// <param name="contractCode">["<c>contract_code</c>"] Contract code, for example `ETH-USDT`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<HTXIsolatedMarginLeverageAvailable[]>> GetIsolatedMarginAvailableLeverageAsync(string? contractCode = null, CancellationToken ct = default);
@@ -175,11 +175,11 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// GET /linear-swap-api/v1/swap_user_settlement_records
         /// </para>
         /// </summary>
-        /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
-        /// <param name="startTime">Filter by start time</param>
-        /// <param name="endTime">Filter by end time</param>
-        /// <param name="page">Page</param>
-        /// <param name="pageSize">Page size</param>
+        /// <param name="contractCode">["<c>contract_code</c>"] Contract code, for example `ETH-USDT`</param>
+        /// <param name="startTime">["<c>start_time</c>"] Filter by start time</param>
+        /// <param name="endTime">["<c>end_time</c>"] Filter by end time</param>
+        /// <param name="page">["<c>page_index</c>"] Page</param>
+        /// <param name="pageSize">["<c>page_size</c>"] Page size</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<HTXIsolatedMarginUserSettlementRecordPage>> GetIsolatedMarginSettlementRecordsAsync(string contractCode, DateTime? startTime = null, DateTime? endTime = null, int? page = null, int? pageSize = null, CancellationToken ct = default);
@@ -192,10 +192,10 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// POST /linear-swap-api/v1/swap_fee
         /// </para>
         /// </summary>
-        /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
-        /// <param name="pair">Pair, for example `ETH-USDT`</param>
-        /// <param name="contractType">Contract type</param>
-        /// <param name="businessType">Business tpye</param>
+        /// <param name="contractCode">["<c>contract_code</c>"] Contract code, for example `ETH-USDT`</param>
+        /// <param name="pair">["<c>pair</c>"] Pair, for example `ETH-USDT`</param>
+        /// <param name="contractType">["<c>contract_type</c>"] Contract type</param>
+        /// <param name="businessType">["<c>business_type</c>"] Business tpye</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<HTXTradingFee[]>> GetTradingFeesAsync(string? contractCode = null, string? pair = null, ContractType? contractType = null, BusinessType? businessType = null, CancellationToken ct = default);
@@ -208,8 +208,8 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// POST /linear-swap-api/v1/swap_cross_switch_position_mode
         /// </para>
         /// </summary>
-        /// <param name="marginAccount">Margin account, for example `USDT`</param>
-        /// <param name="positionMode">Position mode</param>
+        /// <param name="marginAccount">["<c>margin_account</c>"] Margin account, for example `USDT`</param>
+        /// <param name="positionMode">["<c>position_mode</c>"] Position mode</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<HTXPositionMode>> SetCrossMarginPositionModeAsync(string marginAccount, PositionMode positionMode, CancellationToken ct = default);
@@ -222,8 +222,8 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// POST /linear-swap-api/v1/swap_switch_position_mode
         /// </para>
         /// </summary>
-        /// <param name="marginAccount">Margin account, for example `USDT`</param>
-        /// <param name="positionMode">Position mode</param>
+        /// <param name="marginAccount">["<c>margin_account</c>"] Margin account, for example `USDT`</param>
+        /// <param name="positionMode">["<c>position_mode</c>"] Position mode</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<HTXPositionMode>> SetIsolatedMarginPositionModeAsync(string marginAccount, PositionMode positionMode, CancellationToken ct = default);
@@ -236,11 +236,11 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// POST /linear-swap-api/v1/swap_transfer_inner
         /// </para>
         /// </summary>
-        /// <param name="asset">Asset to transfer, for example `USDT`</param>
-        /// <param name="fromMarginAccount">From account</param>
-        /// <param name="toMarginAccount">To account</param>
-        /// <param name="quantity">Quantity to transfer</param>
-        /// <param name="clientOrderId">Client order id</param>
+        /// <param name="asset">["<c>asset</c>"] Asset to transfer, for example `USDT`</param>
+        /// <param name="fromMarginAccount">["<c>from_margin_account</c>"] From account</param>
+        /// <param name="toMarginAccount">["<c>to_margin_account</c>"] To account</param>
+        /// <param name="quantity">["<c>amount</c>"] Quantity to transfer</param>
+        /// <param name="clientOrderId">["<c>client_order_id</c>"] Client order id</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<HTXSwapOrderId>> TransferMarginAccountsAsync(string asset, string fromMarginAccount, string toMarginAccount, decimal quantity, long? clientOrderId = null, CancellationToken ct = default);
@@ -254,11 +254,11 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// POST /linear-swap-api/v1/swap_order_limit
         /// </para>
         /// </summary>
-        /// <param name="orderType">The order type</param>
-        /// <param name="contractCode">Filter by contract code, for example `ETH-USDT`</param>
-        /// <param name="pair">Filter by pair, for example `ETH-USDT`</param>
-        /// <param name="contractType">Filter by contract type</param>
-        /// <param name="businessType">Filter by businessType</param>
+        /// <param name="orderType">["<c>order_price_type</c>"] The order type</param>
+        /// <param name="contractCode">["<c>contract_code</c>"] Filter by contract code, for example `ETH-USDT`</param>
+        /// <param name="pair">["<c>pair</c>"] Filter by pair, for example `ETH-USDT`</param>
+        /// <param name="contractType">["<c>contract_type</c>"] Filter by contract type</param>
+        /// <param name="businessType">["<c>business_type</c>"] Filter by businessType</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<HTXOrderLimit>> GetOrderLimitsAsync(OrderPriceType orderType, string? contractCode = null, string? pair = null, ContractType? contractType = null, BusinessType? businessType = null, CancellationToken ct = default);
 
@@ -271,7 +271,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// POST /linear-swap-api/v1/swap_transfer_limit
         /// </para>
         /// </summary>
-        /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
+        /// <param name="contractCode">["<c>contract_code</c>"] Contract code, for example `ETH-USDT`</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<HTXTransferLimit[]>> GetIsolatedMarginTransferLimitsAsync(string? contractCode = null, CancellationToken ct = default);
 
@@ -284,7 +284,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// POST /linear-swap-api/v1/swap_cross_transfer_limit
         /// </para>
         /// </summary>
-        /// <param name="marginAccount">Margin account, for example `USDT`</param>
+        /// <param name="marginAccount">["<c>margin_account</c>"] Margin account, for example `USDT`</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<HTXCrossTransferLimit[]>> GetCrossMarginTransferLimitsAsync(string? marginAccount = null, CancellationToken ct = default);
 
@@ -297,7 +297,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// POST /linear-swap-api/v1/swap_position_limit
         /// </para>
         /// </summary>
-        /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
+        /// <param name="contractCode">["<c>contract_code</c>"] Contract code, for example `ETH-USDT`</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<HTXPositionLimit[]>> GetIsolatedMarginPositionLimitAsync(string contractCode, CancellationToken ct = default);
 
@@ -310,10 +310,10 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// POST /linear-swap-api/v1/swap_cross_position_limit
         /// </para>
         /// </summary>
-        /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
-        /// <param name="pair">Pair, for example `ETH-USDT`</param>
-        /// <param name="contractType">Contract type</param>
-        /// <param name="businessType">Business type</param>
+        /// <param name="contractCode">["<c>contract_code</c>"] Contract code, for example `ETH-USDT`</param>
+        /// <param name="pair">["<c>pair</c>"] Pair, for example `ETH-USDT`</param>
+        /// <param name="contractType">["<c>contract_type</c>"] Contract type</param>
+        /// <param name="businessType">["<c>business_type</c>"] Business type</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<HTXCrossMarginPositionLimit[]>> GetCrossMarginPositionLimitsAsync(string? contractCode = null, string? pair = null, ContractType? contractType = null, BusinessType? businessType = null, CancellationToken ct = default);
 
@@ -326,8 +326,8 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// POST /linear-swap-api/v1/swap_lever_position_limit
         /// </para>
         /// </summary>
-        /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
-        /// <param name="leverageRate">Leverage rate</param>
+        /// <param name="contractCode">["<c>contract_code</c>"] Contract code, for example `ETH-USDT`</param>
+        /// <param name="leverageRate">["<c>lever_rate</c>"] Leverage rate</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<HTXLeveragePositionLimit[]>> GetIsolatedMarginLeveragePositionLimitsAsync(string? contractCode = null, int? leverageRate = null, CancellationToken ct = default);
 
@@ -340,7 +340,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// POST /linear-swap-api/v1/swap_cross_lever_position_limit
         /// </para>
         /// </summary>
-        /// <param name="businessType">Business type</param>
+        /// <param name="businessType">["<c>business_type</c>"] Business type</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<HTXCrossLeveragePositionLimit[]>> GetCrossMarginLeveragePositionLimitsAsync(BusinessType businessType, CancellationToken ct = default);
 
@@ -365,7 +365,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// GET /linear-swap-api/v1/swap_position_side
         /// </para>
         /// </summary>
-        /// <param name="marginAccount">Margin account, for example `USDT`</param>
+        /// <param name="marginAccount">["<c>margin_account</c>"] Margin account, for example `USDT`</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<HTXPositionMode>> GetIsolatedMarginPositionModeAsync(string marginAccount, CancellationToken ct = default);
 
@@ -378,7 +378,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// GET /linear-swap-api/v1/swap_cross_position_side
         /// </para>
         /// </summary>
-        /// <param name="marginAccount">Margin account, for example `USDT`</param>
+        /// <param name="marginAccount">["<c>margin_account</c>"] Margin account, for example `USDT`</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<HTXPositionMode>> GetCrossMarginPositionModeAsync(string marginAccount, CancellationToken ct = default);
 
