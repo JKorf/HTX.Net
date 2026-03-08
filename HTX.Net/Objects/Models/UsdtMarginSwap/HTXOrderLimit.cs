@@ -9,12 +9,12 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
     public record HTXOrderLimit
     {
         /// <summary>
-        /// Order price type
+        /// ["<c>order_price_type</c>"] Order price type
         /// </summary>
         [JsonPropertyName("order_price_type")]
         public OrderPriceType? OrderType { get; set; }
         /// <summary>
-        /// Limits
+        /// ["<c>list</c>"] Limits
         /// </summary>
         [JsonPropertyName("list")]
         public HTXOrderTypeLimit[] Limits { get; set; } = Array.Empty<HTXOrderTypeLimit>();
@@ -27,37 +27,37 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
     public record HTXOrderTypeLimit
     {
         /// <summary>
-        /// Asset
+        /// ["<c>symbol</c>"] Asset
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// Contract code
+        /// ["<c>contract_code</c>"] Contract code
         /// </summary>
         [JsonPropertyName("contract_code")]
         public string ContractCode { get; set; } = string.Empty;
         /// <summary>
-        /// Max open order limit
+        /// ["<c>open_limit</c>"] Max open order limit
         /// </summary>
         [JsonPropertyName("open_limit")]
         public decimal? OpenLimit { get; set; }
         /// <summary>
-        /// Max close order limit
+        /// ["<c>close_limit</c>"] Max close order limit
         /// </summary>
         [JsonPropertyName("close_limit")]
         public decimal? CloseLimit { get; set; }
         /// <summary>
-        /// Business type
+        /// ["<c>business_type</c>"] Business type
         /// </summary>
         [JsonPropertyName("business_type")]
         public BusinessType? BusinessType { get; set; }
         /// <summary>
-        /// Contract type
+        /// ["<c>contract_type</c>"] Contract type
         /// </summary>
         [JsonPropertyName("contract_type")]
         public ContractType? ContractType { get; set; }
         /// <summary>
-        /// Pair
+        /// ["<c>pair</c>"] Pair
         /// </summary>
         [JsonPropertyName("pair")]
         public string Pair { get; set; } = string.Empty;

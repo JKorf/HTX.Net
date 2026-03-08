@@ -7,7 +7,7 @@ namespace HTX.Net.Objects.Models.Socket
     public record HTXIncrementalOrderBookUpdate : HTXOrderBookUpdate
     {
         /// <summary>
-        /// Event
+        /// ["<c>event</c>"] Event
         /// </summary>
         [JsonPropertyName("event")]
         public string Event { get; set; } = string.Empty;

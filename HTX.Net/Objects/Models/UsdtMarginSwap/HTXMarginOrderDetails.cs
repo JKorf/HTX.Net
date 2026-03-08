@@ -7,37 +7,37 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
     public record HTXMarginOrderDetails : HTXIsolatedMarginOrder
     {
         /// <summary>
-        /// Instrument price
+        /// ["<c>instrument_price</c>"] Instrument price
         /// </summary>
         [JsonPropertyName("instrument_price")]
         public decimal InstrumentPrice { get; set; }
         /// <summary>
-        /// Final interest
+        /// ["<c>final_interest</c>"] Final interest
         /// </summary>
         [JsonPropertyName("final_interest")]
         public decimal FinalInterest { get; set; }
         /// <summary>
-        /// Adjust value
+        /// ["<c>adjust_value</c>"] Adjust value
         /// </summary>
         [JsonPropertyName("adjust_value")]
         public decimal AdjustValue { get; set; }
         /// <summary>
-        /// Total pages
+        /// ["<c>total_page</c>"] Total pages
         /// </summary>
         [JsonPropertyName("total_page")]
         public int TotalPages { get; set; }
         /// <summary>
-        /// Current page
+        /// ["<c>current_page</c>"] Current page
         /// </summary>
         [JsonPropertyName("current_page")]
         public int CurrentPage { get; set; }
         /// <summary>
-        /// Total amount of records
+        /// ["<c>total_size</c>"] Total amount of records
         /// </summary>
         [JsonPropertyName("total_size")]
         public int TotalRecords { get; set; }
         /// <summary>
-        /// Trades
+        /// ["<c>trades</c>"] Trades
         /// </summary>
         [JsonPropertyName("trades")]
         public new HTXMarginTrade[] Trades { get; set; } = Array.Empty<HTXMarginTrade>();

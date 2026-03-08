@@ -7,27 +7,27 @@ namespace HTX.Net.Objects.Models.Socket
     public record HTXSymbolTickUpdate: HTXSymbolData
     {
         /// <summary>
-        /// Id
+        /// ["<c>id</c>"] Id
         /// </summary>
         [JsonPropertyName("id")]
         public long Id { get; set; }
         /// <summary>
-        /// Order id
+        /// ["<c>mrid</c>"] Order id
         /// </summary>
         [JsonPropertyName("mrid")]
         public long OrderId { get; set; }
         /// <summary>
-        /// Turnover
+        /// ["<c>trade_turnover</c>"] Turnover
         /// </summary>
         [JsonPropertyName("trade_turnover")]
         public decimal TradeTurnover { get; set; }
         /// <summary>
-        /// Best bid
+        /// ["<c>bid</c>"] Best bid
         /// </summary>
         [JsonPropertyName("bid")]
         public HTXOrderBookEntry BestBid { get; set; } = null!;
         /// <summary>
-        /// Best ask
+        /// ["<c>ask</c>"] Best ask
         /// </summary>
         [JsonPropertyName("ask")]
         public HTXOrderBookEntry BestAsk { get; set; } = null!;

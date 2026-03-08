@@ -7,12 +7,12 @@ namespace HTX.Net.Objects.Models
     public record HTXSymbolDatas
     {
         /// <summary>
-        /// Timestamp of the data
+        /// ["<c>timestamp</c>"] Timestamp of the data
         /// </summary>
         [JsonPropertyName("timestamp")]
         public DateTime Timestamp { get; set; }
         /// <summary>
-        /// List of ticks for symbols
+        /// ["<c>ticks</c>"] List of ticks for symbols
         /// </summary>
         [JsonPropertyName("ticks")]
         public HTXSymbolTicker[] Ticks { get; set; } = Array.Empty<HTXSymbolTicker>();
@@ -25,12 +25,12 @@ namespace HTX.Net.Objects.Models
     public record HTXSymbolTicks
     {
         /// <summary>
-        /// Timestamp of the data
+        /// ["<c>timestamp</c>"] Timestamp of the data
         /// </summary>
         [JsonPropertyName("timestamp")]
         public DateTime Timestamp { get; set; }
         /// <summary>
-        /// List of ticks for symbols
+        /// ["<c>ticks</c>"] List of ticks for symbols
         /// </summary>
         [JsonPropertyName("ticks")]
         public HTXSymbolTick[] Ticks { get; set; } = Array.Empty<HTXSymbolTick>();

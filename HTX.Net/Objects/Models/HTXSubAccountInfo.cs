@@ -7,27 +7,27 @@ namespace HTX.Net.Objects.Models
     public record HTXSubAccountInfo
     {
         /// <summary>
-        /// User name
+        /// ["<c>userName</c>"] User name
         /// </summary>
         [JsonPropertyName("userName")]
         public string UserName { get; set; } = string.Empty;
         /// <summary>
-        /// Note
+        /// ["<c>note</c>"] Note
         /// </summary>
         [JsonPropertyName("note")]
         public string Note { get; set; } = string.Empty;
         /// <summary>
-        /// User id
+        /// ["<c>uid</c>"] User id
         /// </summary>
         [JsonPropertyName("uid")]
         public long? UserId { get; set; }
         /// <summary>
-        /// Error code
+        /// ["<c>errCode</c>"] Error code
         /// </summary>
         [JsonPropertyName("errCode")]
         public string? ErrorCode { get; set; }
         /// <summary>
-        /// Error message
+        /// ["<c>errMessage</c>"] Error message
         /// </summary>
         [JsonPropertyName("errMessage")]
         public string? ErrorMessage { get; set; }

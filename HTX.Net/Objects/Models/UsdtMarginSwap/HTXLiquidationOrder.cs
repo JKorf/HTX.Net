@@ -9,66 +9,66 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
     public record HTXLiquidationOrder
     {
         /// <summary>
-        /// Query id
+        /// ["<c>query_id</c>"] Query id
         /// </summary>
         [JsonPropertyName("query_id")]
         public long QueryId { get; set; }
         /// <summary>
-        /// Contract code
+        /// ["<c>contract_code</c>"] Contract code
         /// </summary>
         [JsonPropertyName("contract_code")]
         public string ContractCode { get; set; } = string.Empty;
         /// <summary>
-        /// Asset
+        /// ["<c>symbol</c>"] Asset
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// Direction
+        /// ["<c>direction</c>"] Direction
         /// </summary>
 
         [JsonPropertyName("direction")]
         public OrderSide Direction { get; set; }
         /// <summary>
-        /// Offset
+        /// ["<c>offset</c>"] Offset
         /// </summary>
 
         [JsonPropertyName("offset")]
         public Offset Offset { get; set; }
         /// <summary>
-        /// Volume
+        /// ["<c>volume</c>"] Volume
         /// </summary>
         [JsonPropertyName("volume")]
         public decimal Volume { get; set; }
         /// <summary>
-        /// Price
+        /// ["<c>price</c>"] Price
         /// </summary>
         [JsonPropertyName("price")]
         public decimal Price { get; set; }
         /// <summary>
-        /// Creation time
+        /// ["<c>created_at</c>"] Creation time
         /// </summary>
         [JsonPropertyName("created_at")]
         [JsonConverter(typeof(DateTimeConverter))]
         public DateTime CreateTime { get; set; }
         /// <summary>
-        /// Amount
+        /// ["<c>amount</c>"] Amount
         /// </summary>
         [JsonPropertyName("amount")]
         public decimal Amount { get; set; }
         /// <summary>
-        /// Turnover
+        /// ["<c>trade_turnover</c>"] Turnover
         /// </summary>
         [JsonPropertyName("trade_turnover")]
         public decimal Turnover { get; set; }
         /// <summary>
-        /// Business type
+        /// ["<c>business_type</c>"] Business type
         /// </summary>
         [JsonPropertyName("business_type")]
 
         public BusinessType BusinessType { get; set; }
         /// <summary>
-        /// Symbol
+        /// ["<c>pair</c>"] Symbol
         /// </summary>
         [JsonPropertyName("pair")]
         public string Symbol { get; set; } = string.Empty;

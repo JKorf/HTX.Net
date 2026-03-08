@@ -10,17 +10,17 @@ namespace HTX.Net.Objects.Models
     public record HTXSubUserAccountId
     {
         /// <summary>
-        /// The id of the account
+        /// ["<c>accountId</c>"] The id of the account
         /// </summary>
         [JsonPropertyName("accountId")]
         public long Id { get; set; }
         /// <summary>
-        /// The status of the account
+        /// ["<c>accountStatus</c>"] The status of the account
         /// </summary>
         [JsonPropertyName("accountStatus")]
         public AccountStatus Status { get; set; }
         /// <summary>
-        /// Sub state
+        /// ["<c>subtype</c>"] Sub state
         /// </summary>
         [JsonPropertyName("subtype")]
         public string? SubType { get; set; }

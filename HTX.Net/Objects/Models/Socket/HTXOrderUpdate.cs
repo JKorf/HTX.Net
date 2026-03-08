@@ -11,35 +11,35 @@ namespace HTX.Net.Objects.Models.Socket
     public record HTXOrderUpdate
     {
         /// <summary>
-        /// Event type
+        /// ["<c>eventType</c>"] Event type
         /// </summary>
         [JsonPropertyName("eventType")]
         public string EventType { get; set; } = string.Empty;
 
         /// <summary>
-        /// The symbol
+        /// ["<c>symbol</c>"] The symbol
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Client order id
+        /// ["<c>clientOrderId</c>"] Client order id
         /// </summary>
         [JsonPropertyName("clientOrderId")]
         [JsonConverter(typeof(ClientIdConverter))]
         public string? ClientOrderId { get; set; }
         /// <summary>
-        /// Order status
+        /// ["<c>orderStatus</c>"] Order status
         /// </summary>
         [JsonPropertyName("orderStatus")]
         public OrderStatus Status { get; set; }
         /// <summary>
-        /// Timestamp
+        /// ["<c>lastActTime</c>"] Timestamp
         /// </summary>
         [JsonConverter(typeof(DateTimeConverter))]
         [JsonPropertyName("lastActTime")]
         public DateTime? UpdateTime { get; set; }
         /// <summary>
-        /// Total trade quantity
+        /// ["<c>totalTradeAmount</c>"] Total trade quantity
         /// </summary>
         [JsonPropertyName("totalTradeAmount")]
         public decimal? TotalTradeQuantity { get; set; }
@@ -52,32 +52,32 @@ namespace HTX.Net.Objects.Models.Socket
     public record HTXSubmittedOrderUpdate : HTXOrderUpdate
     {
         /// <summary>
-        /// Account id
+        /// ["<c>accountId</c>"] Account id
         /// </summary>
         [JsonPropertyName("accountId")]
         public long AccountId { get; set; }
         /// <summary>
-        /// Order id
+        /// ["<c>orderId</c>"] Order id
         /// </summary>
         [JsonPropertyName("orderId")]
         public long OrderId { get; set; }
         /// <summary>
-        /// Price of the order
+        /// ["<c>orderPrice</c>"] Price of the order
         /// </summary>
         [JsonPropertyName("orderPrice")]
         public decimal Price { get; set; }
         /// <summary>
-        /// Quantity of the order
+        /// ["<c>orderSize</c>"] Quantity of the order
         /// </summary>
         [JsonPropertyName("orderSize")]
         public decimal? Quantity { get; set; }
         /// <summary>
-        /// Value of the order
+        /// ["<c>orderValue</c>"] Value of the order
         /// </summary>
         [JsonPropertyName("orderValue")]
         public decimal? QuoteQuantity { get; set; }
         /// <summary>
-        /// The raw type string
+        /// ["<c>type</c>"] The raw type string
         /// </summary>
         [JsonPropertyName("type")]
         public string RawType { get; set; } = string.Empty;
@@ -94,14 +94,14 @@ namespace HTX.Net.Objects.Models.Socket
         [JsonIgnore]
         public OrderSide Side => EnumConverter.ParseString<OrderSide>(RawType)!.Value;
         /// <summary>
-        /// Creation time
+        /// ["<c>orderCreateTime</c>"] Creation time
         /// </summary>
         [JsonPropertyName("orderCreateTime")]
         [JsonConverter(typeof(DateTimeConverter))]
         public DateTime CreateTime { get; set; }
 
         /// <summary>
-        /// Order source
+        /// ["<c>orderSource</c>"] Order source
         /// </summary>
         [JsonPropertyName("orderSource")]
         public string OrderSource { get; set; } = string.Empty;
@@ -114,22 +114,22 @@ namespace HTX.Net.Objects.Models.Socket
     public record HTXMatchedOrderUpdate : HTXOrderUpdate
     {
         /// <summary>
-        /// Trade price
+        /// ["<c>tradePrice</c>"] Trade price
         /// </summary>
         [JsonPropertyName("tradePrice")]
         public decimal TradePrice { get; set; }
         /// <summary>
-        /// Trade volume
+        /// ["<c>tradeVolume</c>"] Trade volume
         /// </summary>
         [JsonPropertyName("tradeVolume")]
         public decimal TradeQuantity { get; set; }
         /// <summary>
-        /// Order id
+        /// ["<c>orderId</c>"] Order id
         /// </summary>
         [JsonPropertyName("orderId")]
         public long OrderId { get; set; }
         /// <summary>
-        /// The raw type string
+        /// ["<c>type</c>"] The raw type string
         /// </summary>
         [JsonPropertyName("type")]
         public string RawType { get; set; } = string.Empty;
@@ -146,48 +146,48 @@ namespace HTX.Net.Objects.Models.Socket
         [JsonIgnore]
         public OrderSide Side => EnumConverter.ParseString<OrderSide>(RawType)!.Value;
         /// <summary>
-        /// Trade id
+        /// ["<c>tradeId</c>"] Trade id
         /// </summary>
         [JsonPropertyName("tradeId")]
         public long TradeId { get; set; }
         /// <summary>
-        /// Timestamp of trade
+        /// ["<c>tradeTime</c>"] Timestamp of trade
         /// </summary>
         [JsonConverter(typeof(DateTimeConverter))]
         [JsonPropertyName("tradeTime")]
         public DateTime TradeTime { get; set; }
         /// <summary>
-        /// Is the taker
+        /// ["<c>aggressor</c>"] Is the taker
         /// </summary>
         [JsonPropertyName("aggressor")]
         public bool IsTaker { get; set; }
         /// <summary>
-        /// Remaining quantity
+        /// ["<c>remainAmt</c>"] Remaining quantity
         /// </summary>
         [JsonPropertyName("remainAmt")]
         public decimal QuantityRemaining { get; set; }
         /// <summary>
-        /// Executed quantity
+        /// ["<c>execAmt</c>"] Executed quantity
         /// </summary>
         [JsonPropertyName("execAmt")]
         public decimal QuantityFilled { get; set; }
         /// <summary>
-        /// Price of the order
+        /// ["<c>orderPrice</c>"] Price of the order
         /// </summary>
         [JsonPropertyName("orderPrice")]
         public decimal Price { get; set; }
         /// <summary>
-        /// Quantity of the order
+        /// ["<c>orderSize</c>"] Quantity of the order
         /// </summary>
         [JsonPropertyName("orderSize")]
         public decimal? Quantity { get; set; }
         /// <summary>
-        /// Order source
+        /// ["<c>orderSource</c>"] Order source
         /// </summary>
         [JsonPropertyName("orderSource")]
         public string OrderSource { get; set; } = string.Empty;
         /// <summary>
-        /// Value of the order
+        /// ["<c>orderValue</c>"] Value of the order
         /// </summary>
         [JsonPropertyName("orderValue")]
         public decimal? QuoteQuantity { get; set; }
@@ -200,13 +200,13 @@ namespace HTX.Net.Objects.Models.Socket
     public record HTXCanceledOrderUpdate : HTXOrderUpdate
     {
         /// <summary>
-        /// Order id
+        /// ["<c>orderId</c>"] Order id
         /// </summary>
         [JsonPropertyName("orderId")]
         public long OrderId { get; set; }
 
         /// <summary>
-        /// The raw type string
+        /// ["<c>type</c>"] The raw type string
         /// </summary>
         [JsonPropertyName("type")]
         public string RawType { get; set; } = string.Empty;
@@ -223,32 +223,32 @@ namespace HTX.Net.Objects.Models.Socket
         [JsonIgnore]
         public OrderSide Side => EnumConverter.ParseString<OrderSide>(RawType)!.Value;
         /// <summary>
-        /// Remaining quantity
+        /// ["<c>remainAmt</c>"] Remaining quantity
         /// </summary>
         [JsonPropertyName("remainAmt")]
         public decimal QuantityRemaining { get; set; }
         /// <summary>
-        /// Executed quantity
+        /// ["<c>execAmt</c>"] Executed quantity
         /// </summary>
         [JsonPropertyName("execAmt")]
         public decimal QuantityFilled { get; set; }
         /// <summary>
-        /// Price of the order
+        /// ["<c>orderPrice</c>"] Price of the order
         /// </summary>
         [JsonPropertyName("orderPrice")]
         public decimal Price { get; set; }
         /// <summary>
-        /// Quantity of the order
+        /// ["<c>orderSize</c>"] Quantity of the order
         /// </summary>
         [JsonPropertyName("orderSize")]
         public decimal? Quantity { get; set; }
         /// <summary>
-        /// Value of the order
+        /// ["<c>orderValue</c>"] Value of the order
         /// </summary>
         [JsonPropertyName("orderValue")]
         public decimal? QuoteQuantity { get; set; }
         /// <summary>
-        /// Order source
+        /// ["<c>orderSource</c>"] Order source
         /// </summary>
         [JsonPropertyName("orderSource")]
         public string OrderSource { get; set; } = string.Empty;
@@ -261,18 +261,18 @@ namespace HTX.Net.Objects.Models.Socket
     public record HTXTriggerFailureOrderUpdate : HTXOrderUpdate
     {
         /// <summary>
-        /// Side of the order
+        /// ["<c>orderSide</c>"] Side of the order
         /// </summary>
         [JsonPropertyName("orderSide")]
         public OrderSide Side { get; set; }
         /// <summary>
-        /// The error code
+        /// ["<c>errCode</c>"] The error code
         /// </summary>
         [JsonPropertyName("errCode")]
         public int ErrorCode { get; set; }
 
         /// <summary>
-        /// The error message
+        /// ["<c>errMessage</c>"] The error message
         /// </summary>
         [JsonPropertyName("errMessage")]
         public string ErrorMessage { get; set; } = string.Empty;

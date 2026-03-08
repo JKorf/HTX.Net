@@ -9,22 +9,22 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
     public record HTXIsolatedMarginUserSettlementRecordPage
     {
         /// <summary>
-        /// Total pages
+        /// ["<c>total_page</c>"] Total pages
         /// </summary>
         [JsonPropertyName("total_page")]
         public int TotalPages { get; set; }
         /// <summary>
-        /// Current pages
+        /// ["<c>current_page</c>"] Current pages
         /// </summary>
         [JsonPropertyName("current_page")]
         public int CurrentPage { get; set; }
         /// <summary>
-        /// Total amount of records
+        /// ["<c>total_size</c>"] Total amount of records
         /// </summary>
         [JsonPropertyName("total_size")]
         public int TotalRecords { get; set; }
         /// <summary>
-        /// Records
+        /// ["<c>settlement_records</c>"] Records
         /// </summary>
         [JsonPropertyName("settlement_records")]
         public HTXIsolatedMarginUserSettlementRecord[] Records { get; set; } = Array.Empty<HTXIsolatedMarginUserSettlementRecord>();
@@ -37,74 +37,74 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
     public record HTXIsolatedMarginUserSettlementRecord
     {
         /// <summary>
-        /// Asset
+        /// ["<c>symbol</c>"] Asset
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// Contract code
+        /// ["<c>contract_code</c>"] Contract code
         /// </summary>
         [JsonPropertyName("contract_code")]
         public string ContractCode { get; set; } = string.Empty;
         /// <summary>
-        /// Margin mode
+        /// ["<c>margin_mode</c>"] Margin mode
         /// </summary>
         [JsonPropertyName("margin_mode")]
 
         public MarginMode MarginMode { get; set; }
         /// <summary>
-        /// Margin account
+        /// ["<c>margin_account</c>"] Margin account
         /// </summary>
         [JsonPropertyName("margin_account")]
         public string MarginAccount { get; set; } = string.Empty;
         /// <summary>
-        /// Margin balance init
+        /// ["<c>margin_balance_init</c>"] Margin balance init
         /// </summary>
         [JsonPropertyName("margin_balance_init")]
         public decimal MarginBalanceInit { get; set; }
         /// <summary>
-        /// Margin balance
+        /// ["<c>margin_balance</c>"] Margin balance
         /// </summary>
         [JsonPropertyName("margin_balance")]
         public decimal MarginBalance { get; set; }
         /// <summary>
-        /// Settlement profit realized
+        /// ["<c>settlement_profit_real</c>"] Settlement profit realized
         /// </summary>
         [JsonPropertyName("settlement_profit_real")]
         public decimal SettlementRealizedPnl { get; set; }
         /// <summary>
-        /// Settlement time
+        /// ["<c>settlement_time</c>"] Settlement time
         /// </summary>
         [JsonPropertyName("settlement_time")]
         [JsonConverter(typeof(DateTimeConverter))]
         public DateTime SettlementTime { get; set; }
         /// <summary>
-        /// Clawback
+        /// ["<c>clawback</c>"] Clawback
         /// </summary>
         [JsonPropertyName("clawback")]
         public decimal Clawback { get; set; }
         /// <summary>
-        /// Funding fee
+        /// ["<c>funding_fee</c>"] Funding fee
         /// </summary>
         [JsonPropertyName("funding_fee")]
         public decimal FundingFee { get; set; }
         /// <summary>
-        /// Offset profit loss
+        /// ["<c>offset_profitloss</c>"] Offset profit loss
         /// </summary>
         [JsonPropertyName("offset_profitloss")]
         public decimal OffsetProfitLoss { get; set; }
         /// <summary>
-        /// Fee
+        /// ["<c>fee</c>"] Fee
         /// </summary>
         [JsonPropertyName("fee")]
         public decimal Fee { get; set; }
         /// <summary>
-        /// Fee asset
+        /// ["<c>fee_asset</c>"] Fee asset
         /// </summary>
         [JsonPropertyName("fee_asset")]
         public string FeeAsset { get; set; } = string.Empty;
         /// <summary>
-        /// Positions
+        /// ["<c>positions</c>"] Positions
         /// </summary>
         [JsonPropertyName("positions")]
         public HTXCrossSettlementPosition[] Positions { get; set; } = Array.Empty<HTXCrossSettlementPosition>();
@@ -117,52 +117,52 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
     public record HTXCrossSettlementPosition
     {
         /// <summary>
-        /// Asset
+        /// ["<c>symbol</c>"] Asset
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// Contract code
+        /// ["<c>contract_code</c>"] Contract code
         /// </summary>
         [JsonPropertyName("contract_code")]
         public string ContractCode { get; set; } = string.Empty;
         /// <summary>
-        /// Direction
+        /// ["<c>direction</c>"] Direction
         /// </summary>
         [JsonPropertyName("direction")]
         public OrderSide Direction { get; set; }
         /// <summary>
-        /// Volume
+        /// ["<c>volume</c>"] Volume
         /// </summary>
         [JsonPropertyName("volume")]
         public decimal Volume { get; set; }
         /// <summary>
-        /// Cost open
+        /// ["<c>cost_open</c>"] Cost open
         /// </summary>
         [JsonPropertyName("cost_open")]
         public decimal CostOpen { get; set; }
         /// <summary>
-        /// Cost hold before settlement
+        /// ["<c>cost_hold_pre</c>"] Cost hold before settlement
         /// </summary>
         [JsonPropertyName("cost_hold_pre")]
         public decimal CostHoldPre { get; set; }
         /// <summary>
-        /// Cost hold after settlement
+        /// ["<c>cost_hold</c>"] Cost hold after settlement
         /// </summary>
         [JsonPropertyName("cost_hold")]
         public decimal ColdHold { get; set; }
         /// <summary>
-        /// Settlement unrealized profit and loss
+        /// ["<c>settlement_profit_unreal</c>"] Settlement unrealized profit and loss
         /// </summary>
         [JsonPropertyName("settlement_profit_unreal")]
         public decimal SettlementUnrealizedPnl { get; set; }
         /// <summary>
-        /// Settlement price
+        /// ["<c>settlement_price</c>"] Settlement price
         /// </summary>
         [JsonPropertyName("settlement_price")]
         public decimal SettlementPrice { get; set; }
         /// <summary>
-        /// Settlement type
+        /// ["<c>settlement_type</c>"] Settlement type
         /// </summary>
         [JsonPropertyName("settlement_type")]
 

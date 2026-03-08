@@ -8,7 +8,7 @@ namespace HTX.Net.Objects.Models
     public record HTXPlacedConditionalOrder
     {
         /// <summary>
-        /// The id
+        /// ["<c>clientOrderId</c>"] The id
         /// </summary>
         [JsonPropertyName("clientOrderId")]
         [JsonConverter(typeof(ClientIdConverter))]

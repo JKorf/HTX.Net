@@ -9,23 +9,23 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
     public record HTXSettlementPage
     {
         /// <summary>
-        /// Total pages
+        /// ["<c>total_page</c>"] Total pages
         /// </summary>
         [JsonPropertyName("total_page")]
         public int TotalPages { get; set; }
         /// <summary>
-        /// Current page
+        /// ["<c>current_page</c>"] Current page
         /// </summary>
         [JsonPropertyName("current_page")]
         public int CurrentPage { get; set; }
         /// <summary>
-        /// Total size
+        /// ["<c>total_size</c>"] Total size
         /// </summary>
         [JsonPropertyName("total_size")]
         public int TotalSize { get; set; }
 
         /// <summary>
-        /// Records
+        /// ["<c>settlement_record</c>"] Records
         /// </summary>
         [JsonPropertyName("settlement_record")]
         public HTXSettlementRecord[] Records { get; set; } = Array.Empty<HTXSettlementRecord>();
@@ -38,45 +38,45 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
     public record HTXSettlementRecord
     {
         /// <summary>
-        /// Asset
+        /// ["<c>symbol</c>"] Asset
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// Contract code
+        /// ["<c>contract_code</c>"] Contract code
         /// </summary>
         [JsonPropertyName("contract_code")]
         public string ContractCode { get; set; } = string.Empty;
         /// <summary>
-        /// Settlement time
+        /// ["<c>settlement_time</c>"] Settlement time
         /// </summary>
         [JsonPropertyName("settlement_time")]
         [JsonConverter(typeof(DateTimeConverter))]
         public DateTime SettlementTime { get; set; }
         /// <summary>
-        /// Clawback ratio
+        /// ["<c>clawback_ratio</c>"] Clawback ratio
         /// </summary>
         [JsonPropertyName("clawback_ratio")]
         public decimal ClawbackRatio { get; set; }
         /// <summary>
-        /// Settlement price
+        /// ["<c>settlement_price</c>"] Settlement price
         /// </summary>
         [JsonPropertyName("settlement_price")]
         public decimal SettlementPrice { get; set; }
         /// <summary>
-        /// Settlement type
+        /// ["<c>settlement_type</c>"] Settlement type
         /// </summary>
         [JsonPropertyName("settlement_type")]
 
         public SettlementType SettlementType { get; set; }
         /// <summary>
-        /// Business type
+        /// ["<c>business_type</c>"] Business type
         /// </summary>
         [JsonPropertyName("business_type")]
 
         public BusinessType BusinessType { get; set; }
         /// <summary>
-        /// Symbol
+        /// ["<c>pair</c>"] Symbol
         /// </summary>
         [JsonPropertyName("pair")]
         public string Symbol { get; set; } = string.Empty;

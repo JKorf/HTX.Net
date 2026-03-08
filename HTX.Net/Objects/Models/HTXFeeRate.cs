@@ -7,31 +7,31 @@ namespace HTX.Net.Objects.Models
     public record HTXFeeRate
     {
         /// <summary>
-        /// The symbol
+        /// ["<c>symbol</c>"] The symbol
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
 
         /// <summary>
-        /// Basic fee rate – passive side
+        /// ["<c>actualMakerRate</c>"] Basic fee rate – passive side
         /// </summary>
         [JsonPropertyName("actualMakerRate")]
         public decimal ActualMakerRate { get; set; }
 
         /// <summary>
-        /// Basic fee rate – aggressive side
+        /// ["<c>actualTakerRate</c>"] Basic fee rate – aggressive side
         /// </summary>
         [JsonPropertyName("actualTakerRate")]
         public decimal ActualTakerRate { get; set; }
 
         /// <summary>
-        /// Deducted fee rate – passive side
+        /// ["<c>makerFeeRate</c>"] Deducted fee rate – passive side
         /// </summary>
         [JsonPropertyName("makerFeeRate")]
         public decimal MakerFeeRate { get; set; }
 
         /// <summary>
-        /// Basic fee rate – aggressive side
+        /// ["<c>takerFeeRate</c>"] Basic fee rate – aggressive side
         /// </summary>
         [JsonPropertyName("takerFeeRate")]
         public decimal TakerFeeRate { get; set; }

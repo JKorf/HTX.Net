@@ -7,12 +7,12 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
     public  record HTXAssetValue
     {
         /// <summary>
-        /// Asset name
+        /// ["<c>valuation_asset</c>"] Asset name
         /// </summary>
         [JsonPropertyName("valuation_asset")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// Balance
+        /// ["<c>balance</c>"] Balance
         /// </summary>
         [JsonPropertyName("balance")]
         public decimal Balance { get; set; }

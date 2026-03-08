@@ -7,12 +7,12 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
     public record HTXTpSlResult
     {
         /// <summary>
-        /// Take profit order
+        /// ["<c>tp_order</c>"] Take profit order
         /// </summary>
         [JsonPropertyName("tp_order")]
         public HTXTpSlResultOrder? TpOrder { get; set; }
         /// <summary>
-        /// Stop loss order
+        /// ["<c>sl_order</c>"] Stop loss order
         /// </summary>
         [JsonPropertyName("sl_order")]
         public HTXTpSlResultOrder? SlOrder { get; set; }
@@ -25,12 +25,12 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
     public record HTXTpSlResultOrder
     {
         /// <summary>
-        /// Order id
+        /// ["<c>order_id</c>"] Order id
         /// </summary>
         [JsonPropertyName("order_id")]
         public long OrderId { get; set; }
         /// <summary>
-        /// Order id string
+        /// ["<c>order_id_str</c>"] Order id string
         /// </summary>
         [JsonPropertyName("order_id_str")]
         public string OrderIdStr { get; set; } = string.Empty;

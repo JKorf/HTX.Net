@@ -9,18 +9,18 @@ namespace HTX.Net.Objects.Models.Socket
     public record HTXUsdtMarginSwapTradesUpdate
     {
         /// <summary>
-        /// Update id
+        /// ["<c>id</c>"] Update id
         /// </summary>
         [JsonPropertyName("id")]
         public long Id { get; set; }
         /// <summary>
-        /// Update timestamp
+        /// ["<c>ts</c>"] Update timestamp
         /// </summary>
         [JsonPropertyName("ts")]
         [JsonConverter(typeof(DateTimeConverter))]
         public DateTime Timestamp { get; set; }
         /// <summary>
-        /// Trades
+        /// ["<c>data</c>"] Trades
         /// </summary>
         [JsonPropertyName("data")]
         public HTXUsdtMarginSwapTradeUpdate[] Trades { get; set; } = Array.Empty<HTXUsdtMarginSwapTradeUpdate>();
@@ -33,39 +33,39 @@ namespace HTX.Net.Objects.Models.Socket
     public record HTXUsdtMarginSwapTradeUpdate
     {
         /// <summary>
-        /// Amount of trades
+        /// ["<c>amount</c>"] Amount of trades
         /// </summary>
         [JsonPropertyName("amount")]
         public int Amount { get; set; }
         /// <summary>
-        /// Timestamp
+        /// ["<c>ts</c>"] Timestamp
         /// </summary>
         [JsonPropertyName("ts")]
         [JsonConverter(typeof(DateTimeConverter))]
         public DateTime Timestamp { get; set; }
         /// <summary>
-        /// Trade id
+        /// ["<c>id</c>"] Trade id
         /// </summary>
         [JsonPropertyName("id")]
         public long Id { get; set; }
         /// <summary>
-        /// Price
+        /// ["<c>price</c>"] Price
         /// </summary>
         [JsonPropertyName("price")]
         public decimal Price { get; set; }
         /// <summary>
-        /// Side
+        /// ["<c>direction</c>"] Side
         /// </summary>
         [JsonPropertyName("direction")]
 
         public OrderSide Side { get; set; }
         /// <summary>
-        /// Quantity
+        /// ["<c>quantity</c>"] Quantity
         /// </summary>
         [JsonPropertyName("quantity")]
         public decimal Quantity { get; set; }
         /// <summary>
-        /// Turnover
+        /// ["<c>trade_turnover</c>"] Turnover
         /// </summary>
         [JsonPropertyName("trade_turnover")]
         public decimal TradeTurnover { get; set; }

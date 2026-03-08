@@ -7,12 +7,12 @@ namespace HTX.Net.Objects.Models
     public record HTXConditionalOrderCancelResult
     {
         /// <summary>
-        /// Orders accepted for cancelation
+        /// ["<c>accepted</c>"] Orders accepted for cancelation
         /// </summary>
         [JsonPropertyName("accepted")]
         public string[] Accepted { get; set; } = Array.Empty<string>();
         /// <summary>
-        /// Orders rejected for cancelation
+        /// ["<c>rejected</c>"] Orders rejected for cancelation
         /// </summary>
         [JsonPropertyName("rejected")]
         public string[] Rejected { get; set; } = Array.Empty<string>();

@@ -9,22 +9,22 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
     public record HTXLeveragePositionLimit
     {
         /// <summary>
-        /// Symbol
+        /// ["<c>symbol</c>"] Symbol
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Contract code
+        /// ["<c>contract_code</c>"] Contract code
         /// </summary>
         [JsonPropertyName("contract_code")]
         public string ContractCode { get; set; } = string.Empty;
         /// <summary>
-        /// Margin mode
+        /// ["<c>margin_mode</c>"] Margin mode
         /// </summary>
         [JsonPropertyName("margin_mode")]
         public MarginMode MarginMode { get; set; }
         /// <summary>
-        /// Limits
+        /// ["<c>list</c>"] Limits
         /// </summary>
         [JsonPropertyName("list")]
         public HTXLeveragePositionLeverageLimit[] Limits { get; set; } = Array.Empty<HTXLeveragePositionLeverageLimit>();
@@ -37,17 +37,17 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
     public record HTXLeveragePositionLeverageLimit
     {
         /// <summary>
-        /// Leverage rate
+        /// ["<c>lever_rate</c>"] Leverage rate
         /// </summary>
         [JsonPropertyName("lever_rate")]
         public int LeverageRate { get; set; }
         /// <summary>
-        /// Buy limit value
+        /// ["<c>buy_limit_value</c>"] Buy limit value
         /// </summary>
         [JsonPropertyName("buy_limit_value")]
         public decimal BuyLimitValue { get; set; }
         /// <summary>
-        /// Sell limit value
+        /// ["<c>sell_limit_value</c>"] Sell limit value
         /// </summary>
         [JsonPropertyName("sell_limit_value")]
         public decimal SellLimitValue { get; set; }

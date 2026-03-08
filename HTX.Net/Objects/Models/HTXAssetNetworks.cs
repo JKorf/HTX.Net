@@ -9,17 +9,17 @@ namespace HTX.Net.Objects.Models
     public record HTXAssetNetworks
     {
         /// <summary>
-        /// Networks
+        /// ["<c>chains</c>"] Networks
         /// </summary>
         [JsonPropertyName("chains")]
         public HTXAssetNetwork[] Networks { get; set; } = Array.Empty<HTXAssetNetwork>();
         /// <summary>
-        /// Asset
+        /// ["<c>currency</c>"] Asset
         /// </summary>
         [JsonPropertyName("currency")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// Status
+        /// ["<c>instStatus</c>"] Status
         /// </summary>
         [JsonPropertyName("instStatus")]
         public AssetStatus Status { get; set; }
@@ -32,107 +32,107 @@ namespace HTX.Net.Objects.Models
     public record HTXAssetNetwork
     {
         /// <summary>
-        /// Network
+        /// ["<c>chain</c>"] Network
         /// </summary>
         [JsonPropertyName("chain")]
         public string Network { get; set; } = string.Empty;
         /// <summary>
-        /// Display name
+        /// ["<c>displayName</c>"] Display name
         /// </summary>
         [JsonPropertyName("displayName")]
         public string? DisplayName { get; set; }
         /// <summary>
-        /// Base network
+        /// ["<c>baseChain</c>"] Base network
         /// </summary>
         [JsonPropertyName("baseChain")]
         public string BaseNetwork { get; set; } = string.Empty;
         /// <summary>
-        /// Base network protocol
+        /// ["<c>baseChainProtocol</c>"] Base network protocol
         /// </summary>
         [JsonPropertyName("baseChainProtocol")]
         public string BaseNetworkProtocol { get; set; } = string.Empty;
         /// <summary>
-        /// Is dynamic
+        /// ["<c>isDynamic</c>"] Is dynamic
         /// </summary>
         [JsonPropertyName("isDynamic")]
         public bool IsDynamic { get; set; }
         /// <summary>
-        /// Deposit status
+        /// ["<c>depositStatus</c>"] Deposit status
         /// </summary>
         [JsonPropertyName("depositStatus")]
         public NetworkStatus? DepositStatus { get; set; }
         /// <summary>
-        /// Max transact fee withdraw
+        /// ["<c>maxTransactFeeWithdraw</c>"] Max transact fee withdraw
         /// </summary>
         [JsonPropertyName("maxTransactFeeWithdraw")]
         public decimal MaxTransactFeeWithdraw { get; set; }
         /// <summary>
-        /// Max withdraw quantity
+        /// ["<c>maxWithdrawAmt</c>"] Max withdraw quantity
         /// </summary>
         [JsonPropertyName("maxWithdrawAmt")]
         public decimal MaxWithdrawQuantity { get; set; }
         /// <summary>
-        /// Min deposit quantity
+        /// ["<c>minDepositAmt</c>"] Min deposit quantity
         /// </summary>
         [JsonPropertyName("minDepositAmt")]
         public decimal MinDepositQuantity { get; set; }
         /// <summary>
-        /// Fixed withdraw fee, only applicable if fee type is fixed
+        /// ["<c>transactFeeWithdraw</c>"] Fixed withdraw fee, only applicable if fee type is fixed
         /// </summary>
         [JsonPropertyName("transactFeeWithdraw")]
         public decimal? FixedWithdrawFee { get; set; }
         /// <summary>
-        /// Ratio withdraw fee, only applicable if fee type is ratio
+        /// ["<c>transactFeeRateWithdraw</c>"] Ratio withdraw fee, only applicable if fee type is ratio
         /// </summary>
         [JsonPropertyName("transactFeeRateWithdraw")]
         public decimal? RatioWithdrawFee { get; set; }
         /// <summary>
-        /// Min transact fee withdraw
+        /// ["<c>minTransactFeeWithdraw</c>"] Min transact fee withdraw
         /// </summary>
         [JsonPropertyName("minTransactFeeWithdraw")]
         public decimal MinTransactFeeWithdraw { get; set; }
         /// <summary>
-        /// Min withdraw quantity
+        /// ["<c>minWithdrawAmt</c>"] Min withdraw quantity
         /// </summary>
         [JsonPropertyName("minWithdrawAmt")]
         public decimal MinWithdrawQuantity { get; set; }
         /// <summary>
-        /// Num of confirmations
+        /// ["<c>numOfConfirmations</c>"] Num of confirmations
         /// </summary>
         [JsonPropertyName("numOfConfirmations")]
         public int NumOfConfirmations { get; set; }
         /// <summary>
-        /// Num of fast confirmations
+        /// ["<c>numOfFastConfirmations</c>"] Num of fast confirmations
         /// </summary>
         [JsonPropertyName("numOfFastConfirmations")]
         public int NumOfFastConfirmations { get; set; }
         /// <summary>
-        /// Withdraw fee type
+        /// ["<c>withdrawFeeType</c>"] Withdraw fee type
         /// </summary>
         [JsonPropertyName("withdrawFeeType")]
         public FeeType? WithdrawFeeType { get; set; }
         /// <summary>
-        /// Withdraw precision
+        /// ["<c>withdrawPrecision</c>"] Withdraw precision
         /// </summary>
         [JsonPropertyName("withdrawPrecision")]
         public decimal WithdrawPrecision { get; set; }
         /// <summary>
-        /// Withdraw quota per day
+        /// ["<c>withdrawQuotaPerDay</c>"] Withdraw quota per day
         /// </summary>
         [JsonPropertyName("withdrawQuotaPerDay")]
         public decimal? WithdrawQuotaPerDay { get; set; }
         /// <summary>
-        /// Withdraw quota per year
+        /// ["<c>withdrawQuotaPerYear</c>"] Withdraw quota per year
         /// </summary>
         [JsonPropertyName("withdrawQuotaPerYear")]
         public decimal? WithdrawQuotaPerYear { get; set; }
         /// <summary>
-        /// Withdraw quota total
+        /// ["<c>withdrawQuotaTotal</c>"] Withdraw quota total
         /// </summary>
         [JsonPropertyName("withdrawQuotaTotal")]
         public decimal? WithdrawQuotaTotal { get; set; }
         /// <summary>
-        /// Withdraw status
+        /// ["<c>withdrawStatus</c>"] Withdraw status
         /// </summary>
         [JsonPropertyName("withdrawStatus")]
         public NetworkStatus? WithdrawStatus { get; set; }

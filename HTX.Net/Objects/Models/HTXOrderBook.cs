@@ -12,7 +12,7 @@ namespace HTX.Net.Objects.Models
         [JsonPropertyName("ts"), JsonConverter(typeof(DateTimeConverter))]
         public DateTime Timestamp { get; set; }
         /// <summary>
-        /// Version
+        /// ["<c>version</c>"] Version
         /// </summary>
         [JsonPropertyName("version")]
         public long Version { get; set; }
@@ -24,12 +24,12 @@ namespace HTX.Net.Objects.Models
         }
 
         /// <summary>
-        /// List of bids
+        /// ["<c>bids</c>"] List of bids
         /// </summary>
         [JsonPropertyName("bids")]
         public HTXOrderBookEntry[] Bids { get; set; } = Array.Empty<HTXOrderBookEntry>();
         /// <summary>
-        /// List of asks
+        /// ["<c>asks</c>"] List of asks
         /// </summary>
         [JsonPropertyName("asks")]
         public HTXOrderBookEntry[] Asks { get; set; } = Array.Empty<HTXOrderBookEntry>();
@@ -42,22 +42,22 @@ namespace HTX.Net.Objects.Models
     public record HTXIncementalOrderBook
     {
         /// <summary>
-        /// Sequence number
+        /// ["<c>seqNum</c>"] Sequence number
         /// </summary>
         [JsonPropertyName("seqNum")]
         public long SequenceNumber { get; set; }
         /// <summary>
-        /// Previous sequence number
+        /// ["<c>prevSeqNum</c>"] Previous sequence number
         /// </summary>
         [JsonPropertyName("prevSeqNum")]
         public long? PreviousSequenceNumber { get; set; }
         /// <summary>
-        /// List of changed bids
+        /// ["<c>bids</c>"] List of changed bids
         /// </summary>
         [JsonPropertyName("bids")]
         public HTXOrderBookEntry[] Bids { get; set; } = Array.Empty<HTXOrderBookEntry>();
         /// <summary>
-        /// List of changed asks
+        /// ["<c>asks</c>"] List of changed asks
         /// </summary>
         [JsonPropertyName("asks")]
         public HTXOrderBookEntry[] Asks { get; set; } = Array.Empty<HTXOrderBookEntry>();

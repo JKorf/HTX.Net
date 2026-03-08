@@ -7,7 +7,7 @@ namespace HTX.Net.Objects.Models
     public record HTXOrderId
     {
         /// <summary>
-        /// Order id
+        /// ["<c>order-id</c>"] Order id
         /// </summary>
         [JsonPropertyName("order-id")]
         public long OrderId { get; set; }

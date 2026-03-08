@@ -9,24 +9,24 @@ namespace HTX.Net.Objects.Models
     public record HTXAccount
     {
         /// <summary>
-        /// The id of the account
+        /// ["<c>id</c>"] The id of the account
         /// </summary>
         [JsonPropertyName("id")]
         public long Id { get; set; }
         /// <summary>
-        /// The state of the account
+        /// ["<c>state</c>"] The state of the account
         /// </summary>
 
         [JsonPropertyName("state")]
         public AccountStatus Status { get; set; }
         /// <summary>
-        /// The type of the account
+        /// ["<c>type</c>"] The type of the account
         /// </summary>
 
         [JsonPropertyName("type")]
         public AccountType Type { get; set; }
         /// <summary>
-        /// Sub state
+        /// ["<c>subtype</c>"] Sub state
         /// </summary>
         [JsonPropertyName("subtype")]
         public string? SubType { get; set; }

@@ -9,27 +9,27 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
     public record HTXAccountSentiment
     {
         /// <summary>
-        /// List
+        /// ["<c>list</c>"] List
         /// </summary>
         [JsonPropertyName("list")]
         public HTXAccountSentimentValue[] List { get; set; } = Array.Empty<HTXAccountSentimentValue>();
         /// <summary>
-        /// Symbol
+        /// ["<c>symbol</c>"] Symbol
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Contract code
+        /// ["<c>contract_code</c>"] Contract code
         /// </summary>
         [JsonPropertyName("contract_code")]
         public string ContractCode { get; set; } = string.Empty;
         /// <summary>
-        /// Business type
+        /// ["<c>business_type</c>"] Business type
         /// </summary>
         [JsonPropertyName("business_type")]
         public BusinessType BusinessType { get; set; }
         /// <summary>
-        /// Pair
+        /// ["<c>pair</c>"] Pair
         /// </summary>
         [JsonPropertyName("pair")]
         public string Pair { get; set; } = string.Empty;
@@ -42,22 +42,22 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
     public record HTXAccountSentimentValue
     {
         /// <summary>
-        /// Buy ratio
+        /// ["<c>buy_ratio</c>"] Buy ratio
         /// </summary>
         [JsonPropertyName("buy_ratio")]
         public decimal BuyRatio { get; set; }
         /// <summary>
-        /// Sell ratio
+        /// ["<c>sell_ratio</c>"] Sell ratio
         /// </summary>
         [JsonPropertyName("sell_ratio")]
         public decimal SellRatio { get; set; }
         /// <summary>
-        /// Locked ratio
+        /// ["<c>locked_ratio</c>"] Locked ratio
         /// </summary>
         [JsonPropertyName("locked_ratio")]
         public decimal LockedRatio { get; set; }
         /// <summary>
-        /// Timestamp
+        /// ["<c>ts</c>"] Timestamp
         /// </summary>
         [JsonPropertyName("ts")]
         public DateTime Timestamp { get; set; }

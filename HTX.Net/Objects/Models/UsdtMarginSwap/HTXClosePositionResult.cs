@@ -7,17 +7,17 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
     public record HTXClosePositionResult
     {
         /// <summary>
-        /// Order id
+        /// ["<c>order_id</c>"] Order id
         /// </summary>
         [JsonPropertyName("order_id")]
         public long? OrderId { get; set; }
         /// <summary>
-        /// Order id str
+        /// ["<c>order_id_str</c>"] Order id str
         /// </summary>
         [JsonPropertyName("order_id_str")]
         public string OrderIdStr { get; set; } = string.Empty;
         /// <summary>
-        /// Client order id
+        /// ["<c>client_order_id</c>"] Client order id
         /// </summary>
         [JsonPropertyName("client_order_id")]
         public long? ClientOrderId { get; set; }

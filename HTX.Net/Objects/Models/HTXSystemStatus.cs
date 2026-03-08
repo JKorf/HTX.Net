@@ -9,27 +9,27 @@ namespace HTX.Net.Objects.Models
     public record HTXSystemStatus
     {
         /// <summary>
-        /// Page
+        /// ["<c>page</c>"] Page
         /// </summary>
         [JsonPropertyName("page")]
         public HTXPageInfo Page { get; set; } = null!;
         /// <summary>
-        /// Components
+        /// ["<c>components</c>"] Components
         /// </summary>
         [JsonPropertyName("components")]
         public HTXSystemComponent[] Components { get; set; } = Array.Empty<HTXSystemComponent>();
         /// <summary>
-        /// Incidents
+        /// ["<c>incidents</c>"] Incidents
         /// </summary>
         [JsonPropertyName("incidents")]
         public HTXSystemIncident[] Incidents { get; set; } = Array.Empty<HTXSystemIncident>();
         /// <summary>
-        /// Scheduled maintenances
+        /// ["<c>scheduled_maintenances</c>"] Scheduled maintenances
         /// </summary>
         [JsonPropertyName("scheduled_maintenances")]
         public HTXSystemMaintenance[] ScheduledMaintenances { get; set; } = Array.Empty<HTXSystemMaintenance>();
         /// <summary>
-        /// Status
+        /// ["<c>status</c>"] Status
         /// </summary>
         [JsonPropertyName("status")]
         public HTXSystemStatusIndicator? Status { get; set; }
@@ -42,27 +42,27 @@ namespace HTX.Net.Objects.Models
     public record HTXPageInfo
     {
         /// <summary>
-        /// Id
+        /// ["<c>id</c>"] Id
         /// </summary>
         [JsonPropertyName("id")]
         public string Id { get; set; } = string.Empty;
         /// <summary>
-        /// Name
+        /// ["<c>name</c>"] Name
         /// </summary>
         [JsonPropertyName("name")]
         public string Name { get; set; } = string.Empty;
         /// <summary>
-        /// Url
+        /// ["<c>url</c>"] Url
         /// </summary>
         [JsonPropertyName("url")]
         public string Url { get; set; } = string.Empty;
         /// <summary>
-        /// Time zone
+        /// ["<c>time_zone</c>"] Time zone
         /// </summary>
         [JsonPropertyName("time_zone")]
         public string TimeZone { get; set; } = string.Empty;
         /// <summary>
-        /// Updated at
+        /// ["<c>updated_at</c>"] Updated at
         /// </summary>
         [JsonPropertyName("updated_at")]
         public DateTime UpdatedAt { get; set; }
@@ -75,62 +75,62 @@ namespace HTX.Net.Objects.Models
     public record HTXSystemComponent
     {
         /// <summary>
-        /// Id
+        /// ["<c>id</c>"] Id
         /// </summary>
         [JsonPropertyName("id")]
         public string Id { get; set; } = string.Empty;
         /// <summary>
-        /// Name
+        /// ["<c>name</c>"] Name
         /// </summary>
         [JsonPropertyName("name")]
         public string Name { get; set; } = string.Empty;
         /// <summary>
-        /// System status
+        /// ["<c>status</c>"] System status
         /// </summary>
         [JsonPropertyName("status")]
         public ComponentStatus SystemStatus { get; set; }
         /// <summary>
-        /// Created at
+        /// ["<c>created_at</c>"] Created at
         /// </summary>
         [JsonPropertyName("created_at")]
         public DateTime CreatedAt { get; set; }
         /// <summary>
-        /// Updated at
+        /// ["<c>updated_at</c>"] Updated at
         /// </summary>
         [JsonPropertyName("updated_at")]
         public DateTime UpdatedAt { get; set; }
         /// <summary>
-        /// Position
+        /// ["<c>position</c>"] Position
         /// </summary>
         [JsonPropertyName("position")]
         public int Position { get; set; }
         /// <summary>
-        /// Description
+        /// ["<c>description</c>"] Description
         /// </summary>
         [JsonPropertyName("description")]
         public string? Description { get; set; }
         /// <summary>
-        /// Showcase
+        /// ["<c>showcase</c>"] Showcase
         /// </summary>
         [JsonPropertyName("showcase")]
         public bool Showcase { get; set; }
         /// <summary>
-        /// Group id
+        /// ["<c>group_id</c>"] Group id
         /// </summary>
         [JsonPropertyName("group_id")]
         public string GroupId { get; set; } = string.Empty;
         /// <summary>
-        /// Page id
+        /// ["<c>page_id</c>"] Page id
         /// </summary>
         [JsonPropertyName("page_id")]
         public string PageId { get; set; } = string.Empty;
         /// <summary>
-        /// Group
+        /// ["<c>group</c>"] Group
         /// </summary>
         [JsonPropertyName("group")]
         public bool Group { get; set; }
         /// <summary>
-        /// Only show if degraded
+        /// ["<c>only_show_if_degraded</c>"] Only show if degraded
         /// </summary>
         [JsonPropertyName("only_show_if_degraded")]
         public bool OnlyShowIfDegraded { get; set; }
@@ -143,67 +143,67 @@ namespace HTX.Net.Objects.Models
     public record HTXSystemIncident
     {
         /// <summary>
-        /// Id
+        /// ["<c>id</c>"] Id
         /// </summary>
         [JsonPropertyName("id")]
         public string Id { get; set; } = string.Empty;
         /// <summary>
-        /// Name
+        /// ["<c>name</c>"] Name
         /// </summary>
         [JsonPropertyName("name")]
         public string Name { get; set; } = string.Empty;
         /// <summary>
-        /// Incident status
+        /// ["<c>status</c>"] Incident status
         /// </summary>
         [JsonPropertyName("status")]
         public IncidentStatus IncidentStatus { get; set; }
         /// <summary>
-        /// Created at
+        /// ["<c>created_at</c>"] Created at
         /// </summary>
         [JsonPropertyName("created_at")]
         public DateTime CreatedAt { get; set; }
         /// <summary>
-        /// Updated at
+        /// ["<c>updated_at</c>"] Updated at
         /// </summary>
         [JsonPropertyName("updated_at")]
         public DateTime UpdatedAt { get; set; }
         /// <summary>
-        /// Monitoring at
+        /// ["<c>monitoring_at</c>"] Monitoring at
         /// </summary>
         [JsonPropertyName("monitoring_at")]
         public DateTime? MonitoringAt { get; set; }
         /// <summary>
-        /// Resolved at
+        /// ["<c>resolved_at</c>"] Resolved at
         /// </summary>
         [JsonPropertyName("resolved_at")]
         public DateTime? ResolvedAt { get; set; }
         /// <summary>
-        /// Impact
+        /// ["<c>impact</c>"] Impact
         /// </summary>
         [JsonPropertyName("impact")]
         public string Impact { get; set; } = string.Empty;
         /// <summary>
-        /// Shortlink
+        /// ["<c>shortlink</c>"] Shortlink
         /// </summary>
         [JsonPropertyName("shortlink")]
         public string Shortlink { get; set; } = string.Empty;
         /// <summary>
-        /// Started at
+        /// ["<c>started_at</c>"] Started at
         /// </summary>
         [JsonPropertyName("started_at")]
         public DateTime StartedAt { get; set; }
         /// <summary>
-        /// Page id
+        /// ["<c>page_id</c>"] Page id
         /// </summary>
         [JsonPropertyName("page_id")]
         public string PageId { get; set; } = string.Empty;
         /// <summary>
-        /// Incident updates
+        /// ["<c>incident_updates</c>"] Incident updates
         /// </summary>
         [JsonPropertyName("incident_updates")]
         public HTXSystemIncidentUpdate[] IncidentUpdates { get; set; } = Array.Empty<HTXSystemIncidentUpdate>();
         /// <summary>
-        /// Components
+        /// ["<c>components</c>"] Components
         /// </summary>
         [JsonPropertyName("components")]
         public HTXSystemComponent[] Components { get; set; } = Array.Empty<HTXSystemComponent>();
@@ -216,57 +216,57 @@ namespace HTX.Net.Objects.Models
     public record HTXSystemIncidentUpdate
     {
         /// <summary>
-        /// Id
+        /// ["<c>id</c>"] Id
         /// </summary>
         [JsonPropertyName("id")]
         public string Id { get; set; } = string.Empty;
         /// <summary>
-        /// Incident status
+        /// ["<c>status</c>"] Incident status
         /// </summary>
         [JsonPropertyName("status")]
         public IncidentStatus? IncidentStatus { get; set; }
         /// <summary>
-        /// Body
+        /// ["<c>body</c>"] Body
         /// </summary>
         [JsonPropertyName("body")]
         public string Body { get; set; } = string.Empty;
         /// <summary>
-        /// Incident id
+        /// ["<c>incident_id</c>"] Incident id
         /// </summary>
         [JsonPropertyName("incident_id")]
         public string IncidentId { get; set; } = string.Empty;
         /// <summary>
-        /// Created at
+        /// ["<c>created_at</c>"] Created at
         /// </summary>
         [JsonPropertyName("created_at")]
         public DateTime CreatedAt { get; set; }
         /// <summary>
-        /// Updated at
+        /// ["<c>updated_at</c>"] Updated at
         /// </summary>
         [JsonPropertyName("updated_at")]
         public DateTime UpdatedAt { get; set; }
         /// <summary>
-        /// Display at
+        /// ["<c>display_at</c>"] Display at
         /// </summary>
         [JsonPropertyName("display_at")]
         public DateTime DisplayAt { get; set; }
         /// <summary>
-        /// Affected components
+        /// ["<c>affected_components</c>"] Affected components
         /// </summary>
         [JsonPropertyName("affected_components")]
         public HTXSystemIncidentComponent[] AffectedComponents { get; set; } = Array.Empty<HTXSystemIncidentComponent>();
         /// <summary>
-        /// Deliver notifications
+        /// ["<c>deliver_notifications</c>"] Deliver notifications
         /// </summary>
         [JsonPropertyName("deliver_notifications")]
         public bool DeliverNotifications { get; set; }
         /// <summary>
-        /// Custom tweet
+        /// ["<c>custom_tweet</c>"] Custom tweet
         /// </summary>
         [JsonPropertyName("custom_tweet")]
         public string? CustomTweet { get; set; }
         /// <summary>
-        /// Tweet id
+        /// ["<c>tweet_id</c>"] Tweet id
         /// </summary>
         [JsonPropertyName("tweet_id")]
         public string? TweetId { get; set; }
@@ -279,22 +279,22 @@ namespace HTX.Net.Objects.Models
     public record HTXSystemIncidentComponent
     {
         /// <summary>
-        /// Code
+        /// ["<c>code</c>"] Code
         /// </summary>
         [JsonPropertyName("code")]
         public string Code { get; set; } = string.Empty;
         /// <summary>
-        /// Name
+        /// ["<c>name</c>"] Name
         /// </summary>
         [JsonPropertyName("name")]
         public string Name { get; set; } = string.Empty;
         /// <summary>
-        /// Old status
+        /// ["<c>old_status</c>"] Old status
         /// </summary>
         [JsonPropertyName("old_status")]
         public ComponentStatus OldStatus { get; set; }
         /// <summary>
-        /// New status
+        /// ["<c>new_status</c>"] New status
         /// </summary>
         [JsonPropertyName("new_status")]
         public ComponentStatus NewStatus { get; set; }
@@ -307,77 +307,77 @@ namespace HTX.Net.Objects.Models
     public record HTXSystemMaintenance
     {
         /// <summary>
-        /// Id
+        /// ["<c>id</c>"] Id
         /// </summary>
         [JsonPropertyName("id")]
         public string Id { get; set; } = string.Empty;
         /// <summary>
-        /// Name
+        /// ["<c>name</c>"] Name
         /// </summary>
         [JsonPropertyName("name")]
         public string Name { get; set; } = string.Empty;
         /// <summary>
-        /// Status
+        /// ["<c>status</c>"] Status
         /// </summary>
         [JsonPropertyName("status")]
         public MaintenanceStatus Status { get; set; }
         /// <summary>
-        /// Created at
+        /// ["<c>created_at</c>"] Created at
         /// </summary>
         [JsonPropertyName("created_at")]
         public DateTime CreatedAt { get; set; }
         /// <summary>
-        /// Updated at
+        /// ["<c>updated_at</c>"] Updated at
         /// </summary>
         [JsonPropertyName("updated_at")]
         public DateTime UpdatedAt { get; set; }
         /// <summary>
-        /// Monitoring at
+        /// ["<c>monitoring_at</c>"] Monitoring at
         /// </summary>
         [JsonPropertyName("monitoring_at")]
         public DateTime? MonitoringAt { get; set; }
         /// <summary>
-        /// Resolved at
+        /// ["<c>resolved_at</c>"] Resolved at
         /// </summary>
         [JsonPropertyName("resolved_at")]
         public DateTime? ResolvedAt { get; set; }
         /// <summary>
-        /// Impact
+        /// ["<c>impact</c>"] Impact
         /// </summary>
         [JsonPropertyName("impact")]
         public string Impact { get; set; } = string.Empty;
         /// <summary>
-        /// Shortlink
+        /// ["<c>shortlink</c>"] Shortlink
         /// </summary>
         [JsonPropertyName("shortlink")]
         public string Shortlink { get; set; } = string.Empty;
         /// <summary>
-        /// Started at
+        /// ["<c>started_at</c>"] Started at
         /// </summary>
         [JsonPropertyName("started_at")]
         public string StartedAt { get; set; } = string.Empty;
         /// <summary>
-        /// Page id
+        /// ["<c>page_id</c>"] Page id
         /// </summary>
         [JsonPropertyName("page_id")]
         public string PageId { get; set; } = string.Empty;
         /// <summary>
-        /// Incident updates
+        /// ["<c>incident_updates</c>"] Incident updates
         /// </summary>
         [JsonPropertyName("incident_updates")]
         public HTXSystemIncidentUpdate[] IncidentUpdates { get; set; } = Array.Empty<HTXSystemIncidentUpdate>();
         /// <summary>
-        /// Components
+        /// ["<c>components</c>"] Components
         /// </summary>
         [JsonPropertyName("components")]
         public HTXSystemComponent[] Components { get; set; } = Array.Empty<HTXSystemComponent>();
         /// <summary>
-        /// Scheduled for
+        /// ["<c>scheduled_for</c>"] Scheduled for
         /// </summary>
         [JsonPropertyName("scheduled_for")]
         public DateTime ScheduledFor { get; set; }
         /// <summary>
-        /// Scheduled until
+        /// ["<c>scheduled_until</c>"] Scheduled until
         /// </summary>
         [JsonPropertyName("scheduled_until")]
         public DateTime ScheduledUntil { get; set; }
@@ -390,12 +390,12 @@ namespace HTX.Net.Objects.Models
     public record HTXSystemStatusIndicator
     {
         /// <summary>
-        /// Indicator
+        /// ["<c>indicator</c>"] Indicator
         /// </summary>
         [JsonPropertyName("indicator")]
         public SystemStatusIndicator Indicator { get; set; }
         /// <summary>
-        /// Description
+        /// ["<c>description</c>"] Description
         /// </summary>
         [JsonPropertyName("description")]
         public string Description { get; set; } = string.Empty;

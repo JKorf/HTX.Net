@@ -9,18 +9,18 @@ namespace HTX.Net.Objects.Models.Socket
     public record HTXStatusUpdate : HTXOpMessage
     {
         /// <summary>
-        /// Timestamp
+        /// ["<c>ts</c>"] Timestamp
         /// </summary>
         [JsonPropertyName("ts")]
         public DateTime Timestamp { get; set; }
 
         /// <summary>
-        /// Event, init (initial) status or update
+        /// ["<c>event</c>"] Event, init (initial) status or update
         /// </summary>
         [JsonPropertyName("event")]
         public string Event { get; set; } = string.Empty;
         /// <summary>
-        /// Data
+        /// ["<c>data</c>"] Data
         /// </summary>
         [JsonPropertyName("data")]
         public HTXStatus Data { get; set; } = null!;
@@ -33,13 +33,13 @@ namespace HTX.Net.Objects.Models.Socket
     public record HTXStatus
     {
         /// <summary>
-        /// Is system available
+        /// ["<c>heartbeat</c>"] Is system available
         /// </summary>
         [JsonPropertyName("heartbeat")]
         public bool Available { get; set; }
 
         /// <summary>
-        /// Estimated recovery time
+        /// ["<c>estimated_recovery_time</c>"] Estimated recovery time
         /// </summary>
         [JsonPropertyName("estimated_recovery_time")]
         public DateTime? EstimatedRecoveryTime { get; set; }

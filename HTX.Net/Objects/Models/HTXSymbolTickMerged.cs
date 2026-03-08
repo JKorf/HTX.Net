@@ -10,24 +10,24 @@ namespace HTX.Net.Objects.Models
     public record HTXSymbolTickMerged: HTXSymbolData
     {
         /// <summary>
-        /// Timestamp of the data
+        /// ["<c>timestamp</c>"] Timestamp of the data
         /// </summary>
         [JsonPropertyName("timestamp")]
         public DateTime Timestamp { get; set; }
         /// <summary>
-        /// The id of the tick
+        /// ["<c>id</c>"] The id of the tick
         /// </summary>
         [JsonPropertyName("id")]
         public long Id { get; set; }
 
         /// <summary>
-        /// The current best bid for the symbol
+        /// ["<c>bid</c>"] The current best bid for the symbol
         /// </summary>
         [JsonPropertyName("bid")]
         public HTXOrderBookEntry? BestBid { get; set; }
 
         /// <summary>
-        /// The current best ask for the symbol
+        /// ["<c>ask</c>"] The current best ask for the symbol
         /// </summary>
         [JsonPropertyName("ask")]
         public HTXOrderBookEntry? BestAsk { get; set; }

@@ -9,33 +9,33 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
     public record HTXSwapBookTicker
     {
         /// <summary>
-        /// Business type
+        /// ["<c>business_type</c>"] Business type
         /// </summary>
 
         [JsonPropertyName("business_type")]
         public BusinessType BusinessType { get; set; }
         /// <summary>
-        /// Contract code
+        /// ["<c>contract_code</c>"] Contract code
         /// </summary>
         [JsonPropertyName("contract_code")]
         public string ContractCode { get; set; } = string.Empty;
         /// <summary>
-        /// Best ask
+        /// ["<c>ask</c>"] Best ask
         /// </summary>
         [JsonPropertyName("ask")]
         public HTXOrderBookEntry Ask { get; set; } = null!;
         /// <summary>
-        /// Best bid
+        /// ["<c>bid</c>"] Best bid
         /// </summary>
         [JsonPropertyName("bid")]
         public HTXOrderBookEntry Bid { get; set; } = null!;
         /// <summary>
-        /// Order id
+        /// ["<c>mrid</c>"] Order id
         /// </summary>
         [JsonPropertyName("mrid")]
         public long Id { get; set; }
         /// <summary>
-        /// Timestamp
+        /// ["<c>ts</c>"] Timestamp
         /// </summary>
         [JsonConverter(typeof(DateTimeConverter))]
         [JsonPropertyName("ts")]

@@ -7,12 +7,12 @@ namespace HTX.Net.Objects.Models
     public record HTXSubAccountRequest
     {
         /// <summary>
-        /// User name
+        /// ["<c>userName</c>"] User name
         /// </summary>
         [JsonPropertyName("userName")]
         public string UserName { get; set; } = string.Empty;
         /// <summary>
-        /// Note
+        /// ["<c>note</c>"] Note
         /// </summary>
         [JsonPropertyName("note")]
         public string? Note { get; set; }

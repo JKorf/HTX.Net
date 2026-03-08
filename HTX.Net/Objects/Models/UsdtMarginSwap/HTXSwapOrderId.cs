@@ -7,7 +7,7 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
     public record HTXSwapOrderId
     {
         /// <summary>
-        /// Order id
+        /// ["<c>order_id</c>"] Order id
         /// </summary>
         [JsonPropertyName("order_id")]
         public string OrderId { get; set; } = string.Empty;

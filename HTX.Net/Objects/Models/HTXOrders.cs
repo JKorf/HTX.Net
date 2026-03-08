@@ -7,12 +7,12 @@ namespace HTX.Net.Objects.Models
     public record HTXOrders
 	{
         /// <summary>
-        /// Timestamp for pagination
+        /// ["<c>nextTime</c>"] Timestamp for pagination
         /// </summary>
         [JsonPropertyName("nextTime")]
         public DateTime NextTime { get; set; }
         /// <summary>
-        /// List of ticks for symbols
+        /// ["<c>orders</c>"] List of ticks for symbols
         /// </summary>
         [JsonPropertyName("orders")]
         public HTXOrder[] Orders { get; set; } = Array.Empty<HTXOrder>();

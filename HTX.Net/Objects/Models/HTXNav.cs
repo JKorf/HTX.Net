@@ -7,33 +7,33 @@ namespace HTX.Net.Objects.Models
     public record HTXNav
     {
         /// <summary>
-        /// The symbol
+        /// ["<c>symbol</c>"] The symbol
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Latest Nav
+        /// ["<c>nav</c>"] Latest Nav
         /// </summary>
         [JsonPropertyName("nav")]
         public decimal Nav { get; set; }
         /// <summary>
-        /// Update time
+        /// ["<c>navTime</c>"] Update time
         /// </summary>
         [JsonConverter(typeof(DateTimeConverter))]
         [JsonPropertyName("navTime")]
         public DateTime NavTime { get; set; }
         /// <summary>
-        /// Outstanding shares
+        /// ["<c>outstanding</c>"] Outstanding shares
         /// </summary>
         [JsonPropertyName("outstanding")]
         public decimal Outstanding { get; set; }
         /// <summary>
-        /// Baskets
+        /// ["<c>basket</c>"] Baskets
         /// </summary>
         [JsonPropertyName("basket")]
         public HTXBasket[] Basket { get; set; } = Array.Empty<HTXBasket>();
         /// <summary>
-        /// Actual leverage ratio
+        /// ["<c>actualLeverage</c>"] Actual leverage ratio
         /// </summary>
         [JsonPropertyName("actualLeverage")]
         public decimal ActualLeverage { get; set; }
@@ -46,12 +46,12 @@ namespace HTX.Net.Objects.Models
     public record HTXBasket
     {
         /// <summary>
-        /// Asset
+        /// ["<c>currency</c>"] Asset
         /// </summary>
         [JsonPropertyName("currency")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// Amount
+        /// ["<c>amount</c>"] Amount
         /// </summary>
         [JsonPropertyName("amount")]
         public decimal Amount { get; set; }

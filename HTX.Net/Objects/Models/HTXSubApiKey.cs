@@ -7,27 +7,27 @@ namespace HTX.Net.Objects.Models
     public record HTXSubApiKey
     {
         /// <summary>
-        /// Access key
+        /// ["<c>accessKey</c>"] Access key
         /// </summary>
         [JsonPropertyName("accessKey")]
         public string AccessKey { get; set; } = string.Empty;
         /// <summary>
-        /// Secret key
+        /// ["<c>secretKey</c>"] Secret key
         /// </summary>
         [JsonPropertyName("secretKey")]
         public string SecretKey { get; set; } = string.Empty;
         /// <summary>
-        /// Note
+        /// ["<c>note</c>"] Note
         /// </summary>
         [JsonPropertyName("note")]
         public string? Note { get; set; }
         /// <summary>
-        /// Permission, comma seperated
+        /// ["<c>permission</c>"] Permission, comma seperated
         /// </summary>
         [JsonPropertyName("permission")]
         public string Permission { get; set; } = string.Empty;
         /// <summary>
-        /// Ip addresses, comma seperated
+        /// ["<c>ipAddresses</c>"] Ip addresses, comma seperated
         /// </summary>
         [JsonPropertyName("ipAddresses")]
         public string IpAddresses { get; set; } = string.Empty;

@@ -10,17 +10,17 @@ namespace HTX.Net.Objects.Models.Socket
     internal record HTXUsdtMarginSwapContractUpdateWrapper : HTXOpMessage
     {
         /// <summary>
-        /// Timestamp
+        /// ["<c>ts</c>"] Timestamp
         /// </summary>
         [JsonPropertyName("ts")]
         public DateTime Timestamp { get; set; }
         /// <summary>
-        /// Event
+        /// ["<c>event</c>"] Event
         /// </summary>
         [JsonPropertyName("event")]
         public string Event { get; set; } = string.Empty;
         /// <summary>
-        /// Data
+        /// ["<c>data</c>"] Data
         /// </summary>
         [JsonPropertyName("data")]
         public HTXUsdtMarginSwapContractUpdate[] Data { get; set; } = Array.Empty<HTXUsdtMarginSwapContractUpdate>();
@@ -33,67 +33,67 @@ namespace HTX.Net.Objects.Models.Socket
     public record HTXUsdtMarginSwapContractUpdate
     {
         /// <summary>
-        /// Symbol
+        /// ["<c>symbol</c>"] Symbol
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Contract code
+        /// ["<c>contract_code</c>"] Contract code
         /// </summary>
         [JsonPropertyName("contract_code")]
         public string ContractCode { get; set; } = string.Empty;
         /// <summary>
-        /// Contract quantity
+        /// ["<c>contract_size</c>"] Contract quantity
         /// </summary>
         [JsonPropertyName("contract_size")]
         public decimal ContractQuantity { get; set; }
         /// <summary>
-        /// Price tick
+        /// ["<c>price_tick</c>"] Price tick
         /// </summary>
         [JsonPropertyName("price_tick")]
         public decimal PriceTick { get; set; }
         /// <summary>
-        /// Settlement date
+        /// ["<c>settlement_date</c>"] Settlement date
         /// </summary>
         [JsonPropertyName("settlement_date")]
         public DateTime SettlementDate { get; set; }
         /// <summary>
-        /// Create date
+        /// ["<c>create_date</c>"] Create date
         /// </summary>
         [JsonPropertyName("create_date")]
         public DateTime CreateDate { get; set; }
         /// <summary>
-        /// Contract status
+        /// ["<c>contract_status</c>"] Contract status
         /// </summary>
         [JsonPropertyName("contract_status")]
         public ContractStatus ContractStatus { get; set; }
         /// <summary>
-        /// Support margin mode
+        /// ["<c>support_margin_mode</c>"] Support margin mode
         /// </summary>
         [JsonPropertyName("support_margin_mode")]
         public MarginMode SupportMarginMode { get; set; }
         /// <summary>
-        /// Delivery time
+        /// ["<c>delivery_time</c>"] Delivery time
         /// </summary>
         [JsonPropertyName("delivery_time")]
         public DateTime? DeliveryTime { get; set; }
         /// <summary>
-        /// Contract type
+        /// ["<c>contract_type</c>"] Contract type
         /// </summary>
         [JsonPropertyName("contract_type")]
         public ContractType ContractType { get; set; }
         /// <summary>
-        /// Business type
+        /// ["<c>business_type</c>"] Business type
         /// </summary>
         [JsonPropertyName("business_type")]
         public BusinessType? BusinessType { get; set; }
         /// <summary>
-        /// Pair
+        /// ["<c>pair</c>"] Pair
         /// </summary>
         [JsonPropertyName("pair")]
         public string Pair { get; set; } = string.Empty;
         /// <summary>
-        /// Delivery date
+        /// ["<c>delivery_date</c>"] Delivery date
         /// </summary>
         [JsonPropertyName("delivery_date")]
         public DateTime? DeliveryDate { get; set; }

@@ -9,35 +9,35 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
     public record HTXOpenInterestValue
     {
         /// <summary>
-        /// Asset
+        /// ["<c>symbol</c>"] Asset
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// Contract code
+        /// ["<c>contract_code</c>"] Contract code
         /// </summary>
         [JsonPropertyName("contract_code")]
         public string ContractCode { get; set; } = string.Empty;
         /// <summary>
-        /// Business type
+        /// ["<c>business_type</c>"] Business type
         /// </summary>
 
         [JsonPropertyName("business_type")]
         public BusinessType BusinessType { get; set; }
         /// <summary>
-        /// Symbol
+        /// ["<c>pair</c>"] Symbol
         /// </summary>
         [JsonPropertyName("pair")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Contract type
+        /// ["<c>contract_type</c>"] Contract type
         /// </summary>
         [JsonPropertyName("contract_type")]
 
         public ContractType ContractType { get; set; }
 
         /// <summary>
-        /// Tick
+        /// ["<c>tick</c>"] Tick
         /// </summary>
         [JsonPropertyName("tick")]
         public HTXOpenInterestValueTick[] Tick { get; set; } = Array.Empty<HTXOpenInterestValueTick>();
@@ -50,23 +50,23 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
     public record HTXOpenInterestValueTick
     {
         /// <summary>
-        /// Volume
+        /// ["<c>volume</c>"] Volume
         /// </summary>
         [JsonPropertyName("volume")]
         public decimal Volume { get; set; }
         /// <summary>
-        /// Unit
+        /// ["<c>amount_type</c>"] Unit
         /// </summary>
 
         [JsonPropertyName("amount_type")]
         public Unit Unit { get; set; }
         /// <summary>
-        /// Value
+        /// ["<c>value</c>"] Value
         /// </summary>
         [JsonPropertyName("value")]
         public decimal Value { get; set; }
         /// <summary>
-        /// Timestamp
+        /// ["<c>ts</c>"] Timestamp
         /// </summary>
         [JsonConverter(typeof(DateTimeConverter))]
         [JsonPropertyName("ts")]

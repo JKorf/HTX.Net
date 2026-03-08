@@ -10,7 +10,7 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
     public record HTXMasterSubTransferPage : HTXPage
     {
         /// <summary>
-        /// Transfers
+        /// ["<c>transfer_record</c>"] Transfers
         /// </summary>
         [JsonPropertyName("transfer_record")]
         public HTXMasterSubTransfer[] Transfers { get; set; } = Array.Empty<HTXMasterSubTransfer>();
@@ -23,54 +23,54 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
     public record HTXMasterSubTransfer
     {
         /// <summary>
-        /// Id
+        /// ["<c>id</c>"] Id
         /// </summary>
         [JsonPropertyName("id")]
         public long Id { get; set; }
         /// <summary>
-        /// Creation time
+        /// ["<c>ts</c>"] Creation time
         /// </summary>
         [JsonPropertyName("ts")]
         [JsonConverter(typeof(DateTimeConverter))]
         public DateTime CreateTime { get; set; }
         /// <summary>
-        /// Asset name
+        /// ["<c>asset</c>"] Asset name
         /// </summary>
         [JsonPropertyName("asset")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// Margin account
+        /// ["<c>margin_account</c>"] Margin account
         /// </summary>
         [JsonPropertyName("margin_account")]
         public string MarginAccount { get; set; } = string.Empty;
         /// <summary>
-        /// From margin account
+        /// ["<c>from_margin_account</c>"] From margin account
         /// </summary>
         [JsonPropertyName("from_margin_account")]
         public string FromMarginAccount { get; set; } = string.Empty;
         /// <summary>
-        /// To margin account
+        /// ["<c>to_margin_account</c>"] To margin account
         /// </summary>
         [JsonPropertyName("to_margin_account")]
         public string ToMarginAccount { get; set; } = string.Empty;
         /// <summary>
-        /// Sub uid
+        /// ["<c>sub_uid</c>"] Sub uid
         /// </summary>
         [JsonPropertyName("sub_uid")]
         public string SubUid { get; set; } = string.Empty;
         /// <summary>
-        /// Sub account name
+        /// ["<c>sub_account_name</c>"] Sub account name
         /// </summary>
         [JsonPropertyName("sub_account_name")]
         public string SubAccountName { get; set; } = string.Empty;
         /// <summary>
-        /// Transfer type
+        /// ["<c>transfer_type</c>"] Transfer type
         /// </summary>
         [JsonPropertyName("transfer_type")]
 
         public MasterSubTransferType Type { get; set; }
         /// <summary>
-        /// Quantity
+        /// ["<c>amount</c>"] Quantity
         /// </summary>
         [JsonPropertyName("amount")]
         public decimal Quantity { get; set; }

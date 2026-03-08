@@ -9,23 +9,23 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
     public record HTXSwapAdjustFactorInfo
     {
         /// <summary>
-        /// Asset
+        /// ["<c>symbol</c>"] Asset
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// Contract code
+        /// ["<c>contract_code</c>"] Contract code
         /// </summary>
         [JsonPropertyName("contract_code")]
         public string ContractCode { get; set; } = string.Empty;
         /// <summary>
-        /// Margin mode
+        /// ["<c>margin_mode</c>"] Margin mode
         /// </summary>
         [JsonPropertyName("margin_mode")]
 
         public MarginMode MarginMode { get; set; }
         /// <summary>
-        /// list
+        /// ["<c>list</c>"] list
         /// </summary>
         [JsonPropertyName("list")]
         public HTXFactorInfo[] List { get; set; } = Array.Empty<HTXFactorInfo>();
@@ -38,17 +38,17 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
     public record HTXCrossSwapAdjustFactorInfo: HTXSwapAdjustFactorInfo
     {
         /// <summary>
-        /// Business type
+        /// ["<c>business_type</c>"] Business type
         /// </summary>
         [JsonPropertyName("business_type")]
         public BusinessType BusinessType { get; set; }
         /// <summary>
-        /// Symbol
+        /// ["<c>pair</c>"] Symbol
         /// </summary>
         [JsonPropertyName("pair")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Contract type
+        /// ["<c>contract_type</c>"] Contract type
         /// </summary>
         [JsonPropertyName("contract_type")]
         public ContractType ContractType { get; set; }
@@ -61,12 +61,12 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
     public record HTXFactorInfo
     {
         /// <summary>
-        /// Lever rate
+        /// ["<c>lever_rate</c>"] Lever rate
         /// </summary>
         [JsonPropertyName("lever_rate")]
         public decimal LeverageRate { get; set; }
         /// <summary>
-        /// Ladders
+        /// ["<c>ladders</c>"] Ladders
         /// </summary>
         [JsonPropertyName("ladders")]
         public HTXFactorEntry[] Ladders { get; set; } = Array.Empty<HTXFactorEntry>();
@@ -79,22 +79,22 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
     public record HTXFactorEntry
     {
         /// <summary>
-        /// Ladder
+        /// ["<c>ladder</c>"] Ladder
         /// </summary>
         [JsonPropertyName("ladder")]
         public int Ladder { get; set; }
         /// <summary>
-        /// Min size
+        /// ["<c>min_size</c>"] Min size
         /// </summary>
         [JsonPropertyName("min_size")]
         public int? MinSize { get; set; }
         /// <summary>
-        /// Max size
+        /// ["<c>max_size</c>"] Max size
         /// </summary>
         [JsonPropertyName("max_size")]
         public int? MaxSize { get; set; }
         /// <summary>
-        /// Adjust factor
+        /// ["<c>adjust_factor</c>"] Adjust factor
         /// </summary>
         [JsonPropertyName("adjust_factor")]
         public decimal AdjustFactor { get; set; }

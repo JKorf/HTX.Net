@@ -7,17 +7,17 @@ namespace HTX.Net.Objects.Models
     public record HTXBalanceWrapper
     {
         /// <summary>
-        /// Asset
+        /// ["<c>asset</c>"] Asset
         /// </summary>
         [JsonPropertyName("asset")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// Frozen
+        /// ["<c>frozen</c>"] Frozen
         /// </summary>
         [JsonPropertyName("frozen")]
         public decimal Frozen { get; set; }
         /// <summary>
-        /// Trade
+        /// ["<c>trade</c>"] Trade
         /// </summary>
         [JsonPropertyName("trade")]
         public decimal Trade { get; set; }

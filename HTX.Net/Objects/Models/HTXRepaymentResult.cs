@@ -7,12 +7,12 @@ namespace HTX.Net.Objects.Models
     public record HTXRepaymentResult
     {
         /// <summary>
-        /// Repayment id
+        /// ["<c>repayId</c>"] Repayment id
         /// </summary>
         [JsonPropertyName("repayId")]
         public long RepayId { get; set; }
         /// <summary>
-        /// Repay time
+        /// ["<c>repayTime</c>"] Repay time
         /// </summary>
         [JsonConverter(typeof(DateTimeConverter))]
         [JsonPropertyName("repayTime")]

@@ -9,22 +9,22 @@ namespace HTX.Net.Objects.Models
     public record HTXSubDeductMode
     {
         /// <summary>
-        /// Sub uid
+        /// ["<c>subUid</c>"] Sub uid
         /// </summary>
         [JsonPropertyName("subUid")]
         public string SubUid { get; set; } = string.Empty;
         /// <summary>
-        /// Deduct mode
+        /// ["<c>deductMode</c>"] Deduct mode
         /// </summary>
         [JsonPropertyName("deductMode")]
         public DeductMode? DeductMode { get; set; }
         /// <summary>
-        /// Error code
+        /// ["<c>errCode</c>"] Error code
         /// </summary>
         [JsonPropertyName("errCode")]
         public int? ErrorCode { get; set; }
         /// <summary>
-        /// Error message
+        /// ["<c>errMessage</c>"] Error message
         /// </summary>
         [JsonPropertyName("errMessage")]
         public string? ErrorMessage { get; set; }

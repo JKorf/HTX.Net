@@ -9,22 +9,22 @@ namespace HTX.Net.Objects.Models
     public record HTXPointBalance
     {
         /// <summary>
-        /// Account id
+        /// ["<c>accountId</c>"] Account id
         /// </summary>
         [JsonPropertyName("accountId")]
         public string AccountId { get; set; } = string.Empty;
         /// <summary>
-        /// Group ids
+        /// ["<c>groupIds</c>"] Group ids
         /// </summary>
         [JsonPropertyName("groupIds")]
         public HTXPointBalanceGroup[] GroupIds { get; set; } = Array.Empty<HTXPointBalanceGroup>();
         /// <summary>
-        /// Accountt balance
+        /// ["<c>acctBalance</c>"] Accountt balance
         /// </summary>
         [JsonPropertyName("acctBalance")]
         public decimal AccountBalance { get; set; }
         /// <summary>
-        /// Account status
+        /// ["<c>accountStatus</c>"] Account status
         /// </summary>
         [JsonPropertyName("accountStatus")]
         public PointAccountStatus AccountStatus { get; set; }
@@ -37,17 +37,17 @@ namespace HTX.Net.Objects.Models
     public record HTXPointBalanceGroup
     {
         /// <summary>
-        /// Group id
+        /// ["<c>groupId</c>"] Group id
         /// </summary>
         [JsonPropertyName("groupId")]
         public long GroupId { get; set; }
         /// <summary>
-        /// Expiry date
+        /// ["<c>expiryDate</c>"] Expiry date
         /// </summary>
         [JsonPropertyName("expiryDate")]
         public DateTime? ExpiryDate { get; set; }
         /// <summary>
-        /// Remaining quantity
+        /// ["<c>remainAmt</c>"] Remaining quantity
         /// </summary>
         [JsonPropertyName("remainAmt")]
         public decimal RemainingQuantity { get; set; }

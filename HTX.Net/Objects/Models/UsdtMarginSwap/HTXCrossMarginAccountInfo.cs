@@ -9,104 +9,104 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
     public record HTXCrossMarginAccountInfo
     {
         /// <summary>
-        /// Margin balance
+        /// ["<c>margin_balance</c>"] Margin balance
         /// </summary>
         [JsonPropertyName("margin_balance")]
         public decimal MarginBalance { get; set; }
         /// <summary>
-        /// Margin position
+        /// ["<c>margin_position</c>"] Margin position
         /// </summary>
         [JsonPropertyName("margin_position")]
         public decimal MarginPosition { get; set; }
         /// <summary>
-        /// Margin frozen
+        /// ["<c>margin_frozen</c>"] Margin frozen
         /// </summary>
         [JsonPropertyName("margin_frozen")]
         public decimal MarginFrozen { get; set; }
         /// <summary>
-        /// Margin available
+        /// ["<c>margin_available</c>"] Margin available
         /// </summary>
         [JsonPropertyName("margin_available")]
         public decimal? MarginAvailable { get; set; }
         /// <summary>
-        /// Realized profit and loss
+        /// ["<c>profit_real</c>"] Realized profit and loss
         /// </summary>
         [JsonPropertyName("profit_real")]
         public decimal RealizedPnl { get; set; }
         /// <summary>
-        /// Unrealized profit and loss
+        /// ["<c>profit_unreal</c>"] Unrealized profit and loss
         /// </summary>
         [JsonPropertyName("profit_unreal")]
         public decimal UnrealizedPnl { get; set; }
         /// <summary>
-        /// Risk rate
+        /// ["<c>risk_rate</c>"] Risk rate
         /// </summary>
         [JsonPropertyName("risk_rate")]
         public decimal? RiskRate { get; set; }
         /// <summary>
-        /// New risk rate
+        /// ["<c>new_risk_rate</c>"] New risk rate
         /// </summary>
         [JsonPropertyName("new_risk_rate")]
         public decimal? NewRiskRate { get; set; }
         /// <summary>
-        /// Withdraw available
+        /// ["<c>withdraw_available</c>"] Withdraw available
         /// </summary>
         [JsonPropertyName("withdraw_available")]
         public decimal WithdrawAvailable { get; set; }
         /// <summary>
-        /// Money in
+        /// ["<c>money_in</c>"] Money in
         /// </summary>
         [JsonPropertyName("money_in")]
         public decimal? MoneyIn { get; set; }
         /// <summary>
-        /// Money out
+        /// ["<c>money_out</c>"] Money out
         /// </summary>
         [JsonPropertyName("money_out")]
         public decimal? MoneyOut { get; set; }
         /// <summary>
-        /// Margin static
+        /// ["<c>margin_static</c>"] Margin static
         /// </summary>
         [JsonPropertyName("margin_static")]
         public decimal MarginStatic { get; set; }
         /// <summary>
-        /// Cross max available
+        /// ["<c>cross_max_available</c>"] Cross max available
         /// </summary>
         [JsonPropertyName("cross_max_available")]
         public decimal CrossMaxAvailable { get; set; }
         /// <summary>
-        /// Margin asset
+        /// ["<c>margin_asset</c>"] Margin asset
         /// </summary>
         [JsonPropertyName("margin_asset")]
         public string MarginAsset { get; set; } = string.Empty;
         /// <summary>
-        /// Margin mode
+        /// ["<c>margin_mode</c>"] Margin mode
         /// </summary>
 
         [JsonPropertyName("margin_mode")]
         public MarginMode MarginMode { get; set; }
         /// <summary>
-        /// Margin account
+        /// ["<c>margin_account</c>"] Margin account
         /// </summary>
         [JsonPropertyName("margin_account")]
         public string MarginAccount { get; set; } = string.Empty;
         /// <summary>
-        /// Position mode
+        /// ["<c>position_mode</c>"] Position mode
         /// </summary>
         [JsonPropertyName("position_mode")]
 
         public PositionMode PositionMode { get; set; }
         /// <summary>
-        /// ADL risk percentage
+        /// ["<c>adl_risk_percent</c>"] ADL risk percentage
         /// </summary>
         [JsonPropertyName("adl_risk_percent")]
         public decimal? AdlRiskPercentage { get; set; }
         /// <summary>
-        /// Contract details
+        /// ["<c>contract_detail</c>"] Contract details
         /// </summary>
         [JsonPropertyName("contract_detail")]
         public HTXCrossMarginAccountContract[] ContractDetails { get; set; } = Array.Empty<HTXCrossMarginAccountContract>();
         /// <summary>
-        /// Futures contract details
+        /// ["<c>futures_contract_detail</c>"] Futures contract details
         /// </summary>
         [JsonPropertyName("futures_contract_detail")]
         public HTXCrossMarginAccountContract[] FuturesContractDetails { get; set; } = Array.Empty<HTXCrossMarginAccountContract>();

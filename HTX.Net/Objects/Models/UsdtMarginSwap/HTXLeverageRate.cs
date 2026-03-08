@@ -10,18 +10,18 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
     public record HTXIsolatedMarginLeverageRate
     {
         /// <summary>
-        /// Contract code
+        /// ["<c>contract_code</c>"] Contract code
         /// </summary>
         [JsonPropertyName("contract_code")]
         public string ContractCode { get; set; } = string.Empty;
         /// <summary>
-        /// Margin mode
+        /// ["<c>margin_mode</c>"] Margin mode
         /// </summary>
         [JsonPropertyName("margin_mode")]
 
         public MarginMode Mode { get; set; }
         /// <summary>
-        /// Leverage rate
+        /// ["<c>lever_rate</c>"] Leverage rate
         /// </summary>
         [JsonPropertyName("lever_rate")]
         public int LeverageRate { get; set; }
@@ -34,18 +34,18 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
     public record HTXCrossMarginLeverageRate: HTXIsolatedMarginLeverageRate
     {
         /// <summary>
-        /// Symbol
+        /// ["<c>pair</c>"] Symbol
         /// </summary>
         [JsonPropertyName("pair")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Business type
+        /// ["<c>business_type</c>"] Business type
         /// </summary>
         [JsonPropertyName("business_type")]
 
         public BusinessType BusinessType { get; set; }
         /// <summary>
-        /// Contract type
+        /// ["<c>contract_type</c>"] Contract type
         /// </summary>
         [JsonPropertyName("contract_type")]
 

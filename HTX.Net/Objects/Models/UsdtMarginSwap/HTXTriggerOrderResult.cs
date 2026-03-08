@@ -7,12 +7,12 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
     public record HTXTriggerOrderResult
     {
         /// <summary>
-        /// Errors
+        /// ["<c>errors</c>"] Errors
         /// </summary>
         [JsonPropertyName("errors")]
         public HTXTriggerOrderResultError[] Errors { get; set; } = Array.Empty<HTXTriggerOrderResultError>();
         /// <summary>
-        /// Successful operations, comma seperated
+        /// ["<c>successes</c>"] Successful operations, comma seperated
         /// </summary>
         [JsonPropertyName("successes")]
         public string Successes { get; set; } = string.Empty;
@@ -25,17 +25,17 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
     public record HTXTriggerOrderResultError
     {
         /// <summary>
-        /// Order id
+        /// ["<c>order_id</c>"] Order id
         /// </summary>
         [JsonPropertyName("order_id")]
         public string OrderId { get; set; } = string.Empty;
         /// <summary>
-        /// Err code
+        /// ["<c>err_code</c>"] Err code
         /// </summary>
         [JsonPropertyName("err_code")]
         public int ErrorCode { get; set; }
         /// <summary>
-        /// Err msg
+        /// ["<c>err_msg</c>"] Err msg
         /// </summary>
         [JsonPropertyName("err_msg")]
         public string ErrorMessage { get; set; } = string.Empty;

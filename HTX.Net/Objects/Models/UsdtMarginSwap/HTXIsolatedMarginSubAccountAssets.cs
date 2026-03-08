@@ -9,12 +9,12 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
     public record HTXIsolatedMarginSubAccountAssets
     {
         /// <summary>
-        /// Sub account uid
+        /// ["<c>sub_uid</c>"] Sub account uid
         /// </summary>
         [JsonPropertyName("sub_uid")]
         public long SubUid { get; set; }
         /// <summary>
-        /// Assets
+        /// ["<c>list</c>"] Assets
         /// </summary>
         [JsonPropertyName("list")]
         public HTXIsolatedMarginSubAccountAsset[] Assets { get; set; } = Array.Empty<HTXIsolatedMarginSubAccountAsset>();
@@ -27,43 +27,43 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
     public record HTXIsolatedMarginSubAccountAsset
     {
         /// <summary>
-        /// Asset
+        /// ["<c>symbol</c>"] Asset
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// Margin balance
+        /// ["<c>margin_balance</c>"] Margin balance
         /// </summary>
         [JsonPropertyName("margin_balance")]
         public decimal MarginBalance { get; set; }
         /// <summary>
-        /// Liquidation price
+        /// ["<c>liquidation_price</c>"] Liquidation price
         /// </summary>
         [JsonPropertyName("liquidation_price")]
         public decimal? LiquidationPrice { get; set; }
         /// <summary>
-        /// Risk rate
+        /// ["<c>risk_rate</c>"] Risk rate
         /// </summary>
         [JsonPropertyName("risk_rate")]
         public decimal? RiskRate { get; set; }
         /// <summary>
-        /// Contract code
+        /// ["<c>contract_code</c>"] Contract code
         /// </summary>
         [JsonPropertyName("contract_code")]
         public string ContractCode { get; set; } = string.Empty;
         /// <summary>
-        /// Margin asset
+        /// ["<c>margin_asset</c>"] Margin asset
         /// </summary>
         [JsonPropertyName("margin_asset")]
         public string MarginAsset { get; set; } = string.Empty;
         /// <summary>
-        /// Margin mode
+        /// ["<c>margin_mode</c>"] Margin mode
         /// </summary>
         [JsonPropertyName("margin_mode")]
 
         public MarginMode MarginMode { get; set; }
         /// <summary>
-        /// Margin account
+        /// ["<c>margin_account</c>"] Margin account
         /// </summary>
         [JsonPropertyName("margin_account")]
         public string MarginAccount { get; set; } = string.Empty;

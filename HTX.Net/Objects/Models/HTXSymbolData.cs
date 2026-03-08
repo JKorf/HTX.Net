@@ -7,42 +7,42 @@ namespace HTX.Net.Objects.Models
     public record HTXSymbolData
     {
         /// <summary>
-        /// The highest price
+        /// ["<c>high</c>"] The highest price
         /// </summary>
         [JsonPropertyName("high")]
         public decimal? HighPrice { get; set; }
         /// <summary>
-        /// The lowest price
+        /// ["<c>low</c>"] The lowest price
         /// </summary>
         [JsonPropertyName("low")]
         public decimal? LowPrice { get; set; }
         /// <summary>
-        /// The price at the opening
+        /// ["<c>open</c>"] The price at the opening
         /// </summary>
         [JsonPropertyName("open")]
         public decimal? OpenPrice { get; set; }
         /// <summary>
-        /// The last price
+        /// ["<c>close</c>"] The last price
         /// </summary>
         [JsonPropertyName("close")]
         public decimal? ClosePrice { get; set; }
         /// <summary>
-        /// The volume in base asset
+        /// ["<c>amount</c>"] The volume in base asset
         /// </summary>
         [JsonPropertyName("amount")]
         public decimal? Volume { get; set; }
         /// <summary>
-        /// The volume in quote asset (quantity * price)
+        /// ["<c>vol</c>"] The volume in quote asset (quantity * price)
         /// </summary>
         [JsonPropertyName("vol")]
         public decimal? QuoteVolume { get; set; }
         /// <summary>
-        /// The number of trades
+        /// ["<c>count</c>"] The number of trades
         /// </summary>
         [JsonPropertyName("count")]
         public int? TradeCount { get; set; }
         /// <summary>
-        /// Version
+        /// ["<c>version</c>"] Version
         /// </summary>
         [JsonPropertyName("version")]
         public long? Version { get; set; }
@@ -55,7 +55,7 @@ namespace HTX.Net.Objects.Models
     public record HTXSymbolTicker : HTXSymbolData
     {
         /// <summary>
-        /// The symbol
+        /// ["<c>symbol</c>"] The symbol
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
@@ -68,14 +68,14 @@ namespace HTX.Net.Objects.Models
     public record HTXKline : HTXSymbolData
     {
         /// <summary>
-        /// The start time of the kline
+        /// ["<c>id</c>"] The start time of the kline
         /// </summary>
         [JsonConverter(typeof(DateTimeConverter))]
         [JsonPropertyName("id")]
         public DateTime OpenTime { get; set; }
 
         /// <summary>
-        /// Turnover, quantity * contract value * price
+        /// ["<c>trade_turnover</c>"] Turnover, quantity * contract value * price
         /// </summary>
         [JsonPropertyName("trade_turnover")]
         public decimal? Value { get; set; }
@@ -88,7 +88,7 @@ namespace HTX.Net.Objects.Models
     public record HTXSwapKline : HTXKline
     {
         /// <summary>
-        /// Order id
+        /// ["<c>mrid</c>"] Order id
         /// </summary>
         [JsonPropertyName("mrid")]
         public long OrderId { get; set; }
@@ -101,13 +101,13 @@ namespace HTX.Net.Objects.Models
     public record HTXSymbolDetails : HTXSymbolData
     {
         /// <summary>
-        /// The id of the details
+        /// ["<c>id</c>"] The id of the details
         /// </summary>
         [JsonPropertyName("id")]
         public long Id { get; set; }
 
         /// <summary>
-        /// Timestamp of the data
+        /// ["<c>timestamp</c>"] Timestamp of the data
         /// </summary>
         [JsonPropertyName("timestamp")]
         public DateTime Timestamp { get; set; }
@@ -120,38 +120,38 @@ namespace HTX.Net.Objects.Models
     public record HTXSymbolTick : HTXSymbolData
     {
         /// <summary>
-        /// The symbol
+        /// ["<c>symbol</c>"] The symbol
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
 
         /// <summary>
-        /// Quantity of the best bid
+        /// ["<c>bidSize</c>"] Quantity of the best bid
         /// </summary>
         [JsonPropertyName("bidSize")]
         public decimal BestBidQuantity { get; set; }
         /// <summary>
-        /// Quantity of the best ask
+        /// ["<c>askSize</c>"] Quantity of the best ask
         /// </summary>
         [JsonPropertyName("askSize")]
         public decimal BestAskQuantity { get; set; }
         /// <summary>
-        /// Best bid price
+        /// ["<c>bid</c>"] Best bid price
         /// </summary>
         [JsonPropertyName("bid")]
         public decimal BestBidPrice { get; set; }
         /// <summary>
-        /// Best ask price
+        /// ["<c>ask</c>"] Best ask price
         /// </summary>
         [JsonPropertyName("ask")]
         public decimal BestAskPrice { get; set; }
         /// <summary>
-        /// Last trade price
+        /// ["<c>lastPrice</c>"] Last trade price
         /// </summary>
         [JsonPropertyName("lastPrice")]
         public decimal LastTradePrice { get; set; }
         /// <summary>
-        /// Last trade quantity
+        /// ["<c>lastSize</c>"] Last trade quantity
         /// </summary>
         [JsonPropertyName("lastSize")]
         public decimal LastTradeQuantity { get; set; }

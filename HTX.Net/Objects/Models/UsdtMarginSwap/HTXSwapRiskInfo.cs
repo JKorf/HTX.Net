@@ -10,27 +10,27 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
     public record HTXSwapRiskInfo
     {
         /// <summary>
-        /// Contract code
+        /// ["<c>contract_code</c>"] Contract code
         /// </summary>
         [JsonPropertyName("contract_code")]
         public string ContractCode { get; set; } = string.Empty;
         /// <summary>
-        /// Insurance fund
+        /// ["<c>insurance_fund</c>"] Insurance fund
         /// </summary>
         [JsonPropertyName("insurance_fund")]
         public decimal InsuranceFund { get; set; }
         /// <summary>
-        /// Estimated clawback
+        /// ["<c>estimated_clawback</c>"] Estimated clawback
         /// </summary>
         [JsonPropertyName("estimated_clawback")]
         public decimal EstimatedClawback { get; set; }
         /// <summary>
-        /// Business type
+        /// ["<c>business_type</c>"] Business type
         /// </summary>
         [JsonPropertyName("business_type")]
         public BusinessType BusinuessType { get; set; }
         /// <summary>
-        /// Symbol
+        /// ["<c>pair</c>"] Symbol
         /// </summary>
         [JsonPropertyName("pair")]
         public string Symbol { get; set; } = string.Empty;

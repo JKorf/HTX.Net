@@ -9,17 +9,17 @@ namespace HTX.Net.Objects.Models.Socket
     public record HTXUsdtMarginSwapCrossTradeUpdate : HTXUsdtMarginSwapIsolatedTradeUpdate
     {
         /// <summary>
-        /// Pair
+        /// ["<c>pair</c>"] Pair
         /// </summary>
         [JsonPropertyName("pair")]
         public string Pair { get; set; } = string.Empty;
         /// <summary>
-        /// Business type
+        /// ["<c>business_type</c>"] Business type
         /// </summary>
         [JsonPropertyName("business_type")]
         public BusinessType BusinessType { get; set; }
         /// <summary>
-        /// Contract type
+        /// ["<c>contract_type</c>"] Contract type
         /// </summary>
         [JsonPropertyName("contract_type")]
         public ContractType ContractType { get; set; }

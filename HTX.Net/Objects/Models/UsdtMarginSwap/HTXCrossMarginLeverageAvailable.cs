@@ -10,18 +10,18 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
     public record HTXCrossMarginLeverageAvailable: HTXIsolatedMarginLeverageAvailable
     {
         /// <summary>
-        /// Contract type
+        /// ["<c>contract_type</c>"] Contract type
         /// </summary>
         [JsonPropertyName("contract_type")]
 
         public ContractType ContractType { get; set; }
         /// <summary>
-        /// Symbol
+        /// ["<c>pair</c>"] Symbol
         /// </summary>
         [JsonPropertyName("pair")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Business type
+        /// ["<c>business_type</c>"] Business type
         /// </summary>
         [JsonPropertyName("business_type")]
 

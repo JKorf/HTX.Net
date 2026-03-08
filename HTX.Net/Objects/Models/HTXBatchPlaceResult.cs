@@ -8,12 +8,12 @@ namespace HTX.Net.Objects.Models
     public record HTXBatchPlaceResult
     {
         /// <summary>
-        /// Order id
+        /// ["<c>order-id</c>"] Order id
         /// </summary>
         [JsonPropertyName("order-id")]
         public long? OrderId { get; set; }
         /// <summary>
-        /// Client order id
+        /// ["<c>client-order-id</c>"] Client order id
         /// </summary>
         [JsonPropertyName("client-order-id")]
         [JsonConverter(typeof(ClientIdConverter))]
@@ -23,12 +23,12 @@ namespace HTX.Net.Objects.Models
         /// </summary>
         public bool Success => ErrorCode == null;
         /// <summary>
-        /// The error code
+        /// ["<c>err-code</c>"] The error code
         /// </summary>
         [JsonPropertyName("err-code")]
         public string? ErrorCode { get; set; }
         /// <summary>
-        /// The error message
+        /// ["<c>err-msg</c>"] The error message
         /// </summary>
         [JsonPropertyName("err-msg")]
         public string? ErrorMessage { get; set; }

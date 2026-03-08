@@ -10,58 +10,58 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
     public record HTXOpenInterest
     {
         /// <summary>
-        /// The asset
+        /// ["<c>symbol</c>"] The asset
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// Amount
+        /// ["<c>amount</c>"] Amount
         /// </summary>
         [JsonPropertyName("amount")]
         public decimal Amount { get; set; }
         /// <summary>
-        /// Volume
+        /// ["<c>volume</c>"] Volume
         /// </summary>
         [JsonPropertyName("volume")]
         public decimal Volume { get; set; }
         /// <summary>
-        /// Value
+        /// ["<c>value</c>"] Value
         /// </summary>
         [JsonPropertyName("value")]
         public decimal Value { get; set; }
         /// <summary>
-        /// Contract code
+        /// ["<c>contract_code</c>"] Contract code
         /// </summary>
         [JsonPropertyName("contract_code")]
         public string ContractCode { get; set; } = string.Empty;
         /// <summary>
-        /// Trade amount
+        /// ["<c>trade_amount</c>"] Trade amount
         /// </summary>
         [JsonPropertyName("trade_amount")]
         public decimal TradeAmount { get; set; }
         /// <summary>
-        /// Trade volume
+        /// ["<c>trade_volume</c>"] Trade volume
         /// </summary>
         [JsonPropertyName("trade_volume")]
         public decimal TradeVolume { get; set; }
         /// <summary>
-        /// Trade turnover
+        /// ["<c>trade_turnover</c>"] Trade turnover
         /// </summary>
         [JsonPropertyName("trade_turnover")]
         public decimal TradeTurnover { get; set; }
         /// <summary>
-        /// Business type
+        /// ["<c>business_type</c>"] Business type
         /// </summary>
         [JsonPropertyName("business_type")]
 
         public BusinessType BusinessType { get; set; }
         /// <summary>
-        /// Symbol
+        /// ["<c>pair</c>"] Symbol
         /// </summary>
         [JsonPropertyName("pair")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Contract type
+        /// ["<c>contract_type</c>"] Contract type
         /// </summary>
         [JsonPropertyName("contract_type")]
 

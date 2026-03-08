@@ -7,27 +7,27 @@ namespace HTX.Net.Objects.Models.Socket
     public record HTXUsdtMarginSwapBasisUpdate
     {
         /// <summary>
-        /// Id
+        /// ["<c>id</c>"] Id
         /// </summary>
         [JsonPropertyName("id")]
         public long Id { get; set; }
         /// <summary>
-        /// Index price
+        /// ["<c>index_price</c>"] Index price
         /// </summary>
         [JsonPropertyName("index_price")]
         public decimal IndexPrice { get; set; }
         /// <summary>
-        /// Contract price
+        /// ["<c>contract_price</c>"] Contract price
         /// </summary>
         [JsonPropertyName("contract_price")]
         public decimal ContractPrice { get; set; }
         /// <summary>
-        /// Basis
+        /// ["<c>basis</c>"] Basis
         /// </summary>
         [JsonPropertyName("basis")]
         public decimal Basis { get; set; }
         /// <summary>
-        /// Basis rate
+        /// ["<c>basis_rate</c>"] Basis rate
         /// </summary>
         [JsonPropertyName("basis_rate")]
         public decimal BasisRate { get; set; }

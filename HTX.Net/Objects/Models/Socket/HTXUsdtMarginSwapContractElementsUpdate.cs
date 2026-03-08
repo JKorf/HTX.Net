@@ -8,17 +8,17 @@ namespace HTX.Net.Objects.Models.Socket
     internal record HTXUsdtMarginSwapContractElementsUpdateWrapper : HTXOpMessage
     {
         /// <summary>
-        /// Timestamp
+        /// ["<c>ts</c>"] Timestamp
         /// </summary>
         [JsonPropertyName("ts")]
         public DateTime Timestamp { get; set; }
         /// <summary>
-        /// Event
+        /// ["<c>event</c>"] Event
         /// </summary>
         [JsonPropertyName("event")]
         public string Event { get; set; } = string.Empty;
         /// <summary>
-        /// Data
+        /// ["<c>data</c>"] Data
         /// </summary>
         [JsonPropertyName("data")]
         public HTXUsdtMarginSwapContractElementsUpdate[] Data { get; set; } = Array.Empty<HTXUsdtMarginSwapContractElementsUpdate>();
@@ -31,138 +31,138 @@ namespace HTX.Net.Objects.Models.Socket
     public record HTXUsdtMarginSwapContractElementsUpdate
     {
         /// <summary>
-        /// Contract code
+        /// ["<c>contract_code</c>"] Contract code
         /// </summary>
         [JsonPropertyName("contract_code")]
         public string ContractCode { get; set; } = string.Empty;
         /// <summary>
-        /// Funding rate cap
+        /// ["<c>funding_rate_cap</c>"] Funding rate cap
         /// </summary>
         [JsonPropertyName("funding_rate_cap")]
         public decimal? FundingRateCap { get; set; }
         /// <summary>
-        /// Funding rate floor
+        /// ["<c>funding_rate_floor</c>"] Funding rate floor
         /// </summary>
         [JsonPropertyName("funding_rate_floor")]
         public decimal? FundingRateFloor { get; set; }
         /// <summary>
-        /// Mode type
+        /// ["<c>mode_type</c>"] Mode type
         /// </summary>
         [JsonPropertyName("mode_type")]
         public ElementModeType? ModeType { get; set; }
         /// <summary>
-        /// Swap delivery type
+        /// ["<c>swap_delivery_type</c>"] Swap delivery type
         /// </summary>
         [JsonPropertyName("swap_delivery_type")]
         public SwapDeliveryType? SwapDeliveryType { get; set; }
         /// <summary>
-        /// Settle period
+        /// ["<c>settle_period</c>"] Settle period
         /// </summary>
         [JsonPropertyName("settle_period")]
         public int? SettlePeriod { get; set; }
         /// <summary>
-        /// Instrument index code
+        /// ["<c>instrument_index_code</c>"] Instrument index code
         /// </summary>
         [JsonPropertyName("instrument_index_code")]
         public string? InstrumentIndexCode { get; set; } = string.Empty;
         /// <summary>
-        /// Price ticks
+        /// ["<c>price_ticks</c>"] Price ticks
         /// </summary>
         [JsonPropertyName("price_ticks")]
         public HTXContractElementsPriceTick[]? PriceTicks { get; set; }
         /// <summary>
-        /// Instrument values
+        /// ["<c>instrument_values</c>"] Instrument values
         /// </summary>
         [JsonPropertyName("instrument_values")]
         public HTXContractElementsPriceTick[]? InstrumentValues { get; set; }
         /// <summary>
-        /// Min level
+        /// ["<c>min_level</c>"] Min level
         /// </summary>
         [JsonPropertyName("min_level")]
         public decimal? MinLevel { get; set; }
         /// <summary>
-        /// Max level
+        /// ["<c>max_level</c>"] Max level
         /// </summary>
         [JsonPropertyName("max_level")]
         public decimal? MaxLevel { get; set; }
         /// <summary>
-        /// Order limits
+        /// ["<c>order_limits</c>"] Order limits
         /// </summary>
         [JsonPropertyName("order_limits")]
         public HTXContractElementsOrderLimit[]? OrderLimits { get; set; }
         /// <summary>
-        /// Normal limits
+        /// ["<c>normal_limits</c>"] Normal limits
         /// </summary>
         [JsonPropertyName("normal_limits")]
         public HTXContractElementsLimit[]? NormalLimits { get; set; }
         /// <summary>
-        /// Open limits
+        /// ["<c>open_limits</c>"] Open limits
         /// </summary>
         [JsonPropertyName("open_limits")]
         public HTXContractElementsLimit[]? OpenLimits { get; set; }
         /// <summary>
-        /// Trade limits
+        /// ["<c>trade_limits</c>"] Trade limits
         /// </summary>
         [JsonPropertyName("trade_limits")]
         public HTXContractElementsLimit[]? TradeLimits { get; set; }
 
         /// <summary>
-        /// Instrument types
+        /// ["<c>instrument_type</c>"] Instrument types
         /// </summary>
         [JsonPropertyName("instrument_type")]
         public ElementInstrumentType[] InstrumentTypes { get; set; } = Array.Empty<ElementInstrumentType>();
         /// <summary>
-        /// Real time settlement
+        /// ["<c>real_time_settlement</c>"] Real time settlement
         /// </summary>
         [JsonPropertyName("real_time_settlement")]
         public bool? RealTimeSettlement { get; set; }
         /// <summary>
-        /// Transfer profit ratio
+        /// ["<c>transfer_profit_ratio</c>"] Transfer profit ratio
         /// </summary>
         [JsonPropertyName("transfer_profit_ratio")]
         public decimal? TransferProfitRatio { get; set; }
         /// <summary>
-        /// Cross transfer profit ratio
+        /// ["<c>cross_transfer_profit_ratio</c>"] Cross transfer profit ratio
         /// </summary>
         [JsonPropertyName("cross_transfer_profit_ratio")]
         public decimal? CrossTransferProfitRatio { get; set; }
         /// <summary>
-        /// Price tick
+        /// ["<c>price_tick</c>"] Price tick
         /// </summary>
         [JsonPropertyName("price_tick")]
         public decimal? PriceTick { get; set; }
         /// <summary>
-        /// Instrument value
+        /// ["<c>instrument_value</c>"] Instrument value
         /// </summary>
         [JsonPropertyName("instrument_value")]
         public decimal? InstrumentValue { get; set; }
         /// <summary>
-        /// Trade partition
+        /// ["<c>trade_partition</c>"] Trade partition
         /// </summary>
         [JsonPropertyName("trade_partition")]
         public string? TradePartition { get; set; } = string.Empty;
         /// <summary>
-        /// Open order limit
+        /// ["<c>open_order_limit</c>"] Open order limit
         /// </summary>
         [JsonPropertyName("open_order_limit")]
         public decimal? OpenOrderLimit { get; set; }
         /// <summary>
-        /// Offset order limit
+        /// ["<c>offset_order_limit</c>"] Offset order limit
         /// </summary>
         [JsonPropertyName("offset_order_limit")]
         public decimal? OffsetOrderLimit { get; set; }
         /// <summary>
-        /// Long position limit
+        /// ["<c>long_position_limit</c>"] Long position limit
         /// </summary>
         [JsonPropertyName("long_position_limit")]
         public decimal? LongPositionLimit { get; set; }
         /// <summary>
-        /// Short position limit
+        /// ["<c>short_position_limit</c>"] Short position limit
         /// </summary>
         [JsonPropertyName("short_position_limit")]
         public decimal? ShortPositionLimit { get; set; }
         /// <summary>
-        /// Contract infos
+        /// ["<c>contract_infos</c>"] Contract infos
         /// </summary>
         [JsonPropertyName("contract_infos")]
         public HTXContractElementsContractInfo[]? ContractInfos { get; set; }

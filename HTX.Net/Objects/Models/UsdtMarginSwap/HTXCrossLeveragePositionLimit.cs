@@ -9,37 +9,37 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
     public record HTXCrossLeveragePositionLimit
     {
         /// <summary>
-        /// Business type
+        /// ["<c>business_type</c>"] Business type
         /// </summary>
         [JsonPropertyName("business_type")]
         public BusinessType BusinessType { get; set; }
         /// <summary>
-        /// Contract type
+        /// ["<c>contract_type</c>"] Contract type
         /// </summary>
         [JsonPropertyName("contract_type")]
         public ContractType ContractType { get; set; }
         /// <summary>
-        /// Pair
+        /// ["<c>pair</c>"] Pair
         /// </summary>
         [JsonPropertyName("pair")]
         public string Pair { get; set; } = string.Empty;
         /// <summary>
-        /// Symbol
+        /// ["<c>symbol</c>"] Symbol
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Contract code
+        /// ["<c>contract_code</c>"] Contract code
         /// </summary>
         [JsonPropertyName("contract_code")]
         public string ContractCode { get; set; } = string.Empty;
         /// <summary>
-        /// Margin mode
+        /// ["<c>margin_mode</c>"] Margin mode
         /// </summary>
         [JsonPropertyName("margin_mode")]
         public MarginMode MarginMode { get; set; }
         /// <summary>
-        /// List
+        /// ["<c>list</c>"] List
         /// </summary>
         [JsonPropertyName("list")]
         public HTXCrossLeveragePositionLimitLeverage[] List { get; set; } = Array.Empty<HTXCrossLeveragePositionLimitLeverage>();
@@ -52,17 +52,17 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
     public record HTXCrossLeveragePositionLimitLeverage
     {
         /// <summary>
-        /// Leverage rate
+        /// ["<c>lever_rate</c>"] Leverage rate
         /// </summary>
         [JsonPropertyName("lever_rate")]
         public int LeverageRate { get; set; }
         /// <summary>
-        /// Buy limit value
+        /// ["<c>buy_limit_value</c>"] Buy limit value
         /// </summary>
         [JsonPropertyName("buy_limit_value")]
         public decimal BuyLimitValue { get; set; }
         /// <summary>
-        /// Sell limit value
+        /// ["<c>sell_limit_value</c>"] Sell limit value
         /// </summary>
         [JsonPropertyName("sell_limit_value")]
         public decimal SellLimitValue { get; set; }

@@ -10,22 +10,22 @@ namespace HTX.Net.Objects.Models
     public record HTXUser
     {
         /// <summary>
-        /// The id of the user
+        /// ["<c>uid</c>"] The id of the user
         /// </summary>
         [JsonPropertyName("uid")]
         public long Id { get; set; }
         /// <summary>
-        /// The status of the user
+        /// ["<c>userState</c>"] The status of the user
         /// </summary>
         [JsonPropertyName("userState")]
         public UserStatus Status { get; set; }
         /// <summary>
-        /// User name
+        /// ["<c>subUserName</c>"] User name
         /// </summary>
         [JsonPropertyName("subUserName")]
         public string UserName { get; set; } = string.Empty;
         /// <summary>
-        /// User name
+        /// ["<c>note</c>"] User name
         /// </summary>
         [JsonPropertyName("note")]
         public string? Note { get; set; }

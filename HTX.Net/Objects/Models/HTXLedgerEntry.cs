@@ -10,50 +10,50 @@ namespace HTX.Net.Objects.Models
     public record HTXLedgerEntry
     {
         /// <summary>
-        /// Account id
+        /// ["<c>accountId</c>"] Account id
         /// </summary>
         [JsonPropertyName("accountId")]
         public long AccountId { get; set; }
 
         /// <summary>
-        /// Asset
+        /// ["<c>currency</c>"] Asset
         /// </summary>
         [JsonPropertyName("currency")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// Quantity of the transaction
+        /// ["<c>transactAmt</c>"] Quantity of the transaction
         /// </summary>
         [JsonPropertyName("transactAmt")]
         public decimal TransactionQuantity { get; set; }
         /// <summary>
-        /// Type of transaction
+        /// ["<c>transactType</c>"] Type of transaction
         /// </summary>
         [JsonPropertyName("transactType")]
         public TransactionType TransactionType { get; set; }
 
         /// <summary>
-        /// Type of transfer
+        /// ["<c>transferType</c>"] Type of transfer
         /// </summary>
         [JsonPropertyName("transferType")]
         public string TransferType { get; set; } = string.Empty;
         /// <summary>
-        /// Transaction id
+        /// ["<c>transactId</c>"] Transaction id
         /// </summary>
         [JsonPropertyName("transactId")]
         public long TransactionId { get; set; }
         /// <summary>
-        /// Transaction time
+        /// ["<c>transactTime</c>"] Transaction time
         /// </summary>
         [JsonConverter(typeof(DateTimeConverter))]
         [JsonPropertyName("transactTime")]
         public DateTime TransactionTime { get; set; }
         /// <summary>
-        /// Transferer
+        /// ["<c>transferer</c>"] Transferer
         /// </summary>
         [JsonPropertyName("transferer")]
         public long Transferer { get; set; }
         /// <summary>
-        /// Transferee
+        /// ["<c>transferee</c>"] Transferee
         /// </summary>
         [JsonPropertyName("transferee")]
         public long Transferee { get; set; }

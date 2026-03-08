@@ -7,12 +7,12 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
     public record HTXSubAccountResult
     {
         /// <summary>
-        /// Successfully updated ids
+        /// ["<c>successes</c>"] Successfully updated ids
         /// </summary>
         [JsonPropertyName("successes")]
         public string Successes { get; set; } = string.Empty;
         /// <summary>
-        /// Errors
+        /// ["<c>errors</c>"] Errors
         /// </summary>
         [JsonPropertyName("errors")]
         public HTXSubAccountError[] Errors { get; set; } = Array.Empty<HTXSubAccountError>();
@@ -25,17 +25,17 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
     public record HTXSubAccountError
     {
         /// <summary>
-        /// Sub uid
+        /// ["<c>sub_uid</c>"] Sub uid
         /// </summary>
         [JsonPropertyName("sub_uid")]
         public string SubUid { get; set; } = string.Empty;
         /// <summary>
-        /// Error code
+        /// ["<c>err_code</c>"] Error code
         /// </summary>
         [JsonPropertyName("err_code")]
         public int ErrorCode { get; set; }
         /// <summary>
-        /// Error message
+        /// ["<c>err_msg</c>"] Error message
         /// </summary>
         [JsonPropertyName("err_msg")]
         public string ErrorMessage { get; set; } = string.Empty;

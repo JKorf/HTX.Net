@@ -7,12 +7,12 @@ namespace HTX.Net.Objects.Models
     public record HTXAccountValuation
     {
         /// <summary>
-        /// The balance
+        /// ["<c>balance</c>"] The balance
         /// </summary>
         [JsonPropertyName("balance")]
         public decimal Balance { get; set; }
         /// <summary>
-        /// Timestamp of the data
+        /// ["<c>timestamp</c>"] Timestamp of the data
         /// </summary>
         [JsonConverter(typeof(DateTimeConverter))]
         [JsonPropertyName("timestamp")]

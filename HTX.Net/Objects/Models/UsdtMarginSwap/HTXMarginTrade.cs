@@ -9,59 +9,59 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
     public record HTXMarginTrade
     {
         /// <summary>
-        /// Id
+        /// ["<c>id</c>"] Id
         /// </summary>
         [JsonPropertyName("id")]
         public string Id { get; set; } = string.Empty;
         /// <summary>
-        /// Trade id
+        /// ["<c>trade_id</c>"] Trade id
         /// </summary>
         [JsonPropertyName("trade_id")]
         public long TradeId { get; set; }
         /// <summary>
-        /// Trade price
+        /// ["<c>trade_price</c>"] Trade price
         /// </summary>
         [JsonPropertyName("trade_price")]
         public decimal Price { get; set; }
         /// <summary>
-        /// Trade quantity
+        /// ["<c>trade_volume</c>"] Trade quantity
         /// </summary>
         [JsonPropertyName("trade_volume")]
         public decimal Quantity { get; set; }
         /// <summary>
-        /// Trade value
+        /// ["<c>trade_turnover</c>"] Trade value
         /// </summary>
         [JsonPropertyName("trade_turnover")]
         public decimal Value { get; set; }
         /// <summary>
-        /// Fee
+        /// ["<c>trade_fee</c>"] Fee
         /// </summary>
         [JsonPropertyName("trade_fee")]
         public decimal Fee { get; set; }
         /// <summary>
-        /// Creation time
+        /// ["<c>created_at</c>"] Creation time
         /// </summary>
         [JsonPropertyName("created_at")]
         [JsonConverter(typeof(DateTimeConverter))]
         public DateTime CreateTime { get; set; }
         /// <summary>
-        /// Trade role
+        /// ["<c>role</c>"] Trade role
         /// </summary>
 
         [JsonPropertyName("role")]
         public OrderRole Role { get; set; }
         /// <summary>
-        /// Fee asset
+        /// ["<c>fee_asset</c>"] Fee asset
         /// </summary>
         [JsonPropertyName("fee_asset")]
         public string FeeAsset { get; set; } = string.Empty;
         /// <summary>
-        /// Profit
+        /// ["<c>profit</c>"] Profit
         /// </summary>
         [JsonPropertyName("profit")]
         public decimal Profit { get; set; }
         /// <summary>
-        /// Real pnl
+        /// ["<c>real_profit</c>"] Real pnl
         /// </summary>
         [JsonPropertyName("real_profit")]
         public decimal RealizedPnl { get; set; }

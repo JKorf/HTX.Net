@@ -7,12 +7,12 @@ namespace HTX.Net.Objects.Models
     public record HTXPointTransfer
     {
         /// <summary>
-        /// Transact id
+        /// ["<c>transactId</c>"] Transact id
         /// </summary>
         [JsonPropertyName("transactId")]
         public string TransactId { get; set; } = string.Empty;
         /// <summary>
-        /// Transact time
+        /// ["<c>transactTime</c>"] Transact time
         /// </summary>
         [JsonPropertyName("transactTime")]
         public DateTime? TransactTime { get; set; }

@@ -7,7 +7,7 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
     public record HTXIsolatedMarginAssetsAndPositions: HTXIsolatedMarginAccountInfo
     {
         /// <summary>
-        /// Positions
+        /// ["<c>positions</c>"] Positions
         /// </summary>
         [JsonPropertyName("positions")]
         public HTXPosition[]? Positions { get; set; } = Array.Empty<HTXPosition>();

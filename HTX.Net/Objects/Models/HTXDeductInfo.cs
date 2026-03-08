@@ -7,17 +7,17 @@ namespace HTX.Net.Objects.Models
     public record HTXDeductInfo
     {
         /// <summary>
-        /// Point switch
+        /// ["<c>pointSwitch</c>"] Point switch
         /// </summary>
         [JsonPropertyName("pointSwitch")]
         public bool PointSwitch { get; set; }
         /// <summary>
-        /// Htx switch
+        /// ["<c>htxSwitch</c>"] Htx switch
         /// </summary>
         [JsonPropertyName("htxSwitch")]
         public bool HtxSwitch { get; set; }
         /// <summary>
-        /// Asset
+        /// ["<c>currency</c>"] Asset
         /// </summary>
         [JsonPropertyName("currency")]
         public string Asset { get; set; } = string.Empty;

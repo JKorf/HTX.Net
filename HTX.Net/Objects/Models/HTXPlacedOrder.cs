@@ -7,7 +7,7 @@ namespace HTX.Net.Objects.Models
     public record HTXPlacedOrder
     {
         /// <summary>
-        /// The id
+        /// ["<c>id</c>"] The id
         /// </summary>
         [JsonPropertyName("id")]
         public long Id { get; set; }

@@ -10,12 +10,12 @@ namespace HTX.Net.Objects.Models
     public record HTXOrderTrade
     {
         /// <summary>
-        /// The id of the trade
+        /// ["<c>id</c>"] The id of the trade
         /// </summary>
         [JsonPropertyName("id")]
         public long Id { get; set; }
         /// <summary>
-        /// The symbol of the trade
+        /// ["<c>symbol</c>"] The symbol of the trade
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
@@ -25,48 +25,48 @@ namespace HTX.Net.Objects.Models
         [JsonPropertyName("created-at"), JsonConverter(typeof(DateTimeConverter))]
         public DateTime Timestamp { get; set; }
         /// <summary>
-        /// The quantity which has been filled
+        /// ["<c>filled-amount</c>"] The quantity which has been filled
         /// </summary>
         [JsonPropertyName("filled-amount")]
         public decimal Quantity { get; set; }
         /// <summary>
-        /// Transaction fee (positive value). If maker rebate applicable, revert maker rebate value per trade (negative value).
+        /// ["<c>filled-fees</c>"] Transaction fee (positive value). If maker rebate applicable, revert maker rebate value per trade (negative value).
         /// </summary>
         [JsonPropertyName("filled-fees")]
         public decimal Fee { get; set; }
         /// <summary>
-        /// Deduction amount (unit: in ht or hbpoint).
+        /// ["<c>filled-points</c>"] Deduction amount (unit: in ht or hbpoint).
         /// </summary>
         [JsonPropertyName("filled-points")]
         public decimal FilledPoints { get; set; }
         /// <summary>
-        /// The id of the trade
+        /// ["<c>trade-id</c>"] The id of the trade
         /// </summary>
         [JsonPropertyName("trade-id")]
         public long TradeId { get; set; }
         /// <summary>
-        /// The id of the match
+        /// ["<c>match-id</c>"] The id of the match
         /// </summary>
         [JsonPropertyName("match-id")]
         public long MatchId { get; set; }
         /// <summary>
-        /// The id of the order
+        /// ["<c>order-id</c>"] The id of the order
         /// </summary>
         [JsonPropertyName("order-id")]
         public long OrderId { get; set; }
         /// <summary>
-        /// The limit price of limit order
+        /// ["<c>price</c>"] The limit price of limit order
         /// </summary>
         [JsonPropertyName("price")]
         public decimal Price { get; set; }
         /// <summary>
-        /// The source where the order was triggered, possible values: sys, web, api, app
+        /// ["<c>source</c>"] The source where the order was triggered, possible values: sys, web, api, app
         /// </summary>
         [JsonPropertyName("source")]
         public string Source { get; set; } = string.Empty;
 
         /// <summary>
-        /// The raw type string
+        /// ["<c>type</c>"] The raw type string
         /// </summary>
         [JsonPropertyName("type")]
         public string RawType { get; set; } = string.Empty;
@@ -83,22 +83,22 @@ namespace HTX.Net.Objects.Models
         [JsonIgnore]
         public OrderSide Side => EnumConverter.ParseString<OrderSide>(RawType)!.Value;
         /// <summary>
-        /// The role in the transaction: taker or maker
+        /// ["<c>role</c>"] The role in the transaction: taker or maker
         /// </summary>
         [JsonPropertyName("role")]
         public OrderRole Role { get; set; }
         /// <summary>
-        /// Asset of transaction fee or transaction fee rebate (transaction fee of buy order is based on base asset, transaction fee of sell order is based on quote asset; transaction fee rebate of buy order is based on quote asset, transaction fee rebate of sell order is based on base asset)
+        /// ["<c>fee-currency</c>"] Asset of transaction fee or transaction fee rebate (transaction fee of buy order is based on base asset, transaction fee of sell order is based on quote asset; transaction fee rebate of buy order is based on quote asset, transaction fee rebate of sell order is based on base asset)
         /// </summary>
         [JsonPropertyName("fee-currency")]
         public string FeeAsset { get; set; } = string.Empty;
         /// <summary>
-        /// Deduction type: ht or hbpoint.
+        /// ["<c>fee-deduct-currency</c>"] Deduction type: ht or hbpoint.
         /// </summary>
         [JsonPropertyName("fee-deduct-currency")]
         public string FeeDeductAsset { get; set; } = string.Empty;
         /// <summary>
-        /// Fee deduction status.
+        /// ["<c>fee-deduct-state</c>"] Fee deduction status.
         /// </summary>
         [JsonPropertyName("fee-deduct-state")]
         public FeeDeductStatus FeeDeductStatus { get; set; }

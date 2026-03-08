@@ -10,22 +10,22 @@ namespace HTX.Net.Objects.Models.Socket
     public record HTXUsdtMarginSwapCrossBalanceUpdate : HTXOpMessage
     {
         /// <summary>
-        /// Timestamp
+        /// ["<c>ts</c>"] Timestamp
         /// </summary>
         [JsonPropertyName("ts")]
         public DateTime Timestamp { get; set; }
         /// <summary>
-        /// Event
+        /// ["<c>event</c>"] Event
         /// </summary>
         [JsonPropertyName("event")]
         public EventTrigger Event { get; set; }
         /// <summary>
-        /// Data
+        /// ["<c>data</c>"] Data
         /// </summary>
         [JsonPropertyName("data")]
         public HTXUsdtMarginSwapCrossBalanceUpdateData[] Data { get; set; } = Array.Empty<HTXUsdtMarginSwapCrossBalanceUpdateData>();
         /// <summary>
-        /// User id
+        /// ["<c>uid</c>"] User id
         /// </summary>
         [JsonPropertyName("uid")]
         public decimal UserId { get; set; }
@@ -38,72 +38,72 @@ namespace HTX.Net.Objects.Models.Socket
     public record HTXUsdtMarginSwapCrossBalanceUpdateData
     {
         /// <summary>
-        /// Margin mode
+        /// ["<c>margin_mode</c>"] Margin mode
         /// </summary>
         [JsonPropertyName("margin_mode")]
         public MarginMode MarginMode { get; set; }
         /// <summary>
-        /// Margin account
+        /// ["<c>margin_account</c>"] Margin account
         /// </summary>
         [JsonPropertyName("margin_account")]
         public string MarginAccount { get; set; } = string.Empty;
         /// <summary>
-        /// Margin asset
+        /// ["<c>margin_asset</c>"] Margin asset
         /// </summary>
         [JsonPropertyName("margin_asset")]
         public string MarginAsset { get; set; } = string.Empty;
         /// <summary>
-        /// Margin balance
+        /// ["<c>margin_balance</c>"] Margin balance
         /// </summary>
         [JsonPropertyName("margin_balance")]
         public decimal MarginBalance { get; set; }
         /// <summary>
-        /// Static margin
+        /// ["<c>margin_static</c>"] Static margin
         /// </summary>
         [JsonPropertyName("margin_static")]
         public decimal MarginStatic { get; set; }
         /// <summary>
-        /// Margin position
+        /// ["<c>margin_position</c>"] Margin position
         /// </summary>
         [JsonPropertyName("margin_position")]
         public decimal MarginPosition { get; set; }
         /// <summary>
-        /// Margin frozen
+        /// ["<c>margin_frozen</c>"] Margin frozen
         /// </summary>
         [JsonPropertyName("margin_frozen")]
         public decimal MarginFrozen { get; set; }
         /// <summary>
-        /// Realized profit and loss
+        /// ["<c>profit_real</c>"] Realized profit and loss
         /// </summary>
         [JsonPropertyName("profit_real")]
         public decimal RealizedPnl { get; set; }
         /// <summary>
-        /// Unrealized profit and loss
+        /// ["<c>profit_unreal</c>"] Unrealized profit and loss
         /// </summary>
         [JsonPropertyName("profit_unreal")]
         public decimal UnrealizedPnl { get; set; }
         /// <summary>
-        /// Withdraw available
+        /// ["<c>withdraw_available</c>"] Withdraw available
         /// </summary>
         [JsonPropertyName("withdraw_available")]
         public decimal WithdrawAvailable { get; set; }
         /// <summary>
-        /// Risk rate
+        /// ["<c>risk_rate</c>"] Risk rate
         /// </summary>
         [JsonPropertyName("risk_rate")]
         public decimal? RiskRate { get; set; }
         /// <summary>
-        /// Position mode
+        /// ["<c>position_mode</c>"] Position mode
         /// </summary>
         [JsonPropertyName("position_mode")]
         public PositionMode PositionMode { get; set; }
         /// <summary>
-        /// Contract detail
+        /// ["<c>contract_detail</c>"] Contract detail
         /// </summary>
         [JsonPropertyName("contract_detail")]
         public HTXUsdtMarginSwapCrossBalanceUpdateContract[] ContractDetail { get; set; } = Array.Empty<HTXUsdtMarginSwapCrossBalanceUpdateContract>();
         /// <summary>
-        /// Futures contract detail
+        /// ["<c>futures_contract_detail</c>"] Futures contract detail
         /// </summary>
         [JsonPropertyName("futures_contract_detail")]
         public HTXUsdtMarginSwapCrossBalanceUpdateFutures[] FuturesContractDetail { get; set; } = Array.Empty<HTXUsdtMarginSwapCrossBalanceUpdateFutures>();
@@ -116,62 +116,62 @@ namespace HTX.Net.Objects.Models.Socket
     public record HTXUsdtMarginSwapCrossBalanceUpdateContract
     {
         /// <summary>
-        /// Symbol
+        /// ["<c>symbol</c>"] Symbol
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Contract code
+        /// ["<c>contract_code</c>"] Contract code
         /// </summary>
         [JsonPropertyName("contract_code")]
         public string ContractCode { get; set; } = string.Empty;
         /// <summary>
-        /// Margin position
+        /// ["<c>margin_position</c>"] Margin position
         /// </summary>
         [JsonPropertyName("margin_position")]
         public decimal MarginPosition { get; set; }
         /// <summary>
-        /// Margin frozen
+        /// ["<c>margin_frozen</c>"] Margin frozen
         /// </summary>
         [JsonPropertyName("margin_frozen")]
         public decimal MarginFrozen { get; set; }
         /// <summary>
-        /// Margin available
+        /// ["<c>margin_available</c>"] Margin available
         /// </summary>
         [JsonPropertyName("margin_available")]
         public decimal MarginAvailable { get; set; }
         /// <summary>
-        /// Unrealized profit and loss
+        /// ["<c>profit_unreal</c>"] Unrealized profit and loss
         /// </summary>
         [JsonPropertyName("profit_unreal")]
         public decimal UnrealizedPnl { get; set; }
         /// <summary>
-        /// Liquidation price
+        /// ["<c>liquidation_price</c>"] Liquidation price
         /// </summary>
         [JsonPropertyName("liquidation_price")]
         public decimal? LiquidationPrice { get; set; }
         /// <summary>
-        /// Leverage rate
+        /// ["<c>lever_rate</c>"] Leverage rate
         /// </summary>
         [JsonPropertyName("lever_rate")]
         public decimal LeverageRate { get; set; }
         /// <summary>
-        /// Adjust factor
+        /// ["<c>adjust_factor</c>"] Adjust factor
         /// </summary>
         [JsonPropertyName("adjust_factor")]
         public decimal AdjustFactor { get; set; }
         /// <summary>
-        /// Contract type
+        /// ["<c>contract_type</c>"] Contract type
         /// </summary>
         [JsonPropertyName("contract_type")]
         public ContractType ContractType { get; set; }
         /// <summary>
-        /// Pair
+        /// ["<c>pair</c>"] Pair
         /// </summary>
         [JsonPropertyName("pair")]
         public string Pair { get; set; } = string.Empty;
         /// <summary>
-        /// Business type
+        /// ["<c>business_type</c>"] Business type
         /// </summary>
         [JsonPropertyName("business_type")]
         public BusinessType BusinessType { get; set; }
@@ -184,62 +184,62 @@ namespace HTX.Net.Objects.Models.Socket
     public record HTXUsdtMarginSwapCrossBalanceUpdateFutures
     {
         /// <summary>
-        /// Symbol
+        /// ["<c>symbol</c>"] Symbol
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Contract code
+        /// ["<c>contract_code</c>"] Contract code
         /// </summary>
         [JsonPropertyName("contract_code")]
         public string ContractCode { get; set; } = string.Empty;
         /// <summary>
-        /// Margin position
+        /// ["<c>margin_position</c>"] Margin position
         /// </summary>
         [JsonPropertyName("margin_position")]
         public decimal MarginPosition { get; set; }
         /// <summary>
-        /// Margin frozen
+        /// ["<c>margin_frozen</c>"] Margin frozen
         /// </summary>
         [JsonPropertyName("margin_frozen")]
         public decimal MarginFrozen { get; set; }
         /// <summary>
-        /// Margin available
+        /// ["<c>margin_available</c>"] Margin available
         /// </summary>
         [JsonPropertyName("margin_available")]
         public decimal MarginAvailable { get; set; }
         /// <summary>
-        /// Unrealized profit and loss
+        /// ["<c>profit_unreal</c>"] Unrealized profit and loss
         /// </summary>
         [JsonPropertyName("profit_unreal")]
         public decimal UnrealizedPnl { get; set; }
         /// <summary>
-        /// Liquidation price
+        /// ["<c>liquidation_price</c>"] Liquidation price
         /// </summary>
         [JsonPropertyName("liquidation_price")]
         public decimal? LiquidationPrice { get; set; }
         /// <summary>
-        /// Leverage rate
+        /// ["<c>lever_rate</c>"] Leverage rate
         /// </summary>
         [JsonPropertyName("lever_rate")]
         public decimal LeverageRate { get; set; }
         /// <summary>
-        /// Adjust factor
+        /// ["<c>adjust_factor</c>"] Adjust factor
         /// </summary>
         [JsonPropertyName("adjust_factor")]
         public decimal AdjustFactor { get; set; }
         /// <summary>
-        /// Contract type
+        /// ["<c>contract_type</c>"] Contract type
         /// </summary>
         [JsonPropertyName("contract_type")]
         public ContractType ContractType { get; set; }
         /// <summary>
-        /// Pair
+        /// ["<c>pair</c>"] Pair
         /// </summary>
         [JsonPropertyName("pair")]
         public string Pair { get; set; } = string.Empty;
         /// <summary>
-        /// Business type
+        /// ["<c>business_type</c>"] Business type
         /// </summary>
         [JsonPropertyName("business_type")]
         public BusinessType BusinessType { get; set; }

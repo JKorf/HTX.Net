@@ -9,62 +9,62 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
     public record HTXTransferLimit
     {
         /// <summary>
-        /// Symbol
+        /// ["<c>symbol</c>"] Symbol
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Contract code
+        /// ["<c>contract_code</c>"] Contract code
         /// </summary>
         [JsonPropertyName("contract_code")]
         public string ContractCode { get; set; } = string.Empty;
         /// <summary>
-        /// Margin mode
+        /// ["<c>margin_mode</c>"] Margin mode
         /// </summary>
         [JsonPropertyName("margin_mode")]
         public MarginMode MarginMode { get; set; }
         /// <summary>
-        /// Margin account
+        /// ["<c>margin_account</c>"] Margin account
         /// </summary>
         [JsonPropertyName("margin_account")]
         public string MarginAccount { get; set; } = string.Empty;
         /// <summary>
-        /// Transfer in max per transfer
+        /// ["<c>transfer_in_max_each</c>"] Transfer in max per transfer
         /// </summary>
         [JsonPropertyName("transfer_in_max_each")]
         public decimal TransferInMaxEach { get; set; }
         /// <summary>
-        /// Transfer in min per transfer
+        /// ["<c>transfer_in_min_each</c>"] Transfer in min per transfer
         /// </summary>
         [JsonPropertyName("transfer_in_min_each")]
         public decimal TransferInMinEach { get; set; }
         /// <summary>
-        /// Transfer out max per transfer
+        /// ["<c>transfer_out_max_each</c>"] Transfer out max per transfer
         /// </summary>
         [JsonPropertyName("transfer_out_max_each")]
         public decimal TransferOutMaxEach { get; set; }
         /// <summary>
-        /// Transfer out min per transfer
+        /// ["<c>transfer_out_min_each</c>"] Transfer out min per transfer
         /// </summary>
         [JsonPropertyName("transfer_out_min_each")]
         public decimal TransferOutMinEach { get; set; }
         /// <summary>
-        /// Transfer in max daily
+        /// ["<c>transfer_in_max_daily</c>"] Transfer in max daily
         /// </summary>
         [JsonPropertyName("transfer_in_max_daily")]
         public decimal TransferInMaxDaily { get; set; }
         /// <summary>
-        /// Transfer out max daily
+        /// ["<c>transfer_out_max_daily</c>"] Transfer out max daily
         /// </summary>
         [JsonPropertyName("transfer_out_max_daily")]
         public decimal TransferOutMaxDaily { get; set; }
         /// <summary>
-        /// Net transfer in max daily
+        /// ["<c>net_transfer_in_max_daily</c>"] Net transfer in max daily
         /// </summary>
         [JsonPropertyName("net_transfer_in_max_daily")]
         public decimal NetTransferInMaxDaily { get; set; }
         /// <summary>
-        /// Net transfer out max daily
+        /// ["<c>net_transfer_out_max_daily</c>"] Net transfer out max daily
         /// </summary>
         [JsonPropertyName("net_transfer_out_max_daily")]
         public decimal NetTransferOutMaxDaily { get; set; }

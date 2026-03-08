@@ -9,12 +9,12 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
     public record HTXCrossMarginSubAccountAssets
     {
         /// <summary>
-        /// Sub account uid
+        /// ["<c>sub_uid</c>"] Sub account uid
         /// </summary>
         [JsonPropertyName("sub_uid")]
         public long SubUid { get; set; }
         /// <summary>
-        /// Assets
+        /// ["<c>list</c>"] Assets
         /// </summary>
         [JsonPropertyName("list")]
         public HTXCrossMarginSubAccountAsset[] Assets { get; set; } = Array.Empty<HTXCrossMarginSubAccountAsset>();
@@ -27,28 +27,28 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
     public record HTXCrossMarginSubAccountAsset
     {
         /// <summary>
-        /// Margin balance
+        /// ["<c>margin_balance</c>"] Margin balance
         /// </summary>
         [JsonPropertyName("margin_balance")]
         public decimal MarginBalance { get; set; }
         /// <summary>
-        /// Risk rate
+        /// ["<c>risk_rate</c>"] Risk rate
         /// </summary>
         [JsonPropertyName("risk_rate")]
         public decimal? RiskRate { get; set; }
         /// <summary>
-        /// Margin asset
+        /// ["<c>margin_asset</c>"] Margin asset
         /// </summary>
         [JsonPropertyName("margin_asset")]
         public string MarginAsset { get; set; } = string.Empty;
         /// <summary>
-        /// Margin mode
+        /// ["<c>margin_mode</c>"] Margin mode
         /// </summary>
         [JsonPropertyName("margin_mode")]
 
         public MarginMode MarginMode { get; set; }
         /// <summary>
-        /// Margin account
+        /// ["<c>margin_account</c>"] Margin account
         /// </summary>
         [JsonPropertyName("margin_account")]
         public string MarginAccount { get; set; } = string.Empty;

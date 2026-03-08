@@ -9,71 +9,71 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
     public record HTXIsolatedMarginOrder
     {
         /// <summary>
-        /// Asset
+        /// ["<c>symbol</c>"] Asset
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// Contract code
+        /// ["<c>contract_code</c>"] Contract code
         /// </summary>
         [JsonPropertyName("contract_code")]
         public string ContractCode { get; set; } = string.Empty;
         /// <summary>
-        /// Quantity of contract
+        /// ["<c>volume</c>"] Quantity of contract
         /// </summary>
         [JsonPropertyName("volume")]
         public decimal Quantity { get; set; }
         /// <summary>
-        /// Price
+        /// ["<c>price</c>"] Price
         /// </summary>
         [JsonPropertyName("price")]
         public decimal Price { get; set; }
         /// <summary>
-        /// Order price type
+        /// ["<c>order_price_type</c>"] Order price type
         /// </summary>
         [JsonPropertyName("order_price_type")]
 
         public OrderPriceType OrderPriceType { get; set; }
         /// <summary>
-        /// Order type
+        /// ["<c>order_type</c>"] Order type
         /// </summary>
         [JsonPropertyName("order_type")]
 
         public MarginOrderType OrderType { get; set; }
         /// <summary>
-        /// Direction
+        /// ["<c>direction</c>"] Direction
         /// </summary>
 
         [JsonPropertyName("direction")]
         public OrderSide Side { get; set; }
         /// <summary>
-        /// Offset
+        /// ["<c>offset</c>"] Offset
         /// </summary>
 
         [JsonPropertyName("offset")]
         public Offset Offset { get; set; }
         /// <summary>
-        /// Leverage rate
+        /// ["<c>lever_rate</c>"] Leverage rate
         /// </summary>
         [JsonPropertyName("lever_rate")]
         public int LeverageRate { get; set; }
         /// <summary>
-        /// Order id
+        /// ["<c>order_id</c>"] Order id
         /// </summary>
         [JsonPropertyName("order_id")]
         public long OrderId { get; set; }
         /// <summary>
-        /// Order id string
+        /// ["<c>order_id_str</c>"] Order id string
         /// </summary>
         [JsonPropertyName("order_id_str")]
         public string OrderIdStr { get; set; } = string.Empty;
         /// <summary>
-        /// Client order id
+        /// ["<c>client_order_id</c>"] Client order id
         /// </summary>
         [JsonPropertyName("client_order_id")]
         public long? ClientOrderId { get; set; }
         /// <summary>
-        /// Creation time
+        /// ["<c>created_at</c>"] Creation time
         /// </summary>
         [JsonPropertyName("created_at")]
         [JsonConverter(typeof(DateTimeConverter))]
@@ -86,99 +86,99 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         }
 
         /// <summary>
-        /// Cancel time
+        /// ["<c>canceled_at</c>"] Cancel time
         /// </summary>
         [JsonPropertyName("canceled_at")]
         [JsonConverter(typeof(DateTimeConverter))]
         public DateTime? CancelTime { get; set; }
         /// <summary>
-        /// Quantity filled
+        /// ["<c>trade_volume</c>"] Quantity filled
         /// </summary>
         [JsonPropertyName("trade_volume")]
         public decimal QuantityFilled { get; set; }
         /// <summary>
-        /// Value of the quantity filled
+        /// ["<c>trade_turnover</c>"] Value of the quantity filled
         /// </summary>
         [JsonPropertyName("trade_turnover")]
         public decimal ValueFilled { get; set; }
         /// <summary>
-        /// Fee
+        /// ["<c>fee</c>"] Fee
         /// </summary>
         [JsonPropertyName("fee")]
         public decimal Fee { get; set; }
         /// <summary>
-        /// Average fill price
+        /// ["<c>trade_avg_price</c>"] Average fill price
         /// </summary>
         [JsonPropertyName("trade_avg_price")]
         public decimal? AverageFillPrice { get; set; }
         /// <summary>
-        /// Margin frozen
+        /// ["<c>margin_frozen</c>"] Margin frozen
         /// </summary>
         [JsonPropertyName("margin_frozen")]
         public decimal MarginFrozen { get; set; }
         /// <summary>
-        /// Margin asset
+        /// ["<c>margin_asset</c>"] Margin asset
         /// </summary>
         [JsonPropertyName("margin_asset")]
         public string MarginAsset { get; set; } = String.Empty;
         /// <summary>
-        /// Profit
+        /// ["<c>profit</c>"] Profit
         /// </summary>
         [JsonPropertyName("profit")]
         public decimal Profit { get; set; }
         /// <summary>
-        /// Order status
+        /// ["<c>status</c>"] Order status
         /// </summary>
 
         [JsonPropertyName("status")]
         public SwapMarginOrderStatus Status { get; set; }
         /// <summary>
-        /// Source
+        /// ["<c>order_source</c>"] Source
         /// </summary>
         [JsonPropertyName("order_source")]
         public string OrderSource { get; set; } = string.Empty;
         /// <summary>
-        /// Fee asset
+        /// ["<c>fee_asset</c>"] Fee asset
         /// </summary>
         [JsonPropertyName("fee_asset")]
         public string FeeAsset { get; set; } = string.Empty;
         /// <summary>
-        /// Liquidation type
+        /// ["<c>liquidation_type</c>"] Liquidation type
         /// </summary>
         [JsonPropertyName("liquidation_type")]
         public LiquidationType? LiquidationType { get; set; }
         /// <summary>
-        /// Margin mode
+        /// ["<c>margin_mode</c>"] Margin mode
         /// </summary>
         [JsonPropertyName("margin_mode")]
         public MarginMode MarginMode { get; set; }
         /// <summary>
-        /// Margin account
+        /// ["<c>margin_account</c>"] Margin account
         /// </summary>
         [JsonPropertyName("margin_account")]
         public string MarginAccount { get; set; } = string.Empty;
         /// <summary>
-        /// Is take profit/stop loss
+        /// ["<c>is_tpsl</c>"] Is take profit/stop loss
         /// </summary>
         [JsonPropertyName("is_tpsl")]
         public bool IsTakeProfitStopLoss { get; set; }
         /// <summary>
-        /// Realized profit and loss
+        /// ["<c>real_profit</c>"] Realized profit and loss
         /// </summary>
         [JsonPropertyName("real_profit")]
         public decimal RealizedPnl { get; set; }
         /// <summary>
-        /// Reduce only
+        /// ["<c>reduce_only</c>"] Reduce only
         /// </summary>
         [JsonPropertyName("reduce_only")]
         public bool ReduceOnly { get; set; }
         /// <summary>
-        /// HTX fee quantity
+        /// ["<c>fee_amount</c>"] HTX fee quantity
         /// </summary>
         [JsonPropertyName("fee_amount")]
         public decimal FeeQuantity { get; set; }
         /// <summary>
-        /// HTX fee quote quantity
+        /// ["<c>fee_quote_amount</c>"] HTX fee quote quantity
         /// </summary>
         [JsonPropertyName("fee_quote_amount")]
         public decimal FeeQuoteQuantity { get; set; }
@@ -188,12 +188,12 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         [JsonPropertyName("canceled_source"), JsonConverter(typeof(NumberStringConverter))]
         public string? CancelSource { get; set; }
         /// <summary>
-        /// Update time
+        /// ["<c>update_time</c>"] Update time
         /// </summary>
         [JsonPropertyName("update_time")]
         public DateTime? UpdateTime { get; set; }
         /// <summary>
-        /// Trades
+        /// ["<c>trade</c>"] Trades
         /// </summary>
         [JsonPropertyName("trade")]
         public HTXMarginTrade[]? Trades { get; set; }
@@ -206,17 +206,17 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
     public record HTXCrossMarginOrder : HTXIsolatedMarginOrder
     {
         /// <summary>
-        /// Business type
+        /// ["<c>business_type</c>"] Business type
         /// </summary>
         [JsonPropertyName("business_type")]
         public BusinessType BusinessType { get; set; }
         /// <summary>
-        /// Contract type
+        /// ["<c>contract_type</c>"] Contract type
         /// </summary>
         [JsonPropertyName("contract_type")]
         public ContractType ContractType { get; set; }
         /// <summary>
-        /// Symbol
+        /// ["<c>pair</c>"] Symbol
         /// </summary>
         [JsonPropertyName("pair")]
         public string Symbol { get; set; } = string.Empty;

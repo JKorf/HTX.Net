@@ -10,12 +10,12 @@ namespace HTX.Net.Objects.Models.Socket
     public record HTXUsdtMarginSwapLiquidationUpdate : HTXOpMessage
     {
         /// <summary>
-        /// Timestamp
+        /// ["<c>ts</c>"] Timestamp
         /// </summary>
         [JsonPropertyName("ts")]
         public DateTime? Timestamp { get; set; }
         /// <summary>
-        /// Data
+        /// ["<c>data</c>"] Data
         /// </summary>
         [JsonPropertyName("data")]
         public HTXUsdtMarginSwapLiquidationUpdateData[] Data { get; set; } = Array.Empty<HTXUsdtMarginSwapLiquidationUpdateData>();
@@ -28,62 +28,62 @@ namespace HTX.Net.Objects.Models.Socket
     public record HTXUsdtMarginSwapLiquidationUpdateData
     {
         /// <summary>
-        /// Symbol
+        /// ["<c>symbol</c>"] Symbol
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Contract code
+        /// ["<c>contract_code</c>"] Contract code
         /// </summary>
         [JsonPropertyName("contract_code")]
         public string ContractCode { get; set; } = string.Empty;
         /// <summary>
-        /// Side
+        /// ["<c>direction</c>"] Side
         /// </summary>
         [JsonPropertyName("direction")]
         public OrderSide OrderSide { get; set; }
         /// <summary>
-        /// Offset
+        /// ["<c>offset</c>"] Offset
         /// </summary>
         [JsonPropertyName("offset")]
         public Offset Offset { get; set; }
         /// <summary>
-        /// Volume
+        /// ["<c>volume</c>"] Volume
         /// </summary>
         [JsonPropertyName("volume")]
         public decimal Volume { get; set; }
         /// <summary>
-        /// Price
+        /// ["<c>price</c>"] Price
         /// </summary>
         [JsonPropertyName("price")]
         public decimal Price { get; set; }
         /// <summary>
-        /// Creation time
+        /// ["<c>created_at</c>"] Creation time
         /// </summary>
         [JsonPropertyName("created_at")]
         public DateTime CreateTime { get; set; }
         /// <summary>
-        /// Liquidation quantity
+        /// ["<c>amount</c>"] Liquidation quantity
         /// </summary>
         [JsonPropertyName("amount")]
         public decimal Quantity { get; set; }
         /// <summary>
-        /// Trade turnover
+        /// ["<c>trade_turnover</c>"] Trade turnover
         /// </summary>
         [JsonPropertyName("trade_turnover")]
         public decimal TradeTurnover { get; set; }
         /// <summary>
-        /// Contract type
+        /// ["<c>contract_type</c>"] Contract type
         /// </summary>
         [JsonPropertyName("contract_type")]
         public ContractType ContractType { get; set; }
         /// <summary>
-        /// Pair
+        /// ["<c>pair</c>"] Pair
         /// </summary>
         [JsonPropertyName("pair")]
         public string Pair { get; set; } = string.Empty;
         /// <summary>
-        /// Business type
+        /// ["<c>business_type</c>"] Business type
         /// </summary>
         [JsonPropertyName("business_type")]
         public BusinessType BusinessType { get; set; }

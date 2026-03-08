@@ -7,27 +7,27 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
     public record HTXFundingRate
     {
         /// <summary>
-        /// Funding rate
+        /// ["<c>funding_rate</c>"] Funding rate
         /// </summary>
         [JsonPropertyName("funding_rate")]
         public decimal? FundingRate { get; set; }
         /// <summary>
-        /// Contract code
+        /// ["<c>contract_code</c>"] Contract code
         /// </summary>
         [JsonPropertyName("contract_code")]
         public string ContractCode { get; set; } = string.Empty;
         /// <summary>
-        /// Symbol
+        /// ["<c>symbol</c>"] Symbol
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// Fee asset
+        /// ["<c>fee_asset</c>"] Fee asset
         /// </summary>
         [JsonPropertyName("fee_asset")]
         public string FeeAsset { get; set; } = string.Empty;
         /// <summary>
-        /// Funding time
+        /// ["<c>funding_time</c>"] Funding time
         /// </summary>
         [JsonPropertyName("funding_time")]
         [JsonConverter(typeof(DateTimeConverter))]

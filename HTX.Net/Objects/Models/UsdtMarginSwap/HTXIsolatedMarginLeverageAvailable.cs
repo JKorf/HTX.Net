@@ -10,18 +10,18 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
     public record HTXIsolatedMarginLeverageAvailable
     {
         /// <summary>
-        /// Contract code
+        /// ["<c>contract_code</c>"] Contract code
         /// </summary>
         [JsonPropertyName("contract_code")]
         public string ContractCode { get; set; } = string.Empty;
         /// <summary>
-        /// Margin mode
+        /// ["<c>margin_mode</c>"] Margin mode
         /// </summary>
         [JsonPropertyName("margin_mode")]
 
         public MarginMode MarginMode { get; set; }
         /// <summary>
-        /// Available rates
+        /// ["<c>available_level_rate</c>"] Available rates
         /// </summary>
         [JsonPropertyName("available_level_rate")]
         public string AvailableLevelRate { get; set; } = string.Empty;

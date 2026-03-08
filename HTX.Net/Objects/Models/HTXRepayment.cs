@@ -7,33 +7,33 @@ namespace HTX.Net.Objects.Models
     public record HTXRepayment
     {
         /// <summary>
-        /// Repayment id
+        /// ["<c>repayId</c>"] Repayment id
         /// </summary>
         [JsonPropertyName("repayId")]
         public long RepayId { get; set; }
         /// <summary>
-        /// Account id
+        /// ["<c>accountId</c>"] Account id
         /// </summary>
         [JsonPropertyName("accountId")]
         public long AccountId { get; set; }
         /// <summary>
-        /// Repay time
+        /// ["<c>repayTime</c>"] Repay time
         /// </summary>
         [JsonConverter(typeof(DateTimeConverter))]
         [JsonPropertyName("repayTime")]
         public DateTime RepayTime { get; set; }
         /// <summary>
-        /// Asset
+        /// ["<c>currency</c>"] Asset
         /// </summary>
         [JsonPropertyName("currency")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// Repay quantity
+        /// ["<c>repaidAmount</c>"] Repay quantity
         /// </summary>
         [JsonPropertyName("repaidAmount")]
         public decimal RepaidQuantity { get; set; }
         /// <summary>
-        /// Transactions
+        /// ["<c>transactIds</c>"] Transactions
         /// </summary>
         [JsonPropertyName("transactIds")]
         public HTXRepayTransaction Transactions { get; set; } = null!;
@@ -46,27 +46,27 @@ namespace HTX.Net.Objects.Models
     public record HTXRepayTransaction
     {
         /// <summary>
-        /// Transact id
+        /// ["<c>transactId</c>"] Transact id
         /// </summary>
         [JsonPropertyName("transactId")]
         public long TransactId { get; set; }
         /// <summary>
-        /// Principal repaid
+        /// ["<c>repaidprincipal</c>"] Principal repaid
         /// </summary>
         [JsonPropertyName("repaidprincipal")]
         public decimal RepaidPrincipal { get; set; }
         /// <summary>
-        /// Interest repaid
+        /// ["<c>repaidInterest</c>"] Interest repaid
         /// </summary>
         [JsonPropertyName("repaidInterest")]
         public decimal RepaidInterest { get; set; }
         /// <summary>
-        /// HT paid
+        /// ["<c>paidHt</c>"] HT paid
         /// </summary>
         [JsonPropertyName("paidHt")]
         public decimal PaidHt { get; set; }
         /// <summary>
-        /// Points paid
+        /// ["<c>paidPoint</c>"] Points paid
         /// </summary>
         [JsonPropertyName("paidPoint")]
         public decimal PaidPoint { get; set; }

@@ -7,12 +7,12 @@ namespace HTX.Net.Objects.Models
     public record HTXTransactionResult
     {
         /// <summary>
-        /// Id
+        /// ["<c>transact-id</c>"] Id
         /// </summary>
         [JsonPropertyName("transact-id")]
         public long TransactionId { get; set; }
         /// <summary>
-        /// Time
+        /// ["<c>transact-time</c>"] Time
         /// </summary>
         [JsonPropertyName("transact-time")]
         public long TransactionTime { get; set; }

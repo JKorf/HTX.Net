@@ -7,17 +7,17 @@ namespace HTX.Net.Objects.Models
 	public record HTXByCriteriaCancelResult
 	{
 		/// <summary>
-		/// The number of cancel request sent successfully
+		/// ["<c>success-count</c>"] The number of cancel request sent successfully
 		/// </summary>
 		[JsonPropertyName("success-count")]
 		public long Successful { get; set; }
 		/// <summary>
-		/// The number of cancel request failed
+		/// ["<c>failed-count</c>"] The number of cancel request failed
 		/// </summary>
 		[JsonPropertyName("failed-count")]
 		public long Failed { get; set; }
 		/// <summary>
-		/// the next order id that can be canceled
+		/// ["<c>next-id</c>"] the next order id that can be canceled
 		/// </summary>
 		[JsonPropertyName("next-id")]
 		public long NextId { get; set; }

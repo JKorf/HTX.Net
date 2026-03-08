@@ -7,7 +7,7 @@ namespace HTX.Net.Objects.Models
     public record HTXDeductionAssets
     {
         /// <summary>
-        /// Asset
+        /// ["<c>currency</c>"] Asset
         /// </summary>
         [JsonPropertyName("currency")]
         public string Assets { get; set; } = string.Empty;

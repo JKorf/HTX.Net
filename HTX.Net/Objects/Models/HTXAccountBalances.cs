@@ -7,13 +7,13 @@ namespace HTX.Net.Objects.Models
     public record HTXAccountBalances: HTXAccount
     {
         /// <summary>
-        /// The list of balances
+        /// ["<c>list</c>"] The list of balances
         /// </summary>
         [JsonPropertyName("list")]
         public HTXBalance[] Data { get; set; } = Array.Empty<HTXBalance>();
 
         /// <summary>
-        /// Symbol
+        /// ["<c>symbol</c>"] Symbol
         /// </summary>
         [JsonPropertyName("symbol")]
         public string? Symbol { get; set; }

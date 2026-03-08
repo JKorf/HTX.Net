@@ -7,12 +7,12 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
     public record HTXTotalInsuranceInfo
     {
         /// <summary>
-        /// Insurance fund
+        /// ["<c>insurance_fund</c>"] Insurance fund
         /// </summary>
         [JsonPropertyName("insurance_fund")]
         public decimal InsuranceFund { get; set; }
         /// <summary>
-        /// Quote asset
+        /// ["<c>quote_currency</c>"] Quote asset
         /// </summary>
         [JsonPropertyName("quote_currency")]
         public string Asset { get; set; } = string.Empty;

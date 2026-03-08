@@ -7,27 +7,27 @@ namespace HTX.Net.Objects.Models
     public record HTXSubTransferPermission
     {
         /// <summary>
-        /// Account type
+        /// ["<c>accountType</c>"] Account type
         /// </summary>
         [JsonPropertyName("accountType")]
         public string AccountType { get; set; } = string.Empty;
         /// <summary>
-        /// Transferrable
+        /// ["<c>transferrable</c>"] Transferrable
         /// </summary>
         [JsonPropertyName("transferrable")]
         public bool? Transferrable { get; set; }
         /// <summary>
-        /// Sub user id
+        /// ["<c>subUid</c>"] Sub user id
         /// </summary>
         [JsonPropertyName("subUid")]
         public long SubUserId { get; set; }
         /// <summary>
-        /// Error code
+        /// ["<c>errCode</c>"] Error code
         /// </summary>
         [JsonPropertyName("errCode")]
         public int? ErrorCode { get; set; }
         /// <summary>
-        /// Error message
+        /// ["<c>errMessage</c>"] Error message
         /// </summary>
         [JsonPropertyName("errMessage")]
         public string? ErrorMessage { get; set; }

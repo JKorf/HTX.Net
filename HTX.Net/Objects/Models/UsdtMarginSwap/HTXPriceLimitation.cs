@@ -10,38 +10,38 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
     public record HTXPriceLimitation
     {
         /// <summary>
-        /// The asset
+        /// ["<c>symbol</c>"] The asset
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// Contract code
+        /// ["<c>contract_code</c>"] Contract code
         /// </summary>
         [JsonPropertyName("contract_code")]
         public string ContractCode { get; set; } = string.Empty;
         /// <summary>
-        /// High limit
+        /// ["<c>high_limit</c>"] High limit
         /// </summary>
         [JsonPropertyName("high_limit")]
         public decimal HighLimit { get; set; }
         /// <summary>
-        /// Low limit
+        /// ["<c>low_limit</c>"] Low limit
         /// </summary>
         [JsonPropertyName("low_limit")]
         public decimal LowLimit { get; set; }
         /// <summary>
-        /// Business type
+        /// ["<c>business_type</c>"] Business type
         /// </summary>
 
         [JsonPropertyName("business_type")]
         public BusinessType BusinessType { get; set; }
         /// <summary>
-        /// Symbol
+        /// ["<c>pair</c>"] Symbol
         /// </summary>
         [JsonPropertyName("pair")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Contract type
+        /// ["<c>contract_type</c>"] Contract type
         /// </summary>
 
         [JsonPropertyName("contract_type")]

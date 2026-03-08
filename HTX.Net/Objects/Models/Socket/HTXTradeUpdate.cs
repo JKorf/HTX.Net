@@ -10,124 +10,124 @@ namespace HTX.Net.Objects.Models.Socket
     public record HTXTradeUpdate
     {
         /// <summary>
-        /// Event type
+        /// ["<c>eventType</c>"] Event type
         /// </summary>
         [JsonPropertyName("eventType")]
         public string EventType { get; set; } = string.Empty;
 
         /// <summary>
-        /// The symbol
+        /// ["<c>symbol</c>"] The symbol
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Order id
+        /// ["<c>orderId</c>"] Order id
         /// </summary>
         [JsonPropertyName("orderId")]
         public long OrderId { get; set; }
         /// <summary>
-        /// Price of this trade
+        /// ["<c>tradePrice</c>"] Price of this trade
         /// </summary>
         [JsonPropertyName("tradePrice")]
         public decimal Price { get; set; }
         /// <summary>
-        /// Volume of this trade
+        /// ["<c>tradeVolume</c>"] Volume of this trade
         /// </summary>
         [JsonPropertyName("tradeVolume")]
         public decimal Quantity { get; set; }
         /// <summary>
-        /// Order side
+        /// ["<c>orderSide</c>"] Order side
         /// </summary>
         [JsonPropertyName("orderSide")]
         public OrderSide Side { get; set; }
         /// <summary>
-        /// Order type
+        /// ["<c>orderType</c>"] Order type
         /// </summary>
         [JsonPropertyName("orderType")]
         public OrderType Type { get; set; }
         /// <summary>
-        /// Is the taker
+        /// ["<c>aggressor</c>"] Is the taker
         /// </summary>
         [JsonPropertyName("aggressor")]
         public bool IsTaker { get; set; }
         /// <summary>
-        /// Trade id
+        /// ["<c>tradeId</c>"] Trade id
         /// </summary>
         [JsonPropertyName("tradeId")]
         public long Id { get; set; }
         /// <summary>
-        /// Time of trade
+        /// ["<c>tradeTime</c>"] Time of trade
         /// </summary>
         [JsonConverter(typeof(DateTimeConverter))]
         [JsonPropertyName("tradeTime")]
         public DateTime Timestamp { get; set; }
         /// <summary>
-        /// Transaction fee
+        /// ["<c>transactFee</c>"] Transaction fee
         /// </summary>
         [JsonPropertyName("transactFee")]
         public decimal TransactionFee { get; set; }
 
         /// <summary>
-        /// Asset of the fee
+        /// ["<c>feeCurrency</c>"] Asset of the fee
         /// </summary>
         [JsonPropertyName("feeCurrency")]
         public string FeeAsset { get; set; } = string.Empty;
         /// <summary>
-        /// Fee deduction quantity
+        /// ["<c>feeDeduct</c>"] Fee deduction quantity
         /// </summary>
         [JsonPropertyName("feeDeduct")]
         public decimal FeeDeduct { get; set; }
 
         /// <summary>
-        /// Fee deduction type
+        /// ["<c>feeDeductType</c>"] Fee deduction type
         /// </summary>
         [JsonPropertyName("feeDeductType")]
         public string FeeDeductType { get; set; } = string.Empty;
         /// <summary>
-        /// Account id
+        /// ["<c>accountId</c>"] Account id
         /// </summary>
         [JsonPropertyName("accountId")]
         public long AccountId { get; set; }
 
         /// <summary>
-        /// Order source
+        /// ["<c>source</c>"] Order source
         /// </summary>
         [JsonPropertyName("source")]
         public string OrderSource { get; set; } = string.Empty;
         /// <summary>
-        /// Order price
+        /// ["<c>orderPrice</c>"] Order price
         /// </summary>
         [JsonPropertyName("orderPrice")]
         public decimal OrderPrice { get; set; }
         /// <summary>
-        /// Order quantity
+        /// ["<c>orderSize</c>"] Order quantity
         /// </summary>
         [JsonPropertyName("orderSize")]
         public decimal OrderQuantity { get; set; }
         /// <summary>
-        /// Client order id
+        /// ["<c>clientOrderId</c>"] Client order id
         /// </summary>
         [JsonPropertyName("clientOrderId")]
         [JsonConverter(typeof(ClientIdConverter))]
         public string? ClientOrderId { get; set; }
         /// <summary>
-        /// Stop price
+        /// ["<c>stopPrice</c>"] Stop price
         /// </summary>
         [JsonPropertyName("stopPrice")]
         public decimal? StopPrice { get; set; }
         /// <summary>
-        /// Operator
+        /// ["<c>operator</c>"] Operator
         /// </summary>
         [JsonPropertyName("operator")]
         public string? Operator { get; set; }
         /// <summary>
-        /// Order creation time
+        /// ["<c>orderCreateTime</c>"] Order creation time
         /// </summary>
         [JsonConverter(typeof(DateTimeConverter))]
         [JsonPropertyName("orderCreateTime")]
         public DateTime OrderCreateTime { get; set; }
         /// <summary>
-        /// Order status
+        /// ["<c>orderStatus</c>"] Order status
         /// </summary>
 
         [JsonPropertyName("orderStatus")]

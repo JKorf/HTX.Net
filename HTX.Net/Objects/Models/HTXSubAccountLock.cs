@@ -9,12 +9,12 @@ namespace HTX.Net.Objects.Models
     public record HTXSubAccountLock
     {
         /// <summary>
-        /// Sub user id
+        /// ["<c>subUid</c>"] Sub user id
         /// </summary>
         [JsonPropertyName("subUid")]
         public long SubUserId { get; set; }
         /// <summary>
-        /// User lock state
+        /// ["<c>userState</c>"] User lock state
         /// </summary>
         [JsonPropertyName("userState")]
         public LockAction UserState { get; set; }

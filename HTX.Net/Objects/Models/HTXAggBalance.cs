@@ -9,18 +9,18 @@ namespace HTX.Net.Objects.Models
     public record HTXAggBalance
     {
         /// <summary>
-        /// The asset
+        /// ["<c>currency</c>"] The asset
         /// </summary>
         [JsonPropertyName("currency")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// The type of the balance
+        /// ["<c>type</c>"] The type of the balance
         /// </summary>
 
         [JsonPropertyName("type")]
         public AccountType Type { get; set; }
         /// <summary>
-        /// The balance
+        /// ["<c>balance</c>"] The balance
         /// </summary>
         [JsonPropertyName("balance")]
         public decimal Balance { get; set; }

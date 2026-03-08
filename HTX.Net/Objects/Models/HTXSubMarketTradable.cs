@@ -9,28 +9,28 @@ namespace HTX.Net.Objects.Models
     public record HTXSubMarketTradable
     {
         /// <summary>
-        /// Sub user id
+        /// ["<c>subUid</c>"] Sub user id
         /// </summary>
         [JsonPropertyName("subUid")]
         public string SubUserId { get; set; } = string.Empty;
         /// <summary>
-        /// Account type
+        /// ["<c>accountType</c>"] Account type
         /// </summary>
         [JsonPropertyName("accountType")]
         public SubAccountMarketType AccountType { get; set; }
         /// <summary>
-        /// Activation
+        /// ["<c>activation</c>"] Activation
         /// </summary>
         [JsonPropertyName("activation")]
         public string Activation { get; set; } = string.Empty;
 
         /// <summary>
-        /// Error code
+        /// ["<c>errCode</c>"] Error code
         /// </summary>
         [JsonPropertyName("errCode")]
         public int? ErrorCode { get; set; }
         /// <summary>
-        /// Error message
+        /// ["<c>errMessage</c>"] Error message
         /// </summary>
         [JsonPropertyName("errMessage")]
         public string? ErrorMessage { get; set; }

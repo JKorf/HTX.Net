@@ -9,74 +9,74 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
     public record HTXContractInfo
     {
         /// <summary>
-        /// The asset
+        /// ["<c>symbol</c>"] The asset
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// Contract code
+        /// ["<c>contract_code</c>"] Contract code
         /// </summary>
         [JsonPropertyName("contract_code")]
         public string ContractCode { get; set; } = string.Empty;
         /// <summary>
-        /// Contract size
+        /// ["<c>contract_size</c>"] Contract size
         /// </summary>
         [JsonPropertyName("contract_size")]
         public decimal ContractSize { get; set; }
         /// <summary>
-        /// Price tick
+        /// ["<c>price_tick</c>"] Price tick
         /// </summary>
         [JsonPropertyName("price_tick")]
         public decimal PriceTick { get; set; }
         /// <summary>
-        /// Deliverty date
+        /// ["<c>delivery_date</c>"] Deliverty date
         /// </summary>
         [JsonConverter(typeof(DateTimeConverter))]
         [JsonPropertyName("delivery_date")]
         public DateTime? DeliveryDate { get; set; }
         /// <summary>
-        /// Delivery time
+        /// ["<c>delivery_time</c>"] Delivery time
         /// </summary>
         [JsonConverter(typeof(DateTimeConverter))]
         [JsonPropertyName("delivery_time")]
         public DateTime? DeliveryTime { get; set; }
         /// <summary>
-        /// Created date
+        /// ["<c>create_date</c>"] Created date
         /// </summary>
         [JsonConverter(typeof(DateTimeConverter))]
         [JsonPropertyName("create_date")]
         public DateTime CreateDate { get; set; }
         /// <summary>
-        /// Status
+        /// ["<c>contract_status</c>"] Status
         /// </summary>
         [JsonPropertyName("contract_status")]
 
         public ContractStatus Status { get; set; }
         /// <summary>
-        /// Settlement date
+        /// ["<c>settlement_date</c>"] Settlement date
         /// </summary>
         [JsonConverter(typeof(DateTimeConverter))]
         [JsonPropertyName("settlement_date")]
         public DateTime SettlementDate { get; set; }
         /// <summary>
-        /// Margin mode
+        /// ["<c>support_margin_mode</c>"] Margin mode
         /// </summary>
         [JsonPropertyName("support_margin_mode")]
 
         public MarginMode MarginMode { get; set; }
         /// <summary>
-        /// Business type
+        /// ["<c>business_type</c>"] Business type
         /// </summary>
         [JsonPropertyName("business_type")]
 
         public BusinessType BusinessType { get; set; }
         /// <summary>
-        /// Symbol
+        /// ["<c>pair</c>"] Symbol
         /// </summary>
         [JsonPropertyName("pair")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Contract type
+        /// ["<c>contract_type</c>"] Contract type
         /// </summary>
 
         [JsonPropertyName("contract_type")]

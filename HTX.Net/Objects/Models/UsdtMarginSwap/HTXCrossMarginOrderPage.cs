@@ -7,7 +7,7 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
     public record HTXCrossMarginOrderPage : HTXPage
     {
         /// <summary>
-        /// Orders
+        /// ["<c>orders</c>"] Orders
         /// </summary>
         [JsonPropertyName("orders")]
         public HTXCrossMarginOrder[] Orders { get; set; } = Array.Empty<HTXCrossMarginOrder>();

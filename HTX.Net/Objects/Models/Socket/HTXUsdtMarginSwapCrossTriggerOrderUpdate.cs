@@ -10,22 +10,22 @@ namespace HTX.Net.Objects.Models.Socket
     public record HTXUsdtMarginSwapCrossTriggerOrderUpdate : HTXOpMessage
     {
         /// <summary>
-        /// Timestamp
+        /// ["<c>ts</c>"] Timestamp
         /// </summary>
         [JsonPropertyName("ts")]
         public DateTime? Timestamp { get; set; }
         /// <summary>
-        /// Event
+        /// ["<c>event</c>"] Event
         /// </summary>
         [JsonPropertyName("event")]
         public EventOrderTrigger EventOrderTrigger { get; set; }
         /// <summary>
-        /// User id
+        /// ["<c>uid</c>"] User id
         /// </summary>
         [JsonPropertyName("uid")]
         public long UserId { get; set; }
         /// <summary>
-        /// Data
+        /// ["<c>data</c>"] Data
         /// </summary>
         [JsonPropertyName("data")]
         public HTXUsdtMarginSwapCrossTriggerOrderUpdateData[] Data { get; set; } = Array.Empty<HTXUsdtMarginSwapCrossTriggerOrderUpdateData>();
@@ -38,17 +38,17 @@ namespace HTX.Net.Objects.Models.Socket
     public record HTXUsdtMarginSwapCrossTriggerOrderUpdateData : HTXUsdtMarginSwapIsolatedTriggerOrderUpdateData
     {
         /// <summary>
-        /// Pair
+        /// ["<c>pair</c>"] Pair
         /// </summary>
         [JsonPropertyName("pair")]
         public string Pair { get; set; } = string.Empty;
         /// <summary>
-        /// Business type
+        /// ["<c>business_type</c>"] Business type
         /// </summary>
         [JsonPropertyName("business_type")]
         public BusinessType BusinessType { get; set; }
         /// <summary>
-        /// Contract type
+        /// ["<c>contract_type</c>"] Contract type
         /// </summary>
         [JsonPropertyName("contract_type")]
         public ContractType ContractType { get; set; }

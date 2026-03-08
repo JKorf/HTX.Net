@@ -9,121 +9,121 @@ namespace HTX.Net.Objects.Models
     public record HTXMarginOrder
     {
         /// <summary>
-        /// Order id
+        /// ["<c>id</c>"] Order id
         /// </summary>
         [JsonPropertyName("id")]
         public long Id { get; set; }
         /// <summary>
-        /// Account id
+        /// ["<c>account-id</c>"] Account id
         /// </summary>
         [JsonPropertyName("account-id")]
         public long AccountId { get; set; }
         /// <summary>
-        /// User id
+        /// ["<c>user-id</c>"] User id
         /// </summary>
         [JsonPropertyName("user-id")]
         public long UserId { get; set; }
         /// <summary>
-        /// Symbol
+        /// ["<c>symbol</c>"] Symbol
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Asset
+        /// ["<c>currency</c>"] Asset
         /// </summary>
         [JsonPropertyName("currency")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// Creation time
+        /// ["<c>created-at</c>"] Creation time
         /// </summary>
         [JsonPropertyName("created-at")]
         [JsonConverter(typeof(DateTimeConverter))]
         public DateTime CreateTime { get; set; }
         /// <summary>
-        /// Accrue time
+        /// ["<c>accrued-at</c>"] Accrue time
         /// </summary>
         [JsonPropertyName("accrued-at")]
         [JsonConverter(typeof(DateTimeConverter))]
         public DateTime? AccrueTime { get; set; }
         /// <summary>
-        /// Loan quantity
+        /// ["<c>loan-amount</c>"] Loan quantity
         /// </summary>
         [JsonPropertyName("loan-amount")]
         public decimal LoanQuantity { get; set; }
         /// <summary>
-        /// Loan balance left
+        /// ["<c>loan-balance</c>"] Loan balance left
         /// </summary>
         [JsonPropertyName("loan-balance")]
         public decimal LoanBalance { get; set; }
         /// <summary>
-        /// Interst rate
+        /// ["<c>interest-rate</c>"] Interst rate
         /// </summary>
         [JsonPropertyName("interest-rate")]
         public decimal? InterestRate { get; set; }
         /// <summary>
-        /// Interest quantity
+        /// ["<c>interest-amount</c>"] Interest quantity
         /// </summary>
         [JsonPropertyName("interest-amount")]
         public decimal InterestQuantity { get; set; }
         /// <summary>
-        /// Interest left
+        /// ["<c>interest-balance</c>"] Interest left
         /// </summary>
         [JsonPropertyName("interest-balance")]
         public decimal InterestBalance { get; set; }
         /// <summary>
-        /// State
+        /// ["<c>state</c>"] State
         /// </summary>
 
         [JsonPropertyName("state")]
         public MarginOrderStatus Status { get; set; }
         /// <summary>
-        /// Paid HTX points
+        /// ["<c>paid-point</c>"] Paid HTX points
         /// </summary>
         [JsonPropertyName("paid-point")]
         public decimal PaidPoints { get; set; }
         /// <summary>
-        /// Paid asset
+        /// ["<c>paid-coin</c>"] Paid asset
         /// </summary>
         [JsonPropertyName("paid-coin")]
         public decimal PaidAsset { get; set; }
         /// <summary>
-        /// Filled HTX points
+        /// ["<c>filled-points</c>"] Filled HTX points
         /// </summary>
         [JsonPropertyName("filled-points")]
         public decimal FilledPoints { get; set; }
         /// <summary>
-        /// HT deduction amount
+        /// ["<c>filled-ht</c>"] HT deduction amount
         /// </summary>
         [JsonPropertyName("filled-ht")]
         public decimal FilledHt { get; set; }
         /// <summary>
-        /// Deduct rate
+        /// ["<c>deduct-rate</c>"] Deduct rate
         /// </summary>
         [JsonPropertyName("deduct-rate")]
         public decimal? DeductRate { get; set; }
         /// <summary>
-        /// Deduct asset
+        /// ["<c>deduct-currency</c>"] Deduct asset
         /// </summary>
         [JsonPropertyName("deduct-currency")]
         public string? DeductAsset { get; set; }
         /// <summary>
-        /// Deduct quantity
+        /// ["<c>deduct-amount</c>"] Deduct quantity
         /// </summary>
         [JsonPropertyName("deduct-amount")]
         public decimal? DeductQuantity { get; set; }
         /// <summary>
-        /// Last updated
+        /// ["<c>updated-at</c>"] Last updated
         /// </summary>
         [JsonPropertyName("updated-at")]
         [JsonConverter(typeof(DateTimeConverter))]
         public DateTime? UpdateTime { get; set; }
         /// <summary>
-        /// Hourly interest rate
+        /// ["<c>hour-interest-rate</c>"] Hourly interest rate
         /// </summary>
         [JsonPropertyName("hour-interest-rate")]
         public decimal? HourInterestRate { get; set; }
         /// <summary>
-        /// Daily interest rate
+        /// ["<c>day-interest-rate</c>"] Daily interest rate
         /// </summary>
         [JsonPropertyName("day-interest-rate")]
         public decimal? DayInterestRate { get; set; }

@@ -9,12 +9,12 @@ namespace HTX.Net.Objects.Models.Socket
     internal record HTXUsdtMarginSwapFundingRateUpdateWrapper : HTXOpMessage
     {
         /// <summary>
-        /// Timestamp
+        /// ["<c>ts</c>"] Timestamp
         /// </summary>
         [JsonPropertyName("ts")]
         public DateTime Timestamp { get; set; }
         /// <summary>
-        /// Data
+        /// ["<c>data</c>"] Data
         /// </summary>
         [JsonPropertyName("data")]
         public HTXUsdtMarginSwapFundingRateUpdate[] Data { get; set; } = Array.Empty<HTXUsdtMarginSwapFundingRateUpdate>();
@@ -27,37 +27,37 @@ namespace HTX.Net.Objects.Models.Socket
     public record HTXUsdtMarginSwapFundingRateUpdate
     {
         /// <summary>
-        /// Symbol
+        /// ["<c>symbol</c>"] Symbol
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Contract code
+        /// ["<c>contract_code</c>"] Contract code
         /// </summary>
         [JsonPropertyName("contract_code")]
         public string ContractCode { get; set; } = string.Empty;
         /// <summary>
-        /// Fee asset
+        /// ["<c>fee_asset</c>"] Fee asset
         /// </summary>
         [JsonPropertyName("fee_asset")]
         public string FeeAsset { get; set; } = string.Empty;
         /// <summary>
-        /// Funding time
+        /// ["<c>funding_time</c>"] Funding time
         /// </summary>
         [JsonPropertyName("funding_time")]
         public DateTime FundingTime { get; set; }
         /// <summary>
-        /// Funding rate
+        /// ["<c>funding_rate</c>"] Funding rate
         /// </summary>
         [JsonPropertyName("funding_rate")]
         public decimal FundingRate { get; set; }
         /// <summary>
-        /// Settlement time
+        /// ["<c>settlement_time</c>"] Settlement time
         /// </summary>
         [JsonPropertyName("settlement_time")]
         public DateTime SettlementTime { get; set; }
         /// <summary>
-        /// Estimated rate
+        /// ["<c>estimated_rate</c>"] Estimated rate
         /// </summary>
         [JsonPropertyName("estimated_rate")]
         public decimal? EstimatedRate { get; set; }

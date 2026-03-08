@@ -9,122 +9,122 @@ namespace HTX.Net.Objects.Models
     public record HTXSymbol
     {
         /// <summary>
-        /// Tags
+        /// ["<c>tags</c>"] Tags
         /// </summary>
         [JsonPropertyName("tags")]
         public string? Tags { get; set; }
         /// <summary>
-        /// State
+        /// ["<c>state</c>"] State
         /// </summary>
         [JsonPropertyName("state")]
         public SymbolStatus SymbolStatus { get; set; }
         /// <summary>
-        /// WithdrawRisk
+        /// ["<c>wr</c>"] WithdrawRisk
         /// </summary>
         [JsonPropertyName("wr")]
         public decimal? WithdrawRisk { get; set; }
         /// <summary>
-        /// Symbol name
+        /// ["<c>sc</c>"] Symbol name
         /// </summary>
         [JsonPropertyName("sc")]
         public string Name { get; set; } = string.Empty;
         /// <summary>
-        /// Base asset display name
+        /// ["<c>bcdn</c>"] Base asset display name
         /// </summary>
         [JsonPropertyName("bcdn")]
         public string BaseAssetName { get; set; } = string.Empty;
         /// <summary>
-        /// Quote asset display name
+        /// ["<c>qcdn</c>"] Quote asset display name
         /// </summary>
         [JsonPropertyName("qcdn")]
         public string QuoteAssetName { get; set; } = string.Empty;
         /// <summary>
-        /// Etp leverage ratio
+        /// ["<c>elr</c>"] Etp leverage ratio
         /// </summary>
         [JsonPropertyName("elr")]
         public string? EtpLeverageRatio { get; set; }
         /// <summary>
-        /// Price precision
+        /// ["<c>tpp</c>"] Price precision
         /// </summary>
         [JsonPropertyName("tpp")]
         public decimal PricePrecision { get; set; }
         /// <summary>
-        /// Quantity precision
+        /// ["<c>tap</c>"] Quantity precision
         /// </summary>
         [JsonPropertyName("tap")]
         public decimal QuantityPrecision { get; set; }
         /// <summary>
-        /// Fee precision
+        /// ["<c>fp</c>"] Fee precision
         /// </summary>
         [JsonPropertyName("fp")]
         public decimal FeePrecision { get; set; }
         /// <summary>
-        /// Super margin leverage ratio
+        /// ["<c>smlr</c>"] Super margin leverage ratio
         /// </summary>
         [JsonPropertyName("smlr")]
         public string? SuperMarginLeverageRatio { get; set; }
         /// <summary>
-        /// C2C leverage ratio
+        /// ["<c>flr</c>"] C2C leverage ratio
         /// </summary>
         [JsonPropertyName("flr")]
         public string? C2CLeverageRatio { get; set; }
         /// <summary>
-        /// White enabled
+        /// ["<c>whe</c>"] White enabled
         /// </summary>
         [JsonPropertyName("whe")]
         public bool WhiteEnabled { get; set; }
         /// <summary>
-        /// Country disabled
+        /// ["<c>cd</c>"] Country disabled
         /// </summary>
         [JsonPropertyName("cd")]
         public bool CountryDisabled { get; set; }
         /// <summary>
-        /// Trade enabled
+        /// ["<c>te</c>"] Trade enabled
         /// </summary>
         [JsonPropertyName("te")]
         public bool TradeEnabled { get; set; }
         /// <summary>
-        /// Symbol partition
+        /// ["<c>sp</c>"] Symbol partition
         /// </summary>
         [JsonPropertyName("sp")]
         public string Partition { get; set; } = string.Empty;
         /// <summary>
-        /// Direction
+        /// ["<c>d</c>"] Direction
         /// </summary>
         [JsonPropertyName("d")]
         public string? Direction { get; set; }
         /// <summary>
-        /// Base asset
+        /// ["<c>bc</c>"] Base asset
         /// </summary>
         [JsonPropertyName("bc")]
         public string BaseAsset { get; set; } = string.Empty;
         /// <summary>
-        /// Quote asset
+        /// ["<c>qc</c>"] Quote asset
         /// </summary>
         [JsonPropertyName("qc")]
         public string QuoteAsset { get; set; } = string.Empty;
         /// <summary>
-        /// Time trading starts
+        /// ["<c>toa</c>"] Time trading starts
         /// </summary>
         [JsonPropertyName("toa")]
         public DateTime TradeOpenTime { get; set; }
         /// <summary>
-        /// trade total precision
+        /// ["<c>ttp</c>"] trade total precision
         /// </summary>
         [JsonPropertyName("ttp")]
         public decimal TradeTotalPrecision { get; set; }
         /// <summary>
-        /// Weight sort
+        /// ["<c>w</c>"] Weight sort
         /// </summary>
         [JsonPropertyName("w")]
         public long WeightSort { get; set; }
         /// <summary>
-        /// Leverage ratio
+        /// ["<c>lr</c>"] Leverage ratio
         /// </summary>
         [JsonPropertyName("lr")]
         public decimal? LeverageRatio { get; set; }
         /// <summary>
-        /// DisplayName
+        /// ["<c>dn</c>"] DisplayName
         /// </summary>
         [JsonPropertyName("dn")]
         public string DisplayName { get; set; } = string.Empty;

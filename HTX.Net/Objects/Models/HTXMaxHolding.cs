@@ -7,12 +7,12 @@ namespace HTX.Net.Objects.Models
     public record HTXMaxHolding
     {
         /// <summary>
-        /// Asset
+        /// ["<c>currency</c>"] Asset
         /// </summary>
         [JsonPropertyName("currency")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// Max holdings
+        /// ["<c>max-holdings</c>"] Max holdings
         /// </summary>
         [JsonPropertyName("max-holdings")]
         public decimal MaxHoldings { get; set; }

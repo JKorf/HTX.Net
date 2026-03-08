@@ -9,27 +9,27 @@ namespace HTX.Net.Objects.Models
     public record HTXPlatformValuation
     {
         /// <summary>
-        /// Updated
+        /// ["<c>updated</c>"] Updated
         /// </summary>
         [JsonPropertyName("updated")]
         public HTXPlatformValuationUpdate Updated { get; set; } = null!;
         /// <summary>
-        /// Today profit rate
+        /// ["<c>todayProfitRate</c>"] Today profit rate
         /// </summary>
         [JsonPropertyName("todayProfitRate")]
         public decimal? TodayProfitRate { get; set; }
         /// <summary>
-        /// Total balance
+        /// ["<c>totalBalance</c>"] Total balance
         /// </summary>
         [JsonPropertyName("totalBalance")]
         public decimal TotalBalance { get; set; }
         /// <summary>
-        /// Todays profit
+        /// ["<c>todayProfit</c>"] Todays profit
         /// </summary>
         [JsonPropertyName("todayProfit")]
         public decimal? TodayProfit { get; set; }
         /// <summary>
-        /// Account balance list
+        /// ["<c>profitAccountBalanceList</c>"] Account balance list
         /// </summary>
         [JsonPropertyName("profitAccountBalanceList")]
         public HTXPlatformValuationBalance[] Balances { get; set; } = Array.Empty<HTXPlatformValuationBalance>();
@@ -42,12 +42,12 @@ namespace HTX.Net.Objects.Models
     public record HTXPlatformValuationUpdate
     {
         /// <summary>
-        /// Success
+        /// ["<c>success</c>"] Success
         /// </summary>
         [JsonPropertyName("success")]
         public bool Success { get; set; }
         /// <summary>
-        /// Last update time
+        /// ["<c>time</c>"] Last update time
         /// </summary>
         [JsonPropertyName("time")]
         public DateTime? UpdateTime { get; set; }
@@ -60,22 +60,22 @@ namespace HTX.Net.Objects.Models
     public record HTXPlatformValuationBalance
     {
         /// <summary>
-        /// Balance type
+        /// ["<c>distributionType</c>"] Balance type
         /// </summary>
         [JsonPropertyName("distributionType")]
         public ValuationBalanceType? BalanceType { get; set; }
         /// <summary>
-        /// Balance
+        /// ["<c>balance</c>"] Balance
         /// </summary>
         [JsonPropertyName("balance")]
         public decimal Balance { get; set; }
         /// <summary>
-        /// Success
+        /// ["<c>success</c>"] Success
         /// </summary>
         [JsonPropertyName("success")]
         public bool Success { get; set; }
         /// <summary>
-        /// Account balance
+        /// ["<c>accountBalance</c>"] Account balance
         /// </summary>
         [JsonPropertyName("accountBalance")]
         public decimal AccountBalance { get; set; }

@@ -10,7 +10,7 @@ namespace HTX.Net.Objects.Models
     public record HTXSymbolTrade
     {
         /// <summary>
-        /// The id of the trade
+        /// ["<c>id</c>"] The id of the trade
         /// </summary>
         [JsonPropertyName("id")]
         public long Id { get; set; }
@@ -20,7 +20,7 @@ namespace HTX.Net.Objects.Models
         [JsonPropertyName("ts"), JsonConverter(typeof(DateTimeConverter))]
         public DateTime Timestamp { get; set; }
         /// <summary>
-        /// The details of the trade
+        /// ["<c>data</c>"] The details of the trade
         /// </summary>
         [JsonPropertyName("data")]
         public HTXSymbolTradeDetails[] Details { get; set; } = Array.Empty<HTXSymbolTradeDetails>();
@@ -33,13 +33,13 @@ namespace HTX.Net.Objects.Models
     public record HTXSymbolTradeDetails
     {
         /// <summary>
-        /// The id of the update
+        /// ["<c>id</c>"] The id of the update
         /// </summary>
         [JsonPropertyName("id")]
         [JsonConverter(typeof(NumberStringConverter))]
         public string Id { get; set; } = string.Empty;
         /// <summary>
-        /// The id of the trade
+        /// ["<c>trade-id</c>"] The id of the trade
         /// </summary>
         [JsonPropertyName("trade-id")]
         public long TradeId { get; set; }
@@ -47,17 +47,17 @@ namespace HTX.Net.Objects.Models
         [JsonInclude, JsonPropertyName("tradeId")]
         internal long TradeIdInternal { get => TradeId; set => TradeId = value; }
         /// <summary>
-        /// The price of the trade
+        /// ["<c>price</c>"] The price of the trade
         /// </summary>
         [JsonPropertyName("price")]
         public decimal Price { get; set; }
         /// <summary>
-        /// The quantity of the trade
+        /// ["<c>amount</c>"] The quantity of the trade
         /// </summary>
         [JsonPropertyName("amount")]
         public decimal Quantity { get; set; }
         /// <summary>
-        /// The side of the trade
+        /// ["<c>direction</c>"] The side of the trade
         /// </summary>
         [JsonPropertyName("direction")]
         public OrderSide Side { get; set; }

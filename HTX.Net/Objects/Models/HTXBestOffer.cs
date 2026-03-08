@@ -7,38 +7,38 @@ namespace HTX.Net.Objects.Models
     public record HTXBestOffer
     {
         /// <summary>
-        /// Symbol
+        /// ["<c>symbol</c>"] Symbol
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Time of the data
+        /// ["<c>quoteTime</c>"] Time of the data
         /// </summary>
         [JsonConverter(typeof(DateTimeConverter))]
         [JsonPropertyName("quoteTime")]
         public DateTime QuoteTime { get; set; }
         /// <summary>
-        /// Best bid price
+        /// ["<c>bid</c>"] Best bid price
         /// </summary>
         [JsonPropertyName("bid")]
         public decimal BestBidPrice { get; set; }
         /// <summary>
-        /// Quantity of the best bid
+        /// ["<c>bidSize</c>"] Quantity of the best bid
         /// </summary>
         [JsonPropertyName("bidSize")]
         public decimal BestBidQuantity { get; set; }
         /// <summary>
-        /// Best ask price
+        /// ["<c>ask</c>"] Best ask price
         /// </summary>
         [JsonPropertyName("ask")]
         public decimal BestAskPrice { get; set; }
         /// <summary>
-        /// Quantity of the best ask
+        /// ["<c>askSize</c>"] Quantity of the best ask
         /// </summary>
         [JsonPropertyName("askSize")]
         public decimal BestAskQuantity { get; set; }
         /// <summary>
-        /// Sequence number
+        /// ["<c>seqId</c>"] Sequence number
         /// </summary>
         [JsonPropertyName("seqId")]
         public long Sequence { get; set; }

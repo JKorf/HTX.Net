@@ -7,17 +7,17 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
     public record HTXSwapIndex
     {
         /// <summary>
-        /// Contract code
+        /// ["<c>contract_code</c>"] Contract code
         /// </summary>
         [JsonPropertyName("contract_code")]
         public string ContractCode { get; set; } = string.Empty;
         /// <summary>
-        /// Index price
+        /// ["<c>index_price</c>"] Index price
         /// </summary>
         [JsonPropertyName("index_price")]
         public decimal IndexPrice { get; set; }
         /// <summary>
-        /// Timestamp
+        /// ["<c>index_ts</c>"] Timestamp
         /// </summary>
         [JsonPropertyName("index_ts")]
         [JsonConverter(typeof(DateTimeConverter))]

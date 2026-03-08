@@ -23,38 +23,38 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
     public record HTXTrade
     {
         /// <summary>
-        /// Amount of contracts
+        /// ["<c>amount</c>"] Amount of contracts
         /// </summary>
         [JsonPropertyName("amount")]
         public decimal Amount { get; set; }
         /// <summary>
-        /// Quantity
+        /// ["<c>quantity</c>"] Quantity
         /// </summary>
         [JsonPropertyName("quantity")]
         public decimal Quantity { get; set; }
         /// <summary>
-        /// Price
+        /// ["<c>price</c>"] Price
         /// </summary>
         [JsonPropertyName("price")]
         public decimal Price { get; set; }
         /// <summary>
-        /// Timestamp
+        /// ["<c>ts</c>"] Timestamp
         /// </summary>
         [JsonConverter(typeof(DateTimeConverter))]
         [JsonPropertyName("ts")]
         public DateTime Timestamp { get; set; }
         /// <summary>
-        /// Id
+        /// ["<c>id</c>"] Id
         /// </summary>
         [JsonPropertyName("id")]
         public long Id { get; set; }
         /// <summary>
-        /// Direction
+        /// ["<c>direction</c>"] Direction
         /// </summary>
         [JsonPropertyName("direction")]
         public OrderSide Direction { get; set; }
         /// <summary>
-        /// Value
+        /// ["<c>trade_turnover</c>"] Value
         /// </summary>
         [JsonPropertyName("trade_turnover")]
         public decimal QuoteQuantity { get; set; }
@@ -67,12 +67,12 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
     public record HTXLastTrade: HTXTrade
     {
         /// <summary>
-        /// Contract code
+        /// ["<c>contract_code</c>"] Contract code
         /// </summary>
         [JsonPropertyName("contract_code")]
         public string ContractCode { get; set; } = String.Empty;
         /// <summary>
-        /// Business type
+        /// ["<c>business_type</c>"] Business type
         /// </summary>
 
         [JsonPropertyName("business_type")]

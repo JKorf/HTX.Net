@@ -9,47 +9,47 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
     public record HTXPositionLimit
     {
         /// <summary>
-        /// Symbol
+        /// ["<c>symbol</c>"] Symbol
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Contract code
+        /// ["<c>contract_code</c>"] Contract code
         /// </summary>
         [JsonPropertyName("contract_code")]
         public string ContractCode { get; set; } = string.Empty;
         /// <summary>
-        /// Buy limit
+        /// ["<c>buy_limit</c>"] Buy limit
         /// </summary>
         [JsonPropertyName("buy_limit")]
         public decimal BuyLimit { get; set; }
         /// <summary>
-        /// Sell limit
+        /// ["<c>sell_limit</c>"] Sell limit
         /// </summary>
         [JsonPropertyName("sell_limit")]
         public decimal SellLimit { get; set; }
         /// <summary>
-        /// Margin mode
+        /// ["<c>margin_mode</c>"] Margin mode
         /// </summary>
         [JsonPropertyName("margin_mode")]
         public MarginMode MarginMode { get; set; }
         /// <summary>
-        /// Leverage rate
+        /// ["<c>lever_rate</c>"] Leverage rate
         /// </summary>
         [JsonPropertyName("lever_rate")]
         public int LevererageRate { get; set; }
         /// <summary>
-        /// Buy limit value
+        /// ["<c>buy_limit_value</c>"] Buy limit value
         /// </summary>
         [JsonPropertyName("buy_limit_value")]
         public decimal BuyLimitValue { get; set; }
         /// <summary>
-        /// Sell limit value
+        /// ["<c>sell_limit_value</c>"] Sell limit value
         /// </summary>
         [JsonPropertyName("sell_limit_value")]
         public decimal SellLimitValue { get; set; }
         /// <summary>
-        /// Mark price
+        /// ["<c>mark_price</c>"] Mark price
         /// </summary>
         [JsonPropertyName("mark_price")]
         public decimal MarkPrice { get; set; }

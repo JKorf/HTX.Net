@@ -7,17 +7,17 @@ namespace HTX.Net.Objects.Models
     public record HTXSubApiKeyEdit
     {
         /// <summary>
-        /// Note
+        /// ["<c>note</c>"] Note
         /// </summary>
         [JsonPropertyName("note")]
         public string Note { get; set; } = string.Empty;
         /// <summary>
-        /// Permission, comma seperated
+        /// ["<c>permission</c>"] Permission, comma seperated
         /// </summary>
         [JsonPropertyName("permission")]
         public string Permission { get; set; } = string.Empty;
         /// <summary>
-        /// Ip addresses, comma seperated
+        /// ["<c>ipAddresses</c>"] Ip addresses, comma seperated
         /// </summary>
         [JsonPropertyName("ipAddresses")]
         public string IpAddresses { get; set; } = string.Empty;

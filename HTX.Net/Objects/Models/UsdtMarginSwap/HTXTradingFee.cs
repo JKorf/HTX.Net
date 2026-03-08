@@ -10,59 +10,59 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
     public record HTXTradingFee
     {
         /// <summary>
-        /// Asset
+        /// ["<c>symbol</c>"] Asset
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// Contract code
+        /// ["<c>contract_code</c>"] Contract code
         /// </summary>
         [JsonPropertyName("contract_code")]
         public string ContractCode { get; set; } = string.Empty;
         /// <summary>
-        /// Open position maker fee
+        /// ["<c>open_maker_fee</c>"] Open position maker fee
         /// </summary>
         [JsonPropertyName("open_maker_fee")]
         public decimal OpenMakerFee { get; set; }
         /// <summary>
-        /// Open position taker fee
+        /// ["<c>open_taker_fee</c>"] Open position taker fee
         /// </summary>
         [JsonPropertyName("open_taker_fee")]
         public decimal OpenTakerFee { get; set; }
         /// <summary>
-        /// Close position maker fee
+        /// ["<c>close_maker_fee</c>"] Close position maker fee
         /// </summary>
         [JsonPropertyName("close_maker_fee")]
         public decimal CloseMakerfee { get; set; }
         /// <summary>
-        /// Close position taker fee
+        /// ["<c>close_taker_fee</c>"] Close position taker fee
         /// </summary>
         [JsonPropertyName("close_taker_fee")]
         public decimal CloseTakerFee { get; set; }
         /// <summary>
-        /// Fee asset
+        /// ["<c>fee_asset</c>"] Fee asset
         /// </summary>
         [JsonPropertyName("fee_asset")]
         public string FeeAsset { get; set; } = string.Empty;
         /// <summary>
-        /// Delivery fee
+        /// ["<c>delivery_fee</c>"] Delivery fee
         /// </summary>
         [JsonPropertyName("delivery_fee")]
         public decimal DeliveryFee { get; set; }
         /// <summary>
-        /// Business type
+        /// ["<c>business_type</c>"] Business type
         /// </summary>
         [JsonPropertyName("business_type")]
 
         public BusinessType BusinessType { get; set; }
         /// <summary>
-        /// Contract type
+        /// ["<c>contract_type</c>"] Contract type
         /// </summary>
         [JsonPropertyName("contract_type")]
 
         public ContractType ContractType { get; set; }
         /// <summary>
-        /// Symbol
+        /// ["<c>pair</c>"] Symbol
         /// </summary>
         [JsonPropertyName("pair")]
         public string Symbol { get; set; } = string.Empty;

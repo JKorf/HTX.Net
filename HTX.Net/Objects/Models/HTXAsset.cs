@@ -9,132 +9,132 @@ namespace HTX.Net.Objects.Models
     public record HTXAsset
     {
         /// <summary>
-        /// Tags
+        /// ["<c>tags</c>"] Tags
         /// </summary>
         [JsonPropertyName("tags")]
         public string? Tags { get; set; }
         /// <summary>
-        /// Asset address with tag
+        /// ["<c>cawt</c>"] Asset address with tag
         /// </summary>
         [JsonPropertyName("cawt")]
         public bool AssetAddressTag { get; set; }
         /// <summary>
-        /// Fast confirms
+        /// ["<c>fc</c>"] Fast confirms
         /// </summary>
         [JsonPropertyName("fc")]
         public int FastConfirms { get; set; }
         /// <summary>
-        /// Safe confirms
+        /// ["<c>sc</c>"] Safe confirms
         /// </summary>
         [JsonPropertyName("sc")]
         public int SafeConfirms { get; set; }
         /// <summary>
-        /// Minimal deposit quantity
+        /// ["<c>dma</c>"] Minimal deposit quantity
         /// </summary>
         [JsonPropertyName("dma")]
         public decimal DepositMinQuantity { get; set; }
         /// <summary>
-        /// Minimal withdrawal quantity
+        /// ["<c>wma</c>"] Minimal withdrawal quantity
         /// </summary>
         [JsonPropertyName("wma")]
         public decimal WithdrawMinQuantity { get; set; }
         /// <summary>
-        /// Fee type
+        /// ["<c>ft</c>"] Fee type
         /// </summary>
         [JsonPropertyName("ft")]
         public string FeeType { get; set; } = string.Empty;
         /// <summary>
-        /// White enabled
+        /// ["<c>whe</c>"] White enabled
         /// </summary>
         [JsonPropertyName("whe")]
         public bool WhiteEnabled { get; set; }
         /// <summary>
-        /// Country disabled
+        /// ["<c>cd</c>"] Country disabled
         /// </summary>
         [JsonPropertyName("cd")]
         public bool CountryDisabled { get; set; }
         /// <summary>
-        /// Is this a quote asset
+        /// ["<c>qc</c>"] Is this a quote asset
         /// </summary>
         [JsonPropertyName("qc")]
         public bool IsQuoteAsset { get; set; }
         /// <summary>
-        /// Precision for displaying
+        /// ["<c>sp</c>"] Precision for displaying
         /// </summary>
         [JsonPropertyName("sp")]
         public decimal DisplayPrecision { get; set; }
         /// <summary>
-        /// Precision for withdrawing
+        /// ["<c>wp</c>"] Precision for withdrawing
         /// </summary>
         [JsonPropertyName("wp")]
         public decimal WithdrawPrecision { get; set; }
         /// <summary>
-        /// Full asset name
+        /// ["<c>fn</c>"] Full asset name
         /// </summary>
         [JsonPropertyName("fn")]
         public string FullName { get; set; } = string.Empty;
         /// <summary>
-        /// Asset type
+        /// ["<c>at</c>"] Asset type
         /// </summary>
         [JsonPropertyName("at")]
         public AssetType AssetType { get; set; }
         /// <summary>
-        /// Asset code
+        /// ["<c>cc</c>"] Asset code
         /// </summary>
         [JsonPropertyName("cc")]
         public string AssetCode { get; set; } = string.Empty;
         /// <summary>
-        /// Visible
+        /// ["<c>v</c>"] Visible
         /// </summary>
         [JsonPropertyName("v")]
         public bool Visible { get; set; }
         /// <summary>
-        /// Is deposit enabled
+        /// ["<c>de</c>"] Is deposit enabled
         /// </summary>
         [JsonPropertyName("de")]
         public bool DepositEnabled { get; set; }
         /// <summary>
-        /// Is withdraw enabled
+        /// ["<c>wed</c>"] Is withdraw enabled
         /// </summary>
         [JsonPropertyName("wed")]
         public bool WithdrawEnabled { get; set; }
         /// <summary>
-        /// Weight
+        /// ["<c>w</c>"] Weight
         /// </summary>
         [JsonPropertyName("w")]
         public long Weight { get; set; }
         /// <summary>
-        /// Status
+        /// ["<c>state</c>"] Status
         /// </summary>
         [JsonPropertyName("state")]
         public string AssetStatus { get; set; } = string.Empty;
         /// <summary>
-        /// Display name
+        /// ["<c>dn</c>"] Display name
         /// </summary>
         [JsonPropertyName("dn")]
         public string DisplayName { get; set; } = string.Empty;
         /// <summary>
-        /// Info regarding deposits
+        /// ["<c>dd</c>"] Info regarding deposits
         /// </summary>
         [JsonPropertyName("dd")]
         public string DepositDescription { get; set; } = string.Empty;
         /// <summary>
-        /// Suspend description
+        /// ["<c>svd</c>"] Suspend description
         /// </summary>
         [JsonPropertyName("svd")]
         public string? SuspendDescription { get; set; }
         /// <summary>
-        /// Suspend withdraw description
+        /// ["<c>swd</c>"] Suspend withdraw description
         /// </summary>
         [JsonPropertyName("swd")]
         public string? SuspendWithdrawDescription { get; set; }
         /// <summary>
-        /// Suspend deposit description
+        /// ["<c>sdd</c>"] Suspend deposit description
         /// </summary>
         [JsonPropertyName("sdd")]
         public string? SuspendDepositDescription { get; set; }
         /// <summary>
-        /// Withdrawal description
+        /// ["<c>wd</c>"] Withdrawal description
         /// </summary>
         [JsonPropertyName("wd")]
         public string WithdrawDescription { get; set; } = string.Empty;
