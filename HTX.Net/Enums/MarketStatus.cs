@@ -9,17 +9,17 @@ namespace HTX.Net.Enums
     public enum MarketStatus
     {
         /// <summary>
-        /// Operating normally
+        /// ["<c>1</c>"] Operating normally
         /// </summary>
         [Map("1")]
         Normal = 1,
         /// <summary>
-        /// Trading halted
+        /// ["<c>2</c>"] Trading halted
         /// </summary>
         [Map("2")]
         Halted = 2,
         /// <summary>
-        /// Only cancelation is possible
+        /// ["<c>3</c>"] Only cancelation is possible
         /// </summary>
         [Map("3")]
         CancelOnly = 3

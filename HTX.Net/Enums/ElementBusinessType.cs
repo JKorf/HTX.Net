@@ -9,17 +9,17 @@ namespace HTX.Net.Enums
     public enum ElementBusinessType
     {
         /// <summary>
-        /// Perpetual futures
+        /// ["<c>1</c>"] Perpetual futures
         /// </summary>
         [Map("1")]
         PerpetualFutures,
         /// <summary>
-        /// Delivery futures
+        /// ["<c>2</c>"] Delivery futures
         /// </summary>
         [Map("2")]
         DeliveryFutures,
         /// <summary>
-        /// Perpetual + Delivery futures
+        /// ["<c>3</c>"] Perpetual + Delivery futures
         /// </summary>
         [Map("3")]
         PerpetualAndDeliveryFutures

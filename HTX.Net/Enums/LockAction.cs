@@ -9,12 +9,12 @@ namespace HTX.Net.Enums
     public enum LockAction
     {
         /// <summary>
-        /// Lock
+        /// ["<c>lock</c>"] Lock
         /// </summary>
         [Map("lock")]
         Lock,
         /// <summary>
-        /// Normal
+        /// ["<c>normal</c>"] Normal
         /// </summary>
         [Map("normal")]
         Normal

@@ -9,12 +9,12 @@ namespace HTX.Net.Enums
     public enum MasterSubTransferType
     {
         /// <summary>
-        /// Transfer from master to sub
+        /// ["<c>34</c>"] Transfer from master to sub
         /// </summary>
         [Map("34")]
         MasterToSub,
         /// <summary>
-        /// Transfer from sub to master
+        /// ["<c>35</c>"] Transfer from sub to master
         /// </summary>
         [Map("35")]
         SubToMaster

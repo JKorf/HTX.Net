@@ -9,12 +9,12 @@ namespace HTX.Net.Enums
     public enum DeductMode
     {
         /// <summary>
-        /// Deduct from master
+        /// ["<c>master</c>"] Deduct from master
         /// </summary>
         [Map("master")]
         Master,
         /// <summary>
-        /// Deduct from sub
+        /// ["<c>sub</c>"] Deduct from sub
         /// </summary>
         [Map("sub")]
         Sub

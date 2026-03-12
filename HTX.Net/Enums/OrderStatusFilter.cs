@@ -9,42 +9,42 @@ namespace HTX.Net.Enums
     public enum OrderStatusFilter
     {
         /// <summary>
-        /// Order statuses
+        /// ["<c>0</c>"] Order statuses
         /// </summary>
         [Map("0")]
         All,
         /// <summary>
-        /// Placing in book
+        /// ["<c>1</c>"] Placing in book
         /// </summary>
         [Map("1", "2")]
         ReadyToPlace,
         /// <summary>
-        /// Submitted orders
+        /// ["<c>3</c>"] Submitted orders
         /// </summary>
         [Map("3")]
         Submitted,
         /// <summary>
-        /// Partially matched orders
+        /// ["<c>4</c>"] Partially matched orders
         /// </summary>
         [Map("4")]
         PartiallyMatched,
         /// <summary>
-        /// Partially canceled orders
+        /// ["<c>5</c>"] Partially canceled orders
         /// </summary>
         [Map("5")]
         PartiallyCanceled,
         /// <summary>
-        /// Fully executed orders
+        /// ["<c>6</c>"] Fully executed orders
         /// </summary>
         [Map("6")]
         FullyMatched,
         /// <summary>
-        /// Canceled orders
+        /// ["<c>7</c>"] Canceled orders
         /// </summary>
         [Map("7")]
         Canceled,
         /// <summary>
-        /// Canceled orders
+        /// ["<c>11</c>"] Canceled orders
         /// </summary>
         [Map("11")]
         Canceling

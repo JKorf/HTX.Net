@@ -9,17 +9,17 @@ namespace HTX.Net.Enums
     public enum DeductionSwitchType
     {
         /// <summary>
-        /// Point card deduction
+        /// ["<c>0</c>"] Point card deduction
         /// </summary>
         [Map("0")]
         PointCardDeduction,
         /// <summary>
-        /// Asset deduction
+        /// ["<c>1</c>"] Asset deduction
         /// </summary>
         [Map("1")]
         AssetDeduction,
         /// <summary>
-        /// Close deduction
+        /// ["<c>2</c>"] Close deduction
         /// </summary>
         [Map("2")]
         CloseDeduction

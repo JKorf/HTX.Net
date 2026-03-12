@@ -9,22 +9,22 @@ namespace HTX.Net.Enums
     public enum EventOrderTrigger
     {
         /// <summary>
-        /// Trigger order placed
+        /// ["<c>order</c>"] Trigger order placed
         /// </summary>
         [Map("order")]
         TriggerPlaced,
         /// <summary>
-        /// Trigger order canceled
+        /// ["<c>cancel</c>"] Trigger order canceled
         /// </summary>
         [Map("cancel")]
         TriggerCanceled,
         /// <summary>
-        /// Successfully triggered
+        /// ["<c>trigger_success</c>"] Successfully triggered
         /// </summary>
         [Map("trigger_success")]
         TriggerSuccess,
         /// <summary>
-        /// Failed to trigger
+        /// ["<c>trigger_fail</c>"] Failed to trigger
         /// </summary>
         [Map("trigger_fail")]
         TriggerFail

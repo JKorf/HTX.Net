@@ -9,12 +9,12 @@ namespace HTX.Net.Enums
     public enum TpslOrderType
     {
         /// <summary>
-        /// Take profit order
+        /// ["<c>tp</c>"] Take profit order
         /// </summary>
         [Map("tp")]
         TakeProfit,
         /// <summary>
-        /// Stop loss order
+        /// ["<c>sl</c>"] Stop loss order
         /// </summary>
         [Map("sl")]
         StopLoss

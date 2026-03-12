@@ -9,17 +9,17 @@ namespace HTX.Net.Enums
     public enum ElementModeType
     {
         /// <summary>
-        /// Isolated margin
+        /// ["<c>1</c>"] Isolated margin
         /// </summary>
         [Map("1")]
         IsolatedMargin,
         /// <summary>
-        /// Cross and isolated margin
+        /// ["<c>2</c>"] Cross and isolated margin
         /// </summary>
         [Map("2")]
         CrossAndIsolatedMargin,
         /// <summary>
-        /// Cross margin
+        /// ["<c>3</c>"] Cross margin
         /// </summary>
         [Map("3")]
         CrossMargin

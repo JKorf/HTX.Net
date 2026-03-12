@@ -9,67 +9,67 @@ namespace HTX.Net.Enums
     public enum AccountType
     {
         /// <summary>
-        /// Spot account
+        /// ["<c>spot</c>"] Spot account
         /// </summary>
         [Map("spot")]
         Spot,
         /// <summary>
-        /// Margin account
+        /// ["<c>margin</c>"] Margin account
         /// </summary>
         [Map("margin")]
         Margin,
         /// <summary>
-        /// Super margin account
+        /// ["<c>super-margin</c>"] Super margin account
         /// </summary>
         [Map("super-margin")]
         SuperMargin,
         /// <summary>
-        /// Otc account
+        /// ["<c>otc</c>"] Otc account
         /// </summary>
         [Map("otc")]
         Otc,
         /// <summary>
-        /// Point account
+        /// ["<c>point</c>"] Point account
         /// </summary>
         [Map("point")]
         Point,
         /// <summary>
-        /// Investment account
+        /// ["<c>investment</c>"] Investment account
         /// </summary>
         [Map("investment")]
         Investment,
         /// <summary>
-        /// Borrow account
+        /// ["<c>borrow</c>"] Borrow account
         /// </summary>
         [Map("borrow")]
         Borrow,
         /// <summary>
-        /// Grid trading
+        /// ["<c>grid-trading</c>"] Grid trading
         /// </summary>
         [Map("grid-trading")]
         GridTrading,
         /// <summary>
-        /// Deposit earning
+        /// ["<c>deposit-earning</c>"] Deposit earning
         /// </summary>
         [Map("deposit-earning")]
         DepositEarning,
         /// <summary>
-        /// Otc options
+        /// ["<c>otc-options</c>"] Otc options
         /// </summary>
         [Map("otc-options")]
         OtcOptions,
         /// <summary>
-        /// Minepool
+        /// ["<c>minepool</c>"] Minepool
         /// </summary>
         [Map("minepool")]
         Minepool,
         /// <summary>
-        /// Etf
+        /// ["<c>etf</c>"] Etf
         /// </summary>
         [Map("etf")]
         Etf,
         /// <summary>
-        /// Crypto loans
+        /// ["<c>crypto-loans</c>"] Crypto loans
         /// </summary>
         [Map("crypto-loans")]
         CryptoLoans

@@ -9,12 +9,12 @@ namespace HTX.Net.Enums
     public enum AssetType
     {
         /// <summary>
-        /// Virtual asset
+        /// ["<c>1</c>"] Virtual asset
         /// </summary>
         [Map("1")]
         Virtual,
         /// <summary>
-        /// Fiat asset
+        /// ["<c>2</c>"] Fiat asset
         /// </summary>
         [Map("2")]
         Fiat

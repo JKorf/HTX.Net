@@ -9,77 +9,77 @@ namespace HTX.Net.Enums
     public enum ValuationBalanceType
     {
         /// <summary>
-        /// Spot
+        /// ["<c>1</c>"] Spot
         /// </summary>
         [Map("1")]
         Spot,
         /// <summary>
-        /// Isolated 
+        /// ["<c>2</c>"] Isolated 
         /// </summary>
         [Map("2")]
         IsolatedMargin,
         /// <summary>
-        /// Cross 
+        /// ["<c>3</c>"] Cross 
         /// </summary>
         [Map("3")]
         CrossMargin,
         /// <summary>
-        /// Coin futures
+        /// ["<c>4</c>"] Coin futures
         /// </summary>
         [Map("4")]
         CoinFutures,
         /// <summary>
-        /// Flat 
+        /// ["<c>5</c>"] Flat 
         /// </summary>
         [Map("5")]
         Flat,
         /// <summary>
-        /// Minepool 
+        /// ["<c>6</c>"] Minepool 
         /// </summary>
         [Map("6", "16")]
         Minepool,
         /// <summary>
-        /// Coin swaps
+        /// ["<c>7</c>"] Coin swaps
         /// </summary>
         [Map("7")]
         CoinSwaps,
         /// <summary>
-        /// Investment
+        /// ["<c>8</c>"] Investment
         /// </summary>
         [Map("8")]
         Investment,
         /// <summary>
-        /// Borrow 
+        /// ["<c>9</c>"] Borrow 
         /// </summary>
         [Map("9")]
         Borrow,
         /// <summary>
-        /// Earn 
+        /// ["<c>10</c>"] Earn 
         /// </summary>
         [Map("10")]
         Earn,
         /// <summary>
-        /// Usdt swaps
+        /// ["<c>11</c>"] Usdt swaps
         /// </summary>
         [Map("11")]
         UsdtSwaps,
         /// <summary>
-        /// Option
+        /// ["<c>12</c>"] Option
         /// </summary>
         [Map("12")]
         Option,
         /// <summary>
-        /// Otc-options
+        /// ["<c>13</c>"] Otc-options
         /// </summary>
         [Map("13")]
         OtcOptions,
         /// <summary>
-        /// Crypto loans
+        /// ["<c>14</c>"] Crypto loans
         /// </summary>
         [Map("14")]
         CryptoLoans,
         /// <summary>
-        /// Grid trading
+        /// ["<c>15</c>"] Grid trading
         /// </summary>
         [Map("15")]
         GridTrading,

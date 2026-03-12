@@ -9,32 +9,32 @@ namespace HTX.Net.Enums
     public enum NetworkType
     {
         /// <summary>
-        /// Plain
+        /// ["<c>plain</c>"] Plain
         /// </summary>
         [Map("plain")]
         Plain,
         /// <summary>
-        /// Live
+        /// ["<c>live</c>"] Live
         /// </summary>
         [Map("live")]
         Live,
         /// <summary>
-        /// Old
+        /// ["<c>old</c>"] Old
         /// </summary>
         [Map("old")]
         Old,
         /// <summary>
-        /// New
+        /// ["<c>new</c>"] New
         /// </summary>
         [Map("new")]
         New,
         /// <summary>
-        /// Legal
+        /// ["<c>legal</c>"] Legal
         /// </summary>
         [Map("legal")]
         Legal,
         /// <summary>
-        /// Too old
+        /// ["<c>tooold</c>"] Too old
         /// </summary>
         [Map("tooold")]
         TooOld

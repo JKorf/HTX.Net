@@ -9,22 +9,22 @@ namespace HTX.Net.Enums
     public enum TimeInForce
     {
         /// <summary>
-        /// Good until the order is canceled
+        /// ["<c>gtc</c>"] Good until the order is canceled
         /// </summary>
         [Map("gtc")]
         GoodTillCancel,
         /// <summary>
-        /// Should execute at least partly upon placing
+        /// ["<c>ioc</c>"] Should execute at least partly upon placing
         /// </summary>
         [Map("ioc")]
         ImmediateOrCancel,
         /// <summary>
-        /// Should enter the book upon placing
+        /// ["<c>boc</c>"] Should enter the book upon placing
         /// </summary>
         [Map("boc")]
         BookOrCancel,
         /// <summary>
-        /// Should fill entirely upon placing
+        /// ["<c>fok</c>"] Should fill entirely upon placing
         /// </summary>
         [Map("fok")]
         FillOrKill

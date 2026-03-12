@@ -9,12 +9,12 @@ namespace HTX.Net.Enums
     public enum NetworkStatus
     {
         /// <summary>
-        /// Allowed
+        /// ["<c>allowed</c>"] Allowed
         /// </summary>
         [Map("allowed")]
         Allowed,
         /// <summary>
-        /// Prohibited
+        /// ["<c>prohibited</c>"] Prohibited
         /// </summary>
         [Map("prohibited")]
         Prohibited

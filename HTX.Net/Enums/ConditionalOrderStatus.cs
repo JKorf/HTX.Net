@@ -9,22 +9,22 @@ namespace HTX.Net.Enums
     public enum ConditionalOrderStatus
     {
         /// <summary>
-        /// Created and active
+        /// ["<c>created</c>"] Created and active
         /// </summary>
         [Map("created")]
         Created,
         /// <summary>
-        /// Canceled
+        /// ["<c>canceled</c>"] Canceled
         /// </summary>
         [Map("canceled")]
         Canceled,
         /// <summary>
-        /// Rejected
+        /// ["<c>rejected</c>"] Rejected
         /// </summary>
         [Map("rejected")]
         Rejected,
         /// <summary>
-        /// Triggered
+        /// ["<c>triggered</c>"] Triggered
         /// </summary>
         [Map("triggered")]
         Triggered

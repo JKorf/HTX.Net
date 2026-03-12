@@ -9,22 +9,22 @@ namespace HTX.Net.Enums
     public enum SourceType
     {
         /// <summary>
-        /// Spot api
+        /// ["<c>spot-api</c>"] Spot api
         /// </summary>
         [Map("spot-api")]
         Spot,
         /// <summary>
-        /// Isolate margin api
+        /// ["<c>margin-api</c>"] Isolate margin api
         /// </summary>
         [Map("margin-api")]
         IsolatedMargin,
         /// <summary>
-        /// Cross margin api
+        /// ["<c>super-margin-api</c>"] Cross margin api
         /// </summary>
         [Map("super-margin-api")]
         CrossMargin,
         /// <summary>
-        /// c2c margin api
+        /// ["<c>c2c-margin-api</c>"] c2c margin api
         /// </summary>
         [Map("c2c-margin-api")]
         C2CMargin

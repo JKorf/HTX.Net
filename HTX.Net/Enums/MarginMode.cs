@@ -9,17 +9,17 @@ namespace HTX.Net.Enums
     public enum MarginMode
     {
         /// <summary>
-        /// Cross margin
+        /// ["<c>cross</c>"] Cross margin
         /// </summary>
         [Map("cross")]
         Cross,
         /// <summary>
-        /// Isolated margin
+        /// ["<c>isolated</c>"] Isolated margin
         /// </summary>
         [Map("isolated")]
         Isolated,
         /// <summary>
-        /// All (filter)
+        /// ["<c>all</c>"] All (filter)
         /// </summary>
         [Map("all")]
         All

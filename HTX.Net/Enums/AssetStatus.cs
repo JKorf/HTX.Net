@@ -9,12 +9,12 @@ namespace HTX.Net.Enums
     public enum AssetStatus
     {
         /// <summary>
-        /// Normal
+        /// ["<c>normal</c>"] Normal
         /// </summary>
         [Map("normal")]
         Normal,
         /// <summary>
-        /// Delisted
+        /// ["<c>delisted</c>"] Delisted
         /// </summary>
         [Map("delisted")]
         Delisted

@@ -9,17 +9,17 @@ namespace HTX.Net.Enums
     public enum LightningPriceType
     {
         /// <summary>
-        /// Market
+        /// ["<c>market</c>"] Market
         /// </summary>
         [Map("market")]
         Market,
         /// <summary>
-        /// Fill or kill
+        /// ["<c>lightning_fok</c>"] Fill or kill
         /// </summary>
         [Map("lightning_fok")]
         LightningFok,
         /// <summary>
-        /// Immediate or cancel
+        /// ["<c>lightning_ioc</c>"] Immediate or cancel
         /// </summary>
         [Map("lightning_ioc")]
         LightningIoc

@@ -9,27 +9,27 @@ namespace HTX.Net.Enums
     public enum TransferAccount
     {
         /// <summary>
-        /// Spot
+        /// ["<c>spot</c>"] Spot
         /// </summary>
         [Map("spot")]
         Spot,
         /// <summary>
-        /// Linear swap
+        /// ["<c>linear-swap</c>"] Linear swap
         /// </summary>
         [Map("linear-swap")]
         LinearSwap,
         /// <summary>
-        /// OTC
+        /// ["<c>otc</c>"] OTC
         /// </summary>
         [Map("otc")]
         Otc,
         /// <summary>
-        /// Futures
+        /// ["<c>futures</c>"] Futures
         /// </summary>
         [Map("futures")]
         Futures,
         /// <summary>
-        /// Swap
+        /// ["<c>swap</c>"] Swap
         /// </summary>
         [Map("swap")]
         Swap

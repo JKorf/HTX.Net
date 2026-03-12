@@ -9,12 +9,12 @@ namespace HTX.Net.Enums
     public enum AccountActivation
     {
         /// <summary>
-        /// Activated
+        /// ["<c>activated</c>"] Activated
         /// </summary>
         [Map("activated")]
         Activated,
         /// <summary>
-        /// Deactivated
+        /// ["<c>deactivated</c>"] Deactivated
         /// </summary>
         [Map("deactivated")]
         Deactivated

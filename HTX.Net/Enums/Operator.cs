@@ -9,12 +9,12 @@ namespace HTX.Net.Enums
     public enum Operator
     {
         /// <summary>
-        /// Greater than or equal to stop price
+        /// ["<c>gte</c>"] Greater than or equal to stop price
         /// </summary>
         [Map("gte")]
         GreaterThanOrEqual,
         /// <summary>
-        /// Less than or equal to stop price
+        /// ["<c>lte</c>"] Less than or equal to stop price
         /// </summary>
         [Map("lte")]
         LesserThanOrEqual

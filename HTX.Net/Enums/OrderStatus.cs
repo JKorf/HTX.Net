@@ -9,42 +9,42 @@ namespace HTX.Net.Enums
     public enum OrderStatus
     {
         /// <summary>
-        /// Pre-submitted
+        /// ["<c>pre-submitted</c>"] Pre-submitted
         /// </summary>
         [Map("pre-submitted")]
         PreSubmitted,
         /// <summary>
-        /// Submitted, nothing filled yet
+        /// ["<c>submitted</c>"] Submitted, nothing filled yet
         /// </summary>
         [Map("submitted")]
         Submitted,
         /// <summary>
-        /// Partially filled
+        /// ["<c>partial-filled</c>"] Partially filled
         /// </summary>
         [Map("partial-filled")]
         PartiallyFilled,
         /// <summary>
-        /// Partially filled, then canceled
+        /// ["<c>partial-canceled</c>"] Partially filled, then canceled
         /// </summary>
         [Map("partial-canceled")]
         PartiallyCanceled,
         /// <summary>
-        /// Filled completely
+        /// ["<c>filled</c>"] Filled completely
         /// </summary>
         [Map("filled")]
         Filled,
         /// <summary>
-        /// Canceled without fill
+        /// ["<c>canceled</c>"] Canceled without fill
         /// </summary>
         [Map("canceled")]
         Canceled,
         /// <summary>
-        /// Created
+        /// ["<c>created</c>"] Created
         /// </summary>
         [Map("created")]
         Created,
         /// <summary>
-        /// Rejected
+        /// ["<c>rejected</c>"] Rejected
         /// </summary>
         [Map("rejected")]
         Rejected

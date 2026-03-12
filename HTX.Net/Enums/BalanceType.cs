@@ -9,57 +9,57 @@ namespace HTX.Net.Enums
     public enum BalanceType
     {
         /// <summary>
-        /// Trade balance
+        /// ["<c>trade</c>"] Trade balance
         /// </summary>
         [Map("trade")]
         Trade,
         /// <summary>
-        /// Frozen balance
+        /// ["<c>frozen</c>"] Frozen balance
         /// </summary>
         [Map("frozen")]
         Frozen,
         /// <summary>
-        /// Loan balance
+        /// ["<c>loan</c>"] Loan balance
         /// </summary>
         [Map("loan")]
         Loan,
         /// <summary>
-        /// Locked balance
+        /// ["<c>lock</c>"] Locked balance
         /// </summary>
         [Map("lock")]
         Lock,
         /// <summary>
-        /// Bank balance
+        /// ["<c>bank</c>"] Bank balance
         /// </summary>
         [Map("bank")]
         Bank,
         /// <summary>
-        /// Interest balance
+        /// ["<c>interest</c>"] Interest balance
         /// </summary>
         [Map("interest")]
         Interest,
         /// <summary>
-        /// Credit repay
+        /// ["<c>credit-repay</c>"] Credit repay
         /// </summary>
         [Map("credit-repay")]
         CreditRepay,
         /// <summary>
-        /// Trust asset
+        /// ["<c>trust-asset</c>"] Trust asset
         /// </summary>
         [Map("trust-asset")]
         TrustAsset,
         /// <summary>
-        /// Transfer out available
+        /// ["<c>transfer-out-available</c>"] Transfer out available
         /// </summary>
         [Map("transfer-out-available")]
         TransferOutAvailable,
         /// <summary>
-        /// Loan available
+        /// ["<c>loan-available</c>"] Loan available
         /// </summary>
         [Map("loan-available")]
         LoanAvailable,
         /// <summary>
-        /// Lending
+        /// ["<c>lending</c>"] Lending
         /// </summary>
         [Map("lending")]
         Lending

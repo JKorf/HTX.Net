@@ -9,22 +9,22 @@ namespace HTX.Net.Enums
     public enum LiquidationType
     {
         /// <summary>
-        /// Not a liquidation
+        /// ["<c>0</c>"] Not a liquidation
         /// </summary>
         [Map("0")]
         NonLiquidated,
         /// <summary>
-        /// Long and short netting
+        /// ["<c>1</c>"] Long and short netting
         /// </summary>
         [Map("1")]
         LongAndShortNetting,
         /// <summary>
-        /// Partial liquidation
+        /// ["<c>2</c>"] Partial liquidation
         /// </summary>
         [Map("2")]
         PartialLiquidated,
         /// <summary>
-        /// Full liquidation
+        /// ["<c>3</c>"] Full liquidation
         /// </summary>
         [Map("3")]
         FullLiquidated

@@ -9,12 +9,12 @@ namespace HTX.Net.Enums
     public enum AccountStatus
     {
         /// <summary>
-        /// Working
+        /// ["<c>working</c>"] Working
         /// </summary>
         [Map("working", "normal")]
         Working,
         /// <summary>
-        /// Locked
+        /// ["<c>lock</c>"] Locked
         /// </summary>
         [Map("lock")]
         Locked

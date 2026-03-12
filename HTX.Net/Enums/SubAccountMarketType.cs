@@ -9,17 +9,17 @@ namespace HTX.Net.Enums
     public enum SubAccountMarketType
     {
         /// <summary>
-        /// Isolated margin
+        /// ["<c>isolated-margin</c>"] Isolated margin
         /// </summary>
         [Map("isolated-margin")]
         IsolatedMargin,
         /// <summary>
-        /// Cross margin
+        /// ["<c>cross-margin</c>"] Cross margin
         /// </summary>
         [Map("cross-margin")]
         CrossMargin,
         /// <summary>
-        /// Spot
+        /// ["<c>spot</c>"] Spot
         /// </summary>
         [Map("spot")]
         Spot

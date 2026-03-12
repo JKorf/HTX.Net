@@ -9,42 +9,42 @@ namespace HTX.Net.Enums
     public enum SymbolStatus
     {
         /// <summary>
-        /// Unknown
+        /// ["<c>unknown</c>"] Unknown
         /// </summary>
         [Map("unknown")]
         Unknown,
         /// <summary>
-        /// Not online
+        /// ["<c>not-online</c>"] Not online
         /// </summary>
         [Map("not-online")]
         NotOnline,
         /// <summary>
-        /// Not yet online
+        /// ["<c>pre-online</c>"] Not yet online
         /// </summary>
         [Map("pre-online")]
         PreOnline,
         /// <summary>
-        /// Online
+        /// ["<c>online</c>"] Online
         /// </summary>
         [Map("online")]
         Online,
         /// <summary>
-        /// Offline
+        /// ["<c>offline</c>"] Offline
         /// </summary>
         [Map("offline")]
         Offline,
         /// <summary>
-        /// Suspended
+        /// ["<c>suspend</c>"] Suspended
         /// </summary>
         [Map("suspend")]
         Suspended,
         /// <summary>
-        /// Transfer board
+        /// ["<c>transfer-board</c>"] Transfer board
         /// </summary>
         [Map("transfer-board")]
         TransferBoard,
         /// <summary>
-        /// Fuse
+        /// ["<c>fuse</c>"] Fuse
         /// </summary>
         [Map("fuse")]
         Fuse

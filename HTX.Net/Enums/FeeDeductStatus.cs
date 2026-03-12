@@ -9,12 +9,12 @@ namespace HTX.Net.Enums
     public enum FeeDeductStatus
     {
         /// <summary>
-        /// In deduction
+        /// ["<c>ongoing</c>"] In deduction
         /// </summary>
         [Map("ongoing")]
         Ongoing,
         /// <summary>
-        /// Deduction completed
+        /// ["<c>done</c>"] Deduction completed
         /// </summary>
         [Map("done")]
         Done,

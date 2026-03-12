@@ -9,12 +9,12 @@ namespace HTX.Net.Enums
     public enum Unit
     {
         /// <summary>
-        /// Cont
+        /// ["<c>1</c>"] Cont
         /// </summary>
         [Map("1")]
         Cont,
         /// <summary>
-        /// Crypto currency
+        /// ["<c>2</c>"] Crypto currency
         /// </summary>
         [Map("2")]
         CryptoCurrency

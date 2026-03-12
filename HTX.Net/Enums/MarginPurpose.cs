@@ -9,12 +9,12 @@ namespace HTX.Net.Enums
     public enum MarginPurpose
     {
         /// <summary>
-        /// Loan
+        /// ["<c>1</c>"] Loan
         /// </summary>
         [Map("1")]
         AutomaticLoan,
         /// <summary>
-        /// Repayment
+        /// ["<c>2</c>"] Repayment
         /// </summary>
         [Map("2")]
         AutomaticRepayment

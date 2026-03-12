@@ -9,12 +9,12 @@ namespace HTX.Net.Enums
     public enum UserStatus
     {
         /// <summary>
-        /// Normal
+        /// ["<c>normal</c>"] Normal
         /// </summary>
         [Map("normal")]
         Normal,
         /// <summary>
-        /// Locked
+        /// ["<c>lock</c>"] Locked
         /// </summary>
         [Map("lock")]
         Locked

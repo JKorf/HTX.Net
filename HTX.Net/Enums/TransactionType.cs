@@ -9,72 +9,72 @@ namespace HTX.Net.Enums
     public enum TransactionType
     {
         /// <summary>
-        /// Trade
+        /// ["<c>trade</c>"] Trade
         /// </summary>
         [Map("trade")]
         Trade,
         /// <summary>
-        /// ETF
+        /// ["<c>etf</c>"] ETF
         /// </summary>
         [Map("etf")]
         Etf,
         /// <summary>
-        /// Transaction fee
+        /// ["<c>transact-fee</c>"] Transaction fee
         /// </summary>
         [Map("transact-fee")]
         TransactionFee,
         /// <summary>
-        /// Deduction
+        /// ["<c>fee-deduction</c>"] Deduction
         /// </summary>
         [Map("fee-deduction")]
         Deduction,
         /// <summary>
-        /// Transfer between accounts
+        /// ["<c>transfer</c>"] Transfer between accounts
         /// </summary>
         [Map("transfer")]
         Transfer,
         /// <summary>
-        /// Credit
+        /// ["<c>credit</c>"] Credit
         /// </summary>
         [Map("credit")]
         Credit,
         /// <summary>
-        /// Liquidation
+        /// ["<c>liquidation</c>"] Liquidation
         /// </summary>
         [Map("liquidation")]
         Liquidation,
         /// <summary>
-        /// Interest
+        /// ["<c>interest</c>"] Interest
         /// </summary>
         [Map("interest")]
         Interest,
         /// <summary>
-        /// Deposit
+        /// ["<c>deposit</c>"] Deposit
         /// </summary>
         [Map("deposit")]
         Deposit,
         /// <summary>
-        /// Withdraw
+        /// ["<c>withdraw</c>"] Withdraw
         /// </summary>
         [Map("withdraw")]
         Withdraw,
         /// <summary>
-        /// Withdraw fee
+        /// ["<c>withdraw-fee</c>"] Withdraw fee
         /// </summary>
         [Map("withdraw-fee")]
         WithdrawFee,
         /// <summary>
-        /// Exchange
+        /// ["<c>exchange</c>"] Exchange
         /// </summary>
         [Map("exchange")]
         Exchange,
         /// <summary>
-        /// Other types
+        /// ["<c>other-types</c>"] Other types
         /// </summary>
         [Map("other-types")]
         Other,
         /// <summary>
-        /// Rebate
+        /// ["<c>rebate</c>"] Rebate
         /// </summary>
         [Map("rebate")]
         Rebate

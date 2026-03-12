@@ -9,47 +9,47 @@ namespace HTX.Net.Enums
     public enum ContractStatus
     {
         /// <summary>
-        /// Delisting
+        /// ["<c>0</c>"] Delisting
         /// </summary>
         [Map("0")]
         Delisting,
         /// <summary>
-        /// Listing
+        /// ["<c>1</c>"] Listing
         /// </summary>
         [Map("1")]
         Listing,
         /// <summary>
-        /// Pending listing
+        /// ["<c>2</c>"] Pending listing
         /// </summary>
         [Map("2")]
         PendingListing,
         /// <summary>
-        /// Suspension
+        /// ["<c>3</c>"] Suspension
         /// </summary>
         [Map("3")]
         Suspension,
         /// <summary>
-        /// Suspending of listing
+        /// ["<c>4</c>"] Suspending of listing
         /// </summary>
         [Map("4")]
         SuspendingOfListing,
         /// <summary>
-        /// In settlement
+        /// ["<c>5</c>"] In settlement
         /// </summary>
         [Map("5")]
         InSettlement,
         /// <summary>
-        /// Delivering
+        /// ["<c>6</c>"] Delivering
         /// </summary>
         [Map("6")]
         Delivering,
         /// <summary>
-        /// Settlement completed
+        /// ["<c>7</c>"] Settlement completed
         /// </summary>
         [Map("7")]
         SettlementCompleted,
         /// <summary>
-        /// Delivered
+        /// ["<c>8</c>"] Delivered
         /// </summary>
         [Map("8")]
         Delivered

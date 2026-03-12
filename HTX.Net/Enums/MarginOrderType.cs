@@ -9,22 +9,22 @@ namespace HTX.Net.Enums
     public enum MarginOrderType
     {
         /// <summary>
-        /// Quoatation
+        /// ["<c>1</c>"] Quoatation
         /// </summary>
         [Map("1")]
         Quatation,
         /// <summary>
-        /// Canceled order
+        /// ["<c>2</c>"] Canceled order
         /// </summary>
         [Map("2")]
         CanceledOrder,
         /// <summary>
-        /// Forced liquidation
+        /// ["<c>3</c>"] Forced liquidation
         /// </summary>
         [Map("3")]
         ForcedLiquidation,
         /// <summary>
-        /// Delivery
+        /// ["<c>4</c>"] Delivery
         /// </summary>
         [Map("4")]
         DeliveryOrder

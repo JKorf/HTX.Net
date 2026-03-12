@@ -9,17 +9,17 @@ namespace HTX.Net.Enums
     public enum BusinessType
     {
         /// <summary>
-        /// Futures
+        /// ["<c>futures</c>"] Futures
         /// </summary>
         [Map("futures")]
         Futures,
         /// <summary>
-        /// Swap
+        /// ["<c>swap</c>"] Swap
         /// </summary>
         [Map("swap")]
         Swap,
         /// <summary>
-        /// All (for filtering)
+        /// ["<c>all</c>"] All (for filtering)
         /// </summary>
         [Map("all")]
         All

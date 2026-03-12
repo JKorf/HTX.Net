@@ -9,22 +9,22 @@ namespace HTX.Net.Enums
     public enum MaintenanceStatus
     {
         /// <summary>
-        /// Scheduled
+        /// ["<c>scheduled</c>"] Scheduled
         /// </summary>
         [Map("scheduled")]
         Scheduled,
         /// <summary>
-        /// In progress
+        /// ["<c>in progress</c>"] In progress
         /// </summary>
         [Map("in progress")]
         InProgress,
         /// <summary>
-        /// Verifying
+        /// ["<c>verifying</c>"] Verifying
         /// </summary>
         [Map("verifying")]
         Verifying,
         /// <summary>
-        /// Completed
+        /// ["<c>completed</c>"] Completed
         /// </summary>
         [Map("completed")]
         Completed

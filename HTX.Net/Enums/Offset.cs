@@ -9,17 +9,17 @@ namespace HTX.Net.Enums
     public enum Offset
     {
         /// <summary>
-        /// Open
+        /// ["<c>open</c>"] Open
         /// </summary>
         [Map("open")]
         Open,
         /// <summary>
-        /// Close
+        /// ["<c>close</c>"] Close
         /// </summary>
         [Map("close")]
         Close,
         /// <summary>
-        /// Both
+        /// ["<c>both</c>"] Both
         /// </summary>
         [Map("both")]
         Both

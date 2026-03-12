@@ -9,27 +9,27 @@ namespace HTX.Net.Enums
     public enum ContractType
     {
         /// <summary>
-        /// Swap
+        /// ["<c>Swap</c>"] Swap
         /// </summary>
         [Map("Swap")]
         Swap,
         /// <summary>
-        /// This week
+        /// ["<c>this_week</c>"] This week
         /// </summary>
         [Map("this_week")]
         ThisWeek,
         /// <summary>
-        /// Next week
+        /// ["<c>next_week</c>"] Next week
         /// </summary>
         [Map("next_week")]
         NextWeek,
         /// <summary>
-        /// Quarter
+        /// ["<c>quarter</c>"] Quarter
         /// </summary>
         [Map("quarter")]
         Quarter,
         /// <summary>
-        /// Next quarter
+        /// ["<c>next_quarter</c>"] Next quarter
         /// </summary>
         [Map("next_quarter")]
         NextQuarter

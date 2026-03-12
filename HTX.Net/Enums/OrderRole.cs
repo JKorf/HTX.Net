@@ -9,12 +9,12 @@ namespace HTX.Net.Enums
     public enum OrderRole
     {
         /// <summary>
-        /// Maker of an order book entry
+        /// ["<c>maker</c>"] Maker of an order book entry
         /// </summary>
         [Map("maker")]
         Maker,
         /// <summary>
-        /// Taker of an order book entry
+        /// ["<c>taker</c>"] Taker of an order book entry
         /// </summary>
         [Map("taker")]
         Taker

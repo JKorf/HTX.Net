@@ -9,17 +9,17 @@ namespace HTX.Net.Enums
     public enum LiquidationTradeType
     {
         /// <summary>
-        /// Fully filled liquidation orders
+        /// ["<c>0</c>"] Fully filled liquidation orders
         /// </summary>
         [Map("0")]
         FullyFilledLiquidationOrders,
         /// <summary>
-        /// Liquidated close orders
+        /// ["<c>5</c>"] Liquidated close orders
         /// </summary>
         [Map("5")]
         LiquidatedCloseOrders,
         /// <summary>
-        /// Liquidated open orders
+        /// ["<c>6</c>"] Liquidated open orders
         /// </summary>
         [Map("6")]
         LiquidatedOpenOrders

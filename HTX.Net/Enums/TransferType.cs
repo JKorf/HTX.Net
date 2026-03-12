@@ -9,22 +9,22 @@ namespace HTX.Net.Enums
     public enum TransferType
     {
         /// <summary>
-        /// From sub account
+        /// ["<c>master-transfer-in</c>"] From sub account
         /// </summary>
         [Map("master-transfer-in")]
         FromSubAccount,
         /// <summary>
-        /// To sub account
+        /// ["<c>master-transfer-out</c>"] To sub account
         /// </summary>
         [Map("master-transfer-out")]
         ToSubAccount,
         /// <summary>
-        /// Point from sub account
+        /// ["<c>master-point-transfer-in</c>"] Point from sub account
         /// </summary>
         [Map("master-point-transfer-in")]
         PointFromSubAccount,
         /// <summary>
-        /// Point to sub account
+        /// ["<c>master-point-transfer-out</c>"] Point to sub account
         /// </summary>
         [Map("master-point-transfer-out")]
         PointToSubAccount

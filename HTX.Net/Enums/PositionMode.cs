@@ -9,12 +9,12 @@ namespace HTX.Net.Enums
     public enum PositionMode
     {
         /// <summary>
-        /// Single side
+        /// ["<c>single_side</c>"] Single side
         /// </summary>
         [Map("single_side")]
         SingleSide,
         /// <summary>
-        /// Dual side
+        /// ["<c>dual_side</c>"] Dual side
         /// </summary>
         [Map("dual_side")]
         DualSide

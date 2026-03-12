@@ -9,22 +9,22 @@ namespace HTX.Net.Enums
     public enum IncidentStatus
     {
         /// <summary>
-        /// Investigating
+        /// ["<c>investigating</c>"] Investigating
         /// </summary>
         [Map("investigating")]
         Investigating,
         /// <summary>
-        /// Identified
+        /// ["<c>identified</c>"] Identified
         /// </summary>
         [Map("identified")]
         Identified,
         /// <summary>
-        /// Monitoring
+        /// ["<c>monitoring</c>"] Monitoring
         /// </summary>
         [Map("monitoring")]
         Monitoring,
         /// <summary>
-        /// Resolved
+        /// ["<c>resolved</c>"] Resolved
         /// </summary>
         [Map("resolved")]
         Resolved

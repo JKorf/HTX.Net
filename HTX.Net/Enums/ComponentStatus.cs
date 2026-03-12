@@ -9,27 +9,27 @@ namespace HTX.Net.Enums
     public enum ComponentStatus
     {
         /// <summary>
-        /// Operational
+        /// ["<c>operational</c>"] Operational
         /// </summary>
         [Map("operational")]
         Operational,
         /// <summary>
-        /// Degraded performance
+        /// ["<c>degraded_performance</c>"] Degraded performance
         /// </summary>
         [Map("degraded_performance")]
         DegradedPerformance,
         /// <summary>
-        /// Partial outage
+        /// ["<c>partial_outage</c>"] Partial outage
         /// </summary>
         [Map("partial_outage")]
         PartialOutage,
         /// <summary>
-        /// Major outage
+        /// ["<c>major_outage</c>"] Major outage
         /// </summary>
         [Map("major_outage")]
         MajorOutage,
         /// <summary>
-        /// Under maintance
+        /// ["<c>under maintenance</c>"] Under maintance
         /// </summary>
         [Map("under maintenance")]
         UnderMaintenance

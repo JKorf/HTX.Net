@@ -9,27 +9,27 @@ namespace HTX.Net.Enums
     public enum ElementInstrumentType
     {
         /// <summary>
-        /// Perpetual futures
+        /// ["<c>0</c>"] Perpetual futures
         /// </summary>
         [Map("0")]
         PerpetualFutures,
         /// <summary>
-        /// Weekly futures
+        /// ["<c>1</c>"] Weekly futures
         /// </summary>
         [Map("1")]
         WeeklyFutures,
         /// <summary>
-        /// Bi-weekly futures
+        /// ["<c>2</c>"] Bi-weekly futures
         /// </summary>
         [Map("2")]
         BiWeeklyFutures,
         /// <summary>
-        /// Quarterly futures
+        /// ["<c>3</c>"] Quarterly futures
         /// </summary>
         [Map("3")]
         QuarterlyFutures,
         /// <summary>
-        /// Bi-quareterly futures
+        /// ["<c>4</c>"] Bi-quareterly futures
         /// </summary>
         [Map("4")]
         BiQuarterlyFutures,

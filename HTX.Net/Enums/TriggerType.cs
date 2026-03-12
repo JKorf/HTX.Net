@@ -9,12 +9,12 @@ namespace HTX.Net.Enums
     public enum TriggerType
     {
         /// <summary>
-        /// Greater than or equal to price
+        /// ["<c>ge</c>"] Greater than or equal to price
         /// </summary>
         [Map("ge")]
         GreaterThanOrEqual,
         /// <summary>
-        /// Lesser than or equal to price
+        /// ["<c>le</c>"] Lesser than or equal to price
         /// </summary>
         [Map("le")]
         LesserThanOrEqual

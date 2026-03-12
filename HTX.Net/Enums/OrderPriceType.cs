@@ -9,92 +9,92 @@ namespace HTX.Net.Enums
     public enum OrderPriceType
     {
 		/// <summary>
-		/// Market
+		/// ["<c>market</c>"] Market
 		/// </summary>
 		[Map("market")]
 		Market,
 		/// <summary>
-		/// Limit
+		/// ["<c>limit</c>"] Limit
 		/// </summary>
 		[Map("limit")]
         Limit,
         /// <summary>
-        /// Best offer
+        /// ["<c>opponent</c>"] Best offer
         /// </summary>
         [Map("opponent")]
         BestOffer,
         /// <summary>
-        /// Post only
+        /// ["<c>post_only</c>"] Post only
         /// </summary>
         [Map("post_only")]
         PostOnly,
         /// <summary>
-        /// Optimal 5
+        /// ["<c>optimal_5</c>"] Optimal 5
         /// </summary>
         [Map("optimal_5")]
         Optimal5,
         /// <summary>
-        /// Optimal 10
+        /// ["<c>optimal_10</c>"] Optimal 10
         /// </summary>
         [Map("optimal_10")]
         Optimal10,
         /// <summary>
-        /// Optimal 20
+        /// ["<c>optimal_20</c>"] Optimal 20
         /// </summary>
         [Map("optimal_20")]
         Optimal20,
         /// <summary>
-        /// Immediate or cancel
+        /// ["<c>ioc</c>"] Immediate or cancel
         /// </summary>
         [Map("ioc")]
         ImmediateOrCancel,
         /// <summary>
-        /// Fill or kill
+        /// ["<c>fok</c>"] Fill or kill
         /// </summary>
         [Map("fok")]
         FillOrKill,
         /// <summary>
-        /// Immediate or cancel at best bid
+        /// ["<c>opponent_ioc</c>"] Immediate or cancel at best bid
         /// </summary>
         [Map("opponent_ioc")]
         ImmediateOrCancelBestBid,
         /// <summary>
-        /// Immediate or cancel optimal 5
+        /// ["<c>optimal_5_ioc</c>"] Immediate or cancel optimal 5
         /// </summary>
         [Map("optimal_5_ioc")]
         ImmediateOrCancelOptimal5,
         /// <summary>
-        /// Immediate or cancel optimal 10
+        /// ["<c>optimal_10_ioc</c>"] Immediate or cancel optimal 10
         /// </summary>
         [Map("optimal_10_ioc")]
         ImmediateOrCancelOptimal10,
         /// <summary>
-        /// Immediate or cancel optimal 20
+        /// ["<c>optimal_20_ioc</c>"] Immediate or cancel optimal 20
         /// </summary>
         [Map("optimal_20_ioc")]
         ImmediateOrCancelOptimal20,
         /// <summary>
-        /// Fill or kill best offer
+        /// ["<c>opponent_fok</c>"] Fill or kill best offer
         /// </summary>
         [Map("opponent_fok")]
         FillOrKillBestBid,
         /// <summary>
-        /// Fill or kill optimal 5
+        /// ["<c>optimal_5_fok</c>"] Fill or kill optimal 5
         /// </summary>
         [Map("optimal_5_fok")]
         FillOrKillOptimal5,
         /// <summary>
-        /// Fill or kill optimal 10
+        /// ["<c>optimal_10_fok</c>"] Fill or kill optimal 10
         /// </summary>
         [Map("optimal_10_fok")]
         FillOrKillOptimal10,
         /// <summary>
-        /// Fill or kill optimal 20
+        /// ["<c>optimal_20_fok</c>"] Fill or kill optimal 20
         /// </summary>
         [Map("optimal_20_fok")]
         FillOrKillOptimal20,
         /// <summary>
-        /// Formula price
+        /// ["<c>formula_price</c>"] Formula price
         /// </summary>
         [Map("formula_price")]
         FormulaPrice

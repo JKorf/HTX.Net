@@ -9,17 +9,17 @@ namespace HTX.Net.Enums
     public enum SwapDeliveryType
     {
         /// <summary>
-        /// Perpetual futures
+        /// ["<c>1</c>"] Perpetual futures
         /// </summary>
         [Map("1")]
         UsdtPerpetualFutures,
         /// <summary>
-        /// Delivery futures
+        /// ["<c>2</c>"] Delivery futures
         /// </summary>
         [Map("2")]
         UsdtDeliveryFutures,
         /// <summary>
-        /// Both USDT perpetual and delivery futures
+        /// ["<c>3</c>"] Both USDT perpetual and delivery futures
         /// </summary>
         [Map("3")]
         UsdtPerpetualAndDeliveryFutures

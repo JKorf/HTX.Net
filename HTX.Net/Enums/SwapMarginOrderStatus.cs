@@ -9,42 +9,42 @@ namespace HTX.Net.Enums
     public enum SwapMarginOrderStatus
     {
         /// <summary>
-        /// Ready to submit
+        /// ["<c>1</c>"] Ready to submit
         /// </summary>
         [Map("1")]
         ReadyToSubmit,
         /// <summary>
-        /// Submitting
+        /// ["<c>2</c>"] Submitting
         /// </summary>
         [Map("2")]
         Submitting,
         /// <summary>
-        /// Submitted / active
+        /// ["<c>3</c>"] Submitted / active
         /// </summary>
         [Map("3")]
         Submitted,
         /// <summary>
-        /// Partially filled
+        /// ["<c>4</c>"] Partially filled
         /// </summary>
         [Map("4")]
         PartiallyFilled,
         /// <summary>
-        /// Partially filled, cancelled
+        /// ["<c>5</c>"] Partially filled, cancelled
         /// </summary>
         [Map("5")]
         PartiallyCancelled,
         /// <summary>
-        /// Filled
+        /// ["<c>6</c>"] Filled
         /// </summary>
         [Map("6")]
         Filled,
         /// <summary>
-        /// Cancelled
+        /// ["<c>7</c>"] Cancelled
         /// </summary>
         [Map("7")]
         Cancelled,
         /// <summary>
-        /// Cancelling
+        /// ["<c>11</c>"] Cancelling
         /// </summary>
         [Map("11")]
         Cancelling

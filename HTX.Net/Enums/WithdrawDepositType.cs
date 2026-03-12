@@ -9,12 +9,12 @@ namespace HTX.Net.Enums
     public enum WithdrawDepositType
 	{
 		/// <summary>
-		/// Deposit
+		/// ["<c>deposit</c>"] Deposit
 		/// </summary>
 		[Map("deposit")]
 		Deposit,
 		/// <summary>
-		/// Withdraw
+		/// ["<c>withdraw</c>"] Withdraw
 		/// </summary>
 		[Map("withdraw")]
         Withdraw

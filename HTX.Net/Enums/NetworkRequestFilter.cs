@@ -9,17 +9,17 @@ namespace HTX.Net.Enums
     public enum NetworkRequestFilter
     {
         /// <summary>
-        /// Do not return descriptions
+        /// ["<c>0</c>"] Do not return descriptions
         /// </summary>
         [Map("0")]
         NoDescriptions,
         /// <summary>
-        /// Include all descriptions
+        /// ["<c>1</c>"] Include all descriptions
         /// </summary>
         [Map("1")]
         AllDescriptions,
         /// <summary>
-        /// Only include suspended withdrawal/deposit descriptions
+        /// ["<c>2</c>"] Only include suspended withdrawal/deposit descriptions
         /// </summary>
         [Map("2")]
         SuspendedDescriptions

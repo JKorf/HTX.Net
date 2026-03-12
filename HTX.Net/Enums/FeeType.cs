@@ -9,17 +9,17 @@ namespace HTX.Net.Enums
     public enum FeeType
     {
         /// <summary>
-        /// Fixed
+        /// ["<c>fixed</c>"] Fixed
         /// </summary>
         [Map("fixed")]
         Fixed,
         /// <summary>
-        /// Circulated
+        /// ["<c>circulated</c>"] Circulated
         /// </summary>
         [Map("circulated")]
         Circulated,
         /// <summary>
-        /// Ratio
+        /// ["<c>ratio</c>"] Ratio
         /// </summary>
         [Map("ratio")]
         Ratio

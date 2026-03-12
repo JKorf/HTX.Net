@@ -9,12 +9,12 @@ namespace HTX.Net.Enums
     public enum ContractNetworkType
     {
         /// <summary>
-        /// Coin
+        /// ["<c>0</c>"] Coin
         /// </summary>
         [Map("0")]
         Coin,
         /// <summary>
-        /// Token
+        /// ["<c>1</c>"] Token
         /// </summary>
         [Map("1")]
         Token

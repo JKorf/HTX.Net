@@ -9,12 +9,12 @@ namespace HTX.Net.Enums
     public enum FilterDirection
     {
         /// <summary>
-        /// Get results after
+        /// ["<c>next</c>"] Get results after
         /// </summary>
         [Map("next")]
         Next,
         /// <summary>
-        /// Get results before
+        /// ["<c>prev</c>"] Get results before
         /// </summary>
         [Map("prev")]
         Previous

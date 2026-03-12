@@ -9,32 +9,32 @@ namespace HTX.Net.Enums
     public enum PointAccountStatus
     {
         /// <summary>
-        /// Working
+        /// ["<c>working</c>"] Working
         /// </summary>
         [Map("working")]
         Working,
         /// <summary>
-        /// Lock
+        /// ["<c>lock</c>"] Lock
         /// </summary>
         [Map("lock")]
         Lock,
         /// <summary>
-        /// Fl sys
+        /// ["<c>fl-sys</c>"] Fl sys
         /// </summary>
         [Map("fl-sys")]
         FlSys,
         /// <summary>
-        /// Fl mgt
+        /// ["<c>fl-mgt</c>"] Fl mgt
         /// </summary>
         [Map("fl-mgt")]
         FlMgt,
         /// <summary>
-        /// Fl end
+        /// ["<c>fl-end</c>"] Fl end
         /// </summary>
         [Map("fl-end")]
         FlEnd,
         /// <summary>
-        /// Fl negative
+        /// ["<c>fl-negative</c>"] Fl negative
         /// </summary>
         [Map("fl-negative")]
         FlNegative,

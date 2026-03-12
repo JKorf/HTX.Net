@@ -9,32 +9,32 @@ namespace HTX.Net.Enums
     public enum Period
     {
         /// <summary>
-        /// Five minutes
+        /// ["<c>5min</c>"] Five minutes
         /// </summary>
         [Map("5min")]
         FiveMinutes,
         /// <summary>
-        /// Fifteen minutes
+        /// ["<c>15min</c>"] Fifteen minutes
         /// </summary>
         [Map("15min")]
         FifteenMinutes,
         /// <summary>
-        /// Thirty minutes
+        /// ["<c>30min</c>"] Thirty minutes
         /// </summary>
         [Map("30min")]
         ThirtyMinutes,
         /// <summary>
-        /// One hour
+        /// ["<c>60min</c>"] One hour
         /// </summary>
         [Map("60min")]
         OneHour,
         /// <summary>
-        /// Four hours
+        /// ["<c>4hour</c>"] Four hours
         /// </summary>
         [Map("4hour")]
         FourHours,
         /// <summary>
-        /// One day
+        /// ["<c>1day</c>"] One day
         /// </summary>
         [Map("1day")]
         OneDay

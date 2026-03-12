@@ -9,12 +9,12 @@ namespace HTX.Net.Enums
     public enum ApiKeyStatus
     {
         /// <summary>
-        /// Normal
+        /// ["<c>normal</c>"] Normal
         /// </summary>
         [Map("normal")]
         Normal,
         /// <summary>
-        /// Expired
+        /// ["<c>expired</c>"] Expired
         /// </summary>
         [Map("expired")]
         Expired

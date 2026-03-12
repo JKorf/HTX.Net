@@ -9,147 +9,147 @@ namespace HTX.Net.Enums
     public enum FinancialRecordType
     {
         /// <summary>
-        /// Close long
+        /// ["<c>3</c>"] Close long
         /// </summary>
         [Map("3")]
         CloseLong,
         /// <summary>
-        /// Close short
+        /// ["<c>4</c>"] Close short
         /// </summary>
         [Map("4")]
         CloseShort,
         /// <summary>
-        /// Fees for open position - taker
+        /// ["<c>5</c>"] Fees for open position - taker
         /// </summary>
         [Map("5")]
         FeesForOpenPositionsTaker,
         /// <summary>
-        /// Fess for open position - maker
+        /// ["<c>6</c>"] Fess for open position - maker
         /// </summary>
         [Map("6")]
         FeesForOpenPositionMaker,
         /// <summary>
-        /// Fees for close positon - taker
+        /// ["<c>7</c>"] Fees for close positon - taker
         /// </summary>
         [Map("7")]
         FeesForClosePositionTaker,
         /// <summary>
-        /// Fees for close potion - maker
+        /// ["<c>8</c>"] Fees for close potion - maker
         /// </summary>
         [Map("8")]
         FeesForClosePositionMaker,
         /// <summary>
-        /// Close long for delivery
+        /// ["<c>9</c>"] Close long for delivery
         /// </summary>
         [Map("9")]
         CloseLongForDelivery,
         /// <summary>
-        /// Close short for delibery
+        /// ["<c>10</c>"] Close short for delibery
         /// </summary>
         [Map("10")]
         CloseShortForDelivery,
         /// <summary>
-        /// Delivery fee
+        /// ["<c>11</c>"] Delivery fee
         /// </summary>
         [Map("11")]
         DeliveryFee,
         /// <summary>
-        /// Close long for liquidation
+        /// ["<c>12</c>"] Close long for liquidation
         /// </summary>
         [Map("12")]
         CloseLongForLiquidation,
         /// <summary>
-        /// Close short for liquidation
+        /// ["<c>13</c>"] Close short for liquidation
         /// </summary>
         [Map("13")]
         CloseShortForLiquidation,
         /// <summary>
-        /// Transfer spot to contract
+        /// ["<c>14</c>"] Transfer spot to contract
         /// </summary>
         [Map("14")]
         TransferSpotToContract,
         /// <summary>
-        /// Transfer contract to spot
+        /// ["<c>15</c>"] Transfer contract to spot
         /// </summary>
         [Map("15")]
         TransferContractToSpot,
         /// <summary>
-        /// Settle unrealized long
+        /// ["<c>16</c>"] Settle unrealized long
         /// </summary>
         [Map("16")]
         SettleUnrealizedLong,
         /// <summary>
-        /// Settle unrealized short
+        /// ["<c>17</c>"] Settle unrealized short
         /// </summary>
         [Map("17")]
         SettleUnrealizedShort,
         /// <summary>
-        /// Clawback
+        /// ["<c>19</c>"] Clawback
         /// </summary>
         [Map("19")]
         Clawback,
         /// <summary>
-        /// System
+        /// ["<c>26</c>"] System
         /// </summary>
         [Map("26")]
         System,
         /// <summary>
-        /// Activity price rewards
+        /// ["<c>28</c>"] Activity price rewards
         /// </summary>
         [Map("28")]
         ActivityPriceRewards,
         /// <summary>
-        /// Rebate
+        /// ["<c>29</c>"] Rebate
         /// </summary>
         [Map("29")]
         Rebate,
         /// <summary>
-        /// Funding fee income
+        /// ["<c>30</c>"] Funding fee income
         /// </summary>
         [Map("30")]
         FundingFeeIncome,
         /// <summary>
-        /// Funding fee expenditure
+        /// ["<c>31</c>"] Funding fee expenditure
         /// </summary>
         [Map("31")]
         FundingFeeExpenditure,
         /// <summary>
-        /// Transfer to sub account
+        /// ["<c>34</c>"] Transfer to sub account
         /// </summary>
         [Map("34")]
         TransferToSub,
         /// <summary>
-        /// Transfer from sub account
+        /// ["<c>35</c>"] Transfer from sub account
         /// </summary>
         [Map("35")]
         TransferFromSub,
         /// <summary>
-        /// Transfer to master account
+        /// ["<c>36</c>"] Transfer to master account
         /// </summary>
         [Map("36")]
         TransferToMaster,
         /// <summary>
-        /// Transfer from master account
+        /// ["<c>37</c>"] Transfer from master account
         /// </summary>
         [Map("37")]
         TransferFromMaster,
         /// <summary>
-        /// Transfer from other margin account
+        /// ["<c>38</c>"] Transfer from other margin account
         /// </summary>
         [Map("38")]
         TransferFromOtherMargin,
         /// <summary>
-        /// Transfer to other margin account
+        /// ["<c>39</c>"] Transfer to other margin account
         /// </summary>
         [Map("39")]
         TransferToOtherMargin,
         /// <summary>
-        /// Adl close long
+        /// ["<c>46</c>"] Adl close long
         /// </summary>
         [Map("46")]
         AdlCloseLong,
         /// <summary>
-        /// Adl close short
+        /// ["<c>47</c>"] Adl close short
         /// </summary>
         [Map("47")]
         AdlCloseShort

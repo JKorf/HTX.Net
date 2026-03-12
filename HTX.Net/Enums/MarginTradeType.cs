@@ -9,47 +9,47 @@ namespace HTX.Net.Enums
     public enum MarginTradeType
     {
         /// <summary>
-        /// All trades
+        /// ["<c>0</c>"] All trades
         /// </summary>
         [Map("0")]
         All,
         /// <summary>
-        /// Buy long
+        /// ["<c>1</c>"] Buy long
         /// </summary>
         [Map("1")]
         BuyLong,
         /// <summary>
-        /// Sell short
+        /// ["<c>2</c>"] Sell short
         /// </summary>
         [Map("2")]
         SellShort,
         /// <summary>
-        /// Buy short
+        /// ["<c>3</c>"] Buy short
         /// </summary>
         [Map("3")]
         BuyShort,
         /// <summary>
-        /// Sell long
+        /// ["<c>4</c>"] Sell long
         /// </summary>
         [Map("4")]
         SellLong,
         /// <summary>
-        /// Liquidate long positions
+        /// ["<c>5</c>"] Liquidate long positions
         /// </summary>
         [Map("5")]
         LiquidateLong,
         /// <summary>
-        /// Liquidate short positions
+        /// ["<c>6</c>"] Liquidate short positions
         /// </summary>
         [Map("6")]
         LiquidateShort,
         /// <summary>
-        /// Buy one way
+        /// ["<c>17</c>"] Buy one way
         /// </summary>
         [Map("17")]
         BuyOneWay,
         /// <summary>
-        /// Sell one way
+        /// ["<c>18</c>"] Sell one way
         /// </summary>
         [Map("18")]
         SellOneWay

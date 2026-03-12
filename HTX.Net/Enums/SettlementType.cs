@@ -9,12 +9,12 @@ namespace HTX.Net.Enums
     public enum SettlementType
     {
         /// <summary>
-        /// Settlement
+        /// ["<c>settlement</c>"] Settlement
         /// </summary>
         [Map("settlement")]
         Settlement,
         /// <summary>
-        /// Delivery
+        /// ["<c>delivery</c>"] Delivery
         /// </summary>
         [Map("delivery")]
         Delivery

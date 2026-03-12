@@ -9,12 +9,12 @@ namespace HTX.Net.Enums
     public enum SortingType
     {
         /// <summary>
-        /// Ascending
+        /// ["<c>asc</c>"] Ascending
         /// </summary>
         [Map("asc")]
         Ascending,
         /// <summary>
-        /// Descending
+        /// ["<c>desc</c>"] Descending
         /// </summary>
         [Map("desc")]
         Descending

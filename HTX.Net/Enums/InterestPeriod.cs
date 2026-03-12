@@ -9,22 +9,22 @@ namespace HTX.Net.Enums
     public enum InterestPeriod
     {
         /// <summary>
-        /// One hour
+        /// ["<c>60min</c>"] One hour
         /// </summary>
         [Map("60min")]
         OneHour,
         /// <summary>
-        /// Four hours
+        /// ["<c>4hour</c>"] Four hours
         /// </summary>
         [Map("4hour")]
         FourHour,
         /// <summary>
-        /// Twelf hours
+        /// ["<c>12hour</c>"] Twelf hours
         /// </summary>
         [Map("12hour")]
         TwelfHour,
         /// <summary>
-        /// One day
+        /// ["<c>1day</c>"] One day
         /// </summary>
         [Map("1day")]
         OneDay

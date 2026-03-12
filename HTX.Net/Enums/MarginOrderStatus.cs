@@ -9,27 +9,27 @@ namespace HTX.Net.Enums
     public enum MarginOrderStatus
     {
         /// <summary>
-        /// Created
+        /// ["<c>created</c>"] Created
         /// </summary>
         [Map("created")]
         Created,
         /// <summary>
-        /// Loaned
+        /// ["<c>accrual</c>"] Loaned
         /// </summary>
         [Map("accrual")]
         Accural,
         /// <summary>
-        /// Paid
+        /// ["<c>cleared</c>"] Paid
         /// </summary>
         [Map("cleared")]
         Cleared,
         /// <summary>
-        /// Invalid
+        /// ["<c>invalid</c>"] Invalid
         /// </summary>
         [Map("invalid")]
         Invalid,
         /// <summary>
-        /// Failed
+        /// ["<c>failed</c>"] Failed
         /// </summary>
         [Map("failed")]
         Failed

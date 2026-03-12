@@ -9,27 +9,27 @@ namespace HTX.Net.Enums
     public enum SystemStatusIndicator
     {
         /// <summary>
-        /// None
+        /// ["<c>none</c>"] None
         /// </summary>
         [Map("none")]
         None,
         /// <summary>
-        /// Minor
+        /// ["<c>minor</c>"] Minor
         /// </summary>
         [Map("minor")]
         Minor,
         /// <summary>
-        /// Major
+        /// ["<c>major</c>"] Major
         /// </summary>
         [Map("major")]
         Major,
         /// <summary>
-        /// Critical
+        /// ["<c>critical</c>"] Critical
         /// </summary>
         [Map("critical")]
         Critical,
         /// <summary>
-        /// Maintenance
+        /// ["<c>maintenance</c>"] Maintenance
         /// </summary>
         [Map("maintenance")]
         Maintenance
