@@ -23,7 +23,7 @@ using HTXOrderUpdate = HTX.Net.Objects.Models.Socket.HTXOrderUpdate;
 namespace HTX.Net.Clients.SpotApi
 {
     /// <inheritdoc />
-    internal partial class HTXSocketClientSpotApi : SocketApiClient, IHTXSocketClientSpotApi
+    internal partial class HTXSocketClientSpotApi : SocketApiClient<HTXEnvironment, HTXAuthenticationProvider, HTXCredentials>, IHTXSocketClientSpotApi
     {
         protected override ErrorMapping ErrorMapping => HTXErrors.SpotMapping;
 
@@ -66,7 +66,7 @@ namespace HTX.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
+        protected override HTXAuthenticationProvider CreateAuthenticationProvider(HTXCredentials credentials)
             => new HTXAuthenticationProvider(credentials, false);
 
         /// <inheritdoc />

@@ -5,7 +5,7 @@ namespace HTX.Net.Objects.Options
     /// <summary>
     /// Options for the HTXSocketClient
     /// </summary>
-    public class HTXSocketOptions : SocketExchangeOptions<HTXEnvironment>
+    public class HTXSocketOptions : SocketExchangeOptions<HTXEnvironment, HTXCredentials>
     {
         /// <summary>
         /// Default options for the HTXSocketClient
@@ -43,12 +43,12 @@ namespace HTX.Net.Objects.Options
         /// <summary>
         /// Spot API options
         /// </summary>
-        public SocketApiOptions SpotOptions { get; private set; } = new SocketApiOptions();
+        public SocketApiOptions<HTXCredentials> SpotOptions { get; private set; } = new SocketApiOptions<HTXCredentials>();
 
         /// <summary>
         /// Usdt Margin Swap API options
         /// </summary>
-        public SocketApiOptions UsdtMarginSwapOptions { get; private set; } = new SocketApiOptions();
+        public SocketApiOptions<HTXCredentials> UsdtMarginSwapOptions { get; private set; } = new SocketApiOptions<HTXCredentials>();
 
         internal HTXSocketOptions Set(HTXSocketOptions targetOptions)
         {

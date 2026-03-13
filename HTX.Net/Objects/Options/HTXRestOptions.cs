@@ -5,7 +5,7 @@ namespace HTX.Net.Objects.Options
     /// <summary>
     /// Options for the HTXRestClient
     /// </summary>
-    public class HTXRestOptions : RestExchangeOptions<HTXEnvironment>
+    public class HTXRestOptions : RestExchangeOptions<HTXEnvironment, HTXCredentials>
     {
         /// <summary>
         /// Default options for the HTXRestClient
@@ -46,12 +46,12 @@ namespace HTX.Net.Objects.Options
         /// <summary>
         /// Spot API options
         /// </summary>
-        public RestApiOptions SpotOptions { get; private set; } = new RestApiOptions();
+        public RestApiOptions<HTXCredentials> SpotOptions { get; private set; } = new RestApiOptions<HTXCredentials>();
 
         /// <summary>
         /// USDT margin swap API options
         /// </summary>
-        public RestApiOptions UsdtMarginSwapOptions { get; private set; } = new RestApiOptions();
+        public RestApiOptions<HTXCredentials> UsdtMarginSwapOptions { get; private set; } = new RestApiOptions<HTXCredentials>();
 
         internal HTXRestOptions Set(HTXRestOptions targetOptions)
         {

@@ -21,7 +21,7 @@ using System.Net.WebSockets;
 namespace HTX.Net.Clients.UsdtFutures
 {
     /// <inheritdoc />
-    internal partial class HTXSocketClientUsdtFuturesApi : SocketApiClient, IHTXSocketClientUsdtFuturesApi
+    internal partial class HTXSocketClientUsdtFuturesApi : SocketApiClient<HTXEnvironment, HTXAuthenticationProvider, HTXCredentials>, IHTXSocketClientUsdtFuturesApi
     {
         protected override ErrorMapping ErrorMapping => HTXErrors.FuturesMapping;
 
@@ -65,7 +65,7 @@ namespace HTX.Net.Clients.UsdtFutures
         }
 
         /// <inheritdoc />
-        protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
+        protected override HTXAuthenticationProvider CreateAuthenticationProvider(HTXCredentials credentials)
             => new HTXAuthenticationProvider(credentials, false);
 
         /// <inheritdoc />

@@ -6,7 +6,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
     /// <summary>
     /// Usdt futures api endpoints
     /// </summary>
-    public interface IHTXRestClientUsdtFuturesApi : IRestApiClient
+    public interface IHTXRestClientUsdtFuturesApi : IRestApiClient<HTXCredentials>
     {
         /// <summary>
         /// Endpoints related to account settings, info or actions

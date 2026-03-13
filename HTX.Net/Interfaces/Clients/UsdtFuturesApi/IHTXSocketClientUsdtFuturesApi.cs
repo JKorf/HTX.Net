@@ -9,7 +9,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
     /// <summary>
     /// Usdt futures streams
     /// </summary>
-    public interface IHTXSocketClientUsdtFuturesApi : ISocketApiClient
+    public interface IHTXSocketClientUsdtFuturesApi : ISocketApiClient<HTXCredentials>
     {
         /// <summary>
         /// Get the shared socket subscription client. This interface is shared with other exchanges to allow for a common implementation for different exchanges.

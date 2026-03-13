@@ -12,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using HTX.Net.Interfaces.Clients;
 using CryptoExchange.Net.Objects;
+using HTX.Net.Clients.SpotApi;
 
 namespace HTX.Net.UnitTests
 {
@@ -28,7 +29,7 @@ namespace HTX.Net.UnitTests
         public void CheckSignatureExample()
         {
             var authProvider = new HTXAuthenticationProvider(
-                new ApiCredentials("e2xxxxxx-99xxxxxx-84xxxxxx-7xxxx", "XXXXXXXXXX"),
+                new HTXCredentials("e2xxxxxx-99xxxxxx-84xxxxxx-7xxxx", "XXXXXXXXXX"),
                 false
                 );
             var client = (RestApiClient)new HTXRestClient().SpotApi;
@@ -148,8 +149,8 @@ namespace HTX.Net.UnitTests
 
             Assert.That(((BaseApiClient)restClient.SpotApi).OutputOriginalData, Is.True);
             Assert.That(((BaseApiClient)socketClient.SpotApi).OutputOriginalData, Is.False);
-            Assert.That(((BaseApiClient)restClient.SpotApi).AuthenticationProvider.ApiKey, Is.EqualTo("123"));
-            Assert.That(((BaseApiClient)socketClient.SpotApi).AuthenticationProvider.ApiKey, Is.EqualTo("456"));
+            Assert.That(((HTXRestClientSpotApi)restClient.SpotApi).AuthenticationProvider.PublicKey, Is.EqualTo("123"));
+            Assert.That(((HTXSocketClientSpotApi)socketClient.SpotApi).AuthenticationProvider.PublicKey, Is.EqualTo("456"));
             Assert.That(((BaseApiClient)restClient.SpotApi).ClientOptions.Proxy.Host, Is.EqualTo("host"));
             Assert.That(((BaseApiClient)restClient.SpotApi).ClientOptions.Proxy.Port, Is.EqualTo(80));
             Assert.That(((BaseApiClient)socketClient.SpotApi).ClientOptions.Proxy.Host, Is.EqualTo("host2"));

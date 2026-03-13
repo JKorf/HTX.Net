@@ -12,7 +12,7 @@ using System.Net.Http.Headers;
 namespace HTX.Net.Clients.SpotApi
 {
     /// <inheritdoc />
-    internal partial class HTXRestClientSpotApi : RestApiClient, IHTXRestClientSpotApi
+    internal partial class HTXRestClientSpotApi : RestApiClient<HTXEnvironment, HTXAuthenticationProvider, HTXCredentials>, IHTXRestClientSpotApi
     {
         /// <inheritdoc />
         public new HTXRestOptions ClientOptions => (HTXRestOptions)base.ClientOptions;
@@ -59,7 +59,7 @@ namespace HTX.Net.Clients.SpotApi
                 => HTXExchange.FormatSymbol(baseAsset, quoteAsset, tradingMode, deliverTime);
 
         /// <inheritdoc />
-        protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
+        protected override HTXAuthenticationProvider CreateAuthenticationProvider(HTXCredentials credentials)
             => new HTXAuthenticationProvider(credentials, ClientOptions.SignPublicRequests);
 
         #region methods

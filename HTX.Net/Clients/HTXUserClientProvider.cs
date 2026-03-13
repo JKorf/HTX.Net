@@ -45,7 +45,7 @@ namespace HTX.Net.Clients
         }
 
         /// <inheritdoc />
-        public void InitializeUserClient(string userIdentifier, ApiCredentials credentials, HTXEnvironment? environment = null)
+        public void InitializeUserClient(string userIdentifier, HTXCredentials credentials, HTXEnvironment? environment = null)
         {
             CreateRestClient(userIdentifier, credentials, environment);
             CreateSocketClient(userIdentifier, credentials, environment);
@@ -59,7 +59,7 @@ namespace HTX.Net.Clients
         }
 
         /// <inheritdoc />
-        public IHTXRestClient GetRestClient(string userIdentifier, ApiCredentials? credentials = null, HTXEnvironment? environment = null)
+        public IHTXRestClient GetRestClient(string userIdentifier, HTXCredentials? credentials = null, HTXEnvironment? environment = null)
         {
             if (!_restClients.TryGetValue(userIdentifier, out var client) || client.Disposed)
                 client = CreateRestClient(userIdentifier, credentials, environment);
@@ -68,7 +68,7 @@ namespace HTX.Net.Clients
         }
 
         /// <inheritdoc />
-        public IHTXSocketClient GetSocketClient(string userIdentifier, ApiCredentials? credentials = null, HTXEnvironment? environment = null)
+        public IHTXSocketClient GetSocketClient(string userIdentifier, HTXCredentials? credentials = null, HTXEnvironment? environment = null)
         {
             if (!_socketClients.TryGetValue(userIdentifier, out var client) || client.Disposed)
                 client = CreateSocketClient(userIdentifier, credentials, environment);
@@ -76,7 +76,7 @@ namespace HTX.Net.Clients
             return client;
         }
 
-        private IHTXRestClient CreateRestClient(string userIdentifier, ApiCredentials? credentials, HTXEnvironment? environment)
+        private IHTXRestClient CreateRestClient(string userIdentifier, HTXCredentials? credentials, HTXEnvironment? environment)
         {
             var clientRestOptions = SetRestEnvironment(environment);
             var client = new HTXRestClient(_httpClient, _loggerFactory, clientRestOptions);
@@ -88,7 +88,7 @@ namespace HTX.Net.Clients
             return client;
         }
 
-        private IHTXSocketClient CreateSocketClient(string userIdentifier, ApiCredentials? credentials, HTXEnvironment? environment)
+        private IHTXSocketClient CreateSocketClient(string userIdentifier, HTXCredentials? credentials, HTXEnvironment? environment)
         {
             var clientSocketOptions = SetSocketEnvironment(environment);
             var client = new HTXSocketClient(clientSocketOptions!, _loggerFactory);

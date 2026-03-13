@@ -42,7 +42,7 @@ namespace HTX.Net.UnitTests
             var client = new HTXSocketClient(Options.Create<HTXSocketOptions>(new HTXSocketOptions
             {
                 OutputOriginalData = true,
-                ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456")
+                ApiCredentials = new HTXCredentials("123", "456")
             }), loggerFactory);
             var tester = new SocketSubscriptionValidator<HTXSocketClient>(client, "Subscriptions/Spot", "wss://api.huobi.pro", "data");
             await tester.ValidateAsync<HTXKline>((client, handler) => client.SpotApi.SubscribeToKlineUpdatesAsync("ETHUSDT", Enums.KlineInterval.OneDay, handler), "Klines", nestedJsonProperty: "tick");
@@ -82,7 +82,7 @@ namespace HTX.Net.UnitTests
         {
             var client = new HTXSocketClient(opts =>
             {
-                opts.ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456");
+                opts.ApiCredentials = new HTXCredentials("123", "456");
             });
             var tester = new SocketSubscriptionValidator<HTXSocketClient>(client, "Subscriptions/UsdtMarginSwap", "wss://api.huobi.pro");
             await tester.ValidateAsync<HTXSwapKline>((client, handler) => client.UsdtFuturesApi.SubscribeToKlineUpdatesAsync("ETH-USDT", Enums.KlineInterval.OneDay, handler), "Klines", nestedJsonProperty: "tick");

@@ -16,7 +16,7 @@ namespace HTX.Net.Interfaces
         /// <param name="config">Configuration</param>
         /// <param name="credentials">Credentials</param>
         /// <param name="environment">Environment</param>
-        IUserSpotDataTracker CreateUserSpotDataTracker(string userIdentifier, ApiCredentials credentials, SpotUserDataTrackerConfig? config = null, HTXEnvironment? environment = null);
+        IUserSpotDataTracker CreateUserSpotDataTracker(string userIdentifier, HTXCredentials credentials, SpotUserDataTrackerConfig? config = null, HTXEnvironment? environment = null);
         /// <summary>
         /// Create a new spot user data tracker
         /// </summary>
@@ -31,7 +31,7 @@ namespace HTX.Net.Interfaces
         /// <param name="credentials">Credentials</param>
         /// <param name="marginMode">Margin mode</param>
         /// <param name="environment">Environment</param>
-        IUserFuturesDataTracker CreateUserFuturesDataTracker(string userIdentifier, ApiCredentials credentials, SharedMarginMode marginMode, FuturesUserDataTrackerConfig? config = null, HTXEnvironment? environment = null);
+        IUserFuturesDataTracker CreateUserFuturesDataTracker(string userIdentifier, HTXCredentials credentials, SharedMarginMode marginMode, FuturesUserDataTrackerConfig? config = null, HTXEnvironment? environment = null);
         /// <summary>
         /// Create a new futures user data tracker
         /// </summary>

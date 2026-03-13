@@ -11,7 +11,7 @@ using Microsoft.Extensions.Options;
 namespace HTX.Net.Clients
 {
     /// <inheritdoc cref="IHTXSocketClient" />
-    public class HTXSocketClient : BaseSocketClient, IHTXSocketClient
+    public class HTXSocketClient : BaseSocketClient<HTXEnvironment, HTXCredentials>, IHTXSocketClient
     {
         #region fields
         /// <inheritdoc />
@@ -47,13 +47,6 @@ namespace HTX.Net.Clients
 
         #region methods
 
-        /// <inheritdoc />
-        public void SetOptions(UpdateOptions options)
-        {
-            SpotApi.SetOptions(options);
-            UsdtFuturesApi.SetOptions(options);
-        }
-
         /// <summary>
         /// Set the default options to be used when creating new clients
         /// </summary>
@@ -63,12 +56,6 @@ namespace HTX.Net.Clients
             HTXSocketOptions.Default = ApplyOptionsDelegate(optionsDelegate);
         }
 
-        /// <inheritdoc />
-        public void SetApiCredentials(ApiCredentials apiCredentials)
-        {
-            SpotApi.SetApiCredentials(apiCredentials);
-            UsdtFuturesApi.SetApiCredentials(apiCredentials);
-        }
         #endregion
     }
 }

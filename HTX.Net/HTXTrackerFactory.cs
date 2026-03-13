@@ -116,7 +116,7 @@ namespace HTX.Net
         }
 
         /// <inheritdoc />
-        public IUserSpotDataTracker CreateUserSpotDataTracker(string userIdentifier, ApiCredentials credentials, SpotUserDataTrackerConfig? config = null, HTXEnvironment? environment = null)
+        public IUserSpotDataTracker CreateUserSpotDataTracker(string userIdentifier, HTXCredentials credentials, SpotUserDataTrackerConfig? config = null, HTXEnvironment? environment = null)
         {
             var clientProvider = _serviceProvider?.GetRequiredService<IHTXUserClientProvider>() ?? new HTXUserClientProvider();
             var restClient = clientProvider.GetRestClient(userIdentifier, credentials, environment);
@@ -148,7 +148,7 @@ namespace HTX.Net
         }
 
         /// <inheritdoc />
-        public IUserFuturesDataTracker CreateUserFuturesDataTracker(string userIdentifier, ApiCredentials credentials, SharedMarginMode marginMode, FuturesUserDataTrackerConfig? config = null, HTXEnvironment? environment = null)
+        public IUserFuturesDataTracker CreateUserFuturesDataTracker(string userIdentifier, HTXCredentials credentials, SharedMarginMode marginMode, FuturesUserDataTrackerConfig? config = null, HTXEnvironment? environment = null)
         {
             var exchangeParams = new ExchangeParameters(new ExchangeParameter("HTX", "MarginMode", marginMode));
 
