@@ -7,19 +7,34 @@ namespace HTX.Net
     /// </summary>
     public class HTXCredentials : ApiCredentials
     {
+        /// <summary>
+        /// Credential type provided
+        /// </summary>
         public ApiCredentialsType CredentialType => CredentialPairs.First().CredentialType;
-        
+
+        /// <summary>
+        /// </summary>
+        [Obsolete("Parameterless constructor is only for deserialization purposes and should not be used directly. Use parameterized constructor instead.")]
         public HTXCredentials() { }
 
-        public HTXCredentials(string apiKey, string secretKey)
-            : this(new HMACCredential(apiKey, secretKey)) { }
+        /// <summary>
+        /// Create credentials using an HMAC key, and secret
+        /// </summary>
+        /// <param name="apiKey">The API key</param>
+        /// <param name="secret">The API secret</param>
+        public HTXCredentials(string apiKey, string secret) : this(new HMACCredential(apiKey, secret)) { }
 
-        public HTXCredentials(HMACCredential hmacCredential)
-            : base(hmacCredential) 
-        {
-        }
+        /// <summary>
+        /// Create HTX credentials using HMAC credentials
+        /// </summary>
+        /// <param name="credential">The HMAC credentials</param>
+        public HTXCredentials(HMACCredential credential) : base(credential) { }
 
 #if NET8_0_OR_GREATER
+        /// <summary>
+        /// Create HTX credentials using ED25519 credentials
+        /// </summary>
+        /// <param name="ed25519Credential">The ED25519 credential</param>
         public HTXCredentials(ED25519Credential ed25519Credential)
             : base(ed25519Credential)
         {
@@ -27,13 +42,8 @@ namespace HTX.Net
 #endif
 
         /// <inheritdoc />
-        public override ApiCredentials Copy() =>
-            CredentialType switch
-            {
-                ApiCredentialsType.Hmac => new HTXCredentials(GetCredential<HMACCredential>()!),
-#if NET8_0_OR_GREATER
-                ApiCredentialsType.Ed25519 => new HTXCredentials(GetCredential<ED25519Credential>()!),
-#endif
-            };
+#pragma warning disable CS0618 // Type or member is obsolete
+        public override ApiCredentials Copy() => new HTXCredentials { CredentialPairs = CredentialPairs };
+#pragma warning restore CS0618 // Type or member is obsolete
     }
 }
