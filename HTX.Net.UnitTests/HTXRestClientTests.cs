@@ -128,10 +128,10 @@ namespace HTX.Net.UnitTests
             var configuration = new ConfigurationBuilder()
                 .AddInMemoryCollection(new Dictionary<string, string>
                 {
-                    { "ApiCredentials:Key", "123" },
-                    { "ApiCredentials:Secret", "456" },
-                    { "Socket:ApiCredentials:Key", "456" },
-                    { "Socket:ApiCredentials:Secret", "789" },
+                    { "ApiCredentials:Hmac:Key", "123" },
+                    { "ApiCredentials:Hmac:Secret", "456" },
+                    { "Socket:ApiCredentials:Hmac:Key", "456" },
+                    { "Socket:ApiCredentials:Hmac:Secret", "789" },
                     { "Rest:OutputOriginalData", "true" },
                     { "Socket:OutputOriginalData", "false" },
                     { "Rest:Proxy:Host", "host" },
@@ -149,8 +149,8 @@ namespace HTX.Net.UnitTests
 
             Assert.That(((BaseApiClient)restClient.SpotApi).OutputOriginalData, Is.True);
             Assert.That(((BaseApiClient)socketClient.SpotApi).OutputOriginalData, Is.False);
-            Assert.That(((HTXRestClientSpotApi)restClient.SpotApi).AuthenticationProvider.PublicKey, Is.EqualTo("123"));
-            Assert.That(((HTXSocketClientSpotApi)socketClient.SpotApi).AuthenticationProvider.PublicKey, Is.EqualTo("456"));
+            Assert.That(((HTXRestClientSpotApi)restClient.SpotApi).AuthenticationProvider.Key, Is.EqualTo("123"));
+            Assert.That(((HTXSocketClientSpotApi)socketClient.SpotApi).AuthenticationProvider.Key, Is.EqualTo("456"));
             Assert.That(((BaseApiClient)restClient.SpotApi).ClientOptions.Proxy.Host, Is.EqualTo("host"));
             Assert.That(((BaseApiClient)restClient.SpotApi).ClientOptions.Proxy.Port, Is.EqualTo(80));
             Assert.That(((BaseApiClient)socketClient.SpotApi).ClientOptions.Proxy.Host, Is.EqualTo("host2"));
