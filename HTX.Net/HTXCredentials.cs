@@ -32,10 +32,10 @@ namespace HTX.Net
 
 #if NET8_0_OR_GREATER
         /// <summary>
-        /// Create HTX credentials using ED25519 credentials
+        /// Create HTX credentials using Ed25519 credentials
         /// </summary>
-        /// <param name="ed25519Credential">The ED25519 credential</param>
-        public HTXCredentials(ED25519Credential ed25519Credential)
+        /// <param name="ed25519Credential">The Ed25519 credential</param>
+        public HTXCredentials(Ed25519Credential ed25519Credential)
             : base(ed25519Credential)
         {
         }
