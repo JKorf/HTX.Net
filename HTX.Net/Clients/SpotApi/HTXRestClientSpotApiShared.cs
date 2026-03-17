@@ -568,7 +568,9 @@ namespace HTX.Net.Clients.SpotApi
         {
             if (status == OrderStatus.Submitted || status == OrderStatus.PreSubmitted || status == OrderStatus.Created || status == OrderStatus.PartiallyFilled) return SharedOrderStatus.Open;
             if (status == OrderStatus.Canceled || status == OrderStatus.PartiallyCanceled || status == OrderStatus.Rejected) return SharedOrderStatus.Canceled;
-            return SharedOrderStatus.Filled;
+            if (status == OrderStatus.Filled) return SharedOrderStatus.Filled;
+
+            return SharedOrderStatus.Unknown;
         }
 
         private SharedOrderType ParseOrderType(OrderType type)
@@ -771,9 +773,7 @@ namespace HTX.Net.Clients.SpotApi
                             x.Quantity, 
                             x.Status == WithdrawDepositStatus.Safe,
                             x.CreateTime,
-                            x.Status == WithdrawDepositStatus.Safe ? SharedTransferStatus.Completed
-                            : x.Status == WithdrawDepositStatus.Repealed || x.Status == WithdrawDepositStatus.ConfirmError || x.Status == WithdrawDepositStatus.WalletReject || x.Status == WithdrawDepositStatus.Reject || x.Status == WithdrawDepositStatus.Canceled || x.Status == WithdrawDepositStatus.Failed ? SharedTransferStatus.Failed
-                            : SharedTransferStatus.Failed)
+                            ParseTransferStatus(x.Status))
                         {
                             Id = x.Id.ToString(),
                             Network = x.Network,
@@ -781,6 +781,32 @@ namespace HTX.Net.Clients.SpotApi
                             Tag = x.AddressTag
                         })
                     .ToArray(), nextPageRequest);
+        }
+
+        private SharedTransferStatus ParseTransferStatus(WithdrawDepositStatus status)
+        {
+            if (status == WithdrawDepositStatus.Safe)
+                return SharedTransferStatus.Completed;
+            if (status == WithdrawDepositStatus.Repealed
+                || status == WithdrawDepositStatus.ConfirmError
+                || status == WithdrawDepositStatus.WalletReject
+                || status == WithdrawDepositStatus.Reject
+                || status == WithdrawDepositStatus.Canceled
+                || status == WithdrawDepositStatus.Failed) 
+            {
+                return SharedTransferStatus.Failed;
+            }
+
+            if (status == WithdrawDepositStatus.Confirming
+                || status == WithdrawDepositStatus.Verifying
+                || status == WithdrawDepositStatus.Submitted
+                || status == WithdrawDepositStatus.WaitingTinyAmount
+                || status == WithdrawDepositStatus.WalletTransfer)
+            {
+                return SharedTransferStatus.InProgress;
+            }
+
+            return SharedTransferStatus.InProgress;
         }
 
         #endregion
@@ -1001,7 +1027,15 @@ namespace HTX.Net.Clients.SpotApi
             if (status == OrderStatus.Canceled || status == OrderStatus.Rejected || status == OrderStatus.PartiallyCanceled)
                 return SharedTriggerOrderStatus.CanceledOrRejected;
 
-            return SharedTriggerOrderStatus.Active;
+            if (status == OrderStatus.PartiallyFilled
+                || status == OrderStatus.Created
+                || status == OrderStatus.PreSubmitted
+                || status == OrderStatus.Submitted)
+            {
+                return SharedTriggerOrderStatus.Active;
+            }
+
+            return SharedTriggerOrderStatus.Unknown;
         }
 
         EndpointOptions<CancelOrderRequest> ISpotTriggerOrderRestClient.CancelSpotTriggerOrderOptions { get; } = new EndpointOptions<CancelOrderRequest>(true);
