@@ -29,7 +29,7 @@ namespace HTX.Net.UnitTests
         public void CheckSignatureExample()
         {
             var authProvider = new HTXAuthenticationProvider(
-                new HTXCredentials("e2xxxxxx-99xxxxxx-84xxxxxx-7xxxx", "XXXXXXXXXX"),
+                new HTXCredentials().WithHMAC("e2xxxxxx-99xxxxxx-84xxxxxx-7xxxx", "XXXXXXXXXX"),
                 false
                 );
             var client = (RestApiClient)new HTXRestClient().SpotApi;

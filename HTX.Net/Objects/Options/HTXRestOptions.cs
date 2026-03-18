@@ -46,12 +46,12 @@ namespace HTX.Net.Objects.Options
         /// <summary>
         /// Spot API options
         /// </summary>
-        public RestApiOptions<HTXCredentials> SpotOptions { get; private set; } = new RestApiOptions<HTXCredentials>();
+        public RestApiOptions SpotOptions { get; private set; } = new RestApiOptions();
 
         /// <summary>
         /// USDT margin swap API options
         /// </summary>
-        public RestApiOptions<HTXCredentials> UsdtMarginSwapOptions { get; private set; } = new RestApiOptions<HTXCredentials>();
+        public RestApiOptions UsdtMarginSwapOptions { get; private set; } = new RestApiOptions();
 
         internal HTXRestOptions Set(HTXRestOptions targetOptions)
         {

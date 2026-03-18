@@ -34,7 +34,7 @@ namespace HTX.Net.UnitTests
             return new HTXRestClient(null, loggerFactory, Options.Create(new Objects.Options.HTXRestOptions
             {
                 OutputOriginalData = true,
-                ApiCredentials = Authenticated ? new HTXCredentials(key, sec) : null
+                ApiCredentials = Authenticated ? new HTXCredentials().WithHMAC(key, sec) : null
             }));
         }
 

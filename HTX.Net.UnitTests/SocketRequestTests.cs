@@ -24,7 +24,7 @@ namespace HTX.Net.UnitTests
             {
                 OutputOriginalData = true,
                 RequestTimeout = TimeSpan.FromSeconds(5),
-                ApiCredentials = new HTXCredentials("123", "456")
+                ApiCredentials = new HTXCredentials().WithHMAC("123", "456")
             }), fact);
             return client;
         }

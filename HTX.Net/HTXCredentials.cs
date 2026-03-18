@@ -7,43 +7,41 @@ namespace HTX.Net
     /// </summary>
     public class HTXCredentials : ApiCredentials
     {
-        /// <summary>
-        /// Credential type provided
-        /// </summary>
-        public ApiCredentialsType CredentialType => CredentialPairs.First().CredentialType;
+        internal CredentialPair Credential { get; set; }
 
-        /// <summary>
-        /// </summary>
-        [Obsolete("Parameterless constructor is only for deserialization purposes and should not be used directly. Use parameterized constructor instead.")]
-        public HTXCredentials() { }
-
-        /// <summary>
-        /// Create credentials using an HMAC key, and secret
-        /// </summary>
-        /// <param name="apiKey">The API key</param>
-        /// <param name="secret">The API secret</param>
-        public HTXCredentials(string apiKey, string secret) : this(new HMACCredential(apiKey, secret)) { }
-
-        /// <summary>
-        /// Create HTX credentials using HMAC credentials
-        /// </summary>
-        /// <param name="credential">The HMAC credentials</param>
-        public HTXCredentials(HMACCredential credential) : base(credential) { }
+        public HMACCredential? HMAC
+        {
+            get => Credential as HMACCredential;
+            set { if (value != null) Credential = value; }
+        }
 
 #if NET8_0_OR_GREATER
-        /// <summary>
-        /// Create HTX credentials using Ed25519 credentials
-        /// </summary>
-        /// <param name="ed25519Credential">The Ed25519 credential</param>
-        public HTXCredentials(Ed25519Credential ed25519Credential)
-            : base(ed25519Credential)
+        public Ed25519Credential? Ed25519
         {
+            get => Credential as Ed25519Credential;
+            set { if (value != null) Credential = value; }
+        }
+#endif
+
+        public HTXCredentials WithHMAC(string key, string secret)
+        {
+            if (Credential != null) throw new InvalidOperationException("Credentials already set");
+
+            Credential = new HMACCredential(key, secret);
+            return this;
+        }
+
+#if NET8_0_OR_GREATER
+        public HTXCredentials WithEd25519(string key, string secret)
+        {
+            if (Credential != null) throw new InvalidOperationException("Credentials already set");
+
+            Credential = new Ed25519Credential(key, secret);
+            return this;
         }
 #endif
 
         /// <inheritdoc />
-#pragma warning disable CS0618 // Type or member is obsolete
-        public override ApiCredentials Copy() => new HTXCredentials { CredentialPairs = CredentialPairs };
-#pragma warning restore CS0618 // Type or member is obsolete
+        public override ApiCredentials Copy() => new HTXCredentials { Credential = Credential };
     }
 }

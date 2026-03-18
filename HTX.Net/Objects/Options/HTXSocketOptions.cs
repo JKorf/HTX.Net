@@ -43,12 +43,12 @@ namespace HTX.Net.Objects.Options
         /// <summary>
         /// Spot API options
         /// </summary>
-        public SocketApiOptions<HTXCredentials> SpotOptions { get; private set; } = new SocketApiOptions<HTXCredentials>();
+        public SocketApiOptions SpotOptions { get; private set; } = new SocketApiOptions();
 
         /// <summary>
         /// Usdt Margin Swap API options
         /// </summary>
-        public SocketApiOptions<HTXCredentials> UsdtMarginSwapOptions { get; private set; } = new SocketApiOptions<HTXCredentials>();
+        public SocketApiOptions UsdtMarginSwapOptions { get; private set; } = new SocketApiOptions();
 
         internal HTXSocketOptions Set(HTXSocketOptions targetOptions)
         {

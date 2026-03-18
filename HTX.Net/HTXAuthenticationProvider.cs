@@ -16,9 +16,7 @@ namespace HTX.Net
     {
         private readonly bool _signPublicRequests;
 
-        public override ApiCredentialsType[] SupportedCredentialTypes => [ApiCredentialsType.HMAC, ApiCredentialsType.Ed25519];
-
-        public override string Key => ApiCredentials.Key;
+        public override string Key => ApiCredentials.Credential.Key;
 
         public HTXAuthenticationProvider(HTXCredentials credentials, bool signPublicRequests) : base(credentials)
         {
@@ -31,11 +29,13 @@ namespace HTX.Net
                 return;
 
             request.QueryParameters ??= new Dictionary<string, object>();
-            request.QueryParameters.Add("AccessKeyId", ApiCredentials.Key);
-            if (ApiCredentials.CredentialType == ApiCredentialsType.HMAC)
+            request.QueryParameters.Add("AccessKeyId", ApiCredentials.Credential.Key);
+            if (ApiCredentials.Credential is HMACCredential hmacCred)
                 request.QueryParameters.Add("SignatureMethod", "HmacSHA256");
-            else if (ApiCredentials.CredentialType == ApiCredentialsType.Ed25519)
+#if NET8_0_OR_GREATER
+            else if (ApiCredentials.Credential is Ed25519Credential edCred)
                 request.QueryParameters.Add("SignatureMethod", "Ed25519");
+#endif
             request.QueryParameters.Add("SignatureVersion", 2);
             request.QueryParameters.Add("Timestamp", GetTimestamp(apiClient).ToString("yyyy-MM-ddTHH:mm:ss", CultureInfo.InvariantCulture));
 
@@ -49,14 +49,16 @@ namespace HTX.Net
             var host = request.BaseAddress.Substring(request.BaseAddress.IndexOf("/") + 2);
             var signData = $"{request.Method}\n{host}\n{path}\n{paramString}";
 
-            var signature = ApiCredentials.CredentialType == ApiCredentialsType.HMAC
-                ? SignHMACSHA256(ApiCredentials.HMAC!, signData, SignOutputType.Base64)
+            string signature;
+            if (ApiCredentials.Credential is HMACCredential hmacCred2)
+                signature = SignHMACSHA256(hmacCred2, signData, SignOutputType.Base64);
 #if NET8_0_OR_GREATER
-                : SignEd25519(ApiCredentials.Ed25519!, signData, SignOutputType.Base64)
-#else
-                : throw new NotSupportedException("Ed25519 signing is only supported on .NET 8.0 or greater");
+            else if (ApiCredentials.Credential is Ed25519Credential edCred2)
+                signature = SignEd25519(edCred2, signData, SignOutputType.Base64);
 #endif
-                ;
+            else
+                throw new NotImplementedException();
+                    ;
             request.QueryParameters.Add("Signature", signature);
             request.SetQueryString($"{paramString}&Signature={WebUtility.UrlEncode(signature)}");
         }
@@ -70,7 +72,7 @@ namespace HTX.Net
             if ((string?)version == "2")
             {
                 var parameters = new ParameterCollection();
-                parameters.Add("AccessKeyId", ApiCredentials.Key);
+                parameters.Add("AccessKeyId", ApiCredentials.Credential.Key);
                 parameters.Add("SignatureMethod", "HmacSHA256");
                 parameters.Add("SignatureVersion", 2);
                 parameters.Add("Timestamp", GetTimestamp(apiClient).ToString("yyyy-MM-ddTHH:mm:ss", CultureInfo.InvariantCulture));
@@ -81,13 +83,13 @@ namespace HTX.Net
                 var signData = $"GET\n{uri.Host}\n{uri.AbsolutePath}\n{paramString}";
                 var signature = SignHMACSHA256(ApiCredentials.HMAC!, signData, SignOutputType.Base64);
 
-                var request = new HTXAuthenticationRequest2(ApiCredentials.Key, (string)parameters["Timestamp"], signature);
+                var request = new HTXAuthenticationRequest2(ApiCredentials.Credential.Key, (string)parameters["Timestamp"], signature);
                 return new HTXOpAuthQuery(apiClient, request);
             }
             else
             {
                 var parameters = new ParameterCollection();
-                parameters.Add("accessKey", ApiCredentials.Key);
+                parameters.Add("accessKey", ApiCredentials.Credential.Key);
                 parameters.Add("signatureMethod", "HmacSHA256");
                 parameters.Add("signatureVersion", 2.1);
                 parameters.Add("timestamp", GetTimestamp(apiClient).ToString("yyyy-MM-ddTHH:mm:ss", CultureInfo.InvariantCulture));
@@ -98,7 +100,7 @@ namespace HTX.Net
                 var signData = $"GET\n{uri.Host}\n{uri.AbsolutePath}\n{paramString}";
                 var signature = SignHMACSHA256(ApiCredentials.HMAC!,signData, SignOutputType.Base64);
 
-                var authParams = new HTXAuthParams { AccessKey = ApiCredentials.Key, Timestamp = (string)parameters["timestamp"], Signature = signature };
+                var authParams = new HTXAuthParams { AccessKey = ApiCredentials.Credential.Key, Timestamp = (string)parameters["timestamp"], Signature = signature };
 
                 return new HTXAuthQuery(apiClient, new HTXAuthRequest<HTXAuthParams>
                 {
