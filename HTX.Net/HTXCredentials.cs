@@ -7,7 +7,7 @@ namespace HTX.Net
     /// </summary>
     public class HTXCredentials : ApiCredentials
     {
-        internal CredentialPair Credential { get; set; }
+        internal CredentialSet Credential { get; set; }
 
         /// <summary>
         /// HMAC credentials
