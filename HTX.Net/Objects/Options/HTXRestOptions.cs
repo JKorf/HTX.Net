@@ -5,7 +5,7 @@ namespace HTX.Net.Objects.Options
     /// <summary>
     /// Options for the HTXRestClient
     /// </summary>
-    public class HTXRestOptions : RestExchangeOptions<HTXEnvironment>
+    public class HTXRestOptions : RestExchangeOptions<HTXEnvironment, HTXCredentials>
     {
         /// <summary>
         /// Default options for the HTXRestClient

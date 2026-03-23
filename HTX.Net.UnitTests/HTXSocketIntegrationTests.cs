@@ -29,7 +29,7 @@ namespace HTX.Net.UnitTests
             return new HTXSocketClient(Options.Create(new HTXSocketOptions
             {
                 OutputOriginalData = true,
-                ApiCredentials = Authenticated ? new CryptoExchange.Net.Authentication.ApiCredentials(key, sec) : null
+                ApiCredentials = Authenticated ? new HTXCredentials().WithHMAC(key, sec) : null
             }), loggerFactory);
         }
 

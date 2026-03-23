@@ -5,7 +5,7 @@ namespace HTX.Net.Objects.Options
     /// <summary>
     /// Options for the HTXSocketClient
     /// </summary>
-    public class HTXSocketOptions : SocketExchangeOptions<HTXEnvironment>
+    public class HTXSocketOptions : SocketExchangeOptions<HTXEnvironment, HTXCredentials>
     {
         /// <summary>
         /// Default options for the HTXSocketClient

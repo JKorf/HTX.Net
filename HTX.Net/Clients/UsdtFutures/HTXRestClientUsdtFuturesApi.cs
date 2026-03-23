@@ -12,7 +12,7 @@ using HTX.Net.Objects.Options;
 namespace HTX.Net.Clients.UsdtFutures
 {
     /// <inheritdoc />
-    internal partial class HTXRestClientUsdtFuturesApi : RestApiClient, IHTXRestClientUsdtFuturesApi
+    internal partial class HTXRestClientUsdtFuturesApi : RestApiClient<HTXEnvironment, HTXAuthenticationProvider, HTXCredentials>, IHTXRestClientUsdtFuturesApi
     {
         /// <inheritdoc />
         public new HTXRestOptions ClientOptions => (HTXRestOptions)base.ClientOptions;
@@ -58,7 +58,7 @@ namespace HTX.Net.Clients.UsdtFutures
                 => HTXExchange.FormatSymbol(baseAsset, quoteAsset, tradingMode, deliverTime);
 
         /// <inheritdoc />
-        protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
+        protected override HTXAuthenticationProvider CreateAuthenticationProvider(HTXCredentials credentials)
             => new HTXAuthenticationProvider(credentials, ClientOptions.SignPublicRequests);
 
         internal async Task<WebCallResult<T>> SendToAddressRawAsync<T>(string baseAddress, RequestDefinition definition, ParameterCollection? parameters, CancellationToken cancellationToken, int? weight = null) where T : class

@@ -9,7 +9,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
     /// <summary>
     /// Spot streams
     /// </summary>
-    public interface IHTXSocketClientSpotApi : ISocketApiClient, IDisposable
+    public interface IHTXSocketClientSpotApi : ISocketApiClient<HTXCredentials>, IDisposable
     {
         /// <summary>
         /// Get the shared socket subscription client. This interface is shared with other exchanges to allow for a common implementation for different exchanges.

@@ -5,7 +5,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
     /// <summary>
     /// Spot API endpoints
     /// </summary>
-    public interface IHTXRestClientSpotApi : IRestApiClient, IDisposable
+    public interface IHTXRestClientSpotApi : IRestApiClient<HTXCredentials>, IDisposable
     {
         /// <summary>
         /// Endpoints related to account settings, info or actions

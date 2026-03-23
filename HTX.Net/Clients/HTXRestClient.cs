@@ -11,7 +11,7 @@ using CryptoExchange.Net.Objects.Options;
 namespace HTX.Net.Clients
 {
     /// <inheritdoc cref="IHTXRestClient" />
-    public class HTXRestClient : BaseRestClient, IHTXRestClient
+    public class HTXRestClient : BaseRestClient<HTXEnvironment, HTXCredentials>, IHTXRestClient
     {
         #region Api clients
 
@@ -51,13 +51,6 @@ namespace HTX.Net.Clients
 
         #region methods
 
-        /// <inheritdoc />
-        public void SetOptions(UpdateOptions options)
-        {
-            SpotApi.SetOptions(options);
-            UsdtFuturesApi.SetOptions(options);
-        }
-
         /// <summary>
         /// Set the default options to be used when creating new clients
         /// </summary>
@@ -67,12 +60,6 @@ namespace HTX.Net.Clients
             HTXRestOptions.Default = ApplyOptionsDelegate(optionsDelegate);
         }
 
-        /// <inheritdoc />
-        public void SetApiCredentials(ApiCredentials apiCredentials)
-        {
-            SpotApi.SetApiCredentials(apiCredentials);
-            UsdtFuturesApi.SetApiCredentials(apiCredentials);
-        }
         #endregion
     }
 }

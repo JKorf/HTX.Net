@@ -910,7 +910,9 @@ namespace HTX.Net.Clients.UsdtFutures
         {
             if (status == SwapMarginOrderStatus.Submitting || status == SwapMarginOrderStatus.Submitted || status == SwapMarginOrderStatus.ReadyToSubmit || status == SwapMarginOrderStatus.PartiallyFilled) return SharedOrderStatus.Open;
             if (status == SwapMarginOrderStatus.Cancelled || status == SwapMarginOrderStatus.Cancelling || status == SwapMarginOrderStatus.PartiallyCancelled) return SharedOrderStatus.Canceled;
-            return SharedOrderStatus.Filled;
+            if (status == SwapMarginOrderStatus.Filled) return SharedOrderStatus.Filled;
+
+            return SharedOrderStatus.Unknown;
         }
 
         private SharedOrderType ParseOrderType(OrderPriceType type)
@@ -1676,7 +1678,15 @@ namespace HTX.Net.Clients.UsdtFutures
             if (status == SwapMarginOrderStatus.Cancelled || status == SwapMarginOrderStatus.PartiallyCancelled)
                 return SharedTriggerOrderStatus.CanceledOrRejected;
 
-            return SharedTriggerOrderStatus.Active;
+            if (status == SwapMarginOrderStatus.PartiallyFilled
+                || status == SwapMarginOrderStatus.Cancelling
+                || status == SwapMarginOrderStatus.Submitting
+                || status == SwapMarginOrderStatus.Submitted)
+            {
+                return SharedTriggerOrderStatus.Active;
+            }
+
+            return SharedTriggerOrderStatus.Unknown;
         }
 
         EndpointOptions<CancelOrderRequest> IFuturesTriggerOrderRestClient.CancelFuturesTriggerOrderOptions { get; } = new EndpointOptions<CancelOrderRequest>(true)
