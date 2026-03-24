@@ -152,6 +152,16 @@ namespace HTX.Net.Enums
         /// ["<c>47</c>"] Adl close short
         /// </summary>
         [Map("47")]
-        AdlCloseShort
+        AdlCloseShort,
+        /// <summary>
+        /// ["<c>85</c>"] Transfer out advanced account
+        /// </summary>
+        [Map("85")]
+        AdvancedAccountTransferOut,
+        /// <summary>
+        /// ["<c>86</c>"] Transfer in advanced account
+        /// </summary>
+        [Map("86")]
+        AdvancedAccountTransferIn
     }
 }

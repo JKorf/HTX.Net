@@ -113,13 +113,21 @@ namespace HTX.Net.Clients.UsdtFutures
         #region Get Financial Records
 
         /// <inheritdoc />
-        public async Task<WebCallResult<HTXFinancialRecord[]>> GetFinancialRecordsAsync(string marginAccount, string? contractCode = null, IEnumerable<FinancialRecordType>? types = null, DateTime? startTime = null, DateTime? endTime = null, FilterDirection? direction = null, long? fromId = null, CancellationToken ct = default)
+        public async Task<WebCallResult<HTXFinancialRecord[]>> GetFinancialRecordsAsync(
+            string marginAccount,
+            string? contractCode = null, 
+            IEnumerable<FinancialRecordType>? types = null, 
+            DateTime? startTime = null, 
+            DateTime? endTime = null,
+            FilterDirection? direction = null, 
+            long? fromId = null,
+            CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.Add("mar_acct", marginAccount);
             parameters.AddOptional("from_id", fromId);
             parameters.AddOptional("contract", contractCode);
-            parameters.AddOptional("type", types?.Any() == true ? string.Join(",", types) : null);
+            parameters.AddOptional("type", types?.Any() == true ? string.Join(",", types.Select(x => EnumConverter.GetString(x))) : null);
             parameters.AddOptionalMilliseconds("start_time", startTime);
             parameters.AddOptionalMilliseconds("end_time", endTime);
             parameters.AddOptionalEnum("direct", direction);
