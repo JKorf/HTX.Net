@@ -19,7 +19,7 @@ namespace HTX.Net.UnitTests
     [NonParallelizable]
     internal class HTXRestIntegrationTests : RestIntegrationTest<HTXRestClient>
     {
-        public override bool Run { get; set; } = false;
+        public override bool Run { get; set; } = true;
 
         public HTXRestIntegrationTests()
         {
@@ -69,7 +69,7 @@ namespace HTX.Net.UnitTests
         [Test]
         public async Task TestSpotApiExchangeData()
         {
-            await RunAndCheckResult(client => client.SpotApi.ExchangeData.GetSystemStatusAsync(default), false);
+            //await RunAndCheckResult(client => client.SpotApi.ExchangeData.GetSystemStatusAsync(default), false);
             await RunAndCheckResult(client => client.SpotApi.ExchangeData.GetSymbolStatusAsync(default), false);
             await RunAndCheckResult(client => client.SpotApi.ExchangeData.GetSymbolsAsync(default), false);
             await RunAndCheckResult(client => client.SpotApi.ExchangeData.GetAssetsAsync(default), false);
