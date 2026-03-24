@@ -45,7 +45,7 @@ HTX.Net is available on [GitHub packages](https://github.com/JKorf/HTX.Net/pkgs/
 The NuGet package files are added along side the source with the latest GitHub release which can found [here](https://github.com/JKorf/HTX.Net/releases).
 
 ## How to use
-*REST Endpoints* 
+*Basic request:*
  
 ```csharp
 // Get the ETH/USDT ticker via rest request
@@ -54,7 +54,23 @@ var tickerResult = await restClient.SpotApi.ExchangeData.GetTickerAsync("ETHUSDT
 var lastPrice = tickerResult.Data.ClosePrice;
 ```
 
-*Websocket streams*  
+*Place order:*
+```csharp
+var restClient = new HTXRestClient(opts => {
+	opts.ApiCredentials = new HTXCredentials("APIKEY", "APISECRET");
+});
+
+// Place Limit order to go long for 10 contracts of ETH/USDT at 2000
+var orderResult = await restClient.UsdtFuturesApi.Trading.PlaceCrossMarginOrderAsync(
+    10,
+    OrderSide.Buy,
+    1,
+    OrderPriceType.Limit,
+    contractCode: "ETH-USDT",
+    price: 2000);
+```
+
+*WebSocket subscription:* 
 
 ```csharp
 // Subscribe to ETH/USDT ticker updates via the websocket API
