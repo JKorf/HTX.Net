@@ -109,7 +109,13 @@ namespace HTX.Net.Clients.SpotApi
 
             var query = new HTXQuery<HTXOrderBook>(this, $"market.{symbol}.depth.step{mergeStep}", false);
             var result = await QueryAsync(BaseAddress.AppendPath("ws"), query).ConfigureAwait(false);
-            return result ? result.As(result.Data.Data) : result.AsError<HTXOrderBook>(result.Error!);
+            if (!result)
+                return result.AsError<HTXOrderBook>(result.Error!);
+
+            if (result.Data.Data == null)
+                return result.AsError<HTXOrderBook>(new ServerError(ErrorInfo.Unknown with { Message = "No data in message" }));
+
+            return result.As(result.Data.Data);
         }
 
         /// <inheritdoc />
@@ -120,7 +126,13 @@ namespace HTX.Net.Clients.SpotApi
 
             var query = new HTXQuery<HTXIncementalOrderBook>(this, $"market.{symbol}.mbp.{levels}", false);
             var result = await QueryAsync(BaseAddress.AppendPath("feed"), query).ConfigureAwait(false);
-            return result ? result.As(result.Data.Data) : result.AsError<HTXIncementalOrderBook>(result.Error!);
+            if (!result)
+                return result.AsError<HTXIncementalOrderBook>(result.Error!);
+
+            if (result.Data.Data == null)
+                return result.AsError<HTXIncementalOrderBook>(new ServerError(ErrorInfo.Unknown with { Message = "No data in message" }));
+
+            return result.As(result.Data.Data);
         }
 
         /// <inheritdoc />
