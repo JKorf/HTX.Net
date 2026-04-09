@@ -2,6 +2,7 @@
 using CryptoExchange.Net.Objects.Sockets;
 using CryptoExchange.Net.Sockets;
 using CryptoExchange.Net.Sockets.Default;
+using CryptoExchange.Net.Sockets.Default.Routing;
 using HTX.Net.Objects.Internal;
 using HTX.Net.Objects.Models.Socket;
 using HTX.Net.Objects.Sockets.Queries;

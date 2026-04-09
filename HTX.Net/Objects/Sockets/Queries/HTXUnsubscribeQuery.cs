@@ -1,4 +1,5 @@
 ﻿using CryptoExchange.Net.Sockets;
+using CryptoExchange.Net.Sockets.Default.Routing;
 
 namespace HTX.Net.Objects.Sockets.Queries
 {
