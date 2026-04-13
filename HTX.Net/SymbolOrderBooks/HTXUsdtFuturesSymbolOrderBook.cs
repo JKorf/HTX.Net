@@ -71,7 +71,10 @@ namespace HTX.Net.SymbolOrderBooks
 
                 var waitResult = await WaitForSetOrderBookAsync(_initialDataTimeout, ct).ConfigureAwait(false);
                 if (!waitResult)
+                {
+                    await subResult.Data.CloseAsync().ConfigureAwait(false);
                     return waitResult.As<UpdateSubscription>(default);
+                }
 
                 return subResult;
             }
@@ -83,7 +86,10 @@ namespace HTX.Net.SymbolOrderBooks
 
                 var waitResult = await WaitForSetOrderBookAsync(_initialDataTimeout, ct).ConfigureAwait(false);
                 if (!waitResult)
+                {
+                    await subResult.Data.CloseAsync().ConfigureAwait(false);
                     return waitResult.As<UpdateSubscription>(default);
+                }
 
                 return subResult;
             }
