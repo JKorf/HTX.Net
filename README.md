@@ -181,6 +181,9 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 8.9.2 - 13 Apr 2026
+    * Fixed subscription not getting closed when HTXUsdtFuturesSymbolOrderBook start fails
+
 * Version 8.9.1 - 09 Apr 2026
     * Updated CryptoExchange.Net to version 11.1.0, see https://github.com/JKorf/CryptoExchange.Net/releases/ for full release notes
     * Added check in socketClient.SpotApi order book queries for null message
