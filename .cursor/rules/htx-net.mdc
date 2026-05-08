@@ -1,0 +1,110 @@
+---
+description: Conventions for using HTX.Net library when working with HTX cryptocurrency exchange in C#/.NET. Apply when generating code that interacts with HTX or Huobi API.
+globs:
+  - "**/*.cs"
+  - "**/*.csproj"
+alwaysApply: false
+---
+
+# HTX.Net Conventions
+
+This codebase uses **HTX.Net** for HTX cryptocurrency exchange access. Do not write raw `HttpClient` calls to HTX endpoints.
+
+## Client setup pattern
+
+```csharp
+using HTX.Net;
+using HTX.Net.Clients;
+
+var restClient = new HTXRestClient(options =>
+{
+    options.ApiCredentials = new HTXCredentials("API_KEY", "API_SECRET");
+});
+```
+
+For public market data only, no credentials are needed: `new HTXRestClient()`.
+
+## Result pattern
+
+All methods return `WebCallResult<T>` (REST) or `CallResult<T>` (WebSocket). Always check `.Success` before reading `.Data`:
+
+```csharp
+var ticker = await restClient.SpotApi.ExchangeData.GetTickerAsync("ETHUSDT");
+if (!ticker.Success) { /* ticker.Error */ return; }
+var price = ticker.Data.ClosePrice;
+```
+
+## API surface
+
+- `restClient.SpotApi.{ExchangeData|Account|Margin|SubAccount|Trading}`
+- `restClient.UsdtFuturesApi.{ExchangeData|Account|SubAccount|Trading}`
+- `socketClient.SpotApi` for Spot WebSocket subscriptions and socket requests
+- `socketClient.UsdtFuturesApi` for USDT futures WebSocket subscriptions
+
+## Spot orders need account ids
+
+```csharp
+var accounts = await restClient.SpotApi.Account.GetAccountsAsync();
+if (!accounts.Success) { /* accounts.Error */ return; }
+var accountId = accounts.Data.First().Id;
+```
+
+## Order placement
+
+Spot:
+
+```csharp
+var order = await restClient.SpotApi.Trading.PlaceOrderAsync(
+    accountId, "ETHUSDT", OrderSide.Buy, OrderType.Limit,
+    quantity: 0.01m, price: 1000m);
+```
+
+USDT futures cross margin:
+
+```csharp
+var order = await restClient.UsdtFuturesApi.Trading.PlaceCrossMarginOrderAsync(
+    quantity: 1, side: OrderSide.Buy, leverageRate: 5,
+    orderPriceType: OrderPriceType.Market, contractCode: "ETH-USDT", offset: Offset.Open);
+```
+
+## WebSocket pattern
+
+```csharp
+var socketClient = new HTXSocketClient();
+var sub = await socketClient.SpotApi.SubscribeToTickerUpdatesAsync(
+    "ETHUSDT",
+    update => { /* update.Data.ClosePrice */ });
+if (!sub.Success) { /* sub.Error */ return; }
+
+await socketClient.UnsubscribeAsync(sub.Data);
+```
+
+## Multi-exchange code
+
+For exchange-agnostic code, use `CryptoExchange.Net.SharedApis`:
+
+```csharp
+using CryptoExchange.Net.SharedApis;
+
+var shared = new HTXRestClient().SpotApi.SharedClient;
+var ticker = await shared.GetSpotTickerAsync(
+    new GetTickerRequest(new SharedSymbol(TradingMode.Spot, "ETH", "USDT")));
+```
+
+## Hard rules
+
+- Never write raw `HttpClient` calls to HTX endpoints
+- Never use `.Result` or `.Wait()`; async-only
+- Never instantiate clients per request; reuse via DI
+- Never skip checking `WebCallResult.Success`
+- Never use legacy `HuobiClient` or `HuobiRestClient`; use `HTXRestClient`
+- Never use `UsdtMarginSwapApi`; use `UsdtFuturesApi`
+- Always use `HTXCredentials("key", "secret")`, not generic `ApiCredentials`
+- Always use `ETHUSDT` for Spot and `ETH-USDT` for USDT futures examples
+- Always store WebSocket subscriptions and unsubscribe on shutdown
+
+## Reference
+
+- Skill: `CLAUDE.md` in repo root has fuller examples
+- `llms.txt` and `llms-full.txt` in repo root for AI context
+- Examples: `Examples/ai-friendly/`
