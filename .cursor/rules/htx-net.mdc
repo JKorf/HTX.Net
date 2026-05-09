@@ -105,6 +105,6 @@ var ticker = await shared.GetSpotTickerAsync(
 
 ## Reference
 
-- Skill: `CLAUDE.md` in repo root has fuller examples
+- Skill: `AGENTS.md` in repo root has fuller examples
 - `llms.txt` and `llms-full.txt` in repo root for AI context
 - Examples: `Examples/ai-friendly/`
