@@ -10,24 +10,26 @@ namespace HTX.Net.Objects.Sockets.Subscriptions
     {
         private readonly SocketApiClient _client;
         private string _topic;
+        private readonly string? _contractCode;
         private Action<DateTime, string?, T> _handler;
 
-        public HTXOpSubscription(ILogger logger, SocketApiClient client, string listenId, string topic, Action<DateTime, string?, T> handler, bool authenticated) : base(logger, authenticated)
+        public HTXOpSubscription(ILogger logger, SocketApiClient client, string listenId, string topic, Action<DateTime, string?, T> handler, bool authenticated, string? contractCode = null) : base(logger, authenticated)
         {
             _client = client;
             _handler = handler;
             _topic = topic;
+            _contractCode = contractCode;
 
             MessageRouter = MessageRouter.CreateWithoutTopicFilter<T>(listenId, DoHandleMessage);
         }
 
         protected override Query? GetSubQuery(SocketConnection connection)
         {
-            return new HTXOpQuery(_client, _topic, "sub", Authenticated);
+            return new HTXOpQuery(_client, _topic, "sub", Authenticated, _contractCode);
         }
         protected override Query? GetUnsubQuery(SocketConnection connection)
         {
-            return new HTXOpQuery(_client, _topic, "unsub", Authenticated);
+            return new HTXOpQuery(_client, _topic, "unsub", Authenticated, _contractCode);
         }
 
         public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, T message)
