@@ -1,6 +1,7 @@
 # ![.HTX.Net](https://github.com/JKorf/HTX.Net/blob/master/HTX.Net/Icon/icon.png?raw=true) HTX.Net
 
 [![.NET](https://img.shields.io/github/actions/workflow/status/JKorf/HTX.Net/dotnet.yml?style=for-the-badge)](https://github.com/JKorf/HTX.Net/actions/workflows/dotnet.yml) ![License](https://img.shields.io/github/license/JKorf/HTX.Net?style=for-the-badge)
+![Since](https://img.shields.io/badge/since-2018-brightgreen?style=for-the-badge)
 
 HTX.Net, previously known as Huobi.Net, is a strongly typed client library for accessing the [HTX REST and Websocket API](https://www.htx.com/en-us/opend/).
 ## Features
