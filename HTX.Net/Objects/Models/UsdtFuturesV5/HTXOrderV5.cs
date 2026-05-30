@@ -162,7 +162,7 @@ namespace HTX.Net.Objects.Models.UsdtFuturesV5
         /// ["<c>profit</c>"] Profit
         /// </summary>
         [JsonPropertyName("profit")]
-        public decimal Profit { get; set; }
+        public decimal? Profit { get; set; }
         /// <summary>
         /// ["<c>contract_type</c>"] Contract type
         /// </summary>

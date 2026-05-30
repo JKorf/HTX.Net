@@ -12,7 +12,7 @@ namespace HTX.Net.Objects.Models.UsdtFuturesV5
         /// ["<c>id</c>"] Query id
         /// </summary>
         [JsonPropertyName("id")]
-        public string Id { get; set; } = string.Empty;
+        public long Id { get; set; }
         /// <summary>
         /// ["<c>contract_code</c>"] Contract code
         /// </summary>
