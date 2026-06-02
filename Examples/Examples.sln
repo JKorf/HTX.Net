@@ -1,4 +1,4 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34330.188
@@ -12,6 +12,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HTX.Examples.Tracker", "HTX.Examples.Tracker\HTX.Examples.Tracker.csproj", "{4A6E7966-5E0C-4FFF-A941-987CF91577CC}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HTX.Net", "..\HTX.Net\HTX.Net.csproj", "{1761E80A-9D75-4D7F-8A88-31E4499D6DB9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HTX.Examples.OrderPlacement", "HTX.Examples.OrderPlacement\HTX.Examples.OrderPlacement.csproj", "{8F129BF9-8943-487B-B884-CB8BCFA2DC19}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{1761E80A-9D75-4D7F-8A88-31E4499D6DB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1761E80A-9D75-4D7F-8A88-31E4499D6DB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1761E80A-9D75-4D7F-8A88-31E4499D6DB9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8F129BF9-8943-487B-B884-CB8BCFA2DC19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F129BF9-8943-487B-B884-CB8BCFA2DC19}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F129BF9-8943-487B-B884-CB8BCFA2DC19}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F129BF9-8943-487B-B884-CB8BCFA2DC19}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
