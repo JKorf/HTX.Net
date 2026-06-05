@@ -28,22 +28,22 @@ namespace HTX.Net.Clients.UsdtFuturesV5
                 { "type", EnumConverter.GetString(type) },
                 { "volume", quantity.ToString(CultureInfo.InvariantCulture) }
             };
-            parameters.AddOptionalParameter("position_side", EnumConverter.GetString(positionSide));
-            parameters.AddOptionalParameter("price_match", EnumConverter.GetString(priceMatch));
+            parameters.AddOptionalEnum("position_side", positionSide);
+            parameters.AddOptionalEnum("price_match", priceMatch);
             parameters.AddOptionalParameter("client_order_id", clientOrderId);
-            parameters.AddOptionalParameter("price", price?.ToString(CultureInfo.InvariantCulture));
+            parameters.AddOptionalParameter("price", price);
             parameters.AddOptionalParameter("reduce_only", reduceOnly == null ? null : reduceOnly.Value ? 1 : 0);
-            parameters.AddOptionalParameter("time_in_force", EnumConverter.GetString(timeInForce));
-            parameters.AddOptionalParameter("tp_trigger_price", takeProfitTriggerPrice?.ToString(CultureInfo.InvariantCulture));
-            parameters.AddOptionalParameter("tp_order_price", takeProfitOrderPrice?.ToString(CultureInfo.InvariantCulture));
-            parameters.AddOptionalParameter("tp_type", EnumConverter.GetString(takeProfitType));
-            parameters.AddOptionalParameter("tp_trigger_price_type", EnumConverter.GetString(takeProfitTriggerPriceType));
-            parameters.AddOptionalParameter("sl_trigger_price", stopLossTriggerPrice?.ToString(CultureInfo.InvariantCulture));
-            parameters.AddOptionalParameter("sl_order_price", stopLossOrderPrice?.ToString(CultureInfo.InvariantCulture));
-            parameters.AddOptionalParameter("sl_type", EnumConverter.GetString(stopLossType));
-            parameters.AddOptionalParameter("sl_trigger_price_type", EnumConverter.GetString(stopLossTriggerPriceType));
+            parameters.AddOptionalEnum("time_in_force", timeInForce);
+            parameters.AddOptionalParameter("tp_trigger_price", takeProfitTriggerPrice);
+            parameters.AddOptionalParameter("tp_order_price", takeProfitOrderPrice);
+            parameters.AddOptionalEnum("tp_type", takeProfitType);
+            parameters.AddOptionalEnum("tp_trigger_price_type", takeProfitTriggerPriceType);
+            parameters.AddOptionalParameter("sl_trigger_price", stopLossTriggerPrice);
+            parameters.AddOptionalParameter("sl_order_price", stopLossOrderPrice);
+            parameters.AddOptionalEnum("sl_type", stopLossType);
+            parameters.AddOptionalEnum("sl_trigger_price_type", stopLossTriggerPriceType);
             parameters.AddOptionalParameter("price_protect", priceProtect);
-            parameters.AddOptionalParameter("self_match_prevent", EnumConverter.GetString(selfMatchPrevent));
+            parameters.AddOptionalEnum("self_match_prevent", selfMatchPrevent);
 
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/v5/trade/order", HTXExchange.RateLimiter.UsdtTrade, 1, true);
             return await _baseClient.SendAsync<HTXOrderIdV5>(request, parameters, ct).ConfigureAwait(false);
@@ -77,7 +77,7 @@ namespace HTX.Net.Clients.UsdtFuturesV5
             {
                 { "contract_code", contractCode }
             };
-            parameters.AddOptionalParameter("margin_mode", EnumConverter.GetString(marginMode));
+            parameters.AddOptionalEnum("margin_mode", marginMode);
             parameters.AddOptionalParameter("order_id", orderId);
             parameters.AddOptionalParameter("client_order_id", clientOrderId);
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/v5/trade/order", HTXExchange.RateLimiter.UsdtRead, 1, true);
@@ -93,12 +93,12 @@ namespace HTX.Net.Clients.UsdtFuturesV5
         {
             var parameters = new ParameterCollection();
             parameters.AddOptionalParameter("contract_code", contractCode);
-            parameters.AddOptionalParameter("margin_mode", EnumConverter.GetString(marginMode));
+            parameters.AddOptionalEnum("margin_mode", marginMode);
             parameters.AddOptionalParameter("order_id", orderId);
             parameters.AddOptionalParameter("client_order_id", clientOrderId);
             parameters.AddOptionalParameter("from", fromId);
             parameters.AddOptionalParameter("limit", limit);
-            parameters.AddOptionalParameter("direct", EnumConverter.GetString(direction));
+            parameters.AddOptionalEnum("direct", direction);
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/v5/trade/order/opens", HTXExchange.RateLimiter.UsdtRead, 1, true);
             return await _baseClient.SendAsync<HTXOrderV5[]>(request, parameters, ct).ConfigureAwait(false);
         }
@@ -119,7 +119,7 @@ namespace HTX.Net.Clients.UsdtFuturesV5
             parameters.AddOptionalMillisecondsString("end_time", endTime);
             parameters.AddOptionalParameter("from", fromId);
             parameters.AddOptionalParameter("limit", limit);
-            parameters.AddOptionalParameter("direct", EnumConverter.GetString(direction));
+            parameters.AddOptionalEnum("direct", direction);
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/v5/trade/order/details", HTXExchange.RateLimiter.UsdtRead, 1, true);
             return await _baseClient.SendAsync<HTXOrderTradeV5[]>(request, parameters, ct).ConfigureAwait(false);
         }
@@ -134,16 +134,17 @@ namespace HTX.Net.Clients.UsdtFuturesV5
             var parameters = new ParameterCollection
             {
                 { "contract_code", contractCode },
-                { "margin_mode", EnumConverter.GetString(marginMode) }
             };
+            parameters.AddEnum("margin_mode", marginMode);
+
             parameters.AddOptionalParameter("state", states == null ? null : string.Join(",", states.Select(EnumConverter.GetString)));
-            parameters.AddOptionalParameter("type", EnumConverter.GetString(type));
-            parameters.AddOptionalParameter("price_match", EnumConverter.GetString(priceMatch));
+            parameters.AddOptionalEnum("type", type);
+            parameters.AddOptionalEnum("price_match", priceMatch);
             parameters.AddOptionalMillisecondsString("start_time", startTime);
             parameters.AddOptionalMillisecondsString("end_time", endTime);
             parameters.AddOptionalParameter("from", fromId);
             parameters.AddOptionalParameter("limit", limit);
-            parameters.AddOptionalParameter("direct", EnumConverter.GetString(direction));
+            parameters.AddOptionalEnum("direct", direction);
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/v5/trade/order/history", HTXExchange.RateLimiter.UsdtRead, 1, true);
             return await _baseClient.SendAsync<HTXOrderV5[]>(request, parameters, ct).ConfigureAwait(false);
         }
@@ -158,28 +159,29 @@ namespace HTX.Net.Clients.UsdtFuturesV5
             var parameters = new ParameterCollection
             {
                 { "contract_code", contractCode },
-                { "algo_type", EnumConverter.GetString(type) },
-                { "position_side", EnumConverter.GetString(positionSide) },
-                { "side", EnumConverter.GetString(side) },
-                { "margin_mode", EnumConverter.GetString(marginMode) }
             };
+            parameters.AddEnum("algo_type", type);
+            parameters.AddEnum("position_side", positionSide);
+            parameters.AddEnum("side", side);
+            parameters.AddEnum("margin_mode", marginMode);
+
             parameters.AddOptionalParameter("algo_client_order_id", algoClientOrderId);
-            parameters.AddOptionalParameter("volume", quantity?.ToString(CultureInfo.InvariantCulture));
-            parameters.AddOptionalParameter("tp_trigger_price", takeProfitTriggerPrice?.ToString(CultureInfo.InvariantCulture));
-            parameters.AddOptionalParameter("tp_order_price", takeProfitOrderPrice?.ToString(CultureInfo.InvariantCulture));
-            parameters.AddOptionalParameter("tp_type", EnumConverter.GetString(takeProfitType));
-            parameters.AddOptionalParameter("tp_trigger_price_type", EnumConverter.GetString(takeProfitTriggerPriceType));
-            parameters.AddOptionalParameter("sl_trigger_price", stopLossTriggerPrice?.ToString(CultureInfo.InvariantCulture));
-            parameters.AddOptionalParameter("sl_order_price", stopLossOrderPrice?.ToString(CultureInfo.InvariantCulture));
-            parameters.AddOptionalParameter("sl_type", EnumConverter.GetString(stopLossType));
-            parameters.AddOptionalParameter("sl_trigger_price_type", EnumConverter.GetString(stopLossTriggerPriceType));
-            parameters.AddOptionalParameter("price", price?.ToString(CultureInfo.InvariantCulture));
-            parameters.AddOptionalParameter("price_type", EnumConverter.GetString(priceType));
-            parameters.AddOptionalParameter("trigger_price", triggerPrice?.ToString(CultureInfo.InvariantCulture));
-            parameters.AddOptionalParameter("trigger_price_type", EnumConverter.GetString(triggerPriceType));
-            parameters.AddOptionalParameter("active_price", activationPrice?.ToString(CultureInfo.InvariantCulture));
-            parameters.AddOptionalParameter("order_price_type", EnumConverter.GetString(orderPriceType));
-            parameters.AddOptionalParameter("callback_rate", callbackRate?.ToString(CultureInfo.InvariantCulture));
+            parameters.AddOptionalParameter("volume", quantity);
+            parameters.AddOptionalParameter("tp_trigger_price", takeProfitTriggerPrice);
+            parameters.AddOptionalParameter("tp_order_price", takeProfitOrderPrice);
+            parameters.AddOptionalEnum("tp_type", takeProfitType);
+            parameters.AddOptionalEnum("tp_trigger_price_type", takeProfitTriggerPriceType);
+            parameters.AddOptionalParameter("sl_trigger_price", stopLossTriggerPrice);
+            parameters.AddOptionalParameter("sl_order_price", stopLossOrderPrice);
+            parameters.AddOptionalEnum("sl_type", stopLossType);
+            parameters.AddOptionalEnum("sl_trigger_price_type", stopLossTriggerPriceType);
+            parameters.AddOptionalParameter("price", price);
+            parameters.AddOptionalEnum("price_type", priceType);
+            parameters.AddOptionalParameter("trigger_price", triggerPrice);
+            parameters.AddOptionalEnum("trigger_price_type", triggerPriceType);
+            parameters.AddOptionalParameter("active_price", activationPrice);
+            parameters.AddOptionalEnum("order_price_type", orderPriceType);
+            parameters.AddOptionalParameter("callback_rate", callbackRate);
             parameters.AddOptionalParameter("reduce_only", reduceOnly == null ? null : reduceOnly.Value ? 1 : 0);
 
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/v5/algo/order", HTXExchange.RateLimiter.UsdtTrade, 1, true);
@@ -193,16 +195,15 @@ namespace HTX.Net.Clients.UsdtFuturesV5
         /// <inheritdoc />
         public async Task<WebCallResult<HTXAlgoOrderV5[]>> GetOpenAlgoOrdersAsync(AlgoOrderType type, string? contractCode = null, string? algoId = null, string? algoClientOrderId = null, long? fromId = null, int? limit = null, FilterDirection? direction = null, CancellationToken ct = default)
         {
-            var parameters = new ParameterCollection
-            {
-                { "algo_type", EnumConverter.GetString(type) }
-            };
+            var parameters = new ParameterCollection();
+            parameters.AddEnum("algo_type", type);
+
             parameters.AddOptionalParameter("contract_code", contractCode);
             parameters.AddOptionalParameter("algo_id", algoId);
             parameters.AddOptionalParameter("algo_client_order_id", algoClientOrderId);
             parameters.AddOptionalParameter("from", fromId);
             parameters.AddOptionalParameter("limit", limit);
-            parameters.AddOptionalParameter("direct", EnumConverter.GetString(direction));
+            parameters.AddOptionalEnum("direct", direction);
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/v5/algo/order/opens", HTXExchange.RateLimiter.UsdtRead, 1, true);
             return await _baseClient.SendAsync<HTXAlgoOrderV5[]>(request, parameters, ct).ConfigureAwait(false);
         }
@@ -214,18 +215,17 @@ namespace HTX.Net.Clients.UsdtFuturesV5
         /// <inheritdoc />
         public async Task<WebCallResult<HTXAlgoOrderV5[]>> GetAlgoOrderHistoryAsync(AlgoOrderType type, string? contractCode = null, MarginMode? marginMode = null, IEnumerable<AlgoOrderStatus>? states = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, int? limit = null, FilterDirection? direction = null, CancellationToken ct = default)
         {
-            var parameters = new ParameterCollection
-            {
-                { "algo_type", EnumConverter.GetString(type) }
-            };
+            var parameters = new ParameterCollection();
+            parameters.AddEnum("algo_type", type);
+
             parameters.AddOptionalParameter("contract_code", contractCode);
-            parameters.AddOptionalParameter("margin_mode", EnumConverter.GetString(marginMode));
+            parameters.AddOptionalEnum("margin_mode", marginMode);
             parameters.AddOptionalParameter("state", states == null ? null : string.Join(",", states.Select(EnumConverter.GetString)));
             parameters.AddOptionalMillisecondsString("start_time", startTime);
             parameters.AddOptionalMillisecondsString("end_time", endTime);
             parameters.AddOptionalParameter("from", fromId);
             parameters.AddOptionalParameter("limit", limit);
-            parameters.AddOptionalParameter("direct", EnumConverter.GetString(direction));
+            parameters.AddOptionalEnum("direct", direction);
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/v5/algo/order/history", HTXExchange.RateLimiter.UsdtRead, 1, true);
             return await _baseClient.SendAsync<HTXAlgoOrderV5[]>(request, parameters, ct).ConfigureAwait(false);
         }

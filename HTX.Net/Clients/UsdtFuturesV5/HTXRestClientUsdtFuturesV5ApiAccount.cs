@@ -59,13 +59,13 @@ namespace HTX.Net.Clients.UsdtFuturesV5
         {
             var parameters = new ParameterCollection();
             parameters.AddOptionalParameter("contract_code", contractCode);
-            parameters.AddOptionalParameter("margin_mode", EnumConverter.GetString(marginMode));
+            parameters.AddOptionalEnum("margin_mode", marginMode);
             parameters.AddOptionalParameter("type", types == null ? null : string.Join(",", types.Select(EnumConverter.GetString)));
             parameters.AddOptionalMillisecondsString("start_time", startTime);
             parameters.AddOptionalMillisecondsString("end_time", endTime);
             parameters.AddOptionalParameter("from", fromId);
             parameters.AddOptionalParameter("limit", limit);
-            parameters.AddOptionalParameter("direct", EnumConverter.GetString(direction));
+            parameters.AddOptionalEnum("direct", direction);
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/v5/account/bills", HTXExchange.RateLimiter.UsdtRead, 1, true);
             return await _baseClient.SendAsync<HTXBillV5[]>(request, parameters, ct).ConfigureAwait(false);
         }
@@ -105,8 +105,8 @@ namespace HTX.Net.Clients.UsdtFuturesV5
         {
             var parameters = new ParameterCollection();
             parameters.AddOptionalParameter("contract_code", contractCode);
-            parameters.AddOptionalParameter("margin_mode", EnumConverter.GetString(marginMode));
-            parameters.AddOptionalParameter("position_side", EnumConverter.GetString(positionSide));
+            parameters.AddOptionalEnum("margin_mode", marginMode);
+            parameters.AddOptionalEnum("position_side", positionSide);
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/v5/position/lever", HTXExchange.RateLimiter.UsdtRead, 1, true);
             return await _baseClient.SendAsync<HTXLeverageV5[]>(request, parameters, ct).ConfigureAwait(false);
         }
@@ -121,10 +121,10 @@ namespace HTX.Net.Clients.UsdtFuturesV5
             var parameters = new ParameterCollection
             {
                 { "contract_code", contractCode },
-                { "margin_mode", EnumConverter.GetString(marginMode) },
                 { "lever_rate", leverageRate }
             };
-            parameters.AddOptionalParameter("position_side", EnumConverter.GetString(positionSide));
+            parameters.AddEnum("margin_mode", marginMode);
+            parameters.AddOptionalEnum("position_side", positionSide);
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/v5/position/lever", HTXExchange.RateLimiter.UsdtTrade, 1, true);
             return await _baseClient.SendAsync<HTXLeverageV5>(request, parameters, ct).ConfigureAwait(false);
         }
@@ -151,8 +151,8 @@ namespace HTX.Net.Clients.UsdtFuturesV5
         {
             var parameters = new ParameterCollection();
             parameters.AddOptionalParameter("contract_code", contractCode);
-            parameters.AddOptionalParameter("margin_mode", EnumConverter.GetString(marginMode));
-            parameters.AddOptionalParameter("position_side", EnumConverter.GetString(positionSide));
+            parameters.AddOptionalEnum("margin_mode", marginMode);
+            parameters.AddOptionalEnum("position_side", positionSide);
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/v5/position/risk/limit", HTXExchange.RateLimiter.UsdtRead, 1, true);
             return await _baseClient.SendAsync<HTXPositionRiskLimitV5[]>(request, parameters, ct).ConfigureAwait(false);
         }

@@ -43,7 +43,7 @@ namespace HTX.Net.Clients.UsdtFuturesV5
             parameters.AddOptionalMillisecondsString("end_time", endTime);
             parameters.AddOptionalParameter("from", fromId);
             parameters.AddOptionalParameter("limit", limit);
-            parameters.AddOptionalParameter("direct", EnumConverter.GetString(direction));
+            parameters.AddOptionalEnum("direct", direction);
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/v5/market/funding_rate_history", HTXExchange.RateLimiter.UsdtRead, 1, false);
             return await _baseClient.SendAsync<HTXFundingRateHistoryV5[]>(request, parameters, ct).ConfigureAwait(false);
         }
@@ -87,7 +87,7 @@ namespace HTX.Net.Clients.UsdtFuturesV5
             {
                 { "contract_code", contractCode }
             };
-            parameters.AddOptionalParameter("margin_mode", EnumConverter.GetString(marginMode));
+            parameters.AddOptionalEnum("margin_mode", marginMode);
             parameters.AddOptionalParameter("tier", tier);
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/v5/market/risk/limit", HTXExchange.RateLimiter.UsdtRead, 1, false);
             return await _baseClient.SendAsync<HTXRiskLimitV5[]>(request, parameters, ct).ConfigureAwait(false);
