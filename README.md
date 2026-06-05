@@ -1,6 +1,7 @@
 # ![.HTX.Net](https://github.com/JKorf/HTX.Net/blob/master/HTX.Net/Icon/icon.png?raw=true) HTX.Net
 
 [![.NET](https://img.shields.io/github/actions/workflow/status/JKorf/HTX.Net/dotnet.yml?style=for-the-badge)](https://github.com/JKorf/HTX.Net/actions/workflows/dotnet.yml) ![License](https://img.shields.io/github/license/JKorf/HTX.Net?style=for-the-badge)
+![Since](https://img.shields.io/badge/since-2018-brightgreen?style=for-the-badge)
 
 HTX.Net, previously known as Huobi.Net, is a strongly typed client library for accessing the [HTX REST and Websocket API](https://www.htx.com/en-us/opend/).
 ## Features
@@ -83,6 +84,20 @@ var tickerSubscriptionResult = socketClient.SpotApi.SubscribeToTickerUpdatesAsyn
 
 For information on the clients, dependency injection, response processing and more see the [HTX.Net documentation](https://cryptoexchange.jkorf.dev?library=HTX.Net) or have a look at the examples [here](https://github.com/JKorf/HTX.Net/tree/master/Examples) or [here](https://github.com/JKorf/CryptoExchange.Net/tree/master/Examples).
 
+## AI / LLM documentation
+
+HTX.Net includes AI-oriented documentation and examples for code generation tools:
+
+|File|Purpose|
+|--|--|
+|[`AGENTS.md`](AGENTS.md)|Assistant skill with core HTX.Net patterns, pitfalls, and examples|
+|[`llms.txt`](llms.txt)|Short LLM index with links to docs, examples, and critical usage rules|
+|[`llms-full.txt`](llms-full.txt)|Detailed LLM context with endpoint routing, code patterns, and anti-hallucination checks|
+|[`docs/ai-api-map.md`](docs/ai-api-map.md)|Table-style intent-to-method map for Spot, USDT Futures, WebSocket, and SharedApis|
+|[`Examples/ai-friendly`](Examples/ai-friendly)|Compilable single-file examples for common REST, WebSocket, shared API, and error handling workflows|
+
+GitHub Copilot and Cursor instructions are also provided in `.github/copilot-instructions.md` and `.cursor/rules/htx-net.mdc`; both point back to the root AI context files.
+
 ## CryptoExchange.Net
 HTX.Net is based on the [CryptoExchange.Net](https://github.com/JKorf/CryptoExchange.Net) base library. Other exchange API implementations based on the CryptoExchange.Net base library are available and follow the same logic.
 
@@ -142,14 +157,14 @@ A Discord server is available [here](https://discord.gg/MSpeEtSY8t). Feel free t
 ### USDT-M Api
 |API|Supported|Location|
 |--|--:|--|
-|Reference Data|✓|`restClient.UsdtMarginSwapApi.ExchangeData`|
-|Swap Market Data Interface|✓|`restClient.UsdtMarginSwapApi.ExchangeData`|
-|Swap Account Interface|✓|`restClient.UsdtMarginSwapApi.Account`|
-|Swap Trade Interface|✓|`restClient.UsdtMarginSwapApi.Trading`|
+|Reference Data|✓|`restClient.UsdtFuturesApi.ExchangeData`|
+|Swap Market Data Interface|✓|`restClient.UsdtFuturesApi.ExchangeData`|
+|Swap Account Interface|✓|`restClient.UsdtFuturesApi.Account`|
+|Swap Trade Interface|✓|`restClient.UsdtFuturesApi.Trading`|
 |Swap Strategy Order Interface|X||
 |Swap Transferring Interface|X|`restClient.SpotApi.Account`|
-|Websocket Market Interface|✓|`socketClient.UsdtMarginSwapApi`|
-|Websocket Index and Basis Interface|✓|`socketClient.UsdtMarginSwapApi`|
+|Websocket Market Interface|✓|`socketClient.UsdtFuturesApi`|
+|Websocket Index and Basis Interface|✓|`socketClient.UsdtFuturesApi`|
 |Orders And Account WebSocket|X||
 |WebSocket System updates|X||
 
@@ -181,6 +196,13 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 8.10.1 - 02 Jun 2026
+    * Fixed Shared UsdtFutures GetKlinesAsync returning error if no startTime/endTime filter provided, fixed pagination
+    * Fixed user client provider not caching new client when previous client was disposed
+
+* Version 8.10.0 - 26 May 2026
+    * Updated CryptoExchange.Net to version 11.2.0
+
 * Version 8.9.2 - 13 Apr 2026
     * Fixed subscription not getting closed when HTXUsdtFuturesSymbolOrderBook start fails
 

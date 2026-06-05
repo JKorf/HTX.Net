@@ -7,12 +7,12 @@
   <PropertyGroup>
     <PackageId>JKorf.HTX.Net</PackageId>
     <Authors>JKorf</Authors>
-    <PackageVersion>8.9.2</PackageVersion>
-    <AssemblyVersion>8.9.2</AssemblyVersion>
-    <FileVersion>8.9.2</FileVersion>
+    <PackageVersion>8.10.1</PackageVersion>
+    <AssemblyVersion>8.10.1</AssemblyVersion>
+    <FileVersion>8.10.1</FileVersion>
     <Description>A high-performance .NET client library for the HTX REST and WebSocket APIs, providing strongly typed models, automatic WebSocket reconnection, client-side rate limiting, local order book support, and seamless integration with other CryptoExchange.Net based clients.</Description>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <PackageTags>HTX;HTX.Net;HTX.com;HTX Client;HTX API;CryptoCurrency;CryptoCurrency Exchange;Huobi;Huobi.Net;CryptoExchange.Net</PackageTags>
+    <PackageTags>HTX;HTX.Net;HTX.com;HTX Client;HTX API;CryptoCurrency;CryptoCurrency Exchange;Huobi;Huobi.Net;CryptoExchange.Net;ccxt</PackageTags>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/JKorf/HTX.Net.git</RepositoryUrl>
     <PackageProjectUrl>https://github.com/JKorf/HTX.Net</PackageProjectUrl>
@@ -53,7 +53,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="CryptoExchange.Net" Version="11.1.0" />
+    <PackageReference Include="CryptoExchange.Net" Version="11.2.0" />
     <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="10.0.101">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

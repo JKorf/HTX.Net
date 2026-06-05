@@ -1078,24 +1078,34 @@ namespace HTX.Net.Clients.UsdtFutures
             if (validationError != null)
                 return new ExchangeWebResult<SharedKline[]>(Exchange, validationError);
 
-            int limit = request.Limit ?? 1000;
-            var direction = request.Direction ?? DataDirection.Descending;
+            int limit = request.Limit ?? 100;
+            var direction = DataDirection.Descending;
             var pageParams = Pagination.GetPaginationParameters(direction, limit, request.StartTime, request.EndTime ?? DateTime.UtcNow, pageRequest);
 
             var symbol = request.Symbol!.GetSymbol(FormatSymbol);
+            var endTime = request.StartTime == null && request.EndTime == null && pageRequest == null ? null : pageParams.EndTime;
             var result = await ExchangeData.GetKlinesAsync(
                 symbol,
                 interval,
-                startTime: pageParams.StartTime,
-                endTime: pageParams.EndTime,
-                // limit: pageParams.Limit, Limit override start/end time
+                startTime: pageParams.StartTime ?? endTime?.AddSeconds(-((int)interval * 100)),
+                endTime: endTime,
+                limit: pageParams.EndTime == null ? pageParams.Limit : null,
                 ct: ct
                 ).ConfigureAwait(false);
             if (!result)
                 return result.AsExchangeResult<SharedKline[]>(Exchange, null, default);
 
             var nextPageRequest = Pagination.GetNextPageRequest(
-                     () => Pagination.NextPageFromTime(pageParams, result.Data.Min(x => x.OpenTime)),
+                     () => {
+                         // Can be set to the below line in next CE.Net version
+                         //Pagination.NextPageFromTimeKlines(direction, request, result.Data.Min(x => x.OpenTime), limit)
+                         var nextEndTime = result.Data.Min(x => x.OpenTime).AddSeconds(-(int)request.Interval);
+                         var startTime = nextEndTime.AddSeconds(-(limit * (int)request.Interval));
+                         var requestStartTime = request.StartTime ?? default(DateTime);
+                         if (startTime < requestStartTime)
+                             startTime = requestStartTime;
+                         return new PageRequest { StartTime = startTime, EndTime = nextEndTime };
+                     },
                      result.Data.Length,
                      result.Data.Select(x => x.OpenTime),
                      request.StartTime,
