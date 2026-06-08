@@ -2,6 +2,7 @@
 using CryptoExchange.Net.Objects.Options;
 using HTX.Net.Interfaces.Clients.SpotApi;
 using HTX.Net.Interfaces.Clients.UsdtFuturesApi;
+using HTX.Net.Interfaces.Clients.UsdtFuturesV5Api;
 
 namespace HTX.Net.Interfaces.Clients
 {
@@ -20,5 +21,10 @@ namespace HTX.Net.Interfaces.Clients
         /// </summary>
         /// <see cref="IHTXRestClientUsdtFuturesApi"/>
         IHTXRestClientUsdtFuturesApi UsdtFuturesApi { get; }
+        /// <summary>
+        /// Usdt futures V5 endpoints
+        /// </summary>
+        /// <see cref="IHTXRestClientUsdtFuturesV5Api"/>
+        IHTXRestClientUsdtFuturesV5Api UsdtFuturesV5Api { get; }
     }
 }

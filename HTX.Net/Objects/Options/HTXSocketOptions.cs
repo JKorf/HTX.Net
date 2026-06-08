@@ -50,6 +50,11 @@ namespace HTX.Net.Objects.Options
         /// </summary>
         public SocketApiOptions UsdtMarginSwapOptions { get; private set; } = new SocketApiOptions();
 
+        /// <summary>
+        /// Usdt futures V5 API options
+        /// </summary>
+        public SocketApiOptions UsdtFuturesV5Options { get; private set; } = new SocketApiOptions();
+
         internal HTXSocketOptions Set(HTXSocketOptions targetOptions)
         {
             targetOptions = base.Set<HTXSocketOptions>(targetOptions);
@@ -57,6 +62,7 @@ namespace HTX.Net.Objects.Options
             targetOptions.BrokerId = BrokerId;
             targetOptions.SpotOptions = SpotOptions.Set(targetOptions.SpotOptions);
             targetOptions.UsdtMarginSwapOptions = UsdtMarginSwapOptions.Set(targetOptions.UsdtMarginSwapOptions);
+            targetOptions.UsdtFuturesV5Options = UsdtFuturesV5Options.Set(targetOptions.UsdtFuturesV5Options);
             return targetOptions;
         }
     }

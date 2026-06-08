@@ -11,7 +11,7 @@ namespace HTX.Net.Enums
         /// <summary>
         /// ["<c>Swap</c>"] Swap
         /// </summary>
-        [Map("Swap")]
+        [Map("Swap", "swap")]
         Swap,
         /// <summary>
         /// ["<c>this_week</c>"] This week

@@ -23,6 +23,19 @@ namespace HTX.Net.Objects.Sockets
         public string Topic { get; set; } = string.Empty;
     }
 
+    /// <summary>
+    /// V5 message
+    /// </summary>
+    [SerializationModel]
+    public record HTXOpMessageV5 : HTXOpMessage
+    {
+        /// <summary>
+        /// Contract code
+        /// </summary>
+        [JsonPropertyName("contract_code"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        public string? ContractCode { get; set; }
+    }
+
     [SerializationModel]
     internal record HTXOpPingMessage : HTXOpMessage
     {

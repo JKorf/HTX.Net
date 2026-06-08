@@ -40,7 +40,7 @@ namespace HTX.Net
         }
 
         /// <summary>
-        /// ctor for DI, use <see cref="CreateCustom"/> for creating a custom environment
+        /// ctor for DI, use CreateCustom for creating a custom environment
         /// </summary>
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
         public HTXEnvironment() : base(TradeEnvironmentNames.Live)

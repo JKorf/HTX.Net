@@ -5,6 +5,8 @@ using HTX.Net.Objects.Options;
 using CryptoExchange.Net.Clients;
 using HTX.Net.Interfaces.Clients.UsdtFuturesApi;
 using HTX.Net.Clients.UsdtFutures;
+using HTX.Net.Clients.UsdtFuturesV5;
+using HTX.Net.Interfaces.Clients.UsdtFuturesV5Api;
 using Microsoft.Extensions.Options;
 using CryptoExchange.Net.Objects.Options;
 
@@ -20,6 +22,9 @@ namespace HTX.Net.Clients
 
         /// <inheritdoc />
         public IHTXRestClientUsdtFuturesApi UsdtFuturesApi { get; }
+
+        /// <inheritdoc />
+        public IHTXRestClientUsdtFuturesV5Api UsdtFuturesV5Api { get; }
 
         #endregion
 
@@ -46,6 +51,7 @@ namespace HTX.Net.Clients
 
             SpotApi = AddApiClient(new HTXRestClientSpotApi(_logger, httpClient, options.Value));
             UsdtFuturesApi = AddApiClient(new HTXRestClientUsdtFuturesApi(_logger, httpClient, options.Value));
+            UsdtFuturesV5Api = AddApiClient(new HTXRestClientUsdtFuturesV5Api(_logger, httpClient, options.Value));
         }
         #endregion
 
