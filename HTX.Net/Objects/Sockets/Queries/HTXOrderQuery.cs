@@ -13,15 +13,15 @@ namespace HTX.Net.Objects.Sockets.Queries
         public HTXOrderQuery(SocketApiClient client, HTXSocketOrderRequest<TRequest> request) : base(request, true, 1)
         {
             _client = client;
-            MessageRouter = MessageRouter.CreateWithoutTopicFilter<HTXSocketOrderResponse<T>>(request.RequestId, HandleMessage);
+            MessageRouter = MessageRouter.CreateForQuery<HTXSocketOrderResponse<T>>(request.RequestId, HandleMessage);
         }
 
         public CallResult<HTXSocketOrderResponse<T>> HandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, HTXSocketOrderResponse<T> message)
         {
             if (!message.Success)
-                return new CallResult<HTXSocketOrderResponse<T>>(new ServerError(message.ErrorCode!, _client.GetErrorInfo(message.ErrorCode!, message.ErrorMessage)));
+                return CallResult<HTXSocketOrderResponse<T>>.Fail(new ServerError(message.ErrorCode!, _client.GetErrorInfo(message.ErrorCode!, message.ErrorMessage)));
 
-            return new CallResult<HTXSocketOrderResponse<T>>(message, originalData, null);
+            return CallResult<HTXSocketOrderResponse<T>>.Ok(message, originalData);
         }
     }
 }

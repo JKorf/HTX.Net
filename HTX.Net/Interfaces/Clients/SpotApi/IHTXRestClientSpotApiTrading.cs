@@ -29,7 +29,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// <param name="stopOperator">["<c>operator</c>"] Operator of the stop price</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<long>> PlaceOrderAsync(long accountId, string symbol, OrderSide side, OrderType type, decimal quantity, decimal? price = null, string? clientOrderId = null, SourceType? source = null, decimal? stopPrice = null, Operator? stopOperator = null, CancellationToken ct = default);
+        Task<HttpResult<long>> PlaceOrderAsync(long accountId, string symbol, OrderSide side, OrderType type, decimal quantity, decimal? price = null, string? clientOrderId = null, SourceType? source = null, decimal? stopPrice = null, Operator? stopOperator = null, CancellationToken ct = default);
 
         /// <summary>
         /// Place multiple orders in a single call
@@ -43,7 +43,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// <param name="orders">Orders to place</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<CallResult<HTXBatchPlaceResult>[]>> PlaceMultipleOrderAsync(
+        Task<HttpResult<CallResult<HTXBatchPlaceResult>[]>> PlaceMultipleOrderAsync(
             IEnumerable<HTXOrderRequest> orders,
             CancellationToken ct = default);
 
@@ -70,7 +70,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// <param name="stopOperator">["<c>operator</c>"] Operator of the stop price</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<HTXOrderId>> PlaceMarginOrderAsync(
+        Task<HttpResult<HTXOrderId>> PlaceMarginOrderAsync(
             long accountId,
             string symbol,
             Enums.OrderSide side,
@@ -103,7 +103,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// <param name="limit">["<c>size</c>"] The max number of results</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<HTXOpenOrder[]>> GetOpenOrdersAsync(
+        Task<HttpResult<HTXOpenOrder[]>> GetOpenOrdersAsync(
             long? accountId = null,
             string? symbol = null,
             OrderSide? side = null,
@@ -125,7 +125,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// <param name="orderId">The id of the order to cancel</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<long>> CancelOrderAsync(long orderId, CancellationToken ct = default);
+        Task<HttpResult<long>> CancelOrderAsync(long orderId, CancellationToken ct = default);
 
         /// <summary>
         /// Cancel an open order
@@ -139,7 +139,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// <param name="clientOrderId">["<c>client-order-id</c>"] The client id of the order to cancel</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<long>> CancelOrderByClientOrderIdAsync(string clientOrderId, CancellationToken ct = default);
+        Task<HttpResult<long>> CancelOrderByClientOrderIdAsync(string clientOrderId, CancellationToken ct = default);
 
         /// <summary>
         /// Cancel multiple open orders
@@ -154,7 +154,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// <param name="clientOrderIds">["<c>client-order-ids</c>"] The client ids of the orders to cancel</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<HTXBatchCancelResult>> CancelOrdersAsync(IEnumerable<long>? orderIds = null, IEnumerable<string>? clientOrderIds = null, CancellationToken ct = default);
+        Task<HttpResult<HTXBatchCancelResult>> CancelOrdersAsync(IEnumerable<long>? orderIds = null, IEnumerable<string>? clientOrderIds = null, CancellationToken ct = default);
 
         /// <summary>
         /// Cancel all order
@@ -168,7 +168,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// <param name="symbol">["<c>symbol</c>"] Symbol, multiple symbols can be provided comma separated</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult> CancelAllOrdersAsync(string? symbol = null, CancellationToken ct = default);
+        Task<HttpResult> CancelAllOrdersAsync(string? symbol = null, CancellationToken ct = default);
 
         /// <summary>
         /// Cancel multiple open orders
@@ -185,7 +185,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// <param name="limit">["<c>size</c>"] The number of orders to cancel [1, 100]</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<HTXByCriteriaCancelResult>> CancelOrdersByCriteriaAsync(long? accountId = null, IEnumerable<string>? symbols = null, OrderSide? side = null, int? limit = null, CancellationToken ct = default);
+        Task<HttpResult<HTXByCriteriaCancelResult>> CancelOrdersByCriteriaAsync(long? accountId = null, IEnumerable<string>? symbols = null, OrderSide? side = null, int? limit = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get details of an order
@@ -199,7 +199,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// <param name="orderId">The id of the order to retrieve</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<HTXOrder>> GetOrderAsync(long orderId, CancellationToken ct = default);
+        Task<HttpResult<HTXOrder>> GetOrderAsync(long orderId, CancellationToken ct = default);
 
         /// <summary>
         /// Get details of an order by client order id
@@ -213,7 +213,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// <param name="clientOrderId">["<c>clientOrderId</c>"] The client id of the order to retrieve</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<HTXOrder>> GetOrderByClientOrderIdAsync(string clientOrderId, CancellationToken ct = default);
+        Task<HttpResult<HTXOrder>> GetOrderByClientOrderIdAsync(string clientOrderId, CancellationToken ct = default);
 
         /// <summary>
         /// Get a list of trades made for a specific order
@@ -227,7 +227,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// <param name="orderId">The id of the order to get trades for</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<HTXOrderTrade[]>> GetOrderTradesAsync(long orderId, CancellationToken ct = default);
+        Task<HttpResult<HTXOrderTrade[]>> GetOrderTradesAsync(long orderId, CancellationToken ct = default);
 
         /// <summary>
         /// Get a list of orders
@@ -248,7 +248,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// <param name="limit">["<c>size</c>"] The max number of results</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<HTXOrder[]>> GetClosedOrdersAsync(string symbol, IEnumerable<OrderStatus>? states = null, IEnumerable<OrderType>? types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, FilterDirection? direction = null, int? limit = null, CancellationToken ct = default);
+        Task<HttpResult<HTXOrder[]>> GetClosedOrdersAsync(string symbol, IEnumerable<OrderStatus>? states = null, IEnumerable<OrderType>? types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, FilterDirection? direction = null, int? limit = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get a list of user trades
@@ -268,7 +268,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// <param name="limit">["<c>size</c>"] The max number of results</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<HTXOrderTrade[]>> GetUserTradesAsync(string? symbol = null, IEnumerable<OrderType>? types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, FilterDirection? direction = null, int? limit = null, CancellationToken ct = default);
+        Task<HttpResult<HTXOrderTrade[]>> GetUserTradesAsync(string? symbol = null, IEnumerable<OrderType>? types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, FilterDirection? direction = null, int? limit = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get order history
@@ -286,7 +286,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// <param name="limit">["<c>size</c>"] The max number of results</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<HTXOrder[]>> GetHistoricalOrdersAsync(string? symbol = null, DateTime? startTime = null, DateTime? endTime = null, FilterDirection? direction = null, int? limit = null, CancellationToken ct = default);
+        Task<HttpResult<HTXOrder[]>> GetHistoricalOrdersAsync(string? symbol = null, DateTime? startTime = null, DateTime? endTime = null, FilterDirection? direction = null, int? limit = null, CancellationToken ct = default);
 
         /// <summary>
         /// Place a new conditional order
@@ -310,7 +310,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// <param name="clientOrderId">["<c>clientOrderId</c>"] Client order id</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<HTXPlacedConditionalOrder>> PlaceConditionalOrderAsync(
+        Task<HttpResult<HTXPlacedConditionalOrder>> PlaceConditionalOrderAsync(
             long accountId,
             string symbol,
             OrderSide side,
@@ -336,7 +336,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// <param name="clientOrderIds">["<c>clientOrderIds</c>"] Client order ids of the conditional orders to cancels</param>
         /// <param name="ct">Cancelation token</param>
         /// <returns></returns>
-        Task<WebCallResult<HTXConditionalOrderCancelResult>> CancelConditionalOrdersAsync(IEnumerable<string> clientOrderIds, CancellationToken ct = default);
+        Task<HttpResult<HTXConditionalOrderCancelResult>> CancelConditionalOrdersAsync(IEnumerable<string> clientOrderIds, CancellationToken ct = default);
 
         /// <summary>
         /// Get open conditional orders based on the parameters
@@ -356,7 +356,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// <param name="fromId">["<c>fromId</c>"] Ids after this</param>
         /// <param name="ct">Cancelation token</param>
         /// <returns></returns>
-        Task<WebCallResult<HTXConditionalOrder[]>> GetOpenConditionalOrdersAsync(long? accountId = null, string? symbol = null, OrderSide? side = null, ConditionalOrderType? type = null, string? sort = null, int? limit = null, long? fromId = null, CancellationToken ct = default);
+        Task<HttpResult<HTXConditionalOrder[]>> GetOpenConditionalOrdersAsync(long? accountId = null, string? symbol = null, OrderSide? side = null, ConditionalOrderType? type = null, string? sort = null, int? limit = null, long? fromId = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get closed conditional orders
@@ -379,7 +379,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// <param name="startTime">["<c>startTime</c>"] Return only entries after this time</param>
         /// <param name="endTime">["<c>endTime</c>"] Return only entries before this time</param>
         /// <returns></returns>
-        Task<WebCallResult<HTXConditionalOrder[]>> GetClosedConditionalOrdersAsync(
+        Task<HttpResult<HTXConditionalOrder[]>> GetClosedConditionalOrdersAsync(
             string symbol,
             ConditionalOrderStatus status,
             long? accountId = null,
@@ -404,6 +404,6 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// <param name="clientOrderId">["<c>clientOrderId</c>"] Client order id</param>
         /// <param name="ct">Cancelation token</param>
         /// <returns></returns>
-        Task<WebCallResult<HTXConditionalOrder>> GetConditionalOrderAsync(string clientOrderId, CancellationToken ct = default);
+        Task<HttpResult<HTXConditionalOrder>> GetConditionalOrderAsync(string clientOrderId, CancellationToken ct = default);
     }
 }

@@ -20,7 +20,7 @@ namespace HTX.Net.Objects.Sockets.Subscriptions
             _topic = topic;
             _contractCode = contractCode;
 
-            MessageRouter = MessageRouter.CreateWithoutTopicFilter<T>(listenId, DoHandleMessage);
+            MessageRouter = MessageRouter.CreateForEvent<T>(listenId, DoHandleMessage);
         }
 
         protected override Query? GetSubQuery(SocketConnection connection)
@@ -35,7 +35,7 @@ namespace HTX.Net.Objects.Sockets.Subscriptions
         public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, T message)
         {
             _handler.Invoke(receiveTime, originalData, message);
-            return CallResult.SuccessResult;
+            return CallResult.Ok();
         }
     }
 }

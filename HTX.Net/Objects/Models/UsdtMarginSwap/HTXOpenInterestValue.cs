@@ -59,7 +59,7 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// </summary>
 
         [JsonPropertyName("amount_type")]
-        public Unit Unit { get; set; }
+        public HTX.Net.Enums.Unit Unit { get; set; }
         /// <summary>
         /// ["<c>value</c>"] Value
         /// </summary>

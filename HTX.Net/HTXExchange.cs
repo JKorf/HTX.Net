@@ -59,6 +59,14 @@ namespace HTX.Net
         public static ExchangeType Type { get; } = ExchangeType.CEX;
 
         internal static JsonSerializerContext _serializerContext = JsonSerializerContextCache.GetOrCreate<HTXSourceGenerationContext>();
+        internal static ParameterSerializationSettings _futuresParameterSerializationSettings = new ParameterSerializationSettings
+        {
+            Decimal = DecimalSerialization.Number
+        };
+        internal static ParameterSerializationSettings _spotParameterSerializationSettings = new ParameterSerializationSettings
+        {
+            Decimal = DecimalSerialization.String
+        };
 
         /// <summary>
         /// Aliases for HTX assets

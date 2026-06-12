@@ -69,32 +69,32 @@ namespace HTX.Net.SymbolOrderBooks
             if (_mergeStep != null)
             {
                 var subResult = await _socketClient.SpotApi.SubscribeToPartialOrderBookUpdates1SecondAsync(Symbol, _mergeStep.Value, HandleUpdate).ConfigureAwait(false);
-                if (!subResult)
-                    return subResult;
+                if (!subResult.Success)
+                    return CallResult.Fail<UpdateSubscription>(subResult.Error);
 
                 if (ct.IsCancellationRequested)
                 {
                     await subResult.Data.CloseAsync().ConfigureAwait(false);
-                    return subResult.AsError<UpdateSubscription>(new CancellationRequestedError());
+                    return CallResult.Fail<UpdateSubscription>(new CancellationRequestedError());
                 }
 
                 Status = OrderBookStatus.Syncing;
                 var setResult = await WaitForSetOrderBookAsync(_initialDataTimeout, ct).ConfigureAwait(false);
-                if (!setResult)
+                if (!setResult.Success)
                     await subResult.Data.CloseAsync().ConfigureAwait(false);
 
-                return setResult ? subResult : new CallResult<UpdateSubscription>(setResult.Error!);
+                return setResult.Success ? CallResult.Ok(subResult.Data) : CallResult.Fail<UpdateSubscription>(setResult.Error!);
             }
             else
             {
                 var subResult = await _socketClient.SpotApi.SubscribeToOrderBookChangeUpdatesAsync(Symbol, _levels!.Value, HandleIncremental).ConfigureAwait(false);
-                if (!subResult)
-                    return subResult;
+                if (!subResult.Success)
+                    return CallResult.Fail<UpdateSubscription>(subResult.Error);
 
                 if (ct.IsCancellationRequested)
                 {
                     await subResult.Data.CloseAsync().ConfigureAwait(false);
-                    return subResult.AsError<UpdateSubscription>(new CancellationRequestedError());
+                    return CallResult.Fail<UpdateSubscription>(new CancellationRequestedError());
                 }
 
                 Status = OrderBookStatus.Syncing;
@@ -103,15 +103,15 @@ namespace HTX.Net.SymbolOrderBooks
                 await WaitUntilFirstUpdateBufferedAsync(TimeSpan.FromMilliseconds(500), TimeSpan.FromMilliseconds(1000), ct).ConfigureAwait(false);
 
                 var book = await _socketClient.SpotApi.GetOrderBookAsync(Symbol, _levels.Value).ConfigureAwait(false);
-                if (!book)
+                if (!book.Success)
                 {
                     _logger.Log(LogLevel.Debug, $"{Api} order book {Symbol} failed to retrieve initial order book");
                     await _socketClient.UnsubscribeAsync(subResult.Data).ConfigureAwait(false);
-                    return new CallResult<UpdateSubscription>(book.Error!);
+                    return CallResult.Fail<UpdateSubscription>(book.Error!);
                 }
 
                 SetSnapshot(book.Data.SequenceNumber, book.Data.Bids, book.Data.Asks);
-                return subResult;
+                return CallResult.Ok(subResult.Data);
             }
         }
 
@@ -129,7 +129,7 @@ namespace HTX.Net.SymbolOrderBooks
         }
 
         /// <inheritdoc />
-        protected override async Task<CallResult<bool>> DoResyncAsync(CancellationToken ct)
+        protected override async Task<CallResult> DoResyncAsync(CancellationToken ct)
         {
             if (_mergeStep != null)
             {
@@ -141,11 +141,11 @@ namespace HTX.Net.SymbolOrderBooks
                 await WaitUntilFirstUpdateBufferedAsync(TimeSpan.FromMilliseconds(500), TimeSpan.FromMilliseconds(1000), ct).ConfigureAwait(false);
 
                 var book = await _socketClient.SpotApi.GetOrderBookAsync(Symbol, _levels!.Value).ConfigureAwait(false);
-                if (!book)
-                    return new CallResult<bool>(book.Error!);
+                if (!book.Success)
+                    return CallResult.Fail(book.Error!);
 
                 SetSnapshot(book.Data.SequenceNumber, book.Data.Bids!, book.Data.Asks!);
-                return new CallResult<bool>(true);
+                return CallResult.Ok();
             }
         }
 

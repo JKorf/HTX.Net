@@ -12,15 +12,15 @@ namespace HTX.Net.Objects.Sockets.Queries
         public HTXSubscribeQuery(SocketApiClient client, string topic, bool authenticated, int weight = 1, string? dataType = null) : base(new HTXSubscribeRequest() { Id = ExchangeHelpers.NextId().ToString(), Topic = topic, DataType = dataType }, authenticated, weight)
         {
             _client = client;
-            MessageRouter = MessageRouter.CreateWithoutTopicFilter<HTXSocketResponse>(((HTXSubscribeRequest)Request).Id, HandleMessage);
+            MessageRouter = MessageRouter.CreateForQuery<HTXSocketResponse>(((HTXSubscribeRequest)Request).Id, HandleMessage);
         }
 
         public CallResult<HTXSocketResponse> HandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, HTXSocketResponse message)
         {
             if (message.Status != "ok")
-                return new CallResult<HTXSocketResponse>(new ServerError(message.ErrorCode!, _client.GetErrorInfo(message.ErrorCode!, message.ErrorMessage)));
+                return CallResult<HTXSocketResponse>.Fail(new ServerError(message.ErrorCode!, _client.GetErrorInfo(message.ErrorCode!, message.ErrorMessage)));
 
-            return new CallResult<HTXSocketResponse>(message, originalData, null);
+            return CallResult<HTXSocketResponse>.Ok(message, originalData);
         }
     }
 }

@@ -18,7 +18,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesV5Api
         /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<HTXAssetModeV5>> GetAssetModeAsync(CancellationToken ct = default);
+        Task<HttpResult<HTXAssetModeV5>> GetAssetModeAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Set asset mode
@@ -31,7 +31,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesV5Api
         /// </summary>
         /// <param name="assetMode">["<c>assets_mode</c>"] Asset mode</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<HTXAssetModeUpdateV5>> SetAssetModeAsync(AssetMode assetMode, CancellationToken ct = default);
+        Task<HttpResult<HTXAssetModeUpdateV5>> SetAssetModeAsync(AssetMode assetMode, CancellationToken ct = default);
 
         /// <summary>
         /// Get account balance
@@ -43,7 +43,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesV5Api
         /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<HTXAccountBalanceV5>> GetAccountBalanceAsync(CancellationToken ct = default);
+        Task<HttpResult<HTXAccountBalanceV5>> GetAccountBalanceAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Query financial records
@@ -63,7 +63,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesV5Api
         /// <param name="limit">["<c>limit</c>"] Limit</param>
         /// <param name="direction">["<c>direct</c>"] Direction</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<HTXBillV5[]>> GetBillsAsync(string? contractCode = null, MarginMode? marginMode = null, IEnumerable<FinancialRecordType>? types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, int? limit = null, FilterDirection? direction = null, CancellationToken ct = default);
+        Task<HttpResult<HTXBillV5[]>> GetBillsAsync(string? contractCode = null, MarginMode? marginMode = null, IEnumerable<FinancialRecordType>? types = null, DateTime? startTime = null, DateTime? endTime = null, long? fromId = null, int? limit = null, FilterDirection? direction = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get position mode
@@ -74,7 +74,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesV5Api
         /// GET /v5/position/mode
         /// </para>
         /// </summary>
-        Task<WebCallResult<HTXPositionModeV5>> GetPositionModeAsync(CancellationToken ct = default);
+        Task<HttpResult<HTXPositionModeV5>> GetPositionModeAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Set position mode
@@ -85,7 +85,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesV5Api
         /// POST /v5/position/mode
         /// </para>
         /// </summary>
-        Task<WebCallResult<HTXPositionModeV5>> SetPositionModeAsync(PositionMode positionMode, CancellationToken ct = default);
+        Task<HttpResult<HTXPositionModeV5>> SetPositionModeAsync(PositionMode positionMode, CancellationToken ct = default);
 
         /// <summary>
         /// Get leverage list
@@ -96,7 +96,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesV5Api
         /// GET /v5/position/lever
         /// </para>
         /// </summary>
-        Task<WebCallResult<HTXLeverageV5[]>> GetLeverageAsync(string? contractCode = null, MarginMode? marginMode = null, FuturesPositionSide? positionSide = null, CancellationToken ct = default);
+        Task<HttpResult<HTXLeverageV5[]>> GetLeverageAsync(string? contractCode = null, MarginMode? marginMode = null, FuturesPositionSide? positionSide = null, CancellationToken ct = default);
 
         /// <summary>
         /// Set leverage
@@ -107,7 +107,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesV5Api
         /// POST /v5/position/lever
         /// </para>
         /// </summary>
-        Task<WebCallResult<HTXLeverageV5>> SetLeverageAsync(string contractCode, MarginMode marginMode, int leverageRate, FuturesPositionSide? positionSide = null, CancellationToken ct = default);
+        Task<HttpResult<HTXLeverageV5>> SetLeverageAsync(string contractCode, MarginMode marginMode, int leverageRate, FuturesPositionSide? positionSide = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get current position
@@ -118,7 +118,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesV5Api
         /// GET /v5/trade/position/opens
         /// </para>
         /// </summary>
-        Task<WebCallResult<HTXPositionV5[]>> GetOpenPositionsAsync(string? contractCode = null, CancellationToken ct = default);
+        Task<HttpResult<HTXPositionV5[]>> GetOpenPositionsAsync(string? contractCode = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get position risk limits
@@ -129,6 +129,6 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesV5Api
         /// GET /v5/position/risk/limit
         /// </para>
         /// </summary>
-        Task<WebCallResult<HTXPositionRiskLimitV5[]>> GetRiskLimitsAsync(string? contractCode = null, MarginMode? marginMode = null, FuturesPositionSide? positionSide = null, CancellationToken ct = default);
+        Task<HttpResult<HTXPositionRiskLimitV5[]>> GetRiskLimitsAsync(string? contractCode = null, MarginMode? marginMode = null, FuturesPositionSide? positionSide = null, CancellationToken ct = default);
     }
 }

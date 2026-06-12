@@ -38,11 +38,11 @@ namespace HTX.Net.Objects.Sockets.Subscriptions
             _onConditionalOrderCanceled = onConditionalOrderCanceled;
 
             MessageRouter = MessageRouter.Create([
-                MessageRoute<HTXDataEvent<HTXTriggerFailureOrderUpdate>>.CreateWithoutTopicFilter(_topic + "trigger", DoHandleMessage),
-                MessageRoute<HTXDataEvent<HTXOrderUpdate>>.CreateWithoutTopicFilter(_topic + "deletion", DoHandleMessage),
-                MessageRoute<HTXDataEvent<HTXSubmittedOrderUpdate>>.CreateWithoutTopicFilter(_topic + "creation", DoHandleMessage),
-                MessageRoute<HTXDataEvent<HTXMatchedOrderUpdate>>.CreateWithoutTopicFilter(_topic + "trade", DoHandleMessage),
-                MessageRoute<HTXDataEvent<HTXCanceledOrderUpdate>>.CreateWithoutTopicFilter(_topic + "cancellation", DoHandleMessage)
+                MessageRoute.CreateForEvent<HTXDataEvent<HTXTriggerFailureOrderUpdate>>(_topic + "trigger", DoHandleMessage),
+                MessageRoute.CreateForEvent<HTXDataEvent<HTXOrderUpdate>>(_topic + "deletion", DoHandleMessage),
+                MessageRoute.CreateForEvent<HTXDataEvent<HTXSubmittedOrderUpdate>>(_topic + "creation", DoHandleMessage),
+                MessageRoute.CreateForEvent<HTXDataEvent<HTXMatchedOrderUpdate>>(_topic + "trade", DoHandleMessage),
+                MessageRoute.CreateForEvent<HTXDataEvent<HTXCanceledOrderUpdate>>(_topic + "cancellation", DoHandleMessage)
                 ]);
         }
 
@@ -66,7 +66,7 @@ namespace HTX.Net.Objects.Sockets.Subscriptions
                     .WithUpdateType(SocketUpdateType.Update)
                     .WithDataTimestamp(message.Timestamp, _client.GetTimeOffset())
                 );
-            return CallResult.SuccessResult;
+            return CallResult.Ok();
         }
 
         public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, HTXDataEvent<HTXOrderUpdate> message)
@@ -80,7 +80,7 @@ namespace HTX.Net.Objects.Sockets.Subscriptions
                     .WithUpdateType(SocketUpdateType.Update)
                     .WithDataTimestamp(message.Timestamp, _client.GetTimeOffset())
                 );
-            return CallResult.SuccessResult;
+            return CallResult.Ok();
         }
 
         public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, HTXDataEvent<HTXSubmittedOrderUpdate> message)
@@ -94,7 +94,7 @@ namespace HTX.Net.Objects.Sockets.Subscriptions
                     .WithUpdateType(SocketUpdateType.Update)
                     .WithDataTimestamp(message.Timestamp, _client.GetTimeOffset())
                 );
-            return CallResult.SuccessResult;
+            return CallResult.Ok();
         }
 
         public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, HTXDataEvent<HTXMatchedOrderUpdate> message)
@@ -108,7 +108,7 @@ namespace HTX.Net.Objects.Sockets.Subscriptions
                     .WithUpdateType(SocketUpdateType.Update)
                     .WithDataTimestamp(message.Timestamp, _client.GetTimeOffset())
                 );
-            return CallResult.SuccessResult;
+            return CallResult.Ok();
         }
 
         public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, HTXDataEvent<HTXCanceledOrderUpdate> message)
@@ -122,7 +122,7 @@ namespace HTX.Net.Objects.Sockets.Subscriptions
                     .WithUpdateType(SocketUpdateType.Update)
                     .WithDataTimestamp(message.Timestamp, _client.GetTimeOffset())
                 );
-            return CallResult.SuccessResult;
+            return CallResult.Ok();
         }
     }
 }

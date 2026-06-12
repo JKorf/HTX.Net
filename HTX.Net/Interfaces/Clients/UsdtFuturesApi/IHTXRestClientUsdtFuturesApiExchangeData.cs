@@ -24,7 +24,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// <param name="basisPriceType">["<c>basis_price_type</c>"] Price type (open, close, high, low, average)</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<HTXBasisData[]>> GetBasisDataAsync(string contractCode, KlineInterval interval, int limit, string? basisPriceType = null, CancellationToken ct = default);
+        Task<HttpResult<HTXBasisData[]>> GetBasisDataAsync(string contractCode, KlineInterval interval, int limit, string? basisPriceType = null, CancellationToken ct = default);
         /// <summary>
         /// Get the current best bid/ask values
         /// <para>
@@ -38,7 +38,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// <param name="type">["<c>business_type</c>"] Type</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<HTXSwapBookTicker[]>> GetBookTickerAsync(string? contractCode = null, BusinessType? type = null, CancellationToken ct = default);
+        Task<HttpResult<HTXSwapBookTicker[]>> GetBookTickerAsync(string? contractCode = null, BusinessType? type = null, CancellationToken ct = default);
         /// <summary>
         /// Get contract info
         /// <para>
@@ -55,7 +55,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// <param name="businessType">["<c>business_type</c>"] Business type</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<HTXContractInfo[]>> GetContractsAsync(string? contractCode = null, MarginMode? supportMarginMode = null, string? pair = null, ContractType? contractType = null, BusinessType? businessType = null, CancellationToken ct = default);
+        Task<HttpResult<HTXContractInfo[]>> GetContractsAsync(string? contractCode = null, MarginMode? supportMarginMode = null, string? pair = null, ContractType? contractType = null, BusinessType? businessType = null, CancellationToken ct = default);
         /// <summary>
         /// Get cross margin adjust factor info
         /// <para>
@@ -71,7 +71,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// <param name="businessType">["<c>business_type</c>"] Business type</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<HTXCrossSwapAdjustFactorInfo[]>> GetCrossMarginAdjustFactorInfoAsync(string? contractCode = null, string? asset = null, ContractType? contractType = null, BusinessType? businessType = null, CancellationToken ct = default);
+        Task<HttpResult<HTXCrossSwapAdjustFactorInfo[]>> GetCrossMarginAdjustFactorInfoAsync(string? contractCode = null, string? asset = null, ContractType? contractType = null, BusinessType? businessType = null, CancellationToken ct = default);
         /// <summary>
         /// Get cross margin trade status
         /// <para>
@@ -87,7 +87,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// <param name="businessType">["<c>business_type</c>"] Business type</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<HTXCrossMarginTradeStatus[]>> GetCrossMarginTradeStatusAsync(string? contractCode = null, string? pair = null, ContractType? contractType = null, BusinessType? businessType = null, CancellationToken ct = default);
+        Task<HttpResult<HTXCrossMarginTradeStatus[]>> GetCrossMarginTradeStatusAsync(string? contractCode = null, string? pair = null, ContractType? contractType = null, BusinessType? businessType = null, CancellationToken ct = default);
         /// <summary>
         /// Get cross margin transfer status
         /// <para>
@@ -100,7 +100,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// <param name="marginAccount">["<c>margin_account</c>"] Margin account, for example `USDT`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<HTXCrossMarginTransferStatus[]>> GetCrossMarginTransferStatusAsync(string? marginAccount = null, CancellationToken ct = default);
+        Task<HttpResult<HTXCrossMarginTransferStatus[]>> GetCrossMarginTransferStatusAsync(string? marginAccount = null, CancellationToken ct = default);
         /// <summary>
         /// Get cross tiered margin info
         /// <para>
@@ -116,7 +116,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// <param name="businessType">["<c>business_type</c>"] Business type</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<HTXTieredCrossMarginInfo[]>> GetCrossTieredMarginInfoAsync(string? contractCode = null, string? pair = null, ContractType? contractType = null, BusinessType? businessType = null, CancellationToken ct = default);
+        Task<HttpResult<HTXTieredCrossMarginInfo[]>> GetCrossTieredMarginInfoAsync(string? contractCode = null, string? pair = null, ContractType? contractType = null, BusinessType? businessType = null, CancellationToken ct = default);
         /// <summary>
         /// Get estimated funding rate klines
         /// <para>
@@ -131,7 +131,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// <param name="limit">["<c>size</c>"] Limit</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<HTXKline[]>> GetEstimatedFundingRateKlinesAsync(string contractCode, KlineInterval interval, int limit, CancellationToken ct = default);
+        Task<HttpResult<HTXKline[]>> GetEstimatedFundingRateKlinesAsync(string contractCode, KlineInterval interval, int limit, CancellationToken ct = default);
         /// <summary>
         /// Get estimated settlement price
         /// <para>
@@ -147,7 +147,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// <param name="businessType">["<c>business_type</c>"] Business type</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<HTXEstimatedSettlementPrice[]>> GetEstimatedSettlementPriceAsync(string? contractCode = null, string? pair = null, ContractType? contractType = null, BusinessType? businessType = null, CancellationToken ct = default);
+        Task<HttpResult<HTXEstimatedSettlementPrice[]>> GetEstimatedSettlementPriceAsync(string? contractCode = null, string? pair = null, ContractType? contractType = null, BusinessType? businessType = null, CancellationToken ct = default);
         /// <summary>
         /// Get funding rate
         /// <para>
@@ -160,7 +160,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// <param name="contractCode">["<c>contract_code</c>"] Contract code, for example `ETH-USDT`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<HTXFundingRate>> GetFundingRateAsync(string contractCode, CancellationToken ct = default);
+        Task<HttpResult<HTXFundingRate>> GetFundingRateAsync(string contractCode, CancellationToken ct = default);
         /// <summary>
         /// Get funding rates
         /// <para>
@@ -173,7 +173,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// <param name="contractCode">["<c>contract_code</c>"] Contract code, for example `ETH-USDT`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<HTXFundingRate[]>> GetFundingRatesAsync(string? contractCode = null, CancellationToken ct = default);
+        Task<HttpResult<HTXFundingRate[]>> GetFundingRatesAsync(string? contractCode = null, CancellationToken ct = default);
         /// <summary>
         /// Get historical funding rates
         /// <para>
@@ -188,7 +188,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// <param name="pageSize">["<c>page_size</c>"] Page size</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<HTXFundingRatePage>> GetHistoricalFundingRatesAsync(string contractCode, int? page = null, int? pageSize = null, CancellationToken ct = default);
+        Task<HttpResult<HTXFundingRatePage>> GetHistoricalFundingRatesAsync(string contractCode, int? page = null, int? pageSize = null, CancellationToken ct = default);
         /// <summary>
         /// Get historical settlement records
         /// <para>
@@ -205,7 +205,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// <param name="pageSize">["<c>page_size</c>"] Page size</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<HTXSettlementPage>> GetHistoricalSettlementRecordsAsync(string contractCode, DateTime? startTime = null, DateTime? endTime = null, int? page = null, int? pageSize = null, CancellationToken ct = default);
+        Task<HttpResult<HTXSettlementPage>> GetHistoricalSettlementRecordsAsync(string contractCode, DateTime? startTime = null, DateTime? endTime = null, int? page = null, int? pageSize = null, CancellationToken ct = default);
         /// <summary>
         /// Get insurance fund history
         /// <para>
@@ -220,7 +220,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// <param name="pageSize">["<c>page_size</c>"] Page size</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<HTXInsuranceInfo>> GetInsuranceFundHistoryAsync(string contractCode, int? page = null, int? pageSize = null, CancellationToken ct = default);
+        Task<HttpResult<HTXInsuranceInfo>> GetInsuranceFundHistoryAsync(string contractCode, int? page = null, int? pageSize = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get the total amount of risk funds for all current business lines, priced in USDT.
@@ -233,7 +233,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// </summary>
         /// <param name="ct"></param>
         /// <returns></returns>
-        Task<WebCallResult<HTXTotalInsuranceInfo>> GetInsuranceFundInfoAsync(CancellationToken ct = default);
+        Task<HttpResult<HTXTotalInsuranceInfo>> GetInsuranceFundInfoAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get isolated margin adjust factor info
@@ -247,7 +247,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// <param name="contractCode">["<c>contract_code</c>"] Contract code, for example `ETH-USDT`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<HTXSwapAdjustFactorInfo[]>> GetIsolatedMarginAdjustFactorInfoAsync(string? contractCode = null, CancellationToken ct = default);
+        Task<HttpResult<HTXSwapAdjustFactorInfo[]>> GetIsolatedMarginAdjustFactorInfoAsync(string? contractCode = null, CancellationToken ct = default);
         /// <summary>
         /// Get isolated margin status
         /// <para>
@@ -260,7 +260,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// <param name="contractCode">["<c>contract_code</c>"] Contract code, for example `ETH-USDT`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<HTXContractStatus[]>> GetIsolatedMarginStatusAsync(string? contractCode = null, CancellationToken ct = default);
+        Task<HttpResult<HTXContractStatus[]>> GetIsolatedMarginStatusAsync(string? contractCode = null, CancellationToken ct = default);
         /// <summary>
         /// Get isolated margin tier info
         /// <para>
@@ -273,7 +273,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// <param name="contractCode">Contract code, for example `ETH-USDT`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<HTXTieredMarginInfo[]>> GetIsolatedMarginTieredInfoAsync(string? contractCode = null, CancellationToken ct = default);
+        Task<HttpResult<HTXTieredMarginInfo[]>> GetIsolatedMarginTieredInfoAsync(string? contractCode = null, CancellationToken ct = default);
         /// <summary>
         /// Get klines
         /// <para>
@@ -290,7 +290,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// <param name="endTime">["<c>to</c>"] Filter by end time</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<HTXKline[]>> GetKlinesAsync(string contractCode, KlineInterval interval, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default);
+        Task<HttpResult<HTXKline[]>> GetKlinesAsync(string contractCode, KlineInterval interval, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default);
         /// <summary>
         /// Get last trades
         /// <para>
@@ -304,7 +304,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// <param name="businessType">["<c>business_type</c>"] Business type</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<HTXLastTrade>> GetLastTradesAsync(string? contractCode = null, BusinessType? businessType = null, CancellationToken ct = default);
+        Task<HttpResult<HTXLastTrade>> GetLastTradesAsync(string? contractCode = null, BusinessType? businessType = null, CancellationToken ct = default);
         /// <summary>
         /// Get liquidation orders
         /// <para>
@@ -323,7 +323,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// <param name="fromId">["<c>from_id</c>"] Return results after this id</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<HTXLiquidationOrder[]>> GetLiquidationOrdersAsync(string contractCode,
+        Task<HttpResult<HTXLiquidationOrder[]>> GetLiquidationOrdersAsync(string contractCode,
             LiquidationTradeType tradeType,
             string? pair = null,
             DateTime? startTime = null,
@@ -343,7 +343,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// <param name="contractCode">["<c>contract_code</c>"] Contract code, for example `ETH-USDT`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<HTXTicker>> GetTickerAsync(string contractCode, CancellationToken ct = default);
+        Task<HttpResult<HTXTicker>> GetTickerAsync(string contractCode, CancellationToken ct = default);
         /// <summary>
         /// Get tickers
         /// <para>
@@ -357,7 +357,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// <param name="businessType">["<c>business_type</c>"] Business type</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<HTXListTicker[]>> GetTickersAsync(string? contractCode = null, BusinessType? businessType = null, CancellationToken ct = default);
+        Task<HttpResult<HTXListTicker[]>> GetTickersAsync(string? contractCode = null, BusinessType? businessType = null, CancellationToken ct = default);
         /// <summary>
         /// Get open interest
         /// <para>
@@ -375,7 +375,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// <param name="limit">["<c>size</c>"] Limit</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<HTXOpenInterestValue>> GetOpenInterestHistoryAsync(InterestPeriod period, Unit unit, string? contractCode = null, string? symbol = null, ContractType? type = null, int? limit = null, CancellationToken ct = default);
+        Task<HttpResult<HTXOpenInterestValue>> GetOpenInterestHistoryAsync(InterestPeriod period, HTX.Net.Enums.Unit unit, string? contractCode = null, string? symbol = null, ContractType? type = null, int? limit = null, CancellationToken ct = default);
         /// <summary>
         /// Get order book
         /// <para>
@@ -389,7 +389,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// <param name="mergeStep">["<c>type</c>"] Merge step</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<HTXOrderBook>> GetOrderBookAsync(string contractCode, int? mergeStep = null, CancellationToken ct = default);
+        Task<HttpResult<HTXOrderBook>> GetOrderBookAsync(string contractCode, int? mergeStep = null, CancellationToken ct = default);
         /// <summary>
         /// Get premium index klines
         /// <para>
@@ -404,7 +404,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// <param name="limit">["<c>size</c>"] Max number of results</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<HTXKline[]>> GetPremiumIndexKlinesAsync(string contractCode, KlineInterval interval, int limit, CancellationToken ct = default);
+        Task<HttpResult<HTXKline[]>> GetPremiumIndexKlinesAsync(string contractCode, KlineInterval interval, int limit, CancellationToken ct = default);
         /// <summary>
         /// Get recent trades
         /// <para>
@@ -418,7 +418,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// <param name="limit">["<c>size</c>"] Max number of results to return</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<HTXTrade[]>> GetRecentTradesAsync(string contractCode, int limit, CancellationToken ct = default);
+        Task<HttpResult<HTXTrade[]>> GetRecentTradesAsync(string contractCode, int limit, CancellationToken ct = default);
         /// <summary>
         /// Get server time
         /// <para>
@@ -430,7 +430,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<DateTime>> GetServerTimeAsync(CancellationToken ct = default);
+        Task<HttpResult<DateTime>> GetServerTimeAsync(CancellationToken ct = default);
         /// <summary>
         /// Get swap index price
         /// <para>
@@ -443,7 +443,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// <param name="contractCode">["<c>contract_code</c>"] Contract code, for example `ETH-USDT`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<HTXSwapIndex[]>> GetSwapIndexPriceAsync(string? contractCode = null, CancellationToken ct = default);
+        Task<HttpResult<HTXSwapIndex[]>> GetSwapIndexPriceAsync(string? contractCode = null, CancellationToken ct = default);
         /// <summary>
         /// Get swap open interest
         /// <para>
@@ -459,7 +459,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// <param name="businessType">["<c>business_type</c>"] Business tpye</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<HTXOpenInterest[]>> GetSwapOpenInterestAsync(string? contractCode = null, string? pair = null, ContractType? contractType = null, BusinessType? businessType = null, CancellationToken ct = default);
+        Task<HttpResult<HTXOpenInterest[]>> GetSwapOpenInterestAsync(string? contractCode = null, string? pair = null, ContractType? contractType = null, BusinessType? businessType = null, CancellationToken ct = default);
         /// <summary>
         /// Get swap price limitation
         /// <para>
@@ -475,7 +475,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// <param name="businessType">["<c>business_type</c>"] Business type</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<HTXPriceLimitation[]>> GetSwapPriceLimitationAsync(string? contractCode = null, string? pair = null, ContractType? contractType = null, BusinessType? businessType = null, CancellationToken ct = default);
+        Task<HttpResult<HTXPriceLimitation[]>> GetSwapPriceLimitationAsync(string? contractCode = null, string? pair = null, ContractType? contractType = null, BusinessType? businessType = null, CancellationToken ct = default);
         /// <summary>
         /// Get swap risk info
         /// <para>
@@ -489,7 +489,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// <param name="businessType">["<c>business_type</c>"] Business type</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<HTXSwapRiskInfo[]>> GetSwapRiskInfoAsync(string? contractCode = null, BusinessType? businessType = null, CancellationToken ct = default);
+        Task<HttpResult<HTXSwapRiskInfo[]>> GetSwapRiskInfoAsync(string? contractCode = null, BusinessType? businessType = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get top trader account sentiment
@@ -503,7 +503,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// <param name="contractCode">["<c>contract_code</c>"] Contract code, for example `ETH-USDT`</param>
         /// <param name="period">["<c>period</c>"] Period</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<HTXAccountSentiment>> GetTopTraderAccountSentimentAsync(string contractCode, Period period, CancellationToken ct = default);
+        Task<HttpResult<HTXAccountSentiment>> GetTopTraderAccountSentimentAsync(string contractCode, Period period, CancellationToken ct = default);
 
         /// <summary>
         /// Get top trader position sentiment
@@ -517,7 +517,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// <param name="contractCode">["<c>contract_code</c>"] Contract code, for example `ETH-USDT`</param>
         /// <param name="period">["<c>period</c>"] Period</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<HTXAccountSentiment>> GetTopTraderPositionSentimentAsync(string contractCode, Period period, CancellationToken ct = default);
+        Task<HttpResult<HTXAccountSentiment>> GetTopTraderPositionSentimentAsync(string contractCode, Period period, CancellationToken ct = default);
 
         /// <summary>
         /// Get contract elements and info
@@ -530,7 +530,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// </summary>
         /// <param name="contractCode">["<c>contract_code</c>"] Filter by contract code, for example `ETH-USDT`</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<HTXContractElements[]>> GetContractElementsAsync(string contractCode, CancellationToken ct = default);
+        Task<HttpResult<HTXContractElements[]>> GetContractElementsAsync(string contractCode, CancellationToken ct = default);
 
         /// <summary>
         /// Get mark price klines
@@ -545,7 +545,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// <param name="klineInterval">["<c>period</c>"] Kline interval</param>
         /// <param name="limit">["<c>size</c>"] Max number of results</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<HTXKline[]>> GetMarkPriceKlinesAsync(string contractCode, KlineInterval klineInterval, int limit, CancellationToken ct = default);
+        Task<HttpResult<HTXKline[]>> GetMarkPriceKlinesAsync(string contractCode, KlineInterval klineInterval, int limit, CancellationToken ct = default);
 
     }
 }

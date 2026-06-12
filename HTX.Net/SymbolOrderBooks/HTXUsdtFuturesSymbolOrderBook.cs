@@ -66,32 +66,32 @@ namespace HTX.Net.SymbolOrderBooks
             if (_mergeStep != null)
             {
                 var subResult = await _socketClient.UsdtFuturesApi.SubscribeToOrderBookUpdatesAsync(Symbol, _mergeStep.Value, HandleUpdate).ConfigureAwait(false);
-                if (!subResult)
-                    return subResult;
+                if (!subResult.Success)
+                    return CallResult.Fail<UpdateSubscription>(subResult.Error);
 
                 var waitResult = await WaitForSetOrderBookAsync(_initialDataTimeout, ct).ConfigureAwait(false);
-                if (!waitResult)
+                if (!waitResult.Success)
                 {
                     await subResult.Data.CloseAsync().ConfigureAwait(false);
-                    return waitResult.As<UpdateSubscription>(default);
+                    return CallResult.Fail<UpdateSubscription>(waitResult.Error);
                 }
 
-                return subResult;
+                return CallResult.Ok(subResult.Data);
             }
             else
             {
                 var subResult = await _socketClient.UsdtFuturesApi.SubscribeToIncrementalOrderBookUpdatesAsync(Symbol, false, _levels!.Value, HandleIncremental).ConfigureAwait(false);
-                if (!subResult)
-                    return subResult;
+                if (!subResult.Success)
+                    return CallResult.Fail<UpdateSubscription>(subResult.Error);
 
                 var waitResult = await WaitForSetOrderBookAsync(_initialDataTimeout, ct).ConfigureAwait(false);
-                if (!waitResult)
+                if (!waitResult.Success)
                 {
                     await subResult.Data.CloseAsync().ConfigureAwait(false);
-                    return waitResult.As<UpdateSubscription>(default);
+                    return CallResult.Fail<UpdateSubscription>(waitResult.Error);
                 }
 
-                return subResult;
+                return CallResult.Ok(subResult.Data);
             }
         }
 
@@ -109,7 +109,7 @@ namespace HTX.Net.SymbolOrderBooks
         }
 
         /// <inheritdoc />
-        protected override async Task<CallResult<bool>> DoResyncAsync(CancellationToken ct)
+        protected override async Task<CallResult> DoResyncAsync(CancellationToken ct)
         {
             return await WaitForSetOrderBookAsync(_initialDataTimeout, ct).ConfigureAwait(false);
         }

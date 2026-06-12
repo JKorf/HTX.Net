@@ -12,21 +12,21 @@ namespace HTX.Net.Objects.Sockets.Queries
         public HTXAuthQuery(SocketApiClient client, string action, string topic, bool authenticated, int weight = 1) : base(new HTXAuthRequest() { Action = action, Channel = topic }, authenticated, weight)
         {
             _client = client;
-            MessageRouter = MessageRouter.CreateWithoutTopicFilter<HTXSocketAuthResponse>(action + topic, HandleMessage);
+            MessageRouter = MessageRouter.CreateForQuery<HTXSocketAuthResponse>(action + topic, HandleMessage);
         }
 
         public HTXAuthQuery(SocketApiClient client, HTXAuthRequest request) : base(request, true, 1)
         {
             _client = client;
-            MessageRouter = MessageRouter.CreateWithoutTopicFilter<HTXSocketAuthResponse>(request.Action + request.Channel, HandleMessage);
+            MessageRouter = MessageRouter.CreateForQuery<HTXSocketAuthResponse>(request.Action + request.Channel, HandleMessage);
         }
 
         public CallResult<HTXSocketAuthResponse> HandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, HTXSocketAuthResponse message)
         {
             if (message.Code != 200)
-                return new CallResult<HTXSocketAuthResponse>(new ServerError(message.Code, _client.GetErrorInfo(message.Code, message.Message!)), originalData);
+                return CallResult.Fail<HTXSocketAuthResponse>(new ServerError(message.Code, _client.GetErrorInfo(message.Code, message.Message!)), originalData);
 
-            return new CallResult<HTXSocketAuthResponse>(message, originalData, null);
+            return CallResult<HTXSocketAuthResponse>.Ok(message, originalData);
         }
     }
 }

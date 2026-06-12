@@ -8,13 +8,13 @@ namespace HTX.Net.Objects.Sockets.Subscriptions
     {
         public HTXPingSubscription(ILogger logger) : base(logger, false)
         {
-            MessageRouter = MessageRouter.CreateWithoutTopicFilter<HTXPingMessage>("pingV3", HandleMessage);
+            MessageRouter = MessageRouter.CreateForEvent<HTXPingMessage>("pingV3", HandleMessage);
         }
 
         public CallResult HandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, HTXPingMessage message)
         {
             _ = connection.SendAsync(ExchangeHelpers.NextId(), new HTXPongMessage() { Pong = message.Ping }, 1);
-            return CallResult.SuccessResult;
+            return CallResult.Ok();
         }
     }
 }

@@ -23,7 +23,7 @@ namespace HTX.Net.Clients.UsdtFuturesV5
 
         #region ctor
         internal HTXSocketClientUsdtFuturesV5Api(ILogger logger, HTXSocketOptions options)
-            : base(logger, options.Environment.UsdtMarginSwapSocketBaseAddress, options, options.UsdtFuturesV5Options)
+            : base(logger, HTXExchange.Metadata.Id, options.Environment.UsdtMarginSwapSocketBaseAddress, options, options.UsdtFuturesV5Options)
         {
             KeepAliveInterval = TimeSpan.Zero;
 
@@ -64,7 +64,7 @@ namespace HTX.Net.Clients.UsdtFuturesV5
         #region Subscribe To Account Updates
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToAccountUpdatesAsync(Action<DataEvent<HTXDataEventV5<HTXAccountUpdateV5>>> onData, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToAccountUpdatesAsync(Action<DataEvent<HTXDataEventV5<HTXAccountUpdateV5>>> onData, CancellationToken ct = default)
         {
             var subscription = CreateSubscription("account", null, onData);
             return await SubscribeAsync(BaseAddress.AppendPath("ws/v5/notification"), subscription, ct).ConfigureAwait(false);
@@ -75,7 +75,7 @@ namespace HTX.Net.Clients.UsdtFuturesV5
         #region Subscribe To Order Updates
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(string? contractCode, Action<DataEvent<HTXDataEventV5<HTXOrderUpdateV5>>> onData, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(string? contractCode, Action<DataEvent<HTXDataEventV5<HTXOrderUpdateV5>>> onData, CancellationToken ct = default)
         {
             var subscription = CreateSubscription("orders", contractCode, onData);
             return await SubscribeAsync(BaseAddress.AppendPath("ws/v5/notification"), subscription, ct).ConfigureAwait(false);
@@ -86,7 +86,7 @@ namespace HTX.Net.Clients.UsdtFuturesV5
         #region Subscribe To Position Updates
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToPositionUpdatesAsync(string? contractCode, Action<DataEvent<HTXDataEventV5<HTXPositionUpdateV5[]>>> onData, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToPositionUpdatesAsync(string? contractCode, Action<DataEvent<HTXDataEventV5<HTXPositionUpdateV5[]>>> onData, CancellationToken ct = default)
         {
             var subscription = CreateSubscription("positions", contractCode, onData);
             return await SubscribeAsync(BaseAddress.AppendPath("ws/v5/notification"), subscription, ct).ConfigureAwait(false);
@@ -97,7 +97,7 @@ namespace HTX.Net.Clients.UsdtFuturesV5
         #region Subscribe To User Trade Updates
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToUserTradeUpdatesAsync(string? contractCode, Action<DataEvent<HTXDataEventV5<HTXMatchOrderUpdateV5[]>>> onData, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToUserTradeUpdatesAsync(string? contractCode, Action<DataEvent<HTXDataEventV5<HTXMatchOrderUpdateV5[]>>> onData, CancellationToken ct = default)
         {
             var subscription = CreateSubscription("match_orders", contractCode, onData);
             return await SubscribeAsync(BaseAddress.AppendPath("ws/v5/notification"), subscription, ct).ConfigureAwait(false);

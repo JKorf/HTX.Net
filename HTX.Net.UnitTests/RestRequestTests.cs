@@ -325,7 +325,7 @@ namespace HTX.Net.UnitTests
             await tester.ValidateAsync(client => client.UsdtFuturesApi.Trading.GetClosedCrossMarginTrailingOrdersAsync(new[] { Enums.TpSlStatus.Canceled }, Enums.MarginTradeType.BuyShort, 90), "GetClosedCrossMarginTrailingOrders");
         }
 
-        private bool IsAuthenticated(WebCallResult result)
+        private bool IsAuthenticated(IHttpResult result)
         {
             return result.RequestUrl.Contains("Signature");
         }
