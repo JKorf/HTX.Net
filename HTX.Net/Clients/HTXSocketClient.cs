@@ -44,9 +44,9 @@ namespace HTX.Net.Clients
         {
             Initialize(options.Value);
 
-            SpotApi = AddApiClient(new HTXSocketClientSpotApi(_logger, options.Value));
-            UsdtFuturesApi = AddApiClient(new HTXSocketClientUsdtFuturesApi(_logger, options.Value));
-            UsdtFuturesV5Api = AddApiClient(new HTXSocketClientUsdtFuturesV5Api(_logger, options.Value));
+            SpotApi = AddApiClient(new HTXSocketClientSpotApi(loggerFactory, options.Value));
+            UsdtFuturesApi = AddApiClient(new HTXSocketClientUsdtFuturesApi(loggerFactory, options.Value));
+            UsdtFuturesV5Api = AddApiClient(new HTXSocketClientUsdtFuturesV5Api(loggerFactory, options.Value));
         }
         #endregion
 

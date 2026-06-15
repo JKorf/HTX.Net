@@ -35,8 +35,8 @@ namespace HTX.Net.Clients.UsdtFuturesV5
         #endregion
 
         #region constructor/destructor
-        internal HTXRestClientUsdtFuturesV5Api(ILogger log, HttpClient? httpClient, HTXRestOptions options)
-            : base(log, HTXExchange.Metadata.Id, httpClient, options.Environment.UsdtMarginSwapRestBaseAddress, options, options.UsdtFuturesV5Options)
+        internal HTXRestClientUsdtFuturesV5Api(ILoggerFactory? loggerFactory, HttpClient? httpClient, HTXRestOptions options)
+            : base(loggerFactory, HTXExchange.Metadata.Id, httpClient, options.Environment.UsdtMarginSwapRestBaseAddress, options, options.UsdtFuturesV5Options)
         {
             Account = new HTXRestClientUsdtFuturesV5ApiAccount(this);
             ExchangeData = new HTXRestClientUsdtFuturesV5ApiExchangeData(this);

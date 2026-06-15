@@ -31,8 +31,8 @@ namespace HTX.Net.Clients.SpotApi
         public new HTXSocketOptions ClientOptions => (HTXSocketOptions)base.ClientOptions;
 
         #region ctor
-        internal HTXSocketClientSpotApi(ILogger logger, HTXSocketOptions options)
-            : base(logger, HTXExchange.Metadata.Id, options.Environment.SocketBaseAddress, options, options.SpotOptions)
+        internal HTXSocketClientSpotApi(ILoggerFactory? loggerFactory, HTXSocketOptions options)
+            : base(loggerFactory, HTXExchange.Metadata.Id, options.Environment.SocketBaseAddress, options, options.SpotOptions)
         {
             KeepAliveInterval = TimeSpan.Zero;
 

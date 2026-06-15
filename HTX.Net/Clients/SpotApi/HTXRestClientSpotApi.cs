@@ -40,8 +40,8 @@ namespace HTX.Net.Clients.SpotApi
         #endregion
 
         #region constructor/destructor
-        internal HTXRestClientSpotApi(ILogger logger, HttpClient? httpClient, HTXRestOptions options)
-            : base(logger, HTXExchange.Metadata.Id, httpClient, options.Environment.RestBaseAddress, options, options.SpotOptions)
+        internal HTXRestClientSpotApi(ILoggerFactory? loggerFactory, HttpClient? httpClient, HTXRestOptions options)
+            : base(loggerFactory, HTXExchange.Metadata.Id, httpClient, options.Environment.RestBaseAddress, options, options.SpotOptions)
         {
             Account = new HTXRestClientSpotApiAccount(this);
             ExchangeData = new HTXRestClientSpotApiExchangeData(this);

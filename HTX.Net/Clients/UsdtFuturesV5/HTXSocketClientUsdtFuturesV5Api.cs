@@ -22,8 +22,8 @@ namespace HTX.Net.Clients.UsdtFuturesV5
         protected override ErrorMapping ErrorMapping => HTXErrors.FuturesMapping;
 
         #region ctor
-        internal HTXSocketClientUsdtFuturesV5Api(ILogger logger, HTXSocketOptions options)
-            : base(logger, HTXExchange.Metadata.Id, options.Environment.UsdtMarginSwapSocketBaseAddress, options, options.UsdtFuturesV5Options)
+        internal HTXSocketClientUsdtFuturesV5Api(ILoggerFactory? loggerFactory, HTXSocketOptions options)
+            : base(loggerFactory, HTXExchange.Metadata.Id, options.Environment.UsdtMarginSwapSocketBaseAddress, options, options.UsdtFuturesV5Options)
         {
             KeepAliveInterval = TimeSpan.Zero;
 

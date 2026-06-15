@@ -1,4 +1,5 @@
-﻿using HTX.Net.Interfaces.Clients;
+﻿using CryptoExchange.Net.Clients;
+using HTX.Net.Interfaces.Clients;
 using HTX.Net.Objects.Options;
 using Microsoft.Extensions.Options;
 using System.Collections.Concurrent;
@@ -6,18 +7,17 @@ using System.Collections.Concurrent;
 namespace HTX.Net.Clients
 {
     /// <inheritdoc />
-    public class HTXUserClientProvider : IHTXUserClientProvider
+    public class HTXUserClientProvider : UserClientProvider<
+        IHTXRestClient,
+        IHTXSocketClient,
+        HTXRestOptions,
+        HTXSocketOptions,
+        HTXCredentials,
+        HTXEnvironment
+        >, IHTXUserClientProvider
     {
-        private ConcurrentDictionary<string, IHTXRestClient> _restClients = new ConcurrentDictionary<string, IHTXRestClient>();
-        private ConcurrentDictionary<string, IHTXSocketClient> _socketClients = new ConcurrentDictionary<string, IHTXSocketClient>();
-
-        private readonly IOptions<HTXRestOptions> _restOptions;
-        private readonly IOptions<HTXSocketOptions> _socketOptions;
-        private readonly HttpClient _httpClient;
-        private readonly ILoggerFactory? _loggerFactory;
-
         /// <inheritdoc />
-        public string ExchangeName => HTXExchange.ExchangeName;
+        public override string ExchangeName => HTXExchange.ExchangeName;
 
         /// <summary>
         /// ctor
@@ -36,97 +36,15 @@ namespace HTX.Net.Clients
             ILoggerFactory? loggerFactory,
             IOptions<HTXRestOptions> restOptions,
             IOptions<HTXSocketOptions> socketOptions)
+            : base(httpClient, loggerFactory, restOptions, socketOptions)
         {
-            _httpClient = httpClient ?? new HttpClient();
-            _httpClient.Timeout = restOptions.Value.RequestTimeout;
-            _loggerFactory = loggerFactory;
-            _restOptions = restOptions;
-            _socketOptions = socketOptions;
         }
 
         /// <inheritdoc />
-        public void InitializeUserClient(string userIdentifier, HTXCredentials credentials, HTXEnvironment? environment = null)
-        {
-            CreateRestClient(userIdentifier, credentials, environment);
-            CreateSocketClient(userIdentifier, credentials, environment);
-        }
-
+        protected override IHTXRestClient ConstructRestClient(HttpClient client, ILoggerFactory? loggerFactory, IOptions<HTXRestOptions> options)
+            => new HTXRestClient(client, loggerFactory, options);
         /// <inheritdoc />
-        public void ClearUserClients(string userIdentifier)
-        {
-            _restClients.TryRemove(userIdentifier, out _);
-            _socketClients.TryRemove(userIdentifier, out _);
-        }
-
-        /// <inheritdoc />
-        public IHTXRestClient GetRestClient(string userIdentifier, HTXCredentials? credentials = null, HTXEnvironment? environment = null)
-        {
-            if (!_restClients.TryGetValue(userIdentifier, out var client) || client.Disposed)
-                client = CreateRestClient(userIdentifier, credentials, environment);
-
-            return client;
-        }
-
-        /// <inheritdoc />
-        public IHTXSocketClient GetSocketClient(string userIdentifier, HTXCredentials? credentials = null, HTXEnvironment? environment = null)
-        {
-            if (!_socketClients.TryGetValue(userIdentifier, out var client) || client.Disposed)
-                client = CreateSocketClient(userIdentifier, credentials, environment);
-
-            return client;
-        }
-
-        private IHTXRestClient CreateRestClient(string userIdentifier, HTXCredentials? credentials, HTXEnvironment? environment)
-        {
-            var clientRestOptions = SetRestEnvironment(environment);
-            var client = new HTXRestClient(_httpClient, _loggerFactory, clientRestOptions);
-            if (credentials != null)
-            {
-                client.SetApiCredentials(credentials);
-                _restClients[userIdentifier] = client;
-            }
-            return client;
-        }
-
-        private IHTXSocketClient CreateSocketClient(string userIdentifier, HTXCredentials? credentials, HTXEnvironment? environment)
-        {
-            var clientSocketOptions = SetSocketEnvironment(environment);
-            var client = new HTXSocketClient(clientSocketOptions!, _loggerFactory);
-            if (credentials != null)
-            {
-                client.SetApiCredentials(credentials);
-                _socketClients[userIdentifier] = client;
-            }
-            return client;
-        }
-
-        private IOptions<HTXRestOptions> SetRestEnvironment(HTXEnvironment? environment)
-        {
-            if (environment == null)
-                return _restOptions;
-
-            var newRestClientOptions = new HTXRestOptions();
-            var restOptions = _restOptions.Value.Set(newRestClientOptions);
-            newRestClientOptions.Environment = environment;
-            return Options.Create(newRestClientOptions);
-        }
-
-        private IOptions<HTXSocketOptions> SetSocketEnvironment(HTXEnvironment? environment)
-        {
-            if (environment == null)
-                return _socketOptions;
-
-            var newSocketClientOptions = new HTXSocketOptions();
-            var restOptions = _socketOptions.Value.Set(newSocketClientOptions);
-            newSocketClientOptions.Environment = environment;
-            return Options.Create(newSocketClientOptions);
-        }
-
-        private static T ApplyOptionsDelegate<T>(Action<T>? del) where T : new()
-        {
-            var opts = new T();
-            del?.Invoke(opts);
-            return opts;
-        }
+        protected override IHTXSocketClient ConstructSocketClient(ILoggerFactory? loggerFactory, IOptions<HTXSocketOptions> options)
+            => new HTXSocketClient(options, loggerFactory);
     }
 }
