@@ -23,7 +23,9 @@ Primary documentation:
 - Include `using HTX.Net;` when using `HTXCredentials` or `HTXEnvironment`.
 - Always check `.Success` before reading `.Data`.
 - REST methods return `HttpResult<T>` or `HttpResult`.
-- WebSocket subscriptions and socket API requests return `WebSocketResult<T>` or `WebSocketResult`.
+- WebSocket subscriptions return `WebSocketResult<UpdateSubscription>`.
+- Spot WebSocket request/query methods return `QueryResult<T>` or `QueryResult`.
+- Shared non-I/O symbol/cache helper methods can return `ExchangeCallResult<T>`.
 - Reuse clients. Do not instantiate a REST or socket client per request in production code.
 - Prefer dependency injection for long-running services.
 - Store WebSocket subscriptions and unsubscribe during shutdown.
@@ -32,7 +34,7 @@ Primary documentation:
 - Spot symbols use `ETHUSDT`; USDT futures contract codes use `ETH-USDT`.
 - HTX spot orders require an account id; get it from `SpotApi.Account.GetAccountsAsync()`.
 - HTX USDT futures has separate cross and isolated methods. Pick the method matching the user's margin mode.
-- For multi-exchange code, use `CryptoExchange.Net.SharedApis` interfaces from each exchange's `.SharedClient`.
+- For multi-exchange code, use `CryptoExchange.Net.SharedApis` interfaces from each exchange's `.SharedClient` and call `.SharedClient.Discover()` to inspect supported features.
 
 ## Installation
 
@@ -413,8 +415,11 @@ Use CryptoExchange.Net.SharedApis when the user asks for code that can work agai
 using HTX.Net.Clients;
 using CryptoExchange.Net.SharedApis;
 
-ISpotTickerRestClient tickerClient = new HTXRestClient().SpotApi.SharedClient;
+var restClient = new HTXRestClient();
+ISpotTickerRestClient tickerClient = restClient.SpotApi.SharedClient;
 var symbol = new SharedSymbol(TradingMode.Spot, "ETH", "USDT");
+var info = restClient.SpotApi.SharedClient.Discover();
+var supportedFeatures = info.Features.Where(x => x.Supported).Select(x => x.EndpointName);
 
 var ticker = await tickerClient.GetSpotTickerAsync(new GetTickerRequest(symbol));
 if (!ticker.Success)
@@ -426,7 +431,9 @@ if (!ticker.Success)
 Console.WriteLine(ticker.Data.LastPrice);
 ```
 
-Shared WebSocket subscriptions return an `UpdateSubscription` in `.Data`. For shared interface variables, unsubscribe through the concrete socket client:
+Shared REST methods return `HttpResult<T>` / `HttpResult`. Shared WebSocket subscriptions return `WebSocketResult<UpdateSubscription>` with an `UpdateSubscription` in `.Data`. Shared symbol helpers can return `ExchangeCallResult<T>`.
+
+For shared interface variables, unsubscribe through the concrete socket client:
 
 ```csharp
 var socketClient = new HTXSocketClient();
@@ -501,10 +508,10 @@ Examples/ai-friendly/03-websocket.cs
   Public ticker stream, kline stream, authenticated account/order streams, success checks, teardown.
 
 Examples/ai-friendly/04-multi-exchange.cs
-  CryptoExchange.Net.SharedApis REST and socket patterns.
+  CryptoExchange.Net.SharedApis REST/socket patterns and capability discovery.
 
 Examples/ai-friendly/05-error-handling.cs
-  HttpResult pattern, transient retry, HTX-specific routing and validation errors.
+  HttpResult, WebSocketResult, QueryResult, ExchangeCallResult patterns; transient retry; HTX-specific routing and validation errors.
 ```
 
 These files are intended to be copied into a console `Program.cs` after `dotnet add package JKorf.HTX.Net`.

@@ -17,7 +17,10 @@ using HTX.Net.Clients;
 // SharedClient implements interfaces like ISpotTickerRestClient, ISpotOrderRestClient,
 // IFuturesOrderRestClient, IBalanceRestClient, and socket equivalents.
 
-ISpotTickerRestClient htxShared = new HTXRestClient().SpotApi.SharedClient;
+var restClient = new HTXRestClient();
+ISpotTickerRestClient htxShared = restClient.SpotApi.SharedClient;
+var capabilities = restClient.SpotApi.SharedClient.Discover();
+Console.WriteLine($"Shared spot REST features: {capabilities.Features.Count(x => x.Supported)}");
 
 // To add Binance or OKX, install the package and use that exchange's shared client:
 //   ISpotTickerRestClient binanceShared = new BinanceRestClient().SpotApi.SharedClient;

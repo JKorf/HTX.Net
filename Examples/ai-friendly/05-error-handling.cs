@@ -1,6 +1,7 @@
 // 05-error-handling.cs
 //
-// Demonstrates: HttpResult patterns, retry logic, common error scenarios.
+// Demonstrates: HttpResult, WebSocketResult, QueryResult, and ExchangeCallResult
+// patterns, retry logic, common error scenarios.
 //
 // Setup: dotnet add package JKorf.HTX.Net
 
@@ -16,7 +17,9 @@ var client = new HTXRestClient(options =>
 
 // ---- 1. THE BASIC PATTERN ----
 // Every REST method returns HttpResult<T> or HttpResult.
-// Every socket subscription or socket request returns WebSocketResult<T> or WebSocketResult.
+// Socket subscriptions return WebSocketResult<UpdateSubscription>.
+// Spot socket request/query methods return QueryResult<T> or QueryResult.
+// Some SharedApis symbol helper methods return ExchangeCallResult<T>.
 // .Data is only valid when .Success is true.
 
 var result = await client.SpotApi.ExchangeData.GetTickerAsync("ETHUSDT");
