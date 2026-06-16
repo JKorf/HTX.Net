@@ -867,7 +867,7 @@ namespace HTX.Net.Clients.SpotApi
         {
             RequiredExchangeParameters = new List<ParameterDescription>
             {
-                new ParameterDescription("withdrawFee", typeof(decimal), "Fee to use for the withdrawal", 0.001m)
+                new ParameterDescription(["WithdrawFee", "fee"], typeof(decimal), "Fee to use for the withdrawal", 0.001m)
             }
         };
 
@@ -877,7 +877,7 @@ namespace HTX.Net.Clients.SpotApi
             if (validationError != null)
                 return HttpResult.Fail<SharedId>(Exchange, validationError);
 
-            var fee = ExchangeParameters.GetValue<decimal?>(request.ExchangeParameters, Exchange, "withdrawFee");
+            var fee = request.GetParamValue<decimal?>(Exchange, "withdrawFee", "fee");
 
             // Get data
             var withdrawal = await Account.WithdrawAsync(

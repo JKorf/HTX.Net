@@ -26,7 +26,7 @@ namespace HTX.Net.UnitTests
                 OutputOriginalData = true,
             }), logger);
 
-            var tester = new SocketSubscriptionValidator<HTXSocketClient>(client, "Subscriptions/Spot", "wss://api.huobi.pro", "data");
+            var tester = new SocketSubscriptionValidator<HTXSocketClient>(client, "Subscriptions/Spot", "wss://api.huobi.pro/ws", "data");
             await tester.ValidateConcurrentAsync<HTXKline>(
                 (client, handler) => client.SpotApi.SubscribeToKlineUpdatesAsync("ETHUSDT", Enums.KlineInterval.OneDay, handler),
                 (client, handler) => client.SpotApi.SubscribeToKlineUpdatesAsync("ETHUSDT", Enums.KlineInterval.OneHour, handler),
@@ -70,7 +70,7 @@ namespace HTX.Net.UnitTests
                 OutputOriginalData = true,
             }), logger);
 
-            var tester = new SocketSubscriptionValidator<HTXSocketClient>(client, "Subscriptions/UsdtMarginSwap", "wss://api.huobi.pro", "data");
+            var tester = new SocketSubscriptionValidator<HTXSocketClient>(client, "Subscriptions/UsdtMarginSwap", "wss://api.hbdm.com/linear-swap-ws", "data");
             await tester.ValidateConcurrentAsync<HTXSwapKline>(
                 (client, handler) => client.UsdtFuturesApi.SubscribeToKlineUpdatesAsync("ETH-USDT", Enums.KlineInterval.OneDay, handler),
                 (client, handler) => client.UsdtFuturesApi.SubscribeToKlineUpdatesAsync("ETH-USDT", Enums.KlineInterval.OneHour, handler),

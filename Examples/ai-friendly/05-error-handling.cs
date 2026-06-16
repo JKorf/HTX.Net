@@ -1,6 +1,6 @@
 // 05-error-handling.cs
 //
-// Demonstrates: WebCallResult patterns, retry logic, common error scenarios.
+// Demonstrates: HttpResult patterns, retry logic, common error scenarios.
 //
 // Setup: dotnet add package JKorf.HTX.Net
 
@@ -15,8 +15,8 @@ var client = new HTXRestClient(options =>
 });
 
 // ---- 1. THE BASIC PATTERN ----
-// Every REST method returns WebCallResult<T> or WebCallResult.
-// Every socket subscription or socket request returns CallResult<T> or CallResult.
+// Every REST method returns HttpResult<T> or HttpResult.
+// Every socket subscription or socket request returns WebSocketResult<T> or WebSocketResult.
 // .Data is only valid when .Success is true.
 
 var result = await client.SpotApi.ExchangeData.GetTickerAsync("ETHUSDT");
@@ -37,11 +37,11 @@ else
 // Retry only transient errors such as network glitches, rate limits, or server errors.
 // Do not retry validation, signature, or insufficient-balance errors blindly.
 
-async Task<WebCallResult<T>> WithRetry<T>(
-    Func<Task<WebCallResult<T>>> call,
+async Task<HttpResult<T>> WithRetry<T>(
+    Func<Task<HttpResult<T>>> call,
     int maxAttempts = 3)
 {
-    WebCallResult<T> last = default!;
+    HttpResult<T> last = default!;
 
     for (var attempt = 1; attempt <= maxAttempts; attempt++)
     {
