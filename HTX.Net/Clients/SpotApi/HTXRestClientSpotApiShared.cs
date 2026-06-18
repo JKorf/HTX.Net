@@ -848,7 +848,13 @@ namespace HTX.Net.Clients.SpotApi
 
             return HttpResult.Ok(result, ExchangeHelpers.ApplyFilter(result.Data, x => x.CreateTime, request.StartTime, request.EndTime, direction)
                     .Select(x => 
-                        new SharedWithdrawal(x.Asset!.ToUpperInvariant(), x.Address!, x.Quantity, x.Status == WithdrawDepositStatus.Confirmed, x.CreateTime)
+                        new SharedWithdrawal(
+                            x.Asset!.ToUpperInvariant(),
+                            x.Address!,
+                            x.Quantity,
+                            x.Status == WithdrawDepositStatus.Confirmed,
+                            x.CreateTime,
+                            GetWithdrawalStatus(x))
                         {
                             Id = x.Id.ToString(),
                             Network = x.Network,
@@ -857,6 +863,35 @@ namespace HTX.Net.Clients.SpotApi
                             Fee = x.Fee
                         })
                     .ToArray(), nextPageRequest);
+        }
+
+        private SharedTransferStatus GetWithdrawalStatus(HTXWithdrawDeposit x)
+        {
+            if (x.Status == WithdrawDepositStatus.Canceled
+                || x.Status == WithdrawDepositStatus.ConfirmError
+                || x.Status == WithdrawDepositStatus.Failed
+                || x.Status == WithdrawDepositStatus.Reject
+                || x.Status == WithdrawDepositStatus.Repealed)
+            {
+                return SharedTransferStatus.Failed;
+            }
+
+            if (x.Status == WithdrawDepositStatus.Safe)
+                return SharedTransferStatus.Completed;
+
+            if (x.Status == WithdrawDepositStatus.Confirming
+                || x.Status == WithdrawDepositStatus.Orphan
+                || x.Status == WithdrawDepositStatus.Pass
+                || x.Status == WithdrawDepositStatus.PreTransfer
+                || x.Status == WithdrawDepositStatus.Reexamine
+                || x.Status == WithdrawDepositStatus.Submitted
+                || x.Status == WithdrawDepositStatus.WaitingTinyAmount
+                || x.Status == WithdrawDepositStatus.WalletTransfer)
+            {
+                return SharedTransferStatus.InProgress;
+            }
+
+            return SharedTransferStatus.Unknown;
         }
 
         #endregion
