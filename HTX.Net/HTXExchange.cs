@@ -100,7 +100,7 @@ namespace HTX.Net
         /// <summary>
         /// Rate limiter configuration for the HTX API
         /// </summary>
-        public static HTXRateLimiters RateLimiter { get; } = new HTXRateLimiters();
+        public static HTXRateLimiters RateLimiter { get; set; } = new HTXRateLimiters();
     }
 
     /// <summary>
@@ -119,13 +119,19 @@ namespace HTX.Net
         public event Action<RateLimitUpdateEvent> RateLimitUpdated;
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-        internal HTXRateLimiters()
+        /// <summary>
+        /// ctor
+        /// </summary>
+        public HTXRateLimiters()
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         {
             Initialize();
         }
 
-        private void Initialize()
+        /// <summary>
+        /// Initialize the rate limits
+        /// </summary>
+        protected virtual void Initialize()
         {
             EndpointLimit = new RateLimitGate("Endpoint Limit");
             SpotMarketLimit = new RateLimitGate("Spot Market Limit")
