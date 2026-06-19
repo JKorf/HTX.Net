@@ -23,7 +23,8 @@ namespace HTX.Net
                 "https://www.htx.com/",
                 ["https://www.htx.com/en-us/opend/newApiPages/"],
                 PlatformType.CryptoCurrencyExchange,
-                CentralizationType.Centralized
+                CentralizationType.Centralized,
+                HTXEnvironment.All
                 );
 
         /// <summary>

@@ -12,7 +12,7 @@ namespace HTX.Net.Clients.UsdtFutures
         private const string _exchangeName = "HTX";
         public TradingMode[] SupportedTradingModes { get; } = new[] { TradingMode.PerpetualLinear, TradingMode.DeliveryLinear };
 
-        public SharedClientInfo Discover() => SharedUtils.GetClientInfo(this);
+        public SharedClientInfo Discover() => SharedUtils.GetClientInfo(HTXExchange.Metadata, this);
 
         public void SetDefaultExchangeParameter(string key, object value) => ExchangeParameters.SetStaticParameter(Exchange, key, value);
         public void ResetDefaultExchangeParameters() => ExchangeParameters.ResetStaticParameters();
@@ -26,7 +26,7 @@ namespace HTX.Net.Clients.UsdtFutures
                 return WebSocketResult.Fail<UpdateSubscription>(_exchangeName, validationError);
 
             var symbol = request.Symbol!.GetSymbol(FormatSymbol);
-            var result = await SubscribeToTickerUpdatesAsync(symbol, update => handler(update.ToType(new SharedSpotTicker(ExchangeSymbolCache.ParseSymbol(_topicId, symbol), symbol, update.Data.ClosePrice, update.Data.HighPrice ?? 0, update.Data.LowPrice ?? 0, update.Data.Volume ?? 0, update.Data.OpenPrice == null ? null : Math.Round((update.Data.ClosePrice ?? 0) / update.Data.OpenPrice.Value * 100 - 100, 2))
+            var result = await SubscribeToTickerUpdatesAsync(symbol, update => handler(update.ToType(new SharedSpotTicker(ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, symbol), symbol, update.Data.ClosePrice, update.Data.HighPrice ?? 0, update.Data.LowPrice ?? 0, update.Data.Volume ?? 0, update.Data.OpenPrice == null ? null : Math.Round((update.Data.ClosePrice ?? 0) / update.Data.OpenPrice.Value * 100 - 100, 2))
             {
                 QuoteVolume = update.Data.QuoteVolume
             })), ct).ConfigureAwait(false);
@@ -65,7 +65,7 @@ namespace HTX.Net.Clients.UsdtFutures
                 return WebSocketResult.Fail<UpdateSubscription>(_exchangeName, validationError);
 
             var symbol = request.Symbol!.GetSymbol(FormatSymbol);
-            var result = await SubscribeToBookTickerUpdatesAsync(symbol, update => handler(update.ToType(new SharedBookTicker(ExchangeSymbolCache.ParseSymbol(_topicId, symbol), symbol, update.Data.Ask.Price, update.Data.Ask.Quantity, update.Data.Bid.Price, update.Data.Bid.Quantity))), ct).ConfigureAwait(false);
+            var result = await SubscribeToBookTickerUpdatesAsync(symbol, update => handler(update.ToType(new SharedBookTicker(ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, symbol), symbol, update.Data.Ask.Price, update.Data.Ask.Quantity, update.Data.Bid.Price, update.Data.Bid.Quantity))), ct).ConfigureAwait(false);
 
             return result;
         }
@@ -169,7 +169,7 @@ namespace HTX.Net.Clients.UsdtFutures
                     var lastTrade = update.Data.Trade?.OrderByDescending(x => x.TradeId).FirstOrDefault();
                     handler(update.ToType<SharedFuturesOrder[]>(new[] {
                     new SharedFuturesOrder(
-                        ExchangeSymbolCache.ParseSymbol(_topicId, update.Data.ContractCode),
+                        ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, update.Data.ContractCode),
                         update.Data.ContractCode,
                         update.Data.OrderId.ToString(),
                         ParseOrderType(update.Data.OrderPriceType),
@@ -188,7 +188,7 @@ namespace HTX.Net.Clients.UsdtFutures
                         ReduceOnly = update.Data.ReduceOnly,
                         Fee = Math.Abs(update.Data.Fee),
                         FeeAsset = update.Data.FeeAsset,
-                        LastTrade = update.Data.Trade?.Any() != true ? null : new SharedUserTrade(ExchangeSymbolCache.ParseSymbol(_topicId, update.Data.ContractCode), update.Data.ContractCode, update.Data.OrderIdStr, lastTrade!.TradeId.ToString(), update.Data.OrderSide == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell, lastTrade.Quantity, lastTrade.Price, update.Data.Timestamp)
+                        LastTrade = update.Data.Trade?.Any() != true ? null : new SharedUserTrade(ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, update.Data.ContractCode), update.Data.ContractCode, update.Data.OrderIdStr, lastTrade!.TradeId.ToString(), update.Data.OrderSide == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell, lastTrade.Quantity, lastTrade.Price, update.Data.Timestamp)
                         {
                             ClientOrderId = update.Data.ClientOrderId?.ToString(),
                             Fee = Math.Abs(lastTrade.Fee),
@@ -265,7 +265,7 @@ namespace HTX.Net.Clients.UsdtFutures
                 update => {
                     handler(update.ToType<SharedUserTrade[]>(update.Data.Trades.Select(x =>
                                     new SharedUserTrade(
-                                        ExchangeSymbolCache.ParseSymbol(_topicId, update.Data.ContractCode),
+                                        ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, update.Data.ContractCode),
                                         update.Data.ContractCode,
                                         update.Data.OrderId.ToString(),
                                         x.ToString(),
@@ -287,7 +287,7 @@ namespace HTX.Net.Clients.UsdtFutures
                 update => {
                     handler(update.ToType<SharedUserTrade[]>(update.Data.Trades.Select(x =>
                                     new SharedUserTrade(
-                                        ExchangeSymbolCache.ParseSymbol(_topicId, update.Data.ContractCode),
+                                        ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, update.Data.ContractCode),
                                         update.Data.ContractCode,
                                         update.Data.OrderId.ToString(),
                                         x.ToString(),
@@ -325,7 +325,7 @@ namespace HTX.Net.Clients.UsdtFutures
             {
                 var result = await SubscribeToCrossMarginPositionUpdatesAsync(
                 update => handler(update.ToType(update.Data.Data.Select(x => new SharedPosition(
-                    ExchangeSymbolCache.ParseSymbol(_topicId, x.ContractCode), x.ContractCode, x.Quantity, update.Data.Timestamp)
+                    ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, x.ContractCode), x.ContractCode, x.Quantity, update.Data.Timestamp)
                 {
                     AverageOpenPrice = x.PositionPrice,
                     PositionMode = x.PositionMode == PositionMode.SingleSide ? SharedPositionMode.OneWay : SharedPositionMode.HedgeMode,
@@ -339,7 +339,7 @@ namespace HTX.Net.Clients.UsdtFutures
             else
             {
                 var result = await SubscribeToIsolatedMarginPositionUpdatesAsync(
-                update => handler(update.ToType(update.Data.Data.Select(x => new SharedPosition(ExchangeSymbolCache.ParseSymbol(_topicId, x.ContractCode), x.ContractCode, x.Quantity, update.Data.Timestamp)
+                update => handler(update.ToType(update.Data.Data.Select(x => new SharedPosition(ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, x.ContractCode), x.ContractCode, x.Quantity, update.Data.Timestamp)
                 {
                     AverageOpenPrice = x.PositionPrice,
                     PositionMode = x.PositionMode == PositionMode.SingleSide ? SharedPositionMode.OneWay : SharedPositionMode.HedgeMode,
