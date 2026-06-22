@@ -14,6 +14,7 @@ namespace HTX.Net.Converters
     [JsonSerializable(typeof(HTXBasicResponse<long?>))]
     [JsonSerializable(typeof(HTXApiResponseV2<long?>))]
     [JsonSerializable(typeof(long[]))]
+    [JsonSerializable(typeof(Parameters))]
     [JsonSerializable(typeof(Parameters[]))]
     [JsonSerializable(typeof(HTXAuthRequest<HTXAuthParams>))]
     [JsonSerializable(typeof(HTXSpotPingWrapper))]

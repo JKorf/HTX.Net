@@ -140,7 +140,12 @@ namespace HTX.Net.Clients.SpotApi
                 return WebSocketResult.Fail<UpdateSubscription>(_exchangeName, validationError);
 
             var result = await SubscribeToAccountUpdatesAsync(
-                update => handler(update.ToType<SharedBalance[]>(new[] { new SharedBalance(update.Data.Asset, update.Data.Available ?? 0, update.Data.Balance ?? update.Data.Available ?? 0) })),
+                update => handler(update.ToType<SharedBalance[]>(new[] { 
+                    new SharedBalance(
+                        SupportedTradingModes,
+                        update.Data.Asset, 
+                        update.Data.Available ?? 0, 
+                        update.Data.Balance ?? update.Data.Available ?? 0) })),
                 2, ct: ct).ConfigureAwait(false);
 
             return result;

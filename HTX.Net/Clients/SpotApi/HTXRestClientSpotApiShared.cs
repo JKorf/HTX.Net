@@ -260,7 +260,11 @@ namespace HTX.Net.Clients.SpotApi
                 var asset = resp.SingleOrDefault(x => x.Asset == balance.Asset.ToUpperInvariant());
                 if (asset == null)
                 {
-                    asset = new SharedBalance(balance.Asset.ToUpperInvariant(), 0, 0);
+                    asset = new SharedBalance(
+                        SupportedTradingModes, 
+                        balance.Asset.ToUpperInvariant(),
+                        0,
+                        0);
                     resp.Add(asset);
                 }
 

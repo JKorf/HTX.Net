@@ -40,7 +40,12 @@ namespace HTX.Net.Clients.UsdtFutures
                 if (!result.Success)
                     return HttpResult.Fail<SharedBalance[]>(result);
 
-                return HttpResult.Ok(result, result.Data.Select(x => new SharedBalance(x.MarginAsset, x.WithdrawAvailable, x.MarginBalance)).ToArray());
+                return HttpResult.Ok(result, result.Data.Select(x => 
+                    new SharedBalance(
+                        SupportedTradingModes, 
+                        x.MarginAsset,
+                        x.WithdrawAvailable,
+                        x.MarginBalance)).ToArray());
             }
             else
             {
@@ -48,7 +53,12 @@ namespace HTX.Net.Clients.UsdtFutures
                 if (!result.Success)
                     return HttpResult.Fail<SharedBalance[]>(result);
 
-                return HttpResult.Ok(result, result.Data.Select(x => new SharedBalance("USDT", x.WithdrawAvailable, x.MarginBalance)
+                return HttpResult.Ok(result, result.Data.Select(x => 
+                    new SharedBalance(
+                        SupportedTradingModes, 
+                        "USDT",
+                        x.WithdrawAvailable,
+                        x.MarginBalance)
                 {
                     IsolatedMarginSymbol = x.ContractCode
                 }).ToArray());
