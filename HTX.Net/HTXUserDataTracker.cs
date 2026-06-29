@@ -20,7 +20,6 @@ namespace HTX.Net
             SpotUserDataTrackerConfig? config) : base(
                 logger,
                 restClient.SpotApi.SharedClient,
-                null,
                 restClient.SpotApi.SharedClient,
                 socketClient.SpotApi.SharedClient,
                 restClient.SpotApi.SharedClient,
@@ -49,7 +48,6 @@ namespace HTX.Net
             FuturesUserDataTrackerConfig? config,
             ExchangeParameters? exchangeParameters) : base(logger,
                 restClient.UsdtFuturesApi.SharedClient,
-                null,
                 restClient.UsdtFuturesApi.SharedClient,
                 socketClient.UsdtFuturesApi.SharedClient,
                 restClient.UsdtFuturesApi.SharedClient,

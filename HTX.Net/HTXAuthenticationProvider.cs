@@ -25,10 +25,10 @@ namespace HTX.Net
 
         public override void ProcessRequest(RestApiClient apiClient, RestRequestConfiguration request)
         {
-            if (!request.Authenticated && !_signPublicRequests)
+            if (!request.RequestDefinition.Authenticated && !_signPublicRequests)
                 return;
 
-            request.QueryParameters ??= new Dictionary<string, object>();
+            request.QueryParameters ??= new Parameters(HTXExchange._futuresParameterSerializationSettings);
             request.QueryParameters.Add("AccessKeyId", ApiCredentials.Credential.Key);
             if (ApiCredentials.Credential is HMACCredential hmacCred)
                 request.QueryParameters.Add("SignatureMethod", "HmacSHA256");
@@ -40,14 +40,14 @@ namespace HTX.Net
             request.QueryParameters.Add("Timestamp", GetTimestamp(apiClient).ToString("yyyy-MM-ddTHH:mm:ss", CultureInfo.InvariantCulture));
 
             // Russian api has /api prefix which shouldn't be part of the signature
-            var path = request.Path.StartsWith("/api") ? request.Path.Substring(4) : request.Path;
+            var path = request.RequestDefinition.Path.StartsWith("/api") ? request.RequestDefinition.Path.Substring(4) : request.RequestDefinition.Path;
             
             var sortedParameters = request.QueryParameters.OrderBy(kv => Encoding.UTF8.GetBytes(WebUtility.UrlEncode(kv.Key)!), new ByteOrderComparer()).ToDictionary(x => x.Key, x => x.Value);
             var paramString = sortedParameters.CreateParamString(true, request.ArraySerialization);
             paramString = new Regex(@"%[a-f0-9]{2}").Replace(paramString, m => m.Value.ToUpperInvariant());
 
-            var host = request.BaseAddress.Substring(request.BaseAddress.IndexOf("/") + 2);
-            var signData = $"{request.Method}\n{host}\n{path}\n{paramString}";
+            var host = request.RequestDefinition.BaseAddress.Substring(request.RequestDefinition.BaseAddress.IndexOf("/") + 2);
+            var signData = $"{request.RequestDefinition.Method}\n{host}\n{path}\n{paramString}";
 
             string signature;
             if (ApiCredentials.Credential is HMACCredential hmacCred2)
@@ -71,7 +71,7 @@ namespace HTX.Net
             var uri = connection.ConnectionUri;
             if ((string?)version == "2")
             {
-                var parameters = new ParameterCollection();
+                var parameters = new Parameters(HTXExchange._spotParameterSerializationSettings);
                 parameters.Add("AccessKeyId", ApiCredentials.Credential.Key);
                 parameters.Add("SignatureMethod", "HmacSHA256");
                 parameters.Add("SignatureVersion", 2);
@@ -88,7 +88,7 @@ namespace HTX.Net
             }
             else
             {
-                var parameters = new ParameterCollection();
+                var parameters = new Parameters(HTXExchange._spotParameterSerializationSettings);
                 parameters.Add("accessKey", ApiCredentials.Credential.Key);
                 parameters.Add("signatureMethod", "HmacSHA256");
                 parameters.Add("signatureVersion", 2.1);

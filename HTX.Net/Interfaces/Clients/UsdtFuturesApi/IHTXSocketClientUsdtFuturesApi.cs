@@ -31,7 +31,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// <param name="onData">Data handler</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToBasisUpdatesAsync(string contractCode, KlineInterval period, string priceType, Action<DataEvent<HTXUsdtMarginSwapBasisUpdate>> onData, CancellationToken ct = default);
+        Task<WebSocketResult<UpdateSubscription>> SubscribeToBasisUpdatesAsync(string contractCode, KlineInterval period, string priceType, Action<DataEvent<HTXUsdtMarginSwapBasisUpdate>> onData, CancellationToken ct = default);
         /// <summary>
         /// Subscribe to best bid/ask updates
         /// <para>
@@ -45,7 +45,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// <param name="onData">Data handler</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToBookTickerUpdatesAsync(string contractCode, Action<DataEvent<HTXBestOfferUpdate>> onData, CancellationToken ct = default);
+        Task<WebSocketResult<UpdateSubscription>> SubscribeToBookTickerUpdatesAsync(string contractCode, Action<DataEvent<HTXBestOfferUpdate>> onData, CancellationToken ct = default);
         /// <summary>
         /// Subscribe to estimated funding rate kline updates
         /// <para>
@@ -60,7 +60,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// <param name="onData">Data handler</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToEstimatedFundingRateKlineUpdatesAsync(string contractCode, KlineInterval period, Action<DataEvent<HTXKline>> onData, CancellationToken ct = default);
+        Task<WebSocketResult<UpdateSubscription>> SubscribeToEstimatedFundingRateKlineUpdatesAsync(string contractCode, KlineInterval period, Action<DataEvent<HTXKline>> onData, CancellationToken ct = default);
         /// <summary>
         /// Subscribe to incremental order book updates
         /// <para>
@@ -76,7 +76,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// <param name="onData">Data handler</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToIncrementalOrderBookUpdatesAsync(string contractCode, bool snapshot, int limit, Action<DataEvent<HTXIncrementalOrderBookUpdate>> onData, CancellationToken ct = default);
+        Task<WebSocketResult<UpdateSubscription>> SubscribeToIncrementalOrderBookUpdatesAsync(string contractCode, bool snapshot, int limit, Action<DataEvent<HTXIncrementalOrderBookUpdate>> onData, CancellationToken ct = default);
         /// <summary>
         /// Subscribe to index kline updates
         /// <para>
@@ -91,7 +91,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// <param name="onData">Data handler</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToIndexKlineUpdatesAsync(string contractCode, KlineInterval period, Action<DataEvent<HTXKline>> onData, CancellationToken ct = default);
+        Task<WebSocketResult<UpdateSubscription>> SubscribeToIndexKlineUpdatesAsync(string contractCode, KlineInterval period, Action<DataEvent<HTXKline>> onData, CancellationToken ct = default);
         /// <summary>
         /// Subscribe to kline updates
         /// <para>
@@ -106,7 +106,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// <param name="onData">Data handler</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToKlineUpdatesAsync(string contractCode, KlineInterval period, Action<DataEvent<HTXSwapKline>> onData, CancellationToken ct = default);
+        Task<WebSocketResult<UpdateSubscription>> SubscribeToKlineUpdatesAsync(string contractCode, KlineInterval period, Action<DataEvent<HTXSwapKline>> onData, CancellationToken ct = default);
         /// <summary>
         /// Subscribe to mark price kline updates
         /// <para>
@@ -121,7 +121,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// <param name="onData">Data handler</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToMarkPriceKlineUpdatesAsync(string contractCode, KlineInterval period, Action<DataEvent<HTXKline>> onData, CancellationToken ct = default);
+        Task<WebSocketResult<UpdateSubscription>> SubscribeToMarkPriceKlineUpdatesAsync(string contractCode, KlineInterval period, Action<DataEvent<HTXKline>> onData, CancellationToken ct = default);
         /// <summary>
         /// Subscribe to order book updates
         /// <para>
@@ -136,7 +136,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// <param name="onData">Data handler</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToOrderBookUpdatesAsync(string contractCode, int mergeStep, Action<DataEvent<HTXOrderBookUpdate>> onData, CancellationToken ct = default);
+        Task<WebSocketResult<UpdateSubscription>> SubscribeToOrderBookUpdatesAsync(string contractCode, int mergeStep, Action<DataEvent<HTXOrderBookUpdate>> onData, CancellationToken ct = default);
         /// <summary>
         /// Subscribe to premium index kline updates
         /// <para>
@@ -151,7 +151,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// <param name="onData">Data handler</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToPremiumIndexKlineUpdatesAsync(string contractCode, KlineInterval period, Action<DataEvent<HTXKline>> onData, CancellationToken ct = default);
+        Task<WebSocketResult<UpdateSubscription>> SubscribeToPremiumIndexKlineUpdatesAsync(string contractCode, KlineInterval period, Action<DataEvent<HTXKline>> onData, CancellationToken ct = default);
         /// <summary>
         /// Subscribe to symbol ticker updates
         /// <para>
@@ -165,7 +165,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// <param name="onData">Data handler</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(string contractCode, Action<DataEvent<HTXSymbolTickUpdate>> onData, CancellationToken ct = default);
+        Task<WebSocketResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(string contractCode, Action<DataEvent<HTXSymbolTickUpdate>> onData, CancellationToken ct = default);
         /// <summary>
         /// Subscribe to symbol trade updates
         /// <para>
@@ -179,7 +179,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// <param name="onData">Data handler</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(string contractCode, Action<DataEvent<HTXUsdtMarginSwapTradesUpdate>> onData, CancellationToken ct = default);
+        Task<WebSocketResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(string contractCode, Action<DataEvent<HTXUsdtMarginSwapTradesUpdate>> onData, CancellationToken ct = default);
 
         /// <summary>
         /// Subscribe to system status updates
@@ -193,7 +193,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// <param name="onData">Data handler</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToSystemStatusUpdatesAsync(Action<DataEvent<HTXStatusUpdate>> onData, CancellationToken ct = default);
+        Task<WebSocketResult<UpdateSubscription>> SubscribeToSystemStatusUpdatesAsync(Action<DataEvent<HTXStatusUpdate>> onData, CancellationToken ct = default);
 
         /// <summary>
         /// Subscribe to order updates
@@ -209,7 +209,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// <param name="onData">Data handler</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(MarginMode mode, Action<DataEvent<HTXUsdtMarginSwapOrderUpdate>> onData, CancellationToken ct = default);
+        Task<WebSocketResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(MarginMode mode, Action<DataEvent<HTXUsdtMarginSwapOrderUpdate>> onData, CancellationToken ct = default);
 
         /// <summary>
         /// Subscribe to isolated margin balance updates
@@ -223,7 +223,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// <param name="onData">Data handler</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToIsolatedMarginBalanceUpdatesAsync(Action<DataEvent<HTXUsdtMarginSwapIsolatedBalanceUpdate>> onData, CancellationToken ct = default);
+        Task<WebSocketResult<UpdateSubscription>> SubscribeToIsolatedMarginBalanceUpdatesAsync(Action<DataEvent<HTXUsdtMarginSwapIsolatedBalanceUpdate>> onData, CancellationToken ct = default);
 
         /// <summary>
         /// Subscribe to cross margin balance updates
@@ -237,7 +237,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// <param name="onData">Data handler</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToCrossMarginBalanceUpdatesAsync(Action<DataEvent<HTXUsdtMarginSwapCrossBalanceUpdate>> onData, CancellationToken ct = default);
+        Task<WebSocketResult<UpdateSubscription>> SubscribeToCrossMarginBalanceUpdatesAsync(Action<DataEvent<HTXUsdtMarginSwapCrossBalanceUpdate>> onData, CancellationToken ct = default);
 
         /// <summary>
         /// Subscribe to isolated margin position updates
@@ -251,7 +251,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// <param name="onData">Data handler</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToIsolatedMarginPositionUpdatesAsync(Action<DataEvent<HTXUsdtMarginSwapIsolatedPositionUpdate>> onData, CancellationToken ct = default);
+        Task<WebSocketResult<UpdateSubscription>> SubscribeToIsolatedMarginPositionUpdatesAsync(Action<DataEvent<HTXUsdtMarginSwapIsolatedPositionUpdate>> onData, CancellationToken ct = default);
 
         /// <summary>
         /// Subscribe to cross margin position updates
@@ -265,7 +265,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// <param name="onData">Data handler</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToCrossMarginPositionUpdatesAsync(Action<DataEvent<HTXUsdtMarginSwapCrossPositionUpdate>> onData, CancellationToken ct = default);
+        Task<WebSocketResult<UpdateSubscription>> SubscribeToCrossMarginPositionUpdatesAsync(Action<DataEvent<HTXUsdtMarginSwapCrossPositionUpdate>> onData, CancellationToken ct = default);
 
         /// <summary>
         /// Subscribe to isolated margin user trades
@@ -279,7 +279,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// <param name="onData">Data handler</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToIsolatedMarginUserTradeUpdatesAsync(Action<DataEvent<HTXUsdtMarginSwapIsolatedTradeUpdate>> onData, CancellationToken ct = default);
+        Task<WebSocketResult<UpdateSubscription>> SubscribeToIsolatedMarginUserTradeUpdatesAsync(Action<DataEvent<HTXUsdtMarginSwapIsolatedTradeUpdate>> onData, CancellationToken ct = default);
 
         /// <summary>
         /// Subscribe to cross margin user trades
@@ -293,7 +293,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// <param name="onData">Data handler</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToCrossMarginUserTradeUpdatesAsync(Action<DataEvent<HTXUsdtMarginSwapCrossTradeUpdate>> onData, CancellationToken ct = default);
+        Task<WebSocketResult<UpdateSubscription>> SubscribeToCrossMarginUserTradeUpdatesAsync(Action<DataEvent<HTXUsdtMarginSwapCrossTradeUpdate>> onData, CancellationToken ct = default);
 
         /// <summary>
         /// Subscribe to liquidation order updates
@@ -307,7 +307,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// <param name="onData">Data handler</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToLiquidationUpdatesAsync(Action<DataEvent<HTXUsdtMarginSwapLiquidationUpdate>> onData, CancellationToken ct = default);
+        Task<WebSocketResult<UpdateSubscription>> SubscribeToLiquidationUpdatesAsync(Action<DataEvent<HTXUsdtMarginSwapLiquidationUpdate>> onData, CancellationToken ct = default);
 
         /// <summary>
         /// Subscribe to funding rate updates
@@ -321,7 +321,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// <param name="onData">Data handler</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToFundingRateUpdatesAsync(Action<DataEvent<HTXUsdtMarginSwapFundingRateUpdate[]>> onData, CancellationToken ct = default);
+        Task<WebSocketResult<UpdateSubscription>> SubscribeToFundingRateUpdatesAsync(Action<DataEvent<HTXUsdtMarginSwapFundingRateUpdate[]>> onData, CancellationToken ct = default);
 
         /// <summary>
         /// Subscribe to contract info updates
@@ -335,7 +335,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// <param name="onData">Data handler</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToContractUpdatesAsync(Action<DataEvent<HTXUsdtMarginSwapContractUpdate[]>> onData, CancellationToken ct = default);
+        Task<WebSocketResult<UpdateSubscription>> SubscribeToContractUpdatesAsync(Action<DataEvent<HTXUsdtMarginSwapContractUpdate[]>> onData, CancellationToken ct = default);
 
         /// <summary>
         /// Subscribe to contract element updates. Only changed properties are send after the initial update, other properties will be `null`.
@@ -349,7 +349,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// <param name="onData">Data handler</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToContractElementsUpdatesAsync(Action<DataEvent<HTXUsdtMarginSwapContractElementsUpdate[]>> onData, CancellationToken ct = default);
+        Task<WebSocketResult<UpdateSubscription>> SubscribeToContractElementsUpdatesAsync(Action<DataEvent<HTXUsdtMarginSwapContractElementsUpdate[]>> onData, CancellationToken ct = default);
 
         /// <summary>
         /// Subscribe to isolated margin trigger order updates
@@ -363,7 +363,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// <param name="onData">Data handler</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToIsolatedMarginTriggerOrderUpdatesAsync(Action<DataEvent<HTXUsdtMarginSwapIsolatedTriggerOrderUpdate>> onData, CancellationToken ct = default);
+        Task<WebSocketResult<UpdateSubscription>> SubscribeToIsolatedMarginTriggerOrderUpdatesAsync(Action<DataEvent<HTXUsdtMarginSwapIsolatedTriggerOrderUpdate>> onData, CancellationToken ct = default);
 
         /// <summary>
         /// Subscribe to cross margin trigger order updates
@@ -377,6 +377,6 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         /// <param name="onData">Data handler</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToCrossMarginTriggerOrderUpdatesAsync(Action<DataEvent<HTXUsdtMarginSwapCrossTriggerOrderUpdate>> onData, CancellationToken ct = default);
+        Task<WebSocketResult<UpdateSubscription>> SubscribeToCrossMarginTriggerOrderUpdatesAsync(Action<DataEvent<HTXUsdtMarginSwapCrossTriggerOrderUpdate>> onData, CancellationToken ct = default);
     }
 }

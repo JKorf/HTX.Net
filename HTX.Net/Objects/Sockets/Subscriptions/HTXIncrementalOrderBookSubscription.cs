@@ -23,7 +23,7 @@ namespace HTX.Net.Objects.Sockets.Subscriptions
             _snapshots = snapshots;
             _topic = topic;
 
-            MessageRouter = MessageRouter.CreateWithoutTopicFilter<HTXDataEvent<HTXIncrementalOrderBookUpdate>>(topic, DoHandleMessage);
+            MessageRouter = MessageRouter.CreateForEvent<HTXDataEvent<HTXIncrementalOrderBookUpdate>>(topic, DoHandleMessage);
         }
 
         protected override Query? GetSubQuery(SocketConnection connection)
@@ -47,7 +47,7 @@ namespace HTX.Net.Objects.Sockets.Subscriptions
                     .WithSequenceNumber(message.Data.Version)
                 );
 
-            return CallResult.SuccessResult;
+            return CallResult.Ok();
         }
     }
 }

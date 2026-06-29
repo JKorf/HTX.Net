@@ -22,12 +22,12 @@
         [JsonPropertyName("action")]
         public string Action { get; set; }
         [JsonPropertyName("data")]
-        public Dictionary<string, object> Data { get; set; }
+        public Parameters Data { get; set; }
 
         public HTXPingAuthResponse(long id)
         {
             Action = "pong";
-            Data = new ParameterCollection()
+            Data = new Parameters(HTXExchange._spotParameterSerializationSettings)
             {
                 { "ts", id}
             };

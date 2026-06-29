@@ -18,7 +18,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<HTXSystemStatus>> GetSystemStatusAsync(CancellationToken ct = default);
+        Task<HttpResult<HTXSystemStatus>> GetSystemStatusAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get supported symbols
@@ -30,7 +30,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<HTXSymbol[]>> GetSymbolsAsync(CancellationToken ct = default);
+        Task<HttpResult<HTXSymbol[]>> GetSymbolsAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get supported assets
@@ -42,7 +42,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<HTXAsset[]>> GetAssetsAsync(CancellationToken ct = default);
+        Task<HttpResult<HTXAsset[]>> GetAssetsAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get symbol trading configuration
@@ -55,7 +55,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <param name="symbols">["<c>symbols</c>"] Filter by symbols, for example `ETHUSDT`</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<HTXSymbolConfig[]>> GetSymbolConfigAsync(IEnumerable<string>? symbols = null, CancellationToken ct = default);
+        Task<HttpResult<HTXSymbolConfig[]>> GetSymbolConfigAsync(IEnumerable<string>? symbols = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get information on networks
@@ -69,7 +69,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// <param name="descFilter">["<c>show-desc</c>"] Description filter</param>
         /// <param name="asset">["<c>currency</c>"] Filter by asset</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<HTXAssetNetworkInfo[]>> GetNetworksAsync(NetworkRequestFilter? descFilter = null, string? asset = null, CancellationToken ct = default);
+        Task<HttpResult<HTXAssetNetworkInfo[]>> GetNetworksAsync(NetworkRequestFilter? descFilter = null, string? asset = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get assets and network information
@@ -82,7 +82,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <param name="asset">["<c>currency</c>"] Filter by asset, for example `ETH`</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<HTXAssetNetworks[]>> GetAssetsAndNetworksAsync(string? asset = null, CancellationToken ct = default);
+        Task<HttpResult<HTXAssetNetworks[]>> GetAssetsAndNetworksAsync(string? asset = null, CancellationToken ct = default);
 
         /// <summary>
         /// Gets the latest ticker for all symbols
@@ -95,7 +95,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<HTXSymbolTicks>> GetTickersAsync(CancellationToken ct = default);
+        Task<HttpResult<HTXSymbolTicks>> GetTickersAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Gets the ticker, including the best bid / best ask for a symbol
@@ -109,7 +109,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// <param name="symbol">["<c>symbol</c>"] The symbol to get the ticker for, for example `ETHUSDT`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<HTXSymbolTickMerged>> GetTickerAsync(string symbol, CancellationToken ct = default);
+        Task<HttpResult<HTXSymbolTickMerged>> GetTickerAsync(string symbol, CancellationToken ct = default);
 
         /// <summary>
         /// Get kline/candlestick data for a symbol
@@ -125,7 +125,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// <param name="limit">["<c>size</c>"] The amount of candlesticks</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<HTXKline[]>> GetKlinesAsync(string symbol, KlineInterval period, int? limit = null, CancellationToken ct = default);
+        Task<HttpResult<HTXKline[]>> GetKlinesAsync(string symbol, KlineInterval period, int? limit = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get the order book for a symbol
@@ -141,7 +141,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// <param name="limit">["<c>depth</c>"] The depth of the book, 5, 10 or 20</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<HTXOrderBook>> GetOrderBookAsync(string symbol, int mergeStep, int? limit = null, CancellationToken ct = default);
+        Task<HttpResult<HTXOrderBook>> GetOrderBookAsync(string symbol, int mergeStep, int? limit = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get the last trade for a symbol
@@ -155,7 +155,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// <param name="symbol">["<c>symbol</c>"] The symbol to request for, for example `ETHUSDT`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<HTXSymbolTrade>> GetLastTradeAsync(string symbol, CancellationToken ct = default);
+        Task<HttpResult<HTXSymbolTrade>> GetLastTradeAsync(string symbol, CancellationToken ct = default);
 
         /// <summary>
         /// Get the last x trades for a symbol
@@ -170,7 +170,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// <param name="limit">["<c>size</c>"] The max number of results</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<HTXSymbolTrade[]>> GetTradeHistoryAsync(string symbol, int? limit = null, CancellationToken ct = default);
+        Task<HttpResult<HTXSymbolTrade[]>> GetTradeHistoryAsync(string symbol, int? limit = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get 24h stats for a symbol
@@ -184,7 +184,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// <param name="symbol">["<c>symbol</c>"] The symbol to get the data for, for example `ETHUSDT`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<HTXSymbolDetails>> GetSymbolDetails24HAsync(string symbol, CancellationToken ct = default);
+        Task<HttpResult<HTXSymbolDetails>> GetSymbolDetails24HAsync(string symbol, CancellationToken ct = default);
 
         /// <summary>
         /// Get the full order book. Updated once per second and returns up to 5000 levels.
@@ -198,7 +198,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// <param name="symbol">["<c>symbol</c>"] The symbol to get the data for, for example `ETHUSDT`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<HTXOrderBook>> GetFullOrderBookAsync(string symbol, CancellationToken ct = default);
+        Task<HttpResult<HTXOrderBook>> GetFullOrderBookAsync(string symbol, CancellationToken ct = default);
 
         /// <summary>
         /// Get the current market status
@@ -211,7 +211,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<HTXSymbolStatus>> GetSymbolStatusAsync(CancellationToken ct = default);
+        Task<HttpResult<HTXSymbolStatus>> GetSymbolStatusAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get the server time
@@ -224,6 +224,6 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<DateTime>> GetServerTimeAsync(CancellationToken ct = default);
+        Task<HttpResult<DateTime>> GetServerTimeAsync(CancellationToken ct = default);
     }
 }

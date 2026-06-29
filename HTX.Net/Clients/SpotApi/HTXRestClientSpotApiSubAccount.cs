@@ -19,12 +19,12 @@ namespace HTX.Net.Clients.SpotApi
         #region Set Deduct Mode
 
         /// <inheritdoc />
-        public async Task<WebCallResult<HTXSubDeductMode[]>> SetDeductModeAsync(IEnumerable<string> subUserIds, DeductMode deductMode, CancellationToken ct = default)
+        public async Task<HttpResult<HTXSubDeductMode[]>> SetDeductModeAsync(IEnumerable<string> subUserIds, DeductMode deductMode, CancellationToken ct = default)
         {
-            var parameters = new ParameterCollection();
+            var parameters = new Parameters(HTXExchange._spotParameterSerializationSettings);
             parameters.Add("subUids", string.Join(",", subUserIds));
-            parameters.AddEnum("deductMode", deductMode);
-            var request = _definitions.GetOrCreate(HttpMethod.Post, "/v2/sub-user/deduct-mode", HTXExchange.RateLimiter.EndpointLimit, 1, true,
+            parameters.Add("deductMode", deductMode);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, _baseClient.BaseAddress, "/v2/sub-user/deduct-mode", HTXExchange.RateLimiter.EndpointLimit, 1, true,
                 new SingleLimitGuard(20, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             var result = await _baseClient.SendAsync<HTXSubDeductMode[]>(request, parameters, ct).ConfigureAwait(false);
             return result;
@@ -35,11 +35,11 @@ namespace HTX.Net.Clients.SpotApi
         #region Create Sub Account
 
         /// <inheritdoc />
-        public async Task<WebCallResult<HTXSubAccountInfo[]>> CreateSubAccountsAsync(IEnumerable<HTXSubAccountRequest> accounts, CancellationToken ct = default)
+        public async Task<HttpResult<HTXSubAccountInfo[]>> CreateSubAccountsAsync(IEnumerable<HTXSubAccountRequest> accounts, CancellationToken ct = default)
         {
-            var parameters = new ParameterCollection();
+            var parameters = new Parameters(HTXExchange._spotParameterSerializationSettings);
             parameters.Add("userList", accounts.ToArray());
-            var request = _definitions.GetOrCreate(HttpMethod.Post, "/v2/sub-user/creation", HTXExchange.RateLimiter.EndpointLimit, 1, true,
+            var request = _definitions.GetOrCreate(HttpMethod.Post, _baseClient.BaseAddress, "/v2/sub-user/creation", HTXExchange.RateLimiter.EndpointLimit, 1, true,
                 new SingleLimitGuard(20, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             var result = await _baseClient.SendAsync<HTXSubAccountInfo[]>(request, parameters, ct).ConfigureAwait(false);
             return result;
@@ -50,9 +50,9 @@ namespace HTX.Net.Clients.SpotApi
         #region Get Sub User List
 
         /// <inheritdoc />
-        public async Task<WebCallResult<HTXUser[]>> GetSubUserListAsync(CancellationToken ct = default)
+        public async Task<HttpResult<HTXUser[]>> GetSubUserListAsync(CancellationToken ct = default)
         {
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "v2/sub-user/user-list", HTXExchange.RateLimiter.EndpointLimit, 1, true,
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "v2/sub-user/user-list", HTXExchange.RateLimiter.EndpointLimit, 1, true,
                 new SingleLimitGuard(20, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             return await _baseClient.SendAsync<HTXUser[]>(request, null, ct).ConfigureAwait(false);
         }
@@ -62,12 +62,12 @@ namespace HTX.Net.Clients.SpotApi
         #region Set Lock
 
         /// <inheritdoc />
-        public async Task<WebCallResult<HTXSubAccountLock>> SetLockAsync(long subUserId, LockAction lockAction, CancellationToken ct = default)
+        public async Task<HttpResult<HTXSubAccountLock>> SetLockAsync(long subUserId, LockAction lockAction, CancellationToken ct = default)
         {
-            var parameters = new ParameterCollection();
+            var parameters = new Parameters(HTXExchange._spotParameterSerializationSettings);
             parameters.Add("subUid", subUserId);
-            parameters.AddEnum("action", lockAction);
-            var request = _definitions.GetOrCreate(HttpMethod.Post, "/v2/sub-user/management", HTXExchange.RateLimiter.EndpointLimit, 1, true,
+            parameters.Add("action", lockAction);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, _baseClient.BaseAddress, "/v2/sub-user/management", HTXExchange.RateLimiter.EndpointLimit, 1, true,
                 new SingleLimitGuard(20, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             var result = await _baseClient.SendAsync<HTXSubAccountLock>(request, parameters, ct).ConfigureAwait(false);
             return result;
@@ -78,11 +78,11 @@ namespace HTX.Net.Clients.SpotApi
         #region Get Sub User
 
         /// <inheritdoc />
-        public async Task<WebCallResult<HTXUser>> GetSubUserAsync(long subUserId, CancellationToken ct = default)
+        public async Task<HttpResult<HTXUser>> GetSubUserAsync(long subUserId, CancellationToken ct = default)
         {
-            var parameters = new ParameterCollection();
+            var parameters = new Parameters(HTXExchange._spotParameterSerializationSettings);
             parameters.Add("subUid", subUserId);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "v2/sub-user/user-state", HTXExchange.RateLimiter.EndpointLimit, 1, true,
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "v2/sub-user/user-state", HTXExchange.RateLimiter.EndpointLimit, 1, true,
                 new SingleLimitGuard(20, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             return await _baseClient.SendAsync<HTXUser>(request, parameters, ct).ConfigureAwait(false);
         }
@@ -92,13 +92,13 @@ namespace HTX.Net.Clients.SpotApi
         #region Set Tradable Market
 
         /// <inheritdoc />
-        public async Task<WebCallResult<HTXSubMarketTradable[]>> SetTradableMarketAsync(IEnumerable<string> subUserIds, SubAccountMarketType accountType, bool enabled, CancellationToken ct = default)
+        public async Task<HttpResult<HTXSubMarketTradable[]>> SetTradableMarketAsync(IEnumerable<string> subUserIds, SubAccountMarketType accountType, bool enabled, CancellationToken ct = default)
         {
-            var parameters = new ParameterCollection();
+            var parameters = new Parameters(HTXExchange._spotParameterSerializationSettings);
             parameters.Add("subUids", string.Join(",", subUserIds));
-            parameters.AddEnum("accountType", accountType);
+            parameters.Add("accountType", accountType);
             parameters.Add("enabled", enabled ? "activated": "deactivated");
-            var request = _definitions.GetOrCreate(HttpMethod.Post, "/v2/sub-user/tradable-market", HTXExchange.RateLimiter.EndpointLimit, 1, true,
+            var request = _definitions.GetOrCreate(HttpMethod.Post, _baseClient.BaseAddress, "/v2/sub-user/tradable-market", HTXExchange.RateLimiter.EndpointLimit, 1, true,
                 new SingleLimitGuard(20, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             var result = await _baseClient.SendAsync<HTXSubMarketTradable[]>(request, parameters, ct).ConfigureAwait(false);
             return result;
@@ -109,12 +109,12 @@ namespace HTX.Net.Clients.SpotApi
         #region Set Asset Transfer Permissions
 
         /// <inheritdoc />
-        public async Task<WebCallResult<HTXSubTransferPermission[]>> SetAssetTransferPermissionsAsync(IEnumerable<string> subUserIds, bool enabled, CancellationToken ct = default)
+        public async Task<HttpResult<HTXSubTransferPermission[]>> SetAssetTransferPermissionsAsync(IEnumerable<string> subUserIds, bool enabled, CancellationToken ct = default)
         {
-            var parameters = new ParameterCollection();
+            var parameters = new Parameters(HTXExchange._spotParameterSerializationSettings);
             parameters.Add("subUids", string.Join(",", subUserIds));
             parameters.Add("transferrable", enabled);
-            var request = _definitions.GetOrCreate(HttpMethod.Post, "/v2/sub-user/transferability", HTXExchange.RateLimiter.EndpointLimit, 1, true,
+            var request = _definitions.GetOrCreate(HttpMethod.Post, _baseClient.BaseAddress, "/v2/sub-user/transferability", HTXExchange.RateLimiter.EndpointLimit, 1, true,
                 new SingleLimitGuard(20, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             var result = await _baseClient.SendAsync<HTXSubTransferPermission[]>(request, parameters, ct).ConfigureAwait(false);
             return result;
@@ -125,13 +125,13 @@ namespace HTX.Net.Clients.SpotApi
         #region Get Sub User Accounts
 
         /// <inheritdoc />
-        public async Task<WebCallResult<HTXSubUserAccounts>> GetSubUserAccountsAsync(long subUserId, CancellationToken ct = default)
+        public async Task<HttpResult<HTXSubUserAccounts>> GetSubUserAccountsAsync(long subUserId, CancellationToken ct = default)
         {
-            var parameters = new ParameterCollection()
+            var parameters = new Parameters(HTXExchange._spotParameterSerializationSettings)
             {
                 { "subUid", subUserId.ToString(CultureInfo.InvariantCulture)}
             };
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "v2/sub-user/account-list", HTXExchange.RateLimiter.EndpointLimit, 1, true,
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "v2/sub-user/account-list", HTXExchange.RateLimiter.EndpointLimit, 1, true,
                 new SingleLimitGuard(20, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             return await _baseClient.SendAsync<HTXSubUserAccounts>(request, parameters, ct).ConfigureAwait(false);
         }
@@ -141,15 +141,15 @@ namespace HTX.Net.Clients.SpotApi
         #region Create Api Key
 
         /// <inheritdoc />
-        public async Task<WebCallResult<HTXSubApiKey>> CreateApiKeyAsync(string otpToken, long subUserId, string note, IEnumerable<string> permissions, IEnumerable<string> ipAddresses, CancellationToken ct = default)
+        public async Task<HttpResult<HTXSubApiKey>> CreateApiKeyAsync(string otpToken, long subUserId, string note, IEnumerable<string> permissions, IEnumerable<string> ipAddresses, CancellationToken ct = default)
         {
-            var parameters = new ParameterCollection();
+            var parameters = new Parameters(HTXExchange._spotParameterSerializationSettings);
             parameters.Add("otpToken", otpToken);
             parameters.Add("subUid", subUserId);
             parameters.Add("note", note);
             parameters.Add("permission", string.Join(",", permissions));
             parameters.Add("ipAddresses", string.Join(",", ipAddresses));
-            var request = _definitions.GetOrCreate(HttpMethod.Post, "/v2/sub-user/api-key-generation", HTXExchange.RateLimiter.EndpointLimit, 1, true,
+            var request = _definitions.GetOrCreate(HttpMethod.Post, _baseClient.BaseAddress, "/v2/sub-user/api-key-generation", HTXExchange.RateLimiter.EndpointLimit, 1, true,
                 new SingleLimitGuard(20, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             var result = await _baseClient.SendAsync<HTXSubApiKey>(request, parameters, ct).ConfigureAwait(false);
             return result;
@@ -160,15 +160,15 @@ namespace HTX.Net.Clients.SpotApi
         #region Edit Api Key
 
         /// <inheritdoc />
-        public async Task<WebCallResult<HTXSubApiKeyEdit>> EditApiKeyAsync(long subUserId, string apiKey, string note, IEnumerable<string> permissions, IEnumerable<string> ipAddresses, CancellationToken ct = default)
+        public async Task<HttpResult<HTXSubApiKeyEdit>> EditApiKeyAsync(long subUserId, string apiKey, string note, IEnumerable<string> permissions, IEnumerable<string> ipAddresses, CancellationToken ct = default)
         {
-            var parameters = new ParameterCollection();
+            var parameters = new Parameters(HTXExchange._spotParameterSerializationSettings);
             parameters.Add("subUid", subUserId);
             parameters.Add("accessKey", apiKey);
             parameters.Add("note", note);
             parameters.Add("permission", string.Join(",", permissions));
             parameters.Add("ipAddresses", string.Join(",", ipAddresses));
-            var request = _definitions.GetOrCreate(HttpMethod.Post, "/v2/sub-user/api-key-modification", HTXExchange.RateLimiter.EndpointLimit, 1, true,
+            var request = _definitions.GetOrCreate(HttpMethod.Post, _baseClient.BaseAddress, "/v2/sub-user/api-key-modification", HTXExchange.RateLimiter.EndpointLimit, 1, true,
                 new SingleLimitGuard(20, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             var result = await _baseClient.SendAsync<HTXSubApiKeyEdit>(request, parameters, ct).ConfigureAwait(false);
             return result;
@@ -179,15 +179,15 @@ namespace HTX.Net.Clients.SpotApi
         #region Delete Api Key
 
         /// <inheritdoc />
-        public async Task<WebCallResult> DeleteApiKeyAsync(long subUserId, string apiKey, CancellationToken ct = default)
+        public async Task<HttpResult> DeleteApiKeyAsync(long subUserId, string apiKey, CancellationToken ct = default)
         {
-            var parameters = new ParameterCollection();
+            var parameters = new Parameters(HTXExchange._spotParameterSerializationSettings);
             parameters.Add("subUid", subUserId);
             parameters.Add("accessKey", apiKey);
-            var request = _definitions.GetOrCreate(HttpMethod.Post, "/v2/sub-user/api-key-deletion", HTXExchange.RateLimiter.EndpointLimit, 1, true,
+            var request = _definitions.GetOrCreate(HttpMethod.Post, _baseClient.BaseAddress, "/v2/sub-user/api-key-deletion", HTXExchange.RateLimiter.EndpointLimit, 1, true,
                 new SingleLimitGuard(20, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             var result = await _baseClient.SendAsync<object>(request, parameters, ct).ConfigureAwait(false);
-            return result.AsDataless();
+            return result;
         }
 
         #endregion
@@ -195,23 +195,26 @@ namespace HTX.Net.Clients.SpotApi
         #region Transfer With Sub Account
 
         /// <inheritdoc />
-        public async Task<WebCallResult<long>> TransferWithSubAccountAsync(long subAccountId, string asset, decimal quantity, TransferType transferType, CancellationToken ct = default)
+        public async Task<HttpResult<long>> TransferWithSubAccountAsync(long subAccountId, string asset, decimal quantity, TransferType transferType, CancellationToken ct = default)
         {
             asset.ValidateNotNull(nameof(asset));
             asset = asset.ToLowerInvariant();
 
-            var parameters = new ParameterCollection()
+            var parameters = new Parameters(HTXExchange._spotParameterSerializationSettings)
             {
                 { "sub-uid", subAccountId },
                 { "currency", asset },
                 { "amount", quantity }
             };
-            parameters.AddEnum("type", transferType);
+            parameters.Add("type", transferType);
 
-            var request = _definitions.GetOrCreate(HttpMethod.Post, $"v1/subuser/transfer", HTXExchange.RateLimiter.EndpointLimit, 1, true,
+            var request = _definitions.GetOrCreate(HttpMethod.Post, _baseClient.BaseAddress, $"v1/subuser/transfer", HTXExchange.RateLimiter.EndpointLimit, 1, true,
                 new SingleLimitGuard(2, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             var result = await _baseClient.SendBasicAsync<long?>(request, parameters, ct).ConfigureAwait(false);
-            return result.As(result.Data ?? 0);
+            if (!result.Success)
+                return HttpResult.Fail<long>(result);
+
+            return HttpResult.Ok(result, result.Data ?? 0);
         }
 
         #endregion
@@ -219,14 +222,14 @@ namespace HTX.Net.Clients.SpotApi
         #region Get Deposit Address
 
         /// <inheritdoc />
-        public async Task<WebCallResult<HTXDepositAddress[]>> GetDepositAddressAsync(long subUserId, string asset, CancellationToken ct = default)
+        public async Task<HttpResult<HTXDepositAddress[]>> GetDepositAddressAsync(long subUserId, string asset, CancellationToken ct = default)
         {
             asset = asset.ToLowerInvariant();
 
-            var parameters = new ParameterCollection();
+            var parameters = new Parameters(HTXExchange._spotParameterSerializationSettings);
             parameters.Add("subUid", subUserId);
             parameters.Add("currency", asset);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/v2/sub-user/deposit-address", HTXExchange.RateLimiter.EndpointLimit, 1, true,
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/v2/sub-user/deposit-address", HTXExchange.RateLimiter.EndpointLimit, 1, true,
                 new SingleLimitGuard(20, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             var result = await _baseClient.SendAsync<HTXDepositAddress[]>(request, parameters, ct).ConfigureAwait(false);
             return result;
@@ -237,19 +240,19 @@ namespace HTX.Net.Clients.SpotApi
         #region Get Deposit History
 
         /// <inheritdoc />
-        public async Task<WebCallResult<HTXSubDeposit[]>> GetDepositHistoryAsync(long subUserId, string? asset = null, DateTime? startTime = null, DateTime? endTime = null, SortingType? sort = null, int? limit = null, long? fromId = null, CancellationToken ct = default)
+        public async Task<HttpResult<HTXSubDeposit[]>> GetDepositHistoryAsync(long subUserId, string? asset = null, DateTime? startTime = null, DateTime? endTime = null, SortingType? sort = null, int? limit = null, long? fromId = null, CancellationToken ct = default)
         {
             asset = asset?.ToLowerInvariant();
 
-            var parameters = new ParameterCollection();
+            var parameters = new Parameters(HTXExchange._spotParameterSerializationSettings);
             parameters.Add("subUid", subUserId);
-            parameters.AddOptional("currency", asset);
-            parameters.AddOptionalMilliseconds("startTime", startTime);
-            parameters.AddOptionalMilliseconds("endTime", endTime);
-            parameters.AddOptionalEnum("sort", sort);
-            parameters.AddOptional("limit", limit);
-            parameters.AddOptional("fromId", fromId);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/v2/sub-user/query-deposit", HTXExchange.RateLimiter.EndpointLimit, 1, true,
+            parameters.Add("currency", asset);
+            parameters.Add("startTime", startTime);
+            parameters.Add("endTime", endTime);
+            parameters.Add("sort", sort);
+            parameters.Add("limit", limit);
+            parameters.Add("fromId", fromId);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/v2/sub-user/query-deposit", HTXExchange.RateLimiter.EndpointLimit, 1, true,
                 new SingleLimitGuard(20, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             var result = await _baseClient.SendAsync<HTXSubDeposit[]>(request, parameters, ct).ConfigureAwait(false);
             return result;
@@ -260,10 +263,10 @@ namespace HTX.Net.Clients.SpotApi
         #region Get Aggregate Balances
 
         /// <inheritdoc />
-        public async Task<WebCallResult<HTXAggBalance[]>> GetAggregateBalancesAsync(CancellationToken ct = default)
+        public async Task<HttpResult<HTXAggBalance[]>> GetAggregateBalancesAsync(CancellationToken ct = default)
         {
-            var parameters = new ParameterCollection();
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/v1/subuser/aggregate-balance", HTXExchange.RateLimiter.EndpointLimit, 1, true,
+            var parameters = new Parameters(HTXExchange._spotParameterSerializationSettings);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/v1/subuser/aggregate-balance", HTXExchange.RateLimiter.EndpointLimit, 1, true,
                 new SingleLimitGuard(2, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             var result = await _baseClient.SendBasicAsync<HTXAggBalance[]>(request, parameters, ct).ConfigureAwait(false);
             return result;
@@ -274,9 +277,9 @@ namespace HTX.Net.Clients.SpotApi
         #region Get Balances
 
         /// <inheritdoc />
-        public async Task<WebCallResult<HTXAccountBalances[]>> GetBalancesAsync(long subAccountId, CancellationToken ct = default)
+        public async Task<HttpResult<HTXAccountBalances[]>> GetBalancesAsync(long subAccountId, CancellationToken ct = default)
         {
-            var request = _definitions.GetOrCreate(HttpMethod.Get, $"v1/account/accounts/{subAccountId}", HTXExchange.RateLimiter.EndpointLimit, 1, true,
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, $"v1/account/accounts/{subAccountId}", HTXExchange.RateLimiter.EndpointLimit, 1, true,
                 new SingleLimitGuard(20, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             return await _baseClient.SendBasicAsync<HTXAccountBalances[]>(request, null, ct).ConfigureAwait(false);
         }

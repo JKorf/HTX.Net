@@ -21,7 +21,7 @@ namespace HTX.Net.Objects.Sockets.Subscriptions
             _handler = handler;
             _topic = topic;
 
-            MessageRouter = MessageRouter.CreateWithoutTopicFilter<HTXDataEvent<HTXAccountUpdate>>(topic, DoHandleMessage);
+            MessageRouter = MessageRouter.CreateForEvent<HTXDataEvent<HTXAccountUpdate>>(topic, DoHandleMessage);
         }
 
         protected override Query? GetSubQuery(SocketConnection connection)
@@ -43,7 +43,7 @@ namespace HTX.Net.Objects.Sockets.Subscriptions
                     .WithStreamId(message.Channel)
                     .WithDataTimestamp(message.Data.ChangeTime, _client.GetTimeOffset()));
 
-            return CallResult.SuccessResult;
+            return CallResult.Ok();
         }
     }
 }

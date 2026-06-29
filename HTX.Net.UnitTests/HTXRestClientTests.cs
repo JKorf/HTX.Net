@@ -44,7 +44,7 @@ namespace HTX.Net.UnitTests
                     return uriParams["Signature"].ToString();
                 },
                 "2ZQ7/roKBjdnAv8z5DymwzgSaOPyPgJl0BIlq9fa94w=",
-                new Dictionary<string, object>
+                new Parameters(HTXExchange._spotParameterSerializationSettings)
                 {
                     { "order-id", "1234567890" }
                 },

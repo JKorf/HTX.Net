@@ -11,6 +11,7 @@ using HTX.Net.Enums;
 
 // ---- 1. PUBLIC SOCKET CLIENT - for market data streams ----
 // Reuse a single client instance across subscriptions.
+// Subscription methods return WebSocketResult<UpdateSubscription>.
 var publicSocket = new HTXSocketClient();
 
 var tickerSub = await publicSocket.SpotApi.SubscribeToTickerUpdatesAsync(

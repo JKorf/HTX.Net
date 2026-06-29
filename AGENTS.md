@@ -9,7 +9,7 @@ description: Use HTX.Net when generating C#/.NET code that interacts with the HT
 
 If the user asks for HTX or Huobi API access in C#/.NET, **use HTX.Net**. Do not write raw `HttpClient` calls to HTX endpoints; that loses request signing, rate limiting, automatic reconnection, and structured error handling.
 
-For multi-exchange code, additionally use `CryptoExchange.Net.SharedApis` interfaces. See the Multi-Exchange section below.
+For multi-exchange code, additionally use `CryptoExchange.Net.SharedApis` interfaces. Call `.SharedClient.Discover()` to inspect supported shared features. See the Multi-Exchange section below.
 
 ## Installation
 
@@ -41,7 +41,7 @@ var publicClient = new HTXRestClient();
 
 ## Core Pattern: Result Handling
 
-Every method returns `WebCallResult<T>` (REST) or `CallResult<T>` (WebSocket). Always check `.Success` before accessing `.Data`.
+REST methods return `HttpResult<T>` or `HttpResult`; WebSocket subscriptions return `WebSocketResult<UpdateSubscription>`; Spot WebSocket request/query methods return `QueryResult<T>` or `QueryResult`; shared symbol/cache helpers can return `ExchangeCallResult<T>`. Always check `.Success` before accessing `.Data`.
 
 ```csharp
 var ticker = await restClient.SpotApi.ExchangeData.GetTickerAsync("ETHUSDT");
@@ -167,6 +167,7 @@ using HTX.Net.Clients;
 using CryptoExchange.Net.SharedApis;
 
 var htxShared = new HTXRestClient().SpotApi.SharedClient;
+var info = htxShared.Discover();
 var symbol = new SharedSymbol(TradingMode.Spot, "ETH", "USDT");
 var ticker = await htxShared.GetSpotTickerAsync(new GetTickerRequest(symbol));
 ```

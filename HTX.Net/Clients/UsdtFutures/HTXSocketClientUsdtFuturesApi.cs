@@ -26,8 +26,8 @@ namespace HTX.Net.Clients.UsdtFutures
         protected override ErrorMapping ErrorMapping => HTXErrors.FuturesMapping;
 
         #region ctor
-        internal HTXSocketClientUsdtFuturesApi(ILogger logger, HTXSocketOptions options)
-            : base(logger, options.Environment.UsdtMarginSwapSocketBaseAddress, options, options.UsdtMarginSwapOptions)
+        internal HTXSocketClientUsdtFuturesApi(ILoggerFactory? loggerFactory, HTXSocketOptions options)
+            : base(loggerFactory, HTXExchange.Metadata.Id, options.Environment.UsdtMarginSwapSocketBaseAddress, options, options.UsdtMarginSwapOptions)
         {
             KeepAliveInterval = TimeSpan.Zero;
 
@@ -69,7 +69,7 @@ namespace HTX.Net.Clients.UsdtFutures
             => new HTXAuthenticationProvider(credentials, false);
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToKlineUpdatesAsync(string contractCode, KlineInterval period, Action<DataEvent<HTXSwapKline>> onData, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToKlineUpdatesAsync(string contractCode, KlineInterval period, Action<DataEvent<HTXSwapKline>> onData, CancellationToken ct = default)
         {
             var internalHandler = new Action<DateTime, string?, HTXDataEvent<HTXSwapKline>>((receiveTime, originalData, data) =>
             {
@@ -89,7 +89,7 @@ namespace HTX.Net.Clients.UsdtFutures
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToOrderBookUpdatesAsync(string contractCode, int mergeStep, Action<DataEvent<HTXOrderBookUpdate>> onData, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToOrderBookUpdatesAsync(string contractCode, int mergeStep, Action<DataEvent<HTXOrderBookUpdate>> onData, CancellationToken ct = default)
         {
             var internalHandler = new Action<DateTime, string?, HTXDataEvent<HTXOrderBookUpdate>>((receiveTime, originalData, data) =>
             {
@@ -110,14 +110,14 @@ namespace HTX.Net.Clients.UsdtFutures
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToIncrementalOrderBookUpdatesAsync(string contractCode, bool snapshot, int limit, Action<DataEvent<HTXIncrementalOrderBookUpdate>> onData, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToIncrementalOrderBookUpdatesAsync(string contractCode, bool snapshot, int limit, Action<DataEvent<HTXIncrementalOrderBookUpdate>> onData, CancellationToken ct = default)
         {
             var subscription = new HTXIncrementalOrderBookSubscription(_logger, this, snapshot, $"market.{contractCode.ToUpperInvariant()}.depth.size_{limit}.high_freq", x => onData(x.WithSymbol(contractCode)));
             return await SubscribeAsync(BaseAddress.AppendPath("linear-swap-ws"), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(string contractCode, Action<DataEvent<HTXSymbolTickUpdate>> onData, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(string contractCode, Action<DataEvent<HTXSymbolTickUpdate>> onData, CancellationToken ct = default)
         {
             var internalHandler = new Action<DateTime, string?, HTXDataEvent<HTXSymbolTickUpdate>>((receiveTime, originalData, data) =>
             {
@@ -137,7 +137,7 @@ namespace HTX.Net.Clients.UsdtFutures
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToBookTickerUpdatesAsync(string contractCode, Action<DataEvent<HTXBestOfferUpdate>> onData, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToBookTickerUpdatesAsync(string contractCode, Action<DataEvent<HTXBestOfferUpdate>> onData, CancellationToken ct = default)
         {
             var internalHandler = new Action<DateTime, string?, HTXDataEvent<HTXBestOfferUpdate>>((receiveTime, originalData, data) =>
             {
@@ -157,7 +157,7 @@ namespace HTX.Net.Clients.UsdtFutures
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(string contractCode, Action<DataEvent<HTXUsdtMarginSwapTradesUpdate>> onData, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(string contractCode, Action<DataEvent<HTXUsdtMarginSwapTradesUpdate>> onData, CancellationToken ct = default)
         {
             var internalHandler = new Action<DateTime, string?, HTXDataEvent<HTXUsdtMarginSwapTradesUpdate>>((receiveTime, originalData, data) =>
             {
@@ -176,7 +176,7 @@ namespace HTX.Net.Clients.UsdtFutures
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToIndexKlineUpdatesAsync(string contractCode, KlineInterval period, Action<DataEvent<HTXKline>> onData, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToIndexKlineUpdatesAsync(string contractCode, KlineInterval period, Action<DataEvent<HTXKline>> onData, CancellationToken ct = default)
         {
             var internalHandler = new Action<DateTime, string?, HTXDataEvent<HTXKline>>((receiveTime, originalData, data) =>
             {
@@ -195,7 +195,7 @@ namespace HTX.Net.Clients.UsdtFutures
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToPremiumIndexKlineUpdatesAsync(string contractCode, KlineInterval period, Action<DataEvent<HTXKline>> onData, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToPremiumIndexKlineUpdatesAsync(string contractCode, KlineInterval period, Action<DataEvent<HTXKline>> onData, CancellationToken ct = default)
         {
             var internalHandler = new Action<DateTime, string?, HTXDataEvent<HTXKline>>((receiveTime, originalData, data) =>
             {
@@ -214,7 +214,7 @@ namespace HTX.Net.Clients.UsdtFutures
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToEstimatedFundingRateKlineUpdatesAsync(string contractCode, KlineInterval period, Action<DataEvent<HTXKline>> onData, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToEstimatedFundingRateKlineUpdatesAsync(string contractCode, KlineInterval period, Action<DataEvent<HTXKline>> onData, CancellationToken ct = default)
         {
             var internalHandler = new Action<DateTime, string?, HTXDataEvent<HTXKline>>((receiveTime, originalData, data) =>
             {
@@ -233,7 +233,7 @@ namespace HTX.Net.Clients.UsdtFutures
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToBasisUpdatesAsync(string contractCode, KlineInterval period, string priceType, Action<DataEvent<HTXUsdtMarginSwapBasisUpdate>> onData, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToBasisUpdatesAsync(string contractCode, KlineInterval period, string priceType, Action<DataEvent<HTXUsdtMarginSwapBasisUpdate>> onData, CancellationToken ct = default)
         {
             var internalHandler = new Action<DateTime, string?, HTXDataEvent<HTXUsdtMarginSwapBasisUpdate>>((receiveTime, originalData, data) =>
             {
@@ -252,7 +252,7 @@ namespace HTX.Net.Clients.UsdtFutures
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToMarkPriceKlineUpdatesAsync(string contractCode, KlineInterval period, Action<DataEvent<HTXKline>> onData, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToMarkPriceKlineUpdatesAsync(string contractCode, KlineInterval period, Action<DataEvent<HTXKline>> onData, CancellationToken ct = default)
         {
             var internalHandler = new Action<DateTime, string?, HTXDataEvent<HTXKline>>((receiveTime, originalData, data) =>
             {
@@ -271,7 +271,7 @@ namespace HTX.Net.Clients.UsdtFutures
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToLiquidationUpdatesAsync(Action<DataEvent<HTXUsdtMarginSwapLiquidationUpdate>> onData, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToLiquidationUpdatesAsync(Action<DataEvent<HTXUsdtMarginSwapLiquidationUpdate>> onData, CancellationToken ct = default)
         {
             var internalHandler = new Action<DateTime, string?, HTXUsdtMarginSwapLiquidationUpdate>((receiveTime, originalData, data) =>
             {
@@ -290,7 +290,7 @@ namespace HTX.Net.Clients.UsdtFutures
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToFundingRateUpdatesAsync(Action<DataEvent<HTXUsdtMarginSwapFundingRateUpdate[]>> onData, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToFundingRateUpdatesAsync(Action<DataEvent<HTXUsdtMarginSwapFundingRateUpdate[]>> onData, CancellationToken ct = default)
         {
             var internalHandler = new Action<DateTime, string?, HTXUsdtMarginSwapFundingRateUpdateWrapper>((receiveTime, originalData, data) =>
             {
@@ -308,7 +308,7 @@ namespace HTX.Net.Clients.UsdtFutures
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToContractUpdatesAsync(Action<DataEvent<HTXUsdtMarginSwapContractUpdate[]>> onData, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToContractUpdatesAsync(Action<DataEvent<HTXUsdtMarginSwapContractUpdate[]>> onData, CancellationToken ct = default)
         {
             var internalHandler = new Action<DateTime, string?, HTXUsdtMarginSwapContractUpdateWrapper>((receiveTime, originalData, data) =>
             {
@@ -326,7 +326,7 @@ namespace HTX.Net.Clients.UsdtFutures
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToContractElementsUpdatesAsync(Action<DataEvent<HTXUsdtMarginSwapContractElementsUpdate[]>> onData, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToContractElementsUpdatesAsync(Action<DataEvent<HTXUsdtMarginSwapContractElementsUpdate[]>> onData, CancellationToken ct = default)
         {
             var internalHandler = new Action<DateTime, string?, HTXUsdtMarginSwapContractElementsUpdateWrapper>((receiveTime, originalData, data) =>
             {
@@ -344,7 +344,7 @@ namespace HTX.Net.Clients.UsdtFutures
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToSystemStatusUpdatesAsync(Action<DataEvent<HTXStatusUpdate>> onData, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToSystemStatusUpdatesAsync(Action<DataEvent<HTXStatusUpdate>> onData, CancellationToken ct = default)
         {
             var internalHandler = new Action<DateTime, string?, HTXStatusUpdate>((receiveTime, originalData, data) =>
             {
@@ -362,7 +362,7 @@ namespace HTX.Net.Clients.UsdtFutures
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(MarginMode mode, Action<DataEvent<HTXUsdtMarginSwapOrderUpdate>> onData, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(MarginMode mode, Action<DataEvent<HTXUsdtMarginSwapOrderUpdate>> onData, CancellationToken ct = default)
         {
             if (mode == MarginMode.All)
                 throw new ArgumentException("Mode should be either Cross or Isolated", nameof(mode));
@@ -385,7 +385,7 @@ namespace HTX.Net.Clients.UsdtFutures
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToIsolatedMarginBalanceUpdatesAsync(Action<DataEvent<HTXUsdtMarginSwapIsolatedBalanceUpdate>> onData, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToIsolatedMarginBalanceUpdatesAsync(Action<DataEvent<HTXUsdtMarginSwapIsolatedBalanceUpdate>> onData, CancellationToken ct = default)
         {
             var internalHandler = new Action<DateTime, string?, HTXUsdtMarginSwapIsolatedBalanceUpdate>((receiveTime, originalData, data) =>
             {
@@ -404,7 +404,7 @@ namespace HTX.Net.Clients.UsdtFutures
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToCrossMarginBalanceUpdatesAsync(Action<DataEvent<HTXUsdtMarginSwapCrossBalanceUpdate>> onData, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToCrossMarginBalanceUpdatesAsync(Action<DataEvent<HTXUsdtMarginSwapCrossBalanceUpdate>> onData, CancellationToken ct = default)
         {
             var internalHandler = new Action<DateTime, string?, HTXUsdtMarginSwapCrossBalanceUpdate>((receiveTime, originalData, data) =>
             {
@@ -423,7 +423,7 @@ namespace HTX.Net.Clients.UsdtFutures
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToIsolatedMarginPositionUpdatesAsync(Action<DataEvent<HTXUsdtMarginSwapIsolatedPositionUpdate>> onData, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToIsolatedMarginPositionUpdatesAsync(Action<DataEvent<HTXUsdtMarginSwapIsolatedPositionUpdate>> onData, CancellationToken ct = default)
         {
             var internalHandler = new Action<DateTime, string?, HTXUsdtMarginSwapIsolatedPositionUpdate>((receiveTime, originalData, data) =>
             {
@@ -442,7 +442,7 @@ namespace HTX.Net.Clients.UsdtFutures
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToCrossMarginPositionUpdatesAsync(Action<DataEvent<HTXUsdtMarginSwapCrossPositionUpdate>> onData, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToCrossMarginPositionUpdatesAsync(Action<DataEvent<HTXUsdtMarginSwapCrossPositionUpdate>> onData, CancellationToken ct = default)
         {
             var internalHandler = new Action<DateTime, string?, HTXUsdtMarginSwapCrossPositionUpdate>((receiveTime, originalData, data) =>
             {
@@ -461,7 +461,7 @@ namespace HTX.Net.Clients.UsdtFutures
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToIsolatedMarginUserTradeUpdatesAsync(Action<DataEvent<HTXUsdtMarginSwapIsolatedTradeUpdate>> onData, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToIsolatedMarginUserTradeUpdatesAsync(Action<DataEvent<HTXUsdtMarginSwapIsolatedTradeUpdate>> onData, CancellationToken ct = default)
         {
             var internalHandler = new Action<DateTime, string?, HTXUsdtMarginSwapIsolatedTradeUpdate>((receiveTime, originalData, data) =>
             {
@@ -480,7 +480,7 @@ namespace HTX.Net.Clients.UsdtFutures
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToCrossMarginUserTradeUpdatesAsync(Action<DataEvent<HTXUsdtMarginSwapCrossTradeUpdate>> onData, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToCrossMarginUserTradeUpdatesAsync(Action<DataEvent<HTXUsdtMarginSwapCrossTradeUpdate>> onData, CancellationToken ct = default)
         {
             var internalHandler = new Action<DateTime, string?, HTXUsdtMarginSwapCrossTradeUpdate>((receiveTime, originalData, data) =>
             {
@@ -499,7 +499,7 @@ namespace HTX.Net.Clients.UsdtFutures
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToIsolatedMarginTriggerOrderUpdatesAsync(Action<DataEvent<HTXUsdtMarginSwapIsolatedTriggerOrderUpdate>> onData, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToIsolatedMarginTriggerOrderUpdatesAsync(Action<DataEvent<HTXUsdtMarginSwapIsolatedTriggerOrderUpdate>> onData, CancellationToken ct = default)
         {
             var internalHandler = new Action<DateTime, string?, HTXUsdtMarginSwapIsolatedTriggerOrderUpdate>((receiveTime, originalData, data) =>
             {
@@ -519,7 +519,7 @@ namespace HTX.Net.Clients.UsdtFutures
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToCrossMarginTriggerOrderUpdatesAsync(Action<DataEvent<HTXUsdtMarginSwapCrossTriggerOrderUpdate>> onData, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToCrossMarginTriggerOrderUpdatesAsync(Action<DataEvent<HTXUsdtMarginSwapCrossTriggerOrderUpdate>> onData, CancellationToken ct = default)
         {
             var internalHandler = new Action<DateTime, string?, HTXUsdtMarginSwapCrossTriggerOrderUpdate>((receiveTime, originalData, data) =>
             {

@@ -12,18 +12,18 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesV5Api
         /// <summary>
         /// Subscribe to account updates
         /// </summary>
-        Task<CallResult<UpdateSubscription>> SubscribeToAccountUpdatesAsync(Action<DataEvent<HTXDataEventV5<HTXAccountUpdateV5>>> onData, CancellationToken ct = default);
+        Task<WebSocketResult<UpdateSubscription>> SubscribeToAccountUpdatesAsync(Action<DataEvent<HTXDataEventV5<HTXAccountUpdateV5>>> onData, CancellationToken ct = default);
         /// <summary>
         /// Subscribe to order updates
         /// </summary>
-        Task<CallResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(string? contractCode, Action<DataEvent<HTXDataEventV5<HTXOrderUpdateV5>>> onData, CancellationToken ct = default);
+        Task<WebSocketResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(string? contractCode, Action<DataEvent<HTXDataEventV5<HTXOrderUpdateV5>>> onData, CancellationToken ct = default);
         /// <summary>
         /// Subscribe to position updates
         /// </summary>
-        Task<CallResult<UpdateSubscription>> SubscribeToPositionUpdatesAsync(string? contractCode, Action<DataEvent<HTXDataEventV5<HTXPositionUpdateV5[]>>> onData, CancellationToken ct = default);
+        Task<WebSocketResult<UpdateSubscription>> SubscribeToPositionUpdatesAsync(string? contractCode, Action<DataEvent<HTXDataEventV5<HTXPositionUpdateV5[]>>> onData, CancellationToken ct = default);
         /// <summary>
         /// Subscribe to user trade updates
         /// </summary>
-        Task<CallResult<UpdateSubscription>> SubscribeToUserTradeUpdatesAsync(string? contractCode, Action<DataEvent<HTXDataEventV5<HTXMatchOrderUpdateV5[]>>> onData, CancellationToken ct = default);
+        Task<WebSocketResult<UpdateSubscription>> SubscribeToUserTradeUpdatesAsync(string? contractCode, Action<DataEvent<HTXDataEventV5<HTXMatchOrderUpdateV5[]>>> onData, CancellationToken ct = default);
     }
 }

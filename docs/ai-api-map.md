@@ -212,11 +212,14 @@ Use SharedApis for exchange-agnostic code across HTX, Binance, Bybit, OKX, Krake
 | Shared USDT futures REST client | `new HTXRestClient().UsdtFuturesApi.SharedClient` |
 | Shared spot socket client | `new HTXSocketClient().SpotApi.SharedClient` |
 | Shared USDT futures socket client | `new HTXSocketClient().UsdtFuturesApi.SharedClient` |
+| Discover shared capabilities | `client.SpotApi.SharedClient.Discover()` |
 | Shared spot ticker REST | `ISpotTickerRestClient.GetSpotTickerAsync(new GetTickerRequest(symbol))` |
 | Shared spot order REST | `ISpotOrderRestClient.PlaceSpotOrderAsync(...)` |
 | Shared futures order REST | `IFuturesOrderRestClient.PlaceFuturesOrderAsync(...)` |
 | Shared ticker socket | `ITickerSocketClient.SubscribeToTickerUpdatesAsync(...)` |
 | Shared order book socket | `IOrderBookSocketClient.SubscribeToOrderBookUpdatesAsync(...)` |
+
+Shared REST methods return `HttpResult<T>` / `HttpResult`; shared socket subscriptions return `WebSocketResult<UpdateSubscription>`; shared symbol/cache helpers such as `SupportsSpotSymbolAsync` and `SupportsFuturesSymbolAsync` can return `ExchangeCallResult<T>`.
 
 For shared socket subscriptions, keep the concrete socket client and unsubscribe with `await socketClient.UnsubscribeAsync(subscription.Data)`.
 
@@ -225,8 +228,10 @@ For shared socket subscriptions, keep the concrete socket client and unsubscribe
 | Situation | Pattern |
 |---|---|
 | REST success check | `if (!result.Success) { Console.WriteLine(result.Error); return; }` |
-| Socket subscription success check | `if (!sub.Success) { Console.WriteLine(sub.Error); return; }` |
+| Socket subscription success check | `if (!sub.Success) { Console.WriteLine(sub.Error); return; }` where `sub` is `WebSocketResult<UpdateSubscription>` |
+| Spot socket request success check | `if (!query.Success) { Console.WriteLine(query.Error); return; }` where `query` is `QueryResult<T>` or `QueryResult` |
 | Read REST data | Read `result.Data` only after `result.Success` |
+| Read shared helper data | Read `ExchangeCallResult<T>.Data` only after `.Success` |
 | Retry decision | Retry only when `result.Error?.IsTransient == true` |
 | Cancellation | Pass `ct: cancellationToken` |
 

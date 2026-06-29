@@ -29,8 +29,8 @@ namespace HTX.Net.Objects.Sockets.Subscriptions
             _onOrderCancel = onOrderCancel;
 
             MessageRouter = MessageRouter.Create([
-                MessageRoute<HTXDataEvent<HTXTradeUpdate>>.CreateWithoutTopicFilter(_topic + "trade", DoHandleMessage),
-                MessageRoute<HTXDataEvent<HTXOrderCancelationUpdate>>.CreateWithoutTopicFilter(_topic + "cancellation", DoHandleMessage)
+                MessageRoute.CreateForEvent<HTXDataEvent<HTXTradeUpdate>>(_topic + "trade", DoHandleMessage),
+                MessageRoute.CreateForEvent<HTXDataEvent<HTXOrderCancelationUpdate>>(_topic + "cancellation", DoHandleMessage)
                 ]);
         }
 
@@ -54,7 +54,7 @@ namespace HTX.Net.Objects.Sockets.Subscriptions
                     .WithUpdateType(SocketUpdateType.Update)
                     .WithDataTimestamp(message.Timestamp, _client.GetTimeOffset())
                 );
-            return CallResult.SuccessResult;
+            return CallResult.Ok();
         }
 
         public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, HTXDataEvent<HTXTradeUpdate> message)
@@ -68,7 +68,7 @@ namespace HTX.Net.Objects.Sockets.Subscriptions
                     .WithUpdateType(SocketUpdateType.Update)
                     .WithDataTimestamp(message.Timestamp, _client.GetTimeOffset())
                 );
-            return CallResult.SuccessResult;
+            return CallResult.Ok();
         }
     }
 }

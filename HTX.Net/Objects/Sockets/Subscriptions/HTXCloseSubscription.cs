@@ -8,13 +8,13 @@ namespace HTX.Net.Objects.Sockets.Subscriptions
     {
         public HTXCloseSubscription(ILogger logger) : base(logger, false)
         {
-            MessageRouter = MessageRouter.CreateWithoutTopicFilter<HTXOpPingMessage>("close", HandleMessage);
+            MessageRouter = MessageRouter.CreateForEvent<HTXOpPingMessage>("close", HandleMessage);
         }
 
         public CallResult HandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, HTXOpPingMessage message)
         {
             _ = connection.TriggerReconnectAsync();
-            return CallResult.SuccessResult;
+            return CallResult.Ok();
         }
     }
 }
