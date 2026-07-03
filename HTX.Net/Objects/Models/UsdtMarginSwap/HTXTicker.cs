@@ -55,6 +55,11 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         public BusinessType? BusinessType { get; set; }
 
         /// <summary>
+        /// ["<c>trade_partition</c>"] Trade partition
+        /// </summary>
+        [JsonPropertyName("trade_partition")]
+        public string TradePartition { get; set; } = string.Empty;
+        /// <summary>
         /// ["<c>number_of</c>"] Number of buys and sells in last 24h
         /// </summary>
         [JsonPropertyName("number_of")]

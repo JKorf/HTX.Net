@@ -128,5 +128,20 @@ namespace HTX.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("dn")]
         public string DisplayName { get; set; } = string.Empty;
+        /// <summary>
+        /// ["<c>si</c>"] State isolated
+        /// </summary>
+        [JsonPropertyName("si")]
+        public string StateIsolated { get; set; } = string.Empty;
+        /// <summary>
+        /// ["<c>sct</c>"] State cross
+        /// </summary>
+        [JsonPropertyName("scr")]
+        public string StateCross { get; set; } = string.Empty;
+        /// <summary>
+        /// ["<c>suspend_desc</c>"] Description of why suspended
+        /// </summary>
+        [JsonPropertyName("suspend_desc")]
+        public string? SuspendDescription { get; set; }
     }
 }

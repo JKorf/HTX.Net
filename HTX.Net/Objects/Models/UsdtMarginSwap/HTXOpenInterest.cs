@@ -20,6 +20,11 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         [JsonPropertyName("amount")]
         public decimal Amount { get; set; }
         /// <summary>
+        /// ["<c>trade_partition</c>"] Trade partition
+        /// </summary>
+        [JsonPropertyName("trade_partition")]
+        public string TradePartition { get; set; } = string.Empty;
+        /// <summary>
         /// ["<c>volume</c>"] Volume
         /// </summary>
         [JsonPropertyName("volume")]

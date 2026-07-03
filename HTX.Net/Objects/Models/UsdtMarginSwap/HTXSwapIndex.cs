@@ -22,5 +22,10 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         [JsonPropertyName("index_ts")]
         [JsonConverter(typeof(DateTimeConverter))]
         public DateTime Timestamp { get; set; }
+        /// <summary>
+        /// ["<c>trade_partition</c>"] Trade partition
+        /// </summary>
+        [JsonPropertyName("trade_partition")]
+        public string TradePartition { get; set; } = string.Empty;
     }
 }

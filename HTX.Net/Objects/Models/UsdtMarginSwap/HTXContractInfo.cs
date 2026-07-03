@@ -78,8 +78,17 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// <summary>
         /// ["<c>contract_type</c>"] Contract type
         /// </summary>
-
         [JsonPropertyName("contract_type")]
         public ContractType ContractType { get; set; }
+        /// <summary>
+        /// ["<c>settlement_period</c>"] Settlement period in hours
+        /// </summary>
+        [JsonPropertyName("settlement_period")]
+        public int? SettlementPeriod { get; set; }
+        /// <summary>
+        /// ["<c>trade_partition</c>"] Trade partition
+        /// </summary>
+        [JsonPropertyName("trade_partition")]
+        public string TradePartition { get; set; } = string.Empty;
     }
 }

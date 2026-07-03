@@ -83,5 +83,10 @@ namespace HTX.Net.Enums
         /// </summary>
         [Map("15")]
         GridTrading,
+        /// <summary>
+        /// Unknown
+        /// </summary>
+        [Map("17", "19")]
+        Unknown
     }
 }

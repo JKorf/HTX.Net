@@ -79,6 +79,16 @@ namespace HTX.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("accountBalance")]
         public decimal AccountBalance { get; set; }
+        /// <summary>
+        /// ["<c>spotBalanceState</c>"] Spot balance state
+        /// </summary>
+        [JsonPropertyName("spotBalanceState")]
+        public int? SpotBalanceState { get; set; }
+        /// <summary>
+        /// ["<c>accountBalanceUsdt</c>"] Account balance USDT
+        /// </summary>
+        [JsonPropertyName("accountBalanceUsdt")]
+        public decimal AccountBalanceUsdt { get; set; }
     }
 
 

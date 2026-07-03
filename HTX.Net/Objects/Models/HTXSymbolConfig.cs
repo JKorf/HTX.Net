@@ -163,6 +163,21 @@ namespace HTX.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("tags")]
         public string Tags { get; set; } = string.Empty;
+        /// <summary>
+        /// ["<c>lr</c>"] Leverage ratio of margin symbol
+        /// </summary>
+        [JsonPropertyName("lr")]
+        public decimal? LeverageRatioMargin { get; set; }
+        /// <summary>
+        /// ["<c>smlr</c>"] Leverage ratio of super-margin symbol
+        /// </summary>
+        [JsonPropertyName("smlr")]
+        public decimal? LeverageRatioSuperMargin { get; set; }
+        /// <summary>
+        /// ["<c>flr</c>"] Leverage ratio C2C funding
+        /// </summary>
+        [JsonPropertyName("flr")]
+        public decimal? LeverageRatioFunding { get; set; }
     }
 
 

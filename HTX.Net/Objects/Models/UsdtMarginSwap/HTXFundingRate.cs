@@ -12,6 +12,11 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         [JsonPropertyName("funding_rate")]
         public decimal? FundingRate { get; set; }
         /// <summary>
+        /// ["<c>estimated_rate</c>"] Estimated rate
+        /// </summary>
+        [JsonPropertyName("estimated_rate")]
+        public decimal? EstimatedRate { get; set; }
+        /// <summary>
         /// ["<c>contract_code</c>"] Contract code
         /// </summary>
         [JsonPropertyName("contract_code")]
@@ -32,5 +37,16 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         [JsonPropertyName("funding_time")]
         [JsonConverter(typeof(DateTimeConverter))]
         public DateTime? FundingTime { get; set; }
+        /// <summary>
+        /// ["<c>next_funding_time</c>"] Next funding time
+        /// </summary>
+        [JsonPropertyName("next_funding_time")]
+        [JsonConverter(typeof(DateTimeConverter))]
+        public DateTime? NextFundingTime { get; set; }
+        /// <summary>
+        /// ["<c>trade_partition</c>"] Trade partition
+        /// </summary>
+        [JsonPropertyName("trade_partition")]
+        public string TradePartition { get; set; } = string.Empty;
     }
 }

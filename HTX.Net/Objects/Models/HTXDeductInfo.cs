@@ -17,6 +17,11 @@ namespace HTX.Net.Objects.Models
         [JsonPropertyName("htxSwitch")]
         public bool HtxSwitch { get; set; }
         /// <summary>
+        /// ["<c>currencySwitch</c>"] Asset switch
+        /// </summary>
+        [JsonPropertyName("currencySwitch")]
+        public bool AssetSwitch { get; set; }
+        /// <summary>
         /// ["<c>currency</c>"] Asset
         /// </summary>
         [JsonPropertyName("currency")]

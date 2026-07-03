@@ -24,6 +24,17 @@ namespace HTX.Net.Objects.Models
         }
 
         /// <summary>
+        /// ["<c>mrid</c>"] Last order id
+        /// </summary>
+        [JsonPropertyName("mrid")]
+        public long OrderId { get; set; }
+        /// <summary>
+        /// ["<c>id</c>"] Tick id
+        /// </summary>
+        [JsonPropertyName("id")]
+        public long Id { get; set; }
+
+        /// <summary>
         /// ["<c>bids</c>"] List of bids
         /// </summary>
         [JsonPropertyName("bids")]

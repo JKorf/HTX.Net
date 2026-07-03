@@ -25,6 +25,11 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         [JsonPropertyName("business_type")]
         public BusinessType BusinessType { get; set; }
         /// <summary>
+        /// ["<c>trade_partition</c>"] Trade partition
+        /// </summary>
+        [JsonPropertyName("trade_partition")]
+        public string TradePartition { get; set; } = string.Empty;
+        /// <summary>
         /// ["<c>pair</c>"] Symbol
         /// </summary>
         [JsonPropertyName("pair")]

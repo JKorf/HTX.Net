@@ -25,10 +25,14 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         [JsonPropertyName("margin_account")]
         public string MarginAccount { get; set; } = string.Empty;
         /// <summary>
+        /// ["<c>trade_partition</c>"] Trade partition
+        /// </summary>
+        [JsonPropertyName("trade_partition")]
+        public string TradePartition { get; set; } = string.Empty;
+        /// <summary>
         /// ["<c>margin_mode</c>"] Margin mode
         /// </summary>
         [JsonPropertyName("margin_mode")]
-
         public MarginMode MarginMode { get; set; }
         /// <summary>
         /// ["<c>open</c>"] Open order access

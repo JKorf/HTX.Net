@@ -19,6 +19,11 @@ namespace HTX.Net.Objects.Models
         [JsonPropertyName("client-order-id")]
         public string? ClientOrderId { get; set; }
         /// <summary>
+        /// ["<c>request-id</c>"] Request id
+        /// </summary>
+        [JsonPropertyName("request-id")]
+        public string? RequestId { get; set; }
+        /// <summary>
         /// ["<c>type</c>"] Define transfer type to search, possible values: [deposit, withdraw]
         /// </summary>
         [JsonPropertyName("type")]
@@ -43,10 +48,15 @@ namespace HTX.Net.Objects.Models
 		/// </summary>
         [JsonPropertyName("chain")]
 		public string? Network { get; set; }
-		/// <summary>
-		/// ["<c>amount</c>"] The number of crypto asset transfered in its minimum unit
-		/// </summary>
-		[JsonPropertyName("amount")]
+        /// <summary>
+        /// ["<c>chain-full-name</c>"] Network full name
+        /// </summary>
+        [JsonPropertyName("chain-full-name")]
+        public string? NetworkFullName { get; set; }
+        /// <summary>
+        /// ["<c>amount</c>"] The number of crypto asset transferred in its minimum unit
+        /// </summary>
+        [JsonPropertyName("amount")]
 		public decimal Quantity { get; set; }
 		/// <summary>
 		/// ["<c>address</c>"] The deposit or withdraw target address
@@ -58,16 +68,26 @@ namespace HTX.Net.Objects.Models
 		/// </summary>
 		[JsonPropertyName("address-tag")]
 		public string? AddressTag { get; set; }
-		/// <summary>
-		/// ["<c>from-addr-tag</c>"] The address tag of the address its from
-		/// </summary>
-		[JsonPropertyName("from-addr-tag")]
-		public string? FromAddressTag { get; set; }
-		/// <summary>
-		/// ["<c>fee</c>"] Withdraw fee
-		/// </summary>
+        /// <summary>
+        /// ["<c>from-addr-tag</c>"] The address tag of the address its from
+        /// </summary>
+        [JsonPropertyName("from-addr-tag")]
+        public string? FromAddressTag { get; set; }
+        /// <summary>
+        /// ["<c>from-address</c>"] The from address
+        /// </summary>
+        [JsonPropertyName("from-address")]
+		public string? FromAddress { get; set; }
+        /// <summary>
+        /// ["<c>fee</c>"] Withdraw fee
+        /// </summary>
         [JsonPropertyName("fee")]
-		public decimal Fee { get; set; }
+        public decimal Fee { get; set; }
+        /// <summary>
+        /// ["<c>wallet-confirm</c>"] Confirmations
+        /// </summary>
+        [JsonPropertyName("wallet-confirm")]
+		public int? Confirmations { get; set; }
         /// <summary>
         /// ["<c>state</c>"] The status of this transfer
         /// </summary>

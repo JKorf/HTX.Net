@@ -33,6 +33,11 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// </summary>
         [JsonPropertyName("pair")]
         public string Pair { get; set; } = string.Empty;
+        /// <summary>
+        /// ["<c>trade_partition</c>"] Trade partition
+        /// </summary>
+        [JsonPropertyName("trade_partition")]
+        public string TradePartition { get; set; } = string.Empty;
     }
 
     /// <summary>

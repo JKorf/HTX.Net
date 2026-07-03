@@ -197,6 +197,11 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// </summary>
         [JsonPropertyName("open_after_closing")]
         public decimal OpenAfterClosing { get; set; }
+        /// <summary>
+        /// ["<c>order_type</c>"] Order type, 0: Price limit and Post only, 1: IOC and FOK
+        /// </summary>
+        [JsonPropertyName("order_type")]
+        public int? OrderType { get; set; }
     }
 
     /// <summary>
@@ -240,6 +245,11 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// </summary>
         [JsonPropertyName("delivery_date")]
         public DateTime? DeliveryDate { get; set; }
+        /// <summary>
+        /// ["<c>trigger_protect</c>"] Trigger protect
+        /// </summary>
+        [JsonPropertyName("trigger_protect")]
+        public decimal? TriggerProtect { get; set; }
     }
 
 

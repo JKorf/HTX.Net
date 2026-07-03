@@ -30,6 +30,11 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
 
         public MarginMode MarginMode { get; set; }
         /// <summary>
+        /// ["<c>trade_partition</c>"] Trade partition
+        /// </summary>
+        [JsonPropertyName("trade_partition")]
+        public string TradePartition { get; set; } = string.Empty;
+        /// <summary>
         /// ["<c>list</c>"] List
         /// </summary>
         [JsonPropertyName("list")]
@@ -57,7 +62,6 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// ["<c>contract_type</c>"] Contract type
         /// </summary>
         [JsonPropertyName("contract_type")]
-
         public ContractType ContractType { get; set; }
     }
 

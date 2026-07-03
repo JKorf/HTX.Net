@@ -23,13 +23,11 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// ["<c>settlement_type</c>"] Settlement type
         /// </summary>
         [JsonPropertyName("settlement_type")]
-
         public SettlementType SettlementType { get; set; }
         /// <summary>
         /// ["<c>business_type</c>"] Business type
         /// </summary>
         [JsonPropertyName("business_type")]
-
         public BusinessType BusinessType { get; set; }
         /// <summary>
         /// ["<c>pair</c>"] Symbol
@@ -40,7 +38,11 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// ["<c>contract_type</c>"] Contract type
         /// </summary>
         [JsonPropertyName("contract_type")]
-
         public ContractType ContractType { get; set; }
+        /// <summary>
+        /// ["<c>trade_partition</c>"] Trade partition
+        /// </summary>
+        [JsonPropertyName("trade_partition")]
+        public string TradePartition { get; set; } = string.Empty;
     }
 }

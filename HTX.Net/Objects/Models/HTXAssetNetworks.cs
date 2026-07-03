@@ -23,6 +23,11 @@ namespace HTX.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("instStatus")]
         public AssetStatus Status { get; set; }
+        /// <summary>
+        /// ["<c>assetType</c>"] Asset type
+        /// </summary>
+        [JsonPropertyName("assetType")]
+        public int AssetType { get; set; }
     }
 
     /// <summary>
@@ -42,10 +47,36 @@ namespace HTX.Net.Objects.Models
         [JsonPropertyName("displayName")]
         public string? DisplayName { get; set; }
         /// <summary>
+        /// ["<c>fullName</c>"] Full name
+        /// </summary>
+        [JsonPropertyName("fullName")]
+        public string? FullName { get; set; }
+        /// <summary>
+        /// ["<c>contractAddress</c>"] Contract address
+        /// </summary>
+        [JsonPropertyName("contractAddress")]
+        public string? ContractAddress { get; set; }
+        /// <summary>
         /// ["<c>baseChain</c>"] Base network
         /// </summary>
         [JsonPropertyName("baseChain")]
         public string BaseNetwork { get; set; } = string.Empty;
+        /// <summary>
+        /// ["<c>addrWithTag</c>"] Tag required for withdraw
+        /// </summary>
+        [JsonPropertyName("addrWithTag")]
+        public bool WithdrawTagRequired { get; set; }
+        /// <summary>
+        /// ["<c>addrDepositTag</c>"] Tag required for deposit
+        /// </summary>
+        [JsonPropertyName("addrDepositTag")]
+        public bool DepositTagRequired { get; set; }
+        /// <summary>
+        /// ["<c>chainType</c>"] Network type
+        /// </summary>
+        [JsonPropertyName("chainType")]
+        public int NetworkType { get; set; }
+
         /// <summary>
         /// ["<c>baseChainProtocol</c>"] Base network protocol
         /// </summary>
