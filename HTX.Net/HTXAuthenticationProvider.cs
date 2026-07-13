@@ -29,20 +29,20 @@ namespace HTX.Net
                 return;
 
             request.QueryParameters ??= new Parameters(HTXExchange._futuresParameterSerializationSettings);
-            request.QueryParameters.Add("AccessKeyId", ApiCredentials.Credential.Key);
+            request.QueryParameters["AccessKeyId"] = ApiCredentials.Credential.Key;
             if (ApiCredentials.Credential is HMACCredential hmacCred)
-                request.QueryParameters.Add("SignatureMethod", "HmacSHA256");
+                request.QueryParameters["SignatureMethod"] = "HmacSHA256";
 #if NET8_0_OR_GREATER
             else if (ApiCredentials.Credential is Ed25519Credential edCred)
-                request.QueryParameters.Add("SignatureMethod", "Ed25519");
+                request.QueryParameters["SignatureMethod"] = "Ed25519";
 #endif
-            request.QueryParameters.Add("SignatureVersion", 2);
-            request.QueryParameters.Add("Timestamp", GetTimestamp(apiClient).ToString("yyyy-MM-ddTHH:mm:ss", CultureInfo.InvariantCulture));
+            request.QueryParameters["SignatureVersion"] = 2;
+            request.QueryParameters["Timestamp"] = GetTimestamp(apiClient).ToString("yyyy-MM-ddTHH:mm:ss", CultureInfo.InvariantCulture);
 
             // Russian api has /api prefix which shouldn't be part of the signature
             var path = request.RequestDefinition.Path.StartsWith("/api") ? request.RequestDefinition.Path.Substring(4) : request.RequestDefinition.Path;
             
-            var sortedParameters = request.QueryParameters.OrderBy(kv => Encoding.UTF8.GetBytes(WebUtility.UrlEncode(kv.Key)!), new ByteOrderComparer()).ToDictionary(x => x.Key, x => x.Value);
+            var sortedParameters = request.QueryParameters.Where(x => x.Key != "Signature").OrderBy(kv => Encoding.UTF8.GetBytes(WebUtility.UrlEncode(kv.Key)!), new ByteOrderComparer()).ToDictionary(x => x.Key, x => x.Value);
             var paramString = sortedParameters.CreateParamString(true, request.ArraySerialization);
             paramString = new Regex(@"%[a-f0-9]{2}").Replace(paramString, m => m.Value.ToUpperInvariant());
 
@@ -58,8 +58,8 @@ namespace HTX.Net
 #endif
             else
                 throw new NotImplementedException();
-                    ;
-            request.QueryParameters.Add("Signature", signature);
+
+            request.QueryParameters["Signature"] = signature;
             request.SetQueryString($"{paramString}&Signature={WebUtility.UrlEncode(signature)}");
         }
 
