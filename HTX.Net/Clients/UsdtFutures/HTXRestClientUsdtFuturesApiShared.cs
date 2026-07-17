@@ -156,7 +156,8 @@ namespace HTX.Net.Clients.UsdtFutures
         #endregion
 
         #region Futures Symbol client
-
+#warning Update to V5
+        SharedSymbolCatalog? IFuturesSymbolRestClient.FuturesSymbolCatalog => ExchangeSymbolCache.GetSymbolCatalog(_topicId, EnvironmentName, null);
         GetFuturesSymbolsOptions IFuturesSymbolRestClient.GetFuturesSymbolsOptions { get; } = new GetFuturesSymbolsOptions(_exchangeName, false);
         async Task<HttpResult<SharedFuturesSymbol[]>> IFuturesSymbolRestClient.GetFuturesSymbolsAsync(GetSymbolsRequest request, CancellationToken ct)
         {
@@ -168,26 +169,51 @@ namespace HTX.Net.Clients.UsdtFutures
             if (!result.Success)
                 return HttpResult.Fail<SharedFuturesSymbol[]>(result);
 
-            IEnumerable<HTXContractInfo> data = result.Data;
-            if (request.TradingMode.HasValue)
-                data = data.Where(x => request.TradingMode == TradingMode.PerpetualLinear ? x.BusinessType == BusinessType.Swap : x.BusinessType == BusinessType.Futures);
+            var data = result.Data
+               .Select(x => ParseSymbol(x))
+               .ToArray();
 
-            var response = HttpResult.Ok(result, data.Select(s => new SharedFuturesSymbol(
+            ExchangeSymbolCache.UpdateSymbolInfo(_topicId, EnvironmentName, null, data);
+            return HttpResult.Ok(result, SharedUtils.ApplySymbolFilter(data, request));
+        }
+
+        private SharedFuturesSymbol ParseSymbol(HTXContractInfo s)
+        {
+            var result = new SharedFuturesSymbol(
                 s.BusinessType == BusinessType.Futures ? TradingMode.DeliveryLinear : TradingMode.PerpetualLinear,
                 s.Asset,
-                "USDT", 
+                "USDT",
                 s.Symbol,
                 s.Status == ContractStatus.Listing)
             {
                 PriceStep = s.PriceTick,
                 ContractSize = s.ContractSize,
                 DeliveryTime = s.DeliveryDate,
-                QuantityStep = 1
-            }).ToArray());
+                QuantityStep = 1,
+                DisplayName = s.Symbol,
+                QuoteAssetType = SharedAssetType.Crypto,
+                QuoteAssetSubType = SharedAssetSubType.StableCoin
+            };
 
-            ExchangeSymbolCache.UpdateSymbolInfo(_topicId, EnvironmentName, null, response.Data!);
-            return response;
+            // HTX API has no way to retrieve underlying type specifics, we can only extract known types
+            if (LibraryHelpers.IsCommodity(result.BaseAsset))
+            {
+                result.BaseAssetType = SharedAssetType.TradFi;
+                result.BaseAssetSubType = SharedAssetSubType.Commodity;
+            }
+            else if (LibraryHelpers.IsStock(result.BaseAsset))
+            {
+                result.BaseAssetType = SharedAssetType.TradFi;
+                result.BaseAssetSubType = SharedAssetSubType.Stock;
+            }
+            else if (LibraryHelpers.IsCryptoCurrency(result.BaseAsset))
+            {
+                result.BaseAssetType = SharedAssetType.Crypto;
+            }
+
+            return result;
         }
+
         async Task<ExchangeCallResult<SharedSymbol[]>> IFuturesSymbolRestClient.GetFuturesSymbolsForBaseAssetAsync(string baseAsset)
         {
             if (!ExchangeSymbolCache.HasCached(_topicId, EnvironmentName, null))
