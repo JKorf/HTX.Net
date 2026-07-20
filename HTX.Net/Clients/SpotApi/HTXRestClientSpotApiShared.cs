@@ -72,6 +72,7 @@ namespace HTX.Net.Clients.SpotApi
         #endregion
 
         #region Spot Symbol client
+        SharedSymbolCatalog? ISpotSymbolRestClient.SpotSymbolCatalog => ExchangeSymbolCache.GetSymbolCatalog(_exchangeName, _topicId, EnvironmentName, null);
         GetSpotSymbolsOptions ISpotSymbolRestClient.GetSpotSymbolsOptions { get; } = new GetSpotSymbolsOptions(_exchangeName, false);
 
         async Task<HttpResult<SharedSpotSymbol[]>> ISpotSymbolRestClient.GetSpotSymbolsAsync(GetSymbolsRequest request, CancellationToken ct)
@@ -84,7 +85,17 @@ namespace HTX.Net.Clients.SpotApi
             if (!result.Success)
                 return HttpResult.Fail<SharedSpotSymbol[]>(result);
 
-            var response = HttpResult.Ok(result, result.Data.Select(s => new SharedSpotSymbol(
+            var data = result.Data
+               .Select(x => ParseSymbol(x))
+               .ToArray();
+
+            ExchangeSymbolCache.UpdateSymbolInfo(_topicId, EnvironmentName, null, data);
+            return HttpResult.Ok(result, SharedUtils.ApplySymbolFilter(data, request));
+        }
+
+        private SharedSpotSymbol ParseSymbol(HTXSymbolConfig s)
+        {
+            var result = new SharedSpotSymbol(
                 s.BaseAsset.ToUpperInvariant(),
                 s.QuoteAsset.ToUpperInvariant(),
                 s.Symbol,
@@ -94,11 +105,27 @@ namespace HTX.Net.Clients.SpotApi
                 PriceDecimals = s.PricePrecision,
                 MinNotionalValue = s.MinOrderValue,
                 MinTradeQuantity = s.MinOrderQuantity,
-                MaxTradeQuantity = s.MaxOrderQuantity
-            }).ToArray());
+                MaxTradeQuantity = s.MaxOrderQuantity,
+                DisplayName = s.Symbol,
+                QuoteAssetType = SharedAssetType.Crypto
+            };
 
-            ExchangeSymbolCache.UpdateSymbolInfo(_topicId, EnvironmentName, null, response.Data!);
-            return response;
+            if (LibraryHelpers.IsCommodity(s.BaseAsset))
+            {
+                result.BaseAssetType = SharedAssetType.TradFi;
+                result.BaseAssetSubType = SharedAssetSubType.Commodity;
+            }
+            else 
+            {
+                result.BaseAssetType = SharedAssetType.Crypto;
+                if (LibraryHelpers.IsStableCoin(s.BaseAsset))
+                    result.BaseAssetSubType = SharedAssetSubType.StableCoin;
+            }
+
+            if (LibraryHelpers.IsStableCoin(s.QuoteAsset))
+                result.QuoteAssetSubType = SharedAssetSubType.StableCoin;
+
+            return result;
         }
 
         async Task<ExchangeCallResult<SharedSymbol[]>> ISpotSymbolRestClient.GetSpotSymbolsForBaseAssetAsync(string baseAsset)
