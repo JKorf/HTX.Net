@@ -53,6 +53,8 @@ Store the returned `UpdateSubscription` and unsubscribe on shutdown via `socketC
 
 For code that needs to work across multiple exchanges, use `CryptoExchange.Net.SharedApis` interfaces (`ISpotTickerRestClient`, `ISpotOrderRestClient`, etc.) accessed via `.SharedClient` properties. Same pattern works for other exchanges in the CryptoExchange.Net family.
 
+Shared spot and futures symbol calls apply `GetSymbolsRequest` filters, populate `SpotSymbolCatalog` / `FuturesSymbolCatalog`, and return display names plus asset classifications. Native spot symbol results expose `HTXSymbol.EnableRpi`; public spot trade details expose `HTXSymbolTradeDetails.IsRpiTrade`.
+
 ## Avoid
 
 - Legacy `HuobiClient` / `HuobiRestClient` names

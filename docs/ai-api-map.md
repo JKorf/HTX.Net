@@ -29,8 +29,8 @@ Use this file to route common user intents to the correct HTX.Net client member.
 | Get spot klines | `client.SpotApi.ExchangeData.GetKlinesAsync("ETHUSDT", KlineInterval.OneMinute)` |
 | Get spot order book | `client.SpotApi.ExchangeData.GetOrderBookAsync("ETHUSDT", mergeStep: 0)` |
 | Get full spot order book | `client.SpotApi.ExchangeData.GetFullOrderBookAsync("ETHUSDT")` |
-| Get latest trade | `client.SpotApi.ExchangeData.GetLastTradeAsync("ETHUSDT")` |
-| Get recent trades | `client.SpotApi.ExchangeData.GetTradeHistoryAsync("ETHUSDT")` |
+| Get latest trade | `client.SpotApi.ExchangeData.GetLastTradeAsync("ETHUSDT")`|
+| Get recent trades | `client.SpotApi.ExchangeData.GetTradeHistoryAsync("ETHUSDT")`|
 | Get 24h symbol details | `client.SpotApi.ExchangeData.GetSymbolDetails24HAsync("ETHUSDT")` |
 | Get symbol status | `client.SpotApi.ExchangeData.GetSymbolStatusAsync()` |
 | Get user id | `client.SpotApi.Account.GetUserIdAsync()` |
@@ -213,6 +213,10 @@ Use SharedApis for exchange-agnostic code across HTX, Binance, Bybit, OKX, Krake
 | Shared spot socket client | `new HTXSocketClient().SpotApi.SharedClient` |
 | Shared USDT futures socket client | `new HTXSocketClient().UsdtFuturesApi.SharedClient` |
 | Discover shared capabilities | `client.SpotApi.SharedClient.Discover()` |
+| Get filtered shared spot symbols | `ISpotSymbolRestClient.GetSpotSymbolsAsync(new GetSymbolsRequest(...))` |
+| Read cached shared spot catalog | `ISpotSymbolRestClient.SpotSymbolCatalog` after loading symbols |
+| Get filtered shared futures symbols | `IFuturesSymbolRestClient.GetFuturesSymbolsAsync(new GetSymbolsRequest(...))` |
+| Read cached shared futures catalog | `IFuturesSymbolRestClient.FuturesSymbolCatalog` after loading symbols |
 | Shared spot ticker REST | `ISpotTickerRestClient.GetSpotTickerAsync(new GetTickerRequest(symbol))` |
 | Shared spot order REST | `ISpotOrderRestClient.PlaceSpotOrderAsync(...)` |
 | Shared futures order REST | `IFuturesOrderRestClient.PlaceFuturesOrderAsync(...)` |
@@ -220,6 +224,8 @@ Use SharedApis for exchange-agnostic code across HTX, Binance, Bybit, OKX, Krake
 | Shared order book socket | `IOrderBookSocketClient.SubscribeToOrderBookUpdatesAsync(...)` |
 
 Shared REST methods return `HttpResult<T>` / `HttpResult`; shared socket subscriptions return `WebSocketResult<UpdateSubscription>`; shared symbol/cache helpers such as `SupportsSpotSymbolAsync` and `SupportsFuturesSymbolAsync` can return `ExchangeCallResult<T>`.
+
+Shared symbol results include display names and asset type/subtype metadata. HTX.Net classifies known commodities and futures equities as TradFi and identifies crypto and stablecoins where possible.
 
 For shared socket subscriptions, keep the concrete socket client and unsubscribe with `await socketClient.UnsubscribeAsync(subscription.Data)`.
 

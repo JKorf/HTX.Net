@@ -174,6 +174,8 @@ var ticker = await htxShared.GetSpotTickerAsync(new GetTickerRequest(symbol));
 
 Available HTX shared client interfaces include `ISpotTickerRestClient`, `ISpotOrderRestClient`, `IFuturesOrderRestClient`, `IBalanceRestClient`, `ITickerSocketClient`, `IOrderBookSocketClient`, and many more. See the SharedApis docs: https://cryptoexchange.jkorf.dev/CryptoExchange.Net/idocs_shared.html.
 
+The shared spot and futures symbol interfaces expose filter-aware `GetSpotSymbolsAsync(...)` / `GetFuturesSymbolsAsync(...)` calls and populate `SpotSymbolCatalog` / `FuturesSymbolCatalog`. Returned symbols include display names and asset classifications; known commodities and futures equities are classified as TradFi, while crypto and stablecoin metadata is identified where possible.
+
 For shared socket subscriptions, keep the concrete socket client and unsubscribe with `await socketClient.UnsubscribeAsync(subscription.Data)`.
 
 ## Dependency Injection

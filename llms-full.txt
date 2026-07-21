@@ -4,8 +4,8 @@
 
 HTX.Net is a strongly typed .NET client library for the HTX REST and WebSocket APIs. It is part of the CryptoExchange.Net ecosystem and uses the same result, shared API, logging, rate limiting, and socket patterns as the other JKorf exchange libraries.
 
-Current package version in this repository: 8.10.1.
-CryptoExchange.Net dependency: 11.1.0.
+Current package version in this repository: 9.2.0.
+CryptoExchange.Net dependency: 12.2.0.
 Target frameworks: netstandard2.0, netstandard2.1, net8.0, net9.0, net10.0.
 Native AOT: supported on compatible .NET targets.
 
@@ -35,6 +35,7 @@ Primary documentation:
 - HTX spot orders require an account id; get it from `SpotApi.Account.GetAccountsAsync()`.
 - HTX USDT futures has separate cross and isolated methods. Pick the method matching the user's margin mode.
 - For multi-exchange code, use `CryptoExchange.Net.SharedApis` interfaces from each exchange's `.SharedClient` and call `.SharedClient.Discover()` to inspect supported features.
+- Shared spot and futures symbol calls apply `GetSymbolsRequest` filters, populate their symbol catalogs, and return display names plus asset type/subtype metadata.
 
 ## Installation
 
@@ -433,6 +434,8 @@ Console.WriteLine(ticker.Data.LastPrice);
 
 Shared REST methods return `HttpResult<T>` / `HttpResult`. Shared WebSocket subscriptions return `WebSocketResult<UpdateSubscription>` with an `UpdateSubscription` in `.Data`. Shared symbol helpers can return `ExchangeCallResult<T>`.
 
+`ISpotSymbolRestClient.GetSpotSymbolsAsync(...)` and `IFuturesSymbolRestClient.GetFuturesSymbolsAsync(...)` apply the supplied `GetSymbolsRequest` filters and update `SpotSymbolCatalog` / `FuturesSymbolCatalog`. Shared symbol results include `DisplayName`, `BaseAssetType`, `BaseAssetSubType`, `QuoteAssetType`, and `QuoteAssetSubType`. HTX.Net classifies known commodities and futures equities as TradFi and identifies crypto and stablecoins where the API data allows it.
+
 For shared interface variables, unsubscribe through the concrete socket client:
 
 ```csharp
@@ -464,6 +467,8 @@ HTX uses different symbol formats by API:
 Spot: ETHUSDT
 USDT futures contract code: ETH-USDT
 ```
+
+Spot symbol responses expose `HTXSymbol.EnableRpi`; public spot trade details expose `HTXSymbolTradeDetails.IsRpiTrade` (for REST results, access it through each `HTXSymbolTrade.Details` item).
 
 Spot trading and balances require an account id:
 

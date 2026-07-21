@@ -91,6 +91,8 @@ var ticker = await shared.GetSpotTickerAsync(
     new GetTickerRequest(new SharedSymbol(TradingMode.Spot, "ETH", "USDT")));
 ```
 
+Shared spot and futures symbol calls apply `GetSymbolsRequest` filters and populate `SpotSymbolCatalog` / `FuturesSymbolCatalog`. Results include display names and asset type/subtype metadata. For native spot market data, `HTXSymbol.EnableRpi` reports RPI availability and `HTXSymbolTradeDetails.IsRpiTrade` identifies RPI trades.
+
 ## Hard rules
 
 - Never write raw `HttpClient` calls to HTX endpoints
