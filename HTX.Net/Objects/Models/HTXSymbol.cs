@@ -143,5 +143,10 @@ namespace HTX.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("suspend_desc")]
         public string? SuspendDescription { get; set; }
+        /// <summary>
+        /// ["<c>enable_rpi</c>"] RPI enabled
+        /// </summary>
+        [JsonPropertyName("enable_rpi")]
+        public bool EnableRpi { get; set; }
     }
 }

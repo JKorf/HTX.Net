@@ -66,5 +66,10 @@ namespace HTX.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("ts"), JsonConverter(typeof(DateTimeConverter))]
         public DateTime Timestamp { get; set; }
+        /// <summary>
+        /// ["<c>is-rpi-trade</c>"] Is RPI trade
+        /// </summary>
+        [JsonPropertyName("is-rpi-trade")]
+        public bool IsRpiTrade { get; set; }
     }
 }
