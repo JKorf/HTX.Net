@@ -89,7 +89,15 @@ namespace HTX.Net.Clients.UsdtFutures
             if (!resultIndex.Result.Success)
                 return HttpResult.Fail<SharedFuturesTicker>(resultIndex.Result);
 
-            return HttpResult.Ok(resultTicker.Result, new SharedFuturesTicker(ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, symbol), symbol, resultTicker.Result.Data.ClosePrice, resultTicker.Result.Data.HighPrice, resultTicker.Result.Data.LowPrice, resultTicker.Result.Data.Volume ?? 0, resultTicker.Result.Data.OpenPrice == null ? null : Math.Round((resultTicker.Result.Data.ClosePrice ?? 0) / resultTicker.Result.Data.OpenPrice.Value * 100 - 100, 2))
+            return HttpResult.Ok(resultTicker.Result, 
+                new SharedFuturesTicker(
+                    ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, symbol),
+                    symbol,
+                    resultTicker.Result.Data.ClosePrice,
+                    resultTicker.Result.Data.HighPrice, 
+                    resultTicker.Result.Data.LowPrice,
+                    new SharedOrderQuantity(resultTicker.Result.Data.Volume, resultTicker.Result.Data.Value, resultTicker.Result.Data.QuoteVolume),
+                    resultTicker.Result.Data.OpenPrice == null ? null : Math.Round((resultTicker.Result.Data.ClosePrice ?? 0) / resultTicker.Result.Data.OpenPrice.Value * 100 - 100, 2))
             {
                 IndexPrice = resultIndex.Result.Data.Single().IndexPrice,
                 FundingRate = resultFunding.Result.Data.FundingRate,
@@ -119,7 +127,14 @@ namespace HTX.Net.Clients.UsdtFutures
             return HttpResult.Ok(resultTickers.Result, data.Select(x =>
             {
                 var funding = resultFunding.Result.Data.SingleOrDefault(p => p.ContractCode == x.ContractCode);
-                return new SharedFuturesTicker(ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, x.ContractCode), x.ContractCode!, x.ClosePrice, x.HighPrice, x.LowPrice, x.Volume ?? 0, x.OpenPrice == null ? null : Math.Round((x.ClosePrice ?? 0) / x.OpenPrice.Value * 100 - 100, 2))
+                return new SharedFuturesTicker(
+                    ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, x.ContractCode), 
+                    x.ContractCode!, 
+                    x.ClosePrice,
+                    x.HighPrice, 
+                    x.LowPrice,
+                    new SharedOrderQuantity(x.Volume, x.Value, x.QuoteVolume),
+                    x.OpenPrice == null ? null : Math.Round((x.ClosePrice ?? 0) / x.OpenPrice.Value * 100 - 100, 2))
                 {
                     FundingRate = funding?.FundingRate,
                     NextFundingTime = funding?.FundingTime
@@ -1129,7 +1144,15 @@ namespace HTX.Net.Clients.UsdtFutures
 
             return HttpResult.Ok(result, ExchangeHelpers.ApplyFilter(result.Data, x => x.OpenTime, request.StartTime, request.EndTime, direction)
                     .Select(x => 
-                        new SharedKline(request.Symbol, symbol, x.OpenTime, x.ClosePrice ?? 0, x.HighPrice ?? 0, x.LowPrice ?? 0, x.OpenPrice ?? 0, x.Volume ?? 0))
+                        new SharedKline(
+                            request.Symbol,
+                            symbol,
+                            x.OpenTime,
+                            x.ClosePrice ?? 0,
+                            x.HighPrice ?? 0,
+                            x.LowPrice ?? 0,
+                            x.OpenPrice ?? 0,
+                            new SharedOrderQuantity(x.Volume, x.Value, x.QuoteVolume)))
                     .ToArray(), nextPageRequest);
         }
 
@@ -1256,8 +1279,8 @@ namespace HTX.Net.Clients.UsdtFutures
             if (!result.Success)
                 return HttpResult.Fail<SharedTrade[]>(result);
 
-            return HttpResult.Ok(result, result.Data.AsEnumerable().Reverse().Select(x => 
-            new SharedTrade(request.Symbol, symbol, x.Quantity, x.Price, x.Timestamp)
+            return HttpResult.Ok(result, result.Data.AsEnumerable().Reverse().Select(x =>
+            new SharedTrade(request.Symbol, symbol, new SharedOrderQuantity(x.Quantity, x.QuoteQuantity, x.Amount), x.Price, x.Timestamp)
             {
                 Side = x.Direction == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell
             }).ToArray());

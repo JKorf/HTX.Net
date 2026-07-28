@@ -66,7 +66,15 @@ namespace HTX.Net.Clients.SpotApi
 
             return HttpResult.Ok(result, ExchangeHelpers.ApplyFilter(result.Data, x => x.OpenTime, request.StartTime, request.EndTime, direction)
                     .Select(x => 
-                        new SharedKline(request.Symbol, symbol, x.OpenTime, x.ClosePrice!.Value, x.HighPrice!.Value, x.LowPrice!.Value, x.OpenPrice!.Value, x.Volume!.Value))
+                        new SharedKline(
+                            request.Symbol, 
+                            symbol,
+                            x.OpenTime, 
+                            x.ClosePrice!.Value, 
+                            x.HighPrice!.Value, 
+                            x.LowPrice!.Value, 
+                            x.OpenPrice!.Value,
+                            new SharedOrderQuantity(x.Volume, x.QuoteVolume)))
                     .ToArray());
         }
         #endregion
@@ -182,9 +190,15 @@ namespace HTX.Net.Clients.SpotApi
             if (!result.Success)
                 return HttpResult.Fail<SharedSpotTicker[]>(result);
 
-            return HttpResult.Ok(result, result.Data.Ticks.Select(x => new SharedSpotTicker(ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, x.Symbol), x.Symbol, x.ClosePrice, x.HighPrice, x.LowPrice, x.Volume ?? 0, x.OpenPrice == null || x.OpenPrice == 0 ? null : Math.Round(((x.ClosePrice ?? 0) / x.OpenPrice.Value) * 100 - 100, 2))
+            return HttpResult.Ok(result, result.Data.Ticks.Select(x => new SharedSpotTicker(
+                ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, x.Symbol),
+                x.Symbol,
+                x.ClosePrice,
+                x.HighPrice,
+                x.LowPrice,
+                new SharedOrderQuantity(x.Volume, x.QuoteVolume), 
+                x.OpenPrice == null || x.OpenPrice == 0 ? null : Math.Round(((x.ClosePrice ?? 0) / x.OpenPrice.Value) * 100 - 100, 2))
             {
-                QuoteVolume = x.QuoteVolume
             }).ToArray());
         }
 
@@ -202,9 +216,15 @@ namespace HTX.Net.Clients.SpotApi
             if (!result.Success)
                 return HttpResult.Fail<SharedSpotTicker>(result);
 
-            return HttpResult.Ok(result, new SharedSpotTicker(ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, symbol), symbol, result.Data.ClosePrice, result.Data.HighPrice, result.Data.LowPrice, result.Data.Volume ?? 0, result.Data.OpenPrice == null || result.Data.OpenPrice == 0 ? null : Math.Round((result.Data.ClosePrice ?? 0) / result.Data.OpenPrice.Value * 100 - 100, 2))
+            return HttpResult.Ok(result, new SharedSpotTicker(
+                ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, symbol),
+                symbol,
+                result.Data.ClosePrice,
+                result.Data.HighPrice,
+                result.Data.LowPrice,
+                new SharedOrderQuantity(result.Data.Volume, result.Data.QuoteVolume),
+                result.Data.OpenPrice == null || result.Data.OpenPrice == 0 ? null : Math.Round((result.Data.ClosePrice ?? 0) / result.Data.OpenPrice.Value * 100 - 100, 2))
             {
-                QuoteVolume = result.Data.QuoteVolume
             });
         }
 
@@ -253,7 +273,7 @@ namespace HTX.Net.Clients.SpotApi
                 return HttpResult.Fail<SharedTrade[]>(result);
 
             return HttpResult.Ok(result, result.Data.SelectMany(x => x.Details.Select(x => 
-            new SharedTrade(request.Symbol, symbol, x.Quantity, x.Price, x.Timestamp)
+            new SharedTrade(request.Symbol, symbol, new SharedOrderQuantity(x.Quantity), x.Price, x.Timestamp)
             {
                 Side = x.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell
             })).ToArray());

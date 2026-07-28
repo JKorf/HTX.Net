@@ -26,9 +26,16 @@ namespace HTX.Net.Clients.SpotApi
             if (validationError != null)
                 return WebSocketResult.Fail<UpdateSubscription>(_exchangeName, validationError);
 
-            var result = await SubscribeToTickerUpdatesAsync(update => handler(update.ToType<SharedSpotTicker[]>(update.Data.Select(x => new SharedSpotTicker(ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, x.Symbol), x.Symbol, x.ClosePrice ?? 0, x.HighPrice ?? 0, x.LowPrice ?? 0, x.Volume ?? 0, (x.OpenPrice == null || x.OpenPrice == 0) ? null : Math.Round((x.ClosePrice ?? 0) / x.OpenPrice.Value * 100 - 100, 2))
+            var result = await SubscribeToTickerUpdatesAsync(update => handler(update.ToType<SharedSpotTicker[]>(update.Data.Select(x => 
+            new SharedSpotTicker(
+                ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, x.Symbol), 
+                x.Symbol,
+                x.ClosePrice ?? 0, 
+                x.HighPrice ?? 0,
+                x.LowPrice ?? 0,
+                new SharedOrderQuantity(x.Volume, x.QuoteVolume), 
+                (x.OpenPrice == null || x.OpenPrice == 0) ? null : Math.Round((x.ClosePrice ?? 0) / x.OpenPrice.Value * 100 - 100, 2))
             {
-                QuoteVolume = x.QuoteVolume
             }).ToArray())), ct).ConfigureAwait(false);
 
             return result;
@@ -44,9 +51,16 @@ namespace HTX.Net.Clients.SpotApi
                 return WebSocketResult.Fail<UpdateSubscription>(_exchangeName, validationError);
 
             var symbol = request.Symbol!.GetSymbol(FormatSymbol);
-            var result = await SubscribeToTickerUpdatesAsync(symbol, update => handler(update.ToType(new SharedSpotTicker(ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, symbol), symbol, update.Data.LastTradePrice, update.Data.HighPrice ?? 0, update.Data.LowPrice ?? 0, update.Data.Volume ?? 0, (update.Data.OpenPrice == null || update.Data.OpenPrice == 0) ? null : Math.Round((update.Data.ClosePrice ?? 0) / update.Data.OpenPrice.Value * 100 - 100, 2))
+            var result = await SubscribeToTickerUpdatesAsync(symbol, update => handler(update.ToType(
+                new SharedSpotTicker(
+                    ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, symbol),
+                    symbol,
+                    update.Data.LastTradePrice, 
+                    update.Data.HighPrice ?? 0,
+                    update.Data.LowPrice ?? 0,
+                    new SharedOrderQuantity(update.Data.Volume, update.Data.QuoteVolume),
+                    (update.Data.OpenPrice == null || update.Data.OpenPrice == 0) ? null : Math.Round((update.Data.ClosePrice ?? 0) / update.Data.OpenPrice.Value * 100 - 100, 2))
             {
-                QuoteVolume = update.Data.QuoteVolume
             })), ct).ConfigureAwait(false);
 
             return result;
@@ -64,7 +78,7 @@ namespace HTX.Net.Clients.SpotApi
 
             var symbol = request.Symbol!.GetSymbol(FormatSymbol);
             var result = await SubscribeToTradeUpdatesAsync(symbol, update => handler(update.ToType(update.Data.Details.Select(x => 
-            new SharedTrade(request.Symbol, symbol, x.Quantity, x.Price, x.Timestamp)
+            new SharedTrade(request.Symbol, symbol, new SharedOrderQuantity(x.Quantity), x.Price, x.Timestamp)
             {
                 Side = x.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell
             }).ToArray())), ct).ConfigureAwait(false);
@@ -110,7 +124,15 @@ namespace HTX.Net.Clients.SpotApi
 
             var symbol = request.Symbol!.GetSymbol(FormatSymbol);
             var result = await SubscribeToKlineUpdatesAsync(symbol, interval, update => handler(update.ToType(
-                new SharedKline(request.Symbol, symbol, update.Data.OpenTime, update.Data.ClosePrice ?? 0, update.Data.HighPrice ?? 0, update.Data.LowPrice ?? 0, update.Data.OpenPrice ?? 0, update.Data.Volume ?? 0))), ct).ConfigureAwait(false);
+                new SharedKline(
+                    request.Symbol, 
+                    symbol, 
+                    update.Data.OpenTime, 
+                    update.Data.ClosePrice ?? 0, 
+                    update.Data.HighPrice ?? 0, 
+                    update.Data.LowPrice ?? 0, 
+                    update.Data.OpenPrice ?? 0,
+                    new SharedOrderQuantity(update.Data.Volume ?? 0, update.Data.QuoteVolume ?? 0)))), ct).ConfigureAwait(false);
 
             return result;
         }

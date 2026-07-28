@@ -26,9 +26,16 @@ namespace HTX.Net.Clients.UsdtFutures
                 return WebSocketResult.Fail<UpdateSubscription>(_exchangeName, validationError);
 
             var symbol = request.Symbol!.GetSymbol(FormatSymbol);
-            var result = await SubscribeToTickerUpdatesAsync(symbol, update => handler(update.ToType(new SharedSpotTicker(ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, symbol), symbol, update.Data.ClosePrice, update.Data.HighPrice ?? 0, update.Data.LowPrice ?? 0, update.Data.Volume ?? 0, update.Data.OpenPrice == null ? null : Math.Round((update.Data.ClosePrice ?? 0) / update.Data.OpenPrice.Value * 100 - 100, 2))
+            var result = await SubscribeToTickerUpdatesAsync(symbol, update => handler(update.ToType(
+                new SharedSpotTicker(
+                    ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, symbol),
+                    symbol, 
+                    update.Data.ClosePrice, 
+                    update.Data.HighPrice ?? 0, 
+                    update.Data.LowPrice ?? 0,
+                    new SharedOrderQuantity(update.Data.Volume, update.Data.TradeTurnover, update.Data.QuoteVolume), 
+                    update.Data.OpenPrice == null ? null : Math.Round((update.Data.ClosePrice ?? 0) / update.Data.OpenPrice.Value * 100 - 100, 2))
             {
-                QuoteVolume = update.Data.QuoteVolume
             })), ct).ConfigureAwait(false);
 
             return result;
@@ -46,10 +53,10 @@ namespace HTX.Net.Clients.UsdtFutures
 
             var symbol = request.Symbol!.GetSymbol(FormatSymbol);
             var result = await SubscribeToTradeUpdatesAsync(symbol, update => handler(update.ToType(update.Data.Trades.Select(x =>
-            new SharedTrade(request.Symbol, symbol, x.Quantity, x.Price, x.Timestamp)
-            {
-                Side = x.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell
-            }).ToArray())), ct).ConfigureAwait(false);
+                new SharedTrade(request.Symbol, symbol, new SharedOrderQuantity(x.Quantity, x.TradeTurnover, x.Amount), x.Price, x.Timestamp)
+                {
+                    Side = x.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell
+                }).ToArray())), ct).ConfigureAwait(false);
 
             return result;
         }
@@ -92,7 +99,15 @@ namespace HTX.Net.Clients.UsdtFutures
 
             var symbol = request.Symbol!.GetSymbol(FormatSymbol);
             var result = await SubscribeToKlineUpdatesAsync(symbol, interval, update => handler(update.ToType(
-                new SharedKline(request.Symbol, symbol, update.Data.OpenTime, update.Data.ClosePrice ?? 0, update.Data.HighPrice ?? 0, update.Data.LowPrice ?? 0, update.Data.OpenPrice ?? 0, update.Data.Volume ?? 0))), ct).ConfigureAwait(false);
+                new SharedKline(
+                    request.Symbol,
+                    symbol, 
+                    update.Data.OpenTime, 
+                    update.Data.ClosePrice ?? 0,
+                    update.Data.HighPrice ?? 0,
+                    update.Data.LowPrice ?? 0,
+                    update.Data.OpenPrice ?? 0,
+                    new SharedOrderQuantity(update.Data.Volume, update.Data.Value, update.Data.QuoteVolume)))), ct).ConfigureAwait(false);
 
             return result;
         }
