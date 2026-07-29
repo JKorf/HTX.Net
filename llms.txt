@@ -2,7 +2,7 @@
 
 > Strongly typed .NET client library for the HTX REST and WebSocket APIs. Supports Spot, Spot Margin, Sub-Accounts, and USDT Futures. Part of the CryptoExchange.Net ecosystem providing a unified abstraction across cryptocurrency exchanges.
 
-HTX.Net, previously known as Huobi.Net, provides typed REST clients, WebSocket subscriptions, automatic reconnection, client-side rate limiting, local order book support, native AOT support, and the standard CryptoExchange.Net result model. REST methods return `HttpResult<T>` / `HttpResult`, WebSocket subscriptions return `WebSocketResult<UpdateSubscription>`, Spot WebSocket request/query methods return `QueryResult<T>` / `QueryResult`, and selected shared helper methods return `ExchangeCallResult<T>`. Shared symbol clients provide filter-aware symbol results, cached catalogs, and asset classifications. Current version: 9.2.0. Targets netstandard2.0, netstandard2.1, net8.0, net9.0, net10.0.
+HTX.Net, previously known as Huobi.Net, provides typed REST clients, WebSocket subscriptions, automatic reconnection, client-side rate limiting, local order book support, native AOT support, and the standard CryptoExchange.Net result model. REST methods return `HttpResult<T>` / `HttpResult`, WebSocket subscriptions return `WebSocketResult<UpdateSubscription>`, Spot WebSocket request/query methods return `QueryResult<T>` / `QueryResult`, and selected shared helper methods return `ExchangeCallResult<T>`. Shared symbol clients provide filter-aware symbol results, cached catalogs, and asset classifications. Current version: 9.3.0. Targets netstandard2.0, netstandard2.1, net8.0, net9.0, net10.0.
 
 ## Documentation
 
