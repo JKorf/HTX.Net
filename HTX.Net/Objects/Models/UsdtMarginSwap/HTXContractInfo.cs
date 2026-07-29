@@ -90,5 +90,10 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// </summary>
         [JsonPropertyName("trade_partition")]
         public string TradePartition { get; set; } = string.Empty;
+        /// <summary>
+        /// ["<c>scheduled_open_time</c>"] Scheduled open time
+        /// </summary>
+        [JsonPropertyName("scheduled_open_time")]
+        public string? ScheduledOpentime { get; set; }
     }
 }
