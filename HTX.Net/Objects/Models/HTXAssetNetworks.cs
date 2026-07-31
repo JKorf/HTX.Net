@@ -28,6 +28,11 @@ namespace HTX.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("assetType")]
         public int AssetType { get; set; }
+        /// <summary>
+        /// ["<c>externalTransferEnabled</c>"] External transfer enabled
+        /// </summary>
+        [JsonPropertyName("externalTransferEnabled")]
+        public bool? ExternalTransferEnabled { get; set; }
     }
 
     /// <summary>
