@@ -162,6 +162,11 @@ namespace HTX.Net.Enums
         /// ["<c>86</c>"] Transfer in advanced account
         /// </summary>
         [Map("86")]
-        AdvancedAccountTransferIn
+        AdvancedAccountTransferIn,
+        /// <summary>
+        /// ["<c>122</c>"] Added margin
+        /// </summary>
+        [Map("122")]
+        AddedMargin,
     }
 }
