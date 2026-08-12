@@ -210,16 +210,15 @@ namespace HTX.Net.Clients.UsdtFutures
                 QuoteAssetSubType = SharedAssetSubType.StableCoin
             };
 
-            // HTX API has no way to retrieve underlying type specifics, we can only extract known types
-            if (LibraryHelpers.IsCommodity(result.BaseAsset))
-            {
-                result.BaseAssetType = SharedAssetType.TradFi;
-                result.BaseAssetSubType = SharedAssetSubType.Commodity;
-            }
-            else if (LibraryHelpers.IsEquity(result.BaseAsset, ["X"], []))
+            if (s.TradfiLabels.Contains("Stocks") || s.TradfiLabels.Contains("Indices"))
             {
                 result.BaseAssetType = SharedAssetType.TradFi;
                 result.BaseAssetSubType = SharedAssetSubType.Equity;
+            }
+            else if (s.TradfiLabels.Contains("Metals") || s.TradfiLabels.Contains("Commodities"))
+            {
+                result.BaseAssetType = SharedAssetType.TradFi;
+                result.BaseAssetSubType = SharedAssetSubType.Commodity;
             }
             else
             {
