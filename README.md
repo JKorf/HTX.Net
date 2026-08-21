@@ -258,6 +258,11 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 9.5.0 - 21 Aug 2026
+    * Updated to CryptoExchange.Net v12.5.0
+    * Added Shared ISpotOrderManagementSocketClient implementations
+    * Fixed typo in HTXSymbolConfig.ChargeTime
+
 * Version 9.4.0 - 12 Aug 2026
     * Added ExternalTransferEnabled to HTXAssetNetworks model
     * Added FinancialRecordType AddedMargin value

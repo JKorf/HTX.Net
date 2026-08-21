@@ -222,6 +222,8 @@ Use SharedApis for exchange-agnostic code across HTX, Binance, Bybit, OKX, Krake
 | Shared futures order REST | `IFuturesOrderRestClient.PlaceFuturesOrderAsync(...)` |
 | Shared ticker socket | `ITickerSocketClient.SubscribeToTickerUpdatesAsync(...)` |
 | Shared order book socket | `IOrderBookSocketClient.SubscribeToOrderBookUpdatesAsync(...)` |
+| Place shared spot order over socket | `ISpotOrderManagementSocketClient.PlaceSpotOrderAsync(...)` with `AccountId` exchange parameter |
+| Cancel shared spot order over socket | `ISpotOrderManagementSocketClient.CancelSpotOrderAsync(...)` |
 
 Shared REST methods return `HttpResult<T>` / `HttpResult`; shared socket subscriptions return `WebSocketResult<UpdateSubscription>`; shared symbol/cache helpers such as `SupportsSpotSymbolAsync` and `SupportsFuturesSymbolAsync` can return `ExchangeCallResult<T>`.
 

@@ -172,7 +172,7 @@ var symbol = new SharedSymbol(TradingMode.Spot, "ETH", "USDT");
 var ticker = await htxShared.GetSpotTickerAsync(new GetTickerRequest(symbol));
 ```
 
-Available HTX shared client interfaces include `ISpotTickerRestClient`, `ISpotOrderRestClient`, `IFuturesOrderRestClient`, `IBalanceRestClient`, `ITickerSocketClient`, `IOrderBookSocketClient`, and many more. See the SharedApis docs: https://cryptoexchange.jkorf.dev/CryptoExchange.Net/idocs_shared.html.
+Available HTX shared client interfaces include `ISpotTickerRestClient`, `ISpotOrderRestClient`, `IFuturesOrderRestClient`, `IBalanceRestClient`, `ITickerSocketClient`, `IOrderBookSocketClient`, and `ISpotOrderManagementSocketClient`. The last interface places and cancels Spot orders over WebSocket; pass the required `AccountId` exchange parameter when placing an order. See the SharedApis docs: https://cryptoexchange.jkorf.dev/CryptoExchange.Net/idocs_shared.html.
 
 The shared spot and futures symbol interfaces expose filter-aware `GetSpotSymbolsAsync(...)` / `GetFuturesSymbolsAsync(...)` calls and populate `SpotSymbolCatalog` / `FuturesSymbolCatalog`. Returned symbols include display names and asset classifications; known commodities and futures equities are classified as TradFi, while crypto and stablecoin metadata is identified where possible.
 

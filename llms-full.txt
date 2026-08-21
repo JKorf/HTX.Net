@@ -4,8 +4,8 @@
 
 HTX.Net is a strongly typed .NET client library for the HTX REST and WebSocket APIs. It is part of the CryptoExchange.Net ecosystem and uses the same result, shared API, logging, rate limiting, and socket patterns as the other JKorf exchange libraries.
 
-Current package version in this repository: 9.4.0.
-CryptoExchange.Net dependency: 12.2.0.
+Current package version in this repository: 9.5.0.
+CryptoExchange.Net dependency: 12.5.0.
 Target frameworks: netstandard2.0, netstandard2.1, net8.0, net9.0, net10.0.
 Native AOT: supported on compatible .NET targets.
 
@@ -435,6 +435,8 @@ Console.WriteLine(ticker.Data.LastPrice);
 Shared REST methods return `HttpResult<T>` / `HttpResult`. Shared WebSocket subscriptions return `WebSocketResult<UpdateSubscription>` with an `UpdateSubscription` in `.Data`. Shared symbol helpers can return `ExchangeCallResult<T>`.
 
 `ISpotSymbolRestClient.GetSpotSymbolsAsync(...)` and `IFuturesSymbolRestClient.GetFuturesSymbolsAsync(...)` apply the supplied `GetSymbolsRequest` filters and update `SpotSymbolCatalog` / `FuturesSymbolCatalog`. Shared symbol results include `DisplayName`, `BaseAssetType`, `BaseAssetSubType`, `QuoteAssetType`, and `QuoteAssetSubType`. HTX.Net classifies known commodities and futures equities as TradFi and identifies crypto and stablecoins where the API data allows it.
+
+Shared market, order, trade, position, and order book models use `SharedOrderQuantity` and `SharedQuantityType`. Read Spot quantities from their base- or quote-asset component and USDT futures quantities from the contract component instead of assuming a single untyped amount.
 
 For shared interface variables, unsubscribe through the concrete socket client:
 
