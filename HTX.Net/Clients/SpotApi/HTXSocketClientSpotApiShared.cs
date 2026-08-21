@@ -97,7 +97,15 @@ namespace HTX.Net.Clients.SpotApi
                 return WebSocketResult.Fail<UpdateSubscription>(_exchangeName, validationError);
 
             var symbol = request.Symbol!.GetSymbol(FormatSymbol);
-            var result = await SubscribeToBookTickerUpdatesAsync(symbol, update => handler(update.ToType(new SharedBookTicker(ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, symbol), symbol, update.Data.BestAskPrice, update.Data.BestAskQuantity, update.Data.BestBidPrice, update.Data.BestBidQuantity))), ct).ConfigureAwait(false);
+            var result = await SubscribeToBookTickerUpdatesAsync(symbol, update => handler(
+                update.ToType(
+                    new SharedBookTicker(
+                        ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, symbol), 
+                        symbol,
+                        update.Data.BestAskPrice,
+                        new SharedOrderQuantity(update.Data.BestAskQuantity), 
+                        update.Data.BestBidPrice,
+                        new SharedOrderQuantity(update.Data.BestBidQuantity)))), ct).ConfigureAwait(false);
 
             return result;
         }
@@ -147,7 +155,9 @@ namespace HTX.Net.Clients.SpotApi
                 return WebSocketResult.Fail<UpdateSubscription>(_exchangeName, validationError);
 
             var symbol = request.Symbol!.GetSymbol(FormatSymbol);
-            var result = await SubscribeToPartialOrderBookUpdates100MillisecondAsync(symbol, request.Limit ?? 20, update => handler(update.ToType(new SharedOrderBook(update.Data.Asks, update.Data.Bids))), ct).ConfigureAwait(false);
+            var result = await SubscribeToPartialOrderBookUpdates100MillisecondAsync(symbol, request.Limit ?? 20, update => handler(
+                update.ToType(
+                    new SharedOrderBook(SharedQuantityType.BaseAsset, update.Data.Asks, update.Data.Bids))), ct).ConfigureAwait(false);
 
             return result;
         }
@@ -211,7 +221,7 @@ namespace HTX.Net.Clients.SpotApi
                         update.Data.OrderId.ToString(),
                         update.Data.Id.ToString(),
                         update.Data.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
-                        update.Data.Quantity,
+                        new SharedOrderQuantity(update.Data.Quantity),
                         update.Data.Price,
                         update.Data.Timestamp)
                     {
@@ -225,6 +235,81 @@ namespace HTX.Net.Clients.SpotApi
 
             return result;
         }
+        #endregion
+
+        #region Spot Order Management client
+
+        SharedFeeDeductionType ISpotOrderManagementSocketClient.SpotFeeDeductionType => SharedFeeDeductionType.DeductFromOutput;
+        SharedFeeAssetType ISpotOrderManagementSocketClient.SpotFeeAssetType => SharedFeeAssetType.OutputAsset;
+        SharedOrderType[] ISpotOrderManagementSocketClient.SpotSupportedOrderTypes { get; } = new[] { SharedOrderType.Limit, SharedOrderType.Market, SharedOrderType.LimitMaker };
+        SharedTimeInForce[] ISpotOrderManagementSocketClient.SpotSupportedTimeInForce { get; } = new[] { SharedTimeInForce.GoodTillCanceled, SharedTimeInForce.ImmediateOrCancel, SharedTimeInForce.FillOrKill };
+
+        SharedQuantitySupport ISpotOrderManagementSocketClient.SpotSupportedOrderQuantity { get; } = new SharedQuantitySupport(
+                SharedQuantityType.BaseAsset,
+                SharedQuantityType.BaseAsset,
+                SharedQuantityType.QuoteAsset,
+                SharedQuantityType.BaseAsset);
+
+        string ISpotOrderManagementSocketClient.GenerateClientOrderId() => ExchangeHelpers.RandomString(32);
+
+        PlaceSpotOrderSocketOptions ISpotOrderManagementSocketClient.PlaceSpotOrderOptions { get; } = new PlaceSpotOrderSocketOptions(_exchangeName)
+        {
+            RequiredExchangeParameters = new List<ParameterDescription>
+            {
+                new ParameterDescription("AccountId", typeof(long), "The id of the account", 123123123L)
+            }
+        };
+        async Task<QueryResult<SharedId>> ISpotOrderManagementSocketClient.PlaceSpotOrderAsync(PlaceSpotOrderRequest request, CancellationToken ct)
+        {
+            var validationError = SharedClient.PlaceSpotOrderOptions.ValidateRequest(request, this);
+            if (validationError != null)
+                return QueryResult.Fail<SharedId>(Exchange, validationError);
+
+            var accountId = ExchangeParameters.GetValue<long>(request.ExchangeParameters, Exchange, "AccountId");
+            var quantity = request.Quantity?.QuantityInBaseAsset ?? 0;
+            if (request.OrderType == SharedOrderType.Market && request.Side == SharedOrderSide.Buy)
+                quantity = request.Quantity?.QuantityInQuoteAsset ?? 0;
+
+            var result = await PlaceOrderAsync(
+                accountId,
+                request.Symbol!.GetSymbol(FormatSymbol),
+                request.Side == SharedOrderSide.Buy ? Enums.OrderSide.Buy : Enums.OrderSide.Sell,
+                GetPlaceOrderType(request.OrderType, request.TimeInForce),
+                quantity,
+                request.Price,
+                request.ClientOrderId,
+                ct: ct).ConfigureAwait(false);
+
+            if (!result.Success)
+                return QueryResult.Fail<SharedId>(result);
+
+            return QueryResult.Ok(result, new SharedId(result.Data.ToString()));
+        }
+        CancelSpotOrderSocketOptions ISpotOrderManagementSocketClient.CancelSpotOrderOptions { get; } = new CancelSpotOrderSocketOptions(_exchangeName, true);
+        async Task<QueryResult<SharedId>> ISpotOrderManagementSocketClient.CancelSpotOrderAsync(CancelOrderRequest request, CancellationToken ct)
+        {
+            var validationError = SharedClient.CancelSpotOrderOptions.ValidateRequest(request, this);
+            if (validationError != null)
+                return QueryResult.Fail<SharedId>(Exchange, validationError);
+
+            var order = await CancelOrderAsync(request.OrderId).ConfigureAwait(false);
+            if (!order.Success)
+                return QueryResult.Fail<SharedId>(order);
+
+            return QueryResult.Ok(order, new SharedId(request.OrderId));
+        }
+
+        private OrderType GetPlaceOrderType(SharedOrderType type, SharedTimeInForce? tif)
+        {
+            if (type == SharedOrderType.Limit && (tif == null || tif == SharedTimeInForce.GoodTillCanceled)) return OrderType.Limit;
+            if (type == SharedOrderType.Limit && tif == SharedTimeInForce.ImmediateOrCancel) return OrderType.IOC;
+            if (type == SharedOrderType.Limit && tif == SharedTimeInForce.FillOrKill) return OrderType.FillOrKillLimit;
+            if (type == SharedOrderType.LimitMaker) return OrderType.LimitMaker;
+            if (type == SharedOrderType.Market) return OrderType.Market;
+
+            throw new ArgumentException($"The combination of order type `{type}` and time in force `{tif}` in invalid");
+        }
+
         #endregion
 
         public SharedSpotOrder ParseOrder(HTXOrderUpdate orderUpdate)
@@ -266,11 +351,20 @@ namespace HTX.Net.Clients.SpotApi
                     UpdateTime = matchUpdate.UpdateTime,
                     OrderPrice = matchUpdate.Price,
                     IsTriggerOrder = matchUpdate.Type == OrderType.StopLimit,
-                    LastTrade = new SharedUserTrade(ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, matchUpdate.Symbol), matchUpdate.Symbol, matchUpdate.OrderId.ToString(), matchUpdate.TradeId.ToString(), matchUpdate.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell, matchUpdate.TradeQuantity, matchUpdate.TradePrice, matchUpdate.TradeTime)
-                    {
-                        ClientOrderId = matchUpdate.ClientOrderId,
-                        Role = matchUpdate.IsTaker ? SharedRole.Taker : SharedRole.Maker
-                    }
+                    LastTrade = 
+                        new SharedUserTrade(
+                            ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, matchUpdate.Symbol),
+                            matchUpdate.Symbol,
+                            matchUpdate.OrderId.ToString(),
+                            matchUpdate.TradeId.ToString(),
+                            matchUpdate.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
+                            new SharedOrderQuantity(matchUpdate.TradeQuantity),
+                            matchUpdate.TradePrice,
+                            matchUpdate.TradeTime)
+                        {
+                            ClientOrderId = matchUpdate.ClientOrderId,
+                            Role = matchUpdate.IsTaker ? SharedRole.Taker : SharedRole.Maker
+                        }
                 };
             }
 

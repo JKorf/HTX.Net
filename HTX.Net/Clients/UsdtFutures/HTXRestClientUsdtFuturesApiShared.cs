@@ -163,9 +163,9 @@ namespace HTX.Net.Clients.UsdtFutures
                 ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, symbol),
                 symbol,
                 bookTicker.Ask.Price,
-                bookTicker.Ask.Quantity,
+                new SharedOrderQuantity(contractQuantity: bookTicker.Ask.Quantity),
                 bookTicker.Bid.Price,
-                bookTicker.Bid.Quantity));
+                new SharedOrderQuantity(contractQuantity: bookTicker.Bid.Quantity)));
         }
 
         #endregion
@@ -652,7 +652,7 @@ namespace HTX.Net.Clients.UsdtFutures
                     request.OrderId,
                     x.Id.ToString(),
                     orders.Data.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
-                    x.Quantity,
+                    new SharedOrderQuantity(quoteAssetQuantity: x.Value, contractQuantity: x.Quantity),
                     x.Price,
                     x.CreateTime)
                 {
@@ -673,12 +673,11 @@ namespace HTX.Net.Clients.UsdtFutures
                     request.OrderId,
                     x.Id.ToString(),
                     orders.Data.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
-                    x.Quantity,
+                    new SharedOrderQuantity(quoteAssetQuantity: x.Value, contractQuantity: x.Quantity),
                     x.Price,
                     x.CreateTime)
                 {
                     Price = x.Price,
-                    Quantity = x.Quantity,
                     Fee = x.Fee,
                     FeeAsset = x.FeeAsset,
                     Role = x.Role == OrderRole.Maker ? SharedRole.Maker : SharedRole.Taker
@@ -738,12 +737,11 @@ namespace HTX.Net.Clients.UsdtFutures
                                 x.OrderIdStr,
                                 x.Id.ToString(),
                                 x.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
-                                x.Quantity,
+                                new SharedOrderQuantity(quoteAssetQuantity: x.Value, contractQuantity: x.Quantity),
                                 x.Price,
                                 x.CreateTime)
                             {
                                 Price = x.Price,
-                                Quantity = x.Quantity,
                                 Fee = x.Fee,
                                 FeeAsset = x.FeeAsset,
                                 Role = x.Role == OrderRole.Maker ? SharedRole.Maker : SharedRole.Taker
@@ -780,12 +778,11 @@ namespace HTX.Net.Clients.UsdtFutures
                                     x.OrderIdStr,
                                     x.Id.ToString(),
                                     x.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
-                                    x.Quantity,
+                                    new SharedOrderQuantity(quoteAssetQuantity: x.Value, contractQuantity: x.Quantity),
                                     x.Price,
                                     x.CreateTime)
                                 {
                                     Price = x.Price,
-                                    Quantity = x.Quantity,
                                     Fee = x.Fee,
                                     FeeAsset = x.FeeAsset,
                                     Role = x.Role == OrderRole.Maker ? SharedRole.Maker : SharedRole.Taker
@@ -848,14 +845,19 @@ namespace HTX.Net.Clients.UsdtFutures
                 if (!result.Success)
                     return HttpResult.Fail<SharedPosition[]>(result);
 
-                return HttpResult.Ok(result, result.Data.Select(x => new SharedPosition(ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, x.ContractCode), x.ContractCode, x.Quantity, default)
-                {
-                    UnrealizedPnl = x.UnrealizedPnl,
-                    AverageOpenPrice = x.CostOpen,
-                    Leverage = x.LeverageRate,
-                    PositionMode = x.PositionMode == PositionMode.SingleSide ? SharedPositionMode.OneWay : SharedPositionMode.HedgeMode,
-                    PositionSide = x.Side == OrderSide.Sell ? SharedPositionSide.Short : SharedPositionSide.Long
-                }).ToArray());
+                return HttpResult.Ok(result, result.Data.Select(x => 
+                    new SharedPosition(
+                        ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, x.ContractCode),
+                        x.ContractCode,
+                        new SharedOrderQuantity(contractQuantity: x.Quantity),
+                        default)
+                    {
+                        UnrealizedPnl = x.UnrealizedPnl,
+                        AverageOpenPrice = x.CostOpen,
+                        Leverage = x.LeverageRate,
+                        PositionMode = x.PositionMode == PositionMode.SingleSide ? SharedPositionMode.OneWay : SharedPositionMode.HedgeMode,
+                        PositionSide = x.Side == OrderSide.Sell ? SharedPositionSide.Short : SharedPositionSide.Long
+                    }).ToArray());
             }
             else
             {
@@ -863,14 +865,19 @@ namespace HTX.Net.Clients.UsdtFutures
                 if (!result.Success)
                     return HttpResult.Fail<SharedPosition[]>(result);
 
-                return HttpResult.Ok(result, result.Data.Select(x => new SharedPosition(ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, x.ContractCode), x.ContractCode, x.Quantity, default)
-                {
-                    UnrealizedPnl = x.UnrealizedPnl,
-                    AverageOpenPrice = x.CostOpen,
-                    Leverage = x.LeverageRate,
-                    PositionMode = x.PositionMode == PositionMode.SingleSide ? SharedPositionMode.OneWay : SharedPositionMode.HedgeMode,
-                    PositionSide = x.Side == OrderSide.Sell ? SharedPositionSide.Short : SharedPositionSide.Long
-                }).ToArray());
+                return HttpResult.Ok(result, result.Data.Select(x => 
+                    new SharedPosition(
+                        ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, x.ContractCode),
+                        x.ContractCode,
+                        new SharedOrderQuantity(contractQuantity: x.Quantity),
+                        default)
+                    {
+                        UnrealizedPnl = x.UnrealizedPnl,
+                        AverageOpenPrice = x.CostOpen,
+                        Leverage = x.LeverageRate,
+                        PositionMode = x.PositionMode == PositionMode.SingleSide ? SharedPositionMode.OneWay : SharedPositionMode.HedgeMode,
+                        PositionSide = x.Side == OrderSide.Sell ? SharedPositionSide.Short : SharedPositionSide.Long
+                    }).ToArray());
             }
         }
 
@@ -1256,7 +1263,7 @@ namespace HTX.Net.Clients.UsdtFutures
             if (!result.Success)
                 return HttpResult.Fail<SharedOrderBook>(result);
 
-            return HttpResult.Ok(result, new SharedOrderBook(result.Data.Asks, result.Data.Bids));
+            return HttpResult.Ok(result, new SharedOrderBook(SharedQuantityType.Contracts, result.Data.Asks, result.Data.Bids));
         }
 
         #endregion
@@ -1338,7 +1345,7 @@ namespace HTX.Net.Clients.UsdtFutures
             if (!result.Success)
                 return HttpResult.Fail<SharedOpenInterest>(result);
 
-            return HttpResult.Ok(result, new SharedOpenInterest(result.Data.Single().Volume));
+            return HttpResult.Ok(result, new SharedOpenInterest(new SharedOrderQuantity(result.Data.Single().Volume)));
         }
 
         #endregion

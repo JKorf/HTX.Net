@@ -14,7 +14,8 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         IOrderBookSocketClient,
         IBalanceSocketClient,
         ISpotOrderSocketClient,
-        IUserTradeSocketClient
+        IUserTradeSocketClient,
+        ISpotOrderManagementSocketClient
     {
     }
 }

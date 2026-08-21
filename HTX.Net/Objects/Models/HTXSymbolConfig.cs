@@ -137,7 +137,7 @@ namespace HTX.Net.Objects.Models
         /// ["<c>ct</c>"] ETP charge time
         /// </summary>
         [JsonPropertyName("ct")]
-        public string? ChareTime { get; set; }
+        public string? ChargeTime { get; set; }
         /// <summary>
         /// ["<c>rt</c>"] ETP rebal time
         /// </summary>

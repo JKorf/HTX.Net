@@ -115,7 +115,7 @@ namespace HTX.Net.Clients.SpotApi
                 MinTradeQuantity = s.MinOrderQuantity,
                 MaxTradeQuantity = s.MaxOrderQuantity,
                 DisplayName = s.Symbol,
-                QuoteAssetType = SharedAssetType.Crypto
+                QuoteAssetType = SharedAssetType.Crypto,
             };
 
             if (LibraryHelpers.IsCommodity(s.BaseAsset))
@@ -248,9 +248,9 @@ namespace HTX.Net.Clients.SpotApi
                 ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, symbol),
                 symbol,
                 resultTicker.Data.Asks[0].Price,
-                resultTicker.Data.Asks[0].Quantity,
+                new SharedOrderQuantity(resultTicker.Data.Asks[0].Quantity),
                 resultTicker.Data.Bids[0].Price,
-                resultTicker.Data.Bids[0].Quantity));
+                new SharedOrderQuantity(resultTicker.Data.Bids[0].Quantity)));
         }
 
         #endregion
@@ -518,7 +518,7 @@ namespace HTX.Net.Clients.SpotApi
                 x.OrderId.ToString(),
                 x.Id.ToString(),
                 x.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
-                x.Quantity,
+                new SharedOrderQuantity(x.Quantity),
                 x.Price,
                 x.Timestamp)
             {
@@ -571,7 +571,7 @@ namespace HTX.Net.Clients.SpotApi
                             x.OrderId.ToString(),
                             x.TradeId.ToString(),
                             x.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
-                            x.Quantity,
+                            new SharedOrderQuantity(x.Quantity),
                             x.Price,
                             x.Timestamp)
                         {
@@ -859,7 +859,7 @@ namespace HTX.Net.Clients.SpotApi
             if (!result.Success)
                 return HttpResult.Fail<SharedOrderBook>(result);
 
-            return HttpResult.Ok(result, new SharedOrderBook(result.Data.Asks, result.Data.Bids));
+            return HttpResult.Ok(result, new SharedOrderBook(SharedQuantityType.BaseAsset, result.Data.Asks, result.Data.Bids));
         }
 
         #endregion

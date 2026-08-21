@@ -72,7 +72,15 @@ namespace HTX.Net.Clients.UsdtFutures
                 return WebSocketResult.Fail<UpdateSubscription>(_exchangeName, validationError);
 
             var symbol = request.Symbol!.GetSymbol(FormatSymbol);
-            var result = await SubscribeToBookTickerUpdatesAsync(symbol, update => handler(update.ToType(new SharedBookTicker(ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, symbol), symbol, update.Data.Ask.Price, update.Data.Ask.Quantity, update.Data.Bid.Price, update.Data.Bid.Quantity))), ct).ConfigureAwait(false);
+            var result = await SubscribeToBookTickerUpdatesAsync(symbol, update => handler(
+                update.ToType(
+                    new SharedBookTicker(
+                        ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, symbol), 
+                        symbol, 
+                        update.Data.Ask.Price, 
+                        new SharedOrderQuantity(contractQuantity: update.Data.Ask.Quantity),
+                        update.Data.Bid.Price, 
+                        new SharedOrderQuantity(contractQuantity: update.Data.Bid.Quantity)))), ct).ConfigureAwait(false);
 
             return result;
         }
@@ -122,7 +130,9 @@ namespace HTX.Net.Clients.UsdtFutures
                 return WebSocketResult.Fail<UpdateSubscription>(_exchangeName, validationError);
 
             var symbol = request.Symbol!.GetSymbol(FormatSymbol);
-            var result = await SubscribeToOrderBookUpdatesAsync(symbol, 0, update => handler(update.ToType(new SharedOrderBook(update.Data.Asks, update.Data.Bids))), ct).ConfigureAwait(false);
+            var result = await SubscribeToOrderBookUpdatesAsync(symbol, 0, update => handler(
+                update.ToType(
+                    new SharedOrderBook(SharedQuantityType.Contracts, update.Data.Asks, update.Data.Bids))), ct).ConfigureAwait(false);
 
             return result;
         }
@@ -213,13 +223,22 @@ namespace HTX.Net.Clients.UsdtFutures
                         ReduceOnly = update.Data.ReduceOnly,
                         Fee = Math.Abs(update.Data.Fee),
                         FeeAsset = update.Data.FeeAsset,
-                        LastTrade = update.Data.Trade?.Any() != true ? null : new SharedUserTrade(ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, update.Data.ContractCode), update.Data.ContractCode, update.Data.OrderIdStr, lastTrade!.TradeId.ToString(), update.Data.OrderSide == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell, lastTrade.Quantity, lastTrade.Price, update.Data.Timestamp)
-                        {
-                            ClientOrderId = update.Data.ClientOrderId?.ToString(),
-                            Fee = Math.Abs(lastTrade.Fee),
-                            FeeAsset = lastTrade.FeeAsset,
-                            Role = lastTrade.Role == OrderRole.Maker ? SharedRole.Maker : SharedRole.Taker
-                        }
+                        LastTrade = update.Data.Trade?.Any() != true ? null : 
+                            new SharedUserTrade(
+                                ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, update.Data.ContractCode),
+                                update.Data.ContractCode, 
+                                update.Data.OrderIdStr, 
+                                lastTrade!.TradeId.ToString(), 
+                                update.Data.OrderSide == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell, 
+                                new SharedOrderQuantity(contractQuantity: lastTrade.Quantity), 
+                                lastTrade.Price,
+                                update.Data.Timestamp)
+                            {
+                                ClientOrderId = update.Data.ClientOrderId?.ToString(),
+                                Fee = Math.Abs(lastTrade.Fee),
+                                FeeAsset = lastTrade.FeeAsset,
+                                Role = lastTrade.Role == OrderRole.Maker ? SharedRole.Maker : SharedRole.Taker
+                            }
                     } }));
                 },
                 ct: ct).ConfigureAwait(false);
@@ -295,7 +314,7 @@ namespace HTX.Net.Clients.UsdtFutures
                                         update.Data.OrderId.ToString(),
                                         x.ToString(),
                                         update.Data.OrderSide == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
-                                        x.Quantity,
+                                        new SharedOrderQuantity(contractQuantity: x.Quantity),
                                         x.Price,
                                         x.CreateTime)
                                     {
@@ -317,7 +336,7 @@ namespace HTX.Net.Clients.UsdtFutures
                                         update.Data.OrderId.ToString(),
                                         x.ToString(),
                                         update.Data.OrderSide == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
-                                        x.Quantity,
+                                        new SharedOrderQuantity(contractQuantity: x.Quantity),
                                         x.Price,
                                         x.CreateTime)
                                     {
@@ -349,29 +368,38 @@ namespace HTX.Net.Clients.UsdtFutures
             if (marginMode == SharedMarginMode.Cross)
             {
                 var result = await SubscribeToCrossMarginPositionUpdatesAsync(
-                update => handler(update.ToType(update.Data.Data.Select(x => new SharedPosition(
-                    ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, x.ContractCode), x.ContractCode, x.Quantity, update.Data.Timestamp)
-                {
-                    AverageOpenPrice = x.PositionPrice,
-                    PositionMode = x.PositionMode == PositionMode.SingleSide ? SharedPositionMode.OneWay : SharedPositionMode.HedgeMode,
-                    PositionSide = x.OrderSide == Enums.OrderSide.Sell ? SharedPositionSide.Short : SharedPositionSide.Long,
-                    Leverage = x.LeverageRate,
-                    UnrealizedPnl = x.UnrealizedPnl
-                }).ToArray())),
+                update => handler(update.ToType(update.Data.Data.Select(x =>
+                    new SharedPosition(
+                        ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, x.ContractCode), 
+                        x.ContractCode,
+                        new SharedOrderQuantity(contractQuantity: x.Quantity), 
+                        update.Data.Timestamp)
+                    {
+                        AverageOpenPrice = x.PositionPrice,
+                        PositionMode = x.PositionMode == PositionMode.SingleSide ? SharedPositionMode.OneWay : SharedPositionMode.HedgeMode,
+                        PositionSide = x.OrderSide == Enums.OrderSide.Sell ? SharedPositionSide.Short : SharedPositionSide.Long,
+                        Leverage = x.LeverageRate,
+                        UnrealizedPnl = x.UnrealizedPnl
+                    }).ToArray())),
                 ct: ct).ConfigureAwait(false);
                 return result;
             }
             else
             {
                 var result = await SubscribeToIsolatedMarginPositionUpdatesAsync(
-                update => handler(update.ToType(update.Data.Data.Select(x => new SharedPosition(ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, x.ContractCode), x.ContractCode, x.Quantity, update.Data.Timestamp)
-                {
-                    AverageOpenPrice = x.PositionPrice,
-                    PositionMode = x.PositionMode == PositionMode.SingleSide ? SharedPositionMode.OneWay : SharedPositionMode.HedgeMode,
-                    PositionSide = x.OrderSide == Enums.OrderSide.Sell ? SharedPositionSide.Short : SharedPositionSide.Long,
-                    Leverage = x.LeverageRate,
-                    UnrealizedPnl = x.UnrealizedPnl
-                }).ToArray())),
+                update => handler(update.ToType(update.Data.Data.Select(x =>
+                    new SharedPosition(
+                        ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, x.ContractCode),
+                        x.ContractCode,
+                        new SharedOrderQuantity(contractQuantity: x.Quantity),
+                        update.Data.Timestamp)
+                    {
+                        AverageOpenPrice = x.PositionPrice,
+                        PositionMode = x.PositionMode == PositionMode.SingleSide ? SharedPositionMode.OneWay : SharedPositionMode.HedgeMode,
+                        PositionSide = x.OrderSide == Enums.OrderSide.Sell ? SharedPositionSide.Short : SharedPositionSide.Long,
+                        Leverage = x.LeverageRate,
+                        UnrealizedPnl = x.UnrealizedPnl
+                    }).ToArray())),
                 ct: ct).ConfigureAwait(false);
                 return result;
             }
