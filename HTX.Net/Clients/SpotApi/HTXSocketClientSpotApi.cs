@@ -25,6 +25,7 @@ namespace HTX.Net.Clients.SpotApi
     /// <inheritdoc />
     internal partial class HTXSocketClientSpotApi : SocketApiClient<HTXEnvironment, HTXAuthenticationProvider, HTXCredentials>, IHTXSocketClientSpotApi
     {
+        private readonly HTXSocketClientSpotSharedApi _sharedApi;
         protected override ErrorMapping ErrorMapping => HTXErrors.SpotMapping;
 
         /// <inheritdoc />
@@ -39,6 +40,8 @@ namespace HTX.Net.Clients.SpotApi
             AddSystemSubscription(new HTXSpotPingSubscription(_logger));
             AddSystemSubscription(new HTXPingSubscription(_logger));
 
+            _sharedApi = new HTXSocketClientSpotSharedApi(this);
+
             RateLimiter = HTXExchange.RateLimiter.SpotConnection;
 
             SetDedicatedConnection(options.Environment.SocketBaseAddress.AppendPath("ws/trade"), true);
@@ -50,7 +53,8 @@ namespace HTX.Net.Clients.SpotApi
 
         public override ISocketMessageHandler CreateMessageConverter(WebSocketMessageType messageType) => new HTXSocketSpotMessageHandler();
 
-        public IHTXSocketClientSpotApiShared SharedClient => this;
+        public IHTXSocketClientSpotApiShared SharedClient => _sharedApi;
+        public IHTXSocketClientSpotSharedApi SharedApi => _sharedApi;
 
         /// <inheritdoc />
         public override string FormatSymbol(string baseAsset, string quoteAsset, TradingMode tradingMode, DateTime? deliverTime = null)

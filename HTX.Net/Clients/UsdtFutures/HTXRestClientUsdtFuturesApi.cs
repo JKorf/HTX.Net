@@ -14,6 +14,8 @@ namespace HTX.Net.Clients.UsdtFutures
     /// <inheritdoc />
     internal partial class HTXRestClientUsdtFuturesApi : RestApiClient<HTXEnvironment, HTXAuthenticationProvider, HTXCredentials>, IHTXRestClientUsdtFuturesApi
     {
+        private readonly HTXRestClientUsdtFuturesSharedApi _sharedApi;
+
         /// <inheritdoc />
         public new HTXRestOptions ClientOptions => (HTXRestOptions)base.ClientOptions;
 
@@ -46,12 +48,14 @@ namespace HTX.Net.Clients.UsdtFutures
             SubAccount = new HTXRestClientUsdtFuturesApiSubAccount(this);
             Trading = new HTXRestClientUsdtFuturesApiTrading(this);
 
+            _sharedApi = new HTXRestClientUsdtFuturesSharedApi(this);
         }
         #endregion
 
         protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(HTXExchange._serializerContext));
 
-        public IHTXRestClientUsdtFuturesApiShared SharedClient => this;
+        public IHTXRestClientUsdtFuturesApiShared SharedClient => _sharedApi;
+        public IHTXRestClientUsdtFuturesSharedApi SharedApi => _sharedApi;
 
         /// <inheritdoc />
         public override string FormatSymbol(string baseAsset, string quoteAsset, TradingMode tradingMode, DateTime? deliverTime = null)

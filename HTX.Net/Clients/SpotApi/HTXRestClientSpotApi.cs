@@ -14,6 +14,8 @@ namespace HTX.Net.Clients.SpotApi
     /// <inheritdoc />
     internal partial class HTXRestClientSpotApi : RestApiClient<HTXEnvironment, HTXAuthenticationProvider, HTXCredentials>, IHTXRestClientSpotApi
     {
+        private readonly HTXRestClientSpotSharedApi _sharedApi;
+
         /// <inheritdoc />
         public new HTXRestOptions ClientOptions => (HTXRestOptions)base.ClientOptions;
 
@@ -49,6 +51,7 @@ namespace HTX.Net.Clients.SpotApi
             Margin = new HTXRestClientSpotApiMargin(this);
             Trading = new HTXRestClientSpotApiTrading(this);
 
+            _sharedApi = new HTXRestClientSpotSharedApi(this);
         }
         #endregion
 
@@ -123,6 +126,7 @@ namespace HTX.Net.Clients.SpotApi
         protected override Task<HttpResult<DateTime>> GetServerTimestampAsync()
             => ExchangeData.GetServerTimeAsync();
 
-        public IHTXRestClientSpotApiShared SharedClient => this;
+        public IHTXRestClientSpotApiShared SharedClient => _sharedApi;
+        public IHTXRestClientSpotSharedApi SharedApi => _sharedApi;
     }
 }
