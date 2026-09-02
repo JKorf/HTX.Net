@@ -17,22 +17,4 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesApi
         IPositionSocketClient
     {
     }
-
-    /// <summary>
-    /// Shared API interface. Shared APIs provide a common,
-    /// exchange-independent contract for accessing functionality across different
-    /// exchange client libraries.
-    /// </summary>
-    public interface IHTXSocketClientUsdtFuturesSharedApi :
-        ISubscribeTickerSocket,
-        ISubscribeTradesSocket,
-        ISubscribeBookTickerSocket,
-        ISubscribeOrderBookSocket,
-        ISubscribeKlinesSocket,
-        ISubscribeBalancesSocket,
-        ISubscribeFuturesOrdersSocket,
-        ISubscribeUserTradesSocket,
-        ISubscribePositionsSocket
-    { 
-    }
 }

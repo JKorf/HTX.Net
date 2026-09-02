@@ -1,19 +1,18 @@
-﻿using CryptoExchange.Net.Authentication;
-using CryptoExchange.Net.Clients;
-using CryptoExchange.Net.Objects;
-using CryptoExchange.Net.Testing;
+﻿using NUnit.Framework;
+using System;
+using System.Threading.Tasks;
 using HTX.Net.Clients;
-using HTX.Net.Clients.SpotApi;
-using HTX.Net.Interfaces.Clients;
+using NUnit.Framework.Legacy;
+using CryptoExchange.Net.Authentication;
+using CryptoExchange.Net.Clients;
+using System.Net.Http;
+using System.Collections.Generic;
+using System.Text.Json;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using NUnit.Framework;
-using NUnit.Framework.Legacy;
-using System;
-using System.Collections.Generic;
-using System.Net.Http;
-using System.Text.Json;
-using System.Threading.Tasks;
+using HTX.Net.Interfaces.Clients;
+using CryptoExchange.Net.Objects;
+using HTX.Net.Clients.SpotApi;
 
 namespace HTX.Net.UnitTests
 {
@@ -156,42 +155,6 @@ namespace HTX.Net.UnitTests
             Assert.That(((BaseApiClient)restClient.SpotApi).ClientOptions.Proxy.Port, Is.EqualTo(80));
             Assert.That(((BaseApiClient)socketClient.SpotApi).ClientOptions.Proxy.Host, Is.EqualTo("host2"));
             Assert.That(((BaseApiClient)socketClient.SpotApi).ClientOptions.Proxy.Port, Is.EqualTo(81));
-        }
-
-        [Test]
-        public void TestFuturesRestSharedApiDiscoveryMatchesAggregate()
-        {
-            var (missingOptions, missingInterfaces) = TestHelpers.ValidateSharedApi(new HTXRestClient().UsdtFuturesApi.SharedApi);
-
-            Assert.That(missingOptions, Is.Empty);
-            Assert.That(missingInterfaces, Is.Empty);
-        }
-
-        [Test]
-        public void TestFuturesSocketSharedApiDiscoveryMatchesAggregate()
-        {
-            var (missingOptions, missingInterfaces) = TestHelpers.ValidateSharedApi(new HTXSocketClient().UsdtFuturesApi.SharedApi);
-
-            Assert.That(missingOptions, Is.Empty);
-            Assert.That(missingInterfaces, Is.Empty);
-        }
-
-        [Test]
-        public void TestSpotRestSharedApiDiscoveryMatchesAggregate()
-        {
-            var (missingOptions, missingInterfaces) = TestHelpers.ValidateSharedApi(new HTXRestClient().SpotApi.SharedApi);
-
-            Assert.That(missingOptions, Is.Empty);
-            Assert.That(missingInterfaces, Is.Empty);
-        }
-
-        [Test]
-        public void TestSpotSocketSharedApiDiscoveryMatchesAggregate()
-        {
-            var (missingOptions, missingInterfaces) = TestHelpers.ValidateSharedApi(new HTXSocketClient().SpotApi.SharedApi);
-
-            Assert.That(missingOptions, Is.Empty);
-            Assert.That(missingInterfaces, Is.Empty);
         }
     }
 }
