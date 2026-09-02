@@ -122,7 +122,9 @@ namespace HTX.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<HttpResult<DateTime>> GetServerTimeAsync(CancellationToken ct = default)
         {
-            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "v1/common/timestamp", HTXExchange.RateLimiter.EndpointLimit, 1, false, preventCaching: true,
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "v1/common/timestamp", HTXExchange.RateLimiter.EndpointLimit, 1, false, 
+                preventCaching: true,
+                preventRequestCoalescing: true,
                 limitGuard: new SingleLimitGuard(100, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding));
             var result = await _baseClient.SendBasicAsync<long?>(request, null, ct).ConfigureAwait(false);
             if (!result.Success)
