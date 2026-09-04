@@ -21,6 +21,7 @@ namespace HTX.Net.Clients.SpotApi
 
         public HTXSocketClientSpotSharedApi(HTXSocketClientSpotApi api)
         : base(
+                  SharedTransport.Socket,
                   api.Exchange,
                   [TradingMode.Spot],
                   () => api.Authenticated,

@@ -8,7 +8,8 @@ namespace HTX.Net.Clients.UsdtFutures
 {
     internal partial class HTXSocketClientUsdtFuturesSharedApi
     {
-        #region Balance client
+        #region Subscribe Balances
+
         public SubscribeBalanceOptions SubscribeBalanceOptions { get; } = new SubscribeBalanceOptions(_exchangeName, false)
         {
             RequiredExchangeParameters = new List<ParameterDescription>
@@ -51,6 +52,7 @@ namespace HTX.Net.Clients.UsdtFutures
             }
 
         }
+
         #endregion
     }
 }

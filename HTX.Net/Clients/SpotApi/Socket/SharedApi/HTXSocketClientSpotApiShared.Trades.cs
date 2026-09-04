@@ -9,7 +9,7 @@ namespace HTX.Net.Clients.SpotApi
 {
     internal partial class HTXSocketClientSpotSharedApi
     {
-        #region Trade client
+        #region Subscribe Trades
 
         public SubscribeTradeOptions SubscribeTradeOptions { get; } = new SubscribeTradeOptions(_exchangeName, false);
         public async Task<WebSocketResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(SubscribeTradeRequest request, Action<DataEvent<SharedTrade[]>> handler, CancellationToken ct)
@@ -27,6 +27,7 @@ namespace HTX.Net.Clients.SpotApi
 
             return result;
         }
+
         #endregion
     }
 }

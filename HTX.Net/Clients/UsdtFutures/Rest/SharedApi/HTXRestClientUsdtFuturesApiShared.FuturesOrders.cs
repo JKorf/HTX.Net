@@ -9,7 +9,6 @@ namespace HTX.Net.Clients.UsdtFutures
 {
     internal partial class HTXRestClientUsdtFuturesSharedApi
     {
-        #region Futures Order Client
 
         public SharedFeeDeductionType FuturesFeeDeductionType => SharedFeeDeductionType.AddToCost;
         public SharedFeeAssetType FuturesFeeAssetType => SharedFeeAssetType.QuoteAsset;
@@ -22,6 +21,10 @@ namespace HTX.Net.Clients.UsdtFutures
                 SharedQuantityType.Contracts);
 
         public string GenerateClientOrderId() => ExchangeHelpers.RandomLong(10).ToString();
+        #region Place Futures Order
+
+        async Task<ICallResult<SharedId>> IPlaceFuturesOrder.PlaceFuturesOrderAsync(PlaceFuturesOrderRequest request, CancellationToken ct)
+            => await PlaceFuturesOrderAsync(request, ct).ConfigureAwait(false);
 
         public PlaceFuturesOrderOptions PlaceFuturesOrderOptions { get; } = new PlaceFuturesOrderOptions(_exchangeName, true)
         {
@@ -90,6 +93,12 @@ namespace HTX.Net.Clients.UsdtFutures
                 return HttpResult.Ok(result, new SharedId(result.Data.OrderId.ToString()));
             }
         }
+
+        #endregion
+        #region Get Futures Order
+
+        async Task<ICallResult<SharedFuturesOrder>> IGetFuturesOrder.GetFuturesOrderAsync(GetOrderRequest request, CancellationToken ct)
+            => await GetFuturesOrderAsync(request, ct).ConfigureAwait(false);
 
         public GetFuturesOrderOptions GetFuturesOrderOptions { get; } = new GetFuturesOrderOptions(_exchangeName, true)
         {
@@ -166,6 +175,12 @@ namespace HTX.Net.Clients.UsdtFutures
             }
         }
 
+        #endregion
+        #region Get Open Futures Orders
+
+        async Task<ICallResult<SharedFuturesOrder[]>> IGetOpenFuturesOrders.GetOpenFuturesOrdersAsync(GetOpenOrdersRequest request, CancellationToken ct)
+            => await GetOpenFuturesOrdersAsync(request, ct).ConfigureAwait(false);
+
         public GetOpenFuturesOrdersOptions GetOpenFuturesOrdersOptions { get; } = new GetOpenFuturesOrdersOptions(_exchangeName, true)
         {
             RequiredExchangeParameters = new List<ParameterDescription>
@@ -240,6 +255,12 @@ namespace HTX.Net.Clients.UsdtFutures
                 }).ToArray());
             }
         }
+
+        #endregion
+        #region Get Closed Futures Orders
+
+        async Task<ICallResult<SharedFuturesOrder[]>> IGetClosedFuturesOrders.GetClosedFuturesOrdersAsync(GetClosedOrdersRequest request, PageRequest? pageRequest, CancellationToken ct)
+            => await GetClosedFuturesOrdersAsync(request, pageRequest, ct).ConfigureAwait(false);
 
         public GetFuturesClosedOrdersOptions GetClosedFuturesOrdersOptions { get; } = new GetFuturesClosedOrdersOptions(_exchangeName, false, true, true, 1000)
         {
@@ -363,6 +384,12 @@ namespace HTX.Net.Clients.UsdtFutures
 
         }
 
+        #endregion
+        #region Get Futures Order Trades
+
+        async Task<ICallResult<SharedUserTrade[]>> IGetFuturesOrderTrades.GetFuturesOrderTradesAsync(GetOrderTradesRequest request, CancellationToken ct)
+            => await GetFuturesOrderTradesAsync(request, ct).ConfigureAwait(false);
+
         public GetFuturesOrderTradesOptions GetFuturesOrderTradesOptions { get; } = new GetFuturesOrderTradesOptions(_exchangeName, true)
         {
             RequiredExchangeParameters = new List<ParameterDescription>
@@ -425,6 +452,13 @@ namespace HTX.Net.Clients.UsdtFutures
                 }).ToArray());
             }
         }
+
+        #endregion
+        #region Get Futures User Trade History
+
+        async Task<ICallResult<SharedUserTrade[]>> IGetFuturesUserTradeHistory.GetFuturesUserTradeHistoryAsync(GetUserTradesRequest request, PageRequest? pageRequest, CancellationToken ct)
+            => await GetFuturesUserTradeHistoryAsync(request, pageRequest, ct).ConfigureAwait(false);
+
         Task<HttpResult<SharedUserTrade[]>> IFuturesOrderRestClient.GetFuturesUserTradesAsync(GetUserTradesRequest request, PageRequest? pageRequest, CancellationToken ct)
             => GetFuturesUserTradeHistoryAsync(request, pageRequest, ct);
         GetFuturesUserTradeHistoryOptions IFuturesOrderRestClient.GetFuturesUserTradesOptions => GetFuturesUserTradeHistoryOptions;
@@ -535,6 +569,12 @@ namespace HTX.Net.Clients.UsdtFutures
             }
         }
 
+        #endregion
+        #region Cancel Futures Order
+
+        async Task<ICallResult<SharedId>> ICancelFuturesOrder.CancelFuturesOrderAsync(CancelOrderRequest request, CancellationToken ct)
+            => await CancelFuturesOrderAsync(request, ct).ConfigureAwait(false);
+
         public CancelFuturesOrderOptions CancelFuturesOrderOptions { get; } = new CancelFuturesOrderOptions(_exchangeName, true)
         {
             RequiredExchangeParameters = new List<ParameterDescription>
@@ -569,6 +609,12 @@ namespace HTX.Net.Clients.UsdtFutures
                 return HttpResult.Ok(order, new SharedId(request.OrderId));
             }
         }
+
+        #endregion
+        #region Get Positions
+
+        async Task<ICallResult<SharedPosition[]>> IGetPositions.GetPositionsAsync(GetPositionsRequest request, CancellationToken ct)
+            => await GetPositionsAsync(request, ct).ConfigureAwait(false);
 
         public GetPositionsOptions GetPositionsOptions { get; } = new GetPositionsOptions(_exchangeName, true)
         {
@@ -625,6 +671,12 @@ namespace HTX.Net.Clients.UsdtFutures
             }
         }
 
+        #endregion
+        #region Close Position
+
+        async Task<ICallResult<SharedId>> IClosePosition.ClosePositionAsync(ClosePositionRequest request, CancellationToken ct)
+            => await ClosePositionAsync(request, ct).ConfigureAwait(false);
+
         public ClosePositionOptions ClosePositionOptions { get; } = new ClosePositionOptions(_exchangeName, true)
         {
             RequiredExchangeParameters = new List<ParameterDescription>
@@ -662,6 +714,8 @@ namespace HTX.Net.Clients.UsdtFutures
                 return HttpResult.Ok(result, new SharedId(result.Data.OrderId.ToString()!));
             }
         }
+
+        #endregion
 
         private OrderPriceType GetOrderPriceType(SharedOrderType type, SharedTimeInForce? tif)
         {
@@ -729,9 +783,10 @@ namespace HTX.Net.Clients.UsdtFutures
             if (side == OrderSide.Sell) return SharedPositionSide.Long;
             return SharedPositionSide.Short;
         }
-        #endregion
+        #region Get Futures Order By Client Order Id
 
-        #region Futures Client Id Order Client
+        async Task<ICallResult<SharedFuturesOrder>> IGetFuturesOrderByClientOrderId.GetFuturesOrderByClientOrderIdAsync(GetOrderRequest request, CancellationToken ct)
+            => await GetFuturesOrderByClientOrderIdAsync(request, ct).ConfigureAwait(false);
 
         public GetFuturesOrderByClientOrderIdOptions GetFuturesOrderByClientOrderIdOptions { get; } = new GetFuturesOrderByClientOrderIdOptions(_exchangeName, true)
         {
@@ -805,6 +860,12 @@ namespace HTX.Net.Clients.UsdtFutures
             }
         }
 
+        #endregion
+        #region Cancel Futures Order By Client Order Id
+
+        async Task<ICallResult<SharedId>> ICancelFuturesOrderByClientOrderId.CancelFuturesOrderByClientOrderIdAsync(CancelOrderRequest request, CancellationToken ct)
+            => await CancelFuturesOrderByClientOrderIdAsync(request, ct).ConfigureAwait(false);
+
         public CancelFuturesOrderByClientOrderIdOptions CancelFuturesOrderByClientOrderIdOptions { get; } = new CancelFuturesOrderByClientOrderIdOptions(_exchangeName, true)
         {
             RequiredExchangeParameters = new List<ParameterDescription>
@@ -836,6 +897,7 @@ namespace HTX.Net.Clients.UsdtFutures
                 return HttpResult.Ok(order, new SharedId(request.OrderId));
             }
         }
+
         #endregion
     }
 }

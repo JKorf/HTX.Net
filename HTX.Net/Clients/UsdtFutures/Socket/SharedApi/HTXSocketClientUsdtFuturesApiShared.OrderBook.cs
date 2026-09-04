@@ -8,7 +8,8 @@ namespace HTX.Net.Clients.UsdtFutures
 {
     internal partial class HTXSocketClientUsdtFuturesSharedApi
     {
-        #region Order Book client
+        #region Subscribe Order Book
+
         public SubscribeOrderBookOptions SubscribeOrderBookOptions { get; } = new SubscribeOrderBookOptions(_exchangeName, false, new[] { 150 });
         public async Task<WebSocketResult<UpdateSubscription>> SubscribeToOrderBookUpdatesAsync(SubscribeOrderBookRequest request, Action<DataEvent<SharedOrderBook>> handler, CancellationToken ct)
         {
@@ -23,6 +24,7 @@ namespace HTX.Net.Clients.UsdtFutures
 
             return result;
         }
+
         #endregion
     }
 }

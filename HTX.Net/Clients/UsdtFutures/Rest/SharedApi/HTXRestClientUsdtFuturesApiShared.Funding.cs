@@ -9,7 +9,11 @@ namespace HTX.Net.Clients.UsdtFutures
 {
     internal partial class HTXRestClientUsdtFuturesSharedApi
     {
-        #region Funding Rate client
+        #region Get Funding Rate History
+
+        async Task<ICallResult<SharedFundingRate[]>> IGetFundingRateHistory.GetFundingRateHistoryAsync(GetFundingRateHistoryRequest request, PageRequest? pageRequest, CancellationToken ct)
+            => await GetFundingRateHistoryAsync(request, pageRequest, ct).ConfigureAwait(false);
+
         public GetFundingRateHistoryOptions GetFundingRateHistoryOptions { get; } = new GetFundingRateHistoryOptions(_exchangeName, false, true, false, 50, false);
 
         public async Task<HttpResult<SharedFundingRate[]>> GetFundingRateHistoryAsync(GetFundingRateHistoryRequest request, PageRequest? pageRequest, CancellationToken ct)
@@ -45,6 +49,7 @@ namespace HTX.Net.Clients.UsdtFutures
                         new SharedFundingRate(x.FundingRate, x.FundingTime))
                     .ToArray(), nextPageRequest);
         }
+
         #endregion
     }
 }

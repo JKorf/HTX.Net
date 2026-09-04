@@ -9,7 +9,11 @@ namespace HTX.Net.Clients.SpotApi
 {
     internal partial class HTXRestClientSpotSharedApi
     {
-        #region Order Book client
+        #region Get Order Book
+
+        async Task<ICallResult<SharedOrderBook>> IGetOrderBook.GetOrderBookAsync(GetOrderBookRequest request, CancellationToken ct)
+            => await GetOrderBookAsync(request, ct).ConfigureAwait(false);
+
         public GetOrderBookOptions GetOrderBookOptions { get; } = new GetOrderBookOptions(_exchangeName, new[] { 5, 10, 20 }, false);
         public async Task<HttpResult<SharedOrderBook>> GetOrderBookAsync(GetOrderBookRequest request, CancellationToken ct)
         {

@@ -9,7 +9,8 @@ namespace HTX.Net.Clients.SpotApi
 {
     internal partial class HTXSocketClientSpotSharedApi
     {
-        #region Spot Order client
+
+        #region Subscribe Spot Orders
 
         async Task<WebSocketResult<UpdateSubscription>> ISpotOrderSocketClient.SubscribeToSpotOrderUpdatesAsync(SubscribeSpotOrderRequest request, Action<DataEvent<SharedSpotOrder[]>> handler, CancellationToken ct)
             => await SubscribeToSpotOrderUpdatesAsync(request, x => handler(x.ToType<SharedSpotOrder[]>(x.Data)), ct).ConfigureAwait(false);
@@ -30,9 +31,8 @@ namespace HTX.Net.Clients.SpotApi
 
             return result;
         }
-        #endregion
 
-        #region Spot Order Management client
+        #endregion
 
         public SharedFeeDeductionType SpotFeeDeductionType => SharedFeeDeductionType.DeductFromOutput;
         public SharedFeeAssetType SpotFeeAssetType => SharedFeeAssetType.OutputAsset;
@@ -46,6 +46,11 @@ namespace HTX.Net.Clients.SpotApi
                 SharedQuantityType.BaseAsset);
 
         public string GenerateClientOrderId() => ExchangeHelpers.RandomString(32);
+        #region Place Spot Order
+
+        PlaceSpotOrderOptions IPlaceSpotOrder.PlaceSpotOrderOptions => PlaceSpotOrderOptions;
+        async Task<ICallResult<SharedId>> IPlaceSpotOrder.PlaceSpotOrderAsync(PlaceSpotOrderRequest request, CancellationToken ct)
+            => await PlaceSpotOrderAsync(request, ct).ConfigureAwait(false);
 
         public PlaceSpotOrderSocketOptions PlaceSpotOrderOptions { get; } = new PlaceSpotOrderSocketOptions(_exchangeName)
         {
@@ -80,6 +85,14 @@ namespace HTX.Net.Clients.SpotApi
 
             return QueryResult.Ok(result, new SharedId(result.Data.ToString()));
         }
+
+        #endregion
+        #region Cancel Spot Order
+
+        CancelSpotOrderOptions ICancelSpotOrder.CancelSpotOrderOptions => CancelSpotOrderOptions;
+        async Task<ICallResult<SharedId>> ICancelSpotOrder.CancelSpotOrderAsync(CancelOrderRequest request, CancellationToken ct)
+            => await CancelSpotOrderAsync(request, ct).ConfigureAwait(false);
+
         public CancelSpotOrderSocketOptions CancelSpotOrderOptions { get; } = new CancelSpotOrderSocketOptions(_exchangeName, true);
         public async Task<QueryResult<SharedId>> CancelSpotOrderAsync(CancelOrderRequest request, CancellationToken ct)
         {
@@ -94,6 +107,8 @@ namespace HTX.Net.Clients.SpotApi
             return QueryResult.Ok(order, new SharedId(request.OrderId));
         }
 
+        #endregion
+
         private OrderType GetPlaceOrderType(SharedOrderType type, SharedTimeInForce? tif)
         {
             if (type == SharedOrderType.Limit && (tif == null || tif == SharedTimeInForce.GoodTillCanceled)) return OrderType.Limit;
@@ -104,8 +119,6 @@ namespace HTX.Net.Clients.SpotApi
 
             throw new ArgumentException($"The combination of order type `{type}` and time in force `{tif}` in invalid");
         }
-
-        #endregion
 
         public SharedSpotOrderUpdate ParseOrder(HTXOrderUpdate orderUpdate)
         {

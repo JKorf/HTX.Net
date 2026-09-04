@@ -8,7 +8,8 @@ namespace HTX.Net.Clients.UsdtFutures
 {
     internal partial class HTXSocketClientUsdtFuturesSharedApi
     {
-        #region Ticker client
+        #region Subscribe Ticker
+
         async Task<WebSocketResult<UpdateSubscription>> ISubscribeTickerSocket.SubscribeToTickerUpdatesAsync(SubscribeTickerRequest request, Action<DataEvent<SharedTicker>> handler, CancellationToken ct)
             => await SubscribeToTickerUpdatesAsync(request, x => handler(x.ToType<SharedTicker>(x.Data)), ct).ConfigureAwait(false);
 
@@ -34,6 +35,7 @@ namespace HTX.Net.Clients.UsdtFutures
 
             return result;
         }
+
         #endregion
     }
 }

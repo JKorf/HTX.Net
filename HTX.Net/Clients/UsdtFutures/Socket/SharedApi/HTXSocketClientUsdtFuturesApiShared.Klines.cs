@@ -8,7 +8,8 @@ namespace HTX.Net.Clients.UsdtFutures
 {
     internal partial class HTXSocketClientUsdtFuturesSharedApi
     {
-        #region Kline client
+        #region Subscribe Klines
+
         public SubscribeKlineOptions SubscribeKlineOptions { get; } = new SubscribeKlineOptions(_exchangeName, false,
             SharedKlineInterval.OneMinute,
             SharedKlineInterval.ThreeMinutes,
@@ -41,6 +42,7 @@ namespace HTX.Net.Clients.UsdtFutures
 
             return result;
         }
+
         #endregion
     }
 }

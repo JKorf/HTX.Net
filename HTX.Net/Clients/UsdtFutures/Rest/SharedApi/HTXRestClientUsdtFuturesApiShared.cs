@@ -21,6 +21,7 @@ namespace HTX.Net.Clients.UsdtFutures
 
         public HTXRestClientUsdtFuturesSharedApi(HTXRestClientUsdtFuturesApi api)
              : base(
+                  SharedTransport.Rest,
                   api.Exchange,
                   [TradingMode.PerpetualLinear, TradingMode.DeliveryLinear],
                   () => api.Authenticated,

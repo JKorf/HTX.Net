@@ -8,7 +8,8 @@ namespace HTX.Net.Clients.UsdtFutures
 {
     internal partial class HTXSocketClientUsdtFuturesSharedApi
     {
-        #region Position client
+        #region Subscribe Positions
+
         public SubscribePositionOptions SubscribePositionOptions { get; } = new SubscribePositionOptions(_exchangeName, true)
         {
             RequiredExchangeParameters = new List<ParameterDescription>

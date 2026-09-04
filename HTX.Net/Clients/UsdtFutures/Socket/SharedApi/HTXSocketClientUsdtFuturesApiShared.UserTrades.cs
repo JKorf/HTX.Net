@@ -8,7 +8,8 @@ namespace HTX.Net.Clients.UsdtFutures
 {
     internal partial class HTXSocketClientUsdtFuturesSharedApi
     {
-        #region User Trade client
+        #region Subscribe User Trades
+
         public SubscribeUserTradeOptions SubscribeUserTradeOptions { get; } = new SubscribeUserTradeOptions(_exchangeName, false)
         {
             RequiredExchangeParameters = new List<ParameterDescription>
@@ -68,6 +69,7 @@ namespace HTX.Net.Clients.UsdtFutures
                 return result;
             }
         }
+
         #endregion
     }
 }

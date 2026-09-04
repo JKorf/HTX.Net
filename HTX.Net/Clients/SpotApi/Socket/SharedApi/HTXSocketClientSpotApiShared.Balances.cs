@@ -9,7 +9,8 @@ namespace HTX.Net.Clients.SpotApi
 {
     internal partial class HTXSocketClientSpotSharedApi
     {
-        #region Balance client
+        #region Subscribe Balances
+
         public SubscribeBalanceOptions SubscribeBalanceOptions { get; } = new SubscribeBalanceOptions(_exchangeName, false);
         public async Task<WebSocketResult<UpdateSubscription>> SubscribeToBalanceUpdatesAsync(SubscribeBalancesRequest request, Action<DataEvent<SharedBalance[]>> handler, CancellationToken ct)
         {
@@ -28,6 +29,7 @@ namespace HTX.Net.Clients.SpotApi
 
             return result;
         }
+
         #endregion
     }
 }

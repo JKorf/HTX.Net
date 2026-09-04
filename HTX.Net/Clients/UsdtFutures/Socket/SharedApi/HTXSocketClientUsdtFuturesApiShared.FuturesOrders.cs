@@ -8,7 +8,8 @@ namespace HTX.Net.Clients.UsdtFutures
 {
     internal partial class HTXSocketClientUsdtFuturesSharedApi
     {
-        #region Futures Order client
+
+        #region Subscribe Futures Orders
 
         async Task<WebSocketResult<UpdateSubscription>> IFuturesOrderSocketClient.SubscribeToFuturesOrderUpdatesAsync(SubscribeFuturesOrderRequest request, Action<DataEvent<SharedFuturesOrder[]>> handler, CancellationToken ct)
             => await SubscribeToFuturesOrderUpdatesAsync(request, x => handler(x.ToType<SharedFuturesOrder[]>(x.Data)), ct).ConfigureAwait(false);
@@ -76,6 +77,8 @@ namespace HTX.Net.Clients.UsdtFutures
             return result;
         }
 
+        #endregion
+
         private SharedOrderStatus ParseOrderStatus(OrderStatusFilter status)
         {
             if (status == OrderStatusFilter.Submitted || status == OrderStatusFilter.ReadyToPlace || status == OrderStatusFilter.PartiallyMatched) return SharedOrderStatus.Open;
@@ -116,6 +119,5 @@ namespace HTX.Net.Clients.UsdtFutures
             if (side == OrderSide.Sell) return SharedPositionSide.Long;
             return SharedPositionSide.Short;
         }
-        #endregion
     }
 }

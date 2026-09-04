@@ -1,4 +1,4 @@
-﻿using CryptoExchange.Net.Clients;
+using CryptoExchange.Net.Clients;
 using CryptoExchange.Net.Interfaces.Clients;
 using HTX.Net;
 using HTX.Net.Clients;
@@ -52,7 +52,6 @@ namespace Microsoft.Extensions.DependencyInjection
             options.Rest.AllowAppendingClientOrderId = options.Rest.AllowAppendingClientOrderId || options.AllowAppendingClientOrderId;
             options.Socket.Environment = HTXEnvironment.GetEnvironmentByName(socketEnvName) ?? options.Socket.Environment!;
             options.Socket.ApiCredentials = options.Socket.ApiCredentials ?? options.ApiCredentials;
-
 
             services.AddSingleton(x => Options.Options.Create(options.Rest));
             services.AddSingleton(x => Options.Options.Create(options.Socket));
@@ -114,6 +113,13 @@ namespace Microsoft.Extensions.DependencyInjection
                 x.GetRequiredService<ILoggerFactory>(),
                 x.GetRequiredService<IOptions<HTXRestOptions>>(),
                 x.GetRequiredService<IOptions<HTXSocketOptions>>()));
+
+            services.AddTransient<IHTXSharedApiClient, HTXSharedApiClient>();
+
+            services.RegisterSharedApi(x => x.GetRequiredService<IHTXRestClient>().SpotApi.SharedApi);
+            services.RegisterSharedApi(x => x.GetRequiredService<IHTXSocketClient>().SpotApi.SharedApi);
+            services.RegisterSharedApi(x => x.GetRequiredService<IHTXRestClient>().UsdtFuturesApi.SharedApi);
+            services.RegisterSharedApi(x => x.GetRequiredService<IHTXSocketClient>().UsdtFuturesApi.SharedApi);
 
             services.RegisterSharedRestInterfaces(x => x.GetRequiredService<IHTXRestClient>().SpotApi.SharedClient);
             services.RegisterSharedSocketInterfaces(x => x.GetRequiredService<IHTXSocketClient>().SpotApi.SharedClient);

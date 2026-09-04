@@ -9,7 +9,10 @@ namespace HTX.Net.Clients.UsdtFutures
 {
     internal partial class HTXRestClientUsdtFuturesSharedApi
     {
-        #region Klines client
+        #region Get Klines
+
+        async Task<ICallResult<SharedKline[]>> IGetKlines.GetKlinesAsync(GetKlinesRequest request, PageRequest? pageRequest, CancellationToken ct)
+            => await GetKlinesAsync(request, pageRequest, ct).ConfigureAwait(false);
 
         public GetKlinesOptions GetKlinesOptions { get; } = new GetKlinesOptions(_exchangeName, false, true, true, 1000, false,
             SharedKlineInterval.OneMinute,
@@ -78,8 +81,10 @@ namespace HTX.Net.Clients.UsdtFutures
         }
 
         #endregion
+        #region Get Mark Price Klines
 
-        #region Mark Klines client
+        async Task<ICallResult<SharedFuturesKline[]>> IGetMarkPriceKlines.GetMarkPriceKlinesAsync(GetKlinesRequest request, PageRequest? pageRequest, CancellationToken ct)
+            => await GetMarkPriceKlinesAsync(request, pageRequest, ct).ConfigureAwait(false);
 
         public GetMarkPriceKlinesOptions GetMarkPriceKlinesOptions { get; } = new GetMarkPriceKlinesOptions(_exchangeName, true, true, false, 2000, false);
 
@@ -121,8 +126,10 @@ namespace HTX.Net.Clients.UsdtFutures
         }
 
         #endregion
+        #region Get Index Price Klines
 
-        #region Index Klines client
+        async Task<ICallResult<SharedFuturesKline[]>> IGetIndexPriceKlines.GetIndexPriceKlinesAsync(GetKlinesRequest request, PageRequest? pageRequest, CancellationToken ct)
+            => await GetIndexPriceKlinesAsync(request, pageRequest, ct).ConfigureAwait(false);
 
         public GetIndexPriceKlinesOptions GetIndexPriceKlinesOptions { get; } = new GetIndexPriceKlinesOptions(_exchangeName, true, true, false, 2000, false);
 

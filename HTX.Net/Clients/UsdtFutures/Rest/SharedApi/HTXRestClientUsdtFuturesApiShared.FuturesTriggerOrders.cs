@@ -9,7 +9,11 @@ namespace HTX.Net.Clients.UsdtFutures
 {
     internal partial class HTXRestClientUsdtFuturesSharedApi
     {
-        #region Futures Trigger Order Client
+        #region Place Futures Trigger Order
+
+        async Task<ICallResult<SharedId>> IPlaceFuturesTriggerOrder.PlaceFuturesTriggerOrderAsync(PlaceFuturesTriggerOrderRequest request, CancellationToken ct)
+            => await PlaceFuturesTriggerOrderAsync(request, ct).ConfigureAwait(false);
+
         public PlaceFuturesTriggerOrderOptions PlaceFuturesTriggerOrderOptions { get; } = new PlaceFuturesTriggerOrderOptions(_exchangeName, false)
         {
             OptionalExchangeParameters = new List<ParameterDescription>
@@ -71,6 +75,12 @@ namespace HTX.Net.Clients.UsdtFutures
                 return HttpResult.Ok(result, new SharedId(result.Data.OrderId.ToString()));
             }
         }
+
+        #endregion
+        #region Get Futures Trigger Order
+
+        async Task<ICallResult<SharedFuturesTriggerOrder>> IGetFuturesTriggerOrder.GetFuturesTriggerOrderAsync(GetOrderRequest request, CancellationToken ct)
+            => await GetFuturesTriggerOrderAsync(request, ct).ConfigureAwait(false);
 
         public GetFuturesTriggerOrderOptions GetFuturesTriggerOrderOptions { get; } = new GetFuturesTriggerOrderOptions(_exchangeName, true)
         {
@@ -268,6 +278,8 @@ namespace HTX.Net.Clients.UsdtFutures
             }
         }
 
+        #endregion
+
         private SharedTriggerOrderStatus ParseTriggerOrderStatus(SwapMarginOrderStatus status)
         {
             if (status == SwapMarginOrderStatus.Filled)
@@ -286,6 +298,10 @@ namespace HTX.Net.Clients.UsdtFutures
 
             return SharedTriggerOrderStatus.Unknown;
         }
+        #region Cancel Futures Trigger Order
+
+        async Task<ICallResult<SharedId>> ICancelFuturesTriggerOrder.CancelFuturesTriggerOrderAsync(CancelOrderRequest request, CancellationToken ct)
+            => await CancelFuturesTriggerOrderAsync(request, ct).ConfigureAwait(false);
 
         public CancelFuturesTriggerOrderOptions CancelFuturesTriggerOrderOptions { get; } = new CancelFuturesTriggerOrderOptions(_exchangeName, true)
         {
@@ -325,6 +341,8 @@ namespace HTX.Net.Clients.UsdtFutures
             }
         }
 
+        #endregion
+
         private Offset? GetOffset(PlaceFuturesTriggerOrderRequest request)
         {
             if (request.PositionMode == SharedPositionMode.OneWay)
@@ -340,6 +358,5 @@ namespace HTX.Net.Clients.UsdtFutures
 
             return request.OrderDirection == SharedTriggerOrderDirection.Enter ? OrderSide.Sell : OrderSide.Buy;
         }
-        #endregion
     }
 }

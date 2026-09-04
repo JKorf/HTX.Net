@@ -9,7 +9,8 @@ namespace HTX.Net.Clients.SpotApi
 {
     internal partial class HTXSocketClientSpotSharedApi
     {
-        #region Kline client
+        #region Subscribe Klines
+
         public SubscribeKlineOptions SubscribeKlineOptions { get; } = new SubscribeKlineOptions(_exchangeName, false,
             SharedKlineInterval.OneMinute,
             SharedKlineInterval.ThreeMinutes,
@@ -42,6 +43,7 @@ namespace HTX.Net.Clients.SpotApi
 
             return result;
         }
+
         #endregion
     }
 }

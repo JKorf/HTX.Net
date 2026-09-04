@@ -9,7 +9,8 @@ namespace HTX.Net.Clients.SpotApi
 {
     internal partial class HTXSocketClientSpotSharedApi
     {
-        #region Order Book client
+        #region Subscribe Order Book
+
         public SubscribeOrderBookOptions SubscribeOrderBookOptions { get; } = new SubscribeOrderBookOptions(_exchangeName, false, new[] { 5, 10, 20 });
         public async Task<WebSocketResult<UpdateSubscription>> SubscribeToOrderBookUpdatesAsync(SubscribeOrderBookRequest request, Action<DataEvent<SharedOrderBook>> handler, CancellationToken ct)
         {
@@ -24,6 +25,7 @@ namespace HTX.Net.Clients.SpotApi
 
             return result;
         }
+
         #endregion
     }
 }

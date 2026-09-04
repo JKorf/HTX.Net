@@ -9,7 +9,11 @@ namespace HTX.Net.Clients.UsdtFutures
 {
     internal partial class HTXRestClientUsdtFuturesSharedApi
     {
-        #region Order Book client
+        #region Get Order Book
+
+        async Task<ICallResult<SharedOrderBook>> IGetOrderBook.GetOrderBookAsync(GetOrderBookRequest request, CancellationToken ct)
+            => await GetOrderBookAsync(request, ct).ConfigureAwait(false);
+
         public GetOrderBookOptions GetOrderBookOptions { get; } = new GetOrderBookOptions(_exchangeName, new[] { 150 }, false);
         public async Task<HttpResult<SharedOrderBook>> GetOrderBookAsync(GetOrderBookRequest request, CancellationToken ct)
         {

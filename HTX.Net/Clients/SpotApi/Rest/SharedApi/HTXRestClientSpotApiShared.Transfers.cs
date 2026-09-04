@@ -9,7 +9,10 @@ namespace HTX.Net.Clients.SpotApi
 {
     internal partial class HTXRestClientSpotSharedApi
     {
-        #region Transfer client
+        #region Transfer
+
+        async Task<ICallResult<SharedId>> ITransfer.TransferAsync(TransferRequest request, CancellationToken ct)
+            => await TransferAsync(request, ct).ConfigureAwait(false);
 
         public TransferOptions TransferOptions { get; } = new TransferOptions(_exchangeName, [
             SharedAccountType.Spot,
@@ -51,6 +54,8 @@ namespace HTX.Net.Clients.SpotApi
             return HttpResult.Ok(transfer, new SharedId(transfer.Data.ToString()));
         }
 
+        #endregion
+
         private TransferAccount? GetTransferType(SharedAccountType type)
         {
             if (type == SharedAccountType.Spot) return TransferAccount.Spot;
@@ -58,7 +63,5 @@ namespace HTX.Net.Clients.SpotApi
             if (type == SharedAccountType.PerpetualInverseFutures || type == SharedAccountType.DeliveryInverseFutures) return TransferAccount.Swap;
             return null;
         }
-
-        #endregion
     }
 }

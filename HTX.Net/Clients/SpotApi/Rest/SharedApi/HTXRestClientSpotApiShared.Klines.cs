@@ -9,7 +9,11 @@ namespace HTX.Net.Clients.SpotApi
 {
     internal partial class HTXRestClientSpotSharedApi
     {
-        #region Kline client
+        #region Get Klines
+
+        async Task<ICallResult<SharedKline[]>> IGetKlines.GetKlinesAsync(GetKlinesRequest request, PageRequest? pageRequest, CancellationToken ct)
+            => await GetKlinesAsync(request, pageRequest, ct).ConfigureAwait(false);
+
         public GetKlinesOptions GetKlinesOptions { get; } = new GetKlinesOptions(_exchangeName, true, true, false, 2000, false,
             SharedKlineInterval.OneMinute,
             SharedKlineInterval.FiveMinutes,
@@ -67,6 +71,7 @@ namespace HTX.Net.Clients.SpotApi
                             new SharedOrderQuantity(x.Volume, x.QuoteVolume)))
                     .ToArray());
         }
+
         #endregion
     }
 }

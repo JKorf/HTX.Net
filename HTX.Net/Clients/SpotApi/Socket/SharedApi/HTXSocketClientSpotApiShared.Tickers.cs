@@ -9,7 +9,8 @@ namespace HTX.Net.Clients.SpotApi
 {
     internal partial class HTXSocketClientSpotSharedApi
     {
-        #region Tickers client
+        #region Subscribe All Tickers
+
         async Task<WebSocketResult<UpdateSubscription>> ISubscribeAllTickersSocket.SubscribeToAllTickersUpdatesAsync(SubscribeAllTickersRequest request, Action<DataEvent<SharedTicker[]>> handler, CancellationToken ct)
             => await SubscribeToAllTickersUpdatesAsync(request, x => handler(x.ToType<SharedTicker[]>(x.Data)), ct).ConfigureAwait(false);
 
@@ -34,9 +35,10 @@ namespace HTX.Net.Clients.SpotApi
 
             return result;
         }
-        #endregion
 
-        #region Ticker client
+        #endregion
+        #region Subscribe Ticker
+
         async Task<WebSocketResult<UpdateSubscription>> ISubscribeTickerSocket.SubscribeToTickerUpdatesAsync(SubscribeTickerRequest request, Action<DataEvent<SharedTicker>> handler, CancellationToken ct)
             => await SubscribeToTickerUpdatesAsync(request, x => handler(x.ToType<SharedTicker>(x.Data)), ct).ConfigureAwait(false);
 
@@ -62,6 +64,7 @@ namespace HTX.Net.Clients.SpotApi
 
             return result;
         }
+
         #endregion
     }
 }
