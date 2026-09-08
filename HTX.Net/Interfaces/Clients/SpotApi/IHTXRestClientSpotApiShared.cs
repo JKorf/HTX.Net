@@ -1,4 +1,4 @@
-﻿using CryptoExchange.Net.SharedApis;
+using CryptoExchange.Net.SharedApis;
 
 namespace HTX.Net.Interfaces.Clients.SpotApi
 {
@@ -48,8 +48,8 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         IGetSpotOrderTradesRest,
         IGetSpotUserTradeHistoryRest,
         IGetSpotSymbolsRest,
-        IGetSpotTickerRest,
-        IGetAllSpotTickersRest,
+        IGetTickerRest,
+        IGetAllTickersRest,
         IGetWithdrawalHistoryRest,
         IWithdrawRest,
         IGetFeesRest,

@@ -16,10 +16,9 @@ namespace HTX.Net.Clients.SpotApi
 
         public GetBalancesOptions GetBalancesOptions { get; } = new GetBalancesOptions(_exchangeName, AccountTypeFilter.Spot)
         {
-            RequiredExchangeParameters = new List<ParameterDescription>
-            {
-                new ParameterDescription("AccountId", typeof(long), "Account id of the user", 123123123L)
-            }
+            ExchangeParameterRules = [
+                ExchangeParameterRule.Required("AccountId", "Account id of the user", 123123123L)
+            ]
         };
 
         public async Task<HttpResult<SharedBalance[]>> GetBalancesAsync(GetBalancesRequest request, CancellationToken ct)

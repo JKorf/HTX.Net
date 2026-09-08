@@ -16,10 +16,9 @@ namespace HTX.Net.Clients.SpotApi
 
         public PlaceSpotTriggerOrderOptions PlaceSpotTriggerOrderOptions { get; } = new PlaceSpotTriggerOrderOptions(_exchangeName, true)
         {
-            RequiredExchangeParameters = new List<ParameterDescription>
-            {
-                new ParameterDescription("AccountId", typeof(long), "The id of the account", 123123123L)
-            }
+            ExchangeParameterRules = [
+                ExchangeParameterRule.Required("AccountId", "The id of the account", 123123123L)
+            ]
         };
         public async Task<HttpResult<SharedId>> PlaceSpotTriggerOrderAsync(PlaceSpotTriggerOrderRequest request, CancellationToken ct)
         {

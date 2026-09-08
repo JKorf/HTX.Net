@@ -1,4 +1,4 @@
-﻿using CryptoExchange.Net.SharedApis;
+using CryptoExchange.Net.SharedApis;
 
 namespace HTX.Net.Interfaces.Clients.SpotApi
 {
@@ -33,8 +33,8 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
     /// </summary>
     public interface IHTXRestClientUsdtFuturesSharedApi :
         IGetBalancesRest,
-        IGetFuturesTickerRest,
-        IGetAllFuturesTickersRest,
+        IGetTickerRest,
+        IGetAllTickersRest,
         IGetFuturesSymbolsRest,
         IPlaceFuturesOrderRest,
         IGetFuturesOrderRest,
@@ -44,7 +44,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         IGetFuturesOrderTradesRest,
         IGetFuturesUserTradeHistoryRest,
         IGetPositionsRest,
-        IClosePositionRest,
+        ICloseFullPositionRest,
         IGetKlinesRest,
         IGetMarkPriceKlinesRest,
         IGetIndexPriceKlinesRest,

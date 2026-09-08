@@ -31,8 +31,8 @@ namespace HTX.Net.Clients.UsdtFutures
 
             SetCapabilities(
                 GetBalancesOptions,
-                GetFuturesTickerOptions,
-                GetAllFuturesTickersOptions,
+                GetTickerOptions,
+                GetAllTickersOptions,
                 GetBookTickerOptions,
                 GetFuturesSymbolsOptions,
                 PlaceFuturesOrderOptions,
@@ -43,7 +43,7 @@ namespace HTX.Net.Clients.UsdtFutures
                 GetFuturesUserTradeHistoryOptions,
                 CancelFuturesOrderOptions,
                 GetPositionsOptions,
-                ClosePositionOptions,
+                CloseFullPositionOptions,
                 GetFuturesOrderByClientOrderIdOptions,
                 CancelFuturesOrderByClientOrderIdOptions,
                 GetKlinesOptions,

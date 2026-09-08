@@ -16,15 +16,14 @@ namespace HTX.Net.Clients.UsdtFutures
 
         public PlaceFuturesTriggerOrderOptions PlaceFuturesTriggerOrderOptions { get; } = new PlaceFuturesTriggerOrderOptions(_exchangeName, false)
         {
-            OptionalExchangeParameters = new List<ParameterDescription>
-            {
-                new ParameterDescription(nameof(PlaceFuturesTriggerOrderRequest.MarginMode), typeof(SharedMarginMode), "The margin mode", SharedMarginMode.Cross)
-            },
-            RequiredRequestParameters = new List<ParameterDescription>
-            {
-                new ParameterDescription(nameof(PlaceFuturesTriggerOrderRequest.Leverage), typeof(int), "The leverage to use", 3),
-                new ParameterDescription(nameof(PlaceFuturesTriggerOrderRequest.PositionMode), typeof(SharedPositionMode), "Position mode the account is in", SharedPositionMode.OneWay)
-            }
+            ExchangeParameterRules = [
+                ExchangeParameterRule.Optional("MarginMode", "The margin mode", SharedMarginMode.Cross)
+            ],
+
+            ParameterRuleOverwrites = [
+                RequestParameterRuleOverride<PlaceFuturesTriggerOrderRequest>.Required(x => x.Leverage),
+                RequestParameterRuleOverride<PlaceFuturesTriggerOrderRequest>.Required(x => x.PositionMode)
+            ]
         };
         public async Task<HttpResult<SharedId>> PlaceFuturesTriggerOrderAsync(PlaceFuturesTriggerOrderRequest request, CancellationToken ct)
         {
@@ -43,7 +42,7 @@ namespace HTX.Net.Clients.UsdtFutures
                     side,
                     request.Symbol!.GetSymbol(FormatSymbol),
                     offset: GetOffset(request),
-                    reduceOnly: request.OrderDirection == SharedTriggerOrderDirection.Exit ? true: null,
+                    reduceOnly: request.ReduceOnly == null ? (request.OrderDirection == SharedTriggerOrderDirection.Exit ? true : null) : request.ReduceOnly,
                     orderPrice: request.OrderPrice,
                     orderPriceType: request.OrderPrice == null ? OrderPriceType.Optimal20 : OrderPriceType.Limit,
                     leverageRate: (int)request.Leverage!.Value,
@@ -84,10 +83,9 @@ namespace HTX.Net.Clients.UsdtFutures
 
         public GetFuturesTriggerOrderOptions GetFuturesTriggerOrderOptions { get; } = new GetFuturesTriggerOrderOptions(_exchangeName, true)
         {
-            OptionalExchangeParameters = new List<ParameterDescription>
-            {
-                new ParameterDescription("MarginMode", typeof(SharedMarginMode), "The margin mode", SharedMarginMode.Cross)
-            }
+            ExchangeParameterRules = [
+                ExchangeParameterRule.Optional("MarginMode", "The margin mode", SharedMarginMode.Cross)
+            ]
         };
         public async Task<HttpResult<SharedFuturesTriggerOrder>> GetFuturesTriggerOrderAsync(GetOrderRequest request, CancellationToken ct)
         {
@@ -305,10 +303,9 @@ namespace HTX.Net.Clients.UsdtFutures
 
         public CancelFuturesTriggerOrderOptions CancelFuturesTriggerOrderOptions { get; } = new CancelFuturesTriggerOrderOptions(_exchangeName, true)
         {
-            OptionalExchangeParameters = new List<ParameterDescription>
-            {
-                new ParameterDescription("MarginMode", typeof(SharedMarginMode), "The margin mode", SharedMarginMode.Cross)
-            }
+            ExchangeParameterRules = [
+                ExchangeParameterRule.Optional("MarginMode", "The margin mode", SharedMarginMode.Cross)
+            ]
         };
         public async Task<HttpResult<SharedId>> CancelFuturesTriggerOrderAsync(CancelOrderRequest request, CancellationToken ct)
         {

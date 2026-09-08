@@ -12,10 +12,9 @@ namespace HTX.Net.Clients.UsdtFutures
 
         public SubscribeUserTradeOptions SubscribeUserTradeOptions { get; } = new SubscribeUserTradeOptions(_exchangeName, false)
         {
-            RequiredExchangeParameters = new List<ParameterDescription>
-            {
-                new ParameterDescription("MarginMode", typeof(SharedMarginMode), "The margin mode", SharedMarginMode.Cross)
-            }
+            ExchangeParameterRules = [
+                ExchangeParameterRule.Required("MarginMode", "The margin mode", SharedMarginMode.Cross)
+            ]
         };
         public async Task<WebSocketResult<UpdateSubscription>> SubscribeToUserTradeUpdatesAsync(SubscribeUserTradeRequest request, Action<DataEvent<SharedUserTrade[]>> handler, CancellationToken ct)
         {

@@ -18,10 +18,9 @@ namespace HTX.Net.Clients.UsdtFutures
 
         public GetPositionModeOptions GetPositionModeOptions { get; } = new GetPositionModeOptions(_exchangeName)
         {
-            RequiredExchangeParameters = new List<ParameterDescription>
-            {
-                new ParameterDescription("MarginMode", typeof(SharedMarginMode), "Margin mode to get position mode for", SharedMarginMode.Cross)
-            }
+            ExchangeParameterRules = [
+                ExchangeParameterRule.Required("MarginMode", "Margin mode to get position mode for", SharedMarginMode.Cross)
+            ]
         };
         public async Task<HttpResult<SharedPositionModeResult>> GetPositionModeAsync(GetPositionModeRequest request, CancellationToken ct)
         {
@@ -59,10 +58,9 @@ namespace HTX.Net.Clients.UsdtFutures
 
         public SetPositionModeOptions SetPositionModeOptions { get; } = new SetPositionModeOptions(_exchangeName)
         {
-            RequiredExchangeParameters = new List<ParameterDescription>
-            {
-                new ParameterDescription("MarginMode", typeof(SharedMarginMode), "Margin mode to get position mode for", SharedMarginMode.Cross)
-            }
+            ExchangeParameterRules = [
+                ExchangeParameterRule.Required("MarginMode", "Margin mode to set position mode for", SharedMarginMode.Cross)
+            ]
         };
         public async Task<HttpResult<SharedPositionModeResult>> SetPositionModeAsync(SetPositionModeRequest request, CancellationToken ct)
         {

@@ -16,10 +16,9 @@ namespace HTX.Net.Clients.UsdtFutures
 
         public SubscribeFuturesOrderOptions SubscribeFuturesOrderOptions { get; } = new SubscribeFuturesOrderOptions(_exchangeName, false)
         {
-            RequiredExchangeParameters = new List<ParameterDescription>
-            {
-                new ParameterDescription("MarginMode", typeof(SharedMarginMode), "The margin mode", SharedMarginMode.Cross)
-            }
+            ExchangeParameterRules = [
+                ExchangeParameterRule.Required("MarginMode", "The margin mode", SharedMarginMode.Cross)
+            ]
         };
         public async Task<WebSocketResult<UpdateSubscription>> SubscribeToFuturesOrderUpdatesAsync(SubscribeFuturesOrderRequest request, Action<DataEvent<SharedFuturesOrderUpdate[]>> handler, CancellationToken ct)
         {

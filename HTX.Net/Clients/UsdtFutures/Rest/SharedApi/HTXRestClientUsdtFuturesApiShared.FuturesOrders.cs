@@ -1,9 +1,10 @@
-using HTX.Net.Interfaces.Clients.SpotApi;
-using CryptoExchange.Net.SharedApis;
 using CryptoExchange.Net;
-using HTX.Net.Enums;
-using HTX.Net.Objects.Models.UsdtMarginSwap;
 using CryptoExchange.Net.Objects.Errors;
+using CryptoExchange.Net.Requests;
+using CryptoExchange.Net.SharedApis;
+using HTX.Net.Enums;
+using HTX.Net.Interfaces.Clients.SpotApi;
+using HTX.Net.Objects.Models.UsdtMarginSwap;
 
 namespace HTX.Net.Clients.UsdtFutures
 {
@@ -29,14 +30,13 @@ namespace HTX.Net.Clients.UsdtFutures
         public PlaceFuturesOrderOptions PlaceFuturesOrderOptions { get; } = new PlaceFuturesOrderOptions(_exchangeName, true)
         {
             RequestNotes = "ClientOrderId can only be an integer",
-            OptionalExchangeParameters = new List<ParameterDescription>
-            {
-                new ParameterDescription(nameof(PlaceFuturesOrderRequest.MarginMode), typeof(SharedMarginMode), "The margin mode", SharedMarginMode.Cross)
-            },
-            RequiredRequestParameters = new List<ParameterDescription>
-            {
-                new ParameterDescription(nameof(PlaceFuturesOrderRequest.Leverage), typeof(int), "The leverage to use", 3)
-            }
+            ExchangeParameterRules = [
+                ExchangeParameterRule.Optional("MarginMode", "The margin mode", SharedMarginMode.Cross)
+            ],
+
+            ParameterRuleOverwrites = [
+                RequestParameterRuleOverride<PlaceFuturesOrderRequest>.Required(x => x.Leverage)
+            ]
         };
 
         public async Task<HttpResult<SharedId>> PlaceFuturesOrderAsync(PlaceFuturesOrderRequest request, CancellationToken ct)
@@ -102,10 +102,9 @@ namespace HTX.Net.Clients.UsdtFutures
 
         public GetFuturesOrderOptions GetFuturesOrderOptions { get; } = new GetFuturesOrderOptions(_exchangeName, true)
         {
-            RequiredExchangeParameters = new List<ParameterDescription>
-            {
-                new ParameterDescription("MarginMode", typeof(SharedMarginMode), "The margin mode", SharedMarginMode.Cross)
-            }
+            ExchangeParameterRules = [
+                ExchangeParameterRule.Required("MarginMode", "The margin mode", SharedMarginMode.Cross)
+            ]
         };
         public async Task<HttpResult<SharedFuturesOrder>> GetFuturesOrderAsync(GetOrderRequest request, CancellationToken ct)
         {
@@ -183,10 +182,9 @@ namespace HTX.Net.Clients.UsdtFutures
 
         public GetOpenFuturesOrdersOptions GetOpenFuturesOrdersOptions { get; } = new GetOpenFuturesOrdersOptions(_exchangeName, true)
         {
-            RequiredExchangeParameters = new List<ParameterDescription>
-            {
-                new ParameterDescription("MarginMode", typeof(SharedMarginMode), "The margin mode", SharedMarginMode.Cross)
-            }
+            ExchangeParameterRules = [
+                ExchangeParameterRule.Required("MarginMode", "The margin mode", SharedMarginMode.Cross)
+            ]
         };
         public async Task<HttpResult<SharedFuturesOrder[]>> GetOpenFuturesOrdersAsync(GetOpenOrdersRequest request, CancellationToken ct)
         {
@@ -265,10 +263,9 @@ namespace HTX.Net.Clients.UsdtFutures
         public GetFuturesClosedOrdersOptions GetClosedFuturesOrdersOptions { get; } = new GetFuturesClosedOrdersOptions(_exchangeName, false, true, true, 1000)
         {
             MaxAge = TimeSpan.FromDays(88),
-            RequiredExchangeParameters = new List<ParameterDescription>
-            {
-                new ParameterDescription("MarginMode", typeof(SharedMarginMode), "The margin mode", SharedMarginMode.Cross)
-            }
+            ExchangeParameterRules = [
+                ExchangeParameterRule.Required("MarginMode", "The margin mode", SharedMarginMode.Cross)
+            ]
         };
         public async Task<HttpResult<SharedFuturesOrder[]>> GetClosedFuturesOrdersAsync(GetClosedOrdersRequest request, PageRequest? pageRequest, CancellationToken ct)
         {
@@ -392,10 +389,9 @@ namespace HTX.Net.Clients.UsdtFutures
 
         public GetFuturesOrderTradesOptions GetFuturesOrderTradesOptions { get; } = new GetFuturesOrderTradesOptions(_exchangeName, true)
         {
-            RequiredExchangeParameters = new List<ParameterDescription>
-            {
-                new ParameterDescription("MarginMode", typeof(SharedMarginMode), "The margin mode", SharedMarginMode.Cross)
-            }
+            ExchangeParameterRules = [
+                ExchangeParameterRule.Required("MarginMode", "The margin mode", SharedMarginMode.Cross)
+            ]
         };
         public async Task<HttpResult<SharedUserTrade[]>> GetFuturesOrderTradesAsync(GetOrderTradesRequest request, CancellationToken ct)
         {
@@ -466,10 +462,9 @@ namespace HTX.Net.Clients.UsdtFutures
         public GetFuturesUserTradeHistoryOptions GetFuturesUserTradeHistoryOptions { get; } = new GetFuturesUserTradeHistoryOptions(_exchangeName, false, true, true, 1000)
         {
             MaxAge = TimeSpan.FromDays(88),
-            RequiredExchangeParameters = new List<ParameterDescription>
-            {
-                new ParameterDescription("MarginMode", typeof(SharedMarginMode), "The margin mode", SharedMarginMode.Cross)
-            }
+            ExchangeParameterRules = [
+                ExchangeParameterRule.Required("MarginMode", "The margin mode", SharedMarginMode.Cross)
+            ]
         };
         public async Task<HttpResult<SharedUserTrade[]>> GetFuturesUserTradeHistoryAsync(GetUserTradesRequest request, PageRequest? pageRequest, CancellationToken ct)
         {
@@ -577,10 +572,9 @@ namespace HTX.Net.Clients.UsdtFutures
 
         public CancelFuturesOrderOptions CancelFuturesOrderOptions { get; } = new CancelFuturesOrderOptions(_exchangeName, true)
         {
-            RequiredExchangeParameters = new List<ParameterDescription>
-            {
-                new ParameterDescription("MarginMode", typeof(SharedMarginMode), "The margin mode", SharedMarginMode.Cross)
-            }
+            ExchangeParameterRules = [
+                ExchangeParameterRule.Required("MarginMode", "The margin mode", SharedMarginMode.Cross)
+            ]
         };
         public async Task<HttpResult<SharedId>> CancelFuturesOrderAsync(CancelOrderRequest request, CancellationToken ct)
         {
@@ -618,10 +612,9 @@ namespace HTX.Net.Clients.UsdtFutures
 
         public GetPositionsOptions GetPositionsOptions { get; } = new GetPositionsOptions(_exchangeName, true)
         {
-            RequiredExchangeParameters = new List<ParameterDescription>
-            {
-                new ParameterDescription("MarginMode", typeof(SharedMarginMode), "The margin mode", SharedMarginMode.Cross)
-            }
+            ExchangeParameterRules = [
+                ExchangeParameterRule.Required("MarginMode", "The margin mode", SharedMarginMode.Cross)
+            ]
         };
         public async Task<HttpResult<SharedPosition[]>> GetPositionsAsync(GetPositionsRequest request, CancellationToken ct)
         {
@@ -674,15 +667,32 @@ namespace HTX.Net.Clients.UsdtFutures
         #endregion
         #region Close Position
 
-        async Task<ICallResult<SharedId>> IClosePosition.ClosePositionAsync(ClosePositionRequest request, CancellationToken ct)
-            => await ClosePositionAsync(request, ct).ConfigureAwait(false);
+        async Task<ICallResult<SharedId>> ICloseFullPosition.CloseFullPositionAsync(CloseFullPositionRequest request, CancellationToken ct)
+            => await CloseFullPositionAsync(request, ct).ConfigureAwait(false);
+
+        public CloseFullPositionOptions CloseFullPositionOptions { get; } = new CloseFullPositionOptions(_exchangeName, true)
+        {
+            ParameterRuleOverwrites = [
+                RequestParameterRuleOverride<CloseFullPositionRequest>.Required(x => x.PositionSide),
+                RequestParameterRuleOverride<CloseFullPositionRequest>.Required(x => x.MarginMode),
+                ],
+        };
+
+        public async Task<HttpResult<SharedId>> CloseFullPositionAsync(CloseFullPositionRequest request, CancellationToken ct)
+        {
+            var validationError = CloseFullPositionOptions.ValidateRequest(request, this);
+            if (validationError != null)
+                return HttpResult.Fail<SharedId>(Exchange, validationError);
+
+            return await ClosePositionCoreAsync(request.Symbol!, request.MarginMode!.Value, request.PositionSide!.Value, ct).ConfigureAwait(false);
+        }
 
         public ClosePositionOptions ClosePositionOptions { get; } = new ClosePositionOptions(_exchangeName, true)
         {
-            RequiredExchangeParameters = new List<ParameterDescription>
-            {
-                new ParameterDescription("MarginMode", typeof(SharedMarginMode), "The margin mode", SharedMarginMode.Cross)
-            }
+            ParameterRuleOverwrites = [
+                RequestParameterRuleOverride<ClosePositionRequest>.Required(x => x.PositionSide),
+                RequestParameterRuleOverride<ClosePositionRequest>.Required(x => x.MarginMode),
+                ],
         };
         public async Task<HttpResult<SharedId>> ClosePositionAsync(ClosePositionRequest request, CancellationToken ct)
         {
@@ -690,12 +700,17 @@ namespace HTX.Net.Clients.UsdtFutures
             if (validationError != null)
                 return HttpResult.Fail<SharedId>(Exchange, validationError);
 
-            var marginMode = ExchangeParameters.GetValue<SharedMarginMode>(request.ExchangeParameters, Exchange, "MarginMode");
-            if (marginMode == SharedMarginMode.Cross)
+            var marginMode = request.MarginMode ?? ExchangeParameters.GetValue<SharedMarginMode>(request.ExchangeParameters, Exchange, "MarginMode");
+            return await ClosePositionCoreAsync(request.Symbol!, marginMode, request.PositionSide!.Value, ct).ConfigureAwait(false);
+        }
+
+        private async Task<HttpResult<SharedId>> ClosePositionCoreAsync(SharedSymbol symbol, SharedMarginMode mode, SharedPositionSide positionSide, CancellationToken ct)
+        {
+            if (mode == SharedMarginMode.Cross)
             {
                 var result = await _api.Trading.CloseCrossMarginPositionAsync(
-                    request.PositionSide == SharedPositionSide.Short ? OrderSide.Buy : OrderSide.Sell,
-                    contractCode: request.Symbol!.GetSymbol(FormatSymbol),
+                    positionSide == SharedPositionSide.Short ? OrderSide.Buy : OrderSide.Sell,
+                    contractCode: symbol.GetSymbol(FormatSymbol),
                     ct: ct).ConfigureAwait(false);
                 if (!result.Success)
                     return HttpResult.Fail<SharedId>(result);
@@ -705,8 +720,8 @@ namespace HTX.Net.Clients.UsdtFutures
             else
             {
                 var result = await _api.Trading.CloseIsolatedMarginPositionAsync(
-                    direction: request.PositionSide == SharedPositionSide.Short ? OrderSide.Buy : OrderSide.Sell,
-                    contractCode: request.Symbol!.GetSymbol(FormatSymbol),
+                    direction: positionSide == SharedPositionSide.Short ? OrderSide.Buy : OrderSide.Sell,
+                    contractCode: symbol.GetSymbol(FormatSymbol),
                     ct: ct).ConfigureAwait(false);
                 if (!result.Success)
                     return HttpResult.Fail<SharedId>(result);
@@ -790,10 +805,9 @@ namespace HTX.Net.Clients.UsdtFutures
 
         public GetFuturesOrderByClientOrderIdOptions GetFuturesOrderByClientOrderIdOptions { get; } = new GetFuturesOrderByClientOrderIdOptions(_exchangeName, true)
         {
-            RequiredExchangeParameters = new List<ParameterDescription>
-            {
-                new ParameterDescription("MarginMode", typeof(SharedMarginMode), "The margin mode", SharedMarginMode.Cross)
-            }
+            ExchangeParameterRules = [
+                ExchangeParameterRule.Required("MarginMode", "The margin mode", SharedMarginMode.Cross)
+            ]
         };
         public async Task<HttpResult<SharedFuturesOrder>> GetFuturesOrderByClientOrderIdAsync(GetOrderRequest request, CancellationToken ct)
         {
@@ -868,10 +882,9 @@ namespace HTX.Net.Clients.UsdtFutures
 
         public CancelFuturesOrderByClientOrderIdOptions CancelFuturesOrderByClientOrderIdOptions { get; } = new CancelFuturesOrderByClientOrderIdOptions(_exchangeName, true)
         {
-            RequiredExchangeParameters = new List<ParameterDescription>
-            {
-                new ParameterDescription("MarginMode", typeof(SharedMarginMode), "The margin mode", SharedMarginMode.Cross)
-            }
+            ExchangeParameterRules = [
+                ExchangeParameterRule.Required("MarginMode", "The margin mode", SharedMarginMode.Cross)
+            ]
         };
         public async Task<HttpResult<SharedId>> CancelFuturesOrderByClientOrderIdAsync(CancelOrderRequest request, CancellationToken ct)
         {

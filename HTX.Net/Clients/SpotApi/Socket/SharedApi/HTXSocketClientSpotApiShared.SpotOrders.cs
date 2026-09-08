@@ -54,10 +54,9 @@ namespace HTX.Net.Clients.SpotApi
 
         public PlaceSpotOrderSocketOptions PlaceSpotOrderOptions { get; } = new PlaceSpotOrderSocketOptions(_exchangeName)
         {
-            RequiredExchangeParameters = new List<ParameterDescription>
-            {
-                new ParameterDescription("AccountId", typeof(long), "The id of the account", 123123123L)
-            }
+            ExchangeParameterRules = [
+                ExchangeParameterRule.Required("AccountId", "The id of the account", 123123123L)
+            ]
         };
         public async Task<QueryResult<SharedId>> PlaceSpotOrderAsync(PlaceSpotOrderRequest request, CancellationToken ct)
         {

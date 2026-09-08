@@ -16,12 +16,11 @@ namespace HTX.Net.Clients.UsdtFutures
 
         public SetFuturesTpSlOptions SetFuturesTpSlOptions { get; } = new SetFuturesTpSlOptions(_exchangeName, true)
         {
-            RequiredRequestParameters = new List<ParameterDescription>
-            {
-                new ParameterDescription(nameof(SetTpSlRequest.PositionMode), typeof(SharedPositionMode), "Position mode the account is in", SharedPositionMode.OneWay),
-                new ParameterDescription(nameof(SetTpSlRequest.MarginMode), typeof(SharedMarginMode), "The margin mode", SharedMarginMode.Cross),
-                new ParameterDescription(nameof(SetTpSlRequest.Quantity), typeof(decimal), "The quantity to close", 0.123m)
-            }
+            ParameterRuleOverwrites = [
+                RequestParameterRuleOverride<SetTpSlRequest>.Required(x => x.PositionMode),
+                RequestParameterRuleOverride<SetTpSlRequest>.Required(x => x.MarginMode),
+                RequestParameterRuleOverride<SetTpSlRequest>.Required(x => x.Quantity)
+            ]
         };
 
         public async Task<HttpResult<SharedId>> SetFuturesTpSlAsync(SetTpSlRequest request, CancellationToken ct)
@@ -71,11 +70,10 @@ namespace HTX.Net.Clients.UsdtFutures
 
         public CancelFuturesTpSlOptions CancelFuturesTpSlOptions { get; } = new CancelFuturesTpSlOptions(_exchangeName, true)
         {
-            RequiredRequestParameters = new List<ParameterDescription>
-            {
-                new ParameterDescription(nameof(CancelTpSlRequest.OrderId), typeof(string), "Id of the tp/sl order", "123123"),
-                new ParameterDescription(nameof(SetTpSlRequest.MarginMode), typeof(SharedMarginMode), "The margin mode", SharedMarginMode.Cross)
-            }
+            ParameterRuleOverwrites = [
+                RequestParameterRuleOverride<CancelTpSlRequest>.Required(x => x.OrderId),
+                RequestParameterRuleOverride<CancelTpSlRequest>.Required(x => x.MarginMode)
+            ]
         };
 
         public async Task<HttpResult<bool>> CancelFuturesTpSlAsync(CancelTpSlRequest request, CancellationToken ct)

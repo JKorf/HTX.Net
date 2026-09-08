@@ -105,10 +105,9 @@ namespace HTX.Net.Clients.SpotApi
 
         public WithdrawOptions WithdrawOptions { get; } = new WithdrawOptions(_exchangeName)
         {
-            RequiredExchangeParameters = new List<ParameterDescription>
-            {
-                new ParameterDescription(["WithdrawFee", "fee"], typeof(decimal), "Fee to use for the withdrawal", 0.001m)
-            }
+            ExchangeParameterRules = [
+                ExchangeParameterRule.Required("WithdrawFee", "Fee to use for the withdrawal", 0.001m)
+            ]
         };
 
         public async Task<HttpResult<SharedId>> WithdrawAsync(WithdrawRequest request, CancellationToken ct)
