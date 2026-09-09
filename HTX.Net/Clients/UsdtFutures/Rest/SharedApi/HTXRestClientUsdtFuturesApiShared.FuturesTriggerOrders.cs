@@ -22,7 +22,7 @@ namespace HTX.Net.Clients.UsdtFutures
 
             ParameterRuleOverwrites = [
                 RequestParameterRuleOverride<PlaceFuturesTriggerOrderRequest>.Required(x => x.Leverage),
-                RequestParameterRuleOverride<PlaceFuturesTriggerOrderRequest>.Required(x => x.PositionMode)
+                RequestParameterRuleOverride<PlaceFuturesTriggerOrderRequest>.Required(x => x.PositionMode),
             ]
         };
         public async Task<HttpResult<SharedId>> PlaceFuturesTriggerOrderAsync(PlaceFuturesTriggerOrderRequest request, CancellationToken ct)

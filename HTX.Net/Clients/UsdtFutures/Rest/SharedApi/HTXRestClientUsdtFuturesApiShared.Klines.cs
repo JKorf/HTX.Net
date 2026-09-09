@@ -86,7 +86,13 @@ namespace HTX.Net.Clients.UsdtFutures
         async Task<ICallResult<SharedFuturesKline[]>> IGetMarkPriceKlines.GetMarkPriceKlinesAsync(GetKlinesRequest request, PageRequest? pageRequest, CancellationToken ct)
             => await GetMarkPriceKlinesAsync(request, pageRequest, ct).ConfigureAwait(false);
 
-        public GetMarkPriceKlinesOptions GetMarkPriceKlinesOptions { get; } = new GetMarkPriceKlinesOptions(_exchangeName, true, true, false, 2000, false);
+        public GetMarkPriceKlinesOptions GetMarkPriceKlinesOptions { get; } = new GetMarkPriceKlinesOptions(_exchangeName, true, true, false, 2000, false)
+        {
+            ParameterRuleOverwrites = [
+                RequestParameterRuleOverride<GetKlinesRequest>.NotSupported(x => x.StartTime),
+                RequestParameterRuleOverride<GetKlinesRequest>.NotSupported(x => x.EndTime)
+                ]
+        };
 
         public async Task<HttpResult<SharedFuturesKline[]>> GetMarkPriceKlinesAsync(GetKlinesRequest request, PageRequest? pageRequest, CancellationToken ct)
         {
@@ -131,7 +137,13 @@ namespace HTX.Net.Clients.UsdtFutures
         async Task<ICallResult<SharedFuturesKline[]>> IGetIndexPriceKlines.GetIndexPriceKlinesAsync(GetKlinesRequest request, PageRequest? pageRequest, CancellationToken ct)
             => await GetIndexPriceKlinesAsync(request, pageRequest, ct).ConfigureAwait(false);
 
-        public GetIndexPriceKlinesOptions GetIndexPriceKlinesOptions { get; } = new GetIndexPriceKlinesOptions(_exchangeName, true, true, false, 2000, false);
+        public GetIndexPriceKlinesOptions GetIndexPriceKlinesOptions { get; } = new GetIndexPriceKlinesOptions(_exchangeName, true, true, false, 2000, false)
+        {
+            ParameterRuleOverwrites = [
+                RequestParameterRuleOverride<GetKlinesRequest>.NotSupported(x => x.StartTime),
+                RequestParameterRuleOverride<GetKlinesRequest>.NotSupported(x => x.EndTime)
+                ]
+        };
 
         public async Task<HttpResult<SharedFuturesKline[]>> GetIndexPriceKlinesAsync(GetKlinesRequest request, PageRequest? pageRequest, CancellationToken ct)
         {

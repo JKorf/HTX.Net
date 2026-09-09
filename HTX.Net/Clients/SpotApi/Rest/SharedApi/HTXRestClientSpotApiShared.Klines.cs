@@ -23,7 +23,13 @@ namespace HTX.Net.Clients.SpotApi
             SharedKlineInterval.FourHours,
             SharedKlineInterval.OneDay,
             SharedKlineInterval.OneWeek,
-            SharedKlineInterval.OneMonth);
+            SharedKlineInterval.OneMonth)
+        {
+            ParameterRuleOverwrites = [
+                RequestParameterRuleOverride<GetKlinesRequest>.NotSupported(x => x.StartTime),
+                RequestParameterRuleOverride<GetKlinesRequest>.NotSupported(x => x.EndTime)
+                ]
+        };
 
         public async Task<HttpResult<SharedKline[]>> GetKlinesAsync(GetKlinesRequest request, PageRequest? pageRequest, CancellationToken ct)
         {
