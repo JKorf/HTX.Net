@@ -34,7 +34,7 @@ namespace HTX.Net.Clients.UsdtFutures
                 ExchangeParameterRule.Optional("MarginMode", "The margin mode", SharedMarginMode.Cross)
             ],
 
-            ParameterRuleOverwrites = [
+            ParameterRuleOverrides = [
                 RequestParameterRuleOverride<PlaceFuturesOrderRequest>.Required(x => x.Leverage)
             ]
         };
@@ -672,7 +672,7 @@ namespace HTX.Net.Clients.UsdtFutures
 
         public CloseFullPositionOptions CloseFullPositionOptions { get; } = new CloseFullPositionOptions(_exchangeName, true)
         {
-            ParameterRuleOverwrites = [
+            ParameterRuleOverrides = [
                 RequestParameterRuleOverride<CloseFullPositionRequest>.Required(x => x.PositionSide),
                 RequestParameterRuleOverride<CloseFullPositionRequest>.Required(x => x.MarginMode),
                 ],
@@ -689,7 +689,7 @@ namespace HTX.Net.Clients.UsdtFutures
 
         public ClosePositionOptions ClosePositionOptions { get; } = new ClosePositionOptions(_exchangeName, true)
         {
-            ParameterRuleOverwrites = [
+            ParameterRuleOverrides = [
                 RequestParameterRuleOverride<ClosePositionRequest>.Required(x => x.PositionSide),
                 RequestParameterRuleOverride<ClosePositionRequest>.Required(x => x.MarginMode),
                 ],

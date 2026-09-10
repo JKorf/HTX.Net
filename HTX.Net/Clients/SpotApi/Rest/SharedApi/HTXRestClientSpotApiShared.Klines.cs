@@ -25,7 +25,7 @@ namespace HTX.Net.Clients.SpotApi
             SharedKlineInterval.OneWeek,
             SharedKlineInterval.OneMonth)
         {
-            ParameterRuleOverwrites = [
+            ParameterRuleOverrides = [
                 RequestParameterRuleOverride<GetKlinesRequest>.NotSupported(x => x.StartTime),
                 RequestParameterRuleOverride<GetKlinesRequest>.NotSupported(x => x.EndTime)
                 ]

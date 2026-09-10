@@ -88,7 +88,7 @@ namespace HTX.Net.Clients.UsdtFutures
 
         public GetMarkPriceKlinesOptions GetMarkPriceKlinesOptions { get; } = new GetMarkPriceKlinesOptions(_exchangeName, true, true, false, 2000, false)
         {
-            ParameterRuleOverwrites = [
+            ParameterRuleOverrides = [
                 RequestParameterRuleOverride<GetKlinesRequest>.NotSupported(x => x.StartTime),
                 RequestParameterRuleOverride<GetKlinesRequest>.NotSupported(x => x.EndTime)
                 ]
@@ -139,7 +139,7 @@ namespace HTX.Net.Clients.UsdtFutures
 
         public GetIndexPriceKlinesOptions GetIndexPriceKlinesOptions { get; } = new GetIndexPriceKlinesOptions(_exchangeName, true, true, false, 2000, false)
         {
-            ParameterRuleOverwrites = [
+            ParameterRuleOverrides = [
                 RequestParameterRuleOverride<GetKlinesRequest>.NotSupported(x => x.StartTime),
                 RequestParameterRuleOverride<GetKlinesRequest>.NotSupported(x => x.EndTime)
                 ]

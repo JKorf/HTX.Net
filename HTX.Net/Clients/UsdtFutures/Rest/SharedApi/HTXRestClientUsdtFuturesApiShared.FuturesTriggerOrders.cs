@@ -20,7 +20,7 @@ namespace HTX.Net.Clients.UsdtFutures
                 ExchangeParameterRule.Optional("MarginMode", "The margin mode", SharedMarginMode.Cross)
             ],
 
-            ParameterRuleOverwrites = [
+            ParameterRuleOverrides = [
                 RequestParameterRuleOverride<PlaceFuturesTriggerOrderRequest>.Required(x => x.Leverage),
                 RequestParameterRuleOverride<PlaceFuturesTriggerOrderRequest>.Required(x => x.PositionMode),
             ]

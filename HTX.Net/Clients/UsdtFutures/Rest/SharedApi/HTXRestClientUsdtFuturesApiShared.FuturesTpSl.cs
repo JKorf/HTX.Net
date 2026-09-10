@@ -16,7 +16,7 @@ namespace HTX.Net.Clients.UsdtFutures
 
         public SetFuturesTpSlOptions SetFuturesTpSlOptions { get; } = new SetFuturesTpSlOptions(_exchangeName, true)
         {
-            ParameterRuleOverwrites = [
+            ParameterRuleOverrides = [
                 RequestParameterRuleOverride<SetTpSlRequest>.Required(x => x.PositionMode),
                 RequestParameterRuleOverride<SetTpSlRequest>.Required(x => x.MarginMode),
                 RequestParameterRuleOverride<SetTpSlRequest>.Required(x => x.Quantity)
@@ -70,7 +70,7 @@ namespace HTX.Net.Clients.UsdtFutures
 
         public CancelFuturesTpSlOptions CancelFuturesTpSlOptions { get; } = new CancelFuturesTpSlOptions(_exchangeName, true)
         {
-            ParameterRuleOverwrites = [
+            ParameterRuleOverrides = [
                 RequestParameterRuleOverride<CancelTpSlRequest>.Required(x => x.OrderId),
                 RequestParameterRuleOverride<CancelTpSlRequest>.Required(x => x.MarginMode)
             ]

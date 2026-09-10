@@ -16,7 +16,7 @@ namespace HTX.Net.Clients.UsdtFutures
 
         public GetFundingRateHistoryOptions GetFundingRateHistoryOptions { get; } = new GetFundingRateHistoryOptions(_exchangeName, false, true, false, 50, false)
         {
-            ParameterRuleOverwrites = [                
+            ParameterRuleOverrides = [                
                 RequestParameterRuleOverride<GetFundingRateHistoryRequest>.NotSupported(x => x.StartTime),
                 RequestParameterRuleOverride<GetFundingRateHistoryRequest>.NotSupported(x => x.EndTime)
                 ]
