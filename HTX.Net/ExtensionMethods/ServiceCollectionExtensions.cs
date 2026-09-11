@@ -53,8 +53,9 @@ namespace Microsoft.Extensions.DependencyInjection
             options.Socket.Environment = HTXEnvironment.GetEnvironmentByName(socketEnvName) ?? options.Socket.Environment!;
             options.Socket.ApiCredentials = options.Socket.ApiCredentials ?? options.ApiCredentials;
 
-            services.AddSingleton(x => Options.Options.Create(options.Rest));
-            services.AddSingleton(x => Options.Options.Create(options.Socket));
+            services.AddSingleton(Options.Options.Create(options.Rest));
+            services.AddSingleton(Options.Options.Create(options.Socket));
+            services.AddSingleton(Options.Options.Create(options));
 
             return AddHTXCore(services, options.SocketClientLifeTime);
         }
@@ -83,8 +84,9 @@ namespace Microsoft.Extensions.DependencyInjection
             options.Socket.Environment = options.Socket.Environment ?? options.Environment ?? HTXEnvironment.Live;
             options.Socket.ApiCredentials = options.Socket.ApiCredentials ?? options.ApiCredentials;
 
-            services.AddSingleton(x => Options.Options.Create(options.Rest));
-            services.AddSingleton(x => Options.Options.Create(options.Socket));
+            services.AddSingleton(Options.Options.Create(options.Rest));
+            services.AddSingleton(Options.Options.Create(options.Socket));
+            services.AddSingleton(Options.Options.Create(options));
 
             return AddHTXCore(services, options.SocketClientLifeTime);
         }
@@ -120,6 +122,8 @@ namespace Microsoft.Extensions.DependencyInjection
             services.RegisterSharedApi(x => x.GetRequiredService<IHTXSocketClient>().SpotApi.SharedApi);
             services.RegisterSharedApi(x => x.GetRequiredService<IHTXRestClient>().UsdtFuturesApi.SharedApi);
             services.RegisterSharedApi(x => x.GetRequiredService<IHTXSocketClient>().UsdtFuturesApi.SharedApi);
+
+            services.RegisterSharedApiClientCapabilities<IHTXSharedApiClient>();
 
             services.RegisterSharedRestInterfaces(x => x.GetRequiredService<IHTXRestClient>().SpotApi.SharedClient);
             services.RegisterSharedSocketInterfaces(x => x.GetRequiredService<IHTXSocketClient>().SpotApi.SharedClient);

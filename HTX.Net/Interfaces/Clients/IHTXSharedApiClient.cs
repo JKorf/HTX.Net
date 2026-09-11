@@ -1,3 +1,4 @@
+using CryptoExchange.Net.SharedApis;
 using HTX.Net.Interfaces.Clients.SpotApi;
 using HTX.Net.Interfaces.Clients.UsdtFuturesApi;
 
@@ -6,7 +7,7 @@ namespace HTX.Net.Interfaces.Clients
     /// <summary>
     /// Client for the shared REST and WebSocket API implementations of HTX
     /// </summary>
-    public interface IHTXSharedApiClient
+    public interface IHTXSharedApiClient : ISharedApiClientBase
     {
         /// <summary>
         /// Spot REST shared API implementations
