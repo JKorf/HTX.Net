@@ -22,7 +22,7 @@ namespace HTX.Net.Clients.SpotApi
         public HTXSocketClientSpotSharedApi(HTXSocketClientSpotApi api)
         : base(
                   SharedTransport.Socket,
-                  api.Exchange,
+                  api,
                   [TradingMode.Spot],
                   () => api.Authenticated,
                   api.FormatSymbol)

@@ -21,7 +21,7 @@ namespace HTX.Net.Clients.UsdtFutures
         public HTXSocketClientUsdtFuturesSharedApi(HTXSocketClientUsdtFuturesApi api)
             : base(
                   SharedTransport.Socket,
-                  api.Exchange,
+                  api,
                   [TradingMode.PerpetualLinear, TradingMode.DeliveryLinear],
                   () => api.Authenticated,
                   api.FormatSymbol)

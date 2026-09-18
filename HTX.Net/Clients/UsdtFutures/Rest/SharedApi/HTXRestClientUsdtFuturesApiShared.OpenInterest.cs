@@ -11,7 +11,7 @@ namespace HTX.Net.Clients.UsdtFutures
     {
         #region Get Open Interest
 
-        async Task<ICallResult<SharedOpenInterest>> IGetOpenInterest.GetOpenInterestAsync(GetOpenInterestRequest request, CancellationToken ct)
+        async Task<IExchangeCallResult<SharedOpenInterest>> IGetOpenInterest.GetOpenInterestAsync(GetOpenInterestRequest request, CancellationToken ct)
             => await GetOpenInterestAsync(request, ct).ConfigureAwait(false);
 
         public GetOpenInterestOptions GetOpenInterestOptions { get; } = new GetOpenInterestOptions(_exchangeName, false);
