@@ -21,7 +21,9 @@ namespace HTX.Net.Clients.UsdtFutures
         /// <inheritdoc />
         public async Task<HttpResult<DateTime>> GetServerTimeAsync(CancellationToken ct = default)
         {
-            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "api/v1/timestamp", HTXExchange.RateLimiter.UsdtPublicReference, 1, false);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "api/v1/timestamp", HTXExchange.RateLimiter.UsdtPublicReference, 1, false,
+                preventCaching: true,
+                preventRequestCoalescing: true);
             return await _baseClient.SendBasicAsync<DateTime>(request, null, ct).ConfigureAwait(false);
         }
 

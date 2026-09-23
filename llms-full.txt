@@ -34,7 +34,7 @@ Primary documentation:
 - Spot symbols use `ETHUSDT`; USDT futures contract codes use `ETH-USDT`.
 - HTX spot orders require an account id; get it from `SpotApi.Account.GetAccountsAsync()`.
 - HTX USDT futures has separate cross and isolated methods. Pick the method matching the user's margin mode.
-- For multi-exchange code, use `CryptoExchange.Net.SharedApis` interfaces from each exchange's `.SharedClient` and call `.SharedClient.Discover()` to inspect supported features.
+- Use the exchange-level `IHTXSharedApiClient` aggregate's `GetCapability(...)` or `GetCapabilities(...)` methods for runtime capability lookup; use an API surface's `.SharedApi` property when the transport and API are known.
 - Shared spot and futures symbol calls apply `GetSymbolsRequest` filters, populate their symbol catalogs, and return display names plus asset type/subtype metadata.
 
 ## Installation
@@ -205,13 +205,13 @@ HTXRestClient
     .Margin
     .SubAccount
     .Trading
-    .SharedClient
+    .SharedApi
   .UsdtFuturesApi
     .ExchangeData
     .Account
     .SubAccount
     .Trading
-    .SharedClient
+    .SharedApi
 ```
 
 WebSocket:
@@ -219,12 +219,12 @@ WebSocket:
 ```text
 HTXSocketClient
   .SpotApi
-    .SharedClient
+    .SharedApi
     public market data subscriptions
     account/order subscriptions
     socket order requests
   .UsdtFuturesApi
-    .SharedClient
+    .SharedApi
     public market data subscriptions
     account/order/position subscriptions
 ```
@@ -417,12 +417,11 @@ using HTX.Net.Clients;
 using CryptoExchange.Net.SharedApis;
 
 var restClient = new HTXRestClient();
-ISpotTickerRestClient tickerClient = restClient.SpotApi.SharedClient;
+IGetTickerRest tickerClient = restClient.SpotApi.SharedApi;
 var symbol = new SharedSymbol(TradingMode.Spot, "ETH", "USDT");
-var info = restClient.SpotApi.SharedClient.Discover();
-var supportedFeatures = info.Features.Where(x => x.Supported).Select(x => x.EndpointName);
+// Use the exchange-level `IHTXSharedApiClient` aggregate's `GetCapability(...)` or `GetCapabilities(...)` methods for runtime capability lookup; use an API surface's `.SharedApi` property when the transport and API are known.
 
-var ticker = await tickerClient.GetSpotTickerAsync(new GetTickerRequest(symbol));
+var ticker = await tickerClient.GetTickerAsync(new GetTickerRequest(symbol));
 if (!ticker.Success)
 {
     Console.WriteLine(ticker.Error);
@@ -434,7 +433,7 @@ Console.WriteLine(ticker.Data.LastPrice);
 
 Shared REST methods return `HttpResult<T>` / `HttpResult`. Shared WebSocket subscriptions return `WebSocketResult<UpdateSubscription>` with an `UpdateSubscription` in `.Data`. Shared symbol helpers can return `ExchangeCallResult<T>`.
 
-`ISpotSymbolRestClient.GetSpotSymbolsAsync(...)` and `IFuturesSymbolRestClient.GetFuturesSymbolsAsync(...)` apply the supplied `GetSymbolsRequest` filters and update `SpotSymbolCatalog` / `FuturesSymbolCatalog`. Shared symbol results include `DisplayName`, `BaseAssetType`, `BaseAssetSubType`, `QuoteAssetType`, and `QuoteAssetSubType`. HTX.Net classifies known commodities and futures equities as TradFi and identifies crypto and stablecoins where the API data allows it.
+`IGetSpotSymbolsRest.GetSpotSymbolsAsync(...)` and `IGetFuturesSymbolsRest.GetFuturesSymbolsAsync(...)` apply the supplied `GetSymbolsRequest` filters and update `SpotSymbolCatalog` / `FuturesSymbolCatalog`. Shared symbol results include `DisplayName`, `BaseAssetType`, `BaseAssetSubType`, `QuoteAssetType`, and `QuoteAssetSubType`. HTX.Net classifies known commodities and futures equities as TradFi and identifies crypto and stablecoins where the API data allows it.
 
 Shared market, order, trade, position, and order book models use `SharedOrderQuantity` and `SharedQuantityType`. Read Spot quantities from their base- or quote-asset component and USDT futures quantities from the contract component instead of assuming a single untyped amount.
 
@@ -442,7 +441,7 @@ For shared interface variables, unsubscribe through the concrete socket client:
 
 ```csharp
 var socketClient = new HTXSocketClient();
-ITickerSocketClient tickerSocket = socketClient.SpotApi.SharedClient;
+ISubscribeTickerSocket tickerSocket = socketClient.SpotApi.SharedApi;
 
 var sub = await tickerSocket.SubscribeToTickerUpdatesAsync(
     new SubscribeTickerRequest(new SharedSymbol(TradingMode.Spot, "ETH", "USDT")),
@@ -459,7 +458,7 @@ Console.ReadLine();
 await socketClient.UnsubscribeAsync(sub.Data);
 ```
 
-Do not call `tickerSocket.UnsubscribeAsync(...)` on `ITickerSocketClient`; that shared interface does not expose the method.
+Do not call `tickerSocket.UnsubscribeAsync(...)` on `ISubscribeTickerSocket`; that shared interface does not expose the method.
 
 ## Symbol And Account Handling
 

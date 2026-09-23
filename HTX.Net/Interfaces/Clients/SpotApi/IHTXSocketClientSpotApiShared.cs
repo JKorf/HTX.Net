@@ -18,4 +18,24 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         ISpotOrderManagementSocketClient
     {
     }
+
+    /// <summary>
+    /// Shared API interface. Shared APIs provide a common,
+    /// exchange-independent contract for accessing functionality across different
+    /// exchange client libraries.
+    /// </summary>
+    public interface IHTXSocketClientSpotSharedApi :
+        ISubscribeTickerSocket,
+        ISubscribeAllTickersSocket,
+        ISubscribeTradesSocket,
+        ISubscribeBookTickerSocket,
+        ISubscribeKlinesSocket,
+        ISubscribeOrderBookSocket,
+        ISubscribeBalancesSocket,
+        ISubscribeSpotOrdersSocket,
+        ISubscribeUserTradesSocket,
+        IPlaceSpotOrderSocket,
+        ICancelSpotOrderSocket
+    {
+    }
 }
