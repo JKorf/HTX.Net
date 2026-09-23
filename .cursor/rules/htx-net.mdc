@@ -86,8 +86,8 @@ For exchange-agnostic code, use `CryptoExchange.Net.SharedApis`:
 ```csharp
 using CryptoExchange.Net.SharedApis;
 
-var shared = new HTXRestClient().SpotApi.SharedClient;
-var ticker = await shared.GetSpotTickerAsync(
+var shared = new HTXRestClient().SpotApi.SharedApi;
+var ticker = await shared.GetTickerAsync(
     new GetTickerRequest(new SharedSymbol(TradingMode.Spot, "ETH", "USDT")));
 ```
 

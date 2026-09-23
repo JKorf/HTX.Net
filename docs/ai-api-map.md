@@ -208,22 +208,22 @@ Use SharedApis for exchange-agnostic code across HTX, Binance, Bybit, OKX, Krake
 
 | User intent | HTX.Net member or interface |
 |---|---|
-| Shared spot REST client | `new HTXRestClient().SpotApi.SharedClient` |
-| Shared USDT futures REST client | `new HTXRestClient().UsdtFuturesApi.SharedClient` |
-| Shared spot socket client | `new HTXSocketClient().SpotApi.SharedClient` |
-| Shared USDT futures socket client | `new HTXSocketClient().UsdtFuturesApi.SharedClient` |
-| Discover shared capabilities | `client.SpotApi.SharedClient.Discover()` |
-| Get filtered shared spot symbols | `ISpotSymbolRestClient.GetSpotSymbolsAsync(new GetSymbolsRequest(...))` |
-| Read cached shared spot catalog | `ISpotSymbolRestClient.SpotSymbolCatalog` after loading symbols |
-| Get filtered shared futures symbols | `IFuturesSymbolRestClient.GetFuturesSymbolsAsync(new GetSymbolsRequest(...))` |
-| Read cached shared futures catalog | `IFuturesSymbolRestClient.FuturesSymbolCatalog` after loading symbols |
-| Shared spot ticker REST | `ISpotTickerRestClient.GetSpotTickerAsync(new GetTickerRequest(symbol))` |
-| Shared spot order REST | `ISpotOrderRestClient.PlaceSpotOrderAsync(...)` |
-| Shared futures order REST | `IFuturesOrderRestClient.PlaceFuturesOrderAsync(...)` |
-| Shared ticker socket | `ITickerSocketClient.SubscribeToTickerUpdatesAsync(...)` |
-| Shared order book socket | `IOrderBookSocketClient.SubscribeToOrderBookUpdatesAsync(...)` |
-| Place shared spot order over socket | `ISpotOrderManagementSocketClient.PlaceSpotOrderAsync(...)` with `AccountId` exchange parameter |
-| Cancel shared spot order over socket | `ISpotOrderManagementSocketClient.CancelSpotOrderAsync(...)` |
+| Shared spot REST client | `new HTXRestClient().SpotApi.SharedApi` |
+| Shared USDT futures REST client | `new HTXRestClient().UsdtFuturesApi.SharedApi` |
+| Shared spot socket client | `new HTXSocketClient().SpotApi.SharedApi` |
+| Shared USDT futures socket client | `new HTXSocketClient().UsdtFuturesApi.SharedApi` |
+| Resolve a runtime-selected Shared API capability | `IHTXSharedApiClient.GetCapability(...)` |
+| Get filtered shared spot symbols | `IGetSpotSymbolsRest.GetSpotSymbolsAsync(new GetSymbolsRequest(...))` |
+| Read cached shared spot catalog | `IGetSpotSymbolsRest.SpotSymbolCatalog` after loading symbols |
+| Get filtered shared futures symbols | `IGetFuturesSymbolsRest.GetFuturesSymbolsAsync(new GetSymbolsRequest(...))` |
+| Read cached shared futures catalog | `IGetFuturesSymbolsRest.FuturesSymbolCatalog` after loading symbols |
+| Shared spot ticker REST | `IGetTickerRest.GetTickerAsync(new GetTickerRequest(symbol))` |
+| Shared spot order REST | `IPlaceSpotOrderRest.PlaceSpotOrderAsync(...)` |
+| Shared futures order REST | `IPlaceFuturesOrderRest.PlaceFuturesOrderAsync(...)` |
+| Shared ticker socket | `ISubscribeTickerSocket.SubscribeToTickerUpdatesAsync(...)` |
+| Shared order book socket | `ISubscribeOrderBookSocket.SubscribeToOrderBookUpdatesAsync(...)` |
+| Place shared spot order over socket | `IPlaceSpotOrderSocket.PlaceSpotOrderAsync(...)` with `AccountId` exchange parameter |
+| Cancel shared spot order over socket | `ICancelSpotOrderSocket.CancelSpotOrderAsync(...)` |
 
 Shared REST methods return `HttpResult<T>` / `HttpResult`; shared socket subscriptions return `WebSocketResult<UpdateSubscription>`; shared symbol/cache helpers such as `SupportsSpotSymbolAsync` and `SupportsFuturesSymbolAsync` can return `ExchangeCallResult<T>`.
 
@@ -257,4 +257,4 @@ For shared socket subscriptions, keep the concrete socket client and unsubscribe
 | A generic futures `PlaceOrderAsync` | `PlaceCrossMarginOrderAsync` or `PlaceIsolatedMarginOrderAsync` |
 | Cross/isolated futures methods interchangeably | Match the user's margin mode |
 | `.Data` without `.Success` check | Check `.Success` first |
-| `ITickerSocketClient.UnsubscribeAsync(...)` | Keep the concrete socket client and call `socketClient.UnsubscribeAsync(subscription.Data)` |
+| Unsubscribe from a shared subscription | Keep the concrete socket client and call `socketClient.UnsubscribeAsync(subscription.Data)` |
