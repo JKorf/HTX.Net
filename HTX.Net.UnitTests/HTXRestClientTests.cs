@@ -3,18 +3,21 @@ using CryptoExchange.Net.Clients;
 using CryptoExchange.Net.Interfaces.Clients;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Testing;
+﻿using NUnit.Framework;
+using System;
+using System.Threading.Tasks;
 using HTX.Net.Clients;
-using HTX.Net.Clients.SpotApi;
-using HTX.Net.Interfaces.Clients;
+using NUnit.Framework.Legacy;
+using CryptoExchange.Net.Authentication;
+using CryptoExchange.Net.Clients;
+using System.Net.Http;
+using System.Collections.Generic;
+using System.Text.Json;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using NUnit.Framework;
-using NUnit.Framework.Legacy;
-using System;
-using System.Collections.Generic;
-using System.Net.Http;
-using System.Text.Json;
-using System.Threading.Tasks;
+using HTX.Net.Interfaces.Clients;
+using CryptoExchange.Net.Objects;
+using HTX.Net.Clients.SpotApi;
 
 namespace HTX.Net.UnitTests
 {

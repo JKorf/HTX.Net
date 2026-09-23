@@ -23,8 +23,6 @@ namespace HTX.Net.Clients.UsdtFutures
     /// <inheritdoc />
     internal partial class HTXSocketClientUsdtFuturesApi : SocketApiClient<HTXEnvironment, HTXAuthenticationProvider, HTXCredentials>, IHTXSocketClientUsdtFuturesApi
     {
-        private readonly HTXSocketClientUsdtFuturesSharedApi _sharedApi;
-
         protected override ErrorMapping ErrorMapping => HTXErrors.FuturesMapping;
 
         #region ctor
@@ -37,8 +35,6 @@ namespace HTX.Net.Clients.UsdtFutures
             AddSystemSubscription(new HTXOpPingSubscription(_logger));
             AddSystemSubscription(new HTXCloseSubscription(_logger));
 
-            _sharedApi = new HTXSocketClientUsdtFuturesSharedApi(this);
-
             RateLimiter = HTXExchange.RateLimiter.UsdtConnection;
         }
 
@@ -48,8 +44,7 @@ namespace HTX.Net.Clients.UsdtFutures
 
         public override ISocketMessageHandler CreateMessageConverter(WebSocketMessageType messageType) => new HTXSocketUsdtFuturesMessageHandler();
 
-        public IHTXSocketClientUsdtFuturesApiShared SharedClient => _sharedApi;
-        public IHTXSocketClientUsdtFuturesSharedApi SharedApi => _sharedApi;
+        public IHTXSocketClientUsdtFuturesApiShared SharedClient => this;
 
         /// <inheritdoc />
         public override string FormatSymbol(string baseAsset, string quoteAsset, TradingMode tradingMode, DateTime? deliverTime = null)

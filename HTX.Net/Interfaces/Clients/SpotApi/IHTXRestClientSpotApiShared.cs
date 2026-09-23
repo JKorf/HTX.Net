@@ -25,7 +25,7 @@ namespace HTX.Net.Interfaces.Clients.SpotApi
         ITransferRestClient
     {
     }
-
+	
     /// <summary>
     /// Shared API interface. Shared APIs provide a common,
     /// exchange-independent contract for accessing functionality across different

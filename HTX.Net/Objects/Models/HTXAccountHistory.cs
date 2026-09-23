@@ -55,5 +55,11 @@ namespace HTX.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("record-id")]
         public long RecordId { get; set; }
+
+        /// <summary>
+        /// ["<c>source-id</c>"] Identifier of the operation that generated this record
+        /// </summary>
+        [JsonPropertyName("source-id")]
+        public long? SourceId { get; set; }
     }
 }
