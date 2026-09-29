@@ -75,5 +75,10 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// </summary>
         [JsonPropertyName("trade_partition")]
         public string TradePartition { get; set; } = string.Empty;
+        /// <summary>
+        /// ["<c>funding_fee_type</c>"] Funding fee type
+        /// </summary>
+        [JsonPropertyName("funding_fee_type")]
+        public string FundingFeeType { get; set; } = string.Empty;
     }
 }
