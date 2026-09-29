@@ -105,5 +105,10 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// </summary>
         [JsonPropertyName("tradfi_labels")]
         public string[] TradfiLabels { get; set; } = [];
+        /// <summary>
+        /// ["<c>enable_rpi</c>"] Enable RPI
+        /// </summary>
+        [JsonPropertyName("enable_rpi")]
+        public bool EnableRpi { get; set; }
     }
 }
