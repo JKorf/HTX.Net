@@ -82,5 +82,10 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
 
         [JsonPropertyName("business_type")]
         public BusinessType BusinessType { get; set; }
+        /// <summary>
+        /// ["<c>is_rpi_trade</c>"] Is RPI trade
+        /// </summary>
+        [JsonPropertyName("is_rpi_trade")]
+        public bool IsRpiTrade { get; set; }
     }
 }
