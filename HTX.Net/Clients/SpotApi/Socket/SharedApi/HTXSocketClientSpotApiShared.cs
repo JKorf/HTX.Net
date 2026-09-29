@@ -43,5 +43,8 @@ namespace HTX.Net.Clients.SpotApi
                 CancelSpotOrderOptions
                 );
         }
+
+        /// <inheritdoc />
+        public Task UnsubscribeAllAsync() => _api.UnsubscribeAllAsync();
     }
 }

@@ -40,5 +40,8 @@ namespace HTX.Net.Clients.UsdtFutures
                 SubscribePositionOptions
                 );
         }
+
+        /// <inheritdoc />
+        public Task UnsubscribeAllAsync() => _api.UnsubscribeAllAsync();
     }
 }
