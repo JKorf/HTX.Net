@@ -241,6 +241,12 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 9.7.0 - 30 Sep 2026
+    * Updated CryptoExchange.Net to V13.1.0
+    * Added EnableRpi to HTXContractInfo
+    * Added FundingFeeType to HTXHistoricalFundingRate model
+    * Added IsRpiTrade to HTXLastTrade model
+
 * Version 9.6.0 - 24 Sep 2026
     * Updated CryptoExchange.Net to v13.0.0
     * Shared APIs
