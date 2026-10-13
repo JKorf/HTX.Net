@@ -122,7 +122,10 @@ namespace HTX.Net.Clients.UsdtFutures
                 if (!orders.Success)
                     return HttpResult.Fail<SharedFuturesOrder>(orders);
 
-                var order = orders.Data.Single();
+                var order = orders.Data.SingleOrDefault();
+                if (order == null)
+                    return HttpResult.Fail<SharedFuturesOrder>(orders, new ServerError(new ErrorInfo(ErrorType.UnknownOrder, "Order not found")));
+
                 return HttpResult.Ok(orders, new SharedFuturesOrder(
                     ExchangeSymbolCache.ParseSymbol(_topicId, _api.EnvironmentName, null, order.ContractCode),
                     order.ContractCode,
@@ -146,11 +149,14 @@ namespace HTX.Net.Clients.UsdtFutures
             }
             else
             {
-                var orders = await _api.Trading.GetIsolatedMarginOrderAsync(request.Symbol!.GetSymbol(FormatSymbol), orderId: orderId).ConfigureAwait(false);
+                var orders = await _api.Trading.GetIsolatedMarginOrderAsync(request.Symbol!.GetSymbol(FormatSymbol), orderId: orderId, ct: ct).ConfigureAwait(false);
                 if (!orders.Success)
                     return HttpResult.Fail<SharedFuturesOrder>(orders);
 
-                var order = orders.Data.Single();
+                var order = orders.Data.SingleOrDefault();
+                if (order == null)
+                    return HttpResult.Fail<SharedFuturesOrder>(orders, new ServerError(new ErrorInfo(ErrorType.UnknownOrder, "Order not found")));
+
                 return HttpResult.Ok(orders, new SharedFuturesOrder(
                     ExchangeSymbolCache.ParseSymbol(_topicId, _api.EnvironmentName, null, order.ContractCode),
                     order.ContractCode,
