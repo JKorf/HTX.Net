@@ -139,7 +139,7 @@ namespace HTX.Net.Clients.UsdtFutures
                 if (closedOrder == null)
                     return HttpResult.Fail<SharedFuturesTriggerOrder>(orderHist, new ServerError(new ErrorInfo(ErrorType.UnknownOrder, "Not found")));
 
-                if (string.IsNullOrEmpty(closedOrder.RelationOrderId) && closedOrder.RelationOrderId != "-1")
+                if (string.IsNullOrEmpty(closedOrder.RelationOrderId) || closedOrder.RelationOrderId == "-1")
                 {
                     return HttpResult.Ok(orders, new SharedFuturesTriggerOrder(
                         ExchangeSymbolCache.ParseSymbol(_topicId, _api.EnvironmentName, null, closedOrder.ContractCode),
@@ -229,7 +229,7 @@ namespace HTX.Net.Clients.UsdtFutures
                 if (closedOrder == null)
                     return HttpResult.Fail<SharedFuturesTriggerOrder>(orderHist, new ServerError(new ErrorInfo(ErrorType.UnknownOrder, "Not found")));
 
-                if (string.IsNullOrEmpty(closedOrder.RelationOrderId) && closedOrder.RelationOrderId != "-1")
+                if (string.IsNullOrEmpty(closedOrder.RelationOrderId) || closedOrder.RelationOrderId == "-1")
                 {
                     return HttpResult.Ok(orders, new SharedFuturesTriggerOrder(
                         ExchangeSymbolCache.ParseSymbol(_topicId, _api.EnvironmentName, null, closedOrder.ContractCode),
