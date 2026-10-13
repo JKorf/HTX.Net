@@ -166,7 +166,7 @@ namespace HTX.Net.Objects.Models.UsdtMarginSwap
         /// ["<c>real_profit</c>"] Realized profit and loss
         /// </summary>
         [JsonPropertyName("real_profit")]
-        public decimal RealizedPnl { get; set; }
+        public decimal? RealizedPnl { get; set; }
         /// <summary>
         /// ["<c>reduce_only</c>"] Reduce only
         /// </summary>
