@@ -40,7 +40,7 @@ namespace HTX.Net.Clients.SpotApi
                 request.Symbol!.GetSymbol(FormatSymbol),
                 request.OrderSide == SharedOrderSide.Buy ? OrderSide.Buy : OrderSide.Sell,
                 OrderType.StopLimit,
-                request.Quantity.QuantityInBaseAsset ?? 0,
+                request.Quantity.QuantityInBaseAsset ?? request.Quantity.QuantityInQuoteAsset ?? 0,
                 orderPrice,
                 clientOrderId: request.ClientOrderId,
                 stopPrice: request.TriggerPrice,
