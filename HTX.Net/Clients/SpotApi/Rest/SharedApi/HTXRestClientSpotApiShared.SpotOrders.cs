@@ -1,9 +1,5 @@
-using HTX.Net.Interfaces.Clients.SpotApi;
 using CryptoExchange.Net.SharedApis;
-using CryptoExchange.Net;
 using HTX.Net.Enums;
-using HTX.Net.Objects.Models;
-using CryptoExchange.Net.Objects.Errors;
 
 namespace HTX.Net.Clients.SpotApi
 {
@@ -97,7 +93,8 @@ namespace HTX.Net.Clients.SpotApi
                 OrderQuantity = new SharedOrderQuantity(order.Data.Type == OrderType.Market && order.Data.Side == OrderSide.Buy ? null : order.Data.Quantity, order.Data.Type == OrderType.Market && order.Data.Side == OrderSide.Buy ? order.Data.Quantity : null),
                 QuantityFilled = new SharedOrderQuantity(order.Data.QuantityFilled, order.Data.QuoteQuantityFilled),
                 TimeInForce = ParseTimeInForce(order.Data.Type),
-                IsTriggerOrder = order.Data.Type == OrderType.StopLimit
+                IsTriggerOrder = order.Data.Type == OrderType.StopLimit,
+                TriggerPrice = order.Data.StopPrice
             });
         }
 
@@ -136,7 +133,8 @@ namespace HTX.Net.Clients.SpotApi
                 OrderQuantity = new SharedOrderQuantity(x.Type == OrderType.Market && x.Side == OrderSide.Buy ? null : x.Quantity, x.Type == OrderType.Market && x.Side == OrderSide.Buy ? x.Quantity : null),
                 QuantityFilled = new SharedOrderQuantity(x.QuantityFilled, x.QuoteQuantityFilled),
                 TimeInForce = ParseTimeInForce(x.Type),
-                IsTriggerOrder = x.Type == OrderType.StopLimit
+                IsTriggerOrder = x.Type == OrderType.StopLimit,
+                TriggerPrice = x.Price
             }).ToArray());
         }
 
@@ -197,7 +195,8 @@ namespace HTX.Net.Clients.SpotApi
                         OrderQuantity = new SharedOrderQuantity(x.Type == OrderType.Market && x.Side == OrderSide.Buy ? null : x.Quantity, x.Type == OrderType.Market && x.Side == OrderSide.Buy ? x.Quantity : null),
                         QuantityFilled = new SharedOrderQuantity(x.QuantityFilled, x.QuoteQuantityFilled),
                         TimeInForce = ParseTimeInForce(x.Type),
-                        IsTriggerOrder = x.Type == OrderType.StopLimit
+                        IsTriggerOrder = x.Type == OrderType.StopLimit,
+                        TriggerPrice = x.StopPrice
                     }).ToArray(), nextPageRequest);
         }
 
