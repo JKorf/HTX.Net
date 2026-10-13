@@ -112,15 +112,24 @@ namespace HTX.Net.Clients.UsdtFutures
                         triggerOrder.ContractCode,
                         triggerOrder.OrderId.ToString(),
                         triggerOrder.OrderPrice > 0 ? SharedOrderType.Limit : SharedOrderType.Market,
-                        triggerOrder.Offset == Offset.Open ? SharedTriggerOrderDirection.Enter : triggerOrder.Offset == Offset.Close? SharedTriggerOrderDirection.Exit: null,
+                        triggerOrder.Offset == Offset.Both ? triggerOrder.ReduceOnly ? SharedTriggerOrderDirection.Exit : SharedTriggerOrderDirection.Enter :
+                            triggerOrder.Offset == Offset.Open
+                                ? SharedTriggerOrderDirection.Enter 
+                                : triggerOrder.Offset == Offset.Close
+                                    ? SharedTriggerOrderDirection.Exit
+                                    : null,
                         SharedTriggerOrderStatus.Active,
                         triggerPrice: triggerOrder.TriggerPrice,
-                        null,
+                        positionSide: triggerOrder.Offset == Offset.Both ? null :
+                            ((triggerOrder.OrderSide == OrderSide.Buy && triggerOrder.Offset == Offset.Open) || (triggerOrder.OrderSide == OrderSide.Sell && triggerOrder.Offset == Offset.Close)) 
+                                ? SharedPositionSide.Long
+                                : SharedPositionSide.Short,
                         triggerOrder.CreateTime)
                     {
                         OrderPrice = triggerOrder.OrderPrice == 0 ? null: triggerOrder.OrderPrice,
                         OrderQuantity = new SharedOrderQuantity(contractQuantity: triggerOrder.Quantity),
                         QuantityFilled = new SharedOrderQuantity(contractQuantity: 0),
+                        
                     });
                 }
 
