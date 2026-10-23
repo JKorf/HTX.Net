@@ -110,6 +110,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesV5Api
         /// Endpoint:<br />
         /// POST /v5/trade/cancel_all_orders
         /// </para>
+        /// </summary>
         /// <param name="contractCode">Filter by symbol</param>
         /// <param name="side">Filter by order side</param>
         /// <param name="positionSide">Filter by position side</param>

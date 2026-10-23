@@ -22,13 +22,15 @@ namespace HTX.Net.Clients.UsdtFuturesV5
                 null,
                 update => {
                     var data = update.Data.Data.Where(x => x.TradeId != null);
+                    if (!data.Any())
+                        return;
 
                     handler(update.ToType<SharedUserTrade[]>(data.Select(x =>
                                 new SharedUserTrade(
                                     ExchangeSymbolCache.ParseSymbol(_topicId, _api.EnvironmentName, null, update.Data.ContractCode),
                                     update.Data.ContractCode!,
                                     x.OrderId,
-                                    x.TradeId,
+                                    x.TradeId!,
                                     x.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
                                     new SharedOrderQuantity(quoteAssetQuantity: x.TradeTurnover, contractQuantity: x.Quantity),
                                     x.Price ?? 0,
