@@ -213,6 +213,17 @@ A Discord server is available [here](https://discord.gg/MSpeEtSY8t). Feel free t
 |Orders And Account WebSocket|X||
 |WebSocket System updates|X||
 
+### USDT-M V5 Api
+|API|Supported|Location|
+|--|--:|--|
+|REST Account|✓|`restClient.UsdtFuturesV5Api.account`|
+|REST Orders|✓|`restClient.UsdtFuturesV5Api.Trading`|
+|REST Positions|✓|`restClient.UsdtFuturesV5Api.Trading` / `restClient.UsdtFuturesV5Api.Account`|
+|REST Basic Info|✓|`restClient.UsdtFuturesV5Api.ExchangeData` / `restClient.UsdtFuturesV5Api.Account|
+|REST Strategy|✓|`restClient.UsdtFuturesV5Api.Trading`|
+|WebSocket Private channels|✓|`socketClient.UsdtFuturesV5Api`|
+|WebSocket Trade|✓|`socketClient.UsdtFuturesV5Api`|
+
 ### Coin-M Futures Api
 |API|Supported|Location|
 |--|--:|--|
@@ -239,6 +250,17 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 9.8.0 - 23 Oct 2026
+    * Updated CryptoExchange.Net to v13.2.2
+    * Added SharedApi to UsdtFutures V5 API's
+    * Added UsdtFuturesV5Rest and UsdtFuturesV5Socket to (I)HTXSharedApiClient
+    * Added restClient.UsdtFuturesV5Api.Account.GetRiskLimitTiersAsync endpoint
+    * Added restClient.UsdtFuturesV5Api.Trading.CancelAllOrdersAsync endpoint
+    * Added PlaceOrderAsync, CancelOrderAsync, CancelAllOrdersAsync requests to socketClient.UsdtFuturesV5Socket
+    * Added FundingFeeType to HTXFundingRateHistoryV5 model
+    * Added IsolatedAvailable to HTXAccountBalanceDetailV5 model
+    * Updated restClient.UsdtFuturesV5Api.ExchangeData.GetFundingRateAsync response type to array
+
 * Version 9.7.0 - 30 Sep 2026
     * Updated CryptoExchange.Net to V13.1.0
     * Added EnableRpi to HTXContractInfo
