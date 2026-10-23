@@ -158,5 +158,19 @@ namespace HTX.Net.Clients.UsdtFuturesV5
         }
 
         #endregion
+
+        #region Get Risk Limit Tiers
+
+        /// <inheritdoc />
+        public async Task<HttpResult<HTXPositionRiskLimitTierV5[]>> GetRiskLimitTiersAsync(string contractCode, MarginMode? marginMode = null, CancellationToken ct = default)
+        {
+            var parameters = new Parameters(HTXExchange._futuresParameterSerializationSettings);
+            parameters.Add("contract_code", contractCode);
+            parameters.Add("margin_mode", marginMode);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/v5/position/risk/limit", HTXExchange.RateLimiter.UsdtRead, 1, true);
+            return await _baseClient.SendAsync<HTXPositionRiskLimitTierV5[]>(request, parameters, ct).ConfigureAwait(false);
+        }
+
+        #endregion
     }
 }

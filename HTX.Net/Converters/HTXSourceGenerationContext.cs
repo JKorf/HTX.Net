@@ -26,6 +26,10 @@ namespace HTX.Net.Converters
     [JsonSerializable(typeof(HTXSocketOrderResponse<HTXByCriteriaCancelResult>))]
     [JsonSerializable(typeof(HTXSocketOrderResponse<HTXOrderId>))]
 
+    [JsonSerializable(typeof(HTXV5Request))]
+    [JsonSerializable(typeof(HTXV5Response<HTXOrderIdV5>))]
+    [JsonSerializable(typeof(HTXV5Response<HTXOrderResultV5[]>))]
+
     // End manual defined attributes
 
     [JsonSerializable(typeof(HTXBasicResponse<IEnumerable<HTXOpenOrder>>))]
@@ -58,6 +62,7 @@ namespace HTX.Net.Converters
     [JsonSerializable(typeof(HTXApiResponseV2<HTXAccountBalanceV5>))]
     [JsonSerializable(typeof(HTXApiResponseV2<HTXBillV5[]>))]
     [JsonSerializable(typeof(HTXApiResponseV2<HTXOrderIdV5>))]
+    [JsonSerializable(typeof(HTXApiResponseV2<HTXOrderResultV5[]>))]
     [JsonSerializable(typeof(HTXApiResponseV2<HTXOrderV5>))]
     [JsonSerializable(typeof(HTXApiResponseV2<HTXOrderV5[]>))]
     [JsonSerializable(typeof(HTXApiResponseV2<HTXOrderTradeV5[]>))]
@@ -66,6 +71,7 @@ namespace HTX.Net.Converters
     [JsonSerializable(typeof(HTXApiResponseV2<HTXLeverageV5[]>))]
     [JsonSerializable(typeof(HTXApiResponseV2<HTXPositionV5[]>))]
     [JsonSerializable(typeof(HTXApiResponseV2<HTXFundingRateV5>))]
+    [JsonSerializable(typeof(HTXApiResponseV2<HTXFundingRateV5[]>))]
     [JsonSerializable(typeof(HTXApiResponseV2<HTXFundingRateHistoryV5[]>))]
     [JsonSerializable(typeof(HTXApiResponseV2<HTXOpenInterestV5>))]
     [JsonSerializable(typeof(HTXApiResponseV2<HTXPriceLimitV5[]>))]
@@ -80,6 +86,7 @@ namespace HTX.Net.Converters
     [JsonSerializable(typeof(HTXApiResponseV2<HTXMarginOrder[]>))]
     [JsonSerializable(typeof(HTXApiResponseV2<HTXMarginBalances>))]
     [JsonSerializable(typeof(HTXApiResponseV2<HTXMarginBalances[]>))]
+    [JsonSerializable(typeof(HTXApiResponseV2<HTXPositionRiskLimitTierV5[]>))]
 
     [JsonSerializable(typeof(HTXBasicResponse<HTXAccount[]>))]
     [JsonSerializable(typeof(HTXBasicResponse<HTXAccountHistory[]>))]

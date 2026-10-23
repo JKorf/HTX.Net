@@ -4,6 +4,8 @@ using CryptoExchange.Net.Converters.MessageParsing.DynamicConverters;
 using CryptoExchange.Net.Objects.Errors;
 using CryptoExchange.Net.SharedApis;
 using HTX.Net.Clients.MessageHandlers;
+using HTX.Net.Clients.UsdtFutures;
+using HTX.Net.Interfaces.Clients.SpotApi;
 using HTX.Net.Interfaces.Clients.UsdtFuturesV5Api;
 using HTX.Net.Objects.Internal;
 using HTX.Net.Objects.Options;
@@ -13,6 +15,8 @@ namespace HTX.Net.Clients.UsdtFuturesV5
     /// <inheritdoc />
     internal partial class HTXRestClientUsdtFuturesV5Api : RestApiClient<HTXEnvironment, HTXAuthenticationProvider, HTXCredentials>, IHTXRestClientUsdtFuturesV5Api
     {
+        private readonly HTXRestClientUsdtFuturesV5SharedApi _sharedApi;
+
         /// <inheritdoc />
         public new HTXRestOptions ClientOptions => (HTXRestOptions)base.ClientOptions;
 
@@ -41,6 +45,8 @@ namespace HTX.Net.Clients.UsdtFuturesV5
             Account = new HTXRestClientUsdtFuturesV5ApiAccount(this);
             ExchangeData = new HTXRestClientUsdtFuturesV5ApiExchangeData(this);
             Trading = new HTXRestClientUsdtFuturesV5ApiTrading(this);
+
+            _sharedApi = new HTXRestClientUsdtFuturesV5SharedApi(this);
         }
         #endregion
 
@@ -68,5 +74,7 @@ namespace HTX.Net.Clients.UsdtFuturesV5
 
         /// <inheritdoc />
         protected override Task<HttpResult<DateTime>> GetServerTimestampAsync() => throw new NotImplementedException();
+        public IHTXRestClientUsdtFuturesV5SharedApi SharedApi => _sharedApi;
+
     }
 }

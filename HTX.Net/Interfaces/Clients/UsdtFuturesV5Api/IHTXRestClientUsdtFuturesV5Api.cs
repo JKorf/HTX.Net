@@ -1,4 +1,5 @@
 using CryptoExchange.Net.Interfaces.Clients;
+using HTX.Net.Interfaces.Clients.SpotApi;
 
 namespace HTX.Net.Interfaces.Clients.UsdtFuturesV5Api
 {
@@ -22,5 +23,12 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesV5Api
         /// </summary>
         /// <see cref="IHTXRestClientUsdtFuturesV5ApiTrading"/>
         IHTXRestClientUsdtFuturesV5ApiTrading Trading { get; }
+
+        /// <summary>
+        /// [V2] Gets the aggregate Shared API interface. Shared APIs provide a common,
+        /// exchange-independent contract for accessing functionality across different
+        /// exchange client libraries.
+        /// </summary>
+        public IHTXRestClientUsdtFuturesV5SharedApi SharedApi { get; }
     }
 }

@@ -22,6 +22,7 @@ namespace HTX.Net.Clients.UsdtFutures
                 SharedQuantityType.Contracts);
 
         public string GenerateClientOrderId() => ExchangeHelpers.RandomLong(10).ToString();
+
         #region Place Futures Order
 
         async Task<IExchangeCallResult<SharedId>> IPlaceFuturesOrder.PlaceFuturesOrderAsync(PlaceFuturesOrderRequest request, CancellationToken ct)

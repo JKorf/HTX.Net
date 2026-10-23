@@ -1,6 +1,7 @@
 using CryptoExchange.Net.SharedApis;
 using HTX.Net.Interfaces.Clients.SpotApi;
 using HTX.Net.Interfaces.Clients.UsdtFuturesApi;
+using HTX.Net.Interfaces.Clients.UsdtFuturesV5Api;
 
 namespace HTX.Net.Interfaces.Clients
 {
@@ -20,6 +21,11 @@ namespace HTX.Net.Interfaces.Clients
         IHTXRestClientUsdtFuturesSharedApi UsdtFuturesRest { get; }
 
         /// <summary>
+        /// USDT Futures REST shared V5 API implementations
+        /// </summary>
+        IHTXRestClientUsdtFuturesV5SharedApi UsdtFuturesV5Rest { get; }
+
+        /// <summary>
         /// Spot WebSocket shared API implementations
         /// </summary>
         IHTXSocketClientSpotSharedApi SpotSocket { get; }
@@ -28,5 +34,10 @@ namespace HTX.Net.Interfaces.Clients
         /// USDT Futures WebSocket shared API implementations
         /// </summary>
         IHTXSocketClientUsdtFuturesSharedApi UsdtFuturesSocket { get; }
+
+        /// <summary>
+        /// USDT Futures WebSocket shared V5 API implementations
+        /// </summary>
+        IHTXSocketClientUsdtFuturesV5SharedApi UsdtFuturesV5Socket { get; }
     }
 }

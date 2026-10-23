@@ -102,12 +102,12 @@ namespace HTX.Net.Objects.Models.UsdtFuturesV5
         /// ["<c>trade_id</c>"] Trade id
         /// </summary>
         [JsonPropertyName("trade_id")]
-        public string TradeId { get; set; } = string.Empty;
+        public string? TradeId { get; set; }
         /// <summary>
         /// ["<c>trade_volume</c>"] Trade quantity
         /// </summary>
         [JsonPropertyName("trade_volume")]
-        public decimal TradeQuantity { get; set; }
+        public decimal? TradeQuantity { get; set; }
         /// <summary>
         /// ["<c>total_trade_volume</c>"] Total trade quantity
         /// </summary>
@@ -117,17 +117,17 @@ namespace HTX.Net.Objects.Models.UsdtFuturesV5
         /// ["<c>trade_price</c>"] Trade price
         /// </summary>
         [JsonPropertyName("trade_price")]
-        public decimal TradePrice { get; set; }
+        public decimal? TradePrice { get; set; }
         /// <summary>
         /// ["<c>trade_turnover</c>"] Trade turnover
         /// </summary>
         [JsonPropertyName("trade_turnover")]
-        public decimal TradeTurnover { get; set; }
+        public decimal? TradeTurnover { get; set; }
         /// <summary>
         /// ["<c>role</c>"] Role
         /// </summary>
         [JsonPropertyName("role")]
-        public OrderRole Role { get; set; }
+        public OrderRole? Role { get; set; }
         /// <summary>
         /// ["<c>created_time</c>"] Create time
         /// </summary>

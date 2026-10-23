@@ -74,6 +74,7 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesV5Api
         /// GET /v5/position/mode
         /// </para>
         /// </summary>
+        /// <param name="ct">Cancellation token</param>
         Task<HttpResult<HTXPositionModeV5>> GetPositionModeAsync(CancellationToken ct = default);
 
         /// <summary>
@@ -85,6 +86,8 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesV5Api
         /// POST /v5/position/mode
         /// </para>
         /// </summary>
+        /// <param name="positionMode">Position mode</param>
+        /// <param name="ct">Cancellation token</param>
         Task<HttpResult<HTXPositionModeV5>> SetPositionModeAsync(PositionMode positionMode, CancellationToken ct = default);
 
         /// <summary>
@@ -96,6 +99,10 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesV5Api
         /// GET /v5/position/lever
         /// </para>
         /// </summary>
+        /// <param name="contractCode">Symbol</param>
+        /// <param name="marginMode">Margin mode, defaults to cross</param>
+        /// <param name="positionSide">Position side</param>
+        /// <param name="ct">Cancellation token</param>
         Task<HttpResult<HTXLeverageV5[]>> GetLeverageAsync(string? contractCode = null, MarginMode? marginMode = null, FuturesPositionSide? positionSide = null, CancellationToken ct = default);
 
         /// <summary>
@@ -107,6 +114,11 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesV5Api
         /// POST /v5/position/lever
         /// </para>
         /// </summary>
+        /// <param name="contractCode">Symbol</param>
+        /// <param name="marginMode">Margin mode</param>
+        /// <param name="leverageRate">Leverage rate</param>
+        /// <param name="positionSide">Position side</param>
+        /// <param name="ct">Cancellation token</param>
         Task<HttpResult<HTXLeverageV5>> SetLeverageAsync(string contractCode, MarginMode marginMode, int leverageRate, FuturesPositionSide? positionSide = null, CancellationToken ct = default);
 
         /// <summary>
@@ -118,6 +130,8 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesV5Api
         /// GET /v5/trade/position/opens
         /// </para>
         /// </summary>
+        /// <param name="contractCode">Symbol</param>
+        /// <param name="ct">Cancellation token</param>
         Task<HttpResult<HTXPositionV5[]>> GetOpenPositionsAsync(string? contractCode = null, CancellationToken ct = default);
 
         /// <summary>
@@ -129,6 +143,24 @@ namespace HTX.Net.Interfaces.Clients.UsdtFuturesV5Api
         /// GET /v5/position/risk/limit
         /// </para>
         /// </summary>
+        /// <param name="contractCode">Symbol</param>
+        /// <param name="marginMode">Margin mode</param>
+        /// <param name="positionSide">Position side</param>
+        /// <param name="ct">Cancellation token</param>
         Task<HttpResult<HTXPositionRiskLimitV5[]>> GetRiskLimitsAsync(string? contractCode = null, MarginMode? marginMode = null, FuturesPositionSide? positionSide = null, CancellationToken ct = default);
+
+        /// <summary>
+        /// Get position risk limit tiers
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.htx.com/en-us/opend/newApiPages/?id=8cb89359-77b5-11ed-9966-19b4551f1fd" /><br />
+        /// Endpoint:<br />
+        /// GET /v5/position/risk/limit_tier
+        /// </para>
+        /// </summary>
+        /// <param name="contractCode">Symbol</param>
+        /// <param name="marginMode">Margin mode, defaults to cross</param>
+        /// <param name="ct">Cancellation token</param>
+        Task<HttpResult<HTXPositionRiskLimitTierV5[]>> GetRiskLimitTiersAsync(string contractCode, MarginMode? marginMode = null, CancellationToken ct = default);
     }
 }

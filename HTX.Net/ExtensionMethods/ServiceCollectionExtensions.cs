@@ -92,6 +92,8 @@ namespace Microsoft.Extensions.DependencyInjection
                     .Add(client => client.SpotSocket)
                     .Add(client => client.UsdtFuturesRest)
                     .Add(client => client.UsdtFuturesSocket)
+                    .Add(client => client.UsdtFuturesV5Rest)
+                    .Add(client => client.UsdtFuturesV5Socket)
                     );
 
             return services;

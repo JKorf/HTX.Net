@@ -26,7 +26,8 @@ namespace HTX.Net.Clients.UsdtFuturesV5
                 { "margin_mode", EnumConverter.GetString(marginMode) },
                 { "side", EnumConverter.GetString(side) },
                 { "type", EnumConverter.GetString(type) },
-                { "volume", quantity.ToString(CultureInfo.InvariantCulture) }
+                { "volume", quantity.ToString(CultureInfo.InvariantCulture) },
+                { "channel_code", "AA1ef14811" }
             };
             parameters.Add("position_side", positionSide);
             parameters.Add("price_match", priceMatch);
@@ -64,6 +65,23 @@ namespace HTX.Net.Clients.UsdtFuturesV5
             parameters.Add("client_order_id", clientOrderId);
             var request = _definitions.GetOrCreate(HttpMethod.Post, _baseClient.BaseAddress, "/v5/trade/cancel_order", HTXExchange.RateLimiter.UsdtTrade, 1, true);
             return await _baseClient.SendAsync<HTXOrderIdV5>(request, parameters, ct).ConfigureAwait(false);
+        }
+
+        #endregion
+
+        #region Cancel All Orders
+
+        /// <inheritdoc />
+        public async Task<HttpResult<HTXOrderResultV5[]>> CancelAllOrdersAsync(string? contractCode = null, OrderSide? side = null, FuturesPositionSide? positionSide = null, CancellationToken ct = default)
+        {
+            var parameters = new Parameters(HTXExchange._futuresParameterSerializationSettings)
+            {
+                { "contract_code", contractCode }
+            };
+            parameters.Add("side", side);
+            parameters.Add("position_side", positionSide);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, _baseClient.BaseAddress, "/v5/trade/cancel_all_orders", HTXExchange.RateLimiter.UsdtTrade, 1, true);
+            return await _baseClient.SendAsync<HTXOrderResultV5[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion

@@ -72,6 +72,16 @@ namespace HTX.Net.Objects.Models.UsdtFuturesV5
         [JsonPropertyName("voucher_value")]
         public decimal VoucherValue { get; set; }
         /// <summary>
+        /// ["<c>available_margin</c>"] Available margin
+        /// </summary>
+        [JsonPropertyName("available_margin")]
+        public decimal AvailableMargin { get; set; }
+        /// <summary>
+        /// ["<c>isolated_available</c>"] Available assets for this currency in the isolated margin account.
+        /// </summary>
+        [JsonPropertyName("isolated_available")]
+        public decimal IsolatedAvailable { get; set; }
+        /// <summary>
         /// ["<c>created_time</c>"] Created time
         /// </summary>
         [JsonPropertyName("created_time"), JsonConverter(typeof(DateTimeConverter))]

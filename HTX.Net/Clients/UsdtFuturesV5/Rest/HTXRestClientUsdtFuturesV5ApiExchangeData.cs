@@ -18,14 +18,14 @@ namespace HTX.Net.Clients.UsdtFuturesV5
         #region Get Funding Rate
 
         /// <inheritdoc />
-        public async Task<HttpResult<HTXFundingRateV5>> GetFundingRateAsync(string contractCode, CancellationToken ct = default)
+        public async Task<HttpResult<HTXFundingRateV5[]>> GetFundingRateAsync(string contractCode, CancellationToken ct = default)
         {
             var parameters = new Parameters(HTXExchange._futuresParameterSerializationSettings)
             {
                 { "contract_code", contractCode }
             };
             var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/v5/market/funding_rate", HTXExchange.RateLimiter.UsdtRead, 1, false);
-            return await _baseClient.SendAsync<HTXFundingRateV5>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<HTXFundingRateV5[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion

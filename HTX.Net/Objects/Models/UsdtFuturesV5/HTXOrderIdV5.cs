@@ -17,4 +17,21 @@ namespace HTX.Net.Objects.Models.UsdtFuturesV5
         [JsonPropertyName("client_order_id")]
         public string? ClientOrderId { get; set; }
     }
+
+    /// <summary>
+    /// Order result
+    /// </summary>
+    public record HTXOrderResultV5 : HTXOrderIdV5
+    {
+        /// <summary>
+        /// ["<c>message</c>"] Message
+        /// </summary>
+        [JsonPropertyName("message")]
+        public string Message { get; set; } = string.Empty;
+        /// <summary>
+        /// ["<c>code</c>"] Code
+        /// </summary>
+        [JsonPropertyName("code")]
+        public int Code { get; set; }
+    }
 }

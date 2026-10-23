@@ -1,3 +1,5 @@
+using HTX.Net.Enums;
+
 namespace HTX.Net.Objects.Models.UsdtFuturesV5
 {
     /// <summary>
@@ -26,5 +28,10 @@ namespace HTX.Net.Objects.Models.UsdtFuturesV5
         /// </summary>
         [JsonPropertyName("funding_time"), JsonConverter(typeof(DateTimeConverter))]
         public DateTime FundingTime { get; set; }
+        /// <summary>
+        /// ["<c>funding_fee_type</c>"] Funding fee type
+        /// </summary>
+        [JsonPropertyName("funding_fee_type")]
+        public FundingFeeType FundingFeeType { get; set; }
     }
 }
