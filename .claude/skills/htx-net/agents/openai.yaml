@@ -1,0 +1,4 @@
+interface:
+  display_name: "HTX.Net"
+  short_description: "Build C# HTX spot and futures integrations."
+  default_prompt: "Use $htx-net to implement an HTX.Net REST, websocket, account, or trading workflow."

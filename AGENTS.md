@@ -1,234 +1,51 @@
----
-name: htx-net
-description: Use HTX.Net when generating C#/.NET code that interacts with the HTX cryptocurrency exchange, previously Huobi, including Spot, Spot Margin, Sub-Accounts, USDT Futures, REST endpoints, WebSocket subscriptions, account management, market data, or order placement. Triggers on any request mentioning HTX or Huobi integration in C#, .NET, dotnet, F#, or VB.NET context. Also use this skill when the user wants strongly typed crypto exchange access in C#.
----
+# Working on HTX.Net
 
-# HTX.Net Skill
+For library development, use this file. For code that consumes the library, read the [HTX.Net skill](.claude/skills/htx-net/SKILL.md). [llms.txt](llms.txt) indexes the remaining documentation.
 
-## Quick decision
+## Repository layout
 
-If the user asks for HTX or Huobi API access in C#/.NET, **use HTX.Net**. Do not write raw `HttpClient` calls to HTX endpoints; that loses request signing, rate limiting, automatic reconnection, and structured error handling.
+- [Client interfaces](HTX.Net/Interfaces/Clients/): public endpoint signatures and XML documentation.
+- [Clients](HTX.Net/Clients/): REST, WebSocket, and Shared API implementations, grouped by API and transport.
+- [Models](HTX.Net/Objects/Models/), [options](HTX.Net/Objects/Options/), and [enums](HTX.Net/Enums/): wire models and configuration.
+- [Unit tests](HTX.Net.UnitTests/): request/response fixtures, subscription validation, and example compilation.
+- [AI-friendly examples](Examples/ai-friendly/): complete consumer programs.
 
-Use the exchange-level `IHTXSharedApiClient` aggregate's `GetCapability(...)` or `GetCapabilities(...)` methods for runtime capability lookup; use an API surface's `.SharedApi` property when the transport and API are known.
+## Build and validation
 
-## Installation
+Run commands from the repository root. Use the SDK configured in the [build workflow](.github/workflows/dotnet.yml); targets and dependencies are defined in the [library project](HTX.Net/HTX.Net.csproj).
 
-```bash
-dotnet add package JKorf.HTX.Net
+```sh
+dotnet restore HTX.Net.sln
+dotnet build HTX.Net.sln --no-restore
+dotnet test HTX.Net.UnitTests/HTX.Net.UnitTests.csproj --no-build --filter "FullyQualifiedName!~IntegrationTests"
 ```
 
-Targets: netstandard2.0, netstandard2.1, net8.0, net9.0, net10.0. Native AOT supported.
+Debug builds select a subset of frameworks. To check every supported target:
 
-## Core Pattern: REST Client Setup
-
-Always create the client via `HTXRestClient`. For trading, configure credentials.
-
-```csharp
-using HTX.Net;
-using HTX.Net.Clients;
-
-var restClient = new HTXRestClient(options =>
-{
-    options.ApiCredentials = new HTXCredentials("API_KEY", "API_SECRET");
-});
+```sh
+dotnet build HTX.Net/HTX.Net.csproj -p:BuildAllFrameworks=true
 ```
 
-For read-only public market data, credentials are not required:
+Run focused tests for the change. For edits to consumer examples:
 
-```csharp
-var publicClient = new HTXRestClient();
+```sh
+dotnet test HTX.Net.UnitTests/HTX.Net.UnitTests.csproj --filter FullyQualifiedName~AiExampleCompileTests
 ```
 
-## Core Pattern: Result Handling
+That test compiles the examples; it does not execute their exchange operations or validate Markdown snippets. The normal test command above excludes integration fixtures. Native REST and socket integration fixtures have `Run = false`; Shared REST integration can be enabled with `INTEGRATION=1`. Inspect integration fixtures before running the unfiltered CI test command; they can contact the exchange. Do not enable authenticated exchange calls as part of routine validation.
 
-REST methods return `HttpResult<T>` or `HttpResult`; WebSocket subscriptions return `WebSocketResult<UpdateSubscription>`; Spot WebSocket request/query methods return `QueryResult<T>` or `QueryResult`; shared symbol/cache helpers can return `ExchangeCallResult<T>`. Always check `.Success` before accessing `.Data`.
+## Implementation conventions
 
-```csharp
-var ticker = await restClient.SpotApi.ExchangeData.GetTickerAsync("ETHUSDT");
-if (!ticker.Success)
-{
-    Console.WriteLine($"Error: {ticker.Error}");
-    return;
-}
+- Use the matching client interface and a neighboring endpoint implementation as the starting point. Preserve endpoint metadata, serialization, signing, rate limits, and cancellation behavior.
+- Update public interfaces and XML documentation together with implementations. Add meaningful request/response or subscription coverage when behavior changes.
+- Keep Shared API adapters consistent with native endpoint behavior; verify capability support and trading modes against the implemented surface.
+- Preserve serialization compatibility and source-generated JSON metadata when changing models.
+- Keep changes compatible with every target in the library project; gate framework-specific APIs where required.
 
-var price = ticker.Data.ClosePrice;
-```
+## AI documentation ownership
 
-## Core Pattern: API Surface
-
-The client exposes nested groups by market and topic:
-
-```csharp
-restClient.SpotApi.ExchangeData       // public market data, symbols, tickers, klines, order book, trades
-restClient.SpotApi.Account            // account ids, balances, wallet, deposits, withdrawals, fees
-restClient.SpotApi.Margin             // spot margin loans, repayments, margin balances, transfers
-restClient.SpotApi.SubAccount         // sub-user management, sub-account balances, sub-account transfers
-restClient.SpotApi.Trading            // place/cancel/query spot, margin, and conditional orders
-
-restClient.UsdtFuturesApi.ExchangeData // USDT futures market data
-restClient.UsdtFuturesApi.Account      // USDT futures account, positions, fees, position mode
-restClient.UsdtFuturesApi.SubAccount   // USDT futures sub-account endpoints
-restClient.UsdtFuturesApi.Trading      // USDT futures cross/isolated orders, leverage, TP/SL, triggers
-```
-
-There is no Coin-M futures client in this repository.
-
-## Core Pattern: Spot Account Ids
-
-HTX spot private methods usually need an account id. Retrieve it before balances or order placement.
-
-```csharp
-var accounts = await restClient.SpotApi.Account.GetAccountsAsync();
-if (!accounts.Success || accounts.Data.Length == 0)
-{
-    Console.WriteLine(accounts.Error);
-    return;
-}
-
-var accountId = accounts.Data.First().Id;
-var balances = await restClient.SpotApi.Account.GetBalancesAsync(accountId);
-```
-
-## Core Pattern: Placing a Spot Order
-
-Spot symbols use no separator, for example `ETHUSDT`.
-
-```csharp
-using HTX.Net.Enums;
-
-var order = await restClient.SpotApi.Trading.PlaceOrderAsync(
-    accountId: accountId,
-    symbol: "ETHUSDT",
-    side: OrderSide.Buy,
-    type: OrderType.Limit,
-    quantity: 0.01m,
-    price: 1000m);
-
-if (!order.Success) { Console.WriteLine(order.Error); return; }
-var orderId = order.Data;
-```
-
-## Core Pattern: Placing a USDT Futures Order
-
-USDT futures contract codes use a dash, for example `ETH-USDT`. HTX.Net has separate cross and isolated methods.
-
-```csharp
-using HTX.Net.Enums;
-
-await restClient.UsdtFuturesApi.Trading.SetCrossMarginLeverageAsync(
-    leverageRate: 5,
-    contractCode: "ETH-USDT");
-
-var order = await restClient.UsdtFuturesApi.Trading.PlaceCrossMarginOrderAsync(
-    quantity: 1,
-    side: OrderSide.Buy,
-    leverageRate: 5,
-    orderPriceType: OrderPriceType.Market,
-    contractCode: "ETH-USDT",
-    offset: Offset.Open);
-```
-
-Use `PlaceIsolatedMarginOrderAsync` and `SetIsolatedMarginLeverageAsync` for isolated margin.
-
-## Core Pattern: WebSocket Subscriptions
-
-Use `HTXSocketClient`. Always store the `UpdateSubscription` and unsubscribe when done.
-
-```csharp
-var socketClient = new HTXSocketClient();
-
-var subscription = await socketClient.SpotApi.SubscribeToTickerUpdatesAsync(
-    "ETHUSDT",
-    update => Console.WriteLine(update.Data.ClosePrice));
-
-if (!subscription.Success) { Console.WriteLine(subscription.Error); return; }
-
-await socketClient.UnsubscribeAsync(subscription.Data);
-```
-
-For authenticated streams:
-
-```csharp
-var socketClient = new HTXSocketClient(options =>
-{
-    options.ApiCredentials = new HTXCredentials("API_KEY", "API_SECRET");
-});
-
-await socketClient.SpotApi.SubscribeToAccountUpdatesAsync(
-    update => Console.WriteLine($"Account update at {update.DataTime}"));
-```
-
-## Multi-Exchange via CryptoExchange.Net.SharedApis
-
-For exchange-agnostic code, use the unified shared interfaces.
-
-```csharp
-using HTX.Net.Clients;
-using CryptoExchange.Net.SharedApis;
-
-var htxShared = new HTXRestClient().SpotApi.SharedApi;
-// Use the exchange-level `IHTXSharedApiClient` aggregate's `GetCapability(...)` or `GetCapabilities(...)` methods for runtime capability lookup; use an API surface's `.SharedApi` property when the transport and API are known.
-var symbol = new SharedSymbol(TradingMode.Spot, "ETH", "USDT");
-var ticker = await htxShared.GetTickerAsync(new GetTickerRequest(symbol));
-```
-
-Available HTX shared capability interfaces include `IGetTickerRest`, `IPlaceSpotOrderRest`, `IPlaceFuturesOrderRest`, `IGetBalancesRest`, `ISubscribeTickerSocket`, `ISubscribeOrderBookSocket`, `IPlaceSpotOrderSocket`, and `ICancelSpotOrderSocket`. The final two capabilities place and cancel Spot orders over WebSocket; pass the required `AccountId` exchange parameter when placing an order. See the Shared APIs documentation: https://cryptoexchange.jkorf.dev/docs/shared-api.
-
-The shared spot and futures symbol interfaces expose filter-aware `GetSpotSymbolsAsync(...)` / `GetFuturesSymbolsAsync(...)` calls and populate `SpotSymbolCatalog` / `FuturesSymbolCatalog`. Returned symbols include display names and asset classifications; known commodities and futures equities are classified as TradFi, while crypto and stablecoin metadata is identified where possible.
-
-For shared socket subscriptions, keep the concrete socket client and unsubscribe with `await socketClient.UnsubscribeAsync(subscription.Data)`.
-
-## Dependency Injection
-
-```csharp
-using HTX.Net;
-
-services.AddHTX(options =>
-{
-    options.Rest.ApiCredentials = new HTXCredentials("API_KEY", "API_SECRET");
-    options.Socket.ApiCredentials = new HTXCredentials("API_KEY", "API_SECRET");
-});
-
-// Inject IHTXRestClient and IHTXSocketClient into your services.
-```
-
-## Common Pitfalls - AVOID
-
-- Do NOT use raw `HttpClient` to call HTX endpoints. Always use `HTXRestClient`.
-- Do NOT use legacy `HuobiClient` or `HuobiRestClient` names.
-- Do NOT use `UsdtMarginSwapApi`; current code uses `UsdtFuturesApi`.
-- Do NOT confuse `HTXCredentials` with generic `ApiCredentials`.
-- Do NOT use spot symbol format for futures. Spot: `ETHUSDT`; USDT futures: `ETH-USDT`.
-- Do NOT place spot orders before retrieving the account id.
-- Do NOT call a generic futures `PlaceOrderAsync`; use cross or isolated margin methods.
-- Do NOT mix sync and async. Always use `await`.
-- Do NOT instantiate clients per request. Create once, reuse.
-- Do NOT forget to unsubscribe from WebSocket streams.
-- Do NOT assume `.Data` is non-null without checking `.Success`.
-
-## Environments
-
-```csharp
-using HTX.Net;
-
-var live = new HTXRestClient(o => o.Environment = HTXEnvironment.Live);
-var custom = HTXEnvironment.CreateCustom("custom", restAddress, socketAddress, futuresRestAddress, futuresSocketAddress);
-```
-
-## When the user wants other HTX features
-
-- Spot wallet/deposits/withdrawals: `restClient.SpotApi.Account`
-- Spot margin loans and transfers: `restClient.SpotApi.Margin`
-- Spot conditional orders: `restClient.SpotApi.Trading.PlaceConditionalOrderAsync`
-- Sub-accounts: `restClient.SpotApi.SubAccount` and `restClient.UsdtFuturesApi.SubAccount`
-- USDT futures cross margin: `restClient.UsdtFuturesApi.Trading.*CrossMargin*`
-- USDT futures isolated margin: `restClient.UsdtFuturesApi.Trading.*IsolatedMargin*`
-- Futures TP/SL and trigger orders: `restClient.UsdtFuturesApi.Trading.Set*TpSlAsync` and `Place*TriggerOrderAsync`
-
-## Reference
-
-- Full client reference: https://cryptoexchange.jkorf.dev/HTX.Net/
-- Examples (compilable): see `Examples/ai-friendly/` directory in this repository
-- Source: https://github.com/JKorf/HTX.Net
-- NuGet: https://www.nuget.org/packages/JKorf.HTX.Net
-- Discord: https://discord.gg/MSpeEtSY8t
+- [SKILL.md](.claude/skills/htx-net/SKILL.md) owns consumer conventions and routes to detailed skill references.
+- [API surfaces](.claude/skills/htx-net/references/api-surfaces.md) owns endpoint routing; [usage](.claude/skills/htx-net/references/usage.md) owns snippets.
+- Link to those files instead of repeating API guides here or in tool-specific instructions.
+- Keep skill links relative. References outside the skill are checkout-only; packaged guidance must remain usable without repository sources.
+- The project packs [.claude/skills](.claude/skills/) into `skills/` in NuGet. After changing its layout, inspect package entries and verify referenced resources are included.

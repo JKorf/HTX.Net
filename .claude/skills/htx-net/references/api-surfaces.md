@@ -1,17 +1,14 @@
-# HTX.Net AI API Quick Map
+# API surfaces
 
-Use this file to route common user intents to the correct HTX.Net client member. If a method name or parameter is not listed here, inspect `HTX.Net/Interfaces/Clients/**` before generating code.
+## Client roots, symbols, and account IDs
 
-## Client Roots
+`client` below is an `HTXRestClient`; `socketClient` is an `HTXSocketClient`. Both expose `SpotApi`, `UsdtFuturesApi`, and `UsdtFuturesV5Api`. Spot REST groups are `ExchangeData`, `Account`, `Margin`, `SubAccount`, and `Trading`. USDT futures has market/account/subaccount/trading groups; V5 has market/account/trading groups.
 
-| Intent | Use |
-|---|---|
-| REST calls | `new HTXRestClient()` |
-| WebSocket streams and socket API requests | `new HTXSocketClient()` |
-| API key authentication | `options.ApiCredentials = new HTXCredentials("key", "secret")` |
-| Live environment | `HTXEnvironment.Live` |
-| Custom environment | `HTXEnvironment.CreateCustom(...)` |
-| Dependency injection | `services.AddHTX(options => { ... })` |
+Spot symbols are compact, for example `ETHUSDT`; the shared formatter produces lowercase `ethusdt`. USDT futures contract codes use dashes, for example `ETH-USDT`. Query metadata for the selected market; this library does not provide a separate Coin-M client.
+
+Spot balances and placement need an account ID from `SpotApi.Account.GetAccountsAsync()`. Select the intended `AccountType` and verify the returned account state. Spot and margin accounts are different scopes; an arbitrary first account is not a reliable trading account.
+
+Native `HTXSymbol.EnableRpi` exposes RPI availability, and `HTXSymbolTradeDetails.IsRpiTrade` identifies RPI trades. Use symbol constraints and contract metadata for order sizing.
 
 ## Spot REST
 
@@ -202,59 +199,65 @@ HTX.Net exposes USDT futures as `UsdtFuturesApi`. The library does not expose Co
 | Subscribe cross position updates | `socketClient.UsdtFuturesApi.SubscribeToCrossMarginPositionUpdatesAsync(handler)` |
 | Subscribe futures user trades | `socketClient.UsdtFuturesApi.SubscribeToCrossMarginUserTradeUpdatesAsync(handler)` |
 
-## SharedApis
+## USDT Futures V5
 
-Use SharedApis for exchange-agnostic code across HTX, Binance, Bybit, OKX, Kraken, and other CryptoExchange.Net libraries.
+V5 has `Account`, `ExchangeData`, and `Trading` groups with distinct models and order parameters.
 
-| User intent | HTX.Net member or interface |
-|---|---|
-| Shared spot REST client | `new HTXRestClient().SpotApi.SharedApi` |
-| Shared USDT futures REST client | `new HTXRestClient().UsdtFuturesApi.SharedApi` |
-| Shared spot socket client | `new HTXSocketClient().SpotApi.SharedApi` |
-| Shared USDT futures socket client | `new HTXSocketClient().UsdtFuturesApi.SharedApi` |
-| Resolve a runtime-selected Shared API capability | `IHTXSharedApiClient.GetCapability(...)` |
-| Get filtered shared spot symbols | `IGetSpotSymbolsRest.GetSpotSymbolsAsync(new GetSymbolsRequest(...))` |
-| Read cached shared spot catalog | `IGetSpotSymbolsRest.SpotSymbolCatalog` after loading symbols |
-| Get filtered shared futures symbols | `IGetFuturesSymbolsRest.GetFuturesSymbolsAsync(new GetSymbolsRequest(...))` |
-| Read cached shared futures catalog | `IGetFuturesSymbolsRest.FuturesSymbolCatalog` after loading symbols |
-| Shared spot ticker REST | `IGetTickerRest.GetTickerAsync(new GetTickerRequest(symbol))` |
-| Shared spot order REST | `IPlaceSpotOrderRest.PlaceSpotOrderAsync(...)` |
-| Shared futures order REST | `IPlaceFuturesOrderRest.PlaceFuturesOrderAsync(...)` |
-| Shared ticker socket | `ISubscribeTickerSocket.SubscribeToTickerUpdatesAsync(...)` |
-| Shared order book socket | `ISubscribeOrderBookSocket.SubscribeToOrderBookUpdatesAsync(...)` |
-| Place shared spot order over socket | `IPlaceSpotOrderSocket.PlaceSpotOrderAsync(...)` with `AccountId` exchange parameter |
-| Cancel shared spot order over socket | `ICancelSpotOrderSocket.CancelSpotOrderAsync(...)` |
+| Intent | Method |
+| --- | --- |
+| Get Funding Rate | `client.UsdtFuturesV5Api.ExchangeData.GetFundingRateAsync(...)` |
+| Get Funding Rate History | `client.UsdtFuturesV5Api.ExchangeData.GetFundingRateHistoryAsync(...)` |
+| Get Open Interest | `client.UsdtFuturesV5Api.ExchangeData.GetOpenInterestAsync(...)` |
+| Get Price Limits | `client.UsdtFuturesV5Api.ExchangeData.GetPriceLimitsAsync(...)` |
+| Get Risk Limits | `client.UsdtFuturesV5Api.ExchangeData.GetRiskLimitsAsync(...)` |
+| Get Asset Mode | `client.UsdtFuturesV5Api.Account.GetAssetModeAsync(...)` |
+| Set Asset Mode | `client.UsdtFuturesV5Api.Account.SetAssetModeAsync(...)` |
+| Get Account Balance | `client.UsdtFuturesV5Api.Account.GetAccountBalanceAsync(...)` |
+| Get Bills | `client.UsdtFuturesV5Api.Account.GetBillsAsync(...)` |
+| Get Position Mode | `client.UsdtFuturesV5Api.Account.GetPositionModeAsync(...)` |
+| Set Position Mode | `client.UsdtFuturesV5Api.Account.SetPositionModeAsync(...)` |
+| Get Leverage | `client.UsdtFuturesV5Api.Account.GetLeverageAsync(...)` |
+| Set Leverage | `client.UsdtFuturesV5Api.Account.SetLeverageAsync(...)` |
+| Open positions | `client.UsdtFuturesV5Api.Account.GetOpenPositionsAsync(...)` |
+| Position risk limits | `client.UsdtFuturesV5Api.Account.GetRiskLimitsAsync(...)` |
+| Get Risk Limit Tiers | `client.UsdtFuturesV5Api.Account.GetRiskLimitTiersAsync(...)` |
+| Place Order | `client.UsdtFuturesV5Api.Trading.PlaceOrderAsync(...)` |
+| Cancel Order | `client.UsdtFuturesV5Api.Trading.CancelOrderAsync(...)` |
+| Cancel All Orders | `client.UsdtFuturesV5Api.Trading.CancelAllOrdersAsync(...)` |
+| Get Order | `client.UsdtFuturesV5Api.Trading.GetOrderAsync(...)` |
+| Get Open Orders | `client.UsdtFuturesV5Api.Trading.GetOpenOrdersAsync(...)` |
 
-Shared REST methods return `HttpResult<T>` / `HttpResult`; shared socket subscriptions return `WebSocketResult<UpdateSubscription>`; shared symbol/cache helpers such as `SupportsSpotSymbolAsync` and `SupportsFuturesSymbolAsync` can return `ExchangeCallResult<T>`.
+V5 sockets expose account, order, execution, and position updates, plus futures order queries. Use `socketClient.UsdtFuturesV5Api` and its V5-specific request/response models. Market subscriptions remain available on `UsdtFuturesApi`.
 
-Shared symbol results include display names and asset type/subtype metadata. HTX.Net classifies known commodities and futures equities as TradFi and identifies crypto and stablecoins where possible.
+## Shared API V2
 
-For shared socket subscriptions, keep the concrete socket client and unsubscribe with `await socketClient.UnsubscribeAsync(subscription.Data)`.
+Shared surfaces exist on REST/socket `SpotApi`, `UsdtFuturesApi`, and `UsdtFuturesV5Api`. The DI aggregate `IHTXSharedApiClient` exposes `SpotRest`, `UsdtFuturesRest`, `UsdtFuturesV5Rest`, `SpotSocket`, `UsdtFuturesSocket`, and `UsdtFuturesV5Socket`.
 
-## Result Handling
+| Surface | Representative capabilities |
+| --- | --- |
+| Spot REST | `IGetSpotSymbolsRest`, `IGetTickerRest`, `IGetAllTickersRest`, balances, assets, deposits/withdrawals, fees, transfers, `IPlaceSpotOrderRest`, order/client-ID lifecycle and trigger orders |
+| USDT futures REST | `IGetFuturesSymbolsRest`, ticker/book/klines, mark/index klines, funding/open interest, `IPlaceFuturesOrderRest`, order/client-ID lifecycle, `IGetPositionsRest`, `ICloseFullPositionRest`, position mode, fees, trigger orders and TP/SL |
+| USDT futures V5 REST | `IGetBalancesRest`, `IGetFundingInfoRest`, `IGetFundingRateHistoryRest`, `IPlaceFuturesOrderRest`, order/client-ID lifecycle, cancel-all, `IGetPositionsRest`, position mode, `IGetLeverageRest`, `ISetLeverageRest`, `IGetLeverageTiersRest` |
+| Spot socket | Public ticker/all-ticker/trade/book-ticker/kline/book subscriptions, private balance/order/execution subscriptions, `IPlaceSpotOrderSocket`, `ICancelSpotOrderSocket` |
+| USDT futures socket | Public ticker/trade/book-ticker/kline/book subscriptions, private balance/futures-order/execution/position subscriptions |
+| USDT futures V5 socket | `ISubscribeBalancesSocket`, `ISubscribeFuturesOrdersSocket`, `ISubscribeUserTradesSocket`, `ISubscribePositionsSocket`, `IPlaceFuturesOrderSocket`, `ICancelFuturesOrderSocket`, client-ID and cancel-all socket capabilities |
 
-| Situation | Pattern |
-|---|---|
-| REST success check | `if (!result.Success) { Console.WriteLine(result.Error); return; }` |
-| Socket subscription success check | `if (!sub.Success) { Console.WriteLine(sub.Error); return; }` where `sub` is `WebSocketResult<UpdateSubscription>` |
-| Spot socket request success check | `if (!query.Success) { Console.WriteLine(query.Error); return; }` where `query` is `QueryResult<T>` or `QueryResult` |
-| Read REST data | Read `result.Data` only after `result.Success` |
-| Read shared helper data | Read `ExchangeCallResult<T>.Data` only after `.Success` |
-| Retry decision | Retry only when `result.Error?.IsTransient == true` |
-| Cancellation | Pass `ct: cancellationToken` |
+V5 does not duplicate the older futures market capability inventory. Select a surface by actual supported operation rather than assuming every version implements the same capabilities.
 
-## Common Routing Pitfalls
+For dynamic selection, call the aggregate's `GetCapability` with a descriptor such as `SharedCapabilities.Tickers.GetTicker.Rest` and the required trading mode. Check for a missing match before accessing `Capability` and `Options`. `GetCapabilities` enumerates implementations and `Discover()` describes operations. Multiple futures implementations can match a capability; select the intended API surface and its rules. With multiple exchanges registered, resolve `IEnumerable<TCapability>` and select by exchange and supported mode.
 
-| Do not use | Use instead |
-|---|---|
-| `HTXClient` or `HuobiClient` | `HTXRestClient` |
-| `HuobiRestClient` | `HTXRestClient` |
-| `ApiCredentials` | `HTXCredentials` |
-| `UsdtMarginSwapApi` in current code | `UsdtFuturesApi` |
-| `SpotApi.Account.GetAccountInfoAsync()` | `SpotApi.Account.GetAccountsAsync()` plus `GetBalancesAsync(accountId)` |
-| Futures symbol `ETHUSDT` | Futures contract code `ETH-USDT` |
-| Spot symbol `ETH-USDT` | Spot symbol `ETHUSDT` |
-| A generic futures `PlaceOrderAsync` | `PlaceCrossMarginOrderAsync` or `PlaceIsolatedMarginOrderAsync` |
-| Cross/isolated futures methods interchangeably | Match the user's margin mode |
-| `.Data` without `.Success` check | Check `.Success` first |
-| Unsubscribe from a shared subscription | Keep the concrete socket client and call `socketClient.UnsubscribeAsync(subscription.Data)` |
+### Catalogs, quantities, and prerequisites
+
+Load `IGetSpotSymbolsRest.GetSpotSymbolsAsync(new GetSymbolsRequest())` or `IGetFuturesSymbolsRest.GetFuturesSymbolsAsync(new GetSymbolsRequest())` successfully before reading `SpotSymbolCatalog` or `FuturesSymbolCatalog`. The futures catalog comes from the `UsdtFuturesApi` capability. Requests support asset-type/subtype filters; metadata includes `DisplayName`, constraints, and classifications (`Crypto`, `Fiat`, `TradFi`; applicable `StableCoin`, `Equity`, `Commodity` subtypes).
+
+Shared orders use `SharedOrderQuantity`. Inspect spot capability quantity options for order type/side, especially market buys in quote currency. Futures orders use `QuantityInContracts`; futures books use `SharedQuantityType.Contracts`, while spot books use `SharedQuantityType.BaseAsset`.
+
+Spot shared balances and placement require `AccountId` in `ExchangeParameters`, including socket placement. Older futures account/subscription capabilities can require the `MarginMode` exchange parameter; select cross or isolated deliberately. Older shared futures placement requires leverage, whereas V5 has separate leverage capabilities and different order configuration. Shared futures client-order IDs must be integer-compatible. Read each operation's options instead of applying one version's rules to another.
+
+Shared REST uses `HttpResult<T>` / `HttpResult`, subscriptions use `WebSocketResult<UpdateSubscription>`, socket queries use `QueryResult<T>` / `QueryResult`, and non-I/O symbol/cache helpers can return `ExchangeCallResult<T>`.
+
+## Environments and helpers
+
+`HTXEnvironment.Live` is the built-in environment. `CreateCustom` requires spot REST/socket and futures REST/socket addresses; custom endpoints do not themselves supply a testnet.
+
+Checkout-only: [public interfaces](../../../../HTX.Net/Interfaces/Clients/), [local order books](../../../../HTX.Net/SymbolOrderBooks/), and [tracker factory](../../../../HTX.Net/HTXTrackerFactory.cs). Use maintained books when synchronized snapshots/deltas are needed.

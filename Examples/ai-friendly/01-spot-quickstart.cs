@@ -50,10 +50,10 @@ if (!accounts.Success)
     return;
 }
 
-var spotAccount = accounts.Data.FirstOrDefault();
+var spotAccount = accounts.Data.FirstOrDefault(x => x.Type == AccountType.Spot && x.Status == AccountStatus.Working);
 if (spotAccount == null)
 {
-    Console.WriteLine("No HTX account found for this API key.");
+    Console.WriteLine("No HTX spot account found for this API key.");
     return;
 }
 

@@ -37,7 +37,8 @@ else
 }
 
 // ---- 2. SIMPLE RETRY WITH BACKOFF ----
-// Retry only transient errors such as network glitches, rate limits, or server errors.
+// For public reads only: retry transient failures with a bounded attempt count.
+// Do not use this helper to retry account-changing submissions.
 // Do not retry validation, signature, or insufficient-balance errors blindly.
 
 async Task<HttpResult<T>> WithRetry<T>(
@@ -96,7 +97,7 @@ if (!accounts.Success)
     return;
 }
 
-var account = accounts.Data.FirstOrDefault();
+var account = accounts.Data.FirstOrDefault(x => x.Type == AccountType.Spot && x.Status == AccountStatus.Working);
 if (account == null)
 {
     Console.WriteLine("No account available for order placement.");
@@ -114,7 +115,7 @@ var order = await client.SpotApi.Trading.PlaceOrderAsync(
 if (!order.Success)
 {
     var category = order.Error?.IsTransient == true
-        ? "Transient - retry with backoff if the operation is idempotent"
+        ? "Transient - reconcile submission state before deciding whether to resubmit"
         : "Permanent - surface to user";
 
     Console.WriteLine($"{category}: {order.Error?.Code} {order.Error?.Message}");

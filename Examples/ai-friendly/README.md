@@ -1,29 +1,13 @@
-# AI-Friendly Examples
+# HTX.Net examples
 
-These examples are optimized for AI coding assistants and quick onboarding. Each file is:
+Install `JKorf.HTX.Net`. See [usage](../../.claude/skills/htx-net/references/usage.md), [API routing](../../.claude/skills/htx-net/references/api-surfaces.md), and [operational considerations](../../.claude/skills/htx-net/references/safety.md) for maintained consumer guidance.
 
-- **Compilable** - drop into a console project with `dotnet add package JKorf.HTX.Net` and it builds.
-- **Self-contained** - single file, no external setup, no shared helpers.
-- **Heavily commented** - explains why each line is there, not just what it does.
-- **Idiomatic** - follows current HTX.Net 8.x patterns.
+- [Spot quickstart](01-spot-quickstart.cs)
+- [Futures](02-futures.cs)
+- [WebSockets](03-websocket.cs)
+- [Shared API V2](04-multi-exchange.cs)
+- [Error handling](05-error-handling.cs)
 
-## Files
+The documentation test compiles these files as independent console programs without executing exchange operations. Running them can contact HTX and execute illustrated orders, position changes, and leverage settings. Review credentials and operations first.
 
-| File | What it shows |
-|---|---|
-| `01-spot-quickstart.cs` | Client setup, public ticker, authenticated account id and balances, place limit order, query/cancel order |
-| `02-futures.cs` | USDT futures cross margin: set leverage, place market order, get position rows, close position |
-| `03-websocket.cs` | Subscribe to spot ticker, klines, account updates, order updates, with proper teardown |
-| `04-multi-exchange.cs` | `CryptoExchange.Net.SharedApis` pattern and shared capability discovery |
-| `05-error-handling.cs` | `HttpResult`, `WebSocketResult`, `QueryResult`, and `ExchangeCallResult` handling patterns |
-
-## Running
-
-```bash
-dotnet new console -n MyHtxApp
-cd MyHtxApp
-dotnet add package JKorf.HTX.Net
-# Copy the example .cs file content into Program.cs
-# Replace API_KEY / API_SECRET placeholders with your own
-dotnet run
-```
+See [repository instructions](../../AGENTS.md) for build and test commands.
