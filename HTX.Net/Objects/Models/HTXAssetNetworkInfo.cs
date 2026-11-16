@@ -138,6 +138,21 @@ namespace HTX.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("withdraw-desc")]
         public string WithdrawDescription { get; set; } = string.Empty;
+        /// <summary>
+        /// ["<c>isc</c>"] Is stock chain
+        /// </summary>
+        [JsonPropertyName("isc")]
+        public bool IsStockChain { get; set; }
+        /// <summary>
+        /// ["<c>tkn</c>"] On chain token name, if applicable
+        /// </summary>
+        [JsonPropertyName("tkn")]
+        public string? TokenName { get; set; }
+        /// <summary>
+        /// ["<c>isrn</c>"] Issuer name, if applicable
+        /// </summary>
+        [JsonPropertyName("isrn")]
+        public string? IssuerName { get; set; }
     }
 
 
