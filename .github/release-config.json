@@ -1,0 +1,18 @@
+{
+  "baseBranch": "master",
+  "sdk": "11.0.100",
+  "packages": [
+    {
+      "key": "htx",
+      "project": "HTX.Net/HTX.Net.csproj",
+      "testProjects": [
+        "HTX.Net.UnitTests/HTX.Net.UnitTests.csproj"
+      ],
+      "packageId": "JKorf.HTX.Net",
+      "readme": "README.md",
+      "tagPrefix": "HTX.Net.",
+      "releaseIntegrationTests": false,
+      "publishToGitHubPackages": true
+    }
+  ]
+}
