@@ -243,6 +243,10 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 9.9.0 - 17 Nov 2026
+    * Updated CryptoExchange.Net to v13.3.0
+    * Updated HTXAssetNetworkInfo model
+
 * Version 9.8.0 - 23 Oct 2026
     * Updated CryptoExchange.Net to v13.2.2
     * Added SharedApi to UsdtFutures V5 API's
