@@ -243,6 +243,11 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 9.10.0 - 27 Nov 2026
+    * Updated CryptoExchange.Net to v13.4.0
+    * Fixed websocket message routing for filtered futures user data subscriptions
+    * Fixed Shared API CancelFuturesOrderByClientOrderIdAsync using incorrect parameter
+
 * Version 9.9.0 - 17 Nov 2026
     * Updated CryptoExchange.Net to v13.3.0
     * Updated HTXAssetNetworkInfo model
