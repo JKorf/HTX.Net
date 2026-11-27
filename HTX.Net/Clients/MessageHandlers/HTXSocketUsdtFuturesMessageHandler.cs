@@ -1,5 +1,6 @@
 ﻿using CryptoExchange.Net.Converters.MessageParsing.DynamicConverters;
 using CryptoExchange.Net.Converters.SystemTextJson.MessageHandlers;
+using HTX.Net.Objects.Models.UsdtFuturesV5;
 using System.Text.Json;
 
 namespace HTX.Net.Clients.MessageHandlers
@@ -31,6 +32,13 @@ namespace HTX.Net.Clients.MessageHandlers
         };
 
         public override JsonSerializerOptions Options { get; } = SerializerOptions.WithConverters(HTXExchange._serializerContext);
+
+        public HTXSocketUsdtFuturesMessageHandler()
+        {
+            AddTopicMapping<HTXDataEventV5<HTXOrderUpdateV5>>(x => x.ContractCode);
+            AddTopicMapping<HTXDataEventV5<HTXPositionUpdateV5>>(x => x.ContractCode);
+            AddTopicMapping<HTXDataEventV5<HTXMatchOrderUpdateV5>>(x => x.ContractCode);
+        }
 
         protected override MessageTypeDefinition[] TypeEvaluators { get; } = [
 

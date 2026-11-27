@@ -9,6 +9,7 @@ using Microsoft.Extensions.Logging;
 using CryptoExchange.Net.Objects;
 using HTX.Net.Objects.Options;
 using Microsoft.Extensions.Options;
+using HTX.Net.Objects.Models.UsdtFuturesV5;
 
 namespace HTX.Net.UnitTests
 {
@@ -110,6 +111,22 @@ namespace HTX.Net.UnitTests
             await tester.ValidateAsync<HTXUsdtMarginSwapCrossTradeUpdate>((client, handler) => client.UsdtFuturesApi.SubscribeToCrossMarginUserTradeUpdatesAsync(handler), "CrossTrades");
             await tester.ValidateAsync<HTXUsdtMarginSwapIsolatedTriggerOrderUpdate>((client, handler) => client.UsdtFuturesApi.SubscribeToIsolatedMarginTriggerOrderUpdatesAsync(handler), "IsolatedTrigger");
             await tester.ValidateAsync<HTXUsdtMarginSwapCrossTriggerOrderUpdate>((client, handler) => client.UsdtFuturesApi.SubscribeToCrossMarginTriggerOrderUpdatesAsync(handler), "CrossTrigger");
+        }
+
+        [Test]
+        public async Task ValidateFuturesV5Subscriptions()
+        {
+            var logger = new LoggerFactory();
+            logger.AddProvider(new TraceLoggerProvider());
+
+            var client = new HTXSocketClient(Options.Create(new HTXSocketOptions
+            {
+                ApiCredentials = new HTXCredentials().WithHMAC("123", "456"),
+                OutputOriginalData = true,
+            }), logger);
+            var tester = new SocketSubscriptionValidator<HTXSocketClient>(client, "Subscriptions/FuturesV5", "wss://api.hbdm.com/ws/v5/notification");
+            await tester.ValidateAsync<HTXDataEventV5<HTXOrderUpdateV5>>((client, handler) => client.UsdtFuturesV5Api.SubscribeToOrderUpdatesAsync(null, handler), "Orders");
+            await tester.ValidateAsync<HTXDataEventV5<HTXOrderUpdateV5>>((client, handler) => client.UsdtFuturesV5Api.SubscribeToOrderUpdatesAsync("ETH-USDT", handler), "OrdersSymbol");
         }
     }
 }

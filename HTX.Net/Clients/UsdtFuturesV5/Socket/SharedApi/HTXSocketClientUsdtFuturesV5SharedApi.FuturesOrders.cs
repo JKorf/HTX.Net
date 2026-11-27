@@ -116,7 +116,7 @@ namespace HTX.Net.Clients.UsdtFuturesV5
             if (validationError != null)
                 return QueryResult.Fail<SharedId>(Exchange, validationError);
 
-            var order = await _api.CancelOrderAsync(contractCode: request.Symbol!.GetSymbol(FormatSymbol), orderId: request.OrderId, ct: ct).ConfigureAwait(false);
+            var order = await _api.CancelOrderAsync(contractCode: request.Symbol!.GetSymbol(FormatSymbol), clientOrderId: request.OrderId, ct: ct).ConfigureAwait(false);
             if (!order.Success)
                 return QueryResult.Fail<SharedId>(order);
 

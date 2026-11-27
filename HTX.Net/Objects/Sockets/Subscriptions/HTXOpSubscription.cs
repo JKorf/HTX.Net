@@ -20,7 +20,10 @@ namespace HTX.Net.Objects.Sockets.Subscriptions
             _topic = topic;
             _contractCode = contractCode;
 
-            MessageRouter = MessageRouter.CreateForEvent<T>(listenId, DoHandleMessage);
+            if (!string.IsNullOrEmpty(contractCode) && contractCode != "*")
+                MessageRouter = MessageRouter.CreateForEvent<T>(listenId, contractCode, DoHandleMessage);
+            else
+                MessageRouter = MessageRouter.CreateForEvent<T>(listenId, DoHandleMessage);
         }
 
         protected override Query? GetSubQuery(SocketConnection connection)

@@ -173,7 +173,6 @@ namespace HTX.Net.Clients.UsdtFuturesV5
 
         #endregion
 
-
         #region Get Open Futures Orders
 
         async Task<IExchangeCallResult<SharedFuturesOrder[]>> IGetOpenFuturesOrders.GetOpenFuturesOrdersAsync(GetOpenOrdersRequest request, CancellationToken ct)
@@ -294,7 +293,6 @@ namespace HTX.Net.Clients.UsdtFuturesV5
 
         #endregion
 
-
         #region Get Futures Order Trades
 
         async Task<IExchangeCallResult<SharedUserTrade[]>> IGetFuturesOrderTrades.GetFuturesOrderTradesAsync(GetOrderTradesRequest request, CancellationToken ct)
@@ -330,7 +328,6 @@ namespace HTX.Net.Clients.UsdtFuturesV5
 
         #endregion
 
-
         #region Cancel Futures Order
 
         async Task<IExchangeCallResult<SharedId>> ICancelFuturesOrder.CancelFuturesOrderAsync(CancelOrderRequest request, CancellationToken ct)
@@ -364,7 +361,7 @@ namespace HTX.Net.Clients.UsdtFuturesV5
             if (validationError != null)
                 return HttpResult.Fail<SharedId>(Exchange, validationError);
 
-            var order = await _api.Trading.CancelOrderAsync(contractCode: request.Symbol!.GetSymbol(FormatSymbol), orderId: request.OrderId, ct: ct).ConfigureAwait(false);
+            var order = await _api.Trading.CancelOrderAsync(contractCode: request.Symbol!.GetSymbol(FormatSymbol), clientOrderId: request.OrderId, ct: ct).ConfigureAwait(false);
             if (!order.Success)
                 return HttpResult.Fail<SharedId>(order);
 

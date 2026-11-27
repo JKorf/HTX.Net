@@ -1,0 +1,51 @@
+> {"op": "auth","type": "api","AccessKeyId": "|1|","SignatureMethod": "HmacSHA256","SignatureVersion": "2","Timestamp": "|2|","Signature": "|3|"}
+< { "op": "auth", "type":"api", "ts": 1489474081631, "err-code": 0, "data": { "user-id": "12345678" } }
+> {"contract_code":"ETH-USDT","op":"sub","cid":"|4|","topic":"orders"}
+< {"op":"sub","cid":"|4|","topic":"orders","ts":1795700408448,"err-code":0,"contract_code":"ETH-USDT"}
+= 
+{
+    "op": "notify",
+    "topic": "orders",
+    "contract_code": "ETH-USDT",
+    "ts": 1749457082349,
+    "uid": "502061937",
+    "data": {
+        "side": "buy",
+        "type": "limit",
+        "price": "0.0000124",
+        "volume": "2",
+        "state": "new",
+        "profit": "0",
+        "contract_code": "ETH-USDT",
+        "position_side": "short",
+        "price_match": "opponent",
+        "order_id": "1381668675223068672",
+        "client_order_id": "1381668675223068672",
+        "margin_mode": "cross",
+        "lever_rate": 30,
+        "order_source": "web",
+        "reduce_only": true,
+        "time_in_force": "gtc",
+        "trade_avg_price": "0",
+        "trade_volume": "0",
+        "trade_turnover": "0",
+        "fee_currency": null,
+        "fee": "0",
+        "tp_trigger_price": "",
+        "tp_order_price": "",
+        "tp_type": "",
+        "tp_trigger_price_type": "",
+        "sl_trigger_price": "",
+        "sl_order_price": "",
+        "sl_type": "",
+        "sl_trigger_price_type": "",
+        "contract_type": "swap",
+        "cancel_reason": "",
+        "created_time": 1749457082341,
+        "updated_time": 1749457082341,
+        "self_match_prevent": "cancel_both",
+        "amend_origin_volume": "",
+        "amend_source": "",
+        "amend_result": ""
+    }
+}
